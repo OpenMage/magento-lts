@@ -133,6 +133,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
 - search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
 - removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
+- Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
 - removed modules:
   - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
