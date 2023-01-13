@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
     /**
      * Get value from the store configuration settings
      */
-    const TYPE_USE_CONFIG = '4';
+    public const TYPE_USE_CONFIG = '4';
 
     /**
      * Get all options

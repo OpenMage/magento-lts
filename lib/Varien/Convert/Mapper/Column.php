@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Convert
+ * @category   Varien
+ * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
 {
@@ -35,14 +35,14 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         if ($this->getVars() && is_array($this->getVars())) {
             $attributesToSelect = $this->getVars();
         } else {
-            $attributesToSelect = array();
+            $attributesToSelect = [];
         }
-        $onlySpecified = (bool)$this->getVar('_only_specified')===true;
-        $mappedData = array();
-        foreach ($data as $i=>$row) {
-            $newRow = array();
-            foreach ($row as $field=>$value) {
-                if(!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
+        $onlySpecified = (bool)$this->getVar('_only_specified') === true;
+        $mappedData = [];
+        foreach ($data as $i => $row) {
+            $newRow = [];
+            foreach ($row as $field => $value) {
+                if (!$onlySpecified || $onlySpecified && isset($attributesToSelect[$field])) {
                     $newRow[$this->getVar($field, $field)] = $value;
                 }
             }

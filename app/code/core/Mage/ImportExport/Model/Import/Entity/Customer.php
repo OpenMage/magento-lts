@@ -31,14 +31,14 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Size of bunch - part of entities to save in one step.
      */
-    const BUNCH_SIZE = 20;
+    public const BUNCH_SIZE = 20;
 
     /**
      * Data row scopes.
      */
-    const SCOPE_DEFAULT = 1;
-    const SCOPE_ADDRESS = -1;
-    const SCOPE_OPTIONS = 2;
+    public const SCOPE_DEFAULT = 1;
+    public const SCOPE_ADDRESS = -1;
+    public const SCOPE_OPTIONS = 2;
 
     /**
      * Permanent column names.
@@ -46,30 +46,30 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_EMAIL    = 'email';
-    const COL_WEBSITE  = '_website';
-    const COL_STORE    = '_store';
-    const COL_POSTCODE = '_address_postcode';
+    public const COL_EMAIL    = 'email';
+    public const COL_WEBSITE  = '_website';
+    public const COL_STORE    = '_store';
+    public const COL_POSTCODE = '_address_postcode';
 
     /**
      * Error codes.
      */
-    const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
-    const ERROR_INVALID_EMAIL        = 'invalidEmail';
-    const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
-    const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
-    const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
-    const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
-    const ERROR_INVALID_STORE        = 'invalidStore';
-    const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
-    const ERROR_PASSWORD_LENGTH      = 'passwordLength';
+    public const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
+    public const ERROR_INVALID_EMAIL        = 'invalidEmail';
+    public const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
+    public const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
+    public const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
+    public const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
+    public const ERROR_INVALID_STORE        = 'invalidStore';
+    public const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
+    public const ERROR_PASSWORD_LENGTH      = 'passwordLength';
 
     /**
      * Customer constants
      *
      */
-    const DEFAULT_GROUP_ID = 1;
-    const MAX_PASSWD_LENGTH = 6;
+    public const DEFAULT_GROUP_ID = 1;
+    public const MAX_PASSWD_LENGTH = 6;
 
     /**
      * Customer address import entity model.
@@ -616,7 +616,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         // BEHAVIOR_DELETE use specific validation logic
         if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
             if (self::SCOPE_DEFAULT == $rowScope
-                && !isset($oldCustomersToLower[$emailToLower][$website])) {
+                && !isset($oldCustomersToLower[$emailToLower][$website])
+            ) {
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins

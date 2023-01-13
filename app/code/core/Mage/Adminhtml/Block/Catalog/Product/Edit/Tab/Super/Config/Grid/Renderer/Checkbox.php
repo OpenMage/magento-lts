@@ -37,19 +37,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_C
     public function render(Varien_Object $row)
     {
         $result = parent::render($row);
-        return $result.'<input type="hidden" class="value-json" value="'.htmlspecialchars($this->getAttributesJson($row)).'" />';
+        return $result . '<input type="hidden" class="value-json" value="' . htmlspecialchars($this->getAttributesJson($row)) . '" />';
     }
 
     public function getAttributesJson(Varien_Object $row)
     {
-        if(!$this->getColumn()->getAttributes()) {
+        if (!$this->getColumn()->getAttributes()) {
             return '[]';
         }
 
         $result = [];
-        foreach($this->getColumn()->getAttributes() as $attribute) {
+        foreach ($this->getColumn()->getAttributes() as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
-            if($productAttribute->getSourceModel()) {
+            if ($productAttribute->getSourceModel()) {
                 $label = $productAttribute->getSource()->getOptionText($row->getData($productAttribute->getAttributeCode()));
             } else {
                 $label = $row->getData($productAttribute->getAttributeCode());

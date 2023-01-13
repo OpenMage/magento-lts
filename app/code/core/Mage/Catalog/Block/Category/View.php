@@ -62,7 +62,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             */
             if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
                 $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
-                $headBlock->addItem('rss', $this->getRssLink(), 'title="'.$title.'"');
+                $headBlock->addItem('rss', $this->getRssLink(), 'title="' . $title . '"');
             }
         }
 
@@ -82,7 +82,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function isTopCategory()
     {
-        return $this->getCurrentCategory()->getLevel()==2;
+        return $this->getCurrentCategory()->getLevel() == 2;
     }
 
     /**
@@ -141,7 +141,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function isProductMode()
     {
-        return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_PRODUCT;
+        return $this->getCurrentCategory()->getDisplayMode() == Mage_Catalog_Model_Category::DM_PRODUCT;
     }
 
     /**
@@ -150,7 +150,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
      */
     public function isMixedMode()
     {
-        return $this->getCurrentCategory()->getDisplayMode()==Mage_Catalog_Model_Category::DM_MIXED;
+        return $this->getCurrentCategory()->getDisplayMode() == Mage_Catalog_Model_Category::DM_MIXED;
     }
 
     /**
@@ -163,7 +163,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     {
         $category = $this->getCurrentCategory();
         $res = false;
-        if ($category->getDisplayMode()==Mage_Catalog_Model_Category::DM_PAGE) {
+        if ($category->getDisplayMode() == Mage_Catalog_Model_Category::DM_PAGE) {
             $res = true;
             if ($category->getIsAnchor()) {
                 $state = Mage::getSingleton('catalog/layer')->getState();

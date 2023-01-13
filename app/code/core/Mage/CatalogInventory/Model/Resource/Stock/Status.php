@@ -206,7 +206,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
         $websiteId = $website->getId();
         $select->joinLeft(
             ['stock_status' => $this->getMainTable()],
-            'e.entity_id = stock_status.product_id AND stock_status.website_id='.$websiteId,
+            'e.entity_id = stock_status.product_id AND stock_status.website_id=' . $websiteId,
             ['salable' => 'stock_status.stock_status']
         );
 

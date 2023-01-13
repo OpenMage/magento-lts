@@ -28,7 +28,7 @@
  */
 class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Abstract
 {
-    const MEDIA_GALLERY_ATTRIBUTE_CODE = 'media_gallery';
+    public const MEDIA_GALLERY_ATTRIBUTE_CODE = 'media_gallery';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
@@ -109,7 +109,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     // product has no value for attribute or not available, we can't process it
                     $isInStock = $childProduct->getStockItem()->getIsInStock();
                     if (!$childProduct->hasData($attribute->getAttributeCode())
-                        || (!$isInStock && !Mage::helper('cataloginventory')->isShowOutOfStock())) {
+                        || (!$isInStock && !Mage::helper('cataloginventory')->isShowOutOfStock())
+                    ) {
                         continue;
                     }
                     $optionId = $childProduct->getData($attribute->getAttributeCode());

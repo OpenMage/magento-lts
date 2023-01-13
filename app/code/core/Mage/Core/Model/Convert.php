@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,10 +31,10 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
     public function __construct()
     {
         $classArr = explode('_', get_class($this));
-        $moduleName = $classArr[0].'_'.$classArr[1];
+        $moduleName = $classArr[0] . '_' . $classArr[1];
         $etcDir = Mage::getConfig()->getModuleDir('etc', $moduleName);
 
-        $fileName = $etcDir.DS.'convert.xml';
+        $fileName = $etcDir . DS . 'convert.xml';
         if (is_readable($fileName)) {
             $data = file_get_contents($fileName);
             $this->importXml($data);
@@ -47,7 +47,7 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
      */
     public function getClassNameByType($type)
     {
-        if (strpos($type, '/')!==false) {
+        if (strpos($type, '/') !== false) {
             return Mage::getConfig()->getModelClassName($type);
         }
         return parent::getClassNameByType($type);

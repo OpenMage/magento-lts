@@ -17,7 +17,7 @@
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -219,12 +219,6 @@
                 </input_types>
             </validator_data>
         </general>
-        <hints>
-            <store_switcher>
-                <url><![CDATA[https://web.archive.org/web/20170529192915/http://docs.magento.com/m1/ce/user_guide/configuration/scope.html]]></url>
-                <enabled>1</enabled>
-            </store_switcher>
-        </hints>
         <help>
             <target_version>ce</target_version>
         </help>

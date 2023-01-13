@@ -104,7 +104,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             $this->getSelect()
                 ->distinct(true)
                 ->join(
-                    ['store'=>$this->getTable('rating_store')],
+                    ['store' => $this->getTable('rating_store')],
                     'main_table.rating_id = store.rating_id',
                     []
                 );
@@ -199,8 +199,8 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
 
         foreach ($data as $item) {
             $rating = $this->getItemById($item['rating_id']);
-            if ($rating && $item['count']>0) {
-                $rating->setSummary($item['sum']/$item['count']);
+            if ($rating && $item['count'] > 0) {
+                $rating->setSummary($item['sum'] / $item['count']);
             }
         }
         return $this;

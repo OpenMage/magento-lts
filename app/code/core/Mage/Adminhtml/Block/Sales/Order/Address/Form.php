@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Address_Form
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
+class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 {
     protected function _construct()
     {
@@ -55,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form
         parent::_prepareForm();
         $this->_form->setId('edit_form');
         $this->_form->setMethod('post');
-        $this->_form->setAction($this->getUrl('*/*/addressSave', ['address_id'=>$this->_getAddress()->getId()]));
+        $this->_form->setAction($this->getUrl('*/*/addressSave', ['address_id' => $this->_getAddress()->getId()]));
         $this->_form->setUseContainer(true);
         return $this;
     }

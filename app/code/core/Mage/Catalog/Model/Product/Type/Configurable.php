@@ -30,7 +30,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Product_Type_Abstract
 {
-    const TYPE_CODE = 'configurable';
+    public const TYPE_CODE = 'configurable';
 
     /**
      * Cache key for Used Product Attribute Ids
@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      *
      * @var string
      */
-    const XML_PATH_PRODUCT_CONFIGURABLE_CHILD_ATTRIBUTES = 'frontend/product/configurable/child/attributes';
+    public const XML_PATH_PRODUCT_CONFIGURABLE_CHILD_ATTRIBUTES = 'frontend/product/configurable/child/attributes';
 
     /**
      * Return relation info about used products
@@ -149,7 +149,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             $this->_editableAttributes = parent::getEditableAttributes($product);
             foreach ($this->_editableAttributes as $index => $attribute) {
                 if ($this->getUsedProductAttributeIds($product)
-                    && in_array($attribute->getAttributeId(), $this->getUsedProductAttributeIds($product))) {
+                    && in_array($attribute->getAttributeId(), $this->getUsedProductAttributeIds($product))
+                ) {
                     unset($this->_editableAttributes[$index]);
                 }
             }
@@ -246,14 +247,14 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getConfigurableAttributes($product = null)
     {
-        Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
         if (!$this->getProduct($product)->hasData($this->_configurableAttributes)) {
             $configurableAttributes = $this->getConfigurableAttributeCollection($product)
                 ->orderByPosition()
                 ->load();
             $this->getProduct($product)->setData($this->_configurableAttributes, $configurableAttributes);
         }
-        Varien_Profiler::stop('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $this->getProduct($product)->getData($this->_configurableAttributes);
     }
 
@@ -321,14 +322,15 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getUsedProducts($requiredAttributeIds = null, $product = null)
     {
-        Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
         if (!$this->getProduct($product)->hasData($this->_usedProducts)) {
             if (is_null($requiredAttributeIds)
-                and is_null($this->getProduct($product)->getData($this->_configurableAttributes))) {
+                && is_null($this->getProduct($product)->getData($this->_configurableAttributes))
+            ) {
                 // If used products load before attributes, we will load attributes.
                 $this->getConfigurableAttributes($product);
                 // After attributes loading products loaded too.
-                Varien_Profiler::stop('CONFIGURABLE:'.__METHOD__);
+                Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
                 return $this->getProduct($product)->getData($this->_usedProducts);
             }
 
@@ -351,7 +353,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 foreach ($requiredAttributeIds as $attributeId) {
                     $attribute = $this->getAttributeById($attributeId, $product);
                     if (!is_null($attribute)) {
-                        $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
+                        $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull' => 1]);
                     }
                 }
             }
@@ -362,7 +364,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
             $this->getProduct($product)->setData($this->_usedProducts, $usedProducts);
         }
-        Varien_Profiler::stop('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $this->getProduct($product)->getData($this->_usedProducts);
     }
 
@@ -538,7 +540,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getSelectedAttributesInfo($product = null)
     {
         $attributes = [];
-        Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
         if ($attributesOption = $this->getProduct($product)->getCustomOption('attributes')) {
             $data = unserialize($attributesOption->getValue(), ['allowed_classes' => false]);
             $this->getUsedProductAttributeIds($product);
@@ -557,11 +559,11 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $value = '';
                     }
 
-                    $attributes[] = ['label'=>$label, 'value'=>$value];
+                    $attributes[] = ['label' => $label, 'value' => $value];
                 }
             }
         }
-        Varien_Profiler::stop('CONFIGURABLE:'.__METHOD__);
+        Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
         return $attributes;
     }
 
@@ -612,7 +614,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
                 if ($subProduct) {
                     $product->addCustomOption('attributes', serialize($attributes));
-                    $product->addCustomOption('product_qty_'.$subProduct->getId(), 1, $subProduct);
+                    $product->addCustomOption('product_qty_' . $subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
 
                     $_result = $subProduct->getTypeInstance(true)->_prepareProduct(

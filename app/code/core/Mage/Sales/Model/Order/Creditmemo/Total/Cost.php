@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Cost extends Mage_Sales_Model_Orde
         $baseRefundTotalCost = 0;
         foreach ($creditmemo->getAllItems() as $item) {
             if (!$item->getOrderItem()->getHasChildren()) {
-                $baseRefundTotalCost += $item->getBaseCost()*$item->getQty();
+                $baseRefundTotalCost += $item->getBaseCost() * $item->getQty();
             }
         }
         $creditmemo->setBaseCost($baseRefundTotalCost);

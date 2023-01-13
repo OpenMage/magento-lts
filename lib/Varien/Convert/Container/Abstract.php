@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Convert
+ * @category   Varien
+ * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Container_Interface
 {
@@ -33,7 +33,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     protected $_data;
     protected $_position;
 
-    public function getVar($key, $default=null)
+    public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key])) {
             return $default;
@@ -46,7 +46,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this->_vars;
     }
 
-    public function setVar($key, $value=null)
+    public function setVar($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_vars = $key;
@@ -84,7 +84,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this;
     }
 
-    public function validateDataString($data=null)
+    public function validateDataString($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -95,7 +95,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataArray($data=null)
+    public function validateDataArray($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -106,13 +106,13 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataGrid($data=null)
+    public function validateDataGrid($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
         }
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data)==0) {
+            if (count($data) == 0) {
                 return true;
             }
             $this->addException("Invalid data type, expecting 2D grid array.", Varien_Convert_Exception::FATAL);
@@ -122,9 +122,9 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
 
     public function getGridFields($grid)
     {
-        $fields = array();
-        foreach ($grid as $i=>$row) {
-            foreach ($row as $fieldName=>$data) {
+        $fields = [];
+        foreach ($grid as $i => $row) {
+            foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
@@ -133,7 +133,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $fields;
     }
 
-    public function addException($error, $level=null)
+    public function addException($error, $level = null)
     {
         $e = new Varien_Convert_Exception($error);
         $e->setLevel(!is_null($level) ? $level : Varien_Convert_Exception::NOTICE);

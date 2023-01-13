@@ -28,19 +28,25 @@
  */
 class Mage_Core_Model_Encryption
 {
-    const HASH_VERSION_MD5    = 0;
-    const HASH_VERSION_SHA256 = 1;
-    const HASH_VERSION_SHA512 = 2;
+    public const HASH_VERSION_MD5    = 0;
+    public const HASH_VERSION_SHA256 = 1;
+    public const HASH_VERSION_SHA512 = 2;
 
     /**
      * Encryption method bcrypt
      */
-    const HASH_VERSION_LATEST = 3;
+    public const HASH_VERSION_LATEST = 3;
+
+    /**
+     * Maximum Password Length
+     */
+    public const MAXIMUM_PASSWORD_LENGTH = 256;
 
     /**
      * @var Varien_Crypt_Mcrypt
      */
     protected $_crypt;
+
     /**
      * @var Mage_Core_Helper_Data
      */
@@ -126,6 +132,10 @@ class Mage_Core_Model_Encryption
      */
     public function validateHash($password, $hash)
     {
+        if (strlen($password) > self::MAXIMUM_PASSWORD_LENGTH) {
+            return false;
+        }
+
         return $this->validateHashByVersion($password, $hash, self::HASH_VERSION_LATEST)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA512)
             || $this->validateHashByVersion($password, $hash, self::HASH_VERSION_SHA256)

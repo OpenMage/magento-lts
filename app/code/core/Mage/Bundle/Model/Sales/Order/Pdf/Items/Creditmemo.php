@@ -139,7 +139,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 // draw QTY
                 $text = $_item->getQty() * 1;
                 $line[] = [
-                    'text'  => $_item->getQty()*1,
+                    'text'  => $_item->getQty() * 1,
                     'feed'  => $x,
                     'font'  => 'bold',
                     'align' => 'center',

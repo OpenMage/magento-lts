@@ -101,11 +101,14 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
      * Set filter value
      *
      * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @return $this
      */
     public function setFilterValue($role)
     {
         if ($role && $role->getId()) {
             $this->_role = $role;
         }
+
+        return $this;
     }
 }

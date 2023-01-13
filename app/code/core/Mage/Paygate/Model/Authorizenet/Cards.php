@@ -26,11 +26,11 @@
  */
 class Mage_Paygate_Model_Authorizenet_Cards
 {
-    const CARDS_NAMESPACE = 'authorize_cards';
-    const CARD_ID_KEY = 'id';
-    const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
-    const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
-    const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
+    public const CARDS_NAMESPACE = 'authorize_cards';
+    public const CARD_ID_KEY = 'id';
+    public const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
+    public const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
+    public const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
 
     /**
      * Cards information
@@ -118,7 +118,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     {
         $this->_isPaymentValid();
         $_cards = [];
-        foreach(array_keys($this->_cards) as $key) {
+        foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
         return $_cards;

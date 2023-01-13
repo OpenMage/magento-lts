@@ -31,14 +31,14 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Wishlist Product Items Collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_collection;
 
     /**
      * Store wishlist Model
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|null
      */
     protected $_wishlist;
 
@@ -198,7 +198,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         return $this->getAddToWishlistUrlCustom($product);
     }
 
-     /**
+    /**
      * Returns item configure url in wishlist
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product

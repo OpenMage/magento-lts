@@ -28,8 +28,8 @@
  */
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_PAYMENT_METHODS = 'payment';
-    const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
+    public const XML_PATH_PAYMENT_METHODS = 'payment';
+    public const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
 
     protected $_moduleName = 'Mage_Payment';
 
@@ -41,7 +41,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMethodInstance($code)
     {
-        $key = self::XML_PATH_PAYMENT_METHODS.'/'.$code.'/model';
+        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
         $class = Mage::getStoreConfig($key);
         return Mage::getModel($class);
     }
@@ -125,7 +125,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = $this->getLayout()->createBlock($blockType);
         } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
-            $block = new $className;
+            $block = new $className();
         }
         $block->setInfo($info);
         return $block;
@@ -237,9 +237,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $labelValues[$code]['label'] = $title;
                 } elseif (isset($groupRelations[$code])) {
                     unset($labelValues[$code]);
-                    $labelValues[$groupRelations[$code]]['value'][$code] = ['value' => $code, 'label' => $title];
+                    $labelValues[$groupRelations[$code]]['value'][$code] = ['value' => $code, 'label' => $title . ' (' . $code . ')'];
                 } else {
-                    $labelValues[$code] = ['value' => $code, 'label' => $title];
+                    $labelValues[$code] = ['value' => $code, 'label' => $title . ' (' . $code . ')'];
                 }
             }
             return $labelValues;

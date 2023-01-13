@@ -113,14 +113,14 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     {
         if ($position != $this->_currentKey) {
             if ($position == 0) {
-               $this->rewind();
-               return;
+                $this->rewind();
+                return;
             } elseif ($position > 0) {
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }
                 while ($this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure)) {
-                    if (++ $this->_currentKey == $position) {
+                    if (++$this->_currentKey == $position) {
                         return;
                     }
                 }

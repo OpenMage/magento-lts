@@ -35,14 +35,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
      */
     protected function _prepareLayout()
     {
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'   => Mage::helper('sales')->__('Add Tracking Number'),
                     'class'   => '',
                     'onclick' => 'trackingControl.add()'
                 ])
-
         );
         return $this;
     }

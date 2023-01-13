@@ -34,11 +34,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
         $this->setId('sales_order_create_customer');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Please Select a Customer');
     }
 
+    /**
+     * @return string
+     */
     public function getButtonsHtml()
     {
         $addButtonData = [

@@ -19,15 +19,15 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
 
 $priceTypeAttribute = $installer->getAttribute('catalog_product', 'price_type');
 $taxClassAttribute  = $installer->getAttribute('catalog_product', 'tax_class_id');
 
 $productTable   = $installer->getTable('catalog/product');
-$priceTypeTable = $productTable ."_". $priceTypeAttribute['backend_type'];
-$taxClassTable  = $productTable ."_". $taxClassAttribute['backend_type'];
+$priceTypeTable = $productTable . "_" . $priceTypeAttribute['backend_type'];
+$taxClassTable  = $productTable . "_" . $taxClassAttribute['backend_type'];
 
 $db = $installer->getConnection();
 $db->beginTransaction();

@@ -48,17 +48,16 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
 
     protected function _prepareColumns()
     {
-
         $this->addColumn('role_id', [
-            'header'    =>Mage::helper('adminhtml')->__('ID'),
-            'index'     =>'role_id',
+            'header'    => Mage::helper('adminhtml')->__('ID'),
+            'index'     => 'role_id',
             'align'     => 'right',
             'width'    => '50px'
         ]);
 
         $this->addColumn('role_name', [
-            'header'    =>Mage::helper('adminhtml')->__('Role Name'),
-            'index'     =>'role_name'
+            'header'    => Mage::helper('adminhtml')->__('Role Name'),
+            'index'     => 'role_name'
         ]);
 
         return parent::_prepareColumns();
@@ -66,7 +65,7 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/roleGrid', ['_current'=>true]);
+        return $this->getUrl('*/*/roleGrid', ['_current' => true]);
     }
 
     public function getRowUrl($row)

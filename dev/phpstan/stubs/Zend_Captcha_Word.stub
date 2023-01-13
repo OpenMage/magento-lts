@@ -1,0 +1,11 @@
+<?php
+
+abstract class Zend_Captcha_Word
+{
+    /**
+     * Generated word
+     *
+     * @var string|null
+     */
+    protected $_word;
+}

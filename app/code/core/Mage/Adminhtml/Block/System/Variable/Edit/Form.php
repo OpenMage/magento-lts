@@ -52,8 +52,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         ]);
 
         $fieldset = $form->addFieldset('base', [
-            'legend'=>Mage::helper('adminhtml')->__('Variable'),
-            'class'=>'fieldset-wide'
+            'legend' => Mage::helper('adminhtml')->__('Variable'),
+            'class' => 'fieldset-wide'
         ]);
 
         $fieldset->addField('code', 'text', [
@@ -73,7 +73,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
-            $useDefault = !((bool)$this->getVariable()->getStoreHtmlValue()
+            $useDefault = !(
+                (bool)$this->getVariable()->getStoreHtmlValue()
                 || (bool)$this->getVariable()->getStorePlainValue()
             );
             $this->getVariable()->setUseDefaultValue((int)$useDefault);

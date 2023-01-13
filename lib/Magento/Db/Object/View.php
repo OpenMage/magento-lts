@@ -12,23 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Magento
- * @package     Magento_Db
+ * @category   Magento
+ * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Magento_Db_Object_View
  *
- * @category    Magento
- * @package     Magento_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Magento
+ * @package    Magento_Db
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
-    const ALGORITHM_MERGE       = 'MERGE';
-    const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
+    public const ALGORITHM_MERGE       = 'MERGE';
+    public const ALGORITHM_TEMPTABLE   = 'TEMPTABLE';
 
     /**
      * @var string

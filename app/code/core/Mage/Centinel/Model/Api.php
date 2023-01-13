@@ -147,7 +147,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         $debugData = ['request' => $request];
 
         try {
-            foreach($request as $key => $val) {
+            foreach ($request as $key => $val) {
                 $client->add($key, $val);
             }
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
@@ -203,7 +203,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             'Amount' => round($data->getAmount() * 100),
             'CurrencyCode' => $currencyNumber,
             'CardNumber' =>  $data->getCardNumber(),
-            'CardExpMonth'=> $month,
+            'CardExpMonth' => $month,
             'CardExpYear' =>  $data->getCardExpYear(),
             'OrderNumber' => $data->getOrderNumber()
         ]);
@@ -258,4 +258,3 @@ class Mage_Centinel_Model_Api extends Varien_Object
         }
     }
 }
-

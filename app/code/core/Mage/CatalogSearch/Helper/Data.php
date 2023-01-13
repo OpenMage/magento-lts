@@ -29,12 +29,12 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Query variable name
      */
-    const QUERY_VAR_NAME = 'q';
+    public const QUERY_VAR_NAME = 'q';
 
     /**
      * Maximum query length
      */
-    const MAX_QUERY_LEN  = 200;
+    public const MAX_QUERY_LEN  = 200;
 
     protected $_moduleName = 'Mage_CatalogSearch';
 

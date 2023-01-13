@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Boolean extends Varien_Data_For
      *
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setValues([

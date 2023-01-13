@@ -31,12 +31,12 @@ class Mage_Customer_Model_Observer
     /**
      * VAT ID validation processed flag code
      */
-    const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
+    public const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
 
     /**
      * VAT ID validation currently saved address flag
      */
-    const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
+    public const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
 
     /**
      * Check whether specified billing address is default for its customer
@@ -153,7 +153,8 @@ class Mage_Customer_Model_Observer
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
+                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())
+            ) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {

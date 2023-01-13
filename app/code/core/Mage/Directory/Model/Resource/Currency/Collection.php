@@ -63,7 +63,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     public function joinRates($currency)
     {
         $alias = sprintf('%s_rate', $currency);
-        $this->addBindParam(':'.$alias, $currency);
+        $this->addBindParam(':' . $alias, $currency);
         $this->_select
             ->joinLeft(
                 [$alias => $this->_currencyRateTable],

@@ -33,7 +33,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Payment rendered specific information
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_paymentSpecificInformation = null;
 
@@ -159,7 +159,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     {
         if ($this->_paymentSpecificInformation === null) {
             if ($transport === null) {
-                $transport = new Varien_Object;
+                $transport = new Varien_Object();
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);
             }

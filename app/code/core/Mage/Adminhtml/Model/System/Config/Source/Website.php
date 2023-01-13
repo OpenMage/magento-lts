@@ -35,8 +35,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Website
             foreach (Mage::app()->getWebsites() as $website) {
                 $id = $website->getId();
                 $name = $website->getName();
-                if ($id!=0) {
-                    $this->_options[] = ['value'=>$id, 'label'=>$name];
+                if ($id != 0) {
+                    $this->_options[] = ['value' => $id, 'label' => $name];
                 }
             }
         }

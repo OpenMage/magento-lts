@@ -38,14 +38,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
 
         $this->_removeButton('delete');
         $this->_removeButton('save');
-
-        /*$this->_addButton('submit_creditmemo', array(
-            'label'     => Mage::helper('sales')->__('Submit Credit Memo'),
-            'class'     => 'save submit-button',
-            'onclick'   => '$(\'edit_form\').submit()',
-            )
-        );*/
-
     }
 
     /**
@@ -58,6 +50,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
         return Mage::registry('current_creditmemo');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if ($this->getCreditmemo()->getInvoice()) {
@@ -75,8 +70,11 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
         return $header;
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
-        return $this->getUrl('*/sales_order/view', ['order_id'=>$this->getCreditmemo()->getOrderId()]);
+        return $this->getUrl('*/sales_order/view', ['order_id' => $this->getCreditmemo()->getOrderId()]);
     }
 }

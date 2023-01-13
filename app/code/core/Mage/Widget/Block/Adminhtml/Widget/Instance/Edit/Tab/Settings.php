@@ -100,7 +100,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend'=>Mage::helper('widget')->__('Settings')]
+            ['legend' => Mage::helper('widget')->__('Settings')]
         );
 
         $this->_addElementTypes($fieldset);
@@ -124,7 +124,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('widget')->__('Continue'),
-                'onclick'   => "setSettings('".$this->getContinueUrl()."', 'type', 'package_theme')",
+                'onclick'   => "setSettings('" . $this->getContinueUrl() . "', 'type', 'package_theme')",
                 'class'     => 'save'
             ]);
         $fieldset->addField('continue_button', 'note', [

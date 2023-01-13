@@ -212,7 +212,7 @@ abstract class Mage_Core_Helper_Abstract
             }
         } else {
             // process single item
-            if (strlen($data)) {
+            if (is_string($data) && strlen($data)) {
                 if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
@@ -228,7 +228,7 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
+    /**
      * Remove html tags, but leave "<" and ">" signs
      *
      * @param   string $html
@@ -333,11 +333,11 @@ abstract class Mage_Core_Helper_Abstract
         if (is_array($data)) {
             $result = [];
             foreach ($data as $item) {
-                $result[] = str_replace($quote, '\\'.$quote, $item);
+                $result[] = str_replace($quote, '\\' . $quote, $item);
             }
             return $result;
         }
-        return str_replace($quote, '\\'.$quote, $data);
+        return str_replace($quote, '\\' . $quote, $data);
     }
 
     /**
@@ -466,8 +466,7 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif (
-                    (bool)strcmp($item, $this->removeTags($item))
+                } elseif ((bool)strcmp($item, $this->removeTags($item))
                     || (bool)strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {

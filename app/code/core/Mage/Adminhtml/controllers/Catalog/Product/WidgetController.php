@@ -32,7 +32,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/widget_instance';
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
      * Chooser Source action
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
 
         if (!$this->getRequest()->getParam('products_grid')) {
             $categoriesTree = $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', [
-                'id'                  => $uniqId.'Tree',
+                'id'                  => $uniqId . 'Tree',
                 'node_click_listener' => $productsGrid->getCategoryClickListenerJs(),
                 'with_empty_node'     => true
             ]);

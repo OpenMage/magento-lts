@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Admin_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Configuration path to expiration period of reset password link
      */
-    const XML_PATH_ADMIN_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
+    public const XML_PATH_ADMIN_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
         = 'default/admin/emails/password_reset_link_expiration_period';
 
     /**

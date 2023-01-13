@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
             ->joinLeft(
                 ['default_value_price' => $optionTypePriceTable],
                 $joinExprDefaultPrice,
-                ['default_price'=>'price','default_price_type'=>'price_type']
+                ['default_price' => 'price','default_price_type' => 'price_type']
             )
             ->joinLeft(
                 ['store_value_price' => $optionTypePriceTable],
@@ -176,7 +176,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                 $joinExprDefault,
                 [
                     'default_price' => 'price',
-                    'default_price_type'=>'price_type'
+                    'default_price_type' => 'price_type'
                 ]
             )
             ->joinLeft(

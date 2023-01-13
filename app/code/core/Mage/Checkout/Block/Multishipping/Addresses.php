@@ -71,8 +71,8 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     public function getAddressesHtmlSelect($item, $index)
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName('ship['.$index.']['.$item->getQuoteItemId().'][address]')
-            ->setId('ship_'.$index.'_'.$item->getQuoteItemId().'_address')
+            ->setName('ship[' . $index . '][' . $item->getQuoteItemId() . '][address]')
+            ->setId('ship_' . $index . '_' . $item->getQuoteItemId() . '_address')
             ->setValue($item->getCustomerAddressId())
             ->setOptions($this->getAddressOptions());
 
@@ -115,7 +115,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getItemUrl($item)
     {
-        return $this->getUrl('catalog/product/view/id/'.$item->getProductId());
+        return $this->getUrl('catalog/product/view/id/' . $item->getProductId());
     }
 
     /**
@@ -124,7 +124,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getItemDeleteUrl($item)
     {
-        return $this->getUrl('*/*/removeItem', ['address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()]);
+        return $this->getUrl('*/*/removeItem', ['address' => $item->getQuoteAddressId(), 'id' => $item->getId()]);
     }
 
     /**

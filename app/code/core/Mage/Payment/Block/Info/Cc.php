@@ -58,8 +58,8 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
     public function getCcExpMonth()
     {
         $month = $this->getInfo()->getCcExpMonth();
-        if ($month<10) {
-            $month = '0'.$month;
+        if ($month < 10) {
+            $month = '0' . $month;
         }
         return $month;
     }

@@ -54,7 +54,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
                     ->setIsProcessed(1);
             } else {
                 if ($query->getId()) {
-                    $query->setPopularity($query->getPopularity()+1);
+                    $query->setPopularity($query->getPopularity() + 1);
                 } else {
                     $query->setPopularity(1);
                 }

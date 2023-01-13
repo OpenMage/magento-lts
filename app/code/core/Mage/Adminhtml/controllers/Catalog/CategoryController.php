@@ -32,7 +32,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/categories';
+    public const ADMIN_RESOURCE = 'catalog/categories';
 
     /**
      * Initialize requested category and put it into registry.
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                     if ($getRootInstead) {
                         $category->load($rootId);
                     } else {
-                        $this->_redirect('*/*/', ['_current'=>true, 'id'=>null]);
+                        $this->_redirect('*/*/', ['_current' => true, 'id' => null]);
                         return false;
                     }
                 }
@@ -118,7 +118,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         if ($_prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
-            && !$this->getRequest()->getParam('clear')) {
+            && !$this->getRequest()->getParam('clear')
+        ) {
             $this->getRequest()->setParam('id', $_prevCategoryId);
         }
 
@@ -356,7 +357,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
         $url = $this->getUrl('*/*/edit', ['_current' => true, 'id' => $category->getId()]);
         $this->getResponse()->setBody(
-            '<script type="text/javascript">parent.updateContent("' . $url . '", {}, '.$refreshTree.');</script>'
+            '<script type="text/javascript">parent.updateContent("' . $url . '", {}, ' . $refreshTree . ');</script>'
         );
     }
 
@@ -398,7 +399,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
                 $category = Mage::getModel('catalog/category')->load($id);
-                Mage::dispatchEvent('catalog_controller_category_delete', ['category'=>$category]);
+                Mage::dispatchEvent('catalog_controller_category_delete', ['category' => $category]);
 
                 Mage::getSingleton('admin/session')->setDeletedPath($category->getPath());
 
@@ -406,15 +407,15 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been deleted.'));
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current'=>true]));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current'=>true]));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
             }
         }
-        $this->getResponse()->setRedirect($this->getUrl('*/*/', ['_current'=>true, 'id'=>null]));
+        $this->getResponse()->setRedirect($this->getUrl('*/*/', ['_current' => true, 'id' => null]));
     }
 
     /**
@@ -464,7 +465,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 'expanded'    => (int) $block->getIsWasExpanded(),
                 'store_id'    => (int) $block->getStore()->getId(),
                 'category_id' => (int) $category->getId(),
-                'root_visible'=> (int) $root->getIsVisible()
+                'root_visible' => (int) $root->getIsVisible()
             ]]));
     }
 

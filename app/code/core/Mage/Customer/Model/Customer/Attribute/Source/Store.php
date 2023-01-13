@@ -56,7 +56,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
     public function getOptionText($value)
     {
         if (!$value) {
-            $value ='0';
+            $value = '0';
         }
         $isMultiple = false;
         if (strpos($value, ',')) {
@@ -81,9 +81,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
                 $values[] = $this->_options[$val];
             }
             return $values;
-        } else {
-            return $this->_options[$value];
         }
-        return false;
+        return $this->_options[$value];
     }
 }

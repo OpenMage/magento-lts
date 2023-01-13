@@ -635,7 +635,6 @@ h6, .h6 {
   font-size: 24px;
   font-weight: 600;
   color: #636363;
-  border-bottom: 1px solid #ededed;
   padding-bottom: 3px;
   margin-bottom: 15px;
   text-transform: uppercase;
@@ -5116,7 +5115,6 @@ p.product-name a:hover {
  * ============================================ */
 .cart .page-title {
   margin-bottom: 15px;
-  border-bottom: 1px solid #ededed;
 }
 .cart .page-title:after {
   content: '';

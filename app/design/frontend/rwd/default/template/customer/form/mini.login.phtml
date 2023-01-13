@@ -33,7 +33,7 @@
         <?php echo $this->getBlockHtml('formkey') ?>
         <div class="block-content">
             <label for="mini-login"><?php echo $this->__('Email:') ?></label><input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="login[username]" id="mini-login" class="input-text" />
-            <label for="mini-password"><?php echo $this->__('Password:') ?></label><input type="password" name="login[password]" id="mini-password" class="input-text" />
+            <label for="mini-password"><?php echo $this->__('Password:') ?></label><input type="password" name="login[password]" id="mini-password" class="input-text" autocomplete="off" />
             <div class="actions">
                 <button type="submit" class="button"><span><span><?php echo $this->__('Login') ?></span></span></button>
             </div>
