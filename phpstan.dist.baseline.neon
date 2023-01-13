@@ -6711,11 +6711,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Tracking/Result.php
 
 		-
-			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php
-
-		-
 			message: "#^Method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addPopularity\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Block/Customer/Tags.php
