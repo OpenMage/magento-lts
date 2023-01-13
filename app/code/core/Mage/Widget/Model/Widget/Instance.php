@@ -229,7 +229,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     protected function _prepareType()
     {
-        if (strpos($this->_getData('type'), '-') >= 0) {
+        if (strpos((string)$this->_getData('type'), '-') !== false) {
             $this->setData('type', str_replace('-', '/', $this->_getData('type')));
         }
         return $this;

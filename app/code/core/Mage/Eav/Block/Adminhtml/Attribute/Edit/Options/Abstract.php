@@ -110,7 +110,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
         if ($attributeType === 'select' || $attributeType === 'multiselect') {
-            $defaultValues = explode(',', $defaultValues);
+            $defaultValues = explode(',', (string)$defaultValues);
         } else {
             $defaultValues = [];
         }

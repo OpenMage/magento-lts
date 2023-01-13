@@ -301,7 +301,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
-            if (strtolower($this->getData('method')) == 'post') {
+            if (strtolower((string)$this->getData('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';
