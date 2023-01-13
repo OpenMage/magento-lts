@@ -101,8 +101,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
                 'index' => 'template_type',
                 'type' => 'options',
                 'options' => [
-                    Mage_Newsletter_Model_Template::TYPE_HTML   => 'html',
-                    Mage_Newsletter_Model_Template::TYPE_TEXT   => 'text'
+                    Mage_Core_Model_Template::TYPE_HTML => 'html',
+                    Mage_Core_Model_Template::TYPE_TEXT => 'text'
                 ],
             ]
         );

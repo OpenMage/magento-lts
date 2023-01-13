@@ -79,7 +79,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $select = $this->getSelect();
 
             $connection = $this->getConnection();
-            if (strlen($couponCode)) {
+            if (is_string($couponCode) && strlen($couponCode)) {
                 $select->joinLeft(
                     ['rule_coupons' => $this->getTable('salesrule/coupon')],
                     $connection->quoteInto(

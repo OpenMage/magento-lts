@@ -237,6 +237,7 @@
 | model_save_commit_after | 1.9.4.5 |
 | on_view_report | 1.9.4.5 |
 | order_cancel_after | 1.9.4.5 |
+ | order_status_changed_before_save | 19.5.0 / 20.1.0 |
 | page_block_html_topmenu_gethtml_after | 1.9.4.5 |
 | page_block_html_topmenu_gethtml_before | 1.9.4.5 |
 | payment_form_block_to_html_before | 1.9.4.5 |

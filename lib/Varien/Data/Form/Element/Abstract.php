@@ -223,7 +223,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($filter = $this->getValueFilter()) {
             $value = $filter->filter($value);
         }
-        return $this->_escape($value);
+        return $this->_escape((string)$value);
     }
 
     /**

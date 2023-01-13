@@ -840,16 +840,16 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime($dateFrom);
-        $toTimeStamp    = strtotime($dateTo);
+        $fromTimeStamp  = strtotime((string)$dateFrom);
+        $toTimeStamp    = strtotime((string)$dateTo);
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;
         }
 
         $result = false;
-        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }
