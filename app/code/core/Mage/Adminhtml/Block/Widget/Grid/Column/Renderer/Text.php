@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminht
         if (is_null($format)) {
             // If no format and it column not filtered specified return data as is.
             $data = parent::_getValue($row);
-            $string = is_null($data) ? $defaultValue : $data;
+            $string = $data ?? $defaultValue ?? '';
             return $this->escapeHtml($string);
         } elseif (preg_match_all($this->_variablePattern, $format, $matches)) {
             // Parsing of format string

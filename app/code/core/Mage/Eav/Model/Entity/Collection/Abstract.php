@@ -287,8 +287,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * )
      *
      * @see self::_getConditionSql for $condition
-     * @param Mage_Eav_Model_Entity_Attribute_Interface|integer|string|array $attribute
-     * @param null|string|array $condition
+     * @param Mage_Eav_Model_Entity_Attribute_Interface|int|string|array $attribute
+     * @param null|int|string|array $condition
      * @param string $joinType
      * @return $this
      */
@@ -411,7 +411,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * If $attribute=='*' select all attributes
      *
      * @param   array|string|integer|Mage_Core_Model_Config_Element $attribute
-     * @param   false|string $joinType flag for joining attribute
+     * @param   bool|string $joinType flag for joining attribute
      * @return  $this
      */
     public function addAttributeToSelect($attribute, $joinType = false)

@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,7 +150,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form $form
+     * @param Varien_Data_Form_Abstract $form
      * @return $this
      */
     public function setForm($form)
@@ -223,7 +223,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($filter = $this->getValueFilter()) {
             $value = $filter->filter($value);
         }
-        return $this->_escape($value);
+        return $this->_escape((string)$value);
     }
 
     /**

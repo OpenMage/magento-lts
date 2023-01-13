@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Adminhtml transaction detail
  *
@@ -37,7 +38,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
 
     /**
      * Add control buttons
-     *
      */
     public function __construct()
     {
@@ -48,17 +48,16 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => "setLocation('{$backUrl}')",
+            'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
             'class'   => 'back'
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()
         ) {
-            $fetchUrl = $this->getUrl('*/*/fetch', ['_current' => true]);
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => "setLocation('{$fetchUrl}')",
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
                 'class'   => 'button'
             ]);
         }
@@ -71,9 +70,20 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
      */
     public function getHeaderText()
     {
-        return Mage::helper('sales')->__("Transaction # %s | %s", $this->_txn->getTxnId(), $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true));
+        return Mage::helper('sales')->__(
+            "Transaction # %s | %s",
+            $this->_txn->getTxnId(),
+            $this->formatDate(
+                $this->_txn->getCreatedAt(),
+                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+                true
+            )
+        );
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(

@@ -47,7 +47,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     /**
      * Real file path
      *
-     * @var string
+     * @var string|null
      */
     protected $_filePath;
 

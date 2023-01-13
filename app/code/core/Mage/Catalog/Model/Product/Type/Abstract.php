@@ -53,7 +53,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * @deprecated
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]
+     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]|null
      */
     protected $_editableAttributes;
 
@@ -826,7 +826,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Retrieve store filter for associated products
      *
      * @param Mage_Catalog_Model_Product|null $product
-     * @return int|Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|int|null
      */
     public function getStoreFilter($product = null)
     {
@@ -869,7 +869,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
-        return floatval($qty);
+        return (float) $qty;
     }
 
     /**

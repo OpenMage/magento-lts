@@ -66,7 +66,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale
+     * @var Zend_Locale|null
      */
     protected $_locale;
 
@@ -586,6 +586,8 @@ class Mage_Core_Model_Locale
      *
      * @param   mixed $store
      * @return  int
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function storeTimeStamp($store = null)
     {
@@ -662,7 +664,7 @@ class Mage_Core_Model_Locale
         }
 
         if (!is_string($value)) {
-            return floatval($value);
+            return (float) $value;
         }
 
         //trim spaces and apostrophes
@@ -682,7 +684,7 @@ class Mage_Core_Model_Locale
             $value = str_replace(',', '.', $value);
         }
 
-        return floatval($value);
+        return (float) $value;
     }
 
     /**
@@ -826,7 +828,7 @@ class Mage_Core_Model_Locale
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|string|Mage_Core_Model_Store|null $store
      * @param string|null $dateFrom
      * @param string|null $dateTo
      * @return bool
@@ -838,16 +840,16 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime($dateFrom);
-        $toTimeStamp    = strtotime($dateTo);
+        $fromTimeStamp  = strtotime((string)$dateFrom);
+        $toTimeStamp    = strtotime((string)$dateTo);
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;
         }
 
         $result = false;
-        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }

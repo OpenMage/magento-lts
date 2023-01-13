@@ -137,7 +137,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Associated product instance
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_productInstance = null;
 
@@ -168,6 +168,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = [
             'stock_status_changed_automatically' => 'stock_status_changed_auto',
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'
@@ -569,7 +570,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 
         if (!$this->getIsQtyDecimal()) {
             $result->setHasQtyOptionUpdate(true);
-            $qty = intval($qty);
+            $qty = (int) $qty;
 
             /**
               * Adding stock data to quote item
@@ -579,7 +580,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             if (!is_numeric($qty)) {
                 $qty = Mage::app()->getLocale()->getNumber($qty);
             }
-            $origQty = intval($origQty);
+            $origQty = (int) $origQty;
             $result->setOrigQty($origQty);
         }
 

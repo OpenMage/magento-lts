@@ -49,21 +49,21 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_itemCollection = null;
 
     /**
      * Store filter for wishlist
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store = null;
 
     /**
      * Shared store ids (website stores)
      *
-     * @var array
+     * @var array|null
      */
     protected $_storeIds = null;
 

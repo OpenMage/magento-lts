@@ -123,7 +123,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         /**
          * Add discount
          */
-        if (((float)$this->getSource()->getDiscountAmount()) != 0) {
+        if ((float)$this->getSource()->getDiscountAmount() != 0) {
             if ($this->getSource()->getDiscountDescription()) {
                 $discountLabel = $this->__('Discount (%s)', $source->getDiscountDescription());
             } else {

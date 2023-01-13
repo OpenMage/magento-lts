@@ -923,7 +923,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param   string $columnName
      * @param   array|string $definition  string specific or universal array DB Server definition
      * @param   string $schemaName
-     * @return  int|boolean
+     * @return  int|boolean|Zend_Db_Statement_Interface
      * @throws  Zend_Db_Exception
      */
     public function addColumn($tableName, $columnName, $definition, $schemaName = null)
@@ -965,7 +965,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return bool
+     * @return true|Zend_Db_Statement_Interface
      */
     public function dropColumn($tableName, $columnName, $schemaName = null)
     {
@@ -1088,7 +1088,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return array|false
+     * @return bool
      */
     public function showTableStatus($tableName, $schemaName = null)
     {
@@ -1745,7 +1745,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'];
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== false)) {
+                if (($columnData['DEFAULT'] === '') && (in_array($columnData['DATA_TYPE'], $affected))) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }
@@ -2250,7 +2250,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
-     * @return Zend_Db_Pdo_Statement
+     * @return Zend_Db_Statement_Pdo
      */
     public function createTable(Varien_Db_Ddl_Table $table)
     {
@@ -2282,7 +2282,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
-     * @return Zend_Db_Pdo_Statement
+     * @return Zend_Db_Statement_Pdo
      */
     public function createTemporaryTable(Varien_Db_Ddl_Table $table)
     {
@@ -2632,7 +2632,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return $this
      */
     public function dropTemporaryTable($tableName, $schemaName = null)
     {
@@ -4026,13 +4026,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         switch ($last) {
             case 'k':
-                $size = intval($size) * 1024;
+                $size = (int) $size * 1024;
                 break;
             case 'm':
-                $size = intval($size) * 1024 * 1024;
+                $size = (int) $size * 1024 * 1024;
                 break;
             case 'g':
-                $size = intval($size) * 1024 * 1024 * 1024;
+                $size = (int) $size * 1024 * 1024 * 1024;
                 break;
         }
 
@@ -4043,7 +4043,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             return Varien_Db_Ddl_Table::MAX_TEXT_SIZE;
         }
 
-        return intval($size);
+        return (int) $size;
     }
 
     /**

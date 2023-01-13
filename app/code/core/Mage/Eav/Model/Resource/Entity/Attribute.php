@@ -107,7 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      */
     private function _getMaxSortOrder(Mage_Core_Model_Abstract $object)
     {
-        if (intval($object->getAttributeGroupId()) > 0) {
+        if ((int) $object->getAttributeGroupId() > 0) {
             $adapter = $this->_getReadAdapter();
             $bind = [
                 ':attribute_set_id'   => $object->getAttributeSetId(),

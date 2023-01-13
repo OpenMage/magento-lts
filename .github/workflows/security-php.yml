@@ -24,4 +24,4 @@ jobs:
           path: ~/.symfony/cache
           key: db
 
-      - uses: symfonycorp/security-checker-action@v4
+      - uses: symfonycorp/security-checker-action@v5

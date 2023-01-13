@@ -83,7 +83,7 @@ abstract class Varien_Image_Adapter_Abstract
      * original image, but after resize() it's already a scaled version.
      *
      * @see Varien_Image_Adapter_Gd2::open()
-     * @var resource
+     * @var resource|GdImage
      */
     protected $_imageHandler = null;
 
@@ -147,6 +147,9 @@ abstract class Varien_Image_Adapter_Abstract
 
     abstract public function checkDependencies();
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function getMimeType()
     {
         if ($this->_fileMimeType) {
@@ -289,7 +292,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Get/set quality, values in percentage from 0 to 100
      *
      * @param int $value
-     * @return int
+     * @return int|null
      */
     public function quality($value = null)
     {

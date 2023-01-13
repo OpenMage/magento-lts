@@ -441,42 +441,42 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'order';
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]
+     * @var Mage_Sales_Model_Resource_Order_Address_Collection|Mage_Sales_Model_Order_Address[]|null
      */
     protected $_addresses       = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]
+     * @var Mage_Sales_Model_Resource_Order_Item_Collection|Mage_Sales_Model_Order_Item[]|null
      */
     protected $_items           = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]
+     * @var Mage_Sales_Model_Resource_Order_Payment_Collection|Mage_Sales_Model_Order_Payment[]|null
      */
     protected $_payments        = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]
+     * @var Mage_Sales_Model_Resource_Order_Status_History_Collection|Mage_Sales_Model_Order_Status_History[]|null
      */
     protected $_statusHistory   = null;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection
+     * @var Mage_Sales_Model_Resource_Order_Invoice_Collection|null
      */
     protected $_invoices;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Track_Collection|null
      */
     protected $_tracks;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Collection|false|null
      */
     protected $_shipments;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false
+     * @var Mage_Sales_Model_Resource_Order_Creditmemo_Collection|Mage_Sales_Model_Order_Creditmemo[]|false|null
      */
     protected $_creditmemos;
 
@@ -518,6 +518,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
         return $this;
     }
@@ -1740,7 +1741,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted() && !$item->getParentItemId()) {
-                $items[] =  $item;
+                $items[] = $item;
             }
         }
         return $items;
@@ -1748,7 +1749,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * @param int $itemId
-     * @return Varien_Object|null
+     * @return Mage_Sales_Model_Order_Item|null
      */
     public function getItemById($itemId)
     {
@@ -2011,13 +2012,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve text formatted price value including order rate
+     * Retrieve currency formatted string.
      *
-     * @param   float $price
-     * @return  string
+     * @param float|string $price Numeric value or field name, e.g. "grand_total".
+     * @return string
      */
     public function formatPriceTxt($price)
     {
+        $price = (float) (is_numeric($price) ? $price : $this->_getData($price));
         return $this->getOrderCurrency()->formatTxt($price);
     }
 
@@ -2352,6 +2354,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->getId()) {
             $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
         }
+
+        if ($this->getStatus() !== $this->getOrigData('status')) {
+            Mage::dispatchEvent('order_status_changed_before_save', ['order' => $this]);
+        }
+
         return $this;
     }
 
@@ -2375,7 +2382,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
                 }
-            } elseif (floatval($this->getTotalRefunded()) || (!$this->getTotalRefunded()
+            } elseif ((float) $this->getTotalRefunded() || (!$this->getTotalRefunded()
                 && $this->hasForcedCanCreditmemo())
                 /**
                  * Order can be closed just in case when we have refunded amount.

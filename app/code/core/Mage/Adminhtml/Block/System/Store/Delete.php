@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Store / store view / website delete form container
  *
@@ -30,7 +31,6 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
 {
     /**
      * Class constructor
-     *
      */
     public function __construct()
     {
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
 
         $this->_addButton('cancel', [
             'label'     => Mage::helper('adminhtml')->__('Cancel'),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
         ], 2, 100, 'footer');
     }
 
@@ -59,7 +59,11 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
      */
     public function getHeaderText()
     {
-        return Mage::helper('adminhtml')->__("Delete %s '%s'", $this->getStoreTypeTitle(), $this->escapeHtml($this->getChild('form')->getDataObject()->getName()));
+        return Mage::helper('adminhtml')->__(
+            "Delete %s '%s'",
+            $this->getStoreTypeTitle(),
+            $this->escapeHtml($this->getChild('form')->getDataObject()->getName())
+        );
     }
 
     /**
@@ -83,8 +87,8 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
     public function setBackUrl($url)
     {
         $this->setData('back_url', $url);
-        $this->_updateButton('cancel', 'onclick', "setLocation('" . $url . "')");
-        $this->_updateButton('back', 'onclick', "setLocation('" . $url . "')");
+        $this->_updateButton('cancel', 'onclick', Mage::helper('core/js')->getSetLocationJs($url));
+        $this->_updateButton('back', 'onclick', Mage::helper('core/js')->getSetLocationJs($url));
         return $this;
     }
 }

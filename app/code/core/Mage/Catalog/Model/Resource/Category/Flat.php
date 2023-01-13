@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Store id
      *
-     * @var int
+     * @var int|null
      */
     protected $_storeId                  = null;
 
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * array with root category id per store
      *
-     * @var array
+     * @var array|null
      */
     protected $_storesRootCategories;
 
@@ -179,7 +179,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     public function getMainStoreTable($storeId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
     {
         if (is_string($storeId)) {
-            $storeId = intval($storeId);
+            $storeId = (int) $storeId;
         }
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
@@ -815,7 +815,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Return attribute values for given entities and store
      *
-     * @param array $entityIds
+     * @param int|string|array $entityIds
      * @param int $store_id
      * @return array
      */

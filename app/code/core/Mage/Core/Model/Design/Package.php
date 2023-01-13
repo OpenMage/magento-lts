@@ -49,7 +49,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Package area
      *
-     * @var string
+     * @var string|null
      */
     protected $_area;
 
@@ -82,12 +82,12 @@ class Mage_Core_Model_Design_Package
     protected $_callbackFileDir;
 
     /**
-     * @var Mage_Core_Model_Design_Config
+     * @var Mage_Core_Model_Design_Config|null
      */
     protected $_config = null;
 
     /**
-     * @var Mage_Core_Model_Design_Fallback
+     * @var Mage_Core_Model_Design_Fallback|null
      */
     protected $_fallback = null;
 
@@ -518,7 +518,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Get skin file url
      *
-     * @param string $file
+     * @param string|null $file
      * @param array $params
      * @return string
      * @throws Exception
@@ -528,7 +528,7 @@ class Mage_Core_Model_Design_Package
         Varien_Profiler::start(__METHOD__);
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (strpos($file, '..') !== false) {
+        if (strpos((string)$file, '..') !== false) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
             throw new Exception('Invalid path requested.');
         }
@@ -659,6 +659,8 @@ class Mage_Core_Model_Design_Package
      * @param array $rules - design exception rules
      * @param string $regexpsConfigPath
      * @return bool|string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {

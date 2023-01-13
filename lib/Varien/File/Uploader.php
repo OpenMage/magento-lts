@@ -32,6 +32,16 @@
 
 class Varien_File_Uploader
 {
+    public const UPLOAD_ERRORS = [
+        UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+        UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+        UPLOAD_ERR_PARTIAL => 'The uploaded file was only partially uploaded',
+        UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+        UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+        UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload'
+    ];
+
     /**
      * Uploaded file handle (copy of $_FILES[] element)
      *
@@ -51,7 +61,7 @@ class Varien_File_Uploader
     /**
      * Upload type. Used to right handle $_FILES array.
      *
-     * @var string Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
+     * @var int Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
      * @access protected
      */
     protected $_uploadType;
@@ -141,7 +151,7 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|false     Array with file info keys: path, file. Result is
+     * @var array|bool      Array with file info keys: path, file. Result is
      *                      FALSE when file not uploaded
      */
     protected $_result;
@@ -150,6 +160,10 @@ class Varien_File_Uploader
     {
         $this->_setUploadFileId($fileId);
         if (empty($this->_file['tmp_name']) || !file_exists($this->_file['tmp_name'])) {
+            $errorCode = $this->_file['error'] ?? 0;
+            if ($errorCode && isset(self::UPLOAD_ERRORS[$errorCode])) {
+                throw new Exception(self::UPLOAD_ERRORS[$errorCode]);
+            }
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
             throw new Exception('File was not uploaded.', $code);
         } else {
@@ -502,9 +516,7 @@ class Varien_File_Uploader
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
         } else {
-            preg_match("/^(.*?)\[(.*?)\]$/", $fileId, $file);
-
-            if (count($file) > 0 && (count($file[0]) > 0) && (count($file[1]) > 0)) {
+            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
                 array_shift($file);
                 $this->_uploadType = self::MULTIPLE_STYLE;
 
@@ -526,6 +538,9 @@ class Varien_File_Uploader
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     private function _createDestinationFolder($destinationFolder)
     {
         if (!$destinationFolder) {

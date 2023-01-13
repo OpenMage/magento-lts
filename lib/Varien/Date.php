@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Date
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -144,8 +144,8 @@ class Varien_Date
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date|true|null $date
-     * @param boolean $includeTime
+     * @param int|string|Zend_Date|bool|null $date
+     * @param bool $includeTime
      * @return string|null
      */
     public static function formatDate($date, $includeTime = true)

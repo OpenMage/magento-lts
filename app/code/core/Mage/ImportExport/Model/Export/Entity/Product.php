@@ -177,7 +177,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             if (!($model = Mage::getModel($typeModel, [$this, $type]))) {
                 Mage::throwException("Entity type model '{$typeModel}' is not found");
             }
-            if (! $model instanceof Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract) {
+            if (!$model instanceof Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract')
                 );
@@ -609,7 +609,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         // Minimum Products limit
         $minProductsLimit = 500;
 
-        $limitProducts = intval(($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
+        $limitProducts = (int) (($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
         if ($limitProducts < $minProductsLimit) {
             $limitProducts = $minProductsLimit;
         }

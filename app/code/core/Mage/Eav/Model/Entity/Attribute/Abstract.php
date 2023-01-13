@@ -26,7 +26,6 @@
  * @package    Mage_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method array getApplyTo()
  * @method bool hasAttributeSetInfo()
  * @method array getAttributeSetInfo()
  * @method $this setAttributeSetInfo(array $value)
@@ -628,7 +627,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
             } else {
-                $backendTable = trim($this->_getData('backend_table'));
+                $backendTable = trim((string)$this->_getData('backend_table'));
                 if (empty($backendTable)) {
                     $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);
@@ -921,5 +920,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             return $this->getSource()->getFlatUpdateSelect($store);
         }
         return $this->_getResource()->getFlatUpdateSelect($this, $store);
+    }
+
+    /**
+     * @return array
+     */
+    public function getApplyTo()
+    {
+        return [];
     }
 }

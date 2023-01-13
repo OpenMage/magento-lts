@@ -48,7 +48,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function __construct(array $data = [])
     {
-        $this->_logLevel = $data['log_level'] ?? intval(Mage::getStoreConfig(self::XML_PATH_LOG_ENABLED));
+        $this->_logLevel = $data['log_level'] ?? (int) Mage::getStoreConfig(self::XML_PATH_LOG_ENABLED);
     }
 
     /**

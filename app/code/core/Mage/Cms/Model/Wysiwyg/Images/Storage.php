@@ -35,7 +35,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object
      *
-     * @var Mage_Core_Model_Config_Element
+     * @var Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
      */
     protected $_config;
 
@@ -100,6 +100,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param string $path Parent directory path
      * @param string $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function getFilesCollection($path, $type = null)
     {
@@ -137,7 +139,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $thumbUrl = $this->getThumbnailUrl($path . DS . $thumbImg, true);
 
                 // generate thumbnail "on the fly" if it does not exists
-                if (! $thumbUrl) {
+                if (!$thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', ['file' => $item->getId()]);
                 }
 
@@ -322,7 +324,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (strpos($filePath, $mediaRootDir) === 0) {
             $thumbPath = $this->getThumbnailRoot() . DS . substr($filePath, strlen($mediaRootDir));
 
-            if (! $checkFile || is_readable($thumbPath)) {
+            if (!$checkFile || is_readable($thumbPath)) {
                 return $thumbPath;
             }
         }
@@ -453,7 +455,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfig()
     {
-        if (! $this->_config) {
+        if (!$this->_config) {
             $this->_config = Mage::getConfig()->getNode('cms/browser', 'adminhtml');
         }
 
@@ -467,7 +469,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfigAsArray()
     {
-        if (! $this->_configAsArray) {
+        if (!$this->_configAsArray) {
             $this->_configAsArray = $this->getConfig()->asCanonicalArray();
         }
 

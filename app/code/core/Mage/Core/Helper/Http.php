@@ -34,13 +34,13 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 
     /**
      * Remote address cache
-     * @var string
+     * @var string|null
      */
     protected $_remoteAddr;
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param string|null $headers
+     * @param array|null $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -85,6 +85,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Send auth failed Headers and exit
      *
+     * @return never
      */
     public function authFailed()
     {

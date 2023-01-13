@@ -256,7 +256,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTablePrefix()
     {
-        $tablePrefix = trim($this->_data['value_table_prefix']);
+        $tablePrefix = trim((string)$this->_data['value_table_prefix']);
 
         if (empty($tablePrefix)) {
             $tablePrefix = $this->getEntityTable();

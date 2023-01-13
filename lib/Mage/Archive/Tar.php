@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -261,7 +261,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         if (!$skipRoot) {
             $header = $this->_composeHeader();
             $data = $this->_readFile($file);
-            $data = str_pad($data, intval(((is_dir($file) ? 0 : filesize($file)) + 512 - 1) / 512) * 512, "\0");
+            $data = str_pad($data, (int) (((is_dir($file) ? 0 : filesize($file)) + 512 - 1) / 512) * 512, "\0");
         }
         $sub = '';
         if (is_dir($file)) {
@@ -276,7 +276,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             }
         }
         $tarData = $header . $data . $sub;
-        $tarData = str_pad($tarData, intval((strlen($tarData) - 1) / 1536) * 1536, "\0");
+        $tarData = str_pad($tarData, (int) ((strlen($tarData) - 1) / 1536) * 1536, "\0");
         return $tarData;
     }
 
@@ -364,7 +364,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $longHeader = '';
         if (!$long && strlen($nameFile) > 100) {
             $longHeader = $this->_composeHeader(true);
-            $longHeader .= str_pad($nameFile, intval((strlen($nameFile) + 512 - 1) / 512) * 512, "\0");
+            $longHeader .= str_pad($nameFile, (int) ((strlen($nameFile) + 512 - 1) / 512) * 512, "\0");
         }
         $header = [];
         $header['100-name']       = $long ? '././@LongLink' : substr($nameFile, 0, 100);
@@ -412,6 +412,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @param string $destination path to file is unpacked
      * @return array list of files
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _unpackCurrentTar($destination)
     {
@@ -497,13 +499,13 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $checksumOk = $header['checksum'] == $checksum;
         if (isset($header['name']) && $checksumOk) {
             if ($header['name'] == '././@LongLink' && $header['type'] == 'L') {
-                $realName = substr(fread($pointer, intval(($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
+                $realName = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
                 $headerMain = $this->_parseHeader($pointer);
                 $headerMain['name'] = $realName;
                 return $headerMain;
             } else {
                 if ($header['size'] > 0) {
-                    $header['data'] = substr(fread($pointer, intval(($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
+                    $header['data'] = substr(fread($pointer, (int) (($header['size'] + 512 - 1) / 512) * 512), 0, $header['size']);
                 } else {
                     $header['data'] = '';
                 }
@@ -555,7 +557,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 return $header;
             }
 
-            $realNameBlockSize = intval(($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
+            $realNameBlockSize = (int) (($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
                 * self::TAR_BLOCK_SIZE;
             $realNameBlock = $archiveReader->read($realNameBlockSize);
             $realName = substr($realNameBlock, 0, $header['size']);
@@ -662,7 +664,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             }
 
             if ($header['type'] != 5) {
-                $skipBytes = intval(($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
+                $skipBytes = (int) (($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
                     * self::TAR_BLOCK_SIZE;
                 $archiveReader->read($skipBytes);
             }

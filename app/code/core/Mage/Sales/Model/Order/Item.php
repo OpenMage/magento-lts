@@ -218,9 +218,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Order instance
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order       = null;
+
     protected $_parentItem  = null;
     protected $_children    = [];
 
@@ -237,9 +238,11 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * its full names
      *
      * @return Varien_Object
+     * @deprecated
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_item');
         return $this;
     }
@@ -630,7 +633,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * If code is null return all options
      *
      * @param string $code
-     * @return array
+     * @return array|null
      */
     public function getProductOptionByCode($code = null)
     {

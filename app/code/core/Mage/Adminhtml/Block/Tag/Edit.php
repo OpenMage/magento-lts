@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Admin tag edit block
  *
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
-            'onclick' => "saveAndContinueEdit('" . $this->getSaveAndContinueUrl() . "')",
+            'onclick' => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
             'class'   => 'save'
         ], 1);
     }
@@ -72,7 +73,10 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
     public function getHeaderText()
     {
         if (Mage::registry('current_tag')->getId()) {
-            return Mage::helper('tag')->__("Edit Tag '%s'", $this->escapeHtml(Mage::registry('current_tag')->getName()));
+            return Mage::helper('tag')->__(
+                "Edit Tag '%s'",
+                $this->escapeHtml(Mage::registry('current_tag')->getName())
+            );
         }
         return Mage::helper('tag')->__('New Tag');
     }
@@ -94,7 +98,16 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', ['tag_id' => $this->getRequest()->getParam($this->_objectId), 'ret' => $this->getRequest()->getParam('ret', 'index')]);
+        return $this->getUrl(
+            '*/*/delete',
+            [
+                'tag_id' => $this->getRequest()->getParam($this->_objectId),
+                'ret' => $this->getRequest()->getParam(
+                    'ret',
+                    'index'
+                )
+            ]
+        );
     }
 
     /**
@@ -144,7 +157,15 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', ['_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()]);
+        return $this->getUrl(
+            '*/*/save',
+            [
+                '_current'  => true,
+                'ret'       => 'edit',
+                'continue'  => $this->getRequest()->getParam('ret', 'index'),
+                'store'     => Mage::registry('current_tag')->getStoreId()
+            ]
+        );
     }
 
     /**

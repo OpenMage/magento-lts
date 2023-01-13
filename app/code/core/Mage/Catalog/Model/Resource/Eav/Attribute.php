@@ -54,7 +54,7 @@
  * @method $this setUsedForSortBy(int $value)
  * @method int getIsConfigurable()
  * @method $this setIsConfigurable(int $value)
- * @method $this setApplyTo(string $value)
+ * @method $this setApplyTo(string|array $value)
  * @method int getIsVisibleInAdvancedSearch()
  * @method $this setIsVisibleInAdvancedSearch(int $value)
  * @method int getPosition()
@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Array with labels
      *
-     * @var array
+     * @var array|null
      */
     protected static $_labels                   = null;
 

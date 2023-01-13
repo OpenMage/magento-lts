@@ -94,7 +94,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
 
         if ($id) {
             $model->load($id);
-            if (! $model->getRuleId()) {
+            if (!$model->getRuleId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('catalogrule')->__('This rule no longer exists.')
                 );

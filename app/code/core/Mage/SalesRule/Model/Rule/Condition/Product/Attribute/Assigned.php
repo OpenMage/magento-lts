@@ -51,7 +51,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * A cached options list
-     * @var array
+     * @var array|null
      */
     protected $_cachedOperatorSelectOptionsCache = null;
 

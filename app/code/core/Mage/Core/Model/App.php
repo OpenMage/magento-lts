@@ -92,14 +92,14 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
@@ -752,7 +752,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param string $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -831,7 +831,7 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore($id = null)
@@ -936,7 +936,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreView()
     {
@@ -1431,6 +1431,11 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
+    /**
+     * @param string $text
+     * @throws Mage_Core_Model_Store_Exception
+     * @return never
+     */
     public function throwStoreException($text = '')
     {
         throw new Mage_Core_Model_Store_Exception($text);

@@ -15,7 +15,7 @@
  * @category   Varien
  * @package    Varien_Http
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Curl handle
      *
-     * @var resource
+     * @var resource|CurlHandle|null
      */
     protected $_resource;
 
@@ -196,7 +196,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Read response from server
      *
-     * @return string
+     * @return string|bool
      */
     public function read()
     {
@@ -230,7 +230,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Returns a cURL handle on success
      *
-     * @return resource
+     * @return resource|CurlHandle
      */
     protected function _getResource()
     {

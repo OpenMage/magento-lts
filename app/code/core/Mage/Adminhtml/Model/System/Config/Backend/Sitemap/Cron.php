@@ -40,8 +40,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
         $cronExprArray = [
-            intval($time[1]),                                   # Minute
-            intval($time[0]),                                   # Hour
+            (int) $time[1],                                   # Minute
+            (int) $time[0],                                   # Hour
             ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
             '*',                                                    # Month of the Year
             ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week

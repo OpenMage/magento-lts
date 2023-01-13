@@ -43,6 +43,10 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         }
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getDeleteUrl()
     {
         if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
@@ -55,15 +59,20 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         }
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (!is_null(Mage::registry('current_group')->getId())) {
             return Mage::helper('customer')->__('Edit Customer Group "%s"', $this->escapeHtml(Mage::registry('current_group')->getCustomerGroupCode()));
-        } else {
-            return Mage::helper('customer')->__('New Customer Group');
         }
+        return Mage::helper('customer')->__('New Customer Group');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'icon-head head-customer-groups';

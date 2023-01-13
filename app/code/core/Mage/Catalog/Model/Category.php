@@ -157,7 +157,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Category tree model
      *
-     * @var Mage_Catalog_Model_Resource_Category_Tree
+     * @var Mage_Catalog_Model_Resource_Category_Tree|null
      */
     protected $_treeModel = null;
 
@@ -589,7 +589,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getParentId()
     {
         $parentIds = $this->getParentIds();
-        return intval(array_pop($parentIds));
+        return (int) array_pop($parentIds);
     }
 
     /**
@@ -714,7 +714,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $ids = $this->getData('path_ids');
         if (is_null($ids)) {
-            $ids = explode('/', $this->getPath());
+            $ids = explode('/', (string)$this->getPath());
             $this->setData('path_ids', $ids);
         }
         return $ids;
@@ -728,7 +728,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getLevel()
     {
         if (!$this->hasLevel()) {
-            return count(explode('/', $this->getPath())) - 1;
+            return count(explode('/', (string)$this->getPath())) - 1;
         }
         return $this->getData('level');
     }
