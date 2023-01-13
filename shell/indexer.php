@@ -199,10 +199,10 @@ Usage:  php -f indexer.php -- [options]
   --mode-realtime <indexer>     Set index mode type "Update on Save"
   --mode-manual <indexer>       Set index mode type "Manual Update"
   --reindex <indexer>           Reindex Data
-  info                          Show allowed indexers
-  reindexall                    Reindex Data by all indexers
-  reindexallrequired            Reindex Data only if required by all indexers
-  help                          This help
+  --info                        Show allowed indexers
+  --reindexall                  Reindex Data by all indexers
+  --reindexallrequired          Reindex Data only if required by all indexers
+  --help                        This help
 
   <indexer>     Comma separated indexer codes or value "all" for all indexers
 
