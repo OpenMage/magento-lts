@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Entity type model
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
@@ -49,17 +54,13 @@
  * @method $this setAdditionalAttributeTable(string $value)
  * @method $this setEntityAttributeCollection(string $value)
  * @method $this setAttributeCodes(array $value)
- *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 {
     /**
      * Collection of attributes
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     protected $_attributes;
 
@@ -73,13 +74,10 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Collection of sets
      *
-     * @var Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     protected $_sets;
 
-    /**
-     * Resource initialization
-     */
     protected function _construct()
     {
         $this->_init('eav/entity_type');
@@ -102,7 +100,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve entity type attributes collection
      *
      * @param   int $setId
-     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return  Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
     {
@@ -127,7 +125,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Init and retrieve attribute collection
      *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
      */
     protected function _getAttributeCollection()
     {
@@ -143,7 +141,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity tpe sets collection
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Set_Collection
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection
      */
     public function getAttributeSetCollection()
     {
@@ -158,7 +156,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve new incrementId
      *
      * @param int $storeId
-     * @return string
+     * @return false|string
      * @throws Exception
      */
     public function fetchNewIncrementId($storeId = null)
@@ -223,7 +221,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityIdField()
     {
-        return isset($this->_data['entity_id_field']) ? $this->_data['entity_id_field'] : null;
+        return $this->_data['entity_id_field'] ?? null;
     }
 
     /**
@@ -233,13 +231,13 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTable()
     {
-        return isset($this->_data['entity_table']) ? $this->_data['entity_table'] : null;
+        return $this->_data['entity_table'] ?? null;
     }
 
     /**
      * Retrieve entity table prefix name
      *
-     * @return string
+     * @return string|null
      */
     public function getValueTablePrefix()
     {
@@ -258,7 +256,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTablePrefix()
     {
-        $tablePrefix = trim($this->_data['value_table_prefix']);
+        $tablePrefix = trim((string)$this->_data['value_table_prefix']);
 
         if (empty($tablePrefix)) {
             $tablePrefix = $this->getEntityTable();
@@ -274,7 +272,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getDefaultAttributeSetId()
     {
-        return isset($this->_data['default_attribute_set_id']) ? $this->_data['default_attribute_set_id'] : null;
+        return $this->_data['default_attribute_set_id'] ?? null;
     }
 
     /**
@@ -284,7 +282,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeId()
     {
-        return isset($this->_data['entity_type_id']) ? $this->_data['entity_type_id'] : null;
+        return $this->_data['entity_type_id'] ?? null;
     }
 
     /**
@@ -294,7 +292,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeCode()
     {
-        return isset($this->_data['entity_type_code']) ? $this->_data['entity_type_code'] : null;
+        return $this->_data['entity_type_code'] ?? null;
     }
 
     /**
@@ -304,7 +302,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getAttributeCodes()
     {
-        return isset($this->_data['attribute_codes']) ? $this->_data['attribute_codes'] : null;
+        return $this->_data['attribute_codes'] ?? null;
     }
 
     /**

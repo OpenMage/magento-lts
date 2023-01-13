@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Widget
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance Model
+ *
+ * @category   Mage
+ * @package    Mage_Widget
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
@@ -33,25 +38,21 @@
  * @method $this setWidgetParameters(string $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
- *
- * @category    Mage
- * @package     Mage_Widget
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {
-    const SPECIFIC_ENTITIES = 'specific';
-    const ALL_ENTITIES      = 'all';
+    public const SPECIFIC_ENTITIES = 'specific';
+    public const ALL_ENTITIES      = 'all';
 
-    const DEFAULT_LAYOUT_HANDLE            = 'default';
-    const PRODUCT_LAYOUT_HANDLE            = 'catalog_product_view';
-    const SINGLE_PRODUCT_LAYOUT_HANLDE     = 'PRODUCT_{{ID}}';
-    const PRODUCT_TYPE_LAYOUT_HANDLE       = 'PRODUCT_TYPE_{{TYPE}}';
-    const ANCHOR_CATEGORY_LAYOUT_HANDLE    = 'catalog_category_layered';
-    const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
-    const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
+    public const DEFAULT_LAYOUT_HANDLE            = 'default';
+    public const PRODUCT_LAYOUT_HANDLE            = 'catalog_product_view';
+    public const SINGLE_PRODUCT_LAYOUT_HANLDE     = 'PRODUCT_{{ID}}';
+    public const PRODUCT_TYPE_LAYOUT_HANDLE       = 'PRODUCT_TYPE_{{TYPE}}';
+    public const ANCHOR_CATEGORY_LAYOUT_HANDLE    = 'catalog_category_layered';
+    public const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
+    public const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
 
-    const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
+    public const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
 
     protected $_layoutHandles = [];
 
@@ -95,7 +96,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         }
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -142,7 +143,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                         'block_reference' => $pageGroupData['block'],
                         'entities' => '',
                         'layout_handle_updates' => [$layoutHandle],
-                        'template' => $pageGroupData['template']?$pageGroupData['template']:''
+                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : ''
                     ];
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = [];
@@ -175,7 +176,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Validate widget instance data
      *
-     * @return string|boolean
+     * @return string|bool
      */
     public function validate()
     {
@@ -188,7 +189,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Check if widget instance has required data (other data depends on it)
      *
-     * @return boolean
+     * @return bool
      */
     public function isCompleteToCreate()
     {
@@ -228,7 +229,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     protected function _prepareType()
     {
-        if (strpos($this->_getData('type'), '-') >= 0) {
+        if (strpos((string)$this->_getData('type'), '-') !== false) {
             $this->setData('type', str_replace('-', '/', $this->_getData('type')));
         }
         return $this;
@@ -489,10 +490,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
-      if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
-        || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)) {
-          Mage::throwException('Templatepath or block reference contain special characters.');
-      }
+        if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
+            || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)
+        ) {
+            Mage::throwException('Templatepath or block reference contain special characters.');
+        }
 
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, [
             '_area'    => $this->getArea(),
@@ -500,7 +502,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             '_theme'   => $this->getTheme()
         ]);
         if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename))) {
+            || ($templatePath && !is_readable($templateFilename))
+        ) {
             return '';
         }
         $parameters = $this->getWidgetParameters();

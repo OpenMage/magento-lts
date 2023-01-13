@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist front controller
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method float getQty()
  * @method int getProductId()
@@ -47,7 +48,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -64,6 +65,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $this->norouteAction();
             return;
         }
+        return $this;
     }
 
     /**
@@ -80,7 +82,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist object
      * @param int $wishlistId
-     * @return Mage_Wishlist_Model_Wishlist|bool
+     * @return Mage_Wishlist_Model_Wishlist|false
      */
     protected function _getWishlist($wishlistId = null)
     {
@@ -94,7 +96,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $wishlistId = $this->getRequest()->getParam('wishlist_id');
             }
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            /** @var Mage_Wishlist_Model_Wishlist $wishlist */
             $wishlist = Mage::getModel('wishlist/wishlist');
             if ($wishlistId) {
                 $wishlist->load($wishlistId);
@@ -175,7 +176,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Add the item to wish list
      *
-     * @return Mage_Core_Controller_Varien_Action|void
+     * @return void
      */
     protected function _addItemToWishList()
     {
@@ -317,7 +318,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $id = (int) $this->getRequest()->getParam('id');
-            /** @var Mage_Wishlist_Model_Item */
+            /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
             $item->load($id);
             $wishlist = $this->_getWishlist($item->getWishlistId());
@@ -495,14 +496,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         // Set qty
         $qty = $this->getRequest()->getParam('qty');
         if (is_array($qty)) {
-            if (isset($qty[$itemId])) {
-                $qty = $qty[$itemId];
-            } else {
-                $qty = 1;
-            }
+            $qty = $qty[$itemId] ?? 1;
         }
         $qty = (float)$qty;
-        if ($qty && $qty>0) {
+        if ($qty && $qty > 0) {
             $item->setQty($qty);
         }
 

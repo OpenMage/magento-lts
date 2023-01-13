@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +32,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/config';
+    public const ADMIN_RESOURCE = 'system/config';
 
     /**
      * Whether current section is allowed
@@ -88,7 +89,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
         if (!$hasChildren && $current) {
-            $this->_redirect('*/*/', ['website'=>$website, 'store'=>$store]);
+            $this->_redirect('*/*/', ['website' => $website, 'store' => $store]);
         }
 
         $this->loadLayout();
@@ -96,8 +97,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->_setActiveMenu('system/config');
         $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo([$current]);
 
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
-            $this->getUrl('*/system'));
+        $this->_addBreadcrumb(
+            Mage::helper('adminhtml')->__('System'),
+            Mage::helper('adminhtml')->__('System'),
+            $this->getUrl('*/system')
+        );
 
         /** @var Mage_Adminhtml_Block_System_Config_Tabs $block */
         $block = $this->getLayout()->createBlock('adminhtml/system_config_tabs');
@@ -131,14 +135,14 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $session = Mage::getSingleton('adminhtml/session');
         /** @var Mage_Adminhtml_Model_Session $session */
 
-        $groups = $this->getRequest()->getPost('groups');
+        $groups = $this->getRequest()->getPost('groups', []);
 
         if (isset($_FILES['groups']['name']) && is_array($_FILES['groups']['name'])) {
             /**
              * Carefully merge $_FILES and $_POST information
              * None of '+=' or 'array_merge_recursive' can do this correct
              */
-            foreach($_FILES['groups']['name'] as $groupName => $group) {
+            foreach ($_FILES['groups']['name'] as $groupName => $group) {
                 if (is_array($group)) {
                     foreach ($group['fields'] as $fieldName => $field) {
                         if (!empty($field['value'])) {
@@ -176,20 +180,24 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             Mage::app()->reinitStores();
 
             // website and store codes can be used in event implementation, so set them as well
-            Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
+            Mage::dispatchEvent(
+                "admin_system_config_changed_section_{$section}",
                 ['website' => $website, 'store' => $store]
             );
-            $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
-        }
-        catch (Mage_Core_Exception $e) {
-            foreach(explode("\n", $e->getMessage()) as $message) {
+
+            if (!empty($groups)) {
+                $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
+            }
+        } catch (Mage_Core_Exception $e) {
+            foreach (explode("\n", $e->getMessage()) as $message) {
                 $session->addError($message);
             }
-        }
-        catch (Exception $e) {
-            $session->addException($e,
+        } catch (Exception $e) {
+            $session->addException(
+                $e,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
-                . $e->getMessage());
+                . $e->getMessage()
+            );
         }
 
         $this->_saveState($this->getRequest()->getPost('config_state'));
@@ -200,7 +208,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      *  Custom save logic for section
      */
-    protected function _saveSection ()
+    protected function _saveSection()
     {
         $method = '_save' . uc_words($this->getRequest()->getParam('section'), '');
         if (method_exists($this, $method)) {
@@ -217,7 +225,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             [
                 'layout',
                 Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
-            ]);
+            ]
+        );
     }
 
     /**
@@ -228,8 +237,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     {
         if ($this->getRequest()->getParam('isAjax') == 1
                     && $this->getRequest()->getParam('container') != ''
-                        && $this->getRequest()->getParam('value') != '') {
-
+                        && $this->getRequest()->getParam('value') != ''
+        ) {
             $configState = [
                 $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value')
             ];
@@ -278,17 +287,16 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 }
                 return true;
             }
-        }
-        catch (Zend_Acl_Exception $e) {
+        } catch (Zend_Acl_Exception $e) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->deniedAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+        return false;
     }
 
     /**

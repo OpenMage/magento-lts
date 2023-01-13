@@ -7,38 +7,43 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Directory data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Config value that lists ISO2 country codes which have optional Zip/Postal pre-configured
      */
-    const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
+    public const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
 
     /**
      * Path to config value, which lists countries, for which state is required.
      */
-    const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
+    public const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
 
     /**
      * Path to config value, which detects whether or not display the state for the country, if it is not required
      */
-    const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
+    public const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
+
+    protected $_moduleName = 'Mage_Directory';
 
     /**
      * Country collection
@@ -90,7 +95,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_app;
 
     /**
-     * Constructor for Mage_Directory_Helper_Data
      * @param array $args
      */
     public function __construct(array $args = [])
@@ -153,7 +157,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRegionJsonByStore($storeId = null)
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         if (!$this->_regionJson) {
             $store = $this->_app->getStore($storeId);
             $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string)$store->getId();
@@ -195,7 +199,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
         /** @var Mage_Directory_Model_Region $regionModel */
         $regionModel = $this->_factory->getModel('directory/region');
-        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = $regionModel->getResourceCollection()
             ->addCountryFilter($countryIds)
             ->load();
@@ -264,7 +267,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Check whether zip code is optional for specified country code
      *
      * @param string $countryCode
-     * @return boolean
+     * @return bool
      */
     public function isZipCodeOptional($countryCode)
     {
@@ -275,8 +278,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the list of countries, for which region is required
      *
-     * @param boolean $asJson
-     * @return array
+     * @param bool $asJson
+     * @return array|string
      */
     public function getCountriesWithStatesRequired($asJson = false)
     {
@@ -294,7 +297,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getShowNonRequiredState()
     {
-        return (boolean)Mage::getStoreConfig(self::XML_PATH_DISPLAY_ALL_STATES);
+        return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_ALL_STATES);
     }
 
     /**

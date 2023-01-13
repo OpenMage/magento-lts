@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review resource model
  *
- * @category    Mage
- * @package     Mage_Review
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Review
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -78,7 +79,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Define main table. Define other tables name
-     *
      */
     protected function _construct()
     {
@@ -104,7 +104,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         $select = parent::_getLoadSelect($field, $value, $object);
         $select->join(
             $this->_reviewDetailTable,
-            $this->getMainTable().".review_id = {$this->_reviewDetailTable}.review_id"
+            $this->getMainTable() . ".review_id = {$this->_reviewDetailTable}.review_id"
         );
         return $select;
     }
@@ -158,7 +158,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $adapter->update($this->_reviewDetailTable, $detail, $condition);
         } else {
             $detail['store_id']   = $object->getStoreId();
-            $detail['customer_id']= $object->getCustomerId();
+            $detail['customer_id'] = $object->getCustomerId();
             $detail['review_id']  = $object->getId();
             $adapter->insert($this->_reviewDetailTable, $detail);
         }
@@ -180,7 +180,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 $insertedStoreIds[] = $storeId;
                 $storeInsert = [
                     'store_id' => $storeId,
-                    'review_id'=> $object->getId()
+                    'review_id' => $object->getId()
                 ];
                 $adapter->insert($this->_reviewStoreTable, $storeInsert);
             }
@@ -294,8 +294,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         $bind = [':pk_value' => $entityPkValue];
         if ($storeId > 0) {
             $select->join(
-                ['store'=>$this->_reviewStoreTable],
-                $this->_reviewTable.'.review_id=store.review_id AND store.store_id = :store_id',
+                ['store' => $this->_reviewStoreTable],
+                $this->_reviewTable . '.review_id=store.review_id AND store.store_id = :store_id',
                 []
             );
             $bind[':store_id'] = (int)$storeId;
@@ -321,7 +321,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         }
 
         $ratingModel    = Mage::getModel('rating/rating');
-        $ratingSummaries= $ratingModel->getEntitySummary($object->getEntityPkValue(), false);
+        $ratingSummaries = $ratingModel->getEntitySummary($object->getEntityPkValue(), false);
 
         foreach ($ratingSummaries as $ratingSummaryObject) {
             if ($ratingSummaryObject->getCount()) {
@@ -343,7 +343,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             $bind = [
                 ':pk_value'    => $object->getEntityPkValue(),
                 ':entity_type' => $object->getEntityId(),
-                ':store_id'    =>$ratingSummaryObject->getStoreId()
+                ':store_id'    => $ratingSummaryObject->getStoreId()
             ];
             $oldData = $readAdapter->fetchRow($select, $bind);
 
@@ -357,7 +357,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
 
             $writeAdapter->beginTransaction();
             try {
-                if ($oldData['primary_id'] > 0) {
+                if (isset($oldData['primary_id']) && $oldData['primary_id'] > 0) {
                     $condition = ["{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']];
                     $writeAdapter->update($this->_aggregateTable, $data->getData(), $condition);
                 } else {
@@ -404,7 +404,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         }
         if ($ratingIds && $entityPkValue
             && ($resource = Mage::getResourceSingleton('rating/rating_option'))
-            ) {
+        ) {
             foreach ($ratingIds as $ratingId) {
                 $resource->aggregateEntityByRatingId(
                     $ratingId,
