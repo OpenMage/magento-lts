@@ -35,10 +35,12 @@ class Mage_Downloadable_FileController extends Mage_Downloadable_Adminhtml_Downl
      * Controller pre-dispatch method
      * Show 404 front page
      *
-     * @return void
+     * @return $this
      */
     public function preDispatch()
     {
         $this->_forward('defaultIndex', 'cms_index');
+
+        return $this;
     }
 }

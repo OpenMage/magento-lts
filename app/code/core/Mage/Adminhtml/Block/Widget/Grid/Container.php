@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Adminhtml grid container block
  *
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
         if (is_null($this->_addButtonLabel)) {
             $this->_addButtonLabel = $this->__('Add New');
         }
-        if(is_null($this->_backButtonLabel)) {
+        if (is_null($this->_backButtonLabel)) {
             $this->_backButtonLabel = $this->__('Back');
         }
 
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
         $this->_addButton('add', [
             'label'     => $this->getAddButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getCreateUrl() .'\')',
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreateUrl()),
             'class'     => 'add',
         ]);
     }
@@ -65,9 +66,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
      */
     protected function _prepareLayout()
     {
-        $this->setChild( 'grid',
-            $this->getLayout()->createBlock( $this->_blockGroup.'/' . $this->_controller . '_grid',
-            $this->_controller . '.grid')->setSaveParametersInSession(true) );
+        $this->setChild(
+            'grid',
+            $this->getLayout()->createBlock(
+                $this->_blockGroup . '/' . $this->_controller . '_grid',
+                $this->_controller . '.grid'
+            )->setSaveParametersInSession(true)
+        );
         return parent::_prepareLayout();
     }
 
@@ -107,7 +112,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     {
         $this->_addButton('back', [
             'label'     => $this->getBackButtonLabel(),
-            'onclick'   => 'setLocation(\'' . $this->getBackUrl() .'\')',
+            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ]);
     }

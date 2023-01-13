@@ -49,21 +49,21 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_itemCollection = null;
 
     /**
      * Store filter for wishlist
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store = null;
 
     /**
      * Shared store ids (website stores)
      *
-     * @var array
+     * @var array|null
      */
     protected $_storeIds = null;
 
@@ -421,7 +421,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $data = [];
         $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
         $data['shared']      = (int) $this->getShared();
-        $data['sharing_code']= $this->getSharingCode();
+        $data['sharing_code'] = $this->getSharingCode();
         return $data;
     }
 
@@ -572,7 +572,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 /** @var Mage_Wishlist_Model_Item $_item */
                 if ($_item->getProductId() == $product->getId()
                     && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()) {
+                    && $_item->getId() != $item->getId()
+                ) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;
                 }

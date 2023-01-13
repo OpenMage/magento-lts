@@ -81,6 +81,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this->_destElementId;
     }
 
+    /**
+     * @param string $elementId
+     * @return $this
+     */
     public function setDestElementId($elementId)
     {
         $this->_destElementId = $elementId;
@@ -105,35 +109,30 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      *
      * @param   string $tabId
      * @param   string|array|Varien_Object $tab
-     * @return  Mage_Adminhtml_Block_Widget_Tabs
+     * @return  $this
      */
     public function addTab($tabId, $tab)
     {
         if (is_array($tab)) {
             $this->_tabs[$tabId] = new Varien_Object($tab);
-        }
-        elseif ($tab instanceof Varien_Object) {
+        } elseif ($tab instanceof Varien_Object) {
             $this->_tabs[$tabId] = $tab;
             if (!$this->_tabs[$tabId]->hasTabId()) {
                 $this->_tabs[$tabId]->setTabId($tabId);
             }
-        }
-        elseif (is_string($tab)) {
+        } elseif (is_string($tab)) {
             if (strpos($tab, '/')) {
                 $this->_tabs[$tabId] = $this->getLayout()->createBlock($tab);
-            }
-            elseif ($this->getChild($tab)) {
+            } elseif ($this->getChild($tab)) {
                 $this->_tabs[$tabId] = $this->getChild($tab);
-            }
-            else {
+            } else {
                 $this->_tabs[$tabId] = null;
             }
 
             if (!($this->_tabs[$tabId] instanceof Mage_Adminhtml_Block_Widget_Tab_Interface)) {
                 throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
             }
-        }
-        else {
+        } else {
             throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
         }
 
@@ -162,6 +161,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getActiveTabId()
     {
         return $this->getTabId($this->_tabs[$this->_activeTab]);
@@ -177,7 +179,8 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function setActiveTab($tabId)
     {
         if (isset($this->_tabs[$tabId]) && $this->canShowTab($this->_tabs[$tabId])
-            && !$this->getTabIsHidden($this->_tabs[$tabId])) {
+            && !$this->getTabIsHidden($this->_tabs[$tabId])
+        ) {
             $this->_activeTab = $tabId;
         }
         return $this;
@@ -201,6 +204,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);
@@ -239,6 +245,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         }
     }
 
+    /**
+     * @return array
+     */
     protected function _reorderTabs()
     {
         // Set new position based on $afterTabId.
@@ -264,26 +273,42 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $ordered;
     }
 
+    /**
+     * @return string
+     */
     public function getJsObjectName()
     {
         return $this->getId() . 'JsTabs';
     }
 
+    /**
+     * @return array
+     */
     public function getTabsIds()
     {
-        if (empty($this->_tabs))
+        if (empty($this->_tabs)) {
             return [];
+        }
         return array_keys($this->_tabs);
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @param bool $withPrefix
+     * @return string
+     */
     public function getTabId($tab, $withPrefix = true)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
-            return ($withPrefix ? $this->getId().'_' : '').$tab->getTabId();
+            return ($withPrefix ? $this->getId() . '_' : '') . $tab->getTabId();
         }
-        return ($withPrefix ? $this->getId().'_' : '').$tab->getId();
+        return ($withPrefix ? $this->getId() . '_' : '') . $tab->getId();
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return bool
+     */
     public function canShowTab($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -292,6 +317,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return true;
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return bool
+     */
     public function getTabIsHidden($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -300,6 +329,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $tab->getIsHidden();
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return string
+     */
     public function getTabUrl($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -314,6 +347,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return '#';
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return string
+     */
     public function getTabTitle($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -322,6 +359,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $tab->getTitle();
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return string
+     */
     public function getTabClass($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -330,9 +371,13 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
             return '';
         }
-        return $tab->getClass();
+        return (string) $tab->getClass();
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return string
+     */
     public function getTabLabel($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
@@ -341,6 +386,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         return $this->escapeHtml($tab->getLabel());
     }
 
+    /**
+     * @param Varien_Object|Mage_Adminhtml_Block_Widget_Tab_Interface $tab
+     * @return string
+     */
     public function getTabContent($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {

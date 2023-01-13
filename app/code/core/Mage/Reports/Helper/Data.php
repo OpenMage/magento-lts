@@ -26,11 +26,11 @@
  */
 class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const REPORT_PERIOD_TYPE_DAY    = 'day';
-    const REPORT_PERIOD_TYPE_MONTH  = 'month';
-    const REPORT_PERIOD_TYPE_YEAR   = 'year';
+    public const REPORT_PERIOD_TYPE_DAY    = 'day';
+    public const REPORT_PERIOD_TYPE_MONTH  = 'month';
+    public const REPORT_PERIOD_TYPE_YEAR   = 'year';
 
-    const XML_PATH_REPORTS_ENABLED  = 'reports/general/enabled';
+    public const XML_PATH_REPORTS_ENABLED  = 'reports/general/enabled';
 
     protected $_moduleName = 'Mage_Reports';
 

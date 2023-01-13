@@ -31,7 +31,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
     /**#@+
      * Parameters in request used in model (usually specified in route)
      */
-    const PARAM_ORDER_ID = 'id';
+    public const PARAM_ORDER_ID = 'id';
     /**#@-*/
 
     /**

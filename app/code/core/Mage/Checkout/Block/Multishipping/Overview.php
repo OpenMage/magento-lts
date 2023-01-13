@@ -207,7 +207,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditShippingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editShipping', ['id'=>$address->getCustomerAddressId()]);
+        return $this->getUrl('*/multishipping_address/editShipping', ['id' => $address->getCustomerAddressId()]);
     }
 
     /**
@@ -216,7 +216,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditBillingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editBilling', ['id'=>$address->getCustomerAddressId()]);
+        return $this->getUrl('*/multishipping_address/editBilling', ['id' => $address->getCustomerAddressId()]);
     }
 
     /**
@@ -301,7 +301,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
 
     /**
      * @param Mage_Sales_Model_Order_Total $totals
-     * @param null $colspan
+     * @param int|null $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)

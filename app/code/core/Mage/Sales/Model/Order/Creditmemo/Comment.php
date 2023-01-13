@@ -27,16 +27,16 @@
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment getResource()
  * @method int getParentId()
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setParentId(int $value)
+ * @method $this setParentId(int $value)
  * @method int getIsCustomerNotified()
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setIsCustomerNotified(int $value)
+ * @method $this setIsCustomerNotified(int $value)
  * @method int getIsVisibleOnFront()
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setIsVisibleOnFront(int $value)
+ * @method $this setIsVisibleOnFront(int $value)
  * @method string getComment()
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setComment(string $value)
+ * @method $this setComment(string $value)
  * @method string getCreatedAt()
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setCreatedAt(string $value)
- * @method Mage_Sales_Model_Order_Creditmemo_Comment setStoreId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
 {

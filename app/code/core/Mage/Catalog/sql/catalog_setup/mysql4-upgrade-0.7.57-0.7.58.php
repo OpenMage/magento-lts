@@ -19,7 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -121,7 +121,7 @@ $installer->addAttribute($entityTypeId, 'available_sort_by', [
     'required'      => 1,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_available',
+    'input_renderer' => 'adminhtml/catalog_category_helper_sortby_available',
 ]);
 $installer->addAttribute($entityTypeId, 'default_sort_by', [
     'input'         => 'select',
@@ -131,7 +131,7 @@ $installer->addAttribute($entityTypeId, 'default_sort_by', [
     'required'      => 1,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_default',
+    'input_renderer' => 'adminhtml/catalog_category_helper_sortby_default',
 ]);
 
 // update attributes group and sort

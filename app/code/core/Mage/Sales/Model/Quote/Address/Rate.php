@@ -99,14 +99,14 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
     {
         if ($rate instanceof Mage_Shipping_Model_Rate_Result_Error) {
             $this
-                ->setCode($rate->getCarrier().'_error')
+                ->setCode($rate->getCarrier() . '_error')
                 ->setCarrier($rate->getCarrier())
                 ->setCarrierTitle($rate->getCarrierTitle())
                 ->setErrorMessage($rate->getErrorMessage())
             ;
         } elseif ($rate instanceof Mage_Shipping_Model_Rate_Result_Method) {
             $this
-                ->setCode($rate->getCarrier().'_'.$rate->getMethod())
+                ->setCode($rate->getCarrier() . '_' . $rate->getMethod())
                 ->setCarrier($rate->getCarrier())
                 ->setCarrierTitle($rate->getCarrierTitle())
                 ->setMethod($rate->getMethod())

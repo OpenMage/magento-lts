@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
 {
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('order_history_block').parentNode, '".$this->getSubmitUrl()."')";
+        $onclick = "submitAndReloadArea($('order_history_block').parentNode, '" . $this->getSubmitUrl() . "')";
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
 
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addComment', ['order_id'=>$this->getOrder()->getId()]);
+        return $this->getUrl('*/*/addComment', ['order_id' => $this->getOrder()->getId()]);
     }
 
     /**

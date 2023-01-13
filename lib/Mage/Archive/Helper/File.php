@@ -12,9 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +59,7 @@ class Mage_Archive_Helper_File
     /**
      * File handler
      *
-     * @var pointer
+     * @var resource|false pointer
      */
     protected $_fileHandler;
 
@@ -72,8 +73,8 @@ class Mage_Archive_Helper_File
         $pathInfo = pathinfo($filePath);
 
         $this->_filePath = $filePath;
-        $this->_fileLocation = isset($pathInfo['dirname'])  ? $pathInfo['dirname'] : '';
-        $this->_fileName     = isset($pathInfo['basename']) ? $pathInfo['basename'] : '';
+        $this->_fileLocation = $pathInfo['dirname'] ?? '';
+        $this->_fileName     = $pathInfo['basename'] ?? '';
     }
 
     /**
@@ -161,6 +162,8 @@ class Mage_Archive_Helper_File
 
     /**
      * Close file
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function close()
     {
@@ -175,6 +178,8 @@ class Mage_Archive_Helper_File
      *
      * @param string $mode
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _open($mode)
     {
@@ -190,6 +195,8 @@ class Mage_Archive_Helper_File
      *
      * @param string $data
      * @throws Mage_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _write($data)
     {
@@ -250,7 +257,8 @@ class Mage_Archive_Helper_File
     *
     * @param string $mode
     */
-    protected function _isReadableMode($mode) {
+    protected function _isReadableMode($mode)
+    {
         return !$this->_isWritableMode($mode);
     }
 

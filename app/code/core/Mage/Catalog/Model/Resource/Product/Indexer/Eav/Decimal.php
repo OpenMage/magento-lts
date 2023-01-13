@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
                 ['value' => $productValueExpression]
             )
             ->where('pdd.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
-            ->where('cs.store_id != ? AND s.is_active=1', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
+            ->where('cs.store_id != ? AND cs.is_active=1', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             ->where('pdd.attribute_id IN (?)', $attrIds)
             ->where("{$productValueExpression} IS NOT NULL");
 

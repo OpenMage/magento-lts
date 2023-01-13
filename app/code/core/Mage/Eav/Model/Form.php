@@ -45,21 +45,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Current store instance
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
     /**
      * Current entity type instance
      *
-     * @var Mage_Eav_Model_Entity_Type
+     * @var Mage_Eav_Model_Entity_Type|null
      */
     protected $_entityType;
 
     /**
      * Current entity instance
      *
-     * @var Mage_Core_Model_Abstract
+     * @var Mage_Core_Model_Abstract|null
      */
     protected $_entity;
 
@@ -73,21 +73,21 @@ abstract class Mage_Eav_Model_Form
     /**
      * Array of form attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 
     /**
      * Array of form system attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_systemAttributes;
 
     /**
      * Array of form user defined attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_userAttributes;
 
@@ -134,7 +134,7 @@ abstract class Mage_Eav_Model_Form
      * Set current store
      *
      * @param Mage_Core_Model_Store|string|int $store
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function setStore($store)
     {
@@ -146,7 +146,7 @@ abstract class Mage_Eav_Model_Form
      * Set entity instance
      *
      * @param Mage_Core_Model_Abstract $entity
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function setEntity(Mage_Core_Model_Abstract $entity)
     {
@@ -161,7 +161,7 @@ abstract class Mage_Eav_Model_Form
      * Set entity type instance
      *
      * @param Mage_Eav_Model_Entity_Type|string|int $entityType
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function setEntityType($entityType)
     {
@@ -173,7 +173,7 @@ abstract class Mage_Eav_Model_Form
      * Set form code
      *
      * @param string $formCode
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function setFormCode($formCode)
     {
@@ -398,7 +398,7 @@ abstract class Mage_Eav_Model_Form
      * Compact data array to current entity
      *
      * @param array $data
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function compactData(array $data)
     {
@@ -421,7 +421,7 @@ abstract class Mage_Eav_Model_Form
      * Restore data array from SESSION to current entity
      *
      * @param array $data
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function restoreData(array $data)
     {
@@ -462,7 +462,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Restore entity original data
      *
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function resetEntityData()
     {
@@ -480,7 +480,7 @@ abstract class Mage_Eav_Model_Form
      * Set is AJAX Request flag
      *
      * @param bool $flag
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function setIsAjaxRequest($flag = true)
     {
@@ -501,7 +501,7 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set default attribute values for new entity
      *
-     * @return Mage_Eav_Model_Form
+     * @return $this
      */
     public function initDefaultValues()
     {
@@ -520,7 +520,7 @@ abstract class Mage_Eav_Model_Form
      * Combined getter/setter whether to omit invisible attributes during rendering/validation
      *
      * @param mixed $setValue
-     * @return bool|Mage_Eav_Model_Form
+     * @return bool|$this
      */
     public function ignoreInvisible($setValue = null)
     {

@@ -43,12 +43,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
 
-        /** @var Varien_Simplexml_Config $adminhtmlConfig */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
         } else {
-            $adminhtmlConfig = new Varien_Simplexml_Config;
+            $adminhtmlConfig = new Varien_Simplexml_Config();
             $adminhtmlConfig->loadString('<?xml version="1.0"?><config></config>');
             Mage::getConfig()->loadModulesConfiguration('adminhtml.xml', $adminhtmlConfig);
             $this->_adminhtmlConfig = $adminhtmlConfig;
@@ -80,7 +79,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Load Acl resources from config
      *
      * @param Mage_Admin_Model_Acl $acl
-     * @param Mage_Core_Model_Config_Element $resource
+     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
      * @param string $parentName
      * @return $this
      */

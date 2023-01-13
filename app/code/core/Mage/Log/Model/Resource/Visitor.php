@@ -78,7 +78,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
         $adapter    = $this->_getWriteAdapter();
         $data       = new Varien_Object([
             'url'    => Mage::helper('core/string')->substr($visitor->getUrl(), 0, 250),
-            'referer'=> Mage::helper('core/string')->substr($visitor->getHttpReferer(), 0, 250)
+            'referer' => Mage::helper('core/string')->substr($visitor->getHttpReferer(), 0, 250)
         ]);
         $bind = $this->_prepareDataForTable($data, $this->getTable('log/url_info_table'));
 

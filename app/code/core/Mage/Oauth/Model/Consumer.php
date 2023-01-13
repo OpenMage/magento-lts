@@ -31,31 +31,31 @@
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getCollection()
  * @method Mage_Oauth_Model_Resource_Consumer_Collection getResourceCollection()
  * @method string getName()
- * @method Mage_Oauth_Model_Consumer setName() setName(string $name)
+ * @method $this setName() setName(string $name)
  * @method string getKey()
- * @method Mage_Oauth_Model_Consumer setKey() setKey(string $key)
+ * @method $this setKey() setKey(string $key)
  * @method string getSecret()
- * @method Mage_Oauth_Model_Consumer setSecret() setSecret(string $secret)
+ * @method $this setSecret() setSecret(string $secret)
  * @method string getCallbackUrl()
- * @method Mage_Oauth_Model_Consumer setCallbackUrl() setCallbackUrl(string $url)
+ * @method $this setCallbackUrl() setCallbackUrl(string $url)
  * @method string getCreatedAt()
- * @method Mage_Oauth_Model_Consumer setCreatedAt() setCreatedAt(string $date)
+ * @method $this setCreatedAt() setCreatedAt(string $date)
  * @method string getUpdatedAt()
- * @method Mage_Oauth_Model_Consumer setUpdatedAt() setUpdatedAt(string $date)
+ * @method $this setUpdatedAt() setUpdatedAt(string $date)
  * @method string getRejectedCallbackUrl()
- * @method Mage_Oauth_Model_Consumer setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
+ * @method $this setRejectedCallbackUrl() setRejectedCallbackUrl(string $rejectedCallbackUrl)
  */
 class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
 {
     /**
      * Key hash length
      */
-    const KEY_LENGTH = 32;
+    public const KEY_LENGTH = 32;
 
     /**
      * Secret hash length
      */
-    const SECRET_LENGTH = 32;
+    public const SECRET_LENGTH = 32;
 
     protected function _construct()
     {

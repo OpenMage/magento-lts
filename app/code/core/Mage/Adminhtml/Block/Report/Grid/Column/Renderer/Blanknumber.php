@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Blanknumber extends Mage_
         $data = parent::_getValue($row);
         if (!is_null($data)) {
             $value = $data * 1;
-            return $value ? $value: ''; // fixed for showing blank cell in grid
+            return $value ? $value : ''; // fixed for showing blank cell in grid
             /**
              * @todo may be bug in i.e. needs to be fixed
              */

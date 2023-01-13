@@ -46,10 +46,10 @@
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
-    const SEVERITY_CRITICAL = 1;
-    const SEVERITY_MAJOR    = 2;
-    const SEVERITY_MINOR    = 3;
-    const SEVERITY_NOTICE   = 4;
+    public const SEVERITY_CRITICAL = 1;
+    public const SEVERITY_MAJOR    = 2;
+    public const SEVERITY_MINOR    = 3;
+    public const SEVERITY_NOTICE   = 4;
 
     protected function _construct()
     {

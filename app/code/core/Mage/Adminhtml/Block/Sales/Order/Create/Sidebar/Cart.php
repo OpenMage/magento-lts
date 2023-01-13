@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
-    extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
     /**
      * Storage action on selected item
@@ -43,6 +42,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
         $this->setDataId('cart');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Shopping Cart');
@@ -63,6 +65,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
         return $collection;
     }
 
+    /**
+     * @return bool
+     */
     public function canDisplayItemQty()
     {
         return true;
@@ -91,11 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart
     }
 
     /**
-     * Prepare layout
-     *
-     * Add button that clears customer's shopping cart
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

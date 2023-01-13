@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,12 +50,12 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
     /**
      * Allowed permission code
      */
-    const RULE_PERMISSION_ALLOWED = 'allow';
+    public const RULE_PERMISSION_ALLOWED = 'allow';
 
     /**
      * Denied permission code
      */
-    const RULE_PERMISSION_DENIED = 'deny';
+    public const RULE_PERMISSION_DENIED = 'deny';
 
     protected function _construct()
     {

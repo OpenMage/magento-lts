@@ -43,7 +43,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
     /**
      * Directory singleton
      *
-     * @var Mage_Core_Model_File_Storage_Directory_Database
+     * @var Mage_Core_Model_File_Storage_Directory_Database|null
      */
     protected $_directoryModel = null;
 

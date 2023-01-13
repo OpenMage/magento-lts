@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('dataflow/profile_collection')
-            ->addFieldToFilter('entity_type', ['notnull'=>'']);
+            ->addFieldToFilter('entity_type', ['notnull' => '']);
 
         $this->setCollection($collection);
 
@@ -60,14 +60,14 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('adminhtml')->__('Profile Direction'),
             'index'     => 'direction',
             'type'      => 'options',
-            'options'   => ['import'=>'Import', 'export'=>'Export'],
+            'options'   => ['import' => 'Import', 'export' => 'Export'],
             'width'     => '120px',
         ]);
         $this->addColumn('entity_type', [
             'header'    => Mage::helper('adminhtml')->__('Entity Type'),
             'index'     => 'entity_type',
             'type'      => 'options',
-            'options'   => ['product'=>'Products', 'customer'=>'Customers'],
+            'options'   => ['product' => 'Products', 'customer' => 'Customers'],
             'width'     => '120px',
         ]);
 
@@ -112,7 +112,6 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }
-

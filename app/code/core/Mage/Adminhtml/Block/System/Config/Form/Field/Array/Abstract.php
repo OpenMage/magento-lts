@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
-    extends Mage_Adminhtml_Block_System_Config_Form_Field
+abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Grid columns
@@ -89,9 +88,9 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
     {
         $this->_columns[$name] = [
             'label'     => empty($params['label']) ? 'Column' : $params['label'],
-            'size'      => empty($params['size'])  ? false    : $params['size'],
-            'style'     => empty($params['style'])  ? null    : $params['style'],
-            'class'     => empty($params['class'])  ? null    : $params['class'],
+            'size'      => empty($params['size']) ? false : $params['size'],
+            'style'     => empty($params['style']) ? null : $params['style'],
+            'class'     => empty($params['class']) ? null : $params['class'],
             'renderer'  => false,
         ];
         if ((!empty($params['renderer'])) && ($params['renderer'] instanceof Mage_Core_Block_Abstract)) {
@@ -173,8 +172,8 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
             ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
-            ($column['class'] ?? 'input-text') . '"'.
-            (isset($column['style']) ? ' style="'.$column['style'] . '"' : '') . '/>';
+            ($column['class'] ?? 'input-text') . '"' .
+            (isset($column['style']) ? ' style="' . $column['style'] . '"' : '') . '/>';
     }
 
     /**

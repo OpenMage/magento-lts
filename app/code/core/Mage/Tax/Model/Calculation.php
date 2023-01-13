@@ -46,23 +46,23 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Identifier constant for Tax calculation before discount excluding TAX
      */
-    const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
+    public const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
     /***/
 
     /**
      * Identifier constant for Tax calculation before discount including TAX
      */
-    const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
+    public const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
 
     /**
      * Identifier constant for Tax calculation after discount excluding TAX
      */
-    const CALC_TAX_AFTER_DISCOUNT_ON_EXCL       = '1_0';
+    public const CALC_TAX_AFTER_DISCOUNT_ON_EXCL       = '1_0';
 
     /**
      * Identifier constant for Tax calculation after discount including TAX
      */
-    const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
+    public const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
 
     /**
      * Identifier constant for unit based calculation
@@ -80,17 +80,17 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * CALC_UNIT_BASE
      */
-    const CALC_UNIT_BASE = 'UNIT_BASE_CALCULATION';
+    public const CALC_UNIT_BASE = 'UNIT_BASE_CALCULATION';
 
     /**
      * CALC_ROW_BASE
      */
-    const CALC_ROW_BASE = 'ROW_BASE_CALCULATION';
+    public const CALC_ROW_BASE = 'ROW_BASE_CALCULATION';
 
     /**
      * CALC_TOTAL_BASE
      */
-    const CALC_TOTAL_BASE = 'TOTAL_BASE_CALCULATION';
+    public const CALC_TOTAL_BASE = 'TOTAL_BASE_CALCULATION';
 
     /**
      * Cache to hold the rates
@@ -109,7 +109,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Hold the customer
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|false
      */
     protected $_customer = null;
 
@@ -318,8 +318,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * store price excluding tax
      *
      * @param Varien_Object $request
-     * @param null $store
-     * @return  float
+     * @param Mage_Core_Model_Store|null $store
+     * @return float
      */
     public function getStoreRate($request, $store = null)
     {
@@ -347,7 +347,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param   null|Mage_Core_Model_Store $store
+     * @param   null|string|bool|int|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -364,7 +364,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param null|Mage_Core_Model_Store $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return Varien_Object
      */
     public function getDefaultRateRequest($store = null)
@@ -389,7 +389,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @param   null|false|Mage_Sales_Model_Quote_Address $shippingAddress
      * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
      * @param   null|int $customerTaxClass
-     * @param   null|int $store
+     * @param   null|string|bool|int|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateRequest(

@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@ class Mage_Catalog_Block_Product_List_Promotion extends Mage_Catalog_Block_Produ
         if (is_null($this->_productCollection)) {
             $collection = Mage::getResourceModel('catalog/product_collection');
             Mage::getModel('catalog/layer')->prepareProductCollection($collection);
-// your custom filter
+            // your custom filter
             $collection->addAttributeToFilter('promotion', 1)
                 ->addStoreFilter();
 

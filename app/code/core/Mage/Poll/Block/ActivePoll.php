@@ -144,8 +144,8 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         if (empty($pollId)) {
             return false;
         }
-        $poll = $this->_pollModel->load($pollId);
 
+        $poll = $this->_pollModel->load($pollId);
         $pollAnswers = Mage::getModel('poll/poll_answer')
             ->getResourceCollection()
             ->addPollFilter($pollId)
@@ -155,6 +155,8 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         // correct rounded percents to be always equal 100
         $percentsSorted = [];
         $answersArr = [];
+        $key = null;
+
         /**
          * @var int $key
          * @var Mage_Poll_Model_Poll_Answer $answer
@@ -163,11 +165,15 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             $percentsSorted[$key] = $answer->getPercent();
             $answersArr[$key] = $answer;
         }
-        asort($percentsSorted);
+
         $total = 0;
+        $value = 0;
+
+        asort($percentsSorted);
         foreach ($percentsSorted as $key => $value) {
             $total += $value;
         }
+
         // change the max value only
         if ($total > 0 && $total !== 100) {
             $answersArr[$key]->setPercent($value + 100 - $total);

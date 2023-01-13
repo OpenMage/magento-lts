@@ -28,9 +28,9 @@
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
-    const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
-    const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
+    public const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
+    public const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
+    public const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
 
     protected $_moduleName = 'Mage_Catalog';
 
@@ -126,12 +126,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         return true;
     }
 
-/**
-     * Retrieve category rewrite sufix for store
-     *
-     * @param int $storeId
-     * @return string
-     */
+    /**
+         * Retrieve category rewrite sufix for store
+         *
+         * @param int $storeId
+         * @return string
+         */
     public function getCategoryUrlSuffix($storeId = null)
     {
         if (is_null($storeId)) {
@@ -160,10 +160,10 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         }
 
         if ($slash) {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')/$#i';
+            $regexp     = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')/$#i';
             $replace    = '/';
         } else {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')$#i';
+            $regexp     = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')$#i';
             $replace    = '';
         }
 

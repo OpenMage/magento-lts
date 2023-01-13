@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Language
         }
         $options = $this->_options;
         if (!$isMultiselect) {
-            array_unshift($options, ['value'=>'', 'label'=>'']);
+            array_unshift($options, ['value' => '', 'label' => '']);
         }
         return $options;
     }

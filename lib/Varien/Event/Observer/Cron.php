@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Varien
- * @package     Varien_Event
+ * @category   Varien
+ * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -24,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCronExpr()
  * @method bool hasNow()
@@ -75,13 +75,13 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
-        if ($expr==='*') {
+        if ($expr === '*') {
             return true;
         }
 
         // handle multiple options
-        if (strpos($expr,',')!==false) {
-            foreach (explode(',',$expr) as $e) {
+        if (strpos($expr, ',') !== false) {
+            foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
                 }
@@ -90,7 +90,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr,'/')!==false) {
+        if (strpos($expr, '/') !== false) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -105,7 +105,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr,'-')!==false) {
+        if (strpos($expr, '-') !== false) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -114,13 +114,13 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
 
-            return ($from!==false) && ($to!==false)
-                && ($num>=$from) && ($num<=$to) && ($num%$mod===0);
+            return ($from !== false) && ($to !== false)
+                && ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
         }
 
         // handle regular token
         $value = $this->getNumeric($expr);
-        return ($value!==false) && ($num==$value) && ($num%$mod===0);
+        return ($value !== false) && ($num == $value) && ($num % $mod === 0);
     }
 
     /**
@@ -129,35 +129,35 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      */
     public function getNumeric($value)
     {
-        static $data = array(
-            'jan'=>1,
-            'feb'=>2,
-            'mar'=>3,
-            'apr'=>4,
-            'may'=>5,
-            'jun'=>6,
-            'jul'=>7,
-            'aug'=>8,
-            'sep'=>9,
-            'oct'=>10,
-            'nov'=>11,
-            'dec'=>12,
+        static $data = [
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12,
 
-            'sun'=>0,
-            'mon'=>1,
-            'tue'=>2,
-            'wed'=>3,
-            'thu'=>4,
-            'fri'=>5,
-            'sat'=>6,
-        );
+            'sun' => 0,
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
+        ];
 
         if (is_numeric($value)) {
             return $value;
         }
 
         if (is_string($value)) {
-            $value = strtolower(substr($value,0,3));
+            $value = strtolower(substr($value, 0, 3));
             if (isset($data[$value])) {
                 return $data[$value];
             }

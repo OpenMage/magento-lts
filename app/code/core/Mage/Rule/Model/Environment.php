@@ -40,7 +40,7 @@ class Mage_Rule_Model_Environment extends Varien_Object
     {
         $this->setNow(time());
 
-        Mage::dispatchEvent('rule_environment_collect', ['env'=>$this]);
+        Mage::dispatchEvent('rule_environment_collect', ['env' => $this]);
 
         return $this;
     }

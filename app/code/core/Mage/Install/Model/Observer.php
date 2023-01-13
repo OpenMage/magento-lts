@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Install_Model_Observer
 {
     public function bindLocale($observer)
     {
-        if ($locale=$observer->getEvent()->getLocale()) {
+        if ($locale = $observer->getEvent()->getLocale()) {
             if ($choosedLocale = Mage::getSingleton('install/session')->getLocale()) {
                 $locale->setLocaleCode($choosedLocale);
             }

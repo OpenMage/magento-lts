@@ -33,7 +33,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
     /**
      * Current storage code
      *
-     * @var int
+     * @var int|null
      */
     protected $_currentStorage = null;
 

@@ -63,7 +63,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     public function getCacheData($key, $storeId)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(['a'=>$this->getMainTable()], 'data')
+            ->from(['a' => $this->getMainTable()], 'data')
             ->where('a.store_id=?', $storeId)
             ->where('a.key=?', $key);
         $data = $this->_getReadAdapter()->fetchOne($select);
@@ -115,7 +115,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
             'store_id'  => $storeId,
-            'created_at'=> $this->formatDate(time()),
+            'created_at' => $this->formatDate(time()),
             'key'       => $key,
             'data'      => $data
         ], ['created_at', 'data']);
@@ -167,9 +167,9 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         $query = "REPLACE INTO `{$this->_toTagTable}` (aggregation_id, tag_id) VALUES ";
         $data = [];
         foreach ($tags as $tagId) {
-            $data[] = $aggregationId.','.$tagId;
+            $data[] = $aggregationId . ',' . $tagId;
         }
-        $query.= '(' . implode('),(', $data) . ')';
+        $query .= '(' . implode('),(', $data) . ')';
         $this->_getWriteAdapter()->query($query);
         return $this;
     }
@@ -188,7 +188,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(['tags'=>$this->_tagTable], ['tag_code', 'tag_id'])
+            ->from(['tags' => $this->_tagTable], ['tag_code', 'tag_id'])
             ->where('tags.tag_code IN (?)', $tags);
 
         $tagIds = $this->_getReadAdapter()->fetchPairs($select);
@@ -220,7 +220,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
-            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
+            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ")";
             $this->_getWriteAdapter()->query($query);
         } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, [
@@ -239,9 +239,9 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     public function getProductCategoryPaths($productIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(['cat'=>$this->getTable('catalog/category')], 'path')
+            ->from(['cat' => $this->getTable('catalog/category')], 'path')
             ->joinInner(
-                ['cat_prod'=>$this->getTable('catalog/category_product')],
+                ['cat_prod' => $this->getTable('catalog/category_product')],
                 $this->_getReadAdapter()->quoteInto(
                     'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
                     $productIds

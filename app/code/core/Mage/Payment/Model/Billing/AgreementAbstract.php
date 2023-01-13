@@ -35,7 +35,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
     /**
      * Payment method instance
      *
-     * @var Mage_Payment_Model_Method_Abstract
+     * @var Mage_Payment_Model_Method_Abstract|null
      */
     protected $_paymentMethodInstance = null;
 
@@ -73,7 +73,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
     /**
      * Retrieve payment method instance
      *
-     * @return Mage_Payment_Model_Method_Abstract
+     * @return Mage_Payment_Model_Method_Abstract|null
      */
     public function getPaymentMethodInstance()
     {

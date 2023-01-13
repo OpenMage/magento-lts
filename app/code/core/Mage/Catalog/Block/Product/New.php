@@ -31,7 +31,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Default value for products count that will be shown
      */
-    const DEFAULT_PRODUCTS_COUNT = 10;
+    public const DEFAULT_PRODUCTS_COUNT = 10;
 
     /**
      * Products count
@@ -96,18 +96,18 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         $collection = $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', ['or'=> [
+            ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
                 1 => ['is' => new Zend_Db_Expr('null')]]
             ], 'left')
-            ->addAttributeToFilter('news_to_date', ['or'=> [
+            ->addAttributeToFilter('news_to_date', ['or' => [
                 0 => ['date' => true, 'from' => $todayStartOfDayDate],
                 1 => ['is' => new Zend_Db_Expr('null')]]
             ], 'left')
             ->addAttributeToFilter(
                 [
-                    ['attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')],
-                    ['attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null')]
+                    ['attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')],
+                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
                 ]
             )
             ->addAttributeToSort('news_from_date', 'desc')

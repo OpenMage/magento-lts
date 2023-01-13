@@ -1,0 +1,133 @@
+name: File checker
+
+on:
+  workflow_call:
+    outputs:
+      composer:
+        description: "Count changed Composer files"
+        value: ${{ jobs.check.outputs.composer }}
+      php:
+        description: "Count changed PHP files"
+        value: ${{ jobs.check.outputs.php }}
+      xml:
+        description: "Count changed XML files"
+        value: ${{ jobs.check.outputs.xml }}
+      workflow:
+        description: "Count changed Workflow files"
+        value: ${{ jobs.check.outputs.workflow }}
+      phpcs:
+        description: "Count changed PHPCS files"
+        value: ${{ jobs.check.outputs.phpcs }}
+      php-cs-fixer:
+        description: "Count changed PHP-CS-Fixer files"
+        value: ${{ jobs.check.outputs.php-cs-fixer }}
+      phpstan:
+        description: "Count changed PHPStan files"
+        value: ${{ jobs.check.outputs.phpstan }}
+      phpunit-test:
+        description: "Count changed PhpUnit test files"
+        value: ${{ jobs.check.outputs.phpunit-test }}
+      phpunit:
+        description: "Count changed PhpUnit files"
+        value: ${{ jobs.check.outputs.phpunit }}
+      sonar:
+        description: "Count changed Sonar files"
+        value: ${{ jobs.check.outputs.sonar }}
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Changed
+    runs-on: [ubuntu-latest]
+    outputs:
+      composer: ${{ steps.all.outputs.composer }}
+      php: ${{ steps.all.outputs.php }}
+      xml: ${{ steps.all.outputs.xml }}
+      workflow: ${{ steps.all.outputs.workflow }}
+      phpcs: ${{ steps.all.outputs.phpcs }}
+      php-cs-fixer: ${{ steps.all.outputs.php-cs-fixer }}
+      phpstan: ${{ steps.all.outputs.phpstan }}
+      phpunit-test: ${{ steps.all.outputs.phpunit-test }}
+      phpunit: ${{ steps.all.outputs.phpunit }}
+      sonar: ${{ steps.all.outputs.sonar }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Get changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            composer.*
+            *.php
+            **/*.php
+            **/*.xml
+            .github/workflows/**
+            **phpcs**
+            **php-cs-fixer**
+            **phpstan**
+            dev/tests/
+            dev/phpunit*
+            dev/sonar*
+
+      - name: Run step if any file(s) changed
+        id: all
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          echo "One or more files have changed."
+
+          count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Composer file(s) changed"
+          echo "composer=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHP file(s) changed"
+          echo "php=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "*.xml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count XML file(s) changed"
+          echo "xml=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE ".github/workflows/**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Workflow file(s) changed"
+          echo "workflow=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "**phpcs**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHPCS file(s) changed"
+          echo "phpcs=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "**php-cs-fixer**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHP-CS-Fixer file(s) changed"
+          echo "php-cs-fixer=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHPStan file(s) changed"
+          echo "phpstan=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count UnitTest test file(s) changed"
+          echo "phpunit-test=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count UnitTest file(s) changed"
+          echo "phpunit=$count" >> $GITHUB_OUTPUT
+
+          count="$(grep -oE "dev/sonar*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Sonar file(s) changed"
+          echo "sonar=$count" >> $GITHUB_OUTPUT

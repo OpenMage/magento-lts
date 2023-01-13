@@ -36,7 +36,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Product Type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract
+     * @var Mage_Catalog_Model_Product_Type_Abstract|Mage_Core_Model_Abstract|null
      */
     protected $_typeInstance;
 
@@ -58,8 +58,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      */
     protected $_haveParents = true;
 
-    const LINK_GET_CHILDREN = 1;
-    const LINK_GET_PARENTS = 1;
+    public const LINK_GET_CHILDREN = 1;
+    public const LINK_GET_PARENTS = 1;
 
     /**
      * Initialize abstract resource model
@@ -198,7 +198,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $data = $this->getResource()->getMinimalPrice($products, $priceAttributes, $store->getId());
 
         $this->setMinimalPriceData($data);
-        $eventData = ['indexer'=>$this, 'product_ids'=>$products, 'store'=>$store];
+        $eventData = ['indexer' => $this, 'product_ids' => $products, 'store' => $store];
         Mage::dispatchEvent('catalogindex_get_minimal_price', $eventData);
         $data = $this->getMinimalPriceData();
 

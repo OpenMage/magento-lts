@@ -128,7 +128,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                 $this->addData([
                     'is_order_visible' => $isVisible,
                     'view_order_id' => $this->getUrl('sales/order/view/', ['order_id' => $orderId]),
-                    'print_url' => $this->getUrl('sales/order/print', ['order_id'=> $orderId]),
+                    'print_url' => $this->getUrl('sales/order/print', ['order_id' => $orderId]),
                     'can_print_order' => $isVisible,
                     'can_view_order'  => Mage::getSingleton('customer/session')->isLoggedIn() && $isVisible,
                     'order_id'  => $order->getIncrementId(),

@@ -32,14 +32,14 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
+    public const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
 
     public function indexAction()
     {
         $this->_initEnityId();
         $this->loadLayout();
 
-        $this->_setActiveMenu('catalog/ratings');
+        $this->_setActiveMenu('catalog/reviews_ratings/ratings');
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Ratings'), Mage::helper('adminhtml')->__('Manage Ratings'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/rating_rating'));
 
@@ -58,7 +58,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
         $this->_title($ratingModel->getId() ? $ratingModel->getRatingCode() : $this->__('New Rating'));
 
-        $this->_setActiveMenu('catalog/ratings');
+        $this->_setActiveMenu('catalog/reviews_ratings/ratings');
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Ratings'), Mage::helper('adminhtml')->__('Manage Ratings'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/rating_edit'))
@@ -129,7 +129,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
     public function deleteAction()
     {
-        if( $this->getRequest()->getParam('id') > 0 ) {
+        if ($this->getRequest()->getParam('id') > 0) {
             try {
                 $model = Mage::getModel('rating/rating');
                 /** @var Mage_Rating_Model_Rating $model */

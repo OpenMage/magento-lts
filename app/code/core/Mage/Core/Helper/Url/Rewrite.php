@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,14 +31,14 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     /**#@+
      * Validation error constants
      */
-    const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
-    const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
+    public const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
+    public const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
     /**#@-*/
 
     /**
      * Allowed request path length
      */
-    const TARGET_PATH_ALLOWED_LENGTH = 255;
+    public const TARGET_PATH_ALLOWED_LENGTH = 255;
 
     protected $_moduleName = 'Mage_Core';
 

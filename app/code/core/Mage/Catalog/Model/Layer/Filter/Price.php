@@ -36,28 +36,28 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     /**
      * XML configuration paths for Price Layered Navigation
      */
-    const XML_PATH_RANGE_CALCULATION       = 'catalog/layered_navigation/price_range_calculation';
-    const XML_PATH_RANGE_STEP              = 'catalog/layered_navigation/price_range_step';
-    const XML_PATH_RANGE_MAX_INTERVALS     = 'catalog/layered_navigation/price_range_max_intervals';
-    const XML_PATH_ONE_PRICE_INTERVAL      = 'catalog/layered_navigation/one_price_interval';
-    const XML_PATH_INTERVAL_DIVISION_LIMIT = 'catalog/layered_navigation/interval_division_limit';
+    public const XML_PATH_RANGE_CALCULATION       = 'catalog/layered_navigation/price_range_calculation';
+    public const XML_PATH_RANGE_STEP              = 'catalog/layered_navigation/price_range_step';
+    public const XML_PATH_RANGE_MAX_INTERVALS     = 'catalog/layered_navigation/price_range_max_intervals';
+    public const XML_PATH_ONE_PRICE_INTERVAL      = 'catalog/layered_navigation/one_price_interval';
+    public const XML_PATH_INTERVAL_DIVISION_LIMIT = 'catalog/layered_navigation/interval_division_limit';
 
     /**
      * Price layered navigation modes: Automatic (equalize price ranges), Automatic (equalize product counts), Manual
      */
-    const RANGE_CALCULATION_AUTO     = 'auto'; // equalize price ranges
-    const RANGE_CALCULATION_IMPROVED = 'improved'; // equalize product counts
-    const RANGE_CALCULATION_MANUAL   = 'manual';
+    public const RANGE_CALCULATION_AUTO     = 'auto'; // equalize price ranges
+    public const RANGE_CALCULATION_IMPROVED = 'improved'; // equalize product counts
+    public const RANGE_CALCULATION_MANUAL   = 'manual';
 
     /**
      * Minimal size of the range
      */
-    const MIN_RANGE_POWER = 10;
+    public const MIN_RANGE_POWER = 10;
 
     /**
      * Resource instance
      *
-     * @var Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @var Mage_Catalog_Model_Resource_Layer_Filter_Price|null
      */
     protected $_resource;
 
@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Get information about products count in range
      *
      * @param   int $range
-     * @return  int
+     * @return  array
      */
     public function getRangeItemCounts($range)
     {
@@ -182,7 +182,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $store      = Mage::app()->getStore();
         $fromPrice  = $store->formatPrice(($value - 1) * $range);
-        $toPrice    = $store->formatPrice($value*$range);
+        $toPrice    = $store->formatPrice($value * $range);
 
         return Mage::helper('catalog')->__('%s - %s', $fromPrice, $toPrice);
     }
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             . '_LOC_'
             ;
         $taxReq = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
-        $key.= implode('_', $taxReq->getData());
+        $key .= implode('_', $taxReq->getData());
 
         return $key;
     }
@@ -364,7 +364,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Apply price range filter
      *
      * @param Zend_Controller_Request_Abstract $request
-     * @param null $filterBlock
+     * @param null $filterBlock deprecated
      *
      * @return $this
      */

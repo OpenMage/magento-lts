@@ -34,7 +34,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Identifier of default store
      * used for loading default data for entity
      */
-    const DEFAULT_STORE_ID = 0;
+    public const DEFAULT_STORE_ID = 0;
 
     /**
      * Attribute default values
@@ -186,7 +186,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function unsetData($key = null)
     {
         if ((!is_null($key) && $this->isLockedAttribute($key)) ||
-            $this->isReadonly()) {
+            $this->isReadonly()
+        ) {
             return $this;
         }
 

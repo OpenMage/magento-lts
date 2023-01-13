@@ -25,7 +25,7 @@ $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->beginTransaction();
 
-try{
+try {
     $paymentMethodCode = 'authorizenet';
     $transactionTable = $installer->getTable('sales/payment_transaction');
     $paymentTable = $installer->getTable('sales/order_payment');
@@ -37,13 +37,13 @@ try{
         $connection->select()
             ->from($paymentTable)
             ->joinLeft(
-            $transactionTable,
-            "$transactionTable.txn_id = $paymentTable.last_trans_id",
-               [
+                $transactionTable,
+                "$transactionTable.txn_id = $paymentTable.last_trans_id",
+                [
                    'last_transaction_id' => 'transaction_id',
                    'last_transaction_type' => 'txn_type',
                    'last_transaction_is_closed' => 'is_closed'
-               ]
+                ]
             )
             ->where('method=?', $paymentMethodCode)
     );
@@ -68,7 +68,7 @@ try{
             'refunded_amount' => $payment['base_amount_refunded_online']
         ];
         $additionalInformation = unserialize($payment['additional_information'], ['allowed_classes' => false]);
-        if (isset ($additionalInformation['authorize_cards'])) {
+        if (isset($additionalInformation['authorize_cards'])) {
             continue;
         }
         $additionalInformation['authorize_cards'] = [
@@ -96,7 +96,8 @@ try{
          */
         $paymentsIds[] = $paymentId;
         if (($payment['last_transaction_type'] == 'authorization' || $payment['last_transaction_type'] == 'capture')
-            && $payment['last_transaction_is_closed'] == '1') {
+            && $payment['last_transaction_is_closed'] == '1'
+        ) {
             $transactionsShouldBeOpened[] = $payment['last_transaction_id'];
         }
     }

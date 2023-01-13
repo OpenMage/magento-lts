@@ -266,7 +266,8 @@ class Mage_Sales_Model_Service_Order
         $invoiceQtysRefunded = [];
         foreach ($invoice->getOrder()->getCreditmemosCollection() as $createdCreditmemo) {
             if ($createdCreditmemo->getState() != Mage_Sales_Model_Order_Creditmemo::STATE_CANCELED
-                && $createdCreditmemo->getInvoiceId() == $invoice->getId()) {
+                && $createdCreditmemo->getInvoiceId() == $invoice->getId()
+            ) {
                 foreach ($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
                     $orderItemId = $createdCreditmemoItem->getOrderItem()->getId();
                     if (isset($invoiceQtysRefunded[$orderItemId])) {
@@ -445,7 +446,7 @@ class Mage_Sales_Model_Service_Order
                 }
             }
         } else {
-            return $item->getQtyToShip()>0;
+            return $item->getQtyToShip() > 0;
         }
         return false;
     }

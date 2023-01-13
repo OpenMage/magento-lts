@@ -31,7 +31,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
     /**
      * Certificate base path
      */
-    const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
+    public const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
 
     protected function _construct()
     {

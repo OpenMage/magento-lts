@@ -61,11 +61,11 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'catalogsearch_query';
 
-    const CACHE_TAG                     = 'SEARCH_QUERY';
-    const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
-    const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
-    const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
-    const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
+    public const CACHE_TAG                     = 'SEARCH_QUERY';
+    public const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
+    public const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
+    public const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
+    public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
     /**
      * Init resource model

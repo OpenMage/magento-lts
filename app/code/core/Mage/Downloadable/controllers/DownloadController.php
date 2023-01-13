@@ -74,7 +74,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
 
         if ($contentDisposition = $helper->getContentDisposition()) {
             $this->getResponse()
-                ->setHeader('Content-Disposition', $contentDisposition . '; filename='.$fileName);
+                ->setHeader('Content-Disposition', $contentDisposition . '; filename=' . $fileName);
         }
 
         $this->getResponse()
@@ -94,8 +94,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     {
         $sampleId = $this->getRequest()->getParam('sample_id', 0);
         $sample = Mage::getModel('downloadable/sample')->load($sampleId);
-        if (
-            $sample->getId()
+        if ($sample->getId()
             && Mage::helper('catalog/product')
                 ->getProduct((int) $sample->getProductId(), Mage::app()->getStore()->getId(), 'id')
                 ->isAvailable()
@@ -130,8 +129,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     {
         $linkId = $this->getRequest()->getParam('link_id', 0);
         $link = Mage::getModel('downloadable/link')->load($linkId);
-        if (
-            $link->getId()
+        if ($link->getId()
             && Mage::helper('catalog/product')
                 ->getProduct((int) $link->getProductId(), Mage::app()->getStore()->getId(), 'id')
                 ->isAvailable()
@@ -165,7 +163,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     {
         $id = $this->getRequest()->getParam('id', 0);
         $linkPurchasedItem = Mage::getModel('downloadable/link_purchased_item')->load($id, 'link_hash');
-        if (! $linkPurchasedItem->getId()) {
+        if (!$linkPurchasedItem->getId()) {
             $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__("Requested link does not exist."));
             return $this->_redirect('*/customer/products');
         }

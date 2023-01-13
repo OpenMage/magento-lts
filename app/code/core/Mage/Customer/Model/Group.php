@@ -40,14 +40,14 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Xml config path for create account default group
      */
-    const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
+    public const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
 
-    const NOT_LOGGED_IN_ID          = 0;
-    const CUST_GROUP_ALL            = 32000;
+    public const NOT_LOGGED_IN_ID          = 0;
+    public const CUST_GROUP_ALL            = 32000;
 
-    const ENTITY                    = 'customer_group';
+    public const ENTITY                    = 'customer_group';
 
-    const GROUP_CODE_MAX_LENGTH     = 32;
+    public const GROUP_CODE_MAX_LENGTH     = 32;
 
     /**
      * Prefix of model events names

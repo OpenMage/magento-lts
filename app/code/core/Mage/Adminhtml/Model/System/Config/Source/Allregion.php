@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
     protected $_countries;
     protected $_options;
 
-    public function toOptionArray($isMultiselect=false)
+    public function toOptionArray($isMultiselect = false)
     {
         if (!$this->_options) {
             $countriesArray = Mage::getResourceModel('directory/country_collection')->load()
@@ -47,17 +47,17 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
             uksort($countryRegions, [$this, 'sortRegionCountries']);
 
             $this->_options = [];
-            foreach ($countryRegions as $countryId=>$regions) {
+            foreach ($countryRegions as $countryId => $regions) {
                 $regionOptions = [];
-                foreach ($regions as $regionId=>$regionName) {
-                    $regionOptions[] = ['label'=>$regionName, 'value'=>$regionId];
+                foreach ($regions as $regionId => $regionName) {
+                    $regionOptions[] = ['label' => $regionName, 'value' => $regionId];
                 }
-                $this->_options[] = ['label'=>$this->_countries[$countryId], 'value'=>$regionOptions];
+                $this->_options[] = ['label' => $this->_countries[$countryId], 'value' => $regionOptions];
             }
         }
         $options = $this->_options;
         if (!$isMultiselect) {
-            array_unshift($options, ['value'=>'', 'label'=>'']);
+            array_unshift($options, ['value' => '', 'label' => '']);
         }
 
         return $options;

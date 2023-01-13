@@ -65,8 +65,9 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         // show breadcrumbs
         if (Mage::getStoreConfig('web/default/show_cms_breadcrumbs')
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
-            && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_home_page'))
-            && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_no_route'))) {
+            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_home_page'))
+            && ($page->getIdentifier() !== Mage::getStoreConfig('web/default/cms_no_route'))
+        ) {
             $breadcrumbsArray[] = [
                 'crumbName' => 'home',
                 'crumbInfo' => [
@@ -97,7 +98,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         /** @var Mage_Page_Block_Html $root */
         $root = $this->getLayout()->getBlock('root');
         if ($root) {
-            $root->addBodyClass('cms-'.$page->getIdentifier());
+            $root->addBodyClass('cms-' . $page->getIdentifier());
         }
 
         /** @var Mage_Page_Block_Html_Head $head */

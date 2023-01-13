@@ -56,13 +56,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
      * Render an option with selected value
      *
      * @param array $option
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
     protected function _renderOption($option, $value)
     {
         $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '');
-        return '<option value="'. $this->escapeHtml($option['value']).'"'.$selected.'>'.$this->escapeHtml($option['label']).'</option>';
+        return '<option value="' . $this->escapeHtml($option['value']) . '"' . $selected . '>' . $this->escapeHtml($option['label']) . '</option>';
     }
 
     /**
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
      */
     public function getHtml()
     {
-        $html = '<select name="'.$this->_getHtmlName().'" id="'.$this->_getHtmlId().'" class="no-changes">';
+        $html = '<select name="' . $this->_getHtmlName() . '" id="' . $this->_getHtmlId() . '" class="no-changes">';
         $value = $this->getValue();
         foreach ($this->_getOptions() as $option) {
             if (is_array($option['value'])) {
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
                 $html .= $this->_renderOption($option, $value);
             }
         }
-        $html.='</select>';
+        $html .= '</select>';
         return $html;
     }
 
