@@ -1,32 +1,26 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
-
 $installer->startSetup();
 
 $categoryIndexTable = $installer->getTable('catalog/category_product_index');
@@ -43,15 +37,14 @@ $installer->getConnection()->addColumn(
     'tinyint(3) unsigned NOT NULL'
 );
 
-
 /**
  * Clear relation with root category
  */
-$installer->getConnection()->delete($categoryIndexTable, 'category_id='.Mage_Catalog_Model_Category::TREE_ROOT_ID);
+$installer->getConnection()->delete($categoryIndexTable, 'category_id=' . Mage_Catalog_Model_Category::TREE_ROOT_ID);
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY',
-    array('category_id')
+    ['category_id']
 );
 $installer->getConnection()->dropKey($categoryIndexTable, 'IDX_CATEGORY_POSITION');
 $installer->getConnection()->dropKey($categoryIndexTable, 'UNQ_CATEGORY_PRODUCT');
@@ -101,19 +94,19 @@ $installer->getConnection()->delete($categoryIndexTable, 'store_id=0');
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'UNQ_CATEGORY_PRODUCT',
-    array('store_id', 'category_id', 'product_id')
+    ['store_id', 'category_id', 'product_id']
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_JOIN',
-    array('product_id', 'store_id', 'category_id', 'visibility')
+    ['product_id', 'store_id', 'category_id', 'visibility']
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_BASE',
-    array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
+    ['store_id', 'category_id', 'visibility', 'is_parent', 'position']
 );
 
 $installer->getConnection()->addConstraint(

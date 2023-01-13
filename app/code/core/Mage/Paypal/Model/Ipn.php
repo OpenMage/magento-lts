@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Instant Payment Notification processor model
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Ipn
 {
@@ -34,19 +33,19 @@ class Mage_Paypal_Model_Ipn
      *
      * @var string
      */
-    const DEFAULT_LOG_FILE = 'paypal_unknown_ipn.log';
+    public const DEFAULT_LOG_FILE = 'paypal_unknown_ipn.log';
 
     /**
      * Store order instance
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order = null;
 
     /**
      * Recurring profile instance
      *
-     * @var Mage_Sales_Model_Recurring_Profile
+     * @var Mage_Sales_Model_Recurring_Profile|null
      */
     protected $_recurringProfile = null;
 
@@ -67,14 +66,14 @@ class Mage_Paypal_Model_Ipn
      * IPN request data
      * @var array
      */
-    protected $_request = array();
+    protected $_request = [];
 
     /**
      * Collected debug information
      *
      * @var array
      */
-    protected $_debugData = array();
+    protected $_debugData = [];
 
     /**
      * IPN request data getter
@@ -84,27 +83,27 @@ class Mage_Paypal_Model_Ipn
      */
     public function getRequestData($key = null)
     {
-        if (null === $key) {
+        if ($key === null) {
             return $this->_request;
         }
-        return isset($this->_request[$key]) ? $this->_request[$key] : null;
+        return $this->_request[$key] ?? null;
     }
 
     /**
      * Get ipn data, send verification to PayPal, run corresponding handler
      *
      * @param array $request
-     * @param Zend_Http_Client_Adapter_Interface $httpAdapter
-     * @throws Exception
+     * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
+     * @throws Mage_Core_Exception
      */
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
         $this->_request   = $request;
-        $this->_debugData = array('ipn' => $request);
+        $this->_debugData = ['ipn' => $request];
         ksort($this->_debugData['ipn']);
 
         try {
-            if (isset($this->_request['txn_type']) && 'recurring_payment' == $this->_request['txn_type']) {
+            if (isset($this->_request['txn_type']) && $this->_request['txn_type'] == 'recurring_payment') {
                 $this->_getRecurringProfile();
                 if ($httpAdapter) {
                     $this->_postBack($httpAdapter);
@@ -137,19 +136,19 @@ class Mage_Paypal_Model_Ipn
         $postbackUrl = $this->_config->getPostbackUrl();
         $this->_debugData['postback_to'] = $postbackUrl;
 
-        $httpAdapter->setConfig(array('verifypeer' => $this->_config->verifyPeer));
+        $httpAdapter->setConfig(['verifypeer' => $this->_config->verifyPeer]);
         $httpAdapter->write(
             Zend_Http_Client::POST,
             $postbackUrl,
             '1.1',
-            array('Connection: close'),
+            ['Connection: close'],
             $postbackQuery
         );
 
         try {
             $postbackResult = $httpAdapter->read();
         } catch (Exception $e) {
-            $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            $this->_debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             throw $e;
         }
 
@@ -157,7 +156,7 @@ class Mage_Paypal_Model_Ipn
          * Handle errors on PayPal side.
          */
         $responseCode = Zend_Http_Response::extractCode($postbackResult);
-        if (empty($postbackResult) || in_array($responseCode, array('500', '502', '503'))) {
+        if (empty($postbackResult) || in_array($responseCode, ['500', '502', '503'])) {
             if (empty($postbackResult)) {
                 $reason = 'Empty response.';
             } else {
@@ -167,8 +166,8 @@ class Mage_Paypal_Model_Ipn
             throw new Mage_Paypal_UnavailableException($reason);
         }
 
-        $response = preg_split('/^\r?$/m', $postbackResult, 2);
-        $response = trim($response[1]);
+        $response = preg_split('/^\r?$/m', $postbackResult);
+        $response = trim(end($response));
         if ($response != 'VERIFIED') {
             $this->_debugData['postback'] = $postbackQuery;
             $this->_debugData['postback_result'] = $postbackResult;
@@ -193,13 +192,13 @@ class Mage_Paypal_Model_Ipn
                 $this->_debugData['exception'] = sprintf('Wrong order ID: "%s".', $id);
                 $this->_debug();
                 Mage::app()->getResponse()
-                    ->setHeader('HTTP/1.1','503 Service Unavailable')
+                    ->setHeader('HTTP/1.1', '503 Service Unavailable')
                     ->sendResponse();
                 exit;
             }
             // re-initialize config with the method code and store id
             $methodCode = $this->_order->getPayment()->getMethod();
-            $this->_config = Mage::getModel('paypal/config', array($methodCode, $this->_order->getStoreId()));
+            $this->_config = Mage::getModel('paypal/config', [$methodCode, $this->_order->getStoreId()]);
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
             }
@@ -230,7 +229,8 @@ class Mage_Paypal_Model_Ipn
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
-                'paypal/config', array($methodCode, $this->_recurringProfile->getStoreId())
+                'paypal/config',
+                [$methodCode, $this->_recurringProfile->getStoreId()]
             );
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
@@ -257,7 +257,9 @@ class Mage_Paypal_Model_Ipn
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
-                        'Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail
+                        'Requested %s and configured %s merchant emails do not match.',
+                        $receiverEmail,
+                        $merchantEmail
                     )
                 );
             }
@@ -277,7 +279,7 @@ class Mage_Paypal_Model_Ipn
         $this->_info = Mage::getSingleton('paypal/info');
         try {
             // Handle payment_status
-            $transactionType = isset($this->_request['txn_type']) ? $this->_request['txn_type'] : null;
+            $transactionType = $this->_request['txn_type'] ?? null;
             switch ($transactionType) {
                 // handle new case created
                 case Mage_Paypal_Model_Info::TXN_TYPE_NEW_CASE:
@@ -305,7 +307,7 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerAdjustment()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order->getBaseCurrency()->formatTxt($this->_request['mc_gross']);
         /**
@@ -322,11 +324,11 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerDispute()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
-        $caseType = isset($this->_request['case_type']) ? $this->_request['case_type'] : null;
+        $caseType = $this->_request['case_type'] ?? null;
         $caseTypeLabel = $this->_info::getCaseTypeLabel($caseType);
-        $caseId = isset($this->_request['case_id']) ? $this->_request['case_id'] : null;
+        $caseId = $this->_request['case_id'] ?? null;
         /**
          *  Add IPN comment about registered dispute
          */
@@ -417,9 +419,6 @@ class Mage_Paypal_Model_Ipn
                     throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
-// TODO: add to payment profile comments
-//            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
-//            $comment->save();
             throw $e;
         }
     }
@@ -430,7 +429,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerRecurringProfilePaymentCapture()
     {
         $price = $this->getRequestData('mc_gross') - $this->getRequestData('tax') -  $this->getRequestData('shipping');
-        $productItemInfo = new Varien_Object;
+        $productItemInfo = new Varien_Object();
         $type = trim($this->getRequestData('period_type'));
         if ($type == 'Trial') {
             $productItemInfo->setPaymentType(Mage_Sales_Model_Recurring_Profile::PAYMENT_TYPE_TRIAL);
@@ -441,7 +440,6 @@ class Mage_Paypal_Model_Ipn
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
 
-        /** @var $order Mage_Sales_Model_Order */
         $order = $this->_recurringProfile->createOrder($productItemInfo);
 
         $payment = $order->getPayment();
@@ -481,7 +479,7 @@ class Mage_Paypal_Model_Ipn
             ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setParentTransactionId($parentTransactionId)
-            ->setShouldCloseParentTransaction('Completed' === $this->getRequestData('auth_status'))
+            ->setShouldCloseParentTransaction($this->getRequestData('auth_status') === 'Completed')
             ->setIsTransactionClosed(0)
             ->registerCaptureNotification(
                 $this->getRequestData('mc_gross'),
@@ -506,7 +504,7 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentDenial()
     {
         $this->_importPaymentInformation();
-        /** @var Mage_Sales_Model_Order_Payment */
+        /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $this->_order->getPayment();
 
         $payment->setTransactionId($this->getRequestData('txn_id'))
@@ -532,6 +530,11 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentFailure()
     {
         $this->_importPaymentInformation();
+
+        foreach ($this->_order->getInvoiceCollection() as $invoice) {
+            $invoice->cancel()->save();
+        }
+
         $this->_order
             ->registerCancellation($this->_createIpnComment(''), false)
             ->save();
@@ -584,15 +587,12 @@ class Mage_Paypal_Model_Ipn
      */
     protected function _registerPaymentReversal()
     {
-        $reasonCode = isset($this->_request['reason_code']) ? $this->_request['reason_code'] : null;
+        $reasonCode = $this->_request['reason_code'] ?? null;
         $reasonComment = $this->_info::explainReasonCode($reasonCode);
         $notificationAmount = $this->_order
             ->getBaseCurrency()
             ->formatTxt($this->_request['mc_gross'] + $this->_request['mc_fee']);
-        $paymentStatus = $this->_filterPaymentStatus(isset($this->_request['payment_status'])
-            ? $this->_request['payment_status']
-            : null
-        );
+        $paymentStatus = $this->_filterPaymentStatus($this->_request['payment_status'] ?? null);
         $orderStatus = ($paymentStatus == Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED)
             ? Mage_Paypal_Model_Info::ORDER_STATUS_REVERSED
             : Mage_Paypal_Model_Info::ORDER_STATUS_CANCELED_REVERSAL;
@@ -619,11 +619,11 @@ class Mage_Paypal_Model_Ipn
     public function _registerPaymentPending()
     {
         $reason = $this->getRequestData('pending_reason');
-        if ('authorization' === $reason) {
+        if ($reason === 'authorization') {
             $this->_registerPaymentAuthorization();
             return;
         }
-        if ('order' === $reason) {
+        if ($reason === 'order') {
             throw new Exception('The "order" authorizations are not implemented.');
         }
 
@@ -720,7 +720,6 @@ class Mage_Paypal_Model_Ipn
      * Map payment information from IPN to payment object
      * Returns true if there were changes in information
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     protected function _importPaymentInformation()
@@ -729,8 +728,8 @@ class Mage_Paypal_Model_Ipn
         $was = $payment->getAdditionalInformation();
 
         // collect basic information
-        $from = array();
-        foreach (array(
+        $from = [];
+        foreach ([
             Mage_Paypal_Model_Info::PAYER_ID,
             'payer_email' => Mage_Paypal_Model_Info::PAYER_EMAIL,
             Mage_Paypal_Model_Info::PAYER_STATUS,
@@ -738,7 +737,8 @@ class Mage_Paypal_Model_Ipn
             Mage_Paypal_Model_Info::PROTECTION_EL,
             Mage_Paypal_Model_Info::PAYMENT_STATUS,
             Mage_Paypal_Model_Info::PENDING_REASON,
-        ) as $privateKey => $publicKey) {
+                 ] as $privateKey => $publicKey
+        ) {
             if (is_int($privateKey)) {
                 $privateKey = $publicKey;
             }
@@ -752,7 +752,7 @@ class Mage_Paypal_Model_Ipn
         }
 
         // collect fraud filters
-        $fraudFilters = array();
+        $fraudFilters = [];
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }
@@ -792,19 +792,29 @@ class Mage_Paypal_Model_Ipn
     {
         switch ($ipnPaymentStatus) {
             case 'Created': // break is intentionally omitted
-            case 'Completed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED;
-            case 'Denied':    return Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED;
-            case 'Expired':   return Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED;
-            case 'Failed':    return Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED;
-            case 'Pending':   return Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING;
-            case 'Refunded':  return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED;
-            case 'Reversed':  return Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED;
-            case 'Canceled_Reversal': return Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED;
-            case 'Processed': return Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED;
-            case 'Voided':    return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
+            case 'Completed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED;
+            case 'Denied':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED;
+            case 'Expired':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED;
+            case 'Failed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED;
+            case 'Pending':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING;
+            case 'Refunded':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDED;
+            case 'Reversed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_REVERSED;
+            case 'Canceled_Reversal':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_UNREVERSED;
+            case 'Processed':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_PROCESSED;
+            case 'Voided':
+                return Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED;
         }
         return '';
-// documented in NVP, but not documented in IPN:
+        // documented in NVP, but not documented in IPN:
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
 //Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART
@@ -812,8 +822,6 @@ class Mage_Paypal_Model_Ipn
 
     /**
      * Log debug data to file
-     *
-     * @param mixed $debugData
      */
     protected function _debug()
     {

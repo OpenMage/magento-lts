@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'abstract.php';
@@ -38,7 +33,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Log instance
      *
-     * @var Mage_Log_Model_Log
+     * @var Mage_Log_Model_Log|null
      */
     protected $_log;
 
@@ -64,14 +59,17 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     protected function _humanCount($number)
     {
         if ($number < 1000) {
-            return $number;
-        } else if ($number >= 1000 && $number < 1000000) {
-            return sprintf('%.2fK', $number / 1000);
-        } else if ($number >= 1000000 && $number < 1000000000) {
-            return sprintf('%.2fM', $number / 1000000);
-        } else {
-            return sprintf('%.2fB', $number / 1000000000);
+            return (string)$number;
         }
+        if ($number < 1000000) {
+            return sprintf('%.2fK', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fM', $number / 1000000);
+        }
+
+        return sprintf('%.2fB', $number / 1000000000);
     }
 
     /**
@@ -84,13 +82,17 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     {
         if ($number < 1000) {
             return sprintf('%d b', $number);
-        } else if ($number >= 1000 && $number < 1000000) {
-            return sprintf('%.2fKb', $number / 1000);
-        } else if ($number >= 1000000 && $number < 1000000000) {
-            return sprintf('%.2fMb', $number / 1000000);
-        } else {
-            return sprintf('%.2fGb', $number / 1000000000);
         }
+
+        if ($number < 1000000) {
+            return sprintf('%.2fKb', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fMb', $number / 1000000);
+        }
+
+        return sprintf('%.2fGb', $number / 1000000000);
     }
 
     /**
@@ -106,11 +108,11 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             }
             $this->_getLog()->clean();
             echo "Log cleaned\n";
-        } else if ($this->getArg('status')) {
+        } elseif ($this->getArg('status')) {
             $resource = $this->_getLog()->getResource();
             $adapter  = $resource->getReadConnection();
             // log tables
-            $tables = array(
+            $tables = [
                 $resource->getTable('log/customer'),
                 $resource->getTable('log/visitor'),
                 $resource->getTable('log/visitor_info'),
@@ -123,7 +125,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
                 $resource->getTable('reports/event'),
 
                 $resource->getTable('catalog/compare_item'),
-            );
+            ];
 
             $rows        = 0;
             $dataLengh   = 0;

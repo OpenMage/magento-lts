@@ -1,80 +1,74 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attribute extension with event dispatching
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
  * @method string getFrontendInputRenderer()
- * @method Mage_Catalog_Model_Entity_Attribute setFrontendInputRenderer(string $value)
+ * @method $this setFrontendInputRenderer(string $value)
  * @method int setIsGlobal(int $value)
  * @method int getIsVisible()
  * @method int setIsVisible(int $value)
  * @method int getIsSearchable()
- * @method Mage_Catalog_Model_Entity_Attribute setIsSearchable(int $value)
+ * @method $this setIsSearchable(int $value)
  * @method int getSearchWeight()
- * @method Mage_Catalog_Model_Entity_Attribute setSearchWeight(int $value)
+ * @method $this setSearchWeight(int $value)
  * @method int getIsFilterable()
- * @method Mage_Catalog_Model_Entity_Attribute setIsFilterable(int $value)
+ * @method $this setIsFilterable(int $value)
  * @method int getIsComparable()
- * @method Mage_Catalog_Model_Entity_Attribute setIsComparable(int $value)
- * @method Mage_Catalog_Model_Entity_Attribute setIsVisibleOnFront(int $value)
+ * @method $this setIsComparable(int $value)
+ * @method $this setIsVisibleOnFront(int $value)
  * @method int getIsHtmlAllowedOnFront()
- * @method Mage_Catalog_Model_Entity_Attribute setIsHtmlAllowedOnFront(int $value)
+ * @method $this setIsHtmlAllowedOnFront(int $value)
  * @method int getIsUsedForPriceRules()
- * @method Mage_Catalog_Model_Entity_Attribute setIsUsedForPriceRules(int $value)
+ * @method $this setIsUsedForPriceRules(int $value)
  * @method int getIsFilterableInSearch()
- * @method Mage_Catalog_Model_Entity_Attribute setIsFilterableInSearch(int $value)
+ * @method $this setIsFilterableInSearch(int $value)
  * @method int getUsedInProductListing()
- * @method Mage_Catalog_Model_Entity_Attribute setUsedInProductListing(int $value)
+ * @method $this setUsedInProductListing(int $value)
  * @method int getUsedForSortBy()
- * @method Mage_Catalog_Model_Entity_Attribute setUsedForSortBy(int $value)
+ * @method $this setUsedForSortBy(int $value)
  * @method int getIsConfigurable()
- * @method Mage_Catalog_Model_Entity_Attribute setIsConfigurable(int $value)
- * @method string getApplyTo()
- * @method Mage_Catalog_Model_Entity_Attribute setApplyTo(string $value)
+ * @method $this setIsConfigurable(int $value)
+ * @method $this setApplyTo(string|array $value)
  * @method int getIsVisibleInAdvancedSearch()
- * @method Mage_Catalog_Model_Entity_Attribute setIsVisibleInAdvancedSearch(int $value)
+ * @method $this setIsVisibleInAdvancedSearch(int $value)
  * @method int getPosition()
- * @method Mage_Catalog_Model_Entity_Attribute setPosition(int $value)
+ * @method $this setPosition(int $value)
  * @method int getIsWysiwygEnabled()
- * @method Mage_Catalog_Model_Entity_Attribute setIsWysiwygEnabled(int $value)
+ * @method $this setIsWysiwygEnabled(int $value)
  * @method int getIsUsedForPromoRules()
- * @method Mage_Catalog_Model_Entity_Attribute setIsUsedForPromoRules(int $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setIsUsedForPromoRules(int $value)
  */
 class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
     protected $_eventPrefix = 'catalog_entity_attribute';
     protected $_eventObject = 'attribute';
-    const MODULE_NAME = 'Mage_Catalog';
+    public const MODULE_NAME = 'Mage_Catalog';
 
     /**
      * Processing object before save data

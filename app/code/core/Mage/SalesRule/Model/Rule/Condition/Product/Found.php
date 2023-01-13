@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_SalesRule_Model_Rule_Condition_Product_Found
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method setValueOption(array $array)
  */
@@ -44,10 +43,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
      */
     public function loadValueOptions()
     {
-        $this->setValueOption(array(
+        $this->setValueOption([
             1 => Mage::helper('salesrule')->__('FOUND'),
             0 => Mage::helper('salesrule')->__('NOT FOUND')
-        ));
+        ]);
         return $this;
     }
 
@@ -58,7 +57,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     {
         $html = $this->getTypeElement()->getHtml() . Mage::helper('salesrule')->__("If an item is %s in the cart with %s of these conditions true:", $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
         if ($this->getId() != '1') {
-            $html.= $this->getRemoveLinkHtml();
+            $html .= $this->getRemoveLinkHtml();
         }
         return $html;
     }
@@ -67,11 +66,11 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
      * validate
      *
      * @param Varien_Object $object Quote
-     * @return boolean
+     * @return bool
      */
     public function validate(Varien_Object $object)
     {
-        $all = $this->getAggregator()==='all';
+        $all = $this->getAggregator() === 'all';
         $true = (bool)$this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {
@@ -90,8 +89,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
         // found an item and we're looking for existing one
         if ($found && $true) {
             return true;
-        } // not found and we're making sure it doesn't exist
-        elseif (!$found && !$true) {
+        } elseif (!$found && !$true) { // not found and we're making sure it doesn't exist
             return true;
         }
         return false;

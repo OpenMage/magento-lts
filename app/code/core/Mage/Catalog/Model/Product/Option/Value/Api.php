@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,19 +37,18 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function items($optionId, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         $productOptionValues = $option->getValuesCollection();
-        $result = array();
+        $result = [];
         foreach ($productOptionValues as $value) {
-            $result[] = array(
+            $result[] = [
                 'value_id' => $value->getId(),
                 'title' => $value->getTitle(),
                 'price' => $value->getPrice(),
                 'price_type' => $value->getPriceType(),
                 'sku' => $value->getSku(),
                 'sort_order' => $value->getSortOrder()
-            );
+            ];
         }
         return $result;
     }
@@ -76,7 +70,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $storeId = $this->_getStoreId($store);
         $productOptionValues = $productOptionValue
                 ->getValuesByOption(
-                    array($valueId),
+                    [$valueId],
                     $productOptionValue->getOptionId(),
                     $storeId
                 )
@@ -105,7 +99,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function add($optionId, $data, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         /** @var Mage_Catalog_Model_Product_Option_Value $optionValueModel */
         $optionValueModel = Mage::getModel('catalog/product_option_value');
@@ -140,7 +133,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             $this->_fault('value_not_exists');
         }
 
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($productOptionValue->getOptionId(), $store);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
@@ -171,7 +163,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      * Delete value from select option
      *
      * @param int $valueId
-     * @return boolean
+     * @return bool
      */
     public function remove($valueId)
     {
@@ -206,7 +198,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
     {
         /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option');
-        if (is_string($store) || is_integer($store)) {
+        if (is_string($store) || is_int($store)) {
             $storeId = $this->_getStoreId($store);
             $option->setStoreId($storeId);
         }

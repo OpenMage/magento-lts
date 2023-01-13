@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base items collection class
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {
@@ -69,20 +63,20 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @var array
      */
-    protected $_bindParams = array();
+    protected $_bindParams = [];
 
     /**
      * All collection data array
      * Used for getData method
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = null;
 
     /**
      * Fields map for corellation names & real selected fields
      *
-     * @var array
+     * @var array|null
      */
     protected $_map = null;
 
@@ -100,7 +94,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected $_isOrdersRendered = false;
 
-    public function __construct($conn=null)
+    public function __construct($conn = null)
     {
         parent::__construct();
         if (!is_null($conn)) {
@@ -131,11 +125,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function initCache($object, $idPrefix, $tags)
     {
-        $this->_cacheConf = array(
+        $this->_cacheConf = [
             'object'    => $object,
             'prefix'    => $idPrefix,
             'tags'      => $tags
-        );
+        ];
         return $this;
     }
 
@@ -222,9 +216,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_totalRecords)) {
             $sql = $this->getSelectCountSql();
-            $this->_totalRecords = $this->getConnection()->fetchOne($sql, $this->_bindParams);
+            $this->_totalRecords = (int)$this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
-        return intval($this->_totalRecords);
+        return (int) $this->_totalRecords;
     }
 
     /**
@@ -242,8 +236,17 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $countSelect->columns('COUNT(*)');
-
+        if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
+            $countSelect->reset(Zend_Db_Select::GROUP);
+            $countSelect->distinct(true);
+            $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
+            $group = array_map(function ($token) {
+                return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
+            }, $group);
+            $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
+        } else {
+            $countSelect->columns('COUNT(*)');
+        }
         return $countSelect;
     }
 
@@ -251,9 +254,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get sql select string or object
      *
      * @param   bool $stringMode
-     * @return  string || Zend_Db_Select
+     * @return  string|Zend_Db_Select
      */
-    function getSelectSql($stringMode = false)
+    public function getSelectSql($stringMode = false)
     {
         if ($stringMode) {
             return $this->_select->__toString();
@@ -313,7 +316,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
         if ($unshift) {
-            $orders = array($field => $direction);
+            $orders = [$field => $direction];
             foreach ($this->_orders as $key => $dir) {
                 $orders[$key] = $dir;
             }
@@ -339,22 +342,24 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         foreach ($this->_filters as $filter) {
             switch ($filter['type']) {
-                case 'or' :
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                case 'or':
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->orWhere($condition);
                     break;
-                case 'string' :
+                case 'string':
                     $this->_select->where($filter['value']);
                     break;
                 case 'public':
                     $field = $this->_getMappedField($filter['field']);
                     $condition = $filter['value'];
                     $this->_select->where(
-                        $this->_getConditionSql($field, $condition), null, Varien_Db_Select::TYPE_CONDITION
+                        $this->_getConditionSql($field, $condition),
+                        null,
+                        Varien_Db_Select::TYPE_CONDITION
                     );
                     break;
                 default:
-                    $condition = $this->_conn->quoteInto($filter['field'].'=?', $filter['value']);
+                    $condition = $this->_conn->quoteInto($filter['field'] . '=?', $filter['value']);
                     $this->_select->where($condition);
             }
         }
@@ -383,7 +388,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (!is_array($field)) {
             $resultCondition = $this->_translateCondition($field, $condition);
         } else {
-            $conditions = array();
+            $conditions = [];
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
@@ -391,7 +396,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 );
             }
 
-            $resultCondition = '(' . join(') ' . Zend_Db_Select::SQL_OR . ' (', $conditions) . ')';
+            $resultCondition = '(' . implode(') ' . Zend_Db_Select::SQL_OR . ' (', $conditions) . ')';
         }
 
         $this->_select->where($resultCondition);
@@ -507,7 +512,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (!$this->_isOrdersRendered) {
             foreach ($this->_orders as $field => $direction) {
                 $this->_select->order(new Zend_Db_Expr($field . ' ' . $direction));
-             }
+            }
             $this->_isOrdersRendered = true;
         }
 
@@ -521,7 +526,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _renderLimit()
     {
-        if($this->_pageSize){
+        if ($this->_pageSize) {
             $this->_select->limitPage($this->getCurPage(), $this->_pageSize);
         }
 
@@ -631,9 +636,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   string $labelField
      * @return  array
      */
-    protected function _toOptionHashOptimized($valueField='id', $labelField='name')
+    protected function _toOptionHashOptimized($valueField = 'id', $labelField = 'name')
     {
-        $result = array();
+        $result = [];
         while ($item = $this->fetchItem()) {
             $result[$item->getData($valueField)] = $item->getData($labelField);
         }
@@ -705,12 +710,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return  $this
      */
-    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
+    public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
+    {
         if ($printQuery) {
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
-        if ($logQuery){
+        if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
         return $this;
@@ -726,7 +732,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->getSelect()->reset();
         $this->_initSelect();
         $this->_setIsLoaded(false);
-        $this->_items = array();
+        $this->_items = [];
         $this->_data = null;
         return $this;
     }
@@ -803,7 +809,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         $id = md5((string)$select);
         if (isset($this->_cacheConf['prefix'])) {
-            $id = $this->_cacheConf['prefix'].'_'.$id;
+            $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
         return $id;
     }
@@ -831,7 +837,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (isset($this->_cacheConf['tags'])) {
             return $this->_cacheConf['tags'];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -846,12 +852,24 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function addFilterToMap($filter, $alias, $group = 'fields')
     {
         if (is_null($this->_map)) {
-            $this->_map = array($group => array());
-        } else if(is_null($this->_map[$group])) {
-            $this->_map[$group] = array();
+            $this->_map = [$group => []];
+        } elseif (is_null($this->_map[$group])) {
+            $this->_map[$group] = [];
         }
         $this->_map[$group][$filter] = $alias;
 
         return $this;
+    }
+
+    /**
+     * Magic clone function
+     *
+     * Clone also Zend_Db_Select
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->_select = clone $this->_select;
     }
 }

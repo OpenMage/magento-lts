@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,11 +33,13 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @throws Mage_Api2_Exception
      * @param array $data
-     * @return string
+     * @return string|void
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
         $validator = Mage::getModel('catalog/api2_product_image_validator_image');
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -65,7 +62,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         try {
             $ioAdapter = new Varien_Io_File();
             $ioAdapter->checkAndCreateFolder($apiTempDir);
-            $ioAdapter->open(array('path' => $apiTempDir));
+            $ioAdapter->open(['path' => $apiTempDir]);
             $ioAdapter->write($imageFileName, $imageFileContent, 0666);
             unset($imageFileContent);
 
@@ -93,6 +90,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
@@ -130,7 +128,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _retrieve()
     {
-        $result = array();
+        $result = [];
         $imageId = (int) $this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -152,7 +150,6 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      * Update product image
      *
      * @param array $data
-     * @return void
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
@@ -174,6 +171,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -194,6 +192,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -201,12 +200,11 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
     /**
      * Retrieve product images data
      *
-     * @throws Mage_Api2_Exception
      * @return array
      */
     protected function _retrieveCollection()
     {
-        $images = array();
+        $images = [];
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
         if (isset($galleryData['images']) && is_array($galleryData['images'])) {
             foreach ($galleryData['images'] as $image) {
@@ -224,17 +222,17 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _getImageLocation($imageId)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $this->getRequest()->getParam('id'),
             'image'    => $imageId
-        );
+        ];
         $uri = $chain->assemble($params);
         return '/' . $uri;
     }

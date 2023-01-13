@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tag collection model
  *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -46,18 +40,18 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      *
      * @var array
      */
-    protected $_joinFlags      = array();
+    protected $_joinFlags      = [];
 
     /**
      * Mapping for fields
      *
      * @var array
      */
-    public $_map               = array(
-        'fields' => array(
+    public $_map               = [
+        'fields' => [
             'tag_id' => 'main_table.tag_id'
-        ),
-    );
+        ],
+    ];
 
     /**
      * Define resource model and model
@@ -154,14 +148,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if (!$this->getFlag('popularity')) {
             $this->getSelect()
             ->joinLeft(
-                array('relation' => $this->getTable('tag/relation')),
+                ['relation' => $this->getTable('tag/relation')],
                 'main_table.tag_id = relation.tag_id',
-                array()
+                []
             )
             ->joinLeft(
-                array('summary' => $this->getTable('tag/summary')),
+                ['summary' => $this->getTable('tag/summary')],
                 'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
-                array('popularity')
+                ['popularity']
             )
             ->group('main_table.tag_id');
 
@@ -194,10 +188,10 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->getSelect()
                 ->joinLeft(
-                    array($tableAlias => $this->getTable('tag/summary')),
+                    [$tableAlias => $this->getTable('tag/summary')],
                     'main_table.tag_id = ' . $tableAlias . '.tag_id' . $joinCondition,
-                    array('store_id','popularity', 'customers', 'products'
-                    )
+                    ['store_id','popularity', 'customers', 'products'
+                    ]
                 );
 
             $this->addFilterToMap('store_id', $tableAlias . '.store_id');
@@ -230,16 +224,16 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         $tagIds = $this->getColumnValues('tag_id');
 
-        $tagsStores = array();
+        $tagsStores = [];
         if (count($tagIds)) {
             $select = $this->getConnection()->select()
-                ->from($this->getTable('tag/summary'), array('store_id', 'tag_id'))
+                ->from($this->getTable('tag/summary'), ['store_id', 'tag_id'])
                 ->where('tag_id IN(?)', $tagIds);
             $tagsRaw = $this->getConnection()->fetchAll($select);
 
             foreach ($tagsRaw as $tag) {
                 if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = array();
+                    $tagsStores[$tag['tag_id']] = [];
                 }
 
                 $tagsStores[$tag['tag_id']][] = $tag['store_id'];
@@ -250,7 +244,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             if (isset($tagsStores[$item->getId()])) {
                 $item->setStores($tagsStores[$item->getId()]);
             } else {
-                $item->setStores(array());
+                $item->setStores([]);
             }
         }
 
@@ -266,15 +260,14 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      */
     public function addFieldToFilter($field, $condition = null)
     {
-        if ($this->getFlag('relation') && 'popularity' == $field) {
+        if ($this->getFlag('relation') && $field == 'popularity') {
             // TOFIX
             $this->getSelect()->having(
                 $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)
             );
-        } elseif ($this->getFlag('summary') && in_array(
-            $field,
-            array('customers', 'products', 'uses', 'historical_uses', 'popularity')
-        )) {
+        } elseif ($this->getFlag('summary')
+            && in_array($field, ['customers', 'products', 'uses', 'historical_uses', 'popularity'])
+        ) {
             $this->getSelect()->where($this->_getConditionSql('summary.' . $field, $condition));
         } else {
             parent::addFieldToFilter($field, $condition);
@@ -285,7 +278,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     /**
      * Get sql for get record count
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {
@@ -309,7 +302,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         if (!$this->getFlag('store_filter')) {
             $this->getSelect()->joinLeft(
-                array('summary_store' => $this->getTable('tag/summary')),
+                ['summary_store' => $this->getTable('tag/summary')],
                 'main_table.tag_id = summary_store.tag_id'
             );
 
@@ -416,7 +409,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     {
         $this->setFlag('relation', true);
         $this->getSelect()->joinLeft(
-            array('relation' => $this->getTable('tag/relation')),
+            ['relation' => $this->getTable('tag/relation')],
             'main_table.tag_id=relation.tag_id'
         );
         return $this;

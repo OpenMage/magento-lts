@@ -1,26 +1,21 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
 
@@ -228,6 +223,10 @@ RegionUpdater.prototype = {
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
+                if (!wildCard) {
+                    label.insert(' <span class="required">*</span>');
+                    wildCard = label.down('span.required');
+                }
                 var topElement = label.up('tr') || label.up('li');
                 if (!that.config.show_all_regions && topElement) {
                     if (regionRequired) {
@@ -582,3 +581,37 @@ FormElementDependenceController.prototype = {
         }
     }
 };
+
+// optional_zip_countries.phtml
+function onAddressCountryChanged(countryElement) {
+    var zipElementId = countryElement.id.replace(/country_id/, 'postcode');
+    // Ajax-request and normal content load compatibility
+    if ($(zipElementId) != undefined) {
+        setPostcodeOptional($(zipElementId), countryElement.value);
+    } else {
+        Event.observe(window, "load", function () {
+            setPostcodeOptional($(zipElementId), countryElement.value);
+        });
+    }
+}
+
+function setPostcodeOptional(zipElement, country) {
+    var spanElement = zipElement.up(1).down('label > span.required');
+    if (!spanElement || (typeof optionalZipCountries == 'undefined')) {
+        return; // nothing to do (for example in system config)
+    }
+    if (optionalZipCountries.indexOf(country) != -1) {
+        Validation.reset(zipElement);
+        while (zipElement.hasClassName('required-entry')) {
+            zipElement.removeClassName('required-entry');
+        }
+        spanElement.hide();
+    } else {
+        zipElement.addClassName('required-entry');
+        spanElement.show();
+    }
+}
+
+if (typeof varienGlobalEvents != 'undefined') {
+    varienGlobalEvents.attachEventHandler("address_country_changed", onAddressCountryChanged);
+}

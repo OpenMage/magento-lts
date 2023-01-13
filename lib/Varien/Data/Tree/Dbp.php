@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Data DB tree
@@ -33,15 +27,14 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 {
-
-    const ID_FIELD      = 'id';
-    const PATH_FIELD    = 'path';
-    const ORDER_FIELD   = 'order';
-    const LEVEL_FIELD   = 'level';
+    public const ID_FIELD      = 'id';
+    public const PATH_FIELD    = 'path';
+    public const ORDER_FIELD   = 'order';
+    public const LEVEL_FIELD   = 'level';
 
     /**
      * DB connection
@@ -101,11 +94,11 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $this->_conn    = $connection;
         $this->_table   = $table;
 
-        if (!isset($fields[self::ID_FIELD]) ||
-            !isset($fields[self::PATH_FIELD]) ||
-            !isset($fields[self::LEVEL_FIELD]) ||
-            !isset($fields[self::ORDER_FIELD])) {
-
+        if (!isset($fields[self::ID_FIELD])
+            || !isset($fields[self::PATH_FIELD])
+            || !isset($fields[self::LEVEL_FIELD])
+            || !isset($fields[self::ORDER_FIELD])
+        ) {
             throw new Exception('"$fields" tree configuratin array');
         }
 
@@ -145,7 +138,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param int $recursionLevel
      * @return Varien_Data_Tree_Dbp
      */
-    public function load($parentNode=null, $recursionLevel = 0)
+    public function load($parentNode = null, $recursionLevel = 0)
     {
         if (!$this->_loaded) {
             $startLevel = 1;
@@ -154,18 +147,18 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             if ($parentNode instanceof Varien_Data_Tree_Node) {
                 $parentPath = $parentNode->getData($this->_pathField);
                 $startLevel = $parentNode->getData($this->_levelField);
-            } else if (is_numeric($parentNode)) {
+            } elseif (is_numeric($parentNode)) {
                 $select = $this->_conn->select()
-                    ->from($this->_table, array($this->_pathField, $this->_levelField))
+                    ->from($this->_table, [$this->_pathField, $this->_levelField])
                     ->where("{$this->_idField} = ?", $parentNode);
                 $parent = $this->_conn->fetchRow($select);
 
                 $startLevel = $parent[$this->_levelField];
                 $parentPath = $parent[$this->_pathField];
                 $parentNode = null;
-            } else if (is_string($parentNode)) {
+            } elseif (is_string($parentNode)) {
                 $parentPath = $parentNode;
-                $startLevel = count(explode($parentPath))-1;
+                $startLevel = count(explode($parentPath)) - 1;
                 $parentNode = null;
             }
 
@@ -173,17 +166,17 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
             $select->order($this->_table . '.' . $this->_orderField . ' ASC');
             if ($parentPath) {
-                $pathField = $this->_conn->quoteIdentifier(array($this->_table, $this->_pathField));
+                $pathField = $this->_conn->quoteIdentifier([$this->_table, $this->_pathField]);
                 $select->where("{$pathField} LIKE ?", "{$parentPath}/%");
             }
             if ($recursionLevel != 0) {
-                $levelField = $this->_conn->quoteIdentifier(array($this->_table, $this->_levelField));
+                $levelField = $this->_conn->quoteIdentifier([$this->_table, $this->_levelField]);
                 $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
             }
 
             $arrNodes = $this->_conn->fetchAll($select);
 
-            $childrenItems = array();
+            $childrenItems = [];
 
             foreach ($arrNodes as $nodeInfo) {
                 $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
@@ -210,7 +203,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField])?$child[$this->_idField]:false;
+                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {
@@ -222,23 +215,20 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $node->setPathId($node->getData($this->_pathField));
                 $this->addNode($node, $parentNode);
 
-
                 if ($path) {
                     $childrenPath = explode('/', $path);
                 } else {
-                    $childrenPath = array();
+                    $childrenPath = [];
                 }
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 
-                $this->addChildNodes($children, $childrenPath, $node, $level+1);
+                $this->addChildNodes($children, $childrenPath, $node, $level + 1);
             }
         }
     }
 
     /**
-     * Enter description here...
-     *
      * @param int|string $nodeId
      * @return Varien_Data_Tree_Node
      */
@@ -246,9 +236,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         $select = clone $this->_select;
         if (is_numeric($nodeId)) {
-            $condField = $this->_conn->quoteIdentifier(array($this->_table, $this->_idField));
+            $condField = $this->_conn->quoteIdentifier([$this->_table, $this->_idField]);
         } else {
-            $condField = $this->_conn->quoteIdentifier(array($this->_table, $this->_pathField));
+            $condField = $this->_conn->quoteIdentifier([$this->_table, $this->_pathField]);
         }
 
         $select->where("{$condField} = ?", $nodeId);
@@ -264,7 +254,8 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param array $result
      * @return array
      */
-    public function getChildren($node, $recursive = true, $result = array()) {
+    public function getChildren($node, $recursive = true, $result = [])
+    {
         if (is_numeric($node)) {
             $node = $this->getNodeById($node);
         }
@@ -301,18 +292,18 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $newPath = $newPath . '/' . $node->getId();
         $oldPathLength = strlen($oldPath);
 
-        $newLevel = $newParent->getLevel()+1;
-        $levelDisposition = $newLevel-$node->getLevel();
+        $newLevel = $newParent->getLevel() + 1;
+        $levelDisposition = $newLevel - $node->getLevel();
 
-        $data = array(
+        $data = [
             $this->_levelField => new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"),
             $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))")
-        );
+        ];
         $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^$oldPath(/|$)");
 
         $this->_conn->beginTransaction();
 
-        $reorderData = array($this->_orderField => new Zend_Db_Expr("$this->_orderField + 1"));
+        $reorderData = [$this->_orderField => new Zend_Db_Expr("$this->_orderField + 1")];
         try {
             if ($prevNode && $prevNode->getId()) {
                 $reorderCondition = "{$this->_orderField} > {$prevNode->getData($this->_orderField)}";
@@ -327,12 +318,14 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             }
             $this->_conn->update($this->_table, $reorderData, $reorderCondition);
             $this->_conn->update($this->_table, $data, $condition);
-            $this->_conn->update($this->_table, array($this->_orderField => $position, $this->_levelField=>$newLevel),
+            $this->_conn->update(
+                $this->_table,
+                [$this->_orderField => $position, $this->_levelField => $newLevel],
                 $this->_conn->quoteInto("{$this->_idField} = ?", $node->getId())
             );
 
             $this->_conn->commit();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             $this->_conn->rollBack();
             throw new Exception("Can't move tree node due to error: " . $e->getMessage());
         }
@@ -349,7 +342,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $rootNodePath = $rootNode->getData($this->_pathField);
 
         $select = clone $this->_select;
-        $select->order($this->_table.'.'.$this->_orderField . ' ASC');
+        $select->order($this->_table . '.' . $this->_orderField . ' ASC');
 
         if ($pathIds) {
             $condition = $this->_conn->quoteInto("$this->_table.$this->_idField in (?)", $pathIds);
@@ -359,10 +352,10 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $arrNodes = $this->_conn->fetchAll($select);
 
         if ($arrNodes) {
-            $childrenItems = array();
+            $childrenItems = [];
             foreach ($arrNodes as $nodeInfo) {
                 $nodeId = $nodeInfo[$this->_idField];
-                if ($nodeId<=$rootNodeId) {
+                if ($nodeId <= $rootNodeId) {
                     continue;
                 }
 
@@ -383,11 +376,11 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @param bool $withChildren
      * @param int $level
      */
-    protected function _addChildNodes($children, $path, $parentNode, $withChildren=false, $level = 0)
+    protected function _addChildNodes($children, $path, $parentNode, $withChildren = false, $level = 0)
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField])?$child[$this->_idField]:false;
+                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {
@@ -406,12 +399,12 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 if ($path) {
                     $childrenPath = explode('/', $path);
                 } else {
-                    $childrenPath = array();
+                    $childrenPath = [];
                 }
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 
-                $this->_addChildNodes($children, $childrenPath, $node, $withChildren, $level+1);
+                $this->_addChildNodes($children, $childrenPath, $node, $withChildren, $level + 1);
             }
         }
     }

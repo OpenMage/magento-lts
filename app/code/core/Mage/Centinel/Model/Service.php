@@ -1,68 +1,67 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * 3D Secure Validation Model
+ *
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Service extends Varien_Object
 {
     /**
      * Cmpi public keys
      */
-    const CMPI_PARES    = 'centinel_authstatus';
-    const CMPI_ENROLLED = 'centinel_mpivendor';
-    const CMPI_CAVV     = 'centinel_cavv';
-    const CMPI_ECI      = 'centinel_eci';
-    const CMPI_XID      = 'centinel_xid';
+    public const CMPI_PARES    = 'centinel_authstatus';
+    public const CMPI_ENROLLED = 'centinel_mpivendor';
+    public const CMPI_CAVV     = 'centinel_cavv';
+    public const CMPI_ECI      = 'centinel_eci';
+    public const CMPI_XID      = 'centinel_xid';
 
     /**
      * State cmpi results to public map
      *
      * @var array
      */
-    protected $_cmpiMap = array(
+    protected $_cmpiMap = [
         'lookup_enrolled'      => self::CMPI_ENROLLED,
         'lookup_eci_flag'      => self::CMPI_ECI,
         'authenticate_pa_res_status' => self::CMPI_PARES,
         'authenticate_cavv'          => self::CMPI_CAVV,
         'authenticate_eci_flag'      => self::CMPI_ECI,
         'authenticate_xid'           => self::CMPI_XID,
-    );
+    ];
 
     /**
      * Validation api model
      *
-     * @var Mage_Centinel_Model_Api
+     * @var Mage_Centinel_Model_Api|null
      */
     protected $_api;
 
     /**
      * Validation state model
      *
-     * @var Mage_Centinel_Model_StateAbstract
+     * @var Mage_Centinel_Model_StateAbstract|false
      */
     protected $_validationState;
 
@@ -79,8 +78,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Return value from section of centinel config
      *
-     * @param string $path
-     * @return string
+     * @return Mage_Centinel_Model_Config
      */
     protected function _getConfig()
     {
@@ -113,12 +111,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     private function _getUrl($suffix, $current = false)
     {
-        $params = array(
+        $params = [
             '_secure'  => true,
             '_current' => $current,
             'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             'isIframe' => true
-        );
+        ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
         } else {
@@ -133,7 +131,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _getApi()
     {
-        if (!is_null($this->_api)) {
+        if ($this->_api !== null) {
             return $this->_api;
         }
 
@@ -153,12 +151,14 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Create and return validation state model for card type
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return Mage_Centinel_Model_StateAbstract|false
      */
     protected function _getValidationStateModel($cardType)
     {
         if ($modelClass = $this->_getConfig()->getStateModelClass($cardType)) {
-            return Mage::getModel($modelClass);
+            /** @var Mage_Centinel_Model_StateAbstract $model */
+            $model = Mage::getModel($modelClass);
+            return $model;
         }
         return false;
     }
@@ -167,7 +167,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Return validation state model
      *
      * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract
+     * @return Mage_Centinel_Model_StateAbstract|false
      */
     protected function _getValidationState($cardType = null)
     {
@@ -189,7 +189,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _resetValidationState()
     {
-        $this->_getSession()->setData(array());
+        $this->_getSession()->setData([]);
         $this->_validationState = false;
     }
 
@@ -357,13 +357,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
-        $data = array(
+        return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
             'term_url' => $this->_getUrl('authenticationcomplete', true),
             'md' => $validationState->getLookupTransactionId()
-        );
-        return $data;
+        ];
     }
 
     /**
@@ -377,13 +376,13 @@ class Mage_Centinel_Model_Service extends Varien_Object
         return $validationState && $validationState->isAuthenticateSuccessful();
     }
 
-     /**
-     * Export cmpi lookups and authentication information stored in session into array
-     *
-     * @param mixed $to
-     * @param array $map
-     * @return mixed $to
-     */
+    /**
+    * Export cmpi lookups and authentication information stored in session into array
+    *
+    * @param mixed $to
+    * @param array|false $map
+    * @return mixed $to
+    */
     public function exportCmpiData($to, $map = false)
     {
         if (!$map) {
@@ -395,4 +394,3 @@ class Mage_Centinel_Model_Service extends Varien_Object
         return $to;
     }
 }
-

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,31 +24,34 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Mage_Adminhtml_Block_Widget_Button
 {
     /**
      * Config of create new attribute
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_config = null;
 
     /**
-     * Retrive config of new attribute creation
+     * Retrieve config of new attribute creation
      *
      * @return Varien_Object
      */
     public function getConfig()
     {
         if (is_null($this->_config)) {
-           $this->_config = new Varien_Object();
+            $this->_config = new Varien_Object();
         }
 
         return $this->_config;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         $this->setId('create_attribute_' . $this->getConfig()->getGroupId())
@@ -65,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         $this->getConfig()
             ->setUrl($this->getUrl(
                 '*/catalog_product_attribute/new',
-                array(
+                [
                     'group'     => $this->getConfig()->getGroupId(),
                     'tab'       => $this->getConfig()->getTabId(),
                     'store'     => $this->getConfig()->getStoreId(),
@@ -73,16 +71,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
                     'set'       => $this->getConfig()->getAttributeSetId(),
                     'type'      => $this->getConfig()->getTypeId(),
                     'popup'     => 1
-                )
+                ]
             ));
 
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->setCanShow(true);
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', ['block' => $this]);
         if (!$this->getCanShow()) {
             return '';
         }
@@ -96,8 +97,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getJsObjectName()
     {
         return $this->getId() . 'JsObject';
     }
-} // Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create End
+}

@@ -1,40 +1,33 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Grid widget massaction single action item
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Block_Widget
 {
-
     protected $_massaction = null;
 
     /**
@@ -50,7 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive parent massaction block
+     * Retrieve parent massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -64,14 +57,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
      *
      * @param string|Mage_Core_Block_Abstract $block
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setAdditionalActionBlock($block)
     {
-        if(is_string($block)) {
+        if (is_string($block)) {
             $block = $this->getLayout()->createBlock($block);
         } elseif (is_array($block)) {
             $block = $this->_createFromConfig($block);
-        } elseif(!($block instanceof Mage_Core_Block_Abstract)) {
+        } elseif (!($block instanceof Mage_Core_Block_Abstract)) {
             Mage::throwException('Unknown block type');
         }
 
@@ -79,22 +73,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
         return $this;
     }
 
+    /**
+     * @param array $config
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default
+     */
     protected function _createFromConfig(array $config)
     {
-        $type = isset($config['type']) ? $config['type'] : 'default';
-        switch($type) {
-            default:
-                $blockClass = 'adminhtml/widget_grid_massaction_item_additional_default';
-                break;
-        }
-
-        $block = $this->getLayout()->createBlock($blockClass);
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
         $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
         return $block;
     }
 
     /**
-     * Retrive additional action block for this item
+     * Retrieve additional action block for this item
      *
      * @return Mage_Core_Block_Abstract
      */
@@ -104,7 +96,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive additional action block HTML for this item
+     * Retrieve additional action block HTML for this item
      *
      * @return string
      */
@@ -112,5 +104,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     {
         return $this->getChildHtml('additional_action');
     }
-
 }

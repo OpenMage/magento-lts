@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="multiple-checkout">
@@ -32,7 +27,7 @@
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php $_index=0 ?>
     <?php foreach ($this->getAddressCollection() as $_address): ?>
-        <?php if($_index%3==0): ?><div class="col3-set"><?php endif; ?>
+        <?php if($_index%3==0): ?><div class="col3-set"><?php endif ?>
         <div class="col-<?php echo ($_index%3+1) ?>">
                 <p class="actions">
                     <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span>
@@ -43,15 +38,15 @@
                 </address>
                 <?php if($this->isAddressDefaultBilling($_address)): ?>
                    <strong><?php echo $this->__('Default Billing') ?></strong>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if($this->isAddressDefaultShipping($_address)): ?>
                     <br /><strong><?php echo $this->__('Default Shipping') ?></strong>
-                <?php endif; ?>
+                <?php endif ?>
         </div>
         <?php $_index++ ?>
-        <?php if($_index && $_index%3==0): ?></div><?php endif; ?>
-    <?php endforeach; ?>
-    <?php if(!$_index || $_index%3!=0): ?></div><?php endif; ?>
+        <?php if($_index && $_index%3==0): ?></div><?php endif ?>
+    <?php endforeach ?>
+    <?php if(!$_index || $_index%3!=0): ?></div><?php endif ?>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Information') ?></a></p>
     </div>

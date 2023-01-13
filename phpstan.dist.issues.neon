@@ -1,0 +1,19 @@
+parameters:
+  ignoreErrors:
+    # Level 2
+    - "#Variable \\$+[a-zA-Z_]+ might not be defined.#"
+    -
+      message: "#Call to function is_null\\(\\) with Mage_Core_Model_Store will always evaluate to false.$#"
+      path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
+    -
+      message: "#Call to function is_null\\(\\) with bool will always evaluate to false.$#"
+      path: app/code/core/Mage/Newsletter/Model/Subscriber.php
+    -
+      message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
+      path: lib/Mage/HTTP/Client/Curl.php
+    -
+      message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
+      path: lib/Mage/HTTP/Client/Socket.php
+    -
+      message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
+      path: lib/Varien/Convert/Parser/Xml/Excel.php

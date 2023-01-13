@@ -1,117 +1,111 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item getResource()
  * @method int getParentId()
- * @method Mage_Sales_Model_Order_Invoice_Item setParentId(int $value)
+ * @method $this setParentId(int $value)
  * @method float getBasePrice()
- * @method Mage_Sales_Model_Order_Invoice_Item setBasePrice(float $value)
+ * @method $this setBasePrice(float $value)
  * @method float getBaseWeeeTaxRowDisposition()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxRowDisposition(float $value)
+ * @method $this setBaseWeeeTaxRowDisposition(float $value)
  * @method float getWeeeTaxAppliedRowAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxAppliedRowAmount(float $value)
+ * @method $this setWeeeTaxAppliedRowAmount(float $value)
  * @method float getBaseWeeeTaxAppliedAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxAppliedAmount(float $value)
+ * @method $this setBaseWeeeTaxAppliedAmount(float $value)
  * @method float getTaxAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setTaxAmount(float $value)
+ * @method $this setTaxAmount(float $value)
  * @method float getBaseRowTotal()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseRowTotal(float $value)
+ * @method $this setBaseRowTotal(float $value)
  * @method float getDiscountAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setDiscountAmount(float $value)
+ * @method $this setDiscountAmount(float $value)
  * @method float getRowTotal()
- * @method Mage_Sales_Model_Order_Invoice_Item setRowTotal(float $value)
+ * @method $this setRowTotal(float $value)
  * @method float getWeeeTaxRowDisposition()
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxRowDisposition(float $value)
+ * @method $this setWeeeTaxRowDisposition(float $value)
  * @method float getBaseDiscountAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseDiscountAmount(float $value)
+ * @method $this setBaseDiscountAmount(float $value)
  * @method float getBaseWeeeTaxDisposition()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxDisposition(float $value)
+ * @method $this setBaseWeeeTaxDisposition(float $value)
  * @method float getPriceInclTax()
- * @method Mage_Sales_Model_Order_Invoice_Item setPriceInclTax(float $value)
+ * @method $this setPriceInclTax(float $value)
  * @method float getWeeeTaxAppliedAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxAppliedAmount(float $value)
+ * @method $this setWeeeTaxAppliedAmount(float $value)
  * @method float getBaseTaxAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseTaxAmount(float $value)
+ * @method $this setBaseTaxAmount(float $value)
  * @method float getBasePriceInclTax()
- * @method Mage_Sales_Model_Order_Invoice_Item setBasePriceInclTax(float $value)
+ * @method $this setBasePriceInclTax(float $value)
  * @method float getQty()
  * @method float getWeeeTaxDisposition()
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxDisposition(float $value)
+ * @method $this setWeeeTaxDisposition(float $value)
  * @method float getBaseCost()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseCost(float $value)
+ * @method $this setBaseCost(float $value)
  * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxAppliedRowAmount(float $value)
+ * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method float getPrice()
- * @method Mage_Sales_Model_Order_Invoice_Item setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getBaseRowTotalInclTax()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseRowTotalInclTax(float $value)
+ * @method $this setBaseRowTotalInclTax(float $value)
  * @method float getRowTotalInclTax()
- * @method Mage_Sales_Model_Order_Invoice_Item setRowTotalInclTax(float $value)
+ * @method $this setRowTotalInclTax(float $value)
  * @method int getProductId()
- * @method Mage_Sales_Model_Order_Invoice_Item setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getOrderItemId()
- * @method Mage_Sales_Model_Order_Invoice_Item setOrderItemId(int $value)
+ * @method $this setOrderItemId(int $value)
  * @method string getAdditionalData()
- * @method Mage_Sales_Model_Order_Invoice_Item setAdditionalData(string $value)
+ * @method $this setAdditionalData(string $value)
  * @method string getDescription()
- * @method Mage_Sales_Model_Order_Invoice_Item setDescription(string $value)
+ * @method $this setDescription(string $value)
  * @method string getWeeeTaxApplied()
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxApplied(string $value)
+ * @method $this setWeeeTaxApplied(string $value)
  * @method string getSku()
- * @method Mage_Sales_Model_Order_Invoice_Item setSku(string $value)
+ * @method $this setSku(string $value)
  * @method string getName()
- * @method Mage_Sales_Model_Order_Invoice_Item setName(string $value)
+ * @method $this setName(string $value)
  * @method float getHiddenTaxAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setHiddenTaxAmount(float $value)
+ * @method $this setHiddenTaxAmount(float $value)
  * @method float getBaseHiddenTaxAmount()
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseHiddenTaxAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setBaseHiddenTaxAmount(float $value)
+ * @method $this setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_invoice_item';
     protected $_eventObject = 'invoice_item';
 
-    /** @var Mage_Sales_Model_Order_Invoice */
+    /**
+     * @var Mage_Sales_Model_Order_Invoice
+     */
     protected $_invoice = null;
-    /** @var Mage_Sales_Model_Order_Item */
-    protected $_orderItem = null;
 
     /**
-     * Initialize resource model
+     * @var Mage_Sales_Model_Order_Item|null
      */
+    protected $_orderItem = null;
+
     public function _construct()
     {
         $this->_init('sales/order_invoice_item');
@@ -121,10 +115,11 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('invoice_item');
         return $this;
     }
@@ -132,7 +127,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      * Declare invoice instance
      *
      * @param   Mage_Sales_Model_Order_Invoice $invoice
-     * @return  Mage_Sales_Model_Order_Invoice_Item
+     * @return  $this
      */
     public function setInvoice(Mage_Sales_Model_Order_Invoice $invoice)
     {
@@ -154,7 +149,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      * Declare order item instance
      *
      * @param   Mage_Sales_Model_Order_Item $item
-     * @return  Mage_Sales_Model_Order_Invoice_Item
+     * @return  $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -185,7 +180,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      * Declare qty
      *
      * @param   float $qty
-     * @return  Mage_Sales_Model_Order_Invoice_Item
+     * @return  $this
      */
     public function setQty($qty)
     {
@@ -218,18 +213,18 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function register()
     {
         $orderItem = $this->getOrderItem();
-        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced()+$this->getQty());
+        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced() + $this->getQty());
 
-        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()+$this->getTaxAmount());
-        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()+$this->getBaseTaxAmount());
-        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()+$this->getHiddenTaxAmount());
-        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()+$this->getBaseHiddenTaxAmount());
+        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced() + $this->getTaxAmount());
+        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced() + $this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced() + $this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced() + $this->getBaseHiddenTaxAmount());
 
-        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()+$this->getDiscountAmount());
-        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()+$this->getBaseDiscountAmount());
+        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced() + $this->getDiscountAmount());
+        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced() + $this->getBaseDiscountAmount());
 
-        $orderItem->setRowInvoiced($orderItem->getRowInvoiced()+$this->getRowTotal());
-        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced()+$this->getBaseRowTotal());
+        $orderItem->setRowInvoiced($orderItem->getRowInvoiced() + $this->getRowTotal());
+        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced() + $this->getBaseRowTotal());
         return $this;
     }
 
@@ -241,19 +236,18 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         $orderItem = $this->getOrderItem();
-        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced()-$this->getQty());
+        $orderItem->setQtyInvoiced($orderItem->getQtyInvoiced() - $this->getQty());
 
-        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced()-$this->getTaxAmount());
-        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced()-$this->getBaseTaxAmount());
-        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced()-$this->getHiddenTaxAmount());
-        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced()-$this->getBaseHiddenTaxAmount());
+        $orderItem->setTaxInvoiced($orderItem->getTaxInvoiced() - $this->getTaxAmount());
+        $orderItem->setBaseTaxInvoiced($orderItem->getBaseTaxInvoiced() - $this->getBaseTaxAmount());
+        $orderItem->setHiddenTaxInvoiced($orderItem->getHiddenTaxInvoiced() - $this->getHiddenTaxAmount());
+        $orderItem->setBaseHiddenTaxInvoiced($orderItem->getBaseHiddenTaxInvoiced() - $this->getBaseHiddenTaxAmount());
 
+        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced() - $this->getDiscountAmount());
+        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced() - $this->getBaseDiscountAmount());
 
-        $orderItem->setDiscountInvoiced($orderItem->getDiscountInvoiced()-$this->getDiscountAmount());
-        $orderItem->setBaseDiscountInvoiced($orderItem->getBaseDiscountInvoiced()-$this->getBaseDiscountAmount());
-
-        $orderItem->setRowInvoiced($orderItem->getRowInvoiced()-$this->getRowTotal());
-        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced()-$this->getBaseRowTotal());
+        $orderItem->setRowInvoiced($orderItem->getRowInvoiced() - $this->getRowTotal());
+        $orderItem->setBaseRowInvoiced($orderItem->getBaseRowInvoiced() - $this->getBaseRowTotal());
         return $this;
     }
 
@@ -325,7 +319,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null ==! $this->_orderItem) {
+        if (!$this->_orderItem == null) {
             $this->_orderItem->save();
         }
 
