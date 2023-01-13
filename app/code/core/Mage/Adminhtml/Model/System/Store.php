@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +24,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_System_Store extends Varien_Object
 {
-
     /**
      * Website collection
      * websiteId => Mage_Core_Model_Website
@@ -193,7 +193,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         }
 
         foreach ($websites as $website) {
-
             $websiteId = $website->getId();
             if ($websiteIds && !in_array($websiteId, $websiteIds)) {
                 continue;
@@ -204,7 +203,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             ];
 
             foreach ($website->getGroups() as $group) {
-
                 $groupId = $group->getId();
                 if ($groupIds && !in_array($groupId, $groupIds)) {
                     continue;
@@ -215,7 +213,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 ];
 
                 foreach ($group->getStores() as $store) {
-
                     $storeId = $store->getId();
                     if ($storeIds && !in_array($storeId, $storeIds)) {
                         continue;
@@ -319,7 +316,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Website name by Id
      *
      * @param int $websiteId
-     * @return string
+     * @return string|null
      */
     public function getWebsiteName($websiteId)
     {
@@ -335,7 +332,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Group name by Id
      *
      * @param int $groupId
-     * @return string
+     * @return string|null
      */
     public function getGroupName($groupId)
     {
@@ -351,7 +348,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Retrieve Store name by Id
      *
      * @param int $storeId
-     * @return string
+     * @return string|null
      */
     public function getStoreName($storeId)
     {
@@ -369,10 +366,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      **/
     public function getStoreData($storeId)
     {
-        if (isset($this->_storeCollection[$storeId])) {
-            return $this->_storeCollection[$storeId];
-        }
-        return null;
+        return $this->_storeCollection[$storeId] ?? null;
     }
 
     /**
@@ -387,16 +381,15 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = [];
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNameWithWebsite($id);
+                $names[] = $this->getStoreNameWithWebsite($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
-                $name .= ($name ? '/' : '').$this->getGroupName($data->getGroupId());
-                $name .= ($name ? '/' : '').$data->getName();
+                $name .= ($name ? '/' : '') . $this->getGroupName($data->getGroupId());
+                $name .= ($name ? '/' : '') . $data->getName();
             }
         }
         return $name;
@@ -445,8 +438,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             $this->_loadWebsiteCollection();
             $this->_loadGroupCollection();
             $this->_loadStoreCollection();
-        }
-        else {
+        } else {
             switch ($type) {
                 case 'website':
                     $this->_loadWebsiteCollection();
@@ -476,11 +468,10 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = [];
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNamePath($id);
+                $names[] = $this->getStoreNamePath($id);
             }
             $name = implode(', ', $names);
-        }
-        else {
+        } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());

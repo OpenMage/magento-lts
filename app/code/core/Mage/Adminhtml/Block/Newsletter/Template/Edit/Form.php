@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,15 +28,6 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Define Form settings
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Retrieve template object
      *
@@ -55,8 +47,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
     {
         $model  = $this->getModel();
         $identity = Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY);
-        $identityName = Mage::getStoreConfig('trans_email/ident_'.$identity.'/name');
-        $identityEmail = Mage::getStoreConfig('trans_email/ident_'.$identity.'/email');
+        $identityName = Mage::getStoreConfig('trans_email/ident_' . $identity . '/name');
+        $identityEmail = Mage::getStoreConfig('trans_email/ident_' . $identity . '/email');
 
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
@@ -93,7 +85,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         ]);
 
         $fieldset->addField('sender_name', 'text', [
-            'name'      =>'sender_name',
+            'name'      => 'sender_name',
             'label'     => Mage::helper('newsletter')->__('Sender Name'),
             'title'     => Mage::helper('newsletter')->__('Sender Name'),
             'required'  => true,
@@ -103,7 +95,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         ]);
 
         $fieldset->addField('sender_email', 'text', [
-            'name'      =>'sender_email',
+            'name'      => 'sender_email',
             'label'     => Mage::helper('newsletter')->__('Sender Email'),
             'title'     => Mage::helper('newsletter')->__('Sender Email'),
             'class'     => 'validate-email',
@@ -131,7 +123,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
 
         if (!$model->isPlain()) {
             $fieldset->addField('template_styles', 'textarea', [
-                'name'          =>'styles',
+                'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Template Styles'),
                 'container_id'  => 'field_template_styles',
                 'value'         => $model->getTemplateStyles()

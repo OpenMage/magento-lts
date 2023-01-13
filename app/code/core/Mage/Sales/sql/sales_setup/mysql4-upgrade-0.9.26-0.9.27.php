@@ -7,22 +7,23 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 // very long update :)
 set_time_limit(0);
 
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
@@ -40,21 +41,21 @@ $installer->getConnection()->addColumn(
     'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
-$installer->addAttribute('quote', 'global_currency_code', ['type'=>'static']);
-$installer->addAttribute('quote', 'base_to_global_rate', ['type'=>'static']);
-$installer->addAttribute('quote', 'base_to_quote_rate', ['type'=>'static']);
+$installer->addAttribute('quote', 'global_currency_code', ['type' => 'static']);
+$installer->addAttribute('quote', 'base_to_global_rate', ['type' => 'static']);
+$installer->addAttribute('quote', 'base_to_quote_rate', ['type' => 'static']);
 
-$installer->addAttribute('order', 'global_currency_code', ['type'=>'varchar']);
-$installer->addAttribute('order', 'base_to_global_rate', ['type'=>'decimal']);
-$installer->addAttribute('order', 'base_to_order_rate', ['type'=>'decimal']);
+$installer->addAttribute('order', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('order', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('order', 'base_to_order_rate', ['type' => 'decimal']);
 
-$installer->addAttribute('invoice', 'global_currency_code', ['type'=>'varchar']);
-$installer->addAttribute('invoice', 'base_to_global_rate', ['type'=>'decimal']);
-$installer->addAttribute('invoice', 'base_to_order_rate', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('invoice', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('invoice', 'base_to_order_rate', ['type' => 'decimal']);
 
-$installer->addAttribute('creditmemo', 'global_currency_code', ['type'=>'varchar']);
-$installer->addAttribute('creditmemo', 'base_to_global_rate', ['type'=>'decimal']);
-$installer->addAttribute('creditmemo', 'base_to_order_rate', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('creditmemo', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo', 'base_to_order_rate', ['type' => 'decimal']);
 
 /*
  * getting all base currency codes and placing them in newly created attribute

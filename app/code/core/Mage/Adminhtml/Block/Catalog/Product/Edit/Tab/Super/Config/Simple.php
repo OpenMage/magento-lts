@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +24,9 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
      * Link to currently editing product
@@ -35,6 +35,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
      */
     protected $_product = null;
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -58,45 +62,47 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             ->setAttributeSetId($this->_getProduct()->getAttributeSetId())
             ->getAttributes();
 
-        /* Standart attributes */
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->_getProduct()->getTypeInstance(true);
+        $usedAttributes = $productType->getUsedProductAttributes($this->_getProduct());
+
+        /* Standard attributes */
         foreach ($attributes as $attribute) {
+            $attributeCode = $attribute->getAttributeCode();
             if (($attribute->getIsRequired()
-                && $attribute->getApplyTo()
-                // If not applied to configurable
-                && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
-                // If not used in configurable
-                && !in_array($attribute->getId(),
-                    $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->_getProduct()))
-                )
+                    && $attribute->getApplyTo()
+                    // If not applied to configurable
+                    && !in_array(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE, $attribute->getApplyTo())
+                    // If not used in configurable
+                    && !in_array($attribute->getId(), $usedAttributes))
                 // Or in additional
-                || in_array($attribute->getAttributeCode(), $attributesConfig['additional'])
+                || in_array($attributeCode, $attributesConfig['additional'])
             ) {
                 $inputType = $attribute->getFrontend()->getInputType();
                 if (!in_array($inputType, $availableTypes)) {
                     continue;
                 }
-                $attributeCode = $attribute->getAttributeCode();
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
-                     $inputType,
-                     [
+                    $inputType,
+                    [
                         'label'    => $attribute->getFrontend()->getLabel(),
                         'name'     => $attributeCode,
                         'required' => $attribute->getIsRequired(),
-                     ]
+                    ]
                 )->setEntityAttribute($attribute);
 
                 if (in_array($attributeCode, $attributesConfig['autogenerate'])) {
                     $element->setDisabled('true');
                     $element->setValue($this->_getProduct()->getData($attributeCode));
                     $element->setAfterElementHtml(
-                         '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
-                         . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
-                         . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
-                         . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
-                         . Mage::helper('catalog')->__('Autogenerate')
-                         . '</label>'
+                        '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
+                        . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
+                        . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
+                        . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
+                        . Mage::helper('catalog')->__('Autogenerate')
+                        . '</label>'
                     );
                 }
 
@@ -104,14 +110,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
-
         }
 
         /* Configurable attributes */
-        $usedAttributes = $this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct());
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
-            $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  [
+            $fieldset->addField('simple_product_' . $attributeCode, 'select', [
                 'label' => $attribute->getFrontend()->getLabel(),
                 'name'  => $attributeCode,
                 'values' => $attribute->getSource()->getAllOptions(true, true),
@@ -142,8 +146,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             'label' => Mage::helper('catalog')->__('Stock Availability'),
             'name'  => 'stock_data[is_in_stock]',
             'values' => [
-                ['value'=>1, 'label'=> Mage::helper('catalog')->__('In Stock')],
-                ['value'=>0, 'label'=> Mage::helper('catalog')->__('Out of Stock')]
+                ['value' => 1, 'label' => Mage::helper('catalog')->__('In Stock')],
+                ['value' => 0, 'label' => Mage::helper('catalog')->__('Out of Stock')]
             ],
             'value' => 1
         ]);
@@ -157,9 +161,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             'is_qty_decimal'                => 0
         ];
 
-        foreach ($stockHiddenFields as $fieldName=>$fieldValue) {
+        foreach ($stockHiddenFields as $fieldName => $fieldValue) {
             $fieldset->addField('simple_product_inventory_' . $fieldName, 'hidden', [
-                'name'  => 'stock_data[' . $fieldName .']',
+                'name'  => 'stock_data[' . $fieldName . ']',
                 'value' => $fieldValue
             ]);
         }
@@ -173,6 +177,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
         ]);
 
         $this->setForm($form);
+
+        return $this;
     }
 
     /**

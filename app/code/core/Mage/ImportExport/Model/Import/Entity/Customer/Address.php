@@ -7,41 +7,42 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity customer address
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
      * Prefix for source file column name, which displays that column contains address data.
      */
-    const COL_NAME_PREFIX = '_address_';
+    public const COL_NAME_PREFIX = '_address_';
 
     /**
      * Particular columns that contains of customer default addresses.
      */
-    const COL_NAME_DEFAULT_BILLING  = '_address_default_billing_';
-    const COL_NAME_DEFAULT_SHIPPING = '_address_default_shipping_';
+    public const COL_NAME_DEFAULT_BILLING  = '_address_default_billing_';
+    public const COL_NAME_DEFAULT_SHIPPING = '_address_default_shipping_';
 
     /**
      * Error codes.
      */
-    const ERROR_INVALID_REGION = 'invalidRegion';
+    public const ERROR_INVALID_REGION = 'invalidRegion';
 
     /**
      * Customer address attributes parameters.
@@ -128,8 +129,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     protected $_regions = [];
 
     /**
-     * Constructor.
-     *
      * @param Mage_ImportExport_Model_Import_Entity_Customer $customer
      */
     public function __construct(Mage_ImportExport_Model_Import_Entity_Customer $customer)
@@ -149,7 +148,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     /**
      * Import data rows.
      *
-     * @return boolean
+     * @return bool
      */
     protected function _importData()
     {
@@ -159,7 +158,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $resource       = Mage::getModel('customer/address');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table          = $resource->getResource()->getEntityTable();
-        $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper         = Mage::getResourceHelper('importexport');
+        $nextEntityId   = $helper->getNextAutoincrement($table);
         $customerId     = null;
         $regionColName  = self::getColNameForAttrCode('region');
         $countryColName = self::getColNameForAttrCode('country_id');
@@ -197,11 +198,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 $addressAttributes = [];
                 foreach ($this->_attributes as $attrAlias => $attrParams) {
                     if (isset($rowData[$attrAlias]) && strlen($rowData[$attrAlias])) {
-                        if ($attrParams['type'] == 'select') {
+                        if ($attrParams['type'] === 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
-                        } elseif ($attrParams['type'] == 'datetime') {
+                        } elseif ($attrParams['type'] === 'datetime') {
                             $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
-                        } elseif ($attrParams['type'] == 'multiselect') {
+                        } elseif ($attrParams['type'] === 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;
                         } else {
@@ -263,7 +264,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 } else {
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         $attrParams = $this->_attributes[$attrCode];
-                        if ($attrParams['type'] == 'multiselect') {
+                        if ($attrParams['type'] === 'multiselect') {
                             $value = '';
                             if (isset($multiSelect[$attrParams['id']])) {
                                 $value = implode(',', $multiSelect[$attrParams['id']]);
@@ -468,7 +469,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
     {
@@ -491,9 +492,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             if ($rowIsValid) {
                 $regionColName  = self::getColNameForAttrCode('region');
                 $countryColName = self::getColNameForAttrCode('country_id');
-                $countryRegions = isset($this->_countryRegions[strtolower($rowData[$countryColName])])
-                                ? $this->_countryRegions[strtolower($rowData[$countryColName])]
-                                : [];
+                $countryRegions = $this->_countryRegions[strtolower($rowData[$countryColName])] ?? [];
 
                 if (!empty($rowData[$regionColName])
                     && !empty($countryRegions)

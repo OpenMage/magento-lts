@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource model CatalogIndex Data Abstract
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -99,10 +100,10 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             ];
 
             $select = $this->_getReadAdapter()->select()
-                ->from(['product'=>$this->getTable('catalog/product')], $fields)
+                ->from(['product' => $this->getTable('catalog/product')], $fields)
                 ->where('product.entity_id in (?)', $products)
-                ->joinRight(['d'=>$tableName], $defaultCondition, [])
-                ->joinLeft(['c'=>$tableName], $condition, [])
+                ->joinRight(['d' => $tableName], $defaultCondition, [])
+                ->joinLeft(['c' => $tableName], $condition, [])
                 ->where('c.attribute_id IN (?) OR d.attribute_id IN (?)', $attributes);
             $part = $this->_getReadAdapter()->fetchAll($select);
 
@@ -133,7 +134,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         }
 
         $select = $this->_getReadAdapter()->select();
-        $select->from(['l'=>$this->getTable($table)], ["l.{$idField}"])
+        $select->from(['l' => $this->getTable($table)], ["l.{$idField}"])
             ->where("l.{$whereField} {$idsConditionSymbol}", $id);
         foreach ($additionalWheres as $field => $condition) {
             $select->where("l.$field = ?", $condition);
@@ -189,9 +190,9 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     {
         $website = Mage::app()->getStore($store)->getWebsiteId();
 
-        $fields = ['customer_group_id', 'minimal_value'=>'MIN(value)'];
+        $fields = ['customer_group_id', 'minimal_value' => 'MIN(value)'];
         $select = $this->_getReadAdapter()->select()
-            ->from(['base'=>$this->getTable('catalogindex/price')], $fields)
+            ->from(['base' => $this->getTable('catalogindex/price')], $fields)
             ->where('base.entity_id in (?)', $products)
             ->where('base.attribute_id in (?)', $priceAttributes)
             ->where('base.website_id = ?', $website)
@@ -219,8 +220,8 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         $condition = "product.entity_id = c.entity_id";
 
         $select = $this->_getReadAdapter()->select()
-            ->from(['product'=>$this->getTable('catalog/product')], $fields)
-            ->joinLeft(['c'=>"{$this->getTable('catalog/product')}_tier_price"], $condition, [])
+            ->from(['product' => $this->getTable('catalog/product')], $fields)
+            ->joinLeft(['c' => "{$this->getTable('catalog/product')}_tier_price"], $condition, [])
             ->where('product.entity_id in (?)', $products);
         if (Mage::helper('catalog')->isPriceGlobal()) {
             $select->where('c.website_id=?', 0);

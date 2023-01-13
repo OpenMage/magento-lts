@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,12 +24,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-//    protected $_saveParametersInSession = true;
-
     public function __construct()
     {
         parent::__construct();
@@ -41,10 +40,10 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         if ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('group')) {
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
-        } else if ($this->getRequest()->getParam('store')) {
+        } elseif ($this->getRequest()->getParam('store')) {
             $storeId = (int)$this->getRequest()->getParam('store');
         } else {
             $storeId = '';
@@ -60,7 +59,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             ->useNotifyStockQtyFilter($storeId)
             ->setOrder('qty', Varien_Data_Collection::SORT_ORDER_ASC);
 
-        if( $storeId ) {
+        if ($storeId) {
             $collection->addStoreFilter($storeId);
         }
 
@@ -71,25 +70,25 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
-            'header'    =>Mage::helper('reports')->__('Product Name'),
-            'sortable'  =>false,
-            'index'     =>'name'
+            'header'    => Mage::helper('reports')->__('Product Name'),
+            'sortable'  => false,
+            'index'     => 'name'
         ]);
 
         $this->addColumn('sku', [
-            'header'    =>Mage::helper('reports')->__('Product SKU'),
-            'sortable'  =>false,
-            'index'     =>'sku'
+            'header'    => Mage::helper('reports')->__('Product SKU'),
+            'sortable'  => false,
+            'index'     => 'sku'
         ]);
 
         $this->addColumn('qty', [
-            'header'    =>Mage::helper('reports')->__('Stock Qty'),
-            'width'     =>'215px',
-            'align'     =>'right',
-            'sortable'  =>false,
-            'filter'    =>'adminhtml/widget_grid_column_filter_range',
-            'index'     =>'qty',
-            'type'      =>'number'
+            'header'    => Mage::helper('reports')->__('Stock Qty'),
+            'width'     => '215px',
+            'align'     => 'right',
+            'sortable'  => false,
+            'filter'    => 'adminhtml/widget_grid_column_filter_range',
+            'index'     => 'qty',
+            'type'      => 'number'
         ]);
 
         $this->addExportType('*/*/exportLowstockCsv', Mage::helper('reports')->__('CSV'));

@@ -7,28 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Flat Indexer Resource Model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_Resource_Abstract
 {
-    const XML_NODE_MAX_INDEX_COUNT  = 'global/catalog/product/flat/max_index_count';
-    const XML_NODE_ATTRIBUTE_NODES  = 'global/catalog/product/flat/attribute_nodes';
+    public const XML_NODE_MAX_INDEX_COUNT  = 'global/catalog/product/flat/max_index_count';
+    public const XML_NODE_ATTRIBUTE_NODES  = 'global/catalog/product/flat/attribute_nodes';
 
     /**
      * Attribute codes for flat
@@ -93,10 +94,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     protected $_preparedFlatTables   = [];
 
-    /**
-     * Initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -506,7 +503,9 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     protected function _compareColumnProperties($column, $describe)
     {
-        return Mage::getResourceHelper('catalog')->compareIndexColumnProperties($column, $describe);
+        /** @var Mage_Catalog_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('catalog');
+        return $helper->compareIndexColumnProperties($column, $describe);
     }
 
     /**
@@ -616,9 +615,11 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         // Extract columns we need to have in flat table
         $columns = $this->getFlatColumns();
         if (Mage::helper('core')->useDbCompatibleMode()) {
-             /* Convert old format of flat columns to new MMDB format that uses DDL types and definitions */
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
+            /* Convert old format of flat columns to new MMDB format that uses DDL types and definitions */
             foreach ($columns as $key => $column) {
-                $columns[$key] = Mage::getResourceHelper('core')->convertOldColumnDefinition($column);
+                $columns[$key] = $helper->convertOldColumnDefinition($column);
             }
         }
 
@@ -663,14 +664,14 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 $table->addColumn(
                     $fieldName,
                     $fieldProp['type'],
-                    isset($fieldProp['length']) ? $fieldProp['length'] : null,
+                    $fieldProp['length'] ?? null,
                     [
                         'nullable' => isset($fieldProp['nullable']) ? (bool)$fieldProp['nullable'] : false,
                         'unsigned' => isset($fieldProp['unsigned']) ? (bool)$fieldProp['unsigned'] : false,
-                        'default'  => isset($fieldProp['default']) ? $fieldProp['default'] : false,
+                        'default'  => $fieldProp['default'] ?? false,
                         'primary'  => false,
                     ],
-                    isset($fieldProp['comment']) ? $fieldProp['comment'] : $fieldName
+                    $fieldProp['comment'] ?? $fieldName
                 );
             }
 
@@ -729,7 +730,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 if (isset($indexesNeed[$key])) {
                     $indexNeed = $indexesNeed[$key];
                     if (($indexNeed['INDEX_TYPE'] != $indexNow['INDEX_TYPE'])
-                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])) {
+                        || ($indexNeed['COLUMNS_LIST'] != $indexNow['COLUMNS_LIST'])
+                    ) {
                         $dropIndexes[$key] = $indexNow;
                         $addIndexes[$key] = $indexNeed;
                     }
@@ -891,7 +893,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             ->where("{$fieldExpr} = ?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         foreach ($this->getAttributes() as $attributeCode => $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-            if ($attribute->getBackend()->getType() == 'static') {
+            if ($attribute->getBackend()->getType() === 'static') {
                 if (!isset($columns[$attributeCode])) {
                     continue;
                 }
@@ -974,7 +976,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         $flatTableName = $this->getFlatTableName($storeId);
         $describe      = $adapter->describeTable($flatTableName);
 
-        if ($attribute->getBackend()->getType() == 'static') {
+        if ($attribute->getBackend()->getType() === 'static') {
             if (!isset($describe[$attribute->getAttributeCode()])) {
                 return $this;
             }
@@ -1151,7 +1153,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
         $select = $adapter->select();
         foreach (array_keys($this->getFlatColumns()) as $columnName) {
-            if ($columnName == 'entity_id' || $columnName == 'child_id' || $columnName == 'is_child') {
+            if ($columnName === 'entity_id' || $columnName === 'child_id' || $columnName === 'is_child') {
                 continue;
             }
             $select->columns([$columnName => new Zend_Db_Expr('t1.' . $columnName)]);

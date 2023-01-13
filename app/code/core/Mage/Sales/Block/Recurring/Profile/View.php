@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile view
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
 {
@@ -45,7 +50,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Related orders collection
      *
-     * @var Mage_Sales_Model_Mysql4_Order_Collection
+     * @var Mage_Sales_Model_Resource_Order_Collection
      */
     protected $_relatedOrders = null;
 
@@ -105,7 +110,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         foreach (['name' => Mage::helper('catalog')->__('Product Name'),
             'sku'  => Mage::helper('catalog')->__('SKU'),
             'qty'  => Mage::helper('catalog')->__('Quantity'),
-                 ] as $itemKey => $label) {
+                 ] as $itemKey => $label
+        ) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
                 $this->_addInfo(['label' => $label, 'value' => $value,]);
@@ -202,7 +208,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'billing_amount',
                 'tax_amount',
                 'shipping_amount'
-                 ] as $key) {
+                 ] as $key
+        ) {
             $value = $this->_profile->getData($key);
             if ($value) {
                 $this->_addInfo([

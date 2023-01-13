@@ -7,44 +7,37 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Flat sales order collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resource_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_collection';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order');
@@ -63,7 +56,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
     {
         if (is_null($this->_fieldsToSelect)) {
             // If we select all fields from table, we need to add column alias
-            $this->getSelect()->columns(['items_count'=>'total_item_count']);
+            $this->getSelect()->columns(['items_count' => 'total_item_count']);
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }
@@ -148,7 +141,10 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     $shippingAliasName . '.postcode'
                 ]
             );
-        Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
+
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        $helper->prepareColumnsList($this->getSelect());
         return $this;
     }
 
@@ -182,7 +178,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      * Specify collection select filter by attribute value
      *
      * @param array $attributes
-     * @param array|integer|string|null $condition
+     * @param array|int|string|null $condition
      * @return $this
      */
     public function addAttributeToSearchFilter($attributes, $condition = null)

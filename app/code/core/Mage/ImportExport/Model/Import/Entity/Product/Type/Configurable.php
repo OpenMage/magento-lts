@@ -7,33 +7,34 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity configurable product type model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 {
     /**
      * Error codes.
      */
-    const ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER = 'attrCodeIsNotSuper';
-    const ERROR_INVALID_PRICE_CORRECTION    = 'invalidPriceCorr';
-    const ERROR_INVALID_OPTION_VALUE        = 'invalidOptionValue';
-    const ERROR_INVALID_WEBSITE             = 'invalidSuperAttrWebsite';
+    public const ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER = 'attrCodeIsNotSuper';
+    public const ERROR_INVALID_PRICE_CORRECTION    = 'invalidPriceCorr';
+    public const ERROR_INVALID_OPTION_VALUE        = 'invalidOptionValue';
+    public const ERROR_INVALID_WEBSITE             = 'invalidSuperAttrWebsite';
 
     /**
      * Validation failure message template definitions
@@ -131,7 +132,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
         // save super attributes for simplier and quicker search in future
-        if ($attrParams['type'] == 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
+        if ($attrParams['type'] === 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
             $this->_superAttributes[$attrParams['code']] = $attrParams;
         }
         return parent::_addAttributeParams($attrSetName, $attrParams);
@@ -146,11 +147,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected function _getSuperAttributeId($productId, $attributeId)
     {
-        if (isset($this->_productSuperAttrs["{$productId}_{$attributeId}"])) {
-            return $this->_productSuperAttrs["{$productId}_{$attributeId}"];
-        } else {
-            return null;
-        }
+        return $this->_productSuperAttrs["{$productId}_{$attributeId}"] ?? null;
     }
 
     /**
@@ -168,7 +165,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      * Is attribute is super-attribute?
      *
      * @param string $attrCode
-     * @return boolean
+     * @return bool
      */
     protected function _isAttributeSuper($attrCode)
     {
@@ -220,7 +217,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
             $allowProductTypes = [];
 
             foreach (Mage::getConfig()
-                    ->getNode('global/catalog/product/type/configurable/allow_product_types')->children() as $type) {
+                    ->getNode('global/catalog/product/type/configurable/allow_product_types')->children() as $type
+            ) {
                 $allowProductTypes[] = $type->getName();
             }
             /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -366,7 +364,9 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
         $oldSku          = $this->_entityModel->getOldSku();
         $productSuperData = [];
         $productData     = null;
-        $nextAttrId      = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper          = Mage::getResourceHelper('importexport');
+        $nextAttrId      = $helper->getNextAutoincrement($mainTable);
 
         if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
             $this->_loadSkuSuperData();
@@ -444,7 +444,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         $superAttributes['pricing'][] = [
                             'product_super_attribute_id' => $productSuperAttrId,
                             'value_index'   => $optionId,
-                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) == '%',
+                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
                             'website_id'    => 0
                         ];
@@ -456,7 +456,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
 
             // remove old data if needed
             if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && $superAttributes['attributes']) {
+                && $superAttributes['attributes']
+            ) {
                 $quoted = $connection->quoteInto('IN (?)', array_keys($superAttributes['attributes']));
                 $connection->delete($mainTable, "product_id {$quoted}");
                 $connection->delete($linkTable, "parent_id {$quoted}");

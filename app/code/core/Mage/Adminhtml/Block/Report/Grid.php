@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,9 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -54,6 +57,17 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected $_currentCurrencyCode = null;
 
+    /**
+     * @var Mage_Core_Model_Locale
+     */
+    protected $_locale;
+
+    /** @todo OM: check */
+    protected $_filterValues;
+
+    /**
+     * Mage_Adminhtml_Block_Report_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -64,16 +78,21 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setCountTotals(true);
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareLayout()
     {
-        $this->setChild('store_switcher',
+        $this->setChild(
+            'store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setUseConfirm(false)
-                ->setSwitchUrl($this->getUrl('*/*/*', ['store'=>null]))
+                ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
                 ->setTemplate('report/store/switcher.phtml')
         );
 
-        $this->setChild('refresh_button',
+        $this->setChild(
+            'refresh_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Refresh'),
@@ -98,7 +117,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return void
+     * @return $this
      */
     protected function _prepareCollection()
     {
@@ -115,7 +134,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
             if (!isset($data['report_from'])) {
                 // getting all reports from 2001 year
-                $date = new Zend_Date(mktime(0,0,0,1,1,2001));
+                $date = new Zend_Date(mktime(0, 0, 0, 1, 1, 2001));
                 $data['report_from'] = $date->toString($this->getLocale()->getDateFormat('short'));
             }
 
@@ -126,9 +145,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             }
 
             $this->_setFilterValues($data);
-        } else if ($filter && is_array($filter)) {
+        } elseif ($filter && is_array($filter)) {
             $this->_setFilterValues($filter);
-        } else if(count($this->_defaultFilter)) {
+        } elseif (count($this->_defaultFilter)) {
             $this->_setFilterValues($this->_defaultFilter);
         }
         /** @var Mage_Reports_Model_Resource_Report_Collection $collection */
@@ -145,8 +164,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 $to   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
 
                 $collection->setInterval($from, $to);
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
         }
@@ -157,9 +175,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $storeIds = [];
         if ($this->getRequest()->getParam('store')) {
             $storeIds = [$this->getParam('store')];
-        } elseif ($this->getRequest()->getParam('website')){
+        } elseif ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } elseif ($this->getRequest()->getParam('group')){
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
         }
 
@@ -182,17 +200,22 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->setCollection($collection);
 
-        Mage::dispatchEvent('adminhtml_widget_grid_filter_collection',
-                ['collection' => $this->getCollection(), 'filter_values' => $this->_filterValues]
+        Mage::dispatchEvent(
+            'adminhtml_widget_grid_filter_collection',
+            ['collection' => $this->getCollection(), 'filter_values' => $this->_filterValues]
         );
+
+        return $this;
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     */
     protected function _setFilterValues($data)
     {
         foreach ($data as $name => $value) {
-            //if (isset($data[$name])) {
-                $this->setFilter($name, $data[$name]);
-            //}
+            $this->setFilter($name, $data[$name]);
         }
         return $this;
     }
@@ -200,9 +223,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of store switcher
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
-    public function setStoreSwitcherVisibility($visible=true)
+    public function setStoreSwitcherVisibility($visible = true)
     {
         $this->_storeSwitcherVisibility = $visible;
     }
@@ -210,7 +233,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of store switcher
      *
-     * @return boolean
+     * @return bool
      */
     public function getStoreSwitcherVisibility()
     {
@@ -230,9 +253,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of date filter
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
-    public function setDateFilterVisibility($visible=true)
+    public function setDateFilterVisibility($visible = true)
     {
         $this->_dateFilterVisibility = $visible;
     }
@@ -240,7 +263,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of date filter
      *
-     * @return boolean
+     * @return bool
      */
     public function getDateFilterVisibility()
     {
@@ -250,9 +273,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of export action
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
-    public function setExportVisibility($visible=true)
+    public function setExportVisibility($visible = true)
     {
         $this->_exportVisibility = $visible;
     }
@@ -260,7 +283,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of export action
      *
-     * @return boolean
+     * @return bool
      */
     public function getExportVisibility()
     {
@@ -270,9 +293,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of subtotals
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
-    public function setSubtotalVisibility($visible=true)
+    public function setSubtotalVisibility($visible = true)
     {
         $this->_subtotalVisibility = $visible;
     }
@@ -280,7 +303,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of subtotals
      *
-     * @return boolean
+     * @return bool
      */
     public function getSubtotalVisibility()
     {
@@ -318,7 +341,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             return $this->_filters[$name];
         } else {
             return ($this->getRequest()->getParam($name))
-                    ?htmlspecialchars($this->getRequest()->getParam($name)):'';
+                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
         }
     }
 
@@ -356,12 +379,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->_exportTypes[] = new Varien_Object(
             [
-                'url'   => $this->getUrl($url,
+                'url'   => $this->getUrl(
+                    $url,
                     [
-                        '_current'=>true,
+                        '_current' => true,
                         'filter' => $this->getParam($this->getVarNameFilter(), null)
                     ]
-                    ),
+                ),
                 'label' => $label
             ]
         );
@@ -385,22 +409,22 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function addGrandTotals($total)
     {
         $totalData = $total->getData();
-        foreach ($totalData as $key=>$value) {
+        foreach ($totalData as $key => $value) {
             $_column = $this->getColumn($key);
             if ($_column->getTotal() != '') {
-                $this->getGrandTotals()->setData($key, $this->getGrandTotals()->getData($key)+$value);
+                $this->getGrandTotals()->setData($key, $this->getGrandTotals()->getData($key) + $value);
             }
         }
         /*
          * recalc totals if we have average
          */
-        foreach ($this->getColumns() as $key=>$_column) {
+        foreach ($this->getColumns() as $key => $_column) {
             if (strpos($_column->getTotal(), '/') !== false) {
                 list($t1, $t2) = explode('/', $_column->getTotal());
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
                         $key,
-                        (float)$this->getGrandTotals()->getData($t1)/$this->getGrandTotals()->getData($t2)
+                        (float)$this->getGrandTotals()->getData($t1) / $this->getGrandTotals()->getData($t2)
                     );
                 }
             }
@@ -430,18 +454,18 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $csv = '';
         $this->_prepareGrid();
 
-        $data = ['"'.$this->__('Period').'"'];
+        $data = ['"' . $this->__('Period') . '"'];
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
-                $data[] = '"'.$column->getHeader().'"';
+                $data[] = '"' . $column->getHeader() . '"';
             }
         }
-        $csv.= implode(',', $data)."\n";
+        $csv .= implode(',', $data) . "\n";
 
-        foreach ($this->getCollection()->getIntervals() as $_index=>$_item) {
+        foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
             $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subIndex=>$_subItem) {
-                $data = ['"'.$_index.'"'];
+            foreach ($report as $_subIndex => $_subItem) {
+                $data = ['"' . $_index . '"'];
                 foreach ($this->_columns as $column) {
                     if (!$column->getIsSystem()) {
                         $data[] = '"' . str_replace(
@@ -451,33 +475,31 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                         ) . '"';
                     }
                 }
-                $csv.= implode(',', $data)."\n";
+                $csv .= implode(',', $data) . "\n";
             }
-            if ($this->getCountTotals() && $this->getSubtotalVisibility())
-            {
-                $data = ['"'.$_index.'"'];
+            if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
+                $data = ['"' . $_index . '"'];
                 $j = 0;
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
                         $data[] = ($j == 1) ?
                                 '"' . $this->__('Subtotal') . '"' :
-                                '"'.str_replace('"', '""', $column->getRowField($this->getTotals())).'"';
+                                '"' . str_replace('"', '""', $column->getRowField($this->getTotals())) . '"';
                     }
                 }
-                $csv.= implode(',', $data)."\n";
+                $csv .= implode(',', $data) . "\n";
             }
         }
 
-        if ($this->getCountTotals())
-        {
-            $data = ['"'.$this->__('Total').'"'];
+        if ($this->getCountTotals()) {
+            $data = ['"' . $this->__('Total') . '"'];
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
-                    $data[] = '"'.str_replace('"', '""', $column->getRowField($this->getGrandTotals())).'"';
+                    $data[] = '"' . str_replace('"', '""', $column->getRowField($this->getGrandTotals())) . '"';
                 }
             }
-            $csv.= implode(',', $data)."\n";
+            $csv .= implode(',', $data) . "\n";
         }
 
         return $csv;
@@ -486,7 +508,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return unknown
+     * @return mixed
      */
     public function getExcel($filename = '')
     {
@@ -501,9 +523,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
         $data[] = $row;
 
-        foreach ($this->getCollection()->getIntervals() as $_index=>$_item) {
+        foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
             $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subIndex=>$_subItem) {
+            foreach ($report as $_subIndex => $_subItem) {
                 $row = [$_index];
                 foreach ($this->_columns as $column) {
                     if (!$column->getIsSystem()) {
@@ -512,22 +534,20 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 }
                 $data[] = $row;
             }
-            if ($this->getCountTotals() && $this->getSubtotalVisibility())
-            {
+            if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
                 $row = [$_index];
                 $j = 0;
                 foreach ($this->_columns as $column) {
                     $j++;
                     if (!$column->getIsSystem()) {
-                        $row[] = ($j==1)?$this->__('Subtotal'):$column->getRowField($this->getTotals());
+                        $row[] = ($j == 1) ? $this->__('Subtotal') : $column->getRowField($this->getTotals());
                     }
                 }
                 $data[] = $row;
             }
         }
 
-        if ($this->getCountTotals())
-        {
+        if ($this->getCountTotals()) {
             $row = [$this->__('Total')];
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
@@ -545,21 +565,33 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $xmlObj->getData();
     }
 
+    /**
+     * @return string
+     */
     public function getSubtotalText()
     {
         return $this->__('Subtotal');
     }
 
+    /**
+     * @return string
+     */
     public function getTotalText()
     {
         return $this->__('Total');
     }
 
+    /**
+     * @return string
+     */
     public function getEmptyText()
     {
         return $this->__('No records found for this period.');
     }
 
+    /**
+     * @return bool
+     */
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();
@@ -601,10 +633,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             if ($this->getRequest()->getParam('store')) {
                 $store = $this->getRequest()->getParam('store');
                 $this->_currentCurrencyCode = Mage::app()->getStore($store)->getBaseCurrencyCode();
-            } else if ($this->getRequest()->getParam('website')){
+            } elseif ($this->getRequest()->getParam('website')) {
                 $website = $this->getRequest()->getParam('website');
                 $this->_currentCurrencyCode = Mage::app()->getWebsite($website)->getBaseCurrencyCode();
-            } else if ($this->getRequest()->getParam('group')){
+            } elseif ($this->getRequest()->getParam('group')) {
                 $group = $this->getRequest()->getParam('group');
                 $this->_currentCurrencyCode =  Mage::app()->getGroup($group)->getWebsite()->getBaseCurrencyCode();
             } else {

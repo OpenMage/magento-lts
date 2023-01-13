@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales order shipment model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Shipment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment getResource()
@@ -52,36 +57,32 @@
  * @method $this setTotalWeight(float $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
-    const STATUS_NEW    = 1;
+    public const STATUS_NEW    = 1;
 
-    const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/shipment/template';
-    const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/shipment/guest_template';
-    const XML_PATH_EMAIL_IDENTITY               = 'sales_email/shipment/identity';
-    const XML_PATH_EMAIL_COPY_TO                = 'sales_email/shipment/copy_to';
-    const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/shipment/copy_method';
-    const XML_PATH_EMAIL_ENABLED                = 'sales_email/shipment/enabled';
+    public const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/shipment/template';
+    public const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/shipment/guest_template';
+    public const XML_PATH_EMAIL_IDENTITY               = 'sales_email/shipment/identity';
+    public const XML_PATH_EMAIL_COPY_TO                = 'sales_email/shipment/copy_to';
+    public const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/shipment/copy_method';
+    public const XML_PATH_EMAIL_ENABLED                = 'sales_email/shipment/enabled';
 
-    const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/shipment_comment/template';
-    const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/shipment_comment/guest_template';
-    const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/shipment_comment/identity';
-    const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/shipment_comment/copy_to';
-    const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
-    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
+    public const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/shipment_comment/template';
+    public const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/shipment_comment/guest_template';
+    public const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/shipment_comment/identity';
+    public const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/shipment_comment/copy_to';
+    public const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
+    public const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
 
-    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
-    const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
+    public const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+    public const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
 
     /**
      * Identifier for order history item
      */
-    const HISTORY_ENTITY_NAME = 'shipment';
+    public const HISTORY_ENTITY_NAME = 'shipment';
 
     /**
      * @var Mage_Sales_Model_Resource_Order_Shipment_Item_Collection
@@ -99,7 +100,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection
+     * @var Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection|null
      */
     protected $_comments;
 
@@ -118,6 +119,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to its full names
      *
      * @return $this
+     * @deprecated
      */
     protected function _initOldFieldsMap()
     {
@@ -219,10 +221,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 
         $totalQty = 0;
         foreach ($this->getAllItems() as $item) {
-            if ($item->getQty()>0) {
+            if ($item->getQty() > 0) {
                 $item->register();
                 if (!$item->getOrderItem()->isDummy(true)) {
-                    $totalQty+= $item->getQty();
+                    $totalQty += $item->getQty();
                 }
             } else {
                 $item->isDeleted(true);
@@ -272,7 +274,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     public function getItemById($itemId)
     {
         foreach ($this->getItemsCollection() as $item) {
-            if ($item->getId()==$itemId) {
+            if ($item->getId() == $itemId) {
                 return $item;
             }
         }
@@ -334,7 +336,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     public function getTrackById($trackId)
     {
         foreach ($this->getTracksCollection() as $track) {
-            if ($track->getId()==$trackId) {
+            if ($track->getId() == $trackId) {
                 return $track;
             }
         }
@@ -423,7 +425,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment data
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */
@@ -444,8 +446,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         // Start store emulation process
-        $appEmulation = Mage::getSingleton('core/app_emulation');
-        $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        if ($storeId != Mage::app()->getStore()->getId()) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId);
+        }
 
         try {
             // Retrieve specified view block from appropriate design package (depends on emulated store)
@@ -453,14 +457,18 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
             // Stop store emulation process
-            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            throw $exception;
+            if (isset($appEmulation, $initialEnvironmentInfo)) {
+                $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+            }
+            throw $e;
         }
 
         // Stop store emulation process
-        $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        if (isset($appEmulation, $initialEnvironmentInfo)) {
+            $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+        }
 
         // Retrieve corresponding email template id and customer name
         if ($order->getCustomerIsGuest()) {
@@ -512,7 +520,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Send email with shipment update information
      *
-     * @param boolean $notifyCustomer
+     * @param bool $notifyCustomer
      * @param string $comment
      * @return $this
      */
