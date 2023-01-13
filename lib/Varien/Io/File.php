@@ -401,6 +401,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public static function rmdirRecursive($dir, $recursive = true)
     {
+        $result = true;
         if ($recursive) {
             if (is_dir($dir)) {
                 foreach (scandir($dir) as $item) {
@@ -410,7 +411,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     self::rmdirRecursive($dir . "/" . $item, $recursive);
                 }
                 $result = @rmdir($dir);
-            } else {
+            } elseif (file_exists($dir)) {
                 $result = @unlink($dir);
             }
         } else {
