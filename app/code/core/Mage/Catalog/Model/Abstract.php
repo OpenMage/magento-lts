@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,10 +31,10 @@
 abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
 {
     /**
-     * Identifuer of default store
+     * Identifier of default store
      * used for loading default data for entity
      */
-    const DEFAULT_STORE_ID = 0;
+    public const DEFAULT_STORE_ID = 0;
 
     /**
      * Attribute default values
@@ -60,16 +61,16 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     protected $_lockedAttributes = [];
 
     /**
-     * Is model deleteable
+     * Is model deletable
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleteable = true;
 
     /**
      * Is model readonly
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isReadonly = false;
 
@@ -124,7 +125,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks that model have locked attributes
      *
-     * @return boolean
+     * @return bool
      */
     public function hasLockedAttributes()
     {
@@ -135,7 +136,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * Retrieve locked attributes
      *
      * @param string $attributeCode
-     * @return boolean
+     * @return bool
      */
     public function isLockedAttribute($attributeCode)
     {
@@ -185,7 +186,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     public function unsetData($key = null)
     {
         if ((!is_null($key) && $this->isLockedAttribute($key)) ||
-            $this->isReadonly()) {
+            $this->isReadonly()
+        ) {
             return $this;
         }
 
@@ -308,7 +310,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks model is deletable
      *
-     * @return boolean
+     * @return bool
      */
     public function isDeleteable()
     {
@@ -318,7 +320,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsDeleteable($value)
@@ -330,7 +332,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Checks model is deletable
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -340,7 +342,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Set is deletable flag
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setIsReadonly($value)

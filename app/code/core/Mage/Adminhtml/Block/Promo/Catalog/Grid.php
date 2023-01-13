@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -67,21 +68,20 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         $this->addColumn('rule_id', [
             'header'    => Mage::helper('catalogrule')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rule_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalogrule')->__('Rule Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'name',
         ]);
 
         $this->addColumn('from_date', [
             'header'    => Mage::helper('catalogrule')->__('Date Start'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'index'     => 'from_date',
         ]);
@@ -89,7 +89,6 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('to_date', [
             'header'    => Mage::helper('catalogrule')->__('Date Expire'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'default'   => '--',
             'index'     => 'to_date',
@@ -110,7 +109,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', [
                 'header'    => Mage::helper('catalogrule')->__('Website'),
-                'align'     =>'left',
+                'align'     => 'left',
                 'index'     => 'website_ids',
                 'type'      => 'options',
                 'sortable'  => false,
@@ -126,7 +125,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row click URL
      *
-     * @param Varien_Object $row
+     * @param Mage_CatalogRule_Model_Rule $row
      *
      * @return string
      */
@@ -134,5 +133,4 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }
-
 }

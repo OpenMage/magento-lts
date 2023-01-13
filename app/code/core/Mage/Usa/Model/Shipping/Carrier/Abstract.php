@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,11 +28,10 @@
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
 {
-
-    const USA_COUNTRY_ID = 'US';
-    const PUERTORICO_COUNTRY_ID = 'PR';
-    const GUAM_COUNTRY_ID = 'GU';
-    const GUAM_REGION_CODE = 'GU';
+    public const USA_COUNTRY_ID = 'US';
+    public const PUERTORICO_COUNTRY_ID = 'PR';
+    public const GUAM_COUNTRY_ID = 'GU';
+    public const GUAM_REGION_CODE = 'GU';
 
     protected static $_quotesCache = [];
 
@@ -61,7 +61,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function getCarrierCode()
     {
-        return isset($this->_code) ? $this->_code : null;
+        return $this->_code ?? null;
     }
 
     public function getTrackingInfo($tracking)
@@ -70,12 +70,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
         $result = $this->getTracking($tracking);
 
-        if($result instanceof Mage_Shipping_Model_Tracking_Result){
+        if ($result instanceof Mage_Shipping_Model_Tracking_Result) {
             if ($trackings = $result->getAllTrackings()) {
                 return $trackings[0];
             }
-        }
-        elseif (is_string($result) && !empty($result)) {
+        } elseif (is_string($result) && !empty($result)) {
             return $result;
         }
 
@@ -86,7 +85,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Check if carrier has shipping tracking option available
      * All Mage_Usa carriers have shipping tracking option available
      *
-     * @return boolean
+     * @return bool
      */
     public function isTrackingAvailable()
     {
@@ -96,7 +95,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Check if city option required
      *
-     * @return boolean
+     * @return bool
      */
     public function isCityRequired()
     {
@@ -120,7 +119,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     /**
      * Check if carrier has shipping label option available
      *
-     * @return boolean
+     * @return bool
      */
     public function isShippingLabelsAvailable()
     {
@@ -165,12 +164,12 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Processing additional validation to check if carrier applicable.
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         //Skip by item validation if there is no items in request
-        if(!count($this->getAllItems($request))) {
+        if (!count($this->getAllItems($request))) {
             return $this;
         }
 
@@ -223,15 +222,18 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Returns cache key for some request to carrier quotes service
      *
      * @param string|array $requestParams
-     * @return string
+     * @return int
      */
     protected function _getQuotesCacheKey($requestParams)
     {
         if (is_array($requestParams)) {
-            $requestParams = implode(',', array_merge(
-                [$this->getCarrierCode()],
-                array_keys($requestParams),
-                $requestParams)
+            $requestParams = implode(
+                ',',
+                array_merge(
+                    [$this->getCarrierCode()],
+                    array_keys($requestParams),
+                    $requestParams
+                )
             );
         }
         return crc32($requestParams);
@@ -249,7 +251,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _getCachedQuotes($requestParams)
     {
         $key = $this->_getQuotesCacheKey($requestParams);
-        return isset(self::$_quotesCache[$key]) ? self::$_quotesCache[$key] : null;
+        return self::$_quotesCache[$key] ?? null;
     }
 
     /**
@@ -419,7 +421,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Check is Country U.S. Possessions and Trust Territories
      *
      * @param string $countyId
-     * @return boolean
+     * @return bool
      */
     protected function _isUSCountry($countyId)
     {
@@ -430,7 +432,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             case 'PW': // Palau
             case 'PR': // Puerto Rico
             case 'VI': // Virgin Islands US
-            case 'US'; // United States
+            case 'US': // United States
                 return true;
         }
 
@@ -441,7 +443,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Check is Canada
      *
      * @param string $countryId
-     * @return boolean
+     * @return bool
      */
     protected function _isCanada($countryId)
     {
@@ -454,7 +456,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @param null|string $countyDest
      * @return bool
      */
-    public function isGirthAllowed($countyDest = null) {
+    public function isGirthAllowed($countyDest = null)
+    {
         return false;
     }
 }

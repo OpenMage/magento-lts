@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -70,8 +71,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', $this->__('Delete'));
         $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-            ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
+            Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+        ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
 
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
@@ -89,8 +90,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
     {
         if ($this->getModel()->getId()) {
             return $this->__('Edit Consumer');
-        } else {
-            return $this->__('New Consumer');
         }
+        return $this->__('New Consumer');
     }
 }

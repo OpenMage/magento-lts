@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,7 +117,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return count($this->getCustomer()->getAddresses());
     }
 
-/* */
+    /* */
     /**
      * @param string $type
      * @return string
@@ -134,7 +135,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
 
             $addressId = $this->getAddress()->getCustomerAddressId();
             if (empty($addressId)) {
-                if ($type=='billing') {
+                if ($type == 'billing') {
                     $address = $this->getCustomer()->getPrimaryBillingAddress();
                 } else {
                     $address = $this->getCustomer()->getPrimaryShippingAddress();
@@ -145,10 +146,10 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             }
 
             $select = $this->getLayout()->createBlock('core/html_select')
-                ->setName($type.'_address_id')
-                ->setId($type.'-address-select')
+                ->setName($type . '_address_id')
+                ->setId($type . '-address-select')
                 ->setClass('address-select')
-                ->setExtraParams('onchange="'.$type.'.newAddress(!this.value)"')
+                ->setExtraParams('onchange="' . $type . '.newAddress(!this.value)"')
                 ->setValue($addressId)
                 ->setOptions($options);
 
@@ -171,8 +172,8 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             $countryId = Mage::helper('core')->getDefaultCountry();
         }
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type.'[country_id]')
-            ->setId($type.':country_id')
+            ->setName($type . '[country_id]')
+            ->setId($type . ':country_id')
             ->setTitle(Mage::helper('checkout')->__('Country'))
             ->setClass('validate-select')
             ->setValue($countryId)
@@ -191,8 +192,8 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function getRegionHtmlSelect($type)
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type.'[region]')
-            ->setId($type.':region')
+            ->setName($type . '[region]')
+            ->setId($type . ':region')
             ->setTitle(Mage::helper('checkout')->__('State/Province'))
             ->setClass('required-entry validate-state')
             ->setValue($this->getAddress()->getRegionId())
@@ -245,5 +246,5 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         return true;
     }
-/* */
+    /* */
 }

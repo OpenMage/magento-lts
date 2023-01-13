@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -169,9 +170,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $entityCode = $this->getEntityTypeCode();
@@ -218,7 +216,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     {
         if (self::$attrCodes === null) {
             if (!empty($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
-                    && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])) {
+                    && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
+            ) {
                 $skipAttr = array_flip($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP]);
             } else {
                 $skipAttr = [];
@@ -227,7 +226,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
             foreach ($this->filterAttributeCollection($this->getAttributeCollection()) as $attribute) {
                 if (!isset($skipAttr[$attribute->getAttributeId()])
-                        || in_array($attribute->getAttributeCode(), $this->_permanentAttributes)) {
+                        || in_array($attribute->getAttributeCode(), $this->_permanentAttributes)
+                ) {
                     $attrCodes[] = $attribute->getAttributeCode();
                 }
             }
@@ -258,7 +258,8 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         if (!isset($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])
-            || !is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])) {
+            || !is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP])
+        ) {
             $exportFilter = [];
         } else {
             $exportFilter = $this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP];

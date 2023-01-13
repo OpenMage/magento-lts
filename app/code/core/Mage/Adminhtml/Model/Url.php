@@ -7,22 +7,32 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getNoSecret()
+ * @method $this setNoSecret(bool $avlue)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
     /**
      * Secret key query param name
      */
-    const SECRET_KEY_PARAM_NAME = 'key';
+    public const SECRET_KEY_PARAM_NAME = 'key';
 
     /**
      * Retrieve is secure mode for ULR logic
@@ -34,7 +44,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if ($this->hasData('secure_is_forced')) {
             return $this->getData('secure');
         }
-        return Mage::getStoreConfigFlag('web/secure/use_in_adminhtml');
+        return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);
     }
 
     /**
@@ -42,7 +52,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      *
      * @return Mage_Core_Model_Url
      */
-    public function setRouteParams(array $data, $unsetOldParams=true)
+    public function setRouteParams(array $data, $unsetOldParams = true)
     {
         if (isset($data['_nosecret'])) {
             $this->setNoSecret(true);
@@ -61,7 +71,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * @param array $routeParams
      * @return string
      */
-    public function getUrl($routePath=null, $routeParams=null)
+    public function getUrl($routePath = null, $routeParams = null)
     {
         $cacheSecretKey = false;
         if (is_array($routeParams) && isset($routeParams['_cache_secret_key'])) {
@@ -80,8 +90,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
         if ($cacheSecretKey) {
             $secret = [self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$"];
-        }
-        else {
+        } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
         }
         if (is_array($routeParams)) {
@@ -122,7 +131,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Return secret key settings flag
      *
-     * @return boolean
+     * @return bool
      */
     public function useSecretKey()
     {
@@ -153,8 +162,6 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 
     /**
      * Refresh admin menu cache etc.
-     *
-     * @return $this
      */
     public function renewSecretUrls()
     {

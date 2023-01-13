@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,11 +117,11 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
+     * @param bool $email
+     * @param bool $includeComment
      * @return string
      */
-    public function create($orderIncrementId, $itemsQty, $comment = null, $email = false, $includeComment = false)
+    public function create($orderIncrementId, $itemsQty = [], $comment = null, $email = false, $includeComment = false)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
@@ -129,14 +130,14 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
           * Check order existing
           */
         if (!$order->getId()) {
-             $this->_fault('order_not_exists');
+            $this->_fault('order_not_exists');
         }
 
         /**
          * Check invoice create availability
          */
         if (!$order->canInvoice()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do invoice for order.'));
+            $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do invoice for order.'));
         }
 
         $invoice = $order->prepareInvoice($itemsQty);
@@ -172,9 +173,9 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $invoiceIncrementId
      * @param string $comment
-     * @param boolean $email
-     * @param boolean $includeComment
-     * @return boolean
+     * @param bool $email
+     * @param bool $includeComment
+     * @return bool
      */
     public function addComment($invoiceIncrementId, $comment, $email = false, $includeComment = false)
     {
@@ -201,7 +202,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Capture invoice
      *
      * @param string $invoiceIncrementId
-     * @return boolean
+     * @return bool
      */
     public function capture($invoiceIncrementId)
     {
@@ -274,7 +275,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      * Cancel invoice
      *
      * @param string $invoiceIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($invoiceIncrementId)
     {

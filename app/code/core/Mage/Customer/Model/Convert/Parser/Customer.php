@@ -7,20 +7,26 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert_Parser_Abstract
 {
-    const MULTI_DELIMITER = ' , ';
+    public const MULTI_DELIMITER = ' , ';
 
     protected $_resource;
 
@@ -42,9 +48,10 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Website collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
+
     protected $_attributes = [];
 
     protected $_fields;
@@ -231,7 +238,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 ->setData([])
                 ->load($entityId);
 
-            $position = Mage::helper('catalog')->__('Line %d, Email: %s', ($i+1), $customer->getEmail());
+            $position = Mage::helper('catalog')->__('Line %d, Email: %s', ($i + 1), $customer->getEmail());
             $this->setPosition($position);
 
             $row = [];
@@ -282,7 +289,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             if (!$defaultBillingId) {
                 foreach ($this->getFields() as $code => $node) {
                     if ($node->is('billing')) {
-                        $row['billing_'.$code] = null;
+                        $row['billing_' . $code] = null;
                     }
                 }
             } else {
@@ -290,7 +297,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
                 foreach ($this->getFields() as $code => $node) {
                     if ($node->is('billing')) {
-                        $row['billing_'.$code] = $customerAddress->getDataUsingMethod($code);
+                        $row['billing_' . $code] = $customerAddress->getDataUsingMethod($code);
                     }
                 }
             }
@@ -298,7 +305,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             if (!$defaultShippingId) {
                 foreach ($this->getFields() as $code => $node) {
                     if ($node->is('shipping')) {
-                        $row['shipping_'.$code] = null;
+                        $row['shipping_' . $code] = null;
                     }
                 }
             } else {
@@ -307,7 +314,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 }
                 foreach ($this->getFields() as $code => $node) {
                     if ($node->is('shipping')) {
-                        $row['shipping_'.$code] = $customerAddress->getDataUsingMethod($code);
+                        $row['shipping_' . $code] = $customerAddress->getDataUsingMethod($code);
                     }
                 }
             }
@@ -381,7 +388,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($customerAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput()=='hidden') {
+            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
                 continue;
             }
             $attributes[$code] = $code;
@@ -390,28 +397,28 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput()=='hidden') {
+            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
             if ($code == 'street') {
-                $attributes['billing_'.$code.'_full'] = 'billing_'.$code;
+                $attributes['billing_' . $code . '_full'] = 'billing_' . $code;
             } else {
-                $attributes['billing_'.$code] = 'billing_'.$code;
+                $attributes['billing_' . $code] = 'billing_' . $code;
             }
         }
         $attributes['billing_country'] = 'billing_country';
 
         foreach ($addressAttributes as $attr) {
             $code = $attr->getAttributeCode();
-            if (in_array($code, $internal) || $attr->getFrontendInput()=='hidden') {
+            if (in_array($code, $internal) || $attr->getFrontendInput() == 'hidden') {
                 continue;
             }
 
             if ($code == 'street') {
-                $attributes['shipping_'.$code.'_full'] = 'shipping_'.$code;
+                $attributes['shipping_' . $code . '_full'] = 'shipping_' . $code;
             } else {
-                $attributes['shipping_'.$code] = 'shipping_'.$code;
+                $attributes['shipping_' . $code] = 'shipping_' . $code;
             }
         }
         $attributes['shipping_country'] = 'shipping_country';
@@ -437,11 +444,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             }
         }
 
-        if (isset($this->_customerGroups[$customer->getGroupId()])) {
-            return $this->_customerGroups[$customer->getGroupId()];
-        } else {
-            return null;
-        }
+        return $this->_customerGroups[$customer->getGroupId()] ?? null;
     }
 
     /**
@@ -454,14 +457,14 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
         $result = [];
         foreach ($data as $i => $row) {
-            $this->setPosition('Line: '.($i+1));
+            $this->setPosition('Line: ' . ($i + 1));
             try {
                 // validate SKU
                 if (empty($row['email'])) {
                     $this->addException(Mage::helper('customer')->__('Missing email, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
-                $this->setPosition('Line: '.($i+1).', email: '.$row['email']);
+                $this->setPosition('Line: ' . ($i + 1) . ', email: ' . $row['email']);
 
                 // if attribute_set not set use default
                 if (empty($row['attribute_set'])) {
@@ -490,7 +493,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 }
 
                 // get store ids
-                $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
+                $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
                     $this->addException(Mage::helper('customer')->__("Invalid store specified, skipping the record."), Varien_Convert_Exception::ERROR);
                     continue;

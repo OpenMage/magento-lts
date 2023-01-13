@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Assign order status to order state form
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -52,7 +57,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
         $states = Mage::getSingleton('sales/order_config')->getStates();
         $states = array_merge(['' => ''], $states);
 
-        $fieldset->addField('status', 'select',
+        $fieldset->addField(
+            'status',
+            'select',
             [
                 'name'      => 'status',
                 'label'     => Mage::helper('sales')->__('Order Status'),
@@ -62,7 +69,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
             ]
         );
 
-        $fieldset->addField('state', 'select',
+        $fieldset->addField(
+            'state',
+            'select',
             [
                 'name'      => 'state',
                 'label'     => Mage::helper('sales')->__('Order State'),
@@ -72,7 +81,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
             ]
         );
 
-        $fieldset->addField('is_default', 'checkbox',
+        $fieldset->addField(
+            'is_default',
+            'checkbox',
             [
                 'name'      => 'is_default',
                 'label'     => Mage::helper('sales')->__('Use Order Status As Default'),

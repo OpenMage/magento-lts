@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 55;
     protected $_values;
@@ -55,25 +55,23 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
         $value  = $row->getData($this->getColumn()->getIndex());
         if (is_array($values)) {
             $checked = in_array($value, $values) ? ' checked="checked"' : '';
-        }
-        else {
+        } else {
             $checked = ($value === $this->getColumn()->getValue()) ? ' checked="checked"' : '';
         }
 
         $disabledValues = $this->getColumn()->getDisabledValues();
         if (is_array($disabledValues)) {
             $disabled = in_array($value, $disabledValues) ? ' disabled="disabled"' : '';
-        }
-        else {
+        } else {
             $disabled = ($value === $this->getColumn()->getDisabledValue()) ? ' disabled="disabled"' : '';
         }
 
         $this->setDisabled($disabled);
 
-        if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()){
+        if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()) {
             $v = $value;
         } else {
-            $v = ($row->getId() != "") ? $row->getId():$value;
+            $v = ($row->getId() != "") ? $row->getId() : $value;
         }
 
         return $this->_getCheckboxHtml($v, $checked);
@@ -89,7 +87,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
         $html = '<input type="checkbox" ';
         $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
         $html .= 'value="' . $this->escapeHtml($value) . '" ';
-        $html .= 'class="'. ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox') .'"';
+        $html .= 'class="' . ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox') . '"';
         $html .= $checked . $this->getDisabled() . '/>';
         return $html;
     }
@@ -101,7 +99,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
      */
     public function renderHeader()
     {
-        if($this->getColumn()->getHeader()) {
+        if ($this->getColumn()->getHeader()) {
             return parent::renderHeader();
         }
 
@@ -118,7 +116,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
         $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
         $html .= 'onclick="' . $this->getColumn()->getGrid()->getJsObjectName() . '.checkCheckboxes(this)" ';
         $html .= 'class="checkbox"' . $checked . $disabled . ' ';
-        $html .= 'title="'.Mage::helper('adminhtml')->__('Select All') . '"/>';
+        $html .= 'title="' . Mage::helper('adminhtml')->__('Select All') . '"/>';
         return $html;
     }
 }

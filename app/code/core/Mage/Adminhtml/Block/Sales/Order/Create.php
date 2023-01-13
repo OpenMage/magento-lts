@@ -7,16 +7,18 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Adminhtml sales order create
@@ -25,7 +27,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     public function __construct()
@@ -49,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         }
 
         $this->_updateButton('back', 'id', 'back_order_top_button');
-        $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getBackUrl() . '\')');
+        $this->_updateButton('back', 'onclick', Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()));
 
         $this->_updateButton('reset', 'id', 'reset_order_top_button');
 
@@ -59,16 +60,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
             $this->_updateButton('back', 'style', 'display:none');
         }
 
-        $confirm = Mage::helper('sales')->__('Are you sure you want to cancel this order?');
         $this->_updateButton('reset', 'label', Mage::helper('sales')->__('Cancel'));
         $this->_updateButton('reset', 'class', 'cancel');
-        $this->_updateButton('reset', 'onclick', 'deleteConfirm(\''.$confirm.'\', \'' . $this->getCancelUrl() . '\')');
+        $this->_updateButton(
+            'reset',
+            'onclick',
+            Mage::helper('core/js')->getDeleteConfirmJs(
+                $this->getCancelUrl(),
+                Mage::helper('sales')->__('Are you sure you want to cancel this order?')
+            )
+        );
     }
 
     /**
      * Check access for cancel action
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isCanCancel()
     {
@@ -99,6 +106,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         return $html;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderWidth()
     {
         return 'width: 70%;';
@@ -114,6 +124,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         return Mage::getSingleton('adminhtml/session_quote');
     }
 
+    /**
+     * @return string
+     */
     public function getCancelUrl()
     {
         if ($this->_getSession()->getOrder()->getId()) {
