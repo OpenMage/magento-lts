@@ -223,11 +223,11 @@ function hideLoader() {
     }
 }
 
-/** @deprecated since 20.0.17 */
+/** @deprecated since 20.0.19 */
 function setLoaderPosition() {
 }
 
-/** @deprecated since 20.0.17 */
+/** @deprecated since 20.0.19 */
 function toggleSelectsUnderBlock(block, flag) {
 }
 
