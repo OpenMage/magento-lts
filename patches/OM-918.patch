@@ -14,12 +14,9 @@
       * Read the content from locale
       *
       * Can be called like:
-@@ -333,10 +340,17 @@
-             $val = implode('_' , $value);
-         }
- 
--        $val = urlencode((string) $val);
-+        $val = urlencode($val);
+@@ -335,8 +342,15 @@
+
+         $val = urlencode((string) $val);
          $id  = self::_filterCacheId('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val);
 +
 +        // add runtime cache to avoid calling cache backend multiple times during one request
