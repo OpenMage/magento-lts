@@ -377,6 +377,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.label label       { display:block; width:185px; padding-right:15px; padding-top:1px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
+.form-list td.value input.input-text.color { padding-left:40px; width:236px; }
 .form-list td.value textarea    { height:15em; }
 .form-list td.value select      { width:280px; }
 .form-list td.value select.select-date { width:87px; }
@@ -397,7 +398,8 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .fieldset-wide .form-list td.value { width:auto !important; }
 .fieldset-wide .form-list td.value p.note,
 .fieldset-wide .form-list td.value input.input-text,
-.fieldset-wide .form-list td.value textarea { width:98% !important; }
+.fieldset-wide .form-list td.value textarea { width:98% !important; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
+.fieldset-wide .form-list td.value input.color { padding-left:40px; }
 /*.fieldset-wide .form-list td.value select { display:block; }*/
 .fieldset-wide .form-list td.scope-label { white-space:nowrap; width:1px; }
 .fieldset-wide .form-list td.note { width:120px; }
