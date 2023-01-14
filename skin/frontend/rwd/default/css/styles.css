@@ -2668,9 +2668,6 @@ input[type=text] {
     /* Prevent from zooming on focus */
   }
 }
-.ie8 .input-text {
-  max-width: none;
-}
 
 /* -------------------------------------------- *
  * Inputs - Quantity
