@@ -308,7 +308,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             }
 
             // Do resize and save
-            $processor = new Varien_Image($sourceFilePath);
+            $processor = Mage::getModel('varien/image', $sourceFilePath);
             $processor->resize($width, $height);
             $processor->save(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
             Mage::helper('core/file_storage_database')->saveFile($destPath);
