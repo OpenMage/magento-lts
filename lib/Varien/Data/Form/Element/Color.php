@@ -60,7 +60,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
         }
 
         $html = '<input id="' . $id . '" type="hidden" name="' . $this->getName()
-            . '" value="' . $valueWithoutHash . '" ' . '/>' . "\n";
+            . '" value="' . ($with_hash ? '#' : '') . $valueWithoutHash . '" ' . '/>' . "\n";
         $html .= '<input value="#' . $valueWithoutHash . '" ' . $this->serialize($this->getHtmlAttributes())
             . 'onchange="' . $onchange .  '" ' . '/>' . "\n";
         $html .= $this->getAfterElementHtml();
