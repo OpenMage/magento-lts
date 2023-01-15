@@ -451,7 +451,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getImageProcessor()
     {
         if (!$this->_processor) {
-            $this->_processor = new Varien_Image($this->getBaseFile());
+            $this->_processor = Mage::getModel('varien/image', $this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
         $this->_processor->keepFrame($this->_keepFrame);

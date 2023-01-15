@@ -645,7 +645,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             Mage::throwException($this->__('Disallowed file format.'));
         }
 
-        $_processor = new Varien_Image($filePath);
+        $_processor = Mage::getModel('varien/image', $filePath);
         $mimeType = $_processor->getMimeType();
 
         // Force garbage collection since image handler resource uses memory without counting toward memory limit
