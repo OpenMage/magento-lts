@@ -28,7 +28,6 @@
 class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 {
     /**
-     * Varien_Data_Form_Element_Text constructor.
      * @param array $attributes
      */
     public function __construct($attributes = [])
@@ -39,19 +38,32 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @return string
-     */
-    public function getHtml()
-    {
-        $this->addClass('input-text');
-        return parent::getHtml();
-    }
-
-    /**
      * @return array
      */
     public function getHtmlAttributes()
     {
-        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'tabindex'];
+        return ['type', 'title', 'class', 'style', 'disabled', 'readonly', 'tabindex'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getElementHtml()
+    {
+        $id = $this->getHtmlId();
+        $valueWithoutHash = ltrim($this->getEscapedValue(), '#');
+        $with_hash = (bool) ($this->original_data['with_hash'] ?? 1);
+
+        $onchange = "document.getElementById('{$id}').value=this.value";
+        if (!$with_hash) {
+            $onchange .= '.substring(1)';
+        }
+
+        $html = '<input id="' . $id . '" type="hidden" name="' . $this->getName()
+            . '" value="' . $valueWithoutHash . '" ' . '/>' . "\n";
+        $html .= '<input value="#' . $valueWithoutHash . '" ' . $this->serialize($this->getHtmlAttributes())
+            . 'onchange="' . $onchange .  '" ' . '/>' . "\n";
+        $html .= $this->getAfterElementHtml();
+        return $html;
     }
 }
