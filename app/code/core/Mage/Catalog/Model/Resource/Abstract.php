@@ -632,6 +632,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
          * Collecting typed attributes, performing separate SQL query for each attribute type table
          */
         if ($typedAttributes) {
+
             if ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
             }
@@ -639,45 +640,60 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             $store = (int)$store;
 
             foreach ($typedAttributes as $table => $_attributes) {
-                $select = $adapter->select()
-                    ->from(['default_value' => $table], ['attribute_id'])
-                    ->where('default_value.attribute_id IN (?)', array_keys($_attributes))
-                    ->where('default_value.entity_type_id = :entity_type_id')
-                    ->where('default_value.entity_id = :entity_id')
-                    ->where('default_value.store_id = ?', 0);
-                $bind = [
-                    'entity_type_id' => $this->getTypeId(),
-                    'entity_id'      => $entityId,
+
+                $defaultJoinCondition = [
+                    $adapter->quoteInto('default_value.attribute_id IN (?)', array_keys($_attributes)),
+                    'default_value.entity_type_id = :entity_type_id_default',
+                    'default_value.entity_id = e.entity_id',
+                    'default_value.store_id = 0',
                 ];
+                $select = $adapter->select()
+                    ->from(['e' => $this->getTable($this->getEntityTable())], [])
+                    ->joinLeft(
+                        ['default_value' => $table],
+                        implode(' AND ', $defaultJoinCondition),
+                        []
+                    )->where('e.entity_id = :entity_id');
+
+                $bind = ['entity_id' => $entityId, 'entity_type_id_default' => $this->getTypeId()];
 
                 if ($getPerStore && $store != $this->getDefaultStoreId()) {
+                    $bind['entity_type_id_store'] = $this->getTypeId();
+                    $bind['store_id'] = $store;
                     $valueExpr = $adapter->getCheckSql(
                         'store_value.value IS NULL',
                         'default_value.value',
                         'store_value.value'
                     );
+                    $attributeIdExpr = $adapter->getCheckSql(
+                        'store_value.attribute_id IS NULL',
+                        'default_value.attribute_id',
+                        'store_value.attribute_id'
+                    );
                     $joinCondition = [
-                        'store_value.attribute_id = default_value.attribute_id',
-                        'store_value.entity_type_id = :entity_type_id',
-                        'store_value.entity_id = :entity_id',
+                        $adapter->quoteInto('store_value.attribute_id IN (?)', array_keys($_attributes)),
+                        'store_value.entity_type_id = :entity_type_id_store',
+                        'store_value.entity_id = e.entity_id',
                         'store_value.store_id = :store_id',
                     ];
-
                     $select->joinLeft(
                         ['store_value' => $table],
                         implode(' AND ', $joinCondition),
-                        ['attr_value' => $valueExpr]
+                        ['attribute_id' => $attributeIdExpr, 'attr_value' => $valueExpr]
                     );
-
-                    $bind['store_id'] = $store;
                 } else {
-                    $select->columns(['attr_value' => 'value'], 'default_value');
+                    $select->columns(
+                        ['attribute_id' => 'attribute_id', 'attr_value' => 'value'],
+                        'default_value'
+                    );
                 }
 
                 $result = $adapter->fetchPairs($select, $bind);
                 foreach ($result as $attrId => $value) {
-                    $attrCode = $typedAttributes[$table][$attrId];
-                    $attributesData[$attrCode] = $value;
+                    if (!empty($attrId)) {
+                        $attrCode = $typedAttributes[$table][$attrId];
+                        $attributesData[$attrCode] = $value;
+                    }
                 }
             }
         }
