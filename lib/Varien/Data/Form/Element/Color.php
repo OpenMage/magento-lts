@@ -52,6 +52,6 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'maxlength', 'tabindex'];
+        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'onkeyup', 'disabled', 'readonly', 'tabindex'];
     }
 }
