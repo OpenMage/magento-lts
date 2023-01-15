@@ -43,6 +43,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
         $class = Mage::getStoreConfig($key);
+        if (is_null($class)) {
+            Mage::logException(new Exception(sprintf('Unkown payment method with code "%s"', $code)));
+            return false;
+        }
         return Mage::getModel($class);
     }
 
