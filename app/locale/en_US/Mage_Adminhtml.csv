@@ -237,6 +237,8 @@
 "Clear","Clear"
 "Close","Close"
 "Code","Code"
+"Color must be in hexadecimal format with the hash character","Color must be in hexadecimal format with the hash character"
+"Color must be in hexadecimal format without the hash character","Color must be in hexadecimal format without the hash character"
 "Comment text field cannot be empty.","Comment text field cannot be empty."
 "Complete","Complete"
 "Config form fieldset clone model required to be able to clone fields","Config form fieldset clone model required to be able to clone fields"

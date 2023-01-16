@@ -27,6 +27,9 @@
  */
 class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 {
+    public const VALIDATION_REGEX_WITH_HASH = '/^#[a-f0-9]{6}$/i';
+    public const VALIDATION_REGEX_WITHOUT_HASH = '/^[a-f0-9]{6}$/i';
+
     /**
      * @param array $attributes
      */
@@ -55,11 +58,13 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 
         if ($with_hash) {
             $oninput = "document.getElementById('{$id}').value = this.value";
-            $this->setOninput("document.getElementById('{$id}:html5').value = /^#[a-f0-9]{6}$/i.test(this.value) ? this.value : '#000000'");
+            $regex = self::VALIDATION_REGEX_WITH_HASH;
+            $this->setOninput("document.getElementById('{$id}:html5').value = {$regex}.test(this.value) ? this.value : '#000000'");
             $this->addClass('validate-hex-color-hash');
         } else {
             $oninput = "document.getElementById('{$id}').value = this.value.substring(1)";
-            $this->setOninput("document.getElementById('{$id}:html5').value = /^[a-f0-9]{6}$/i.test(this.value) ? '#'+this.value : '#000000'");
+            $regex = self::VALIDATION_REGEX_WITHOUT_HASH;
+            $this->setOninput("document.getElementById('{$id}:html5').value = {$regex}.test(this.value) ? '#'+this.value : '#000000'");
             $this->addClass('validate-hex-color');
         }
 
