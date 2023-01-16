@@ -36,7 +36,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
         $config = $this->getFieldConfig();
 
         $with_hash = true;
-        if (property_exists($config, 'with_hash')) {
+        if (isset($config->with_hash)) {
             $with_hash = (bool)$config->with_hash;
         }
 

@@ -143,12 +143,16 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
 
-                /**
-                 * Get field backend model
-                 */
-                $backendClass = (isset($fieldConfig->backend_model)) ? $fieldConfig->backend_model : false;
-                if (!$backendClass) {
-                    $backendClass = 'core/config_data';
+                // Get field backend model
+                $backendClass = 'core/config_data';
+                if (isset($fieldConfig->backend_model)) {
+                    $backendClass = (string)$fieldConfig->backend_model;
+                } elseif (isset($fieldConfig->frontend_type)) {
+                    switch ((string)$fieldConfig->frontend_type) {
+                        case 'color':
+                            $backendClass = 'adminhtml/system_config_backend_color';
+                            break;
+                    }
                 }
 
                 /** @var Mage_Core_Model_Config_Data $dataObject */
