@@ -33,7 +33,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->setType('color');
+        $this->setType('text');
         $this->setExtType('textfield');
     }
 
@@ -42,7 +42,7 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
      */
     public function getHtmlAttributes()
     {
-        return ['type', 'title', 'class', 'style', 'disabled', 'readonly', 'tabindex'];
+        return ['type', 'title', 'class', 'style', 'oninput', 'disabled', 'readonly', 'tabindex'];
     }
 
     /**
@@ -51,19 +51,27 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     public function getElementHtml()
     {
         $id = $this->getHtmlId();
-        $valueWithoutHash = ltrim($this->getEscapedValue(), '#');
         $with_hash = (bool) ($this->original_data['with_hash'] ?? 1);
 
-        $onchange = "document.getElementById('{$id}').value=this.value";
-        if (!$with_hash) {
-            $onchange .= '.substring(1)';
+        if ($with_hash) {
+            $oninput = "document.getElementById('{$id}').value = this.value";
+            $this->setOninput("document.getElementById('{$id}:html5').value = /^#[a-f0-9]{6}$/i.test(this.value) ? this.value : '#000000'");
+            $this->addClass('validate-hex-color-hash');
+        } else {
+            $oninput = "document.getElementById('{$id}').value = this.value.substring(1)";
+            $this->setOninput("document.getElementById('{$id}:html5').value = /^[a-f0-9]{6}$/i.test(this.value) ? '#'+this.value : '#000000'");
+            $this->addClass('validate-hex-color');
         }
 
-        $html = '<input id="' . $id . '" type="hidden" name="' . $this->getName()
-            . '" value="' . ($with_hash ? '#' : '') . $valueWithoutHash . '" ' . '/>' . "\n";
-        $html .= '<input value="#' . $valueWithoutHash . '" ' . $this->serialize($this->getHtmlAttributes())
-            . 'onchange="' . $onchange .  '" ' . '/>' . "\n";
-        $html .= $this->getAfterElementHtml();
+        $html = '<input type="color" '
+            . 'id="' . $id . ':html5"'
+            . 'class="input-color-html5" '
+            . 'value="#' . trim($this->getEscapedValue(), '#') . '" '
+            . 'oninput="' . $oninput .  '" '
+            . '/>' . "\n";
+
+        $this->addClass('input-color');
+        $html .= parent::getElementHtml();
         return $html;
     }
 }

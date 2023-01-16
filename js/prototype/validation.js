@@ -480,6 +480,12 @@ Validation.addAllThese([
 
                 return result;
             }],
+    ['validate-hex-color', 'Please enter a valid hexadecimal color. For example FF0000', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^[a-f0-9]{6}$/i.test(v)
+            }],
+    ['validate-hex-color-hash', 'Please enter a valid hexadecimal color with hash. For example #FF0000', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^#[a-f0-9]{6}$/i.test(v)
+            }],
     ['validate-alpha', 'Please use letters only (a-z or A-Z) in this field.', function (v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[a-zA-Z]+$/.test(v)
             }],
