@@ -29,7 +29,9 @@
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
-        "shardj/zf1-future": "^1.21"
+        "shardj/zf1-future": "^1.21",
+        "symfony/console": "^5.4",
+        "symfony/validator": "^5.4"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage_Console>
+            <active>true</active>
+            <codePool>core</codePool>
+        </Mage_Console>
+    </modules>
+</config>

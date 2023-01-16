@@ -1,0 +1,102 @@
+#!/usr/bin/env php
+<?php
+
+class OpenMage
+{
+    /**
+     * Magento Root path
+     *
+     * @var string|null
+     */
+    protected $rootPath;
+
+    /**
+     * Initialize application with code (store, website code)
+     *
+     * @var string
+     */
+    protected $appCode = 'admin';
+
+    /**
+     * Initialize application code type (store, website, store_group)
+     *
+     * @var string
+     */
+    protected $appType = 'store';
+
+    /**
+     * Initialize application and parse input parameters
+     *
+     */
+    public function __construct()
+    {
+        require_once $this->getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
+        Mage::app($this->appCode, $this->appType);
+        $this->applyPhpVariables();
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function setup()
+    {
+        $application = new \Symfony\Component\Console\Application();
+
+        $commands = Mage::getStoreConfig('console');
+        foreach ($commands as $module => $moduleCommands) {
+            foreach ($moduleCommands as $commandClass) {
+                $class = Mage::getModel($commandClass);
+                if (!$class) {
+                    // echo "{$commandClass} not found\n";
+                    continue;
+                }
+                $application->add(Mage::getModel($commandClass));
+            }
+        }
+
+        $application->run();
+    }
+
+    /**
+     * Get Magento Root path (with last directory separator)
+     *
+     * @return string
+     */
+    protected function getRootPath()
+    {
+        if (is_null($this->rootPath)) {
+            $this->rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+        }
+        return $this->rootPath;
+    }
+
+    /**
+     * Parse .htaccess file and apply php settings to shell script
+     *
+     */
+    protected function applyPhpVariables()
+    {
+        $htaccess = $this->getRootPath() . '.htaccess';
+        if (file_exists($htaccess)) {
+            // parse htaccess file
+            $data = file_get_contents($htaccess);
+            $matches = [];
+            preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
+            if ($matches) {
+                foreach ($matches as $match) {
+                    @ini_set($match[1], str_replace("\r", '', $match[2]));
+                }
+            }
+            preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
+            if ($matches) {
+                foreach ($matches as $match) {
+                    @ini_set($match[1], str_replace("\r", '', $match[2]));
+                }
+            }
+        }
+    }
+}
+
+$commands = new OpenMage();
+$commands->setup();

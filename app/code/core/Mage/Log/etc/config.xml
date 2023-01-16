@@ -181,6 +181,12 @@
                 <error_email_template>system_log_error_email_template</error_email_template>
             </log>
         </system>
+        <console>
+            <log>
+                <clean>log/console_clean</clean>
+                <status>log/console_status</status>
+            </log>
+        </console>
     </default>
     <crontab>
         <jobs>

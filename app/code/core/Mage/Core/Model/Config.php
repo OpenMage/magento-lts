@@ -91,7 +91,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'Mage_PageCache' => 59,
         'Mage_Persistent' => 60,
         'Mage_Weee' => 61,
-        'Mage_CurrencySymbol' => 62
+        'Mage_CurrencySymbol' => 62,
+        'Mage_Console' => 63,
     ];
 
     public const CACHE_TAG         = 'CONFIG';
