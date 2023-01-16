@@ -21,10 +21,11 @@ document.observe('dom:loaded', function() {
             var maxLen = elm.retrieve('maxLen');
             var count  = maxLen - curLen;
             var counter = elm.retrieve('counter');
-            if (curLen >= maxLen) {
-                counter.update(' (' + count + ')').setStyle({'color': 'red'});
+            counter.update(' (' + curLen + '/' + maxLen + ')');
+            if (curLen > maxLen) {
+                counter.setStyle({'color': 'red'});
             } else {
-                counter.update(' (+' + count + ')').setStyle({'color': 'green'});
+                counter.setStyle({'color': 'inherit'});
             }
             return elm;
         }
