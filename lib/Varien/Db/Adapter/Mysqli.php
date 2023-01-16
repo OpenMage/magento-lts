@@ -115,7 +115,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
-        return strftime('%Y-%m-%d', strtotime($date));
+        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
     }
 
     public function convertDateTime($datetime)
@@ -123,7 +123,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
-        return strftime('%Y-%m-%d %H:%M:%S', strtotime($datetime));
+        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
