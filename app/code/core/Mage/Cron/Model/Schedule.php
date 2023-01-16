@@ -107,8 +107,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             && $this->matchCronExpression($e[4], $d['wday']);
 
         if ($match) {
-            $this->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-            $this->setScheduledAt(strftime('%Y-%m-%d %H:%M', (int)$time));
+            $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
+            $this->setScheduledAt(date('Y-m-d H:i:00', (int)$time));
         }
         return $match;
     }
