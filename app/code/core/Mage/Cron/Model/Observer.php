@@ -183,7 +183,7 @@ class Mage_Cron_Model_Observer
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $ts = strftime('%Y-%m-%d %H:%M:00', $time);
+                $ts = date('Y-m-d H:i:00', $time);
                 if (!empty($exists[$jobCode . '/' . $ts])) {
                     // already scheduled
                     continue;
@@ -319,14 +319,14 @@ class Mage_Cron_Model_Observer
             }
 
             $schedule
-                ->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()))
+                ->setExecutedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT))
                 ->save();
 
             call_user_func_array($callback, $arguments);
 
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
-                ->setFinishedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
+                ->setFinishedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
         } catch (Exception $e) {
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
@@ -347,7 +347,7 @@ class Mage_Cron_Model_Observer
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $ts = strftime('%Y-%m-%d %H:%M:00', time());
+            $ts = date('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
                 ->setCreatedAt($ts)
                 ->setScheduledAt($ts);

@@ -135,6 +135,10 @@ abstract class Mage_Shell_Abstract
      */
     protected function _parseArgs()
     {
+        if (empty($_SERVER['argv'])) {
+            return $this;
+        }
+
         $current = null;
         foreach ($_SERVER['argv'] as $arg) {
             $match = [];
