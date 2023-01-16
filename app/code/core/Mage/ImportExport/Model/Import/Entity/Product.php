@@ -1516,6 +1516,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve pattern for time formatting
      *
+     * @deprecated
      * @return string
      */
     protected function _getStrftimeFormat()
@@ -1569,7 +1570,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $storeIds = [0];
 
             if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
+                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $attrValue = $product->formatUrlKey($product->getName());
