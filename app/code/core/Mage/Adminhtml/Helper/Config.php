@@ -32,29 +32,56 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Adminhtml';
 
     /**
-     * @var array
+     * Return information array of input types
+     *
+     * @param string $inputType
+     * @return array
      */
-    protected $defaultBackendClassMap = [
-        'color' => 'adminhtml/system_config_backend_color'
-    ];
+    public function getInputTypes(string $inputType = null): array
+    {
+        $inputTypes = [
+            'color'   => [
+                'backend_model'     => 'adminhtml/system_config_backend_color'
+            ]
+        ];
+
+        if (is_null($inputType)) {
+            return $inputTypes;
+        } elseif (isset($inputTypes[$inputType])) {
+            return $inputTypes[$inputType];
+        }
+        return [];
+    }
 
     /**
-     * Get field backend model class
+     * Return default backend model by input type
+     *
+     * @param string $inputType
+     * @return string|null
+     */
+    public function getBackendModelByInputType(string $inputType): ?string
+    {
+        $inputTypes = $this->getInputTypes();
+        if (!empty($inputTypes[$inputType]['backend_model'])) {
+            return $inputTypes[$inputType]['backend_model'];
+        }
+        return null;
+    }
+
+    /**
+     * Get field backend model by field config node
      *
      * @param Varien_Simplexml_Element $fieldConfig
-     * @return string
+     * @return string|null
      */
-    public function getBackendClass(Varien_Simplexml_Element $fieldConfig): string
+    public function getBackendModelByFieldConfig(Varien_Simplexml_Element $fieldConfig): ?string
     {
-        $backendClass = (isset($fieldConfig->backend_model)) ? $fieldConfig->backend_model : false;
-        if ($backendClass) {
-            return (string) $backendClass;
+        if (isset($fieldConfig->backend_model)) {
+            return (string)$fieldConfig->backend_model;
         }
-
-        if (isset($fieldConfig->frontend_type, $this->defaultBackendClassMap[(string)$fieldConfig->frontend_type])) {
-            return $this->defaultBackendClassMap[(string)$fieldConfig->frontend_type];
+        if (isset($fieldConfig->frontend_type)) {
+            return $this->getBackendModelByInputType((string)$fieldConfig->frontend_type);
         }
-
-        return 'core/config_data';
+        return null;
     }
 }

@@ -144,7 +144,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 }
 
                 $helper = Mage::helper('adminhtml/config');
-                $backendClass = $helper->getBackendClass($fieldConfig);
+                $backendClass = $helper->getBackendModelByFieldConfig($fieldConfig);
+                if (!$backendClass) {
+                    $backendClass = 'core/config_data';
+                }
 
                 /** @var Mage_Core_Model_Config_Data $dataObject */
                 $dataObject = Mage::getModel($backendClass);
