@@ -510,6 +510,11 @@
                 </disallowed_block>
             </custom_layout>
         </validators>
+        <console>
+            <core>
+                <modules_list>core/console_modules_list</modules_list>
+            </core>
+        </console>
     </default>
     <stores>
         <default>
