@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -50,7 +45,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-        $this->addColumn('period', array(
+        $this->addColumn('period', [
             'header'        => Mage::helper('sales')->__('Period'),
             'index'         => 'period',
             'width'         => 100,
@@ -58,16 +53,16 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'period_type'   => $this->getPeriodType(),
             'renderer'      => 'adminhtml/report_sales_grid_column_renderer_date',
             'totals_label'  => Mage::helper('sales')->__('Total'),
-            'html_decorators' => array('nobr'),
-        ));
+            'html_decorators' => ['nobr'],
+        ]);
 
-        $this->addColumn('orders_count', array(
+        $this->addColumn('orders_count', [
             'header'    => Mage::helper('sales')->__('Number of Refunded Orders'),
             'index'     => 'orders_count',
             'type'      => 'number',
             'total'     => 'sum',
             'sortable'  => false
-        ));
+        ]);
 
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
@@ -75,7 +70,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
         $currencyCode = $this->getCurrentCurrencyCode();
         $rate = $this->getRate($currencyCode);
 
-        $this->addColumn('refunded', array(
+        $this->addColumn('refunded', [
             'header'        => Mage::helper('sales')->__('Total Refunded'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
@@ -83,9 +78,9 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'total'         => 'sum',
             'sortable'      => false,
             'rate'          => $rate,
-        ));
+        ]);
 
-        $this->addColumn('online_refunded', array(
+        $this->addColumn('online_refunded', [
             'header'        => Mage::helper('sales')->__('Online Refunded'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
@@ -93,9 +88,9 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'total'         => 'sum',
             'sortable'      => false,
             'rate'          => $rate,
-        ));
+        ]);
 
-        $this->addColumn('offline_refunded', array(
+        $this->addColumn('offline_refunded', [
             'header'        => Mage::helper('sales')->__('Offline Refunded'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
@@ -103,7 +98,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'total'         => 'sum',
             'sortable'      => false,
             'rate'          => $rate,
-        ));
+        ]);
 
         $this->addExportType('*/*/exportRefundedCsv', Mage::helper('adminhtml')->__('CSV'));
         $this->addExportType('*/*/exportRefundedExcel', Mage::helper('adminhtml')->__('Excel XML'));

@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Cms Controller Router
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract
 {
@@ -40,7 +35,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      */
     public function initControllerRouters($observer)
     {
-        /* @var Mage_Core_Controller_Varien_Front $front */
+        /** @var Mage_Core_Controller_Varien_Front $front */
         $front = $observer->getEvent()->getFront();
 
         $front->addRouter('cms', $this);
@@ -63,14 +58,14 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $identifier = trim($request->getPathInfo(), '/');
 
-        $condition = new Varien_Object(array(
+        $condition = new Varien_Object([
             'identifier' => $identifier,
             'continue'   => true
-        ));
-        Mage::dispatchEvent('cms_controller_router_match_before', array(
+        ]);
+        Mage::dispatchEvent('cms_controller_router_match_before', [
             'router'    => $this,
             'condition' => $condition
-        ));
+        ]);
         $identifier = $condition->getIdentifier();
 
         if ($condition->getRedirectUrl()) {

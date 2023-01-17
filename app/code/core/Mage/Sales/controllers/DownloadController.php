@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,10 +26,8 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Custom options downloader
      *
@@ -58,10 +51,10 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                     throw new Exception();
                 }
             }
-            $this->_prepareDownloadResponse($info['title'], array(
+            $this->_prepareDownloadResponse($info['title'], [
                'value' => $filePath,
                'type'  => 'filename'
-            ));
+            ]);
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
@@ -85,6 +78,8 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
      *
      * @param string $filePath
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _processDatabaseFile($filePath)
     {
@@ -127,7 +122,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 
         $orderItemInfo = $recurringProfile->getData('order_item_info');
         try {
-            $request = unserialize($orderItemInfo['info_buyRequest']);
+            $request = unserialize($orderItemInfo['info_buyRequest'], ['allowed_classes' => false]);
 
             if ($request['product'] != $orderItemInfo['product_id']) {
                 $this->_forward('noRoute');

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Image
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,26 +24,34 @@
  *
  * @category   Varien
  * @package    Varien_Image
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Image
 {
+    /**
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2|null
+     */
     protected $_adapter;
 
+    /**
+     * Absolute path to an image
+     *
+     * @var string
+     */
     protected $_fileName;
 
     /**
      * Constructor
      *
-     * @param Varien_Image_Adapter $adapter. Default value is GD2
+     * @param string $adapter Default value is GD2
      * @param string $fileName
      * @return void
      */
-    function __construct($fileName=null, $adapter=Varien_Image_Adapter::ADAPTER_GD2)
+    public function __construct($fileName = null, $adapter = Varien_Image_Adapter::ADAPTER_GD2)
     {
         $this->_getAdapter($adapter);
         $this->_fileName = $fileName;
-        if( isset($fileName) ) {
+        if (isset($fileName)) {
             $this->open();
         }
     }
@@ -58,8 +61,7 @@ class Varien_Image
      */
     public function __destruct()
     {
-        if (
-            $this->_adapter instanceof Varien_Image_Adapter_Abstract
+        if ($this->_adapter instanceof Varien_Image_Adapter_Abstract
             && method_exists($this->_adapter, 'destruct')
         ) {
             $this->_adapter->destruct();
@@ -76,7 +78,7 @@ class Varien_Image
     {
         $this->_getAdapter()->checkDependencies();
 
-        if( !file_exists($this->_fileName) ) {
+        if (!file_exists($this->_fileName)) {
             throw new Exception("File '{$this->_fileName}' does not exists.");
         }
 
@@ -102,7 +104,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function save($destination=null, $newFileName=null)
+    public function save($destination = null, $newFileName = null)
     {
         $this->_getAdapter()->save($destination, $newFileName);
     }
@@ -129,7 +131,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function crop($top=0, $left=0, $right=0, $bottom=0)
+    public function crop($top = 0, $left = 0, $right = 0, $bottom = 0)
     {
         $this->_getAdapter()->crop($top, $left, $right, $bottom);
     }
@@ -194,9 +196,9 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function watermark($watermarkImage, $positionX=0, $positionY=0, $watermarkImageOpacity=30, $repeat=false)
+    public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        if( !file_exists($watermarkImage) ) {
+        if (!file_exists($watermarkImage)) {
             throw new Exception("Required file '{$watermarkImage}' does not exists.");
         }
         $this->_getAdapter()->watermark($watermarkImage, $positionX, $positionY, $watermarkImageOpacity, $repeat);
@@ -221,7 +223,6 @@ class Varien_Image
      */
     public function process()
     {
-
     }
 
     /**
@@ -232,7 +233,6 @@ class Varien_Image
      */
     public function instruction()
     {
-
     }
 
     /**
@@ -244,7 +244,7 @@ class Varien_Image
      */
     public function setImageBackgroundColor($color)
     {
-        $this->_getAdapter()->imageBackgroundColor = intval($color);
+        $this->_getAdapter()->imageBackgroundColor = (int) $color;
     }
 
     /**
@@ -301,10 +301,10 @@ class Varien_Image
      * @param string $adapter
      * @return Varien_Image_Adapter_Abstract
      */
-    protected function _getAdapter($adapter=null)
+    protected function _getAdapter($adapter = null)
     {
-        if( !isset($this->_adapter) ) {
-            $this->_adapter = Varien_Image_Adapter::factory( $adapter );
+        if (!isset($this->_adapter)) {
+            $this->_adapter = Varien_Image_Adapter::factory($adapter);
         }
         return $this->_adapter;
     }

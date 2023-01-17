@@ -1,40 +1,33 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Simplexml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Simplexml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Extends SimpleXML to add valuable functionality to SimpleXMLElement class
  *
  * @category   Varien
  * @package    Varien_Simplexml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Simplexml_Element extends SimpleXMLElement
 {
-
     /**
      * Would keep reference to parent node
      *
@@ -75,10 +68,9 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
+    #[ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!$this->children()) {
@@ -86,7 +78,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $k=>$child) {
+        foreach ($this->children() as $k => $child) {
             return true;
         }
         return false;
@@ -97,44 +89,45 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @return string
      */
-    public function getAttribute($name){
+    public function getAttribute($name)
+    {
         $attrs = $this->attributes();
         return isset($attrs[$name]) ? (string)$attrs[$name] : null;
     }
 
-/*
-    public function addAttribute($name, $value=null, $namespace=null)
-    {
-        if (is_null($value)) {
-            return parent::addAttribute($name);
-        } else {
-            if (!is_null($value)) {
-                $value = $this->xmlentities($value);
-            }
-            if (!is_null($namespace)) {
-                return parent::addAttribute($name, $value, $namespace);
+    /*
+        public function addAttribute($name, $value=null, $namespace=null)
+        {
+            if (is_null($value)) {
+                return parent::addAttribute($name);
             } else {
-                return parent::addAttribute($name, $value);
+                if (!is_null($value)) {
+                    $value = $this->xmlentities($value);
+                }
+                if (!is_null($namespace)) {
+                    return parent::addAttribute($name, $value, $namespace);
+                } else {
+                    return parent::addAttribute($name, $value);
+                }
             }
         }
-    }
 
-    public function addChild($name, $value=null, $namespace=null)
-    {
-        if (is_null($value)) {
-            return parent::addChild($name);
-        } else {
-            if (!is_null($value)) {
-                $value = $this->xmlentities($value);
-            }
-            if (!is_null($namespace)) {
-                return parent::addChild($name, $value, $namespace);
+        public function addChild($name, $value=null, $namespace=null)
+        {
+            if (is_null($value)) {
+                return parent::addChild($name);
             } else {
-                return parent::addChild($name, $value);
+                if (!is_null($value)) {
+                    $value = $this->xmlentities($value);
+                }
+                if (!is_null($namespace)) {
+                    return parent::addChild($name, $value, $namespace);
+                } else {
+                    return parent::addChild($name, $value);
+                }
             }
         }
-    }
-*/
+    */
 
     /**
      * Find a descendant of a node by path
@@ -155,20 +148,19 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // Simple exploding by / does not suffice,
             // as an attribute value may contain a / inside
             // Note that there are three matches for different kinds of attribute values specification
-            if(strpos($path, "@") === false) {
+            if (strpos($path, "@") === false) {
                 $pathArr = explode('/', $path);
-            }
-            else {
+            } else {
                 $regex = "#([^@/\\\"]+(?:@[^=/]+=(?:\\\"[^\\\"]*\\\"|[^/]*))?)/?#";
-                $pathArr = $pathMatches = array();
-                if(preg_match_all($regex, $path, $pathMatches)) {
+                $pathArr = $pathMatches = [];
+                if (preg_match_all($regex, $path, $pathMatches)) {
                     $pathArr = $pathMatches[1];
                 }
             }
         }
         $desc = $this;
         foreach ($pathArr as $nodeName) {
-            if (strpos($nodeName, '@')!==false) {
+            if (strpos($nodeName, '@') !== false) {
                 $a = explode('@', $nodeName);
                 $b = explode('=', $a[1]);
                 $nodeName = $a[0];
@@ -180,7 +172,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $attributeValue = trim($attributeValue, '"');
                 $found = false;
                 foreach ($desc->$nodeName as $subdesc) {
-                    if ((string)$subdesc[$attributeName]===$attributeValue) {
+                    if ((string)$subdesc[$attributeName] === $attributeValue) {
                         $found = true;
                         $desc = $subdesc;
                         break;
@@ -226,7 +218,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      */
     protected function _asArray($isCanonical = false)
     {
-        $result = array();
+        $result = [];
         if (!$isCanonical) {
             // add attributes
             foreach ($this->attributes() as $attributeName => $attribute) {
@@ -259,40 +251,40 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param int|boolean $level if false
      * @return string
      */
-    public function asNiceXml($filename='', $level=0)
+    public function asNiceXml($filename = '', $level = 0)
     {
         if (is_numeric($level)) {
-            $pad = str_pad('', $level*3, ' ', STR_PAD_LEFT);
+            $pad = str_pad('', $level * 3, ' ', STR_PAD_LEFT);
             $nl = "\n";
         } else {
             $pad = '';
             $nl = '';
         }
 
-        $out = $pad.'<'.$this->getName();
+        $out = $pad . '<' . $this->getName();
 
         if ($attributes = $this->attributes()) {
-            foreach ($attributes as $key=>$value) {
-                $out .= ' '.$key.'="'.str_replace('"', '\"', (string)$value).'"';
+            foreach ($attributes as $key => $value) {
+                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string)$value) . '"';
             }
         }
 
         if ($this->hasChildren()) {
-            $out .= '>'.$nl;
+            $out .= '>' . $nl;
             foreach ($this->children() as $child) {
-                $out .= $child->asNiceXml('', is_numeric($level) ? $level+1 : true);
+                $out .= $child->asNiceXml('', is_numeric($level) ? $level + 1 : true);
             }
-            $out .= $pad.'</'.$this->getName().'>'.$nl;
+            $out .= $pad . '</' . $this->getName() . '>' . $nl;
         } else {
             $value = (string)$this;
             if (strlen($value)) {
-                $out .= '>'.$this->xmlentities($value).'</'.$this->getName().'>'.$nl;
+                $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $nl;
             } else {
-                $out .= '/>'.$nl;
+                $out .= '/>' . $nl;
             }
         }
 
-        if ((0===$level || false===$level) && !empty($filename)) {
+        if ((0 === $level || false === $level) && !empty($filename)) {
             file_put_contents($filename, $out);
         }
 
@@ -300,15 +292,14 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $level
      * @return string
      */
-    public function innerXml($level=0)
+    public function innerXml($level = 0)
     {
         $out = '';
         foreach ($this->children() as $child) {
+            /** @var Varien_Simplexml_Element $child */
             $out .= $child->asNiceXml($level);
         }
         return $out;
@@ -317,7 +308,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Converts meaningful xml characters to xml entities
      *
-     * @param  string
+     * @param  string $value
      * @return string
      */
     public function xmlentities($value = null)
@@ -328,8 +319,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         $value = (string)$value;
 
         $value = str_replace(
-            array('&', '"', "'", '<', '>'),
-            array('&amp;', '&quot;', '&apos;', '&lt;', '&gt;'),
+            ['&', '"', "'", '<', '>'],
+            ['&amp;', '&quot;', '&apos;', '&lt;', '&gt;'],
             $value
         );
 
@@ -345,23 +336,14 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function appendChild($source)
     {
         if ($source->children()) {
-            /**
-             * @see http://bugs.php.net/bug.php?id=41867 , fixed in 5.2.4
-             */
-            if (version_compare(phpversion(), '5.2.4', '<')===true) {
-                $name = $source->children()->getName();
-            }
-            else {
-                $name = $source->getName();
-            }
-            $child = $this->addChild($name);
+            $child = $this->addChild($source->getName());
         } else {
             $child = $this->addChild($source->getName(), $this->xmlentities($source));
         }
         $child->setParent($this);
 
         $attributes = $source->attributes();
-        foreach ($attributes as $key=>$value) {
+        foreach ($attributes as $key => $value) {
             $child->addAttribute($key, $this->xmlentities($value));
         }
 
@@ -381,7 +363,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param boolean $overwrite
      * @return Varien_Simplexml_Element
      */
-    public function extend($source, $overwrite=false)
+    public function extend($source, $overwrite = false)
     {
         if (!$source instanceof Varien_Simplexml_Element) {
             return $this;
@@ -401,7 +383,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param boolean $overwrite
      * @return Varien_Simplexml_Element
      */
-    public function extendChild($source, $overwrite=false)
+    public function extendChild($source, $overwrite = false)
     {
         // this will be our new target node
         $targetChild = null;
@@ -428,7 +410,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
             $targetChild = $this->addChild($sourceName, $source->xmlentities());
             $targetChild->setParent($this);
-            foreach ($source->attributes() as $key=>$value) {
+            foreach ($source->attributes() as $key => $value) {
                 $targetChild->addAttribute($key, $this->xmlentities($value));
             }
             return $this;
@@ -442,48 +424,34 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // if child target is not found create new and descend
             $targetChild = $this->addChild($sourceName);
             $targetChild->setParent($this);
-            foreach ($source->attributes() as $key=>$value) {
+            foreach ($source->attributes() as $key => $value) {
                 $targetChild->addAttribute($key, $this->xmlentities($value));
             }
         }
 
         // finally add our source node children to resulting new target node
-        foreach ($sourceChildren as $childKey=>$childNode) {
+        foreach ($sourceChildren as $childKey => $childNode) {
             $targetChild->extendChild($childNode, $overwrite);
         }
 
         return $this;
     }
 
-    public function setNode($path, $value, $overwrite=true)
+    public function setNode($path, $value, $overwrite = true)
     {
         $arr1 = explode('/', $path);
-        $arr = array();
+        $arr = [];
         foreach ($arr1 as $v) {
-            if (!empty($v)) $arr[] = $v;
+            if (!empty($v)) {
+                $arr[] = $v;
+            }
         }
-        $last = sizeof($arr)-1;
+        $last = count($arr) - 1;
         $node = $this;
-        foreach ($arr as $i=>$nodeName) {
-            if ($last===$i) {
-                /*
-                if (isset($xml->$nodeName)) {
-                    if ($overwrite) {
-                        unset($xml->$nodeName);
-                    } else {
-                        continue;
-                    }
-                }
-                $xml->addChild($nodeName, $xml->xmlentities($value));
-                */
+        foreach ($arr as $i => $nodeName) {
+            if ($last === $i) {
                 if (!isset($node->$nodeName) || $overwrite) {
-                    // http://bugs.php.net/bug.php?id=36795
-                    // comment on [8 Feb 8:09pm UTC]
-                    if (isset($node->$nodeName) && (version_compare(phpversion(), '5.2.6', '<')===true)) {
-                        $node->$nodeName = $node->xmlentities($value);
-                    } else {
-                        $node->$nodeName = $value;
-                    }
+                    $node->$nodeName = $value;
                 }
             } else {
                 if (!isset($node->$nodeName)) {
@@ -492,144 +460,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                     $node = $node->$nodeName;
                 }
             }
-
         }
         return $this;
     }
-
-/*
-    public function extendChildByNode($source, $overwrite=false, $mergeBy='name')
-    {
-        // this will be our new target node
-        $targetChild = null;
-
-        // name of the source node
-        $sourceName = $source->getName();
-
-        // here we have children of our source node
-        $sourceChildren = $source->children();
-
-        if (!$sourceChildren) {
-            // handle string node
-            if (isset($this->$sourceName)) {
-                if ($overwrite) {
-                    unset($this->$sourceName);
-                } else {
-                    return $this;
-                }
-            }
-            $targetChild = $this->addChild($sourceName, (string)$source);
-            foreach ($source->attributes() as $key=>$value) {
-                $targetChild->addAttribute($key, $value);
-            }
-            return $this;
-        }
-
-        if (isset($this->$sourceName)) {
-            // search for target child with same name subnode as node's name
-            if (isset($source->$mergeBy)) {
-                foreach ($this->$sourceName as $targetNode) {
-                    if (!isset($targetNode->$mergeBy)) {
-                        Zend::exception("Can't merge identified node with non identified");
-                    }
-                    if ((string)$source->$mergeBy==(string)$targetNode->$mergeBy) {
-                        $targetChild = $targetNode;
-                        break;
-                    }
-                }
-            } else {
-                $existsWithId = false;
-                foreach ($this->$sourceName as $targetNode) {
-                    if (isset($targetNode->$mergeBy)) {
-                        Zend::exception("Can't merge identified node with non identified");
-                    }
-                }
-                $targetChild = $this->$sourceName;
-            }
-        }
-
-        if (is_null($targetChild)) {
-            // if child target is not found create new and descend
-            $targetChild = $this->addChild($sourceName);
-            foreach ($source->attributes() as $key=>$value) {
-                $targetChild->addAttribute($key, $value);
-            }
-        }
-
-        // finally add our source node children to resulting new target node
-        foreach ($sourceChildren as $childKey=>$childNode) {
-            $targetChild->extendChildByNode($childNode, $overwrite, $mergeBy);
-        }
-
-        return $this;
-    }
-
-    public function extendChildByAttribute($source, $overwrite=false, $mergeBy='name')
-    {
-        // this will be our new target node
-        $targetChild = null;
-
-        // name of the source node
-        $sourceName = $source->getName();
-
-        // here we have children of our source node
-        $sourceChildren = $source->children();
-
-        if (!$sourceChildren) {
-            // handle string node
-            if (isset($this->$sourceName)) {
-                if ($overwrite) {
-                    unset($this->$sourceName);
-                } else {
-                    return $this;
-                }
-            }
-            $targetChild = $this->addChild($sourceName, (string)$source);
-            foreach ($source->attributes() as $key=>$value) {
-                $targetChild->addAttribute($key, $value);
-            }
-            return $this;
-        }
-
-        if (isset($this->$sourceName)) {
-            // search for target child with same name subnode as node's name
-            if (isset($source[$mergeBy])) {
-                foreach ($this->$sourceName as $targetNode) {
-                    if (!isset($targetNode[$mergeBy])) {
-                        Zend::exception("Can't merge identified node with non identified");
-                    }
-                    if ((string)$source[$mergeBy]==(string)$targetNode[$mergeBy]) {
-                        $targetChild = $targetNode;
-                        break;
-                    }
-                }
-            } else {
-                $existsWithId = false;
-                foreach ($this->$sourceName as $targetNode) {
-                    if (isset($targetNode[$mergeBy])) {
-                        Zend::exception("Can't merge identified node with non identified");
-                    }
-                }
-                $targetChild = $this->$sourceName;
-            }
-        }
-
-        if (is_null($targetChild)) {
-            // if child target is not found create new and descend
-            $targetChild = $this->addChild($sourceName);
-            foreach ($source->attributes() as $key=>$value) {
-                $targetChild->addAttribute($key, $value);
-            }
-        }
-
-        // finally add our source node children to resulting new target node
-        foreach ($sourceChildren as $childKey=>$childNode) {
-            $targetChild->extendChildByAttribute($childNode, $overwrite, $mergeBy);
-        }
-
-        return $this;
-    }
-*/
-
-
 }

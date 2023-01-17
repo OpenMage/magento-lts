@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tags customer collection
  *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tag
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
@@ -52,7 +47,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @var array
      */
-    protected $_joinFlags                = array();
+    protected $_joinFlags                = [];
 
     /**
      * Prepare select
@@ -248,11 +243,11 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
 
         $this->getSelect()
         ->join(
-            array('tr' => $tagRelationTable),
+            ['tr' => $tagRelationTable],
             'tr.customer_id = e.entity_id',
-            array('tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id')
+            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id']
         )
-        ->join(array('t' => $tagTable), 't.tag_id = tr.tag_id', array('*'));
+        ->join(['t' => $tagTable], 't.tag_id = tr.tag_id', ['*']);
     }
 
     /**
@@ -279,8 +274,8 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      */
     public function addProductName()
     {
-        $productsId   = array();
-        $productsData = array();
+        $productsId   = [];
+        $productsData = [];
 
         foreach ($this->getItems() as $item) {
             $productsId[] = $item->getProductId();
@@ -322,20 +317,20 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $resource = Mage::getModel('catalog/product')->getResource();
 
         // add product attributes to select
-        foreach (array('name' => 'value') as $field => $fieldName) {
+        foreach (['name' => 'value'] as $field => $fieldName) {
             $attr = $resource->getAttribute($field);
             $this->_select->joinLeft(
-                array($field => $attr->getBackend()->getTable()),
+                [$field => $attr->getBackend()->getTable()],
                 'tr.product_id = ' . $field . '.entity_id AND ' . $field . '.attribute_id = ' . $attr->getId(),
-                array('product_' . $field => $fieldName)
+                ['product_' . $field => $fieldName]
             );
         }
 
         // add product fields
         $this->_select->joinLeft(
-            array('p' => $this->getTable('catalog/product')),
+            ['p' => $this->getTable('catalog/product')],
             'tr.product_id = p.entity_id',
-            array('product_sku' => 'sku')
+            ['product_sku' => 'sku']
         );
 
         return $this;
@@ -392,7 +387,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $orders = $this->getSelect()
                 ->getPart(Zend_Db_Select::ORDER);
 
-            $appliedOrders = array();
+            $appliedOrders = [];
             foreach ($orders as $order) {
                 $appliedOrders[$order[0]] = true;
             }

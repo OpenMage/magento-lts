@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,17 +28,18 @@
  */
 class Mage_Core_Model_Cookie
 {
-    const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
-    const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
+    public const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
+    public const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
+    public const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
+    public const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
+    public const XML_PATH_COOKIE_SAMESITE  = 'web/cookie/cookie_samesite';
 
     protected $_lifetime;
 
     /**
      * Store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
@@ -175,6 +171,20 @@ class Mage_Core_Model_Cookie
     }
 
     /**
+     * Retrieve use SameSite
+     *
+     * @return string
+     */
+    public function getSameSite(): string
+    {
+        $sameSite = Mage::getStoreConfig(self::XML_PATH_COOKIE_SAMESITE, $this->getStore());
+        if (is_null($sameSite)) {
+            return 'None';
+        }
+        return (string)$sameSite;
+    }
+
+    /**
      * Is https secure request
      * Use secure on adminhtml only
      *
@@ -202,9 +212,10 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param bool $httponly
+     * @param string $sameSite
      * @return $this
      */
-    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         /**
          * Check headers sent
@@ -236,8 +247,34 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             $httponly = $this->getHttponly();
         }
+        if (is_null($sameSite)) {
+            $sameSite = $this->getSameSite();
+        }
 
-        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        if ($sameSite === 'None') {
+            // Enforce specification SameSite None requires secure
+            $secure = true;
+        }
+
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie(
+                $name,
+                (string)$value,
+                [
+                    'expires'  => $expire,
+                    'path'     => $path,
+                    'domain'   => $domain,
+                    'secure'   => $secure,
+                    'httponly' => $httponly,
+                    'samesite' => $sameSite
+                ]
+            );
+        } else {
+            if (!empty($sameSite)) {
+                $path .= "; samesite={$sameSite}";
+            }
+            setcookie($name, (string)$value, $expire, $path, $domain, $secure, $httponly);
+        }
 
         return $this;
     }
@@ -251,16 +288,17 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param bool $httponly
+     * @param string $sameSite
      * @return $this
      */
-    public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         if (($period === null) && !$this->getLifetime()) {
             return $this;
         }
         $value = $this->_getRequest()->getCookie($name, false);
         if ($value !== false) {
-            $this->set($name, $value, $period, $path, $domain, $secure, $httponly);
+            $this->set($name, $value, $period, $path, $domain, $secure, $httponly, $sameSite);
         }
         return $this;
     }
@@ -284,9 +322,10 @@ class Mage_Core_Model_Cookie
      * @param string $domain
      * @param int|bool $secure
      * @param int|bool $httponly
+     * @param string $sameSite
      * @return $this
      */
-    public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null)
+    public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
         /**
          * Check headers sent
@@ -295,20 +334,6 @@ class Mage_Core_Model_Cookie
             return $this;
         }
 
-        if (is_null($path)) {
-            $path = $this->getPath();
-        }
-        if (is_null($domain)) {
-            $domain = $this->getDomain();
-        }
-        if (is_null($secure)) {
-            $secure = $this->isSecure();
-        }
-        if (is_null($httponly)) {
-            $httponly = $this->getHttponly();
-        }
-
-        setcookie($name, null, null, $path, $domain, $secure, $httponly);
-        return $this;
+        return $this->set($name, '', null, $path, $domain, $secure, $httponly, $sameSite);
     }
 }

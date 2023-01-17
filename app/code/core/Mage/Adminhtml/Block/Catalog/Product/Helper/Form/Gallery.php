@@ -1,45 +1,37 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product gallery attribute
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Data_Form_Element_Abstract
 {
-
     public function getElementHtml()
     {
-        $html = $this->getContentHtml();
         //$html.= $this->getAfterElementHtml();
-        return $html;
+        return $this->getContentHtml();
     }
 
     /**
@@ -50,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     public function getContentHtml()
     {
 
-        /* @var $content Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content */
+        /** @var Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content $content */
         $content = Mage::getSingleton('core/layout')
             ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
 
@@ -92,8 +84,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue &&
-                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
+        } elseif ($this->getValue() == $defaultValue &&
+                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
+        ) {
             return false;
         }
         if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {
@@ -130,7 +123,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product || Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
      */
     public function getDataObject()
     {
@@ -157,7 +150,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      * Check readonly attribute
      *
      * @param Mage_Eav_Model_Entity_Attribute|string $attribute
-     * @return boolean
+     * @return bool
      */
     public function getAttributeReadonly($attribute)
     {
@@ -180,7 +173,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Default sore ID getter
      *
-     * @return integer
+     * @return int
      */
     protected function _getDefaultStoreId()
     {

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -46,27 +41,27 @@
             <td colspan="2" class="paypal-selection-simplified">
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
-                <?php endif;?>
+                <?php endif ?>
                 <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
             </td>
-        <?php else:?>
+        <?php else: ?>
             <td>
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
-                <?php endif;?>
+                <?php endif ?>
                 <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->getElementComment($element)?></label>
             </td>
             <td class="paypal-selection-info">
                 <?php if ($url = $this->getElementOriginalData($element, 'demo_url')):?>
                     <a id="<?php echo $element->getHtmlId()?>_demo_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('View Demo')?></a> |
-                <?php endif;?>
+                <?php endif ?>
                 <?php if ($url = $this->getElementOriginalData($element, 'more_url')):?>
                     <a id="<?php echo $element->getHtmlId()?>_more_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('Learn More')?></a>
-                <?php endif;?>
+                <?php endif ?>
             </td>
-        <?php endif;?>
+        <?php endif ?>
         </tr>
-<?php endforeach;?>
+<?php endforeach ?>
     </tbody>
 </table>
 

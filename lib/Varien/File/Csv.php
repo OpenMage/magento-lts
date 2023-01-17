@@ -1,43 +1,37 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_File
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Csv parse
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_File_Csv
 {
-    protected $_lineLength= 0;
+    protected $_lineLength = 0;
     protected $_delimiter = ',';
     protected $_enclosure = '"';
 
     public function __construct()
     {
-
     }
 
     /**
@@ -84,9 +78,9 @@ class Varien_File_Csv
      */
     public function getData($file)
     {
-        $data = array();
+        $data = [];
         if (!file_exists($file)) {
-            throw new Exception('File "'.$file.'" do not exists');
+            throw new Exception('File "' . $file . '" do not exists');
         }
 
         $fh = fopen($file, 'r');
@@ -105,9 +99,9 @@ class Varien_File_Csv
      * @param   int $valueIndex
      * @return  array
      */
-    public function getDataPairs($file, $keyIndex=0, $valueIndex=1)
+    public function getDataPairs($file, $keyIndex = 0, $valueIndex = 1)
     {
-        $data = array();
+        $data = [];
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
             if (isset($rowData[$keyIndex])) {
@@ -134,7 +128,8 @@ class Varien_File_Csv
         return $this;
     }
 
-    public function fputcsv(&$handle, $fields = array(), $delimiter = ',', $enclosure = '"') {
+    public function fputcsv(&$handle, $fields = [], $delimiter = ',', $enclosure = '"')
+    {
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
@@ -143,29 +138,29 @@ class Varien_File_Csv
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false) {
+                strpos($value, ' ') !== false
+            ) {
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0;$i<$len;$i++) {
+                for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;
-                    } else if (!$escaped && $value[$i] == $enclosure) {
+                    } elseif (!$escaped && $value[$i] == $enclosure) {
                         $str2 .= $enclosure;
                     } else {
                         $escaped = 0;
                     }
-                        $str2 .= $value[$i];
+                    $str2 .= $value[$i];
                 }
                 $str2 .= $enclosure;
-                $str .= $str2.$delimiter;
+                $str .= $str2 . $delimiter;
             } else {
-                $str .= $enclosure.$value.$enclosure.$delimiter;
+                $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
-        $str = substr($str,0,-1);
+        $str = substr($str, 0, -1);
         $str .= "\n";
         return fwrite($handle, $str);
     }
-
 }

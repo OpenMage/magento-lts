@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,33 +24,35 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
-    const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
-    const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
+    public const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
+    public const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
+    public const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
+
+    protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Store categories cache
      *
      * @var array
      */
-    protected $_storeCategories = array();
+    protected $_storeCategories = [];
 
     /**
      * Cache for category rewrite suffix
      *
      * @var array
      */
-    protected $_categoryUrlSuffix = array();
+    protected $_categoryUrlSuffix = [];
 
     /**
      * Retrieve current store categories
      *
-     * @param boolean|string $sorted
-     * @param boolean $asCollection
+     * @param bool|string $sorted
+     * @param bool $asCollection
      * @param bool $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      * @throws Mage_Core_Model_Store_Exception
@@ -72,12 +69,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
          * Check if parent node of the store still exists
          */
         $category = Mage::getModel('catalog/category');
-        /* @var Mage_Catalog_Model_Category $category */
+        /** @var Mage_Catalog_Model_Category $category */
         if (!$category->checkId($parent)) {
             if ($asCollection) {
                 return new Varien_Data_Collection();
             }
-            return array();
+            return [];
         }
 
         $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
@@ -107,7 +104,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      * Check if a category can be shown
      *
      * @param  Mage_Catalog_Model_Category|int $category
-     * @return boolean
+     * @return bool
      */
     public function canShow($category)
     {
@@ -129,12 +126,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         return true;
     }
 
-/**
-     * Retrieve category rewrite sufix for store
-     *
-     * @param int $storeId
-     * @return string
-     */
+    /**
+         * Retrieve category rewrite sufix for store
+         *
+         * @param int $storeId
+         * @return string
+         */
     public function getCategoryUrlSuffix($storeId = null)
     {
         if (is_null($storeId)) {
@@ -163,10 +160,10 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         }
 
         if ($slash) {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')/$#i';
+            $regexp     = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')/$#i';
             $replace    = '/';
         } else {
-            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')$#i';
+            $regexp     = '#(' . preg_quote($this->getCategoryUrlSuffix($storeId), '#') . ')$#i';
             $replace    = '';
         }
 

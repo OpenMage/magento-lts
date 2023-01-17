@@ -1,32 +1,32 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist item model
  *
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Wishlist_Model_Resource_Item _getResource()
  * @method Mage_Wishlist_Model_Resource_Item getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  *
@@ -46,15 +46,11 @@
  * @method int getWishlistId()
  * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
  * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
- *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
-    const EXCEPTION_CODE_NOT_SALABLE            = 901;
-    const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
+    public const EXCEPTION_CODE_NOT_SALABLE            = 901;
+    public const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
 
     /**
      * We can store product store product configuration
@@ -62,8 +58,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @deprecated after 1.4.2.0
      */
-    const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
-    const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
+    public const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
+    public const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
 
     /**
      * Custom path to download attached file
@@ -92,21 +88,21 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @var array
      */
-    protected $_options             = array();
+    protected $_options             = [];
 
     /**
      * Item options by code cache
      *
      * @var array
      */
-    protected $_optionsByCode       = array();
+    protected $_optionsByCode       = [];
 
     /**
      * Not Represent options
      *
      * @var array
      */
-    protected $_notRepresentOptions = array('info_buyRequest');
+    protected $_notRepresentOptions = ['info_buyRequest'];
 
     /**
      * Flag stating that options were successfully saved
@@ -114,10 +110,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     protected $_flagOptionsSaved = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_cacheTag = 'wishlist_item';
@@ -137,16 +129,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     }
 
     /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
-    }
-
-    /**
      * Check if two options array are identical
      *
      * @param array $options1
@@ -155,7 +137,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     protected function _compareOptions($options1, $options2)
     {
-        $skipOptions = array('id', 'qty', 'return_url');
+        $skipOptions = ['id', 'qty', 'return_url'];
         foreach ($options1 as $code => $value) {
             if (in_array($code, $skipOptions)) {
                 continue;
@@ -187,7 +169,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {
@@ -234,6 +216,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if ($hasDataChanges && !$this->_flagOptionsSaved) {
             $this->_saveItemOptions();
         }
+
+        return $this;
     }
 
     /**
@@ -298,12 +282,12 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     public function getDataForSave()
     {
-        $data = array();
+        $data = [];
         $data['product_id']  = $this->getProductId();
         $data['wishlist_id'] = $this->getWishlistId();
-        $data['added_at']    = $this->getAddedAt() ? $this->getAddedAt() : Mage::getSingleton('core/date')->gmtDate();
+        $data['added_at']    = $this->getAddedAt() ?: Mage::getSingleton('core/date')->gmtDate();
         $data['description'] = $this->getDescription();
-        $data['store_id']    = $this->getStoreId() ? $this->getStoreId() : Mage::app()->getStore()->getId();
+        $data['store_id']    = $this->getStoreId() ?: Mage::app()->getStore()->getId();
 
         return $data;
     }
@@ -411,13 +395,13 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function getProductUrl()
     {
         $product = $this->getProduct();
-        $query   = array();
+        $query   = [];
 
         if ($product->getTypeInstance(true)->hasRequiredOptions($product)) {
             $query['options'] = 'cart';
         }
 
-        return $product->getUrlModel()->getUrl($product, array('_query' => $query));
+        return $product->getUrlModel()->getUrl($product, ['_query' => $query]);
     }
 
     /**
@@ -429,7 +413,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function getBuyRequest()
     {
         $option = $this->getOptionByCode('info_buyRequest');
-        $initialData = $option ? unserialize($option->getValue()) : null;
+        $initialData = $option ? unserialize($option->getValue(), ['allowed_classes' => false]) : null;
 
         // There can be wrong data due to bug in Grouped products - it formed 'info_buyRequest' as Varien_Object
         if ($initialData instanceof Varien_Object) {
@@ -466,10 +450,10 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if ($option) {
             $option->setValue($sBuyRequest);
         } else {
-            $this->addOption(array(
+            $this->addOption([
                 'code'  => 'info_buyRequest',
                 'value' => $sBuyRequest
-            ));
+            ]);
         }
 
         return $this;
@@ -570,7 +554,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             }
             if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()) {
+                || $options2[$code]->getValue() != $option->getValue()
+            ) {
                 return false;
             }
         }

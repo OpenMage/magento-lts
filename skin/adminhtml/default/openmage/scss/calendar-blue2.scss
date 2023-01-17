@@ -1,0 +1,239 @@
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass calendar-blue2.scss ../calendar-blue2.css
+ */
+
+@import "base";
+
+.calendar {
+  box-shadow: 0 0 8px $color_gray_approx;
+  @extend %extend_27;
+
+  table {
+    @extend %extend_27;
+
+    .wn {
+      padding: 2px 3px 2px 2px;
+      border-right: 1px solid $black;
+      background: $color_link_water_approx;
+    }
+  }
+
+  .button {
+    text-align: center;
+    padding: 2px;
+  }
+
+  thead {
+    .title {
+      font-weight: 600;
+      text-align: center;
+      color: $white;
+      padding: 2px;
+    }
+
+    tr {
+      background: $color_action;
+      color: $white;
+    }
+
+    .daynames {
+      background: $color_link_water_approx;
+    }
+
+    .name {
+      border-bottom: 1px solid $color_matisse_approx;
+      padding: 2px;
+      text-align: center;
+      color: $color_dorado_approx;
+    }
+
+    .weekend {
+      color: $color_coral_tree_approx;
+    }
+
+    .hilite {
+      background-color: $color_picton_blue_approx;
+    }
+
+    .active {
+      background-color: $color_allports_approx;
+      padding: 2px 0 0 2px;
+    }
+  }
+
+  tbody {
+    .day {
+      width: 2em;
+      color: $color_fiord_approx;
+      text-align: right;
+      padding: 2px 4px 2px 2px;
+
+      &.othermonth {
+        font-size: 80%;
+        color: $color_silver_approx;
+
+        &.oweekend {
+          color: $color_your_pink_approx;
+        }
+      }
+    }
+
+    td {
+      &.hilite {
+        background: $color_solitude_approx;
+        padding: 1px 3px 1px 1px;
+        border: 1px solid $color_cornflower_approx;
+      }
+
+      &.active {
+        background: $color_link_water_approx;
+        padding: 2px 2px 0 2px;
+      }
+
+      &.selected {
+        font-weight: 600;
+        border: 1px solid $black;
+        padding: 1px 3px 1px 1px;
+        background: $white;
+        color: $color_dorado_approx;
+      }
+
+      &.weekend {
+        color: $color_coral_tree_approx;
+      }
+
+      &.today {
+        font-weight: 600;
+        color: $color_guardsman_red_approx;
+      }
+    }
+
+    .disabled {
+      color: $color_martini_approx;
+    }
+
+    .emptycell {
+      visibility: hidden;
+    }
+
+    .emptyrow {
+      display: none;
+    }
+
+    .rowhilite td {
+      background: $color_solitude_approx;
+
+      &.wn {
+        background: $color_link_water_approx;
+      }
+    }
+  }
+
+  tfoot {
+    .footrow {
+      text-align: center;
+      background: $color_action;
+      color: $white;
+    }
+
+    .ttip {
+      color: $white;
+      padding: 4px;
+    }
+
+    .hilite {
+      background: $color_spindle_approx;
+      border: 1px solid $color_action;
+      color: $color_dorado_approx;
+      padding: 1px;
+    }
+
+    .active {
+      background: $color_allports_approx;
+      padding: 2px 0 0 2px;
+    }
+  }
+
+  .combo {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 4em;
+    cursor: default;
+    border: 1px solid $color_dorado_approx;
+    background: $color_solitude_approx;
+    color: $color_dorado_approx;
+    font-size: 90%;
+    z-index: 100;
+
+    .label {
+      text-align: center;
+      padding: 1px;
+    }
+
+    .label-IEfix {
+      text-align: center;
+      padding: 1px;
+      width: 4em;
+    }
+
+    .hilite {
+      background: $color_picton_blue_approx;
+      border-top: 1px solid $color_san_marino_approx;
+      border-bottom: 1px solid $color_san_marino_approx;
+      font-weight: 600;
+    }
+
+    .active {
+      border-top: 1px solid $color_san_marino_approx;
+      border-bottom: 1px solid $color_san_marino_approx;
+      background: $color_link_water_approx;
+      font-weight: 600;
+    }
+  }
+
+  td.time {
+    border-top: 1px solid $black;
+    padding: 1px 0;
+    text-align: center;
+    background-color: $color_link_water_approx;
+
+    .hour {
+      @extend %extend_28;
+    }
+
+    .minute {
+      @extend %extend_28;
+    }
+
+    .ampm {
+      @extend %extend_28;
+      text-align: center;
+    }
+
+    .colon {
+      padding: 0 2px 0 3px;
+      font-weight: 600;
+    }
+
+    span {
+      &.hilite {
+        border-color: $black;
+        background-color: $color_astral_approx;
+        color: $white;
+      }
+
+      &.active {
+        border-color: $red;
+        background-color: $black;
+        color: $color_lime_approx;
+      }
+    }
+  }
+}
+
+div.calendar {
+  position: relative;
+}

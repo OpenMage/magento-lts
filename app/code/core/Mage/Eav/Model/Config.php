@@ -1,48 +1,47 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Eav_Model_Config
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Config
 {
-    const ENTITIES_CACHE_ID     = 'EAV_ENTITY_TYPES';
-    const ATTRIBUTES_CACHE_ID   = 'EAV_ENTITY_ATTRIBUTES';
+    public const ENTITIES_CACHE_ID     = 'EAV_ENTITY_TYPES';
+    public const ATTRIBUTES_CACHE_ID   = 'EAV_ENTITY_ATTRIBUTES';
 
     /**
      * Entity types data
      *
-     * @var array
+     * @var array|null
      */
     protected $_entityData;
 
     /**
      * Attributes data
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributeData;
 
@@ -51,28 +50,28 @@ class Mage_Eav_Model_Config
      *
      * @var array
      */
-    protected $_preloadedAttributes              = array();
+    protected $_preloadedAttributes              = [];
 
     /**
      * Information about entity types with initialized attributes
      *
      * @var array
      */
-    protected $_initializedAttributes            = array();
+    protected $_initializedAttributes            = [];
 
     /**
      * Attribute codes cache array
      *
      * @var array
      */
-    protected $_attributeCodes                   = array();
+    protected $_attributeCodes                   = [];
 
     /**
      * Initialized objects
      *
      * array ($objectId => $object)
      *
-     * @var array
+     * @var array|null
      */
     protected $_objects;
 
@@ -84,7 +83,7 @@ class Mage_Eav_Model_Config
      *      'entities'  => array ($entityId => $entityCode)
      * )
      *
-     * @var array
+     * @var array|null
      */
     protected $_references;
 
@@ -100,7 +99,7 @@ class Mage_Eav_Model_Config
      *
      * @var array
      */
-    protected $_collectionAttributes              = array();
+    protected $_collectionAttributes              = [];
 
     /**
      * Reset object state
@@ -114,8 +113,8 @@ class Mage_Eav_Model_Config
         $this->_attributeData         = null;
         $this->_objects               = null;
         $this->_references            = null;
-        $this->_preloadedAttributes   = array();
-        $this->_initializedAttributes = array();
+        $this->_preloadedAttributes   = [];
+        $this->_initializedAttributes = [];
         return $this;
     }
 
@@ -127,7 +126,7 @@ class Mage_Eav_Model_Config
      */
     protected function _load($id)
     {
-        return isset($this->_objects[$id]) ? $this->_objects[$id] : null;
+        return $this->_objects[$id] ?? null;
     }
 
     /**
@@ -164,7 +163,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getEntityTypeReference($id)
     {
-        return isset($this->_references['entity'][$id]) ? $this->_references['entity'][$id] : null;
+        return $this->_references['entity'][$id] ?? null;
     }
 
     /**
@@ -190,10 +189,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getAttributeReference($id, $entityTypeCode)
     {
-        if (isset($this->_references['attribute'][$entityTypeCode][$id])) {
-            return $this->_references['attribute'][$entityTypeCode][$id];
-        }
-        return null;
+        return $this->_references['attribute'][$entityTypeCode][$id] ?? null;
     }
 
     /**
@@ -242,24 +238,25 @@ class Mage_Eav_Model_Config
         if (is_array($this->_entityData)) {
             return $this;
         }
-        Varien_Profiler::start('EAV: '.__METHOD__);
+        Varien_Profiler::start('EAV: ' . __METHOD__);
 
         /**
          * try load information about entity types from cache
          */
         if ($this->_isCacheEnabled()
-            && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))) {
-            $this->_entityData = unserialize($cache);
+            && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))
+        ) {
+            $this->_entityData = unserialize($cache, ['allowed_classes' => false]);
             foreach ($this->_entityData as $typeCode => $data) {
                 $typeId = $data['entity_type_id'];
                 $this->_addEntityTypeReference($typeId, $typeCode);
             }
-            Varien_Profiler::stop('EAV: '.__METHOD__);
+            Varien_Profiler::stop('EAV: ' . __METHOD__);
             return $this;
         }
 
         $entityTypesData = Mage::getModel('eav/entity_type')->getCollection()->getData();
-        $types           = array();
+        $types           = [];
 
         /**
          * prepare entity type data
@@ -282,10 +279,10 @@ class Mage_Eav_Model_Config
             Mage::app()->saveCache(
                 serialize($this->_entityData),
                 self::ENTITIES_CACHE_ID,
-                array('eav', Mage_Eav_Model_Entity_Attribute::CACHE_TAG)
+                ['eav', Mage_Eav_Model_Entity_Attribute::CACHE_TAG]
             );
         }
-        Varien_Profiler::stop('EAV: '.__METHOD__);
+        Varien_Profiler::stop('EAV: ' . __METHOD__);
         return $this;
     }
 
@@ -300,7 +297,7 @@ class Mage_Eav_Model_Config
         if ($code instanceof Mage_Eav_Model_Entity_Type) {
             return $code;
         }
-        Varien_Profiler::start('EAV: '.__METHOD__);
+        Varien_Profiler::start('EAV: ' . __METHOD__);
 
         if (is_numeric($code)) {
             $entityCode = $this->_getEntityTypeReference($code);
@@ -312,10 +309,9 @@ class Mage_Eav_Model_Config
         $entityKey = $this->_getEntityKey($code);
         $entityType = $this->_load($entityKey);
         if ($entityType) {
-            Varien_Profiler::stop('EAV: '.__METHOD__);
+            Varien_Profiler::stop('EAV: ' . __METHOD__);
             return $entityType;
         }
-
 
         $entityType = Mage::getModel('eav/entity_type');
         if (isset($this->_entityData[$code])) {
@@ -334,7 +330,7 @@ class Mage_Eav_Model_Config
         $this->_addEntityTypeReference($entityType->getId(), $entityType->getEntityTypeCode());
         $this->_save($entityType, $entityKey);
 
-        Varien_Profiler::stop('EAV: '.__METHOD__);
+        Varien_Profiler::stop('EAV: ' . __METHOD__);
         return $entityType;
     }
 
@@ -352,14 +348,15 @@ class Mage_Eav_Model_Config
         if (isset($this->_initializedAttributes[$entityTypeCode])) {
             return $this;
         }
-        Varien_Profiler::start('EAV: '.__METHOD__);
+        Varien_Profiler::start('EAV: ' . __METHOD__);
 
-        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
-            ->setEntityTypeFilter($entityType)
-            ->getData();
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+        $attributesInfo->setEntityTypeFilter($entityType);
+        $attributesInfoData = $attributesInfo->getData();
 
-        $codes = array();
-        foreach ($attributesInfo as $attribute) {
+        $codes = [];
+        foreach ($attributesInfoData as $attribute) {
             $this->_createAttribute($entityType, $attribute);
             $codes[] = $attribute['attribute_code'];
         }
@@ -367,7 +364,7 @@ class Mage_Eav_Model_Config
         $entityType->setAttributeCodes($codes);
         $this->_initializedAttributes[$entityTypeCode] = true;
 
-        Varien_Profiler::stop('EAV: '.__METHOD__);
+        Varien_Profiler::stop('EAV: ' . __METHOD__);
         return $this;
     }
 
@@ -384,7 +381,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        Varien_Profiler::start('EAV: '.__METHOD__);
+        Varien_Profiler::start('EAV: ' . __METHOD__);
 
         $entityTypeCode = $this->getEntityType($entityType)->getEntityTypeCode();
         $entityType     = $this->getEntityType($entityType);
@@ -405,7 +402,7 @@ class Mage_Eav_Model_Config
          */
         $attribute = $this->_load($attributeKey);
         if ($attribute) {
-            Varien_Profiler::stop('EAV: '.__METHOD__);
+            Varien_Profiler::stop('EAV: ' . __METHOD__);
             return $attribute;
         }
 
@@ -439,7 +436,7 @@ class Mage_Eav_Model_Config
             $this->_addAttributeReference($attribute->getId(), $attribute->getAttributeCode(), $entityTypeCode);
             $this->_save($attribute, $attributeKey);
         }
-        Varien_Profiler::stop('EAV: '.__METHOD__);
+        Varien_Profiler::stop('EAV: ' . __METHOD__);
 
         return $attribute;
     }
@@ -456,7 +453,7 @@ class Mage_Eav_Model_Config
         $entityType     = $this->getEntityType($entityType);
         $attributeSetId = 0;
         if (($object instanceof Varien_Object) && $object->getAttributeSetId()) {
-             $attributeSetId = $object->getAttributeSetId();
+            $attributeSetId = $object->getAttributeSetId();
         }
         $storeId = 0;
         if (($object instanceof Varien_Object) && $object->getStoreId()) {
@@ -468,13 +465,15 @@ class Mage_Eav_Model_Config
         }
 
         if ($attributeSetId) {
-            $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
+            /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+            $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+            $attributesInfo
                 ->setEntityTypeFilter($entityType)
                 ->setAttributeSetFilter($attributeSetId)
-                ->addStoreLabel($storeId)
-                ->getData();
-            $attributes = array();
-            foreach ($attributesInfo as $attributeData) {
+                ->addStoreLabel($storeId);
+            $attributesInfoData = $attributesInfo->getData();
+            $attributes = [];
+            foreach ($attributesInfoData as $attributeData) {
                 $attributes[] = $attributeData['attribute_code'];
                 $this->_createAttribute($entityType, $attributeData);
             }
@@ -498,7 +497,7 @@ class Mage_Eav_Model_Config
     public function preloadAttributes($entityType, $attributes)
     {
         if (is_string($attributes)) {
-            $attributes = array($attributes);
+            $attributes = [$attributes];
         }
 
         $entityType     = $this->getEntityType($entityType);
@@ -517,21 +516,23 @@ class Mage_Eav_Model_Config
         if (empty($attributes)) {
             return $this;
         }
-        Varien_Profiler::start('EAV: '.__METHOD__ . ':'.$entityTypeCode);
+        Varien_Profiler::start('EAV: ' . __METHOD__ . ':' . $entityTypeCode);
 
-        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection())
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($entityType->getEntityAttributeCollection());
+        $attributesInfo
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        if (!$attributesInfo) {
-            Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
+        if (!$attributesInfoData) {
+            Varien_Profiler::stop('EAV: ' . __METHOD__ . ':' . $entityTypeCode);
             return $this;
         }
 
-        $attributesData = $codes = array();
+        $attributesData = $codes = [];
 
-        foreach ($attributesInfo as $attribute) {
+        foreach ($attributesInfoData as $attribute) {
             if (empty($attribute['attribute_model'])) {
                 $attribute['attribute_model'] = $entityType->getAttributeModel();
             }
@@ -545,9 +546,7 @@ class Mage_Eav_Model_Config
         }
 
         $this->_attributeData[$entityTypeCode] = $attributesData;
-
-        Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
-
+        Varien_Profiler::stop('EAV: ' . __METHOD__ . ':' . $entityTypeCode);
         return $this;
     }
 
@@ -592,7 +591,7 @@ class Mage_Eav_Model_Config
         $entityTypeCode = $entityType->getEntityTypeCode();
 
         if (!isset($this->_collectionAttributes[$entityTypeCode])) {
-            $this->_collectionAttributes[$entityTypeCode] = array();
+            $this->_collectionAttributes[$entityTypeCode] = [];
         }
         $loadedAttributes = array_keys($this->_collectionAttributes[$entityTypeCode]);
         $attributes = array_diff($attributes, $loadedAttributes);
@@ -611,15 +610,17 @@ class Mage_Eav_Model_Config
             return $this;
         }
         $attributeCollection = $entityType->getEntityAttributeCollection();
-        $attributesInfo = Mage::getResourceModel($attributeCollection)
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Collection $attributesInfo */
+        $attributesInfo = Mage::getResourceModel($attributeCollection);
+        $attributesInfo
             ->useLoadDataFields()
             ->setEntityTypeFilter($entityType)
-            ->setCodeFilter($attributes)
-            ->getData();
+            ->setCodeFilter($attributes);
+        $attributesInfoData = $attributesInfo->getData();
 
-        foreach ($attributesInfo as $attributeData) {
+        foreach ($attributesInfoData as $attributeData) {
             $attribute = $this->_createAttribute($entityType, $attributeData);
-            $this->_collectionAttributes[$entityTypeCode][$attribute->getAttributeCode()] =$attribute;
+            $this->_collectionAttributes[$entityTypeCode][$attribute->getAttributeCode()] = $attribute;
         }
 
         return $this;
@@ -676,12 +677,12 @@ class Mage_Eav_Model_Config
         if (!is_array($attributeData)) {
             return false;
         }
-        $requiredKeys = array(
+        $requiredKeys = [
             'attribute_id',
             'attribute_code',
             'entity_type_id',
             'attribute_model'
-        );
+        ];
         foreach ($requiredKeys as $key) {
             if (!array_key_exists($key, $attributeData)) {
                 return false;

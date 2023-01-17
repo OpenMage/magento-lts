@@ -43,3 +43,11 @@
  - [ ] Pull request has a meaningful description of its purpose
  - [ ] All commits are accompanied by meaningful commit messages
  - [ ] All automated tests passed successfully (all builds are green)
+ - [ ] Add yourself to contributors list
+ <!--- 
+    Install: `yarn add --dev all-contributors-cli`
+    Add yourself: `yarn all-contributors add @YOUR_NAME <types>`
+    This updates `.all-contributorsrc, README.md` and commits this changes automatically
+    contribution types: code, doc, design
+    See other contributions type at https://allcontributors.org/docs/en/emoji-key
+ -->

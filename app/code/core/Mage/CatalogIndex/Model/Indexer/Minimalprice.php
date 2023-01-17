@@ -1,32 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog indexer price processor
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property Mage_Directory_Model_Currency $_currencyModel
  *
@@ -43,14 +41,10 @@
  * @method $this setTaxClassId(int $value)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    protected $_customerGroups = array();
+    protected $_customerGroups = [];
     protected $_runOnce = true;
     protected $_processChildren = false;
 
@@ -102,8 +96,10 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         $priceAttributeId = $this->getTierPriceAttribute()->getId();
         if ($object->isGrouped()) {
             $priceAttributeId = $this->getPriceAttribute()->getId();
-            $associated = $object->getTypeInstance(true)->getAssociatedProducts($object);
-            $searchEntityId = array();
+            /** @var Mage_Catalog_Model_Product_Type_Grouped $productType */
+            $productType = $object->getTypeInstance(true);
+            $associated = $productType->getAssociatedProducts($object);
+            $searchEntityId = [];
 
             foreach ($associated as $product) {
                 $searchEntityId[] = $product->getId();
@@ -114,8 +110,8 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
             return false;
         }
 
-        $result = array();
-        $data = array();
+        $result = [];
+        $data = [];
 
         $data['store_id'] = $object->getStoreId();
         $data['entity_id'] = $object->getId();

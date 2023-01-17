@@ -1,28 +1,23 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -41,7 +36,6 @@
                     <label>Merchant Location</label>
                     <fieldset_css>paypal-config</fieldset_css>
                     <expanded>1</expanded>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -119,7 +113,6 @@
                 <paypal_payments>
                     <payflow_advanced type="group" translate="label comment">
                         <label>Payments Advanced (Includes Express Checkout)</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -138,7 +131,6 @@
                         <fields>
                             <required_settings type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -146,7 +138,6 @@
                                 <fields>
                                     <payments_advanced type="group" translate="label">
                                         <label>Payments Advanced</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -155,7 +146,6 @@
                                             <partner translate="label">
                                                 <label>Partner</label>
                                                 <config_path>payment/payflow_advanced/partner</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>10</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -163,7 +153,6 @@
                                             <vendor translate="label">
                                                 <label>Vendor</label>
                                                 <config_path>payment/payflow_advanced/vendor</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -172,7 +161,6 @@
                                                 <label>User</label>
                                                 <comment>PayPal recommends that you set up an additional User on your account at manager.paypal.com</comment>
                                                 <tooltip>PayPal recommends you set up an additional User on your account at manager.paypal.com, instead of entering your admin username and password here. This will enhance your security and prevent service interruptions if you later change your password. If you do not want to set up an additional User, you can re-enter your Merchant Login here.</tooltip>
-                                                <frontend_type>text</frontend_type>
                                                 <config_path>payment/payflow_advanced/user</config_path>
                                                 <sort_order>30</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -209,7 +197,6 @@
                                             <proxy_host translate="label">
                                                 <label>Proxy Host</label>
                                                 <config_path>payment/payflow_advanced/proxy_host</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -218,7 +205,6 @@
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
                                                 <config_path>payment/payflow_advanced/proxy_port</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -235,7 +221,6 @@
                                     </payments_advanced>
                                     <express type="group" translate="label">
                                         <label>Express Checkout</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -243,7 +228,6 @@
                                         <fields>
                                             <business_account translate="label comment tooltip">
                                                 <label>Email Associated with PayPal Merchant Account</label>
-                                                <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal">Start accepting payments via PayPal!</a>]]></comment>
                                                 <tooltip>Don't have a PayPal account? Simply enter your email address.</tooltip>
                                                 <config_path>paypal/general/business_account</config_path>
                                                 <show_in_default>1</show_in_default>
@@ -338,7 +322,6 @@
                                             <proxy_host translate="label">
                                                 <label>Proxy Host</label>
                                                 <config_path>paypal/wpp/proxy_host</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>100</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -348,7 +331,6 @@
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
                                                 <config_path>paypal/wpp/proxy_port</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>110</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -387,7 +369,6 @@
                                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                             or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                         </comment>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <sort_order>32</sort_order>
@@ -396,7 +377,6 @@
                                             <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
                                             <advanced_settings_bml_homepage type="group" translate="label">
                                                 <label>Home Page</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -423,7 +403,6 @@
                                             </advanced_settings_bml_homepage>
                                             <advanced_settings_bml_categorypage type="group" translate="label">
                                                 <label>Catalog Category Page</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -451,7 +430,6 @@
                                             </advanced_settings_bml_categorypage>
                                             <advanced_settings_bml_productpage type="group" translate="label">
                                                 <label>Catalog Product Page</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -479,7 +457,6 @@
                                             </advanced_settings_bml_productpage>
                                             <advanced_settings_bml_checkout type="group" translate="label">
                                                 <label>Checkout Cart Page</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -513,7 +490,6 @@
 
                             <settings_payments_advanced type="group" translate="label">
                                 <label>Basic Settings - PayPal Payments Advanced</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -524,7 +500,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
                                         <config_path>payment/payflow_advanced/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -533,7 +508,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/payflow_advanced/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -552,7 +526,6 @@
                                     <settings_payments_advanced_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -643,7 +616,6 @@
                                             </mobile_optimized>
                                             <billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -663,7 +635,6 @@
                                                     <title translate="label">
                                                         <label>Title</label>
                                                         <config_path>payment/paypal_billing_agreement/title</config_path>
-                                                        <frontend_type>text</frontend_type>
                                                         <sort_order>20</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
@@ -673,7 +644,6 @@
                                                     <sort_order translate="label">
                                                         <label>Sort Order</label>
                                                         <config_path>payment/paypal_billing_agreement/sort_order</config_path>
-                                                        <frontend_type>text</frontend_type>
                                                         <sort_order>30</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
@@ -756,7 +726,6 @@
                                             </billing_agreement>
                                             <settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>90</sort_order>
@@ -803,7 +772,6 @@
                                                         <comment>By default it is "reports.paypal.com".</comment>
                                                         <tooltip>Use colon to specify port. For example: "test.example.com:5224".</tooltip>
                                                         <config_path>paypal/fetch_reports/ftp_ip</config_path>
-                                                        <frontend_type>text</frontend_type>
                                                         <sort_order>50</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
@@ -814,7 +782,6 @@
                                                         <label>Custom Path</label>
                                                         <comment>By default it is "/ppreports/outgoing".</comment>
                                                         <config_path>paypal/fetch_reports/ftp_path</config_path>
-                                                        <frontend_type>text</frontend_type>
                                                         <sort_order>60</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
@@ -861,7 +828,6 @@
                                             </settlement_report>
                                             <frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -892,7 +858,6 @@
                                                         <label>Page Style</label>
                                                         <config_path>paypal/style/page_style</config_path>
                                                         <tooltip><![CDATA[Allowable values: "paypal", "primary" (default), your_custom_value (a custom payment page style from your merchant account profile).]]></tooltip>
-                                                        <frontend_type>text</frontend_type>
                                                         <sort_order>30</sort_order>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
@@ -947,7 +912,6 @@
                             </settings_payments_advanced>
                             <settings_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -958,7 +922,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "PayPal" per store views.</comment>
                                         <config_path>payment/paypal_express/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -968,7 +931,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/paypal_express/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1001,7 +963,6 @@
                                         <label>Authorization Honor Period (days)</label>
                                         <comment>Specifies what the Authorization Honor Period is on the merchant’s PayPal account. It must mirror the setting in PayPal.</comment>
                                         <config_path>payment/paypal_express/authorization_honor_period</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>50</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1012,7 +973,6 @@
                                         <label>Order Valid Period (days)</label>
                                         <comment>Specifies what the Order Valid Period is on the merchant’s PayPal account. It must mirror the setting in PayPal.</comment>
                                         <config_path>payment/paypal_express/order_valid_period</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>60</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1023,7 +983,6 @@
                                         <label>Number of Child Authorizations</label>
                                         <comment>The default number of child authorizations in your PayPal account is 1. To do multiple authorizations please contact PayPal to request an increase.</comment>
                                         <config_path>payment/paypal_express/child_authorization_number</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>70</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1033,7 +992,6 @@
                                     <settings_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -1179,7 +1137,6 @@
                     </payflow_advanced>
                     <wpp type="group" translate="label comment">
                         <label>Website Payments Pro (Includes Express Checkout)</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -1232,7 +1189,6 @@
                                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                             or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                                     </comment>
-                                                    <frontend_type>text</frontend_type>
                                                     <show_in_default>1</show_in_default>
                                                     <show_in_website>1</show_in_website>
                                                     <sort_order>22</sort_order>
@@ -1241,7 +1197,6 @@
                                                         <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
                                                         <wpp_settings_bml_homepage type="group" translate="label">
                                                             <label>Home Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -1268,7 +1223,6 @@
                                                         </wpp_settings_bml_homepage>
                                                         <wpp_settings_bml_categorypage type="group" translate="label">
                                                             <label>Catalog Category Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -1296,7 +1250,6 @@
                                                         </wpp_settings_bml_categorypage>
                                                         <wpp_settings_bml_productpage type="group" translate="label">
                                                             <label>Catalog Product Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -1324,7 +1277,6 @@
                                                         </wpp_settings_bml_productpage>
                                                         <wpp_settings_bml_checkout type="group" translate="label">
                                                             <label>Checkout Cart Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -1364,7 +1316,6 @@
                         <fields>
                             <wpp_required_settings type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -1372,7 +1323,6 @@
                                 <fields>
                                     <wpp_and_express_checkout type="group" translate="label">
                                         <label>Website Payments Pro and Express Checkout</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -1409,7 +1359,6 @@
 
                             <wpp_settings type="group" translate="label">
                                 <label>Basic Settings - PayPal Website Payments Pro</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -1420,7 +1369,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
                                         <config_path>payment/paypal_direct/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1429,7 +1377,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/paypal_direct/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1465,7 +1412,6 @@
                                     <wpp_settings_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -1557,7 +1503,6 @@
                                                 <label>Centinel Custom API URL</label>
                                                 <config_path>payment/paypal_direct/centinel_api_url</config_path>
                                                 <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
-                                                <frontend_type>text</frontend_type>
                                                 <source_model>adminhtml/system_config_source_yesno</source_model>
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -1566,7 +1511,6 @@
                                             </centinel_api_url>
                                             <wpp_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -1586,7 +1530,6 @@
                                             </wpp_billing_agreement>
                                             <wpp_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>90</sort_order>
@@ -1605,7 +1548,6 @@
                                             </wpp_settlement_report>
                                             <wpp_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -1627,7 +1569,6 @@
 
                             <wpp_settings_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -1645,7 +1586,6 @@
                                     <wpp_settings_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -1671,7 +1611,6 @@
                     </wpp>
                     <wps type="group" translate="label comment">
                         <label>Website Payments Standard</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -1712,7 +1651,6 @@
                         <fields>
                             <wps_required_settings type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -1734,7 +1672,6 @@
                             </wps_required_settings>
                             <settings_payments_standart type="group" translate="label">
                                 <label>Basic Settings - PayPal Website Payments Standard</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -1745,7 +1682,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "PayPal" per store views.</comment>
                                         <config_path>payment/paypal_standard/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1754,7 +1690,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/paypal_standard/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -1773,7 +1708,6 @@
                                     <settings_payments_standart_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <sort_order>40</sort_order>
@@ -1819,7 +1753,6 @@
                                                 <label>Summary Text for Aggregated Cart</label>
                                                 <config_path>payment/paypal_standard/line_items_summary</config_path>
                                                 <comment>Uses store frontend name by default.</comment>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>50</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -1852,7 +1785,6 @@
                     </wps>
                     <wps_express type="group" translate="label comment">
                         <label>Website Payments Standard (Includes Express Checkout)</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -1894,7 +1826,6 @@
                                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                             or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                                 </comment>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>32</sort_order>
@@ -1903,7 +1834,6 @@
                                                     <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
                                                     <wps_express_settings_bml_homepage type="group" translate="label">
                                                         <label>Home Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -1929,7 +1859,6 @@
                                                     </wps_express_settings_bml_homepage>
                                                     <wps_express_settings_bml_categorypage type="group" translate="label">
                                                         <label>Catalog Category Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -1957,7 +1886,6 @@
                                                     </wps_express_settings_bml_categorypage>
                                                     <wps_express_settings_bml_productpage type="group" translate="label">
                                                         <label>Catalog Product Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -1985,7 +1913,6 @@
                                                     </wps_express_settings_bml_productpage>
                                                     <wps_express_settings_bml_checkout type="group" translate="label">
                                                         <label>Checkout Cart Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -2029,7 +1956,6 @@
                         <fields>
                             <wps_express_checkout_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <sort_order>10</sort_order>
@@ -2037,7 +1963,6 @@
                                 <fields>
                                     <wps_express_checkout_required_express_checkout type="group" translate="label">
                                         <label>PayPal Website Payments Standard</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -2072,7 +1997,6 @@
                             </wps_express_checkout_required>
                             <settings_wps_express type="group" translate="label">
                                 <label>Basic Settings - PayPal Website Payments Standard</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -2090,7 +2014,6 @@
                                     <settings_wps_express_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -2111,7 +2034,6 @@
 
                                             <wps_express_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -2131,7 +2053,6 @@
                                             </wps_express_billing_agreement>
                                             <wps_express_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>110</sort_order>
@@ -2150,7 +2071,6 @@
                                             </wps_express_settlement_report>
                                             <wps_express_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -2173,7 +2093,6 @@
                     </wps_express>
                     <paypal_verisign type="group" translate="label comment">
                         <label>Payflow Pro</label>
-                        <frontend_type>text</frontend_type>
                         <frontend_model>paypal/adminhtml_system_config_fieldset_payment</frontend_model>
                         <frontend_class>pp-method-payflow</frontend_class>
                         <show_in_default>1</show_in_default>
@@ -2202,7 +2121,6 @@
                         <fields>
                             <paypal_payflow_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -2210,7 +2128,6 @@
                                 <fields>
                                     <paypal_payflow_api_settings type="group" translate="label">
                                         <label>Payflow Pro</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -2219,7 +2136,6 @@
                                             <partner translate="label">
                                                 <label>Partner</label>
                                                 <config_path>payment/verisign/partner</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -2236,7 +2152,6 @@
                                             <vendor translate="label">
                                                 <label>Vendor</label>
                                                 <config_path>payment/verisign/vendor</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>40</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -2271,7 +2186,6 @@
                                             <proxy_host translate="label">
                                                 <label>Proxy Host</label>
                                                 <config_path>payment/verisign/proxy_host</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -2280,7 +2194,6 @@
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
                                                 <config_path>payment/verisign/proxy_port</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>90</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -2303,7 +2216,6 @@
                             </paypal_payflow_required>
                             <settings_paypal_payflow type="group" translate="label">
                                 <label>Basic Settings - PayPal Payflow Pro</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -2314,7 +2226,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
                                         <config_path>payment/verisign/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -2323,7 +2234,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/verisign/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -2359,7 +2269,6 @@
                                     <settings_paypal_payflow_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -2442,7 +2351,6 @@
                                                 <label>Centinel API URL</label>
                                                 <config_path>payment/verisign/centinel_api_url</config_path>
                                                 <comment>A value is required for live mode. Refer to your CardinalCommerce agreement.</comment>
-                                                <frontend_type>text</frontend_type>
                                                 <source_model>adminhtml/system_config_source_yesno</source_model>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -2451,7 +2359,6 @@
                                             </centinel_api_url>
                                             <paypal_payflow_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>90</sort_order>
@@ -2528,7 +2435,6 @@
                                                     The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                                     or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                                 </comment>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>22</sort_order>
@@ -2537,7 +2443,6 @@
                                                     <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
                                                     <paypal_payflow_settings_bml_homepage type="group" translate="label">
                                                         <label>Home Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -2564,7 +2469,6 @@
                                                     </paypal_payflow_settings_bml_homepage>
                                                     <paypal_payflow_settings_bml_categorypage type="group" translate="label">
                                                         <label>Catalog Category Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -2592,7 +2496,6 @@
                                                     </paypal_payflow_settings_bml_categorypage>
                                                     <paypal_payflow_settings_bml_productpage type="group" translate="label">
                                                         <label>Catalog Product Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -2620,7 +2523,6 @@
                                                     </paypal_payflow_settings_bml_productpage>
                                                     <paypal_payflow_settings_bml_checkout type="group" translate="label">
                                                         <label>Checkout Cart Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -2661,7 +2563,6 @@
                         <fields>
                             <paypal_payflow_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <sort_order>10</sort_order>
@@ -2677,7 +2578,6 @@
                                         <fields>
                                             <paypal_payflow_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -2698,7 +2598,6 @@
                             </settings_paypal_payflow>
                             <paypal_payflow_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -2717,7 +2616,6 @@
                                     <title translate="label">
                                         <label>Title</label>
                                         <config_path>payment/paypaluk_express/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -2726,7 +2624,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/paypaluk_express/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -2755,7 +2652,6 @@
                                     <paypal_payflow_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <sort_order>60</sort_order>
@@ -2825,7 +2721,6 @@
                     </paypal_verisign_with_express_checkout>
                     <payflow_link type="group" translate="label comment">
                         <label>Payflow Link (Includes Express Checkout)</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -2865,7 +2760,6 @@
                                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                             or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                                     </comment>
-                                                    <frontend_type>text</frontend_type>
                                                     <show_in_default>1</show_in_default>
                                                     <show_in_website>1</show_in_website>
                                                     <sort_order>42</sort_order>
@@ -2874,7 +2768,6 @@
                                                         <bml_wizard extends="//paypal_payments/express_checkout//advertise_bml//bml_wizard" />
                                                         <payflow_link_settings_bml_homepage type="group" translate="label">
                                                             <label>Home Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -2901,7 +2794,6 @@
                                                         </payflow_link_settings_bml_homepage>
                                                         <payflow_link_settings_bml_categorypage type="group" translate="label">
                                                             <label>Catalog Category Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -2929,7 +2821,6 @@
                                                         </payflow_link_settings_bml_categorypage>
                                                         <payflow_link_settings_bml_productpage type="group" translate="label">
                                                             <label>Catalog Product Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -2957,7 +2848,6 @@
                                                         </payflow_link_settings_bml_productpage>
                                                         <payflow_link_settings_bml_checkout type="group" translate="label">
                                                             <label>Checkout Cart Page</label>
-                                                            <frontend_type>text</frontend_type>
                                                             <show_in_default>1</show_in_default>
                                                             <show_in_website>1</show_in_website>
                                                             <show_in_store>1</show_in_store>
@@ -2994,7 +2884,6 @@
                         <fields>
                             <payflow_link_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -3002,7 +2891,6 @@
                                 <fields>
                                     <payflow_link_payflow_link type="group" translate="label">
                                         <label>Payflow Link</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -3011,7 +2899,6 @@
                                             <partner translate="label">
                                                 <label>Partner</label>
                                                 <config_path>payment/payflow_link/partner</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>10</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3019,7 +2906,6 @@
                                             <vendor translate="label">
                                                 <label>Vendor</label>
                                                 <config_path>payment/payflow_link/vendor</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3027,7 +2913,6 @@
                                             <user translate="label comment">
                                                 <label>User</label>
                                                 <comment>If you do not have multiple users set up on your account, please re-enter your Vendor/Merchant Login here.</comment>
-                                                <frontend_type>text</frontend_type>
                                                 <config_path>payment/payflow_link/user</config_path>
                                                 <sort_order>30</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -3063,7 +2948,6 @@
                                             <proxy_host translate="label">
                                                 <label>Proxy Host</label>
                                                 <config_path>payment/payflow_link/proxy_host</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>70</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3072,7 +2956,6 @@
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
                                                 <config_path>payment/payflow_link/proxy_port</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3100,7 +2983,6 @@
                                     </enable_payflow_link>
                                     <payflow_link_express_checkout type="group" translate="label">
                                         <label>Express Checkout</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -3136,7 +3018,6 @@
                             </payflow_link_required>
                             <settings_payflow_link type="group" translate="label">
                                 <label>Basic Settings - PayPal Payflow Link</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -3147,7 +3028,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
                                         <config_path>payment/payflow_link/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3156,7 +3036,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/payflow_link/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3175,7 +3054,6 @@
                                     <settings_payflow_link_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -3266,7 +3144,6 @@
                                             </mobile_optimized>
                                             <payflow_link_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>80</sort_order>
@@ -3285,7 +3162,6 @@
                                             </payflow_link_settlement_report>
                                             <payflow_link_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -3306,7 +3182,6 @@
                             </settings_payflow_link>
                             <settings_payflow_link_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -3324,7 +3199,6 @@
                                     <settings_payflow_link_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -3345,7 +3219,6 @@
 
                                             <payflow_link_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -3409,7 +3282,6 @@
                                             <partner translate="label">
                                                 <label>Partner</label>
                                                 <config_path>paypal/wpuk/partner</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>20</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3426,7 +3298,6 @@
                                             <vendor translate="label">
                                                 <label>Vendor</label>
                                                 <config_path>paypal/wpuk/vendor</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>40</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3461,7 +3332,6 @@
                                             <proxy_host translate="label">
                                                 <label>Proxy Host</label>
                                                 <config_path>paypal/wpuk/proxy_host</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3470,7 +3340,6 @@
                                             <proxy_port translate="label">
                                                 <label>Proxy Port</label>
                                                 <config_path>paypal/wpuk/proxy_port</config_path>
-                                                <frontend_type>text</frontend_type>
                                                 <sort_order>90</sort_order>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
@@ -3504,7 +3373,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "Debit or Credit Card" per store views.</comment>
                                         <config_path>payment/paypaluk_direct/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3513,7 +3381,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/paypaluk_direct/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3640,7 +3507,6 @@
                                                 <label>Centinel API URL</label>
                                                 <config_path>payment/paypaluk_direct/centinel_api_url</config_path>
                                                 <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
-                                                <frontend_type>text</frontend_type>
                                                 <source_model>adminhtml/system_config_source_yesno</source_model>
                                                 <sort_order>80</sort_order>
                                                 <show_in_default>1</show_in_default>
@@ -3649,7 +3515,6 @@
                                             </centinel_api_url>
                                             <pp_pe_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>90</sort_order>
@@ -3668,7 +3533,6 @@
                                             </pp_pe_settlement_report>
                                             <pp_pe_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -3689,7 +3553,6 @@
                             </settings_pp_pe>
                             <settings_pp_pe_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -3844,7 +3707,6 @@
                                         <label>Title</label>
                                         <comment>It is recommended to set this value to "PayPal" per store views.</comment>
                                         <config_path>payment/hosted_pro/title</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>10</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3853,7 +3715,6 @@
                                     <sort_order translate="label">
                                         <label>Sort Order</label>
                                         <config_path>payment/hosted_pro/sort_order</config_path>
-                                        <frontend_type>text</frontend_type>
                                         <sort_order>20</sort_order>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
@@ -3934,7 +3795,6 @@
                                             </mobile_optimized>
                                             <pphs_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>45</sort_order>
@@ -4011,7 +3871,6 @@
                                         <fields>
                                             <pphs_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -4031,7 +3890,6 @@
                                             </pphs_billing_agreement>
                                             <pphs_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -4052,7 +3910,6 @@
                             </pphs_settings>
                             <pphs_settings_express_checkout type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -4070,7 +3927,6 @@
                                     <pphs_settings_express_checkout_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -4096,7 +3952,6 @@
                     </payments_pro_hosted_solution_with_express_checkout>
                     <express_checkout type="group" translate="label comment">
                         <label>Express Checkout</label>
-                        <frontend_type>text</frontend_type>
                         <show_in_default>1</show_in_default>
                         <show_in_website>1</show_in_website>
                         <show_in_store>1</show_in_store>
@@ -4140,7 +3995,6 @@
                                             The PayPal Advertising Program has been shown to generate additional purchases as well as increase consumer's average purchase sizes by 15%
                                             or more. <a href="https://financing.paypal.com/ppfinportal/content/forrester" target="_blank">See Details</a>.]]>
                                                 </comment>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>30</sort_order>
@@ -4165,7 +4019,6 @@
                                                     </bml_wizard>
                                                     <settings_bml_homepage type="group" translate="label">
                                                         <label>Home Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -4210,7 +4063,6 @@
                                                     </settings_bml_homepage>
                                                     <settings_bml_categorypage type="group" translate="label">
                                                         <label>Catalog Category Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -4255,7 +4107,6 @@
                                                     </settings_bml_categorypage>
                                                     <settings_bml_productpage type="group" translate="label">
                                                         <label>Catalog Product Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -4300,7 +4151,6 @@
                                                     </settings_bml_productpage>
                                                     <settings_bml_checkout type="group" translate="label">
                                                         <label>Checkout Cart Page</label>
-                                                        <frontend_type>text</frontend_type>
                                                         <show_in_default>1</show_in_default>
                                                         <show_in_website>1</show_in_website>
                                                         <show_in_store>1</show_in_store>
@@ -4360,7 +4210,6 @@
                         <fields>
                             <express_checkout_required type="group" translate="label">
                                 <label>Required PayPal Settings</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <sort_order>10</sort_order>
@@ -4368,7 +4217,6 @@
                                 <fields>
                                     <express_checkout_required_express_checkout type="group" translate="label">
                                         <label>Express Checkout</label>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <frontend_model>paypal/adminhtml_system_config_fieldset_expanded</frontend_model>
@@ -4404,7 +4252,6 @@
                             </express_checkout_required>
                             <settings_ec type="group" translate="label">
                                 <label>Basic Settings - PayPal Express Checkout</label>
-                                <frontend_type>text</frontend_type>
                                 <show_in_default>1</show_in_default>
                                 <show_in_website>1</show_in_website>
                                 <show_in_store>1</show_in_store>
@@ -4422,7 +4269,6 @@
                                     <settings_ec_advanced type="group" translate="label">
                                         <label>Advanced Settings</label>
                                         <frontend_class>config-advanced</frontend_class>
-                                        <frontend_type>text</frontend_type>
                                         <show_in_default>1</show_in_default>
                                         <show_in_website>1</show_in_website>
                                         <show_in_store>1</show_in_store>
@@ -4443,7 +4289,6 @@
 
                                             <express_checkout_billing_agreement type="group" translate="label">
                                                 <label>PayPal Billing Agreement Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>
@@ -4463,7 +4308,6 @@
                                             </express_checkout_billing_agreement>
                                             <express_checkout_settlement_report type="group" translate="label">
                                                 <label>Settlement Report Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <sort_order>110</sort_order>
@@ -4482,7 +4326,6 @@
                                             </express_checkout_settlement_report>
                                             <express_checkout_frontend type="group" translate="label">
                                                 <label>Frontend Experience Settings</label>
-                                                <frontend_type>text</frontend_type>
                                                 <show_in_default>1</show_in_default>
                                                 <show_in_website>1</show_in_website>
                                                 <show_in_store>1</show_in_store>

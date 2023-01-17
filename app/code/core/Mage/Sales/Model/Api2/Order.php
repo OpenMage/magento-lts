@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,11 +31,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**#@+
      * Parameters' names in config with special ACL meaning
      */
-    const PARAM_GIFT_MESSAGE   = '_gift_message';
-    const PARAM_ORDER_COMMENTS = '_order_comments';
-    const PARAM_PAYMENT_METHOD = '_payment_method';
-    const PARAM_TAX_NAME       = '_tax_name';
-    const PARAM_TAX_RATE       = '_tax_rate';
+    public const PARAM_GIFT_MESSAGE   = '_gift_message';
+    public const PARAM_ORDER_COMMENTS = '_order_comments';
+    public const PARAM_PAYMENT_METHOD = '_payment_method';
+    public const PARAM_TAX_NAME       = '_tax_name';
+    public const PARAM_TAX_RATE       = '_tax_rate';
     /**#@-*/
 
     /**
@@ -52,13 +47,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addGiftMessageInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('gift_message' => $collection->getTable('giftmessage/message')),
+            ['gift_message' => $collection->getTable('giftmessage/message')],
             'main_table.gift_message_id = gift_message.gift_message_id',
-            array(
+            [
                 'gift_message_from' => 'gift_message.sender',
                 'gift_message_to'   => 'gift_message.recipient',
                 'gift_message_body' => 'gift_message.message'
-            )
+            ]
         );
 
         return $this;
@@ -73,9 +68,9 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addPaymentMethodInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('payment_method' => $collection->getTable('sales/order_payment')),
+            ['payment_method' => $collection->getTable('sales/order_payment')],
             'main_table.entity_id = payment_method.parent_id',
-            array('payment_method' => 'payment_method.method')
+            ['payment_method' => 'payment_method.method']
         );
 
         return $this;
@@ -89,7 +84,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _addTaxInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
-        $taxInfoFields = array();
+        $taxInfoFields = [];
 
         if ($this->_isTaxNameAllowed()) {
             $taxInfoFields['tax_name'] = 'order_tax.title';
@@ -99,7 +94,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         if ($taxInfoFields) {
             $collection->getSelect()->joinLeft(
-                array('order_tax' => $collection->getTable('sales/order_tax')),
+                ['order_tax' => $collection->getTable('sales/order_tax')],
                 'main_table.entity_id = order_tax.order_id',
                 $taxInfoFields
             );
@@ -116,14 +111,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getAddresses(array $orderIds)
     {
-        $addresses = array();
+        $addresses = [];
 
         if ($this->_isSubCallAllowed('order_address')) {
-            /** @var Mage_Api2_Model_Acl_Filter $addressesFilter */
-            $addressesFilter = $this->_getSubModel('order_address', array())->getFilter();
+            $addressesFilter = $this->_getSubModel('order_address', [])->getFilter();
             // do addresses request if at least one attribute allowed
             if ($addressesFilter->getAllowedAttributes()) {
-                /* @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
+                /** @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
                 $collection = Mage::getResourceModel('sales/order_address_collection');
 
                 $collection->addAttributeToFilter('parent_id', $orderIds);
@@ -173,11 +167,10 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getComments(array $orderIds)
     {
-        $comments = array();
+        $comments = [];
 
         if ($this->_isOrderCommentsAllowed() && $this->_isSubCallAllowed('order_comment')) {
-            /** @var Mage_Api2_Model_Acl_Filter $commentsFilter */
-            $commentsFilter = $this->_getSubModel('order_comment', array())->getFilter();
+            $commentsFilter = $this->_getSubModel('order_comment', [])->getFilter();
             // do comments request if at least one attribute allowed
             if ($commentsFilter->getAllowedAttributes()) {
                 foreach ($this->_getCommentsCollection($orderIds)->getItems() as $item) {
@@ -196,7 +189,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getCommentsCollection(array $orderIds)
     {
-        /* @var Mage_Sales_Model_Resource_Order_Status_History_Collection $collection */
+        /** @var Mage_Sales_Model_Resource_Order_Status_History_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_status_history_collection');
         $collection->setOrderFilter($orderIds);
 
@@ -211,14 +204,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getItems(array $orderIds)
     {
-        $items = array();
+        $items = [];
 
         if ($this->_isSubCallAllowed('order_item')) {
-            /** @var Mage_Api2_Model_Acl_Filter $itemsFilter */
-            $itemsFilter = $this->_getSubModel('order_item', array())->getFilter();
+            $itemsFilter = $this->_getSubModel('order_item', [])->getFilter();
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
-                /* @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
+                /** @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
                 $collection = Mage::getResourceModel('sales/order_item_collection');
 
                 $collection->addAttributeToFilter('order_id', $orderIds);
@@ -298,7 +290,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         $this->_addTaxInfo($collection);
 
-        $ordersData = array();
+        $ordersData = [];
 
         foreach ($collection->getItems() as $order) {
             $ordersData[$order->getId()] = $order->toArray();

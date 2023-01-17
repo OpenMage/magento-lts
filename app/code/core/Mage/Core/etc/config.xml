@@ -1,28 +1,23 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -122,7 +117,7 @@
             <types>
                 <config translate="label,description" module="core">
                     <label>Configuration</label>
-                    <description>System(config.xml, local.xml) and modules configuration files(config.xml).</description>
+                    <description>System (config.xml, local.xml) and modules configuration files (config.xml, system.xml).</description>
                     <tags>CONFIG</tags>
                 </config>
                 <layout translate="label,description" module="core">
@@ -314,6 +309,7 @@
             </translate_inline>
             <log>
                 <active>0</active>
+                <max_level>7</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
@@ -325,6 +321,9 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <cache>
+                <flush_cron_expr>30 2 * * *</flush_cron_expr>
+            </cache>
             <smtp>
                 <disable>0</disable>
                 <host>localhost</host>
@@ -407,6 +406,7 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_samesite>None</cookie_samesite>
                 <cookie_restriction>0</cookie_restriction>
                 <cookie_restriction_lifetime>31536000</cookie_restriction_lifetime>
             </cookie>
@@ -424,6 +424,9 @@
             </browser_capabilities>
         </web>
         <admin>
+            <design>
+                <loading_timeout>200</loading_timeout>
+            </design>
             <startup>
                 <page>dashboard</page>
             </startup>
@@ -485,7 +488,6 @@
                     <protected>
                         <app>/app/*/*</app>
                         <dev>/dev/*/*</dev>
-                        <downloader>/downloader/*/*</downloader>
                         <errors>/errors/*/*</errors>
                         <includes>/includes/*/*</includes>
                         <js>/js/*/*</js>
@@ -495,10 +497,6 @@
                     </protected>
                 </public_files_valid_paths>
             </file>
-            <!-- NOTE: If you turn off images reprocessing, then your upload images process may cause security risks. -->
-            <reprocess_images>
-                <active>1</active>
-            </reprocess_images>
             <!-- Additional email for notifications -->
             <additional_notification_emails>
                 <!-- On creating a new admin user. You can specify several emails separated by commas. -->
@@ -533,7 +531,7 @@
         <jobs>
             <core_clean_cache>
                 <schedule>
-                    <cron_expr>30 2 * * *</cron_expr>
+                    <config_path>system/cache/flush_cron_expr</config_path>
                 </schedule>
                 <run>
                     <model>core/observer::cleanCache</model>

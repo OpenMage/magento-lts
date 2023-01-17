@@ -1,29 +1,23 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
     /**
@@ -33,6 +27,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     {
         return 'weee/attribute_backend_weee_tax';
     }
+
     /**
      * Retrieve resource model
      *
@@ -55,15 +50,15 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         if (empty($taxes)) {
             return $this;
         }
-        $dup = array();
+        $dup = [];
 
         foreach ($taxes as $tax) {
             if (!empty($tax['delete'])) {
                 continue;
             }
 
-            $state = isset($tax['state']) ? $tax['state'] : '*';
-            $key1 = implode('-', array($tax['website_id'], $tax['country'], $state));
+            $state = $tax['state'] ?? '*';
+            $key1 = implode('-', [$tax['website_id'], $tax['country'], $state]);
 
             if (!empty($dup[$key1])) {
                 Mage::throwException(
@@ -89,7 +84,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
             if ($data[$i]['website_id'] == 0) {
                 $rate = Mage::app()->getStore()->getBaseCurrency()->getRate(Mage::app()->getBaseCurrencyCode());
                 if ($rate) {
-                    $data[$i]['website_value'] = $data[$i]['value']/$rate;
+                    $data[$i]['website_value'] = $data[$i]['value'] / $rate;
                 } else {
                     unset($data[$i]);
                 }
@@ -131,7 +126,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                 $state = '*';
             }
 
-            $data = array();
+            $data = [];
             $data['website_id']   = $tax['website_id'];
             $data['country']      = $tax['country'];
             $data['state']        = $state;

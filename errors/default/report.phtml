@@ -1,28 +1,25 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Errors
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Error_Processor $this */
 ?>
 <div class="col-main">
     <div class="page-title">
@@ -36,7 +33,7 @@
             </ul>
         </li>
     </ul>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->showSendForm): ?>
     <ul class="messages">
         <li class="note-msg">
@@ -53,7 +50,7 @@
             </ul>
         </li>
     </ul>
-        <?php endif; ?>
+        <?php endif ?>
     <form action="<?php echo "{$this->getBaseUrl(true)}errors/report.php?id={$this->reportId}" ?>" method="post" id="form-validate">
         <fieldset class="fieldset">
             <h2>Personal Information</h2>
@@ -91,11 +88,11 @@
         </div>
         <p class="required">* Required Fields</p>
     </form>
-    <?php elseif ('' == $this->reportAction): ?>
+    <?php elseif ($this->reportAction === ''): ?>
         <p><em>Exception printing is disabled by default for security reasons.</em></p>
-    <?php endif; ?>
+    <?php endif ?>
 
-    <?php if ($this->reportAction == 'print'): ?>
+    <?php if ($this->reportAction === 'print'): ?>
     <div class="trace-container">
         <div class="trace">
             <pre><?php echo $this->reportData[0] ?><br />
@@ -104,8 +101,8 @@
 </pre>
         </div>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->reportId && $this->reportUrl): ?>
         <p>Error log record number: <a href="<?php echo htmlspecialchars($this->reportUrl) ?>"><?php echo $this->reportId ?></a></p>
-    <?php endif; ?>
+    <?php endif ?>
 </div>

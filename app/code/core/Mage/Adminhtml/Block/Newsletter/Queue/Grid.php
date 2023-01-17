@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +24,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -56,75 +50,73 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('queue_id', array(
+        $this->addColumn('queue_id', [
             'header'    =>  Mage::helper('newsletter')->__('ID'),
-            'index'     =>	'queue_id',
-            'width'		=>	10
-        ));
+            'index'     =>  'queue_id',
+            'width'     =>  10
+        ]);
 
-        $this->addColumn('start_at', array(
+        $this->addColumn('start_at', [
             'header'    =>  Mage::helper('newsletter')->__('Queue Start'),
-            'type'      =>	'datetime',
-            'index'     =>	'queue_start_at',
+            'type'      =>  'datetime',
+            'index'     =>  'queue_start_at',
             'gmtoffset' => true,
-            'default'	=> 	' ---- '
-        ));
+            'default'   =>  ' ---- '
+        ]);
 
-        $this->addColumn('finish_at', array(
+        $this->addColumn('finish_at', [
             'header'    =>  Mage::helper('newsletter')->__('Queue Finish'),
-            'type'      => 	'datetime',
-            'index'     =>	'queue_finish_at',
+            'type'      =>  'datetime',
+            'index'     =>  'queue_finish_at',
             'gmtoffset' => true,
-            'default'	=> 	' ---- '
-        ));
+            'default'   =>  ' ---- '
+        ]);
 
-        $this->addColumn('newsletter_subject', array(
+        $this->addColumn('newsletter_subject', [
             'header'    =>  Mage::helper('newsletter')->__('Subject'),
             'index'     =>  'newsletter_subject'
-        ));
+        ]);
 
-         $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'    => Mage::helper('newsletter')->__('Status'),
-            'index'		=> 'queue_status',
+            'index'     => 'queue_status',
             'type'      => 'options',
-            'options'   => array(
-                Mage_Newsletter_Model_Queue::STATUS_SENT 	=> Mage::helper('newsletter')->__('Sent'),
-                Mage_Newsletter_Model_Queue::STATUS_CANCEL	=> Mage::helper('newsletter')->__('Cancelled'),
-                Mage_Newsletter_Model_Queue::STATUS_NEVER 	=> Mage::helper('newsletter')->__('Not Sent'),
+            'options'   => [
+                Mage_Newsletter_Model_Queue::STATUS_SENT    => Mage::helper('newsletter')->__('Sent'),
+                Mage_Newsletter_Model_Queue::STATUS_CANCEL  => Mage::helper('newsletter')->__('Cancelled'),
+                Mage_Newsletter_Model_Queue::STATUS_NEVER   => Mage::helper('newsletter')->__('Not Sent'),
                 Mage_Newsletter_Model_Queue::STATUS_SENDING => Mage::helper('newsletter')->__('Sending'),
-                Mage_Newsletter_Model_Queue::STATUS_PAUSE 	=> Mage::helper('newsletter')->__('Paused'),
-            ),
+                Mage_Newsletter_Model_Queue::STATUS_PAUSE   => Mage::helper('newsletter')->__('Paused'),
+            ],
             'width'     => '100px',
-        ));
+         ]);
 
-        $this->addColumn('subscribers_sent', array(
+        $this->addColumn('subscribers_sent', [
             'header'    =>  Mage::helper('newsletter')->__('Processed'),
-               'type'		=> 'number',
-            'index'		=> 'subscribers_sent'
-        ));
+               'type'       => 'number',
+            'index'     => 'subscribers_sent'
+        ]);
 
-        $this->addColumn('subscribers_total', array(
+        $this->addColumn('subscribers_total', [
             'header'    =>  Mage::helper('newsletter')->__('Recipients'),
-            'type'		=> 'number',
-            'index'		=> 'subscribers_total'
-        ));
+            'type'      => 'number',
+            'index'     => 'subscribers_total'
+        ]);
 
-        $this->addColumn('action', array(
+        $this->addColumn('action', [
             'header'    =>  Mage::helper('newsletter')->__('Action'),
-            'filter'	=>	false,
-            'sortable'	=>	false,
+            'filter'    =>  false,
+            'sortable'  =>  false,
             'no_link'   => true,
-            'width'		=> '100px',
-            'renderer'	=>	'adminhtml/newsletter_queue_grid_renderer_action'
-        ));
+            'width'     => '100px',
+            'renderer'  =>  'adminhtml/newsletter_queue_grid_renderer_action'
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
-
 }
-

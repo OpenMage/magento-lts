@@ -1,32 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare content for tab
@@ -61,63 +59,65 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $rule = Mage::registry('current_promo_quote_rule');
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('default_label_fieldset', array(
+        $fieldset = $form->addFieldset('default_label_fieldset', [
             'legend' => Mage::helper('salesrule')->__('Default Label')
-        ));
+        ]);
         $labels = $rule->getStoreLabels();
-        $fieldset->addField('store_default_label', 'text', array(
+        $fieldset->addField('store_default_label', 'text', [
             'name'      => 'store_labels[0]',
             'required'  => false,
             'label'     => Mage::helper('salesrule')->__('Default Rule Label for All Store Views'),
-            'value'     => isset($labels[0]) ? $labels[0] : '',
-        ));
+            'value'     => $labels[0] ?? '',
+        ]);
 
-        $fieldset = $form->addFieldset('store_labels_fieldset', array(
+        $fieldset = $form->addFieldset('store_labels_fieldset', [
             'legend'       => Mage::helper('salesrule')->__('Store View Specific Labels'),
             'table_class'  => 'form-list stores-tree',
-        ));
+        ]);
         $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset');
         $fieldset->setRenderer($renderer);
 
         foreach (Mage::app()->getWebsites() as $website) {
-            $fieldset->addField("w_{$website->getId()}_label", 'note', array(
+            $fieldset->addField("w_{$website->getId()}_label", 'note', [
                 'label'    => $website->getName(),
                 'fieldset_html_class' => 'website',
-            ));
+            ]);
             foreach ($website->getGroups() as $group) {
                 $stores = $group->getStores();
                 if (count($stores) == 0) {
                     continue;
                 }
-                $fieldset->addField("sg_{$group->getId()}_label", 'note', array(
+                $fieldset->addField("sg_{$group->getId()}_label", 'note', [
                     'label'    => $group->getName(),
                     'fieldset_html_class' => 'store-group',
-                ));
+                ]);
                 foreach ($stores as $store) {
-                    $fieldset->addField("s_{$store->getId()}", 'text', array(
-                        'name'      => 'store_labels['.$store->getId().']',
+                    $fieldset->addField("s_{$store->getId()}", 'text', [
+                        'name'      => 'store_labels[' . $store->getId() . ']',
                         'required'  => false,
                         'label'     => $store->getName(),
-                        'value'     => isset($labels[$store->getId()]) ? $labels[$store->getId()] : '',
+                        'value'     => $labels[$store->getId()] ?? '',
                         'fieldset_html_class' => 'store',
-                    ));
+                    ]);
                 }
             }
         }
-
 
         if ($rule->isReadonly()) {
             foreach ($fieldset->getElements() as $element) {

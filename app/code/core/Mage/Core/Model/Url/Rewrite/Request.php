@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Url rewrite request model
  *
- * @category Mage
- * @package Mage_Core
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Url_Rewrite_Request
 {
@@ -52,7 +47,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      *
      * @var array
      */
-    protected $_routers = array();
+    protected $_routers = [];
 
     /**
      * Instance of url rewrite model
@@ -131,7 +126,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _rewriteDb()
     {
-        if (null === $this->_rewrite->getStoreId() || false === $this->_rewrite->getStoreId()) {
+        if ($this->_rewrite->getStoreId() === null || $this->_rewrite->getStoreId() === false) {
             $this->_rewrite->setStoreId($this->_app->getStore()->getId());
         }
 
@@ -142,7 +137,6 @@ class Mage_Core_Model_Url_Rewrite_Request
         if (!$this->_rewrite->getId() && $fromStore) {
             $stores = $this->_app->getStores(false, true);
             if (!empty($stores[$fromStore])) {
-                /** @var Mage_Core_Model_Store $store */
                 $store = $stores[$fromStore];
                 $fromStoreId = $store->getId();
             } else {
@@ -211,7 +205,7 @@ class Mage_Core_Model_Url_Rewrite_Request
         $targetUrl = $this->_request->getBaseUrl() . '/' . $this->_rewrite->getTargetPath();
 
         $storeCode = $this->_app->getStore()->getCode();
-        if (Mage::getStoreConfig('web/url/use_store') && !empty($storeCode)) {
+        if (Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL) && !empty($storeCode)) {
             $targetUrl = $this->_request->getBaseUrl() . '/' . $storeCode . '/' . $this->_rewrite->getTargetPath();
         }
 
@@ -278,7 +272,7 @@ class Mage_Core_Model_Url_Rewrite_Request
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
-        $requestCases = array();
+        $requestCases = [];
         // Query params in request, matching "path + query" has more priority
         $queryString = $this->_getQueryString();
         if ($queryString) {
@@ -316,7 +310,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     protected function _getQueryString()
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
-            $queryParams = array();
+            $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach ($queryParams as $key => $value) {
@@ -363,10 +357,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _getRouter($name)
     {
-        if (isset($this->_routers[$name])) {
-            return $this->_routers[$name];
-        }
-        return false;
+        return $this->_routers[$name] ?? false;
     }
 
     /**

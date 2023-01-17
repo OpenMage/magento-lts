@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Rule Model
+ *
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
@@ -41,10 +40,6 @@
  * @method float getTaxRate()
  * @method string getTaxCustomerClass()
  * @method string getTaxProductClass()
- *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 {
@@ -93,7 +88,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     /**
      * Holds the tax Calculation model
      *
-     * @var Mage_Tax_Model_Calculation
+     * @var Mage_Tax_Model_Calculation|null
      */
     protected $_calculationModel    = null;
 
@@ -144,12 +139,12 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         foreach ($ctc as $c) {
             foreach ($ptc as $p) {
                 foreach ($rates as $r) {
-                    $dataArray = array(
-                        'tax_calculation_rule_id'   =>$this->getId(),
-                        'tax_calculation_rate_id'   =>$r,
-                        'customer_tax_class_id'     =>$c,
-                        'product_tax_class_id'      =>$p,
-                    );
+                    $dataArray = [
+                        'tax_calculation_rule_id'   => $this->getId(),
+                        'tax_calculation_rate_id'   => $r,
+                        'customer_tax_class_id'     => $c,
+                        'product_tax_class_id'      => $p,
+                    ];
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }
             }
@@ -190,7 +185,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     {
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
-
 
     /**
      * Fetches rules by rate, customer tax class and product tax class

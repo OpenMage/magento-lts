@@ -1,41 +1,34 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Profiler
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Profiler
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Varien_Profiler
 {
-
     /**
      * Timers for code profiling
      *
      * @var array
      */
-    static private $_timers = array();
-    static private $_enabled = false;
-    static private $_memory_get_usage = false;
+    private static $_timers = [];
+    private static $_enabled = false;
+    private static $_memory_get_usage = false;
 
     public static function enable()
     {
@@ -50,13 +43,13 @@ class Varien_Profiler
 
     public static function reset($timerName)
     {
-        self::$_timers[$timerName] = array(
-            'start'=>false,
-            'count'=>0,
-            'sum'=>0,
-            'realmem'=>0,
-            'emalloc'=>0,
-        );
+        self::$_timers[$timerName] = [
+            'start' => false,
+            'count' => 0,
+            'sum' => 0,
+            'realmem' => 0,
+            'emalloc' => 0,
+        ];
     }
 
     public static function resume($timerName)
@@ -92,12 +85,12 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
-        if (false!==self::$_timers[$timerName]['start']) {
-            self::$_timers[$timerName]['sum'] += $time-self::$_timers[$timerName]['start'];
+        if (false !== self::$_timers[$timerName]['start']) {
+            self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
             if (self::$_memory_get_usage) {
-                self::$_timers[$timerName]['realmem'] += memory_get_usage(true)-self::$_timers[$timerName]['realmem_start'];
-                self::$_timers[$timerName]['emalloc'] += memory_get_usage()-self::$_timers[$timerName]['emalloc_start'];
+                self::$_timers[$timerName]['realmem'] += memory_get_usage(true) - self::$_timers[$timerName]['realmem_start'];
+                self::$_timers[$timerName]['emalloc'] += memory_get_usage() - self::$_timers[$timerName]['emalloc_start'];
             }
         }
     }
@@ -107,7 +100,7 @@ class Varien_Profiler
         self::pause($timerName);
     }
 
-    public static function fetch($timerName, $key='sum')
+    public static function fetch($timerName, $key = 'sum')
     {
         if (empty(self::$_timers[$timerName])) {
             return false;
@@ -117,8 +110,8 @@ class Varien_Profiler
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
-                if (self::$_timers[$timerName]['start']!==false) {
-                    $sum += microtime(true)-self::$_timers[$timerName]['start'];
+                if (self::$_timers[$timerName]['start'] !== false) {
+                    $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
                 return $sum;
 
@@ -155,13 +148,14 @@ class Varien_Profiler
      * Output SQl Zend_Db_Profiler
      *
      */
-    public static function getSqlProfiler($res) {
-        if(!$res){
+    public static function getSqlProfiler($res)
+    {
+        if (!$res) {
             return '';
         }
         $out = '';
         $profiler = $res->getProfiler();
-        if($profiler->getEnabled()) {
+        if ($profiler->getEnabled()) {
             $totalTime    = $profiler->getTotalElapsedSecs();
             $queryCount   = $profiler->getTotalNumQueries();
             $longestTime  = 0;

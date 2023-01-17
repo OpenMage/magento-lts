@@ -1,97 +1,88 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog attribute model
  *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
- * @method $this getFrontendInputRenderer()
- * @method string setFrontendInputRenderer(string $value)
- * @method int setIsGlobal(int $value)
- * @method $this getIsVisible()
- * @method int setIsVisible(int $value)
- * @method $this getIsSearchable()
- * @method int setIsSearchable(int $value)
- * @method $this getSearchWeight()
- * @method int setSearchWeight(int $value)
- * @method $this getIsFilterable()
- * @method int setIsFilterable(int $value)
- * @method $this getIsComparable()
- * @method int setIsComparable(int $value)
- * @method int setIsVisibleOnFront(int $value)
- * @method $this getIsHtmlAllowedOnFront()
- * @method int setIsHtmlAllowedOnFront(int $value)
- * @method $this getIsUsedForPriceRules()
- * @method int setIsUsedForPriceRules(int $value)
- * @method $this getIsFilterableInSearch()
- * @method int setIsFilterableInSearch(int $value)
- * @method $this getUsedInProductListing()
- * @method int setUsedInProductListing(int $value)
- * @method $this getUsedForSortBy()
- * @method int setUsedForSortBy(int $value)
- * @method $this getIsConfigurable()
- * @method int setIsConfigurable(int $value)
- * @method string setApplyTo(string $value)
- * @method $this getIsVisibleInAdvancedSearch()
- * @method int setIsVisibleInAdvancedSearch(int $value)
- * @method $this getPosition()
- * @method int setPosition(int $value)
- * @method $this getIsWysiwygEnabled()
- * @method int setIsWysiwygEnabled(int $value)
- * @method $this getIsUsedForPromoRules()
- * @method int setIsUsedForPromoRules(int $value)
- * @method $this getIsUsedForCustomerSegment()
- * @method int setIsUsedForCustomerSegment(int $value)
- * @method $this getIsUsedForTargetRules()
- * @method int setIsUsedForTargetRules(int $value)
+ * @method string getFrontendInputRenderer()
+ * @method $this setFrontendInputRenderer(string $value)
+ * @method $this setIsGlobal(int $value)
+ * @method int getIsVisible()
+ * @method $this setIsVisible(int $value)
+ * @method int getIsSearchable()
+ * @method $this setIsSearchable(int $value)
+ * @method int getSearchWeight()
+ * @method $this setSearchWeight(int $value)
+ * @method int getIsFilterable()
+ * @method $this setIsFilterable(int $value)
+ * @method int getIsComparable()
+ * @method $this setIsComparable(int $value)
+ * @method $this setIsVisibleOnFront(int $value)
+ * @method int getIsHtmlAllowedOnFront()
+ * @method $this setIsHtmlAllowedOnFront(int $value)
+ * @method int getIsUsedForPriceRules()
+ * @method $this setIsUsedForPriceRules(int $value)
+ * @method int getIsFilterableInSearch()
+ * @method $this setIsFilterableInSearch(int $value)
+ * @method int getUsedInProductListing()
+ * @method $this setUsedInProductListing(int $value)
+ * @method int getUsedForSortBy()
+ * @method $this setUsedForSortBy(int $value)
+ * @method int getIsConfigurable()
+ * @method $this setIsConfigurable(int $value)
+ * @method $this setApplyTo(string|array $value)
+ * @method int getIsVisibleInAdvancedSearch()
+ * @method $this setIsVisibleInAdvancedSearch(int $value)
+ * @method int getPosition()
+ * @method $this setPosition(int $value)
+ * @method int getIsWysiwygEnabled()
+ * @method $this setIsWysiwygEnabled(int $value)
+ * @method int getIsUsedForPromoRules()
+ * @method $this setIsUsedForPromoRules(int $value)
+ * @method int getIsUsedForCustomerSegment()
+ * @method $this setIsUsedForCustomerSegment(int $value)
+ * @method int getIsUsedForTargetRules()
+ * @method $this setIsUsedForTargetRules(int $value)
  * @method bool getIsUserDefined()
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
+    public const SCOPE_STORE                           = 0;
+    public const SCOPE_GLOBAL                          = 1;
+    public const SCOPE_WEBSITE                         = 2;
 
-    const MODULE_NAME                           = 'Mage_Catalog';
-    const ENTITY                                = 'catalog_eav_attribute';
+    public const MODULE_NAME                           = 'Mage_Catalog';
+    public const ENTITY                                = 'catalog_eav_attribute';
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                     = 'catalog_entity_attribute';
     /**
-     * Event object name
-     *
      * @var string
      */
     protected $_eventObject                     = 'attribute';
@@ -99,9 +90,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Array with labels
      *
-     * @var array
+     * @var array|null
      */
-    static protected $_labels                   = null;
+    protected static $_labels                   = null;
 
     protected function _construct()
     {
@@ -122,7 +113,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 $this->_data['is_global'] = self::SCOPE_GLOBAL;
             }
             if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                && $this->_getResource()->isUsedBySuperProducts($this)
+            ) {
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
@@ -190,7 +182,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Return is attribute global
      *
-     * @return integer
+     * @return int
      */
     public function getIsGlobal()
     {
@@ -255,7 +247,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             }
             return explode(',', $this->getData('apply_to'));
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -282,7 +274,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     public function isAllowedForRuleCondition()
     {
-        $allowedInputTypes = array('text', 'multiselect', 'textarea', 'date', 'datetime', 'select', 'boolean', 'price');
+        $allowedInputTypes = ['text', 'multiselect', 'textarea', 'date', 'datetime', 'select', 'boolean', 'price'];
         return $this->getIsVisible() && in_array($this->getFrontendInput(), $allowedInputTypes);
     }
 
@@ -319,7 +311,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (is_null($storeId)) {
                 $storeId = Mage::app()->getStore()->getId();
             }
-            $attributeLabels = array();
+            $attributeLabels = [];
             $attributes = Mage::getResourceSingleton('catalog/product')->getAttributesByCode();
             foreach ($attributes as $attribute) {
                 if (strlen($attribute->getData('frontend_label')) > 0) {

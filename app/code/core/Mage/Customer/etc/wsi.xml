@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:typens="urn:{{var wsdl.name}}"
+<wsdl:definitions xmlns:typens="urn:OpenMage"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-             name="{{var wsdl.name}}"
-             targetNamespace="urn:{{var wsdl.name}}">
+             name="OpenMage"
+             targetNamespace="urn:OpenMage">
     <wsdl:types>
-        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <xsd:complexType name="customerCustomerEntityToCreate">
                 <xsd:sequence>
                     <xsd:element name="customer_id" type="xsd:int" minOccurs="0" />
