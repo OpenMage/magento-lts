@@ -40,8 +40,8 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
     public function getInputTypes(string $inputType = null): array
     {
         $inputTypes = [
-            'color'   => [
-                'backend_model'     => 'adminhtml/system_config_backend_color'
+            'color' => [
+                'backend_model' => 'adminhtml/system_config_backend_color'
             ]
         ];
 

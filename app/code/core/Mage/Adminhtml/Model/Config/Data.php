@@ -129,6 +129,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     ? $fieldData['value'] : null;
             }
 
+            $helper = Mage::helper('adminhtml/config');
             foreach ($groupData['fields'] as $field => $fieldData) {
                 $field = ltrim($field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
@@ -143,7 +144,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
 
-                $helper = Mage::helper('adminhtml/config');
                 $backendClass = $helper->getBackendModelByFieldConfig($fieldConfig);
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
