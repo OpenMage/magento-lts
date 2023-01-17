@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run OpenMage commands
+## Usage: openmage
+## Example: ddev openmage <commands>
+
+php bin/openmage "$@"
