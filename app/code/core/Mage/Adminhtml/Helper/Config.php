@@ -39,7 +39,7 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
     ];
 
     /**
-     * Get field backend model
+     * Get field backend model class
      *
      * @param Varien_Simplexml_Element $fieldConfig
      * @return string
