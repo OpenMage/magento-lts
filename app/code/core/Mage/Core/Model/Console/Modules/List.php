@@ -10,8 +10,7 @@ class Mage_Core_Model_Console_Modules_List extends Mage_Core_Model_Console_Modul
     protected function configure()
     {
         $this->setName('modules:list')
-            ->setDescription('List modules')
-            ->setHelp("Help Help!");
+            ->setDescription('List modules');
     }
 
     /**

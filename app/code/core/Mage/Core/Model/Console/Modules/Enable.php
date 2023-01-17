@@ -12,7 +12,7 @@ class Mage_Core_Model_Console_Modules_Enable extends Mage_Core_Model_Console_Mod
     {
         $this->setName('modules:enable')
             ->setDescription('Enable module')
-            ->addArgument('module', InputArgument::REQUIRED, 'Module to disable');
+            ->addArgument('module', InputArgument::REQUIRED, 'Module to enable');
     }
 
     /**
