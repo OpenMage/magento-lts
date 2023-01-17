@@ -156,7 +156,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $customer       = Mage::getModel('customer/customer');
         /** @var Mage_Customer_Model_Address $resource */
         $resource       = Mage::getModel('customer/address');
-        $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table          = $resource->getResource()->getEntityTable();
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper         = Mage::getResourceHelper('importexport');
@@ -201,7 +200,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         if ($attrParams['type'] === 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                         } elseif ($attrParams['type'] === 'datetime') {
-                            $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
+                            $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData[$attrAlias]));
                         } elseif ($attrParams['type'] === 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;

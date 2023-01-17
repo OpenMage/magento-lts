@@ -364,7 +364,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     {
         /** @var Mage_Customer_Model_Customer $resource */
         $resource       = Mage::getModel('customer/customer');
-        $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper         = Mage::getResourceHelper('importexport');
@@ -392,7 +391,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? $now : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
+                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
                         'updated_at' => $now
                     ];
 
@@ -424,7 +423,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
                             } elseif ($attrParams['type'] === 'datetime') {
-                                $value = gmstrftime($strftimeFormat, strtotime($value));
+                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
                             } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
