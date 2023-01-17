@@ -11,7 +11,7 @@ class Mage_Core_Model_Console_Modules_Disable extends Mage_Core_Model_Console_Mo
     protected function configure()
     {
         $this->setName('modules:disable')
-            ->setDescription('Diasble module')
+            ->setDescription('Disable module')
             ->addArgument('module', InputArgument::REQUIRED, 'Module to disable');
     }
 
