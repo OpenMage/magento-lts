@@ -46,7 +46,6 @@ class Mage_Core_Helper_Config extends Mage_Core_Helper_Abstract
         foreach ($modules as $moduleName => $moduleInfo) {
             $codePool   = isset($moduleInfo['codePool']) ? $moduleInfo['codePool'] : '';
             $version    = isset($moduleInfo['version']) ? $moduleInfo['version'] : '';
-            $active     = isset($moduleInfo['active']) ? $moduleInfo['active'] : false;
             $active     = isset($moduleInfo['active']) ? $this->activeStringToBool($moduleInfo['active']) : false;
             $depends    = isset($moduleInfo['depends']) ? $moduleInfo['depends'] : false;
 
