@@ -515,6 +515,7 @@
                 <module_disable>core/console_modules_disable</module_disable>
                 <module_enable>core/console_modules_enable</module_enable>
                 <module_list>core/console_modules_list</module_list>
+                <security>core/console_security</security>
             </core>
         </console>
     </default>
