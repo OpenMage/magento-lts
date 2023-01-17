@@ -54,9 +54,10 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
     public function getElementHtml()
     {
         $id = $this->getHtmlId();
-        $with_hash = (bool) ($this->original_data['with_hash'] ?? 1);
 
-        if ($with_hash) {
+        $with_hash = strtolower((string) ($this->original_data['with_hash'] ?? 1));
+
+        if (!empty($with_hash) && $with_hash !== 'false' && $with_hash !== 'off') {
             $oninput = "document.getElementById('{$id}').value = this.value";
             $regex = self::VALIDATION_REGEX_WITH_HASH;
             $this->setOninput("document.getElementById('{$id}:html5').value = {$regex}.test(this.value) ? this.value : '#000000'");

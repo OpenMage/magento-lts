@@ -33,11 +33,21 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
      */
     protected function _beforeSave()
     {
+        /** @var Mage_Core_Model_Config_Element $config */
         $config = $this->getFieldConfig();
+
+        $validate = [];
+        if (isset($config->validate)) {
+            $validate = array_map('trim', explode(' ', $config->validate));
+        }
+
+        if (!(string)$this->getValue() && !in_array('required-entry', $validate)) {
+            return $this;
+        }
 
         $with_hash = true;
         if (isset($config->with_hash)) {
-            $with_hash = (bool)$config->with_hash;
+            $with_hash = $config->is('with_hash', true);
         }
 
         if ($with_hash) {
