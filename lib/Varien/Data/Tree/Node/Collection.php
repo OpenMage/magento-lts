@@ -129,8 +129,9 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      */
     public function delete($node)
     {
-        if (isset($this->_nodes[$node->getId()])) {
-            unset($this->_nodes[$node->getId()]);
+        $id = $node->getId();
+        if (isset($this->_nodes[$id])) {
+            unset($this->_nodes[$id]);
         }
         return $this;
     }
