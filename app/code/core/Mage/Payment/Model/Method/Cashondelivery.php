@@ -56,9 +56,7 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
     /**
      * Not available for quote without delivery
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param int|null $checksBitMask
-     * @return bool
+     * {@inheritDoc}
      */
     public function isApplicableToQuote($quote, $checksBitMask)
     {
