@@ -66,16 +66,16 @@ class Mage_Core_Helper_Config extends Mage_Core_Helper_Abstract
 
             if ($depends) {
                 foreach (array_keys($depends) as $dependModuleName) {
-                    $usedBy = $list[$dependModuleName]['Used by'];
                     $list[$dependModuleName]['Used by'][] = trim($moduleName);
                 }
             }
         }
 
         foreach ($list as $moduleName => $moduleInfo) {
-            $list[$moduleName]['Used by'] = implode("\n", $moduleInfo['Used by']);
             if ($dependFilter && $moduleInfo['Used by']) {
                 unset($list[$moduleName]);
+            } else {
+                $list[$moduleName]['Used by'] = implode("\n", $moduleInfo['Used by']);
             }
         }
 

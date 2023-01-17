@@ -512,7 +512,9 @@
         </validators>
         <console>
             <core>
-                <modules_list>core/console_modules_list</modules_list>
+                <module_disable>core/console_modules_disable</module_disable>
+                <module_enable>core/console_modules_enable</module_enable>
+                <module_list>core/console_modules_list</module_list>
             </core>
         </console>
     </default>
