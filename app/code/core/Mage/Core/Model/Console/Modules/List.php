@@ -34,6 +34,6 @@ class Mage_Core_Model_Console_Modules_List extends Mage_Core_Model_Console_Modul
      */
     protected function getModules(): array
     {
-        return $this->getConfigHelper()->listModules(null,null, null);
+        return $this->getConfigHelper()->listModules(null, null, null);
     }
 }

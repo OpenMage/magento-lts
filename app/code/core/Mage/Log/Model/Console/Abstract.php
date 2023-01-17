@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 abstract class Mage_Log_Model_Console_Abstract extends Mage_Console_Model_Command
