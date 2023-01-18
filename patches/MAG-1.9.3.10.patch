@@ -12,23 +12,19 @@
      }
  
 +    /**
-+     * Method for checking correctness of match pattern
-+     *
 +     * @return bool
 +     */
 +    public function _isValidMatchPattern()
 +    {
-+        $result = true;
 +        foreach ((array) $this->_matchPattern as $pattern) {
-+            $firstDilimeter = substr($pattern, 0, 1);
-+            $partsOfRegex = explode($firstDilimeter, $pattern);
++            $firstDelimiter = substr($pattern, 0, 1);
++            $partsOfRegex = explode($firstDelimiter, $pattern);
 +            $modifiers = array_pop($partsOfRegex);
 +            if ($modifiers != str_replace('e', '', $modifiers)) {
-+                $result = false;
-+                break;
++                return false;
 +            }
 +        }
 +
-+        return $result;
++        return true;
 +    }
  }
