@@ -1,7 +1,7 @@
 // https://stackoverflow.com/a/44436408/5703627
 document.observe('dom:loaded', function() {
     Element.addMethods({
-        // setup once, memoize the counter element and maxLen
+        // setup once, memorize the counter element and maxLen
         prepare_for_countdown: function(element) {
             var elm = $(element);
             // even if you call it multiple times, it only works once
