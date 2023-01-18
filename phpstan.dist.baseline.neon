@@ -3251,11 +3251,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
-			message: "#^Property Mage_Core_Model_Cache\\:\\:\\$_frontend \\(Varien_Cache_Core\\) does not accept Zend_Cache_Core\\|Zend_Cache_Frontend\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cache.php
-
-		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php

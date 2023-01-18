@@ -47,7 +47,7 @@ class Mage_Core_Model_Cache
     /**
      * Cache frontend API
      *
-     * @var Varien_Cache_Core
+     * @var Varien_Cache_Core|Zend_Cache_Core
      */
     protected $_frontend;
 
@@ -355,7 +355,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache frontend API object
      *
-     * @return Varien_Cache_Core
+     * @return Varien_Cache_Core|Zend_Cache_Core
      */
     public function getFrontend()
     {
