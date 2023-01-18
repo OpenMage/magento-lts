@@ -71,12 +71,15 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
                         'value' => $package . '/' . $theme
                     ];
                 }
+                asort($themeOptions);
                 $packageOption['value'] = $themeOptions;
                 $options[] = $packageOption;
             }
             $this->_options = $options;
         }
         $options = $this->_options;
+        asort($options);
+
         if ($withEmpty) {
             array_unshift($options, [
                 'value' => '',
