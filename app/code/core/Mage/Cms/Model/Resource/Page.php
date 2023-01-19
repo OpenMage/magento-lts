@@ -45,8 +45,17 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
+        $isUsedInConfig = $this->getIsUsedInStoreConfig($object, true);
+        if ($isUsedInConfig) {
+            // prevent delete
+            $object->setId(null);
+            Mage::throwException(Mage::helper('cms')->__(
+                'Cannot delete page, it is used in "%s".', implode(', ', $isUsedInConfig))
+            );
+        }
+
         $condition = [
-            'page_id = ?'     => (int) $object->getId(),
+            'page_id = ?' => (int) $object->getId(),
         ];
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/page_store'), $condition);
@@ -69,6 +78,13 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
+        }
+
+        if (!$object->getIsActive() && ($isUsedInConfig = $this->getIsUsedInStoreConfig($object))) {
+            $object->setIsActive(true);
+            Mage::getSingleton('adminhtml/session')->addWarning(
+                Mage::helper('cms')->__('Cannot disable page, it is used in %s.', implode(', ', $isUsedInConfig))
+            );
         }
 
         if (!$this->getIsUniquePageToStores($object)) {
@@ -245,9 +261,27 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * @param Mage_Cms_Model_Page $page
+     * @return null|array
+     */
+    public function getIsUsedInStoreConfig(Mage_Cms_Model_Page $page): ?array
+    {
+        $storeIds = $page->getStoreId();
+        $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
+        $config = Mage::getResourceModel('core/config_data_collection')
+            ->addFieldToFilter('value', $page->getIdentifier())
+            ->addFieldToFilter('scope_id', ['in' => $storeIds])
+            ->addFieldToFilter('path', [
+                Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
+                Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE,
+                Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE,
+            ]);
+
+        return $config->count() ? $config->getColumnValues('path') : null;
+    }
+
+    /**
      *  Check whether page identifier is numeric
-     *
-     * @date Wed Mar 26 18:12:28 EET 2008
      *
      * @param Mage_Core_Model_Abstract $object
      * @return int|false
