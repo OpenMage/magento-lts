@@ -141,7 +141,6 @@
                     <boolean>boolean</boolean>
                     <multiselect>multiselect</multiselect>
                     <select>select</select>
-                    <color>color</color>
                 </input_types>
             </validator_data>
         </general>
