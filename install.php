@@ -113,9 +113,13 @@
  *
  */
 
-if (version_compare(phpversion(), '7.3.0', '<') === true) {
-    die('ERROR: Whoops, it looks like you have an invalid PHP version. OpenMage supports PHP 7.3.0 or newer.');
+$minVersion = '7.3.0';
+if (version_compare(phpversion(), $minVersion, '<') === true) {
+    echo "<h3>Whoops, it looks like you have an invalid PHP version.</h3>";
+    echo "<p>OpenMage supports PHP $minVersion or newer. <a href=\"https://www.openmage.org/magento-lts/install.html\">Find out how to install</a> OpenMage using PHP-CGI as a work-around.</p>";
+    exit;
 }
+
 set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 require 'app/bootstrap.php';
 require 'app/Mage.php';
