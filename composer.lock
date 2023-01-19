@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7084053430993ce990f13b5536cb337",
+    "content-hash": "8a447e3de143a95e682b1231242ae579",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -978,16 +978,16 @@
         },
         {
             "name": "shardj/zf1-future",
-            "version": "1.21.4",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shardj/zf1-future.git",
-                "reference": "7b57530525f48c173a7cf61f5cdfb7d652f3c5d8"
+                "reference": "5446af3466d1fc3faa32a708af2cdc9baf9fc11a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/7b57530525f48c173a7cf61f5cdfb7d652f3c5d8",
-                "reference": "7b57530525f48c173a7cf61f5cdfb7d652f3c5d8",
+                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/5446af3466d1fc3faa32a708af2cdc9baf9fc11a",
+                "reference": "5446af3466d1fc3faa32a708af2cdc9baf9fc11a",
                 "shasum": ""
             },
             "require": {
@@ -999,9 +999,9 @@
                 "zendframework/zendframework1": ">=1.12.20"
             },
             "require-dev": {
-                "php-parallel-lint/php-parallel-lint": "1.0.0",
-                "phpunit/dbunit": "1.3.*",
-                "zf1s/phpunit": "3.7.39"
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpunit/phpunit": "^9",
+                "rector/rector": "^0.14.8"
             },
             "suggest": {
                 "ext-mbstring": "Multibyte strings handling"
@@ -1032,9 +1032,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Shardj/zf1-future/issues",
-                "source": "https://github.com/Shardj/zf1-future/tree/release-1.21.4"
+                "source": "https://github.com/Shardj/zf1-future/tree/release-1.22.0"
             },
-            "time": "2022-09-22T11:00:12+00:00"
+            "time": "2023-01-16T12:07:29+00:00"
         },
         {
             "name": "symfony/console",
@@ -3409,16 +3409,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.11",
+            "version": "1.9.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464"
+                "reference": "a0922426da3a7d0d9334e99a363f7f9f6e23e84f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60f3d68481eef216199eae7a2603cd5fe124d464",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a0922426da3a7d0d9334e99a363f7f9f6e23e84f",
+                "reference": "a0922426da3a7d0d9334e99a363f7f9f6e23e84f",
                 "shasum": ""
             },
             "require": {
@@ -3448,7 +3448,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.11"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.13"
             },
             "funding": [
                 {
@@ -3464,7 +3464,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-12T14:04:13+00:00"
+            "time": "2023-01-18T15:26:53+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

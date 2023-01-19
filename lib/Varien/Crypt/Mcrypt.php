@@ -126,7 +126,8 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 
     protected function _reset()
     {
-        mcrypt_generic_deinit($this->getHandler());
-        mcrypt_module_close($this->getHandler());
+        $handler = $this->getHandler();
+        mcrypt_generic_deinit($handler);
+        mcrypt_module_close($handler);
     }
 }
