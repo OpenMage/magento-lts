@@ -23,6 +23,7 @@ level of backwards compatibility to the official releases.
 - [Requirements](#requirements)
   - [Optional](#optional)
 - [Installation](#installation)
+  - [Manual Install](#manual-install)
   - [Composer](#composer)
   - [Git](#git)
 - [Secure your installation](#secure-your-installation)
@@ -61,21 +62,59 @@ __Please be aware that although OpenMage is compatible that one or more extensio
 
 ## Installation
 
+### Manual Install
+
+Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install.
+
 ### Composer
 
-Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
+Step 1: Create a new composer project:
 
 ```bash
-composer require "openmage/magento-lts":"^19.5.0"
+composer init
 ```
+
+Step 2: Configure required install options. You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
+
+```bash
+composer config --json extra.enable-patching true
+composer config extra.magento-core-package-type magento-source
+composer config extra.magento-root-dir htdocs
+```
+
+Step 3: Require `magento-core-composer-installer`:
+
+``` bash
+# PHP 7
+composer require "aydin-hassan/magento-core-composer-installer":">=1.0.0 <2.1.0"
+
+# PHP 8
+composer require "aydin-hassan/magento-core-composer-installer":"*"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer` or `cweagans/composer-patches`.</small>
+
+Step 4: Require `magento-lts`:
+
+```bash
+# OpenMage v19
+composer require "openmage/magento-lts":"^19.4.0"
+
+# OpenMage v20
+composer require "openmage/magento-lts":"^20.0.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer`.</small>
 
 To get the latest changes use:
 
 ```bash
-composer require "openmage/magento-lts":"dev-main"
-```
+# OpenMage v19
+composer require "openmage/magento-lts":"1.9.4.x-dev"
 
-<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
+# OpenMage v20
+composer require "openmage/magento-lts":"20.0.x-dev"
+```
 
 ### Git
 
