@@ -253,11 +253,14 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         * @todo specify there all relations for properties depending on input type
         */
         $inputTypes = [
-            'multiselect'   => [
-                'backend_model'     => 'eav/entity_attribute_backend_array'
-            ],
             'boolean'       => [
                 'source_model'      => 'eav/entity_attribute_source_boolean'
+            ],
+            'color'         => [
+                'backend_model'      => 'eav/entity_attribute_backend_color'
+            ],
+            'multiselect'   => [
+                'backend_model'     => 'eav/entity_attribute_backend_array'
             ]
         ];
 

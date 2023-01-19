@@ -232,6 +232,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             case 'text':
             case 'gallery':
             case 'media_image':
+            case 'color':
                 $field = 'varchar';
                 break;
 
