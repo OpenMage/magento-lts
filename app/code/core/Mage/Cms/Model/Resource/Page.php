@@ -45,7 +45,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
-        $isUsedInConfig = $this->getIsUsedInStoreConfig($object, true);
+        $isUsedInConfig = $this->getIsUsedInStoreConfig($object);
         if ($isUsedInConfig) {
             // prevent delete
             $object->setId(null);
