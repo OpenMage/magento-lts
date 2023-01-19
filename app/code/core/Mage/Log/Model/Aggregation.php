@@ -167,7 +167,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $out = $in;
         if (is_numeric($in)) {
-            $out = date("Y-m-d H:i:s", $in);
+            $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
         return $out;
     }
