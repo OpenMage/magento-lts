@@ -83,11 +83,10 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     ['code']
                 );
 
-                $noCouponCondition = $connection->quoteInto(
-                    'main_table.coupon_type = ? ',
-                    Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
-                );
-
+                // sub request
+                $subSelect = clone $select;
+                $subSelect->distinct();
+                $subSelect->reset(Zend_Db_Select::COLUMNS)->columns('main_table.rule_id');
                 $orWhereConditions = [
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND rule_coupons.type = 0)',
@@ -103,10 +102,18 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     ),
                 ];
                 $orWhereCondition = implode(' OR ', $orWhereConditions);
-                $select->where(
-                    $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)',
+                $subSelect->where(
+                    '(' . $orWhereCondition . ') AND rule_coupons.code = ?',
                     $couponCode
                 );
+                $subSelect->order('sort_order '.self::SORT_ORDER_ASC);
+
+                // main request
+                $select->where(
+                    'main_table.coupon_type = ? OR main_table.rule_id IN (' . $subSelect . ')',
+                    Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
+                );
+                $select->group('main_table.rule_id');
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
             }
