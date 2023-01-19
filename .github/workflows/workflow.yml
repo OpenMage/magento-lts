@@ -39,13 +39,13 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-  check:
-    name: Check files
-    uses: ./.github/workflows/check-files.yml
+#  check:
+#    name: Check files
+#    uses: ./.github/workflows/check-files.yml
 
   composer:
     name: Composer
-    needs: [check]
+#    needs: [check]
 #    if: |
 #      needs.check.outputs.composer > 0 ||
 #      needs.check.outputs.workflow > 0
@@ -53,67 +53,73 @@ jobs:
 
   phpcs:
     name: PHPCS
-    needs: [check, composer]
-    if: |
-      needs.check.outputs.php > 0 ||
-      needs.check.outputs.phpcs > 0 ||
-      needs.check.outputs.composer > 0 ||
-      needs.check.outputs.workflow > 0
+    needs: [composer]
+#    needs: [check, composer]
+#    if: |
+#      needs.check.outputs.php > 0 ||
+#      needs.check.outputs.phpcs > 0 ||
+#      needs.check.outputs.composer > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpcs.yml
 
   php-cs-fixer:
     name: PHP-CS-Fixer
-    needs: [check, composer]
-    if: |
-      needs.check.outputs.php > 0 ||
-      needs.check.outputs.php-cs-fixer > 0 ||
-      needs.check.outputs.composer > 0 ||
-      needs.check.outputs.workflow > 0
+    needs: [composer]
+#    needs: [check, composer]
+#    if: |
+#      needs.check.outputs.php > 0 ||
+#      needs.check.outputs.php-cs-fixer > 0 ||
+#      needs.check.outputs.composer > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/php-cs-fixer.yml
 
   phpstan:
     name: PHPStan
+    needs: [composer, phpcs, php-cs-fixer]
     needs: [check, composer, phpcs, php-cs-fixer]
-    if: |
-      needs.check.outputs.php > 0 ||
-      needs.check.outputs.phpstan > 0 ||
-      needs.check.outputs.composer > 0 ||
-      needs.check.outputs.workflow > 0
+#    if: |
+#      needs.check.outputs.php > 0 ||
+#      needs.check.outputs.phpstan > 0 ||
+#      needs.check.outputs.composer > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpstan.yml
 
   # DOES NOT run by default
   # runs on schedule or when worklfow changed
   syntax_php:
     name: Syntax
-    needs: [check, phpcs, php-cs-fixer]
-    if: needs.check.outputs.workflow > 0
+    needs: [phpcs, php-cs-fixer]
+#    needs: [check, phpcs, php-cs-fixer]
+#    if: needs.check.outputs.workflow > 0
     uses: ./.github/workflows/syntax-php.yml
 
   syntax_xml:
     name: Syntax
-    needs: [check]
-    if: needs.check.outputs.xml > 0
+#    needs: [check]
+#    if: needs.check.outputs.xml > 0
     uses: ./.github/workflows/syntax-xml.yml
 
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
   sonar:
     name: Sonar Unit Tests
-    needs: [check, phpcs, php-cs-fixer]
-    if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.sonar > 0 ||
-      needs.check.outputs.workflow > 0
+    needs: [phpcs, php-cs-fixer]
+#    needs: [check, phpcs, php-cs-fixer]
+#    if: |
+#      needs.check.outputs.phpunit-test > 0 ||
+#      needs.check.outputs.phpunit > 0 ||
+#      needs.check.outputs.sonar > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/sonar.yml
 
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
   unit_tests:
     name: OpenMage LTS - Unit Tests
-    needs: [check, sonar]
-    if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.workflow > 0
+    needs: [sonar]
+#    needs: [check, sonar]
+#    if: |
+#      needs.check.outputs.phpunit-test > 0 ||
+#      needs.check.outputs.phpunit > 0 ||
+#      needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
