@@ -49,8 +49,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         if ($isUsedInConfig) {
             // prevent delete
             $object->setId(null);
-            Mage::throwException(Mage::helper('cms')->__(
-                'Cannot delete page, it is used in "%s".', implode(', ', $isUsedInConfig))
+            Mage::throwException(
+                Mage::helper('cms')->__(
+                    'Cannot delete page, it is used in "%s".',
+                    implode(', ', $isUsedInConfig)
+                )
             );
         }
 
