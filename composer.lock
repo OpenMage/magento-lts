@@ -8,20 +8,25 @@
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.15.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31"
+                "reference": "3fc3e9149097f67cded1c425088e37d7fa8083ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
-                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/3fc3e9149097f67cded1c425088e37d7fa8083ed",
+                "reference": "3fc3e9149097f67cded1c425088e37d7fa8083ed",
                 "shasum": ""
             },
             "require": {
-                "colinmollenhour/credis": "*"
+                "colinmollenhour/credis": "^1.14"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpunit/phpunit": "^9",
+                "zf1s/zend-cache": "~1.15"
             },
             "type": "magento-module",
             "autoload": {
@@ -42,9 +47,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.15.0"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.16.0"
             },
-            "time": "2022-12-29T19:46:03+00:00"
+            "time": "2023-01-18T03:00:27+00:00"
         },
         {
             "name": "colinmollenhour/credis",
