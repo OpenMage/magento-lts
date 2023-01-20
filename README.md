@@ -64,7 +64,7 @@ __Please be aware that although OpenMage is compatible that one or more extensio
 
 ### Manual Install
 
-Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install.
+Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install. **Important:** you must download the ZIP file from a tagged version on the releases page, otherwise there will be missing dependencies.
 
 ### Composer
 
@@ -106,7 +106,7 @@ composer require "openmage/magento-lts":"^20.0.0"
 
 <small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
 
-To get the latest changes use:
+To install the latest development version (may be unstable):
 
 ```bash
 # OpenMage v19
