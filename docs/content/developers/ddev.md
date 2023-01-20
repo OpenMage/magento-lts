@@ -1,4 +1,4 @@
-# OpenMage DDEV environment
+# Using DDEV
 
 __This is work-in-progress.__
 
