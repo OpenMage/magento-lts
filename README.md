@@ -92,7 +92,7 @@ composer require "aydin-hassan/magento-core-composer-installer":">=1.0.0 <2.1.0"
 composer require "aydin-hassan/magento-core-composer-installer":"*"
 ```
 
-<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer` or `cweagans/composer-patches`.</small>
+<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
 
 Step 4: Require `magento-lts`:
 
@@ -104,7 +104,7 @@ composer require "openmage/magento-lts":"^19.4.0"
 composer require "openmage/magento-lts":"^20.0.0"
 ```
 
-<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer`.</small>
+<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
 
 To get the latest changes use:
 
