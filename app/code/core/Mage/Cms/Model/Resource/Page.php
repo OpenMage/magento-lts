@@ -86,7 +86,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->getIsActive() && ($isUsedInConfig = $this->getIsUsedInStoreConfig($object))) {
             $object->setIsActive(true);
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('cms')->__('Cannot disable page, it is used in %s.', implode(', ', $isUsedInConfig))
+                Mage::helper('cms')->__('Cannot disable page, it is used in "%s".', implode(', ', $isUsedInConfig))
             );
         }
 
