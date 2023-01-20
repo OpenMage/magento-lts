@@ -94,6 +94,8 @@ nav:
           - users/install/composer.md
           - users/install/git.md
           - users/install/manual.md
+      - 'Versioning':
+          - versioning.md
   - 'Modules':
       - users/modules/index.md
       - users/modules/payment.md
