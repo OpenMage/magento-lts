@@ -12,7 +12,7 @@ sleep 4
 echo "Starting services..."
 for i in $(seq 1 20); do
   sleep 1
-  docker exec openmage_mysql_1 mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
+  docker exec gitpod-mysql-1 mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
 done
 
 HOST_PORT_PART=":${HOST_PORT:-80}"
@@ -21,6 +21,9 @@ BASE_URL=${BASE_URL:-"http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT_P
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
+
+echo "Installing Composer dependencies..."
+docker-compose run --rm composer composer install --no-progress --ignore-platform-req=ext-*
 
 echo "Installing OpenMage LTS..."
 docker-compose run --rm cli php install.php \
@@ -46,5 +49,5 @@ docker-compose run --rm cli php install.php \
 
 echo ""
 echo "Setup is complete!"
-echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
-echo "MySQL server IP: $(docker exec openmage_apache_1 getent hosts mysql | awk '{print $1}')"
+echo "Visit ${BASE_URL}/admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
+echo "MySQL server IP: $(docker exec gitpod-apache-1 getent hosts mysql | awk '{print $1}')"
