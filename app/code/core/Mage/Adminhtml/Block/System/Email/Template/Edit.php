@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,9 +34,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setTemplate('system/email/template/edit.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -46,7 +51,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('reset_button',
+        $this->setChild(
+            'reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -56,7 +62,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -67,7 +74,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('to_plain_button',
+        $this->setChild(
+            'to_plain_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -78,7 +86,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('to_html_button',
+        $this->setChild(
+            'to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -90,7 +99,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('toggle_button',
+        $this->setChild(
+            'toggle_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -101,7 +111,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('preview_button',
+        $this->setChild(
+            'preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -111,7 +122,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -122,7 +134,8 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('load_button',
+        $this->setChild(
+            'load_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
@@ -134,52 +147,80 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-        $this->setChild('form',
+        $this->setChild(
+            'form',
             $this->getLayout()->createBlock('adminhtml/system_email_template_edit_form')
         );
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('back_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToggleButtonHtml()
     {
         return $this->getChildHtml('toggle_button');
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         return $this->getChildHtml('reset_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToPlainButtonHtml()
     {
         return $this->getChildHtml('to_plain_button');
     }
 
+    /**
+     * @return string
+     */
     public function getToHtmlButtonHtml()
     {
         return $this->getChildHtml('to_html_button');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('save_button');
     }
 
+    /**
+     * @return string
+     */
     public function getPreviewButtonHtml()
     {
         return $this->getChildHtml('preview_button');
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
     }
 
+    /**
+     * @return string
+     */
     public function getLoadButtonHtml()
     {
         return $this->getChildHtml('load_button');
@@ -188,7 +229,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     /**
      * Return edit flag for block
      *
-     * @return bool
+     * @return int|string
      */
     public function getEditMode()
     {
@@ -202,10 +243,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getHeaderText()
     {
-        if($this->getEditMode()) {
-          return Mage::helper('adminhtml')->__('Edit Email Template');
+        if ($this->getEditMode()) {
+            return Mage::helper('adminhtml')->__('Edit Email Template');
         }
-
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
 
@@ -239,6 +279,9 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         return $this->getUrl('*/*/preview');
     }
 
+    /**
+     * @return bool
+     */
     public function isTextType()
     {
         return $this->getEmailTemplate()->isPlain();
@@ -293,13 +336,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      * Get paths of where current template is used as default
      *
      * @param bool $asJSON
-     * @return string
+     * @return string|array
      */
     public function getUsedDefaultForPaths($asJSON = true)
     {
         $paths = $this->getEmailTemplate()->getSystemConfigPathsWhereUsedAsDefault();
         $pathsParts = $this->_getSystemConfigPathsParts($paths);
-        if($asJSON){
+        if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
         return $pathsParts;
@@ -309,13 +352,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      * Get paths of where current template is currently used
      *
      * @param bool $asJSON
-     * @return string
+     * @return string|array
      */
     public function getUsedCurrentlyForPaths($asJSON = true)
     {
         $paths = $this->getEmailTemplate()->getSystemConfigPathsWhereUsedCurrently();
         $pathsParts = $this->_getSystemConfigPathsParts($paths);
-        if($asJSON){
+        if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
         return $pathsParts;

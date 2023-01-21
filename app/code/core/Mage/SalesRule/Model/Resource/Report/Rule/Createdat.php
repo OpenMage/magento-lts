@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,22 +94,22 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
                 'subtotal_amount'         =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount'         =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_discount_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'total_amount'            =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - '.
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - ' .
                         $adapter->getIfNullSql('ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0), 0). ')
+                        $adapter->getIfNullSql('base_discount_canceled', 0), 0) . ')
                         * base_to_global_rate)', 0),
 
                 'subtotal_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((base_subtotal_invoiced - ' .
-                        $adapter->getIfNullSql('base_subtotal_refunded', 0). ') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_refunded', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_invoiced) - ' .

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,11 +38,15 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         $this->_updateButton('save', 'label', Mage::helper('customer')->__('Save Customer Group'));
         $this->_updateButton('delete', 'label', Mage::helper('customer')->__('Delete Customer Group'));
 
-        if(!Mage::registry('current_group')->getId() || Mage::registry('current_group')->usesAsDefault()) {
+        if (!Mage::registry('current_group')->getId() || Mage::registry('current_group')->usesAsDefault()) {
             $this->_removeButton('delete');
         }
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getDeleteUrl()
     {
         if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
@@ -54,16 +59,22 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         }
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
-        if(!is_null(Mage::registry('current_group')->getId())) {
+        if (!is_null(Mage::registry('current_group')->getId())) {
             return Mage::helper('customer')->__('Edit Customer Group "%s"', $this->escapeHtml(Mage::registry('current_group')->getCustomerGroupCode()));
-        } else {
-            return Mage::helper('customer')->__('New Customer Group');
         }
+        return Mage::helper('customer')->__('New Customer Group');
     }
 
-    public function getHeaderCssClass() {
+    /**
+     * @return string
+     */
+    public function getHeaderCssClass()
+    {
         return 'icon-head head-customer-groups';
     }
 }

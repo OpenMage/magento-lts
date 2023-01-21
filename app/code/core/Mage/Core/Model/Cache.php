@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,10 +32,10 @@ class Mage_Core_Model_Cache
     /**
      * Cache settings
      */
-    const DEFAULT_LIFETIME  = 7200;
-    const OPTIONS_CACHE_ID  = 'core_cache_options';
-    const INVALIDATED_TYPES = 'core_cache_invalidate';
-    const XML_PATH_TYPES    = 'global/cache/types';
+    public const DEFAULT_LIFETIME  = 7200;
+    public const OPTIONS_CACHE_ID  = 'core_cache_options';
+    public const INVALIDATED_TYPES = 'core_cache_invalidate';
+    public const XML_PATH_TYPES    = 'global/cache/types';
 
     /**
      * Id prefix
@@ -46,7 +47,7 @@ class Mage_Core_Model_Cache
     /**
      * Cache frontend API
      *
-     * @var Varien_Cache_Core
+     * @var Varien_Cache_Core|Zend_Cache_Core
      */
     protected $_frontend;
 
@@ -57,7 +58,7 @@ class Mage_Core_Model_Cache
      */
     protected $_shmBackends = [
         'apc', 'memcached', 'xcache',
-        'zendserver_shmem', 'zendserver_disk', 'varien_eaccelerator',
+        'zendserver_shmem', 'zendserver_disk',
     ];
 
     /**
@@ -95,7 +96,7 @@ class Mage_Core_Model_Cache
     /**
      * List of allowed cache options
      *
-     * @var array
+     * @var array|null
      */
     protected $_allowedCacheOptions;
 
@@ -122,7 +123,7 @@ class Mage_Core_Model_Cache
             $this->_idPrefix = $options['prefix'];
         }
         if (empty($this->_idPrefix)) {
-            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3).'_';
+            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3) . '_';
         }
 
         $backend    = $this->_getBackendOptions($options);
@@ -195,13 +196,6 @@ class Mage_Core_Model_Cache
                 if (extension_loaded('xcache')) {
                     $enable2levels = true;
                     $backendType = 'Xcache';
-                }
-                break;
-            case 'eaccelerator':
-            case 'varien_cache_backend_eaccelerator':
-                if (extension_loaded('eaccelerator') && ini_get('eaccelerator.enable')) {
-                    $enable2levels = true;
-                    $backendType = 'Varien_Cache_Backend_Eaccelerator';
                 }
                 break;
             case 'varien_cache_backend_database':
@@ -361,7 +355,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache frontend API object
      *
-     * @return Varien_Cache_Core
+     * @return Varien_Cache_Core|Zend_Cache_Core
      */
     public function getFrontend()
     {
@@ -372,7 +366,7 @@ class Mage_Core_Model_Cache
      * Load data from cache by id
      *
      * @param   string $id
-     * @return  string
+     * @return  string|false
      */
     public function load($id)
     {
@@ -712,6 +706,6 @@ class Mage_Core_Model_Cache
      */
     protected function _getProcessor($processor)
     {
-        return new $processor;
+        return new $processor();
     }
 }

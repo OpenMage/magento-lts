@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,19 +31,21 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Config
      */
-    const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
-    const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
-    const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
+    public const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
+    public const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
+    public const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
 
     /**
      * Path for flat flag model
      */
-    const XML_PATH_FLAT_FLAG                 = 'global/catalog/product/flat/flag/model';
+    public const XML_PATH_FLAT_FLAG                 = 'global/catalog/product/flat/flag/model';
 
     /**
      * Catalog Flat Product index process code
      */
-    const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
+    public const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
+
+    protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Catalog Product Flat index process code
@@ -70,7 +73,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Flag object
      *
-     * @var Mage_Catalog_Model_Product_Flat_Flag
+     * @var Mage_Catalog_Model_Product_Flat_Flag|null
      */
     protected $_flagObject;
 
@@ -152,7 +155,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddFilterableAttributes()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES);
     }
 
     /**
@@ -162,7 +165,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddChildData()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA);
     }
 
     /**

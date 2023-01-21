@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      *
      * @var string
      */
-    const CACHE_TAG = 'block_html_rss_catalog_notifystock';
+    public const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
     protected function _construct()
     {
@@ -64,7 +65,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $rssObj->_addHeader($data);
 
         $globalNotifyStockQty = (float) Mage::getStoreConfig(
-            Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
+            Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY
+        );
         Mage::helper('rss')->disableFlat();
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
@@ -77,7 +79,8 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         ]);
         $collection
             ->addAttributeToSelect('name', true)
-            ->addAttributeToFilter('status',
+            ->addAttributeToFilter(
+                'status',
                 ['in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()]
             )
             ->setOrder('low_stock_date');
@@ -90,7 +93,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
             [[$this, 'addNotifyItemXmlCallback']],
-            ['rssObj'=> $rssObj, 'product'=>$product, 'globalQty' => $globalNotifyStockQty]
+            ['rssObj' => $rssObj, 'product' => $product, 'globalQty' => $globalNotifyStockQty]
         );
 
         return $rssObj->createRssXml();
@@ -105,8 +108,10 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
     {
         $product = $args['product'];
         $product->setData($args['row']);
-        $url = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product/edit/',
-            ['id' => $product->getId(), '_secure' => true, '_nosecret' => true]);
+        $url = Mage::helper('adminhtml')->getUrl(
+            'adminhtml/catalog_product/edit/',
+            ['id' => $product->getId(), '_secure' => true, '_nosecret' => true]
+        );
         $qty = 1 * $product->getQty();
         $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
         $rssObj = $args['rssObj'];

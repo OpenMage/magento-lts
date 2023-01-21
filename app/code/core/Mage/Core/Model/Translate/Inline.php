@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_Core_Model_Translate_Inline
     /**
      * Is enabled and allowed inline translates flags
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isAllowed;
 
@@ -240,7 +241,7 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _insertInlineScriptsHtml()
     {
-        if ($this->_isScriptInserted || stripos($this->_content, '</body>')===false) {
+        if ($this->_isScriptInserted || stripos($this->_content, '</body>') === false) {
             return;
         }
 
@@ -248,13 +249,12 @@ class Mage_Core_Model_Translate_Inline
         $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
             $url_prefix . '/ajax/translate',
-            ['_secure'=>Mage::app()->getStore()->isCurrentlySecure()]
+            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
         ob_start();
-        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css');
-?>
+        $magentoSkinUrl = Mage::getDesign()->getSkinUrl('lib/prototype/windows/themes/magento.css'); ?>
 <!-- script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/effects.js"></script -->
 <script type="text/javascript" src="<?php echo $baseJsUrl ?>prototype/window.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo $baseJsUrl ?>prototype/windows/themes/default.css"/>
@@ -268,7 +268,7 @@ class Mage_Core_Model_Translate_Inline
     new TranslateInline('translate-inline-trig', '<?php echo $ajaxUrl ?>', '<?php
         echo Mage::getDesign()->getArea() ?>');
 </script>
-<?php
+        <?php
         $html = ob_get_clean();
 
         $this->_content = str_ireplace('</body>', $html . '</body>', $this->_content);
@@ -371,7 +371,7 @@ class Mage_Core_Model_Translate_Inline
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, [$this, '_getAttributeLocation']);
             if ($trArr) {
-                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml, '#').']*)]' . $quoteHtml . '#i';
+                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^' . preg_quote($quoteHtml, '#') . ']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $m)) {
                     $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
                     $trAttr = ' data-translate=' . $quoteHtml
@@ -380,7 +380,7 @@ class Mage_Core_Model_Translate_Inline
                     $trAttr = ' data-translate=' . $quoteHtml
                         . htmlspecialchars('[' . implode(',', $trArr) . ']') . $quoteHtml;
                 }
-                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0])+1, 1);
+                $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0]) + 1, 1);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], strlen($tagMatch[0][0]));
             }
             $nextTag = $tagMatch[0][1] + strlen($tagHtml);
@@ -523,7 +523,7 @@ class Mage_Core_Model_Translate_Inline
             }
             $length = $end - $from  + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName .'\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, null, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;
@@ -579,7 +579,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', intval((bool)$flag));
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool)$flag);
         return $this;
     }
 

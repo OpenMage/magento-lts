@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,17 +28,19 @@
  */
 class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_REMOTE_ADDR_HEADERS  = 'global/remote_addr_headers';
+    public const XML_NODE_REMOTE_ADDR_HEADERS  = 'global/remote_addr_headers';
+
+    protected $_moduleName = 'Mage_Core';
 
     /**
      * Remote address cache
-     * @var string
+     * @var string|null
      */
     protected $_remoteAddr;
 
     /**
      * Validate and retrieve user and password from HTTP
-     * @param string|null $headers
+     * @param array|null $headers
      * @return array
      */
     public function authValidate($headers = null)
@@ -52,7 +55,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18)==='HTTP_AUTHORIZATION' && !empty($v)) {
+                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
@@ -62,9 +65,9 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
             $user = $_SERVER['PHP_AUTH_USER'];
             $pass = $_SERVER['PHP_AUTH_PW'];
-        } //  IIS Note::  For HTTP Authentication to work with IIS,
-        // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
-        elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+        } elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+            // IIS Note:: For HTTP Authentication to work with IIS,
+            // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, " ") + 1)));
         } elseif (!empty($_SERVER['Authorization'])) {
@@ -82,6 +85,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     /**
      * Send auth failed Headers and exit
      *
+     * @return never
      */
     public function authFailed()
     {
@@ -115,7 +119,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve Client Remote Address
      *
      * @param bool $ipToLong converting IP to long format
-     * @return string IPv4|long
+     * @return false|string IPv4|long
      */
     public function getRemoteAddr($ipToLong = false)
     {
@@ -149,7 +153,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Retrieve Server IP address
      *
      * @param bool $ipToLong converting IP to long format
-     * @return string IPv4|long
+     * @return false|string IPv4|long
      */
     public function getServerAddr($ipToLong = false)
     {

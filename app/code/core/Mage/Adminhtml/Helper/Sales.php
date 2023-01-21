@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,6 +26,8 @@
  */
 class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Adminhtml';
+
     /**
      * Display price attribute value in base order currency and in place order currency
      *
@@ -38,7 +41,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     {
         return $this->displayPrices(
             $dataObject,
-            $dataObject->getData('base_'.$code),
+            $dataObject->getData('base_' . $code),
             $dataObject->getData($code),
             $strong,
             $separator
@@ -66,18 +69,18 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
 
         if ($order && $order->isCurrencyDifferent()) {
             $res = '<strong>';
-            $res.= $order->formatBasePrice($basePrice);
-            $res.= '</strong>'.$separator;
-            $res.= '['.$order->formatPrice($price).']';
+            $res .= $order->formatBasePrice($basePrice);
+            $res .= '</strong>' . $separator;
+            $res .= '[' . $order->formatPrice($price) . ']';
         } elseif ($order) {
             $res = $order->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         } else {
             $res = Mage::app()->getStore()->formatPrice($price);
             if ($strong) {
-                $res = '<strong>'.$res.'</strong>';
+                $res = '<strong>' . $res . '</strong>';
             }
         }
         return $res;

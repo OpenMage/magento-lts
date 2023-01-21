@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,9 +38,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Options array
      *
-     * @var array
+     * @var array|null
      */
-    protected $_options                 = null;
+    protected $_options = null;
 
     /**
      * Set attribute instance
@@ -91,7 +92,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     {
         $bc_warning = false;
         foreach ($this->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0) {
+            if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
             if ($option['value'] == $value) {
@@ -112,7 +113,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir direction
-     * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @return $this
      */
     public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
     {

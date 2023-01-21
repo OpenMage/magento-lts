@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
-    extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
      * Link to currently editing product
@@ -35,6 +35,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
      */
     protected $_product = null;
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -106,13 +110,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
-
         }
 
         /* Configurable attributes */
         foreach ($usedAttributes as $attribute) {
             $attributeCode =  $attribute->getAttributeCode();
-            $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  [
+            $fieldset->addField('simple_product_' . $attributeCode, 'select', [
                 'label' => $attribute->getFrontend()->getLabel(),
                 'name'  => $attributeCode,
                 'values' => $attribute->getSource()->getAllOptions(true, true),
@@ -143,8 +146,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             'label' => Mage::helper('catalog')->__('Stock Availability'),
             'name'  => 'stock_data[is_in_stock]',
             'values' => [
-                ['value'=>1, 'label'=> Mage::helper('catalog')->__('In Stock')],
-                ['value'=>0, 'label'=> Mage::helper('catalog')->__('Out of Stock')]
+                ['value' => 1, 'label' => Mage::helper('catalog')->__('In Stock')],
+                ['value' => 0, 'label' => Mage::helper('catalog')->__('Out of Stock')]
             ],
             'value' => 1
         ]);
@@ -158,9 +161,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
             'is_qty_decimal'                => 0
         ];
 
-        foreach ($stockHiddenFields as $fieldName=>$fieldValue) {
+        foreach ($stockHiddenFields as $fieldName => $fieldValue) {
             $fieldset->addField('simple_product_inventory_' . $fieldName, 'hidden', [
-                'name'  => 'stock_data[' . $fieldName .']',
+                'name'  => 'stock_data[' . $fieldName . ']',
                 'value' => $fieldValue
             ]);
         }
@@ -174,6 +177,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
         ]);
 
         $this->setForm($form);
+
+        return $this;
     }
 
     /**

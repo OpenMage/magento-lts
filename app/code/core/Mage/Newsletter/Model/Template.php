@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +65,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail
+     * @var Zend_Mail|null
      */
     protected $_mail;
 
@@ -172,7 +173,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Check Template Text Preprocessed
      *
-     * @return bool
+     * @return string
      */
     public function getTemplateTextPreprocessed()
     {
@@ -180,7 +181,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
-        return $this->getData('template_text_preprocessed');
+        return (string) $this->getData('template_text_preprocessed');
     }
 
     /**
@@ -327,7 +328,28 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getTemplateSenderEmail(), $this->getTemplateSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('newsletter_send_before', [
+                'mail'       => $mail,
+                'transport'  => $transport,
+                'template'   => $this,
+                'subscriber' => $subscriber
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            Mage::dispatchEvent('newsletter_send_after', [
+                'to'         => $email,
+                'html'       => !$this->isPlain(),
+                'queue'      => $queue,
+                'subject'    => $mail->getSubject(),
+                'email_body' => $text
+            ]);
             $this->_mail = null;
             if (!is_null($queue)) {
                 $subscriber->received($queue);

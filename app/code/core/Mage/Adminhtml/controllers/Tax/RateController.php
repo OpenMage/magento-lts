@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -177,17 +178,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                     return true;
-                }
-                catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
-                }
-                else {
+                } else {
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
                 }
             } else {
@@ -269,8 +267,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
-        }
-        else {
+        } else {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
         $this->_redirect('*/*/importExport');
@@ -312,7 +309,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             if (!$found) {
                 $unset[] = $i;
             }
-
         }
 
         $regions = [];
@@ -375,12 +371,12 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     ];
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
-                    foreach($rateData as $dataName => $dataValue) {
+                    foreach ($rateData as $dataName => $dataValue) {
                         $rateModel->setData($dataName, $dataValue);
                     }
 
                     $titles = [];
-                    foreach ($stores as $field=>$id) {
+                    foreach ($stores as $field => $id) {
                         $titles[$id] = $v[$field];
                     }
 
@@ -430,7 +426,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
             $rateId = $title->getTaxCalculationRateId();
 
-            if (! array_key_exists($rateId, $taxCalculationRateTitleDict)) {
+            if (!array_key_exists($rateId, $taxCalculationRateTitleDict)) {
                 $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
             }
 
@@ -464,7 +460,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     protected function _isAllowed()
     {
-
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'importexport':

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,8 +137,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             ->where('dl.value = ?', 1)
             ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id'])
             ->columns([
-                'min_price' => new Zend_Db_Expr('MIN('.$ifPrice.')'),
-                'max_price' => new Zend_Db_Expr('SUM('.$ifPrice.')')
+                'min_price' => new Zend_Db_Expr('MIN(' . $ifPrice . ')'),
+                'max_price' => new Zend_Db_Expr('SUM(' . $ifPrice . ')')
             ]);
 
         $query = $select->insertFromSelect($table);
@@ -150,7 +151,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             ->join(
                 ['id' => $table],
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
-                    .' AND i.website_id = id.website_id',
+                    . ' AND i.website_id = id.website_id',
                 []
             )
             ->columns([

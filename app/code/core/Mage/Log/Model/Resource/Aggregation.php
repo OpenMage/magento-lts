@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +44,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         $select     = $adapter->select()
             ->from(
                 $this->getTable('log/summary_table'),
-                [$adapter->quoteIdentifier('date')=>'MAX(add_date)']
+                [$adapter->quoteIdentifier('date') => 'MAX(add_date)']
             );
 
         return $adapter->fetchOne($select);
@@ -60,7 +61,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function getCounts($from, $to, $store)
     {
         $adapter    = $this->_getReadAdapter();
-        $result     = ['customers'=>0, 'visitors'=>0];
+        $result     = ['customers' => 0, 'visitors' => 0];
         $select     = $adapter->select()
             ->from($this->getTable('log/customer'), 'visitor_id')
             ->where('login_at >= ?', $from)

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,13 +123,13 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         $mergeWsdl->setHandler($this->getHandler());
 
         if (Mage::helper('api/data')->isComplianceWSI()) {
-        /**
-         * Exclude Mage_Api wsdl xml file because it used for previous version
-         * of API wsdl declaration
-         */
-            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsi.xml');
+            /**
+             * Exclude Mage_Api wsdl xml file because it used for previous version
+             * of API wsdl declaration
+             */
+            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsi.xml');
 
-            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsi.xml';
+            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsi.xml';
             $this->loadFile($baseWsdlFile);
             Mage::getConfig()->loadModulesConfiguration('wsi.xml', $this, $mergeWsdl);
         } else {
@@ -136,9 +137,9 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
              * Exclude Mage_Api wsdl xml file because it used for previous version
              * of API wsdl declaration
              */
-            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsdl.xml');
+            $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsdl.xml');
 
-            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsdl2.xml';
+            $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api") . DS . 'wsdl2.xml';
             $this->loadFile($baseWsdlFile);
             Mage::getConfig()->loadModulesConfiguration('wsdl.xml', $this, $mergeWsdl);
         }

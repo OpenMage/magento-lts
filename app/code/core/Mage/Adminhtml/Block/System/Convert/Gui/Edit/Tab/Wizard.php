@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +123,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     public function getMappings($entityType)
     {
-        $maps = $this->getData('gui_data/map/'.$entityType.'/db');
+        $maps = $this->getData('gui_data/map/' . $entityType . '/db');
         return $maps ?: [];
     }
 
@@ -158,7 +159,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getProductTypeFilterOptions()
     {
         $options = Mage::getSingleton('catalog/product_type')->getOptionArray();
-        array_splice($options, 0, 0, [''=>$this->__('Any Type')]);
+        array_splice($options, 0, 0, ['' => $this->__('Any Type')]);
         return $options;
     }
 
@@ -172,7 +173,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
             ->load()
             ->toOptionHash();
 
-        $opt = [''=>$this->__('Any Attribute Set')];
+        $opt = ['' => $this->__('Any Attribute Set')];
         if ($options) {
             foreach ($options as $index => $value) {
                 $opt[$index] = $value;
@@ -187,7 +188,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getProductVisibilityFilterOptions()
     {
         $options = Mage::getSingleton('catalog/product_visibility')->getOptionArray();
-        array_splice($options, 0, 0, [''=>$this->__('Any Visibility')]);
+        array_splice($options, 0, 0, ['' => $this->__('Any Visibility')]);
         return $options;
     }
 
@@ -197,7 +198,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getProductStatusFilterOptions()
     {
         $options = Mage::getSingleton('catalog/product_status')->getOptionArray();
-        array_splice($options, 0, 0, [''=>$this->__('Any Status')]);
+        array_splice($options, 0, 0, ['' => $this->__('Any Status')]);
         return $options;
     }
 
@@ -221,11 +222,11 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getCustomerGroupFilterOptions()
     {
         $options = Mage::getResourceModel('customer/group_collection')
-            ->addFieldToFilter('customer_group_id', ['gt'=>0])
+            ->addFieldToFilter('customer_group_id', ['gt' => 0])
             ->load()
             ->toOptionHash();
 
-        array_splice($options, 0, 0, [''=>$this->__('Any Group')]);
+        array_splice($options, 0, 0, ['' => $this->__('Any Group')]);
         return $options;
     }
 
@@ -236,7 +237,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         $options = Mage::getResourceModel('directory/country_collection')
             ->load()->toOptionArray(false);
-        array_unshift($options, ['value'=>'', 'label'=>Mage::helper('adminhtml')->__('All countries')]);
+        array_unshift($options, ['value' => '', 'label' => Mage::helper('adminhtml')->__('All countries')]);
         return $options;
     }
 
@@ -245,7 +246,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      *
      * @return Mage_Adminhtml_Model_System_Store
      */
-    protected function _getStoreModel() {
+    protected function _getStoreModel()
+    {
         if (is_null($this->_storeModel)) {
             $this->_storeModel = Mage::getSingleton('adminhtml/system_store');
         }
@@ -289,4 +291,3 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         return $this->_shortDateFormat;
     }
 }
-

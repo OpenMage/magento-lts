@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,6 +26,8 @@
  */
 class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Array of existing handlers
      *
@@ -41,7 +44,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 
     public function __construct()
     {
-        Mage::dispatchEvent('catalog_helper_output_construct', ['helper'=>$this]);
+        Mage::dispatchEvent('catalog_helper_output_construct', ['helper' => $this]);
     }
 
     /**
@@ -121,7 +124,8 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeName);
         if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())
+        ) {
             if ($attribute->getFrontendInput() != 'price') {
                 $attributeHtml = $this->escapeHtml($attributeHtml);
             }
@@ -157,7 +161,8 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeName);
 
         if ($attribute && ($attribute->getFrontendInput() != 'image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())
+        ) {
             $attributeHtml = $this->escapeHtml($attributeHtml);
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {

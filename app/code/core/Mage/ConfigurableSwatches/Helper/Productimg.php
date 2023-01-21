@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,6 +28,8 @@
  */
 class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * This array stores product images and separates them:
      * One group keyed by labels that match attribute values, another for all other images
@@ -43,16 +46,16 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      */
     protected $_productImageFilters = [];
 
-    const SWATCH_LABEL_SUFFIX = '-swatch';
-    const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
-    const SWATCH_CACHE_DIR = 'catalog/swatches';
-    const SWATCH_FILE_EXT = '.png';
+    public const SWATCH_LABEL_SUFFIX = '-swatch';
+    public const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
+    public const SWATCH_CACHE_DIR = 'catalog/swatches';
+    public const SWATCH_FILE_EXT = '.png';
 
-    const MEDIA_IMAGE_TYPE_BASE = 'base_image';
-    const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
+    public const MEDIA_IMAGE_TYPE_BASE = 'base_image';
+    public const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
 
-    const SWATCH_DEFAULT_WIDTH = 21;
-    const SWATCH_DEFAULT_HEIGHT = 21;
+    public const SWATCH_DEFAULT_WIDTH = 21;
+    public const SWATCH_DEFAULT_HEIGHT = 21;
 
     /**
      * Determine if the passed text matches the label of any of the passed product's images
@@ -275,7 +278,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $tag
      * @param int $width
      * @param int $height
-     * @return string
+     * @return false|string
      */
     protected function _resizeSwatchImage($filename, $tag, $width, $height)
     {
@@ -305,7 +308,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             }
 
             // Do resize and save
-            $processor = new Varien_Image($sourceFilePath);
+            $processor = Mage::getModel('varien/image', $sourceFilePath);
             $processor->resize($width, $height);
             $processor->save(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
             Mage::helper('core/file_storage_database')->saveFile($destPath);

@@ -1,19 +1,15 @@
-name: "PHP Syntax Check"
+name: PHP Syntax
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths-ignore:
-      - '**.md'
-  pull_request:
-    paths-ignore:
-      - '**.md'
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  php_syntax:
+  syntax_php:
     runs-on: [ubuntu-latest]
 
     strategy:

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $storeCode
      * @return Varien_Simplexml_Element
      */
-    public function getSections($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if (empty($this->_sections)) {
             $this->_initSectionsAndTabs();
@@ -97,7 +98,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param array|null $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
-    public function saveCache($tags=null)
+    public function saveCache($tags = null)
     {
         if ($this->getCacheSaved()) {
             return $this;
@@ -142,9 +143,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
-     * @return Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|void
      */
-    public function getSection($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
@@ -162,24 +163,24 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param bool $isField
      * @return bool
      */
-    public function hasChildren($node, $websiteCode=null, $storeCode=null, $isField=false)
+    public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
     {
         $showTab = false;
         if ($storeCode) {
             if (isset($node->show_in_store)) {
                 if ((int)$node->show_in_store) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
             if (isset($node->show_in_website)) {
                 if ((int)$node->show_in_website) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif (isset($node->show_in_default)) {
             if ((int)$node->show_in_default) {
-                $showTab=true;
+                $showTab = true;
             }
         }
         if ($showTab) {

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,9 +46,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     }
 
     /**
-     * Preparing block layout
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -56,7 +55,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
             $block->setCanLoadTinyMce(true);
         }
 
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Back'),
@@ -65,7 +65,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('reset_button',
+        $this->setChild(
+            'reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
@@ -73,7 +74,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('to_plain_button',
+        $this->setChild(
+            'to_plain_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Convert to Plain Text'),
@@ -83,7 +85,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('to_html_button',
+        $this->setChild(
+            'to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Return HTML Version'),
@@ -94,7 +97,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Template'),
@@ -103,7 +107,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('save_as_button',
+        $this->setChild(
+            'save_as_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save As'),
@@ -112,7 +117,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('preview_button',
+        $this->setChild(
+            'preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
@@ -121,7 +127,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
                 ])
         );
 
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Delete Template'),
@@ -245,7 +252,6 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($this->getEditMode()) {
             return Mage::helper('newsletter')->__('Edit Newsletter Template');
         }
-
         return  Mage::helper('newsletter')->__('New Newsletter Template');
     }
 

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,15 +28,15 @@
  */
 class Mage_Core_Model_App_Area
 {
-    const AREA_GLOBAL   = 'global';
-    const AREA_FRONTEND = 'frontend';
-    const AREA_ADMIN    = 'admin';
-    const AREA_ADMINHTML = 'adminhtml';
+    public const AREA_GLOBAL   = 'global';
+    public const AREA_FRONTEND = 'frontend';
+    public const AREA_ADMIN    = 'admin';
+    public const AREA_ADMINHTML = 'adminhtml';
 
-    const PART_CONFIG   = 'config';
-    const PART_EVENTS   = 'events';
-    const PART_TRANSLATE = 'translate';
-    const PART_DESIGN   = 'design';
+    public const PART_CONFIG   = 'config';
+    public const PART_EVENTS   = 'events';
+    public const PART_TRANSLATE = 'translate';
+    public const PART_DESIGN   = 'design';
 
     /**
      * Array of area loaded parts
@@ -109,7 +110,7 @@ class Mage_Core_Model_App_Area
         if (isset($this->_loadedParts[$part])) {
             return $this;
         }
-        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         switch ($part) {
             case self::PART_CONFIG:
                 $this->_initConfig();
@@ -125,7 +126,7 @@ class Mage_Core_Model_App_Area
                 break;
         }
         $this->_loadedParts[$part] = true;
-        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::'.$this->_code.'::'.$part);
+        Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         return $this;
     }
 

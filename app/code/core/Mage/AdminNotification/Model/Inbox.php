@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,10 +46,10 @@
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
-    const SEVERITY_CRITICAL = 1;
-    const SEVERITY_MAJOR    = 2;
-    const SEVERITY_MINOR    = 3;
-    const SEVERITY_NOTICE   = 4;
+    public const SEVERITY_CRITICAL = 1;
+    public const SEVERITY_MAJOR    = 2;
+    public const SEVERITY_MINOR    = 3;
+    public const SEVERITY_NOTICE   = 4;
 
     protected function _construct()
     {

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,13 +56,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Newsletter Template object
      *
-     * @var Mage_Newsletter_Model_Template
+     * @var Mage_Newsletter_Model_Template|null
      */
     protected $_template;
 
     /**
      * Subscribers collection
-     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection
+     * @var Mage_Newsletter_Model_Resource_Subscriber_Collection|null
      */
     protected $_subscribersCollection = null;
 
@@ -87,11 +88,11 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     protected $_stores = [];
 
-    const STATUS_NEVER = 0;
-    const STATUS_SENDING = 1;
-    const STATUS_CANCEL = 2;
-    const STATUS_SENT = 3;
-    const STATUS_PAUSE = 4;
+    public const STATUS_NEVER = 0;
+    public const STATUS_SENDING = 1;
+    public const STATUS_CANCEL = 2;
+    public const STATUS_SENT = 3;
+    public const STATUS_PAUSE = 4;
 
     protected function _construct()
     {
@@ -168,8 +169,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
     {
-        if ($this->getQueueStatus()!=self::STATUS_SENDING
-           && ($this->getQueueStatus()!=self::STATUS_NEVER && $this->getQueueStartAt())
+        if ($this->getQueueStatus() != self::STATUS_SENDING
+            && ($this->getQueueStatus() != self::STATUS_NEVER && $this->getQueueStartAt())
         ) {
             return $this;
         }
@@ -217,7 +218,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             }
         }
 
-        if (count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {
+        if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
         return $this;

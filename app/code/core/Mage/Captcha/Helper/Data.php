@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,28 +31,40 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Used for "name" attribute of captcha's input field
      */
-    const INPUT_NAME_FIELD_VALUE = 'captcha';
+    public const INPUT_NAME_FIELD_VALUE = 'captcha';
 
     /**
      * Always show captcha
      */
-    const MODE_ALWAYS     = 'always';
+    public const MODE_ALWAYS     = 'always';
 
     /**
      * Show captcha only after certain number of unsuccessful attempts
      */
-    const MODE_AFTER_FAIL = 'after_fail';
+    public const MODE_AFTER_FAIL = 'after_fail';
 
     /**
      * Captcha fonts path
      */
-    const XML_PATH_CAPTCHA_FONTS = 'default/captcha/fonts';
+    public const XML_PATH_CAPTCHA_FONTS = 'default/captcha/fonts';
+
+    protected $_moduleName = 'Mage_Captcha';
 
     /**
      * List uses Models of Captcha
      * @var array
      */
     protected $_captcha = [];
+
+    /**
+     * @return bool
+     * @since 19.4.19 / 20.0.17
+     */
+    public function isEnabled(): bool
+    {
+        $path = Mage::app()->getStore()->isAdmin() ? 'admin/captcha/enable' : 'customer/captcha/enable';
+        return Mage::getStoreConfigFlag($path);
+    }
 
     /**
      * Get Captcha
@@ -90,7 +103,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getFonts()
     {
-        $node = Mage::getConfig()->getNode(Mage_Captcha_Helper_Data::XML_PATH_CAPTCHA_FONTS);
+        $node = Mage::getConfig()->getNode(self::XML_PATH_CAPTCHA_FONTS);
         $fonts = [];
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {

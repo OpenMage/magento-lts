@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -134,7 +135,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showBillingPhone'      => 'false',
             'showCustomerName'      => 'false',
             'showCardInfo'          => 'true',
-            'showHostedThankyouPage'=> 'false'
+            'showHostedThankyouPage' => 'false'
         ];
     }
 
@@ -148,7 +149,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     {
         $request = [
             'subtotal'      => $this->_formatPrice($order->getBaseSubtotal()),
-            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount() ),
+            'tax'           => $this->_formatPrice($order->getBaseTaxAmount() + $order->getHiddenTaxAmount()),
             'shipping'      => $this->_formatPrice($order->getBaseShippingAmount()),
             'invoice'       => $order->getIncrementId(),
             'address_override' => 'true',
@@ -183,7 +184,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected function _getShippingAddress(Varien_Object $address)
     {
         $request = [
-            'first_name'=> $address->getFirstname(),
+            'first_name' => $address->getFirstname(),
             'last_name' => $address->getLastname(),
             'city'      => $address->getCity(),
             'state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),
@@ -210,7 +211,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected function _getBillingAddress(Varien_Object $address)
     {
         $request = [
-            'billing_first_name'=> $address->getFirstname(),
+            'billing_first_name' => $address->getFirstname(),
             'billing_last_name' => $address->getLastname(),
             'billing_city'      => $address->getCity(),
             'billing_state'     => $address->getRegionCode() ? $address->getRegionCode() : $address->getCity(),

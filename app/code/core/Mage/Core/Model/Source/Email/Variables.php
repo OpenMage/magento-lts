@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,11 +39,11 @@ class Mage_Core_Model_Source_Email_Variables
     {
         $this->_configVariables = [
             [
-                'value' => Mage_Core_Model_Url::XML_PATH_UNSECURE_URL,
+                'value' => Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
                 'label' => Mage::helper('core')->__('Base Unsecure URL')
             ],
             [
-                'value' => Mage_Core_Model_Url::XML_PATH_SECURE_URL,
+                'value' => Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
                 'label' => Mage::helper('core')->__('Base Secure URL')
             ],
             [
@@ -78,11 +79,11 @@ class Mage_Core_Model_Source_Email_Variables
                 'label' => Mage::helper('core')->__('Custom2 Contact Email')
             ],
             [
-                'value' => 'general/store_information/name',
+                'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_NAME,
                 'label' => Mage::helper('core')->__('Store Name')
             ],
             [
-                'value' => 'general/store_information/phone',
+                'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
                 'label' => Mage::helper('core')->__('Store Contact Telephone')
             ],
             [

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,30 +42,30 @@
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_INDEXER_DATA     = 'global/index/indexer';
+    public const XML_PATH_INDEXER_DATA     = 'global/index/indexer';
 
     /**
      * Process statuses
      */
-    const STATUS_RUNNING            = 'working';
-    const STATUS_PENDING            = 'pending';
-    const STATUS_REQUIRE_REINDEX    = 'require_reindex';
+    public const STATUS_RUNNING            = 'working';
+    public const STATUS_PENDING            = 'pending';
+    public const STATUS_REQUIRE_REINDEX    = 'require_reindex';
 
     /**
      * Process event statuses
      */
-    const EVENT_STATUS_NEW          = 'new';
-    const EVENT_STATUS_DONE         = 'done';
-    const EVENT_STATUS_ERROR        = 'error';
-    const EVENT_STATUS_WORKING      = 'working';
+    public const EVENT_STATUS_NEW          = 'new';
+    public const EVENT_STATUS_DONE         = 'done';
+    public const EVENT_STATUS_ERROR        = 'error';
+    public const EVENT_STATUS_WORKING      = 'working';
 
     /**
      * Process modes
      * Process mode allow disable automatic process events processing
      */
-    const MODE_MANUAL              = 'manual';
-    const MODE_REAL_TIME           = 'real_time';
-    const MODE_SCHEDULE            = 'schedule';
+    public const MODE_MANUAL              = 'manual';
+    public const MODE_REAL_TIME           = 'real_time';
+    public const MODE_SCHEDULE            = 'schedule';
 
     /**
      * Indexer stategy object
@@ -76,7 +77,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Locker Object
      *
-     * @var Mage_Index_Model_Lock
+     * @var Mage_Index_Model_Lock|null
      */
     protected $_lockInstance = null;
 

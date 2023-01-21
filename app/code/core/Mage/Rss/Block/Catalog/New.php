@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,15 +43,16 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $storeId = $this->_getStoreId();
 
         $newurl = Mage::getUrl('rss/catalog/new/store_id/' . $storeId);
-        $title = Mage::helper('rss')->__('New Products from %s',Mage::app()->getStore()->getGroup()->getName());
+        $title = Mage::helper('rss')->__('New Products from %s', Mage::app()->getStore()->getGroup()->getName());
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = ['title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
-                'language'    => $lang
+        $data = [
+            'title'       => $title,
+            'description' => $title,
+            'link'        => $newurl,
+            'charset'     => 'UTF-8',
+            'language'    => $lang
         ];
         $rssObj->_addHeader($data);
 
@@ -81,7 +83,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
                     ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
                 ]
             )
-            ->addAttributeToSort('news_from_date','desc')
+            ->addAttributeToSort('news_from_date', 'desc')
             ->addAttributeToSelect(['name', 'short_description', 'description', 'thumbnail'], 'inner')
             ->addAttributeToSelect(
                 [
@@ -100,9 +102,9 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
         Mage::getSingleton('core/resource_iterator')->walk(
-                $products->getSelect(),
-                [[$this, 'addNewItemXmlCallback']],
-                ['rssObj'=> $rssObj, 'product'=>$product]
+            $products->getSelect(),
+            [[$this, 'addNewItemXmlCallback']],
+            ['rssObj' => $rssObj, 'product' => $product]
         );
 
         return $rssObj->createRssXml();
@@ -133,16 +135,16 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 
         $product->setData($args['row']);
         $description = '<table><tr>'
-            . '<td><a href="'.$product->getProductUrl().'"><img src="'
+            . '<td><a href="' . $product->getProductUrl() . '"><img src="'
             . $helper->init($product, 'thumbnail')->resize(75, 75)
-            .'" border="0" align="left" height="75" width="75"></a></td>'.
-            '<td  style="text-decoration:none;">'.$product->getDescription();
+            . '" border="0" align="left" height="75" width="75"></a></td>' .
+            '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
-        $description .= '</td>'.
+        $description .= '</td>' .
             '</tr></table>';
 
         $rssObj = $args['rssObj'];

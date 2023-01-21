@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -282,7 +283,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             ->join(
                 ['rt' => $reviewTable],
                 'rt.entity_pk_value = e.entity_id',
-                ['rt.review_id', 'review_created_at'=> 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
+                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
             )
             ->join(
                 ['rdt' => $reviewDetailTable],
@@ -441,7 +442,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         //$this->_getConditionSql('rdt.customer_id', array('null' => null));
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = [];
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $reviewIdCondition = $this->_getConditionSql('review_id', ['in' => $reviewsIds]);
             $storeIdCondition = $this->_getConditionSql('store_id', ['gt' => 0]);
             $select = $adapter->select()

@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Media
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,13 +39,13 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
     /**
      * Image resource
-     * @var resource
+     * @var resource|null
      */
     protected $_image;
 
     /**
      * Tmp image resource
-     * @var resource
+     * @var resource|null
      */
     protected $_tmpImage;
 
@@ -135,7 +136,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getExtension()
     {
-        return substr($this->getFileName(), strrpos($this->getFileName(), '.')+1);
+        return substr($this->getFileName(), strrpos($this->getFileName(), '.') + 1);
     }
 
     /**
@@ -151,7 +152,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaPath() . DS . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**
@@ -167,7 +168,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaUrl() . '/' . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**
@@ -256,7 +257,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         $this->addParam('extension', $extension);
 
         if (!$this->hasSpecialImage()) {
-            if (strpos($size, 'x')!==false) {
+            if (strpos($size, 'x') !== false) {
                 list($width, $height) = explode('x', $size);
             } else {
                 $width = $size;
@@ -273,8 +274,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             }
 
             $this->getDestanationDimensions()
-                ->setWidth($rate*$this->getDimensions()->getWidth())
-                ->setHeight($rate*$this->getDimensions()->getHeight());
+                ->setWidth($rate * $this->getDimensions()->getWidth())
+                ->setHeight($rate * $this->getDimensions()->getHeight());
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);

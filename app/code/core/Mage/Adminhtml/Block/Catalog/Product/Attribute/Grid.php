@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,9 +52,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
         parent::_prepareColumns();
 
         $this->addColumnAfter('is_visible', [
-            'header'=>Mage::helper('catalog')->__('Visible'),
-            'sortable'=>true,
-            'index'=>'is_visible_on_front',
+            'header' => Mage::helper('catalog')->__('Visible'),
+            'sortable' => true,
+            'index' => 'is_visible_on_front',
             'type' => 'options',
             'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
@@ -63,22 +64,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
         ], 'frontend_label');
 
         $this->addColumnAfter('is_global', [
-            'header'=>Mage::helper('catalog')->__('Scope'),
-            'sortable'=>true,
-            'index'=>'is_global',
+            'header' => Mage::helper('catalog')->__('Scope'),
+            'sortable' => true,
+            'index' => 'is_global',
             'type' => 'options',
             'options' => [
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('catalog')->__('Store View'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('catalog')->__('Website'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE => Mage::helper('catalog')->__('Store View'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE => Mage::helper('catalog')->__('Website'),
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL => Mage::helper('catalog')->__('Global'),
             ],
             'align' => 'center',
         ], 'is_visible');
 
-        $this->addColumn('is_searchable', [
-            'header'=>Mage::helper('catalog')->__('Searchable'),
-            'sortable'=>true,
-            'index'=>'is_searchable',
+        $this->addColumnAfter('is_searchable', [
+            'header' => Mage::helper('catalog')->__('Searchable'),
+            'sortable' => true,
+            'index' => 'is_searchable',
             'type' => 'options',
             'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
@@ -88,9 +89,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
         ], 'is_user_defined');
 
         $this->addColumnAfter('is_filterable', [
-            'header'=>Mage::helper('catalog')->__('Use in Layered Navigation'),
-            'sortable'=>true,
-            'index'=>'is_filterable',
+            'header' => Mage::helper('catalog')->__('Use in Layered Navigation'),
+            'sortable' => true,
+            'index' => 'is_filterable',
             'type' => 'options',
             'options' => [
                 '1' => Mage::helper('catalog')->__('Filterable (with results)'),
@@ -101,9 +102,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
         ], 'is_searchable');
 
         $this->addColumnAfter('is_comparable', [
-            'header'=>Mage::helper('catalog')->__('Comparable'),
-            'sortable'=>true,
-            'index'=>'is_comparable',
+            'header' => Mage::helper('catalog')->__('Comparable'),
+            'sortable' => true,
+            'index' => 'is_comparable',
             'type' => 'options',
             'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),

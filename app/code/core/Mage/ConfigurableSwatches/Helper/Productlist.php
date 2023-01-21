@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,24 +28,26 @@
  */
 class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
+
     /**
      * ID of attribute to be used for swatches on product listing
      *
-     * @var string
+     * @var string|false|null
      */
     protected $_swatchAttributeId = null;
 
     /**
      * Attribute model to be used for swatches on product listing
      *
-     * @var Mage_Catalog_Model_Product_Type_Configurable_Attribute
+     * @var Mage_Catalog_Model_Product_Type_Configurable_Attribute|false|null
      */
     protected $_swatchAttribute = null;
 
     /**
      * The current value for the swatch attribute that the product list is being filtered by.
      *
-     * @var int
+     * @var int|false|null
      */
     protected $_swatchAttributeFilteredValue = null;
 
@@ -97,7 +100,7 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     /**
      * Get model of attribute that should be used for swatches on product listing
      *
-     * @return Mage_Eav_Model_Attribute
+     * @return Mage_Catalog_Model_Product_Type_Configurable_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract|false
      */
     public function getSwatchAttribute()
     {

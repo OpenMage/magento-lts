@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,13 +154,14 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                         'tr.store_id',
                         'customers'         => 'COUNT(DISTINCT tr.customer_id)',
                         'products'          => 'COUNT(DISTINCT tr.product_id)',
-                        'popularity'        => 'COUNT(tr.customer_id) + MIN('
+                        'popularity'        => new Zend_Db_Expr(
+                            'COUNT(tr.customer_id) + MIN('
                             . $writeAdapter->getCheckSql(
                                 'tp.base_popularity IS NOT NULL',
                                 'tp.base_popularity',
                                 '0'
-                            )
-                            . ')',
+                            ) . ')'
+                        ),
                         'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
                         'base_popularity'   => new Zend_Db_Expr(0)  // deprecated since 1.4.0.1

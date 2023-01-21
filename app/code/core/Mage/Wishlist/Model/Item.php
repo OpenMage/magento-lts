@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,8 +49,8 @@
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
-    const EXCEPTION_CODE_NOT_SALABLE            = 901;
-    const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
+    public const EXCEPTION_CODE_NOT_SALABLE            = 901;
+    public const EXCEPTION_CODE_HAS_REQUIRED_OPTIONS   = 902;
 
     /**
      * We can store product store product configuration
@@ -57,8 +58,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      *
      * @deprecated after 1.4.2.0
      */
-    const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
-    const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
+    public const EXCEPTION_CODE_IS_GROUPED_PRODUCT     = 903;
+    public const EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT  = 904;
 
     /**
      * Custom path to download attached file
@@ -215,6 +216,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if ($hasDataChanges && !$this->_flagOptionsSaved) {
             $this->_saveItemOptions();
         }
+
+        return $this;
     }
 
     /**
@@ -551,7 +554,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             }
             if (!isset($options2[$code])
                 || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()) {
+                || $options2[$code]->getValue() != $option->getValue()
+            ) {
                 return false;
             }
         }

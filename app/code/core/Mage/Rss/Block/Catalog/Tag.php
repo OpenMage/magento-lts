@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +75,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
             [[$this, 'addTaggedItemXml']],
-            ['rssObj'=> $rssObj, 'product'=>$product],
+            ['rssObj' => $rssObj, 'product' => $product],
             $_collection->getSelect()->getAdapter()
         );
 
@@ -105,16 +106,16 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $helper = $this->helper('catalog/image');
 
         $product->unsetData()->load($args['row']['entity_id']);
-        $description = '<table><tr><td><a href="'.$product->getProductUrl().'">'
+        $description = '<table><tr><td><a href="' . $product->getProductUrl() . '">'
             . '<img src="' . $helper->init($product, 'thumbnail')->resize(75, 75)
             . '" border="0" align="left" height="75" width="75"></a></td>'
-            . '<td  style="text-decoration:none;">'.$product->getDescription();
+            . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
-        $description .='</td></tr></table>';
+        $description .= '</td></tr></table>';
 
         $rssObj = $args['rssObj'];
         $data = [

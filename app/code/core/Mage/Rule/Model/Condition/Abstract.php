@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -359,7 +360,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @return string
+     * @return string|int|array|null
      */
     public function getValue()
     {
@@ -412,7 +413,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } else {
                     if (is_array($o['value'])) {
                         foreach ($o['value'] as $v) {
-                            if ($v['value']==$value) {
+                            if ($v['value'] == $value) {
                                 return $v['label'];
                             }
                         }
@@ -455,11 +456,11 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function asHtml()
     {
         return $this->getTypeElementHtml()
-           .$this->getAttributeElementHtml()
-           .$this->getOperatorElementHtml()
-           .$this->getValueElementHtml()
-           .$this->getRemoveLinkHtml()
-           .$this->getChooserContainerHtml();
+           . $this->getAttributeElementHtml()
+           . $this->getOperatorElementHtml()
+           . $this->getValueElementHtml()
+           . $this->getRemoveLinkHtml()
+           . $this->getChooserContainerHtml();
     }
 
     /**
@@ -571,7 +572,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getValueElementRenderer()
     {
-        if (strpos($this->getValueElementType(), '/')!==false) {
+        if (strpos($this->getValueElementType(), '/') !== false) {
             return Mage::getBlockSingleton($this->getValueElementType());
         }
         return Mage::getBlockSingleton('rule/editable');
@@ -732,7 +733,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '>=':
             case '<':
                 if (!is_scalar($validatedValue)) {
-                        return false;
+                    return false;
                 } else {
                     $result = $validatedValue >= $value;
                 }
@@ -742,7 +743,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '!{}':
                 if (is_scalar($validatedValue) && is_array($value)) {
                     foreach ($value as $item) {
-                        if (stripos($validatedValue, $item)!==false) {
+                        if (stripos($validatedValue, $item) !== false) {
                             $result = true;
                             break;
                         }

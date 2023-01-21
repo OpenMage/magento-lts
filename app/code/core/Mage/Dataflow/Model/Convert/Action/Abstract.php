@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,8 +28,7 @@
  * @package    Mage_Dataflow
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Action_Abstract
-    implements Mage_Dataflow_Model_Convert_Action_Interface
+abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataflow_Model_Convert_Action_Interface
 {
     /**
      * Action parameters
@@ -64,7 +64,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      * @param mixed $default
      * @return mixed
      */
-    public function getParam($key, $default=null)
+    public function getParam($key, $default = null)
     {
         return $this->_params[$key] ?? $default;
     }
@@ -76,7 +76,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      * @param mixed $value
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
-    public function setParam($key, $value=null)
+    public function setParam($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_params = $key;
@@ -130,7 +130,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
         return $this;
     }
 
-    public function addAction(Mage_Dataflow_Model_Convert_Action_Interface $action=null)
+    public function addAction(Mage_Dataflow_Model_Convert_Action_Interface $action = null)
     {
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
@@ -160,7 +160,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      * @param string $name
      * @return Mage_Dataflow_Model_Convert_Container_Abstract
      */
-    public function getContainer($name=null)
+    public function getContainer($name = null)
     {
         if (!is_null($name)) {
             return $this->getProfile()->getContainer($name);
@@ -175,7 +175,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
 
     public function importXml(Varien_Simplexml_Element $actionNode)
     {
-        foreach ($actionNode->attributes() as $key=>$value) {
+        foreach ($actionNode->attributes() as $key => $value) {
             $this->setParam($key, (string)$value);
         }
 
@@ -205,7 +205,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      *
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
-    public function run(array $args= [])
+    public function run(array $args = [])
     {
         if ($method = $this->getParam('method')) {
             if (!method_exists($this->getContainer(), $method)) {
@@ -215,7 +215,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
                 );
             }
 
-            $this->getContainer()->addException('Starting '.get_class($this->getContainer()).' :: '.$method);
+            $this->getContainer()->addException('Starting ' . get_class($this->getContainer()) . ' :: ' . $method);
 
             if ($this->getParam('from')) {
                 $this->getContainer()->setData($this->getContainer($this->getParam('from'))->getData());
@@ -232,7 +232,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
         return $this;
     }
 
-    public function runActions(array $args= [])
+    public function runActions(array $args = [])
     {
         if (empty($this->_actions)) {
             return $this;

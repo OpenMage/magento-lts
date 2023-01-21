@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,10 +28,12 @@
  */
 class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 {
-    const LINK_TYPE_URL         = 'url';
-    const LINK_TYPE_FILE        = 'file';
+    public const LINK_TYPE_URL         = 'url';
+    public const LINK_TYPE_FILE        = 'file';
 
-    const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
+    public const XML_PATH_CONTENT_DISPOSITION  = 'catalog/downloadable/content_disposition';
+
+    protected $_moduleName = 'Mage_Downloadable';
 
     /**
      * Type of link
@@ -49,7 +52,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * Resource open handle
      *
-     * @var resource
+     * @var resource|Varien_Io_File|null
      */
     protected $_handle          = null;
 
@@ -93,7 +96,8 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                  */
                 $urlProp = parse_url($this->_resourceFile);
                 if (!isset($urlProp['scheme'])
-                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')) {
+                    || strtolower($urlProp['scheme'] != 'http') && strtolower($urlProp['scheme'] != 'https')
+                ) {
                     Mage::throwException(Mage::helper('downloadable')->__('Invalid download URL scheme.'));
                 }
                 if (!isset($urlProp['host'])) {
@@ -165,7 +169,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
-                $this->_handle->open(['path'=>Mage::getBaseDir('var')]);
+                $this->_handle->open(['path' => Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }

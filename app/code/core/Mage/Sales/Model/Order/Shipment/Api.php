@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,14 +129,14 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
           * Check order existing
           */
         if (!$order->getId()) {
-             $this->_fault('order_not_exists');
+            $this->_fault('order_not_exists');
         }
 
         /**
          * Check shipment create availability
          */
         if (!$order->canShip()) {
-             $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
+            $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
         $shipment = $order->prepareShipment($itemsQty);
@@ -274,7 +275,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     public function infoTrack($shipmentIncrementId, $trackId)
     {
-         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
+        $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
         if (!$shipment->getId()) {
             $this->_fault('not_exists');

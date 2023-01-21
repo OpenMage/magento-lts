@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -148,7 +149,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
             'add_selection_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'id'    => $this->getFieldId().'_{{index}}_add_button',
+                    'id'    => $this->getFieldId() . '_{{index}}_add_button',
                     'label'     => Mage::helper('bundle')->__('Add Selection'),
                     'on_click'   => 'bSelection.showSearch(event)',
                     'class' => 'add'
@@ -159,7 +160,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
             'close_search_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'id'    => $this->getFieldId().'_{{index}}_close_button',
+                    'id'    => $this->getFieldId() . '_{{index}}_close_button',
                     'label'     => Mage::helper('bundle')->__('Close'),
                     'on_click'   => 'bSelection.closeSearch(event)',
                     'class' => 'back no-display'
@@ -282,11 +283,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
-                'id' => $this->getFieldId().'_{{index}}_type',
+                'id' => $this->getFieldId() . '_{{index}}_type',
                 'class' => 'select select-product-option-type required-option-select',
                 'extra_params' => 'onchange="bOption.changeType(event)"'
             ])
-            ->setName($this->getFieldName().'[{{index}}][type]')
+            ->setName($this->getFieldName() . '[{{index}}][type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_type')->toOptionArray());
 
         return $select->getHtml();
@@ -299,10 +300,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
-                'id' => $this->getFieldId().'_{{index}}_required',
+                'id' => $this->getFieldId() . '_{{index}}_required',
                 'class' => 'select'
             ])
-            ->setName($this->getFieldName().'[{{index}}][required]')
+            ->setName($this->getFieldName() . '[{{index}}][required]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 
         return $select->getHtml();

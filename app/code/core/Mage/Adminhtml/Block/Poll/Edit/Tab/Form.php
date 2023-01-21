@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('poll_form', ['legend'=>Mage::helper('poll')->__('Poll information')]);
+        $fieldset = $form->addFieldset('poll_form', ['legend' => Mage::helper('poll')->__('Poll information')]);
         $fieldset->addField('poll_title', 'text', [
             'label'     => Mage::helper('poll')->__('Poll Question'),
             'class'     => 'required-entry',
@@ -61,11 +62,9 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
                 'required'  => true,
                 'name'      => 'store_ids[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'value'     => Mage::registry('poll_data')->getStoreIds(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
+                'value'     => Mage::registry('poll_data')->getStoreIds()
             ]);
-        }
-        else {
+        } else {
             $fieldset->addField('store_ids', 'hidden', [
                 'name'      => 'store_ids[]',
                 'value'     => Mage::app()->getStore(true)->getId()
@@ -73,10 +72,10 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
             Mage::registry('poll_data')->setStoreIds(Mage::app()->getStore(true)->getId());
         }
 
-        if( Mage::getSingleton('adminhtml/session')->getPollData() ) {
+        if (Mage::getSingleton('adminhtml/session')->getPollData()) {
             $form->setValues(Mage::getSingleton('adminhtml/session')->getPollData());
             Mage::getSingleton('adminhtml/session')->setPollData(null);
-        } elseif( Mage::registry('poll_data') ) {
+        } elseif (Mage::registry('poll_data')) {
             $form->setValues(Mage::registry('poll_data')->getData());
 
             $fieldset->addField('was_closed', 'hidden', [
