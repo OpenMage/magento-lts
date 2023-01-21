@@ -52,7 +52,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         $wheres = [];
         foreach ($this->getConditions() as $condition) {
             /** @var Mage_Rule_Model_Condition_Abstract $condition */
-            $wheres[] = $condition->prepareConditionSql();
+            $wheres[] = '(' . $condition->prepareConditionSql() . ')';
         }
 
         if (empty($wheres)) {
