@@ -86,10 +86,10 @@ Step 3: Require `magento-core-composer-installer`:
 
 ``` bash
 # PHP 7
-composer require "aydin-hassan/magento-core-composer-installer":">=1.0.0 <2.1.0"
+composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0"
 
 # PHP 8
-composer require "aydin-hassan/magento-core-composer-installer":"*"
+composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
 ```
 
 <small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
