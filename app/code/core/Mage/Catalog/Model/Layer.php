@@ -202,7 +202,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection|array
+     * @return array
      */
     public function getFilterableAttributes()
     {
@@ -210,17 +210,26 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (!$setIds) {
             return [];
         }
-        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
-        $collection = Mage::getResourceModel('catalog/product_attribute_collection');
-        $collection
-            ->setItemObjectClass('catalog/resource_eav_attribute')
-            ->setAttributeSetFilter($setIds)
-            ->addStoreLabel(Mage::app()->getStore()->getId())
-            ->setOrder('position', 'ASC');
-        $collection = $this->_prepareAttributeCollection($collection);
-        $collection->load();
 
-        return $collection;
+        $eavConfig=Mage::getSingleton('eav/config');
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $attributes */
+        $attributes = [];
+        foreach($setIds as $setId) {
+            $setAttributeIds = $eavConfig->getAttributeSetAttributeIds($setId);
+            foreach($setAttributeIds as $attributeId) {
+                if(!isset($attributes[$attributeId])) {
+                    $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
+                    if($attribute->getIsFilterable()) {
+                        $attributes[$attributeId] = $attribute;
+                    }
+                }
+            }
+        }
+        usort($attributes, function ($a,$b) {
+           return $a->getPosition() - $b->getPosition();
+        });
+
+        return $attributes;
     }
 
     /**

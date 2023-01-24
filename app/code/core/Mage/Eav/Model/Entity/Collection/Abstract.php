@@ -417,7 +417,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function addAttributeToSelect($attribute, $joinType = false)
     {
         if (is_array($attribute)) {
-            Mage::getSingleton('eav/config')->loadCollectionAttributes($this->getEntity()->getType(), $attribute);
             foreach ($attribute as $a) {
                 $this->addAttributeToSelect($a, $joinType);
             }
@@ -438,7 +437,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $attrInstance = $this->_joinAttributes[$attribute]['attribute'];
             } else {
                 $attrInstance = Mage::getSingleton('eav/config')
-                    ->getCollectionAttribute($this->getEntity()->getType(), $attribute);
+                    ->getAttribute($this->getEntity()->getType(), $attribute);
             }
             if (empty($attrInstance)) {
                 throw Mage::exception(
@@ -1098,7 +1097,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!$attributeId) {
                 continue;
             }
-            $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute($entity->getType(), $attributeCode);
+            $attribute = Mage::getSingleton('eav/config')->getAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
                 $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
                 if (!isset($attributeTypes[$attribute->getBackendTable()])) {
@@ -1205,7 +1204,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $attributeCode = array_search($valueInfo['attribute_id'], $this->_selectAttributes);
         if (!$attributeCode) {
-            $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute(
+            $attribute = Mage::getSingleton('eav/config')->getAttribute(
                 $this->getEntity()->getType(),
                 $valueInfo['attribute_id']
             );

@@ -483,17 +483,9 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     protected function _getIsActiveAttributeId()
     {
         if ($this->_isActiveAttributeId === null) {
-            $bind = [
-                'catalog_category' => Mage_Catalog_Model_Category::ENTITY,
-                'is_active'        => 'is_active',
-            ];
-            $select = $this->_getReadAdapter()->select()
-                ->from(['a' => $this->getTable('eav/attribute')], ['attribute_id'])
-                ->join(['t' => $this->getTable('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
-                ->where('entity_type_code = :catalog_category')
-                ->where('attribute_code = :is_active');
-
-            $this->_isActiveAttributeId = $this->_getReadAdapter()->fetchOne($select, $bind);
+            $this->_isActiveAttributeId = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active')
+                ->getId();
         }
 
         return $this->_isActiveAttributeId;

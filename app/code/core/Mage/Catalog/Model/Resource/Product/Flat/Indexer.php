@@ -264,8 +264,8 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     {
         $attributes = $this->getAttributes();
         if (!isset($attributes[$attributeCode])) {
-            $attribute = Mage::getModel('catalog/resource_eav_attribute')
-                ->loadByCode($this->getEntityTypeId(), $attributeCode);
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute($this->getEntityTypeId(), $attributeCode);
             if (!$attribute->getId()) {
                 Mage::throwException(Mage::helper('catalog')->__('Invalid attribute %s', $attributeCode));
             }

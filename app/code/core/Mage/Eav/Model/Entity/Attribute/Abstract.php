@@ -133,18 +133,23 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function loadByCode($entityType, $code)
     {
         Varien_Profiler::start('_LOAD_ATTRIBUTE_BY_CODE__');
-        if (is_numeric($entityType)) {
-            $entityTypeId = $entityType;
-        } elseif (is_string($entityType)) {
-            $entityType = Mage::getModel('eav/entity_type')->loadByCode($entityType);
+        $model = Mage::getSingleton('eav/config')->getAttribute($entityType, $code);
+        if($model) {
+            $this->setData($model->getData());
+        } else {
+            if (is_numeric($entityType)) {
+                $entityTypeId = $entityType;
+            } elseif (is_string($entityType)) {
+                $entityType = Mage::getSingleton('eav/config')->getEntityType($entityType);
+            }
+            if ($entityType instanceof Mage_Eav_Model_Entity_Type) {
+                $entityTypeId = $entityType->getId();
+            }
+            if (empty($entityTypeId)) {
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied.'));
+            }
+            $this->_getResource()->loadByCode($this, $entityTypeId, $code);
         }
-        if ($entityType instanceof Mage_Eav_Model_Entity_Type) {
-            $entityTypeId = $entityType->getId();
-        }
-        if (empty($entityTypeId)) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied.'));
-        }
-        $this->_getResource()->loadByCode($this, $entityTypeId, $code);
         $this->_afterLoad();
         Varien_Profiler::stop('_LOAD_ATTRIBUTE_BY_CODE__');
         return $this;

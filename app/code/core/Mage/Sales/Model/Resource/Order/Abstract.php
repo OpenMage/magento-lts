@@ -363,7 +363,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         if ($this->_useIncrementId && !$object->getIncrementId()) {
             /** @var Mage_Eav_Model_Entity_Type $entityType */
-            $entityType = Mage::getModel('eav/entity_type')->loadByCode($this->_entityTypeForIncrementId);
+            $entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeForIncrementId);
             $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
         }
         parent::_beforeSave($object);

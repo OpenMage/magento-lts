@@ -1030,7 +1030,7 @@ abstract class Mage_Api2_Model_Resource
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         /** @var Mage_Eav_Model_Entity_Type $entityType */
-        $entityType = Mage::getModel('eav/entity_type')->load($model, 'entity_model');
+        $entityType = Mage::getSingleton('eav/config')->getEntityType($model, 'entity_model');
 
         /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         foreach ($entityType->getAttributeCollection() as $attribute) {
