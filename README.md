@@ -74,12 +74,17 @@ Step 1: Create a new composer project:
 composer init
 ```
 
-Step 2: Configure required install options. You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
+Step 2: Configure composer. **The below options are required.** You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
 
 ```bash
+# Allow composer to apply patches to dependencies of magento-lts
 composer config --json extra.enable-patching true
+
+# Configure Magento core composer installer to use magento-lts as the Magento source package
 composer config extra.magento-core-package-type magento-source
-composer config extra.magento-root-dir htdocs
+
+# Configure the root directory that magento-lts will be installed to, such as "pub", "htdocs", or "www"
+composer config extra.magento-root-dir pub
 ```
 
 Step 3: Require `magento-core-composer-installer`:
