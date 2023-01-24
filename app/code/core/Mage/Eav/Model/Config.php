@@ -91,10 +91,12 @@ class Mage_Eav_Model_Config
      */
     public function clear()
     {
+        $this->_storeInitialized = [];
         $this->_entityTypes = null;
         $this->_entityTypeAttributes = null;
         $this->_entityTypeAttributeIdByCode = null;
-        $this->_storeInitialized = [];
+        $this->_attributeSetInfo = null;
+        $this->_defaultAttributes = [];
 
         Mage::app()->cleanCache([self::ENTITIES_CACHE_ID]);
         // Mage::app()->removeCache(self::ENTITIES_CACHE_ID . "_" . Mage::app()->getStore()->getId());
@@ -102,13 +104,8 @@ class Mage_Eav_Model_Config
         return $this;
     }
 
-    public function __construct()
-    {
-    }
-
     protected function _initializeStore($storeId = null)
     {
-
         if ($storeId === null) {
             $storeId = Mage::app()->getStore()->getId();
         } else {
@@ -348,7 +345,9 @@ class Mage_Eav_Model_Config
             }
         }
 
-        if (empty($field)) $field = 'entity_type_code';
+        if (empty($field)) {
+            $field = 'entity_type_code';
+        }
 
         foreach ($this->_entityTypes as $entityType) {
             if ($entityType->getData($field) == $code) {

@@ -134,7 +134,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     {
         Varien_Profiler::start('_LOAD_ATTRIBUTE_BY_CODE__');
         $model = Mage::getSingleton('eav/config')->getAttribute($entityType, $code);
-        if($model) {
+        if ($model) {
             $this->setData($model->getData());
         } else {
             if (is_numeric($entityType)) {

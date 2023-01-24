@@ -211,22 +211,22 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             return [];
         }
 
-        $eavConfig=Mage::getSingleton('eav/config');
+        $eavConfig = Mage::getSingleton('eav/config');
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $attributes */
         $attributes = [];
-        foreach($setIds as $setId) {
+        foreach ($setIds as $setId) {
             $setAttributeIds = $eavConfig->getAttributeSetAttributeIds($setId);
-            foreach($setAttributeIds as $attributeId) {
-                if(!isset($attributes[$attributeId])) {
+            foreach ($setAttributeIds as $attributeId) {
+                if (!isset($attributes[$attributeId])) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if($attribute->getIsFilterable()) {
+                    if ($attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
                 }
             }
         }
-        usort($attributes, function ($a,$b) {
-           return $a->getPosition() - $b->getPosition();
+        usort($attributes, function ($a, $b) {
+            return $a->getPosition() - $b->getPosition();
         });
 
         return $attributes;
