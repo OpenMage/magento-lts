@@ -470,8 +470,9 @@ class Mage_Eav_Model_Config
             $attributeSetId = $object->getAttributeSetId();
         }
 
-        // technically store id is irrelevant for attribute sets, they are the same in all store scopes
-        $storeId = 0;
+        // Technically store id is irrelevant for attribute sets, they are the same in all store scopes.
+        // Use current store id when not specified to avoid loading two store-scope attribute data sets from cache
+        $storeId = Mage::app()->getStore()->getStoreId();
         if (($object instanceof Varien_Object) && $object->getStoreId()) {
             $storeId = $object->getStoreId();
         }
@@ -485,7 +486,7 @@ class Mage_Eav_Model_Config
             }
             return $attributeCodes;
         } else {
-            return array_keys($this->_entityTypeAttributeIdByCode[$entityType->getId()]);
+            return array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()]);
         }
     }
 
