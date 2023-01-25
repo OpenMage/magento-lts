@@ -18,15 +18,7 @@
  * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-if (version_compare(phpversion(), '7.3.0', '<') === true) {
-    echo  '<div style="font:12px/1.35em arial, helvetica, sans-serif;"><div style="margin:0 0 25px 0; '
-        . 'border-bottom:1px solid #ccc;"><h3 style="margin:0; font-size:1.7em; font-weight:normal; '
-        . 'text-transform:none; text-align:left; color:#2f2f2f;">Whoops, it looks like you have an invalid PHP version.'
 
-        . '</h3></div><p>OpenMage supports PHP 7.3.0 or newer. <a href="https://www.openmage.org/magento-lts/install.html" '
-        . 'target="">Find out</a> how to install</a> OpenMage using PHP-CGI as a work-around.</p></div>';
-    exit;
-}
 $start = microtime(true);
 /**
  * Error reporting

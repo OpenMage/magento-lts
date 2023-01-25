@@ -100,7 +100,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
     }
 
     /**
-     * Get list of all otions for product
+     * Get list of all options for product
      *
      * @return array
      */
