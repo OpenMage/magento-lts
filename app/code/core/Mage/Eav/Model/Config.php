@@ -152,8 +152,6 @@ class Mage_Eav_Model_Config
      */
     protected function _loadEntityTypes()
     {
-        Varien_Profiler::start('EAV: ' . __METHOD__);
-
         // load entity types
         $this->_entityTypes = [];
         $entityTypeCollection = Mage::getResourceModel('eav/entity_type_collection');
@@ -164,8 +162,6 @@ class Mage_Eav_Model_Config
             // }
             $this->_entityTypes[$entityType->getId()] = $entityType;
         }
-
-        Varien_Profiler::stop('EAV: ' . __METHOD__);
     }
 
     /**
@@ -203,11 +199,7 @@ class Mage_Eav_Model_Config
      */
     protected function _loadAttributeSetInfo()
     {
-        Varien_Profiler::start('EAV: ' . __METHOD__);
-
         $this->_attributeSetInfo = Mage::getResourceModel('eav/entity_attribute_set')->getSetInfo();
-
-        Varien_Profiler::stop('EAV: ' . __METHOD__);
     }
 
     protected function _loadFromCache($storeId)
@@ -216,6 +208,7 @@ class Mage_Eav_Model_Config
 
         $cacheData = Mage::app()->loadCache(self::ENTITIES_CACHE_ID . "_" . $storeId);
         if ($cacheData === false) {
+            Varien_Profiler::stop('EAV: ' . __METHOD__);
             return;
         }
         $cacheData = unserialize($cacheData);
@@ -246,8 +239,6 @@ class Mage_Eav_Model_Config
 
     protected function _saveToCache($storeId)
     {
-        Varien_Profiler::start('EAV: ' . __METHOD__);
-
         $cacheData = [
             '_entityTypes' => [],
             '_entityTypeAttributes' => [],
@@ -272,8 +263,6 @@ class Mage_Eav_Model_Config
             self::ENTITIES_CACHE_ID . "_" . $storeId,
             ['eav', self::ENTITIES_CACHE_ID, Mage_Eav_Model_Entity_Attribute::CACHE_TAG]
         );
-
-        Varien_Profiler::stop('EAV: ' . __METHOD__);
     }
 
     /**
@@ -452,6 +441,9 @@ class Mage_Eav_Model_Config
         foreach (array_keys($this->_entityTypeAttributes[$storeId][$entityType->getId()]) as $attributeId) {
             $attributes[] = $this->getAttribute($entityType, $attributeId);
         }
+
+        Varien_Profiler::stop('EAV: ' . __METHOD__);
+
         return $attributes;
     }
 
