@@ -46,7 +46,7 @@ class Mage_Eav_Model_Config
     protected $_entityTypes;
 
     /**
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[][][]|null
+     * @var Mage_Eav_Model_Entity_Attribute_Abstract[][][]|mixed[][][]|null
      */
     protected $_entityTypeAttributes;
 
@@ -66,13 +66,13 @@ class Mage_Eav_Model_Config
      *          int sort,
      *      ]
      * ]
-     * @var [][][][]mixed
+     * @var mixed[][][][]|null
      */
     protected $_attributeSetInfo;
 
     /**
      * Special local cache for default attributes to avoid re-hydrating them
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[][][]
+     * @var Mage_Eav_Model_Entity_Attribute_Abstract[][][]|false[][][]
      */
     protected $_defaultAttributes = [];
 
@@ -155,7 +155,7 @@ class Mage_Eav_Model_Config
         // load entity types
         $this->_entityTypes = [];
         $entityTypeCollection = Mage::getResourceModel('eav/entity_type_collection');
-        /** @var $entityType Mage_Eav_Model_Entity_Type */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
         foreach ($entityTypeCollection as $entityType) {
             // if (empty($entityType->getAttributeModel())) {
             //     $entityType->setAttributeModel('eav/entity_attribute');
@@ -282,7 +282,7 @@ class Mage_Eav_Model_Config
      * Create model instance from array
      *
      * @param array $attributeData
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|false
      */
     protected function _hydrateAttribute($attributeData)
     {
@@ -292,12 +292,13 @@ class Mage_Eav_Model_Config
         } else {
             $model = $entityType->getAttributeModel();
         }
-        $attribute = Mage::getModel($model)->setData($attributeData);
+        /** @var Mage_Eav_Model_Entity_Attribute_Abstract|false $attribute */
+        $attribute = Mage::getModel($model);
         if ($attribute) {
             $attribute->setData($attributeData);
 
             $entity = $entityType->getEntity();
-            if ($entity && in_array($attribute->getAttributeCode(), $entity->getDefaultAttributes())) {
+            if (in_array($attribute->getAttributeCode(), $entity->getDefaultAttributes())) {
                 $attribute
                     ->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
                     ->setIsGlobal(1);
@@ -307,7 +308,6 @@ class Mage_Eav_Model_Config
                 ->setEntityTypeId($entityType->getId());
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $attribute;
     }
 
@@ -316,7 +316,8 @@ class Mage_Eav_Model_Config
      *
      * @param mixed $code
      * @param string|null $code
-     * @return  Mage_Eav_Model_Entity_Type
+     * @return Mage_Eav_Model_Entity_Type
+     * @throws Mage_Core_Exception
      */
     public function getEntityType($code, $field = null)
     {
@@ -344,7 +345,7 @@ class Mage_Eav_Model_Config
             }
         }
 
-        return null;
+        Mage::throwException("Failed to find entity eav/entity_type for $field=$code");
     }
 
     /**
@@ -355,7 +356,6 @@ class Mage_Eav_Model_Config
      * @param int $storeId
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract|false
-     * @throws Exception
      */
     protected function _getDefaultAttributeIfExists($entityType, $attributeCode, $storeId)
     {
@@ -364,7 +364,7 @@ class Mage_Eav_Model_Config
         }
 
         $entity = $entityType->getEntity();
-        if ($entity && method_exists($entity, 'getDefaultAttributes')) {
+        if (method_exists($entity, 'getDefaultAttributes')) {
             if (in_array($attributeCode, $entity->getDefaultAttributes())) {
                 $attributeData = [
                     'entity_type_id' => $entityType->getId(),
@@ -386,7 +386,7 @@ class Mage_Eav_Model_Config
      * @param mixed $entityType
      * @param mixed $code
      * @param int|null $storeId
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract|false
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|false
      */
     public function getAttribute($entityType, $code, $storeId = null)
     {
@@ -427,8 +427,7 @@ class Mage_Eav_Model_Config
 
     /**
      * @param mixed $entityType
-     * @param mixed $code
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract[]
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     public function getAttributes($entityType)
     {
