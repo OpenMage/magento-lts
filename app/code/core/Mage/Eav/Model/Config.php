@@ -482,7 +482,11 @@ class Mage_Eav_Model_Config
             $attributeIds = $this->getAttributeSetAttributeIds($attributeSetId);
             $attributeCodes = [];
             foreach ($attributeIds as $attributeId) {
-                $attributeCodes[] = $this->getAttribute($entityType, $attributeId, $storeId)->getAttributeCode();
+                $attribute = $this->getAttribute($entityType, $attributeId, $storeId);
+                // need to verify attribute actually exists to avoid problems with deleted attributes that left behind some remnants
+                if ($attribute) {
+                    $attributeCodes[] = $attribute->getAttributeCode();
+                }
             }
             return $attributeCodes;
         } else {
