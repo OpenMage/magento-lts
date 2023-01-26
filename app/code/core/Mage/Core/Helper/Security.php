@@ -28,8 +28,6 @@ class Mage_Core_Helper_Security
 {
     private $invalidBlockActions
         = [
-            // explicitly not using class constant here Mage_Page_Block_Html_Topmenu_Renderer::class
-            // if the class does not exists it breaks.
             ['block' => Mage_Page_Block_Html_Topmenu_Renderer::class, 'method' => 'render'],
             ['block' => Mage_Core_Block_Template::class, 'method' => 'fetchView'],
         ];
