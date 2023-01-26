@@ -372,7 +372,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
             $attributeInstance = Mage::getSingleton('eav/config')
                 ->getAttribute($this->getEntityType(), $attributeCode);
-            if (!$attributeInstance->getAttributeCode() && in_array($attribute, $this->getDefaultAttributes())) {
+            if ($attributeInstance && !$attributeInstance->getAttributeCode() && in_array($attribute, $this->getDefaultAttributes())) {
                 $attributeInstance
                     ->setAttributeCode($attribute)
                     ->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
