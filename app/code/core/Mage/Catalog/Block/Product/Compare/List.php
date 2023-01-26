@@ -126,7 +126,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve Product Compare Attributes
      *
-     * @return array
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract[]
      */
     public function getAttributes()
     {

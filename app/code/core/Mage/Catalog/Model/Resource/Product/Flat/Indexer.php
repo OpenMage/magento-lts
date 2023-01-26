@@ -184,8 +184,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
             $select->where(implode(' OR ', $whereCondition));
             $attributesData = $adapter->fetchAll($select, $bind);
-            Mage::getSingleton('eav/config')
-                ->importAttributesData($this->getEntityType(), $attributesData);
 
             foreach ($attributesData as $data) {
                 $this->_attributeCodes[$data['attribute_id']] = $data['attribute_code'];
@@ -273,6 +271,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 ->getEntityType($this->getEntityType())
                 ->getEntity();
             $attribute->setEntity($entity);
+
+            if (!($attribute instanceof Mage_Eav_Model_Entity_Attribute)) {
+                Mage::throwException('Product attribute(code=". $attributeCode . ") is expected to be of type Mage_Eav_Model_Entity_Attribute');
+            }
 
             return $attribute;
         }

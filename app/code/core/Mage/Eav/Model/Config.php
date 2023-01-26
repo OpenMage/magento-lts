@@ -486,20 +486,27 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * @param int $attributeSetId
+     * @param int|int[] $attributeSetId
      * @return int[]
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getAttributeSetAttributeIds($attributeSetId)
     {
+        if (!is_array($attributeSetId)) {
+            $attributeSetId = [$attributeSetId];
+        }
+
         $attributes = [];
-        foreach ($this->_attributeSetInfo as $attributeId => $sets) {
-            if (isset($sets[$attributeSetId])) {
-                $attributes[] = $attributeId;
+
+        foreach ($attributeSetId as $setId) {
+            foreach ($this->_attributeSetInfo as $attributeId => $sets) {
+                if (isset($sets[$setId])) {
+                    $attributes[$attributeId] = true;
+                }
             }
         }
 
-        return $attributes;
+        return array_keys($attributes);
     }
 
     /**
@@ -529,33 +536,7 @@ class Mage_Eav_Model_Config
     }
 
     /**
-     * Validate attribute data from import
-     *
-     * @param array $attributeData
-     * @return bool
-     */
-    protected function _validateAttributeData($attributeData = null)
-    {
-        if (!is_array($attributeData)) {
-            return false;
-        }
-        $requiredKeys = [
-            'attribute_id',
-            'attribute_code',
-            'entity_type_id',
-            'attribute_model'
-        ];
-        foreach ($requiredKeys as $key) {
-            if (!array_key_exists($key, $attributeData)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Import attributes data from external source
+     * @deprecated No longer required. All attribute data is cached on-access.
      *
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @param array $attributes
@@ -563,13 +544,6 @@ class Mage_Eav_Model_Config
      */
     public function importAttributesData($entityType, array $attributes)
     {
-        $entityType = $this->getEntityType($entityType);
-        foreach ($attributes as $attributeData) {
-            if (!$this->_validateAttributeData($attributeData)) {
-                continue;
-            }
-        }
-
         return $this;
     }
 }

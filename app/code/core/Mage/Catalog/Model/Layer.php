@@ -202,7 +202,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return array
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     public function getFilterableAttributes()
     {
