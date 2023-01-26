@@ -43,10 +43,10 @@ class Mage_Core_Helper_Security
     {
         foreach ($this->invalidBlockActions as $action) {
             $calledMethod = strtolower($method);
-            if (($block instanceof $action['block'] && strtolower($action['method']) === $calledMethod)
-                || ($block instanceof $action['block']
-                    && strtolower($action['block'] . '::' . $action['method']) === $calledMethod)
-            ) {
+            if (str_contains($calledMethod, '::')) {
+                $calledMethod = explode('::', $calledMethod)[1];
+            }
+            if ($block instanceof $action['block'] && strtolower($action['method']) === $calledMethod) {
                 Mage::throwException(
                     sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method)
                 );
