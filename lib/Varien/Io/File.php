@@ -494,7 +494,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             throw new Exception('Detected malicious path or filename input.');
         }
 
-        if (!$this->_IsValidSource($src) || !$this->_isFilenameWriteable($filename)) {
+        if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }
 
