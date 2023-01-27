@@ -108,6 +108,16 @@
         </eav_frontendclasses>
         <eav_attributes>
         </eav_attributes>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <eav>
+                        <class>eav/observer</class>
+                        <method>onControllerActionPredispatch</method>
+                    </eav>
+                </observers>
+            </controller_action_predispatch>
+        </events>
     </global>
     <adminhtml>
         <translate>
