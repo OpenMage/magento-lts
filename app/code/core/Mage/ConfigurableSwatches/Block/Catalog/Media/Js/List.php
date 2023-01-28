@@ -77,7 +77,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
             return ''; // do not render block
         }
         // No listview attribute configured
-        if (empty(Mage::getStoreConfig('configswatches/general/product_list_attribute', Mage::app()->getStore()))) {
+        if (!Mage::getStoreConfigFlag('configswatches/general/product_list_attribute')) {
             return '';
         }
         return parent::_toHtml();
