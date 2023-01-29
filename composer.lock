@@ -4,24 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a447e3de143a95e682b1231242ae579",
+    "content-hash": "fc936e22ff1e16951562dafed4a336f6",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.15.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31"
+                "reference": "3fc3e9149097f67cded1c425088e37d7fa8083ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
-                "reference": "841d59ef81b2eb9018e43fd9e8ae5b1adce3dc31",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/3fc3e9149097f67cded1c425088e37d7fa8083ed",
+                "reference": "3fc3e9149097f67cded1c425088e37d7fa8083ed",
                 "shasum": ""
             },
             "require": {
-                "colinmollenhour/credis": "*"
+                "colinmollenhour/credis": "^1.14"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpunit/phpunit": "^9",
+                "zf1s/zend-cache": "~1.15"
             },
             "type": "magento-module",
             "autoload": {
@@ -42,9 +47,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.15.0"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.16.0"
             },
-            "time": "2022-12-29T19:46:03+00:00"
+            "time": "2023-01-18T03:00:27+00:00"
         },
         {
             "name": "colinmollenhour/credis",
@@ -3409,16 +3414,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.13",
+            "version": "1.9.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a0922426da3a7d0d9334e99a363f7f9f6e23e84f"
+                "reference": "e5fcc96289cf737304286a9b505fbed091f02e58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a0922426da3a7d0d9334e99a363f7f9f6e23e84f",
-                "reference": "a0922426da3a7d0d9334e99a363f7f9f6e23e84f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e5fcc96289cf737304286a9b505fbed091f02e58",
+                "reference": "e5fcc96289cf737304286a9b505fbed091f02e58",
                 "shasum": ""
             },
             "require": {
@@ -3448,7 +3453,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.13"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.14"
             },
             "funding": [
                 {
@@ -3464,7 +3469,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-18T15:26:53+00:00"
+            "time": "2023-01-19T10:47:09+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
