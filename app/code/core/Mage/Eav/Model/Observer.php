@@ -28,7 +28,6 @@
  */
 class Mage_Eav_Model_Observer
 {
-
     /**
      * @param Varien_Event_Observer $event
      * @return void
