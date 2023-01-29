@@ -219,7 +219,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             foreach ($setAttributeIds as $attributeId) {
                 if (!isset($attributes[$attributeId])) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if ($attribute && $attribute->getIsFilterable()) {
+                    if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
                 }

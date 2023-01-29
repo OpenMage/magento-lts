@@ -89,7 +89,7 @@ class Mage_Eav_Model_Config
     protected $_isCacheEnabled = null;
 
     /**
-     * @var int|false
+     * @var int|false|null
      */
     protected $_currentStoreId;
 
@@ -252,7 +252,7 @@ class Mage_Eav_Model_Config
 
         $this->_entityTypes = [];
         $this->_entityTypeByCode = [];
-        /** @var Mage_Eav_Model_Entity_Type $entityType */
+        /** @var array $entityTypeData */
         foreach ($cacheData['_entityTypes'] as $entityTypeData) {
             $entityType = Mage::getModel('eav/entity_type')
                 ->setData($entityTypeData);
@@ -261,8 +261,10 @@ class Mage_Eav_Model_Config
         }
 
         $this->_entityTypeAttributes[$storeId] = [];
-        /** @var Mage_Eav_Model_Entity_Type $entityType */
+        /** @var int $entityTypeId */
+        /** @var array $entityTypeAttributes */
         foreach ($cacheData['_entityTypeAttributes'] as $entityTypeId => $entityTypeAttributes) {
+            /** @var array $attributeData */
             foreach ($entityTypeAttributes as $attributeData) {
                 $attributeId = $attributeData['attribute_id'];
                 $attributeCode = $attributeData['attribute_code'];
@@ -356,6 +358,7 @@ class Mage_Eav_Model_Config
      *
      * @param mixed $code
      * @param string|null $code
+     * @param string $field
      * @return Mage_Eav_Model_Entity_Type
      * @throws Mage_Core_Exception
      */
@@ -370,11 +373,10 @@ class Mage_Eav_Model_Config
             $this->_initializeStore();
         }
 
-        // lookup by id*
+        // lookup by id
         if (empty($field) && is_numeric($code)) {
-            $entity = $this->_entityTypes[$code];
-            if ($entity !== null) {
-                return $entity;
+            if (isset($this->_entityTypes[$code])) {
+                return $this->_entityTypes[$code];
             } else {
                 Mage::throwException('Invalid entity type: ' . $code);
             }
@@ -382,9 +384,8 @@ class Mage_Eav_Model_Config
 
         // lookup by code
         if (empty($field) || $field == 'entity_type_code') {
-            $entity = $this->_entityTypeByCode[$code];
-            if ($entity !== null) {
-                return $entity;
+            if (isset($this->_entityTypeByCode[$code])) {
+                return $this->_entityTypeByCode[$code];
             } else {
                 Mage::throwException('Invalid entity type: ' . $code);
             }

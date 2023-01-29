@@ -483,9 +483,13 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     protected function _getIsActiveAttributeId()
     {
         if ($this->_isActiveAttributeId === null) {
-            $this->_isActiveAttributeId = Mage::getSingleton('eav/config')
+            $attributeId = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active')
                 ->getId();
+            if (!is_int($attributeId)) {
+                Mage::throwException("Failed to find category attribute is_active");
+            }
+            $this->_isActiveAttributeId = $attributeId;
         }
 
         return $this->_isActiveAttributeId;
