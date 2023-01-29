@@ -73,7 +73,6 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      */
     protected function _toHtml()
     {
-        // No listview attribute configured
         if (!Mage::getStoreConfigFlag('configswatches/general/product_list_attribute')) {
             return '';
         }
