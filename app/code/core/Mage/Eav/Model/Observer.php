@@ -43,5 +43,4 @@ class Mage_Eav_Model_Observer
             Mage::getSingleton('eav/config')->setCurrentStoreId(Mage::app()->getStore()->getId());
         }
     }
-
 }
