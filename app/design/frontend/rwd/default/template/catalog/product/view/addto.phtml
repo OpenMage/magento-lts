@@ -21,32 +21,35 @@
 ?>
 
 <?php $_product = $this->getProduct(); ?>
-<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
-<?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
+<?php $_compareUrl = $this->helper('catalog/product_compare')->getAddUrlCustom($_product, false); ?>
+<?php $separator = ""; ?>
 
-<ul class="add-to-links">
-<?php if ($this->helper('wishlist')->isAllow()) : ?>
-    <li>
-        <a href="<?php echo $_wishlistSubmitUrl ?>"
-           onclick="productAddToCartForm.submitLight(this, this.href); return false;"
-           class="link-wishlist">
-            <?php echo $this->__('Add to Wishlist') ?>
-        </a>
-    </li>
+<?php if ($this->helper('wishlist')->isAllow() || $_compareUrl) : ?>
+    <ul class="add-to-links">
+    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+        <?php $separator = '<span class="separator">|</span>'; ?>
+        <?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
+        <li>
+            <a href="<?php echo $_wishlistSubmitUrl ?>"
+               onclick="productAddToCartForm.submitLight(this, this.href); return false;"
+               class="link-wishlist">
+                <?php echo $this->__('Add to Wishlist') ?>
+            </a>
+        </li>
+    <?php endif ?>
+    <?php
+    ?>
+    <?php if($_compareUrl) : ?>
+        <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>
+        <li>
+            <?php echo $separator ?>
+            <a href="#"
+               class="link-compare"
+               onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
+                <?php echo $this->__('Add to Compare') ?>
+            </a>
+        </li>
+    <?php endif ?>
+
+    </ul>
 <?php endif ?>
-<?php
-    $_compareUrl = $this->helper('catalog/product_compare')->getAddUrlCustom($_product, false);
-?>
-<?php if($_compareUrl) : ?>
-    <li>
-        <span class="separator">|</span>
-        <a href="#"
-           class="link-compare"
-           onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
-            <?php echo $this->__('Add to Compare') ?>
-        </a>
-    </li>
-<?php endif ?>
-
-</ul>
-
