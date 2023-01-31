@@ -35,12 +35,10 @@
             </a>
         </li>
     <?php endif ?>
-    <?php
-    ?>
     <?php if($_compareUrl) : ?>
         <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>
         <li>
-            <?php echo $separator ?>
+            <?php if ($_wishlistSubmitUrl): ?><span class="separator">|</span><?php endif ?>
             <a href="#"
                class="link-compare"
                onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
