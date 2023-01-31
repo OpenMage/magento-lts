@@ -21,10 +21,9 @@
 ?>
 
 <?php $_product = $this->getProduct(); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->isAllow() ? $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false) : '' ?>
 <?php $_compareUrl = $this->helper('catalog/product_compare')->getAddUrlCustom($_product, false); ?>
-<?php $separator = ""; ?>
 
-<?php if ($_wishlistSubmitUrl || $_compareUrl) : ?>
     <ul class="add-to-links">
     <?php if ($_wishlistSubmitUrl) : ?>
         <li>
