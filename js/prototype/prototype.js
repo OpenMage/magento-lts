@@ -621,7 +621,7 @@ Object.extend(String.prototype, (function() {
   }
 
   function stripTags() {
-    return this.replace(/<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?(\/)?>|<\/\w+>/gi, '');
+    return this.replace(/<(?=(\w+))\1(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/(?=(\w+))\1>/gi, '');
   }
 
   function stripScripts() {
