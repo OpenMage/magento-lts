@@ -37,7 +37,6 @@
  * @method $this setIsSearchable(int $value)
  * @method int getSearchWeight()
  * @method $this setSearchWeight(int $value)
- * @method int getIsFilterable()
  * @method $this setIsFilterable(int $value)
  * @method int getIsComparable()
  * @method $this setIsComparable(int $value)
@@ -286,6 +285,15 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getFrontendLabel()
     {
         return $this->_getData('frontend_label');
+    }
+
+    /**
+     * Retrieve is_filterable value
+     * @return int
+     */
+    public function getIsFilterable()
+    {
+        return $this->_getData('is_filterable');
     }
 
     /**
