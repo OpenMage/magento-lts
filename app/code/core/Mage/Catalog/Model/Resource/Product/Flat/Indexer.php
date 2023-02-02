@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             $attribute->setEntity($entity);
 
             if (!($attribute instanceof Mage_Eav_Model_Entity_Attribute)) {
-                Mage::throwException('Product attribute(code=". $attributeCode . ") is expected to be of type Mage_Eav_Model_Entity_Attribute');
+                throw new Exception('Product attribute(code=' . $attributeCode . ') is expected to be of type Mage_Eav_Model_Entity_Attribute');
             }
 
             return $attribute;

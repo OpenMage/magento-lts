@@ -111,7 +111,6 @@ class Mage_Eav_Model_Config
         $this->_defaultAttributes = [];
 
         Mage::app()->cleanCache([self::ENTITIES_CACHE_ID]);
-        // Mage::app()->removeCache(self::ENTITIES_CACHE_ID . '_' . Mage::app()->getStore()->getId());
 
         return $this;
     }
