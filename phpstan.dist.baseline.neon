@@ -1996,11 +1996,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Factory.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between Mage_Catalog_Model_Resource_Eav_Attribute and 1 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			message: "#^Parameter \\#2 \\$filterBlock \\(Varien_Object\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
@@ -2694,11 +2689,6 @@ parameters:
 			message: "#^Method Mage_CatalogSearch_Model_Advanced\\:\\:getProductCollection\\(\\) should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array\\|float\\|int\\|string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
-
-		-
-			message: "#^Return type \\(bool\\) of method Mage_CatalogSearch_Model_Layer_Filter_Attribute\\:\\:_getIsFilterableAttribute\\(\\) should be compatible with return type \\(Mage_Catalog_Model_Resource_Eav_Attribute\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:_getIsFilterableAttribute\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Layer/Filter/Attribute.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"

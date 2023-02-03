@@ -196,7 +196,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Get attribute identifuer
+     * Get attribute identifier
      *
      * @return int|null
      */

@@ -97,7 +97,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
      * Check whether specified attribute can be used in LN
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return int
      */
     protected function _getIsFilterableAttribute($attribute)
     {
