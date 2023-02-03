@@ -28,6 +28,7 @@ $maintenanceIpFile = 'maintenance.ip';
 require MAGENTO_ROOT . '/app/bootstrap.php';
 require_once $mageFilename;
 
+
 #Varien_Profiler::enable();
 
 umask(0);
