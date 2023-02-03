@@ -38,6 +38,15 @@ class Mage_Eav_Model_Config
 
     public const ENTITIES_CACHE_ID = 'EAV_ENTITY_TYPES';
 
+    public const NUMERIC_ATTRIBUTE_COLUMNS = [
+        // from table eav_attribute
+        "attribute_id",
+        "entity_type_id",
+        "is_required",
+        "is_user_defined",
+        "is_unique",
+    ];
+
     protected $_storeInitialized = [];
 
     /**
@@ -215,6 +224,15 @@ class Mage_Eav_Model_Config
         foreach ($entityAttributes as $entityAttributeData) {
             $attributeId = $entityAttributeData['attribute_id'];
             $attributeCode = $entityAttributeData['attribute_code'];
+
+            // workaround for getAttributeCollection()->getData() returning all columns as string
+            foreach (self::NUMERIC_ATTRIBUTE_COLUMNS as $key) {
+                if (!isset($entityAttributeData[$key])) {
+                    continue;
+                }
+                $entityAttributeData[$key] = (int)$entityAttributeData[$key];
+            }
+
             $this->_entityTypeAttributes[$storeId][$entityType->getId()][$attributeId] = $entityAttributeData;
             $this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()][$attributeCode] = $attributeId;
             $attributeCodes[] = $attributeCode;
