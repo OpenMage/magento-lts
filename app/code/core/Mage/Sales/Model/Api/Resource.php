@@ -57,7 +57,6 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _updateAttributes($data, $object, $type, array $attributes = null)
     {
-
         foreach ($data as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
                 $object->setData($attribute, $value);
@@ -115,7 +114,8 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
         if (!empty($attributes)
-            && !(in_array($attributeCode, $attributes))) {
+            && !(in_array($attributeCode, $attributes))
+        ) {
             return false;
         }
 
@@ -124,7 +124,8 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         }
 
         if (isset($this->_ignoredAttributeCodes[$type])
-            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
+            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])
+        ) {
             return false;
         }
 

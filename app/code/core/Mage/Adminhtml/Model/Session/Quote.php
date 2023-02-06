@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,33 +45,33 @@
  */
 class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstract
 {
-    const XML_PATH_DEFAULT_CREATEACCOUNT_GROUP = 'customer/create_account/default_group';
+    public const XML_PATH_DEFAULT_CREATEACCOUNT_GROUP = 'customer/create_account/default_group';
 
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|null
      */
     protected $_quote   = null;
 
     /**
      * Customer mofrl object
      *
-     * @var Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
-    protected $_customer= null;
+    protected $_customer = null;
 
     /**
      * Store model object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store   = null;
 
     /**
      * Order model object
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order   = null;
 
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
      * @param bool $useSetStore
      * @return Mage_Customer_Model_Customer
      */
-    public function getCustomer($forceReload=false, $useSetStore=false)
+    public function getCustomer($forceReload = false, $useSetStore = false)
     {
         if (is_null($this->_customer) || $forceReload) {
             $this->_customer = Mage::getModel('customer/customer');

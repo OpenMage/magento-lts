@@ -44,7 +44,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'cataloginventory_stock_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'cataloginventory_stock_match_result';
 
     /**
      * @var array

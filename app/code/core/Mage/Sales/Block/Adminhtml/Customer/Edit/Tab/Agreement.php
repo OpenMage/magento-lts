@@ -96,7 +96,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/sales_billing_agreement/customerGrid', ['_current'=>true]);
+        return $this->getUrl('*/sales_billing_agreement/customerGrid', ['_current' => true]);
     }
 
     /**

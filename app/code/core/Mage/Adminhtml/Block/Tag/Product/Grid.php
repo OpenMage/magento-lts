@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex() === 'popularity') {
+        if ($column->getIndex() === 'popularity') {
             $this->getCollection()->addPopularityFilter($column->getFilter()->getCondition());
             return $this;
         }

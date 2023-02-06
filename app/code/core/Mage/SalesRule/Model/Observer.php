@@ -57,6 +57,7 @@ class Mage_SalesRule_Model_Observer
      * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_quote_address_discount_item($observer)
     {
         $this->getValidator($observer->getEvent())
@@ -69,6 +70,7 @@ class Mage_SalesRule_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_afterPlace($observer)
     {
         /** @var Mage_Sales_Model_Order $order */
@@ -132,6 +134,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
+    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_paymentCancel($observer)
     {
         $event = $observer->getEvent();
@@ -154,7 +157,7 @@ class Mage_SalesRule_Model_Observer
                         $rule->setTimesUsed($rule->getTimesUsed() - 1);
                         $rule->save();
                     }
-                    
+
                     if ($customerId = $order->getCustomerId()) {
                         // Decrement coupon_usage times_used
                         Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);

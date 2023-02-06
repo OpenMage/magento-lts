@@ -28,9 +28,9 @@
  */
 class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    const AGGREGATION_DAILY   = 'reports/viewed_aggregated_daily';
-    const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
-    const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
+    public const AGGREGATION_DAILY   = 'reports/viewed_aggregated_daily';
+    public const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
+    public const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
     protected function _construct()
     {

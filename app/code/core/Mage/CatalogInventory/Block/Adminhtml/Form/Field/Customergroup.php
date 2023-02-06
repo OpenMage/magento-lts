@@ -31,7 +31,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     /**
      * Customer groups cache
      *
-     * @var array
+     * @var array|null
      */
     private $_customerGroups;
 

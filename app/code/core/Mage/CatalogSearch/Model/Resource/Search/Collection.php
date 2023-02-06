@@ -51,7 +51,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     public function addSearchFilter($query)
     {
         $this->_searchQuery = $query;
-        $this->addFieldToFilter('entity_id', ['in'=>new Zend_Db_Expr($this->_getSearchEntityIdsSql($query))]);
+        $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($this->_getSearchEntityIdsSql($query))]);
         return $this;
     }
 
@@ -84,7 +84,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         if (($attribute->getIsSearchable()
             && !in_array($attribute->getFrontendInput(), ['select', 'multiselect']))
             && (in_array($attribute->getBackendType(), ['varchar', 'text'])
-                || $attribute->getBackendType() == 'static')) {
+                || $attribute->getBackendType() == 'static')
+        ) {
             return true;
         }
         return false;
@@ -99,7 +100,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     protected function _hasAttributeOptionsAndSearchable($attribute)
     {
         if ($attribute->getIsSearchable()
-            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])) {
+            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])
+        ) {
             return true;
         }
 
@@ -207,19 +209,19 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         $ifValue   = $this->getConnection()->getCheckSql('s.value_id > 0', 's.value', 'd.value');
         $select = $this->getConnection()->select()
             ->from(
-                ['d'=>$optionValueTable],
+                ['d' => $optionValueTable],
                 ['option_id',
                       'o.attribute_id',
                       'store_id' => $ifStoreId,
                       'a.frontend_input']
             )
             ->joinLeft(
-                ['s'=>$optionValueTable],
+                ['s' => $optionValueTable],
                 $this->getConnection()->quoteInto('s.option_id = d.option_id AND s.store_id=?', $storeId),
                 []
             )
             ->join(
-                ['o'=>$optionTable],
+                ['o' => $optionTable],
                 'o.option_id=d.option_id',
                 []
             )
@@ -235,10 +237,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         // build selects of entity ids for specified options ids by frontend input
         $selects = [];
-        foreach ([
-            'select'      => 'eq',
-            'multiselect' => 'finset']
-                 as $frontendInput => $condition) {
+        foreach (['select' => 'eq', 'multiselect' => 'finset'] as $frontendInput => $condition) {
             if (isset($attributeTables[$frontendInput])) {
                 $where = [];
                 foreach ($options as $option) {

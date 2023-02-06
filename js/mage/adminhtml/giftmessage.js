@@ -166,7 +166,6 @@ GiftOptionsPopup.prototype = {
         var element = Event.element(event).id;
         var itemId = element.sub('gift_options_link_','');
 
-        toggleSelectsUnderBlock(this.giftOptionsWindowMask, false);
         this.giftOptionsWindowMask = $('gift_options_window_mask');
         this.giftOptionsWindow = $('gift_options_configure');
         this.giftOptionsWindow.select('select').each(function(el){
@@ -207,7 +206,6 @@ GiftOptionsPopup.prototype = {
     },
 
     closeWindow : function() {
-        toggleSelectsUnderBlock(this.giftOptionsWindowMask, true);
         this.giftOptionsWindowMask.style.display = 'none';
         this.giftOptionsWindow.style.display = 'none';
     }

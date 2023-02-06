@@ -77,13 +77,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 } catch (Mage_Core_Model_Store_Exception $e) {
                     $this->_fault('store_not_exists');
                 }
-            } // load children of specified category id
-            else {
+            } else { // load children of specified category id
                 $storeId = $this->_getStoreId($store);
                 $ids = (int)$categoryId;
             }
-        } // load all root categories
-        else {
+        } else { // load all root categories
             $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 
@@ -118,7 +116,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve category tree
      *
-     * @param null $parentId
+     * @param int|null $parentId
      * @param string|int $store
      * @return array
      * @throws Mage_Core_Model_Store_Exception
@@ -244,7 +242,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(['path'=>implode('/', $parent_category->getPathIds())]);
+        $category->addData(['path' => implode('/', $parent_category->getPathIds())]);
         $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
         $useConfig = [];
@@ -313,7 +311,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])) {
+                && isset($categoryData[$attribute->getAttributeCode()])
+            ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
                     $categoryData[$attribute->getAttributeCode()]
@@ -430,7 +429,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         $storeId = $this->_getStoreId($store);
         $collection = $category->setStoreId($storeId)->getProductCollection();
-        ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
+        ($storeId == 0) ? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
 
         $result = [];
 
@@ -479,8 +478,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $categoryId
      * @param int $productId
-     * @param int $position
-     * @param null $identifierType
+     * @param int|null $position
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -508,8 +507,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Remove product assignment from category
      *
      * @param int $categoryId
-     * @param int $productId
-     * @param null $identifierType
+     * @param int|null $productId
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */

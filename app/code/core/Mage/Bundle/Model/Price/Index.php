@@ -28,15 +28,15 @@
  *
  * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
- * @method Mage_Bundle_Model_Price_Index setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getWebsiteId()
- * @method Mage_Bundle_Model_Price_Index setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_Bundle_Model_Price_Index setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method float getMinPrice()
- * @method Mage_Bundle_Model_Price_Index setMinPrice(float $value)
+ * @method $this setMinPrice(float $value)
  * @method float getMaxPrice()
- * @method Mage_Bundle_Model_Price_Index setMaxPrice(float $value)
+ * @method $this setMaxPrice(float $value)
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {

@@ -34,24 +34,24 @@
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
  * @method int getCategoryId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setCategoryId(int $value)
+ * @method $this setCategoryId(int $value)
  * @method int getProductId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getPosition()
- * @method Mage_Catalog_Model_Category_Indexer_Product setPosition(int $value)
+ * @method $this setPosition(int $value)
  * @method int getIsParent()
- * @method Mage_Catalog_Model_Category_Indexer_Product setIsParent(int $value)
+ * @method $this setIsParent(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Category_Indexer_Product setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getVisibility()
- * @method Mage_Catalog_Model_Category_Indexer_Product setVisibility(int $value)
+ * @method $this setVisibility(int $value)
  */
 class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_category_product_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_category_product_match_result';
 
     /**
      * @var array
@@ -191,7 +191,8 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
              * Check if product categories data was changed
              */
             if ($product->getIsChangedCategories() || $product->dataHasChangedFor('status')
-                || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()) {
+                || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()
+            ) {
                 $event->addNewData('category_ids', $product->getCategoryIds());
             }
         } elseif ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {

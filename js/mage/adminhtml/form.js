@@ -14,7 +14,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
@@ -390,26 +390,6 @@ RegionUpdater.prototype = {
 };
 
 regionUpdater = RegionUpdater;
-
-/**
- * Fix errorrs in IE
- */
-Event.pointerX = function(event){
-    try{
-        return event.pageX || (event.clientX +(document.documentElement.scrollLeft || document.body.scrollLeft));
-    }
-    catch(e){
-
-    }
-};
-Event.pointerY = function(event){
-    try{
-        return event.pageY || (event.clientY +(document.documentElement.scrollTop || document.body.scrollTop));
-    }
-    catch(e){
-
-    }
-};
 
 SelectUpdater = Class.create();
 SelectUpdater.prototype = {

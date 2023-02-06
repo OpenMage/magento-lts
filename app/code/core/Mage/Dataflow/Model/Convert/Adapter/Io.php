@@ -28,7 +28,7 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-    const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
+    public const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
      * @return Varien_Io_Abstract|false
@@ -54,12 +54,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     if (!$validator->isValid($path)) {
                         foreach ($validator->getMessages() as $message) {
                             Mage::throwException($message);
-                            return false;
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#').'#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
+                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
                         $baseDir = Mage::getBaseDir();

@@ -40,60 +40,60 @@ abstract class Mage_Api2_Model_Resource
     /**#@+
      *  Action types
      */
-    const ACTION_TYPE_ENTITY = 'entity';
-    const ACTION_TYPE_COLLECTION  = 'collection';
+    public const ACTION_TYPE_ENTITY = 'entity';
+    public const ACTION_TYPE_COLLECTION  = 'collection';
     /**#@-*/
 
     /**#@+
      * Operations. Resource method names
      */
-    const OPERATION_CREATE   = 'create';
-    const OPERATION_RETRIEVE = 'retrieve';
-    const OPERATION_UPDATE   = 'update';
-    const OPERATION_DELETE   = 'delete';
+    public const OPERATION_CREATE   = 'create';
+    public const OPERATION_RETRIEVE = 'retrieve';
+    public const OPERATION_UPDATE   = 'update';
+    public const OPERATION_DELETE   = 'delete';
     /**#@-*/
 
     /**#@+
      * Common operations for attributes
      */
-    const OPERATION_ATTRIBUTE_READ  = 'read';
-    const OPERATION_ATTRIBUTE_WRITE = 'write';
+    public const OPERATION_ATTRIBUTE_READ  = 'read';
+    public const OPERATION_ATTRIBUTE_WRITE = 'write';
     /**#@-*/
 
     /**#@+
      *  Default error messages
      */
-    const RESOURCE_NOT_FOUND = 'Resource not found.';
-    const RESOURCE_METHOD_NOT_ALLOWED = 'Resource does not support method.';
-    const RESOURCE_METHOD_NOT_IMPLEMENTED = 'Resource method not implemented yet.';
-    const RESOURCE_INTERNAL_ERROR = 'Resource internal error.';
-    const RESOURCE_DATA_PRE_VALIDATION_ERROR = 'Resource data pre-validation error.';
-    const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
-    const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
-    const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
+    public const RESOURCE_NOT_FOUND = 'Resource not found.';
+    public const RESOURCE_METHOD_NOT_ALLOWED = 'Resource does not support method.';
+    public const RESOURCE_METHOD_NOT_IMPLEMENTED = 'Resource method not implemented yet.';
+    public const RESOURCE_INTERNAL_ERROR = 'Resource internal error.';
+    public const RESOURCE_DATA_PRE_VALIDATION_ERROR = 'Resource data pre-validation error.';
+    public const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
+    public const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
+    public const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
     /**#@-*/
 
     /**#@+
      *  Default collection resources error messages
      */
-    const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
-    const RESOURCE_COLLECTION_PAGING_LIMIT_ERROR = 'The paging limit exceeds the allowed number.';
-    const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
-    const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
-    const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
+    public const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
+    public const RESOURCE_COLLECTION_PAGING_LIMIT_ERROR = 'The paging limit exceeds the allowed number.';
+    public const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
+    public const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
+    public const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
     /**#@-*/
 
     /**#@+
      *  Default success messages
      */
-    const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
+    public const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
     /**#@-*/
 
     /**#@+
      * Collection page sizes
      */
-    const PAGE_SIZE_DEFAULT = 10;
-    const PAGE_SIZE_MAX     = 100;
+    public const PAGE_SIZE_DEFAULT = 10;
+    public const PAGE_SIZE_MAX     = 100;
     /**#@-*/
 
     /**
@@ -201,7 +201,8 @@ abstract class Mage_Api2_Model_Resource
             case self::ACTION_TYPE_ENTITY . self::OPERATION_CREATE:
                 // Creation of objects is possible only when working with collection
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
-                break;
+                // exception thrown
+                // no break
             case self::ACTION_TYPE_COLLECTION . self::OPERATION_CREATE:
                 // If no of the methods(multi or single) is implemented, request body is not checked
                 if (!$this->_checkMethodExist('_create') && !$this->_checkMethodExist('_multiCreate')) {
@@ -282,7 +283,6 @@ abstract class Mage_Api2_Model_Resource
                 break;
             default:
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
-                break;
         }
     }
 
@@ -736,7 +736,7 @@ abstract class Mage_Api2_Model_Resource
         $orderField = $this->getRequest()->getOrderField();
 
         if ($orderField !== null) {
-            $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
+            $operation = self::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
             ) {

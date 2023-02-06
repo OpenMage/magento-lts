@@ -15,6 +15,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,13 +29,13 @@
  * @method Mage_Dataflow_Model_Resource_Profile_History _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile_History getResource()
  * @method int getProfileId()
- * @method Mage_Dataflow_Model_Profile_History setProfileId(int $value)
+ * @method $this setProfileId(int $value)
  * @method string getActionCode()
- * @method Mage_Dataflow_Model_Profile_History setActionCode(string $value)
+ * @method $this setActionCode(string $value)
  * @method int getUserId()
- * @method Mage_Dataflow_Model_Profile_History setUserId(int $value)
+ * @method $this setUserId(int $value)
  * @method string getPerformedAt()
- * @method Mage_Dataflow_Model_Profile_History setPerformedAt(string $value)
+ * @method $this setPerformedAt(string $value)
  */
 class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
 {
@@ -52,7 +53,7 @@ class Mage_Dataflow_Model_Profile_History extends Mage_Core_Model_Abstract
             }
         }
 
-        if(!$this->hasData('user_id')) {
+        if (!$this->hasData('user_id')) {
             $this->setUserId(0);
         }
 

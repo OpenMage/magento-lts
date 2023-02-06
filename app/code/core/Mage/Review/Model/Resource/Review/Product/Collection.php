@@ -283,7 +283,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             ->join(
                 ['rt' => $reviewTable],
                 'rt.entity_pk_value = e.entity_id',
-                ['rt.review_id', 'review_created_at'=> 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
+                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
             )
             ->join(
                 ['rdt' => $reviewDetailTable],
@@ -442,7 +442,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         //$this->_getConditionSql('rdt.customer_id', array('null' => null));
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = [];
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $reviewIdCondition = $this->_getConditionSql('review_id', ['in' => $reviewsIds]);
             $storeIdCondition = $this->_getConditionSql('store_id', ['gt' => 0]);
             $select = $adapter->select()

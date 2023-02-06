@@ -31,12 +31,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     /**
      * Name for relevance order
      */
-    const RELEVANCE_ORDER_NAME = 'relevance';
+    public const RELEVANCE_ORDER_NAME = 'relevance';
 
     /**
      * Found data
      *
-     * @var array
+     * @var array|null
      */
     protected $_foundData = null;
 
@@ -164,7 +164,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                 $this->_foundData = array_reverse($this->_foundData);
             }
             foreach ($this->_foundData as $dataString) {
-                list ($relevance, $id) = explode('_', $dataString);
+                list($relevance, $id) = explode('_', $dataString);
                 $data[$id] = $relevance;
             }
             $this->_foundData = $data;

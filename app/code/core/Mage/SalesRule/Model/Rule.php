@@ -82,29 +82,29 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Free Shipping option "For matching items only"
      */
-    const FREE_SHIPPING_ITEM    = 1;
+    public const FREE_SHIPPING_ITEM    = 1;
 
     /**
      * Free Shipping option "For shipment with matching items"
      */
-    const FREE_SHIPPING_ADDRESS = 2;
+    public const FREE_SHIPPING_ADDRESS = 2;
 
     /**
      * Coupon types
      */
-    const COUPON_TYPE_NO_COUPON = 1;
-    const COUPON_TYPE_SPECIFIC  = 2;
-    const COUPON_TYPE_AUTO      = 3;
+    public const COUPON_TYPE_NO_COUPON = 1;
+    public const COUPON_TYPE_SPECIFIC  = 2;
+    public const COUPON_TYPE_AUTO      = 3;
 
     /**
      * Rule type actions
      */
-    const TO_PERCENT_ACTION = 'to_percent';
-    const BY_PERCENT_ACTION = 'by_percent';
-    const TO_FIXED_ACTION   = 'to_fixed';
-    const BY_FIXED_ACTION   = 'by_fixed';
-    const CART_FIXED_ACTION = 'cart_fixed';
-    const BUY_X_GET_Y_ACTION = 'buy_x_get_y';
+    public const TO_PERCENT_ACTION = 'to_percent';
+    public const BY_PERCENT_ACTION = 'by_percent';
+    public const TO_FIXED_ACTION   = 'to_fixed';
+    public const BY_FIXED_ACTION   = 'by_fixed';
+    public const CART_FIXED_ACTION = 'cart_fixed';
+    public const BUY_X_GET_Y_ACTION = 'buy_x_get_y';
 
     /**
      * Store coupon code generator instance
@@ -377,8 +377,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if ($this->_couponTypes === null) {
             $this->_couponTypes = [
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
-                Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
+                self::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
+                self::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
             ];
             $transport = new Varien_Object([
                 'coupon_types'                => $this->_couponTypes,
@@ -387,7 +387,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             Mage::dispatchEvent('salesrule_rule_get_coupon_types', ['transport' => $transport]);
             $this->_couponTypes = $transport->getCouponTypes();
             if ($transport->getIsCouponTypeAutoVisible()) {
-                $this->_couponTypes[Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
+                $this->_couponTypes[self::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
             }
         }
         return $this->_couponTypes;

@@ -212,7 +212,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
     {
         if (!empty($attributes)
-            && !(in_array($attributeCode, $attributes))) {
+            && !(in_array($attributeCode, $attributes))
+        ) {
             return false;
         }
 
@@ -221,7 +222,8 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         }
 
         if (isset($this->_ignoredAttributeCodes[$type])
-            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])) {
+            && in_array($attributeCode, $this->_ignoredAttributeCodes[$type])
+        ) {
             return false;
         }
 

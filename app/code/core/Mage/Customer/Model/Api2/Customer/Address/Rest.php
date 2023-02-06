@@ -142,7 +142,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
 
         $data = $validator->filter($data);
         if (!$validator->isValidData($data, true)
-            || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)) {
+            || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)
+        ) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }

@@ -26,8 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
-    extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
+class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
      * Initialize block template
@@ -78,7 +77,8 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
             if (!$attribute->isScopeGlobal()
                 && $this->getDataObject()
                 && $this->getDataObject()->getId()
-                && $this->getDataObject()->getStoreId()) {
+                && $this->getDataObject()->getStoreId()
+            ) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getElement()->getValue() == $defaultValue &&
+        } elseif ($this->getElement()->getValue() == $defaultValue &&
             $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
         ) {
             return false;
@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
     {
         $html = '';
         $attribute = $this->getElement()->getEntityAttribute();
-        if (!$attribute || Mage::app()->isSingleStoreMode() || $attribute->getFrontendInput()=='gallery') {
+        if (!$attribute || Mage::app()->isSingleStoreMode() || $attribute->getFrontendInput() == 'gallery') {
             return $html;
         }
 

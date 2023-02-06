@@ -34,6 +34,8 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      * @throws Mage_Api2_Exception
      * @param array $data
      * @return string|void
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _create(array $data)
     {
@@ -67,7 +69,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             // try to create Image object to check if image data is valid
             try {
                 $filePath = $apiTempDir . DS . $imageFileName;
-                new Varien_Image($filePath);
+                Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
             } catch (Exception $e) {
                 $ioAdapter->rmdir($apiTempDir, true);

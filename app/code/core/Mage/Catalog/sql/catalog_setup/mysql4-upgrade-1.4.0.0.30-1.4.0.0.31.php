@@ -19,7 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
 
 $installer->addAttribute('catalog_category', 'filter_price_range', [
@@ -29,5 +29,5 @@ $installer->addAttribute('catalog_category', 'filter_price_range', [
     'required'      => false,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_pricestep',
+    'input_renderer' => 'adminhtml/catalog_category_helper_pricestep',
 ]);

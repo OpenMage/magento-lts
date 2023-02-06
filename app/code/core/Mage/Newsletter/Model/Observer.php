@@ -72,6 +72,6 @@ class Mage_Newsletter_Model_Observer
             ->addOnlyForSendingFilter()
             ->load();
 
-         $collection->walk('sendPerSubscriber', [$countOfSubscritions]);
+        $collection->walk('sendPerSubscriber', [$countOfSubscritions]);
     }
 }

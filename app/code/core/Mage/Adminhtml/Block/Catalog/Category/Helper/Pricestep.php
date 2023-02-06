@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
         parent::addClass('validate-number validate-number-range number-range-0.01-1000000000');
         $html = parent::getElementHtml();
         $htmlId = 'use_config_' . $this->getHtmlId();
-        $html .= '<br/><input id="'.$htmlId.'" name="use_config[]" value="' . $this->getId() . '"';
+        $html .= '<br/><input id="' . $htmlId . '" name="use_config[]" value="' . $this->getId() . '"';
         $html .= ($disabled ? ' checked="checked"' : '');
 
         if ($this->getReadonly() || $elementDisabled) {
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep extends Varien_Data
         $html .= ' onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox" />';
 
         $html .= ' <label for="' . $htmlId . '" class="normal">'
-            . Mage::helper('adminhtml')->__('Use Config Settings') .'</label>';
+            . Mage::helper('adminhtml')->__('Use Config Settings') . '</label>';
         $html .= '<script type="text/javascript">' . 'toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
             . '\').parentNode);' . '</script>';
 

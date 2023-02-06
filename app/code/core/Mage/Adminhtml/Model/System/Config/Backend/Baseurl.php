@@ -26,9 +26,18 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model_Config_Data
 {
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeSave()
     {
-        $value = $this->getValue();
+        $value = str_replace(' ', '', $this->getValue());
+
+        if ($value === '') {
+            $label = $this->getFieldConfig()->descend('label');
+            Mage::throwException(Mage::helper('core')->__('"%s" is a required value.', $label));
+        }
 
         if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
             $value = Mage::helper('core/url')->encodePunycode($value);
@@ -45,7 +54,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
          * If value is special ({{}}) we don't need add slash
          */
         if (!preg_match('#}}$#', $value)) {
-            $value.= '/';
+            $value .= '/';
         }
 
         $this->setValue($value);
@@ -64,9 +73,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     }
 
     /**
-     * Processing object after load data
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _afterLoad()
     {

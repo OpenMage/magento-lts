@@ -65,7 +65,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend'=>Mage::helper('eav')->__('Attribute Properties')]
+            ['legend' => Mage::helper('eav')->__('Attribute Properties')]
         );
         if ($attributeObject->getAttributeId()) {
             $fieldset->addField('attribute_id', 'hidden', [
@@ -97,7 +97,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'label' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'title' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'value' => 'text',
-            'values'=> $inputTypes
+            'values' => $inputTypes
         ]);
 
         $fieldset->addField('default_value_text', 'text', [
@@ -151,7 +151,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'name'  => 'frontend_class',
             'label' => Mage::helper('eav')->__('Input Validation for Store Owner'),
             'title' => Mage::helper('eav')->__('Input Validation for Store Owner'),
-            'values'=> Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
+            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
         ]);
 
         if ($attributeObject->getId()) {
@@ -216,6 +216,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     {
         $jsScripts = $this->getLayout()
             ->createBlock('eav/adminhtml_attribute_edit_js')->toHtml();
-        return $html.$jsScripts;
+        return $html . $jsScripts;
     }
 }

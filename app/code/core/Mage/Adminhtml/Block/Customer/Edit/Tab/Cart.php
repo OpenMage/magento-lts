@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
      * Mage_Adminhtml_Block_Customer_Edit_Tab_Cart constructor.
      * @param array $attributes
      */
-    public function __construct($attributes= [])
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setUseAjax(true);
@@ -152,7 +152,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
      *
      * @return Mage_Customer_Model_Customer
      */
-    public function getCustomer() {
+    public function getCustomer()
+    {
         return Mage::registry('current_customer');
     }
 

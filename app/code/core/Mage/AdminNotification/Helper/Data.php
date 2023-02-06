@@ -33,14 +33,14 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Last Notice object
      *
-     * @var Mage_AdminNotification_Model_Inbox
+     * @var Mage_AdminNotification_Model_Inbox|null
      */
     protected $_latestNotice;
 
     /**
      * count of unread notes by type
      *
-     * @var array
+     * @var array|null
      */
     protected $_unreadNoticeCounts;
 

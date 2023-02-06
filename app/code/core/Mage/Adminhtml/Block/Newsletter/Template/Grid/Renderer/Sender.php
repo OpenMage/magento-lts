@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,13 +31,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
     public function render(Varien_Object $row)
     {
         $str = '';
-        if($row->getTemplateSenderName()) {
+        if ($row->getTemplateSenderName()) {
             $str .= $this->escapeHtml($row->getTemplateSenderName()) . ' ';
         }
-        if($row->getTemplateSenderEmail()) {
-            $str .= '[' .$this->escapeHtml($row->getTemplateSenderEmail()) . ']';
+        if ($row->getTemplateSenderEmail()) {
+            $str .= '[' . $this->escapeHtml($row->getTemplateSenderEmail()) . ']';
         }
-        if($str == '') {
+        if ($str == '') {
             $str .= '---';
         }
         return $str;

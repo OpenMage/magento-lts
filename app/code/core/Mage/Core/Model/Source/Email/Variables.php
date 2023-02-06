@@ -39,11 +39,11 @@ class Mage_Core_Model_Source_Email_Variables
     {
         $this->_configVariables = [
             [
-                'value' => Mage_Core_Model_Url::XML_PATH_UNSECURE_URL,
+                'value' => Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
                 'label' => Mage::helper('core')->__('Base Unsecure URL')
             ],
             [
-                'value' => Mage_Core_Model_Url::XML_PATH_SECURE_URL,
+                'value' => Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
                 'label' => Mage::helper('core')->__('Base Secure URL')
             ],
             [
@@ -79,11 +79,11 @@ class Mage_Core_Model_Source_Email_Variables
                 'label' => Mage::helper('core')->__('Custom2 Contact Email')
             ],
             [
-                'value' => 'general/store_information/name',
+                'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_NAME,
                 'label' => Mage::helper('core')->__('Store Name')
             ],
             [
-                'value' => 'general/store_information/phone',
+                'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
                 'label' => Mage::helper('core')->__('Store Contact Telephone')
             ],
             [

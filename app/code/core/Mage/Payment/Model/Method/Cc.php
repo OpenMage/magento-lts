@@ -102,7 +102,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
-                || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
+                || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))
+            ) {
                 $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
@@ -223,9 +224,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param string $type
      * @return bool
      */
-    public function OtherCcType($type)
+    public function otherCcType($type)
     {
-        return $type=='OT';
+        return $type == 'OT';
     }
 
     /**
@@ -239,7 +240,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $cardNumber = strrev($ccNumber);
         $numSum = 0;
 
-        for ($i=0; $i<strlen($cardNumber); $i++) {
+        for ($i = 0; $i < strlen($cardNumber); $i++) {
             $currentNum = substr($cardNumber, $i, 1);
 
             /**
@@ -365,9 +366,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
-            return (double)$info->getOrder()->getQuoteBaseGrandTotal();
+            return (float)$info->getOrder()->getQuoteBaseGrandTotal();
         } else {
-            return (double)$info->getQuote()->getBaseGrandTotal();
+            return (float)$info->getQuote()->getBaseGrandTotal();
         }
     }
 

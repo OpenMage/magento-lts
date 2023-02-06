@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
     protected function _getInfoBlockName()
     {
         if ($info = $this->getPaymentInfo()) {
-            return 'payment.info.'.$info->getMethodInstance()->getCode();
+            return 'payment.info.' . $info->getMethodInstance()->getCode();
         }
         return false;
     }

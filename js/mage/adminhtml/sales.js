@@ -985,7 +985,7 @@ AdminOrder.prototype = {
                 if ('message' != id || response[id]) {
                     var wrapper = new Element('div');
                     wrapper.update(response[id] ? response[id] : '');
-                    $(this.getAreaId(id)).update(Prototype.Browser.IE ? wrapper.outerHTML : wrapper);
+                    $(this.getAreaId(id)).update(wrapper);
                 }
                 if ($(this.getAreaId(id)).callback) {
                     this[$(this.getAreaId(id)).callback]();
@@ -1136,18 +1136,6 @@ AdminOrder.prototype = {
         }
         else {
             parentEl.addClassName('ignore-validate');
-        }
-
-        if (Prototype.Browser.IE) {
-            parentEl.select('select').each(function (elem) {
-                if (show) {
-                    elem.needShowOnSuccess = false;
-                    elem.style.visibility = '';
-                } else {
-                    elem.style.visibility = 'hidden';
-                    elem.needShowOnSuccess = true;
-                }
-            });
         }
 
         parentEl.setStyle({position: 'relative'});

@@ -42,11 +42,10 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
         ]);
 
         if ($data = $this->getFormData()) {
-
             $mapper = ['preview_store_id' => 'store_id'];
 
             foreach ($data as $key => $value) {
-                if(array_key_exists($key, $mapper)) {
+                if (array_key_exists($key, $mapper)) {
                     $name = $mapper[$key];
                 } else {
                     $name = $key;
@@ -61,4 +60,3 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
         return parent::_prepareForm();
     }
 }
-

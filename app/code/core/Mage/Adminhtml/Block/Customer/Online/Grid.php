@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'align'     => 'left',
             'type'      => 'datetime',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     =>'first_visit_at'
+            'index'     => 'first_visit_at'
         ]);
 
         $this->addColumn('last_activity', [

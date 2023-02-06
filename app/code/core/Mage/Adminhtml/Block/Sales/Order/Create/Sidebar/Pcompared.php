@@ -35,6 +35,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
         $this->setDataId('pcompared');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Recently Compared Products');
@@ -70,7 +73,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
                 ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image');
             Mage::getResourceSingleton('reports/event')->applyLogToCollection(
-                $productCollection, Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE, $this->getCustomerId(), 0, $skipProducts
+                $productCollection,
+                Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE,
+                $this->getCustomerId(),
+                0,
+                $skipProducts
             );
 
             $productCollection->load();
@@ -106,7 +113,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
      * @param   mixed $item
      * @return  int
      */
-    public function getProductId($item) {
+    public function getProductId($item)
+    {
         return $item->getId();
     }
 }

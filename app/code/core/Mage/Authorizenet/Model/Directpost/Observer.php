@@ -94,7 +94,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {
-         /** @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::helper('authorizenet')->updateOrderEditIncrements($order);
 

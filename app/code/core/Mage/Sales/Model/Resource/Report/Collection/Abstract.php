@@ -31,9 +31,9 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
     /**
      * Order status
      *
-     * @var string
+     * @var string|null
      */
-    protected $_orderStatus        = null;
+    protected $_orderStatus = null;
 
     /**
      * Set status filter

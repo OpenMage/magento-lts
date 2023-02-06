@@ -28,12 +28,12 @@
  */
 class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Model_Export_Entity_Abstract
 {
-    const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/export_product_types';
+    public const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/export_product_types';
 
     /**
      * Value that means all entities (e.g. websites, groups etc.)
      */
-    const VALUE_ALL = 'all';
+    public const VALUE_ALL = 'all';
 
     /**
      * Permanent column names.
@@ -41,12 +41,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_STORE    = '_store';
-    const COL_ATTR_SET = '_attribute_set';
-    const COL_TYPE     = '_type';
-    const COL_CATEGORY = '_category';
-    const COL_ROOT_CATEGORY = '_root_category';
-    const COL_SKU      = 'sku';
+    public const COL_STORE    = '_store';
+    public const COL_ATTR_SET = '_attribute_set';
+    public const COL_TYPE     = '_type';
+    public const COL_CATEGORY = '_category';
+    public const COL_ROOT_CATEGORY = '_root_category';
+    public const COL_SKU      = 'sku';
 
     /**
      * Pairs of attribute set ID-to-name.
@@ -131,7 +131,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     {
         $productTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($productTypeId) as $attributeSet) {
+                ->setEntityTypeFilter($productTypeId) as $attributeSet
+        ) {
             $this->_attrSetIdToName[$attributeSet->getId()] = $attributeSet->getAttributeSetName();
         }
         return $this;
@@ -176,7 +177,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             if (!($model = Mage::getModel($typeModel, [$this, $type]))) {
                 Mage::throwException("Entity type model '{$typeModel}' is not found");
             }
-            if (! $model instanceof Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract) {
+            if (!$model instanceof Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Entity type model must be an instance of Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract')
                 );
@@ -584,13 +585,15 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         $defaultStoreId  = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
 
         $memoryLimit = trim(ini_get('memory_limit'));
-        $lastMemoryLimitLetter = strtolower($memoryLimit[strlen($memoryLimit)-1]);
+        $lastMemoryLimitLetter = strtolower($memoryLimit[strlen($memoryLimit) - 1]);
         $memoryLimit = (int) filter_var($memoryLimit, FILTER_SANITIZE_NUMBER_INT);
         switch ($lastMemoryLimitLetter) {
             case 'g':
                 $memoryLimit *= 1024;
+                // no break
             case 'm':
                 $memoryLimit *= 1024;
+                // no break
             case 'k':
                 $memoryLimit *= 1024;
                 break;
@@ -606,7 +609,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         // Minimum Products limit
         $minProductsLimit = 500;
 
-        $limitProducts = intval(($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
+        $limitProducts = (int) (($memoryLimit  * $memoryUsagePercent - memory_get_usage(true)) / $memoryPerProduct);
         if ($limitProducts < $minProductsLimit) {
             $limitProducts = $minProductsLimit;
         }

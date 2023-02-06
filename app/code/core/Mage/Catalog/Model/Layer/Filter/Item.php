@@ -60,10 +60,10 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
     public function getUrl()
     {
         $query = [
-            $this->getFilter()->getRequestVar()=>$this->getValue(),
+            $this->getFilter()->getRequestVar() => $this->getValue(),
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
         ];
-        return Mage::getUrl('*/*/*', ['_current'=>true, '_use_rewrite'=>true, '_query'=>$query]);
+        return Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
     }
 
     /**
@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getRemoveUrl()
     {
-        $query = [$this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue()];
+        $query = [$this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue()];
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;

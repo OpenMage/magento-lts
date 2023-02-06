@@ -48,7 +48,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -63,7 +63,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {

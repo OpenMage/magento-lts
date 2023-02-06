@@ -57,7 +57,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
         $states = Mage::getSingleton('sales/order_config')->getStates();
         $states = array_merge(['' => ''], $states);
 
-        $fieldset->addField('status', 'select',
+        $fieldset->addField(
+            'status',
+            'select',
             [
                 'name'      => 'status',
                 'label'     => Mage::helper('sales')->__('Order Status'),
@@ -67,7 +69,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
             ]
         );
 
-        $fieldset->addField('state', 'select',
+        $fieldset->addField(
+            'state',
+            'select',
             [
                 'name'      => 'state',
                 'label'     => Mage::helper('sales')->__('Order State'),
@@ -77,7 +81,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
             ]
         );
 
-        $fieldset->addField('is_default', 'checkbox',
+        $fieldset->addField(
+            'is_default',
+            'checkbox',
             [
                 'name'      => 'is_default',
                 'label'     => Mage::helper('sales')->__('Use Order Status As Default'),

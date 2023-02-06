@@ -126,7 +126,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     {
         $inCond = $this->getConnection()->prepareSqlCondition('store.store_id', ['in' => $storeId]);
         $this->getSelect()->join(
-            ['store'=>$this->_reviewStoreTable],
+            ['store' => $this->_reviewStoreTable],
             'main_table.review_id=store.review_id',
             []
         );
@@ -163,13 +163,13 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         } elseif (is_string($entity)) {
             $this->_select->join(
                 $this->_reviewEntityTable,
-                'main_table.entity_id='.$this->_reviewEntityTable.'.entity_id',
+                'main_table.entity_id=' . $this->_reviewEntityTable . '.entity_id',
                 ['entity_code']
             );
 
             $this->addFilter(
                 'entity',
-                $this->getConnection()->quoteInto($this->_reviewEntityTable.'.entity_code=?', $entity),
+                $this->getConnection()->quoteInto($this->_reviewEntityTable . '.entity_code=?', $entity),
                 'string'
             );
         }
@@ -289,7 +289,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
 
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = [];
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $inCond = $adapter->prepareSqlCondition('review_id', ['in' => $reviewsIds]);
             $select = $adapter->select()
                 ->from($this->_reviewStoreTable)

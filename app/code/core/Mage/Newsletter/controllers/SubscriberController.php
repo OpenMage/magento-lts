@@ -31,7 +31,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
     /**
      * Use CSRF validation flag from newsletter config
      */
-    const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
+    public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
 
     /**
       * New subscription action
@@ -54,7 +54,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 }
 
                 if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 &&
-                    !$customerSession->isLoggedIn()) {
+                    !$customerSession->isLoggedIn()
+                ) {
                     Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
                 }
 

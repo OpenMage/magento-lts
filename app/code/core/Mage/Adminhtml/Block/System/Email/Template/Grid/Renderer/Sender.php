@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,15 +32,15 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Sender extends Ma
     {
         $str = '';
 
-        if($row->getTemplateSenderName()) {
+        if ($row->getTemplateSenderName()) {
             $str .= htmlspecialchars($row->getTemplateSenderName()) . ' ';
         }
 
-        if($row->getTemplateSenderEmail()) {
+        if ($row->getTemplateSenderEmail()) {
             $str .= '[' . $row->getTemplateSenderEmail() . ']';
         }
 
-        if($str == '') {
+        if ($str == '') {
             $str .= '---';
         }
 

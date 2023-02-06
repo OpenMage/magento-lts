@@ -24,9 +24,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Prepare content for tab
@@ -111,7 +109,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
                 ]);
                 foreach ($stores as $store) {
                     $fieldset->addField("s_{$store->getId()}", 'text', [
-                        'name'      => 'store_labels['.$store->getId().']',
+                        'name'      => 'store_labels[' . $store->getId() . ']',
                         'required'  => false,
                         'label'     => $store->getName(),
                         'value'     => $labels[$store->getId()] ?? '',

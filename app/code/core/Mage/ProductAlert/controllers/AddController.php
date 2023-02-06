@@ -29,7 +29,7 @@
 class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @return void
+     * @return $this
      */
     public function preDispatch()
     {
@@ -41,6 +41,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
+        return $this;
     }
 
     public function testObserverAction()

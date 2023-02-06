@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,8 @@ class Mage_ProductAlert_Model_Resource_Price extends Mage_ProductAlert_Model_Res
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (is_null($object->getId()) && $object->getCustomerId()
-                && $object->getProductId() && $object->getWebsiteId()) {
+                && $object->getProductId() && $object->getWebsiteId()
+        ) {
             if ($row = $this->_getAlertRow($object)) {
                 $price = $object->getPrice();
                 $object->addData($row);

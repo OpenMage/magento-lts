@@ -381,15 +381,15 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = [];
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNameWithWebsite($id);
+                $names[] = $this->getStoreNameWithWebsite($id);
             }
             $name = implode(', ', $names);
         } else {
             if (isset($this->_storeCollection[$storeId])) {
                 $data = $this->_storeCollection[$storeId];
                 $name .= $this->getWebsiteName($data->getWebsiteId());
-                $name .= ($name ? '/' : '').$this->getGroupName($data->getGroupId());
-                $name .= ($name ? '/' : '').$data->getName();
+                $name .= ($name ? '/' : '') . $this->getGroupName($data->getGroupId());
+                $name .= ($name ? '/' : '') . $data->getName();
             }
         }
         return $name;
@@ -468,7 +468,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = [];
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNamePath($id);
+                $names[] = $this->getStoreNamePath($id);
             }
             $name = implode(', ', $names);
         } else {

@@ -129,7 +129,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                     'align' => 'right'
                 ];
                 $line[] = [
-                    'text'  => $_item->getQty()*1,
+                    'text'  => $_item->getQty() * 1,
                     'feed'  => 435,
                     'font'  => 'bold',
                 ];

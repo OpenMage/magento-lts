@@ -364,7 +364,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         try {
             Mage::dispatchEvent(
                 'checkout_controller_multishipping_shipping_post',
-                ['request'=>$this->getRequest(), 'quote'=>$this->_getCheckout()->getQuote()]
+                ['request' => $this->getRequest(), 'quote' => $this->_getCheckout()->getQuote()]
             );
             $this->_getCheckout()->setShippingMethods($shippingMethods);
             $this->_getState()->setActiveStep(
@@ -593,7 +593,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     public function redirectLogin()
     {
         $this->setFlag('', 'no-dispatch', true);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure'=>true]));
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure' => true]));
 
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(

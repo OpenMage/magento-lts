@@ -58,9 +58,9 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         $rulesArr =  $adapter->fetchAll(
             $adapter->select()
-                ->from(['r'=>$this->getTable('api/rule')])
+                ->from(['r' => $this->getTable('api/rule')])
                 ->joinLeft(
-                    ['a'=>$this->getTable('api/assert')],
+                    ['a' => $this->getTable('api/assert')],
                     'a.assert_id=r.assert_id',
                     ['assert_type', 'assert_data']
                 )
@@ -79,15 +79,15 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)
     {
         foreach ($rolesArr as $role) {
-            $parent = $role['parent_id']>0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP.$role['parent_id'] : null;
+            $parent = $role['parent_id'] > 0 ? Mage_Api_Model_Acl::ROLE_TYPE_GROUP . $role['parent_id'] : null;
             switch ($role['role_type']) {
                 case Mage_Api_Model_Acl::ROLE_TYPE_GROUP:
-                    $roleId = $role['role_type'].$role['role_id'];
+                    $roleId = $role['role_type'] . $role['role_id'];
                     $acl->addRole(Mage::getModel('api/acl_role_group', $roleId), $parent);
                     break;
 
                 case Mage_Api_Model_Acl::ROLE_TYPE_USER:
-                    $roleId = $role['role_type'].$role['user_id'];
+                    $roleId = $role['role_type'] . $role['user_id'];
                     if (!$acl->hasRole($roleId)) {
                         $acl->addRole(Mage::getModel('api/acl_role_user', $roleId), $parent);
                     } else {
@@ -110,7 +110,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public function loadRules(Mage_Api_Model_Acl $acl, array $rulesArr)
     {
         foreach ($rulesArr as $rule) {
-            $role = $rule['role_type'].$rule['role_id'];
+            $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
             $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
 
