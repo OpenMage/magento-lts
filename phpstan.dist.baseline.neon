@@ -2701,21 +2701,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
@@ -6546,11 +6531,6 @@ parameters:
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/DownloadController.php
@@ -7214,11 +7194,6 @@ parameters:
 			message: "#^Method Mage_Wishlist_Model_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Wishlist_Model_Item_Option\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
-
-		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: "#^Method Mage_Wishlist_IndexController\\:\\:_addItemToWishList\\(\\) with return type void returns mixed but should not return anything\\.$#"
