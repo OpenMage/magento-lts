@@ -91,6 +91,7 @@ Minicart.prototype = {
             }).done(function(result) {
                 cart.hideOverlay();
                 if (result.success) {
+                    cart.refreshIfOnCartPage();
                     cart.updateCartQty(result.qty);
                     cart.updateContentOnRemove(result, el.closest('li'));
                 } else {
@@ -155,6 +156,7 @@ Minicart.prototype = {
         }).done(function(result) {
             cart.hideOverlay();
             if (result.success) {
+                cart.refreshIfOnCartPage();
                 cart.updateCartQty(result.qty);
                 if (quantity !== 0) {
                     cart.updateContentOnUpdate(result);
@@ -176,7 +178,6 @@ Minicart.prototype = {
         el.hide('slow', function() {
             $j(cart.selectors.container).html(result.content);
             cart.showMessage(result);
-
         });
     },
 
@@ -224,5 +225,11 @@ Minicart.prototype = {
 
     showSuccess: function(message) {
         $j(this.selectors.success).text(message).fadeIn('slow');
+    },
+
+    refreshIfOnCartPage: function() {
+        if (document.body.classList.contains("checkout-cart-index")){
+            window.location.reload(true);
+        }
     }
 };

@@ -23,6 +23,7 @@ level of backwards compatibility to the official releases.
 - [Requirements](#requirements)
   - [Optional](#optional)
 - [Installation](#installation)
+  - [Manual Install](#manual-install)
   - [Composer](#composer)
   - [Git](#git)
 - [Secure your installation](#secure-your-installation)
@@ -61,21 +62,64 @@ __Please be aware that although OpenMage is compatible that one or more extensio
 
 ## Installation
 
+### Manual Install
+
+Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install. **Important:** you must download the ZIP file from a tagged version on the releases page, otherwise there will be missing dependencies.
+
 ### Composer
 
-Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
+Step 1: Create a new composer project:
 
 ```bash
-composer require "openmage/magento-lts":"^19.5.0"
+composer init
 ```
 
-To get the latest changes use:
+Step 2: Configure composer. **The below options are required.** You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
 
 ```bash
-composer require "openmage/magento-lts":"dev-main"
+# Allow composer to apply patches to dependencies of magento-lts
+composer config --json extra.enable-patching true
+
+# Configure Magento core composer installer to use magento-lts as the Magento source package
+composer config extra.magento-core-package-type magento-source
+
+# Configure the root directory that magento-lts will be installed to, such as "pub", "htdocs", or "www"
+composer config extra.magento-root-dir pub
 ```
 
-<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
+Step 3: Require `magento-core-composer-installer`:
+
+``` bash
+# PHP 7
+composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0"
+
+# PHP 8
+composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
+
+Step 4: Require `magento-lts`:
+
+```bash
+# OpenMage v19
+composer require "openmage/magento-lts":"^19.4.0"
+
+# OpenMage v20
+composer require "openmage/magento-lts":"^20.0.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
+
+To install the latest development version (may be unstable):
+
+```bash
+# OpenMage v19
+composer require "openmage/magento-lts":"1.9.4.x-dev"
+
+# OpenMage v20
+composer require "openmage/magento-lts":"20.0.x-dev"
+```
 
 ### Git
 

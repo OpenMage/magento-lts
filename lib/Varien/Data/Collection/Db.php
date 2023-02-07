@@ -587,6 +587,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $item->setIdFieldName($this->getIdFieldName());
                 }
                 $item->addData($row);
+                $item->setDataChanges(false);
                 $this->addItem($item);
             }
         }
