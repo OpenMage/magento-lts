@@ -375,8 +375,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 []
             )
             ->joinLeft(
-                ['t2' => $this->getTable(['customer/entity', 'datetime'])],
-                't1.attribute_id = t2.attribute_id',
+                ['t2' => $this->getTable(['customer/entity', 'int'])],
+                't1.attribute_id = t2.attribute_id AND t2.entity_id = t0.entity_id',
                 []
             )
             ->where('t0.entity_id = ?', $customerId)
