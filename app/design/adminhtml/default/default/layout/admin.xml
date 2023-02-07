@@ -21,6 +21,14 @@
 -->
 
 <layout>
+    <adminhtml_input_counter_handle>
+        <reference name="head">
+            <action method="addJs">
+                <script>mage/adminhtml/input-counter.js</script>
+            </action>
+        </reference>
+    </adminhtml_input_counter_handle>
+
     <!-- admin acl users edit page -->
     <adminhtml_permissions_user_edit>
         <reference name="left">
@@ -87,4 +95,16 @@
             <block type="adminhtml/cache_additional" name="cache.additional" template="system/cache/additional.phtml"></block>
         </reference>
     </adminhtml_cache_index>
+
+    <adminhtml_catalog_product_attribute_edit>
+        <update handle="adminhtml_input_counter_handle"/>
+    </adminhtml_catalog_product_attribute_edit>
+
+    <adminhtml_catalog_product_edit>
+        <update handle="adminhtml_input_counter_handle"/>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_system_config_edit>
+        <update handle="adminhtml_input_counter_handle"/>
+    </adminhtml_system_config_edit>
 </layout>

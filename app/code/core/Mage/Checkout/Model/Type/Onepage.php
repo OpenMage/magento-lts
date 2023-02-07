@@ -327,7 +327,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         if (!$this->getQuote()->isVirtual()) {
             /**
-             * Billing address using otions
+             * Billing address using options
              */
             $usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
 

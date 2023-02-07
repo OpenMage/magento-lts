@@ -38,7 +38,6 @@
  * @method $this setParentId(int $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
- * @method $this setStoreId(int $value)
  * @method int getIsVisibleOnFront()
  * @method $this setIsVisibleOnFront(int $value)
  */
@@ -69,7 +68,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Set order object and grab some metadata from it
+     * Set order object
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  $this
@@ -77,8 +76,17 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $this->setStoreId($order->getStoreId());
         return $this;
+    }
+
+    /**
+     * Get store id
+     *
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getStoreId(): int
+    {
+        return $this->getStore()->getStoreId();
     }
 
     /**

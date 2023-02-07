@@ -45,6 +45,11 @@ services:
       - mysql
       - "apache:${HOST_NAME:-openmage-7f000001.nip.io}"
 
+  composer:
+    image: composer:2.4
+    volumes:
+      - ../..:/app
+
   mysql:
     image: mysql:5.7
     ports:

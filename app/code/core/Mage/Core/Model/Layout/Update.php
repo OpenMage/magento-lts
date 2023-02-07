@@ -405,10 +405,16 @@ class Mage_Core_Model_Layout_Update
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
-            if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
-                $this->merge((string)$child['handle']);
-                // Adding merged layout handle to the list of applied hanles
-                $this->addHandle((string)$child['handle']);
+            if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
+                $allow = true;
+                if (isset($child['ifconfig']) && ($configPath = (string)$child['ifconfig'])) {
+                    $allow = Mage::getStoreConfigFlag($configPath);
+                }
+                if ($allow) {
+                    $this->merge((string)$child['handle']);
+                    // Adding merged layout handle to the list of applied hanles
+                    $this->addHandle((string)$child['handle']);
+                }
             }
         }
         return $this;
