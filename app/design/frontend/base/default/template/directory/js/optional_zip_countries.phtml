@@ -26,10 +26,8 @@
  * @see Mage_Core_Block_Template
  */
 ?>
-<?php
-$optional_zip_countries = $this->helper('directory')->getCountriesWithOptionalZip(false);
-if(!empty($optional_zip_countries)):
-  ?>
+<?php $optional_zip_countries = $this->helper('directory')->getCountriesWithOptionalZip(false) ?>
+<?php if(!empty($optional_zip_countries)): ?>
   <script>
   //<![CDATA[
   optionalZipCountries = <?php echo $this->helper('core')->jsonEncode($optional_zip_countries); ?>;
