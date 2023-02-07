@@ -114,7 +114,7 @@ Bundle.Option.prototype = {
         }
 
         //set selected is_require
-        if (data.required) {
+        if (typeof data.required !== 'undefined') {
             $A($(this.idLabel + '_'+data.index+'_required').options).each(function(option){
                 if (option.value==data.required) option.selected = true;
             });
