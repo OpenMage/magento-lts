@@ -28,11 +28,11 @@
 ?>
 <?php
 $optional_zip_countries = $this->helper('directory')->getCountriesWithOptionalZip(false);
-if(!empty($optional_zip_countries)) {
+if(!empty($optional_zip_countries)):
   ?>
   <script>
   //<![CDATA[
-  optionalZipCountries = <?php echo Mage::helper('core')->jsonEncode($optional_zip_countries); ?>;
+  optionalZipCountries = <?php echo $this->helper('core')->jsonEncode($optional_zip_countries); ?>;
   //]]>
   </script>
-<?php } ?>
+<?php endif ?>
