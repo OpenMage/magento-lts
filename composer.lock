@@ -5714,16 +5714,16 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.2.0.72",
+            "version": "11.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "83204e1a7a33ca958f9d1cc9c3b1b25f75270775"
+                "reference": "793c5d0f995988af690e2a278d0133df41638528"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/83204e1a7a33ca958f9d1cc9c3b1b25f75270775",
-                "reference": "83204e1a7a33ca958f9d1cc9c3b1b25f75270775",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/793c5d0f995988af690e2a278d0133df41638528",
+                "reference": "793c5d0f995988af690e2a278d0133df41638528",
                 "shasum": ""
             },
             "require": {
@@ -5734,11 +5734,6 @@
                 "bin/vendor-patches"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "10.3-dev"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -5746,7 +5741,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/11.2.0.72"
+                "source": "https://github.com/symplify/vendor-patches/tree/11.2.3"
             },
             "funding": [
                 {
@@ -5758,7 +5753,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-11T09:41:31+00:00"
+            "time": "2023-02-07T11:23:54+00:00"
         },
         {
             "name": "theseer/tokenizer",
