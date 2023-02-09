@@ -273,8 +273,8 @@ class Mage_CatalogInventory_Model_Observer
         $canRemoveErrorFromQuote = true;
 
         /** @var Mage_Sales_Model_Quote_Item $quoteItem */
-        foreach ($quoteItems as $quoteItem) {
-            if ($quoteItem->getItemId() == $item->getItemId()) {
+        foreach ($quoteItems as $quoteItemId => $quoteItem) {
+            if ($quoteItemId == $item->getItemId()) {
                 continue;
             }
 
