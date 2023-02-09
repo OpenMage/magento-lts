@@ -57,6 +57,7 @@
  * @method string getStoreLabel()
  * @method string getUsedForSortBy()
  * @method array getValidateRules()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
