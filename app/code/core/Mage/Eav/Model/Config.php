@@ -40,11 +40,11 @@ class Mage_Eav_Model_Config
 
     public const NUMERIC_ATTRIBUTE_COLUMNS = [
         // from table eav_attribute
-        "attribute_id",
-        "entity_type_id",
-        "is_required",
-        "is_user_defined",
-        "is_unique",
+        'attribute_id',
+        'entity_type_id',
+        'is_required',
+        'is_user_defined',
+        'is_unique',
     ];
 
     protected $_storeInitialized = [];
@@ -170,7 +170,6 @@ class Mage_Eav_Model_Config
             $this->_entityTypeAttributes[$storeId] = [];
             foreach ($this->_entityTypes as $entityType) {
                 $this->_loadEntityAttributes($entityType, $storeId);
-                // $this->_loadEntityDefaultAttributes($entityType, $storeId);
             }
         }
 
@@ -196,9 +195,6 @@ class Mage_Eav_Model_Config
         $entityTypeCollection = Mage::getResourceModel('eav/entity_type_collection');
         /** @var Mage_Eav_Model_Entity_Type $entityType */
         foreach ($entityTypeCollection as $entityType) {
-            // if (empty($entityType->getAttributeModel())) {
-            //     $entityType->setAttributeModel('eav/entity_attribute');
-            // }
             $this->_entityTypes[$entityType->getId()] = $entityType;
             $this->_entityTypeByCode[$entityType->getEntityTypeCode()] = $entityType;
         }
