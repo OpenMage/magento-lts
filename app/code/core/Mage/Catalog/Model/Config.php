@@ -330,17 +330,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedInProductListing()
     {
         if (is_null($this->_usedInProductListing)) {
+            $allAttributes = Mage::getSingleton('eav/config')
+                ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedInProductListing = [];
-            $entityType = Mage_Catalog_Model_Product::ENTITY;
-            $attributesData = $this->_getResource()
-                ->setStoreId($this->getStoreId())
-                ->getAttributesUsedInListing();
-            Mage::getSingleton('eav/config')
-                ->importAttributesData($entityType, $attributesData);
-            foreach ($attributesData as $attributeData) {
-                $attributeCode = $attributeData['attribute_code'];
-                $this->_usedInProductListing[$attributeCode] = Mage::getSingleton('eav/config')
-                    ->getAttribute($entityType, $attributeCode);
+            foreach ($allAttributes as $attribute) {
+                if ($attribute->getData('used_in_product_listing')) {
+                    $this->_usedInProductListing[$attribute->getAttributeCode()] = $attribute;
+                }
             }
         }
         return $this->_usedInProductListing;
@@ -354,16 +350,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedForSortBy()
     {
         if (is_null($this->_usedForSortBy)) {
+            $allAttributes = Mage::getSingleton('eav/config')
+                ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedForSortBy = [];
-            $entityType     = Mage_Catalog_Model_Product::ENTITY;
-            $attributesData = $this->_getResource()
-                ->getAttributesUsedForSortBy();
-            Mage::getSingleton('eav/config')
-                ->importAttributesData($entityType, $attributesData);
-            foreach ($attributesData as $attributeData) {
-                $attributeCode = $attributeData['attribute_code'];
-                $this->_usedForSortBy[$attributeCode] = Mage::getSingleton('eav/config')
-                    ->getAttribute($entityType, $attributeCode);
+            foreach ($allAttributes as $attribute) {
+                if ($attribute->getData('used_for_sort_by')) {
+                    $this->_usedForSortBy[$attribute->getAttributeCode()] = $attribute;
+                }
             }
         }
         return $this->_usedForSortBy;

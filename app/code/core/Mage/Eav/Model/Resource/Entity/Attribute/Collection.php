@@ -42,6 +42,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     protected $_addSetInfoFlag   = false;
 
     /**
+     * Tracks if addStoreLabel has been called to avoid conflicts on duplicate calls
+     *
+     * @var bool|int
+     */
+    protected $_addedStoreLabelsFlag = false;
+
+    /**
      * Resource model initialization
      *
      */
@@ -418,14 +425,21 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      */
     public function addStoreLabel($storeId)
     {
-        $adapter        = $this->getConnection();
-        $joinExpression = $adapter
-            ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $storeId);
-        $this->getSelect()->joinLeft(
-            ['al' => $this->getTable('eav/attribute_label')],
-            $joinExpression,
-            ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
-        );
+        // if not called previously
+        if ($this->_addedStoreLabelsFlag === false) {
+            $adapter = $this->getConnection();
+            $joinExpression = $adapter
+                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int)$storeId);
+            $this->getSelect()->joinLeft(
+                ['al' => $this->getTable('eav/attribute_label')],
+                $joinExpression,
+                ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
+            );
+            $this->_addedStoreLabelsFlag = $storeId;
+        } // check that previous call $storeId matches current call
+        elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+            throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
+        }
 
         return $this;
     }

@@ -67,11 +67,15 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getPurchasedSeparatelyAttribute()
     {
-        if (is_null($this->_purchasedSeparatelyAttribute)) {
+        if ($this->_purchasedSeparatelyAttribute === null) {
             $_attributeCode = 'links_purchased_separately';
 
-            $this->_purchasedSeparatelyAttribute = Mage::getModel('eav/entity_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+            if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
+                Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
+            }
+            $this->_purchasedSeparatelyAttribute = $attribute;
         }
 
         return $this->_purchasedSeparatelyAttribute;

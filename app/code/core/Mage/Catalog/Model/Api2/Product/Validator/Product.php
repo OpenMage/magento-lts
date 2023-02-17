@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         try {
             $this->_validateProductType($data);
             /** @var Mage_Eav_Model_Entity_Type $productEntity */
-            $productEntity = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
+            $productEntity = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
             $this->_validateAttributeSet($data, $productEntity);
             $this->_validateSku($data);
             $this->_validateGiftOptions($data);

@@ -96,46 +96,50 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
      * Retrieve Set info by attributes
      *
      * @param array $attributeIds
-     * @param int $setId
+     * @param int|null $setId
      * @return array
      */
-    public function getSetInfo(array $attributeIds, $setId = null)
+    public function getSetInfo(array $attributeIds = [], $setId = null)
     {
         $adapter = $this->_getReadAdapter();
         $setInfo = [];
         $attributeToSetInfo = [];
 
+        $select = $adapter->select()
+            ->from(
+                ['entity' => $this->getTable('eav/entity_attribute')],
+                ['attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order']
+            )
+            ->joinLeft(
+                ['attribute_group' => $this->getTable('eav/attribute_group')],
+                'entity.attribute_group_id = attribute_group.attribute_group_id',
+                ['group_sort_order' => 'sort_order']
+            );
         if (count($attributeIds) > 0) {
-            $select = $adapter->select()
-                ->from(
-                    ['entity' => $this->getTable('eav/entity_attribute')],
-                    ['attribute_id', 'attribute_set_id', 'attribute_group_id', 'sort_order']
-                )
-                ->joinLeft(
-                    ['attribute_group' => $this->getTable('eav/attribute_group')],
-                    'entity.attribute_group_id = attribute_group.attribute_group_id',
-                    ['group_sort_order' => 'sort_order']
-                )
-                ->where('entity.attribute_id IN (?)', $attributeIds);
-            $bind = [];
-            if (is_numeric($setId)) {
-                $bind[':attribute_set_id'] = $setId;
-                $select->where('entity.attribute_set_id = :attribute_set_id');
-            }
-            $result = $adapter->fetchAll($select, $bind);
+            $select->where('entity.attribute_id IN (?)', $attributeIds);
+        }
+        $bind = [];
+        if (is_numeric($setId)) {
+            $bind[':attribute_set_id'] = $setId;
+            $select->where('entity.attribute_set_id = :attribute_set_id');
+        }
+        $result = $adapter->fetchAll($select, $bind);
 
-            foreach ($result as $row) {
-                $data = [
-                    'group_id'      => $row['attribute_group_id'],
-                    'group_sort'    => $row['group_sort_order'],
-                    'sort'          => $row['sort_order']
-                ];
-                $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
-            }
+        foreach ($result as $row) {
+            $data = [
+                'group_id' => $row['attribute_group_id'],
+                'group_sort' => $row['group_sort_order'],
+                'sort' => $row['sort_order']
+            ];
+            $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
         }
 
-        foreach ($attributeIds as $atttibuteId) {
-            $setInfo[$atttibuteId] = $attributeToSetInfo[$atttibuteId] ?? [];
+        if (count($attributeIds)) {
+            foreach ($attributeIds as $atttibuteId) {
+                $setInfo[$atttibuteId] = $attributeToSetInfo[$atttibuteId] ?? [];
+            }
+        } else {
+            return $attributeToSetInfo;
         }
 
         return $setInfo;
