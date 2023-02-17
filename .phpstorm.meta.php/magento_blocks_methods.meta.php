@@ -2,6 +2,7 @@
 namespace PHPSTORM_META {
     override( \Mage_Core_Model_Layout::createBlock(0),
         map( [
+            'fballiano_ga4enhancedcomerce/product' => \Fballiano_Ga4EnhancedComerce_Block_Product::class,
             'adminhtml/abstract' => \Mage_Adminhtml_Block_Abstract::class,
             'adminhtml/api_buttons' => \Mage_Adminhtml_Block_Api_Buttons::class,
             'adminhtml/api_editroles' => \Mage_Adminhtml_Block_Api_Editroles::class,
