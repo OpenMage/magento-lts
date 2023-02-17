@@ -105,6 +105,7 @@ class Varien_Object_Mapper
                     $to[$keyTo] = $value;
                 }
             } elseif ($toIsVO) {
+                /** @var Varien_Object $to */
                 if (!$to->hasData($keyTo)) {
                     $to->$set($keyTo, $value);
                 }
