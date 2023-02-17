@@ -7671,16 +7671,6 @@ parameters:
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 8
-			path: lib/Varien/Io/File.php
-
-		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
