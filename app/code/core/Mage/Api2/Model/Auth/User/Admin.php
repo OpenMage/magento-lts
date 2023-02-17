@@ -92,7 +92,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     public function setRole($role)
     {
         if ($this->_role) {
-            throw new Exception('Admin role has been already set to '.$this->_role.' for user ID '.$this->getUserId());
+            throw new Exception('Admin role has been already set to ' . $this->_role . ' for user ID ' . $this->getUserId());
         }
         $this->_role = $role;
 
