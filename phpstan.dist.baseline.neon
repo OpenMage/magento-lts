@@ -7681,36 +7681,6 @@ parameters:
 			path: lib/Varien/Io/File.php
 
 		-
-			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Offset 'function' on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$ids$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$references$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
 			message: "#^Cannot call method hasData\\(\\) on array\\|\\(callable\\)\\|object\\.$#"
 			count: 1
 			path: lib/Varien/Object/Mapper.php
