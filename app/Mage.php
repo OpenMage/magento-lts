@@ -646,7 +646,8 @@ final class Mage
      */
     public static function throwException($message, $messageStorage = null)
     {
-        if ($messageStorage && ($storage = self::getSingleton($messageStorage))) {
+        if ($messageStorage) {
+            $storage = self::getSingleton($messageStorage);
             $storage->addError($message);
         }
         throw new Mage_Core_Exception($message);

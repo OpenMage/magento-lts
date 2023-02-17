@@ -11,11 +11,6 @@ parameters:
 			path: app/Mage.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/Mage.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Config.php
