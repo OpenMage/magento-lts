@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-151-orange.svg" alt="All Contributors"></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-152-orange.svg" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
@@ -206,7 +206,8 @@ Do not use 20.x.x if you need IE support.
 - reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))
 - removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
-- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -550,6 +551,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AGelzer"><img src="https://avatars.githubusercontent.com/u/34437931?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Gelzer</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
     </tr>
   </tbody>
 </table>
