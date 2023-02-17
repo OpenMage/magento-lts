@@ -7656,11 +7656,6 @@ parameters:
 			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\\=\" between string and 1024 results in an error\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
 			message: "#^Class GdImage not found\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
