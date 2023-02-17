@@ -63,7 +63,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
             /** @var Mage_Api2_Model_Acl_Global_Role $role */
             $role = $collection->getFirstItem();
             if (!$role->getId()) {
-                throw new Exception('Admin role for user ID '.$this->getUserId().' not found');
+                throw new Exception('Admin role for user ID ' . $this->getUserId() . ' not found');
             }
 
             $this->setRole($role->getId());
