@@ -71,26 +71,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
