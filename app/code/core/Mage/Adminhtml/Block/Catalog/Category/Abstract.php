@@ -40,8 +40,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
     public function getCategoryId()
     {
-        if ($this->getCategory()) {
-            return $this->getCategory()->getId();
+        $category = $this->getCategory();
+        if (is_object($category) && $category->getId()) {
+            return $category->getId();
         }
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
@@ -53,7 +54,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
 
     public function getCategoryPath()
     {
-        if ($this->getCategory()) {
+        $category = $this->getCategory();
+        if (is_object($category) && $category->getId()) {
             return $this->getCategory()->getPath();
         }
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
@@ -93,8 +95,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $tree = Mage::getResourceSingleton('catalog/category_tree')
                 ->load(null, $recursionLevel);
 
-            if ($this->getCategory()) {
-                $tree->loadEnsuredNodes($this->getCategory(), $tree->getNodeById($rootId));
+            $category = $this->getCategory();
+            if (is_object($category) and $category->getId()) {
+                $tree->loadEnsuredNodes($category, $tree->getNodeById($rootId));
             }
 
             $tree->addCollectionData($this->getCategoryCollection());
@@ -130,6 +133,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
             $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
             $tree   = $categoryTreeResource->loadByIds($ids);
+            $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             $root   = $tree->getNodeById($rootId);
             if ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setName(Mage::helper('catalog')->__('Root'));
@@ -145,9 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     {
         $tree = Mage::getResourceModel('catalog/category_tree');
 
-        $nodeId     = $parentNodeCategory->getId();
-        $parentId   = $parentNodeCategory->getParentId();
-
+        $nodeId = $parentNodeCategory->getId();
         $node = $tree->loadNode($nodeId);
         $node->loadChildren($recursionLevel);
 
