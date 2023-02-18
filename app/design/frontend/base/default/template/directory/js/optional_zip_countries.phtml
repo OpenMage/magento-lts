@@ -30,7 +30,7 @@
 <?php if(!empty($optional_zip_countries)): ?>
   <script>
     //<![CDATA[
-    <?php echo $this->helper('core')->jsonEncode($optional_zip_countries); ?>;
+    optionalZipCountries = <?php echo $this->helper('core')->jsonEncode($optional_zip_countries); ?>;
     //]]>
   </script>
 <?php endif ?>
