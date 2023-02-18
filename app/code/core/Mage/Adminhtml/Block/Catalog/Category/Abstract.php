@@ -130,11 +130,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
             $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
             $tree   = $categoryTreeResource->loadByIds($ids);
-            $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
             $root   = $tree->getNodeById($rootId);
-            if ($root && $rootId != Mage_Catalog_Model_Category::TREE_ROOT_ID) {
-                $root->setIsVisible(true);
-            } elseif ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
+            if ($root && $root->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
                 $root->setName(Mage::helper('catalog')->__('Root'));
             }
 
