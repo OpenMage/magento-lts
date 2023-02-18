@@ -24,7 +24,17 @@ $_helper = $this->helper('googleanalytics');
 $_accountId = $_helper->getAccountId();
 ?>
 <?php if (!$this->helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
-    <?php if($_helper->isUseUniversalAnalytics()): ?>
+    <?php if ($_helper->isUseAnalytics4()): ?>
+        <!-- BEGIN GOOGLE ANALYTICS 4 CODE -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $_accountId ?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '<?= $_accountId ?>');
+        </script>
+        <!-- END GOOGLE ANALYTICS 4 CODE -->
+    <?php elseif ($_helper->isUseUniversalAnalytics()): ?>
         <!-- BEGIN GOOGLE UNIVERSAL ANALYTICS CODE -->
         <script type="text/javascript">
         //<![CDATA[
