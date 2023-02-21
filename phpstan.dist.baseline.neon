@@ -4551,11 +4551,6 @@ parameters:
 			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
 
 		-
-			message: "#^Method Mage_GoogleAnalytics_Helper_Data\\:\\:isUseUniversalAnalytics\\(\\) should return string but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Helper/Data.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_GoogleCheckout_Model_Payment\\:\\:authorize\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Abstract\\)\\) of method Mage_Payment_Model_Method_Abstract\\:\\:authorize\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
