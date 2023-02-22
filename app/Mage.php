@@ -526,7 +526,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Mage_Core_Model_Abstract
+     * @return  Mage_Core_Model_Abstract|false
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
@@ -646,8 +646,7 @@ final class Mage
      */
     public static function throwException($message, $messageStorage = null)
     {
-        if ($messageStorage) {
-            $storage = self::getSingleton($messageStorage);
+        if ($messageStorage && ($storage = self::getSingleton($messageStorage))) {
             $storage->addError($message);
         }
         throw new Mage_Core_Exception($message);
