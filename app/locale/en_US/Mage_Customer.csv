@@ -457,7 +457,7 @@
 "View Order","View Order"
 "Visitor","Visitor"
 "Visitors Only","Visitors Only"
-"Warning: an email containing the plaintext password will be sent.","Warning: an email containing the plaintext password will be sent."
+"<strong style=""color:red"">Warning!</strong> An email containing the plaintext password will be sent.","<strong style=""color:red"">Warning!</strong> An email containing the plaintext password will be sent."
 "Website","Website"
 "Welcome Email","Welcome Email"
 "Wishlist","Wishlist"
