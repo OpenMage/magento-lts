@@ -56,11 +56,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
                 $('{$element->getHtmlId()}_container').hide();
                 $('{$element->getHtmlId()}').disable();
             }
-            if ($('email-passowrd-warning')) {
+            if ($('email-password-warning')) {
                 if (!$('_accountnew_password').getValue() || $('account-send-pass').checked) {
-                    $('email-passowrd-warning').hide();
+                    $('email-password-warning').hide();
                 } else if ($('_accountnew_password').getValue()) {
-                    $('email-passowrd-warning').show();
+                    $('email-password-warning').show();
                 }
             }
         });
