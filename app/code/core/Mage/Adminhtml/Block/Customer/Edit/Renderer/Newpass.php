@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
         if ($element->getNote()) {
             $html .= '<p class="note"><span>' . $element->getNote() . '</span></p>';
         }
-        $html .= '<p id="email-passowrd-warning" style="display:none;" class="note"><span>' . Mage::helper('customer')->__('Warning: an email containing the plaintext password will be sent.') . '</span></p>';
+        $html .= '<p id="email-password-warning" style="display:none;" class="note"><span>' . Mage::helper('customer')->__('<strong style=""color:red"">Warning!</strong> An email containing the plaintext password will be sent.') . '</span></p>';
         $html .= '</td>';
         $html .= '</tr>' . "\n";
         $html .= '<tr>';
