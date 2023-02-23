@@ -72,7 +72,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @var resource|null
      */
-    protected $_streamHandler = null;
+    protected $_streamHandler;
 
     /**
      * Stream mode filename
