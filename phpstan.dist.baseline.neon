@@ -6,11 +6,6 @@ parameters:
 			path: app/Mage.php
 
 		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/Mage.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Config.php
@@ -5146,44 +5141,9 @@ parameters:
 			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\\=\" between string and 1024 results in an error\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
 			message: "#^Class GdImage not found\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Offset 'function' on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$ids$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$references$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Cannot call method hasData\\(\\) on array\\|\\(callable\\)\\|object\\.$#"
-			count: 1
-			path: lib/Varien/Object/Mapper.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
