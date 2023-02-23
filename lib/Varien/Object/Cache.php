@@ -33,7 +33,7 @@ class Varien_Object_Cache
      *
      * @var Varien_Object_Cache|null
      */
-    protected static $_instance = null;
+    protected static $_instance;
 
     /**
      * Running object index for anonymous objects
