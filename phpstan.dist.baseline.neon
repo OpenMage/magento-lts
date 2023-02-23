@@ -3486,17 +3486,7 @@ parameters:
 			path: app/code/core/Mage/Paypal/Block/Payflow/Link/Info.php
 
 		-
-			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initCheckout\\(\\) should return Mage_Paypal_Model_Express_Checkout but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
 			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initToken\\(\\) should return Mage_Paypal_ExpressController\\|string but returns \\$this\\(Mage_Paypal_Controller_Express_Abstract\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_checkout \\(Mage_Paypal_Model_Express_Checkout\\) does not accept Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
