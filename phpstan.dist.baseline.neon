@@ -311,11 +311,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:toOptionArray\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Mage_Core_Model_Config_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
@@ -1166,11 +1161,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:loadSelf\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Product_Flat\\:\\:\\$_forceFlatStatusOld \\(bool\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
@@ -1749,11 +1739,6 @@ parameters:
 			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
-
-		-
-			message: "#^Method Mage_CatalogIndex_Model_Retreiver\\:\\:getRetreiver\\(\\) should return Mage_CatalogIndex_Model_Data_Abstract but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Retreiver.php
 
 		-
 			message: "#^Method Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\\:\\:_getGroupRenderer\\(\\) should return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -3394,16 +3379,6 @@ parameters:
 			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:authenticate\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Property Mage_Oauth_Customer_TokenController\\:\\:\\$_session \\(Mage_Customer_Model_Session\\) does not accept Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
 
 		-
 			message: "#^Property Mage_Oauth_Customer_TokenController\\:\\:\\$_sessionName \\(Mage_Customer_Model_Session\\) does not accept default value of type string\\.$#"
