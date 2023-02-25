@@ -229,6 +229,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param Varien_Simplexml_Element $section
      * @param string $fieldPrefix
      * @param string $labelPrefix
+     * @throw Mage_Core_Exception
      * @return $this
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix = '', $labelPrefix = '')
@@ -423,6 +424,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
 
                     $sourceModel = Mage::getSingleton($factoryName);
+                    if (!$sourceModel) {
+                        Mage::throwException("Entity type model '{$factoryName}' is not found");
+                    }
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
@@ -435,7 +439,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $optionArray[] = ['label' => $label, 'value' => $value];
                             }
                         }
-                    } else {
+                    } elseif (method_exists($sourceModel, 'toOptionArray')) {
                         $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
                     }
                     $field->setValues($optionArray);

@@ -97,13 +97,17 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * Retrieve Catalog Product Flat Flag object
      *
      * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @throws Mage_Core_Exception
      */
     public function getFlag()
     {
         if (is_null($this->_flagObject)) {
             $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
-            $this->_flagObject = Mage::getSingleton($className)
-                ->loadSelf();
+            $this->_flagObject = Mage::getSingleton($className);
+            if (!method_exists($this->_flagObject, 'loadSelf')) {
+                Mage::throwException('Method "loadSelf" is not defined in "' . get_class($this->_flagObject) . '"');
+            }
+            $this->_flagObject->loadSelf();
         }
         return $this->_flagObject;
     }
