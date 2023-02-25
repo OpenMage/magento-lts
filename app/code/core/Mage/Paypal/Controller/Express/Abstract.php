@@ -457,11 +457,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
-        $this->_checkout = Mage::getSingleton($this->_checkoutType, [
+
+        $classInstance = Mage::getSingleton($this->_checkoutType, [
             'config' => $this->_config,
             'quote'  => $quote,
         ]);
+        if (!$classInstance instanceof Mage_Paypal_Model_Express_Checkout) {
+            Mage::throwException($className . ' should be of type Mage_Paypal_Model_Express_Checkout');
+        }
 
+        $this->_checkout = $classInstance;
         return $this->_checkout;
     }
 

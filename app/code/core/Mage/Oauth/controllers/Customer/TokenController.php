@@ -52,7 +52,11 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     public function preDispatch()
     {
         parent::preDispatch();
-        $this->_session = Mage::getSingleton($this->_sessionName);
+        $classInstance = Mage::getSingleton($this->_sessionName);
+        if (!$classInstance instanceof Mage_Customer_Model_Session) {
+            Mage::throwException($className . ' should be of type Mage_Customer_Model_Session');
+        }
+        $this->_session = $classInstance;
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
