@@ -474,7 +474,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Combined getter/setter
      *
      * @param string $setToken
-     * @return Mage_Paypal_ExpressController|string
+     * @return Mage_Paypal_Controller_Express_Abstract|string
      */
     protected function _initToken($setToken = null)
     {
