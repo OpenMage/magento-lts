@@ -89,7 +89,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Old Catalog Product Flat forced status
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_forceFlatStatusOld;
 
@@ -103,10 +103,8 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     {
         if (is_null($this->_flagObject)) {
             $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
+            /** @var Mage_Catalog_Model_Product_Flat_Flag $classInstance */
             $classInstance = Mage::getSingleton($className);
-            if (!$classInstance instanceof Mage_Catalog_Model_Product_Flat_Flag) {
-                Mage::throwException($className . ' should be of type Mage_Catalog_Model_Product_Flat_Flag');
-            }
             $this->_flagObject = $classInstance;
             $this->_flagObject->loadSelf();
         }
