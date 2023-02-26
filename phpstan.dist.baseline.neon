@@ -71,11 +71,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
@@ -1831,16 +1826,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
@@ -3471,11 +3456,6 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Cc.php
-
-		-
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:exportStartDatetime\\(\\) should return string\\|Zend_Date but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
@@ -3837,11 +3817,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type Mage_Reports_Model_Report supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
@@ -4284,11 +4259,6 @@ parameters:
 			message: "#^Method Mage_Sales_Billing_AgreementController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Billing_AgreementController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
-
-		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
 
 		-
 			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but empty return statement found\\.$#"
