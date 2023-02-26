@@ -39,7 +39,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|false
      */
     protected $_quote = false;
 
@@ -64,7 +64,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected function _construct()
     {
         parent::_construct();
-        $this->_config = Mage::getModel($this->_configType, [$this->_configMethod]);
+        /** @var Mage_Paypal_Model_Config $classInstance */
+        $classInstance = Mage::getModel($this->_configType, [$this->_configMethod]);
+        $this->_config = $classInstance;
     }
 
     /**
@@ -458,14 +460,11 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
 
+        /** @var Mage_Paypal_Model_Express_Checkout $classInstance */
         $classInstance = Mage::getSingleton($this->_checkoutType, [
             'config' => $this->_config,
             'quote'  => $quote,
         ]);
-        if (!$classInstance instanceof Mage_Paypal_Model_Express_Checkout) {
-            Mage::throwException($className . ' should be of type Mage_Paypal_Model_Express_Checkout');
-        }
-
         $this->_checkout = $classInstance;
         return $this->_checkout;
     }
