@@ -103,7 +103,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * @param bool $useCache reuse local cache for collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
-    public function getAttributeCollection(int $setId = null, bool $useCache = true)
+    public function getAttributeCollection($setId = null, $useCache = true)
     {
         if ($useCache) {
             if ($setId === null && $this->_attributes !== null) {
