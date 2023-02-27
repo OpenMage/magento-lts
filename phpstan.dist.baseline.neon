@@ -486,11 +486,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/PollController.php
-
-		-
 			message: "#^Cannot call method aggregate\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php
@@ -732,11 +727,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Api2_Model_Resource\\:\\:_multiDelete\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			message: "#^Call to function method_exists\\(\\) with Varien_Data_Collection_Db and 'addFieldToFilter' will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
@@ -1414,11 +1404,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api_V2\\:\\:_prepareImageData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api\\:\\:_prepareImageData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api/V2.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$customer_group_id\\.$#"
@@ -2564,11 +2549,6 @@ parameters:
 			message: "#^Method Mage_Customer_Block_Newsletter\\:\\:getAction\\(\\) should return Mage_Core_Controller_Varien_Action but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Address.php
 
 		-
 			message: "#^Property Mage_Customer_Helper_Data\\:\\:\\$_customer \\(Mage_Customer_Model_Customer\\) in empty\\(\\) is not falsy\\.$#"
@@ -4571,11 +4551,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Config/Price/Include.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Calculation.php
-
-		-
 			message: "#^Return type \\(array\\) of method Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Nominal/Tax.php
@@ -4752,11 +4727,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:setXMLAccessRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^PHPDoc tag @var with type SimpleXMLElement is not subtype of native type null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
@@ -5222,11 +5192,6 @@ parameters:
 
 		-
 			message: "#^Class GdImage not found\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and false will always evaluate to true\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
 
