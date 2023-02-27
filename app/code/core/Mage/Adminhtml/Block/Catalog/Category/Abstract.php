@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     public function getCategoryId()
     {
         if ($this->getCategory()) {
-            return $category->getId();
+            return $this->getCategory()->getId();
         }
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
