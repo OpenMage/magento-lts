@@ -93,9 +93,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $tree = Mage::getResourceSingleton('catalog/category_tree')
                 ->load(null, $recursionLevel);
 
-            $category = $this->getCategory();
-            if (is_object($category) && $category->getId()) {
-                $tree->loadEnsuredNodes($category, $tree->getNodeById($rootId));
+            if ($this->getCategory()) {
+                $tree->loadEnsuredNodes($this->getCategory(), $tree->getNodeById($rootId));
             }
 
             $tree->addCollectionData($this->getCategoryCollection());
