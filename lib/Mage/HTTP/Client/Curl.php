@@ -104,7 +104,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * User ovverides options hash
      * Are applied before curl_exec
      *
-     * @var array();
+     * @var array
      */
     protected $_curlUserOptions = [];
 

@@ -71,11 +71,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
@@ -1231,6 +1226,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
 		-
+			message: "#^Strict comparison using \\!\\=\\= between mixed and 0 will always evaluate to true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
+
+		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:formatUrlKey\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Attribute/Backend/Urlkey/Abstract.php
@@ -1516,6 +1516,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
+			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of native type non\\-empty\\-array\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
 			message: "#^Right side of \\|\\| is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
@@ -1621,6 +1626,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
+			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
+
+		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media\\:\\:insertGallery\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Media.php
@@ -1699,6 +1709,11 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
+
+		-
+			message: "#^Loose comparison using \\=\\= between true and true will always evaluate to true\\.$#"
+			count: 2
+			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
 			message: "#^Property Mage_Catalog_Model_Url\\:\\:\\$_saveRewritesHistory \\(bool\\) on left side of \\?\\? is not nullable\\.$#"
@@ -1796,6 +1811,11 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
 
 		-
+			message: "#^Call to function is_numeric\\(\\) with int will always evaluate to true\\.$#"
+			count: 1
+			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
+
+		-
 			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
@@ -1831,16 +1851,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
@@ -1859,6 +1869,11 @@ parameters:
 			message: "#^Variable \\$ninProductIds in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
+
+		-
+			message: "#^Loose comparison using \\=\\= between numeric\\-string and '' will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
 
 		-
 			message: "#^Property Mage_Checkout_Block_Cart_Shipping\\:\\:\\$_address \\(array\\) does not accept Mage_Sales_Model_Quote_Address\\.$#"
@@ -1891,6 +1906,11 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Onepage/Success.php
 
 		-
+			message: "#^PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/Model/Api/Resource/Product.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Coupon/Api.php
@@ -1906,12 +1926,22 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
+			count: 2
+			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
+
+		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
 			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Payment_Api_V2\\:\\:_preparePaymentData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Payment_Api\\:\\:_preparePaymentData\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
@@ -2572,6 +2602,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Customer_Model_Customer_Api_V2\\:\\:_prepareData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Customer_Model_Customer_Api\\:\\:_prepareData\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
@@ -3471,7 +3506,7 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
@@ -3716,6 +3751,11 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
+			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Product is not subtype of native type 0\\|0\\.0\\|''\\|'0'\\|array\\{\\}\\|false\\|null\\.$#"
+			count: 1
+			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
+
+		-
 			message: "#^Method Mage_Rating_Model_Resource_Rating\\:\\:getEntityIdByCode\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
@@ -3841,7 +3881,7 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
 		-
-			message: "#^If condition is always false\\.$#"
+			message: "#^Loose comparison using \\!\\= between 0 and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
@@ -4166,6 +4206,11 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php
 
 		-
+			message: "#^Instanceof between Mage_Sales_Model_Quote_Item_Option and Mage_Sales_Model_Quote_Item_Option will always evaluate to true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Sales/Model/Quote/Item.php
+
+		-
 			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
@@ -4284,11 +4329,6 @@ parameters:
 			message: "#^Method Mage_Sales_Billing_AgreementController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Billing_AgreementController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
-
-		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
 
 		-
 			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but empty return statement found\\.$#"
@@ -4816,11 +4856,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
 
 		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
 			message: "#^Method Mage_Wishlist_IndexController\\:\\:_addItemToWishList\\(\\) with return type void returns mixed but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
@@ -5114,6 +5149,11 @@ parameters:
 			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/File/Uploader/Image.php
+
+		-
+			message: "#^Call to function is_callable\\(\\) with array\\{\\$this\\(Varien_Filter_Template\\), 'dependDirective'\\|'ifDirective'\\} will always evaluate to true\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template.php
 
 		-
 			message: "#^Right side of && is always false\\.$#"
