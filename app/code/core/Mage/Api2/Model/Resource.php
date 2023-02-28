@@ -765,12 +765,11 @@ abstract class Mage_Api2_Model_Resource
         if (!is_array($filter)) {
             $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
         }
+
         if (method_exists($collection, 'addAttributeToFilter')) {
             $methodName = 'addAttributeToFilter';
-        } elseif (method_exists($collection, 'addFieldToFilter')) {
-            $methodName = 'addFieldToFilter';
         } else {
-            return $this;
+            $methodName = 'addFieldToFilter';
         }
         $allowedAttributes = $this->getFilter()->getAllowedAttributes(self::OPERATION_ATTRIBUTE_READ);
 
