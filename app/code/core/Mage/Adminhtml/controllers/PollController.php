@@ -141,24 +141,22 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
                 }
 
-                if (is_array($stores)) {
-                    $storeIds = [];
-                    foreach ($stores as $storeIdList) {
-                        $storeIdList = explode(',', $storeIdList);
-                        if (!$storeIdList) {
-                            continue;
-                        }
-                        foreach ($storeIdList as $storeId) {
-                            if ($storeId > 0) {
-                                $storeIds[] = $storeId;
-                            }
+                $storeIds = [];
+                foreach ($stores as $storeIdList) {
+                    $storeIdList = explode(',', $storeIdList);
+                    if (!$storeIdList) {
+                        continue;
+                    }
+                    foreach ($storeIdList as $storeId) {
+                        if ($storeId > 0) {
+                            $storeIds[] = $storeId;
                         }
                     }
-                    if (count($storeIds) === 0) {
-                        Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
-                    }
-                    $pollModel->setStoreIds($storeIds);
                 }
+                if (count($storeIds) === 0) {
+                    Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
+                }
+                $pollModel->setStoreIds($storeIds);
 
                 $answers = $this->getRequest()->getParam('answer');
 
@@ -166,23 +164,21 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, add some answers to this poll first.'));
                 }
 
-                if (is_array($answers)) {
-                    $_titles = [];
-                    foreach ($answers as $key => $answer) {
-                        if (in_array($answer['title'], $_titles)) {
-                            Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));
-                        }
-                        $_titles[] = $answer['title'];
-
-                        $answerModel = Mage::getModel('poll/poll_answer');
-                        if ((int) $key > 0) {
-                            $answerModel->setId($key);
-                        }
-                        $answerModel->setAnswerTitle($answer['title'])
-                            ->setVotesCount($answer['votes']);
-
-                        $pollModel->addAnswer($answerModel);
+                $_titles = [];
+                foreach ($answers as $key => $answer) {
+                    if (in_array($answer['title'], $_titles)) {
+                        Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));
                     }
+                    $_titles[] = $answer['title'];
+
+                    $answerModel = Mage::getModel('poll/poll_answer');
+                    if ((int) $key > 0) {
+                        $answerModel->setId($key);
+                    }
+                    $answerModel->setAnswerTitle($answer['title'])
+                        ->setVotesCount($answer['votes']);
+
+                    $pollModel->addAnswer($answerModel);
                 }
 
                 $pollModel->save();

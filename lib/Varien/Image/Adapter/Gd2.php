@@ -440,8 +440,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             'Unsupported watermark image format.'
         ), $watermarkImage);
 
-        $merged = false;
-
         if ($this->getWatermarkWidth() &&
             $this->getWatermarkHeigth() &&
             ($this->getWatermarkPosition() != self::POSITION_STRETCH)
@@ -559,7 +557,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             );
         }
 
-        if ($repeat === false && $merged === false) {
+        if ($repeat === false) {
             imagecopymerge(
                 $this->_imageHandler,
                 $watermark,
