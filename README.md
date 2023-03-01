@@ -21,7 +21,6 @@ level of backwards compatibility to the official releases.
 ## Table of contents
 
 - [Requirements](#requirements)
-  - [Optional](#optional)
 - [Installation](#installation)
   - [Manual Install](#manual-install)
   - [Composer](#composer)
