@@ -36,7 +36,7 @@ level of backwards compatibility to the official releases.
   - [New Events](#new-events)
   - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
 - [Development Environment with ddev](#development-environment-with-ddev)
-- [Development with PHP 8.1](#development-with-php-81)
+- [Development with PHP 8.1+](#development-with-php-81)
 - [PhpStorm Factory Helper](#phpstorm-factory-helper)
 - [Versioning](#versioning)
 - [Public Communication](#public-communication)
