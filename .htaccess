@@ -197,6 +197,7 @@
     ExpiresByType text/x-javascript "access plus 1 month"
     ExpiresByType application/x-shockwave-flash "access plus 1 month"
     ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresDefault "access plus 2 days"
 </IfModule>
 
