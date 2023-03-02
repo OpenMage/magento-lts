@@ -28,7 +28,9 @@ VarienForm.prototype = {
         this.cache      = $A();
         this.currLoader = false;
         this.currDataIndex = false;
-        this.validator  = new Validation(this.form);
+        if (typeof Validation === 'function') {
+            this.validator  = new Validation(this.form);
+        }
         this.elementFocus   = this.elementOnFocus.bindAsEventListener(this);
         this.elementBlur    = this.elementOnBlur.bindAsEventListener(this);
         this.childLoader    = this.onChangeChildLoad.bindAsEventListener(this);
@@ -187,7 +189,9 @@ RegionUpdater.prototype = {
         var regionRequired = this.config.regions_required.indexOf(this.countryEl.value) >= 0;
 
         elements.each(function(currentElement) {
-            Validation.reset(currentElement);
+            if (typeof Validation !== 'undefined') {
+                Validation.reset(currentElement);
+            }
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
@@ -293,7 +297,9 @@ RegionUpdater.prototype = {
                     this.regionTextEl.style.display = '';
                 }
                 this.regionSelectEl.style.display = 'none';
-                Validation.reset(this.regionSelectEl);
+                if (typeof Validation !== 'undefined') {
+                    Validation.reset(this.regionSelectEl);
+                }
             } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = false;
@@ -373,7 +379,9 @@ ZipUpdater.prototype = {
 
         // Ajax-request and normal content load compatibility
         if (this.zipElement != undefined) {
-            Validation.reset(this.zipElement);
+            if (typeof Validation !== 'undefined') {
+                Validation.reset(this.zipElement);
+            }
             this._setPostcodeOptional();
         } else {
             Event.observe(window, "load", this._setPostcodeOptional.bind(this));
