@@ -632,7 +632,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
          * Collecting typed attributes, performing separate SQL query for each attribute type table
          */
         if ($typedAttributes) {
-
             if ($store instanceof Mage_Core_Model_Store) {
                 $store = $store->getId();
             }
@@ -640,7 +639,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             $store = (int)$store;
 
             foreach ($typedAttributes as $table => $_attributes) {
-
                 $defaultJoinCondition = [
                     $adapter->quoteInto('default_value.attribute_id IN (?)', array_keys($_attributes)),
                     'default_value.entity_type_id = :entity_type_id_default',
