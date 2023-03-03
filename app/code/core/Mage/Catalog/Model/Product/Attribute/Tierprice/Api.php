@@ -122,10 +122,6 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             return null;
         }
 
-        if (!is_array($tierPrices)) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
-        }
-
         $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
