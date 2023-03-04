@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="categories-side-col">
@@ -30,7 +25,7 @@
         <?php if ($this->getRoot()): ?>
             <?php echo $this->getAddRootButtonHtml() ?><br />
             <?php echo $this->getAddSubButtonHtml() ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
@@ -38,7 +33,7 @@
             <?php //echo $this->getCollapseButtonHtml() ?>
             <?php //echo $this->getExpandButtonHtml() ?>
             <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <?php if ($this->getRoot()): ?>
     <div class="tree-holder">
@@ -267,7 +262,7 @@ function _renderNewTree(config, storeParam)
     if (selectedNode) {
         url = url + 'id/' + config.parameters.category_id;
     }
-    <?php endif;?>
+    <?php endif ?>
     updateContent(url);
 }
 
@@ -374,7 +369,7 @@ Ext.onReady(function()
         parameters : {
             text        : '<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
             draggable   : false,
-            allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else : ?>false<?php endif; ?>,
+            allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
             id          : <?php echo (int) $this->getRoot()->getId() ?>,
             expanded    : <?php echo (int) $this->getIsWasExpanded() ?>,
             store_id    : <?php echo (int) $this->getStore()->getId() ?>,
@@ -386,20 +381,27 @@ Ext.onReady(function()
     reRenderTree();
 });
 
-function addNew(url, isRoot)
+function addNew(url, isRoot, node)
 {
     if (isRoot) {
+        if (tree.currentNodeId && (node = tree.getNodeById(tree.currentNodeId))) {
+            node.unselect();
+        }
         tree.currentNodeId = tree.root.id;
+    }
+    else if (!tree.currentNodeId || (tree.currentNodeId == tree.root.id)) {
+        alert("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select a parent category before adding a new one.')) ?>");
+        return;
     }
 
     if (/store\/\d+/.test(url)) {
         url = url.replace(/store\/\d+/, "store/" + tree.storeId);
     }
-    else    {
-        url+= "store/" + tree.storeId + "/";
+    else {
+        url += "store/" + tree.storeId + "/";
     }
 
-    url+= 'parent/'+tree.currentNodeId;
+    url += 'parent/' + tree.currentNodeId + '/';
     updateContent(url);
 }
 
@@ -477,4 +479,4 @@ function categoryMove(obj)
 }
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>

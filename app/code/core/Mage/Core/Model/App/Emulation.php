@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Emulation model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App_Emulation extends Varien_Object
 {
@@ -48,11 +43,9 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     protected $_app;
 
     /**
-     * Constructor
-     *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -65,9 +58,9 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function returns information about initial store environment and emulates environment of another store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @param string $area
-     * @param boolean $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
+     * @param bool $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
      *
      * @return Varien_Object information about environment of the initial store
      */
@@ -95,7 +88,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             ->setInitialLocaleCode($initialLocaleCode);
 
         Mage::app()->getTranslator()->init($area, true);
-        
+
         return $initialEnvironmentInfo;
     }
 
@@ -124,10 +117,10 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function disables inline translation if $storeId is null
      *
-     * @param integer|null $storeId
+     * @param int|null $storeId
      * @param string $area
      *
-     * @return boolean initial inline translation state
+     * @return bool initial inline translation state
      */
     protected function _emulateInlineTranslation($storeId = null, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {
@@ -149,18 +142,18 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply design of the specified store
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @param string $area
      *
      * @return array initial design parameters(package, store, area)
      */
     protected function _emulateDesign($storeId, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {
-        $initialDesign = Mage::getDesign()->setAllGetOld(array(
+        $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
             'area'    => $area
-        ));
+        ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');
         return $initialDesign;
@@ -169,7 +162,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply locale of the specified store
      *
-     * @param integer $storeId
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId
      * @param string $area
      *
      * @return string initial locale code
@@ -189,7 +182,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)
@@ -200,7 +193,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Restore initial inline translation state
      *
-     * @param boolean $initialTranslateInline
+     * @param bool $initialTranslateInline
      *
      * @return $this
      */

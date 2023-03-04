@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
 {
@@ -37,14 +32,14 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      * Xml config path to customers sharing scope value
      *
      */
-    const XML_PATH_CUSTOMER_ACCOUNT_SHARE = 'customer/account_share/scope';
-    
+    public const XML_PATH_CUSTOMER_ACCOUNT_SHARE = 'customer/account_share/scope';
+
     /**
      * Possible customer sharing scopes
      *
      */
-    const SHARE_GLOBAL  = 0;
-    const SHARE_WEBSITE = 1;
+    public const SHARE_GLOBAL  = 0;
+    public const SHARE_WEBSITE = 1;
 
     /**
      * Check whether current customers sharing scope is global
@@ -73,10 +68,10 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      */
     public function toOptionArray()
     {
-        return array(
+        return [
             self::SHARE_GLOBAL  => Mage::helper('customer')->__('Global'),
             self::SHARE_WEBSITE => Mage::helper('customer')->__('Per Website'),
-        );
+        ];
     }
 
     /**

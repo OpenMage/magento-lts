@@ -1,31 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sitemap model
+ *
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
@@ -42,17 +41,13 @@
  * @method $this setSitemapTime(string $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
- * @category    Mage
- * @package     Mage_Sitemap
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {
     /**
      * Real file path
      *
-     * @var string
+     * @var string|null
      */
     protected $_filePath;
 
@@ -66,6 +61,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -131,12 +127,13 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
      * Generate XML file
      *
      * @return $this
+     * @throws Throwable
      */
     public function generateXml()
     {
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
-        $io->open(array('path' => $this->getPath()));
+        $io->open(['path' => $this->getPath()]);
 
         if ($io->fileExists($this->getSitemapFilename()) && !$io->isWriteable($this->getSitemapFilename())) {
             Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapFilename(), $this->getPath()));
@@ -156,21 +153,16 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
          */
         $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
+        $lastmod    = Mage::getStoreConfigFlag('sitemap/category/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
         $categories = new Varien_Object();
         $categories->setItems($collection);
-        Mage::dispatchEvent('sitemap_categories_generating_before', array(
+        Mage::dispatchEvent('sitemap_categories_generating_before', [
             'collection' => $categories,
             'store_id' => $storeId
-        ));
+        ]);
         foreach ($categories->getItems() as $item) {
-            $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
-                $date,
-                $changefreq,
-                $priority
-            );
+            $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
         unset($collection);
@@ -180,21 +172,16 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
          */
         $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
+        $lastmod    = Mage::getStoreConfigFlag('sitemap/product/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
         $products = new Varien_Object();
         $products->setItems($collection);
-        Mage::dispatchEvent('sitemap_products_generating_before', array(
+        Mage::dispatchEvent('sitemap_products_generating_before', [
             'collection' => $products,
             'store_id' => $storeId
-        ));
+        ]);
         foreach ($products->getItems() as $item) {
-            $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $item->getUrl()),
-                $date,
-                $changefreq,
-                $priority
-            );
+            $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
         unset($collection);
@@ -205,42 +192,65 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $homepage = (string)Mage::getStoreConfig('web/default/cms_home_page', $storeId);
         $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
+        $lastmod    = Mage::getStoreConfigFlag('sitemap/page/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         $pages = new Varien_Object();
         $pages->setItems($collection);
-        Mage::dispatchEvent('sitemap_cms_pages_generating_before', array(
+        Mage::dispatchEvent('sitemap_cms_pages_generating_before', [
             'collection' => $pages,
             'store_id' => $storeId
-        ));
+        ]);
         foreach ($pages->getItems() as $item) {
             $url = $item->getUrl();
             if ($url == $homepage) {
                 $url = '';
             }
-            $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($baseUrl . $url),
-                $date,
-                $changefreq,
-                $priority
-            );
+
+            $xml = $this->getSitemapRow($baseUrl . $url, $lastmod, $changefreq, $priority);
             $io->streamWrite($xml);
         }
         unset($collection);
 
-        Mage::dispatchEvent('sitemap_urlset_generating_before', array(
+        Mage::dispatchEvent('sitemap_urlset_generating_before', [
             'file'      => $io ,
             'base_url'  => $baseUrl ,
             'date'      => $date,
             'store_id'  => $storeId
-        ));
+        ]);
 
         $io->streamWrite('</urlset>');
         $io->streamClose();
 
-        $this->setSitemapTime(Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s'));
+        $this->setSitemapTime(
+            Mage::getSingleton('core/date')->gmtDate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT)
+        );
         $this->save();
 
         return $this;
+    }
+
+    /**
+     * Get sitemap row
+     *
+     * @param string $url
+     * @param null|string $lastmod
+     * @param null|string $changefreq
+     * @param null|string $priority
+     * @return string
+     */
+    protected function getSitemapRow(string $url, $lastmod = null, $changefreq = null, $priority = null): string
+    {
+        $row = '<loc>' . htmlspecialchars($url) . '</loc>';
+        if ($lastmod) {
+            $row .= '<lastmod>' . $lastmod . '</lastmod>';
+        }
+        if ($changefreq) {
+            $row .= '<changefreq>' . $changefreq . '</changefreq>';
+        }
+        if ($priority) {
+            $row .= sprintf('<priority>%.1f</priority>', $priority);
+        }
+
+        return '<url>' . $row . '</url>';
     }
 }

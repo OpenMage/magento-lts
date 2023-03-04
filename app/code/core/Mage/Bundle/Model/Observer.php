@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Products Observer
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Observer
 {
@@ -79,7 +74,7 @@ class Mage_Bundle_Model_Observer
      */
     public function appendUpsellProducts($observer)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         /**
@@ -89,18 +84,14 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
-            if (isset($limit['upsell'])) {
-                $limit = $limit['upsell'];
-            } else {
-                $limit = 0;
-            }
+            $limit = $limit['upsell'] ?? 0;
         }
 
-        /* @var Mage_Bundle_Model_Mysql4_Selection $resource */
+        /** @var Mage_Bundle_Model_Resource_Selection $resource */
         $resource   = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
@@ -117,7 +108,6 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
         $bundleCollection = $product->getCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
@@ -130,7 +120,7 @@ class Mage_Bundle_Model_Observer
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
-        $bundleCollection->addFieldToFilter('entity_id', array('in' => $bundleIds))
+        $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
         if ($collection instanceof Varien_Data_Collection) {
@@ -180,7 +170,7 @@ class Mage_Bundle_Model_Observer
     public function loadProductOptions($observer)
     {
         $collection = $observer->getEvent()->getCollection();
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection->addPriceData();
 
         return $this;
@@ -205,28 +195,31 @@ class Mage_Bundle_Model_Observer
         /** @var Mage_Catalog_Model_Product $newProduct */
         $newProduct = $observer->getEvent()->getNewProduct();
 
-        $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
-        $optionCollection = $product->getTypeInstance(true)->getOptionsCollection($product);
-        $selectionCollection = $product->getTypeInstance(true)->getSelectionsCollection(
-            $product->getTypeInstance(true)->getOptionsIds($product),
+        /** @var Mage_Bundle_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+
+        $productType->setStoreFilter($product->getStoreId(), $product);
+        $optionCollection = $productType->getOptionsCollection($product);
+        $selectionCollection = $productType->getSelectionsCollection(
+            $productType->getOptionsIds($product),
             $product
         );
         $optionCollection->appendSelections($selectionCollection);
 
-        $optionRawData = array();
-        $selectionRawData = array();
+        $optionRawData = [];
+        $selectionRawData = [];
 
         $i = 0;
         foreach ($optionCollection as $option) {
-            $optionRawData[$i] = array(
+            $optionRawData[$i] = [
                     'required' => $option->getData('required'),
                     'position' => $option->getData('position'),
                     'type' => $option->getData('type'),
-                    'title' => $option->getData('title')?$option->getData('title'):$option->getData('default_title'),
+                    'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
                     'delete' => ''
-                );
+            ];
             foreach ($option->getSelections() as $selection) {
-                $selectionRawData[$i][] = array(
+                $selectionRawData[$i][] = [
                     'product_id' => $selection->getProductId(),
                     'position' => $selection->getPosition(),
                     'is_default' => $selection->getIsDefault(),
@@ -235,7 +228,7 @@ class Mage_Bundle_Model_Observer
                     'selection_qty' => $selection->getSelectionQty(),
                     'selection_can_change_qty' => $selection->getSelectionCanChangeQty(),
                     'delete' => ''
-                );
+                ];
             }
             $i++;
         }
@@ -300,7 +293,7 @@ class Mage_Bundle_Model_Observer
      * CatalogIndex Indexer after plain reindex process
      *
      * @deprecated since 1.4.0.0
-     * @see Mage_Bundle_Model_Mysql4_Indexer_Price
+     * @see Mage_Bundle_Model_Resource_Indexer_Price
      *
      * @param Varien_Event_Observer $observer
      * @return $this

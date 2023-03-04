@@ -19,11 +19,10 @@ services:
     image: openmage/php-dev:7.3-cli
     working_dir: /var/www/html
     command: /run-cron.sh
-    user: www-data
     volumes:
       - ../..:/var/www/html
     environment:
-      - ENABLE_SENDMAIL=true
+      - ENABLE_CRON=true
     links:
       - mysql
 
@@ -43,6 +42,11 @@ services:
     links:
       - mysql
       - "apache:${HOST_NAME:-openmage-7f000001.nip.io}"
+
+  composer:
+    image: composer:2.4
+    volumes:
+      - ../..:/app
 
   mysql:
     image: mysql:5.7

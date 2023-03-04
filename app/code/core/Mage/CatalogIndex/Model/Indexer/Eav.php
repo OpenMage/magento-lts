@@ -1,46 +1,40 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog indexer eav processor
  *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()
- * @method Mage_CatalogIndex_Model_Indexer_Eav setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getAttributeId()
- * @method Mage_CatalogIndex_Model_Indexer_Eav setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getStoreId()
- * @method Mage_CatalogIndex_Model_Indexer_Eav setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getValue()
- * @method Mage_CatalogIndex_Model_Indexer_Eav setValue(int $value)
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
@@ -53,11 +47,11 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
     /**
      * @param Mage_Catalog_Model_Product $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
-     * @return array|mixed
+     * @return array
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
-        $data = array();
+        $data = [];
 
         $data['store_id'] = $attribute->getStoreId();
         $data['entity_id'] = $object->getId();
@@ -66,7 +60,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
 
         if ($attribute->getFrontendInput() == 'multiselect') {
             $origData = $data;
-            $data = array();
+            $data = [];
 
             $value = explode(',', $origData['value']);
             foreach ($value as $item) {
@@ -97,16 +91,10 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
     }
 
     /**
-     * @return array|string
+     * @return string
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
-        return $conditions;
-
-        $conditions = array();
-        $conditions['frontend_input'] = array('select', 'multiselect');
-        $conditions['or']['is_filterable'] = array(1, 2);
-        $conditions['or']['is_visible_in_advanced_search'] = 1;
+        return "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
     }
 }

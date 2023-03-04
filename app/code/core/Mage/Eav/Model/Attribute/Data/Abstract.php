@@ -1,36 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV Attribute Abstract Data Model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -58,14 +52,14 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Scope visibility flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_requestScopeOnly    = true;
 
     /**
      * Is AJAX request flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAjax              = false;
 
@@ -75,12 +69,12 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @var array
      */
-    protected $_extractedData       = array();
+    protected $_extractedData       = [];
 
     /**
      * Mage_Core_Model_Locale FORMAT
      *
-     * @var string
+     * @var string|null
      */
     protected $_dateFilterFormat;
 
@@ -126,7 +120,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Set scope visibility
      * Search value only in scope or search value in scope and global
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setRequestScopeOnly($flag)
@@ -181,10 +175,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     public function getExtractedData($index = null)
     {
         if (!is_null($index)) {
-            if (isset($this->_extractedData[$index])) {
-                return $this->_extractedData[$index];
-            }
-            return null;
+            return $this->_extractedData[$index] ?? null;
         }
         return $this->_extractedData;
     }
@@ -193,7 +184,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Apply attribute input filter to value
      *
      * @param string $value
-     * @return string
+     * @return false|string
      */
     protected function _applyInputFilter($value)
     {
@@ -431,11 +422,11 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     break;
                 case 'date':
@@ -465,7 +456,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Set is AJAX Request flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public function setIsAjaxRequest($flag = true)
@@ -477,7 +468,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Return is AJAX Request
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAjaxRequest()
     {
@@ -498,21 +489,13 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {
-                    if (isset($params[$part])) {
-                        $params = $params[$part];
-                    } else {
-                        $params = array();
-                    }
+                    $params = $params[$part] ?? [];
                 }
             } else {
                 $params = $request->getParam($this->_requestScope);
             }
 
-            if (isset($params[$attrCode])) {
-                $value = $params[$attrCode];
-            } else {
-                $value = false;
-            }
+            $value = $params[$attrCode] ?? false;
 
             if (!$this->_requestScopeOnly && $value === false) {
                 $value = $request->getParam($attrCode, false);
@@ -536,7 +519,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return bool
      */
     abstract public function validateValue($value);
 
@@ -557,7 +540,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     abstract public function restoreValue($value);
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array

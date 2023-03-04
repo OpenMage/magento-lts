@@ -1,3 +1,21 @@
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 .form-button {
   background-image: none;
   background-color: #71798e;
@@ -17,49 +35,32 @@
 
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-SemiBold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-SemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
   /* Modern Browsers */
   font-weight: 600;
   font-style: normal;
 }
-/*
-                           205 = default,
-                             0 = red,
-                            60 = yellow,
-                           120 = green,
-                           180 = turquoise,
-                           240 = blue,
-                           300 = purple
-                           */
 * {
   margin: 0;
   padding: 0;
@@ -84,7 +85,7 @@ body#page-login {
 body#page-login:after {
   display: block;
   position: fixed;
-  content: "";
+  content: '';
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
@@ -122,13 +123,13 @@ a.error span {
 }
 
 h2 {
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
   line-height: 1.4em;
   font-size: 1.7em;
 }
 
 p {
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
 }
 
 form {
@@ -143,12 +144,8 @@ input {
   vertical-align: middle;
 }
 input.input-text {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #aaa #c8c8c8 #c8c8c8 #aaa;
   background: #fff;
   font: 12px Arial, sans-serif, Helvetica;
-  padding: 2px;
   border-width: 1px;
   border-style: solid;
   border-color: #aaa;
@@ -177,24 +174,17 @@ input.input-text:disabled {
 }
 
 .login-container {
-  width: 581px;
-  margin: 170px auto;
-  padding-left: 32px;
   width: 345px;
-  margin: 120px 0 0;
   padding-left: 200px;
   background: url(images/logo.svg) left center no-repeat;
-  margin-left: calc(50vw - 372px);
+  margin: 120px 0 0 calc(50vw - 372px);
 }
 .login-container .legal {
   margin: 0;
-  background: url(images/logo-magento.png) no-repeat;
-  padding: 8px 8px 5px 8px;
-  font-size: 0.95em;
+  font-size: .95em;
   background: none;
   padding: 0;
-  border: none;
-  border-top: none;
+  border-style: none;
   position: fixed;
   bottom: 30px;
   left: 0;
@@ -204,7 +194,6 @@ input.input-text:disabled {
 }
 
 .login-form {
-  padding: 27px 57px 35px;
   background: url(images/icon-error.png) no-repeat;
   text-align: left;
   background: white;
@@ -216,7 +205,6 @@ input.input-text:disabled {
   margin: 10px 0;
 }
 .login-form .input-box input.input-text {
-  width: 224px;
   width: calc(100% - 18px) !important;
   padding: 8px;
 }
@@ -228,7 +216,6 @@ input.input-text:disabled {
   font-weight: bold;
 }
 .login-form .form-buttons {
-  margin: 12px 0 0;
   clear: both;
   text-align: right;
   margin: 20px 0 0;
@@ -245,7 +232,7 @@ input.input-text:disabled {
 .login-form .form-buttons .left {
   line-height: 32px;
 }
-.login-form input[type=submit] {
+.login-form input[type="submit"] {
   height: 32px;
 }
 
