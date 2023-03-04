@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,7 +28,6 @@
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 {
-
     protected function _initAction()
     {
         $this->loadLayout()
@@ -117,18 +117,18 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Tags'));
 
-        if (! (int) $this->getRequest()->getParam('store')) {
+        if (!(int) $this->getRequest()->getParam('store')) {
             return $this->_redirect('*/*/*/', ['store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true]);
         }
 
-        if (! ($model = $this->_initTag())) {
+        if (!($model = $this->_initTag())) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong tag was specified.'));
             return $this->_redirect('*/*/index', ['store' => $this->getRequest()->getParam('store')]);
         }
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getTagData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->addData($data);
         }
 
@@ -152,7 +152,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             $data['name']               = trim($postData['tag_name']);
             $data['status']             = $postData['tag_status'];
-            $data['base_popularity']    = (isset($postData['base_popularity'])) ? $postData['base_popularity'] : 0;
+            $data['base_popularity']    = $postData['base_popularity'] ?? 0;
             $data['store']              = $postData['store_id'];
 
             if (!$model = $this->_initTag()) {
@@ -282,8 +282,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massDeleteAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        if(!is_array($tagIds)) {
-             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
+        if (!is_array($tagIds)) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
             try {
                 foreach ($tagIds as $tagId) {
@@ -309,7 +309,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     {
         $tagIds = $this->getRequest()->getParam('tag');
         $storeId = (int)$this->getRequest()->getParam('store', 0);
-        if(!is_array($tagIds)) {
+        if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
         } else {
@@ -318,7 +318,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag = Mage::getModel('tag/tag')
                         ->load($tagId)
                         ->setStatus($this->getRequest()->getParam('status'));
-                     $tag->save();
+                    $tag->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds))
@@ -328,7 +328,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             }
         }
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
-        $this->_redirect('*/*/'.$ret);
+        $this->_redirect('*/*/' . $ret);
     }
 
     /**

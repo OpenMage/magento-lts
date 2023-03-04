@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,12 +44,26 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareCollection();
     }
 
+    protected function _setCollectionOrder($column)
+    {
+        $collection = $this->getCollection();
+        if ($collection) {
+            $columnIndex = $column->getFilterIndex() ?: $column->getIndex();
+            $collection->setOrder($columnIndex, strtoupper($column->getDir()));
+
+            if ($columnIndex === 'region_table.code') {
+                $collection->addOrder('code', strtoupper($column->getDir()));
+            }
+        }
+        return $this;
+    }
+
     protected function _prepareColumns()
     {
         $this->addColumn('code', [
             'header'        => Mage::helper('tax')->__('Tax Identifier'),
             'header_export' => Mage::helper('tax')->__('Code'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'code',
             'filter_index'  => 'main_table.code',
         ]);
@@ -66,7 +81,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addColumn('region_name', [
             'header'        => Mage::helper('tax')->__('State/Region'),
             'header_export' => Mage::helper('tax')->__('State'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'region_name',
             'filter_index'  => 'region_table.code',
             'default'       => '*',
@@ -74,14 +89,14 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('tax_postcode', [
             'header'        => Mage::helper('tax')->__('Zip/Post Code'),
-            'align'         =>'left',
+            'align'         => 'left',
             'index'         => 'tax_postcode',
             'default'       => '*',
         ]);
 
         $this->addColumn('rate', [
             'header'        => Mage::helper('tax')->__('Rate'),
-            'align'         =>'right',
+            'align'         => 'right',
             'index'         => 'rate',
             'type'          => 'number',
             'default'       => '0.00',
@@ -94,9 +109,12 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Tax_Model_Calculation_Rate $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
     }
 }
-

@@ -7,35 +7,36 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Price Model
  *
- * @category Mage
- * @package  Mage_Bundle
- * @author   Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Price
 {
     /**
      * Fixed price type
      */
-    const PRICE_TYPE_FIXED = 1;
+    public const PRICE_TYPE_FIXED = 1;
 
     /**
      * Dynamic price type
      */
-    const PRICE_TYPE_DYNAMIC = 0;
+    public const PRICE_TYPE_DYNAMIC = 0;
 
     /**
      * Flag which indicates - is min/max prices have been calculated by index
@@ -58,14 +59,13 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      * Return product base price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @return string|float|int
      */
     public function getPrice($product)
     {
         if ($product->getPriceType() == self::PRICE_TYPE_FIXED) {
             return $product->getData('price');
         }
-
         return 0;
     }
 
@@ -84,8 +84,10 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $customOption = $product->getCustomOption('bundle_selection_ids');
             if ($customOption) {
                 $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
+                /** @var Mage_Bundle_Model_Product_Type $productType */
+                $productType = $product->getTypeInstance(true);
                 /** @var Mage_Bundle_Model_Resource_Selection_Collection $selections */
-                $selections = $product->getTypeInstance(true)->getSelectionsByIds($selectionIds, $product);
+                $selections = $productType->getSelectionsByIds($selectionIds, $product);
                 $selections->addTierPriceData();
                 Mage::dispatchEvent('prepare_catalog_product_collection_prices', [
                     'collection' => $selections,
@@ -114,7 +116,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      *
      * @param float|null $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return double
+     * @return float
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getFinalPrice($qty, $product)
@@ -335,7 +337,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             && ($minimalPriceWithTax > $minimalPrice)
         ) {
             //We convert the value to string to maintain the precision
-            $tax = (String)($minimalPriceWithTax - $minimalPrice);
+            $tax = (string)($minimalPriceWithTax - $minimalPrice);
             $roundedTax = $this->_getApp()->getStore()->roundPrice($tax);
             $minimalPrice = $minimalPriceWithTax - $roundedTax;
         }
@@ -468,17 +470,16 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
      */
     public function getOptions($product)
     {
-        $product->getTypeInstance(true)
-            ->setStoreFilter($product->getStoreId(), $product);
+        /** @var Mage_Bundle_Model_Product_Type $productType */
+        $productType = $product->getTypeInstance(true);
+        $productType->setStoreFilter($product->getStoreId(), $product);
 
-        $optionCollection = $product->getTypeInstance(true)
-            ->getOptionsCollection($product);
+        $optionCollection = $productType->getOptionsCollection($product);
 
-        $selectionCollection = $product->getTypeInstance(true)
-            ->getSelectionsCollection(
-                $product->getTypeInstance(true)->getOptionsIds($product),
-                $product
-            );
+        $selectionCollection = $productType->getSelectionsCollection(
+            $productType->getOptionsIds($product),
+            $product
+        );
 
         return $optionCollection->appendSelections($selectionCollection, false, false);
     }

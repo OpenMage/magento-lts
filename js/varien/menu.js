@@ -6,15 +6,15 @@
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -30,21 +30,13 @@ var mainNav = function() {
         settings :  {
             show_delay      :   0,
             hide_delay      :   0,
-            _ie6            :   /MSIE 6.+Win/.test(navigator.userAgent),
-            _ie7            :   /MSIE 7.+Win/.test(navigator.userAgent)
         },
 
         init :  function(obj, level) {
             obj.lists = obj.childElements();
             obj.lists.each(function(el,ind){
                 main.handlNavElement(el);
-                if((main.settings._ie6 || main.settings._ie7) && level){
-                    main.ieFixZIndex(el, ind, obj.lists.size());
-                }
             });
-            if(main.settings._ie6 && !level){
-                document.execCommand("BackgroundImageCache", false, true);
-            }
         },
 
         handlNavElement :   function(list) {
@@ -58,15 +50,6 @@ var mainNav = function() {
                 if(list.down("ul")){
                     main.init(list.down("ul"), true);
                 }
-            }
-        },
-
-        ieFixZIndex : function(el, i, l) {
-            if(el.tagName.toString().toLowerCase().indexOf("iframe") == -1){
-                el.style.zIndex = l - i;
-            } else {
-                el.onmouseover = "null";
-                el.onmouseout = "null";
             }
         },
 

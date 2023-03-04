@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,10 +85,10 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
             $data = [
-                'store_id'=>$store,
-                'visitor_count'=>$counts['visitors'],
-                'customer_count'=>$counts['customers'],
-                'add_date'=>$this->_date($date)
+                'store_id' => $store,
+                'visitor_count' => $counts['visitors'],
+                'customer_count' => $counts['customers'],
+                'add_date' => $this->_date($date)
             ];
 
             if ($counts['visitors'] || $counts['customers']) {
@@ -159,21 +160,21 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 
     /**
      * @param string|int $in
-     * @param null $offset
+     * @param null $offset deprecated
      * @return false|string
      */
     private function _date($in, $offset = null)
     {
         $out = $in;
         if (is_numeric($in)) {
-            $out = date("Y-m-d H:i:s", $in);
+            $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
         return $out;
     }
 
     /**
      * @param string|int $in
-     * @param null $offset
+     * @param null $offset deprecated
      * @return false|int
      */
     private function _timestamp($in, $offset = null)

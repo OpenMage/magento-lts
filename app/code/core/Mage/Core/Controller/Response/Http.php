@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,14 +42,14 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     public function sendHeaders()
     {
         if (!$this->canSendHeaders()) {
-            Mage::log('HEADERS ALREADY SENT: '.mageDebugBacktrace(true, true, true));
+            Mage::log('HEADERS ALREADY SENT: ' . mageDebugBacktrace(true, true, true));
             return $this;
         }
 
         if (substr(php_sapi_name(), 0, 3) == 'cgi') {
             $statusSent = false;
             foreach ($this->_headersRaw as $i => $header) {
-                if (stripos($header, 'status:')===0) {
+                if (stripos($header, 'status:') === 0) {
                     if ($statusSent) {
                         unset($this->_headersRaw[$i]);
                     } else {
@@ -57,7 +58,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
                 }
             }
             foreach ($this->_headers as $i => $header) {
-                if (strcasecmp($header['name'], 'status')===0) {
+                if (strcasecmp($header['name'], 'status') === 0) {
                     if ($statusSent) {
                         unset($this->_headers[$i]);
                     } else {
@@ -75,7 +76,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      */
     public function sendResponse()
     {
-        Mage::dispatchEvent('http_response_send_before', ['response'=>$this]);
+        Mage::dispatchEvent('http_response_send_before', ['response' => $this]);
         parent::sendResponse();
     }
 
@@ -90,7 +91,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
          * Use single transport object instance
          */
         if (self::$_transportObject === null) {
-            self::$_transportObject = new Varien_Object;
+            self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setUrl($url);
         self::$_transportObject->setCode($code);
@@ -104,6 +105,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
 
     /**
      * Method send already collected headers and exit from script
+     * @return never
      */
     public function sendHeadersAndExit()
     {

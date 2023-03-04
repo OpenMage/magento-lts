@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
      * change store to default (Possible when enabled Store Code in URL)
      *
      * @param Zend_Controller_Request_Http $request
-     * @return boolean
+     * @return bool
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -70,7 +71,7 @@ class Mage_Core_Controller_Varien_Router_Default extends Mage_Core_Controller_Va
     /**
      * Check if store is admin store
      *
-     * @return boolean
+     * @return bool
      */
     protected function _isAdmin()
     {

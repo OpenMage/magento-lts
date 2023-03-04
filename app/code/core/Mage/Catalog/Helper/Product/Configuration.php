@@ -7,14 +7,15 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,9 @@
  */
 class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
-    const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
+    public const XML_PATH_CONFIGURABLE_ALLOWED_TYPES = 'global/catalog/product/type/configurable/allow_product_types';
+
+    protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Retrieves product configuration options
@@ -96,10 +99,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
-        $attributes = $product->getTypeInstance(true)
-            ->getSelectedAttributesInfo($product);
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $product->getTypeInstance(true);
+        $attributes = $productType->getSelectedAttributesInfo($product);
         return array_merge($attributes, $this->getCustomOptions($item));
     }
 
@@ -114,13 +118,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $product = $item->getProduct();
         $typeId = $product->getTypeId();
         if ($typeId != Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
+            Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
 
         $options = [];
-        /**
-         * @var Mage_Catalog_Model_Product_Type_Grouped
-         */
+        /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
         $typeInstance = $product->getTypeInstance(true);
         $associatedProducts = $typeInstance->getAssociatedProducts($product);
 
@@ -159,10 +161,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         switch ($typeId) {
             case Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE:
                 return $this->getConfigurableOptions($item);
-                break;
             case Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE:
                 return $this->getGroupedOptions($item);
-                break;
         }
         return $this->getCustomOptions($item);
     }
@@ -197,8 +197,8 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if (!$params) {
             $params = [];
         }
-        $maxLength = isset($params['max_length']) ? $params['max_length'] : null;
-        $cutReplacer = isset($params['cut_replacer']) ? $params['cut_replacer'] : '...';
+        $maxLength = $params['max_length'] ?? null;
+        $cutReplacer = $params['cut_replacer'] ?? '...';
 
         // Proceed with option
         $optionInfo = [];

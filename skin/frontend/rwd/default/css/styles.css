@@ -6,15 +6,16 @@
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /*! normalize.css v2.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================
@@ -634,7 +635,6 @@ h6, .h6 {
   font-size: 24px;
   font-weight: 600;
   color: #636363;
-  border-bottom: 1px solid #ededed;
   padding-bottom: 3px;
   margin-bottom: 15px;
   text-transform: uppercase;
@@ -2667,9 +2667,6 @@ input[type=text] {
     font-size: 16px;
     /* Prevent from zooming on focus */
   }
-}
-.ie8 .input-text {
-  max-width: none;
 }
 
 /* -------------------------------------------- *
@@ -6201,7 +6198,6 @@ p.product-name a:hover {
  * ============================================ */
 .cart .page-title {
   margin-bottom: 15px;
-  border-bottom: 1px solid #ededed;
 }
 .cart .page-title:after {
   content: '';
