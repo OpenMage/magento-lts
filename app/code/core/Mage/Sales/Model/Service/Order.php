@@ -189,7 +189,7 @@ class Mage_Sales_Model_Service_Order
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = min($qtys[$orderItem->getId()], $orderItem->getQtyToShip());
-                } elseif (!count($qtys)) {
+                } elseif (is_null($qtys) || !count($qtys)) {
                     $qty = $orderItem->getQtyToShip();
                 } else {
                     continue;
