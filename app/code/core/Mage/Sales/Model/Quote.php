@@ -1110,7 +1110,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         Mage::dispatchEvent('sales_quote_product_add_after', ['items' => $items]);
 
-        return reset($items);
+        return $parentItem;
     }
 
     /**
