@@ -439,7 +439,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $attrInstance = Mage::getSingleton('eav/config')
                     ->getAttribute($this->getEntity()->getType(), $attribute);
                 // failure to resolve an attribute from the eav config implies it does not exist
-                if (empty($attrInstance)) {
+                if (empty($attrInstance) || !$attrInstance->getId()) {
                     return $this;
                 }
             }
