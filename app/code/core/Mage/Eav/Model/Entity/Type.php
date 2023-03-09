@@ -100,32 +100,40 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      * Retrieve entity type attributes collection
      *
      * @param int|null $setId
-     * @param bool $useCache reuse local cache for collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
-    public function getAttributeCollection($setId = null, $useCache = true)
+    public function getAttributeCollection($setId = null)
     {
-        if ($useCache) {
-            if ($setId === null && $this->_attributes !== null) {
-                return $this->_attributes;
-            } elseif (isset($this->_attributesBySet[$setId])) {
-                return $this->_attributesBySet[$setId];
-            }
+        if ($setId === null && $this->_attributes !== null) {
+            return $this->_attributes;
+        } elseif (isset($this->_attributesBySet[$setId])) {
+            return $this->_attributesBySet[$setId];
         }
 
+        $collection = $this->newAttributeCollection($setId);
+
+        if ($setId === null) {
+            $this->_attributes = $collection;
+        } else {
+            $this->_attributesBySet[$setId] = $collection;
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Create entity type attributes collection
+     *
+     * @param int|null $setId
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     */
+    public function newAttributeCollection($setId = null)
+    {
         $collection = $this->_getAttributeCollection()
             ->setEntityTypeFilter($this);
 
         if ($setId !== null) {
             $collection->setAttributeSetFilter($setId);
-        }
-
-        if ($useCache) {
-            if ($setId === null) {
-                $this->_attributes = $collection;
-            } else {
-                $this->_attributesBySet[$setId] = $collection;
-            }
         }
 
         return $collection;

@@ -209,7 +209,7 @@ class Mage_Eav_Model_Config
     protected function _loadEntityAttributes($entityType, $storeId)
     {
         // preload attributes in array form to avoid instantiating models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->getAttributeCollection(null, false)
+        $entityAttributes = $entityType->newAttributeCollection(null, false)
             ->addStoreLabel($storeId)
             ->getData();
 
@@ -221,7 +221,7 @@ class Mage_Eav_Model_Config
             $attributeId = $entityAttributeData['attribute_id'];
             $attributeCode = $entityAttributeData['attribute_code'];
 
-            // workaround for getAttributeCollection()->getData() returning all columns as string
+            // workaround for newAttributeCollection()->getData() returning all columns as string
             foreach (self::NUMERIC_ATTRIBUTE_COLUMNS as $key) {
                 if (!isset($entityAttributeData[$key])) {
                     continue;
