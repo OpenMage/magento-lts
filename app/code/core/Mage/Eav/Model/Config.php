@@ -484,7 +484,6 @@ class Mage_Eav_Model_Config
             $attribute = $this->_getDefaultAttributeIfExists($entityType, $code, $storeId);
         }
 
-        // maintain old behavior and return an empty model to avoid breaking compatibility
         if (!$attribute) {
             $attribute = $this->_hydrateAttribute(["entity_type_id" => $entityType->getId()]);
         }
