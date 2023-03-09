@@ -99,24 +99,41 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve entity type attributes collection
      *
-     * @param   int $setId
-     * @return  Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @param int|null $setId
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function getAttributeCollection($setId = null)
     {
+        if ($setId === null && $this->_attributes !== null) {
+            return $this->_attributes;
+        } elseif (isset($this->_attributesBySet[$setId])) {
+            return $this->_attributesBySet[$setId];
+        }
+
+        $collection = $this->newAttributeCollection($setId);
+
         if ($setId === null) {
-            if ($this->_attributes === null) {
-                $this->_attributes = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this);
-            }
-            $collection = $this->_attributes;
+            $this->_attributes = $collection;
         } else {
-            if (!isset($this->_attributesBySet[$setId])) {
-                $this->_attributesBySet[$setId] = $this->_getAttributeCollection()
-                    ->setEntityTypeFilter($this)
-                    ->setAttributeSetFilter($setId);
-            }
-            $collection = $this->_attributesBySet[$setId];
+            $this->_attributesBySet[$setId] = $collection;
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Create entity type attributes collection
+     *
+     * @param int|null $setId
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     */
+    public function newAttributeCollection($setId = null)
+    {
+        $collection = $this->_getAttributeCollection()
+            ->setEntityTypeFilter($this);
+
+        if ($setId !== null) {
+            $collection->setAttributeSetFilter($setId);
         }
 
         return $collection;
