@@ -209,7 +209,7 @@ class Mage_Eav_Model_Config
     protected function _loadEntityAttributes($entityType, $storeId)
     {
         // preload attributes in array form to avoid instantiating models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->newAttributeCollection(null, false)
+        $entityAttributes = $entityType->newAttributeCollection()
             ->addStoreLabel($storeId)
             ->getData();
 
