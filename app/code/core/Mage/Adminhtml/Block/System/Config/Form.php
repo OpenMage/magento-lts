@@ -425,7 +425,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
                     $sourceModel = Mage::getSingleton($factoryName);
                     if (!$sourceModel) {
-                        Mage::throwException("Entity type model '{$factoryName}' is not found");
+                        Mage::throwException("Source model '{$factoryName}' is not found");
                     }
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
