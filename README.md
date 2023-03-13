@@ -115,6 +115,12 @@ composer require "openmage/magento-lts":"1.9.4.x-dev"
 composer require "openmage/magento-lts":"20.0.x-dev"
 ```
 
+When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
+
+```bash
+composer dump-autoload --optimize
+```
+
 ### Git
 
 If you want to contribute to the project:
