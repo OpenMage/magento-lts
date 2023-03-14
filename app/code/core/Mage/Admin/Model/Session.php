@@ -167,7 +167,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-                Mage::getSingleton('adminhtml/session')->setLocale($user->getBackendLocale());
+                if ($backendLocale = $user->getBackendLocale()) {
+                    Mage::getSingleton('adminhtml/session')->setLocale($backendLocale);
+                }
 
                 $alternativeUrl = $this->_getRequestUri($request);
                 $redirectUrl = $this->_urlPolicy->getRedirectUrl($user, $request, $alternativeUrl);
