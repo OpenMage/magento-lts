@@ -110,6 +110,7 @@
         }
     },
     "config": {
+        "optimize-autoloader": true,
         "allow-plugins": {
             "magento-hackathon/magento-composer-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
