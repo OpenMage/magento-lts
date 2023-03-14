@@ -50,8 +50,6 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
     public function saveAction()
     {
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();
-        $pwd    = null;
-
         $user = Mage::getModel("admin/user")->load($userId);
 
         $user->setId($userId)
@@ -66,6 +64,10 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         if ($this->getRequest()->getParam('password_confirmation', false)) {
             $user->setPasswordConfirmation($this->getRequest()->getParam('password_confirmation', false));
         }
+
+        $backend_locale = $this->getRequest()->getParam('backend_locale', false);
+        $backend_locale = $backend_locale == 0 ? null : $backend_locale;
+        $user->setBackendLocale($backend_locale);
 
         //Validate current admin password
         $currentPassword = $this->getRequest()->getParam('current_password', null);
