@@ -161,10 +161,10 @@ class Varien_File_Uploader
         $this->_setUploadFileId($fileId);
         if (empty($this->_file['tmp_name']) || !file_exists($this->_file['tmp_name'])) {
             $errorCode = $this->_file['error'] ?? 0;
-            if ($errorCode && isset(self::UPLOAD_ERRORS[$errorCode])) {
-                throw new Exception(self::UPLOAD_ERRORS[$errorCode]);
-            }
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
+            if ($errorCode && isset(self::UPLOAD_ERRORS[$errorCode])) {
+                throw new Exception(self::UPLOAD_ERRORS[$errorCode], $code);
+            }
             throw new Exception('File was not uploaded.', $code);
         } else {
             $this->_fileExists = true;
