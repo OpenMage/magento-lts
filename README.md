@@ -46,7 +46,7 @@ level of backwards compatibility to the official releases.
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
+- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -213,6 +213,8 @@ Do not use 20.x.x if you need IE support.
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### Since OpenMage 19.5.0 / 20.1.0
+
+PHP 7.4 is now the minimum required version.
 
 Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
 This allows for better maintenance and upgradability.
