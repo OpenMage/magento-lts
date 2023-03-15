@@ -28,7 +28,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
 {
     protected $_jsonRpc = null;
 
-     /**
+    /**
      * Set handler class name for webservice
      *
      * @param string $handler
@@ -50,7 +50,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
         return $this->getData('handler');
     }
 
-     /**
+    /**
      * Set webservice api controller
      *
      * @param Mage_Api_Controller_Action $controller
@@ -58,8 +58,8 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
      */
     public function setController(Mage_Api_Controller_Action $controller)
     {
-         $this->setData('controller', $controller);
-         return $this;
+        $this->setData('controller', $controller);
+        return $this;
     }
 
     /**
