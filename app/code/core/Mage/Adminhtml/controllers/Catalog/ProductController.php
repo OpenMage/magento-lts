@@ -405,7 +405,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.related')
-            ->setProductsRelated($this->getRequest()->getPost('products_related', []));
+            ->setProductsRelated($this->getRequest()->getPost('products_related', null));
         $this->renderLayout();
     }
 
@@ -418,7 +418,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.upsell')
-            ->setProductsUpsell($this->getRequest()->getPost('products_upsell', []));
+            ->setProductsUpsell($this->getRequest()->getPost('products_upsell', null));
         $this->renderLayout();
     }
 
@@ -431,7 +431,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.crosssell')
-            ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', []));
+            ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', null));
         $this->renderLayout();
     }
 
