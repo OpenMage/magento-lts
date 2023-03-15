@@ -73,7 +73,7 @@ jobs:
 
   phpstan:
     name: PHPStan
-    needs: [check, composer, phpcs, php-cs-fixer]
+    needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
       needs.check.outputs.phpstan > 0 ||

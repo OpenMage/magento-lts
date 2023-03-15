@@ -214,7 +214,7 @@ final class Mage
                 'major'     => '20',
                 'minor'     => '1',
                 'patch'     => '0',
-                'stability' => 'rc1', // beta,alpha,rc
+                'stability' => 'rc3', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -223,7 +223,7 @@ final class Mage
             'major'     => '19',
             'minor'     => '5',
             'patch'     => '0',
-            'stability' => 'rc1', // beta,alpha,rc
+            'stability' => 'rc3', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }

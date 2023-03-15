@@ -61,11 +61,11 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
     /**
      * Get a specific page name (may be customized via layout)
      *
-     * @return string|null
+     * @return string
      */
     public function getPageName()
     {
-        return $this->_getData('page_name');
+        return $this->_getData('page_name') ?? '';
     }
 
     /**

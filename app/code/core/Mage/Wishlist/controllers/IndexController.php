@@ -730,7 +730,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $optionId = null;
         if (strpos($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX) === 0) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
-            if ((int)$optionId != $optionId) {
+            if (!is_numeric($optionId)) {
                 return $this->_forward('noRoute');
             }
         }

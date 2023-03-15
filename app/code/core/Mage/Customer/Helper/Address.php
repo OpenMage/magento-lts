@@ -229,9 +229,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                     --$modulo;
                 }
                 $values = array_slice($origStreets, $offset, $neededLinesCount);
-                if (is_array($values)) {
-                    $lines[] = implode(' ', $values);
-                }
+                $lines[] = implode(' ', $values);
             }
         }
 

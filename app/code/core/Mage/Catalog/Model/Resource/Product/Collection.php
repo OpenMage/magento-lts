@@ -1525,9 +1525,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
                 return $this;
             }
-            if ($this->isEnabledFlat()) {
-                $this->getSelect()->order("cat_index_position {$dir}");
-            }
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
