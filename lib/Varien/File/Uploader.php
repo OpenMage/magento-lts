@@ -146,7 +146,11 @@ class Varien_File_Uploader
 
     public const SINGLE_STYLE = 0;
     public const MULTIPLE_STYLE = 1;
-    public const TMP_NAME_EMPTY = 666;
+
+    /**
+     * @deprecated Use UPLOAD_ERR_NO_FILE instead
+     */
+    public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
 
     /**
      * Resulting of uploaded file
@@ -161,11 +165,9 @@ class Varien_File_Uploader
         $this->_setUploadFileId($fileId);
         if (empty($this->_file['tmp_name']) || !file_exists($this->_file['tmp_name'])) {
             $errorCode = $this->_file['error'] ?? 0;
-            $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
-            if ($errorCode && isset(self::UPLOAD_ERRORS[$errorCode])) {
-                throw new Exception(self::UPLOAD_ERRORS[$errorCode], $code);
+            if (isset(self::UPLOAD_ERRORS[$errorCode])) {
+                throw new Exception(self::UPLOAD_ERRORS[$errorCode], $errorCode);
             }
-            throw new Exception('File was not uploaded.', $code);
         } else {
             $this->_fileExists = true;
         }
@@ -509,7 +511,7 @@ class Varien_File_Uploader
     private function _setUploadFileId($fileId)
     {
         if (empty($_FILES)) {
-            throw new Exception('$_FILES array is empty', self::TMP_NAME_EMPTY);
+            throw new Exception('$_FILES array is empty', UPLOAD_ERR_NO_FILE);
         }
 
         if (is_array($fileId)) {

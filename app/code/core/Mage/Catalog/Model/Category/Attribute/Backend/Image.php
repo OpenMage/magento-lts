@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
             $object->setData($this->getAttribute()->getName(), $result['file']);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
         } catch (Exception $e) {
-            if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
+            if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
                 Mage::logException($e);
             }
         }
