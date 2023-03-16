@@ -641,7 +641,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function getScopeLabel($element)
     {
-        if ((string)$element->show_in_store == '1') {
+        if ((int)$element->show_in_store === 1) {
             return $this->_scopeLabels[self::SCOPE_STORES];
         } elseif ((string)$element->show_in_website == '1') {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
