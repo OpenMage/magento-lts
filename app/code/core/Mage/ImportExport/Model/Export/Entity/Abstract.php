@@ -25,8 +25,6 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property array $_invalidRows
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 {
@@ -71,6 +69,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @var array
      */
     protected $_errors = [];
+
+    /**
+     * @var array
+     */
+    protected $_invalidRows = [];
 
     /**
      * Error counter.

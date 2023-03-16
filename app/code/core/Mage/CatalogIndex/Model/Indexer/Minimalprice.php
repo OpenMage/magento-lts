@@ -26,8 +26,6 @@
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @property Mage_Directory_Model_Currency $_currencyModel
- *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice getResource()
  * @method $this setEntityId(int $value)
@@ -44,7 +42,16 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    protected $_customerGroups = [];
+    /**
+     * @var Mage_Directory_Model_Currency
+     */
+    protected $_currencyModel;
+
+    /**
+     * @var Mage_Customer_Model_Resource_Group_Collection
+     */
+    protected $_customerGroups;
+
     protected $_runOnce = true;
     protected $_processChildren = false;
 
