@@ -432,6 +432,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
+                    
                     $optionArray = [];
                     if ($method) {
                         if ($fieldType == 'multiselect') {
@@ -444,6 +445,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     } elseif (method_exists($sourceModel, 'toOptionArray')) {
                         $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
                     }
+
+                    $optionArray ?? Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
                     $field->setValues($optionArray);
                 }
             }
