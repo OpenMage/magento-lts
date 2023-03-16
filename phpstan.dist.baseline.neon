@@ -2501,11 +2501,6 @@ parameters:
 			path: app/code/core/Mage/Core/functions.php
 
 		-
-			message: "#^Property Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol\\:\\:\\$_controller is never read, only written\\.$#"
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Block/Adminhtml/System/Currencysymbol.php
-
-		-
 			message: "#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\\:\\:\\$_storeId \\(string\\|null\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
