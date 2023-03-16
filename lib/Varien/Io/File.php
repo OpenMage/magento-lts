@@ -484,9 +484,16 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param int $mode
      *
      * @return int|boolean
+     * @throws Exception
      */
     public function write($filename, $src, $mode = null)
     {
+        if (strpos($filename, chr(0)) !== false
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $filename)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }

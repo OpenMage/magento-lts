@@ -47,6 +47,9 @@ for i in $(seq 1 20); do
   $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
 done
 
+echo "Installing Composer dependencies..."
+$dc run --rm composer composer install --no-progress --ignore-platform-req=ext-*
+
 echo "Installing OpenMage LTS..."
 $dc run --rm cli php install.php \
   --license_agreement_accepted yes \

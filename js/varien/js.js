@@ -573,11 +573,13 @@ Varien.FileElement.prototype = {
     }
 };
 
-Validation.addAllThese([
-    ['validate-custom', ' ', function(v,elm) {
-        return elm.validate();
-    }]
-]);
+if (typeof Validation !== 'undefined') {
+    Validation.addAllThese([
+        ['validate-custom', ' ', function(v,elm) {
+            return elm.validate();
+        }]
+    ]);
+}
 
 function truncateOptions() {
     $$('.truncated').each(function(element){

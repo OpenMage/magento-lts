@@ -19,8 +19,6 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once('phpseclib/Net/SFTP.php');
-
 /**
  * Sftp client interface
  *
@@ -35,7 +33,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     public const SSH2_PORT = 22;
 
     /**
-     * @var phpseclib\Net\SFTP $_connection
+     * @var \phpseclib3\Net\SFTP $_connection
      */
     protected $_connection = null;
 
@@ -60,7 +58,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $host = $args['host'];
             $port = self::SSH2_PORT;
         }
-        $this->_connection = new phpseclib\Net\SFTP($host, $port, $args['timeout']);
+        $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
         }
@@ -117,7 +115,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $list = $this->_connection->nlist();
             if (!count($list)) {
                 // Go back
-                $this->_connection->chdir($pwd);
+                $this->_connection->chdir($cwd);
                 return $this->rmdir($dir, false);
             } else {
                 foreach ($list as $filename) {
@@ -129,7 +127,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                     }
                 }
             }
-            $no_errors = $no_errors && ($this->_connection->chdir($pwd) && $this->_connection->rmdir($dir));
+            $no_errors = $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
             return $no_errors;
         } else {
             return $this->_connection->rmdir($dir);
@@ -234,6 +232,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function writeFile($filename, $src)
     {
-        return $this->_connection->put($filename, $src, phpseclib\Net\SFTP::SOURCE_LOCAL_FILE);
+        return $this->_connection->put($filename, $src, \phpseclib3\Net\SFTP::SOURCE_LOCAL_FILE);
     }
 }

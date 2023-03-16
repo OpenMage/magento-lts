@@ -223,15 +223,15 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             if (!empty($if)) {
                 // open !IE conditional using raw value
                 if (strpos($if, "><!-->") !== false) {
-                    $html .= $if . "\n";
+                    $html .= $if . PHP_EOL;
                 } else {
-                    $html .= '<!--[if ' . $if . ']>' . "\n";
+                    $html .= '<!--[if ' . $if . ']>' . PHP_EOL;
                 }
             }
 
             // static and skin css
             $html .= $this->_prepareStaticAndSkinElements(
-                '<link rel="stylesheet" type="text/css" href="%s"%s />' . "\n",
+                '<link rel="stylesheet" href="%s"%s >' . PHP_EOL,
                 empty($items['js_css']) ? [] : $items['js_css'],
                 empty($items['skin_css']) ? [] : $items['skin_css'],
                 $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
@@ -239,7 +239,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
             // static and skin javascripts
             $html .= $this->_prepareStaticAndSkinElements(
-                '<script type="text/javascript" src="%s"%s></script>' . "\n",
+                '<script src="%s"%s></script>' . PHP_EOL,
                 empty($items['js']) ? [] : $items['js'],
                 empty($items['skin_js']) ? [] : $items['skin_js'],
                 $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null
@@ -247,15 +247,15 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
             // other stuff
             if (!empty($items['other'])) {
-                $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . "\n";
+                $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . PHP_EOL;
             }
 
             if (!empty($if)) {
                 // close !IE conditional comments correctly
                 if (strpos($if, "><!-->") !== false) {
-                    $html .= '<!--<![endif]-->' . "\n";
+                    $html .= '<!--<![endif]-->' . PHP_EOL;
                 } else {
-                    $html .= '<![endif]-->' . "\n";
+                    $html .= '<![endif]-->' . PHP_EOL;
                 }
             }
         }
@@ -269,7 +269,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * filenames, rather than render urls.
      * The merger callback is responsible for checking whether files exist, merging them and giving result URL
      *
-     * @param string $format - HTML element format for sprintf('<element src="%s"%s />', $src, $params)
+     * @param string $format - HTML element format for sprintf('<element src="%s"%s>', $src, $params)
      * @param array $staticItems - array of relative names of static items to be grabbed from js/ folder
      * @param array $skinItems - array of relative names of skin items to be found in skins according to design config
      * @param callable $mergeCallback
@@ -342,13 +342,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         switch ($itemType) {
             case 'rss':
                 $lines[$itemIf]['other'][] = sprintf(
-                    '<link href="%s"%s rel="alternate" type="application/rss+xml" />',
+                    '<link href="%s"%s rel="alternate" type="application/rss+xml">',
                     $href,
                     $params
                 );
                 break;
             case 'link_rel':
-                $lines[$itemIf]['other'][] = sprintf('<link%s href="%s" />', $params, $href);
+                $lines[$itemIf]['other'][] = sprintf('<link%s href="%s">', $params, $href);
                 break;
         }
     }
@@ -362,7 +362,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     protected function _prepareOtherHtmlHeadElements($items)
     {
-        return implode("\n", $items);
+        return implode(PHP_EOL, $items);
     }
 
     /**

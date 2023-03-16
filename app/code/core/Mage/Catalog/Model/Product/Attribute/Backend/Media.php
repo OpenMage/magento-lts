@@ -157,6 +157,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $mediaAttrCode = $mediaAttribute->getAttributeCode();
             $attrData = $object->getData($mediaAttrCode);
 
+            if (empty($attrData)) {
+                continue;
+            }
+
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
@@ -276,6 +280,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
+        if (strpos($file, chr(0)) !== false
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         $file = realpath($file);
 
         if (!$file || !file_exists($file)) {
