@@ -298,8 +298,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     . Mage::helper($helperName)->__((string)$element->label);
                 $hint  = (string)$element->hint ? Mage::helper($helperName)->__((string)$element->hint) : '';
 
-                if ($element->backend_model) {
-                    $model = Mage::getModel((string)$element->backend_model);
+                $helper = Mage::helper('adminhtml/config');
+                $backendClass = $helper->getBackendModelByFieldConfig($element);
+                if ($backendClass) {
+                    $model = Mage::getModel($backendClass);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
                         Mage::throwException('Invalid config field backend model: ' . (string)$element->backend_model);
                     }

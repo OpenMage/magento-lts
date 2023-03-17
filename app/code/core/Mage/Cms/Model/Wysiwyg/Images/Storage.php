@@ -233,6 +233,11 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $io->getFilteredPath($path)
             ));
         }
+        if (strpos($pathCmp, chr(0)) !== false
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $pathCmp)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
 
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);

@@ -11,11 +11,6 @@ parameters:
 			path: app/Mage.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/Mage.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Config.php
@@ -29,6 +24,11 @@ parameters:
 			message: "#^Cannot call method getClassName\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
+
+		-
+			message: "#^Method Mage_Admin_Model_Resource_User\\:\\:_encryptPassword\\(\\) is unused\\.$#"
+			count: 1
+			path: app/code/core/Mage/Admin/Model/Resource/User.php
 
 		-
 			message: "#^Return type \\(bool\\) of method Mage_Admin_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
@@ -71,99 +71,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tree.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Form/Renderer/Fieldset/Element.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Form/Renderer/Fieldset/Element.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Edit/Tab/Main.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Js.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Js.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Categories.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Inventory.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
@@ -171,19 +81,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:canUseAttribute\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeGlobal\\(\\)\\.$#"
@@ -201,31 +101,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Wysiwyg/Images/Content/Files.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Grid/Renderer/Item.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Sales.php
@@ -236,16 +111,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:getValidateButton\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
@@ -254,16 +119,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:\\$_validateButton \\(Mage_Adminhtml_Block_Widget_Button\\|null\\) does not accept Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Toolbar.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\\:\\:\\$_aclResourcePath\\.$#"
@@ -301,11 +156,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -317,11 +167,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:addColumn\\(\\) should return Mage_Adminhtml_Block_Report_Grid_Abstract but returns Mage_Adminhtml_Block_Widget_Grid\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -351,43 +196,13 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Items/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Items/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Comments/View.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address\\:\\:getAddress\\(\\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Address.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Method/Form.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\\:\\:getEntity\\(\\) should return Varien_Object but returns Mage_Eav_Model_Entity_Abstract\\.$#"
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
 
 		-
@@ -406,29 +221,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Shipping/Address.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Compared.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Compared.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pcompared.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pcompared.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Wishlist.php
 
 		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments\\:\\:addTotal\\(\\)\\.$#"
@@ -446,29 +246,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Totals.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/View.php
-
-		-
 			message: "#^Return type \\(Mage_Sales_Model_Order_Creditmemo\\) of method Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/View/Items.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Payment.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Items.php
 
 		-
 			message: "#^Return type \\(Mage_Sales_Model_Order_Shipment\\) of method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
@@ -481,74 +261,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 5
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging\\:\\:getQtyOrderedItem\\(\\) should return int\\|null but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 6
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Form.php
-
-		-
 			message: "#^Return type \\(Mage_Sales_Model_Order_Shipment\\) of method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Items.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Totalbar.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default\\:\\:\\$_giftMessage \\(Mage_GiftMessage_Model_Message\\) does not accept default value of type array\\.$#"
@@ -569,11 +289,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Shipments.php
-
-		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\\:\\:\\$_conditionName \\(string\\) does not accept int\\.$#"
@@ -606,31 +321,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -641,29 +331,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
 
 		-
 			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
@@ -679,21 +349,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Form.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Form.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Widget_Grid\\:\\:\\$defaultColumnSettings \\(array\\<array\\<array\\>\\>\\) does not accept default value of type array\\<string, array\\<string, int\\>\\>\\.$#"
@@ -731,21 +386,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Controller/Report/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Model_Config\\:\\:\\$_config \\(Mage_Core_Model_Config_Base\\) does not accept Varien_Simplexml_Config\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
@@ -771,37 +411,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 5
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
@@ -861,11 +471,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/IndexController.php
@@ -876,19 +481,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Permissions/BlockController.php
 
 		-
-			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Permissions/UserController.php
-
-		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/PollController.php
 
 		-
 			message: "#^Cannot call method aggregate\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -941,11 +536,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
 		-
-			message: "#^Call to function is_object\\(\\) with array\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:getShippingItemsGridAction\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
@@ -956,29 +546,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Recurring/ProfileController.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
 
 		-
 			message: "#^Variable \\$data in isset\\(\\) always exists and is not nullable\\.$#"
@@ -993,11 +563,6 @@ parameters:
 		-
 			message: "#^Method Mage_Adminhtml_System_StoreController\\:\\:_backupDatabase\\(\\) should return \\$this\\(Mage_Adminhtml_System_StoreController\\) but empty return statement found\\.$#"
 			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/System/StoreController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 6
 			path: app/code/core/Mage/Adminhtml/controllers/System/StoreController.php
 
 		-
@@ -1063,11 +628,6 @@ parameters:
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$model\\.$#"
 			count: 2
-			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_Api_Model_Resource_Abstract will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
 
 		-
@@ -1151,34 +711,9 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Acl.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Global.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Global/Rule/ResourcePermission.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_Api2_Model_Auth_Adapter_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Auth/Adapter.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Auth/Adapter.php
-
-		-
 			message: "#^Method Mage_Api2_Model_Config\\:\\:getResourceGroup\\(\\) should return bool\\|Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Config.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Dispatcher.php
 
 		-
 			message: "#^Call to an undefined method Mage_Api2_Model_Config\\:\\:getMainRoute\\(\\)\\.$#"
@@ -1221,16 +756,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 6
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract and Mage_Eav_Model_Form will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
@@ -1247,21 +772,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Api2_Model_Resource_Validator_Eav\\:\\:\\$_entity \\(Mage_Core_Model_Abstract\\) in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: "#^Result of \\|\\| is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: "#^Result of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
@@ -1304,11 +814,6 @@ parameters:
 			message: "#^Constructor of class Mage_Api2_Model_Route_ApiType has an unused parameter \\$translator\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Server.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:decrypt\\(\\)\\.$#"
@@ -1391,11 +896,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Selection.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getIsPricesCalculatedByIndex\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php
@@ -1412,11 +912,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionFinalTotalPrice\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php
-
-		-
-			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php
 
@@ -1441,16 +936,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/CatalogIndex/Data/Bundle.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Option.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Option.php
-
-		-
 			message: "#^Call to an undefined method Mage_Bundle_Model_Resource_Price_Index\\:\\:reindexProduct\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Price/Index.php
@@ -1461,23 +946,8 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: "#^Method Mage_Bundle_Model_Product_Price\\:\\:getOptions\\(\\) should return Mage_Bundle_Model_Resource_Option_Collection but returns array\\.$#"
 			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -1511,16 +981,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:isRequired\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Captcha/Block/Captcha/Zend.php
@@ -1533,11 +993,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:logAttempt\\(\\)\\.$#"
 			count: 3
-			path: app/code/core/Mage/Captcha/Model/Observer.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 9
 			path: app/code/core/Mage/Captcha/Model/Observer.php
 
 		-
@@ -1571,16 +1026,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Breadcrumbs.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Category/View.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Layer/View.php
-
-		-
 			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
@@ -1591,22 +1036,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between int\\<2, 7\\> and 0 is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
 			message: "#^Property Mage_Catalog_Block_Navigation\\:\\:\\$_currentCategoryKey \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
@@ -1617,13 +1047,8 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Block/Product.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Abstract.php
+			path: app/code/core/Mage/Catalog/Block/Product.php
 
 		-
 			message: "#^Property Mage_Catalog_Block_Product_Abstract\\:\\:\\$_reviewsHelperBlock \\(Mage_Review_Block_Helper\\|null\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
@@ -1676,34 +1101,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Upsell.php
-
-		-
 			message: "#^Property Mage_Catalog_Block_Product_New\\:\\:\\$_productsCount \\(null\\) does not accept int\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Block/Product/New.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Price.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Options.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Options/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Options/Abstract.php
 
 		-
 			message: "#^Method Mage_Catalog_Block_Product_View_Options_Type_Date\\:\\:_getValueWithLeadingZeros\\(\\) should return string but returns int\\.$#"
@@ -1719,11 +1119,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_Widget_Html_Pager\\:\\:\\$_lastPage \\(int\\) does not accept float\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/Widget/Html/Pager.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Widget/New.php
 
 		-
 			message: "#^Property Mage_Catalog_Block_Product_Widget_New\\:\\:\\$_pager \\(Mage_Catalog_Block_Product_Widget_Html_Pager\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
@@ -1756,7 +1151,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Helper/Product.php
+
+		-
+			message: "#^Method Mage_Catalog_Helper_Product_Compare\\:\\:getItemCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection but returns Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
@@ -1764,16 +1164,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Helper_Product_Compare\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Helper/Product/Configuration.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Configuration.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:loadSelf\\(\\)\\.$#"
@@ -1836,7 +1226,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Strict comparison using \\!\\=\\= between mixed and 0 will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
@@ -1866,17 +1256,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Category.php
-
-		-
 			message: "#^Cannot call method getRootCategoryId\\(\\) on int\\|string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Api.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
@@ -1899,11 +1279,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Config\\:\\:getAttributeSetId\\(\\) invoked with 1 parameter, 2 required\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Config.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Catalog.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getStoreId\\(\\)\\.$#"
@@ -1934,21 +1309,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Convert/Parser/Product.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/Catalog/Model/Design.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Category\\:\\:getParentDesignCategory\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -1996,11 +1356,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Category.php
-
-		-
 			message: "#^Parameter \\#2 \\$filterBlock \\(Mage_Catalog_Block_Layer_Filter_Decimal\\) of method Mage_Catalog_Model_Layer_Filter_Decimal\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Decimal.php
@@ -2008,11 +1363,6 @@ parameters:
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category_Flat\\:\\:move\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Observer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Observer.php
 
 		-
@@ -2036,28 +1386,13 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
 			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Product/Api.php
-
-		-
 			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
@@ -2069,11 +1404,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api_V2\\:\\:_prepareImageData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api\\:\\:_prepareImageData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api/V2.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between \\*NEVER\\* and true will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$customer_group_id\\.$#"
@@ -2096,11 +1426,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Image.php
-
-		-
 			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
@@ -2114,16 +1439,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:groupFactory\\(\\) should return Mage_Catalog_Model_Product_Option_Type_Default but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Default.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\\:\\:getId\\(\\)\\.$#"
@@ -2142,17 +1457,7 @@ parameters:
 
 		-
 			message: "#^Elseif condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 6
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
+			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
 
 		-
@@ -2166,18 +1471,8 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Abstract.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
@@ -2221,6 +1516,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
+			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of native type non\\-empty\\-array\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
+
+		-
 			message: "#^Right side of \\|\\| is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
@@ -2231,22 +1531,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenAmount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -2306,27 +1596,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category_Tree\\:\\:_getItemIsActive\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
 			message: "#^Parameter \\#1 \\$category \\(Mage_Catalog_Model_Category\\) of method Mage_Catalog_Model_Resource_Category_Tree\\:\\:move\\(\\) should be compatible with parameter \\$node \\(Varien_Data_Tree_Node\\) of method Varien_Data_Tree_Dbp\\:\\:move\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
@@ -2348,6 +1623,11 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category\\:\\:refreshProductIndex\\(\\)\\.$#"
 			count: 2
+			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
@@ -2382,11 +1662,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStoreId\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
@@ -2431,59 +1706,19 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Collection.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Collection.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Loose comparison using \\=\\= between true and true will always evaluate to true\\.$#"
 			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Option/Collection.php
+			path: app/code/core/Mage/Catalog/Model/Url.php
 
 		-
 			message: "#^Property Mage_Catalog_Model_Url\\:\\:\\$_saveRewritesHistory \\(bool\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/CategoryController.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
 
 		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
@@ -2516,11 +1751,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			message: "#^Variable \\$kill in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
@@ -2531,24 +1761,9 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Eav.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
-
-		-
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Price\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Price.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Price.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Aggregation.php
 
 		-
 			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
@@ -2561,7 +1776,7 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Retreiver.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Method Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\\:\\:_getGroupRenderer\\(\\) should return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Minsaleqty.php
 
@@ -2571,17 +1786,7 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Minsaleqty.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
 			message: "#^Method Mage_CatalogInventory_Model_Observer\\:\\:_getQuoteItemQtyForCheck\\(\\) should return int but returns float\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
@@ -2606,19 +1811,14 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Resource/Stock/Item/Collection.php
 
 		-
-			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
+			message: "#^Call to function is_numeric\\(\\) with int will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Stock/Status.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh.php
+			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
 			message: "#^Return type \\(int\\) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row\\:\\:_getProduct\\(\\) should be compatible with return type \\(null\\) of method Mage_CatalogRule_Model_Action_Index_Refresh\\:\\:_getProduct\\(\\)$#"
@@ -2626,17 +1826,7 @@ parameters:
 			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Observer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Rule_Model_Condition_Combine\\:\\:collectValidatedAttributes\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Rule.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogRule/Model/Rule.php
 
@@ -2646,29 +1836,9 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Autocomplete.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
-
-		-
 			message: "#^Property Mage_CatalogSearch_Helper_Data\\:\\:\\$_queryText \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Helper/Data.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
 
 		-
 			message: "#^Method Mage_CatalogSearch_Model_Advanced\\:\\:getProductCollection\\(\\) should return Mage_CatalogSearch_Model_Resource_Advanced_Collection but returns array\\|float\\|int\\|string\\|false\\|null\\.$#"
@@ -2681,67 +1851,12 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Layer/Filter/Attribute.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept default value of type int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
-			message: "#^Property Mage_CatalogSearch_Model_Resource_Fulltext_Collection\\:\\:\\$_relevanceSortOrder \\(null\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Collection.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Centinel/Block/Adminhtml/Validation.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Centinel/Block/Adminhtml/Validation/Form.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Centinel/Block/Adminhtml/Validation/Form.php
-
-		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Cannot call method setMethod\\(\\) on object\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
@@ -2751,29 +1866,14 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
-
-		-
 			message: "#^Variable \\$ninProductIds in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Loose comparison using \\=\\= between numeric\\-string and '' will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
-
-		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
 
 		-
 			message: "#^Property Mage_Checkout_Block_Cart_Shipping\\:\\:\\$_address \\(array\\) does not accept Mage_Sales_Model_Quote_Address\\.$#"
@@ -2786,28 +1886,13 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Cart/Sidebar.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Block/Links.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Method Mage_Checkout_Block_Onepage_Billing\\:\\:_getTaxvat\\(\\) should return Mage_Customer_Block_Widget_Taxvat but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
 
 		-
 			message: "#^Property Mage_Checkout_Block_Onepage_Billing\\:\\:\\$_taxvat \\(Mage_Customer_Block_Widget_Taxvat\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 3
 			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
 
 		-
@@ -2821,34 +1906,9 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Onepage/Success.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Controller/Action.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 5
-			path: app/code/core/Mage/Checkout/Model/Cart.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Api.php
+			path: app/code/core/Mage/Checkout/Model/Api/Resource/Product.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -2866,14 +1926,14 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
+			count: 2
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api.php
+			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
 			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Checkout_Model_Cart_Payment_Api_V2\\:\\:_preparePaymentData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Checkout_Model_Cart_Payment_Api\\:\\:_preparePaymentData\\(\\)$#"
@@ -2881,14 +1941,14 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Product/Api.php
+			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
 			message: "#^Method Mage_Checkout_Model_Cart_Product_Api_V2\\:\\:_prepareProductsData\\(\\) should return array but returns mixed\\.$#"
@@ -2906,39 +1966,14 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote\\:\\:getBillingAddress\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
 
 		-
 			message: "#^Variable \\$paymentMethod in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
@@ -2951,49 +1986,14 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between 0\\|0\\.0\\|array\\|string\\|false\\|null and 0 results in an error\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Checkout/controllers/CartController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Helper/Page.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Cms/Helper/Page.php
 
 		-
 			message: "#^Method Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:getConfig\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
@@ -3011,16 +2011,6 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:_getUrlModel\\(\\) should return Mage_Core_Model_Url but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Abstract.php
@@ -3036,74 +2026,14 @@ parameters:
 			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Flush.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Html/Select.php
-
-		-
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Messages.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Profiler.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Template.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Template.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text.php
-
-		-
 			message: "#^Call to an undefined method Zend_Controller_Router_Interface\\:\\:addRoute\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Request/Http.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Controller/Request/Http.php
 
 		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:is\\(\\)\\.$#"
@@ -3112,11 +2042,6 @@ parameters:
 
 		-
 			message: "#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \\$invokeArgs\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
@@ -3137,11 +2062,6 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\>\" between int\\<0, 100\\> and 100 is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Front.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Front.php
 
@@ -3171,27 +2091,12 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/String.php
-
-		-
 			message: "#^Property Mage_Core_Helper_String\\:\\:\\$_arrayHelper \\(Mage_Core_Helper_Array\\) does not accept Mage_Core_Helper_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Helper/String.php
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
@@ -3216,11 +2121,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 6
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: "#^Property Mage_Core_Model_App\\:\\:\\$_request \\(Mage_Core_Controller_Request_Http\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
@@ -3239,11 +2139,6 @@ parameters:
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
 			message: "#^Method Mage_Core_Model_Cache\\:\\:getDbAdapter\\(\\) should return Zend_Db_Adapter_Abstract but returns Varien_Db_Adapter_Interface\\|false\\.$#"
@@ -3287,11 +2182,6 @@ parameters:
 
 		-
 			message: "#^Return type \\(string\\) of method Mage_Core_Model_Config\\:\\:_loadCache\\(\\) should be compatible with return type \\(bool\\) of method Varien_Simplexml_Config\\:\\:_loadCache\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\|string and false will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
@@ -3346,11 +2236,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email.php
-
-		-
 			message: "#^Method Zend_Mail\\:\\:addBcc\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Email/Queue.php
@@ -3371,11 +2256,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Encryption.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Encryption.php
-
-		-
 			message: "#^Method Mage_Core_Model_Factory\\:\\:getUrlRewriteInstance\\(\\) should return Mage_Core_Model_Url_Rewrite but returns bool\\|Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Factory.php
@@ -3389,16 +2269,6 @@ parameters:
 			message: "#^Result of \\|\\| is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/File/Storage.php
-
-		-
-			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Validator/NotProtectedExtension.php
-
-		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Input/Filter.php
 
 		-
 			message: "#^PHPDoc tag @param for parameter \\$filter with type array\\|Zend_Filter_Interface is not subtype of native type Zend_Filter_Interface\\.$#"
@@ -3436,11 +2306,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
 			message: "#^Method Mage_Core_Model_Layout_Update\\:\\:saveCache\\(\\) should return bool but returns Mage_Core_Model_App\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout/Update.php
@@ -3471,39 +2336,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Config.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource_Db_Abstract\\:\\:_getConnection\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
 		-
 			message: "#^Property Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:\\$_resource \\(Mage_Core_Model_Resource_Db_Abstract\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -3551,28 +2386,8 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Iterator.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Layout.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Session.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
@@ -3601,19 +2416,9 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Translate.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Type/Db/Mysqli.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Type/Db/Pdo/Mysql.php
 
 		-
 			message: "#^Parameter \\#2 \\$clear \\(bool\\) of method Mage_Core_Model_Session_Abstract_Varien\\:\\:getData\\(\\) should be compatible with parameter \\$index \\(int\\|string\\) of method Varien_Object\\:\\:getData\\(\\)$#"
@@ -3631,33 +2436,13 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Session/Abstract/Zend.php
 
 		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
 			message: "#^Method Mage_Core_Model_Store\\:\\:_getSession\\(\\) should return Mage_Core_Model_Session but returns Mage_Core_Model_Session_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			message: "#^Method Mage_Core_Model_Store\\:\\:getPriceFilter\\(\\) should return Varien_Filter_Sprintf but returns Mage_Directory_Model_Currency_Filter\\.$#"
+			message: "#^Method Mage_Core_Model_Store\\:\\:formatPrice\\(\\) should return string but returns float\\.$#"
 			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
@@ -3667,16 +2452,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Core_Model_Store\\:\\:\\$_priceFilter \\(Mage_Directory_Model_Currency_Filter\\) does not accept Varien_Filter_Sprintf\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Store.php
 
@@ -3691,11 +2466,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 3
-			path: app/code/core/Mage/Core/Model/Url.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
@@ -3706,27 +2476,12 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and false will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
 
@@ -3751,16 +2506,6 @@ parameters:
 			path: app/code/core/Mage/CurrencySymbol/Block/Adminhtml/System/Currencysymbol.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Helper/Data.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
-
-		-
 			message: "#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\\:\\:\\$_storeId \\(string\\|null\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
@@ -3771,17 +2516,7 @@ parameters:
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Address.php
-
-		-
 			message: "#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
 
@@ -3789,16 +2524,6 @@ parameters:
 			message: "#^Property Mage_Customer_Block_Account_Navigation\\:\\:\\$_activeLink \\(bool\\) does not accept string\\.$#"
 			count: 2
 			path: app/code/core/Mage/Customer/Block/Account/Navigation.php
-
-		-
-			message: "#^Left side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Address/Book.php
-
-		-
-			message: "#^Right side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Address/Book.php
 
 		-
 			message: "#^Method Mage_Customer_Block_Address_Edit\\:\\:getCountryId\\(\\) should return int but returns string\\.$#"
@@ -3841,11 +2566,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Helper/Data.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Address/Abstract.php
-
-		-
 			message: "#^Cannot access property \\$is_default_billing on array\\.$#"
 			count: 2
 			path: app/code/core/Mage/Customer/Model/Address/Api/V2.php
@@ -3871,39 +2591,9 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with bool\\|string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer.php
 
 		-
 			message: "#^Method Mage_Directory_Model_Region\\:\\:loadByName\\(\\) invoked with 1 parameter, 2 required\\.$#"
@@ -3911,12 +2601,12 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Customer.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
+			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Customer_Model_Customer_Api_V2\\:\\:_prepareData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Customer_Model_Customer_Api\\:\\:_prepareData\\(\\)$#"
 			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer.php
+			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
 		-
-			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Customer_Model_Customer_Api_V2\\:\\:_prepareData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Customer_Model_Customer_Api\\:\\:_prepareData\\(\\)$#"
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
@@ -3929,21 +2619,6 @@ parameters:
 			message: "#^Method Mage_Customer_Model_Resource_Customer\\:\\:getWebsiteId\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Session.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Session.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Model/Session.php
 
 		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -4006,11 +2681,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
-
-		-
 			message: "#^Property Mage_Dataflow_Model_Convert_Action_Abstract\\:\\:\\$_container \\(Mage_Dataflow_Model_Convert_Container_Abstract\\) does not accept Mage_Dataflow_Model_Convert_Container_Interface\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
@@ -4021,34 +2691,14 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Db/Table.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Zend/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Zend/Db.php
 
 		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
@@ -4086,8 +2736,8 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
+			message: "#^Method Mage_Directory_Helper_Data\\:\\:getCountryCollection\\(\\) should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
+			count: 1
 			path: app/code/core/Mage/Directory/Helper/Data.php
 
 		-
@@ -4096,19 +2746,9 @@ parameters:
 			path: app/code/core/Mage/Directory/Helper/Data.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Country.php
-
-		-
 			message: "#^Method Mage_Directory_Model_Country\\:\\:getFormat\\(\\) should return Mage_Directory_Model_Country_Format but returns null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Country.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency.php
 
 		-
 			message: "#^Method Mage_Directory_Model_Currency_Import_Webservicex\\:\\:_convert\\(\\) should return float\\|null but return statement is missing\\.$#"
@@ -4133,22 +2773,7 @@ parameters:
 		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Samples.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Sales/Items/Column/Downloadable/Name.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/Catalog/Product/Configuration.php
 
 		-
 			message: "#^Cannot call method streamRead\\(\\) on resource\\.$#"
@@ -4161,24 +2786,9 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/File.php
-
-		-
 			message: "#^Parameter \\#2 \\$resource \\(object\\) of method Mage_Downloadable_Model_Link_Api_V2\\:\\:add\\(\\) should be compatible with parameter \\$resource \\(array\\) of method Mage_Downloadable_Model_Link_Api\\:\\:add\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Model/Link/Api/V2.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Downloadable/Model/Observer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Model/Observer.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -4206,11 +2816,6 @@ parameters:
 			path: app/code/core/Mage/Downloadable/controllers/Product/EditController.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Options/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute.php
@@ -4218,11 +2823,6 @@ parameters:
 		-
 			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:setRequestScope\\(\\) should return string but returns \\$this\\(Mage_Eav_Model_Attribute_Data_Abstract\\)\\.$#"
 			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
 		-
@@ -4242,11 +2842,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method loadByCode\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Config.php
 
@@ -4281,17 +2876,12 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with Varien_Db_Adapter_Pdo_Mysql will always evaluate to false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getReadAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql\\.$#"
+			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getReadAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getWriteAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Pdo_Mysql\\.$#"
+			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getWriteAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
@@ -4331,11 +2921,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
 			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_backend \\(Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
@@ -4361,16 +2946,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Backend/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
-
-		-
 			message: "#^Variable \\$out in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
@@ -4393,11 +2968,6 @@ parameters:
 		-
 			message: "#^Constructor of class Mage_Eav_Model_Entity_Collection_Abstract has an unused parameter \\$resource\\.$#"
 			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
@@ -4441,16 +3011,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Attribute/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Config.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:_getMaxSortOrder\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
@@ -4481,36 +3041,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Resource/Form/Type.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/Create/Items.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Helper/Message.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Helper/Message.php
-
-		-
 			message: "#^Method Mage_GiftMessage_Model_Api_V2\\:\\:_prepareData\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: app/code/core/Mage/GiftMessage/Model/Api/V2.php
@@ -4524,11 +3054,6 @@ parameters:
 			message: "#^Method Mage_GiftMessage_Model_Message\\:\\:getEntityModelByType\\(\\) should return Mage_Eav_Model_Entity_Abstract but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/GiftMessage/Model/Message.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Model/Observer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setGiftMessageId\\(\\)\\.$#"
@@ -4554,11 +3079,6 @@ parameters:
 			message: "#^Method Mage_GoogleAnalytics_Block_Ga\\:\\:_getOrdersTrackingCodeUniversal\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
-
-		-
-			message: "#^Method Mage_GoogleAnalytics_Helper_Data\\:\\:isUseUniversalAnalytics\\(\\) should return string but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Helper/Data.php
 
 		-
 			message: "#^Return type \\(void\\) of method Mage_GoogleCheckout_Model_Payment\\:\\:authorize\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Abstract\\)\\) of method Mage_Payment_Model_Method_Abstract\\:\\:authorize\\(\\)$#"
@@ -4601,28 +3121,8 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Helper/Data.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Abstract.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_ImportExport_Model_Export_Adapter_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_ImportExport_Model_Export_Entity_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/ImportExport/Model/Export.php
 
 		-
@@ -4636,17 +3136,7 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
 
@@ -4681,32 +3171,12 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract and Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
-
-		-
 			message: "#^Offset int\\|string on non\\-empty\\-array\\<int\\|string, non\\-empty\\-array\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 2
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
-
-		-
 			message: "#^Binary operation \"\\+\" between string and 50\\|int\\<100, max\\> results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_ImportExport_Model_Import_Entity_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import.php
 
@@ -4721,18 +3191,8 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Abstract.php
 
 		-
@@ -4821,11 +3281,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract and Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
 			message: "#^Method Mage_ImportExport_Model_Import_Entity_Product\\:\\:getConnection\\(\\) should return Varien_Db_Adapter_Pdo_Mysql but returns Varien_Convert_Adapter_Interface\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
@@ -4844,16 +3299,6 @@ parameters:
 			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Resource/Import/Data.php
 
 		-
 			message: "#^Method Mage_Index_Model_Lock\\:\\:getInstance\\(\\) should return \\$this\\(Mage_Index_Model_Lock\\) but returns Mage_Index_Model_Lock\\.$#"
@@ -4891,11 +3336,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Index/Model/Process.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with '' will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Event.php
@@ -4904,11 +3344,6 @@ parameters:
 			message: "#^Return type \\(Varien_Db_Adapter_Interface\\|false\\) of method Mage_Index_Model_Resource_Lock_Resource\\:\\:_getDefaultConnection\\(\\) should be compatible with return type \\(string\\) of method Mage_Core_Model_Resource\\:\\:_getDefaultConnection\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Setup.php
 
 		-
 			message: "#^Return type \\(void\\) of method Mage_Index_Model_Resource_Setup\\:\\:applyUpdates\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Setup\\)\\|true\\) of method Mage_Core_Model_Resource_Setup\\:\\:applyUpdates\\(\\)$#"
@@ -4922,11 +3357,6 @@ parameters:
 
 		-
 			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
 
@@ -4948,11 +3378,6 @@ parameters:
 		-
 			message: "#^Method Mage_Install_Model_Installer_Db\\:\\:_getDbResource\\(\\) should return Mage_Install_Model_Installer_Db_Abstract but returns resource\\.$#"
 			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Install/Model/Installer/Db.php
 
 		-
@@ -5011,16 +3436,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Newsletter/Model/Resource/Template.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/Block/Adminhtml/Oauth/Consumer/Edit.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:authenticate\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
@@ -5036,16 +3451,6 @@ parameters:
 			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Breadcrumbs.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Page/Block/Html/Topmenu/Renderer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:isPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
@@ -5054,16 +3459,6 @@ parameters:
 			message: "#^Cannot assign new offset to string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:cancelPartialAuthorization\\(\\)\\.$#"
@@ -5076,34 +3471,9 @@ parameters:
 			path: app/code/core/Mage/Paygate/controllers/Authorizenet/PaymentController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php
-
-		-
 			message: "#^Property Mage_Payment_Block_Catalog_Product_View_Profile\\:\\:\\$_profile \\(Mage_Payment_Model_Recurring_Profile\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Block/Catalog/Product/View/Profile.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Payment/Block/Form/Cc.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Form/Cc.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Block/Form/Cc.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Payment/Block/Info.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
@@ -5111,8 +3481,8 @@ parameters:
 			path: app/code/core/Mage/Payment/Helper/Data.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
+			message: "#^Cannot call method setInfo\\(\\) on object\\|false\\.$#"
+			count: 1
 			path: app/code/core/Mage/Payment/Helper/Data.php
 
 		-
@@ -5136,27 +3506,12 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:exportStartDatetime\\(\\) should return string\\|Zend_Date but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 6
-			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Result of \\|\\| is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
@@ -5176,21 +3531,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Block/Express/Review.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review.php
-
-		-
-			message: "#^Right side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review/Billing.php
-
-		-
-			message: "#^Right side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review/Shipping.php
-
-		-
 			message: "#^Return type \\(false\\) of method Mage_Paypal_Block_Hosted_Pro_Info\\:\\:getCcTypeName\\(\\) should be compatible with return type \\(string\\|null\\) of method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Block/Hosted/Pro/Info.php
@@ -5198,11 +3538,6 @@ parameters:
 		-
 			message: "#^Method Mage_Paypal_Block_Iframe\\:\\:_getBlock\\(\\) should return \\$this\\(Mage_Paypal_Block_Iframe\\) but returns Mage_Payment_Block_Form\\.$#"
 			count: 1
-			path: app/code/core/Mage/Paypal/Block/Iframe.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/code/core/Mage/Paypal/Block/Iframe.php
 
 		-
@@ -5216,27 +3551,12 @@ parameters:
 			path: app/code/core/Mage/Paypal/Block/Payflow/Link/Info.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
 			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initCheckout\\(\\) should return Mage_Paypal_Model_Express_Checkout but returns Mage_Core_Model_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
 		-
 			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initToken\\(\\) should return Mage_Paypal_ExpressController\\|string but returns \\$this\\(Mage_Paypal_Controller_Express_Abstract\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
@@ -5256,23 +3576,8 @@ parameters:
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Helper/Hss.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Helper/Hss.php
-
-		-
 			message: "#^Method Mage_Paypal_Model_Api_Abstract\\:\\:_exportLineItems\\(\\) should return bool but empty return statement found\\.$#"
 			count: 2
-			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
 
 		-
@@ -5296,22 +3601,12 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
-
-		-
 			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
 
 		-
 			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
 
@@ -5329,6 +3624,11 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Cart.php
+
+		-
+			message: "#^Method Mage_Paypal_Model_Config\\:\\:_matchBnCountryCode\\(\\) is unused\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Config.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
@@ -5366,26 +3666,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Hostedpro\\:\\:getAllowedCcTypes\\(\\) should be compatible with return type \\(string\\) of method Mage_Paypal_Model_Direct\\:\\:getAllowedCcTypes\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Hostedpro.php
@@ -5399,16 +3679,6 @@ parameters:
 			message: "#^Binary operation \"\\-\" between array\\|string and array\\|string results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Payflowlink\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
@@ -5456,19 +3726,9 @@ parameters:
 			path: app/code/core/Mage/Paypal/controllers/HostedproController.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/controllers/PayflowController.php
-
-		-
 			message: "#^Method Mage_Paypal_PayflowController\\:\\:_getIframeBlock\\(\\) should return Mage_Paypal_Block_Payflow_Link_Iframe but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/controllers/PayflowController.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php
 
 		-
 			message: "#^Method Mage_Paypal_PayflowadvancedController\\:\\:_getIframeBlock\\(\\) should return Mage_Paypal_Block_Payflow_Advanced_Iframe but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -5481,24 +3741,9 @@ parameters:
 			path: app/code/core/Mage/PaypalUk/Model/Pro.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/ProductAlert/Block/Product/View.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/Block/Stock.php
-
-		-
 			message: "#^Method Mage_ProductAlert_Helper_Data\\:\\:createBlock\\(\\) should return Mage_ProductAlert_Block_Email_Price\\|Mage_ProductAlert_Block_Email_Stock but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/ProductAlert/Model/Observer.php
 
 		-
 			message: "#^Method Mage_ProductAlert_Model_Observer\\:\\:process\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -5506,7 +3751,7 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Product is not subtype of native type 0\\|0\\.0\\|''\\|'0'\\|array\\{\\}\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
@@ -5519,11 +3764,6 @@ parameters:
 			message: "#^Variable \\$data in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
 		-
 			message: "#^Method Mage_Rating_Model_Resource_Rating_Collection\\:\\:getItemById\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -5567,11 +3807,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Resource_Quote_Item_Collection\\:\\:setQuoteFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
 
@@ -5646,14 +3881,9 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
 		-
-			message: "#^If condition is always false\\.$#"
+			message: "#^Loose comparison using \\!\\= between 0 and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/Block/Form.php
 
 		-
 			message: "#^Return type \\(string\\) of method Mage_Review_Block_Form\\:\\:getAction\\(\\) should be compatible with return type \\(Mage_Core_Controller_Varien_Action\\) of method Mage_Core_Block_Abstract\\:\\:getAction\\(\\)$#"
@@ -5662,11 +3892,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Review_Model_Resource_Review\\:\\:getTotalReviews\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/Model/Resource/Review.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Review/Model/Resource/Review.php
 
@@ -5681,34 +3906,9 @@ parameters:
 			path: app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Review/Model/Review.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rss/Helper/Data.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rss/Helper/Data.php
-
-		-
-			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Rule/Model/Abstract.php
 
 		-
 			message: "#^Offset 'actions'\\|'conditions' on array\\{\\} in isset\\(\\) does not exist\\.$#"
@@ -5717,11 +3917,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Rule_Model_Abstract\\:\\:\\$_conditions \\(Mage_Rule_Model_Condition_Combine\\) in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Abstract.php
 
@@ -5761,11 +3956,6 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Combine.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
@@ -5774,26 +3964,6 @@ parameters:
 			message: "#^Method Mage_Rule_Model_Condition_Product_Abstract\\:\\:getAttributeObject\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Varien_Object\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/Edit/Form.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/Edit/Form.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/View/Items.php
 
 		-
 			message: "#^Cannot call method setParentFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -5816,29 +3986,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Totals.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Recurring/Profile/View.php
-
-		-
 			message: "#^Property Mage_Sales_Block_Recurring_Profiles\\:\\:\\$_profiles \\(Mage_Sales_Model_Resource_Recurring_Profile_Collection\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Reorder/Sidebar.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Reorder/Sidebar.php
 
 		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
@@ -5846,24 +3996,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
 
 		-
-			message: "#^Offset 'after' on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element, \\000\\*\\000_parent\\: Varien_Simplexml_Element, before\\: array\\{\\}\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
-
-		-
-			message: "#^Offset 'before' on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element, \\000\\*\\000_parent\\: Varien_Simplexml_Element\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Resource_Quote_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Backend/Region.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\)\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
@@ -5896,69 +4031,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Address.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Address.php
-
-		-
 			message: "#^Property Mage_Sales_Model_Order_Creditmemo\\:\\:\\$_items \\(iterable\\<Mage_Sales_Model_Order_Creditmemo_Item\\>&Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Comment.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Comment.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Comment.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Item.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Creditmemo/Item.php
 
 		-
 			message: "#^Cannot call method addAttributeToFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -5966,53 +4041,13 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Comment.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Comment.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Comment.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Item.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice/Item.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getForceApplyDiscountToParentItem\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Item.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Item.php
 
 		-
 			message: "#^If condition is always false\\.$#"
 			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
 		-
@@ -6026,44 +4061,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Method Mage_Sales_Model_Order_Payment_Transaction\\:\\:getOrderId\\(\\) should return int\\|null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
-
-		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_Sales_Model_Order_Pdf_Total_Default will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Order_Pdf_Abstract\\:\\:getAlignCenter\\(\\) should return int but returns float\\.$#"
@@ -6091,78 +4091,23 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
 
 		-
-			message: "#^Call to function is_object\\(\\) with array\\|string will always evaluate to false\\.$#"
+			message: "#^Method Mage_Sales_Model_Order_Shipment_Api\\:\\:create\\(\\) should return string but returns null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Method Mage_Sales_Model_Order_Shipment_Api_V2\\:\\:create\\(\\) should return string but returns null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Method Mage_Sales_Model_Order_Status_History\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Comment.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Comment.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Comment.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Item.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Item.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Track.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Track.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Track.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
 
 		-
@@ -6171,43 +4116,8 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_Sales_Model_Order_Total_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Total/Config/Base.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Total/Config/Base.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Payment/Method/Billing/AgreementAbstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Quote_Item_Abstract\\:\\:compare\\(\\)\\.$#"
 			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 4
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
@@ -6221,22 +4131,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			message: "#^Property Mage_Sales_Model_Quote\\:\\:\\$_addresses \\(Mage_Sales_Model_Resource_Order_Address_Collection\\|null\\) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
@@ -6246,22 +4141,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
@@ -6271,22 +4151,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Item.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|false and Mage_Sales_Model_Quote_Address_Total_Abstract will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
 
@@ -6331,24 +4196,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Subtotal.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Subtotal.php
-
-		-
 			message: "#^Return type \\(Mage_Sales_Model_Quote_Address_Total_Subtotal\\) of method Mage_Sales_Model_Quote_Address_Total_Subtotal\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Subtotal.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Quote_Address_Total_Tax\\)\\) of method Mage_Sales_Model_Quote_Address_Total_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
@@ -6356,12 +4206,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Tax.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Instanceof between Mage_Sales_Model_Quote_Item_Option and Mage_Sales_Model_Quote_Item_Option will always evaluate to true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
@@ -6381,39 +4226,14 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Option.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Option\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item/Option.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
-			path: app/code/core/Mage/Sales/Model/Quote/Payment.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Quote/Payment.php
 
 		-
 			message: "#^Call to Exception\\:\\:__construct\\(\\) on a separate line has no effect\\.$#"
@@ -6436,11 +4256,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
 			message: "#^Cannot call method updateOnRelatedRecordChanged\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Address.php
@@ -6449,16 +4264,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isFailsafe\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Payment/Transaction.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Backend/Region.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Custbalance\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Custbalance\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
@@ -6491,21 +4296,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Item/Collection.php
-
-		-
-			message: "#^Left side of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Item/Collection.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Item/Collection.php
-
-		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
@@ -6514,11 +4304,6 @@ parameters:
 			message: "#^Variable \\$currentStoreIds in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Collection/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
@@ -6546,24 +4331,9 @@ parameters:
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
 			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Observer.php
 
 		-
 			message: "#^Return type \\(Mage_SalesRule_Model_Quote_Discount\\) of method Mage_SalesRule_Model_Quote_Discount\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
@@ -6589,16 +4359,6 @@ parameters:
 			message: "#^Binary operation \"\\+\\=\" between string\\|null and \\-1\\|1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Rule.php
 
 		-
 			message: "#^Return type \\(Mage_SalesRule_Model_Rule_Condition_Product_Combine\\) of method Mage_SalesRule_Model_Rule\\:\\:getActionsInstance\\(\\) should be compatible with return type \\(Mage_Rule_Model_Action_Collection\\) of method Mage_Rule_Model_Abstract\\:\\:getActionsInstance\\(\\)$#"
@@ -6656,11 +4416,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 3
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
@@ -6677,16 +4432,6 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\>\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^Instanceof between Mage_Core_Model_Abstract\\|Mage_Shipping_Model_Carrier_Abstract\\|true and Mage_Shipping_Model_Rate_Result_Error will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Shipping.php
 
@@ -6761,11 +4506,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Block/Sales/Order/Tax.php
 
 		-
-			message: "#^Instanceof between Mage_Sales_Model_Order_Invoice and Mage_Sales_Model_Order will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Block/Sales/Order/Tax.php
-
-		-
 			message: "#^Property Mage_Tax_Block_Sales_Order_Tax\\:\\:\\$_source \\(Mage_Sales_Model_Order_Invoice\\) does not accept Mage_Sales_Model_Order\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Block/Sales/Order/Tax.php
@@ -6796,11 +4536,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Calculation.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
 			message: "#^Property Mage_Tax_Model_Calculation_Rate\\:\\:\\$_titles \\(array\\|null\\) does not accept Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Calculation/Rate.php
@@ -6816,19 +4551,9 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Config/Price/Include.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
-
-		-
 			message: "#^Return type \\(array\\) of method Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Nominal/Tax.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
@@ -6843,11 +4568,6 @@ parameters:
 		-
 			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:\\$_rawTrackRequest\\.$#"
 			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
@@ -6886,11 +4606,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			message: "#^Access to an undefined property Varien_Object\\:\\:\\$domestic\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -6913,11 +4628,6 @@ parameters:
 		-
 			message: "#^Comparison operation \"\\>\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
 			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
@@ -6986,11 +4696,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
@@ -7004,16 +4709,6 @@ parameters:
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Fedex\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
 			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns null\\.$#"
@@ -7046,18 +4741,8 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			message: "#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:\\$_rawTrackRequest\\.$#"
 			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
-
-		-
-			message: "#^Instanceof between Mage_Shipping_Model_Rate_Result\\|null and Mage_Shipping_Model_Tracking_Result will always evaluate to false\\.$#"
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
@@ -7081,22 +4766,12 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
-			message: "#^Variable \\$statuses in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:priceIncludesTax\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Helper/Data.php
 
 		-
 			message: "#^Method Mage_Weee_Helper_Data\\:\\:getOriginalAmount\\(\\) should return int but returns float\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Helper/Data.php
 
@@ -7156,37 +4831,12 @@ parameters:
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Column.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Column.php
-
-		-
 			message: "#^Parameter \\#1 \\$item \\(Mage_Wishlist_Model_Item\\) of method Mage_Wishlist_Block_Share_Email_Items\\:\\:hasDescription\\(\\) should be compatible with parameter \\$item \\(Mage_Catalog_Model_Product\\) of method Mage_Wishlist_Block_Abstract\\:\\:hasDescription\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Block/Share/Email/Items.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
+			message: "#^Method Mage_Wishlist_Helper_Data\\:\\:getCustomerName\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
 
@@ -7196,29 +4846,14 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
 			message: "#^Variable \\$buyRequest in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 2
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
-
-		-
 			message: "#^Method Mage_Wishlist_Model_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Wishlist_Model_Item_Option\\) but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
-
-		-
-			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\<int, string\\>\\|string\\) results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: "#^Method Mage_Wishlist_IndexController\\:\\:_addItemToWishList\\(\\) with return type void returns mixed but should not return anything\\.$#"
@@ -7231,19 +4866,9 @@ parameters:
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
 			count: 1
 			path: lib/Mage/Archive.php
-
-		-
-			message: "#^Offset 'basename' on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: lib/Mage/Archive/Helper/File.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
@@ -7261,19 +4886,9 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Socket.php
 
 		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
@@ -7291,42 +4906,17 @@ parameters:
 			path: lib/Mage/System/Ftp.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Mage/Xml/Generator.php
-
-		-
 			message: "#^Argument of an invalid type Zend_Db_Statement_Interface supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: lib/Magento/Db/Object/Trigger.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 2
-			path: lib/Magento/Profiler/Output/Firebug.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Autoload.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 3
+			count: 2
 			path: lib/Varien/Cache/Backend/Database.php
 
 		-
 			message: "#^Method Varien_Cache_Backend_Database\\:\\:touch\\(\\) should return bool but returns int\\.$#"
-			count: 1
-			path: lib/Varien/Cache/Backend/Database.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: lib/Varien/Cache/Backend/Database.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\<min, \\-1\\>\\|int\\<1, max\\> and null will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Cache/Backend/Database.php
 
@@ -7349,31 +4939,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Convert_Action_Abstract\\:\\:addException\\(\\)\\.$#"
 			count: 2
 			path: lib/Varien/Convert/Action/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Action/Abstract.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Adapter/Db/Table.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Adapter/Io.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Adapter/Zend/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Convert/Adapter/Zend/Db.php
 
 		-
 			message: "#^Call to an undefined method Varien_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
@@ -7431,17 +4996,7 @@ parameters:
 			path: lib/Varien/Data/Form/Abstract.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: lib/Varien/Data/Form/Element/Abstract.php
-
-		-
 			message: "#^Access to an undefined property Varien_Data_Form_Element_Fieldset\\:\\:\\$_sortDirection\\.$#"
-			count: 1
-			path: lib/Varien/Data/Form/Element/Fieldset.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: lib/Varien/Data/Form/Element/Fieldset.php
 
@@ -7449,11 +5004,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$suffix \\(int\\) of method Varien_Data_Form_Element_Multiline\\:\\:getLabelHtml\\(\\) should be compatible with parameter \\$idSuffix \\(string\\) of method Varien_Data_Form_Element_Abstract\\:\\:getLabelHtml\\(\\)$#"
 			count: 1
 			path: lib/Varien/Data/Form/Element/Multiline.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: lib/Varien/Data/Tree.php
 
 		-
 			message: "#^Function explode invoked with 1 parameter, 2\\-3 required\\.$#"
@@ -7464,11 +5014,6 @@ parameters:
 			message: "#^Property Varien_Data_Tree_Dbp\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Node.php
 
 		-
 			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
@@ -7516,11 +5061,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between false and mysqli will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Mysqli.php
@@ -7541,23 +5081,8 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between int\\<256, max\\> and 255 is always true\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Comparison operation \"\\>\" between int\\<65537, max\\> and 65536 is always true\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
 			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
@@ -7577,11 +5102,6 @@ parameters:
 
 		-
 			message: "#^Return type \\(array\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:multiQuery\\(\\) should be compatible with return type \\(Varien_Db_Adapter_Interface\\) of method Varien_Db_Adapter_Interface\\:\\:multiQuery\\(\\)$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -7631,6 +5151,11 @@ parameters:
 			path: lib/Varien/File/Uploader/Image.php
 
 		-
+			message: "#^Call to function is_callable\\(\\) with array\\{\\$this\\(Varien_Filter_Template\\), 'dependDirective'\\|'ifDirective'\\} will always evaluate to true\\.$#"
+			count: 1
+			path: lib/Varien/Filter/Template.php
+
+		-
 			message: "#^Right side of && is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Parameter.php
@@ -7671,32 +5196,12 @@ parameters:
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: "#^Result of \\|\\| is always true\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 8
-			path: lib/Varien/Io/File.php
-
-		-
 			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
 			count: 1
 			path: lib/Varien/Object/Cache.php
 
 		-
 			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: lib/Varien/Object/Cache.php
 
@@ -7756,6 +5261,6 @@ parameters:
 			path: lib/Varien/Simplexml/Config.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and false will always evaluate to false\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between mixed and false will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php

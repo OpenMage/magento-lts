@@ -37,12 +37,19 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
+     * @var string google analytics 4
+     */
+    public const TYPE_ANALYTICS4 = 'analytics4';
+
+    /**
      * @var string classic google analytics tracking code
+     * @deprecated
      */
     public const TYPE_ANALYTICS = 'analytics';
 
     /**
      * @var string google analytics universal tracking code
+     * @deprecated
      */
     public const TYPE_UNIVERSAL = 'universal';
 
@@ -86,10 +93,22 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
-     * @return string
+     * @return bool
+     * @deprecated
      */
     public function isUseUniversalAnalytics($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+    }
+
+    /**
+     * Returns true if should use Google Universal Analytics 4
+     *
+     * @param string $store
+     * @return bool
+     */
+    public function isUseAnalytics4($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
     }
 }

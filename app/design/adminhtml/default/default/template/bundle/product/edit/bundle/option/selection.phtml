@@ -154,13 +154,13 @@ Bundle.Selection.prototype = {
 
         Element.insert(tbody[0], {'bottom':this.template.evaluate(data)});
 
-        if (data.selection_price_type) {
+        if (typeof data.selection_price_type !== 'undefined') {
             $A($(this.idLabel + '_'+data.index+'_price_type').options).each(function(option){
                 if (option.value==data.selection_price_type) option.selected = true;
             });
         }
 
-        if (data.selection_price_type) {
+        if (typeof data.selection_price_type !== 'undefined') {
             $A($(this.idLabel + '_'+data.index+'_can_change_qty').options).each(function(option){
                 if (option.value==data.selection_can_change_qty) option.selected = true;
             });
