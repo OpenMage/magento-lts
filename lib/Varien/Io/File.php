@@ -70,7 +70,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream open file pointer
      *
-     * @var resource
+     * @var resource|null
      */
     protected $_streamHandler;
 
