@@ -311,16 +311,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:toOptionArray\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			message: "#^Comparison operation \"\\=\\=\" between \\(Mage_Core_Model_Config_Element\\|null\\) and 1 results in an error\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -1166,16 +1156,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:loadSelf\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Product_Flat\\:\\:\\$_forceFlatStatusOld \\(bool\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Flat.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setStoreId\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Abstract.php
@@ -1769,11 +1749,6 @@ parameters:
 			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
-
-		-
-			message: "#^Method Mage_CatalogIndex_Model_Retreiver\\:\\:getRetreiver\\(\\) should return Mage_CatalogIndex_Model_Data_Abstract but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Retreiver.php
 
 		-
 			message: "#^Method Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\\:\\:_getGroupRenderer\\(\\) should return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -3431,21 +3406,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:authenticate\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Property Mage_Oauth_Customer_TokenController\\:\\:\\$_session \\(Mage_Customer_Model_Session\\) does not accept Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
-			message: "#^Property Mage_Oauth_Customer_TokenController\\:\\:\\$_sessionName \\(Mage_Customer_Model_Session\\) does not accept default value of type string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Oauth/controllers/Customer/TokenController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:isPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/Block/Authorizenet/Form/Cc.php
@@ -3546,36 +3506,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Block/Payflow/Link/Info.php
 
 		-
-			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initCheckout\\(\\) should return Mage_Paypal_Model_Express_Checkout but returns Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Method Mage_Paypal_Controller_Express_Abstract\\:\\:_initToken\\(\\) should return Mage_Paypal_ExpressController\\|string but returns \\$this\\(Mage_Paypal_Controller_Express_Abstract\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_checkout \\(Mage_Paypal_Model_Express_Checkout\\) does not accept Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_config \\(Mage_Paypal_Model_Config\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_quote \\(Mage_Sales_Model_Quote\\) does not accept default value of type false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Api_Abstract\\:\\:_exportLineItems\\(\\) should return bool but empty return statement found\\.$#"
-			count: 2
-			path: app/code/core/Mage/Paypal/Model/Api/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Paypal_Model_Api_Nvp\\:\\:_export\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
@@ -3594,16 +3524,6 @@ parameters:
 			message: "#^Method Mage_Paypal_Model_Api_Nvp\\:\\:_exportLineItems\\(\\) should return true\\|null but returns bool\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Api/Nvp.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Api_Standard\\:\\:_exportLineItems\\(\\) should return true\\|null but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Api/Standard.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isNominal\\(\\)\\.$#"
@@ -5181,44 +5101,9 @@ parameters:
 			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\*\\=\" between string and 1024 results in an error\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
 			message: "#^Class GdImage not found\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: "#^Access to an undefined property Varien_Object_Cache\\:\\:\\$_referencesByObject\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Method Varien_Object_Cache\\:\\:reference\\(\\) should return bool but empty return statement found\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Offset 'function' on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$ids$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Undefined variable\\: \\$references$#"
-			count: 1
-			path: lib/Varien/Object/Cache.php
-
-		-
-			message: "#^Cannot call method hasData\\(\\) on array\\|\\(callable\\)\\|object\\.$#"
-			count: 1
-			path: lib/Varien/Object/Mapper.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
