@@ -61,8 +61,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             list($this->_config['host'], $port) = explode(':', $this->_config['host']);
         }
 
-        #echo "<pre>".print_r($this->_config,1)."</pre>"; die;
-        @$conn->real_connect(
+        $connectionSuccessful = @$conn->real_connect(
             $this->_config['host'],
             $this->_config['username'],
             $this->_config['password'],
@@ -70,7 +69,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $port,
             $socket
         );
-        if (mysqli_connect_errno()) {
+        if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
         }
 
@@ -84,7 +83,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * Run RAW Query
      *
      * @param string $sql
-     * @return Zend_Db_Statement_Interface
+     * @return mysqli_result
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)

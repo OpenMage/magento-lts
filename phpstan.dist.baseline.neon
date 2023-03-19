@@ -4946,11 +4946,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Interface.php
 
 		-
-			message: "#^Call to an undefined method Zend_Db_Statement_Interface\\:\\:fetch_assoc\\(\\)\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
 			message: "#^Cannot access property \\$error on object\\|resource\\.$#"
 			count: 3
 			path: lib/Varien/Db/Adapter/Mysqli.php
@@ -4972,11 +4967,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method store_result\\(\\) on object\\|resource\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
@@ -5061,11 +5051,6 @@ parameters:
 			path: lib/Varien/Db/Tree/NodeSet.php
 
 		-
-			message: "#^Call to function is_float\\(\\) with mixed will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Debug.php
-
-		-
 			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/File/Uploader/Image.php
@@ -5096,19 +5081,9 @@ parameters:
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: "#^Method Varien_Image_Adapter_Abstract\\:\\:backgroundColor\\(\\) should return array but empty return statement found\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
 			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
-			message: "#^Class GdImage not found\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
