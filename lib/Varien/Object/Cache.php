@@ -31,7 +31,7 @@ class Varien_Object_Cache
     /**
      * Singleton instance
      *
-     * @var Varien_Object_Cache
+     * @var Varien_Object_Cache|null
      */
     protected static $_instance;
 
@@ -90,6 +90,11 @@ class Varien_Object_Cache
      * @var array 2D
      */
     protected $_objectReferences = [];
+
+    /**
+     * @var array
+     */
+    protected $_referencesByObject = [];
 
     /**
      * Debug data such as backtrace per class
@@ -196,7 +201,7 @@ class Varien_Object_Cache
             foreach ($refName as $ref) {
                 $this->reference($ref, $idx);
             }
-            return;
+            return false;
         }
 
         if (isset($this->_references[$refName])) {
@@ -243,7 +248,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach ($references as $r => $dummy) {
+            foreach ($this->_references as $r => $dummy) {
                 unset($this->_references[$r]);
             }
             unset($this->_objectReferences[$idx]);
@@ -345,7 +350,7 @@ class Varien_Object_Cache
                 if (isset($objects[$idx])) {
                     continue;
                 }
-                $objects[$ids] = $this->load($idx);
+                $objects[$idx] = $this->load($idx);
             }
         }
         return $objects;
@@ -375,7 +380,7 @@ class Varien_Object_Cache
             $debug[$i] = [
                 'file'     => isset($step['file']) ? $step['file'] : null,
                 'line'     => isset($step['line']) ? $step['line'] : null,
-                'function' => isset($step['function']) ? $step['function'] : null,
+                'function' => $step['function'],
             ];
         }
         $this->_debug[$idx] = $debug;

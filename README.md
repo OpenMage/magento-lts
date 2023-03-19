@@ -46,7 +46,7 @@ level of backwards compatibility to the official releases.
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
+- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -115,6 +115,12 @@ composer require "openmage/magento-lts":"1.9.4.x-dev"
 composer require "openmage/magento-lts":"20.0.x-dev"
 ```
 
+When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
+
+```bash
+composer dump-autoload --optimize
+```
+
 ### Git
 
 If you want to contribute to the project:
@@ -169,6 +175,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 - bug fixes and PHP 7.x, 8.0, 8.1 and 8.2 compatibility
 - added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
+- added frontend_type color ([#2945](https://github.com/OpenMage/magento-lts/pull/2945))
 - search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
 - removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
 - Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
@@ -206,6 +213,8 @@ Do not use 20.x.x if you need IE support.
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### Since OpenMage 19.5.0 / 20.1.0
+
+PHP 7.4 is now the minimum required version.
 
 Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
 This allows for better maintenance and upgradability.
