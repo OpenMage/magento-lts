@@ -4926,16 +4926,6 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Multiline.php
 
 		-
-			message: "#^Function explode invoked with 1 parameter, 2\\-3 required\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
-			message: "#^Property Varien_Data_Tree_Dbp\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
 			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Node.php
