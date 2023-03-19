@@ -43,7 +43,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         // Suppress connection warnings here.
         // Throw an exception instead.
         @$conn = new mysqli();
-        if (false === $conn || mysqli_connect_errno()) {
+        if (mysqli_connect_errno()) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_errno());
         }
 
@@ -94,7 +94,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $retry = false;
             try {
                 $this->clear_result();
-                $result = $this->getConnection()->query($sql);
+                /** @var mysqli $connection */
+                $connection = $this->getConnection();
+                $result = $connection->query($sql);
                 $this->clear_result();
             } catch (Exception $e) {
                 if ($tries < 10 && $e->getMessage() == $timeoutMessage) {
@@ -147,11 +149,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $this->beginTransaction();
         try {
             $this->clear_result();
-            if ($this->getConnection()->multi_query($sql)) {
+            /** @var mysqli $connection */
+            $connection = $this->getConnection();
+            if ($connection->multi_query($sql)) {
                 $this->clear_result();
                 $this->commit();
             } else {
-                throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: ' . $this->getConnection()->error);
+                throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: ' . $connection->error);
             }
         } catch (Exception $e) {
             $this->rollBack();
@@ -164,11 +168,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function clear_result()
     {
-        while ($this->getConnection()->next_result()) {
-            if ($result = $this->getConnection()->store_result()) {
+        /** @var mysqli $connection */
+        $connection = $this->getConnection();
+        while ($connection->next_result()) {
+            if ($result = $connection->store_result()) {
                 $result->free_result();
-            } elseif ($this->getConnection()->error) {
-                throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: ' . $this->getConnection()->error);
+            } elseif ($connection->error) {
+                throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: ' . $connection->error);
             }
         }
     }
