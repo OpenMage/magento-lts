@@ -4941,11 +4941,6 @@ parameters:
 			path: lib/Varien/Data/Tree/Node.php
 
 		-
-			message: "#^Default value of the parameter \\#2 \\$value \\(int\\) of method Varien_Db_Adapter_Interface\\:\\:getIfNullSql\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Interface.php
-
-		-
 			message: "#^Cannot access offset 'Engine' on bool\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
