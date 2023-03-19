@@ -56,7 +56,6 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
 
     public function saveAction()
     {
-        //print '@@';
         if ($post = $this->getRequest()->getPost()) {
             try {
                 $model = Mage::getModel('poll/poll_answer');
