@@ -1365,7 +1365,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setCardType($r[51])
                 ->setRequestedAmount($r[53])
                 ->setBalanceOnCard($r[54])
-                ;
+            ;
         } else {
             Mage::throwException(
                 Mage::helper('paygate')->__('Error in payment gateway.')
@@ -1451,7 +1451,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             ->setCcSsIssue(null)
             ->setCcSsStartMonth(null)
             ->setCcSsStartYear(null)
-            ;
+        ;
         return $this;
     }
 

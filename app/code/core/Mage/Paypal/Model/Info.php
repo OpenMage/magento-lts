@@ -575,7 +575,7 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('Matched whole nine-didgit ZIP (no Address)');
             case 'Y':
                 return Mage::helper('paypal')->__('Yes. Matched Address and five-didgit ZIP');
-            // Maestro and Solo
+                // Maestro and Solo
             case '0':
                 return Mage::helper('paypal')->__('All the address information matched');
             case '1':
@@ -614,7 +614,7 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('N/A. Service not available');
             case 'X':
                 return Mage::helper('paypal')->__('N/A. No response');
-            // Maestro and Solo
+                // Maestro and Solo
             case '0':
                 return Mage::helper('paypal')->__('Matched (CVV2)');
             case '1':
