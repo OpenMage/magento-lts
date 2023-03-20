@@ -194,7 +194,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             }, $mediaGallery['images']);
 
             // load images from the configurable product for swapping
-            if (is_iterable($mapping)) {
+            if (is_array($mapping)) {
                 foreach ($mapping as $map) {
                     $imagePath = null;
 
