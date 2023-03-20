@@ -73,7 +73,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      */
     protected function _toHtml()
     {
-        if (!Mage::getStoreConfigFlag('configswatches/general/product_list_attribute')) {
+        if (!Mage::getStoreConfigFlag(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE)) {
             return '';
         }
         return parent::_toHtml();
