@@ -177,10 +177,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         $keepFrame = false
     ) {
         if (!$product->hasConfigurableImagesFallbackArray()) {
-            $mapping = $product->getChildAttributeLabelMapping();
-
+            $mapping = $product->getChildAttributeLabelMapping() ?? [];
             $mediaGallery = $product->getMediaGallery();
-
             if (!isset($mediaGallery['images'])) {
                 return []; //nothing to do here
             }
