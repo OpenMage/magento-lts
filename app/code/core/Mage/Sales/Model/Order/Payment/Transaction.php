@@ -319,7 +319,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             case self::TYPE_AUTH:
                 $authTransaction = $this;
                 break;
-            // case self::TYPE_PAYMENT?
+                // case self::TYPE_PAYMENT?
         }
         if ($authTransaction) {
             if (!$dryRun) {

@@ -65,7 +65,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
             $reviewContBlock
                 ->assign('count', $this->getReviewsCollection()->getSize())
                 ->toHtml()
-            ;
+        ;
     }
 
     /**

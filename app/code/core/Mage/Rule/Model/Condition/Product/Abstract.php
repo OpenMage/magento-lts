@@ -439,8 +439,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         switch ($this->getAttribute()) {
             case 'sku':
             case 'category_ids':
-                    $url = 'adminhtml/promo_widget/chooser'
-                    . '/attribute/' . $this->getAttribute();
+                $url = 'adminhtml/promo_widget/chooser'
+                . '/attribute/' . $this->getAttribute();
                 if ($this->getJsFormObject()) {
                     $url .= '/form/' . $this->getJsFormObject();
                 }
