@@ -114,16 +114,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $this->getChildHtml('add_sub_button');
     }
 
-    public function getExpandButtonHtml()
-    {
-        return $this->getChildHtml('expand_button');
-    }
-
-    public function getCollapseButtonHtml()
-    {
-        return $this->getChildHtml('collapse_button');
-    }
-
     public function getStoreSwitcherHtml()
     {
         return $this->getChildHtml('store_switcher');
