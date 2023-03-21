@@ -39,6 +39,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     public const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
     public const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
     public const SECURE_COOKIE_CHECK_KEY               = '_secure_cookie_check';
+    public const REGISTRY_CONCURRENCY_ERROR            = 'concurrent_connections_exceeded';
 
     /** @var bool Flag true if session validator data has already been evaluated */
     protected static $isValidated = false;
@@ -77,6 +78,9 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 /* @var Cm_RedisSession_Model_Session $sessionResource */
                 $sessionResource = Mage::getSingleton('cm_redissession/session');
                 $sessionResource->setSaveHandler();
+                if (method_exists($sessionResource, 'setDieOnError')) {
+                    $sessionResource->setDieOnError(false);
+                }
                 break;
             case 'user':
                 // getSessionSavePath represents static function for custom session handler setup
@@ -154,7 +158,20 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             session_cache_limiter((string)$sessionCacheLimiter);
         }
 
-        session_start();
+        // Start session, abort and render error page if it fails
+        try {
+            if (session_start() === false) {
+                throw new Exception('Unable to start session.');
+            }
+        } catch (Throwable $e) {
+            session_abort();
+            if (Mage::registry(self::REGISTRY_CONCURRENCY_ERROR)) {
+                require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                die();
+            } else {
+                Mage::printException($e);
+            }
+        }
 
         Mage::dispatchEvent('session_before_renew_cookie', ['cookie' => $cookie]);
 
