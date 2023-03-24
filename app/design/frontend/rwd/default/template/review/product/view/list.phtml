@@ -73,8 +73,6 @@
             </dd>
         <?php endforeach ?>
         </dl>
-
-        <?php // echo $this->getChildHtml('toolbar') ?>
     <?php elseif($this->getParentBlock()): ?>
         <?php echo $this->getParentBlock()->getReviewsSummaryHtml($this->getProduct(), 'short', true)?>
     <?php endif ?>

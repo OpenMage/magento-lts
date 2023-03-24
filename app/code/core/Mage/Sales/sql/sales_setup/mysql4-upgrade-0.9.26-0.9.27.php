@@ -135,14 +135,12 @@ try {
             $globalCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $baseCurrencyCodeTable . '` WHERE `attribute_id` = ' . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //delete old data in base_currency_code
         $query = 'DELETE FROM `' . $baseCurrencyCodeTable . '` WHERE `attribute_id` = '
             . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_currency_code into base_currency_code
@@ -151,7 +149,6 @@ try {
             $baseCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeCurrencyCodeTable . '` WHERE `attribute_id` = ' . $storeCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_base_rate into base_to_global_rate
@@ -160,7 +157,6 @@ try {
             $baseToGlobalRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToBaseRateTable . '` WHERE `attribute_id` = ' . $storeToBaseRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_order_rate into base_to_order_rate
@@ -169,7 +165,6 @@ try {
             $baseToOrderRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToOrderRateTable . '` WHERE `attribute_id` = ' . $storeToOrderRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
     }
 
