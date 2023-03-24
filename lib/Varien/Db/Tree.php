@@ -523,7 +523,6 @@ class Varien_Db_Tree
             $data['minLevel'] = $info[$this->_level] + $start_level;
         }
 
-        //echo $dbSelect->__toString();
         $data = $this->_db->fetchAll($dbSelect, $data);
 
         $nodeSet = new Varien_Db_Tree_NodeSet();

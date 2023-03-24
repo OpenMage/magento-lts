@@ -209,7 +209,6 @@ class Varien_File_Object extends SplFileObject implements IFactory
      */
     public function renderFilter()
     {
-        #print_r($this->_filter);
         if (isset($this->_filter) && count($this->_filter) > 0 && $this->filtered == false) {
             $this->filtered = true;
             if (isset($this->_filter['extension'])) {
