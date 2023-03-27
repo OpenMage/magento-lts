@@ -7,29 +7,34 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Layout_Update
 {
     /**
      * Additional tag for cleaning layout cache convenience
      */
-    const LAYOUT_GENERAL_CACHE_TAG = 'LAYOUT_GENERAL_CACHE_TAG';
+    public const LAYOUT_GENERAL_CACHE_TAG = 'LAYOUT_GENERAL_CACHE_TAG';
 
     /**
      * Prefix used for actual XML storage (unprefixed is just the sha1 hash)
      */
-    const XML_KEY_PREFIX = 'XML_';
+    public const XML_KEY_PREFIX = 'XML_';
 
     /**
      * Layout Update Simplexml Element Class Name
@@ -82,7 +87,7 @@ class Mage_Core_Model_Layout_Update
     {
         $subst = Mage::getConfig()->getPathVars();
         foreach ($subst as $k => $v) {
-            $this->_subst['from'][] = '{{'.$k.'}}';
+            $this->_subst['from'][] = '{{' . $k . '}}';
             $this->_subst['to'][] = $v;
         }
     }
@@ -286,7 +291,7 @@ class Mage_Core_Model_Layout_Update
     public function asSimplexml()
     {
         $updates = trim($this->asString());
-        $updates = '<'.'?xml version="1.0"?'.'><layout>'.$updates.'</layout>';
+        $updates = '<' . '?xml version="1.0"?' . '><layout>' . $updates . '</layout>';
         return simplexml_load_string($updates, $this->getElementClass());
     }
 
@@ -343,7 +348,7 @@ class Mage_Core_Model_Layout_Update
      */
     public function fetchPackageLayoutUpdates($handle)
     {
-        $_profilerKey = 'layout/package_update: '.$handle;
+        $_profilerKey = 'layout/package_update: ' . $handle;
         Varien_Profiler::start($_profilerKey);
         if (empty($this->_packageLayout)) {
             $this->fetchFileLayoutUpdates();
@@ -364,7 +369,7 @@ class Mage_Core_Model_Layout_Update
      */
     public function fetchDbLayoutUpdates($handle)
     {
-        $_profilerKey = 'layout/db_update: '.$handle;
+        $_profilerKey = 'layout/db_update: ' . $handle;
         Varien_Profiler::start($_profilerKey);
         $updateStr = $this->_getUpdateString($handle);
         if (!$updateStr) {
@@ -400,10 +405,16 @@ class Mage_Core_Model_Layout_Update
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
-            if (strtolower($child->getName())=='update' && isset($child['handle'])) {
-                $this->merge((string)$child['handle']);
-                // Adding merged layout handle to the list of applied hanles
-                $this->addHandle((string)$child['handle']);
+            if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
+                $allow = true;
+                if (isset($child['ifconfig']) && ($configPath = (string)$child['ifconfig'])) {
+                    $allow = Mage::getStoreConfigFlag($configPath);
+                }
+                if ($allow) {
+                    $this->merge((string)$child['handle']);
+                    // Adding merged layout handle to the list of applied hanles
+                    $this->addHandle((string)$child['handle']);
+                }
             }
         }
         return $this;
@@ -415,7 +426,7 @@ class Mage_Core_Model_Layout_Update
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @param integer|null $storeId
+     * @param int|null $storeId
      * @return SimpleXMLElement
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
@@ -427,7 +438,7 @@ class Mage_Core_Model_Layout_Update
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;
         $elementClass = $this->getElementClass();
-        $updatesRoot = Mage::app()->getConfig()->getNode($area.'/layout/updates');
+        $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
         Mage::dispatchEvent('core_layout_update_updates_get_after', ['updates' => $updatesRoot]);
         $updates = $updatesRoot->asArray();
         $themeUpdates = Mage::getSingleton('core/design_config')->getNode("$area/$package/$theme/layout/updates");
@@ -438,7 +449,7 @@ class Mage_Core_Model_Layout_Update
         $updateFiles = [];
         foreach ($updates as $updateNode) {
             if (!empty($updateNode['file'])) {
-                $module = isset($updateNode['@']['module']) ? $updateNode['@']['module'] : false;
+                $module = $updateNode['@']['module'] ?? false;
                 if ($module && Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $module, $storeId)) {
                     continue;
                 }
@@ -466,7 +477,7 @@ class Mage_Core_Model_Layout_Update
             }
             $layoutStr .= $fileXml->innerXml();
         }
-        $layoutXml = simplexml_load_string('<layouts>'.$layoutStr.'</layouts>', $elementClass);
+        $layoutXml = simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
         return $layoutXml;
     }
 }

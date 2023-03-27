@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Sales_Model_Entity_Setup $installer */
@@ -752,8 +753,8 @@ $excludeAttributes = [
 ];
 
 $entityToFlat = [
-    'order'                 => ['grid'=>true],
-    'order_item'            => ['flat'=> true],
+    'order'                 => ['grid' => true],
+    'order_item'            => ['flat' => true],
     'order_address'         => [],
     'order_payment'         => [],
     'order_status_history'  => [],
@@ -784,13 +785,11 @@ $select
     ->where('entity.entity_type_code IN (?)', array_keys($entityToFlat))
     ->where('attribute.attribute_code NOT IN(?)', $excludeAttributes['all']);
 
-
 $attributes = [];
 
 foreach ($installer->getConnection()->fetchAll($select) as $attribute) {
     $attributes[$attribute['entity']][$attribute['code']] = $attribute;
 }
-
 
 $definitions = [
     'datetime' => 'datetime default null',
@@ -833,7 +832,8 @@ foreach ($entityToFlat as $entityCode => $flags) {
         if (!isset($flatFields[$code]) &&
             !in_array($code, $excludeAttributes['all']) &&
             (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($code, $excludeAttributes[$entityCode]))) {
+                !in_array($code, $excludeAttributes[$entityCode]))
+        ) {
             $installer->getConnection()->addColumn(
                 $installer->getTable($flatTablePrefix),
                 $code,
@@ -871,13 +871,13 @@ foreach ($entityToFlat as $entityCode => $flags) {
                 isset($definitions[$attribute['type']]) &&
                 !in_array($attributeCode, $excludeAttributes['all']) &&
                 (!isset($excludeAttributes[$entityCode]) ||
-                !in_array($attributeCode, $excludeAttributes[$entityCode]))) {
+                !in_array($attributeCode, $excludeAttributes[$entityCode]))
+            ) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable($flatTablePrefix),
                     $attributeCode,
                     $definitions[$attribute['type']]
                 );
-
 
                 $flatFields[$attributeCode] = $definitions[$attribute['type']];
             }
@@ -898,7 +898,6 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
         $select->where('e.entity_type_id = ?', $entityTypeId);
 
-
         $sql = $select->insertFromSelect($installer->getTable($flatTablePrefix), array_keys($fields), false) . "; \n";
 
         // Update base record with eav attributes values
@@ -912,21 +911,21 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
                 $alias = '_table_' . $attribute['code'];
                 $select->joinLeft(
-                    [$alias=>$table],
+                    [$alias => $table],
                     $alias . '.entity_id = e.entity_id AND ' . $alias . '.attribute_id = ' . $attribute['id'],
                     [$attribute['code'] => 'value']
                 );
-                $joinCount ++;
+                $joinCount++;
 
                 if ($joinCount > 60) { // If we have too much joins for mysql
                     $joinCount = 0;
-                    $sql .= $select->crossUpdateFromSelect(['e'=>$installer->getTable($flatTablePrefix)])  . "; \n";
+                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
                     $select->reset();
                 }
             }
 
             if ($joinCount > 0) {
-                $sql .= $select->crossUpdateFromSelect(['e'=>$installer->getTable($flatTablePrefix)])  . "; \n";
+                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
             }
         }
     } else {
@@ -973,7 +972,7 @@ $select->joinLeft(
     ['billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_order_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_order_grid')]));
 
 // Invoice and Creditmemo grid
 $select->reset();
@@ -989,8 +988,8 @@ $select->joinLeft(
     ['billing_name' => 'IF(billing_address.entity_id IS NOT NULL, CONCAT(billing_address.firstname, \' \', billing_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_creditmemo_grid')]));
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_invoice_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_creditmemo_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_invoice_grid')]));
 
 // Shipment grid
 $select->reset();
@@ -1006,7 +1005,7 @@ $select->joinLeft(
     ['shipping_name' => 'IF(shipping_address.entity_id IS NOT NULL, CONCAT(shipping_address.firstname, \' \', shipping_address.lastname), NULL)']
 );
 
-$installer->run($select->crossUpdateFromSelect(['e'=>$installer->getTable('sales_flat_shipment_grid')]));
+$installer->run($select->crossUpdateFromSelect(['e' => $installer->getTable('sales_flat_shipment_grid')]));
 
 $constraints = [
     'sales_flat_order' => [
@@ -1125,7 +1124,6 @@ if ($flag->getId()) {
     $flag->delete();
 }
 
-
 $select = $installer->getConnection()->select();
 $select->from($installer->getTable('sales/order_item'), [
         'total_item_count'   => 'COUNT(item_id)',
@@ -1138,13 +1136,12 @@ $temporaryTable =  'tmp_sales_order_item_count_' . md5(uniqid('order_item_count'
 $installer->getConnection()->query('CREATE TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTable) . ' ' . $select->assemble());
 
 $select->reset()
-    ->join(['items_count_table'=>$temporaryTable], 'items_count_table.entity_id = order_table.entity_id', [
-        'total_item_count'=>'total_item_count'
+    ->join(['items_count_table' => $temporaryTable], 'items_count_table.entity_id = order_table.entity_id', [
+        'total_item_count' => 'total_item_count'
     ]);
 
 $installer->getConnection()->query($select->crossUpdateFromSelect(['order_table' => $installer->getTable('sales/order')]));
 $installer->getConnection()->query('DROP TEMPORARY TABLE ' . $temporaryTable);
-
 
 /**
  * Workaround for the coupon_code attribute that may be missed in the Mage_SalesRule/sql/mysql4-upgrade-0.7.10-0.7.11.php
@@ -1205,7 +1202,6 @@ foreach ($tablesToDrop as $table) {
         'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table)
     );
 }
-
 
 /* Add columns to tables */
 $tableData = [

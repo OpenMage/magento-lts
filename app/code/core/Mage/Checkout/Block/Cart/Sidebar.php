@@ -7,29 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist sidebar block
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
-    const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
-    const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
+    public const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
+    public const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
 
     /**
      * Class constructor
@@ -58,7 +58,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     /**
      * Get array of last added items
      *
-     * @param null $count
+     * @param int|null $count
      * @return array
      */
     public function getRecentItems($count = null)
@@ -77,7 +77,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * It will include tax, if required by config settings.
      *
-     * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
+     * @param   bool $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
      * @return  float
      */
     public function getSubtotal($skipTax = true)
@@ -97,7 +97,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             } else {
                 $subtotal = $totals['subtotal']->getValue();
                 if (!$skipTax && isset($totals['tax'])) {
-                    $subtotal+= $totals['tax']->getValue();
+                    $subtotal += $totals['tax']->getValue();
                 }
             }
         }
@@ -130,7 +130,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
             if ($exclShippingTax) {
-                $price += $totals['tax']->getValue()-$this->_getShippingTaxAmount();
+                $price += $totals['tax']->getValue() - $this->_getShippingTaxAmount();
             } else {
                 $price += $totals['tax']->getValue();
             }
@@ -145,7 +145,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     protected function _getShippingTaxAmount()
     {
-        $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+        $quote = $this->getCustomQuote() ?: $this->getQuote();
         return $quote->getShippingAddress()->getShippingTaxAmount();
     }
 
@@ -158,7 +158,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getIncExcTax($flag)
     {
         $text = Mage::helper('tax')->getIncExcText($flag);
-        return $text ? ' ('.$text.')' : '';
+        return $text ? ' (' . $text . ')' : '';
     }
 
     /**
@@ -168,23 +168,28 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function isPossibleOnepageCheckout()
     {
-        return $this->helper('checkout')->canOnepageCheckout() && !$this->getQuote()->getHasError();
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
+        return $helper->canOnepageCheckout() && !$this->getQuote()->getHasError();
     }
 
     /**
      * Get one page checkout page url
      *
-     * @return bool
+     * @return string
      */
     public function getCheckoutUrl()
     {
-        return $this->helper('checkout/url')->getCheckoutUrl();
+        /** @var Mage_Checkout_Helper_Url $helper */
+        $helper = $this->helper('checkout/url');
+        return $helper->getCheckoutUrl();
     }
 
     /**
      * Define if Shopping Cart Sidebar enabled
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsNeedToDisplaySideBar()
     {
@@ -213,7 +218,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
-            $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+            $quote = $this->getCustomQuote() ?: $this->getQuote();
             $this->_totals = $quote->getTotals();
         }
         return $this->_totals;
@@ -288,19 +293,9 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags)? [] : $quoteTags,
+            (!$quoteTags) ? [] : $quoteTags,
             $this->getItemsTags($items)
         );
-    }
-
-    /**
-     * Get form key
-     *
-     * @return string
-     */
-    public function getFormKey()
-    {
-        return Mage::getSingleton('core/session')->getFormKey();
     }
 
     /**

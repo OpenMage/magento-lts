@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,11 +35,11 @@
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
-    const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
+    public const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
 
     /**
      * View scripts directory
@@ -66,7 +67,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Path to template file in theme.
      *
-     * @var string
+     * @var string|null
      */
     protected $_template;
 
@@ -118,13 +119,12 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = ['_relative'=>true];
+        $params = ['_relative' => true];
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
         }
-        $templateName = Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
-        return $templateName;
+        return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
     /**
@@ -163,10 +163,10 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === FALSE && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
             $this->_viewDir = $dir;
         } else {
-            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
+            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
         }
         return $this;
     }
@@ -250,8 +250,7 @@ HTML;
         }
 
         try {
-            if (
-                strpos($this->_viewDir . DS . $fileName, '..') === FALSE
+            if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
             ) {
@@ -260,9 +259,15 @@ HTML;
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Exception $e) {
-            ob_get_clean();
-            throw $e;
+        } catch (Throwable $e) {
+            if (!$do) {
+                ob_get_clean();
+                $do = true;
+            }
+            if (Mage::getIsDeveloperMode()) {
+                throw $e;
+            }
+            Mage::logException($e);
         }
 
         if ($hints) {
@@ -286,8 +291,7 @@ HTML;
     public function renderView()
     {
         $this->setScriptPath(Mage::getBaseDir('design'));
-        $html = $this->fetchView($this->getTemplateFile());
-        return $html;
+        return $this->fetchView($this->getTemplateFile());
     }
 
     /**
@@ -300,8 +304,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
-        $html = $this->renderView();
-        return $html;
+        return $this->renderView();
     }
 
     /**
@@ -330,7 +333,7 @@ HTML;
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
-        return $this->_jsUrl.$fileName;
+        return $this->_jsUrl . $fileName;
     }
 
     /**
@@ -366,6 +369,6 @@ HTML;
      */
     protected function _getAllowSymlinks()
     {
-        return FALSE;
+        return false;
     }
 }

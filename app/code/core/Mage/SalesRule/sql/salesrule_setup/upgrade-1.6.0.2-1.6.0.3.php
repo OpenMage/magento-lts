@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
@@ -84,7 +85,6 @@ $table = $connection->newTable($rulesWebsitesTable)
 
 $connection->createTable($table);
 
-
 /**
  * Create table 'salesrule/customer_group' if not exists. This table will be used instead of
  * column customer_group_ids of main catalog rules table
@@ -145,7 +145,6 @@ $table = $connection->newTable($rulesCustomerGroupsTable)
 
 $connection->createTable($table);
 
-
 /**
  * Fill out relation table 'salesrule/website' with website Ids
  */
@@ -161,7 +160,6 @@ $select = $connection->select()
     );
 $query = $select->insertFromSelect($rulesWebsitesTable, ['rule_id', 'website_id']);
 $connection->query($query);
-
 
 /**
  * Fill out relation table 'salesrule/customer_group' with customer group Ids

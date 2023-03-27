@@ -7,31 +7,31 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogSearch Fulltext Index resource model
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
      * Searchable attributes cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_searchableAttributes     = null;
 
@@ -288,9 +288,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             'store_field'   => $storeId
         ]);
 
-        $result = $writeAdapter->fetchAll($select);
-
-        return $result;
+        return $writeAdapter->fetchAll($select);
     }
 
     /**
@@ -330,11 +328,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      */
     public function prepareResult($object, $queryText, $query)
     {
+        /** @var Mage_CatalogSearch_Model_Resource_Helper_Mysql4 $searchHelper */
+        $searchHelper = Mage::getResourceHelper('catalogsearch');
+
         $adapter = $this->_getWriteAdapter();
         $searchType = $object->getSearchType($query->getStoreId());
 
-        $preparedTerms = Mage::getResourceHelper('catalogsearch')
-            ->prepareTerms($queryText, $query->getMaxQueryWords());
+        $preparedTerms = $searchHelper->prepareTerms($queryText, $query->getMaxQueryWords());
 
         $bind = [];
         $like = [];
@@ -371,8 +371,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {
             $bind[':query'] = implode(' ', $preparedTerms[0]);
-            $where = Mage::getResourceHelper('catalogsearch')
-                ->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
+            $where = $searchHelper->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
         }
         if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
@@ -489,16 +488,19 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param string $field
      * @param string $backendType
-     * @return Zend_Db_Expr
+     * @return string
      */
     protected function _unifyField($field, $backendType = 'varchar')
     {
-        if ($backendType == 'datetime') {
-            $expr = Mage::getResourceHelper('catalogsearch')->castField(
+        /** @var Mage_CatalogSearch_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('catalogsearch');
+
+        if ($backendType === 'datetime') {
+            $expr = $helper->castField(
                 $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s')
             );
         } else {
-            $expr = Mage::getResourceHelper('catalogsearch')->castField($field);
+            $expr = $helper->castField($field);
         }
         return $expr;
     }
@@ -670,8 +672,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                             $index[$attributeCode] = [$index[$attributeCode]];
                         }
                         $index[$attributeCode][] = $value;
-                    } //For other types of products
-                    else {
+                    } else { //For other types of products
                         $index[$attributeCode] = $value;
                     }
                 }
@@ -728,7 +729,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         $attribute = $this->_getSearchableAttribute($attributeId);
         if (!$attribute->getIsSearchable()) {
             if ($this->_engine->allowAdvancedIndex()) {
-                if ($attribute->getAttributeCode() == 'visibility') {
+                if ($attribute->getAttributeCode() === 'visibility') {
                     return $value;
                 } elseif (!($attribute->getIsVisibleInAdvancedSearch()
                     || $attribute->getIsFilterable()
@@ -754,15 +755,15 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $value = implode($this->_separator, $value);
             } elseif (empty($value)) {
                 $inputType = $attribute->getFrontend()->getInputType();
-                if ($inputType == 'select' || $inputType == 'multiselect') {
+                if ($inputType === 'select' || $inputType === 'multiselect') {
                     return null;
                 }
             }
-        } elseif ($attribute->getBackendType() == 'datetime') {
+        } elseif ($attribute->getBackendType() === 'datetime') {
             $value = $this->_getStoreDate($storeId, $value);
         } else {
             $inputType = $attribute->getFrontend()->getInputType();
-            if ($inputType == 'price') {
+            if ($inputType === 'price') {
                 $value = Mage::app()->getStore($storeId)->roundPrice($value);
             }
         }
@@ -810,7 +811,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      *
      * @param int $storeId
      * @param string $date
-     * @return string
+     * @return string|null
      */
     protected function _getStoreDate($storeId, $date = null)
     {
@@ -833,10 +834,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         return null;
     }
-
-
-
-
 
     // Deprecated methods
 

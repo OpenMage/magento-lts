@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Acl model
  *
  * @category   Mage
  * @package    Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Acl extends Zend_Acl
 {
@@ -32,13 +32,13 @@ class Mage_Api_Model_Acl extends Zend_Acl
      * All the group roles are prepended by G
      *
      */
-    const ROLE_TYPE_GROUP = 'G';
+    public const ROLE_TYPE_GROUP = 'G';
 
     /**
      * All the user roles are prepended by U
      *
      */
-    const ROLE_TYPE_USER = 'U';
+    public const ROLE_TYPE_USER = 'U';
 
     /**
      * User types for store access
@@ -47,27 +47,27 @@ class Mage_Api_Model_Acl extends Zend_Acl
      * A - Authenticated admin user
      *
      */
-    const USER_TYPE_GUEST    = 'G';
-    const USER_TYPE_CUSTOMER = 'C';
-    const USER_TYPE_ADMIN    = 'A';
+    public const USER_TYPE_GUEST    = 'G';
+    public const USER_TYPE_CUSTOMER = 'C';
+    public const USER_TYPE_ADMIN    = 'A';
 
     /**
      * Permission level to deny access
      *
      */
-    const RULE_PERM_DENY = 0;
+    public const RULE_PERM_DENY = 0;
 
     /**
      * Permission level to inheric access from parent role
      *
      */
-    const RULE_PERM_INHERIT = 1;
+    public const RULE_PERM_INHERIT = 1;
 
     /**
      * Permission level to allow access
      *
      */
-    const RULE_PERM_ALLOW = 2;
+    public const RULE_PERM_ALLOW = 2;
 
     /**
      * Get role registry object or create one

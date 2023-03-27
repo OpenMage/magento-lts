@@ -7,16 +7,19 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
  * Adminhtml pending tags grid
@@ -24,12 +27,11 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -40,6 +42,9 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
              ->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
@@ -50,6 +55,11 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareColumns()
     {
         $baseUrl = $this->getUrl();
@@ -88,7 +98,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
                 'type'      => 'store',
                 'index'     => 'stores',
                 'sortable'  => false,
-                'store_view'=> true
+                'store_view' => true
             ]);
         }
 
@@ -98,7 +108,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     /**
      * Retrieves row click URL
      *
-     * @param  mixed $row
+     * @param Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)
@@ -106,9 +116,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         return $this->getUrl('*/*/edit', ['tag_id' => $row->getId(), 'ret' => 'pending']);
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     protected function _addColumnFilterToCollection($column)
     {
-        if($column->getIndex() == 'stores') {
+        if ($column->getIndex() === 'stores') {
             $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -117,24 +131,28 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('tag_id');
         $this->getMassactionBlock()->setFormFieldName('tag');
 
-        $this->getMassactionBlock()->addItem('delete', [
-             'label'=> Mage::helper('tag')->__('Delete'),
-             'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending']),
-             'confirm' => Mage::helper('tag')->__('Are you sure?')
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
+             'label' => Mage::helper('tag')->__('Delete'),
+             'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending'])
         ]);
 
-        $statuses = $this->helper('tag/data')->getStatusesOptionsArray();
+        /** @var Mage_Tag_Helper_Data $helper */
+        $helper = $this->helper('tag/data');
+        $statuses = $helper->getStatusesOptionsArray();
 
-        array_unshift($statuses, ['label'=>'', 'value'=>'']);
+        array_unshift($statuses, ['label' => '', 'value' => '']);
 
-        $this->getMassactionBlock()->addItem('status', [
-             'label'=> Mage::helper('tag')->__('Change status'),
-             'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true, 'ret' => 'pending']),
+        $this->getMassactionBlock()->addItem(MassAction::STATUS, [
+             'label' => Mage::helper('tag')->__('Change status'),
+             'url'  => $this->getUrl('*/*/massStatus', ['_current' => true, 'ret' => 'pending']),
              'additional' => [
                     'visibility' => [
                          'name' => 'status',

@@ -6,15 +6,16 @@
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 var SessionError = Class.create();
@@ -187,36 +188,43 @@ varienLoaderHandler.handler = {
         if(request.options.loaderArea===false){
             return;
         }
-
-        request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
-
-        if(request && request.options.loaderArea){
-            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
-            toggleSelectsUnderBlock($('loading-mask'), false);
-            Element.show('loading-mask');
-            Element.childElements('loading-mask').invoke('hide');
-            setLoaderPosition();
-            if(this.timeout) {
-                clearTimeout(this.timeout);
-            }
-            this.timeout = setTimeout(function() {
-                Element.childElements('loading-mask').invoke('show');
-            }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
-        }
+        showLoader();
     },
-
     onComplete: function(transport) {
         if(Ajax.activeRequestCount == 0) {
-            toggleSelectsUnderBlock($('loading-mask'), true);
-            Element.hide('loading-mask');
-            Element.childElements('loading-mask').invoke('hide');
-            if(this.timeout) {
-                clearTimeout(this.timeout);
-                this.timeout = null;
-            }
+            hideLoader();
         }
     }
 };
+
+var loaderTimeout = null;
+
+function showLoader(loaderArea) {
+    if($(loaderArea) === undefined) {
+        loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
+    }
+    var loadingMask = $('loading-mask');
+    if(Element.visible(loadingMask)) {
+        return;
+    }
+    Element.clonePosition(loadingMask, loaderArea, {offsetLeft:-2});
+    toggleSelectsUnderBlock(loadingMask, false);
+    Element.show(loadingMask);
+    Element.childElements(loadingMask).invoke('hide');
+    setLoaderPosition();
+    loaderTimeout = setTimeout(function() {
+        Element.childElements(loadingMask).invoke('show');
+    }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
+}
+
+function hideLoader() {
+    toggleSelectsUnderBlock($('loading-mask'), true);
+    Element.hide('loading-mask');
+    if(loaderTimeout) {
+        clearTimeout(loaderTimeout);
+        loaderTimeout = null;
+    }
+}
 
 /**
  * @todo need calculate middle of visible area and scroll bind

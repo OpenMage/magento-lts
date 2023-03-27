@@ -7,16 +7,19 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
  * Adminhtml sales report grid block
@@ -35,16 +38,26 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         $this->setUseAjax(false);
     }
 
+    /**
+     * @param string $reportCode
+     * @return string
+     * @throws Zend_Date_Exception
+     */
     protected function _getUpdatedAt($reportCode)
     {
         $flag = Mage::getModel('reports/flag')->setReportFlagCode($reportCode)->loadSelf();
         return ($flag->hasData())
             ? Mage::app()->getLocale()->storeDate(
-                0, new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT), true
+                0,
+                new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT),
+                true
             )
             : '';
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = new Varien_Data_Collection();
@@ -111,6 +124,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('report', [
@@ -132,7 +148,6 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('reports')->__('Updated At'),
             'index'     => 'updated_at',
             'type'      => 'datetime',
-            'width'     => 200,
             'default'   => Mage::helper('reports')->__('undefined'),
             'sortable'  => false
         ]);
@@ -140,18 +155,21 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('id');
         $this->getMassactionBlock()->setFormFieldName('code');
 
-        $this->getMassactionBlock()->addItem('refresh_lifetime', [
+        $this->getMassactionBlock()->addItem(MassAction::REFRESH_LIFETIME, [
             'label'    => Mage::helper('reports')->__('Refresh Lifetime Statistics'),
             'url'      => $this->getUrl('*/*/refreshLifetime'),
             'confirm'  => Mage::helper('reports')->__('Are you sure you want to refresh lifetime statistics? There can be performance impact during this operation.')
         ]);
 
-        $this->getMassactionBlock()->addItem('refresh_recent', [
+        $this->getMassactionBlock()->addItem(MassAction::REFRESH_RECENT, [
             'label'    => Mage::helper('reports')->__('Refresh Statistics for the Last Day'),
             'url'      => $this->getUrl('*/*/refreshRecent'),
             'confirm'  => Mage::helper('reports')->__('Are you sure?'),

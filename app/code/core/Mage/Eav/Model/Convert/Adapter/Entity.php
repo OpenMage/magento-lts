@@ -7,24 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     /**
      * Current store model
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
@@ -86,16 +91,12 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $joinType = 'LEFT';
         }
 
-        $this->_attrToDb=$attrToDb;
+        $this->_attrToDb = $attrToDb;
         $filters = $this->_parseVars();
 
         foreach ($attrFilterArray as $key => $type) {
             if (is_array($type)) {
-                if (isset($type['bind'])) {
-                    $bind = $type['bind'];
-                } else {
-                    $bind = $defBind;
-                }
+                $bind = $type['bind'] ?? $defBind;
                 $type = $type['type'];
             }
 
@@ -108,7 +109,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 }
             }
 
-            $keyDB = (isset($this->_attrToDb[$key])) ? $this->_attrToDb[$key] : $key;
+            $keyDB = $this->_attrToDb[$key] ?? $key;
 
             $exp = explode('/', $key);
 
@@ -125,7 +126,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 }
                 $keyDB = str_replace('/', '_', $keyDB);
             } else {
-                $val = isset($filters[$key]) ? $filters[$key] : null;
+                $val = $filters[$key] ?? null;
             }
             if (is_null($val)) {
                 continue;
@@ -141,14 +142,14 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 case 'like':
                     $attr = [
                         'attribute' => $keyDB,
-                        'like'      => '%'.$val.'%'
+                        'like'      => '%' . $val . '%'
                     ];
                     break;
                 case 'startsWith':
-                     $attr = [
-                         'attribute' => $keyDB,
-                         'like'      => $val.'%'
-                     ];
+                    $attr = [
+                        'attribute' => $keyDB,
+                        'like'      => $val . '%'
+                    ];
                     break;
                 case 'fromTo':
                     $attr = [
@@ -168,8 +169,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 case 'datetimeFromTo':
                     $attr = [
                         'attribute' => $keyDB,
-                        'from'      => isset($val['from']) ? $val['from'] : null,
-                        'to'        => isset($val['to']) ? $val['to'] : null,
+                        'from'      => $val['from'] ?? null,
+                        'to'        => $val['to'] ?? null,
                         'datetime'  => true
                     ];
                     break;
@@ -220,11 +221,11 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     {
         if (is_array($joinAttr)) {
             $joinArrAttr = [];
-            $joinArrAttr['attribute'] = isset($joinAttr['attribute']) ? $joinAttr['attribute'] : null;
-            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']):null;
-            $joinArrAttr['bind'] = isset($joinAttr['bind']) ? $joinAttr['bind'] : null;
-            $joinArrAttr['joinType'] = isset($joinAttr['joinType']) ? $joinAttr['joinType'] : null;
-            $joinArrAttr['storeId'] = isset($joinAttr['storeId']) ? $joinAttr['storeId'] : $this->getStoreId();
+            $joinArrAttr['attribute'] = $joinAttr['attribute'] ?? null;
+            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']) : null;
+            $joinArrAttr['bind'] = $joinAttr['bind'] ?? null;
+            $joinArrAttr['joinType'] = $joinAttr['joinType'] ?? null;
+            $joinArrAttr['storeId'] = $joinAttr['storeId'] ?? $this->getStoreId();
             $this->_joinAttr[] = $joinArrAttr;
         }
     }
@@ -262,7 +263,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     public function load()
     {
         if (!($entityType = $this->getVar('entity_type'))
-            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)) {
+            || !(Mage::getResourceSingleton($entityType) instanceof Mage_Eav_Model_Entity_Interface)
+        ) {
             $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
         }
         try {
@@ -302,9 +304,9 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 }
             }
 
-           /**
-            * Load collection ids
-            */
+            /**
+             * Load collection ids
+             */
             $entityIds = $collection->getAllIds();
 
             $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));
@@ -331,7 +333,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      */
     protected function _getCollectionForLoad($entityType)
     {
-        return Mage::getResourceModel($entityType.'_collection');
+        return Mage::getResourceModel($entityType . '_collection');
     }
 
     /**
@@ -345,7 +347,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $this->addException(Mage::helper('eav')->__('Entity collections expected.'), Varien_Convert_Exception::FATAL);
         }
 
-        $this->addException($collection->getSize().' records found.');
+        $this->addException($collection->getSize() . ' records found.');
 
         if (!$collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
             $this->addException(Mage::helper('eav')->__('Entity collection expected.'), Varien_Convert_Exception::FATAL);

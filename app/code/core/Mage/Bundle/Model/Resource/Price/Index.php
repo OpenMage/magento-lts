@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Bundle Product Price Index Resource model
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -37,20 +38,17 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
     /**
      * Websites cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
 
     /**
      * Customer Groups cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_customerGroups;
 
-    /**
-     * Initialize connection and define main table
-     */
     protected function _construct()
     {
         $this->_init('bundle/price_index', 'entity_id');
@@ -112,7 +110,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
-
         $select = $this->_getReadAdapter()->select()
             ->from(
                 ['e' => $this->getTable('catalog/product')],
@@ -394,7 +391,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
         $query = $read->query($select, $bind);
         while ($row = $query->fetch()) {
-            $salable = isset($row['salable']) ? $row['salable'] : true;
+            $salable = $row['salable'] ?? true;
             $website = $row['website_id'] > 0;
             $status  = $row['status'];
 
@@ -424,8 +421,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             )
             ->where('entity_id IN(?)', $productIds)
             ->where('attribute_id= :attribute_id');
-        $index = $read->fetchPairs($select, ['attribute_id' => $price->getAttributeId()]);
-        return $index;
+        return $read->fetchPairs($select, ['attribute_id' => $price->getAttributeId()]);
     }
 
     /**
@@ -778,7 +774,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                         $group->getId()
                     ]);
 
-                    $selectionPrice = isset($priceIndex[$priceIndexKey]) ? $priceIndex[$priceIndexKey] : 0;
+                    $selectionPrice = $priceIndex[$priceIndexKey] ?? 0;
                     $selectionPrice = $this->_calculateSpecialPrice($selectionPrice, $priceData, $website);
                 } else {
                     if ($selection['price_type']) { // percent
@@ -837,11 +833,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $specialPrice       = $priceData['special_price'];
 
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval(
-                $store,
-                $priceData['special_from_date'],
-                $priceData['special_to_date']
-            )) {
+            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
                 $specialPrice   = ($finalPrice * $specialPrice) / 100;
                 $finalPrice     = min($finalPrice, $specialPrice);
             }

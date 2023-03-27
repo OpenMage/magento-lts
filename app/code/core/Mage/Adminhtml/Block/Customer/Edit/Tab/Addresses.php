@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,24 +24,34 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('customer/tab/addresses.phtml');
     }
 
+    /**
+     * @return string
+     */
     public function getRegionsUrl()
     {
         return $this->getUrl('*/json/countryRegion');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'  => Mage::helper('customer')->__('Delete Address'),
@@ -50,7 +61,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
                 ])
         );
-        $this->setChild('add_address_button',
+        $this->setChild(
+            'add_address_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'  => Mage::helper('customer')->__('Add New Address'),
@@ -59,19 +71,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'element_name' => 'add_address_button',
                     'disabled' => $this->isReadonly(),
                     'class'  => 'add'  . ($this->isReadonly() ? ' disabled' : ''),
-                    'onclick'=> 'customerAddresses.addNewAddress()'
+                    'onclick' => 'customerAddresses.addNewAddress()'
                 ])
         );
-        $this->setChild('cancel_button',
+        $this->setChild(
+            'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'  => Mage::helper('customer')->__('Cancel'),
-                    'id'     => 'cancel_add_address'.$this->getTemplatePrefix(),
+                    'id'     => 'cancel_add_address' . $this->getTemplatePrefix(),
                     'name'   => 'cancel_address',
                     'element_name' => 'cancel_address',
                     'class'  => 'cancel delete-address'  . ($this->isReadonly() ? ' disabled' : ''),
                     'disabled' => $this->isReadonly(),
-                    'onclick'=> 'customerAddresses.cancelAdd(this)',
+                    'onclick' => 'customerAddresses.cancelAdd(this)',
                 ])
         );
         return parent::_prepareLayout();
@@ -80,7 +93,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Check block is readonly.
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -88,6 +101,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         return $customer->isReadonly();
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
@@ -97,6 +113,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Initialize form object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function initForm()
     {
@@ -105,8 +122,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', [
-            'legend'    => Mage::helper('customer')->__("Edit Customer's Address")]
-        );
+            'legend'    => Mage::helper('customer')->__("Edit Customer's Address")]);
 
         $addressModel = Mage::getModel('customer/address');
         $addressModel->setCountryId(Mage::helper('core')->getDefaultCountry($customer->getStore()));
@@ -117,7 +133,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             ->initDefaultValues();
 
         $attributes = $addressForm->getAttributes();
-        if(isset($attributes['street'])) {
+        if (isset($attributes['street'])) {
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
@@ -162,10 +178,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $prefixElement = $form->getElement('prefix');
         if ($prefixElement) {
-            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $prefixOptions = $helper->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
-                $prefixField = $fieldset->addField($prefixElement->getId(),
+                $prefixField = $fieldset->addField(
+                    $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
                     '^'
@@ -176,10 +195,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $suffixElement = $form->getElement('suffix');
         if ($suffixElement) {
-            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $suffixOptions = $helper->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
-                $suffixField = $fieldset->addField($suffixElement->getId(),
+                $suffixField = $fieldset->addField(
+                    $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
                     $form->getElement('lastname')->getId()
@@ -197,16 +219,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCancelButtonHtml()
     {
         return $this->getChildHtml('cancel_button');
     }
 
+    /**
+     * @return string
+     */
     public function getAddNewButtonHtml()
     {
         return $this->getChildHtml('add_address_button');
     }
 
+    /**
+     * @return string
+     */
     public function getTemplatePrefix()
     {
         return '_template_';
@@ -230,8 +261,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Return JSON object with countries associated to possible websites
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
-    public function getDefaultCountriesJson() {
+    public function getDefaultCountriesJson()
+    {
         $websites = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(false, true);
         $result = [];
         foreach ($websites as $website) {

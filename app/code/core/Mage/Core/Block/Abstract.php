@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -47,16 +48,16 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Prefix for cache key
      */
-    const CACHE_KEY_PREFIX = 'BLOCK_';
+    public const CACHE_KEY_PREFIX = 'BLOCK_';
     /**
      * Cache group Tag
      */
-    const CACHE_GROUP = 'block_html';
+    public const CACHE_GROUP = 'block_html';
 
     /**
      * Cache tags data key
      */
-    const CACHE_TAGS_DATA_KEY = 'cache_tags';
+    public const CACHE_TAGS_DATA_KEY = 'cache_tags';
 
     /**
      * Block name in layout
@@ -131,14 +132,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages
+     * @var Mage_Core_Block_Messages|null
      */
     protected $_messagesBlock = null;
 
     /**
      * Whether this block was not explicitly named
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isAnonymous = false;
 
@@ -183,14 +184,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory
+     * @var Mage_Core_Model_Factory|null
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
     protected $_app;
 
@@ -569,8 +570,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
-     * @param   boolean $sorted
+     * @param   bool $useCache
+     * @param   bool $sorted
      * @return  string
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = false)
@@ -631,7 +632,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve child block HTML
      *
      * @param   string $name
-     * @param   boolean $useCache
+     * @param   bool $useCache
      * @return  string
      */
     protected function _getChildHtml($name, $useCache = true)
@@ -685,7 +686,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   Mage_Core_Block_Abstract|string $block
      * @param   string $siblingName
-     * @param   boolean $after
+     * @param   bool $after
      * @param   string $alias
      * @return  object $this
      */
@@ -744,7 +745,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Sort block's children
      *
-     * @param boolean $force force re-sort all children
+     * @param bool $force force re-sort all children
      * @return $this
      */
     public function sortChildren($force = false)
@@ -851,6 +852,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $alias = $block->getBlockAlias();
             if (in_array($alias, $this->_childGroups[$groupName])) {
                 if ($callback) {
+                    Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($this, $callback, [$alias]);
                     $row = $this->$callback($alias);
                     if (!$skipEmptyResults || $row) {
                         $result[$alias] = $row;
@@ -948,7 +950,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
          * Use single transport object instance for all blocks
          */
         if (self::$_transportObject === null) {
-            self::$_transportObject = new Varien_Object;
+            self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setHtml($html);
         Mage::dispatchEvent(
@@ -1125,7 +1127,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
-        return $this->helper('core')->formatDate($date, $format, $showTime);
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatDate($date, $format, $showTime);
     }
 
     /**
@@ -1138,7 +1142,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function formatTime($time = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showDate = false)
     {
-        return $this->helper('core')->formatTime($time, $format, $showDate);
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatTime($time, $format, $showDate);
     }
 
     /**
@@ -1265,7 +1271,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get chilren blocks count
+     * Get children blocks count
      * @return int
      */
     public function countChildren()
@@ -1297,7 +1303,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
             $this->_getApp()->setUseSessionVar(false);
             Varien_Profiler::start('CACHE_URL');
-            $html = Mage::getSingleton($this->_getUrlModelClass())->sessionUrlVar($html);
+            /** @var Mage_Core_Model_Url $model */
+            $model = Mage::getSingleton($this->_getUrlModelClass());
+            $html = $model->sessionUrlVar($html);
             Varien_Profiler::stop('CACHE_URL');
         }
         return $html;
@@ -1394,11 +1402,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this;
     }
 
-
     /**
      * Get block cache life time
      *
-     * @return int
+     * @return int|null
      */
     public function getCacheLifetime()
     {

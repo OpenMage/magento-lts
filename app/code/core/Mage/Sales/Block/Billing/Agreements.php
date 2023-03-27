@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +39,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Billing agreements collection
      *
-     * @var Mage_Sales_Model_Mysql4_Billing_Agreement_Collection
+     * @var Mage_Sales_Model_Resource_Billing_Agreement_Collection|null
      */
     protected $_billingAgreements = null;
 
@@ -61,7 +62,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Retrieve billing agreements collection
      *
-     * @return Mage_Sales_Model_Mysql4_Billing_Agreement_Collection
+     * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
      */
     public function getBillingAgreements()
     {
@@ -86,20 +87,20 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
             case 'created_at':
             case 'updated_at':
                 $value = ($item->getData($key))
-                    ? $this->helper('core')->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
+                    ? $this->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
                 break;
             case 'edit_url':
                 $value = $this->getUrl('*/billing_agreement/view', ['agreement' => $item->getAgreementId()]);
                 break;
             case 'payment_method_label':
                 $label = $item->getAgreementLabel();
-                $value = ($label) ? $label : $this->__('N/A');
+                $value = ($label) ?: $this->__('N/A');
                 break;
             case 'status':
                 $value = $item->getStatusLabel();
                 break;
             default:
-                $value = ($item->getData($key)) ? $item->getData($key) : $this->__('N/A');
+                $value = $item->getData($key) ?: $this->__('N/A');
         }
         return $this->escapeHtml($value);
     }
@@ -112,7 +113,9 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     protected function _loadPaymentMethods()
     {
         if (!$this->_paymentMethods) {
-            foreach ($this->helper('payment')->getBillingAgreementMethods() as $paymentMethod) {
+            /** @var Mage_Payment_Helper_Data $helper */
+            $helper = $this->helper('payment');
+            foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
@@ -126,8 +129,10 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      */
     public function getWizardPaymentMethodOptions()
     {
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $paymentMethodOptions = [];
-        foreach ($this->helper('payment')->getBillingAgreementMethods() as $paymentMethod) {
+        foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
             if ($paymentMethod->getConfigData('allow_billing_agreement_wizard') == 1) {
                 $paymentMethodOptions[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }

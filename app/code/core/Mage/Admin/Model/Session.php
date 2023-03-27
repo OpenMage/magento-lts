@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Auth session model
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Acl getAcl()
  * @method $this setAcl(Mage_Admin_Model_Acl $acl)
@@ -58,12 +58,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @const
      */
-    const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
+    public const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
 
     /**
      * Whether it is the first page after successfull login
      *
-     * @var boolean
+     * @var bool|null
      */
     protected $_isFirstPageAfterLogin;
 
@@ -129,8 +129,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         $user = $this->getUser();
         if ($user) {
             $extraData = $user->getExtra();
-            if (
-                !is_null(Mage::app()->getRequest()->getParam('SID'))
+            if (!is_null(Mage::app()->getRequest()->getParam('SID'))
                 && !$this->allowAdminSid()
                 || isset($extraData['indirect_login'])
                 && $this->getIndirectLogin()
@@ -190,7 +189,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_loginFailed($e, $request, $username, $message);
         }
 
-        return isset($user) ? $user : null;
+        return $user ?? null;
     }
 
     /**
@@ -224,7 +223,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param   string $resource
      * @param   string $privilege
-     * @return  boolean
+     * @return bool
      */
     public function isAllowed($resource, $privilege = null)
     {
@@ -253,7 +252,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check if user is logged in
      *
-     * @return boolean
+     * @return bool
      */
     public function isLoggedIn()
     {
@@ -263,7 +262,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check if it is the first page after successfull login
      *
-     * @return boolean
+     * @return bool
      */
     public function isFirstPageAfterLogin()
     {
@@ -333,6 +332,6 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     protected function allowAdminSid()
     {
-        return (bool) Mage::getStoreConfig(self::XML_PATH_ALLOW_SID_FOR_ADMIN_AREA);
+        return Mage::getStoreConfigFlag(self::XML_PATH_ALLOW_SID_FOR_ADMIN_AREA);
     }
 }

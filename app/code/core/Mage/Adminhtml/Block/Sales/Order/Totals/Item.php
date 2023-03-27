@@ -7,20 +7,25 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
-  * Totals item block
-  */
+/**
+ * Totals item block
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
     /**
@@ -48,7 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     {
         $total = new Varien_Object([
             'code'      => $this->getNameInLayout(),
-            'block_name'=> $this->getNameInLayout(),
+            'block_name' => $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
             'strong'    => $this->getStrong()
         ]);
@@ -69,7 +74,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPrices($baseAmount, $amount)
     {
-        return $this->helper('adminhtml/sales')->displayPrices($this->getOrder(), $baseAmount, $amount);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPrices($this->getOrder(), $baseAmount, $amount);
     }
 
     /**
@@ -82,7 +89,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
     {
-        return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
     }
 
     /**

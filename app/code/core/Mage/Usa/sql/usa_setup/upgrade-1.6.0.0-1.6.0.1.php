@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $codes = [
@@ -66,8 +67,9 @@ $conn = $installer->getConnection();
 
 $select = $conn->select()
         ->from($configDataTable)
-        ->where('path IN (?)',
-                [
+        ->where(
+            'path IN (?)',
+            [
                     'carriers/fedex/packaging',
                     'carriers/fedex/dropoff',
                     'carriers/fedex/free_method',
@@ -78,11 +80,11 @@ $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
     if (stripos($mapOld['path'], 'packaging') && isset($codes['packaging'][$mapOld['value']])) {
         $mapNew = $codes['packaging'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
+    } elseif (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
         $mapNew = $codes['dropoff'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
+    } elseif (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'allowed_methods')) {
+    } elseif (stripos($mapOld['path'], 'allowed_methods')) {
         $mapNew = [];
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
@@ -98,9 +100,10 @@ foreach ($mapsOld as $mapOld) {
 
     if (!empty($mapNew) && $mapNew != $mapOld['value']) {
         $whereConfigId = $conn->quoteInto('config_id = ?', $mapOld['config_id']);
-        $conn->update($configDataTable,
-                      ['value' => $mapNew],
-                      $whereConfigId
+        $conn->update(
+            $configDataTable,
+            ['value' => $mapNew],
+            $whereConfigId
         );
     }
 }

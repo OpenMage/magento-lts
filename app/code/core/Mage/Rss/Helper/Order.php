@@ -7,24 +7,29 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Default rss helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rss
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Rss';
+
     /**
      * Check whether status notification is allowed
      *
@@ -46,7 +51,8 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
      */
     public function getStatusHistoryRssUrl($order)
     {
-        return $this->_getUrl('rss/order/status',
+        return $this->_getUrl(
+            'rss/order/status',
             ['_secure' => true, '_query' => ['data' => $this->getStatusUrlKey($order)]]
         );
     }
@@ -65,7 +71,6 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
             'customer_id' => $order->getCustomerId()
         ];
         return base64_encode(json_encode($data));
-
     }
 
     /**
@@ -83,16 +88,16 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
             return null;
         }
 
-        $orderId = intval($data['order_id']);
-        $incrementId = intval($data['increment_id']);
-        $customerId = intval($data['customer_id']);
+        $orderId = (int) $data['order_id'];
+        $incrementId = (int) $data['increment_id'];
+        $customerId = (int) $data['customer_id'];
 
         /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->load($orderId);
 
         if (!is_null($order->getId())
-            && intval($order->getIncrementId()) === $incrementId
-            && intval($order->getCustomerId()) === $customerId
+            && (int) $order->getIncrementId() === $incrementId
+            && (int) $order->getCustomerId() === $customerId
         ) {
             return $order;
         }

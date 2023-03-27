@@ -7,19 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal expess checkout shortcut link
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getShortcutHtmlId()
  * @method string getImageUrl()
@@ -37,8 +42,8 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     /**
      * Position of "OR" label against shortcut
      */
-    const POSITION_BEFORE = 'before';
-    const POSITION_AFTER = 'after';
+    public const POSITION_BEFORE = 'before';
+    public const POSITION_AFTER = 'after';
 
     /**
      * Whether the block should be eventually rendered
@@ -101,7 +106,8 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
 
         // validate minimum quote amount and validate quote for zero grandtotal
         if ($quote !== null && (!$quote->validateMinimumAmount()
-            || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))) {
+            || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))
+        ) {
             $this->_shouldRender = false;
             return $result;
         }
@@ -114,7 +120,9 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
 
         // set misc data
-        $this->setShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_'))
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        $this->setShortcutHtmlId($helper->uniqHash('ec_shortcut_'))
             ->setCheckoutUrl($this->getUrl($this->_startAction));
 
         $this->_getBmlShortcut($quote);
@@ -132,9 +140,12 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         // ask whether to create a billing agreement
         $customerId = Mage::getSingleton('customer/session')->getCustomerId(); // potential issue for caching
         if (Mage::helper('paypal')->shouldAskToCreateBillingAgreement($config, $customerId)) {
-            $this->setConfirmationUrl($this->getUrl($this->_startAction,
-                [Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1]
-            ));
+            $this->setConfirmationUrl(
+                $this->getUrl(
+                    $this->_startAction,
+                    [Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1]
+                )
+            );
             $this->setConfirmationMessage(Mage::helper('paypal')->__('Would you like to sign a billing agreement to streamline further purchases with PayPal?'));
         }
 
@@ -148,9 +159,11 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
      */
     protected function _getBmlShortcut($quote)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $bml = Mage::helper('payment')->getMethodInstance(Mage_Paypal_Model_Config::METHOD_BML);
         $isBmlEnabled = $bml && $bml->isAvailable($quote);
-        $this->setBmlShortcutHtmlId($this->helper('core')->uniqHash('ec_shortcut_bml_'))
+        $this->setBmlShortcutHtmlId($helper->uniqHash('ec_shortcut_bml_'))
             ->setBmlCheckoutUrl($this->getUrl('paypal/bml/start/button/1'))
             ->setBmlImageUrl('https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit-logo-medium.png')
             ->setMarketMessage('https://www.paypalobjects.com/webstatic/en_US/btn/btn_bml_text.png')
@@ -181,8 +194,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     public function isOrPositionBefore()
     {
         return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_BEFORE);
-
+            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE);
     }
 
     /**
@@ -193,6 +205,6 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     public function isOrPositionAfter()
     {
         return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() == self::POSITION_AFTER);
+            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER);
     }
 }

@@ -7,28 +7,27 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms manage pages controller
  *
  * @category   Mage
- * @package    Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
-
     /**
      * Init actions
      *
@@ -83,9 +82,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         // 2. Initial checking
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('cms')->__('This page no longer exists.'));
+                    Mage::helper('cms')->__('This page no longer exists.')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $data['store_id'] = $data['stores'];
             $model->setData($data);
         }
@@ -109,7 +109,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $id ? Mage::helper('cms')->__('Edit Page')
                     : Mage::helper('cms')->__('New Page'),
                 $id ? Mage::helper('cms')->__('Edit Page')
-                    : Mage::helper('cms')->__('New Page'));
+                : Mage::helper('cms')->__('New Page')
+            );
 
         $this->renderLayout();
     }
@@ -146,24 +147,25 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('cms')->__('The page has been saved.'));
+                    Mage::helper('cms')->__('The page has been saved.')
+                );
                 // clear previously saved data from session
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current'=>true]);
+                    $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                     return;
                 }
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            }
-            catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                    Mage::helper('cms')->__('An error occurred while saving the page.'));
+            } catch (Exception $e) {
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('cms')->__('An error occurred while saving the page.')
+                );
             }
 
             $this->_getSession()->setFormData($data);
@@ -189,12 +191,12 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $model->delete();
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('cms')->__('The page has been deleted.'));
+                    Mage::helper('cms')->__('The page has been deleted.')
+                );
                 // go to grid
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'success']);
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'fail']);
                 // display error message
@@ -266,7 +268,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $errorNo = false;
             }
             if (!empty($data['custom_layout_update_xml'])
-            && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])) {
+                && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
+            ) {
                 $errorNo = false;
             }
             foreach ($validatorCustomLayout->getMessages() as $message) {

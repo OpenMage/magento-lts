@@ -215,6 +215,12 @@
 | customer_registration_is_allowed | 1.9.4.5 |
 | customer_session_init | 1.9.4.5 |
 | eav_collection_abstract_load_before | 1.9.4.5 |
+| email_queue_send_before | 19.5.0 / 20.1.0 |
+| email_queue_send_after | 19.5.0 / 20.1.0 |
+| email_send_before | 19.5.0 / 20.1.0 |
+| email_send_after | 19.5.0 / 20.1.0 |
+| email_template_send_before | 19.5.0 / 20.1.0 |
+| email_template_send_after | 19.5.0 / 20.1.0 |
 | end_index_events_[getEventTypeName] | 1.9.4.5 |
 | end_process_event_[getEventTypeName] | 1.9.4.5 |
 | gift_options_prepare_items | 1.9.4.5 |
@@ -235,8 +241,11 @@
 | model_save_after | 1.9.4.5 |
 | model_save_before | 1.9.4.5 |
 | model_save_commit_after | 1.9.4.5 |
+| newsletter_send_before | 19.5.0 / 20.1.0 |
+| newsletter_send_after | 19.5.0 / 20.1.0 |
 | on_view_report | 1.9.4.5 |
 | order_cancel_after | 1.9.4.5 |
+ | order_status_changed_before_save | 19.5.0 / 20.1.0 |
 | page_block_html_topmenu_gethtml_after | 1.9.4.5 |
 | page_block_html_topmenu_gethtml_before | 1.9.4.5 |
 | payment_form_block_to_html_before | 1.9.4.5 |

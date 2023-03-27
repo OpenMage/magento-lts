@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,6 +32,10 @@
  *    'someString' => 'Some string value'
  * );
  * $emailTemplate->send('some@domain.com', 'Name Of User', $variables);
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
  * @method Mage_Core_Model_Resource_Email_Template getResource()
@@ -72,26 +77,22 @@
  * @method bool getUseAbsoluteLinks()
  * @method setUseAbsoluteLinks(bool $value)
  * @method $this setInlineCssFile(string $value)
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abstract
 {
     /**
      * Configuration path for default email templates
      */
-    const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
-    const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
-    const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
+    public const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
+    public const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
+    public const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
 
     protected $_templateFilter;
     protected $_preprocessFlag = false;
     protected $_mail;
     protected $_bccEmails = [];
 
-    static protected $_defaultTemplates;
+    protected static $_defaultTemplates;
 
     /**
      * Initialize email template model
@@ -169,7 +170,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         $data = &$defaultTemplates[$templateId];
-        $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
+        $this->setTemplateType($data['type'] == 'html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
         $templateText = Mage::app()->getTranslator()->getTemplateFile(
             $data['file'],
@@ -225,7 +226,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public static function getDefaultTemplatesAsOptionsArray()
     {
         $options = [
-            ['value'=>'', 'label'=> '']
+            ['value' => '', 'label' => '']
         ];
 
         $idLabel = [];
@@ -267,7 +268,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Return true if this template can be used for sending queue as main template
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidForSend()
     {
@@ -339,12 +340,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @return string
      */
     /**
-     * @param null $html
-     * @return null|string
+     * @param string|null $html
+     * @return string
      */
     public function getPreparedTemplateText($html = null)
     {
-
         if ($this->isPlain() && $html) {
             return $html;
         } elseif ($this->isPlain()) {
@@ -377,7 +377,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array|string       $email        E-mail(s)
      * @param   array|string|null  $name         receiver name(s)
      * @param   array              $variables    template variables
-     * @return  boolean
+     * @return bool
      **/
     public function send($email, $name = null, array $variables = [])
     {
@@ -441,7 +441,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail = $this->getMail();
 
         if ($returnPathEmail !== null) {
-            $mailTransport = new Zend_Mail_Transport_Sendmail("-f".$returnPathEmail);
+            $mailTransport = new Zend_Mail_Transport_Sendmail("-f" . $returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
         }
 
@@ -459,7 +459,30 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('email_template_send_before', [
+                'mail'      => $mail,
+                'template'  => $this,
+                'transport' => $transport,
+                'variables' => $variables
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            foreach ($emails as $key => $email) {
+                Mage::dispatchEvent('email_template_send_after', [
+                    'to'         => $email,
+                    'html'       => !$this->isPlain(),
+                    'subject'    => $subject,
+                    'template'   => $this->getTemplateId(),
+                    'email_body' => $text
+                ]);
+            }
             $this->_mail = null;
         } catch (Exception $e) {
             $this->_mail = null;
@@ -607,7 +630,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve option array of variables
      *
-     * @param boolean $withGroup if true wrap variable options in group
+     * @param bool $withGroup if true wrap variable options in group
      * @return array
      */
     public function getVariablesOptionArray($withGroup = false)

@@ -7,57 +7,57 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Website Payments Pro Hosted Solution payment gateway model
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
 {
     /**
      * Default layout template
      */
-    const LAYOUT_TEMPLATE = 'templateD';
+    public const LAYOUT_TEMPLATE = 'templateD';
 
     /**
      * Mobile layout template
      */
-    const MOBILE_LAYOUT_TEMPLATE = 'mobile-iframe';
+    public const MOBILE_LAYOUT_TEMPLATE = 'mobile-iframe';
 
     /**
      * Button code
      *
      * @var string
      */
-    const BM_BUTTON_CODE    = 'TOKEN';
+    public const BM_BUTTON_CODE    = 'TOKEN';
 
     /**
      * Button type
      *
      * @var string
      */
-    const BM_BUTTON_TYPE    = 'PAYMENT';
+    public const BM_BUTTON_TYPE    = 'PAYMENT';
 
     /**
      * Paypal API method name for button creation
      *
      * @var string
      */
-    const BM_BUTTON_METHOD  = 'BMCreateButton';
+    public const BM_BUTTON_METHOD  = 'BMCreateButton';
 
     /**
      * Payment method code
@@ -147,6 +147,8 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
             default:
                 break;
         }
+
+        return $this;
     }
 
     /**
@@ -173,11 +175,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
     {
-        $request = $this->_buildBasicRequest()
+        return $this->_buildBasicRequest()
             ->setOrder($payment->getOrder())
             ->setPaymentMethod($this);
-
-        return $request;
     }
 
     /**
@@ -191,10 +191,7 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
         $api = $this->_pro->getApi();
         $response = $api->call(self::BM_BUTTON_METHOD, $request->getRequestData());
 
-        if (!isset($response['EMAILLINK'])) {
-            return false;
-        }
-        return $response['EMAILLINK'];
+        return $response['EMAILLINK'] ?? false;
     }
 
     /**

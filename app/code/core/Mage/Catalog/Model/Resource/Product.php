@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product entity resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Abstract
 {
@@ -465,7 +465,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             []
         );
 
-
         $statusJoinCond = [
             't_s.entity_id = t_v_default.entity_id',
             $adapter->quoteInto('t_s.store_id     = ?', $storeId),
@@ -490,7 +489,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
         $adapter->query($adapter->insertFromSelect($select, $indexTable));
 
-
         return $this;
     }
 
@@ -502,7 +500,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      */
     public function getCategoryCollection($product)
     {
-        $collection = Mage::getResourceModel('catalog/category_collection')
+        return Mage::getResourceModel('catalog/category_collection')
             ->joinField(
                 'product_id',
                 'catalog/category_product',
@@ -511,7 +509,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 null
             )
             ->addFieldToFilter('product_id', (int)$product->getId());
-        return $collection;
     }
 
     /**
@@ -632,9 +629,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     }
 
     /**
-     * @param  Mage_Catalog_Model_Product$object
+     * @param Mage_Catalog_Model_Product $object
      * @return array
-     *@deprecated after 1.4.2.0
+     * @deprecated after 1.4.2.0
      */
     public function getParentProductIds($object)
     {
@@ -695,8 +692,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('store_id IN (?)', $storeIds)
             ->where('attribute_code IN (?)', ['small_image', 'thumbnail', 'image']);
 
-        $images = $read->fetchAll($select);
-        return $images;
+        return $read->fetchAll($select);
     }
 
     /**

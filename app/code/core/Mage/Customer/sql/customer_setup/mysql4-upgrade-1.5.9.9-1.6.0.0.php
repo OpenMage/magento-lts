@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var Mage_Customer_Model_Resource_Setup $installer */
@@ -59,7 +60,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/form_attribute'),
     'FK_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE'
 );
-
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
@@ -210,7 +210,6 @@ $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_varchar'),
     'FK_CUSTOMER_VARCHAR_ENTITY_TYPE'
 );
-
 
 /**
  * Drop indexes
@@ -489,7 +488,6 @@ $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
     'IDX_VALUE'
 );
-
 
 /**
  * Change columns
@@ -1156,7 +1154,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -1585,7 +1582,6 @@ $connection = $installer->getConnection()->addIndex(
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
-
 /**
  * Add foreign keys
  */
@@ -1646,8 +1642,6 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
-
-
 
 $connection = $installer->getConnection()->addForeignKey(
     $installer->getFkName('customer_address_entity_datetime', 'attribute_id', 'eav/attribute', 'attribute_id'),
@@ -1888,7 +1882,6 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('eav/entity_type'),
     'entity_type_id'
 );
-
 
 /**
  * Update customer address attributes

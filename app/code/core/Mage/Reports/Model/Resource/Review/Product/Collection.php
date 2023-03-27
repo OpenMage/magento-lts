@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Products Review collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -40,6 +40,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      */
     public function joinReview()
     {
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper    = Mage::getResourceHelper('core');
 
         $subSelect = clone $this->getSelect();
@@ -55,7 +56,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 'e.entity_id = r.entity_pk_value',
                 [
                     'review_cnt'    => new Zend_Db_Expr(sprintf('(%s)', $subSelect)),
-                'last_created'  => 'MAX(r.created_at)',
+                    'last_created'  => new Zend_Db_Expr('MAX(r.created_at)'),
                 ]
             )
             ->group('e.entity_id');
@@ -65,22 +66,18 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
             $this->getConnection()->quoteInto('table_rating.store_id > ?', 0)
         ];
 
-        /**
-         * @var array $groupByCondition of group by fields
-         */
-        $groupByCondition   = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
         $percentField       = $this->getConnection()->quoteIdentifier('table_rating.percent');
-        $sumPercentField    = $helper->prepareColumn("SUM({$percentField})", $groupByCondition);
-        $sumPercentApproved = $helper->prepareColumn('SUM(table_rating.percent_approved)', $groupByCondition);
-        $countRatingId      = $helper->prepareColumn('COUNT(table_rating.rating_id)', $groupByCondition);
+        $sumPercentField    = "SUM({$percentField})";
+        $sumPercentApproved = 'SUM(table_rating.percent_approved)';
+        $countRatingId      = 'COUNT(table_rating.rating_id)';
 
         $this->getSelect()
             ->joinLeft(
                 ['table_rating' => $this->getTable('rating/rating_vote_aggregated')],
                 implode(' AND ', $joinCondition),
                 [
-                    'avg_rating'          => sprintf('%s/%s', $sumPercentField, $countRatingId),
-                    'avg_rating_approved' => sprintf('%s/%s', $sumPercentApproved, $countRatingId),
+                    'avg_rating'          => new Zend_Db_Expr("$sumPercentField / $countRatingId"),
+                    'avg_rating_approved' => new Zend_Db_Expr("$sumPercentApproved / $countRatingId"),
                 ]
             );
 
@@ -95,7 +92,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
         if (in_array($attribute, ['review_cnt', 'last_created', 'avg_rating', 'avg_rating_approved'])) {
-            $this->getSelect()->order($attribute.' '.$dir);
+            $this->getSelect()->order($attribute . ' ' . $dir);
             return $this;
         }
 

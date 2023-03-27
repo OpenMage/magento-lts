@@ -7,18 +7,23 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_resourceCollectionName  = '';
@@ -26,6 +31,16 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected $_storeIds                = [];
     protected $_aggregatedColumns       = null;
 
+    /**
+     * Column for grid to be grouped by
+     *
+     * @var string
+     */
+    protected $_columnGroupBy;
+
+    /**
+     * Mage_Adminhtml_Block_Report_Grid_Abstract constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -38,11 +53,17 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
+    /**
+     * @return string
+     */
     public function getResourceCollectionName()
     {
         return $this->_resourceCollectionName;
     }
 
+    /**
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Mage_Reports_Model_Grouped_Collection
+     */
     public function getCollection()
     {
         if (is_null($this->_collection)) {
@@ -51,6 +72,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this->_collection;
     }
 
+    /**
+     * @return array
+     */
     protected function _getAggregatedColumns()
     {
         if (is_null($this->_aggregatedColumns)) {
@@ -92,8 +116,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldId = $k;
                     $filterFieldValue = $v;
                 }
-                if (
-                    !$filterData->hasData($filterFieldId) ||
+                if (!$filterData->hasData($filterFieldId) ||
                     $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
                     return $this;  // don't add column
@@ -112,7 +135,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     {
         $filterData = $this->getFilterData();
         if ($filterData) {
-            $storeIds = explode(',', $filterData->getData('store_ids'));
+            $storeIds = explode(',', (string)$filterData->getData('store_ids'));
         } else {
             $storeIds = [];
         }
@@ -144,8 +167,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
         $orderStatuses = $filterData->getData('order_statuses');
         if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && strpos($orderStatuses[0],',')!== false) {
-                $filterData->setData('order_statuses', explode(',',$orderStatuses[0]));
+            if (count($orderStatuses) == 1 && strpos($orderStatuses[0], ',') !== false) {
+                $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
             }
         }
 

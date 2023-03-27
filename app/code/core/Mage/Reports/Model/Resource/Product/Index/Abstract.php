@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports Product Index Abstract Resource Model
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -67,10 +67,10 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             $idx = $adapter->fetchRow($select);
 
             if ($idx) {
-            /* If we are here it means that we have two rows: one with known customer, but second just visitor is set
-             * One row should be updated with customer_id, second should be deleted
-             *
-             */
+                /* If we are here it means that we have two rows: one with known customer, but second just visitor is set
+                 * One row should be updated with customer_id, second should be deleted
+                 *
+                 */
                 $adapter->delete($this->getMainTable(), ['index_id = ?' => $row['index_id']]);
                 $where = ['index_id = ?' => $idx['index_id']];
                 $data  = [
@@ -136,19 +136,19 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
         $matchFields = ['product_id', 'store_id'];
 
-        Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
+        $helper->mergeVisitorProductIndex(
             $this->getMainTable(),
             $data,
             $matchFields
         );
-
 
         $this->unserializeFields($object);
         $this->_afterSave($object);
 
         return $this;
     }
-
 
     /**
      * Clean index (visitor)
@@ -210,8 +210,11 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         }
 
         $matchFields = ['product_id', 'store_id'];
+
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
         foreach ($data as $row) {
-            Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+            $helper->mergeVisitorProductIndex(
                 $this->getMainTable(),
                 $row,
                 $matchFields

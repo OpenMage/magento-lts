@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +24,16 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid constructor.
+     * @throws Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -59,20 +66,23 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return Mage::getSingleton('adminhtml/session_quote')->getQuote();
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
-            } else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-                }
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+            } elseif ($productIds) {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -94,13 +104,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->setStore($this->getStore())
             ->addAttributeToSelect($attributes)
             ->addAttributeToSelect('sku')
+            ->addAttributeToSelect('gift_message_available')
             ->addStoreFilter()
             ->addAttributeToFilter('type_id', array_keys(
                 Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
             ))
-            ->addAttributeToSelect('gift_message_available');
-
-        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+            ]);
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -155,7 +166,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('sales')->__('Qty To Add'),
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_qty',
             'name'      => 'qty',
-            'inline_css'=> 'qty',
+            'inline_css' => 'qty',
             'align'     => 'center',
             'type'      => 'input',
             'validate_class' => 'validate-number',
@@ -171,14 +182,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/loadBlock', ['block'=>'search_grid', '_current' => true, 'collapse' => null]);
+        return $this->getUrl('*/*/loadBlock', ['block' => 'search_grid', '_current' => true, 'collapse' => null]);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('products', []);
-
-        return $products;
+        return $this->getRequest()->getPost('products', []);
     }
 
     /**

@@ -7,31 +7,30 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Console installer
  * @category   Mage
  * @package    Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_Abstract
 {
-
     /**
      * Available options
      *
-     * @var array
+     * @var array|null
      */
     protected $_options;
 
@@ -45,7 +44,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
+     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
      */
     protected $_dataModel;
 
@@ -99,7 +98,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Set and validate arguments
      *
      * @param array $args
-     * @return boolean
+     * @return bool
      */
     public function setArgs($args = null)
     {
@@ -164,7 +163,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          * Set args values
          */
         foreach ($this->_getOptions() as $name => $option) {
-            $this->_args[$name] = isset($args[$name]) ? $args[$name] : '';
+            $this->_args[$name] = $args[$name] ?? '';
         }
 
         return true;
@@ -185,7 +184,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Check if there were any errors
      *
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {
@@ -209,13 +208,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Case insensitive
      *
      * @param string $value
-     * @return boolean
+     * @return bool
      */
     protected function _checkFlag($value)
     {
-        $res = ($value == 1)
+        return ($value == 1)
             || preg_match('/^(yes|y|true)$/i', $value);
-        return $res;
     }
 
     /**
@@ -245,7 +243,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Init installation
      *
      * @param Mage_Core_Model_App $app
-     * @return boolean
+     * @return bool
      */
     public function init(Mage_Core_Model_App $app)
     {
@@ -317,12 +315,13 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Install Magento
      *
-     * @return boolean
+     * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function install()
     {
         try {
-
             /**
              * Check if already installed
              */
@@ -430,7 +429,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-
         } catch (Exception $e) {
             $this->addError('ERROR: ' . $e->getMessage());
             return false;
@@ -459,9 +457,9 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Check if installer is run in shell, and redirect if run on web
      *
      * @param string $url fallback url to redirect to
-     * @return boolean
+     * @return bool
      */
-    public function checkConsole($url=null)
+    public function checkConsole($url = null)
     {
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;
@@ -473,5 +471,4 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         header('Location: ' . $url);
         return false;
     }
-
 }

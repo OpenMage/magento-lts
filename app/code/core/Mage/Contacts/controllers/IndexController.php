@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Contacts
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Contacts
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,17 +24,17 @@
  *
  * @category   Mage
  * @package    Mage_Contacts
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 {
-    const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
-    const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
-    const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
-    const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
+    public const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
+    public const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
+    public const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
+    public const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
 
     /**
-     * @return Mage_Core_Controller_Front_Action|void
+     * @return $this
      */
     public function preDispatch()
     {
@@ -42,6 +43,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         if (!Mage::getStoreConfigFlag(self::XML_PATH_ENABLED)) {
             $this->norouteAction();
         }
+        return $this;
     }
 
     public function indexAction()
@@ -77,10 +79,6 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                    $error = true;
-                }
-
-                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
                     $error = true;
                 }
 

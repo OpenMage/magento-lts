@@ -7,24 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reindexer resource model
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -83,12 +83,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     ) {
         $suffix = '';
         $priceSuffix = '';
-        $tables = ['eav'=>'catalogindex/eav', 'price'=>'catalogindex/price'];
+        $tables = ['eav' => 'catalogindex/eav', 'price' => 'catalogindex/price'];
         if (!is_null($products)) {
             if ($products instanceof Mage_Catalog_Model_Product) {
                 $products = $products->getId();
             } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
+                $suffix = 'entity_id IN (' . $products->getIdsSelect($this->_getWriteAdapter())->__toString() . ')';
             } elseif (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');
             }
@@ -140,7 +140,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         if ($minimal) {
             $tables['minimal'] = 'catalogindex/minimal_price';
         }
-
 
         foreach ($tables as $variable => $table) {
             $variable = $$variable;
@@ -346,10 +345,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 if ($retreiver->areChildrenIndexable(Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES)) {
                     $children = $retreiver->getChildProductIds($store, $id);
                     if ($children) {
-                        $minimal = $this->getMinimalPrice([$type=>$children], $store);
+                        $minimal = $this->getMinimalPrice([$type => $children], $store);
                     }
                 } else {
-                    $minimal = $this->getMinimalPrice([$type=> [$id]], $store);
+                    $minimal = $this->getMinimalPrice([$type => [$id]], $store);
                 }
 
                 if (is_array($minimal)) {
@@ -657,7 +656,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             }
 
             if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                $select->where('e.entity_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                $select->where('e.entity_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
             } elseif (!is_null($productIds)) {
                 $select->where("e.entity_id IN(?)", $productIds);
             }
@@ -681,7 +680,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                     ->where('e.is_child=?', 1);
 
                 if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-                    $select->where('e.child_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+                    $select->where('e.child_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
                 } elseif (!is_null($productIds)) {
                     $select->where("e.child_id IN(?)", $productIds);
                 }
