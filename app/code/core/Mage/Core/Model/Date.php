@@ -67,6 +67,8 @@ class Mage_Core_Model_Date
      *
      * @param  string $timezone
      * @return int offset between timezone and gmt
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function calculateOffset($timezone = null)
     {
@@ -94,7 +96,7 @@ class Mage_Core_Model_Date
      *
      * @param  string $format
      * @param  int|string $input date in current timezone
-     * @return string
+     * @return false|string
      */
     public function gmtDate($format = null, $input = null)
     {
@@ -132,7 +134,7 @@ class Mage_Core_Model_Date
      * Forms GMT timestamp
      *
      * @param  int|string $input date in current timezone
-     * @return int
+     * @return string|false|int
      */
     public function gmtTimestamp($input = null)
     {

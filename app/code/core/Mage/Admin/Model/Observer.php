@@ -28,7 +28,7 @@
  */
 class Mage_Admin_Model_Observer
 {
-    const FLAG_NO_LOGIN = 'no-login';
+    public const FLAG_NO_LOGIN = 'no-login';
 
     /**
      * Handler for controller_action_predispatch event
@@ -59,7 +59,6 @@ class Mage_Admin_Model_Observer
             }
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
-
                     /** @var Mage_Core_Model_Session $coreSession */
                     $coreSession = Mage::getSingleton('core/session');
 
@@ -70,7 +69,7 @@ class Mage_Admin_Model_Observer
                         $session->login($username, $password, $request);
                         $request->setPost('login', null);
                     } else {
-                        if ($request && !$request->getParam('messageSent')) {
+                        if (!$request->getParam('messageSent')) {
                             Mage::getSingleton('adminhtml/session')->addError(
                                 Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
                             );
@@ -132,8 +131,7 @@ class Mage_Admin_Model_Observer
             return;
         }
 
-        if (
-            !(bool) $user->getPasswordUpgraded()
+        if (!(bool) $user->getPasswordUpgraded()
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $password,
                 $user->getPassword(),

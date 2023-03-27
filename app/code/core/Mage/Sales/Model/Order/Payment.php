@@ -206,17 +206,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * Accept action
      */
-    const REVIEW_ACTION_ACCEPT = 'accept';
+    public const REVIEW_ACTION_ACCEPT = 'accept';
 
     /**
      * Deny action
      */
-    const REVIEW_ACTION_DENY   = 'deny';
+    public const REVIEW_ACTION_DENY   = 'deny';
 
     /**
      * Update action
      */
-    const REVIEW_ACTION_UPDATE = 'update';
+    public const REVIEW_ACTION_UPDATE = 'update';
 
     /**
      * Order model object
@@ -1209,7 +1209,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
         if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && ($this->getBaseAmountCanceled() == 0)) {
+            && ($this->getBaseAmountCanceled() == 0)
+        ) {
             if ($authTransaction->canVoidAuthorizationCompletely()) {
                 $amount = (float)$order->getBaseGrandTotal();
             }
@@ -1469,8 +1470,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _formatAmount($amount, $asFloat = false)
     {
-         $amount = Mage::app()->getStore()->roundPrice($amount);
-         return !$asFloat ? (string)$amount : $amount;
+        $amount = Mage::app()->getStore()->roundPrice($amount);
+        return !$asFloat ? (string)$amount : $amount;
     }
 
     /**

@@ -29,8 +29,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     /**
      * Option values
      */
-    const VALUE_YES = 1;
-    const VALUE_NO = 0;
+    public const VALUE_YES = 1;
+    public const VALUE_NO = 0;
 
     /**
      * Retrieve all options array
@@ -82,7 +82,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * Get a text for option value
      *
      * @param string|int $value
-     * @return string
+     * @return string|false
      */
     public function getOptionText($value)
     {

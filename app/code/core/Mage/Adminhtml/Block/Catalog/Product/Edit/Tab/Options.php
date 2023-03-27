@@ -36,7 +36,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminht
 
     protected function _prepareLayout()
     {
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Add New Option'),
@@ -45,7 +46,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminht
                 ])
         );
 
-        $this->setChild('options_box',
+        $this->setChild(
+            'options_box',
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option')
         );
 

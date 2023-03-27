@@ -44,8 +44,8 @@
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
-    const ENTITY         = 'store_group';
-    const CACHE_TAG      = 'store_group';
+    public const ENTITY         = 'store_group';
+    public const CACHE_TAG      = 'store_group';
 
     protected $_cacheTag = true;
 
@@ -62,7 +62,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Group Store collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_stores;
 
@@ -97,7 +97,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Website model
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
@@ -330,7 +330,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getWebsiteId()
     {

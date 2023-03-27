@@ -26,7 +26,7 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales_Totals//Mage_Adminhtml_Block_Sales_Order_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales_Totals //Mage_Adminhtml_Block_Sales_Order_Abstract
 {
     /**
      * Initialize order totals array
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'code'      => 'paid',
             'strong'    => true,
             'value'     => $this->getSource()->getTotalPaid(),
-            'base_value'=> $this->getSource()->getBaseTotalPaid(),
+            'base_value' => $this->getSource()->getBaseTotalPaid(),
             'label'     => $this->helper('sales')->__('Total Paid'),
             'area'      => 'footer'
         ]);
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'code'      => 'refunded',
             'strong'    => true,
             'value'     => $this->getSource()->getTotalRefunded(),
-            'base_value'=> $this->getSource()->getBaseTotalRefunded(),
+            'base_value' => $this->getSource()->getBaseTotalRefunded(),
             'label'     => $this->helper('sales')->__('Total Refunded'),
             'area'      => 'footer'
         ]);
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'code'      => 'due',
             'strong'    => true,
             'value'     => $this->getSource()->getTotalDue(),
-            'base_value'=> $this->getSource()->getBaseTotalDue(),
+            'base_value' => $this->getSource()->getBaseTotalDue(),
             'label'     => $this->helper('sales')->__('Total Due'),
             'area'      => 'footer'
         ]);

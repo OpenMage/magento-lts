@@ -44,7 +44,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @var array
      */
-    static protected $_commitCallbacks = [];
+    protected static $_commitCallbacks = [];
 
     abstract protected function _construct();
 
@@ -128,13 +128,13 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date|true|null $date
+     * @param int|string|Zend_Date|bool|null $date
      * @param bool $includeTime
      * @return string|null
      */
     public function formatDate($date, $includeTime = true)
     {
-         return Varien_Date::formatDate($date, $includeTime);
+        return Varien_Date::formatDate($date, $includeTime);
     }
 
     /**

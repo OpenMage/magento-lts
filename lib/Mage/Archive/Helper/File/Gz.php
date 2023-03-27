@@ -12,9 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Archive
+ * @category   Mage
+ * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,6 @@
 */
 class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 {
-
     /**
      * Overwritten Mage_Archive_Helper_File constructor with zlib extension check
      * @param string $filePath
@@ -44,6 +44,8 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 
     /**
      * @see Mage_Archive_Helper_File::_open()
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _open($mode)
     {
@@ -56,6 +58,8 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
 
     /**
      * @see Mage_Archive_Helper_File::_write()
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _write($data)
     {

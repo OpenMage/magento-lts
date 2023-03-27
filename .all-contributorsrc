@@ -10,6 +10,7 @@
   "commit": true,
   "commitConvention": "none",
   "contributorTemplate": "<a href=\"<%= contributor.profile %>\"><img src=\"<%= contributor.avatar_url %>\" loading=\"lazy\" width=\"<%= options.imageSize %>\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
+  "badgeTemplate": "<a href=\"#contributors-\"><img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg\" alt=\"All Contributors\"></a>",
   "contributors": [
     {
       "login": "sreichel",
@@ -1332,7 +1333,10 @@
       "login": "cebe",
       "name": "Carsten Brandt",
       "avatar_url": "https://avatars.githubusercontent.com/u/189796?v=4",
-      "profile": "http://cebe.cc/"
+      "profile": "http://cebe.cc/",
+      "contributions": [
+        "code"
+      ]
     },
     {
       "login": "eneiasramos",
@@ -1348,6 +1352,24 @@
       "name": "Scott Moore",
       "avatar_url": "https://avatars.githubusercontent.com/u/5454596?v=4",
       "profile": "https://github.com/discountscott",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "rfeese",
+      "name": "Roger Feese",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7074181?v=4",
+      "profile": "https://github.com/rfeese",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AGelzer",
+      "name": "Alexander Gelzer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34437931?v=4",
+      "profile": "https://github.com/AGelzer",
       "contributions": [
         "code"
       ]

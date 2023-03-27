@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Price
 {
-    const CACHE_TAG = 'PRODUCT_PRICE';
+    public const CACHE_TAG = 'PRODUCT_PRICE';
 
     public static $attributeCache = [];
 
@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Default action to get price of product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return float
+     * @return string|float|int
      */
     public function getPrice($product)
     {
@@ -48,7 +48,6 @@ class Mage_Catalog_Model_Product_Type_Price
      *
      * @param Mage_Catalog_Model_Product $product
      * @param float|null $qty
-     *
      * @return float
      */
     public function getBasePrice($product, $qty = null)
@@ -123,7 +122,6 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     public function getGroupPrice($product)
     {
-
         $groupPrices = $product->getData('group_price');
 
         if (is_null($groupPrices)) {
@@ -211,7 +209,7 @@ class Mage_Catalog_Model_Product_Type_Price
             $prevGroup = $allGroups;
 
             foreach ($prices as $price) {
-                if ($price['cust_group']!=$custGroup && $price['cust_group']!=$allGroups) {
+                if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
                     // tier not for current customer group nor is for all groups
                     continue;
                 }
@@ -303,7 +301,7 @@ class Mage_Catalog_Model_Product_Type_Price
      *
      * @param float|null $qty
      * @param Mage_Catalog_Model_Product $product
-     * @return  array|float
+     * @return  array|float|string
      */
     public function getFormatedTierPrice($qty, $product)
     {
@@ -348,7 +346,7 @@ class Mage_Catalog_Model_Product_Type_Price
             $basePrice = $finalPrice;
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $product->getOptionById($optionId)) {
-                    $confItemOption = $product->getCustomOption('option_'.$option->getId());
+                    $confItemOption = $product->getCustomOption('option_' . $option->getId());
 
                     $group = $option->groupFactory($option->getType())
                         ->setOption($option)

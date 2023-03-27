@@ -26,15 +26,17 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type
-    extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
+class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
     protected static $_types = [
-        null                                        =>  null,
-        Mage_Newsletter_Model_Template::TYPE_HTML   => 'HTML',
-        Mage_Newsletter_Model_Template::TYPE_TEXT   => 'Text',
+        null                                =>  null,
+        Mage_Core_Model_Template::TYPE_HTML => 'HTML',
+        Mage_Core_Model_Template::TYPE_TEXT => 'Text',
     ];
 
+    /**
+     * @return array
+     */
     protected function _getOptions()
     {
         $result = [];
@@ -45,9 +47,12 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type
         return $result;
     }
 
+    /**
+     * @return array|null
+     */
     public function getCondition()
     {
-        if(is_null($this->getValue())) {
+        if (is_null($this->getValue())) {
             return null;
         }
 

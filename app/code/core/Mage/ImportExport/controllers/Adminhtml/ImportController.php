@@ -32,7 +32,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/convert/import';
+    public const ADMIN_RESOURCE = 'system/convert/import';
 
     /**
      * Custom constructor.

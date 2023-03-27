@@ -93,7 +93,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 
         $actions[] = $action;
         if (!$action->getId()) {
-            $action->setId($this->getId().'.'.count($actions));
+            $action->setId($this->getId() . '.' . count($actions));
         }
 
         $this->setActions($actions);
@@ -105,9 +105,9 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function asHtml()
     {
-        $html = $this->getTypeElement()->toHtml().'Perform following actions: ';
-        if ($this->getId()!='1') {
-            $html.= $this->getRemoveLinkHtml();
+        $html = $this->getTypeElement()->toHtml() . 'Perform following actions: ';
+        if ($this->getId() != '1') {
+            $html .= $this->getRemoveLinkHtml();
         }
         return $html;
     }
@@ -117,10 +117,10 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':new_child', 'select', [
-           'name'=>'rule[actions]['.$this->getId().'][new_child]',
-           'values'=>$this->getNewChildSelectOptions(),
-           'value_name'=>$this->getNewChildName(),
+        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
+           'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+           'values' => $this->getNewChildSelectOptions(),
+           'value_name' => $this->getNewChildName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
     }
 
@@ -129,11 +129,11 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function asHtmlRecursive()
     {
-        $html = $this->asHtml().'<ul id="action:'.$this->getId().':children">';
+        $html = $this->asHtml() . '<ul id="action:' . $this->getId() . ':children">';
         foreach ($this->getActions() as $cond) {
-            $html .= '<li>'.$cond->asHtmlRecursive().'</li>';
+            $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>'.$this->getNewChildElement()->getHtml().'</li></ul>';
+        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
         return $html;
     }
 
@@ -154,7 +154,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     {
         $str = $this->asString();
         foreach ($this->getActions() as $action) {
-            $str .= "\n".$action->asStringRecursive($level+1);
+            $str .= "\n" . $action->asStringRecursive($level + 1);
         }
         return $str;
     }

@@ -77,13 +77,15 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getProducts()
     {
         if (!$this->_productCollection) {
-            $this->_productCollection= Mage::getResourceModel('catalog/product_collection');
-            //$this->_productCollection->getEntity()->setStore($this->_getStore());
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_productCollection);
+            $this->_productCollection = Mage::getResourceModel('catalog/product_collection');
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($this->_productCollection);
-            $this->_productCollection->addAttributeToSelect('name')
+            $this->_productCollection
+                ->addAttributeToSelect('name')
                 ->addAttributeToSelect('sku')
                 ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+                ])
                 ->load();
         }
         return $this->_productCollection->getItems();
@@ -130,7 +132,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
         $productCount = rand(3, 10);
-        for ($i=0; $i<$productCount; $i++) {
+        for ($i = 0; $i < $productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {
                 $product->setQuoteQty(1);

@@ -31,17 +31,17 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Character set which must be used in request
      */
-    const REQUEST_CHARSET = 'utf-8';
+    public const REQUEST_CHARSET = 'utf-8';
 
     /**#@+
      * Name of query ($_GET) parameters to use in navigation and so on
      */
-    const QUERY_PARAM_REQ_ATTRS   = 'attrs';
-    const QUERY_PARAM_PAGE_NUM    = 'page';
-    const QUERY_PARAM_PAGE_SIZE   = 'limit';
-    const QUERY_PARAM_ORDER_FIELD = 'order';
-    const QUERY_PARAM_ORDER_DIR   = 'dir';
-    const QUERY_PARAM_FILTER      = 'filter';
+    public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
+    public const QUERY_PARAM_PAGE_NUM    = 'page';
+    public const QUERY_PARAM_PAGE_SIZE   = 'limit';
+    public const QUERY_PARAM_ORDER_FIELD = 'order';
+    public const QUERY_PARAM_ORDER_DIR   = 'dir';
+    public const QUERY_PARAM_FILTER      = 'filter';
     /**#@- */
 
     /**

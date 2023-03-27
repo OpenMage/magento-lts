@@ -79,9 +79,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     {
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
-        } else {
-            return Mage::helper('widget')->__('New Widget Instance');
         }
+        return Mage::helper('widget')->__('New Widget Instance');
     }
 
     /**
@@ -91,7 +90,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     /**
@@ -101,6 +100,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
 }

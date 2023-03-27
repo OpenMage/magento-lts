@@ -54,7 +54,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
     public function paymentInfoBlockPrepareSpecificInformation($observer)
     {
         if ($observer->getEvent()->getBlock()->getIsSecureMode()) {
-            return;
+            return $this;
         }
 
         $payment = $observer->getEvent()->getPayment();
@@ -89,7 +89,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
 
         if ($method && $method->getIsCentinelValidationEnabled()) {
             $paymentFormBlock->setChild(
-               'payment.method.' . $method->getCode() . 'centinel.logo',
+                'payment.method.' . $method->getCode() . 'centinel.logo',
                 Mage::helper('centinel')->getMethodFormBlock($method)
             );
         }

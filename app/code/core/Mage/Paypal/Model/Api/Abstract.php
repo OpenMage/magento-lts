@@ -82,11 +82,11 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected $_recurringPaymentProfiles = [];
 
-   /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
-     */
+    /**
+      * Fields that should be replaced in debug with '***'
+      *
+      * @var array
+      */
     protected $_debugReplacePrivateDataKeys = [];
 
     /**
@@ -382,12 +382,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      *
      * @param array &$request
      * @param int $i
-     * @return true|bool
+     * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 0)
     {
         if (!$this->_cart) {
-            return;
+            return false;
         }
 
         // always add cart totals, even if line items are not requested
@@ -403,9 +403,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         // add cart line items
         $items = $this->_cart->getItems();
         if (empty($items) || !$this->getIsLineItemsEnabled()) {
-            return;
+            return false;
         }
-        $result = null;
+        $result = false;
         foreach ($items as $item) {
             foreach ($this->_lineItemExportItemsFormat as $publicKey => $privateFormat) {
                 $result = true;
@@ -527,7 +527,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {
-        $keys = func_get_args(); array_shift($keys); array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
+        array_shift($keys);
         $street = $address->getStreet();
         if (!$keys || !$street || !is_array($street)) {
             return;
@@ -563,7 +565,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _filterQty($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     /**

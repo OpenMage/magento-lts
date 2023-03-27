@@ -41,7 +41,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      */
     public function getContentHtml()
     {
-
         /** @var Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content $content */
         $content = Mage::getSingleton('core/layout')
             ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
@@ -84,8 +83,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } else if ($this->getValue() == $defaultValue &&
-                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
+        } elseif ($this->getValue() == $defaultValue &&
+                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
+        ) {
             return false;
         }
         if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {

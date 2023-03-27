@@ -61,11 +61,11 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
     /**
      * Get a specific page name (may be customized via layout)
      *
-     * @return string|null
+     * @return string
      */
     public function getPageName()
     {
-        return $this->_getData('page_name');
+        return $this->_getData('page_name') ?? '';
     }
 
     /**
@@ -159,7 +159,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $result = [];
         $result[] = "ga('require', 'ecommerce')";
         foreach ($collection as $order) {
-            $result[] = sprintf("ga('ecommerce:addTransaction', {
+            $result[] = sprintf(
+                "ga('ecommerce:addTransaction', {
 'id': '%s',
 'affiliation': '%s',
 'revenue': '%s',
@@ -173,7 +174,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $order->getBaseShippingAmount()
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("ga('ecommerce:addItem', {
+                $result[] = sprintf(
+                    "ga('ecommerce:addItem', {
 'id': '%s',
 'sku': '%s',
 'name': '%s',

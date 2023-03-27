@@ -1276,30 +1276,30 @@ foreach ($constraints as $table => $list) {
 // Add eav entity types
 $installer->addEntityType('order', [
     'entity_model'          => 'sales/order',
-    'table'                 =>'sales/order',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'table'                 => 'sales/order',
+    'increment_model'       => 'eav/entity_increment_numeric',
+    'increment_per_store'   => true
 ]);
 
 $installer->addEntityType('invoice', [
     'entity_model'          => 'sales/order_invoice',
-    'table'                 =>'sales/invoice',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'table'                 => 'sales/invoice',
+    'increment_model'       => 'eav/entity_increment_numeric',
+    'increment_per_store'   => true
 ]);
 
 $installer->addEntityType('creditmemo', [
     'entity_model'          => 'sales/order_creditmemo',
-    'table'                 =>'sales/creditmemo',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'table'                 => 'sales/creditmemo',
+    'increment_model'       => 'eav/entity_increment_numeric',
+    'increment_per_store'   => true
 ]);
 
 $installer->addEntityType('shipment', [
     'entity_model'          => 'sales/order_shipment',
-    'table'                 =>'sales/shipment',
-    'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>true
+    'table'                 => 'sales/shipment',
+    'increment_model'       => 'eav/entity_increment_numeric',
+    'increment_per_store'   => true
 ]);
 
 $installer->endSetup();

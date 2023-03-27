@@ -48,29 +48,29 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
     protected function _prepareColumns()
     {
         $this->addColumn('user_id', [
-            'header'    =>Mage::helper('adminhtml')->__('ID'),
-            'width'     =>5,
-            'align'     =>'right',
-            'sortable'  =>true,
-            'index'     =>'user_id'
+            'header'    => Mage::helper('adminhtml')->__('ID'),
+            'width'     => 5,
+            'align'     => 'right',
+            'sortable'  => true,
+            'index'     => 'user_id'
         ]);
         $this->addColumn('username', [
-            'header'    =>Mage::helper('adminhtml')->__('User Name'),
-            'index'     =>'username'
+            'header'    => Mage::helper('adminhtml')->__('User Name'),
+            'index'     => 'username'
         ]);
         $this->addColumn('firstname', [
-            'header'    =>Mage::helper('adminhtml')->__('First Name'),
-            'index'     =>'firstname'
+            'header'    => Mage::helper('adminhtml')->__('First Name'),
+            'index'     => 'firstname'
         ]);
         $this->addColumn('lastname', [
-            'header'    =>Mage::helper('adminhtml')->__('Last Name'),
-            'index'     =>'lastname'
+            'header'    => Mage::helper('adminhtml')->__('Last Name'),
+            'index'     => 'lastname'
         ]);
         $this->addColumn('email', [
-            'header'    =>Mage::helper('adminhtml')->__('Email'),
-            'width'     =>40,
-            'align'     =>'left',
-            'index'     =>'email'
+            'header'    => Mage::helper('adminhtml')->__('Email'),
+            'width'     => 40,
+            'align'     => 'left',
+            'index'     => 'email'
         ]);
 
         return parent::_prepareColumns();
@@ -81,4 +81,3 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
         return $this->getUrl('*/*/edituser', ['id' => $row->getUserId()]);
     }
 }
-

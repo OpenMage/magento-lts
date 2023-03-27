@@ -39,7 +39,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|false
      */
     protected $_quote = false;
 
@@ -64,7 +64,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected function _construct()
     {
         parent::_construct();
-        $this->_config = Mage::getModel($this->_configType, [$this->_configMethod]);
+        /** @var Mage_Paypal_Model_Config $classInstance */
+        $classInstance = Mage::getModel($this->_configType, [$this->_configMethod]);
+        $this->_config = $classInstance;
     }
 
     /**
@@ -84,14 +86,17 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $quoteCheckoutMethod = $this->_getQuote()->getCheckoutMethod();
             if ($customer && $customer->getId()) {
                 $this->_checkout->setCustomerWithAddressChange(
-                    $customer, $this->_getQuote()->getBillingAddress(), $this->_getQuote()->getShippingAddress()
+                    $customer,
+                    $this->_getQuote()->getBillingAddress(),
+                    $this->_getQuote()->getShippingAddress()
                 );
             } elseif ((!$quoteCheckoutMethod
                 || $quoteCheckoutMethod != Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER)
                 && !Mage::helper('checkout')->isAllowedGuestCheckout(
-                $this->_getQuote(),
-                $this->_getQuote()->getStoreId()
-            )) {
+                    $this->_getQuote(),
+                    $this->_getQuote()->getStoreId()
+                )
+            ) {
                 Mage::getSingleton('core/session')->addNotice(
                     Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.')
                 );
@@ -209,8 +214,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             return;
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
             Mage::logException($e);
         }
@@ -235,11 +239,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
             $this->renderLayout();
             return;
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addError(
                 $this->__('Unable to initialize Express Checkout review.')
             );
@@ -255,8 +257,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         try {
             $this->getResponse()->setRedirect($this->_config->getExpressCheckoutEditUrl($this->_initToken()));
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect('*/*/review');
         }
@@ -357,7 +358,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $profiles = $this->_checkout->getRecurringPaymentProfiles();
             if ($profiles) {
                 $ids = [];
-                foreach($profiles as $profile) {
+                foreach ($profiles as $profile) {
                     $ids[] = $profile->getId();
                 }
                 $session->setLastRecurringProfileIds($ids);
@@ -420,7 +421,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->_redirectToCartAndShowError($exception->getUserMessage());
                 break;
         }
-
     }
 
     /**
@@ -456,14 +456,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     {
         $quote = $this->_getQuote();
         if (!$quote->hasItems() || $quote->getHasError()) {
-            $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+            $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
-        $this->_checkout = Mage::getSingleton($this->_checkoutType, [
+
+        /** @var Mage_Paypal_Model_Express_Checkout $classInstance */
+        $classInstance = Mage::getSingleton($this->_checkoutType, [
             'config' => $this->_config,
             'quote'  => $quote,
         ]);
-
+        $this->_checkout = $classInstance;
         return $this->_checkout;
     }
 
@@ -472,7 +474,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Combined getter/setter
      *
      * @param string $setToken
-     * @return Mage_Paypal_ExpressController|string
+     * @return $this|string
      */
     protected function _initToken($setToken = null)
     {

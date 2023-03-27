@@ -48,7 +48,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
         $collection = $observer->getCollection();
 
         if ($collection
-            instanceof Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection) {
+            instanceof Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection
+        ) {
             // avoid recursion
             return;
         }
@@ -80,7 +81,6 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function productLoadAfter(Varien_Event_Observer $observer)
     {
-
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
@@ -109,7 +109,6 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function loadChildProductImagesOnMediaLoad(Varien_Event_Observer $observer)
     {
-
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return; // exit without loading swatch functionality
         }
@@ -157,7 +156,8 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         // Perform this operation if we're on a category view page or search results page
         if (($front == 'catalog' && $controller == 'category' && $action == 'view')
-            || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')) {
+            || ($front == 'catalogsearch' && $controller == 'result' && $action == 'index')
+        ) {
             // Block name for layered navigation differs depending on which Magento edition we're in
             $blockName = 'catalog.leftnav';
             if (Mage::getEdition() == Mage::EDITION_ENTERPRISE) {

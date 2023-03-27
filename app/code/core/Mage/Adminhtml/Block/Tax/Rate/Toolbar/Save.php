@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Admin tax rate save toolbar
  *
@@ -44,16 +45,18 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      */
     protected function _prepareLayout()
     {
-        $this->setChild('backButton',
+        $this->setChild(
+            'backButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\''.$this->getUrl('*/*/').'\'',
-                    'class' => 'back'
+                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
+                    'class'     => 'back'
                 ])
         );
 
-        $this->setChild('resetButton',
+        $this->setChild(
+            'resetButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Reset'),
@@ -61,27 +64,25 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ])
         );
 
-        $this->setChild('saveButton',
+        $this->setChild(
+            'saveButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Save Rate'),
                     'onclick'   => 'wigetForm.submit();return false;',
-                    'class' => 'save'
+                    'class'     => 'save'
                 ])
         );
 
-        $this->setChild('deleteButton',
+        $this->setChild(
+            'deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => 'deleteConfirm(\''
-                        . Mage::helper('core')->jsQuoteEscape(
-                            Mage::helper('tax')->__('Are you sure you want to do this?')
-                        )
-                        . '\', \''
-                        . $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
-                        . '\')',
-                    'class' => 'delete'
+                    'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
+                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
+                    ),
+                    'class'     => 'delete'
                 ])
         );
         return parent::_prepareLayout();
@@ -117,7 +118,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      */
     public function getDeleteButtonHtml()
     {
-        if( intval($this->getRequest()->getParam('rate')) == 0 ) {
+        if ((int) $this->getRequest()->getParam('rate') == 0) {
             return;
         }
         return $this->getChildHtml('deleteButton');

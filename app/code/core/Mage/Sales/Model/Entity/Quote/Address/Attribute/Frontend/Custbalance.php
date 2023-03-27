@@ -33,11 +33,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance exten
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $custbalance = $address->getCustbalanceAmount();
-        if ($custbalance!=0) {
+        if ($custbalance != 0) {
             $address->addTotal([
-                'code'=>'custbalance',
-                'title'=>Mage::helper('sales')->__('Store Credit'),
-                'value'=>-$custbalance
+                'code' => 'custbalance',
+                'title' => Mage::helper('sales')->__('Store Credit'),
+                'value' => -$custbalance
             ]);
         }
         return $this;

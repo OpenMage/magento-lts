@@ -34,11 +34,11 @@ class Mage_Rule_Block_Newchild extends Mage_Core_Block_Abstract implements Varie
     {
         $element->addClass('element-value-changer');
         $html = '&nbsp;<span class="rule-param rule-param-new-child"' . ($element->getParamId() ? ' id="' . $element->getParamId() . '"' : '') . '>';
-        $html.= '<a href="javascript:void(0)" class="label">';
-        $html.= $element->getValueName();
-        $html.= '</a><span class="element">';
-        $html.= $element->getElementHtml();
-        $html.= '</span></span>&nbsp;';
+        $html .= '<a href="javascript:void(0)" class="label">';
+        $html .= $element->getValueName();
+        $html .= '</a><span class="element">';
+        $html .= $element->getElementHtml();
+        $html .= '</span></span>&nbsp;';
         return $html;
     }
 }

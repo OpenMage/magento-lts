@@ -56,12 +56,12 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
             . '" style="position:absolute;background:green;height:2px; width:0; top:-2px; left:-2px; overflow:hidden; ">
         </div>
         <div>
-            ' . $this->__('Total records: %s', '<strong>' . $totalRows . '</strong>').',
+            ' . $this->__('Total records: %s', '<strong>' . $totalRows . '</strong>') . ',
             ' . $this->__('Processed records: %s', '<strong><span id="records_processed_'
-                  . $sessionId . '">0</span></strong>') .',
+                  . $sessionId . '">0</span></strong>') . ',
             ' . $this->__('ETA: %s', '<strong><span id="finish_eta_' . $sessionId . '">N/A</span></strong>') . ',
             ' . $this->__('Memory Used: %s', '<strong><span id="memory_' . $sessionId . '">'
-            . memory_get_usage(true).'</span></strong>') . '
+            . memory_get_usage(true) . '</span></strong>') . '
         </div>
     </div>
 </li>
@@ -110,7 +110,7 @@ function updateProgress(sessionId, idx, time, memory) {
         return [];
     }
 
-    protected function _parseCallback($callback, $defaultMethod=null)
+    protected function _parseCallback($callback, $defaultMethod = null)
     {
         if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
             return false;

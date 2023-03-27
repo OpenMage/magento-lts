@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                 ->setBody(
                     preg_replace(
                         '/(\>\<)/i',
@@ -67,7 +67,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                                 "<soap:body use=\"literal\" />\n",
                                 preg_replace(
                                     '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                    '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                                    '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
                                     $this->wsdlConfig->getWsdlContent()
                                 )
                             )

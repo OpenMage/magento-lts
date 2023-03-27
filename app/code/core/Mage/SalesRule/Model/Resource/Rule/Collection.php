@@ -79,13 +79,13 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $select = $this->getSelect();
 
             $connection = $this->getConnection();
-            if (strlen($couponCode)) {
+            if (is_string($couponCode) && strlen($couponCode)) {
                 $select->joinLeft(
                     ['rule_coupons' => $this->getTable('salesrule/coupon')],
                     $connection->quoteInto(
                         'main_table.rule_id = rule_coupons.rule_id AND main_table.coupon_type != ?',
                         Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
-                    ),
+                    ) . $connection->quoteInto(' AND rule_coupons.code = ?', $couponCode),
                     ['code']
                 );
 

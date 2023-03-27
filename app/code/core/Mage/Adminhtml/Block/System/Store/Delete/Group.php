@@ -19,6 +19,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Adminhtml store delete group block
  *
@@ -28,13 +29,17 @@
  */
 class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $itemId = $this->getRequest()->getParam('group_id');
 
         $this->setTemplate('system/store/delete_group.phtml');
-        $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id'=>$itemId]));
-        $this->setChild('confirm_deletion_button',
+        $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id' => $itemId]));
+        $this->setChild(
+            'confirm_deletion_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Store'),
@@ -42,8 +47,9 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $onClick = "setLocation('".$this->getUrl('*/*/editGroup', ['group_id'=>$itemId])."')";
-        $this->setChild('cancel_button',
+        $onClick = Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
+        $this->setChild(
+            'cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Cancel'),
@@ -51,7 +57,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                     'class'     => 'cancel'
                 ])
         );
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),

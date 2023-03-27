@@ -307,7 +307,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->where("rate.tax_region_id IN(?)", [0, (int)$regionId]);
             $postcodeIsNumeric = is_numeric($postcode);
             $postcodeIsRange = false;
-            if (is_string($postcode) && preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
+            if (preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
                 if (is_numeric($matches[2]) && strlen($matches[2]) < 5) {
                     $postcodeIsNumeric = true;
                 } else {
@@ -505,7 +505,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $rate = $this->getRate($request);
             if ($rate) {
                 $row = [
-                    'value'         => $rate/100,
+                    'value'         => $rate / 100,
                     'country'       => $one['country'],
                     'state'         => $one['region_code'],
                     'postcode'      => $one['postcode'],

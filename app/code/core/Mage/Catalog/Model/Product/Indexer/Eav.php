@@ -28,13 +28,13 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Eav getResource()
- * @method Mage_Catalog_Model_Product_Indexer_Eav setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getAttributeId()
- * @method Mage_Catalog_Model_Product_Indexer_Eav setAttributeId(int $value)
+ * @method $this setAttributeId(int $value)
  * @method int getStoreId()
- * @method Mage_Catalog_Model_Product_Indexer_Eav setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method int getValue()
- * @method Mage_Catalog_Model_Product_Indexer_Eav setValue(int $value)
+ * @method $this setValue(int $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Abstract
 {
@@ -51,6 +51,9 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
             Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
+            Mage_Index_Model_Event::TYPE_SAVE
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
         ]
     ];
@@ -120,6 +123,14 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
             }
         } elseif ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {
             $event->addNewData('catalog_product_eav_reindex_all', true);
+        } elseif ($entity == Mage_Core_Model_Store::ENTITY) {
+            if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+                /** @var Mage_Core_Model_Store $store */
+                $store = $event->getDataObject();
+                if ($store->getOrigData('is_active') != $store->getIsActive() && $store->getIsActive()) {
+                    $event->getProcess()->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+                }
+            }
         }
     }
 

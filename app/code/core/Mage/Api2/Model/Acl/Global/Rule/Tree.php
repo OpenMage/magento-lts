@@ -31,26 +31,26 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**#@+
      * Tree types
      */
-    const TYPE_ATTRIBUTE = 'attribute';
-    const TYPE_PRIVILEGE = 'privilege';
+    public const TYPE_ATTRIBUTE = 'attribute';
+    public const TYPE_PRIVILEGE = 'privilege';
     /**#@-*/
 
     /**#@+
      * Names
      */
-    const NAME_CHILDREN         = 'children';
-    const NAME_PRIVILEGE        = 'privilege';
-    const NAME_OPERATION        = 'operation';
-    const NAME_ATTRIBUTE        = 'attribute';
-    const NAME_RESOURCE         = 'resource';
-    const NAME_RESOURCE_GROUPS  = 'resource_groups';
-    const NAME_GROUP            = 'group';
+    public const NAME_CHILDREN         = 'children';
+    public const NAME_PRIVILEGE        = 'privilege';
+    public const NAME_OPERATION        = 'operation';
+    public const NAME_ATTRIBUTE        = 'attribute';
+    public const NAME_RESOURCE         = 'resource';
+    public const NAME_RESOURCE_GROUPS  = 'resource_groups';
+    public const NAME_GROUP            = 'group';
     /**#@-*/
 
     /**
      * Separator for tree ID
      */
-    const ID_SEPARATOR = '-';
+    public const ID_SEPARATOR = '-';
 
     /**
      * Role
@@ -136,7 +136,6 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
 
             default:
                 throw new Exception(sprintf('Unknown tree type "%s".', $this->_type));
-                break;
         }
     }
 
@@ -230,7 +229,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     }
                     break;
 
-                //no default
+                    //no default
             }
         }
         return $resources;
@@ -266,7 +265,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      *
      * @param Varien_Simplexml_Element|array $node
      * @param int $level
-     * @return array
+     * @return array|null
      */
     protected function _getTreeNode($node, $level = 0)
     {

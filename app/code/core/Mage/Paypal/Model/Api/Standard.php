@@ -74,11 +74,11 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'amount', 'shipping', 'tax', 'discount_amount', 'item_name', 'lc',
     ];
 
-   /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
-     */
+    /**
+      * Fields that should be replaced in debug with '***'
+      *
+      * @var array
+      */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**
@@ -187,12 +187,12 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      *
      * @param array $request
      * @param int $i
-     * @return true|null
+     * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 1)
     {
         if (!$this->_cart) {
-            return;
+            return false;
         }
         if ($this->getIsLineItemsEnabled()) {
             $this->_cart->isShippingAsItem(true);

@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
-    const IMAGE_PATH_SEGMENT = 'catalog/product/';
+    public const IMAGE_PATH_SEGMENT = 'catalog/product/';
 
     /**
      * Retrieve image url

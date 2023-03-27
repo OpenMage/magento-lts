@@ -34,8 +34,8 @@ class Mage_Paypal_Model_Pro
      *
      * @var string
      */
-    const PAYMENT_REVIEW_ACCEPT = 'accept';
-    const PAYMENT_REVIEW_DENY = 'deny';
+    public const PAYMENT_REVIEW_ACCEPT = 'accept';
+    public const PAYMENT_REVIEW_DENY = 'deny';
 
     /**
      * Config instance
@@ -47,7 +47,7 @@ class Mage_Paypal_Model_Pro
     /**
      * API instance
      *
-     * @var Mage_Paypal_Model_Api_Nvp
+     * @var Mage_Paypal_Model_Api_Nvp|false|null
      */
     protected $_api = null;
 
@@ -259,8 +259,7 @@ class Mage_Paypal_Model_Pro
             $isFullRefund = !$canRefundMore
                 && (((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()) == 0);
             $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL
-                : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
-            );
+                : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL);
             $api->callRefundTransaction();
             $this->_importRefundResultToPayment($api, $payment, $canRefundMore);
         } else {
@@ -365,7 +364,8 @@ class Mage_Paypal_Model_Pro
      * @param Mage_Payment_Model_Info $paymentInfo
      * @throws Mage_Core_Exception
      */
-    public function submitRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile,
+    public function submitRecurringProfile(
+        Mage_Payment_Model_Recurring_Profile $profile,
         Mage_Payment_Model_Info $paymentInfo
     ) {
         $api = $this->getApi();
@@ -408,7 +408,6 @@ class Mage_Paypal_Model_Pro
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
-
     }
 
     /**
@@ -421,9 +420,15 @@ class Mage_Paypal_Model_Pro
         $api = $this->getApi();
         $action = null;
         switch ($profile->getNewState()) {
-            case Mage_Sales_Model_Recurring_Profile::STATE_CANCELED: $action = 'cancel'; break;
-            case Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED: $action = 'suspend'; break;
-            case Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE: $action = 'activate'; break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_CANCELED:
+                $action = 'cancel';
+                break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_SUSPENDED:
+                $action = 'suspend';
+                break;
+            case Mage_Sales_Model_Recurring_Profile::STATE_ACTIVE:
+                $action = 'activate';
+                break;
         }
         $state = $profile->getState();
         $api->setRecurringProfileId($profile->getReferenceId())
@@ -459,7 +464,7 @@ class Mage_Paypal_Model_Pro
         $payment->setTransactionId($api->getRefundTransactionId())
                 ->setIsTransactionClosed(1) // refund initiated by merchant
                 ->setShouldCloseParentTransaction(!$canRefundMore)
-            ;
+        ;
         $this->importPaymentInfo($api, $payment);
     }
 

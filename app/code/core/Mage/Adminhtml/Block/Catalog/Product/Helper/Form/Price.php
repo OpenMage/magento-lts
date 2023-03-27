@@ -28,12 +28,19 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data_Form_Element_Text
 {
-    public function __construct($attributes= [])
+    /**
+     * @param array $attributes
+     */
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->addClass('validate-zero-or-greater');
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getAfterElementHtml()
     {
         $html = parent::getAfterElementHtml();
@@ -46,11 +53,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
                 $storeId = $this->getForm()->getDataObject()->getStoreId();
             }
             $store = Mage::app()->getStore($storeId);
-            $html.= '<strong>['.(string)$store->getBaseCurrencyCode().']</strong>';
+            $html .= '<strong>[' . (string)$store->getBaseCurrencyCode() . ']</strong>';
             if (Mage::helper('tax')->priceIncludesTax($store)) {
-                if ($attribute->getAttributeCode()!=='cost') {
+                if ($attribute->getAttributeCode() !== 'cost') {
                     $addJsObserver = true;
-                    $html.= ' <strong>['.Mage::helper('tax')->__('Inc. Tax').'<span id="dynamic-tax-'.$attribute->getAttributeCode().'"></span>]</strong>';
+                    $html .= ' <strong>[' . Mage::helper('tax')->__('Inc. Tax') . '<span id="dynamic-tax-' . $attribute->getAttributeCode() . '"></span>]</strong>';
                 }
             }
         }
@@ -61,6 +68,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         return $html;
     }
 
+    /**
+     * @param $attribute
+     * @return string
+     */
     protected function _getTaxObservingCode($attribute)
     {
         $spanId = "dynamic-tax-{$attribute->getAttributeCode()}";
@@ -68,7 +79,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         return "<script type='text/javascript'>if (dynamicTaxes == undefined) var dynamicTaxes = new Array(); dynamicTaxes[dynamicTaxes.length]='{$attribute->getAttributeCode()}'</script>";
     }
 
-    public function getEscapedValue($index=null)
+    /**
+     * @param null $index deprecated
+     * @return string|null
+     */
+    public function getEscapedValue($index = null)
     {
         $value = $this->getValue();
 
@@ -79,4 +94,3 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         return number_format($value, 2, null, '');
     }
 }
-

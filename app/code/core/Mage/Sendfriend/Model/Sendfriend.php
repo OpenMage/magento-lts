@@ -68,7 +68,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Count of sent in last period
      *
-     * @var int
+     * @var int|null
      */
     protected $_sentCount;
 
@@ -292,7 +292,8 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         // validate array
         if (!is_array($recipients) || !isset($recipients['email'])
             || !isset($recipients['name']) || !is_array($recipients['email'])
-            || !is_array($recipients['name'])) {
+            || !is_array($recipients['name'])
+        ) {
             return $this;
         }
 

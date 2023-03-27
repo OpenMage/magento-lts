@@ -110,7 +110,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
      */
     public function orderByLabel($dir = 'ASC')
     {
-        $this->getSelect()->order('main_table.label '.$dir);
+        $this->getSelect()->order('main_table.label ' . $dir);
         return $this;
     }
 }

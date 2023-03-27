@@ -58,7 +58,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
             $tagName = urldecode($this->getRequest()->getParam('tagName'));
             $tagModel = Mage::getModel('tag/tag');
             $tagModel->loadByName($tagName);
-            if ($tagModel->getId() && $tagModel->getStatus()==$tagModel->getApprovedStatus()) {
+            if ($tagModel->getId() && $tagModel->getStatus() == $tagModel->getApprovedStatus()) {
                 Mage::register('tag_model', $tagModel);
                 $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
                 $this->loadLayout(false);

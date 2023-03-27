@@ -31,19 +31,19 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Config
      */
-    const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
-    const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
-    const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
+    public const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
+    public const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
+    public const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
 
     /**
      * Path for flat flag model
      */
-    const XML_PATH_FLAT_FLAG                 = 'global/catalog/product/flat/flag/model';
+    public const XML_PATH_FLAT_FLAG                 = 'global/catalog/product/flat/flag/model';
 
     /**
      * Catalog Flat Product index process code
      */
-    const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
+    public const CATALOG_FLAT_PROCESS_CODE = 'catalog_product_flat';
 
     protected $_moduleName = 'Mage_Catalog';
 
@@ -73,7 +73,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Catalog Product Flat Flag object
      *
-     * @var Mage_Catalog_Model_Product_Flat_Flag
+     * @var Mage_Catalog_Model_Product_Flat_Flag|null
      */
     protected $_flagObject;
 
@@ -89,7 +89,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Old Catalog Product Flat forced status
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_forceFlatStatusOld;
 
@@ -97,13 +97,16 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * Retrieve Catalog Product Flat Flag object
      *
      * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @throws Mage_Core_Exception
      */
     public function getFlag()
     {
         if (is_null($this->_flagObject)) {
             $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
-            $this->_flagObject = Mage::getSingleton($className)
-                ->loadSelf();
+            /** @var Mage_Catalog_Model_Product_Flat_Flag $classInstance */
+            $classInstance = Mage::getSingleton($className);
+            $this->_flagObject = $classInstance;
+            $this->_flagObject->loadSelf();
         }
         return $this->_flagObject;
     }
@@ -155,7 +158,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddFilterableAttributes()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES);
     }
 
     /**
@@ -165,7 +168,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isAddChildData()
     {
-        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
+        return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA);
     }
 
     /**

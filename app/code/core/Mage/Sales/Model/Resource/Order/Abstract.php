@@ -227,7 +227,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             }
 
             $select->joinLeft(
-                [$tableAlias=> $table],
+                [$tableAlias => $table],
                 implode(' AND ', $joinConditionExpr),
                 [$alias => str_replace('{{table}}', $tableAlias, $column)]
             );
@@ -261,7 +261,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Retrieve grid table
      *
-     * @return string
+     * @return string|false
      */
     public function getGridTable()
     {
@@ -432,7 +432,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         $column = [];
         $select = $adapter->select()
             ->from(['main_table' => $this->getMainTable()], $column)
-            ->where('main_table.' . $field .' = ?', $entityId);
+            ->where('main_table.' . $field . ' = ?', $entityId);
         $this->joinVirtualGridColumnsToSelect('main_table', $select, $column);
         $fieldsToUpdate = $adapter->fetchRow($select);
         if ($fieldsToUpdate) {

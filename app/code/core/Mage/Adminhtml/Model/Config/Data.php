@@ -43,21 +43,21 @@
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
-    const SCOPE_DEFAULT  = 'default';
-    const SCOPE_WEBSITES = 'websites';
-    const SCOPE_STORES   = 'stores';
+    public const SCOPE_DEFAULT  = 'default';
+    public const SCOPE_WEBSITES = 'websites';
+    public const SCOPE_STORES   = 'stores';
 
     /**
      * Config data for sections
      *
-     * @var array
+     * @var array|null
      */
     protected $_configData;
 
     /**
      * Root config node
      *
-     * @var Mage_Core_Model_Config_Element
+     * @var Mage_Core_Model_Config_Element|null
      */
     protected $_configRoot;
 
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             /**
              * Map field names if they were cloned
              */
-            $groupConfig = $sections->descend($section.'/groups/'.$group);
+            $groupConfig = $sections->descend($section . '/groups/' . $group);
 
             if ($clonedFields = !empty($groupConfig->clone_fields)) {
                 if ($groupConfig->clone_model) {
@@ -111,12 +111,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
                 $mappedFields = [];
-                $fieldsConfig = $sections->descend($section.'/groups/'.$group.'/fields');
+                $fieldsConfig = $sections->descend($section . '/groups/' . $group . '/fields');
 
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'].(string)$field] = (string)$field;
+                            $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
                         }
                     }
                 }
@@ -129,6 +129,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     ? $fieldData['value'] : null;
             }
 
+            $helper = Mage::helper('adminhtml/config');
             foreach ($groupData['fields'] as $field => $fieldData) {
                 $field = ltrim($field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
@@ -137,16 +138,13 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         . $mappedFields[$field]);
                 }
                 if (!$fieldConfig) {
-                    $node = $sections->xpath($section .'//' . $group . '[@type="group"]/fields/' . $field);
+                    $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
                         $fieldConfig = $node[0];
                     }
                 }
 
-                /**
-                 * Get field backend model
-                 */
-                $backendClass = (isset($fieldConfig->backend_model))? $fieldConfig->backend_model : false;
+                $backendClass = $helper->getBackendModelByFieldConfig($fieldConfig);
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
                 }
@@ -154,7 +152,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 /** @var Mage_Core_Model_Config_Data $dataObject */
                 $dataObject = Mage::getModel($backendClass);
                 if (!$dataObject instanceof Mage_Core_Model_Config_Data) {
-                    Mage::throwException('Invalid config field backend model: '.$backendClass);
+                    Mage::throwException('Invalid config field backend model: ' . $backendClass);
                 }
 
                 $dataObject
@@ -468,13 +466,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
                 return (bool)(int)$field->show_in_default;
-                break;
             case self::SCOPE_WEBSITES:
                 return (bool)(int)$field->show_in_website;
-                break;
             case self::SCOPE_STORES:
                 return (bool)(int)$field->show_in_store;
-                break;
         }
 
         return true;

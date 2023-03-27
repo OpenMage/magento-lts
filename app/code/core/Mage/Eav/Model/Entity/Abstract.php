@@ -985,7 +985,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 } else {
                     $select = $selects;
                 }
-                
+
                 $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
@@ -1214,7 +1214,13 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
         }
 
-        return compact('newObject', 'entityRow', 'insert', 'update', 'delete');
+        return [
+            'newObject' => $newObject,
+            'entityRow' => $entityRow,
+            'insert'    => $insert,
+            'update'    => $update,
+            'delete'    => $delete
+        ];
     }
 
     /**

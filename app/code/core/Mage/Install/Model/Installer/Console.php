@@ -30,7 +30,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Available options
      *
-     * @var array
+     * @var array|null
      */
     protected $_options;
 
@@ -44,7 +44,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Installer data model to store data between installations steps
      *
-     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session
+     * @var Mage_Install_Model_Installer_Data|Mage_Install_Model_Session|null
      */
     protected $_dataModel;
 
@@ -316,11 +316,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * Install Magento
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function install()
     {
         try {
-
             /**
              * Check if already installed
              */
@@ -428,7 +429,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              */
             @chmod('var/cache', 0777);
             @chmod('var/session', 0777);
-
         } catch (Exception $e) {
             $this->addError('ERROR: ' . $e->getMessage());
             return false;
@@ -459,7 +459,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      * @param string $url fallback url to redirect to
      * @return bool
      */
-    public function checkConsole($url=null)
+    public function checkConsole($url = null)
     {
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;

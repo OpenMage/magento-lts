@@ -40,7 +40,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
         if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
             && in_array($order->getState(), $availableStates, $strict = true)
-            ) {
+        ) {
             return true;
         }
         return false;

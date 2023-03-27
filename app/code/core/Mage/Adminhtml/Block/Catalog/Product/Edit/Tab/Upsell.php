@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(['in_products'=>1]);
+            $this->setDefaultFilter(['in_products' => 1]);
         }
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             if (empty($productIds)) {
                 $productIds = [0];
             }
-            $collection->addFieldToFilter('entity_id', ['in'=>$productIds]);
+            $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
         $this->setCollection($collection);

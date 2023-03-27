@@ -36,7 +36,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
     foreach ($rows as $r) {
         $websiteIds = [];
         foreach (explode(',', $r['store_ids']) as $storeId) {
-            if (($storeId!=='') && isset($websites[$storeId])) {
+            if (($storeId !== '') && isset($websites[$storeId])) {
                 $websiteIds[$websites[$storeId]] = true;
             }
         }
@@ -59,11 +59,11 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     //$q = $conn->query("select * from `$ruleProductTable`");
     foreach ($rows as $r) {
         $websiteId = $websites[$r['store_id']];
-        $key = $r['from_time'].'|'.$r['to_time'].'|'.$websiteId.'|'.$r['customer_group_id'].'|'.$r['product_id'].'|'.$r['sort_order'];
+        $key = $r['from_time'] . '|' . $r['to_time'] . '|' . $websiteId . '|' . $r['customer_group_id'] . '|' . $r['product_id'] . '|' . $r['sort_order'];
         if (isset($unique[$key])) {
             $conn->delete($ruleProductTable, $conn->quoteInto("rule_product_id=?", $r['rule_product_id']));
         } else {
-            $conn->update($ruleProductTable, ['website_id'=>$websiteId], "rule_product_id=".$r['rule_product_id']);
+            $conn->update($ruleProductTable, ['website_id' => $websiteId], "rule_product_id=" . $r['rule_product_id']);
             $unique[$key] = true;
         }
     }

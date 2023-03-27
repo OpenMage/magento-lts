@@ -26,8 +26,8 @@
  * @package    Mage_Api2
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Api2_Block_Adminhtml_Roles_Buttons setRole(Mage_Api2_Model_Acl_Global_Role $role)
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
+ * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)
  */
 class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Template
 {
@@ -112,7 +112,8 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     public function getDeleteButtonHtml()
     {
         if (!$this->getRole() || !$this->getRole()->getId()
-            || Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole())) {
+            || Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole())
+        ) {
             return '';
         }
 

@@ -33,9 +33,9 @@ $conn->addColumn($installer->getTable('sales_quote_address'), 'prefix', 'varchar
 $conn->addColumn($installer->getTable('sales_quote_address'), 'middlename', 'varchar(40) after firstname');
 $conn->addColumn($installer->getTable('sales_quote_address'), 'suffix', 'varchar(40) after lastname');
 
-$installer->addAttribute('order', 'customer_prefix', ['type'=>'varchar', 'visible'=>false]);
-$installer->addAttribute('order', 'customer_middlename', ['type'=>'varchar', 'visible'=>false]);
-$installer->addAttribute('order', 'customer_suffix', ['type'=>'varchar', 'visible'=>false]);
+$installer->addAttribute('order', 'customer_prefix', ['type' => 'varchar', 'visible' => false]);
+$installer->addAttribute('order', 'customer_middlename', ['type' => 'varchar', 'visible' => false]);
+$installer->addAttribute('order', 'customer_suffix', ['type' => 'varchar', 'visible' => false]);
 
 $installer->addAttribute('order_address', 'prefix', []);
 $installer->addAttribute('order_address', 'middlename', []);

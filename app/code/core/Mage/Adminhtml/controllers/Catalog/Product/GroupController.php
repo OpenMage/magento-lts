@@ -31,7 +31,7 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/products';
+    public const ADMIN_RESOURCE = 'catalog/products';
 
     public function saveAction()
     {
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
         $model->setAttributeGroupName($this->getRequest()->getParam('attribute_group_name'))
               ->setAttributeSetId($this->getRequest()->getParam('attribute_set_id'));
 
-        if( $model->itemExists() ) {
+        if ($model->itemExists()) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('A group with the same name already exists.'));
         } else {
             try {

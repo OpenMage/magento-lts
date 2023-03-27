@@ -49,14 +49,15 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
 
         if ($this->getRequest()->getParam('store')) {
             $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
-        } else if ($this->getRequest()->getParam('website')){
+        } elseif ($this->getRequest()->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
-        } else if ($this->getRequest()->getParam('group')){
+        } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } elseif (!$collection->isLive()) {
-            $collection->addFieldToFilter('store_id',
+            $collection->addFieldToFilter(
+                'store_id',
                 ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
             );
         }
@@ -68,7 +69,7 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
         $this->addTotal($this->__('Revenue'), $totals->getRevenue());
         $this->addTotal($this->__('Tax'), $totals->getTax());
         $this->addTotal($this->__('Shipping'), $totals->getShipping());
-        $this->addTotal($this->__('Quantity'), $totals->getQuantity()*1, true);
+        $this->addTotal($this->__('Quantity'), $totals->getQuantity() * 1, true);
         return $this;
     }
 }

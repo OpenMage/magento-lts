@@ -60,7 +60,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ((!$attribute->getId() || $attribute->isInSet($setId))
-                    && $this->_isAllowedAttribute($attribute)) {
+                    && $this->_isAllowedAttribute($attribute)
+            ) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -296,42 +297,42 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         // set additional fields to different types
         switch ($model->getFrontendInput()) {
             case 'text':
-                    $result['additional_fields'] = [
-                        'frontend_class' => $model->getFrontendClass(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    ];
+                $result['additional_fields'] = [
+                    'frontend_class' => $model->getFrontendClass(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             case 'textarea':
-                    $result['additional_fields'] = [
-                        'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    ];
+                $result['additional_fields'] = [
+                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                ];
                 break;
             case 'date':
             case 'boolean':
-                    $result['additional_fields'] = [
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    ];
+                $result['additional_fields'] = [
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             case 'multiselect':
-                    $result['additional_fields'] = [
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition()
-                    ];
+                $result['additional_fields'] = [
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition()
+                ];
                 break;
             case 'select':
             case 'price':
-                    $result['additional_fields'] = [
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    ];
+                $result['additional_fields'] = [
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             default:
-                    $result['additional_fields'] = [];
+                $result['additional_fields'] = [];
                 break;
         }
 
@@ -506,7 +507,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {
-            $model->load(intval($attribute));
+            $model->load((int) $attribute);
         } else {
             $model->load($attribute, 'attribute_code');
         }

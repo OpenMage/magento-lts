@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product_Type_Abstract
 {
-    const TYPE_CODE = 'grouped';
+    public const TYPE_CODE = 'grouped';
 
     /**
      * Cache key for Associated Products

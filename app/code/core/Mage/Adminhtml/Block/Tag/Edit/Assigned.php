@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Assigned extends Mage_Adminhtml_Block_Widget
         $this->addItem('tag_assign', [
             'title'         => Mage::helper('tag')->__('Products Tagged by Administrators'),
             'ajax'          => true,
-            'content_url'   => $this->getUrl('*/*/assigned', ['ret' => 'all', 'tag_id'=>$tagModel->getId(), 'store'=>$tagModel->getStoreId()]),
+            'content_url'   => $this->getUrl('*/*/assigned', ['ret' => 'all', 'tag_id' => $tagModel->getId(), 'store' => $tagModel->getStoreId()]),
         ]);
         return parent::_prepareLayout();
     }

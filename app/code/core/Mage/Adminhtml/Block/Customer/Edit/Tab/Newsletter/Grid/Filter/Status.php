@@ -43,22 +43,28 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Filter_Status exten
         parent::__construct();
     }
 
+    /**
+     * @return array
+     */
     protected function _getOptions()
     {
         $result = [];
-        foreach (self::$_statuses as $code=>$label) {
-            $result[] = ['value'=>$code, 'label'=>Mage::helper('customer')->__($label)];
+        foreach (self::$_statuses as $code => $label) {
+            $result[] = ['value' => $code, 'label' => Mage::helper('customer')->__($label)];
         }
 
         return $result;
     }
 
+    /**
+     * @return array|null
+     */
     public function getCondition()
     {
-        if(is_null($this->getValue())) {
+        if (is_null($this->getValue())) {
             return null;
         }
 
-        return ['eq'=>$this->getValue()];
+        return ['eq' => $this->getValue()];
     }
 }

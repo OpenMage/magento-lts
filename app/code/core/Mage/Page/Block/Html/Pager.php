@@ -32,7 +32,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     protected $_collection = null;
     protected $_pageVarName    = 'p';
     protected $_limitVarName   = 'limit';
-    protected $_availableLimit = [10=>10,20=>20,50=>50];
+    protected $_availableLimit = [10 => 10,20 => 20,50 => 50];
     protected $_dispersion     = 3;
     protected $_displayPages   = 5;
     protected $_showPerPage    = true;
@@ -174,7 +174,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setShowPerPage($varName)
     {
-        $this->_showPerPage=$varName;
+        $this->_showPerPage = $varName;
         return $this;
     }
 
@@ -229,7 +229,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     public function getFirstNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+1;
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + 1;
     }
 
     /**
@@ -238,7 +238,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     public function getLastNum()
     {
         $collection = $this->getCollection();
-        return $collection->getPageSize()*($collection->getCurPage()-1)+$collection->count();
+        return $collection->getPageSize() * ($collection->getCurPage() - 1) + $collection->count();
     }
 
     /**
@@ -298,6 +298,8 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     {
         $collection = $this->getCollection();
 
+        $start = 1;
+        $finish = 1;
         $pages = [];
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             $pages = range(1, $collection->getLastPageNumber());
@@ -359,7 +361,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getPageUrl($page)
     {
-        return $this->getPagerUrl([$this->getPageVarName()=>$page]);
+        return $this->getPagerUrl([$this->getPageVarName() => $page]);
     }
 
     /**
@@ -368,7 +370,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getLimitUrl($limit)
     {
-        return $this->getPagerUrl([$this->getLimitVarName()=>$limit]);
+        return $this->getPagerUrl([$this->getLimitVarName() => $limit]);
     }
 
     /**
@@ -422,7 +424,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Previous jump
      *
-     * @return int
+     * @return int|null
      */
     public function getPreviousJumpPage()
     {
@@ -450,7 +452,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     /**
      * Return page number of Next jump
      *
-     * @return int
+     * @return int|null
      */
     public function getNextJumpPage()
     {
@@ -503,7 +505,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setFrameLength($frame)
     {
-        $frame = abs(intval($frame));
+        $frame = abs((int) $frame);
         if ($frame == 0) {
             $frame = $this->_frameLength;
         }
@@ -523,7 +525,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setJump($jump)
     {
-        $jump = abs(intval($jump));
+        $jump = abs((int) $jump);
         if ($this->getJump() != $jump) {
             $this->_setFrameInitialized(false);
             $this->_jump = $jump;

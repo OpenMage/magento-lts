@@ -34,9 +34,9 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      * @var int[]|bool[]
      */
     protected $_haveChildren = [
-        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
-        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
-        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES => false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES => true,
     ];
 
     /**
@@ -51,11 +51,11 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
         $this->_init('catalogindex/data_configurable');
     }
 
-   /**
-     * Retrieve product type code
-     *
-     * @return string
-     */
+    /**
+      * Retrieve product type code
+      *
+      * @return string
+      */
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE;
@@ -69,9 +69,9 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     protected function _getLinkSettings()
     {
         return [
-                    'table'=>'catalog/product_super_link',
-                    'parent_field'=>'parent_id',
-                    'child_field'=>'product_id',
+                    'table' => 'catalog/product_super_link',
+                    'parent_field' => 'parent_id',
+                    'child_field' => 'product_id',
         ];
     }
 }

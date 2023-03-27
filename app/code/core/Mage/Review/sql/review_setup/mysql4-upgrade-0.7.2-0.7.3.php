@@ -37,7 +37,7 @@ try {
     $resource = Mage::getResourceSingleton('review/review');
     // count quantity and aggregate packs per 100 items
     $total = $this->getConnection()->select()->from($this->getTable('review'), 'count(*)');
-    $total = intval($this->getConnection()->fetchOne($total));
+    $total = (int) $this->getConnection()->fetchOne($total);
     for ($i = 0; $i < $total; $i += 100) {
         $select = $this->getConnection()->select()
             ->from($this->getTable('review'), ['review_id', 'entity_pk_value'])

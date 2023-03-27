@@ -46,7 +46,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      * Disable showing of login form
      *
      * @see Mage_Admin_Model_Observer::actionPreDispatchAdmin() method for explanation
-     * @return void
+     * @return $this
      */
     public function preDispatch()
     {
@@ -67,6 +67,8 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
             $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->_redirect('*/*/*', $params);
         }
+
+        return $this;
     }
 
     /**

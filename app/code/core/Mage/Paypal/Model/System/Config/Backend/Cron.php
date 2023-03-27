@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,8 +26,8 @@
  */
 class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Config_Data
 {
-    const CRON_STRING_PATH = 'crontab/jobs/paypal_fetch_settlement_reports/schedule/cron_expr';
-    const CRON_MODEL_PATH_INTERVAL = 'paypal/fetch_reports/schedule';
+    public const CRON_STRING_PATH = 'crontab/jobs/paypal_fetch_settlement_reports/schedule/cron_expr';
+    public const CRON_MODEL_PATH_INTERVAL = 'paypal/fetch_reports/schedule';
 
     /**
      * Cron settings after save

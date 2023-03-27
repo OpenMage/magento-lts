@@ -61,7 +61,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * @param string $crumbName
      * @param array $crumbInfo
-     * @param bool $after
+     * @param string|bool $after
      * @return $this
      */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
@@ -86,14 +86,14 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
     {
         if ($before && isset($this->_crumbs[$before])) {
-            $keys = array_keys($this->_crumbs);
+            $keys   = array_keys($this->_crumbs);
             $offset = array_search($before, $keys, true);
             # add before first
             if (!$offset) {
                 $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
                 $this->_crumbs = [$crumbName => $crumbInfo] + $this->_crumbs;
             } else {
-                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
+                $this->addCrumb($crumbName, $crumbInfo, $keys[$offset - 1]);
             }
         } else {
             $this->addCrumb($crumbName, $crumbInfo);

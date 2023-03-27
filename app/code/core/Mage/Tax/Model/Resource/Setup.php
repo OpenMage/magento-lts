@@ -132,13 +132,13 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     {
         $table  = $this->getTable('tax_rate');
         $select = $this->_conn->select()
-            ->from(['main_table'=>$table]);
+            ->from(['main_table' => $table]);
         foreach ($oldRateTypes as $type) {
             $id = $type['type_id'];
             $select->joinLeft(
-                ["data_{$id}"=>$this->getTable('tax_rate_data')],
+                ["data_{$id}" => $this->getTable('tax_rate_data')],
                 "data_{$id}.rate_type_id = {$id} AND data_{$id}.tax_rate_id = main_table.tax_rate_id",
-                ["data_{$id}"=>'rate_value']
+                ["data_{$id}" => 'rate_value']
             );
         }
         return $this->_conn->fetchAll($select);

@@ -44,7 +44,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 
     public function __construct()
     {
-        Mage::dispatchEvent('catalog_helper_output_construct', ['helper'=>$this]);
+        Mage::dispatchEvent('catalog_helper_output_construct', ['helper' => $this]);
     }
 
     /**
@@ -124,7 +124,8 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeName);
         if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())
+        ) {
             if ($attribute->getFrontendInput() != 'price') {
                 $attributeHtml = $this->escapeHtml($attributeHtml);
             }
@@ -160,7 +161,8 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeName);
 
         if ($attribute && ($attribute->getFrontendInput() != 'image')
-            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
+            && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())
+        ) {
             $attributeHtml = $this->escapeHtml($attributeHtml);
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {

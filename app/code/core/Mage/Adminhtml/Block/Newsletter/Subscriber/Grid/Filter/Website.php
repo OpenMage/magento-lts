@@ -28,18 +28,28 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+    /**
+     * @var Mage_Core_Model_Resource_Website_Collection|null
+     */
     protected $_websiteCollection = null;
 
+    /**
+     * @return array[]
+     */
     protected function _getOptions()
     {
         $result = $this->getCollection()->toOptionArray();
-        array_unshift($result, ['label'=>null, 'value'=>null]);
+        array_unshift($result, ['label' => null, 'value' => null]);
         return $result;
     }
 
+    /**
+     * @return Mage_Core_Model_Resource_Website_Collection
+     * @throws Mage_Core_Exception
+     */
     public function getCollection()
     {
-        if(is_null($this->_websiteCollection)) {
+        if (is_null($this->_websiteCollection)) {
             $this->_websiteCollection = Mage::getResourceModel('core/website_collection')
                 ->load();
         }
@@ -49,16 +59,19 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
         return $this->_websiteCollection;
     }
 
+    /**
+     * @return array|null
+     * @throws Mage_Core_Exception
+     */
     public function getCondition()
     {
-
         $id = $this->getValue();
-        if(!$id) {
+        if (!$id) {
             return null;
         }
 
         $website = Mage::app()->getWebsite($id);
 
-        return ['in'=>$website->getStoresIds(true)];
+        return ['in' => $website->getStoresIds(true)];
     }
 }

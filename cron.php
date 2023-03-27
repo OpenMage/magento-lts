@@ -42,14 +42,15 @@ try {
 umask(0);
 
 $disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$isWinOS = !str_contains(strtolower(PHP_OS), 'darwin') && str_contains(strtolower(PHP_OS), 'win');
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
-    || !str_contains(strtolower(PHP_OS), 'win')
+    || $isWinOS
     || !shell_exec('which expr 2>/dev/null')
     || !shell_exec('which ps 2>/dev/null')
     || !shell_exec('which sed 2>/dev/null');
 
 try {
-    if (stripos(PHP_OS, 'win') === false) {
+    if (!$isWinOS) {
         $options = getopt('m::');
         if (isset($options['m'])) {
             if ($options['m'] == 'always') {
@@ -59,7 +60,7 @@ try {
             } else {
                 Mage::throwException('Unrecognized cron mode was defined');
             }
-        } else if (!$isShellDisabled) {
+        } elseif (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 

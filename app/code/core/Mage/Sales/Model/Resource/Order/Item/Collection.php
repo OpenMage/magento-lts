@@ -25,6 +25,8 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order_Item getItemById(int $value)
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
@@ -89,7 +91,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addIdFilter($item)
     {
         if (is_array($item)) {
-            $this->addFieldToFilter('item_id', ['in'=>$item]);
+            $this->addFieldToFilter('item_id', ['in' => $item]);
         } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
             $this->addFieldToFilter('item_id', $item->getId());
         } else {

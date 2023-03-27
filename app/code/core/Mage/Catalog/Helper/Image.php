@@ -28,16 +28,16 @@
  */
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
-    const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
-    const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
+    public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
+    public const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
+    public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
 
     protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Current model
      *
-     * @var Mage_Catalog_Model_Product_Image
+     * @var Mage_Catalog_Model_Product_Image|null
      */
     protected $_model;
 
@@ -58,49 +58,49 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Angle
      *
-     * @var int
+     * @var int|null
      */
     protected $_angle;
 
     /**
      * Watermark file name
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermark;
 
     /**
      * Watermark Position
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermarkPosition;
 
     /**
      * Watermark Size
      *
-     * @var string
+     * @var string|null
      */
     protected $_watermarkSize;
 
     /**
      * Watermark Image opacity
      *
-     * @var int
+     * @var int|null
      */
     protected $_watermarkImageOpacity;
 
     /**
      * Current Product
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|null
      */
     protected $_product;
 
     /**
      * Image File
      *
-     * @var string
+     * @var string|null
      */
     protected $_imageFile;
 
@@ -333,7 +333,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     {
         if (!$this->_placeholder) {
             $attr = $this->_getModel()->getDestinationSubdir();
-            $this->_placeholder = 'images/catalog/product/placeholder/'.$attr.'.jpg';
+            $this->_placeholder = 'images/catalog/product/placeholder/' . $attr . '.jpg';
         }
         return $this->_placeholder;
     }
@@ -642,10 +642,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         if ($imageInfo[0] > $maxDimension || $imageInfo[1] > $maxDimension) {
-            Mage::throwException($this->__('Disalollowed file format.'));
+            Mage::throwException($this->__('Disallowed file format.'));
         }
 
-        $_processor = new Varien_Image($filePath);
+        $_processor = Mage::getModel('varien/image', $filePath);
         $mimeType = $_processor->getMimeType();
 
         // Force garbage collection since image handler resource uses memory without counting toward memory limit

@@ -31,23 +31,22 @@
  * @method Mage_Api2_Model_Resource_Acl_Global_Rule getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Rule _getResource()
  * @method int getRoleId()
- * @method Mage_Api2_Model_Acl_Global_Rule setRoleId() setRoleId(int $roleId)
+ * @method $this setRoleId(int $roleId)
  * @method string getResourceId()
- * @method Mage_Api2_Model_Acl_Global_Rule setResourceId() setResourceId(string $resource)
- * @method string getPrivilege()
+ * @method $this setResourceId(string $resource)
  * @method int getPermission()
- * @method Mage_Api2_Model_Acl_Global_Rule setPermission() setPermission(int $permission)
+ * @method $this setPermission(int $permission)
  * @method string getPrivilege()
- * @method Mage_Api2_Model_Acl_Global_Rule setPrivilege() setPrivilege(string $privilege)
+ * @method $this setPrivilege(string $privilege)
  * @method string getAllowedAttributes()
- * @method Mage_Api2_Model_Acl_Global_Rule setAllowedAttributes() setAllowedAttributes(string $allowedAttributes)
+ * @method $this setAllowedAttributes(string $allowedAttributes)
  */
 class Mage_Api2_Model_Acl_Global_Rule extends Mage_Core_Model_Abstract
 {
     /**
      * Root resource ID "all"
      */
-    const RESOURCE_ALL = 'all';
+    public const RESOURCE_ALL = 'all';
 
     protected function _construct()
     {

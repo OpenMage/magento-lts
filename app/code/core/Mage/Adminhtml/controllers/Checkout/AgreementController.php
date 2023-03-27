@@ -32,7 +32,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'sales/checkoutagreement';
+    public const ADMIN_RESOURCE = 'sales/checkoutagreement';
 
     /**
      * Controller pre-dispatch method
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
         Mage::register('checkout_agreement', $agreementModel);
 
         $this->_initAction()
-            ->_addBreadcrumb($id ? Mage::helper('checkout')->__('Edit Condition') :  Mage::helper('checkout')->__('New Condition'), $id ?  Mage::helper('checkout')->__('Edit Condition') :  Mage::helper('checkout')->__('New Condition'))
+            ->_addBreadcrumb($id ? Mage::helper('checkout')->__('Edit Condition') : Mage::helper('checkout')->__('New Condition'), $id ? Mage::helper('checkout')->__('Edit Condition') : Mage::helper('checkout')->__('New Condition'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/checkout_agreement_edit')->setData('action', $this->getUrl('*/*/save')))
             ->renderLayout();
     }
@@ -106,11 +106,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
                 $this->_redirect('*/*/');
 
                 return;
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('checkout')->__('An error occurred while saving this condition.'));
             }
 
@@ -137,11 +135,9 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
             $this->_redirect('*/*/');
 
             return;
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('checkout')->__('An error occurred while deleting this condition.'));
         }
 

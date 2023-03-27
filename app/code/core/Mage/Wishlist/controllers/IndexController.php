@@ -48,7 +48,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Extend preDispatch
      *
-     * @return void
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -65,6 +65,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $this->norouteAction();
             return;
         }
+        return $this;
     }
 
     /**
@@ -81,7 +82,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Retrieve wishlist object
      * @param int $wishlistId
-     * @return Mage_Wishlist_Model_Wishlist|bool
+     * @return Mage_Wishlist_Model_Wishlist|false
      */
     protected function _getWishlist($wishlistId = null)
     {
@@ -95,7 +96,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $wishlistId = $this->getRequest()->getParam('wishlist_id');
             }
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            /** @var Mage_Wishlist_Model_Wishlist $wishlist */
             $wishlist = Mage::getModel('wishlist/wishlist');
             if ($wishlistId) {
                 $wishlist->load($wishlistId);
@@ -499,7 +499,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $qty = $qty[$itemId] ?? 1;
         }
         $qty = (float)$qty;
-        if ($qty && $qty>0) {
+        if ($qty && $qty > 0) {
             $item->setQty($qty);
         }
 
@@ -730,7 +730,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $optionId = null;
         if (strpos($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX) === 0) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
-            if ((int)$optionId != $optionId) {
+            if (!is_numeric($optionId)) {
                 return $this->_forward('noRoute');
             }
         }

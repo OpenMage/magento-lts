@@ -65,7 +65,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
      */
     protected $_productCollection;
 
@@ -104,7 +104,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Retrieve array of attributes used in advanced search
      *
-     * @return array
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     public function getAttributes()
     {
@@ -171,12 +171,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
-                    if ($this->_getResource()->addRatedPriceFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value,
-                        $rate
-                    )
+                    if ($this->_getResource()
+                        ->addRatedPriceFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value,
+                            $rate
+                        )
                     ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
@@ -184,11 +185,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 }
             } elseif ($attribute->isIndexable()) {
                 if (!is_string($value) || strlen($value) != 0) {
-                    if ($this->_getResource()->addIndexableAttributeModifiedFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value
-                    )) {
+                    if ($this->_getResource()
+                        ->addIndexableAttributeModifiedFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value
+                        )
+                    ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }
@@ -328,10 +331,12 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             ->setStore(Mage::app()->getStore())
             ->addMinimalPrice()
             ->addTaxPercents()
-            ->addStoreFilter();
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+            ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
+
         return $this;
     }
 }

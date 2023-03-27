@@ -31,20 +31,27 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config paths for using throughout the code
      */
-    const XML_PATH_ACTIVE        = 'google/analytics/active';
-    const XML_PATH_TYPE          = 'google/analytics/type';
-    const XML_PATH_ACCOUNT       = 'google/analytics/account';
-    const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
+    public const XML_PATH_ACTIVE        = 'google/analytics/active';
+    public const XML_PATH_TYPE          = 'google/analytics/type';
+    public const XML_PATH_ACCOUNT       = 'google/analytics/account';
+    public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
+
+    /**
+     * @var string google analytics 4
+     */
+    public const TYPE_ANALYTICS4 = 'analytics4';
 
     /**
      * @var string classic google analytics tracking code
+     * @deprecated
      */
-    const TYPE_ANALYTICS = 'analytics';
+    public const TYPE_ANALYTICS = 'analytics';
 
     /**
      * @var string google analytics universal tracking code
+     * @deprecated
      */
-    const TYPE_UNIVERSAL = 'universal';
+    public const TYPE_UNIVERSAL = 'universal';
 
     protected $_moduleName = 'Mage_GoogleAnalytics';
 
@@ -63,7 +70,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
      */
     public function isIpAnonymizationEnabled($store = null)
@@ -86,10 +93,22 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
-     * @return string
+     * @return bool
+     * @deprecated
      */
     public function isUseUniversalAnalytics($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+    }
+
+    /**
+     * Returns true if should use Google Universal Analytics 4
+     *
+     * @param string $store
+     * @return bool
+     */
+    public function isUseAnalytics4($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
     }
 }

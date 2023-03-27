@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Model_Api_Resource
 {
-    const ATTRIBUTE_CODE = 'tier_price';
+    public const ATTRIBUTE_CODE = 'tier_price';
 
     public function __construct()
     {
@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
     /**
      * @param int $productId
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -54,11 +54,12 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         foreach ($tierPrices as $tierPrice) {
             $row = [];
-            $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all' );
-            $row['website']           = ($tierPrice['website_id'] ?
-                            Mage::app()->getWebsite($tierPrice['website_id'])->getCode() :
-                            'all'
-                    );
+            $row['customer_group_id'] = (empty($tierPrice['all_groups']) ? $tierPrice['cust_group'] : 'all');
+            $row['website']           = (
+                $tierPrice['website_id']
+                    ? Mage::app()->getWebsite($tierPrice['website_id'])->getCode()
+                    : 'all'
+            );
             $row['qty']               = $tierPrice['price_qty'];
             $row['price']             = $tierPrice['price'];
 
@@ -73,7 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      * @param int|string $productId
      * @param array $tierPrices
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -95,7 +96,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             if (is_array($errors = $product->validate())) {
                 $strErrors = [];
                 foreach ($errors as $code => $error) {
-                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
+                    $strErrors[] = ($error === true) ? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
@@ -113,7 +114,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array
+     *  @return     array|null
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {
@@ -121,16 +122,13 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             return null;
         }
 
-        if (!is_array($tierPrices)) {
-            $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
-        }
-
         $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
             if (!is_array($tierPrice)
                 || !isset($tierPrice['qty'])
-                || !isset($tierPrice['price'])) {
+                || !isset($tierPrice['price'])
+            ) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 
@@ -144,7 +142,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 }
             }
 
-            if (intval($tierPrice['website']) > 0 && !in_array($tierPrice['website'], $product->getWebsiteIds())) {
+            if ((int) $tierPrice['website'] > 0 && !in_array($tierPrice['website'], $product->getWebsiteIds())) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid tier prices. The product is not associated to the requested website.'));
             }
 

@@ -169,7 +169,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function isUsingStaticUrlsAllowed()
     {
-        $checkResult = new stdClass;
+        $checkResult = new stdClass();
         $checkResult->isAllowed = false;
         Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', [
             'result'   => $checkResult,

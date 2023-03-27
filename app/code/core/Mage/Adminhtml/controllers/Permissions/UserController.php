@@ -30,7 +30,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/acl/users';
+    public const ADMIN_RESOURCE = 'system/acl/users';
 
     /**
      * Controller pre-dispatch method
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -115,7 +115,6 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-
             $id = $this->getRequest()->getParam('user_id');
             $model = Mage::getModel('admin/user')->load($id);
             // @var $isNew flag for detecting new admin user creation.
@@ -162,17 +161,12 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
-                    if (count($uRoles) === 1) {
-                        $model->setRoleIds($uRoles)
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
+                    if (is_array($uRoles) && (count($uRoles) >= 1)) {
+                        // with fix for previous multi-roles logic
+                        $model->setRoleIds(array_slice($uRoles, 0, 1))
                             ->setRoleUserId($model->getUserId())
                             ->saveRelations();
-                    } else if (count($uRoles) > 1) {
-                        //@FIXME: stupid fix of previous multi-roles logic.
-                        //@TODO:  make proper DB upgrade in the future revisions.
-                        $rs = [];
-                        $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
@@ -209,7 +203,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $currentUser = Mage::getSingleton('admin/session')->getUser();
 
         if ($id = $this->getRequest()->getParam('user_id')) {
-            if ( $currentUser->getId() == $id ) {
+            if ($currentUser->getId() == $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('You cannot delete your own account.'));
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;
@@ -221,8 +215,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['user_id' => $this->getRequest()->getParam('user_id')]);
                 return;

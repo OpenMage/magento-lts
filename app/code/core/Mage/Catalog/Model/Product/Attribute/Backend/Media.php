@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
             if ($this->getAttribute()->isValueEmpty($value)) {
-                if (!(is_array($value) && count($value)>0)) {
+                if (!(is_array($value) && count($value) > 0)) {
                     return false;
                 }
             }
@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $clearImages = [];
         $newImages   = [];
         $existImages = [];
-        if ($object->getIsDuplicate()!=true) {
+        if ($object->getIsDuplicate() != true) {
             foreach ($value['images'] as &$image) {
                 if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
@@ -157,17 +157,21 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $mediaAttrCode = $mediaAttribute->getAttributeCode();
             $attrData = $object->getData($mediaAttrCode);
 
+            if (empty($attrData)) {
+                continue;
+            }
+
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
 
             if (array_key_exists($attrData, $newImages)) {
                 $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode.'_label', $newImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode.'_label', $existImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
             }
         }
 
@@ -276,6 +280,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
+        if (strpos($file, chr(0)) !== false
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         $file = realpath($file);
 
         if (!$file || !file_exists($file)) {
@@ -302,7 +312,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         try {
             $ioAdapter->open([
-                'path'=>$distanationDirectory
+                'path' => $distanationDirectory
             ]);
 
             /** @var Mage_Core_Helper_File_Storage_Database $storageHelper */
@@ -375,7 +385,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
-
         $alreadyAddedFiles = [];
         $alreadyAddedFilesNames = [];
 
@@ -568,13 +577,13 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
         try {
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         } catch (Exception $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
         }
 
-        if (strrpos($file, '.tmp') == strlen($file)-4) {
+        if (strrpos($file, '.tmp') == strlen($file) - 4) {
             $file = substr($file, 0, -4);
         }
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
@@ -635,7 +644,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         try {
             $ioObject = new Varien_Io_File();
             $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
-            $ioObject->open(['path'=>$destDirectory]);
+            $ioObject->open(['path' => $destDirectory]);
 
             $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 

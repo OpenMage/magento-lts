@@ -60,7 +60,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             Mage::throwException(Mage::helper('cms')->__('A block identifier with the same properties already exists in the selected store.'));
         }
 
-        if (! $object->getId()) {
+        if (!$object->getId()) {
             $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
         }
         $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
@@ -150,7 +150,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 
             $select->join(
                 ['cbs' => $this->getTable('cms/block_store')],
-                $this->getMainTable().'.block_id = cbs.block_id',
+                $this->getMainTable() . '.block_id = cbs.block_id',
                 ['store_id']
             )->where('is_active = ?', 1)
             ->where('cbs.store_id in (?) ', $stores)

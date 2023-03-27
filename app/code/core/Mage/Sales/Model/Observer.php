@@ -48,13 +48,13 @@ class Mage_Sales_Model_Observer
 
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
         foreach ($lifetimes as $storeId => $lifetime) {
-            $lifetime *= 86400;
+            $lifetime = (int)$lifetime * 86400;
 
             /** @var Mage_Sales_Model_Resource_Quote_Collection $quotes */
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', ['to'=>date("Y-m-d", time()-$lifetime)]);
+            $quotes->addFieldToFilter('updated_at', ['to' => date("Y-m-d", time() - $lifetime)]);
             $quotes->addFieldToFilter('is_active', 0);
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {

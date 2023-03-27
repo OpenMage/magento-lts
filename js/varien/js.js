@@ -573,11 +573,13 @@ Varien.FileElement.prototype = {
     }
 };
 
-Validation.addAllThese([
-    ['validate-custom', ' ', function(v,elm) {
-        return elm.validate();
-    }]
-]);
+if (typeof Validation !== 'undefined') {
+    Validation.addAllThese([
+        ['validate-custom', ' ', function(v,elm) {
+            return elm.validate();
+        }]
+    ]);
+}
 
 function truncateOptions() {
     $$('.truncated').each(function(element){
@@ -608,18 +610,6 @@ Element.addMethods({
         return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ').strip();
     }
 });
-
-/*
-if (!("console" in window) || !("firebug" in console))
-{
-    var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
-    "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
-
-    window.console = {};
-    for (var i = 0; i < names.length; ++i)
-        window.console[names[i]] = function() {}
-}
-*/
 
 /**
  * Executes event handler on the element. Works with event handlers attached by Prototype,

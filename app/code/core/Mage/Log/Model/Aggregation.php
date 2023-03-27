@@ -85,10 +85,10 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
             $data = [
-                'store_id'=>$store,
-                'visitor_count'=>$counts['visitors'],
-                'customer_count'=>$counts['customers'],
-                'add_date'=>$this->_date($date)
+                'store_id' => $store,
+                'visitor_count' => $counts['visitors'],
+                'customer_count' => $counts['customers'],
+                'add_date' => $this->_date($date)
             ];
 
             if ($counts['visitors'] || $counts['customers']) {
@@ -160,21 +160,21 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 
     /**
      * @param string|int $in
-     * @param null $offset
+     * @param null $offset deprecated
      * @return false|string
      */
     private function _date($in, $offset = null)
     {
         $out = $in;
         if (is_numeric($in)) {
-            $out = date("Y-m-d H:i:s", $in);
+            $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
         return $out;
     }
 
     /**
      * @param string|int $in
-     * @param null $offset
+     * @param null $offset deprecated
      * @return false|int
      */
     private function _timestamp($in, $offset = null)

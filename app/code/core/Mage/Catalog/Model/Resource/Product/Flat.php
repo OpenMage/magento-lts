@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Retrieve Attribute Sort column name
      *
      * @param string $attributeCode
-     * @return string
+     * @return string|null
      */
     public function getAttributeSortColumn($attributeCode)
     {

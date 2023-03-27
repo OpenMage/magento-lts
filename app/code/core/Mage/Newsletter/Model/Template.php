@@ -65,7 +65,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail
+     * @var Zend_Mail|null
      */
     protected $_mail;
 
@@ -173,7 +173,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Check Template Text Preprocessed
      *
-     * @return bool
+     * @return string
      */
     public function getTemplateTextPreprocessed()
     {
@@ -181,7 +181,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
-        return $this->getData('template_text_preprocessed');
+        return (string) $this->getData('template_text_preprocessed');
     }
 
     /**
@@ -328,7 +328,28 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getTemplateSenderEmail(), $this->getTemplateSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('newsletter_send_before', [
+                'mail'       => $mail,
+                'transport'  => $transport,
+                'template'   => $this,
+                'subscriber' => $subscriber
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            Mage::dispatchEvent('newsletter_send_after', [
+                'to'         => $email,
+                'html'       => !$this->isPlain(),
+                'queue'      => $queue,
+                'subject'    => $mail->getSubject(),
+                'email_body' => $text
+            ]);
             $this->_mail = null;
             if (!is_null($queue)) {
                 $subscriber->received($queue);
