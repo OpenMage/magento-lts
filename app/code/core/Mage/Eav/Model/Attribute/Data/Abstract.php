@@ -333,19 +333,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     }
                     break;
                 case 'email':
-        /**
-        $this->__("'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded")
-        $this->__("Invalid type given. String expected")
-        $this->__("'%value%' appears to be a DNS hostname but contains a dash in an invalid position")
-        $this->__("'%value%' does not match the expected structure for a DNS hostname")
-        $this->__("'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'")
-        $this->__("'%value%' does not appear to be a valid local network name")
-        $this->__("'%value%' does not appear to be a valid URI hostname")
-        $this->__("'%value%' appears to be an IP address, but IP addresses are not allowed")
-        $this->__("'%value%' appears to be a local network name but local network names are not allowed")
-        $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
-        $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
-        */
+                    /**
+                    $this->__("'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded")
+                    $this->__("Invalid type given. String expected")
+                    $this->__("'%value%' appears to be a DNS hostname but contains a dash in an invalid position")
+                    $this->__("'%value%' does not match the expected structure for a DNS hostname")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'")
+                    $this->__("'%value%' does not appear to be a valid local network name")
+                    $this->__("'%value%' does not appear to be a valid URI hostname")
+                    $this->__("'%value%' appears to be an IP address, but IP addresses are not allowed")
+                    $this->__("'%value%' appears to be a local network name but local network names are not allowed")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
+                    */
                     $validator = new Zend_Validate_EmailAddress();
                     $validator->setMessage(
                         Mage::helper('eav')->__('"%s" invalid type entered.', $label),
