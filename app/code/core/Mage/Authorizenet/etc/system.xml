@@ -1,28 +1,23 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * https://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Authorizenet
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Authorizenet
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -31,7 +26,6 @@
             <groups>
                 <authorizenet_directpost translate="label" module="authorizenet">
                     <label>Authorize.net Direct Post (Deprecated)</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>34</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -57,7 +51,6 @@
                         </payment_action>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -119,7 +112,6 @@
                         </test>
                         <cgi_url translate="label">
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -154,7 +146,6 @@
                         </email_customer>
                         <merchant_email translate="label">
                             <label>Merchant's Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
@@ -199,7 +190,6 @@
                         </specificcountry>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -207,7 +197,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>190</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -215,7 +204,6 @@
                         </max_order_total>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>200</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

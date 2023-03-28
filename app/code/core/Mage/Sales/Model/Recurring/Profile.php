@@ -1,32 +1,31 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales implementation of recurring payment profiles
  * Implements saving and manageing profiles
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
  * @method Mage_Sales_Model_Resource_Recurring_Profile getResource()
@@ -96,10 +95,6 @@
  * @method $this setAdditionalInfo(string $value)
  * @method Mage_Sales_Model_Quote getQuote()
  * @method $this setNewState(string $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {
@@ -108,21 +103,21 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      *
      * @var string
      */
-    const STATE_UNKNOWN   = 'unknown';
-    const STATE_PENDING   = 'pending';
-    const STATE_ACTIVE    = 'active';
-    const STATE_SUSPENDED = 'suspended';
-    const STATE_CANCELED  = 'canceled';
-    const STATE_EXPIRED   = 'expired';
+    public const STATE_UNKNOWN   = 'unknown';
+    public const STATE_PENDING   = 'pending';
+    public const STATE_ACTIVE    = 'active';
+    public const STATE_SUSPENDED = 'suspended';
+    public const STATE_CANCELED  = 'canceled';
+    public const STATE_EXPIRED   = 'expired';
 
     /**
      * Payment types
      *
      * @var string
      */
-    const PAYMENT_TYPE_REGULAR   = 'regular';
-    const PAYMENT_TYPE_TRIAL     = 'trial';
-    const PAYMENT_TYPE_INITIAL   = 'initial';
+    public const PAYMENT_TYPE_REGULAR   = 'regular';
+    public const PAYMENT_TYPE_TRIAL     = 'trial';
+    public const PAYMENT_TYPE_INITIAL   = 'initial';
 
     /**
      * Allowed actions matrix
@@ -263,7 +258,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     public function createOrder()
     {
-        $items = array();
+        $items = [];
         $itemInfoObjects = func_get_args();
 
         $billingAmount = 0;
@@ -298,7 +293,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $payment = Mage::getModel('sales/order_payment')
             ->setMethod($this->getMethodCode());
 
-        $transferDataKays = array(
+        $transferDataKays = [
             'store_id',             'store_name',           'customer_id',          'customer_email',
             'customer_firstname',   'customer_lastname',    'customer_middlename',  'customer_prefix',
             'customer_suffix',      'customer_taxvat',      'customer_gender',      'customer_is_guest',
@@ -306,7 +301,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             'shipping_description', 'base_currency_code',   'global_currency_code', 'order_currency_code',
             'store_currency_code',  'base_to_global_rate',  'base_to_order_rate',   'store_to_base_rate',
             'store_to_order_rate'
-        );
+        ];
 
         $orderInfo = $this->getOrderInfo();
         foreach ($transferDataKays as $key) {
@@ -474,11 +469,11 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     public function getAllStates($withLabels = true)
     {
-        $states = array(self::STATE_UNKNOWN, self::STATE_PENDING, self::STATE_ACTIVE,
+        $states = [self::STATE_UNKNOWN, self::STATE_PENDING, self::STATE_ACTIVE,
             self::STATE_SUSPENDED, self::STATE_CANCELED, self::STATE_EXPIRED,
-        );
+        ];
         if ($withLabels) {
-            $result = array();
+            $result = [];
             foreach ($states as $state) {
                 $result[$state] = $this->getStateLabel($state);
             }
@@ -556,9 +551,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         }
     }
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/recurring_profile');
@@ -585,15 +577,15 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     protected function _initWorkflow()
     {
-        if (null === $this->_workflow) {
-            $this->_workflow = array(
-                'unknown'   => array('pending', 'active', 'suspended', 'canceled'),
-                'pending'   => array('active', 'canceled'),
-                'active'    => array('suspended', 'canceled'),
-                'suspended' => array('active', 'canceled'),
-                'canceled'  => array(),
-                'expired'   => array(),
-            );
+        if ($this->_workflow === null) {
+            $this->_workflow = [
+                'unknown'   => ['pending', 'active', 'suspended', 'canceled'],
+                'pending'   => ['active', 'canceled'],
+                'active'    => ['suspended', 'canceled'],
+                'suspended' => ['active', 'canceled'],
+                'canceled'  => [],
+                'expired'   => [],
+            ];
         }
     }
 
@@ -648,7 +640,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      *
      * @param Varien_Object $itemInfo
-     * @return Mage_Sales_Model_Order_Item
+     * @return Mage_Sales_Model_Order_Item|void
      */
     protected function _getItem($itemInfo)
     {
@@ -682,7 +674,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $shippingAmount = $itemInfo->getShippingAmount() ? $itemInfo->getShippingAmount() : $this->getShippingAmount();
         $taxAmount = $itemInfo->getTaxAmount() ? $itemInfo->getTaxAmount() : $this->getTaxAmount();
 
-        $item = Mage::getModel('sales/order_item')
+        return Mage::getModel('sales/order_item')
             ->setData($this->getOrderItemInfo())
             ->setQtyOrdered($this->getInfoValue('order_item_info', 'qty'))
             ->setBaseOriginalPrice($this->getInfoValue('order_item_info', 'price'))
@@ -693,7 +685,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             ->setTaxAmount($taxAmount)
             ->setShippingAmount($shippingAmount)
             ->setId(null);
-        return $item;
     }
 
     /**
@@ -711,10 +702,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             Mage::helper('sales')->__('Trial ') . $item->getName()
         );
 
-        $option = array(
+        $option = [
             'label' => Mage::helper('sales')->__('Payment type'),
             'value' => Mage::helper('sales')->__('Trial period payment')
-        );
+        ];
 
         $this->_addAdditionalOptionToItem($item, $option);
 
@@ -751,10 +742,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             ->setTaxAmount($taxAmount)
             ->setShippingAmount($shippingAmount);
 
-        $option = array(
+        $option = [
             'label' => Mage::helper('sales')->__('Payment type'),
             'value' => Mage::helper('sales')->__('Initial period payment')
-        );
+        ];
 
         $this->_addAdditionalOptionToItem($item, $option);
         return $item;
@@ -773,7 +764,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (is_array($additionalOptions)) {
             $additionalOptions[] = $option;
         } else {
-            $additionalOptions = array($option);
+            $additionalOptions = [$option];
         }
         $options['additional_options'] = $additionalOptions;
         $item->setProductOptions($options);

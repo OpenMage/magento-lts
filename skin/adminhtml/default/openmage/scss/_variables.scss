@@ -72,9 +72,71 @@ $font_2: Helvetica;
 $font_3: Arial;
 $font_4: sans-serif;
 
+//colors
+$color_mercury_approx: #e6e6e6;
+$color_mine_shaft_approx: #2f2f2f;
+$color_mango_tango_approx: #ea7601;
+$color_silver_chalice_approx: #aaa;
+$color_silver_approx: #c8c8c8;
+$white: #fff;
+$color_clementine_approx: #ed6502;
+$color_oregon_approx: #a04300;
+$color_yellow_orange_approx: #ffac47;
+$color_alabaster_approx: #f8f8f8;
+$black_25: rgba(0, 0, 0, 0.25);
+$black_50: rgba(0, 0, 0, 0.5);
+$color_pizazz_approx: #ff8c00;
+$color_flamingo_approx: #f16221;
+$black_15: rgba(0, 0, 0, 0.15);
+$black_75: rgba(0, 0, 0, 0.75);
+$color_gothic_10_approx: rgba(117, 146, 163, 0.1);
+$color_gothic_25_approx: rgba(117, 146, 163, 0.25);
+
+$hue: 205;
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
+
+$color-main-xs: hsla($hue, 52%, 95%, 1);
+$color-main-s: hsla($hue, 52%, 88%, 1);
+$color-main-m: hsla($hue, 40%, 75%, 1);
+$color-main-l: hsla($hue, 20%, 55%, 1);
+$color-main-xl: hsla($hue, 20%, 35%, 1);
+$color-main-xxl: hsla($hue, 20%, 30%, 1);
+
+$color-gray-xs: hsla($hue, 14%, 97%, 1);
+$color-gray-s: hsla($hue, 11%, 93%, 1);
+$color-gray-m: hsla($hue, 7%, 86%, 1);
+$color-gray-l: hsla($hue, 3%, 68%, 1);
+$color-gray-xl: hsla($hue, 3%, 55%, 1);
+$color-gray-xxl: hsla($hue, 8%, 40%, 1);
+$color-gray-xxxl: hsla($hue, 18%, 25%, 1);
+
+$color-white-010: hsla(0, 0%, 100%, 0.1);
+$color-white-025: hsla(0, 0%, 100%, 0.25);
+$color-white-050: hsla(0, 0%, 100%, 0.5);
+$color-white-075: hsla(0, 0%, 100%, 0.75);
+$color-white-100: hsla(0, 0%, 100%, 1);
+
+$color-black-010: hsla($hue, 13%, 8%, 0.1);
+$color-black-025: hsla($hue, 13%, 8%, 0.25);
+$color-black-050: hsla($hue, 13%, 8%, 0.5);
+$color-black-075: hsla($hue, 13%, 8%, 0.75);
+$color-black-100: hsla($hue, 13%, 8%, 1);
+
+
+//urls login
+$url_login_background: url(images/login_background.jpg);
+$url_logo: url(images/logo.svg);
+
 //urls
-$url_0: url(images/logo-openmage.png);
+$url_0: url(images/logo.svg);
 $url_1: url(images/information-variant.svg);
 $url_2: url(images/icon-error.png);
 $url_3: url(images/icon-success.png);
-$url_4: url(images/logo-magento.png);

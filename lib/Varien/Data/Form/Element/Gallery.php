@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +24,7 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
 {
@@ -55,15 +50,16 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         $widgetButton = $this->getForm()->getParent()->getLayout();
         $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'     => 'Add New Image',
                         'onclick'   => 'addNewImg()',
-                        'class'     => 'add'))
+                        'class'     => 'add']
+                )
                 ->toHtml();
 
         $html .= '<tfoot class="gallery">';
         $html .= '<tr class="gallery">';
-        $html .= '<td class="gallery" valign="middle" align="left" colspan="5">'.$buttonHtml.'</td>';
+        $html .= '<td class="gallery" valign="middle" align="left" colspan="5">' . $buttonHtml . '</td>';
         $html .= '</tr>';
         $html .= '</tfoot>';
 
@@ -77,33 +73,33 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
                 foreach ($this->getValue()->getAttributeBackend()->getImageTypes() as $type) {
                     $url = $image->setType($type)->getSourceUrl();
                     $html .= '<td class="gallery" align="center" style="vertical-align:bottom;">';
-                    $html .= '<a href="'.$url.'" target="_blank" onclick="imagePreview(\''.$this->getHtmlId().'_image_'.$type.'_'.$image->getValueId().'\');return false;">
-                    <img id="'.$this->getHtmlId().'_image_'.$type.'_'.$image->getValueId().'" src="'.$url.'" alt="'.$image->getValue().'" height="25" align="absmiddle" class="small-image-preview"></a><br/>';
-                    $html .= '<input type="file" name="'.$this->getName().'_'.$type.'['.$image->getValueId().']" size="1"></td>';
+                    $html .= '<a href="' . $url . '" target="_blank" onclick="imagePreview(\'' . $this->getHtmlId() . '_image_' . $type . '_' . $image->getValueId() . '\');return false;">
+                    <img id="' . $this->getHtmlId() . '_image_' . $type . '_' . $image->getValueId() . '" src="' . $url . '" alt="' . $image->getValue() . '" height="25" align="absmiddle" class="small-image-preview"></a><br/>';
+                    $html .= '<input type="file" name="' . $this->getName() . '_' . $type . '[' . $image->getValueId() . ']" size="1"></td>';
                 }
-                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="'.parent::getName().'[position]['.$image->getValueId().']" value="'.$image->getPosition().'" id="'.$this->getHtmlId().'_position_'.$image->getValueId().'" size="3"/></td>';
-                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="checkbox" name="'.parent::getName().'[delete]['.$image->getValueId().']" value="'.$image->getValueId().'" id="'.$this->getHtmlId().'_delete_'.$image->getValueId().'"/></td>';
+                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="' . parent::getName() . '[position][' . $image->getValueId() . ']" value="' . $image->getPosition() . '" id="' . $this->getHtmlId() . '_position_' . $image->getValueId() . '" size="3"/></td>';
+                $html .= '<td class="gallery" align="center" style="vertical-align:bottom;"><input type="checkbox" name="' . parent::getName() . '[delete][' . $image->getValueId() . ']" value="' . $image->getValueId() . '" id="' . $this->getHtmlId() . '_delete_' . $image->getValueId() . '"/></td>';
                 $html .= '</tr>';
             }
         }
-        if ($i==0) {
+        if ($i == 0) {
             $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 
         $html .= '</tbody></table>';
 
-/*
-        $html .= '<script language="javascript">
-                    var multi_selector = new MultiSelector( document.getElementById( "gallery" ),
-                    "'.$this->getName().'",
-                    -1,
-                        \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
-                        "",
-                        \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
-                    );
-                    multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
-                    </script>';
-*/
+        /*
+                $html .= '<script language="javascript">
+                            var multi_selector = new MultiSelector( document.getElementById( "gallery" ),
+                            "'.$this->getName().'",
+                            -1,
+                                \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
+                                "",
+                                \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
+                            );
+                            multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
+                            </script>';
+        */
 
         $name = $this->getName();
         $parentName = parent::getName();
@@ -177,7 +173,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         </script>
 
 EndSCRIPT;
-        $html.= $this->getAfterElementHtml();
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 

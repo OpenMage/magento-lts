@@ -1,33 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Helper_Abstract
 {
@@ -85,7 +82,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags = array(), $lifeTime = false)
+    protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -109,7 +106,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags = array())
+    protected function _cleanCache($tags = [])
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -124,7 +121,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (!$this->_moduleName) {
             $class = get_class($this);
-            $this->_moduleName = substr($class, 0, strpos($class, '_Helper'));
+            $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
         return $this->_moduleName;
     }
@@ -133,7 +130,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check whether or not the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
-     * @return boolean
+     * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
@@ -155,7 +152,7 @@ abstract class Mage_Core_Helper_Abstract
      * Check is module exists and enabled in global config.
      *
      * @param string $moduleName the full module name, example Mage_Core
-     * @return boolean
+     * @return bool
      */
     public function isModuleEnabled($moduleName = null)
     {
@@ -168,7 +165,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, array('true', '1'))) {
+        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
             return false;
         }
         return true;
@@ -209,13 +206,13 @@ abstract class Mage_Core_Helper_Abstract
     public function escapeHtml($data, $allowedTags = null)
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
         } else {
             // process single item
-            if (strlen($data)) {
+            if (is_string($data) && strlen($data)) {
                 if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
@@ -231,7 +228,7 @@ abstract class Mage_Core_Helper_Abstract
         return $result;
     }
 
-     /**
+    /**
      * Remove html tags, but leave "<" and ">" signs
      *
      * @param   string $html
@@ -251,7 +248,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Wrapper for standart strip_tags() function with extra functionality for html entities
+     * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data
      * @param string $allowableTags
@@ -334,13 +331,13 @@ abstract class Mage_Core_Helper_Abstract
     public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
-                $result[] = str_replace($quote, '\\'.$quote, $item);
+                $result[] = str_replace($quote, '\\' . $quote, $item);
             }
             return $result;
         }
-        return str_replace($quote, '\\'.$quote, $data);
+        return str_replace($quote, '\\' . $quote, $data);
     }
 
     /**
@@ -366,7 +363,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $params
      * @return  string
      */
-    protected function _getUrl($route, $params = array())
+    protected function _getUrl($route, $params = [])
     {
         return Mage::getUrl($route, $params);
     }
@@ -405,7 +402,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     *  base64_dencode() for URLs dencoding
+     *  base64_decode() for URLs decoding
      *
      *  @param    string $url
      *  @return   string
@@ -425,8 +422,8 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = array ('\'', '"');
-        $replace = array('%27', '%22');
+        $quote = ['\'', '"'];
+        $replace = ['%27', '%22'];
         $url = str_replace($quote, $replace, $url);
         return $url;
     }
@@ -437,7 +434,7 @@ abstract class Mage_Core_Helper_Abstract
      *  @param    array $arr
      *  @return   array
      */
-    public function translateArray($arr = array())
+    public function translateArray($arr = [])
     {
         foreach ($arr as $k => $v) {
             if (is_array($v)) {
@@ -458,7 +455,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param bool $skipTags skip transferred array keys, if false then check only them
      * @return bool
      */
-    public function hasTags($data, array $arrayKeys = array(), $skipTags = true)
+    public function hasTags($data, array $arrayKeys = [], $skipTags = true)
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {
@@ -469,8 +466,7 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif (
-                    (bool)strcmp($item, $this->removeTags($item))
+                } elseif ((bool)strcmp($item, $this->removeTags($item))
                     || (bool)strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,14 +26,14 @@
  * @method string getClass()
  * @method string getPositionClass()
  * @method string getOutermostClass()
- * @method Varien_Data_Tree_Node setOutermostClass(string $class)
- * @method Varien_Data_Tree_Node setChildrenWrapClass(string $class)
+ * @method $this setOutermostClass(string $class)
+ * @method $this setChildrenWrapClass(string $class)
  * @method bool getIsFirst()
  * @method bool getIsLast()
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Tree_Node extends Varien_Object
 {
@@ -199,7 +194,6 @@ class Varien_Data_Tree_Node extends Varien_Object
      */
     public function isChildOf($node)
     {
-
     }
 
     /**
@@ -208,7 +202,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param   int  $recursionLevel
      * @return  Varien_Data_Tree_Node
      */
-    public function loadChildren($recursionLevel=0)
+    public function loadChildren($recursionLevel = 0)
     {
         $this->_tree->load($this, $recursionLevel);
         return $this;
@@ -228,7 +222,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $nodes
      * @return Varien_Data_Tree_Node[]
      */
-    public function getAllChildNodes(&$nodes = array())
+    public function getAllChildNodes(&$nodes = [])
     {
         foreach ($this->_childNodes as $node) {
             $nodes[$node->getId()] = $node;
@@ -303,10 +297,10 @@ class Varien_Data_Tree_Node extends Varien_Object
      * @param array $prevNodes
      * @return array
      */
-    public function getPath(&$prevNodes = array())
+    public function getPath(&$prevNodes = [])
     {
         if ($this->_parent) {
-            array_push($prevNodes, $this);
+            $prevNodes[] = $this;
             $this->_parent->getPath($prevNodes);
         }
         return $prevNodes;
@@ -327,5 +321,4 @@ class Varien_Data_Tree_Node extends Varien_Object
     {
         return $this->_getData('name');
     }
-
 }

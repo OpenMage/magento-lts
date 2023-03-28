@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping Cart Rules Grid
  *
- * @category Mage
- * @package Mage_Adminhtml
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -54,10 +49,11 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_SalesRule_Model_Mysql4_Rule_Collection */
+        /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection  */
         $collection = Mage::getModel('salesrule/rule')
             ->getResourceCollection();
         $collection->addWebsitesToResult();
+        $collection->addFilterToMap('times_used', 'main_table.times_used');
         $this->setCollection($collection);
 
         parent::_prepareCollection();
@@ -71,73 +67,78 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('rule_id', array(
+        $this->addColumn('rule_id', [
             'header'    => Mage::helper('salesrule')->__('ID'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'rule_id',
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('salesrule')->__('Rule Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'name',
-        ));
+        ]);
 
-        $this->addColumn('coupon_code', array(
+        $this->addColumn('coupon_code', [
             'header'    => Mage::helper('salesrule')->__('Coupon Code'),
             'align'     => 'left',
             'width'     => '150px',
             'index'     => 'code',
-        ));
+        ]);
 
-        $this->addColumn('from_date', array(
+        $this->addColumn('from_date', [
             'header'    => Mage::helper('salesrule')->__('Date Start'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'index'     => 'from_date',
-        ));
+        ]);
 
-        $this->addColumn('to_date', array(
+        $this->addColumn('to_date', [
             'header'    => Mage::helper('salesrule')->__('Date Expire'),
             'align'     => 'left',
-            'width'     => '120px',
             'type'      => 'date',
             'default'   => '--',
             'index'     => 'to_date',
-        ));
+        ]);
 
-        $this->addColumn('is_active', array(
+        $this->addColumn('is_active', [
             'header'    => Mage::helper('salesrule')->__('Status'),
             'align'     => 'left',
             'width'     => '80px',
             'index'     => 'is_active',
             'type'      => 'options',
-            'options'   => array(
-                1 => 'Active',
-                0 => 'Inactive',
-            ),
-        ));
+            'options'   => [
+                1 => Mage::helper('salesrule')->__('Active'),
+                0 => Mage::helper('salesrule')->__('Inactive'),
+            ],
+        ]);
+
+        $this->addColumn('times_used', [
+            'header'    => Mage::helper('salesrule')->__('Times used'),
+            'align'     => 'left',
+            'index'     => 'times_used',
+            'type'      => 'number',
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('rule_website', array(
+            $this->addColumn('rule_website', [
                 'header'    => Mage::helper('salesrule')->__('Website'),
-                'align'     =>'left',
+                'align'     => 'left',
                 'index'     => 'website_ids',
                 'type'      => 'options',
                 'sortable'  => false,
                 'options'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(),
                 'width'     => 200,
-            ));
+            ]);
         }
 
-        $this->addColumn('sort_order', array(
+        $this->addColumn('sort_order', [
             'header'    => Mage::helper('salesrule')->__('Priority'),
             'align'     => 'right',
             'index'     => 'sort_order',
             'width'     => 100,
-        ));
+        ]);
 
         parent::_prepareColumns();
         return $this;
@@ -152,7 +153,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getRuleId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }
-
 }

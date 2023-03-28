@@ -1,54 +1,48 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
-
 $installer->startSetup();
-$installer->addAttribute('order_payment', 'additional_information', array('type' => 'text'));
-$installer->addAttribute('quote_payment', 'additional_information', array('type' => 'text'));
 
+$installer->addAttribute('order_payment', 'additional_information', ['type' => 'text']);
+$installer->addAttribute('quote_payment', 'additional_information', ['type' => 'text']);
 
 $processingItemsCountForOneIteration = 1000;
 
 $connection = $installer->getConnection();
 
-$paymentMethods = array(
+$paymentMethods = [
     'paypal_standard',
     'paypal_express',
     'paypal_direct',
     'paypaluk_direct',
     'paypaluk_express'
-);
+];
 $entityTypeCode = 'order_payment';
-$attributesIds = array(
+$attributesIds = [
     'method' => false,
     'additional_data' => false,
     'additional_information' => false
-);
+];
 
 /* get order_payment entity type code*/
 $entityTypeId = $connection->fetchOne("
@@ -77,7 +71,7 @@ $paymentsCount = $connection->fetchOne("
 $connection->beginTransaction();
 try {
     /* process payment attributes*/
-    for ($i=0; $i<=$paymentsCount; $i+=$processingItemsCountForOneIteration) {
+    for ($i = 0; $i <= $paymentsCount; $i += $processingItemsCountForOneIteration) {
         /* get payment ids for current iteration*/
         $currentPaymentIds = $installer->getConnection()->fetchCol("
             SELECT entity_id
@@ -103,19 +97,19 @@ try {
         ");
 
         /* prepare query data items */
-        $insertQueryItems = array();
+        $insertQueryItems = [];
         foreach ($data as $item) {
             if ($item['additional_data'] != '') {
-                $additionalInformationFields = array();
+                $additionalInformationFields = [];
                 $additionalInformationFields['paypal_payer_email'] = $item['additional_data'];
                 $additionalInformation = serialize($additionalInformationFields);
 
-                $insertQueryItems[] = array(
+                $insertQueryItems[] = [
                     $entityTypeId,
                     $attributesIds['additional_information'],
                     $item['entity_id'],
                     $additionalInformation
-                );
+                ];
             }
         }
 
@@ -125,7 +119,7 @@ try {
 
         $connection->insertArray(
             $this->getTable('sales_order_entity_text'),
-            array('entity_type_id', 'attribute_id', 'entity_id', 'value'),
+            ['entity_type_id', 'attribute_id', 'entity_id', 'value'],
             $insertQueryItems
         );
     }

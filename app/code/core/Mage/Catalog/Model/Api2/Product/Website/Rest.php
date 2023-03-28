@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,9 +43,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _retrieveCollection()
     {
-        $return = array();
+        $return = [];
         foreach ($this->_loadProductById($this->getRequest()->getParam('product_id'))->getWebsiteIds() as $websiteId) {
-            $return[] = array('website_id' => $websiteId);
+            $return[] = ['website_id' => $websiteId];
         }
         return $return;
     }
@@ -63,10 +58,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
 
-        /* @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
         $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
         if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $data)) {
             foreach ($validator->getErrors() as $error) {
@@ -76,7 +70,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         }
 
         $websiteIds = $product->getWebsiteIds();
-        /* @var Mage_Core_Model_Website $website */
+        /** @var Mage_Core_Model_Website $website */
         $website = Mage::getModel('core/website')->load($data['website_id']);
         $websiteIds[] = $website->getId(); // Existence of a website is checked in the validator
         $product->setWebsiteIds($websiteIds);
@@ -99,21 +93,20 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
-        return $this->_getLocation($website, $product);
+        return $this->_getLocation($website);
     }
 
     /**
      * Product website assign
      *
      * @param array $data
-     * @return string
      */
     protected function _multiCreate(array $data)
     {
-        /* @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
         $websiteIds = $product->getWebsiteIds();
         foreach ($data as $singleData) {
@@ -122,19 +115,19 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     $this->_errorMessage(self::RESOURCE_DATA_INVALID, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
-                /* @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
+                /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
                 $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
                 if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $singleData)) {
                     foreach ($validator->getErrors() as $error) {
-                        $this->_errorMessage($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST, array(
-                            'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                        $this->_errorMessage($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST, [
+                            'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
-                        ));
+                        ]);
                     }
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
-                /* @var Mage_Core_Model_Website $website */
+                /** @var Mage_Core_Model_Website $website */
                 $website = Mage::getModel('core/website')->load($singleData['website_id']);
                 $websiteIds[] = $website->getId(); // Existence of a website is checked in the validator
                 $product->setWebsiteIds($websiteIds);
@@ -157,10 +150,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                 $this->_successMessage(
                     Mage_Api2_Model_Resource::RESOURCE_UPDATED_SUCCESSFUL,
                     Mage_Api2_Model_Server::HTTP_OK,
-                    array(
+                    [
                         'website_id' => $website->getId(),
                         'product_id' => $product->getId(),
-                    )
+                    ]
                 );
             } catch (Mage_Api2_Exception $e) {
                 // pre-validation errors are already added
@@ -168,20 +161,20 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     $this->_errorMessage(
                         $e->getMessage(),
                         $e->getCode(),
-                        array(
-                            'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                        [
+                            'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
-                        )
+                        ]
                     );
                 }
             } catch (Exception $e) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
-                    array(
-                        'website_id' => isset($singleData['website_id']) ? $singleData['website_id'] : null,
+                    [
+                        'website_id' => $singleData['website_id'] ?? null,
                         'product_id' => $product->getId(),
-                    )
+                    ]
                 );
             }
         }
@@ -202,13 +195,11 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _delete()
     {
-        /* @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
 
-        /* @var Mage_Core_Model_Website $website */
         $website = $this->_loadWebsiteById($this->getRequest()->getParam('website_id'));
 
-        /* @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
         $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
         if (!$validator->isWebsiteAssignedToProduct($website, $product)) {
             foreach ($validator->getErrors() as $error) {
@@ -227,6 +218,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -239,17 +231,17 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _getLocation($website)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'product_id' => $this->getRequest()->getParam('product_id'),
             'website_id' => $website->getId()
-        );
+        ];
         $uri = $chain->assemble($params);
 
         return '/' . $uri;

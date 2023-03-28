@@ -1,54 +1,49 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Export model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 {
-    const FILTER_ELEMENT_GROUP = 'export_filter';
-    const FILTER_ELEMENT_SKIP  = 'skip_attr';
+    public const FILTER_ELEMENT_GROUP = 'export_filter';
+    public const FILTER_ELEMENT_SKIP  = 'skip_attr';
 
     /**
      * Filter fields types.
      */
-    const FILTER_TYPE_SELECT = 'select';
-    const FILTER_TYPE_INPUT  = 'input';
-    const FILTER_TYPE_DATE   = 'date';
-    const FILTER_TYPE_NUMBER = 'number';
+    public const FILTER_TYPE_SELECT = 'select';
+    public const FILTER_TYPE_INPUT  = 'input';
+    public const FILTER_TYPE_DATE   = 'date';
+    public const FILTER_TYPE_NUMBER = 'number';
 
     /**
      * Config keys.
      */
-    const CONFIG_KEY_ENTITIES = 'global/importexport/export_entities';
-    const CONFIG_KEY_FORMATS  = 'global/importexport/export_file_formats';
+    public const CONFIG_KEY_ENTITIES = 'global/importexport/export_entities';
+    public const CONFIG_KEY_FORMATS  = 'global/importexport/export_file_formats';
 
     /**
      * Entity adapter.
@@ -84,7 +79,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                         Mage::helper('importexport')->__('Invalid entity model')
                     );
                 }
-                if (! $this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
+                if (!$this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
                     Mage::throwException(
                         Mage::helper('importexport')->__('Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract')
                     );
@@ -123,7 +118,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                         Mage::helper('importexport')->__('Invalid entity model')
                     );
                 }
-                if (! $this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
+                if (!$this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
                     Mage::throwException(
                         Mage::helper('importexport')->__('Adapter object must be an instance of %s', 'Mage_ImportExport_Model_Export_Adapter_Abstract')
                     );
@@ -157,10 +152,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                 );
             }
             if ($result) {
-                $this->addLogComment(array(
+                $this->addLogComment([
                     Mage::helper('importexport')->__('Exported %s rows.', $countRows),
                     Mage::helper('importexport')->__('Export has been done.')
-                ));
+                ]);
             }
             return $result;
         } else {
@@ -199,10 +194,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     );
                 }
                 if ($result['rows']) {
-                    $this->addLogComment(array(
+                    $this->addLogComment([
                         Mage::helper('importexport')->__('Exported %s rows.', $result['rows']),
                         Mage::helper('importexport')->__('Export has been done.')
-                    ));
+                    ]);
                 }
             }
 
@@ -237,13 +232,13 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
-        } elseif ('datetime' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'datetime') {
             return self::FILTER_TYPE_DATE;
-        } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'decimal' || $attribute->getBackendType() == 'int') {
             return self::FILTER_TYPE_NUMBER;
         } elseif ($attribute->isStatic()
-                  || 'varchar' == $attribute->getBackendType()
-                  || 'text' == $attribute->getBackendType()
+                  || $attribute->getBackendType() == 'varchar'
+                  || $attribute->getBackendType() == 'text'
         ) {
             return self::FILTER_TYPE_INPUT;
         } else {

@@ -1,27 +1,22 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,35 +43,37 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
-            $values = array();
+            $values = [];
             foreach ($statuses as $code => $label) {
-                if (false === strpos($code, 'pending')) {
-                    $values[] = array(
+                if (strpos($code, 'pending') === false) {
+                    $values[] = [
                         'label' => Mage::helper('reports')->__($label),
                         'value' => $code
-                    );
+                    ];
                 }
             }
 
-            $fieldset->addField('show_order_statuses', 'select', array(
+            $fieldset->addField('show_order_statuses', 'select', [
                 'name'      => 'show_order_statuses',
                 'label'     => Mage::helper('reports')->__('Order Status'),
-                'options'   => array(
+                'options'   => [
                         '0' => Mage::helper('reports')->__('Any'),
                         '1' => Mage::helper('reports')->__('Specified'),
-                    ),
+                ],
                 'note'      => Mage::helper('reports')->__('Applies to Any of the Specified Order Statuses'),
-            ), 'to');
+            ], 'to');
 
-            $fieldset->addField('order_statuses', 'multiselect', array(
+            $fieldset->addField('order_statuses', 'multiselect', [
                 'name'      => 'order_statuses',
                 'values'    => $values,
                 'display'   => 'none'
-            ), 'show_order_statuses');
+            ], 'show_order_statuses');
 
             // define field dependencies
+            /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+            $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
             if ($this->getFieldVisibility('show_order_statuses') && $this->getFieldVisibility('order_statuses')) {
-                $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+                $this->setChild('form_after', $block
                     ->addFieldMap("{$htmlIdPrefix}show_order_statuses", 'show_order_statuses')
                     ->addFieldMap("{$htmlIdPrefix}order_statuses", 'order_statuses')
                     ->addFieldDependence('order_statuses', 'show_order_statuses', '1'));
