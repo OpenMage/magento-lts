@@ -61,11 +61,9 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
                 case 3:
                     $this->_imageHandler->rotateImage('#000000', 180);
                     break;
-
                 case 6:
                     $this->_imageHandler->rotateImage('#000000', 90);
                     break;
-
                 case 8:
                     $this->_imageHandler->rotateImage('#000000', -90);
                     break;
