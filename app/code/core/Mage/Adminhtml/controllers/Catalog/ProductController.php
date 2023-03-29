@@ -444,7 +444,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.super.group')
-            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', []));
+            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
         $this->renderLayout();
     }
 
