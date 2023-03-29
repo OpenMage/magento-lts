@@ -792,8 +792,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
-
-    public function getIfNullSql($expression, $value = 0);
+    public function getIfNullSql($expression, $value = '0');
 
     /**
      * Generate fragment of SQL, that combine together (concatenate) the results from data array

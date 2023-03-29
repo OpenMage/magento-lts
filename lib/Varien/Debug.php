@@ -182,7 +182,7 @@ class Varien_Debug
             }
         } elseif (is_null($arg)) {
             $out .= 'NULL';
-        } elseif (is_numeric($arg) || is_float($arg)) {
+        } elseif (is_numeric($arg)) {
             $out .= $arg;
         } elseif (is_string($arg)) {
             if (strlen($arg) > self::$argLength) {
