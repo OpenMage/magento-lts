@@ -1181,8 +1181,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                             $tempArr = [];
                             $tempArr['activity'] = (string)$event->Description;
                             $tempArr['deliverydate'] = (string)$event->Date;//YYYY-MM-DD
-                              $tempArr['deliverytime'] = (string)$event->Time;//HH:MM:ss
-                              $addArr = [];
+                            $tempArr['deliverytime'] = (string)$event->Time;//HH:MM:ss
+                            $addArr = [];
                             if (isset($event->Address->City)) {
                                 $addArr[] = (string)$event->Address->City;
                             }

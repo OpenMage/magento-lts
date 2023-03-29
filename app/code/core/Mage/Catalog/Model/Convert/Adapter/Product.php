@@ -373,7 +373,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $importIds = $batchImportModel->getIdCollection();
 
         foreach ($importIds as $importId) {
-            //print '<pre>'.memory_get_usage().'</pre>';
             $batchImportModel->load($importId);
             $importData = $batchImportModel->getBatchData();
 

@@ -50,7 +50,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -109,7 +109,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
-            $memoryValue = $matches[1];
+            $memoryValue = (int)$matches[1];
             switch ($option) {
                 case 'g':
                     $memoryValue *= 1024;

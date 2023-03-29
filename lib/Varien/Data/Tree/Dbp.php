@@ -107,7 +107,9 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $this->_orderField  = $fields[self::ORDER_FIELD];
         $this->_levelField  = $fields[self::LEVEL_FIELD];
 
-        $this->_select  = $this->_conn->select();
+        /** @var Varien_Db_Select $select */
+        $select = $this->_conn->select();
+        $this->_select = $select;
         $this->_select->from($this->_table);
     }
 
@@ -158,7 +160,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $parentNode = null;
             } elseif (is_string($parentNode)) {
                 $parentPath = $parentNode;
-                $startLevel = count(explode($parentPath)) - 1;
+                $startLevel = count(explode('/', $parentPath)) - 1;
                 $parentNode = null;
             }
 
