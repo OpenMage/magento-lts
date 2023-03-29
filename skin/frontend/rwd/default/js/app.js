@@ -721,10 +721,10 @@ $j(document).ready(function () {
         }
 
         if (target == '#header-search') {
-          let searchInput = document.getElementById('search');
-          if (searchInput) {
-             searchInput.focus();
-          }
+            let searchInput = document.getElementById('search');
+            if (searchInput) {
+                searchInput.focus();
+            }
     });
 
     $j('.skip-links').on('click', '#header-cart .skip-link-close', function(e) {
