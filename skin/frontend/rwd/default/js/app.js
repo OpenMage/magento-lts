@@ -725,6 +725,7 @@ $j(document).ready(function () {
             if (searchInput) {
                 searchInput.focus();
             }
+        }
     });
 
     $j('.skip-links').on('click', '#header-cart .skip-link-close', function(e) {
