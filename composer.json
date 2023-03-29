@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <=8.2",
+        "php": ">=7.4 <8.3",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",

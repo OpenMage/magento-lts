@@ -464,7 +464,7 @@ class Mage_Paypal_Model_Pro
         $payment->setTransactionId($api->getRefundTransactionId())
                 ->setIsTransactionClosed(1) // refund initiated by merchant
                 ->setShouldCloseParentTransaction(!$canRefundMore)
-            ;
+        ;
         $this->importPaymentInfo($api, $payment);
     }
 

@@ -503,7 +503,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $rowError = false;
                 foreach ($storeIds as $storeId) {
                     $collection = $this->getCollection($storeId);
-                    //print_r($collection);
                     $entity = $collection->getEntity();
 
                     $model = Mage::getModel('customer/customer');

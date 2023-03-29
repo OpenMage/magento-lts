@@ -306,7 +306,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Get/set keepBackgroundColor
      *
      * @param array $value
-     * @return array
+     * @return array|void
      */
     public function backgroundColor($value = null)
     {

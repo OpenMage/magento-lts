@@ -103,9 +103,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
             #->loadStores()
-                #->loadProducts()
-                #->loadAttributeSets()
-                #->loadAttributeOptions();
+            #->loadProducts()
+            #->loadAttributeSets()
+            #->loadAttributeOptions();
         }
         return $this->_resource;
     }
@@ -362,8 +362,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
-                    //echo 'Before **********************<br/><pre>';
-                    //print_r($model->getData());
                     if (!$rowError) {
                         $collection->addItem($model);
                     }
