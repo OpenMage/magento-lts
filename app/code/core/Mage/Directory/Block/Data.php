@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,11 +63,11 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      */
     public function getCountryHtmlSelect($defValue = null, $name = 'country_id', $id = 'country', $title = 'Country')
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         if (is_null($defValue)) {
             $defValue = $this->getCountryId();
         }
-        $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_'.Mage::app()->getStore()->getCode();
+        $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
@@ -84,7 +85,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             ->setOptions($options)
             ->getHtml();
 
-        Varien_Profiler::stop('TEST: '.__METHOD__);
+        Varien_Profiler::stop('TEST: ' . __METHOD__);
         return $html;
     }
 
@@ -110,8 +111,8 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      */
     public function getRegionHtmlSelect()
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
-        $cacheKey = 'DIRECTORY_REGION_SELECT_STORE'.Mage::app()->getStore()->getId();
+        Varien_Profiler::start('TEST: ' . __METHOD__);
+        $cacheKey = 'DIRECTORY_REGION_SELECT_STORE' . Mage::app()->getStore()->getId();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
             $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
@@ -125,10 +126,10 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             ->setTitle(Mage::helper('directory')->__('State/Province'))
             ->setId('state')
             ->setClass('required-entry validate-state')
-            ->setValue(intval($this->getRegionId()))
+            ->setValue((int) $this->getRegionId())
             ->setOptions($options)
             ->getHtml();
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         return $html;
     }
 
@@ -149,7 +150,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      */
     public function getRegionsJs()
     {
-        Varien_Profiler::start('TEST: '.__METHOD__);
+        Varien_Profiler::start('TEST: ' . __METHOD__);
         $regionsJs = $this->getData('regions_js');
         if (!$regionsJs) {
             $countryIds = [];
@@ -166,13 +167,13 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
                     continue;
                 }
                 $regions[$region->getCountryId()][$region->getRegionId()] = [
-                    'code'=>$region->getCode(),
-                    'name'=>$region->getName()
+                    'code' => $region->getCode(),
+                    'name' => $region->getName()
                 ];
             }
             $regionsJs = Mage::helper('core')->jsonEncode($regions);
         }
-        Varien_Profiler::stop('TEST: '.__METHOD__);
+        Varien_Profiler::stop('TEST: ' . __METHOD__);
         return $regionsJs;
     }
 }

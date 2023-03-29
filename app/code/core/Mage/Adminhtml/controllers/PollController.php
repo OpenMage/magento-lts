@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +24,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 {
@@ -31,7 +32,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/poll';
+    public const ADMIN_RESOURCE = 'cms/poll';
 
     public function indexAction()
     {
@@ -83,8 +84,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The poll has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
@@ -112,27 +112,27 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
         $response = new Varien_Object();
         $response->setError(false);
 
-        if ( $this->getRequest()->getPost() ) {
+        if ($this->getRequest()->getPost()) {
             try {
                 $pollModel = Mage::getModel('poll/poll');
 
                 $now = Varien_Date::now();
-                if( !$this->getRequest()->getParam('id') ) {
+                if (!$this->getRequest()->getParam('id')) {
                     $pollModel->setDatePosted($now);
                 }
 
-                if( $this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed') ) {
+                if ($this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed')) {
                     $pollModel->setDateClosed($now);
                 }
 
-                if( !$this->getRequest()->getParam('closed') ) {
+                if (!$this->getRequest()->getParam('closed')) {
                     $pollModel->setDateClosed(new Zend_Db_Expr('null'));
                 }
 
                 $pollModel->setPollTitle($this->getRequest()->getParam('poll_title'))
                       ->setClosed($this->getRequest()->getParam('closed'));
 
-                if( $this->getRequest()->getParam('id') > 0 ) {
+                if ($this->getRequest()->getParam('id') > 0) {
                     $pollModel->setId($this->getRequest()->getParam('id'));
                 }
 
@@ -141,48 +141,44 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
                 }
 
-                if (is_array($stores)) {
-                    $storeIds = [];
-                    foreach ($stores as $storeIdList) {
-                        $storeIdList = explode(',', $storeIdList);
-                        if(!$storeIdList) {
-                            continue;
-                        }
-                        foreach($storeIdList as $storeId) {
-                            if( $storeId > 0 ) {
-                                $storeIds[] = $storeId;
-                            }
+                $storeIds = [];
+                foreach ($stores as $storeIdList) {
+                    $storeIdList = explode(',', $storeIdList);
+                    if (!$storeIdList) {
+                        continue;
+                    }
+                    foreach ($storeIdList as $storeId) {
+                        if ($storeId > 0) {
+                            $storeIds[] = $storeId;
                         }
                     }
-                    if (count($storeIds) === 0) {
-                        Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
-                    }
-                    $pollModel->setStoreIds($storeIds);
                 }
+                if (count($storeIds) === 0) {
+                    Mage::throwException(Mage::helper('adminhtml')->__('Please, select "Visible in Stores" for this poll first.'));
+                }
+                $pollModel->setStoreIds($storeIds);
 
                 $answers = $this->getRequest()->getParam('answer');
 
-                if( !is_array($answers) || !count($answers) ) {
+                if (!is_array($answers) || !count($answers)) {
                     Mage::throwException(Mage::helper('adminhtml')->__('Please, add some answers to this poll first.'));
                 }
 
-                if( is_array($answers) ) {
-                    $_titles = [];
-                    foreach( $answers as $key => $answer ) {
-                        if( in_array($answer['title'], $_titles) ) {
-                            Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));
-                        }
-                        $_titles[] = $answer['title'];
-
-                        $answerModel = Mage::getModel('poll/poll_answer');
-                        if( intval($key) > 0 ) {
-                            $answerModel->setId($key);
-                        }
-                        $answerModel->setAnswerTitle($answer['title'])
-                            ->setVotesCount($answer['votes']);
-
-                        $pollModel->addAnswer($answerModel);
+                $_titles = [];
+                foreach ($answers as $key => $answer) {
+                    if (in_array($answer['title'], $_titles)) {
+                        Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));
                     }
+                    $_titles[] = $answer['title'];
+
+                    $answerModel = Mage::getModel('poll/poll_answer');
+                    if ((int) $key > 0) {
+                        $answerModel->setId($key);
+                    }
+                    $answerModel->setAnswerTitle($answer['title'])
+                        ->setVotesCount($answer['votes']);
+
+                    $pollModel->addAnswer($answerModel);
                 }
 
                 $pollModel->save();
@@ -190,15 +186,14 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 Mage::register('current_poll_model', $pollModel);
 
                 $answersDelete = $this->getRequest()->getParam('deleteAnswer');
-                if( is_array($answersDelete) ) {
-                    foreach( $answersDelete as $answer ) {
+                if (is_array($answersDelete)) {
+                    foreach ($answersDelete as $answer) {
                         $answerModel = Mage::getModel('poll/poll_answer');
                         $answerModel->setId($answer)
                             ->delete();
                     }
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_initLayoutMessages('adminhtml/session');
                 $response->setError(true);

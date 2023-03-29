@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,18 +24,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Initialize block
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Initialize form
      *
@@ -88,6 +81,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             }
             $prefix = $form->getHtmlIdPrefix();
 
+            // @codingStandardsIgnoreStart
             $form->getElement('website_id')->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
@@ -95,8 +89,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 Validation.add(
                     'validate-website-has-store',
                     '" . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('customer')->__('Please select a website which contains store view')
-                    ) . "',
+                    Mage::helper('customer')->__('Please select a website which contains store view')
+                ) . "',
                     function(v, elem){
                         return {$prefix}_websites[elem.value] == true;
                     }
@@ -107,6 +101,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 "
                 . '</script>'
             );
+            // @codingStandardsIgnoreEnd
         }
         $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
         $form->getElement('website_id')->setRenderer($renderer);
@@ -123,7 +118,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $prefixOptions = $helper->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
-                $prefixField = $fieldset->addField($prefixElement->getId(),
+                $prefixField = $fieldset->addField(
+                    $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
                     $form->getElement('group_id')->getId()
@@ -132,7 +128,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 if ($customer->getId()) {
                     $prefixField->addElementValues($customer->getPrefix());
                 }
-
             }
         }
 
@@ -143,7 +138,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $suffixOptions = $helper->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
-                $suffixField = $fieldset->addField($suffixElement->getId(),
+                $suffixField = $fieldset->addField(
+                    $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
                     $form->getElement('lastname')->getId()
@@ -164,7 +160,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     ['legend' => Mage::helper('customer')->__('Password Management')]
                 );
                 // New customer password
-                $field = $newFieldset->addField('new_password', 'text',
+                $field = $newFieldset->addField(
+                    'new_password',
+                    'text',
                     [
                         'label' => Mage::helper('customer')->__('New Password'),
                         'name'  => 'new_password',
@@ -200,7 +198,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 }
 
                 if (Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()) {
-                    $field = $newFieldset->addField('current_password', 'obscure',
+                    $field = $newFieldset->addField(
+                        'current_password',
+                        'obscure',
                         [
                             'name'  => 'current_password',
                             'label' => Mage::helper('customer')->__('Current Admin Password'),
@@ -214,9 +214,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         } else {
             $newFieldset = $form->addFieldset(
                 'password_fieldset',
-                ['legend'=>Mage::helper('customer')->__('Password Management')]
+                ['legend' => Mage::helper('customer')->__('Password Management')]
             );
-            $field = $newFieldset->addField('password', 'text',
+            $field = $newFieldset->addField(
+                'password',
+                'text',
                 [
                     'label' => Mage::helper('customer')->__('Password'),
                     'class' => 'input-text required-entry validate-password min-pass-length-' . $minPasswordLength,
@@ -259,9 +261,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
-                    $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);".
+                    $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);" .
                     $_disableStoreField
-                ."}.bind($('{$prefix}website_id'));
+                . "}.bind($('{$prefix}website_id'));
                 Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();
                 "

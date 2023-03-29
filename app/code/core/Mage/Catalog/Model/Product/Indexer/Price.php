@@ -7,52 +7,53 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
- * @method Mage_Catalog_Model_Product_Indexer_Price setEntityId(int $value)
+ * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setCustomerGroupId(int $value)
+ * @method $this setCustomerGroupId(int $value)
  * @method int getWebsiteId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getTaxClassId()
- * @method Mage_Catalog_Model_Product_Indexer_Price setTaxClassId(int $value)
+ * @method $this setTaxClassId(int $value)
  * @method float getPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setPrice(float $value)
+ * @method $this setPrice(float $value)
  * @method float getFinalPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setFinalPrice(float $value)
+ * @method $this setFinalPrice(float $value)
  * @method float getMinPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMinPrice(float $value)
+ * @method $this setMinPrice(float $value)
  * @method float getMaxPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMaxPrice(float $value)
+ * @method $this setMaxPrice(float $value)
  * @method float getTierPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setTierPrice(float $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setTierPrice(float $value)
  */
 class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_Abstract
 {
     /**
      * Data key for matching result to be saved in
      */
-    const EVENT_MATCH_RESULT_KEY = 'catalog_product_price_match_result';
+    public const EVENT_MATCH_RESULT_KEY = 'catalog_product_price_match_result';
 
     /**
      * Reindex price event type
      */
-    const EVENT_TYPE_REINDEX_PRICE = 'catalog_reindex_price';
+    public const EVENT_TYPE_REINDEX_PRICE = 'catalog_reindex_price';
 
     /**
      * Matched Entities instruction array
@@ -82,10 +83,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK
     ];
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_indexer_price');

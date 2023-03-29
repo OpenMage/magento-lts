@@ -7,37 +7,38 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity customer model
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
     /**
      * Size of bunch - part of entities to save in one step.
      */
-    const BUNCH_SIZE = 20;
+    public const BUNCH_SIZE = 20;
 
     /**
      * Data row scopes.
      */
-    const SCOPE_DEFAULT = 1;
-    const SCOPE_ADDRESS = -1;
-    const SCOPE_OPTIONS = 2;
+    public const SCOPE_DEFAULT = 1;
+    public const SCOPE_ADDRESS = -1;
+    public const SCOPE_OPTIONS = 2;
 
     /**
      * Permanent column names.
@@ -45,30 +46,30 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Names that begins with underscore is not an attribute. This name convention is for
      * to avoid interference with same attribute name.
      */
-    const COL_EMAIL    = 'email';
-    const COL_WEBSITE  = '_website';
-    const COL_STORE    = '_store';
-    const COL_POSTCODE = '_address_postcode';
+    public const COL_EMAIL    = 'email';
+    public const COL_WEBSITE  = '_website';
+    public const COL_STORE    = '_store';
+    public const COL_POSTCODE = '_address_postcode';
 
     /**
      * Error codes.
      */
-    const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
-    const ERROR_INVALID_EMAIL        = 'invalidEmail';
-    const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
-    const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
-    const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
-    const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
-    const ERROR_INVALID_STORE        = 'invalidStore';
-    const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
-    const ERROR_PASSWORD_LENGTH      = 'passwordLength';
+    public const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
+    public const ERROR_INVALID_EMAIL        = 'invalidEmail';
+    public const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
+    public const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
+    public const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
+    public const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
+    public const ERROR_INVALID_STORE        = 'invalidStore';
+    public const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
+    public const ERROR_PASSWORD_LENGTH      = 'passwordLength';
 
     /**
      * Customer constants
      *
      */
-    const DEFAULT_GROUP_ID = 1;
-    const MAX_PASSWD_LENGTH = 6;
+    public const DEFAULT_GROUP_ID = 1;
+    public const MAX_PASSWD_LENGTH = 6;
 
     /**
      * Customer address import entity model.
@@ -101,7 +102,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Customer account sharing. TRUE - is global, FALSE - is per website.
      *
-     * @var boolean
+     * @var bool
      */
     protected $_customerGlobal;
 
@@ -208,9 +209,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected $_websiteIdToCode = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -366,7 +364,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     {
         /** @var Mage_Customer_Model_Customer $resource */
         $resource       = Mage::getModel('customer/customer');
-        $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper         = Mage::getResourceHelper('importexport');
@@ -394,7 +391,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? $now : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
+                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
                         'updated_at' => $now
                     ];
 
@@ -426,7 +423,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
                             } elseif ($attrParams['type'] === 'datetime') {
-                                $value = gmstrftime($strftimeFormat, strtotime($value));
+                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
                             } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
@@ -590,7 +587,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      * @param array $rowData
      * @param int $rowNum
-     * @return boolean
+     * @return bool
      */
     public function validateRow(array $rowData, $rowNum)
     {
@@ -618,7 +615,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         // BEHAVIOR_DELETE use specific validation logic
         if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
             if (self::SCOPE_DEFAULT == $rowScope
-                && !isset($oldCustomersToLower[$emailToLower][$website])) {
+                && !isset($oldCustomersToLower[$emailToLower][$website])
+            ) {
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins

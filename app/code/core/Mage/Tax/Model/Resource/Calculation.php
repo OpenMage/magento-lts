@@ -7,23 +7,24 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Calculation Resource Model
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -41,10 +42,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      */
     protected $_isPkAutoIncrement    = false;
 
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_setMainTable('tax/tax_calculation');
@@ -128,7 +125,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $countedRates = count($rates);
         for ($i = 0; $i < $countedRates; $i++) {
             $rate = $rates[$i];
-            $value = (isset($rate['value']) ? $rate['value'] : $rate['percent']) * 1;
+            $value = ($rate['value'] ?? $rate['percent']) * 1;
 
             $oneRate = [
                 'code' => $rate['code'],
@@ -310,7 +307,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->where("rate.tax_region_id IN(?)", [0, (int)$regionId]);
             $postcodeIsNumeric = is_numeric($postcode);
             $postcodeIsRange = false;
-            if (is_string($postcode) && preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
+            if (preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
                 if (is_numeric($matches[2]) && strlen($matches[2]) < 5) {
                     $postcodeIsNumeric = true;
                 } else {
@@ -508,7 +505,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $rate = $this->getRate($request);
             if ($rate) {
                 $row = [
-                    'value'         => $rate/100,
+                    'value'         => $rate / 100,
                     'country'       => $one['country'],
                     'state'         => $one['region_code'],
                     'postcode'      => $one['postcode'],

@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,13 +26,12 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     /**
      * Api URL
      */
-    const API_URL = 'https://image-charts.com/chart';
+    public const API_URL = 'https://image-charts.com/chart';
 
     /**
      * All series
@@ -104,6 +104,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * @var string
      */
     protected $_htmlId = '';
+
+    protected $_max;
+    protected $_min;
 
     /**
      * Initialize object
@@ -187,13 +190,13 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $this->_allSeries = $this->getRowsData($this->_dataRows);
 
-        foreach ($this->_axisMaps as $axis => $attr){
+        foreach ($this->_axisMaps as $axis => $attr) {
             $this->setAxisLabels($axis, $this->getRowsData($attr, true));
         }
 
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
 
-        list ($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
+        list($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
             ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
 
         $dateStart->setTimezone($timezoneLocal);
@@ -202,7 +205,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $dates = [];
         $datas = [];
 
-        while($dateStart->compare($dateEnd) < 0){
+        while ($dateStart->compare($dateEnd) < 0) {
             switch ($this->getDataHelper()->getParam('period')) {
                 case '24h':
                     $d = $dateStart->toString('yyyy-MM-dd HH:00');
@@ -219,7 +222,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
-            foreach ($this->getAllSeries() as $index=>$serie) {
+            foreach ($this->getAllSeries() as $index => $serie) {
                 if (in_array($d, $this->_axisLabels['x'])) {
                     $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
                 } else {
@@ -234,7 +237,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
          */
         if (count($dates) > 8 && count($dates) < 15) {
             $c = 1;
-        } else if (count($dates) >= 15){
+        } elseif (count($dates) >= 15) {
             $c = 2;
         } else {
             $c = 0;
@@ -242,7 +245,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         /**
          * skipping some x labels for good reading
          */
-        $i=0;
+        $i = 0;
         foreach ($dates as $k => $d) {
             if ($i == $c) {
                 $dates[$k] = $d;
@@ -292,10 +295,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $miny = 0;
             if ($maxvalue > 10) {
                 $p = 10 ** $this->_getPow($maxvalue);
-                $maxy = (ceil($maxvalue/$p))*$p;
+                $maxy = (ceil($maxvalue / $p)) * $p;
                 $yLabels = range($miny, $maxy, $p);
             } else {
-                $maxy = ceil($maxvalue+1);
+                $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);
             }
             $yrange = $maxy;
@@ -332,17 +335,19 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         if (count($this->_axisLabels)) {
             $params['chxt'] = implode(',', array_keys($this->_axisLabels));
             $indexid = 0;
-            foreach ($this->_axisLabels as $idx=>$labels){
+            foreach ($this->_axisLabels as $idx => $labels) {
                 if ($idx === 'x') {
                     /**
                      * Format date
                      */
-                    foreach ($this->_axisLabels[$idx] as $_index=>$_label) {
+                    foreach ($this->_axisLabels[$idx] as $_index => $_label) {
                         if ($_label != '') {
                             switch ($this->getDataHelper()->getParam('period')) {
                                 case '24h':
                                     $this->_axisLabels[$idx][$_index] = $this->formatTime(
-                                        new Zend_Date($_label, 'yyyy-MM-dd HH:00'), 'short', false
+                                        new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
+                                        'short',
+                                        false
                                     );
                                     break;
                                 case '7d':
@@ -362,21 +367,20 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                         } else {
                             $this->_axisLabels[$idx][$_index] = '';
                         }
-
                     }
 
                     $tmpstring = implode('|', $this->_axisLabels[$idx]);
 
                     $valueBuffer[] = $indexid . ":|" . $tmpstring;
                     if (count($this->_axisLabels[$idx]) > 1) {
-                        $deltaX = 100/(count($this->_axisLabels[$idx])-1);
+                        $deltaX = 100 / (count($this->_axisLabels[$idx]) - 1);
                     } else {
                         $deltaX = 100;
                     }
-                } else if ($idx === 'y') {
+                } elseif ($idx === 'y') {
                     $valueBuffer[] = $indexid . ":|" . implode('|', $yLabels);
-                    if (count($yLabels)-1) {
-                        $deltaY = 100/(count($yLabels)-1);
+                    if (count($yLabels) - 1) {
+                        $deltaY = 100 / (count($yLabels) - 1);
                     } else {
                         $deltaY = 100;
                     }
@@ -389,7 +393,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         }
 
         // chart size
-        $params['chs'] = $this->getWidth().'x'.$this->getHeight();
+        $params['chs'] = $this->getWidth() . 'x' . $this->getHeight();
 
         if (isset($deltaX, $deltaY)) {
             $params['chg'] = $deltaX . ',' . $deltaY . ',1,0';
@@ -399,7 +403,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         if ($directUrl) {
             $p = [];
             foreach ($params as $name => $value) {
-                $p[] = $name . '=' .urlencode($value);
+                $p[] = $name . '=' . urlencode($value);
             }
             return self::API_URL . '?' . implode('&', $p);
         }
@@ -421,11 +425,11 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $items = $this->getCollection()->getItems();
         $options = [];
-        foreach ($items as $item){
+        foreach ($items as $item) {
             if ($single) {
                 $options[] = max(0, $item->getData($attributes));
             } else {
-                foreach ((array)$attributes as $attr){
+                foreach ((array)$attributes as $attr) {
                     $options[$attr][] = max(0, $item->getData($attr));
                 }
             }
@@ -474,7 +478,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $pow = 0;
         while ($number >= 10) {
-            $number = $number/10;
+            $number = $number / 10;
             $pow++;
         }
         return $pow;
@@ -513,7 +517,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $availablePeriods = array_keys($helper->getDatePeriods());
         $period = $this->getRequest()->getParam('period');
 
-        $this->getDataHelper()->setParam('period',
+        $this->getDataHelper()->setParam(
+            'period',
             ($period && in_array($period, $availablePeriods)) ? $period : '24h'
         );
     }

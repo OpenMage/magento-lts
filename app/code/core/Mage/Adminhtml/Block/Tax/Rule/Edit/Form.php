@@ -7,15 +7,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -72,7 +73,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ->getCollection()
             ->getOptionRates();
 
-        $fieldset->addField('code', 'text',
+        $fieldset->addField(
+            'code',
+            'text',
             [
                 'name'      => 'code',
                 'label'     => Mage::helper('tax')->__('Name'),
@@ -81,7 +84,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        $fieldset->addField('tax_customer_class', 'multiselect',
+        $fieldset->addField(
+            'tax_customer_class',
+            'multiselect',
             [
                 'name'      => 'tax_customer_class',
                 'label'     => Mage::helper('tax')->__('Customer Tax Class'),
@@ -92,7 +97,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        $fieldset->addField('tax_product_class', 'multiselect',
+        $fieldset->addField(
+            'tax_product_class',
+            'multiselect',
             [
                 'name'      => 'tax_product_class',
                 'label'     => Mage::helper('tax')->__('Product Tax Class'),
@@ -103,7 +110,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        $fieldset->addField('tax_rate', 'multiselect',
+        $fieldset->addField(
+            'tax_rate',
+            'multiselect',
             [
                 'name'      => 'tax_rate',
                 'label'     => Mage::helper('tax')->__('Tax Rate'),
@@ -113,7 +122,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'required'  => true,
             ]
         );
-        $fieldset->addField('priority', 'text',
+        $fieldset->addField(
+            'priority',
+            'text',
             [
                 'name'      => 'priority',
                 'label'     => Mage::helper('tax')->__('Priority'),
@@ -124,7 +135,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        $fieldset->addField('calculate_subtotal', 'checkbox',
+        $fieldset->addField(
+            'calculate_subtotal',
+            'checkbox',
             [
                 'name'      => 'calculate_subtotal',
                 'label'     => Mage::helper('tax')->__('Calculate off subtotal only'),
@@ -132,7 +145,9 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'checked'   => $model->getCalculateSubtotal()
             ]
         );
-        $fieldset->addField('position', 'text',
+        $fieldset->addField(
+            'position',
+            'text',
             [
                 'name'      => 'position',
                 'label'     => Mage::helper('tax')->__('Sort Order'),
@@ -142,8 +157,10 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        if ($model->getId() > 0 ) {
-            $fieldset->addField('tax_calculation_rule_id', 'hidden',
+        if ($model->getId() > 0) {
+            $fieldset->addField(
+                'tax_calculation_rule_id',
+                'hidden',
                 [
                     'name'      => 'tax_calculation_rule_id',
                     'value'     => $model->getId(),
