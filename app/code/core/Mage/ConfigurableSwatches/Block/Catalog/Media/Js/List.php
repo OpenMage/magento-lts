@@ -64,4 +64,18 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
     {
         return ['small_image'];
     }
+
+    /**
+     * Prevent actual block render if we are disabled, and i.e. via the module
+     * config as opposed to the advanced module settings page
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!Mage::getStoreConfigFlag(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE)) {
+            return '';
+        }
+        return parent::_toHtml();
+    }
 }
