@@ -183,10 +183,10 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         } else {
             $rate = $this->getRate($toCurrency);
             if ($rate) {
-                 // Ensure $price and $rate are both numeric types
-                 $price = floatval($price);
-                 $rate = floatval($rate);
-                 return $price * $rate;
+                // Ensure $price and $rate are both numeric types
+                $price = floatval($price);
+                $rate = floatval($rate);
+                return $price * $rate;
             }
         }
 
