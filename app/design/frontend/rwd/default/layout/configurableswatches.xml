@@ -29,8 +29,12 @@
             <action method="addItem" ifconfig="configswatches/general/product_list_price_change">
                 <type>skin_js</type><name>js/configurableswatches/configurable-swatch-prices.js</name>
             </action>
-            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/product-media.js</name></action>
-            <action method="addItem"><type>skin_js</type><name>js/configurableswatches/swatches-list.js</name></action>
+            <action method="addItem" ifconfig="configswatches/general/product_list_attribute">
+                <type>skin_js</type><name>js/configurableswatches/product-media.js</name>
+            </action>
+            <action method="addItem" ifconfig="configswatches/general/product_list_attribute">
+                <type>skin_js</type><name>js/configurableswatches/swatches-list.js</name>
+            </action>
         </reference>
         <reference name="product_list.name.after">
             <block type="core/template" name="product_list.swatches" template="configurableswatches/catalog/product/list/swatches.phtml" />
