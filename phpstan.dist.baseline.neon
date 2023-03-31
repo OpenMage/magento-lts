@@ -31,11 +31,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/User.php
 
 		-
-			message: "#^Return type \\(bool\\) of method Mage_Admin_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Roles.php
@@ -574,11 +569,6 @@ parameters:
 			message: "#^Method Mage_Core_Model_Resource_Db_Abstract\\:\\:load\\(\\) invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Resource/Roles.php
-
-		-
-			message: "#^Return type \\(bool\\) of method Mage_Api_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Api/Model/Resource/User.php
 
 		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
@@ -1321,11 +1311,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Factory.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between Mage_Catalog_Model_Resource_Eav_Attribute and 1 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			message: "#^Parameter \\#2 \\$filterBlock \\(Varien_Object\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
@@ -1507,11 +1492,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -1791,11 +1771,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
 
 		-
-			message: "#^Return type \\(bool\\) of method Mage_CatalogSearch_Model_Layer_Filter_Attribute\\:\\:_getIsFilterableAttribute\\(\\) should be compatible with return type \\(Mage_Catalog_Model_Resource_Eav_Attribute\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:_getIsFilterableAttribute\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Layer/Filter/Attribute.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
@@ -2024,11 +1999,6 @@ parameters:
 			message: "#^Property Mage_Core_Helper_String\\:\\:\\$_arrayHelper \\(Mage_Core_Helper_Array\\) does not accept Mage_Core_Helper_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Helper/String.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
 			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_cacheTag \\(string\\|true\\) does not accept default value of type false\\.$#"
@@ -2676,14 +2646,9 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
 
 		-
-			message: "#^Method Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:getPurchasedSeparatelyAttribute\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute\\.$#"
+			message: "#^Variable \\$allowCountries in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
-
-		-
-			message: "#^Property Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:\\$_purchasedSeparatelyAttribute \\(Mage_Catalog_Model_Resource_Eav_Attribute\\|null\\) does not accept Mage_Eav_Model_Entity_Attribute\\.$#"
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
+			path: app/code/core/Mage/Directory/Model/Resource/Country/Collection.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -2756,17 +2721,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Config.php
 
 		-
-			message: "#^Cannot call method loadByCode\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Config.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Config\\:\\:getAttribute\\(\\) should return Mage_Eav_Model_Entity_Attribute_Abstract\\|false but returns Mage_Eav_Model_Entity_Attribute_Interface\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Config.php
 
