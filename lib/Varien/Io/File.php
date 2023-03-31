@@ -25,8 +25,6 @@
  * @category   Varien
  * @package    Varien_Io
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property mixed $_streamException
  */
 class Varien_Io_File extends Varien_Io_Abstract
 {
@@ -94,6 +92,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @var bool
      */
     protected $_streamLocked = false;
+
+    /**
+     * @var Exception
+     */
+    protected $_streamException;
 
     public function __construct()
     {

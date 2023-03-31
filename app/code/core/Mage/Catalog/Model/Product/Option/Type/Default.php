@@ -26,8 +26,6 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @property string $_formattedOptionValue
- *
  * @method $this setConfigurationItemOption(Varien_Object $value)
  * @method bool getIsValid()
  * @method $this setIsValid(bool $value)
@@ -58,6 +56,11 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @var    mixed
      */
     protected $_productOptions = [];
+
+    /**
+     * @var string|null
+     */
+    protected $_formattedOptionValue = null;
 
     /**
      * Option Instance setter
