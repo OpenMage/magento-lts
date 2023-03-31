@@ -25,8 +25,6 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property array $_productTypesByName
  */
 class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
@@ -38,7 +36,15 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     protected $_attributeGroupsById;
     protected $_attributeGroupsByName;
 
+    /**
+     * @var array
+     */
     protected $_productTypesById;
+
+    /**
+     * @var array
+     */
+    protected $_productTypesByName;
 
     /**
      * Array of attributes codes needed for product load
