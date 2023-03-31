@@ -677,7 +677,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @return Mage_CatalogInventory_Model_Stock_Item
+     * @return Varien_Object|Mage_CatalogInventory_Model_Stock_Item
      */
     public function getStockItem()
     {

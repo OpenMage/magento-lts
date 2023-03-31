@@ -146,6 +146,7 @@ class Mage_CatalogInventory_Model_Observer
             return $this;
         }
 
+        /** @var Mage_CatalogInventory_Model_Stock_Item $item */
         $item = $product->getStockItem();
         if (!$item) {
             $item = Mage::getModel('cataloginventory/stock_item');
@@ -320,6 +321,7 @@ class Mage_CatalogInventory_Model_Observer
         /**
          * Check if product in stock. For composite products check base (parent) item stosk status
          */
+        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $quoteItem->getProduct()->getStockItem();
         $parentStockItem = false;
         if ($quoteItem->getParentItem()) {

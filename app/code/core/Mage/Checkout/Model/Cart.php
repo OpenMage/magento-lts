@@ -360,6 +360,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 continue;
             }
 
+            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 continue;
