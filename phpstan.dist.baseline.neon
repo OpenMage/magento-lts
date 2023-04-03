@@ -326,11 +326,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
 
 		-
-			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Container\\:\\:_addButtonChildBlock\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Container.php
@@ -1431,11 +1426,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
 		-
-			message: "#^Variable \\$value in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
@@ -1536,22 +1526,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
-			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addSortedField\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getMainStoreTable\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
-
-		-
-			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
 
@@ -1731,11 +1711,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
 
 		-
-			message: "#^Variable \\$kill in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
 			message: "#^Return type \\(string\\) of method Mage_CatalogIndex_Model_Indexer_Eav\\:\\:_getIndexableAttributeConditions\\(\\) should be compatible with return type \\(array\\) of method Mage_CatalogIndex_Model_Indexer_Abstract\\:\\:_getIndexableAttributeConditions\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer/Eav.php
@@ -1791,11 +1766,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
 
 		-
-			message: "#^Variable \\$parentItem in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Stock/Item.php
-
-		-
 			message: "#^Return type \\(int\\) of method Mage_CatalogRule_Model_Action_Index_Refresh_Row\\:\\:_getProduct\\(\\) should be compatible with return type \\(null\\) of method Mage_CatalogRule_Model_Action_Index_Refresh\\:\\:_getProduct\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/CatalogRule/Model/Action/Index/Refresh/Row.php
@@ -1844,11 +1814,6 @@ parameters:
 			message: "#^Variable \\$ninProductIds in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
-
-		-
-			message: "#^Loose comparison using \\=\\= between numeric\\-string and '' will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
 
 		-
 			message: "#^Property Mage_Checkout_Block_Cart_Shipping\\:\\:\\$_address \\(array\\) does not accept Mage_Sales_Model_Quote_Address\\.$#"
@@ -1946,11 +1911,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
 
 		-
-			message: "#^Variable \\$paymentMethod in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
@@ -1977,11 +1937,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
-
-		-
-			message: "#^Variable \\$mediaGalleryImages in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
 
@@ -2107,11 +2062,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Core_Model_App\\:\\:\\$_useSessionInUrl \\(bool\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -2724,11 +2674,6 @@ parameters:
 			message: "#^Method Mage_Directory_Model_Currency_Import_Webservicex\\:\\:_convert\\(\\) should return float\\|null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
-			message: "#^Variable \\$allowCountries in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Resource/Country/Collection.php
 
 		-
 			message: "#^Method Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:getPurchasedSeparatelyAttribute\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute\\.$#"
@@ -3601,17 +3546,7 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
-			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
 			message: "#^Property Mage_Paypal_Model_Payflowpro\\:\\:\\$_centinelFieldMap \\(string\\) does not accept default value of type array\\<string, string\\>\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
-			message: "#^Variable \\$order in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
 
@@ -3686,11 +3621,6 @@ parameters:
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
 
 		-
-			message: "#^Variable \\$storeId in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
-
-		-
 			message: "#^Method Mage_Rating_Model_Resource_Rating_Entity\\:\\:getIdByCode\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Entity.php
@@ -3757,11 +3687,6 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
-
-		-
-			message: "#^Variable \\$currentStoreIds in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
 
@@ -4051,11 +3976,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: "#^Variable \\$old in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
@@ -4216,11 +4136,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
 
 		-
-			message: "#^Variable \\$currentStoreIds in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Setup.php
@@ -4331,11 +4246,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
 
 		-
-			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 3
-			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
@@ -4372,11 +4282,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addPopularity\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Customer/Tags.php
-
-		-
-			message: "#^Variable \\$tags in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Block/Customer/Tags.php
 
@@ -4691,11 +4596,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Helper/Data.php
 
 		-
-			message: "#^Variable \\$title in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
 			message: "#^Return type \\(\\$this\\(Mage_Weee_Model_Attribute_Backend_Weee_Tax\\)\\) of method Mage_Weee_Model_Attribute_Backend_Weee_Tax\\:\\:validate\\(\\) should be compatible with return type \\(bool\\) of method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:validate\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Attribute/Backend/Weee/Tax.php
@@ -4758,11 +4658,6 @@ parameters:
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
-			message: "#^Variable \\$buyRequest in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 2
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
