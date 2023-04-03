@@ -52,6 +52,12 @@
 }
 
 /* checkboxes */
+input.l-tcb {
+    height:13px;
+    width:13px;
+    margin-left:2px
+}
+
 input.x-tree-node-cb {
     margin-left: 1px;
 }
