@@ -719,6 +719,13 @@ $j(document).ready(function () {
             self.addClass('skip-active');
             elem.addClass('skip-active');
         }
+
+        if (target == '#header-search') {
+            let searchInput = document.getElementById('search');
+            if (searchInput) {
+                searchInput.focus();
+            }
+        }
     });
 
     $j('.skip-links').on('click', '#header-cart .skip-link-close', function(e) {
