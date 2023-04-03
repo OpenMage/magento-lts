@@ -93,13 +93,12 @@
 
             <action method="removeItem"><type>css</type><name>print.css</name></action>
             <action method="removeItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name></action>
-            <action method="removeItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name></action>
             <action method="removeItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name></action>
             <action method="removeItem"><type>skin_css</type><name>menu.css</name></action>
 
             <action method="removeItem"><type>js</type><name>calendar/calendar.js</name></action>
             <action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/ext-tree.js</name></action>
+            <action method="removeItem"><type>js</type><name>extjs/ext-tree.min.js</name></action>
             <action method="removeItem"><type>js</type><name>extjs/fix-defer.js</name></action>
             <action method="removeItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name></action>
         </reference>
