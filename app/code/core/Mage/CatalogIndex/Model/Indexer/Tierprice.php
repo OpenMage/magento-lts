@@ -24,9 +24,6 @@
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @property Mage_Directory_Model_Currency $_currencyModel
- * @property Mage_Customer_Model_Resource_Group_Collection $_customerGroups
- *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
  *
@@ -50,6 +47,16 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
+    /**
+     * @var Mage_Directory_Model_Currency
+     */
+    protected $_currencyModel;
+
+    /**
+     * @var Mage_Customer_Model_Resource_Group_Collection
+     */
+    protected $_customerGroups;
+
     protected $_processChildren = false;
 
     protected function _construct()

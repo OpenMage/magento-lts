@@ -23,11 +23,14 @@
  * @category   Mage
  * @package    Mage_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property Mage_Newsletter_Model_Subscriber|null $_subscription
  */
 class Mage_Customer_Block_Account_Dashboard_Newsletter extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Newsletter_Model_Subscriber|null
+     */
+    protected $_subscription = null;
+
     /**
      * @return Mage_Newsletter_Model_Subscriber
      */

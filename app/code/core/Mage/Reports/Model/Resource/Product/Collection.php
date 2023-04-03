@@ -23,8 +23,6 @@
  * @category   Mage
  * @package    Mage_Reports
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property Varien_Object $_totals
  */
 class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -156,8 +154,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected function _joinFields()
     {
-        $this->_totals = new Varien_Object();
-
         $this->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('price');

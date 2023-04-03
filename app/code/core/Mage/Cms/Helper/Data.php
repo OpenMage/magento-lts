@@ -73,15 +73,11 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check is swf file extension disabled
      *
-     * @return bool
+     * @return true
+     * @deprecated since 19.5.0
      */
     public function isSwfDisabled()
     {
-        $statusSwf = Mage::getConfig()->getNode(self::XML_NODE_ALLOWED_MEDIA_EXT_SWF);
-        if ($statusSwf instanceof Mage_Core_Model_Config_Element) {
-            $statusSwf = $statusSwf->asArray()[0];
-        }
-
-        return $statusSwf ? false : true;
+        return true;
     }
 }

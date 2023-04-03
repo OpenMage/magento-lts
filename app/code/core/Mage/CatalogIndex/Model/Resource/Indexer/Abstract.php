@@ -23,13 +23,24 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property string $_attributeIdFieldName
- * @property string $_entityIdFieldName
- * @property string $_storeIdFieldName
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @var string
+     */
+    protected $_attributeIdFieldName;
+
+    /**
+     * @var string
+     */
+    protected $_entityIdFieldName;
+
+    /**
+     * @var string
+     */
+    protected $_storeIdFieldName;
+
     /**
      * should be defined because abstract
      *

@@ -2476,11 +2476,6 @@ parameters:
 			path: app/code/core/Mage/Core/functions.php
 
 		-
-			message: "#^Property Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol\\:\\:\\$_controller is never read, only written\\.$#"
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Block/Adminhtml/System/Currencysymbol.php
-
-		-
 			message: "#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\\:\\:\\$_storeId \\(string\\|null\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
@@ -4926,64 +4921,9 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Multiline.php
 
 		-
-			message: "#^Function explode invoked with 1 parameter, 2\\-3 required\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
-			message: "#^Property Varien_Data_Tree_Dbp\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
 			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Node.php
-
-		-
-			message: "#^Default value of the parameter \\#2 \\$value \\(int\\) of method Varien_Db_Adapter_Interface\\:\\:getIfNullSql\\(\\) is incompatible with type string\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Interface.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Statement_Interface\\:\\:fetch_assoc\\(\\)\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Cannot access property \\$error on object\\|resource\\.$#"
-			count: 3
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Cannot call method multi_query\\(\\) on object\\|resource\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Cannot call method next_result\\(\\) on object\\|resource\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Cannot call method query\\(\\) on object\\|resource\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Cannot call method store_result\\(\\) on object\\|resource\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and mysqli will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
 			message: "#^Cannot access offset 'Engine' on bool\\.$#"
@@ -5061,11 +5001,6 @@ parameters:
 			path: lib/Varien/Db/Tree/NodeSet.php
 
 		-
-			message: "#^Call to function is_float\\(\\) with mixed will always evaluate to false\\.$#"
-			count: 1
-			path: lib/Varien/Debug.php
-
-		-
 			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
 			count: 1
 			path: lib/Varien/File/Uploader/Image.php
@@ -5096,19 +5031,9 @@ parameters:
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: "#^Method Varien_Image_Adapter_Abstract\\:\\:backgroundColor\\(\\) should return array but empty return statement found\\.$#"
-			count: 2
-			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
 			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
-			message: "#^Class GdImage not found\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"

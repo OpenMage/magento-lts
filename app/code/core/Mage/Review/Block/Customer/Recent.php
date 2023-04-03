@@ -23,11 +23,14 @@
  * @category   Mage
  * @package    Mage_Review
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property Mage_Review_Model_Resource_Review_Product_Collection $_collection
  */
 class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Review_Model_Resource_Review_Product_Collection
+     */
+    protected $_collection;
+
     public function __construct()
     {
         parent::__construct();

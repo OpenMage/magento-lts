@@ -23,8 +23,6 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property string $_storesIdCode
  */
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity
 {
@@ -62,6 +60,11 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     protected $_productAttributeSets;
 
     protected $_stores;
+
+    /**
+     * @var array
+     */
+    protected $_storesIdCode = [];
 
     protected $_attributes = [];
 

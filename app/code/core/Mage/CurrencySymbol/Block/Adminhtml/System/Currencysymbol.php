@@ -23,23 +23,9 @@
  * @category   Mage
  * @package    Mage_CurrencySymbol
  * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property string $_blockGroup
  */
 class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * @var string
-     */
-    private $_controller;
-
-    public function __construct()
-    {
-        $this->_blockGroup = 'currencysymbol_system';
-        $this->_controller = 'adminhtml_system_currencysymbol';
-        parent::__construct();
-    }
-
     /**
      * Custom currency symbol properties
      *
