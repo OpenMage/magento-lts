@@ -20,6 +20,8 @@ level of backwards compatibility to the official releases.
 
 ## Table of contents
 
+- [Releases and Versioning](#releases-and-versioning)
+  - [Currently Maintained Versions](#currently-maintained-versions)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [Manual Install](#manual-install)
@@ -28,28 +30,47 @@ level of backwards compatibility to the official releases.
 - [Secure your installation](#secure-your-installation)
   - [Apache .htaccess](#apache-htaccess)
   - [Nginx](#nginx)
+- [Magento 1 Compatibility](#magento-1-compatibility)
 - [Changes](#changes)
   - [Between Magento 1.9.4.5 and OpenMage 19.x](#between-magento-1945-and-openmage-19x)
-  - [Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17](#between-openmage-19418--20016-and-19419--20017)
   - [Since OpenMage 19.5.0 / 20.1.0](#since-openmage-1950--2010)
   - [New Config Options](#new-config-options)
   - [New Events](#new-events)
   - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
 - [Development Environment with ddev](#development-environment-with-ddev)
-- [Development with PHP 8.1+](#development-with-php-81)
 - [PhpStorm Factory Helper](#phpstorm-factory-helper)
-- [Versioning](#versioning)
 - [Public Communication](#public-communication)
 - [Maintainers](#maintainers)
 - [License](#license)
 - [Contributors](#contributors-)
+
+## Releases and Versioning
+
+This project more strictly adheres to [Semantic Versioning](http://semver.org/) compared to the original Magento version numbering system where the "1"
+was essentially a fixed number. See the [Terminology](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md#terminology)
+section of [RFC 0002 - Release Schedule](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md) for more information on how the terms MAJOR, MINOR and PATCH are defined and applied.
+
+The OpenMage team and community maintains OpenMage LTS versions as follows:
+
+- The latest MAJOR.MINOR version always receives PATCH updates.
+- The latest MAJOR version always receives MINOR updates.
+- The latest MAJOR.MINOR branch for each MAJOR version receives PATCH updates for at least 2 years from the time of inception of the initial MAJOR version release.
+
+In a nutshell:
+
+- If you want to stay on the cutting edge with the latest improvements use the latest MAJOR version.
+- If you want maximum backwards compatibility and minimal upgrade hassle use the next-latest MAJOR version so that you can still receive important security/stability/regression fixes.
+
+### Currently Maintained Versions
+
+- 20.x is the latest MAJOR version and will receive PATCH updates until 2 years after the date that 21.x is released.
+- 19.4.x will receive PATCH updates until April 4, 2025.
 
 ## Requirements
 
 - PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
-
 
 - PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
 - Command `patch` 2.7+ (or `gpatch` on MacOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
@@ -165,6 +186,14 @@ RewriteRule ^api/rest api.php?type=rest [QSA,L]
 ```
 rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
 ```
+
+## Magento 1 Compatibility
+
+OpenMage LTS 19.4.0 is the first tagged version using the OpenMage LTS version naming system and all 19.x versions are mostly backward-compatible
+with Magento 1.9.4.x.
+
+OpenMage LTS 20.x and later have more changes that may not be 100% backward-compatible, but minimizing migration and upgrade hassle for users is always
+considered an important goal and factors heavily into the changes that are accepted even when accepting changes for "MAJOR" releases, described in [Releases and Versioning](#releases-and-versioning) above.
 
 ## Changes
 
@@ -318,11 +347,6 @@ n98-magerun.phar dev:ide:phpstorm:meta
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
-
-## Versioning
-
-Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition.
 
 ## Public Communication
 
