@@ -79,7 +79,6 @@
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
- * @method $this setPasswordCreatedAt(int $value)
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
@@ -324,6 +323,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function changePassword($newPassword)
     {
         $this->_getResource()->changePassword($this, $newPassword);
+        return $this;
+    }
+
+    /**
+     * Set time when password was changed to invalidate other sessions
+     *
+     * @param int $time
+     * @return $this
+     */
+    public function setPasswordCreatedAt($time)
+    {
+        $this->setData('password_created_at', $time);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+        }
         return $this;
     }
 

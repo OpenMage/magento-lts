@@ -423,7 +423,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
-     * Use password creation timestamp in validator key
+     * Password creation timestamp must not be newer than last session renewal
      *
      * @return bool
      */
@@ -465,13 +465,25 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             }
 
             // Refresh expire timestamp
-            if ($this->useValidateSessionExpire()) {
-                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = time();
+            if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
+                $this->setValidatorSessionRenewTimestamp(time());
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Update the session's last legitimate renewal time (call when customer password is updated to avoid
+     * being logged out)
+     *
+     * @param int $timestamp
+     * @return void
+     */
+    public function setValidatorSessionRenewTimestamp($timestamp)
+    {
+        $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = $timestamp;
     }
 
     /**
@@ -563,6 +575,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
         }
 
+        // get time when password was last changed
         if (isset($this->_data['visitor_data']['customer_id'])) {
             $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
                 Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
