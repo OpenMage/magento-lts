@@ -72,6 +72,7 @@ In a nutshell:
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
+
 - PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
 - Command `patch` 2.7+ (or `gpatch` on MacOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
 
