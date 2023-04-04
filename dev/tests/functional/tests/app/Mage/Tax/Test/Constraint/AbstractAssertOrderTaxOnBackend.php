@@ -148,7 +148,7 @@ abstract class AbstractAssertOrderTaxOnBackend extends AbstractAssertTaxCalculat
             $this->preparePricesCreditMemo($prices),
             $this->getActualPrices($product, 'credit_memo_prices')
         );
-        \PHPUnit_Framework_Assert::assertTrue(empty($error), $error);
+        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
     }
 
     /**
@@ -162,7 +162,7 @@ abstract class AbstractAssertOrderTaxOnBackend extends AbstractAssertTaxCalculat
     {
         $this->orderView->getPageActions()->invoice();
         $error = $this->verifyData($prices, $this->getActualPrices($product, 'invoice_prices'));
-        \PHPUnit_Framework_Assert::assertTrue(empty($error), $error);
+        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
     }
 
     /**

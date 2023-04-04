@@ -123,7 +123,7 @@ abstract class AbstractAssertTaxRuleIsAppliedToAllPrices extends AbstractAssertT
 
         //Prices verification
         $error = $this->verifyData($prices, $actualPrices);
-        \PHPUnit_Framework_Assert::assertTrue(empty($error), $error);
+        \PHPUnit\Framework\Assert::assertTrue(empty($error), $error);
     }
 
     /**

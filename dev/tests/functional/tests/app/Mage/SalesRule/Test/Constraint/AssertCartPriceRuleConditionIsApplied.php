@@ -31,7 +31,7 @@ class AssertCartPriceRuleConditionIsApplied extends AbstractCartPriceRuleApplyin
     protected function assert()
     {
         $totals = $this->getTotals();
-        \PHPUnit_Framework_Assert::assertNotEquals(
+        \PHPUnit\Framework\Assert::assertNotEquals(
             $totals['subtotal'],
             $totals['grandTotal'],
             "Shopping cart subtotal: " . $totals['subtotal'] . " equals with grand total: " . $totals['grandTotal']

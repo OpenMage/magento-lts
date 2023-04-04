@@ -51,7 +51,7 @@ class AssertProductsIsAbsentInWishlist extends AbstractConstraint
         $cmsIndex->getTopLinksBlock()->openAccountLink("My Wishlist");
         $itemBlock = $wishlistIndex->getItemsBlock();
         foreach ($products as $itemProduct) {
-            \PHPUnit_Framework_Assert::assertFalse(
+            \PHPUnit\Framework\Assert::assertFalse(
                 $itemBlock->getItemProductBlock($itemProduct)->isVisible(),
                 "Product '{$itemProduct->getName()}' is present in Wishlist on frontend."
             );

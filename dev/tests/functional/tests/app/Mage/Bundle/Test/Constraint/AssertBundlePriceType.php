@@ -90,7 +90,7 @@ class AssertBundlePriceType extends AbstractConstraint
         foreach ($fixtureBundleOptions as $key => $fixtureOption) {
             $cartIndex = str_replace('option_key_', '', $key);
             preg_match('`\d+ x .* \$*(.*)`', $formBundleOptions[$cartIndex]['value'], $matches);
-            \PHPUnit_Framework_Assert::assertEquals($fixtureOption['price'], number_format($matches[1], 2));
+            \PHPUnit\Framework\Assert::assertEquals($fixtureOption['price'], number_format($matches[1], 2));
         }
     }
 
@@ -103,7 +103,7 @@ class AssertBundlePriceType extends AbstractConstraint
      */
     protected function assertCartPrice($fixtureCartPrice, $formCartPrice)
     {
-        \PHPUnit_Framework_Assert::assertEquals($fixtureCartPrice, number_format($formCartPrice, 2));
+        \PHPUnit\Framework\Assert::assertEquals($fixtureCartPrice, number_format($formCartPrice, 2));
     }
 
     /**

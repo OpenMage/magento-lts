@@ -47,7 +47,7 @@ class AssertProductReviewOnProductPage extends AbstractAssertForm
         $fixtureReview = $this->prepareReview($review);
         $errors = $this->verifyData($fixtureReview, $formReview);
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

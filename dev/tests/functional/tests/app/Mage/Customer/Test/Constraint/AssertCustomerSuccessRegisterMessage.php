@@ -42,7 +42,7 @@ class AssertCustomerSuccessRegisterMessage extends AbstractConstraint
      */
     public function processAssert(CustomerAccountCreate $registerPage)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $registerPage->getMessagesBlock()->getSuccessMessages(),
             'Wrong success message is displayed.'

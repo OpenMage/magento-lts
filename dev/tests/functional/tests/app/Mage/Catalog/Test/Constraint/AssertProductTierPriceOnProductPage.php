@@ -116,7 +116,7 @@ class AssertProductTierPriceOnProductPage extends AbstractConstraint implements 
             $errors = $this->verifyItemTierPrice($tierPrice, $match);
         }
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, $errors);
+        \PHPUnit\Framework\Assert::assertEmpty($errors, $errors);
     }
 
     /**

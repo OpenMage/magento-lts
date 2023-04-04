@@ -72,7 +72,7 @@ class AssertProductTemplateOnProductForm extends AbstractConstraint
         $newProductPage->getFormPageActions()->saveAndContinue();
 
         $attributeSetName = $attributeSet->getAttributeSetName();
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $productEdit->getProductForm()->checkAttributeSet($attributeSetName),
             "Product isn't in '$attributeSetName' Attribute Set."
         );
@@ -80,7 +80,7 @@ class AssertProductTemplateOnProductForm extends AbstractConstraint
         if ($attributeSetOriginal === null) {
             $productEdit->getProductForm()->openTab('general');
 
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $productEdit->getProductForm()->checkAttributeLabel($productAttribute),
                 "Product Attribute is absent on Product form."
             );

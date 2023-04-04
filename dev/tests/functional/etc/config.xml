@@ -22,10 +22,10 @@
     </application>
     <install>
         <host>127.0.0.1</host>
-        <user>root</user>
-        <password>123123q</password>
-        <dbName>default</dbName>
-        <baseUrl>http://127.0.0.1/magento1/</baseUrl>
+        <user>openmage</user>
+        <password>openmage</password>
+        <dbName>openmage</dbName>
+        <baseUrl>http://127.0.0.1/</baseUrl>
         <backendName>admin</backendName>
     </install>
     <isolation>

@@ -59,12 +59,12 @@ class AssertTransaction extends AbstractConstraint
         /** @var Info $informationTab */
         $informationTab = $orderForm->getTabElement('information');
         $text = $this->prepareSearchedText($grandTotal);
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $informationTab->getCommentsBlock()->isCommentPresent($text),
             'Searched text is not present in order comments.'
         );
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $informationTab->getCommentsBlock()->isCommentPresent($paymentAction),
             'Order has a wrong payment action.'
         );
@@ -73,7 +73,7 @@ class AssertTransaction extends AbstractConstraint
         $orderForm->openTab('transactions');
         /** @var Transactions $transactionsTab */
         $transactionsTab = $orderForm->getTabElement('transactions');
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $transactionsTab->getGrid()->isRowVisible($filter),
             'Searched transaction is not present in transaction grid.'
         );

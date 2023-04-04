@@ -93,7 +93,7 @@ class AssertProductIsPresentOnCustomWebsite extends AbstractConstraint
         $productUrl = $_ENV['app_frontend_url'] . "websites/$code/" . $product->getUrlKey() . ".html";
         $browser->open(str_replace("index.php/", "", $productUrl));
 
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $catalogProductView->getViewBlock()->isVisible(),
             "Searched product is not visible."
         );
