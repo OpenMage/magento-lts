@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api2
@@ -63,7 +57,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
             /** @var Mage_Api2_Model_Acl_Global_Role $role */
             $role = $collection->getFirstItem();
             if (!$role->getId()) {
-                throw new Exception('Admin role not found');
+                throw new Exception('Admin role for user ID ' . $this->getUserId() . ' not found');
             }
 
             $this->setRole($role->getId());
@@ -92,7 +86,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     public function setRole($role)
     {
         if ($this->_role) {
-            throw new Exception('Admin role has been already set');
+            throw new Exception('Admin role has been already set to ' . $this->_role . ' for user ID ' . $this->getUserId());
         }
         $this->_role = $role;
 

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api2
@@ -230,7 +224,7 @@ abstract class Mage_Api2_Model_Resource
                     $this->getResponse()->setHttpResponseCode(Mage_Api2_Model_Server::HTTP_MULTI_STATUS);
                 }
                 break;
-            /* Retrieve */
+                /* Retrieve */
             case self::ACTION_TYPE_ENTITY . self::OPERATION_RETRIEVE:
                 $this->_errorIfMethodNotExist('_retrieve');
                 $retrievedData = $this->_retrieve();
@@ -243,7 +237,7 @@ abstract class Mage_Api2_Model_Resource
                 $filteredData  = $this->getFilter()->collectionOut($retrievedData);
                 $this->_render($filteredData);
                 break;
-            /* Update */
+                /* Update */
             case self::ACTION_TYPE_ENTITY . self::OPERATION_UPDATE:
                 $this->_errorIfMethodNotExist('_update');
                 $requestData = $this->getRequest()->getBodyParams();
@@ -267,7 +261,7 @@ abstract class Mage_Api2_Model_Resource
                 $this->_render($this->getResponse()->getMessages());
                 $this->getResponse()->setHttpResponseCode(Mage_Api2_Model_Server::HTTP_MULTI_STATUS);
                 break;
-            /* Delete */
+                /* Delete */
             case self::ACTION_TYPE_ENTITY . self::OPERATION_DELETE:
                 $this->_errorIfMethodNotExist('_delete');
                 $this->_delete();
@@ -765,12 +759,11 @@ abstract class Mage_Api2_Model_Resource
         if (!is_array($filter)) {
             $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
         }
+
         if (method_exists($collection, 'addAttributeToFilter')) {
             $methodName = 'addAttributeToFilter';
-        } elseif (method_exists($collection, 'addFieldToFilter')) {
-            $methodName = 'addFieldToFilter';
         } else {
-            return $this;
+            $methodName = 'addFieldToFilter';
         }
         $allowedAttributes = $this->getFilter()->getAllowedAttributes(self::OPERATION_ATTRIBUTE_READ);
 
@@ -1030,7 +1023,7 @@ abstract class Mage_Api2_Model_Resource
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         /** @var Mage_Eav_Model_Entity_Type $entityType */
-        $entityType = Mage::getModel('eav/entity_type')->load($model, 'entity_model');
+        $entityType = Mage::getSingleton('eav/config')->getEntityType($model, 'entity_model');
 
         /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         foreach ($entityType->getAttributeCollection() as $attribute) {

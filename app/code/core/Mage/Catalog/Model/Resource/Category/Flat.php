@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -839,7 +833,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         ];
         foreach ($attributesType as $type) {
             foreach ($this->_getAttributeTypeValues($type, $entityIds, $store_id) as $row) {
-                $values[$row['entity_id']][$attributes[$row['attribute_id']]['attribute_code']] = $row['value'];
+                if (isset($attributes[$row['attribute_id']])) {
+                    $values[$row['entity_id']][$attributes[$row['attribute_id']]['attribute_code']] = $row['value'];
+                }
             }
         }
         return $values;

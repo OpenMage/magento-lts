@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Downloadable
@@ -67,11 +61,15 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getPurchasedSeparatelyAttribute()
     {
-        if (is_null($this->_purchasedSeparatelyAttribute)) {
+        if ($this->_purchasedSeparatelyAttribute === null) {
             $_attributeCode = 'links_purchased_separately';
 
-            $this->_purchasedSeparatelyAttribute = Mage::getModel('eav/entity_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+            if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
+                Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
+            }
+            $this->_purchasedSeparatelyAttribute = $attribute;
         }
 
         return $this->_purchasedSeparatelyAttribute;

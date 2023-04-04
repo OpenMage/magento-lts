@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.3 <8.2",
+        "php": ">=7.4 <8.3",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -92,7 +92,8 @@
         "magento-deploystrategy-dev": "symlink",
         "magento-deploystrategy-overwrite": {
             "openmage/dev-copyright": "copy",
-            "openmage/dev-translations": "copy"
+            "openmage/dev-translations": "copy",
+            "openmage/legacy-frontend-themes": "copy"
         },
         "magento-force": true,
         "patches": {
@@ -115,7 +116,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.3"
+            "php": "7.4"
         },
         "sort-packages": true
     }

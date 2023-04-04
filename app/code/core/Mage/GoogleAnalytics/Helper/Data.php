@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
@@ -37,12 +31,19 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
+     * @var string google analytics 4
+     */
+    public const TYPE_ANALYTICS4 = 'analytics4';
+
+    /**
      * @var string classic google analytics tracking code
+     * @deprecated
      */
     public const TYPE_ANALYTICS = 'analytics';
 
     /**
      * @var string google analytics universal tracking code
+     * @deprecated
      */
     public const TYPE_UNIVERSAL = 'universal';
 
@@ -86,10 +87,22 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
-     * @return string
+     * @return bool
+     * @deprecated
      */
     public function isUseUniversalAnalytics($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+    }
+
+    /**
+     * Returns true if should use Google Universal Analytics 4
+     *
+     * @param string $store
+     * @return bool
+     */
+    public function isUseAnalytics4($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
     }
 }

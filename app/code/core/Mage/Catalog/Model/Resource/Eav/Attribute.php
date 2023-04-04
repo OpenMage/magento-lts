@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -37,7 +31,6 @@
  * @method $this setIsSearchable(int $value)
  * @method int getSearchWeight()
  * @method $this setSearchWeight(int $value)
- * @method int getIsFilterable()
  * @method $this setIsFilterable(int $value)
  * @method int getIsComparable()
  * @method $this setIsComparable(int $value)
@@ -286,6 +279,15 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getFrontendLabel()
     {
         return $this->_getData('frontend_label');
+    }
+
+    /**
+     * Retrieve is_filterable value
+     * @return int
+     */
+    public function getIsFilterable()
+    {
+        return $this->_getData('is_filterable');
     }
 
     /**

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -363,7 +357,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         if ($this->_useIncrementId && !$object->getIncrementId()) {
             /** @var Mage_Eav_Model_Entity_Type $entityType */
-            $entityType = Mage::getModel('eav/entity_type')->loadByCode($this->_entityTypeForIncrementId);
+            $entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeForIncrementId);
             $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
         }
         parent::_beforeSave($object);
