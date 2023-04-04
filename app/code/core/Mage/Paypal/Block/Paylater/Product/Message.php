@@ -1,6 +1,5 @@
 <?php
 /**
-/**
  * OpenMage
  *
  * NOTICE OF LICENSE
