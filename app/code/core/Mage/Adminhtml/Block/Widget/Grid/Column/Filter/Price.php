@@ -117,8 +117,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
         foreach (['from', 'to'] as $key) {
             if (isset($value[$key]) && is_numeric($value[$key])) {
-                $result = $value[$key] * $rate;
-                $value[$key] = sprintf('%F', $result);
+                $value[$key] = sprintf('%F', $value[$key] * $rate);
             }
         }
 
