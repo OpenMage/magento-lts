@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "1.9.4.x", 20.0 ]
+    branches: [ "main", "v20", "v19" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "1.9.4.x", 20.0 ]
+    branches: [ "main", "v20", "v19" ]
     paths-ignore:
       - '**/*.md'
       - '**/*.txt'
