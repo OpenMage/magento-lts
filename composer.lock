@@ -2951,12 +2951,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-copyright.git",
-                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006"
+                "reference": "c963a65ec34e932f2fef0d80db087e059bb1fec8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/0452d373a72fed9eaa46dc409119b1ad5473b006",
-                "reference": "0452d373a72fed9eaa46dc409119b1ad5473b006",
+                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/c963a65ec34e932f2fef0d80db087e059bb1fec8",
+                "reference": "c963a65ec34e932f2fef0d80db087e059bb1fec8",
                 "shasum": ""
             },
             "require": {
@@ -2979,20 +2979,20 @@
                 "issues": "https://github.com/OpenMage/dev-copyright/issues",
                 "source": "https://github.com/OpenMage/dev-copyright/tree/main"
             },
-            "time": "2022-12-27T20:49:35+00:00"
+            "time": "2023-04-04T07:37:16+00:00"
         },
         {
             "name": "openmage/dev-meta-package",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "78f5d716138983b9871efaaba7dbb561f4923adc"
+                "reference": "34a240a5c5eab60dad41c19688a9a5e0e6c24474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/78f5d716138983b9871efaaba7dbb561f4923adc",
-                "reference": "78f5d716138983b9871efaaba7dbb561f4923adc",
+                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/34a240a5c5eab60dad41c19688a9a5e0e6c24474",
+                "reference": "34a240a5c5eab60dad41c19688a9a5e0e6c24474",
                 "shasum": ""
             },
             "require": {
@@ -3013,9 +3013,9 @@
             "description": "OpenMage tools that are only needed for development.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.2"
+                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.3"
             },
-            "time": "2023-03-22T14:25:31+00:00"
+            "time": "2023-04-04T07:39:43+00:00"
         },
         {
             "name": "openmage/dev-translations",
@@ -3023,12 +3023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "b80317bfa4f8d88f66fa5f6e4f766e3a8418a16d"
+                "reference": "bdbecd2f51723056787ca1efb24db700d605c152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/b80317bfa4f8d88f66fa5f6e4f766e3a8418a16d",
-                "reference": "b80317bfa4f8d88f66fa5f6e4f766e3a8418a16d",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/bdbecd2f51723056787ca1efb24db700d605c152",
+                "reference": "bdbecd2f51723056787ca1efb24db700d605c152",
                 "shasum": ""
             },
             "require": {
@@ -3051,7 +3051,7 @@
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
                 "source": "https://github.com/OpenMage/dev-translations/tree/main"
             },
-            "time": "2023-03-20T13:15:40+00:00"
+            "time": "2023-04-04T07:36:52+00:00"
         },
         {
             "name": "pdepend/pdepend",
