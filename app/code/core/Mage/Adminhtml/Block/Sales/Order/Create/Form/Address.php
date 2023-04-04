@@ -31,12 +31,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
     /**
      * Return Customer Address Collection as array
+     * Ignore addresses when the country is not allowed
      *
      * @return array
      */
     public function getAddressCollection()
     {
-        return $this->getCustomer()->getAddresses();
+        $addresses = [];
+        $countries = explode(',', Mage::getStoreConfig('general/country/allow', Mage::getSingleton('adminhtml/session_quote')->getStoreId()));
+
+        foreach ($this->getCustomer()->getAddresses() as $address) {
+            if (in_array($address->getData('country_id'), $countries)) {
+                $addresses[$address->getId()] = $address;
+            }
+        }
+
+        return $addresses;
     }
 
     /**
