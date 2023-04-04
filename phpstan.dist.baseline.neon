@@ -31,11 +31,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/User.php
 
 		-
-			message: "#^Return type \\(bool\\) of method Mage_Admin_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Roles.php
@@ -481,21 +476,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Report/StatisticsController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:moveQuoteItem\\(\\) invoked with 2 parameters, 3 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:resetShippingMethod\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
-
-		-
-			message: "#^Return type \\(Mage_Adminhtml_Model_Session_Quote\\) of method Mage_Adminhtml_Sales_Order_CreateController\\:\\:_getSession\\(\\) should be compatible with return type \\(Mage_Adminhtml_Model_Session\\) of method Mage_Adminhtml_Controller_Action\\:\\:_getSession\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreateController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Order_Creditmemo\\:\\:void\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
@@ -574,11 +554,6 @@ parameters:
 			message: "#^Method Mage_Core_Model_Resource_Db_Abstract\\:\\:load\\(\\) invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Resource/Roles.php
-
-		-
-			message: "#^Return type \\(bool\\) of method Mage_Api_Model_Resource_User\\:\\:delete\\(\\) should be compatible with return type \\(\\$this\\(Mage_Core_Model_Resource_Db_Abstract\\)\\) of method Mage_Core_Model_Resource_Db_Abstract\\:\\:delete\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Api/Model/Resource/User.php
 
 		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
@@ -1136,6 +1111,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product.php
 
 		-
+			message: "#^Method Mage_Catalog_Helper_Product\\:\\:getMinimalQty\\(\\) should return int\\|null but returns float\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Helper/Product.php
+
+		-
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product.php
@@ -1321,11 +1301,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Factory.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between Mage_Catalog_Model_Resource_Eav_Attribute and 1 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
-
-		-
 			message: "#^Parameter \\#2 \\$filterBlock \\(Varien_Object\\) of method Mage_Catalog_Model_Layer_Filter_Attribute\\:\\:apply\\(\\) should be compatible with parameter \\$filterBlock \\(null\\) of method Mage_Catalog_Model_Layer_Filter_Abstract\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Attribute.php
@@ -1361,6 +1336,11 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
+			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_stockItem \\(Mage_CatalogInventory_Model_Stock_Item\\) does not accept Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product.php
+
+		-
 			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
@@ -1389,11 +1369,6 @@ parameters:
 			message: "#^Access to an undefined property object\\:\\:\\$website\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Flat_Indexer\\:\\:prepareFlatTables\\(\\)\\.$#"
@@ -1431,24 +1406,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Status.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product_Type\\:\\:priceFactory\\(\\) should return Mage_Catalog_Model_Product_Type_Price but returns Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:getProductByAttributes\\(\\) should return Mage_Catalog_Model_Product\\|null but returns Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
 			message: "#^Cannot access offset 'pricing_value' on true\\.$#"
@@ -1461,57 +1421,12 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeStore\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeWebsite\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Cannot call method isScopeStore\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Cannot call method isScopeWebsite\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Method Mage_Core_Model_Website\\:\\:getStoreIds\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of native type non\\-empty\\-array\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Right side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Attribute\\:\\:isUsedBySuperProducts\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenAmount\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_isActiveAttributeId \\(int\\) does not accept string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
@@ -1524,46 +1439,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Model_Resource_Category\\:\\:\\$_tree \\(Varien_Data_Tree_Db\\) does not accept Varien_Data_Tree_Dbp\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addSortedField\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getMainStoreTable\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Select\\:\\:insertFromSelect\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getCheckSql\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getConcatSql\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Call to an undefined method Zend_Db_Adapter_Abstract\\:\\:getLengthSql\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category_Tree\\:\\:_getItemIsActive\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
-			message: "#^Parameter \\#1 \\$category \\(Mage_Catalog_Model_Category\\) of method Mage_Catalog_Model_Resource_Category_Tree\\:\\:move\\(\\) should be compatible with parameter \\$node \\(Varien_Data_Tree_Node\\) of method Varien_Data_Tree_Dbp\\:\\:move\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
 			message: "#^Property Mage_Catalog_Model_Resource_Config\\:\\:\\$_storeId \\(int\\) on left side of \\?\\? is not nullable\\.$#"
@@ -3722,6 +3597,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method addAttributeToFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
+
+		-
+			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_origData \\(array\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
