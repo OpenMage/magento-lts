@@ -1048,6 +1048,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
                 $this->_redirect('*/*/edit');
                 return $this;
+            } else {
+                // Unset validator data so that user is not logged out after password change
+                unset($_SESSION[Mage_Core_Model_Session_Abstract_Varien::VALIDATOR_KEY][Mage_Core_Model_Session_Abstract_Varien::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]);
             }
 
             try {

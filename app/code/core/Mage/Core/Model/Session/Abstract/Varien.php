@@ -28,7 +28,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     public const VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    = 'http_x_forwarded_for';
     public const VALIDATOR_HTTP_VIA_KEY                = 'http_via';
     public const VALIDATOR_REMOTE_ADDR_KEY             = 'remote_addr';
-    public const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp';
+    public const VALIDATOR_SESSION_EXPIRE_TIMESTAMP    = 'session_expire_timestamp'; // Deprecated
     public const VALIDATOR_SESSION_RENEW_TIMESTAMP     = 'session_renew_timestamp';
     public const VALIDATOR_SESSION_LIFETIME            = 'session_lifetime';
     public const VALIDATOR_PASSWORD_CREATE_TIMESTAMP   = 'password_create_timestamp';
@@ -458,6 +458,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
         } else {
+            // Load password timestamp data in case it was not loaded initially (customer was not logged in on first request)
+            if (isset($this->_data['visitor_data']['customer_id']) && ! isset($_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])) {
+                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
+                    Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
+            }
+
             if (!self::$isValidated && ! $this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
@@ -465,7 +471,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             }
 
             // Refresh expire timestamp
-            if ($this->useValidateSessionExpire()) {
+            if (!self::$isValidated && $this->useValidateSessionExpire()) {
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = time();
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
@@ -521,11 +527,23 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         ) {
             return false;
         }
+
+        // Validate password was not created after session expiration
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
             > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+        ) {
+            return false;
+        }
+
+        // Validate password was not changed since previous request
+        if ($this->useValidateSessionPasswordTimestamp()
+            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+            != $sessionData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
         ) {
             return false;
         }
