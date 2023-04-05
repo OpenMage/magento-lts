@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Checkout_Formkey extends Mage_Adminhtml_Block_Templat
      */
     public function canShow()
     {
-        return !Mage_Core_Controller_Front_Action::_isFormKeyEnabled();
+        return !Mage::helper('core')->isFormKeyEnabled();
     }
 
     /**
