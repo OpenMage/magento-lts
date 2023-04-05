@@ -176,9 +176,9 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      *
      * @return bool
      */
-    public static function _isFormKeyEnabled()
+    protected function _isFormKeyEnabled()
     {
-        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
+        return Mage::helper('core')->isFormKeyEnabled();
     }
 
     /**
