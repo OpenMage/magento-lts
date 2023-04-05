@@ -286,12 +286,12 @@ class Mage_Paypal_Model_Ipn
                     $this->_registerDispute();
                     break;
 
-                // handle new adjustment is created
+                    // handle new adjustment is created
                 case Mage_Paypal_Model_Info::TXN_TYPE_ADJUSTMENT:
                     $this->_registerAdjustment();
                     break;
 
-                //handle new transaction created
+                    //handle new transaction created
                 default:
                     $this->_registerTransaction();
             }
@@ -352,18 +352,18 @@ class Mage_Paypal_Model_Ipn
                     $this->_registerPaymentCapture(true);
                     break;
 
-                // the holded payment was denied on paypal side
+                    // the holded payment was denied on paypal side
                 case Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED:
                     $this->_registerPaymentDenial();
                     break;
 
-                // customer attempted to pay via bank account, but failed
+                    // customer attempted to pay via bank account, but failed
                 case Mage_Paypal_Model_Info::PAYMENTSTATUS_FAILED:
                     // cancel order
                     $this->_registerPaymentFailure();
                     break;
 
-                // payment was obtained, but money were not captured yet
+                    // payment was obtained, but money were not captured yet
                 case Mage_Paypal_Model_Info::PAYMENTSTATUS_PENDING:
                     $this->_registerPaymentPending();
                     break;
@@ -815,9 +815,9 @@ class Mage_Paypal_Model_Ipn
         }
         return '';
         // documented in NVP, but not documented in IPN:
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
-//Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_NONE
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_INPROGRESS
+        //Mage_Paypal_Model_Info::PAYMENTSTATUS_REFUNDEDPART
     }
 
     /**

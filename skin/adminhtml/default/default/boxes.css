@@ -343,9 +343,11 @@ label.inline                            { float:none !important; width:auto !imp
 #coupon_container .entry-edit { min-width:310px; }
 
 /* Form Elements */
-input.input-text,textarea,select { border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; background:#fff; font:12px arial, helvetica, sans-serif; }
+input.input-text,input.input-color,textarea,select { border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; background:#fff; font:12px arial, helvetica, sans-serif; }
 select { min-height:17px; /* to set the height for empty selects */ }
 input.input-text,textarea       { padding:2px; }
+input.input-color               { padding:2px; width:222px !important; }
+input.input-color-html5         { width:48px !important; }
 input.qty                       { width:40px !important; }
 input.item-qty                  { width:22px !important; }
 input.price                     { width:50px !important; text-align:right; }

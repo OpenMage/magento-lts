@@ -146,10 +146,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                     ];
                     break;
                 case 'startsWith':
-                     $attr = [
-                         'attribute' => $keyDB,
-                         'like'      => $val . '%'
-                     ];
+                    $attr = [
+                        'attribute' => $keyDB,
+                        'like'      => $val . '%'
+                    ];
                     break;
                 case 'fromTo':
                     $attr = [

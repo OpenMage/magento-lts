@@ -298,7 +298,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             && (($quote->getItemsSummaryQty() - $quote->getItemVirtualQty()) > 0)
             && ($quote->getItemsSummaryQty() <= $maximunQty)
             && !$quote->hasNominalItems()
-            ;
+        ;
     }
 
     /**

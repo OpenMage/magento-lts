@@ -229,7 +229,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     }
                     break;
 
-                //no default
+                    //no default
             }
         }
         return $resources;

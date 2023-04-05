@@ -1663,7 +1663,7 @@ class Mage_Paypal_Model_Config
             // GB == UK
             case 'GB':
                 return 'UK';
-            // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
+                // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
             case 'AU':
             case 'AT':
             case 'BE':
@@ -1673,7 +1673,7 @@ class Mage_Paypal_Model_Config
             case 'DE':
             case 'HK':
             case 'IT':
-            // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
+                // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
             case 'JP':
             case 'MX':
             case 'NL':

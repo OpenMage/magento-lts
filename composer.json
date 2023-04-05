@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.3 <8.2",
+        "php": ">=7.4 <8.3",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -116,7 +116,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.3"
+            "php": "7.4"
         },
         "sort-packages": true
     }
