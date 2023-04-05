@@ -105,21 +105,21 @@
     <default>
         <design>
             <head translate="default_description" module="page">
-                <default_title>Magento Commerce</default_title>
+                <default_title>OpenMage</default_title>
                 <default_description>Default Description</default_description>
-                <default_keywords>Magento, Varien, E-commerce</default_keywords>
+                <default_keywords>OpenMage, e-commerce</default_keywords>
                 <default_robots>*</default_robots>
                 <default_media_type>text/html</default_media_type>
                 <default_charset>utf-8</default_charset>
             </head>
             <header translate="welcome" module="page">
-                <logo_src>images/logo.gif</logo_src>
-                <logo_alt>Magento Commerce</logo_alt>
-                <logo_src_small>images/logo.gif</logo_src_small>
-                <welcome>Default welcome msg!</welcome>
+                <logo_src>images/logo.svg</logo_src>
+                <logo_alt>OpenMage</logo_alt>
+                <logo_src_small>images/logo.svg</logo_src_small>
+                <welcome>Welcome!</welcome>
             </header>
             <footer translate="copyright" module="page">
-                <copyright>&amp;copy; 2020 OpenMage Demo Store. All Rights Reserved.</copyright>
+                <copyright>&amp;copy; 2023 OpenMage Demo Store. All Rights Reserved.</copyright>
             </footer>
         </design>
         <system>
