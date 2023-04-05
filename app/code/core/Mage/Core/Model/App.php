@@ -371,7 +371,7 @@ class Mage_Core_Model_App
         } else {
             flush();
         }
-        if (isset($_SESSION)) {
+        if (session_status() === PHP_SESSION_ACTIVE) {
             session_write_close();
         }
 
