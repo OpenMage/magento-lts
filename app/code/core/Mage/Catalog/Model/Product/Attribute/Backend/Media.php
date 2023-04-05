@@ -44,7 +44,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($this->_getResource()->loadGallery($object, $this) as $image) {
             foreach ($localAttributes as $localAttribute) {
                 if (is_null($image[$localAttribute])) {
+                    $image[$localAttribute . '_use_default'] = true;
                     $image[$localAttribute] = $this->_getDefaultValue($localAttribute, $image);
+                } else {
+                    $image[$localAttribute . '_use_default'] = false;
                 }
             }
             $value['images'][] = $image;
@@ -170,9 +173,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
-
         $object->setData($attrCode, $value);
-
         return $this;
     }
 
@@ -205,7 +206,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $storeId = $object->getStoreId();
-
         $storeIds = $object->getStoreIds();
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
 
@@ -244,8 +244,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             // Add per store labels, position, disabled
             $data = [];
             $data['value_id'] = $image['value_id'];
-            $data['label']    = $image['label'];
-            $data['position'] = (int) $image['position'];
+            $data['label']    = ($image['label'] === null || $image["label_use_default"]) ? null : $image['label'];
+            $data['position'] = ($image['position'] === null || $image["position_use_default"]) ? null : (int) $image['position'];
             $data['disabled'] = (int) $image['disabled'];
             $data['store_id'] = (int) $object->getStoreId();
 
