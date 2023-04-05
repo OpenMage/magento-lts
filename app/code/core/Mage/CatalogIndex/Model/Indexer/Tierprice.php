@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
@@ -19,6 +25,9 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property Mage_Directory_Model_Currency $_currencyModel
+ * @property Mage_Customer_Model_Resource_Group_Collection $_customerGroups
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
@@ -43,16 +52,6 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    /**
-     * @var Mage_Directory_Model_Currency
-     */
-    protected $_currencyModel;
-
-    /**
-     * @var Mage_Customer_Model_Resource_Group_Collection
-     */
-    protected $_customerGroups;
-
     protected $_processChildren = false;
 
     protected function _construct()

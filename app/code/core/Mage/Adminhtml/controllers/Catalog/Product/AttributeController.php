@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -273,7 +279,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $data['is_filterable_in_search'] = 0;
             }
 
-            if (!$model->getBackendType() && (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0)) {
+            if (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0) {
                 $data['backend_type'] = $model->getBackendTypeByInput($data['frontend_input']);
             }
 

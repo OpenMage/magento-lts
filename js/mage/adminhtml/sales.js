@@ -1,9 +1,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -979,7 +985,7 @@ AdminOrder.prototype = {
                 if ('message' != id || response[id]) {
                     var wrapper = new Element('div');
                     wrapper.update(response[id] ? response[id] : '');
-                    $(this.getAreaId(id)).update(wrapper);
+                    $(this.getAreaId(id)).update(Prototype.Browser.IE ? wrapper.outerHTML : wrapper);
                 }
                 if ($(this.getAreaId(id)).callback) {
                     this[$(this.getAreaId(id)).callback]();
@@ -1130,6 +1136,18 @@ AdminOrder.prototype = {
         }
         else {
             parentEl.addClassName('ignore-validate');
+        }
+
+        if (Prototype.Browser.IE) {
+            parentEl.select('select').each(function (elem) {
+                if (show) {
+                    elem.needShowOnSuccess = false;
+                    elem.style.visibility = '';
+                } else {
+                    elem.style.visibility = 'hidden';
+                    elem.needShowOnSuccess = true;
+                }
+            });
         }
 
         parentEl.setStyle({position: 'relative'});

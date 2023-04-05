@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -114,9 +120,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     protected function _initOldFieldsMap()
     {
         // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
-        ];
+        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('invoice_item');
         return $this;
     }
     /**
@@ -150,9 +154,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
         $this->_orderItem = $item;
-        if ($this->getOrderItemId() != $item->getId()) {
-            $this->setOrderItemId($item->getId());
-        }
+        $this->setOrderItemId($item->getId());
         return $this;
     }
 

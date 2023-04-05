@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -105,9 +111,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
         $this->_quote = $quote;
-        if ($this->getQuoteId() != $quote->getId()) {
-            $this->setQuoteId($quote->getId());
-        }
+        $this->setQuoteId($quote->getId());
         return $this;
     }
 

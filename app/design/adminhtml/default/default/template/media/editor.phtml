@@ -1,0 +1,40 @@
+<?php
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php echo $this->helper('adminhtml/js')->includeScript('lib/flex.js') ?>
+<?php echo $this->helper('adminhtml/js')->includeScript('lib/FABridge.js') ?>
+<?php echo $this->helper('adminhtml/js')->includeScript('mage/adminhtml/image.js') ?>
+<div id="<?php echo $this->getHtmlId() ?>" class="editor" style="width:100%; height:100%;">
+    <div class="buttons" style="margin-bottom: 20px;">
+        <?php echo $this->getRotatecwButtonHtml() ?>
+        <?php echo $this->getRotateccwButtonHtml() ?>
+        <input type="text" id="<?php echo $this->_getButtonId('width') ?>" size="7"/>
+        x
+        <input type="text" id="<?php echo $this->_getButtonId('height') ?>" size="7"/> px
+        <?php echo $this->getResizeButtonHtml() ?>
+        <?php echo $this->getImageButtonHtml() ?>
+    </div>
+
+
+</div>
+<textarea id="<?php echo $this->_getButtonId('b64') ?>" rows="10" cols="50"></textarea>
+<script type="text/javascript">
+<?php echo $this->getJsObjectName() ?> = new Flex.ImageEditor('<?php echo $this->getHtmlId() ?>', '<?php echo $this->getSkinUrl('media/editor.swf') ?>', <?php echo $this->getConfigJson() ?>);
+</script>

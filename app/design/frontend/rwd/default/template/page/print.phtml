@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category    design
  * @package     rwd_default
@@ -19,7 +25,11 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js">
+<!--[if lt IE 7 ]> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js"> <!--<![endif]-->
 <head>
 <?php echo $this->getChildHtml('head') ?>
 </head>

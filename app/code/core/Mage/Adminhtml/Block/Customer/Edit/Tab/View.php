@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -69,13 +75,18 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     /**
      * Get customer creation date
      *
-     * @return string
+     * @return string|null
      */
     public function getCreateDate()
     {
-        return ($date = $this->getCustomer()->getCreatedAt())
-            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
-            : null;
+        if (!$this->getCustomer()->getCreatedAt()) {
+            return null;
+        }
+        return $this->_getCoreHelper()->formatDate(
+            $this->getCustomer()->getCreatedAt(),
+            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+            true
+        );
     }
 
     /**
@@ -107,9 +118,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getLastLoginDate()
     {
-        return ($date = $this->getCustomerLog()->getLoginAtTimestamp())
-            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
-            : Mage::helper('customer')->__('Never');
+        $date = $this->getCustomerLog()->getLoginAtTimestamp();
+        if ($date) {
+            return Mage::helper('core')->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        }
+        return Mage::helper('customer')->__('Never');
     }
 
     /**
@@ -245,7 +258,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     /**
      * Return instance of core helper
      *
-     * @deprecated
      * @return Mage_Core_Helper_Data
      */
     protected function _getCoreHelper()

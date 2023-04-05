@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -83,7 +89,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
             try {
                 $data = ($this->getColumn()->getGmtoffset())
                     ? Mage::app()->getLocale()->date($data, $dateFormat)->toString($format)
-                    : Mage::getSingleton('core/locale')->date($data, $dateFormat, null, false)->toString($format);
+                    : Mage::getSingleton('core/locale')->date($data, Zend_Date::ISO_8601, null, false)->toString($format);
             } catch (Exception $e) {
                 $data = ($this->getColumn()->getTimezone())
                     ? Mage::app()->getLocale()->date($data, $dateFormat)->toString($format)

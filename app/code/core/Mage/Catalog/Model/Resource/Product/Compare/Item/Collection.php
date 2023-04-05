@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -39,7 +45,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Comparable attributes cache
      *
-     * @var Mage_Eav_Model_Entity_Attribute_Abstract[]|null
+     * @var array|null
      */
     protected $_comparableAttributes;
 
@@ -205,7 +211,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Retrieve Merged comparable attributes for compared product items
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract[]
+     * @return array
      */
     public function getComparableAttributes()
     {
@@ -213,19 +219,36 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             $this->_comparableAttributes = [];
             $setIds = $this->_getAttributeSetIds();
             if ($setIds) {
-                $eavConfig = Mage::getSingleton('eav/config');
-                $attributeIds = $eavConfig->getAttributeSetAttributeIds($setIds);
-                $this->_comparableAttributes = [];
-                foreach ($attributeIds as $attributeId) {
-                    $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
-                    if ($attribute->getData('is_comparable')) {
+                $select = $this->getConnection()->select()
+                    ->from(['main_table' => $this->getTable('eav/attribute')])
+                    ->join(
+                        ['additional_table' => $this->getTable('catalog/eav_attribute')],
+                        'additional_table.attribute_id=main_table.attribute_id'
+                    )
+                    ->joinLeft(
+                        ['al' => $this->getTable('eav/attribute_label')],
+                        'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
+                        ['store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)')]
+                    )
+                    ->joinLeft(
+                        ['ai' => $this->getTable('eav/entity_attribute')],
+                        'ai.attribute_id = main_table.attribute_id'
+                    )
+                    ->where('additional_table.is_comparable=?', 1)
+                    ->where('ai.attribute_set_id IN(?)', $setIds)
+                    ->order(['ai.attribute_group_id ASC', 'ai.sort_order ASC']);
+                $attributesData = $this->getConnection()->fetchAll($select);
+                if ($attributesData) {
+                    $entityType = Mage_Catalog_Model_Product::ENTITY;
+                    Mage::getSingleton('eav/config')
+                        ->importAttributesData($entityType, $attributesData);
+                    foreach ($attributesData as $data) {
+                        $attribute = Mage::getSingleton('eav/config')
+                            ->getAttribute($entityType, $data['attribute_code']);
                         $this->_comparableAttributes[$attribute->getAttributeCode()] = $attribute;
                     }
+                    unset($attributesData);
                 }
-
-                usort($this->_comparableAttributes, function ($a, $b) {
-                    return $a->getPosition() - $b->getPosition();
-                });
             }
         }
         return $this->_comparableAttributes;

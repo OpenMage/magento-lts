@@ -1,0 +1,246 @@
+<?php
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Poll
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Poll
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
+{
+    /**
+     * Poll templates
+     *
+     * @var array
+     */
+    protected $_templates;
+
+    /**
+     * Current Poll Id
+     *
+     * @var int
+     */
+    protected $_pollId = null;
+
+    /**
+     * Already voted by current visitor Poll Ids array
+     *
+     * @var array|null
+     */
+    protected $_votedIds = null;
+
+    /**
+     * Poll model
+     *
+     * @var Mage_Poll_Model_Poll
+     */
+    protected $_pollModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_pollModel = Mage::getModel('poll/poll');
+    }
+
+    /**
+     * Set current Poll Id
+     *
+     * @param int $pollId
+     * @return $this
+     */
+    public function setPollId($pollId)
+    {
+        $this->_pollId = $pollId;
+        return $this;
+    }
+
+    /**
+     * Get current Poll Id
+     *
+     * @return int
+     */
+    public function getPollId()
+    {
+        return $this->_pollId;
+    }
+
+    /**
+     * Retrieve already voted Poll Ids
+     *
+     * @return array|null
+     */
+    public function getVotedPollsIds()
+    {
+        if ($this->_votedIds === null) {
+            $this->_votedIds = $this->_pollModel->getVotedPollsIds();
+        }
+        return $this->_votedIds;
+    }
+
+    /**
+     * Get Ids of all active Polls
+     *
+     * @return array
+     */
+    public function getActivePollsIds()
+    {
+        return $this->_pollModel
+            ->setExcludeFilter($this->getVotedPollsIds())
+            ->setStoreFilter(Mage::app()->getStore()->getId())
+            ->getAllIds();
+    }
+
+    /**
+     * Get Poll Id to show
+     *
+     * @return int
+     */
+    public function getPollToShow()
+    {
+        if ($this->getPollId()) {
+            return $this->getPollId();
+        }
+        // get last voted poll (from session only)
+        $pollId = Mage::getSingleton('core/session')->getJustVotedPoll();
+        if (empty($pollId)) {
+            // get random not voted yet poll
+            $votedIds = $this->getVotedPollsIds();
+            $pollId = $this->_pollModel
+                ->setExcludeFilter($votedIds)
+                ->setStoreFilter(Mage::app()->getStore()->getId())
+                ->getRandomId();
+        }
+        $this->setPollId($pollId);
+
+        return $pollId;
+    }
+
+    /**
+     * Get Poll related data
+     *
+     * @param int $pollId
+     * @return array|false
+     */
+    public function getPollData($pollId)
+    {
+        if (empty($pollId)) {
+            return false;
+        }
+
+        $poll = $this->_pollModel->load($pollId);
+        $pollAnswers = Mage::getModel('poll/poll_answer')
+            ->getResourceCollection()
+            ->addPollFilter($pollId)
+            ->load()
+            ->countPercent($poll);
+
+        // correct rounded percents to be always equal 100
+        $percentsSorted = [];
+        $answersArr = [];
+        $key = null;
+
+        /**
+         * @var int $key
+         * @var Mage_Poll_Model_Poll_Answer $answer
+         */
+        foreach ($pollAnswers as $key => $answer) {
+            $percentsSorted[$key] = $answer->getPercent();
+            $answersArr[$key] = $answer;
+        }
+
+        $total = 0;
+        $value = 0;
+
+        asort($percentsSorted);
+        foreach ($percentsSorted as $key => $value) {
+            $total += $value;
+        }
+
+        // change the max value only
+        if ($total > 0 && $total !== 100) {
+            $answersArr[$key]->setPercent($value + 100 - $total);
+        }
+
+        return [
+            'poll' => $poll,
+            'poll_answers' => $pollAnswers,
+            'action' => Mage::getUrl('poll/vote/add', ['poll_id' => $pollId, '_secure' => true])
+        ];
+    }
+
+    /**
+     * Add poll template
+     *
+     * @param string $template
+     * @param string $type
+     * @return $this
+     */
+    public function setPollTemplate($template, $type)
+    {
+        $this->_templates[$type] = $template;
+        return $this;
+    }
+
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        /** @var Mage_Core_Model_Session $coreSessionModel */
+        $coreSessionModel = Mage::getSingleton('core/session');
+        $justVotedPollId = $coreSessionModel->getJustVotedPoll();
+        if ($justVotedPollId && !$this->_pollModel->isVoted($justVotedPollId)) {
+            $this->_pollModel->setVoted($justVotedPollId);
+        }
+
+        $pollId = $this->getPollToShow();
+        $data = $this->getPollData($pollId);
+        $this->assign($data);
+
+        $coreSessionModel->setJustVotedPoll(false);
+
+        if ($this->_pollModel->isVoted($pollId) === true || $justVotedPollId) {
+            $this->setTemplate($this->_templates['results']);
+        } else {
+            $this->setTemplate($this->_templates['poll']);
+        }
+        return parent::_toHtml();
+    }
+
+    /**
+     * Get cache key informative items that must be preserved in cache placeholders
+     * for block to be rerendered by placeholder
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $items = [
+            'templates' => serialize($this->_templates)
+        ];
+
+        $items = parent::getCacheKeyInfo() + $items;
+
+        return $items;
+    }
+}

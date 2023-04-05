@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Varien
  * @package    Varien_Object
@@ -34,6 +40,13 @@ class Varien_Object implements ArrayAccess
      * @var bool $_hasDataChange
      */
     protected $_hasDataChanges = false;
+
+    /**
+    * Original data that was loaded
+    *
+    * @var array|null
+    */
+    protected $_origData;
 
     /**
      * Name of object id field
@@ -689,7 +702,7 @@ class Varien_Object implements ArrayAccess
             return self::$_underscoreCache[$name];
         }
         #Varien_Profiler::start('underscore');
-        $result = strtolower(preg_replace('/([A-Z])/', "_$1", lcfirst($name)));
+        $result = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
         #Varien_Profiler::stop('underscore');
         self::$_underscoreCache[$name] = $result;
         return $result;
@@ -728,6 +741,50 @@ class Varien_Object implements ArrayAccess
         }
         $res = implode($fieldSeparator, $data);
         return $res;
+    }
+
+    /**
+     * Get object loaded data (original data)
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getOrigData($key = null)
+    {
+        if (is_null($key)) {
+            return $this->_origData;
+        }
+        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
+    }
+
+    /**
+     * Initialize object original data
+     *
+     * @param string $key
+     * @param mixed $data
+     * @return $this
+     */
+    public function setOrigData($key = null, $data = null)
+    {
+        if (is_null($key)) {
+            $this->_origData = $this->_data;
+        } else {
+            $this->_origData[$key] = $data;
+        }
+        return $this;
+    }
+
+    /**
+     * Compare object data with original data
+     *
+     * @param string $field
+     * @return boolean
+     */
+    public function dataHasChangedFor($field)
+    {
+        $newData = $this->getData($field);
+        $origData = $this->getOrigData($field);
+        return $newData != $origData;
     }
 
     /**

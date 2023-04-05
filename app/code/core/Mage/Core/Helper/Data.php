@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
@@ -147,32 +153,30 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date If empty, return current datetime.
+     * @param   string|Zend_Date|null $date
      * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
-        if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
-        } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+        if (!($date instanceof Zend_Date) && $date && !strtotime($date)) {
+            return '';
+        }
+        if (is_null($date)) {
+            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null);
         } elseif (!$date instanceof Zend_Date) {
-            if ($time = strtotime($date)) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
-            } else {
-                return '';
-            }
+            $date = Mage::app()->getLocale()->date(strtotime($date), null, null);
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
+        if ($showTime) {
+            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+        } else {
+            $format = Mage::app()->getLocale()->getDateFormat($format);
+        }
 
         return $date->toString($format);
     }

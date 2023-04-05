@@ -1,9 +1,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -11,7 +17,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-(function(window, document) {
+(function(flowFactory, window, document) {
 'use strict';
     window.Uploader = Class.create({
 
@@ -37,7 +43,7 @@
         elements: [],
 
         /**
-         * @type {(Flow)} Uploader object instance
+         * @type {(FustyFlow|Flow)} Uploader object instance
          */
         uploader: {},
 
@@ -101,7 +107,8 @@
             this.uploaderConfig = config.uploaderConfig;
             this.browseConfig = config.browseConfig;
             this.miscConfig =  config.miscConfig;
-            this.uploader = new Flow(this.uploaderConfig);
+
+            this.uploader = flowFactory(this.uploaderConfig);
 
             this.attachEvents();
 
@@ -426,7 +433,7 @@
          * @private
          */
         _checkFileSize: function (file) {
-            return this.miscConfig.maxSizeInBytes && file.size > this.miscConfig.maxSizeInBytes;
+            return file.size > this.miscConfig.maxSizeInBytes;
         },
 
         /**
@@ -492,4 +499,4 @@
             ;
         }
     });
-})(window, document);
+})(fustyFlowFactory, window, document);

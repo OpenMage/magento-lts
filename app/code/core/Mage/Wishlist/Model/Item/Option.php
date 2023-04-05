@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Wishlist
@@ -26,7 +32,6 @@
  * @method $this setProductId(int $value)
  * @method int getWishlistItemId()
  * @method $this setWishlistItemId(int $value)
- * @method int getWishlistItemId()
  * @method $this setValue(string $sBuyRequest)
  */
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
@@ -61,10 +66,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      */
     public function setItem($item)
     {
+        $this->setWishlistItemId($item->getId());
         $this->_item = $item;
-        if ($this->getWishlistItemId() != $item->getId()) {
-            $this->setWishlistItemId($item->getId());
-        }
         return $this;
     }
 
@@ -86,10 +89,8 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      */
     public function setProduct($product)
     {
+        $this->setProductId($product->getId());
         $this->_product = $product;
-        if ($this->getProductId() != $product->getId()) {
-            $this->setProductId($product->getId());
-        }
         return $this;
     }
 

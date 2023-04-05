@@ -1,0 +1,42 @@
+<?php
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if(isset($poll)) : ?>
+<div class="block block-poll">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Community Poll') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <p class="block-subtitle"><?php echo $this->escapeHtml($poll->getPollTitle()); ?></p>
+        <?php if( $poll_answers ): ?>
+        <ol id="poll-answers">
+            <?php foreach( $poll_answers as $answer ): ?>
+                <li>
+                    <span class="votes"><?php echo $answer->getVotesCount() ?> (<?php echo $answer->getPercent() ?>%)</span>
+                    <span class="answer"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?>:</span>
+                </li>
+            <?php endforeach ?>
+        </ol>
+        <script type="text/javascript">decorateList('poll-answers');</script>
+        <?php endif ?>
+    </div>
+</div>
+<?php endif ?>

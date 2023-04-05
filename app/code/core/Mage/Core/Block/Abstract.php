@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Core
@@ -1117,14 +1123,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param   string $date
      * @param   string $format
      * @param   bool $showTime
-     * @param   bool $useTimezone
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->helper('core');
-        return $helper->formatDate($date, $format, $showTime, $useTimezone);
+        return $helper->formatDate($date, $format, $showTime);
     }
 
     /**

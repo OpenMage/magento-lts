@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -477,13 +483,17 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     protected function _getIsActiveAttributeId()
     {
         if ($this->_isActiveAttributeId === null) {
-            $attributeId = Mage::getSingleton('eav/config')
-                ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active')
-                ->getId();
-            if (!is_int($attributeId)) {
-                Mage::throwException("Failed to find category attribute is_active");
-            }
-            $this->_isActiveAttributeId = $attributeId;
+            $bind = [
+                'catalog_category' => Mage_Catalog_Model_Category::ENTITY,
+                'is_active'        => 'is_active',
+            ];
+            $select = $this->_getReadAdapter()->select()
+                ->from(['a' => $this->getTable('eav/attribute')], ['attribute_id'])
+                ->join(['t' => $this->getTable('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
+                ->where('entity_type_code = :catalog_category')
+                ->where('attribute_code = :is_active');
+
+            $this->_isActiveAttributeId = $this->_getReadAdapter()->fetchOne($select, $bind);
         }
 
         return $this->_isActiveAttributeId;

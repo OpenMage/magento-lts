@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category    design
  * @package     rwd_default
@@ -96,9 +102,31 @@
 
                         <span class="or">-<?php echo $this->__('or'); ?>-</span>
 
-                        <?php if ($this->getContinueShoppingUrl()): ?>
+                        <?php if($this->getContinueShoppingUrl()): ?>
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Continue Shopping')) ?>" class="button2 btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
                         <?php endif ?>
+                        <!--[if lt IE 8]>
+                        <input type="hidden" id="update_cart_action_container" data-cart-item-update />
+                        <script type="text/javascript">
+                        //<![CDATA[
+                            Event.observe(window, 'load', function()
+                            {
+                                // Internet Explorer (lt 8) does not support value attribute in button elements
+                                $emptyCartButton = $('empty_cart_button');
+                                $cartActionContainer = $('update_cart_action_container');
+                                if ($emptyCartButton && $cartActionContainer) {
+                                    Event.observe($emptyCartButton, 'click', function()
+                                    {
+                                        $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                        $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                        $cartActionContainer.setValue('empty_cart');
+                                    });
+                                }
+
+                            });
+                        //]]>
+                        </script>
+                        <![endif]-->
                     </td>
                 </tr>
             </tfoot>

@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -19,6 +25,8 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @property array $_productTypesByName
  */
 class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
@@ -30,15 +38,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     protected $_attributeGroupsById;
     protected $_attributeGroupsByName;
 
-    /**
-     * @var array
-     */
     protected $_productTypesById;
-
-    /**
-     * @var array
-     */
-    protected $_productTypesByName;
 
     /**
      * Array of attributes codes needed for product load
@@ -330,13 +330,17 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedInProductListing()
     {
         if (is_null($this->_usedInProductListing)) {
-            $allAttributes = Mage::getSingleton('eav/config')
-                ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedInProductListing = [];
-            foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_in_product_listing')) {
-                    $this->_usedInProductListing[$attribute->getAttributeCode()] = $attribute;
-                }
+            $entityType = Mage_Catalog_Model_Product::ENTITY;
+            $attributesData = $this->_getResource()
+                ->setStoreId($this->getStoreId())
+                ->getAttributesUsedInListing();
+            Mage::getSingleton('eav/config')
+                ->importAttributesData($entityType, $attributesData);
+            foreach ($attributesData as $attributeData) {
+                $attributeCode = $attributeData['attribute_code'];
+                $this->_usedInProductListing[$attributeCode] = Mage::getSingleton('eav/config')
+                    ->getAttribute($entityType, $attributeCode);
             }
         }
         return $this->_usedInProductListing;
@@ -350,13 +354,16 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedForSortBy()
     {
         if (is_null($this->_usedForSortBy)) {
-            $allAttributes = Mage::getSingleton('eav/config')
-                ->getAttributes(Mage_Catalog_Model_Product::ENTITY);
             $this->_usedForSortBy = [];
-            foreach ($allAttributes as $attribute) {
-                if ($attribute->getData('used_for_sort_by')) {
-                    $this->_usedForSortBy[$attribute->getAttributeCode()] = $attribute;
-                }
+            $entityType     = Mage_Catalog_Model_Product::ENTITY;
+            $attributesData = $this->_getResource()
+                ->getAttributesUsedForSortBy();
+            Mage::getSingleton('eav/config')
+                ->importAttributesData($entityType, $attributesData);
+            foreach ($attributesData as $attributeData) {
+                $attributeCode = $attributeData['attribute_code'];
+                $this->_usedForSortBy[$attributeCode] = Mage::getSingleton('eav/config')
+                    ->getAttribute($entityType, $attributeCode);
             }
         }
         return $this->_usedForSortBy;

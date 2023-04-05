@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+<!--
+Default layout, loads most of the pages
+-->
+
+    <default>
+
+        <!-- Mage_Poll -->
+        <reference name="right">
+            <block type="poll/activePoll" name="right.poll">
+                <action method="setPollTemplate"><template>poll/active.phtml</template><type>poll</type></action>
+                <action method="setPollTemplate"><template>poll/result.phtml</template><type>results</type></action>
+            </block>
+        </reference>
+
+    </default>
+
+<!--
+Customer account home dashboard layout
+-->
+
+    <customer_account_index>
+        <reference name="right">
+            <action method="unsetChild"><name>right.poll</name></action>
+        </reference>
+    </customer_account_index>
+
+</layout>

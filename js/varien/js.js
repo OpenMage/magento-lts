@@ -1,9 +1,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Varien
  * @package     js
@@ -234,8 +240,8 @@ function expandDetails(el, childClass) {
     }
 }
 
-/** @deprecated since 20.0.19 */
-var isIE = false;
+// Version 1.0
+var isIE = navigator.appVersion.match(/MSIE/) == "MSIE";
 
 if (!window.Varien)
     var Varien = new Object();
@@ -614,9 +620,16 @@ Element.addMethods({
  * @example fireEvent($('my-input', 'click'));
  */
 function fireEvent(element, event) {
-    var evt = document.createEvent("HTMLEvents");
-    evt.initEvent(event, true, true ); // event type, bubbling, cancelable
-    return element.dispatchEvent(evt);
+    if (document.createEvent) {
+        // dispatch for all browsers except IE before version 9
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent(event, true, true ); // event type, bubbling, cancelable
+        return element.dispatchEvent(evt);
+    } else {
+        // dispatch for IE before version 9
+        var evt = document.createEventObject();
+        return element.fireEvent('on' + event, evt);
+    }
 }
 
 /**
@@ -638,6 +651,21 @@ function modulo(dividend, divisor)
     }
 
     return remainder;
+}
+
+/**
+ * createContextualFragment is not supported in IE9. Adding its support.
+ */
+if ((typeof Range != "undefined") && !Range.prototype.createContextualFragment)
+{
+    Range.prototype.createContextualFragment = function(html)
+    {
+        var frag = document.createDocumentFragment(),
+        div = document.createElement("div");
+        frag.appendChild(div);
+        div.outerHTML = html;
+        return frag;
+    };
 }
 
 /**

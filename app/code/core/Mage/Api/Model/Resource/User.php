@@ -2,9 +2,15 @@
 /**
  * OpenMage
  *
+ * NOTICE OF LICENSE
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
  *
  * @category   Mage
  * @package    Mage_Api
@@ -221,8 +227,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * Delete the object
      *
      * @param Mage_Core_Model_Abstract $user
-     * @return $this
-     * @throws Exception
+     * @return bool
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -233,11 +238,14 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $dbh->delete($this->getTable('api/user'), ['user_id = ?' => $uid]);
             $dbh->delete($this->getTable('api/role'), ['user_id = ?' => $uid]);
             $dbh->commit();
-        } catch (Throwable $e) {
+        } catch (Mage_Core_Exception $e) {
             $dbh->rollBack();
             throw $e;
+        } catch (Exception $e) {
+            $dbh->rollBack();
+            return false;
         }
-        return $this;
+        return true;
     }
 
     /**
