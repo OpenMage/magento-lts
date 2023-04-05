@@ -228,7 +228,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return;
         }
 
-        if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+        if (!$this->_validateFormKey()) {
             $this->_redirect('*/*/addresses');
             return;
         }
@@ -349,7 +349,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function shippingPostAction()
     {
-        if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+        if (!$this->_validateFormKey()) {
             $this->_redirect('*/*/shipping');
             return;
         }
@@ -462,7 +462,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             return $this;
         }
 
-        if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+        if (!$this->_validateFormKey()) {
             $this->_redirect('*/*/billing');
             return;
         }
