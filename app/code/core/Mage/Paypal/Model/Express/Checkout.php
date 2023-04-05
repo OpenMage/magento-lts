@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -627,7 +621,7 @@ class Mage_Paypal_Model_Express_Checkout
             case Mage_Sales_Model_Order::STATE_PENDING_PAYMENT:
                 // TODO
                 break;
-            // regular placement, when everything is ok
+                // regular placement, when everything is ok
             case Mage_Sales_Model_Order::STATE_PROCESSING:
             case Mage_Sales_Model_Order::STATE_COMPLETE:
             case Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW:

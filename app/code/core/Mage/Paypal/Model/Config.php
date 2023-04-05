@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -1663,7 +1657,7 @@ class Mage_Paypal_Model_Config
             // GB == UK
             case 'GB':
                 return 'UK';
-            // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
+                // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
             case 'AU':
             case 'AT':
             case 'BE':
@@ -1673,7 +1667,7 @@ class Mage_Paypal_Model_Config
             case 'DE':
             case 'HK':
             case 'IT':
-            // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
+                // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
             case 'JP':
             case 'MX':
             case 'NL':
