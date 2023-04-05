@@ -115,7 +115,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         /** @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
-        $likeOptions = ['position' => 'any'];
+        $likeOptions = ['position' => 'start'];
 
         /**
          * Collect tables and attribute ids of attributes with string values
