@@ -257,6 +257,7 @@ If you see SQL errors after upgrading please remember to check for this specific
 - `adminhtml_block_widget_tabs_html_before`
 - `adminhtml_sales_order_create_save_before`
 - `checkout_cart_product_add_before`
+- `core_app_run_after`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
