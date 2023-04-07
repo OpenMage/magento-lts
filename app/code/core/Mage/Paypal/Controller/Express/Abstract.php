@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -39,7 +33,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_config = null;
 
     /**
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|false
      */
     protected $_quote = false;
 
@@ -64,7 +58,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected function _construct()
     {
         parent::_construct();
-        $this->_config = Mage::getModel($this->_configType, [$this->_configMethod]);
+        /** @var Mage_Paypal_Model_Config $classInstance */
+        $classInstance = Mage::getModel($this->_configType, [$this->_configMethod]);
+        $this->_config = $classInstance;
     }
 
     /**
@@ -457,11 +453,13 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             Mage::throwException(Mage::helper('paypal')->__('Unable to initialize Express Checkout.'));
         }
-        $this->_checkout = Mage::getSingleton($this->_checkoutType, [
+
+        /** @var Mage_Paypal_Model_Express_Checkout $classInstance */
+        $classInstance = Mage::getSingleton($this->_checkoutType, [
             'config' => $this->_config,
             'quote'  => $quote,
         ]);
-
+        $this->_checkout = $classInstance;
         return $this->_checkout;
     }
 
@@ -470,7 +468,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * Combined getter/setter
      *
      * @param string $setToken
-     * @return Mage_Paypal_ExpressController|string
+     * @return $this|string
      */
     protected function _initToken($setToken = null)
     {
