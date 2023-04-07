@@ -1002,10 +1002,7 @@ XML;
         return $data;
     }
 
-    /**
-     * @return bool
-     */
-    public function isFormKeyEnabled()
+    public function isFormKeyEnabled(): bool
     {
         return Mage::getStoreConfigFlag(Mage_Core_Controller_Front_Action::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
