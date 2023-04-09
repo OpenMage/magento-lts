@@ -252,7 +252,7 @@ Specifically:
 - `phpseclib`, `mcrypt_compat`, `Cm_RedisSession`, `Cm_Cache_Backend_Redis`, `Pelago_Emogrifier` ([#2411](https://github.com/OpenMage/magento-lts/pull/2411))
 - Zend Framework 1 ([#2827](https://github.com/OpenMage/magento-lts/pull/2827))
 
-If your project uses OpenMage through composer then all dependencies will be managed automatically.  
+If your project uses OpenMage through composer then all dependencies will be managed automatically.
 If you just extracted the release zip/tarball in your project's main folder then be sure to:
 - remove the old copy of aforementioned libraries from your project, you can do that with this command:
   ```bash
@@ -280,6 +280,7 @@ If you see SQL errors after upgrading please remember to check for this specific
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
+- `admin/design/copy_path`
 
 ### New Events
 
@@ -298,7 +299,7 @@ If you see SQL errors after upgrading please remember to check for this specific
 Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.
 If your custom modules extends OpenMage's APIs with a custom WSDL file and there are some hardcoded `targetNamespace="urn:Magento"` strings, your APIs may stop working.
 
-Please replace all occurrences of 
+Please replace all occurrences of
 
 ```
 targetNamespace="urn:Magento"
@@ -307,7 +308,7 @@ with
 ```
 targetNamespace="urn:OpenMage"
 ```
-or alternatively 
+or alternatively
 ```
 targetNamespace="urn:{{var wsdl.name}}"
 ```
@@ -334,7 +335,7 @@ grep -rn 'urn:Magento' --include \*.xml
 - Open your site in browser
   ```bash
   ddev launch
-  ``` 
+  ```
 
 ## PhpStorm Factory Helper
 
