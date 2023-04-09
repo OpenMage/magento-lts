@@ -286,7 +286,7 @@ class Mage_Catalog_Model_Url
         if ($idCategory != $this->getStores($category->getStoreId())->getRootCategoryId()) {
             $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
             if ($category->getUrlKey() == '' || in_array($idCategory, self::$_mustCreateCategoryUrlkey)) {
-                if (!isset(self::$_categoryResourceSingleton)) {
+                if (!self::$_categoryResourceSingleton) {
                     self::$_categoryResourceSingleton = Mage::getResourceSingleton('catalog/category');
                 }
                 if (empty(self::$_categoryResourceSingleton->getAttributeRawValue($idCategory, 'url_key', 0))) { // set default value
@@ -368,7 +368,7 @@ class Mage_Catalog_Model_Url
         $idProduct = $product->getId();
         $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
         if ($product->getUrlKey() == '' || in_array($idProduct, self::$_mustCreateProductUrlkey)) {
-            if (!isset(self::$_productResourceSingleton)) {
+            if (!self::$_productResourceSingleton) {
                 self::$_productResourceSingleton = Mage::getResourceSingleton('catalog/product');
             }
             if (empty(self::$_productResourceSingleton->getAttributeRawValue($idProduct, 'url_key', 0))) { // set default value
