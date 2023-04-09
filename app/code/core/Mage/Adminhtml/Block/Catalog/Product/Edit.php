@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         'class'   => 'back'
                     ])
             );
-        } else if (!$this->getRequest()->getParam('popin')) {
+        } elseif (!$this->getRequest()->getParam('popin')) {
             $this->setChild(
                 'back_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')

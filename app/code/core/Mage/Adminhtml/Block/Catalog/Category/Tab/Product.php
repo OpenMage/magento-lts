@@ -82,7 +82,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'position',
                 'product_id=entity_id',
                 'category_id=' . (int) $this->getRequest()->getParam('id', 0),
-                'left')
+                'left'
+            )
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'left', $store)
             ->joinAttribute('price', 'catalog_product/price', 'entity_id', null, 'left', $store)
             ->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'left', $store)
