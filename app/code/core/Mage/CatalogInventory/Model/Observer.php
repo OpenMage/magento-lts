@@ -413,7 +413,7 @@ class Mage_CatalogInventory_Model_Observer
                     $increaseOptionQty
                 );
 
-                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
+                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue, $quoteItem);
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -497,7 +497,7 @@ class Mage_CatalogInventory_Model_Observer
                 }
             }
 
-            $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
+            $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty, $quoteItem);
 
             if ($stockItem->hasIsChildItem()) {
                 $stockItem->unsIsChildItem();
