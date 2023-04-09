@@ -308,13 +308,14 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      */
     public function aggregate($object)
     {
-        $readAdapter    = $this->_getReadAdapter();
-        $writeAdapter   = $this->_getWriteAdapter();
+        $readAdapter  = $this->_getReadAdapter();
+        $writeAdapter = $this->_getWriteAdapter();
+        $ratingModel  = Mage::getModel('rating/rating');
+
         if (!$object->getEntityPkValue() && $object->getId()) {
             $object->load($object->getReviewId());
         }
 
-        $ratingModel    = Mage::getModel('rating/rating');
         $ratingSummaries = $ratingModel->getEntitySummary($object->getEntityPkValue(), false);
 
         foreach ($ratingSummaries as $ratingSummaryObject) {
