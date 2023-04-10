@@ -76,7 +76,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 if ($error) {
-                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
+                    Mage::throwException($this->__('Unable to submit your request. Please try again later'));
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
                 /** @var Mage_Core_Model_Email_Template $mailTemplate */
@@ -91,7 +91,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
-                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
+                    Mage::throwException($this->__('Unable to submit your request. Please try again later'));
                 }
 
                 $translate->setTranslateInline(true);
@@ -106,7 +106,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 Mage::getSingleton('customer/session')->addError($e->getMessage());
             } catch (Throwable $e) {
                 Mage::logException($e);
-                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please, try again later'));
+                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please try again later'));
                 $this->_redirect('*/*/');
                 return;
             }
