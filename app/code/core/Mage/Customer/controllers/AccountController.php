@@ -125,6 +125,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Customer Login'));
         $this->renderLayout();
     }
 
