@@ -42,7 +42,7 @@ class AssertProductsVisibilityInItemsOrderedBlock extends AbstractConstraint
                 $productsVisibility[] = "'{$productName}' is not visible in items order block.";
             }
         }
-        \PHPUnit_Framework_Assert::assertEmpty($productsVisibility, $productsVisibility);
+        \PHPUnit\Framework\Assert::assertEmpty($productsVisibility, $productsVisibility);
     }
 
     /**

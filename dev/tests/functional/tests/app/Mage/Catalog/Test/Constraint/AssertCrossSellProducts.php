@@ -108,7 +108,7 @@ class AssertCrossSellProducts extends AbstractConstraint
             }
         }
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, implode("\n", $errors));
+        \PHPUnit\Framework\Assert::assertEmpty($errors, implode("\n", $errors));
     }
 
     /**
@@ -119,7 +119,7 @@ class AssertCrossSellProducts extends AbstractConstraint
      */
     protected function assertCrossSellSectionAbsent(CheckoutCart $checkoutCart)
     {
-        \PHPUnit_Framework_Assert::assertFalse($checkoutCart->getCrosssellBlock()->isVisible());
+        \PHPUnit\Framework\Assert::assertFalse($checkoutCart->getCrosssellBlock()->isVisible());
     }
 
     /**

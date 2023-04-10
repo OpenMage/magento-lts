@@ -98,7 +98,7 @@ class AssertRelatedProducts extends AbstractConstraint
             }
         }
 
-        \PHPUnit_Framework_Assert::assertEmpty($errors, implode("\n", $errors));
+        \PHPUnit\Framework\Assert::assertEmpty($errors, implode("\n", $errors));
     }
 
     /**
@@ -109,7 +109,7 @@ class AssertRelatedProducts extends AbstractConstraint
      */
     protected function assertRelatedSectionAbsent(CatalogProductView $catalogProductView)
     {
-        \PHPUnit_Framework_Assert::assertFalse($catalogProductView->getUpsellBlock()->isVisible());
+        \PHPUnit\Framework\Assert::assertFalse($catalogProductView->getUpsellBlock()->isVisible());
     }
 
     /**

@@ -1077,7 +1077,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
                 $baseUrl = $scheme . $host . $port . rtrim($path, '/') . '/';
             } else {
-                $baseUrl = 'http://localhost/';
+                $baseUrl = 'http://127.0.0.1/';
             }
 
             $options = $this->getOptions();

@@ -31,7 +31,7 @@ class AssertShippingMethodOnPrintOrder extends AbstractConstraint
      */
     public function processAssert(SalesGuestPrint $salesGuestPrint, array $shipping)
     {
-        \PHPUnit_Framework_Assert::assertTrue(
+        \PHPUnit\Framework\Assert::assertTrue(
             $salesGuestPrint->getViewBlock()->isShippingMethodVisible($shipping),
             "Shipping method was printed incorrectly."
         );

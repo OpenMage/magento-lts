@@ -64,14 +64,14 @@ class AssertCategoryPage extends AbstractConstraint
         $product->persist();
         $url = $_ENV['app_frontend_url'] . strtolower($category->getUrlKey()) . '.html';
         $browser->open($url);
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             $url,
             $browser->getUrl(),
             'Wrong page URL.'
         );
 
         if (isset($categoryData['name'])) {
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 strtoupper($categoryData['name']),
                 $categoryView->getTitleBlock()->getTitle(),
                 'Wrong page title.'
@@ -79,7 +79,7 @@ class AssertCategoryPage extends AbstractConstraint
         }
 
         if (isset($categoryData['description'])) {
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 $categoryData['description'],
                 $categoryView->getViewBlock()->getDescription(),
                 'Wrong category description.'
@@ -89,7 +89,7 @@ class AssertCategoryPage extends AbstractConstraint
         if (isset($categoryData['default_sort_by'])) {
             $sortBy = strtolower($categoryData['default_sort_by']);
             $sortType = $categoryView->getTopToolbar()->getSelectSortType();
-            \PHPUnit_Framework_Assert::assertEquals(
+            \PHPUnit\Framework\Assert::assertEquals(
                 $sortBy,
                 $sortType,
                 'Wrong sorting type.'

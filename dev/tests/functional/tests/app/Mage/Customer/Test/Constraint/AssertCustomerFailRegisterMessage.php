@@ -39,7 +39,7 @@ class AssertCustomerFailRegisterMessage extends AbstractConstraint
      */
     public function processAssert(CustomerAccountCreate $registerPage)
     {
-        \PHPUnit_Framework_Assert::assertContains(
+        \PHPUnit\Framework\Assert::assertContains(
             self::FAIL_MESSAGE,
             $registerPage->getMessagesBlock()->getErrorMessages(),
             "Actual error message doesn't match expected error message."

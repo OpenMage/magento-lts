@@ -85,7 +85,7 @@ class AssertProductGroupedPriceOnProductPage extends AbstractConstraint implemen
     {
         $this->customerGroup = $customerGroup;
         $groupPrice = $this->getGroupedPrice($productViewBlock, $product);
-        \PHPUnit_Framework_Assert::assertEquals($groupPrice['fixture'], $groupPrice['onPage'], $this->errorMessage);
+        \PHPUnit\Framework\Assert::assertEquals($groupPrice['fixture'], $groupPrice['onPage'], $this->errorMessage);
     }
 
     /**

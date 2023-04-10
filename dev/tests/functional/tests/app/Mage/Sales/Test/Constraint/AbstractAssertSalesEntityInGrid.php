@@ -91,7 +91,7 @@ abstract class AbstractAssertSalesEntityInGrid extends AbstractAssertSales
     protected function assert(array $filters, $grid)
     {
         foreach ($filters as $filter) {
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $this->isItemInGridVisible($grid, $filter),
                 $this->errorMessage
             );

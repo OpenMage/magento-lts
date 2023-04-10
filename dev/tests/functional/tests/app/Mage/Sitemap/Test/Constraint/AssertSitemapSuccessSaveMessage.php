@@ -39,7 +39,7 @@ class AssertSitemapSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(SitemapIndex $sitemapIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $sitemapIndex->getMessagesBlock()->getSuccessMessages()
         );

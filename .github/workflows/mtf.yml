@@ -1,0 +1,151 @@
+name: Magento Test Framework
+on: [pull_request]
+jobs:
+  functional:
+    runs-on: ubuntu-latest
+
+    env:
+      PHP_VERSION: 7.3 # 8.1.14 is broken (https://github.com/php/php-src/commit/d12ba111e03fa4e6d76a66a029f5dbe6265b1ea9)
+      MAGENTO_HOST_NAME: localhost
+      SELENIUM_HOST: http://selenium:4444/wd/hub
+
+    services:
+      mysql:
+        image: bitnami/mysql:8.0.31
+        env:
+          ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: openmage
+          MYSQL_PASSWORD: openmage
+          MYSQL_DATABASE: openmage
+          MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+        ports:
+          - 3306/tcp
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+      selenium:
+        image: selenium/standalone-firefox
+        # options: --health-cmd "curl http://127.0.0.1:4444" --health-interval=5s
+        ports:
+          - 4444:4444
+
+    steps:
+      - name: Checkout OpenMage repo
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ctype, curl, dom, gd, hash, iconv, intl, json, libxml, mbstring, pdo_mysql, xml, soap, zlib
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install OpenMage dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Install OpenMage
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        run: |
+          mysqladmin ping -u root -h 127.0.0.1 -P $DB_PORT --wait=1
+          sudo chmod 770 app/etc var/ media/
+          sudo chgrp -R www-data .
+          php -d date.timezone=UTC -f install.php -- \
+            --license_agreement_accepted yes \
+            --locale en_US \
+            --timezone "America/Los_Angeles" \
+            --default_currency USD \
+            --db_host 127.0.0.1:${DB_PORT} \
+            --db_name openmage \
+            --db_user openmage \
+            --db_pass openmage \
+            --url "http://${MAGENTO_HOST_NAME}/" \
+            --skip_url_validation \
+            --use_rewrites yes \
+            --use_secure no \
+            --secure_base_url "http://${MAGENTO_HOST_NAME}/" \
+            --use_secure_admin no \
+            --admin_lastname Owner \
+            --admin_firstname Store \
+            --admin_email "admin@example.com" \
+            --admin_username admin \
+            --admin_password 123123q123123q \
+            --encryption_key "I2V7t7fiCIRKw9FWz4m3CStgeBG1T+ATZ0Us+W8jAIk="
+
+      - name: Install MTF dependencies
+        working-directory: ./dev/tests/functional
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --ignore-platform-reqs
+
+      - name: Substitute vars for web server
+        uses: dominicwatson/github-action-envsubst@v1
+        with:
+          files: .github/mtf/apache_virtual_host .github/mtf/www.conf dev/tests/functional/etc/config.xml
+          patterns: $GITHUB_WORKSPACE $MAGENTO_HOST_NAME $PHP_VERSION
+
+      - name: Start PHP-FPM
+        run: |
+          # Other files of interest: /etc/php/7.3/fpm/php-fpm.conf /etc/php/7.3/fpm/php.ini
+          sudo cp -f .github/mtf/www.conf /etc/php/${{ env.PHP_VERSION}}/fpm/pool.d/www.conf
+          sudo php-fpm -v
+          sudo php-fpm -t
+          sudo systemctl start php${{ env.PHP_VERSION}}-fpm
+
+      - name: Start Apache web server
+        run: |
+          ls -l /etc/apache2/*
+          sudo cp -f .github/mtf/apache_virtual_host /etc/apache2/sites-available/000-default.conf
+          sudo cp robots.txt.sample robots.txt
+          sudo chown -R www-data:www-data var media
+          sudo a2enmod rewrite proxy proxy_fcgi
+          sudo a2enconf php${{ env.PHP_VERSION}}-fpm.conf
+          sudo apache2ctl -t
+          sudo systemctl restart apache2
+          curl --no-progress-meter http://$MAGENTO_HOST_NAME/robots.txt
+          curl --no-progress-meter http://$MAGENTO_HOST_NAME/index.php
+          curl --no-progress-meter http://$MAGENTO_HOST_NAME/
+
+      - name: Setup and check MTF
+        working-directory: ./dev/tests/functional
+        run: |
+          cp ./phpunit.xml.dist ./phpunit.xml
+          sed -e "s?localhost?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
+          sed -e "s?basic?travis_acceptance?g" --in-place ./phpunit.xml
+          php -f utils/generate.php
+          cd ./utils
+          #php -f mtf troubleshooting:check-all
+
+      - name: Check Selenium server
+        env:
+          SELENIUM_PORT: ${{ job.services.selenium.ports[4444] }}
+        run: |
+          curl --no-progress-meter http://localhost:$SELENIUM_PORT/wd/hub/status
+
+      - name: Run Magento Test Framework test suite
+        working-directory: ./dev/tests/functional
+        run: vendor/phpunit/phpunit/phpunit
+
+#      - name: Run Magento Test Framework test suite
+#        uses: GabrielBB/xvfb-action@v1
+#        with:
+#          run: vendor/phpunit/phpunit/phpunit
+#          working-directory: ./dev/tests/functional
+
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v1.40
+        if: always()
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*.xml

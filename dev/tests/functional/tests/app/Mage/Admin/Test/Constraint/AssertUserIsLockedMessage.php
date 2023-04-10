@@ -39,7 +39,7 @@ class AssertUserIsLockedMessage extends AbstractConstraint
      */
     public function processAssert(AdminAuthLogin $adminAuth)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::ERROR_MESSAGE,
             $adminAuth->getMessagesBlock()->getErrorMessages()
         );

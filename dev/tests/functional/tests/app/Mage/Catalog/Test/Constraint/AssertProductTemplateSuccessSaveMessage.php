@@ -39,7 +39,7 @@ class AssertProductTemplateSuccessSaveMessage extends AbstractConstraint
      */
     public function processAssert(CatalogProductSetIndex $productSetIndex)
     {
-        \PHPUnit_Framework_Assert::assertEquals(
+        \PHPUnit\Framework\Assert::assertEquals(
             self::SUCCESS_MESSAGE,
             $productSetIndex->getMessagesBlock()->getSuccessMessages()
         );

@@ -60,7 +60,7 @@ class AssertUserWithCustomRole extends AbstractConstraint
         $role = $user->getDataFieldConfig('role_id')['source']->getRole();
         $menuItems = $this->getMenuItems($role);
         foreach ($menuItems as $item) {
-            \PHPUnit_Framework_Assert::assertTrue(
+            \PHPUnit\Framework\Assert::assertTrue(
                 $adminPanelHeader->checkMenu(ucfirst($item)),
                 "Menu $item is absent on top menu."
             );
@@ -68,7 +68,7 @@ class AssertUserWithCustomRole extends AbstractConstraint
 
         // Check access denied message on category page.
         $categoryIndex->open();
-        \PHPUnit_Framework_Assert::assertTrue($categoryIndex->getContentBlock()->checkAccessDeniedMessage());
+        \PHPUnit\Framework\Assert::assertTrue($categoryIndex->getContentBlock()->checkAccessDeniedMessage());
     }
 
     /**
