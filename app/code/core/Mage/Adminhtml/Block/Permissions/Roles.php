@@ -43,6 +43,16 @@ class Mage_Adminhtml_Block_Permissions_Roles extends Mage_Adminhtml_Block_Templa
     }
 
     /**
+     * Get URL for users list
+     *
+     * @return string
+     */
+    public function getUsersUrl()
+    {
+        return $this->getUrl('*/permissions_user/index');
+    }
+
+    /**
      * Get grid HTML
      *
      * @return string

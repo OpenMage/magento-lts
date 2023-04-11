@@ -27,6 +27,12 @@ class Mage_Adminhtml_Block_Permissions_User extends Mage_Adminhtml_Block_Widget_
         $this->_controller = 'permissions_user';
         $this->_headerText = Mage::helper('adminhtml')->__('Users');
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add New User');
+        $this->addButton('roles', [
+            'label'   => Mage::helper('adminhtml')->__('Roles'),
+            'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/permissions_role/index')),
+            'class'   => 'go',
+        ]);
+
         parent::__construct();
     }
 

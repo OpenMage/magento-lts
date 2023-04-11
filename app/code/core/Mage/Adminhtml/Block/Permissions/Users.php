@@ -28,11 +28,21 @@ class Mage_Adminhtml_Block_Permissions_Users extends Mage_Adminhtml_Block_Templa
         $this->setTemplate('permissions/users.phtml');
     }
 
+    /**
+     * Get URL of adding new record
+     *
+     * @return string
+     */
     public function getAddNewUrl()
     {
         return $this->getUrl('*/*/edituser');
     }
 
+    /**
+     * Get grid HTML
+     *
+     * @return string
+     */
     public function getGridHtml()
     {
         return $this->getLayout()->createBlock('adminhtml/permissions_grid_user')->toHtml();
