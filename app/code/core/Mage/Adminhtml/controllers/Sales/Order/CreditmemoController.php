@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -194,7 +188,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $block = $this->getLayout()->getBlock('sales_creditmemo_view');
             $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
 
-            $this->_setActiveMenu('sales/order')
+            $this->_setActiveMenu('sales/creditmemo')
                 ->renderLayout();
         } else {
             $this->_redirect('*/*');
@@ -229,7 +223,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/creditmemo')
                 ->renderLayout();
         } else {
             $this->_forward('noRoute');

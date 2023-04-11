@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -140,7 +134,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $this->_title(sprintf("#%s", $invoice->getIncrementId()));
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order');
+                ->_setActiveMenu('sales/invoice');
 
             /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_View $block */
             $block = $this->getLayout()->getBlock('sales_invoice_view');
@@ -178,7 +172,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/invoice')
                 ->renderLayout();
         } else {
             $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);
