@@ -1376,7 +1376,7 @@ class Mage_Core_Model_App
             }
 
             foreach ($events[$eventName]['observers'] as $obsName => $obs) {
-                $observer->setData(['event' => $event]);
+                $observer->setEvent($event);
                 Varien_Profiler::start('OBSERVER: ' . $obsName);
                 switch ($obs['type']) {
                     case 'disabled':
