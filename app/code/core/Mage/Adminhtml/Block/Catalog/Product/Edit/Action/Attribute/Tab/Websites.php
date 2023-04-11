@@ -37,9 +37,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Websites ex
         return $group->getStores();
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Websites');
