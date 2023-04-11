@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc2cf844bde917ae97ee08b4ebcdb77d",
+    "content-hash": "34c05aa3805c670a0de5433590631d8f",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -5789,7 +5789,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.4"
+        "php": "8.1"
     },
     "plugin-api-version": "2.3.0"
 }
