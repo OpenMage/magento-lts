@@ -120,9 +120,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         return $this->getUrl('*/*/creditmemos', ['_current' => true]);
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Credit Memos');
@@ -130,12 +127,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
 
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order Credit Memos');
+        return Mage::helper('sales')->__('Credit Memos');
     }
 
     public function canShowTab()
     {
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
     }
 
     public function isHidden()
