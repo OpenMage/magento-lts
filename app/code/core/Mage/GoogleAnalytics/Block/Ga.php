@@ -129,7 +129,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     {
         /** @var Mage_GoogleAnalytics_Helper_Data $helper */
         $helper = $this->helper('googleanalytics');
-        if ($helper->isUseUniversalAnalytics()) {
+        if ($helper->isUseAnalytics4()) {
+            return $this->_getOrdersTrackingCodeAnalytics4();
+        } elseif ($helper->isUseUniversalAnalytics()) {
             return $this->_getOrdersTrackingCodeUniversal();
         }
 
@@ -186,6 +188,46 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 );
             }
             $result[] = "ga('ecommerce:send');";
+        }
+        return implode("\n", $result);
+    }
+
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getOrdersTrackingCodeAnalytics4()
+    {
+        $orderIds = $this->getOrderIds();
+        if (empty($orderIds) || !is_array($orderIds)) {
+            return '';
+        }
+        $collection = Mage::getResourceModel('sales/order_collection')
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
+        /** @var Mage_Sales_Model_Order $order */
+        foreach ($collection as $order) {
+            $orderData = [
+                'currency' => $order->getBaseCurrencyCode(),
+                'transaction_id' => $order->getIncrementId(),
+                'value' => number_format($order->getBaseGrandTotal(), 2),
+                'coupon' => strtoupper($order->getCouponCode()),
+                'shipping' => number_format($order->getBaseShippingAmount(), 2),
+                'tax' => number_format($order->getBaseTaxAmount(), 2),
+                'items' => []
+            ];
+
+            /** @var Mage_Sales_Model_Order_Item $item */
+            foreach ($order->getAllVisibleItems() as $item) {
+                $orderData['items'][] = [
+                    'item_id' => $item->getSku(),
+                    'item_name' => $item->getName(),
+                    'quantity' => $item->getQtyOrdered(),
+                    'price' => $item->getBasePrice(),
+                    'discount' => $item->getBaseDiscountAmount()
+                ];
+            }
+            $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
         }
         return implode("\n", $result);
     }
