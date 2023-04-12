@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Image
@@ -50,7 +44,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -109,7 +103,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
-            $memoryValue = $matches[1];
+            $memoryValue = (int)$matches[1];
             switch ($option) {
                 case 'g':
                     $memoryValue *= 1024;

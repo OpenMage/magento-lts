@@ -46,7 +46,7 @@ level of backwards compatibility to the official releases.
 
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
+- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -175,9 +175,12 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 - bug fixes and PHP 7.x, 8.0, 8.1 and 8.2 compatibility
 - added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
+- added frontend_type color ([#2945](https://github.com/OpenMage/magento-lts/pull/2945))
 - search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
 - removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
 - Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
+- PHP extension `intl` is required
+- Deprecation errors are not suppressed anymore
 - removed modules:
   - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
@@ -190,10 +193,6 @@ _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
-
-### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
-
-- PHP extension `intl` is required
 
 ### Between OpenMage 19.x and 20.x
 
@@ -208,10 +207,13 @@ Do not use 20.x.x if you need IE support.
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
 - made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 - rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
+- removed module Mage_Poll ([3098](https://github.com/OpenMage/magento-lts/pull/3098), you can install it with `composer require openmage/module-mage-poll`)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### Since OpenMage 19.5.0 / 20.1.0
+
+PHP 7.4 is now the minimum required version.
 
 Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
 This allows for better maintenance and upgradability.
@@ -301,13 +303,7 @@ grep -rn 'urn:Magento' --include \*.xml
 - Open your site in browser
   ```bash
   ddev launch
-  ```
-
-## Development with PHP 8.1+
-
-Deprecation errors are supressed by default.
-
-If you want to work on PHP 8.1+ support, set environment variable `DEV_PHP_STRICT` to `1`, to show all errors.  
+  ``` 
 
 ## PhpStorm Factory Helper
 

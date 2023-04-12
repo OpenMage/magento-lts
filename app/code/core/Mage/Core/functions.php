@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -121,15 +115,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     $errno = $errno & error_reporting();
     if ($errno == 0) {
         return false;
-    }
-
-    // Suppress deprecation warnings on PHP 7.x
-    // set environment variable DEV_PHP_STRICT to 1 will show E_DEPRECATED errors
-    if ((!isset($_ENV['DEV_PHP_STRICT']) || $_ENV['DEV_PHP_STRICT'] != '1')
-        && $errno == E_DEPRECATED
-        && version_compare(PHP_VERSION, '7.0.0', '>=')
-    ) {
-        return true;
     }
 
     // PEAR specific message handling
