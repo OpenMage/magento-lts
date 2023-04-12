@@ -115,14 +115,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         }
         $rate = $this->_getRate($displayCurrency, $this->getColumn()->getCurrencyCode());
 
-        if (isset($value['from'])) {
-            $from = $value['from'] * $rate;
-            $value['from'] = sprintf('%F', $from);
-        }
-
-        if (isset($value['to'])) {
-            $to = $value['to'] * $rate;
-            $value['to'] = sprintf('%F', $to);
+        foreach (['from', 'to'] as $key) {
+            if (isset($value[$key]) && is_numeric($value[$key])) {
+                $value[$key] = sprintf('%F', $value[$key] * $rate);
+            }
         }
 
         $this->prepareRates($displayCurrency);
