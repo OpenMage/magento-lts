@@ -927,7 +927,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     } else {
                         $dataRow[self::COL_STORE] = null;
                         if ($stockItemRows[$productId]) {
-							$dataRow += $stockItemRows[$productId];
+                            $dataRow += $stockItemRows[$productId];
                         }
                     }
 
