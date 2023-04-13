@@ -42,10 +42,10 @@ class Mage_CatalogRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
-            'to_fixed' => Mage::helper('cataloginventory')->__('To Fixed Value'),
-            'to_percent' => Mage::helper('cataloginventory')->__('To Percentage'),
-            'by_fixed' => Mage::helper('cataloginventory')->__('By Fixed value'),
-            'by_percent' => Mage::helper('cataloginventory')->__('By Percentage'),
+            'to_fixed'   => static::$translate ? Mage::helper('cataloginventory')->__('To Fixed Value') : 'To Fixed Value',
+            'to_percent' => static::$translate ? Mage::helper('cataloginventory')->__('To Percentage') : 'To Percentage',
+            'by_fixed'   => static::$translate ? Mage::helper('cataloginventory')->__('By Fixed value') : 'By Fixed value',
+            'by_percent' => static::$translate ? Mage::helper('cataloginventory')->__('By Percentage') : 'By Percentage',
         ]);
         return $this;
     }

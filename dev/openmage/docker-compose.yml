@@ -61,5 +61,12 @@ services:
     volumes:
       - mysql:/var/lib/mysql
 
+  redis:
+    image: redis:6-alpine
+    command: redis-server --appendonly yes --maxmemory 10m
+    volumes:
+      - redis:/data
+
 volumes:
   mysql:
+  redis:

@@ -24,7 +24,6 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
 {
     /**
      * save class action
-     *
      */
     public function saveAction()
     {
@@ -42,7 +41,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 );
                 $this->_redirect($classUrl);
 
-                return ;
+                return;
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setClassData($postData);
@@ -70,7 +69,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
     {
         $classType = strtolower($this->getRequest()->getParam('classType'));
         $this->loadLayout()
-            ->_setActiveMenu('sales/tax/tax_classes_' . $classType)
+            ->_setActiveMenu('sales/tax/classes_' . $classType)
             ->_addBreadcrumb(Mage::helper('tax')->__('Sales'), Mage::helper('tax')->__('Sales'))
             ->_addBreadcrumb(Mage::helper('tax')->__('Tax'), Mage::helper('tax')->__('Tax'))
         ;
