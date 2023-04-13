@@ -128,7 +128,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $block = $this->getLayout()->getBlock('sales_shipment_view');
             $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
 
-            $this->_setActiveMenu('sales/order')
+            $this->_setActiveMenu('sales/shipment')
                 ->renderLayout();
         } else {
             $this->_redirect('*/*/');
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/shipment')
                 ->renderLayout();
         } else {
             $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);

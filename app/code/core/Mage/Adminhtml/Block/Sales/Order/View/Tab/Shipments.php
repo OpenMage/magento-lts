@@ -106,9 +106,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         return $this->getUrl('*/*/shipments', ['_current' => true]);
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Shipments');
@@ -116,7 +113,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
 
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order Shipments');
+        return Mage::helper('sales')->__('Shipments');
     }
 
     public function canShowTab()
@@ -124,7 +121,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         if ($this->getOrder()->getIsVirtual()) {
             return false;
         }
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
     }
 
     public function isHidden()

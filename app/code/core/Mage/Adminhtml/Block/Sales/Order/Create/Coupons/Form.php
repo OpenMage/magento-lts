@@ -27,6 +27,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Coupons_Form extends Mage_Adminhtm
         $this->setId('sales_order_create_coupons_form');
     }
 
+    /**
+     * @return string
+     */
     public function getCouponCode()
     {
         return $this->getParentBlock()->getQuote()->getCouponCode();
