@@ -179,6 +179,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $rule->setIsValidForAddress($address, false);
                         return false;
                     }
+                    // check coupon expiration
+                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
+                        $rule->setIsValidForAddress($address, false);
+                        return false;
+                    }
                     // check per customer usage limit
                     $customerId = $address->getQuote()->getCustomerId();
                     if ($customerId && $coupon->getUsagePerCustomer()) {

@@ -104,9 +104,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
         return $this->getUrl('*/*/*', ['order_id' => $orderId]);
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Information');
@@ -114,7 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info extends Mage_Adminhtml_Bloc
 
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order Information');
+        return Mage::helper('sales')->__('Information');
     }
 
     public function canShowTab()

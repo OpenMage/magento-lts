@@ -220,7 +220,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
      */
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order History');
+        return Mage::helper('sales')->__('Comments History');
     }
 
     /**

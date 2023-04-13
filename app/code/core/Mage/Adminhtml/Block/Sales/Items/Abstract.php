@@ -214,10 +214,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     }
 
     /**
-     * ######################### SALES ##################################
-     */
-
-    /**
      * Retrieve available order
      *
      * @return Mage_Sales_Model_Order

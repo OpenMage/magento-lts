@@ -38,8 +38,8 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     public function loadValueOptions()
     {
         $this->setValueOption([
-            1 => Mage::helper('salesrule')->__('FOUND'),
-            0 => Mage::helper('salesrule')->__('NOT FOUND')
+            1 => static::$translate ? Mage::helper('salesrule')->__('FOUND') : 'FOUND',
+            0 => static::$translate ? Mage::helper('salesrule')->__('NOT FOUND') : 'NOT FOUND',
         ]);
         return $this;
     }
