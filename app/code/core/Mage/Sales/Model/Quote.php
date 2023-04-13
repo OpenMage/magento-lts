@@ -2100,7 +2100,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param string $couponCode
      * @return $this
      */
-    public function setCouponCode(string $couponCode) #static with php74
+    public function setCouponCode(string $couponCode)
     {
         return $this->setData('coupon_code', $couponCode);
     }
