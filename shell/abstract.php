@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Shell
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Shell_Abstract
 {

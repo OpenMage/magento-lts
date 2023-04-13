@@ -16,7 +16,6 @@
  * 
  * @category    Mage
  * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 GiftOptionsTooltip = Class.create();
 GiftOptionsTooltip.prototype = {
