@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool|null getSkipEmptySessionCheck()
  * @method $this setSkipEmptySessionCheck(bool $flag)

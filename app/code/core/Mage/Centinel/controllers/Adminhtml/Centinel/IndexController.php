@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Centinel
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Controller_Action
 {

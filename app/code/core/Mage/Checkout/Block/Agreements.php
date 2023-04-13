@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasAgreements()
  * @method $this setAgreements(Mage_Checkout_Model_Resource_Agreement_Collection $value)

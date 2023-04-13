@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setConfigurationItemOption(Varien_Object $value)
  * @method bool getIsValid()

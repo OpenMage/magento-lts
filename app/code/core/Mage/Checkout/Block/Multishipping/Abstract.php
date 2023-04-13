@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Multishipping_Abstract extends Mage_Core_Block_Template
 {

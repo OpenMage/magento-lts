@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cron
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Exception extends Mage_Core_Exception
 {

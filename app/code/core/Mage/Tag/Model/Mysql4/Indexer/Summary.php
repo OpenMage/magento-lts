@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Tag_Model_Mysql4_Indexer_Summary extends Mage_Tag_Model_Resource_Indexer_Summary

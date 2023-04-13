@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAgreementCreatedAt(string $value)
  * @method $this setAgreementUpdatedAt(string $value)

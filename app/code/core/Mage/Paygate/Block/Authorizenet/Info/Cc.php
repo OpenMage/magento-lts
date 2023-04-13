@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Paygate
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
 {

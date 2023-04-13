@@ -16,7 +16,6 @@
 /**
  * Customer account billing agreements block
  *
- * @author Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setBackUrl(string $value)
  * @method $this setCreateUrl(string $value)

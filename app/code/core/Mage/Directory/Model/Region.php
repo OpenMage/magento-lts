@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Directory_Model_Resource_Region _getResource()
  * @method Mage_Directory_Model_Resource_Region getResource()

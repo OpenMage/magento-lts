@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {

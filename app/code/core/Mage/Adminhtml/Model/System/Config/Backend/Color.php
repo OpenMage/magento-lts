@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_Config_Data
 {

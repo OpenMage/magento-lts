@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()

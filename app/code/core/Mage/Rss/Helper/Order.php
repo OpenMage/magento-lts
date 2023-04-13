@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
 {

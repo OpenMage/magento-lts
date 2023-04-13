@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Debug
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Debug
 {

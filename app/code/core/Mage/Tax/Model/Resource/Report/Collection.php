@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {

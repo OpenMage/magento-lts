@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Catalog_Helper_Product_Configuration_Interface
 {

@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Customer_Model_Api2_Customer_Address
 {
