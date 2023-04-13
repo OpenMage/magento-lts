@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 {
