@@ -20,7 +20,6 @@ require_once 'abstract.php';
  *
  * @category   Mage
  * @package    Mage_Shell
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Shell_Indexer extends Mage_Shell_Abstract
 {

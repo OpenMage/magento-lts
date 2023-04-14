@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getRunAt()
  * @method int getScheduledOperationId()

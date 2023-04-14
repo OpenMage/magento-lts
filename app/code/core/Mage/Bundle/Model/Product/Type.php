@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abstract
 {

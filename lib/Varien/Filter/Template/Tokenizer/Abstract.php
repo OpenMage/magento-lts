@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Filter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Varien_Filter_Template_Tokenizer_Abstract

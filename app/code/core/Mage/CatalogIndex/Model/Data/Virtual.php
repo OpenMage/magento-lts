@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Data_Virtual extends Mage_CatalogIndex_Model_Data_Simple
 {

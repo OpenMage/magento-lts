@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_System_Config_Backend_Sitemap extends Mage_Adminhtml_Model_System_Config_Backend_Cache
 {

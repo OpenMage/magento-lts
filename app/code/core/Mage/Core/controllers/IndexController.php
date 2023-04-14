@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_IndexController extends Mage_Core_Controller_Front_Action
 {

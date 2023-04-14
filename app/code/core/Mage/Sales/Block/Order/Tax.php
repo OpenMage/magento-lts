@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.3.2.2
  */
 class Mage_Sales_Block_Order_Tax extends Mage_Core_Block_Template

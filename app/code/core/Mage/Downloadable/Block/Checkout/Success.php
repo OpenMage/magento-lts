@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Block_Checkout_Success extends Mage_Checkout_Block_Onepage_Success
 {

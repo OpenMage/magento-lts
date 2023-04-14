@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Layer_Filter_Category extends Mage_Catalog_Block_Layer_Filter_Abstract
 {

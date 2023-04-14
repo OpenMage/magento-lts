@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Authorizenet
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
 {

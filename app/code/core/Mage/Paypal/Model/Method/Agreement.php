@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract implements Mage_Payment_Model_Billing_Agreement_MethodInterface
 {

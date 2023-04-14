@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)

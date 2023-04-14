@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rule_Block_Conditions implements Varien_Data_Form_Element_Renderer_Interface
 {

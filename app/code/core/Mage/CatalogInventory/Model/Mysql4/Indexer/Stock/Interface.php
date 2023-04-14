@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {

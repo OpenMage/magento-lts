@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Dutypaymenttype
 {

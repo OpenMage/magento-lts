@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setDontDisplayContainer(bool $value)
  */

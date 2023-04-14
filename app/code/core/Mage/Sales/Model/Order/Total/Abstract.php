@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCode(string $value)
  * @method $this setTotalConfigNode(array $value)

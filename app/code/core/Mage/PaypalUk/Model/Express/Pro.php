@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_PaypalUk
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_PaypalUk_Model_Express_Pro extends Mage_PaypalUk_Model_Pro
 {

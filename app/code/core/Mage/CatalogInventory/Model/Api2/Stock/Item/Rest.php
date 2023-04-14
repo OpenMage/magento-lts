@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_CatalogInventory_Model_Api2_Stock_Item
 {

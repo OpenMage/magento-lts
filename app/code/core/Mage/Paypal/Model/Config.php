@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property mixed $allow_ba_signup;
  * @property mixed $api_cert;

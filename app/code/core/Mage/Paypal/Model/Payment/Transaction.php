@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()

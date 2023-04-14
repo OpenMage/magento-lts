@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer_Abstract
 {

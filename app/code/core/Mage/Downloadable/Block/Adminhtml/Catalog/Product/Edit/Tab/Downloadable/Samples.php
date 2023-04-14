@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples extends Mage_Uploader_Block_Single
 {

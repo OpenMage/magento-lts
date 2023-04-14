@@ -20,7 +20,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
