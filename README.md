@@ -209,8 +209,6 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
 - removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
 - Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
-- PHP extension `intl` is required
-- Deprecation errors are not suppressed anymore
 - removed modules:
   - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
@@ -223,6 +221,10 @@ _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
+
+### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
+
+- PHP extension `intl` is required
 
 ### Between OpenMage 19.x and 20.x
 
@@ -334,7 +336,13 @@ grep -rn 'urn:Magento' --include \*.xml
 - Open your site in browser
   ```bash
   ddev launch
-  ``` 
+  ```
+
+## Development with PHP 8.1+
+
+Deprecation errors are supressed by default.
+
+If you want to work on PHP 8.1+ support, set environment variable `DEV_PHP_STRICT` to `1`, to show all errors.  
 
 ## PhpStorm Factory Helper
 
