@@ -19,32 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- *
- * @property mixed $allow_ba_signup;
- * @property mixed $api_cert;
- * @property mixed $api_password;
- * @property mixed $api_signature;
- * @property mixed $api_username;
- * @property mixed $apiAuthentication;
- * @property mixed $apiPassword;
- * @property mixed $apiSignature;
- * @property mixed $apiUsername;
- * @property mixed $business_account;
- * @property mixed $businessAccount;
- * @property mixed $buttonFlavor;
- * @property mixed $buttonType;
- * @property mixed $cctypes;
- * @property mixed $debug;
- * @property mixed $lineItemsEnabled;
- * @property mixed $lineItemsSummary;
- * @property mixed $payment_action;
- * @property mixed $paymentAction;
- * @property mixed $paymentMarkSize;
- * @property mixed $requireBillingAddress;
- * @property mixed $sandboxFlag;
- * @property mixed $solutionType;
- * @property mixed $transferShippingOptions;
- * @property mixed $verifyPeer;
  */
 class Mage_Paypal_Model_Config
 {
@@ -619,8 +593,10 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
-    public $visible_on_cart;
-    public $visible_on_product;
+    /**
+     * @var array
+     */
+    protected $_config = [];
 
     /**
      * Set method and store id, if specified
@@ -776,11 +752,19 @@ class Mage_Paypal_Model_Config
      */
     public function __get($key)
     {
+        if (array_key_exists($key, $this->_config)) {
+            return $this->_config[$key];
+        }
+
         $underscored = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $key));
+        if (array_key_exists($underscored, $this->_config)) {
+            return $this->_config[$underscored];
+        }
+
         $value = Mage::getStoreConfig($this->_getSpecificConfigPath($underscored), $this->_storeId);
         $value = $this->_prepareValue($underscored, $value);
-        $this->$key = $value;
-        $this->$underscored = $value;
+        $this->_config[$key] = $value;
+        $this->_config[$underscored] = $value;
         return $value;
     }
 
