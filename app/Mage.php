@@ -393,7 +393,7 @@ final class Mage
      *
      * @param string $path
      * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @return mixed
+     * @return string|null
      */
     public static function getStoreConfig($path, $store = null)
     {
