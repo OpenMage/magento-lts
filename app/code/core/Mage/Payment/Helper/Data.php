@@ -167,8 +167,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $result = [];
         foreach ($this->getPaymentMethods($store) as $code => $data) {
-            $method = $this->getMethodInstance($code);
-            if ($method && $method->canManageRecurringProfiles()) {
+            $paymentMethodModelClassName = $this->getMethodModelClassName($code);
+            if (!$paymentMethodModelClassName) {
+                continue;
+            }
+
+            $method = Mage::getModel($paymentMethodModelClassName);
+            if ($method->canManageRecurringProfiles()) {
                 $result[] = $method;
             }
         }
