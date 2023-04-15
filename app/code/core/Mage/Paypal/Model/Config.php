@@ -45,8 +45,6 @@
  * @property mixed $solutionType;
  * @property mixed $transferShippingOptions;
  * @property mixed $verifyPeer;
- * @property mixed $visible_on_cart;
- * @property mixed $visible_on_product;
  */
 class Mage_Paypal_Model_Config
 {
