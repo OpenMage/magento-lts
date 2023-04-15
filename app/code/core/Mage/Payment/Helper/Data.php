@@ -254,8 +254,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             return $labelValues;
         }
 
-        print_r($methods);die();
-
         return $methods;
     }
 
