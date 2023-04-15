@@ -27,6 +27,18 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Payment';
 
     /**
+     * Retrieve the class name of the payment method's model
+     *
+     * @param $code
+     * @return string|null
+     */
+    public function getMethodModelClassName($code)
+    {
+        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
+        return Mage::getStoreConfig($key);
+    }
+
+    /**
      * Retrieve method model object
      *
      * @param   string $code
@@ -34,8 +46,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMethodInstance($code)
     {
-        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
-        $class = Mage::getStoreConfig($key);
+        $class = $this->getMethodModelClassName($code);
         if (is_null($class)) {
             Mage::logException(new Exception(sprintf('Unknown payment method with code "%s"', $code)));
             return false;
@@ -207,8 +218,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if ((isset($data['title']))) {
                 $methods[$code] = $data['title'];
             } else {
-                if ($this->getMethodInstance($code)) {
-                    $methods[$code] = $this->getMethodInstance($code)->getConfigData('title', $store);
+                $paymentMethodModelClassName = $this->getMethodModelClassName($code);
+                if ($paymentMethodModelClassName) {
+                    $methods[$code] = Mage::getModel($paymentMethodModelClassName)->getConfigData('title', $store);
                 }
             }
             if ($asLabelValue && $withGroups && isset($data['group'])) {
@@ -241,6 +253,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             }
             return $labelValues;
         }
+
+        print_r($methods);die();
 
         return $methods;
     }
