@@ -621,6 +621,9 @@ class Mage_Paypal_Model_Config
         'zh_XC',
     ];
 
+    public $visible_on_cart;
+    public $visible_on_product;
+
     /**
      * Set method and store id, if specified
      *
