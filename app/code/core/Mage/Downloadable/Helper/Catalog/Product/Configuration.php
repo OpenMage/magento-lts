@@ -59,7 +59,8 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
         if (strlen($title)) {
             return $title;
         }
-        return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
+
+        return (string)Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 
     /**
