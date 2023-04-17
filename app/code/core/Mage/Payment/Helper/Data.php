@@ -173,7 +173,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $method = Mage::getModel($paymentMethodModelClassName);
-            if ($method->canManageRecurringProfiles()) {
+            if ($method && $method->canManageRecurringProfiles()) {
                 $result[] = $method;
             }
         }
