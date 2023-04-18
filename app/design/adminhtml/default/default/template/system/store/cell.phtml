@@ -14,8 +14,8 @@
 $object = $this->getObject();
 ?>
 
-<a href="<?php echo $this->getLinkUrl(); ?>" class="<?php echo $object->getIsDefault() ? 'bold' : '' ?> <?php echo $this->getClass(); ?>" title="<?php echo $this->__('Id') . ': ' . $object->getId()?>">
-    <?php echo $this->escapeHtml($object->getName()); ?>
+<a href="<?php echo $this->getLinkUrl() ?>" class="<?php echo ($object->getIsDefault() ? 'bold ' : ''),$this->getClass() ?>">
+    <?php echo $this->escapeHtml($object->getName()) ?>
 </a>
 <br />
-<span class="additional-info">(<?php echo $this->getInfo(); ?>)</span>
+<span class="additional-info"><?php echo $this->getInfo() ?></span>
