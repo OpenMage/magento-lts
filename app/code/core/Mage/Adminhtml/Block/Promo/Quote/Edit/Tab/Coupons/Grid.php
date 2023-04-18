@@ -131,8 +131,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     }
 
     /**
-     * @param Varien_Object $row
-     * @return string
+     * @inheritdoc
      */
     public function getRowUrl($row)
     {
