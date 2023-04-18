@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_GoogleCheckout
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.13.1.0
  */
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract

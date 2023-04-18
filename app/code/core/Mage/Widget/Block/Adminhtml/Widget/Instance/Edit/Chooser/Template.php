@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getSelected()
  * @method $this setSelected(string $value)

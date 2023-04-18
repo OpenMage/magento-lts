@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sitemap
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()

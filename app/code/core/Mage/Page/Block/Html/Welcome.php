@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setWelcome(string $value)
  */

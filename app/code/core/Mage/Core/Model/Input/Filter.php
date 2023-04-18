@@ -90,7 +90,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  * @see Mage_Core_Model_Input_FilterTest See this class for manual
  */
 class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface

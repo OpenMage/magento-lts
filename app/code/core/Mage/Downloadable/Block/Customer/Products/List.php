@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
  * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)

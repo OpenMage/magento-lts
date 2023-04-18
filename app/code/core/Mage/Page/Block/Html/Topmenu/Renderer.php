@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Varien_Data_Tree_Node getMenuTree()
  * @method string getChildrenWrapClass()

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {

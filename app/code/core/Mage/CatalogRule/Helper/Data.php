@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_CatalogRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Helper_Data extends Mage_Core_Helper_Abstract
 {

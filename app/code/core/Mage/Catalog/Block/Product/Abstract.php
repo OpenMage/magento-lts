@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Template
 {

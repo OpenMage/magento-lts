@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ProductAlert_Model_Resource_Stock extends Mage_ProductAlert_Model_Resource_Abstract
 {

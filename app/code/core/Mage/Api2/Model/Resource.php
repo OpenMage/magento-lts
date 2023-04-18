@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection

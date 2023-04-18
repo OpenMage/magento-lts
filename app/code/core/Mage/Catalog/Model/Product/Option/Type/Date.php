@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array|null getUserValue()
  * @method $this setUserValue(array|null $userValue)

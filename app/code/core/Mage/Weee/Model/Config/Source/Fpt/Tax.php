@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Weee
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Model_Config_Source_Fpt_Tax
 {

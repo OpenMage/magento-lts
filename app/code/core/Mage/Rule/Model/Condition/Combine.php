@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setActions(array $value)
  * @method string getAggregator()

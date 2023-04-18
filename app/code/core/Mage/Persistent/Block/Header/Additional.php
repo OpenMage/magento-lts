@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Persistent
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setHref(string $value)
  * @method $this setAnchorText(string $value)

@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Varien_Data_Form_Element_Renderer_Interface
 {

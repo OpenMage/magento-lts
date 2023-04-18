@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_Abstract implements Mage_Eav_Model_Entity_Interface
 {

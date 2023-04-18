@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Persistent
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Persistent_Model_Resource_Session getResource()
  * @method int getCustomerId()

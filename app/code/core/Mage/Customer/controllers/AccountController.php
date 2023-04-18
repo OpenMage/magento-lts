@@ -20,7 +20,6 @@ use Mage_Customer_Helper_Data as Helper;
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {

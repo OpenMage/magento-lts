@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Newsletter_Model_Resource_Queue _getResource()
  * @method Mage_Newsletter_Model_Resource_Queue getResource()

@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Widget_Block_Interface
 {

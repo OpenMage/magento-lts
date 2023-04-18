@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Page
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @deprecated after 1.4.0.1
  */

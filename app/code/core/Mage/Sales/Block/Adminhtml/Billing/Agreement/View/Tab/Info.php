@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCreatedAt(string $formatDate)
  * @method $this setCustomerEmail(string $value)

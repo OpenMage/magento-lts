@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Address getItemById(int $value)
  * @method Mage_Customer_Model_Address[] getItems()
