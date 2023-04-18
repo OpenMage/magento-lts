@@ -67,6 +67,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
             'width'     => '100px',
         ]);
 
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addColumn('store_id', [
+                'header'     => Mage::helper('customer')->__('Purchased From (Store)'),
+                'index'      => 'store_id',
+                'type'       => 'store',
+                'store_view' => true,
+                'display_deleted' => true,
+            ]);
+        }
+
         $this->addColumn('created_at', [
             'header'    => Mage::helper('customer')->__('Purchased On'),
             'index'     => 'created_at',
@@ -79,33 +89,35 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         ]);
 
         $this->addColumn('shipping_name', [
-            'header'    => Mage::helper('customer')->__('Shipped to Name'),
+            'header'    => Mage::helper('customer')->__('Ship to Name'),
             'index'     => 'shipping_name',
         ]);
 
         $this->addColumn('grand_total', [
-            'header'    => Mage::helper('customer')->__('Order Total'),
+            'header'    => Mage::helper('customer')->__('Amount'),
             'index'     => 'grand_total',
             'type'      => 'currency',
             'currency'  => 'order_currency_code',
         ]);
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', [
-                'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view' => true,
+        $this->addColumn('status', [
+            'header'    => Mage::helper('adminhtml')->__('Status'),
+            'index'     => 'status',
+            'type'      => 'options',
+            'width'     => '150px',
+            'options'   => Mage::getSingleton('sales/order_config')->getStatuses(),
+            'frame_callback' => [$this, 'decorateStatus'],
+        ]);
+
+        if (Mage::helper('sales/reorder')->isAllow()) {
+            $this->addColumn('action', [
+                'header'    => ' ',
+                'filter'    => false,
+                'sortable'  => false,
+                'width'     => '100px',
+                'renderer'  => 'adminhtml/sales_reorder_renderer_action',
             ]);
         }
-
-        $this->addColumn('action', [
-            'header'    =>  ' ',
-            'filter'    =>  false,
-            'sortable'  =>  false,
-            'width'     => '100px',
-            'renderer'  =>  'adminhtml/sales_reorder_renderer_action'
-        ]);
 
         return parent::_prepareColumns();
     }
@@ -124,6 +136,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
      */
     public function getHeadersVisibility()
     {
-        return ($this->getCollection()->getSize() > 0);
+        return $this->getCollection()->getSize() > 0;
+    }
+
+    /**
+     * @return string
+     */
+    public function decorateStatus($value, $row, $column, $isExport)
+    {
+        return $isExport ? $value :
+            '<span class="grid-' . $row->getData('status') . '" title="' . $row->getData('status') . '">' . $value . '</span>';
     }
 }

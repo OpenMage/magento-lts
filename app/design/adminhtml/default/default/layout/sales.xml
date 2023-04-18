@@ -120,6 +120,7 @@
                 <action method="addTab"><name>order_shipments</name><block>adminhtml/sales_order_view_tab_shipments</block></action>
                 <action method="addTab"><name>order_history</name><block>adminhtml/sales_order_view_tab_history</block></action>
                 <action method="addTab"><name>order_transactions</name><block>adminhtml/sales_order_view_tab_transactions</block></action>
+                <action method="addTab"><name>customer_orders_history</name><block>adminhtml/sales_order_view_tab_orders</block></action>
             </block>
         </reference>
     </adminhtml_sales_order_view>

@@ -30,7 +30,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -142,6 +141,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         }
         $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
     }
+
     /**
      * Cancel order
      */
@@ -327,6 +327,22 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $this->_initOrder();
         $html = $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_history')->toHtml();
+        /** @var Mage_Core_Model_Translate_Inline $translate */
+        $translate = Mage::getModel('core/translate_inline');
+        if ($translate->isAllowed()) {
+            $translate->processResponseBody($html);
+        }
+        $this->getResponse()->setBody($html);
+    }
+
+    /**
+     * Generate customer orders history for ajax request
+     */
+    public function ordersHistoryAction()
+    {
+        $order = $this->_initOrder();
+        Mage::register('current_customer', new Varien_Object(['id' => $order ? $order->getCustomerId() : -1]));
+        $html = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_orders')->toHtml();
         /** @var Mage_Core_Model_Translate_Inline $translate */
         $translate = Mage::getModel('core/translate_inline');
         if ($translate->isAllowed()) {

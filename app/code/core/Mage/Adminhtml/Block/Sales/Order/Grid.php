@@ -70,9 +70,9 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
-                'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
-                'index'     => 'store_id',
-                'type'      => 'store',
+                'header'     => Mage::helper('sales')->__('Purchased From (Store)'),
+                'index'      => 'store_id',
+                'type'       => 'store',
                 'store_view' => true,
                 'display_deleted' => true,
                 'escape'  => true,
@@ -115,6 +115,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'type'  => 'options',
             'width' => '150px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
+            'frame_callback' => [$this, 'decorateStatus'],
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
@@ -224,5 +225,14 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * @return string
+     */
+    public function decorateStatus($value, $row, $column, $isExport)
+    {
+        return $isExport ? $value :
+            '<span class="grid-' . $row->getData('status') . '" title="' . $row->getData('status') . '">' . $value . '</span>';
     }
 }
