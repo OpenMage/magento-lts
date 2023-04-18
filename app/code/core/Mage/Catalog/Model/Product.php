@@ -127,7 +127,6 @@
  * @method $this setLinksExist(bool $value)
  * @method bool getLinksPurchasedSeparately()
  * @method $this setLinksPurchasedSeparately(bool $value)
- * @method string getLinksTitle()
  * @method array getListSwatchAttrValues()
  *
  * @method array getMatchedRules()
@@ -261,9 +260,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    public const ENTITY                 = 'catalog_product';
-
-    public const CACHE_TAG              = 'catalog_product';
+    public const ENTITY          = 'catalog_product';
+    public const CACHE_TAG       = 'catalog_product';
     protected $_cacheTag         = 'catalog_product';
     protected $_eventPrefix      = 'catalog_product';
     protected $_eventObject      = 'product';
@@ -673,6 +671,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $attributes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinksTitle()
+    {
+        return (string)$this->_getData('links_title');
     }
 
     /**
