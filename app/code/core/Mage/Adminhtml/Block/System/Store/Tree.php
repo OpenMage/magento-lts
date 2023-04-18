@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         return $this->_createCellTemplate()
             ->setObject($website)
             ->setLinkUrl($this->getUrl('*/*/editWebsite', ['website_id' => $website->getWebsiteId()]))
-            ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($website->getCode()))
+            ->setInfo($this->__('ID') . ': ' . $website->getWebsiteId() . ' - ' . $this->__('Code') . ': ' . $this->escapeHtml($website->getCode()))
             ->toHtml();
     }
 
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         return $this->_createCellTemplate()
             ->setObject($storeGroup)
             ->setLinkUrl($this->getUrl('*/*/editGroup', ['group_id' => $storeGroup->getGroupId()]))
-            ->setInfo($this->__('Root Category') . ': ' . $this->escapeHtml($rootCategory->getName()))
+            ->setInfo($this->__('ID') . ': ' . $storeGroup->getGroupId() . ' - ' . $this->__('Root Category') . ': ' . $this->escapeHtml($rootCategory->getName()))
             ->toHtml();
     }
 
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         $cell = $this->_createCellTemplate()
             ->setObject($store)
             ->setLinkUrl($this->getUrl('*/*/editStore', ['store_id' => $store->getStoreId()]))
-            ->setInfo($this->__('Code') . ': ' . $this->escapeHtml($store->getCode()));
+            ->setInfo($this->__('ID') . ': ' . $store->getStoreId() . ' - ' . $this->__('Code') . ': ' . $this->escapeHtml($store->getCode()));
         if (!$store->getIsActive()) {
             $cell->setClass('strike');
         }
