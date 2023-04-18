@@ -52,9 +52,9 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
             'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Config'),
-                    'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
+                    'label'   => Mage::helper('adminhtml')->__('Save Config'),
+                    'onclick' => 'configForm.submit()',
+                    'class'   => 'save',
                 ])
         );
         return parent::_prepareLayout();
@@ -65,7 +65,22 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
      */
     public function getSaveButtonHtml()
     {
-        return $this->getChildHtml('save_button');
+        $buttons = [];
+        $buttonsNode = $this->_section->buttons;
+
+        if (!empty($buttonsNode)) {
+            foreach ($buttonsNode->children() as $buttonNode) {
+                $buttons[] = $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper($buttonNode->getAttribute('module') ?? 'adminhtml')->__((string)$buttonNode->title),
+                        'onclick' => $buttonNode->action ? Mage::helper('core/js')->getSetLocationJs($this->getUrl((string)$buttonNode->action)) : (string)$buttonNode->onclick,
+                        'class'   => (string)$buttonNode->class,
+                    ])
+                    ->toHtml();
+            }
+        }
+
+        return implode($buttons).$this->getChildHtml('save_button');
     }
 
     /**
