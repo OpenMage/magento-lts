@@ -39,18 +39,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('customer_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('grand_total')
-            ->addFieldToSelect('order_currency_code')
-            ->addFieldToSelect('store_id')
-            ->addFieldToSelect('billing_name')
-            ->addFieldToSelect('shipping_name')
             ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())
             ->setIsCustomerMode(true);
-
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

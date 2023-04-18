@@ -41,18 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('order_currency_code')
-            ->addFieldToSelect('store_currency_code')
-            ->addFieldToSelect('base_currency_code')
-            ->addFieldToSelect('state')
-            ->addFieldToSelect('grand_total')
-            ->addFieldToSelect('base_grand_total')
-            ->addFieldToSelect('billing_name')
-            ->setOrderFilter($this->getOrder())
-        ;
+            ->setOrderFilter($this->getOrder());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

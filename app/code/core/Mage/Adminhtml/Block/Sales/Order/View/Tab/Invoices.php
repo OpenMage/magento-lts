@@ -41,19 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('order_id')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('state')
-            ->addFieldToSelect('grand_total')
-            ->addFieldToSelect('base_grand_total')
-            ->addFieldToSelect('store_currency_code')
-            ->addFieldToSelect('base_currency_code')
-            ->addFieldToSelect('order_currency_code')
-            ->addFieldToSelect('billing_name')
-            ->setOrderFilter($this->getOrder())
-        ;
+            ->setOrderFilter($this->getOrder());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

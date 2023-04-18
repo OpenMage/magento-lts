@@ -41,13 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
-            ->addFieldToSelect('entity_id')
-            ->addFieldToSelect('created_at')
-            ->addFieldToSelect('increment_id')
-            ->addFieldToSelect('total_qty')
-            ->addFieldToSelect('shipping_name')
-            ->setOrderFilter($this->getOrder())
-        ;
+            ->setOrderFilter($this->getOrder());
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
