@@ -70,11 +70,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
         ]);
 
         $this->addColumn('name', [
-            'header' => Mage::helper('oauth')->__('Consumer Name'), 'index' => 'name', 'escape' => true
+            'header' => Mage::helper('oauth')->__('Consumer Name'),
+            'index'  => 'name',
         ]);
 
         $this->addColumn('created_at', [
-            'header' => Mage::helper('oauth')->__('Created At'), 'index' => 'created_at'
+            'header' => Mage::helper('oauth')->__('Created At'),
+            'index'  => 'created_at',
         ]);
 
         return parent::_prepareColumns();

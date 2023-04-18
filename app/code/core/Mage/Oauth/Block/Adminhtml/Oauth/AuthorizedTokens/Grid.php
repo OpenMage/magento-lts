@@ -69,7 +69,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $this->addColumn('name', [
             'header'    => $this->__('Application Name'),
             'index'     => 'name',
-            'escape'    => true,
         ]);
 
         $this->addColumn('type', [

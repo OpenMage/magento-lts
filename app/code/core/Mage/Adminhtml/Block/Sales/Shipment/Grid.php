@@ -79,7 +79,6 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
             'header'    => Mage::helper('sales')->__('Order #'),
             'index'     => 'order_increment_id',
             'type'      => 'text',
-            'escape'    => true,
         ]);
 
         $this->addColumn('order_created_at', [

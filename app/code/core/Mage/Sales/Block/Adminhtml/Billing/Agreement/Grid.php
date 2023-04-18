@@ -86,28 +86,24 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
             'header'            => Mage::helper('sales')->__('Customer Email'),
             'index'             => 'customer_email',
             'type'              => 'text',
-            'escape'            => true
         ]);
 
         $this->addColumn('customer_firstname', [
             'header'            => Mage::helper('sales')->__('Customer Name'),
             'index'             => 'customer_firstname',
             'type'              => 'text',
-            'escape'            => true
         ]);
 
         $this->addColumn('customer_middlename', [
             'header'            => Mage::helper('sales')->__('Customer Middle Name'),
             'index'             => 'customer_middlename',
             'type'              => 'text',
-            'escape'            => true
         ]);
 
         $this->addColumn('customer_lastname', [
             'header'            => Mage::helper('sales')->__('Customer Last Name'),
             'index'             => 'customer_lastname',
             'type'              => 'text',
-            'escape'            => true
         ]);
 
         $this->addColumn('method_code', [

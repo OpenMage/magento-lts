@@ -68,7 +68,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
             'index'     => 'value',
             'sortable'  => false,
             'type'      => 'text',
-            'escape'    => true
         ]);
 
         return parent::_prepareColumns();

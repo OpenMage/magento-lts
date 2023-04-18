@@ -69,7 +69,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('sales')->__('Order ID'),
             'index'     => 'increment_id',
             'type'      => 'text',
-            'escape'    => true,
         ]);
 
         $this->addColumn('txn_id', [

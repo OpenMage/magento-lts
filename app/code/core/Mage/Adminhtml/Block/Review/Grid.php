@@ -109,7 +109,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'         => 'title',
             'type'          => 'text',
             'truncate'      => 50,
-            'escape'        => true,
         ]);
 
         $this->addColumn('nickname', [
@@ -120,7 +119,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'         => 'nickname',
             'type'          => 'text',
             'truncate'      => 50,
-            'escape'        => true,
         ]);
 
         $this->addColumn('detail', [
@@ -131,7 +129,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'          => 'text',
             'truncate'      => 50,
             'nl2br'         => true,
-            'escape'        => true,
         ]);
 
         /**
@@ -159,7 +156,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'align'     => 'left',
             'type'      => 'text',
             'index'     => 'name',
-            'escape'    => true
         ]);
 
         $this->addColumn('sku', [
@@ -168,7 +164,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'type'      => 'text',
             'width'     => '50px',
             'index'     => 'sku',
-            'escape'    => true
         ]);
 
         $this->addColumn(

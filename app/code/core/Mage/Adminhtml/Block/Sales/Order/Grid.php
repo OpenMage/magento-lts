@@ -65,7 +65,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'width'  => '100px',
             'type'   => 'text',
             'index'  => 'increment_id',
-            'escape' => true,
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -75,7 +74,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                 'type'       => 'store',
                 'store_view' => true,
                 'display_deleted' => true,
-                'escape'  => true,
             ]);
         }
 
