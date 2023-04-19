@@ -31,7 +31,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_ECOMM         = 'google/analytics/enhanced_ecommerce';
 
 
-	/**
+    /**
      * @var string google analytics 4
      */
     public const TYPE_ANALYTICS4 = 'analytics4';

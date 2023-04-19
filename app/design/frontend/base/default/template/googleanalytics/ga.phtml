@@ -26,6 +26,7 @@ $_accountId = $_helper->getAccountId();
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '<?= $_accountId ?>');
+			<?php echo $this->_getEnhancedECommCodeAnalytics4() ?>
             <?php echo $this->_getOrdersTrackingCodeAnalytics4() ?>
         </script>
         <!-- END GOOGLE ANALYTICS 4 CODE -->
