@@ -51,7 +51,7 @@ class Mage_GoogleAnalytics_Model_Observer
     }
 
     /**
-     * Add 'removed item' from cart into GA4 block to render on cart view
+     * Add 'removed item' from cart into session for GA4 block to render event on cart view
      *
      * @param Varien_Event_Observer $observer
      */
@@ -64,7 +64,7 @@ class Mage_GoogleAnalytics_Model_Observer
     }
 
     /**
-     * Add 'added item' to cart into GA4 block to render on cart view
+     * Add 'added item' to cart into session for GA4 block to render event on cart view
      *
      * @param Varien_Event_Observer $observer
      */
