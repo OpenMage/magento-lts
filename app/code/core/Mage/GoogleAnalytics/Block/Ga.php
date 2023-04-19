@@ -314,7 +314,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
 
         //category page
-        elseif ($this->getRequest()->getModuleName()=='catalog' && $this->getRequest()->getControllerName()=='category') {
+        elseif ($this->getRequest()->getModuleName() == 'catalog' && $this->getRequest()->getControllerName() == 'category') {
             $layer = Mage::getSingleton('catalog/layer');
             $category = $layer->getCurrentCategory();
             $productCollection = $layer->getProductCollection();
