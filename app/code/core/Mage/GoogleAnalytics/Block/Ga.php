@@ -295,7 +295,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $result = [];
 
         //product page
-        if ($this->getRequest()->getModuleName()=='catalog' && $this->getRequest()->getControllerName()=='product') {
+        if ($this->getRequest()->getModuleName() == 'catalog' && $this->getRequest()->getControllerName() == 'product') {
             $productViewed = Mage::registry('current_product');
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
@@ -347,7 +347,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
 
         //cart
-        elseif ($this->getRequest()->getModuleName()=='checkout' && $this->getRequest()->getControllerName()=='cart') {
+        elseif ($this->getRequest()->getModuleName() == 'checkout' && $this->getRequest()->getControllerName() == 'cart') {
             $removedProduct = Mage::getSingleton('core/session')->getRemovedProductCart();
             if ($removedProduct) {
                 //product removed from cart
@@ -410,7 +410,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
 
         //begin checkout
-        elseif ($this->getRequest()->getModuleName()=='checkout' && $this->getRequest()->getControllerName()=='onepage') {
+        elseif ($this->getRequest()->getModuleName() == 'checkout' && $this->getRequest()->getControllerName() == 'onepage') {
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
