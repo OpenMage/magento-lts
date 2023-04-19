@@ -63,12 +63,11 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     /**
      * @return string
      */
-    public function getSaveButtonHtml()
+    public function getAdditionalButtonsHtml()
     {
-        $buttons = [];
         $buttonsNode = $this->_section->buttons;
-
         if (!empty($buttonsNode)) {
+            $buttons = [];
             foreach ($buttonsNode->children() as $buttonNode) {
                 $buttons[] = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
@@ -78,9 +77,17 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
                     ])
                     ->toHtml();
             }
+            return implode($buttons);
         }
+        return '';
+    }
 
-        return implode($buttons).$this->getChildHtml('save_button');
+    /**
+     * @return string
+     */
+    public function getSaveButtonHtml()
+    {
+        return $this->getChildHtml('save_button');
     }
 
     /**
