@@ -321,7 +321,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
             $pageSize = $toolbarBlock->getLimit();
             $currentPage = $toolbarBlock->getCurrentPage();
-            if($pageSize !== 'all') {
+            if ($pageSize !== 'all') {
                 $productCollection->setPageSize($pageSize)->setCurPage($currentPage);
             }
             $eventData = [];
