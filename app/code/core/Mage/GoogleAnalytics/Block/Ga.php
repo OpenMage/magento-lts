@@ -336,7 +336,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 ];
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
-			$eventData['value'] = number_format($eventData['value'], 2);
+            $eventData['value'] = number_format($eventData['value'], 2);
             $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -348,8 +348,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-				$eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
-				$eventData['items'] = [];
+                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
+                $eventData['items'] = [];
                 $eventData['items'][] = [
                     'id' => $_removedProduct->getSku(),
                     'name' => $_removedProduct->getName(),
@@ -368,7 +368,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-				$eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
+                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
                 $eventData['items'] = [];
                 $eventData['items'][] = [
                     'id' => $_addedProduct->getSku(),
@@ -399,7 +399,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 ];
                 $eventData['value'] += $productInCart->getFinalPrice();
             }
-			$eventData['value'] = number_format($eventData['value'], 2);
+            $eventData['value'] = number_format($eventData['value'], 2);
             $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -422,7 +422,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 ];
                 $eventData['value'] += $productInCart->getFinalPrice();
             }
-			$eventData['value'] = number_format($eventData['value'], 2);
+            $eventData['value'] = number_format($eventData['value'], 2);
             $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
