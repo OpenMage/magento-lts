@@ -27,6 +27,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     {
         parent::__construct();
         $this->setId('couponCodesGrid');
+        $this->setDefaultSort('created_at');
         $this->setUseAjax(true);
     }
 
@@ -127,5 +128,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     public function getGridUrl()
     {
         return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRowUrl($row)
+    {
+        return '';
     }
 }

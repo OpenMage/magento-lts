@@ -622,6 +622,11 @@ class Mage_Paypal_Model_Config
     ];
 
     /**
+     * @var array
+     */
+    protected $_config = [];
+
+    /**
      * Set method and store id, if specified
      *
      * @param array $params
@@ -775,11 +780,19 @@ class Mage_Paypal_Model_Config
      */
     public function __get($key)
     {
+        if (array_key_exists($key, $this->_config)) {
+            return $this->_config[$key];
+        }
+
         $underscored = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $key));
+        if (array_key_exists($underscored, $this->_config)) {
+            return $this->_config[$underscored];
+        }
+
         $value = Mage::getStoreConfig($this->_getSpecificConfigPath($underscored), $this->_storeId);
         $value = $this->_prepareValue($underscored, $value);
-        $this->$key = $value;
-        $this->$underscored = $value;
+        $this->_config[$key] = $value;
+        $this->_config[$underscored] = $value;
         return $value;
     }
 
