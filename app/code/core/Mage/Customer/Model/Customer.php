@@ -13,6 +13,10 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\StringLength;
+
 /**
  * Customer model
  *
@@ -1009,36 +1013,44 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return array|true
      * @throws Mage_Core_Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
         $errors = [];
-        if (!Zend_Validate::is(trim($this->getFirstname()), 'NotEmpty')) {
+
+        $emailAddressValidator = new EmailAddress();
+        $notEmptyValidator = new NotEmpty();
+
+        if (!$notEmptyValidator->isValid(trim($this->getFirstname()))) {
             $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
         }
 
-        if (!Zend_Validate::is(trim($this->getLastname()), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid(trim($this->getLastname()))) {
             $errors[] = Mage::helper('customer')->__('The last name cannot be empty.');
         }
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
+        if (!$emailAddressValidator->isValid($this->getEmail())) {
             $errors[] = Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail());
         }
 
         $password = $this->getPassword();
-        if (!$this->getId() && !Zend_Validate::is($password, 'NotEmpty')) {
+        if (!$this->getId() && !$notEmptyValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }
+
         $minPasswordLength = $this->getMinPasswordLength();
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
+        $minPasswordLengthValidator = new StringLength(['min' => $minPasswordLength]);
+        if (strlen($password) && !$minPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
+
+        $maxPasswordLengthValidator = new StringLength(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
+        if (strlen($password) && !$maxPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
         }
+
         $confirmation = $this->getPasswordConfirmation();
         if ($password != $confirmation) {
             $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
@@ -1067,24 +1079,29 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Validate customer password on reset
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validateResetPassword()
     {
         $errors   = [];
         $password = $this->getPassword();
-        if (!Zend_Validate::is($password, 'NotEmpty')) {
+        $notEmptyValidator = new NotEmpty();
+        if (!$notEmptyValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }
+
         $minPasswordLength = $this->getMinPasswordLength();
-        if (!Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
+        $minPasswordLengthValidator = new StringLength(['min' => $minPasswordLength]);
+        if (!$minPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
-        if (!Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
+
+        $maxPasswordLengthValidator = new StringLength(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
+        if (!$maxPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
         }
+
         $confirmation = $this->getPasswordConfirmation();
         if ($password != $confirmation) {
             $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');

@@ -13,6 +13,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\Regex;
+
 /**
  * Class Mage_Admin_Model_Variable
  *
@@ -39,16 +42,17 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * @return array|bool
      * @throws Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
         $errors = [];
 
-        if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
+        $notEmptyValidator = new NotEmpty();
+        if (!$notEmptyValidator->isValid($this->getVariableName())) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
         }
-        if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
+        $regexValidator = new Regex(['pattern' => '/^[-_a-zA-Z0-9\/]*$/']);
+        if (!$regexValidator->isValid($this->getVariableName())) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
         }
 

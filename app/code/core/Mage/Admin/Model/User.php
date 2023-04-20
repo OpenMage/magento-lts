@@ -13,6 +13,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\NotEmpty;
+
 /**
  * Admin user model
  *
@@ -568,25 +571,27 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Returns TRUE or array of errors.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
         $errors = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
+        $emailAddressValidator = new EmailAddress();
+        $notEmptyValidator = new NotEmpty();
+
+        if (!$notEmptyValidator->isValid($this->getUsername())) {
             $errors->append(Mage::helper('adminhtml')->__('User Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getFirstname())) {
             $errors->append(Mage::helper('adminhtml')->__('First Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getLastname())) {
             $errors->append(Mage::helper('adminhtml')->__('Last Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
+        if (!$emailAddressValidator->isValid($this->getEmail())) {
             $errors->append(Mage::helper('adminhtml')->__('Please enter a valid email.'));
         }
 
@@ -634,13 +639,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $password
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validateCurrentPassword($password)
     {
         $result = [];
 
-        if (!Zend_Validate::is($password, 'NotEmpty')) {
+        $notEmptyValidator = new NotEmpty();
+
+        if (!$notEmptyValidator->isValid($password)) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
         } elseif (is_null($this->getId()) || !Mage::helper('core')->validateHash($password, $this->getPassword())) {
             $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');

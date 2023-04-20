@@ -13,6 +13,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\NotEmpty;
+
 /**
  * Api model
  *
@@ -361,25 +364,27 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
         $errors = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
+        $emailAddressValidator = new EmailAddress();
+        $notEmptyValidator = new NotEmpty();
+
+        if (!$notEmptyValidator->isValid($this->getUsername())) {
             $errors->append($this->_getHelper('api')->__('User Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getFirstname())) {
             $errors->append($this->_getHelper('api')->__('First Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getLastname())) {
             $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
         }
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
+        if (!$emailAddressValidator->isValid($this->getEmail())) {
             $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
         }
 

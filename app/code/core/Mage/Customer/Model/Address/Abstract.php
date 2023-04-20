@@ -13,6 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\NotEmpty;
+
 /**
  * Address abstract model
  *
@@ -447,39 +449,41 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _basicCheck()
     {
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
+        $notEmptyValidator = new NotEmpty();
+
+        if (!$notEmptyValidator->isValid($this->getFirstname())) {
             $this->addError(Mage::helper('customer')->__('Please enter the first name.'));
         }
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getLastname())) {
             $this->addError(Mage::helper('customer')->__('Please enter the last name.'));
         }
 
-        if (!Zend_Validate::is($this->getStreet(1), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getStreet(1))) {
             $this->addError(Mage::helper('customer')->__('Please enter the street.'));
         }
 
-        if (!Zend_Validate::is($this->getCity(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getCity())) {
             $this->addError(Mage::helper('customer')->__('Please enter the city.'));
         }
 
-        if (!Zend_Validate::is($this->getTelephone(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getTelephone())) {
             $this->addError(Mage::helper('customer')->__('Please enter the telephone number.'));
         }
 
         $_havingOptionalZip = Mage::helper('directory')->getCountriesWithOptionalZip();
         if (!in_array($this->getCountryId(), $_havingOptionalZip)
-            && !Zend_Validate::is($this->getPostcode(), 'NotEmpty')
+            && !$notEmptyValidator->isValid($this->getPostcode())
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the zip/postal code.'));
         }
 
-        if (!Zend_Validate::is($this->getCountryId(), 'NotEmpty')) {
+        if (!$notEmptyValidator->isValid($this->getCountryId())) {
             $this->addError(Mage::helper('customer')->__('Please enter the country.'));
         }
 
         if ($this->getCountryModel()->getRegionCollection()->getSize()
-            && !Zend_Validate::is($this->getRegionId(), 'NotEmpty')
+            && !$notEmptyValidator->isValid($this->getRegionId())
             && Mage::helper('directory')->isRegionRequired($this->getCountryId())
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));

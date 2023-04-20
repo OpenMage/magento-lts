@@ -13,6 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\EmailAddress;
 use Mage_Customer_Helper_Data as Helper;
 
 /**
@@ -749,7 +750,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            $emailAddressValidator = new EmailAddress();
+            if (!$emailAddressValidator->isValid($email)) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');

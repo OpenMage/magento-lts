@@ -13,6 +13,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\Between;
+use Laminas\Validator\StringLength;
+
 /**
  * API2 catalog_product Validator
  *
@@ -132,8 +135,9 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Validate weight
+        $betweenValidator = new Between(['min' => 0, 'max' => self::MAX_DECIMAL_VALUE]);
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+            && !$betweenValidator->isValid($data['weight'])
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -278,7 +282,9 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate() && !isset($data['sku'])) {
             return true;
         }
-        if (!Zend_Validate::is((string)$data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
+
+        $stringLengthValidator = new StringLength(['min' => 0, 'max' => 64]);
+        if (!$stringLengthValidator->isValid((string)$data['sku'])) {
             $this->_addError('SKU length should be 64 characters maximum.');
         }
     }
