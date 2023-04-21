@@ -17,7 +17,6 @@
  * Sales abstract model
  * Provide date processing functionality
  *
- * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
  * @method $this setTransactionId(int $value)

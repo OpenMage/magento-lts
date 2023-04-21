@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated now the process of creating the label is on DHL side
  *
  * @property Zend_Pdf_Resource_Font $_fontBold

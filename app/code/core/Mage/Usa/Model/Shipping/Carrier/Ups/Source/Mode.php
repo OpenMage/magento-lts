@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  since 1.7.0.0
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Mode

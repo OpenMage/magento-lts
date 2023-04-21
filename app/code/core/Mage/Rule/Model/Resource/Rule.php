@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated since 1.7.0.0 use Mage_Rule_Model_Resource_Abstract instead
  */
 class Mage_Rule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract

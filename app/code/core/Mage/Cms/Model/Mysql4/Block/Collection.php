@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Cms_Model_Resource_Block_Collection

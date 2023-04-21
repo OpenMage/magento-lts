@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Route
 {

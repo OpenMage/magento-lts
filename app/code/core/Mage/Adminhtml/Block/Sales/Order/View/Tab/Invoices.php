@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -121,9 +120,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Invoices');
@@ -131,12 +127,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
 
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order Invoices');
+        return Mage::helper('sales')->__('Invoices');
     }
 
     public function canShowTab()
     {
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
     }
 
     public function isHidden()

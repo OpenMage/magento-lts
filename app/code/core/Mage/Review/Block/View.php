@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Review
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false getRatingCollection()
  * @method $this setRatingCollection(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false $value)

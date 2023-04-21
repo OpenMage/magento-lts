@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Template
 {

@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
@@ -1016,13 +1015,14 @@ class Mage_Core_Model_App
         $websites = [];
         if (is_array($this->_websites)) {
             foreach ($this->_websites as $website) {
-                if (!$withDefault && $website->getId() == 0) {
+                $id = $website->getId();
+                if (!$withDefault && $id == 0) {
                     continue;
                 }
                 if ($codeKey) {
                     $websites[$website->getCode()] = $website;
                 } else {
-                    $websites[$website->getId()] = $website;
+                    $websites[$id] = $website;
                 }
             }
         }

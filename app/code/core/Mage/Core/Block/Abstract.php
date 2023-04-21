@@ -21,7 +21,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)

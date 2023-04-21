@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Dataflow_Model_Mysql4_Batch extends Mage_Dataflow_Model_Resource_Batch

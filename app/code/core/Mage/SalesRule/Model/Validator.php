@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)

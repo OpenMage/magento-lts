@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Express_Review_Billing extends Mage_Checkout_Block_Onepage_Billing
 {

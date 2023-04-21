@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_AdminNotification
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 {
