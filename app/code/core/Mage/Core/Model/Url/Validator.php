@@ -13,13 +13,15 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\AbstractValidator;
+
 /**
  * Validate URL
  *
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Url_Validator extends AbstractValidator
 {
     /**#@+
      * Error keys
@@ -41,7 +43,7 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_messageTemplates = [
+    protected $messageTemplates = [
         self::INVALID_URL => "Invalid URL '%value%'.",
     ];
 
@@ -53,11 +55,11 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        $this->_setValue($value);
+        $this->setValue($value);
 
         //check valid URL
         if (!Zend_Uri::check($value)) {
-            $this->_error(self::INVALID_URL);
+            $this->error(self::INVALID_URL);
             return false;
         }
 

@@ -13,13 +13,15 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\AbstractValidator;
+
 /**
  * Validator for Email Template
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_Email_PathValidator extends AbstractValidator
 {
     /**
      * Returns true if and only if $value meets the validation requirements

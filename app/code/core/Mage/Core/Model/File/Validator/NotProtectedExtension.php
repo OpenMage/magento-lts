@@ -13,13 +13,15 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\AbstractValidator;
+
 /**
  * Validator for check not protected file extensions
  *
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate_Abstract
+class Mage_Core_Model_File_Validator_NotProtectedExtension extends AbstractValidator
 {
     public const PROTECTED_EXTENSION = 'protectedExtension';
 
@@ -28,7 +30,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
      *
      * @var string
      */
-    protected $_value;
+    protected $value;
 
     /**
      * Protected file types
@@ -50,8 +52,8 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
      */
     protected function _initMessageTemplates()
     {
-        if (!$this->_messageTemplates) {
-            $this->_messageTemplates = [
+        if (!$this->messageTemplates) {
+            $this->messageTemplates = [
                 self::PROTECTED_EXTENSION => Mage::helper('core')->__('File with an extension "%value%" is protected and cannot be uploaded'),
             ];
         }
@@ -66,7 +68,6 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     protected function _initProtectedFileExtensions()
     {
         if (!$this->_protectedFileExtensions) {
-            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $extensions = $helper->getProtectedFileExtensions();
             if (is_string($extensions)) {
@@ -93,10 +94,10 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     public function isValid($value)
     {
         $value = strtolower(trim($value));
-        $this->_setValue($value);
+        $this->setValue($value);
 
-        if (in_array($this->_value, $this->_protectedFileExtensions)) {
-            $this->_error(self::PROTECTED_EXTENSION, $this->_value);
+        if (in_array($this->value, $this->_protectedFileExtensions)) {
+            $this->error(self::PROTECTED_EXTENSION, $this->value);
             return false;
         }
 

@@ -13,6 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\AbstractValidator;
+
 /**
  * Validator for custom layout update
  *
@@ -21,7 +23,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_LayoutUpdate_Validator extends AbstractValidator
 {
     public const XML_INVALID                             = 'invalidXml';
     public const INVALID_TEMPLATE_PATH                   = 'invalidTemplatePath';
@@ -103,7 +105,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
         $this->_disallowedBlock = $this->_validator->getDisallowedBlocks();
         $this->_protectedExpressions = $this->_validator->getProtectedExpressions();
         $this->_disallowedXPathExpressions = $this->_validator->getDisallowedXpathValidationExpression();
-        $this->_validator->setMessages($this->_messageTemplates);
+        $this->_validator->setMessages($this->messageTemplates);
     }
 
     /**
@@ -113,8 +115,8 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      */
     protected function _initMessageTemplates()
     {
-        if (!$this->_messageTemplates) {
-            $this->_messageTemplates = [
+        if (!count($this->messageTemplates)) {
+            $this->messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
                     Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),

@@ -13,6 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Laminas\Validator\AbstractValidator;
+
 /**
  * Validator for custom layout update
  *
@@ -21,7 +23,7 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Layout_Validator extends AbstractValidator
 {
     public const XML_PATH_LAYOUT_DISALLOWED_BLOCKS       = 'validators/custom_layout/disallowed_block';
     public const XML_INVALID                             = 'invalidXml';
@@ -35,7 +37,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      *
      * @var Varien_Simplexml_Element
      */
-    protected $_value;
+    protected $value;
 
     /**
      * XPath expression for checking layout update
@@ -84,8 +86,8 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      */
     protected function _initMessageTemplates()
     {
-        if (!$this->_messageTemplates) {
-            $this->_messageTemplates = [
+        if (!$this->messageTemplates) {
+            $this->messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
                     Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
@@ -143,14 +145,14 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             try {
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
             } catch (Exception $e) {
-                $this->_error(self::XML_INVALID);
+                $this->error(self::XML_INVALID);
                 return false;
             }
         } elseif (!($value instanceof Varien_Simplexml_Element)) {
-            throw new Exception($this->_messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
+            throw new Exception($this->messageTemplates[self::INVALID_XML_OBJECT_EXCEPTION]);
         }
         if ($value->xpath($this->getXpathBlockValidationExpression())) {
-            $this->_error(self::INVALID_BLOCK_NAME);
+            $this->error(self::INVALID_BLOCK_NAME);
             return false;
         }
         // if layout update declare custom templates then validate their paths
@@ -158,15 +160,15 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             try {
                 $this->validateTemplatePath($templatePaths);
             } catch (Exception $e) {
-                $this->_error(self::INVALID_TEMPLATE_PATH);
+                $this->error(self::INVALID_TEMPLATE_PATH);
                 return false;
             }
         }
-        $this->_setValue($value);
+        $this->setValue($value);
 
         foreach ($this->_protectedExpressions as $key => $xpr) {
-            if ($this->_value->xpath($xpr)) {
-                $this->_error($key);
+            if ($this->value->xpath($xpr)) {
+                $this->error($key);
                 return false;
             }
         }
