@@ -777,23 +777,6 @@ $j(document).ready(function () {
     });
 
     // ==============================================
-    // Enquire JS
-    // ==============================================
-
-    enquire.register('screen and (min-width: ' + (bp.medium + 1) + 'px)', {
-        match: function () {
-            $j('.menu-active').removeClass('menu-active');
-            $j('.sub-menu-active').removeClass('sub-menu-active');
-            $j('.skip-active').removeClass('skip-active');
-        },
-        unmatch: function () {
-            $j('.menu-active').removeClass('menu-active');
-            $j('.sub-menu-active').removeClass('sub-menu-active');
-            $j('.skip-active').removeClass('skip-active');
-        }
-    });
-
-    // ==============================================
     // UI Pattern - Media Switcher
     // ==============================================
 
