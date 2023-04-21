@@ -3240,12 +3240,6 @@ body {
     max-width: 300px;
     min-height: 90px;
   }
-  .logo .small {
-    display: none;
-  }
-  .logo .large {
-    display: block;
-  }
 }
 /* ============================================ *
  * Skip Links
