@@ -2706,11 +2706,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Attribute.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Attribute_Data_Abstract\\:\\:setRequestScope\\(\\) should return string but returns \\$this\\(Mage_Eav_Model_Attribute_Data_Abstract\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
-
-		-
 			message: "#^Property Mage_Eav_Model_Attribute_Data_Abstract\\:\\:\\$_attribite \\(Mage_Eav_Model_Attribute\\) does not accept Mage_Eav_Model_Entity_Attribute_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
