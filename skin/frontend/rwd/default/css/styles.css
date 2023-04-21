@@ -3230,12 +3230,6 @@ body {
 .logo img {
   max-width: 100%;
 }
-.logo .small {
-  display: block;
-}
-.logo .large {
-  display: none;
-}
 
 .logo:hover {
   opacity: 0.8;
