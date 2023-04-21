@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * System config email field backend model
@@ -26,7 +26,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        $emailAddressValidator = new EmailAddress();
+        $emailAddressValidator = new EmailAddressValidator();
         if (!$emailAddressValidator->isValid($value)) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid email address "%s".', $value));
         }

@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * Newsletter subscribe controller
@@ -44,7 +44,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $email              = (string) $this->getRequest()->getPost('email');
 
             try {
-                $emailAddressValidator = new EmailAddress();
+                $emailAddressValidator = new EmailAddressValidator();
                 if (!$emailAddressValidator->isValid($email)) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }

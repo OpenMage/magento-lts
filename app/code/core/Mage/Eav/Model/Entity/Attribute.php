@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\StringLength;
+use Laminas\Validator\StringLength as StringLengthValidator;
 
 /**
  * EAV Entity attribute model
@@ -82,16 +82,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retrieve default attribute frontend model
-     *
-     * @return string
-     */
-    protected function _getDefaultFrontendModel()
-    {
-        return parent::_getDefaultFrontendModel();
-    }
-
-    /**
      * Retrieve default attribute source model
      *
      * @return string
@@ -144,7 +134,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         /**
          * Check for maximum attribute_code length
          */
-        $validator = new StringLength(['max' => self::ATTRIBUTE_CODE_MAX_LENGTH]);
+        $validator = new StringLengthValidator(['max' => self::ATTRIBUTE_CODE_MAX_LENGTH]);
         if (isset($this->_data['attribute_code']) && !$validator->isValid($this->_data['attribute_code'])) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }

@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\NotEmpty;
-use Laminas\Validator\Regex;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
+use Laminas\Validator\Regex as RegexValidator;
 
 /**
  * Class Mage_Admin_Model_Block
@@ -46,7 +46,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     {
         $errors = [];
 
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
         if (!$notEmptyValidator->isValid($this->getBlockName())) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
         }
@@ -54,7 +54,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
         }
-        $regexValidator = new Regex(['pattern' => '/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/']);
+        $regexValidator = new RegexValidator(['pattern' => '/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/']);
         if (!$regexValidator->isValid($this->getBlockName())) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
         }

@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * Contacts index controller
@@ -66,8 +66,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 $error = false;
 
-                $emailAddressValidator = new EmailAddress();
-                $notEmptyValidator = new NotEmpty();
+                $emailAddressValidator = new EmailAddressValidator();
+                $notEmptyValidator = new NotEmptyValidator();
 
                 if (!$notEmptyValidator->isValid(trim($post['name']))) {
                     $error = true;

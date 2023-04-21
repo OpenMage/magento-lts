@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * API2 Fields Validator
@@ -148,7 +148,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
 
         // required fields
         if (!$isPartial && count($this->_requiredFields) > 0) {
-            $notEmptyValidator = new NotEmpty();
+            $notEmptyValidator = new NotEmptyValidator();
             foreach ($this->_requiredFields as $requiredField) {
                 if (!$notEmptyValidator->isValid($data[$requiredField] ?? null)) {
                     $isValid = false;

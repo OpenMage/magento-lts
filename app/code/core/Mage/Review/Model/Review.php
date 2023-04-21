@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * Review model
@@ -149,7 +149,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $errors = [];
 
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid($this->getTitle())) {
             $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');

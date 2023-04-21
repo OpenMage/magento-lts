@@ -13,9 +13,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
-use Laminas\Validator\NotEmpty;
-use Laminas\Validator\StringLength;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 
 /**
  * Customer model
@@ -596,8 +596,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getPrimaryAddress($attributeCode)
     {
         $primaryAddress = $this->getAddressesCollection()->getItemById($this->getData($attributeCode));
-
-        return $primaryAddress ? $primaryAddress : false;
+        return $primaryAddress ?: false;
     }
 
     /**
@@ -847,7 +846,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
     {
-        $customerEmail = ($customerEmail) ? $customerEmail : $this->getEmail();
+        $customerEmail = $customerEmail ?: $this->getEmail();
         /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
         $mailer = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
@@ -958,7 +957,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $ids = $this->_getData('shared_store_ids');
         if ($ids === null) {
             $ids = [];
-            if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
+            if ($this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             } else {
                 foreach (Mage::app()->getStores() as $store) {
@@ -981,7 +980,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $ids = $this->_getData('shared_website_ids');
         if ($ids === null) {
             $ids = [];
-            if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
+            if ($this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();
             } else {
                 foreach (Mage::app()->getWebsites() as $website) {
@@ -1018,8 +1017,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $errors = [];
 
-        $emailAddressValidator = new EmailAddress();
-        $notEmptyValidator = new NotEmpty();
+        $emailAddressValidator = new EmailAddressValidator();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid(trim($this->getFirstname()))) {
             $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
@@ -1039,13 +1038,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         $minPasswordLength = $this->getMinPasswordLength();
-        $minPasswordLengthValidator = new StringLength(['min' => $minPasswordLength]);
+        $minPasswordLengthValidator = new StringLengthValidator(['min' => $minPasswordLength]);
         if (strlen($password) && !$minPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
 
-        $maxPasswordLengthValidator = new StringLength(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
+        $maxPasswordLengthValidator = new StringLengthValidator(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
         if (strlen($password) && !$maxPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
@@ -1084,19 +1083,19 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $errors   = [];
         $password = $this->getPassword();
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
         if (!$notEmptyValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }
 
         $minPasswordLength = $this->getMinPasswordLength();
-        $minPasswordLengthValidator = new StringLength(['min' => $minPasswordLength]);
+        $minPasswordLengthValidator = new StringLengthValidator(['min' => $minPasswordLength]);
         if (!$minPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
 
-        $maxPasswordLengthValidator = new StringLength(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
+        $maxPasswordLengthValidator = new StringLengthValidator(['max' => self::MAXIMUM_PASSWORD_LENGTH]);
         if (!$maxPasswordLengthValidator->isValid($password)) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);

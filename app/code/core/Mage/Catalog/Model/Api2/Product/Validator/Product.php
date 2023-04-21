@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\Between;
-use Laminas\Validator\StringLength;
+use Laminas\Validator\Between as BetweenValidator;
+use Laminas\Validator\StringLength as StringLengthValidator;
 
 /**
  * API2 catalog_product Validator
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Validate weight
-        $betweenValidator = new Between(['min' => 0, 'max' => self::MAX_DECIMAL_VALUE]);
+        $betweenValidator = new BetweenValidator(['min' => 0, 'max' => self::MAX_DECIMAL_VALUE]);
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
             && !$betweenValidator->isValid($data['weight'])
         ) {
@@ -283,7 +283,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             return true;
         }
 
-        $stringLengthValidator = new StringLength(['min' => 0, 'max' => 64]);
+        $stringLengthValidator = new StringLengthValidator(['min' => 0, 'max' => 64]);
         if (!$stringLengthValidator->isValid((string)$data['sku'])) {
             $this->_addError('SKU length should be 64 characters maximum.');
         }

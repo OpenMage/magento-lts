@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\Date;
+use Laminas\Validator\Date as DateValidator;
 
 /**
  * Core Design Resource Model
@@ -37,7 +37,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         $dateFrom = $object->getDateFrom();
         $dateTo = $object->getDateTo();
         if (!empty($dateFrom) && !empty($dateTo)) {
-            $dateValidator = new Date();
+            $dateValidator = new DateValidator();
             if (!$dateValidator->isValid($dateFrom) || !$dateValidator->isValid($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }

@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * One page checkout processing model
@@ -510,7 +510,7 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            $emailAddressValidator = new EmailAddress();
+            $emailAddressValidator = new EmailAddressValidator();
             if (!$emailAddressValidator->isValid($email)) {
                 return [
                     'error'   => -1,

@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * Admin user model
@@ -517,7 +517,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                     return (string)$child->action;
                 } elseif ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string)$child->action;
+                    return $action ?: (string)$child->action;
                 }
             }
         }
@@ -576,8 +576,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $errors = new ArrayObject();
 
-        $emailAddressValidator = new EmailAddress();
-        $notEmptyValidator = new NotEmpty();
+        $emailAddressValidator = new EmailAddressValidator();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid($this->getUsername())) {
             $errors->append(Mage::helper('adminhtml')->__('User Name is required field.'));
@@ -644,7 +644,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $result = [];
 
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid($password)) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');

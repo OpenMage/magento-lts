@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * Address abstract model
@@ -322,13 +322,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     public function getCountry()
     {
-        /*if ($this->getData('country_id') && !$this->getData('country')) {
-            $this->setData('country', Mage::getModel('directory/country')
-                ->load($this->getData('country_id'))->getIso2Code());
-        }
-        return $this->getData('country');*/
         $country = $this->getCountryId();
-        return $country ? $country : $this->getData('country');
+        return $country ?: $this->getData('country');
     }
 
     /**
@@ -449,7 +444,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _basicCheck()
     {
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid($this->getFirstname())) {
             $this->addError(Mage::helper('customer')->__('Please enter the first name.'));

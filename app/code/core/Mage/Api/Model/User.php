@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
-use Laminas\Validator\NotEmpty;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
 
 /**
  * Api model
@@ -369,8 +369,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     {
         $errors = new ArrayObject();
 
-        $emailAddressValidator = new EmailAddress();
-        $notEmptyValidator = new NotEmpty();
+        $emailAddressValidator = new EmailAddressValidator();
+        $notEmptyValidator = new NotEmptyValidator();
 
         if (!$notEmptyValidator->isValid($this->getUsername())) {
             $errors->append($this->_getHelper('api')->__('User Name is required field.'));

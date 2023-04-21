@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * SendFriend Log
@@ -172,7 +172,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('sendfriend')->__('The sender name cannot be empty.');
         }
 
-        $emailAddressValidator = new EmailAddress();
+        $emailAddressValidator = new EmailAddressValidator();
 
         $email = $this->getSender()->getEmail();
         if (empty($email) || !$emailAddressValidator->isValid($email)) {

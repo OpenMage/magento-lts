@@ -13,8 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\NotEmpty;
-use Laminas\Validator\Regex;
+use Laminas\Validator\NotEmpty as NotEmptyValidator;
+use Laminas\Validator\Regex as RegexValidator;
 
 /**
  * Class Mage_Admin_Model_Variable
@@ -47,11 +47,11 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     {
         $errors = [];
 
-        $notEmptyValidator = new NotEmpty();
+        $notEmptyValidator = new NotEmptyValidator();
         if (!$notEmptyValidator->isValid($this->getVariableName())) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
         }
-        $regexValidator = new Regex(['pattern' => '/^[-_a-zA-Z0-9\/]*$/']);
+        $regexValidator = new RegexValidator(['pattern' => '/^[-_a-zA-Z0-9\/]*$/']);
         if (!$regexValidator->isValid($this->getVariableName())) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
         }

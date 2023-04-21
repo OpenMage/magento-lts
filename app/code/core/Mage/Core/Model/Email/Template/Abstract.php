@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\File\Extension;
+use Laminas\Validator\File\Extension as FileExtensionValiator;
 
 /**
  * Template model
@@ -231,7 +231,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             ]
         );
 
-        $validator = new Extension('css');
+        $validator = new FileExtensionValiator('css');
         if ($validator->isValid($filePath) && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }

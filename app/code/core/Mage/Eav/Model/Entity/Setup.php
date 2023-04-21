@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Laminas\Validator\StringLength;
+use Laminas\Validator\StringLength as StringLengthValidator;
 
 /**
  * EAV Entity Setup Model
@@ -648,7 +648,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     protected function _validateAttributeData($data)
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
-        $attributeCodeMaxLengthValidator = new StringLength(['max' => $attributeCodeMaxLength]);
+        $attributeCodeMaxLengthValidator = new StringLengthValidator(['max' => $attributeCodeMaxLength]);
         if (isset($data['attribute_code']) && !$attributeCodeMaxLengthValidator->isValid($data['attribute_code'])) {
             throw Mage::exception(
                 'Mage_Eav',
