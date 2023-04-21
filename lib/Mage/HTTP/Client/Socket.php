@@ -304,7 +304,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
             $keyValueArray = explode("=", $values[0]);
-            if (!array_key_exists(0, $keyValueArray) || !array_key_exists(1, $keyValueArray)) {
+            if (!array_key_exists(1, $keyValueArray)) {
                 continue;
             }
             $key = trim($keyValueArray[0]);
@@ -335,7 +335,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
             $keyValueArray = explode("=", $values[0]);
-            if (!array_key_exists(0, $keyValueArray) || !array_key_exists(1, $keyValueArray)) {
+            if (!array_key_exists(1, $keyValueArray)) {
                 continue;
             }
             $key = trim($keyValueArray[0]);
