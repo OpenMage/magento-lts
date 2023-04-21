@@ -5,6 +5,3 @@ parameters:
     -
       message: "#Call to function is_null\\(\\) with bool will always evaluate to false.$#"
       path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-    -
-      message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
-      path: lib/Mage/HTTP/Client/Curl.php
