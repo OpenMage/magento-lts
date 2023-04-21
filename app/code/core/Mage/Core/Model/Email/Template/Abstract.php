@@ -116,7 +116,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return Mage::getBaseUrl('media') . $uploadDir . '/' . $fileName;
             }
         }
-        Mage::getDesign()->getSkinUrl('images/logo_email.gif');
+        return Mage::getDesign()->getSkinUrl('images/logo_email.gif');
     }
 
     /**
