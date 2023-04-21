@@ -8,6 +8,3 @@ parameters:
     -
       message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
       path: lib/Mage/HTTP/Client/Curl.php
-    -
-      message: "#Call to function is_null\\(\\) with string will always evaluate to false.$#"
-      path: lib/Mage/HTTP/Client/Socket.php

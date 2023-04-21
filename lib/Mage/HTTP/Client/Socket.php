@@ -303,11 +303,16 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = explode("=", $values[0]);
-            if (is_null($val)) {
+            $keyValueArray = explode("=", $values[0]);
+            if (!array_key_exists(0, $keyValueArray) || !array_key_exists(1, $keyValueArray)) {
                 continue;
             }
-            $out[trim($key)] = trim($val);
+            $key = trim($keyValueArray[0]);
+            if (!strlen($key)) {
+                continue;
+            }
+            $val = trim($keyValueArray[1]);
+            $out[$key] = $val;
         }
         return $out;
     }
@@ -329,11 +334,16 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = explode("=", $values[0]);
-            if (is_null($val)) {
+            $keyValueArray = explode("=", $values[0]);
+            if (!array_key_exists(0, $keyValueArray) || !array_key_exists(1, $keyValueArray)) {
                 continue;
             }
-            $out[trim($key)] = ['value' => trim($val)];
+            $key = trim($keyValueArray[0]);
+            if (!strlen($key)) {
+                continue;
+            }
+            $val = trim($keyValueArray[1]);
+            $out[$key] = ['value' => $val];
             array_shift($values);
             $c--;
             if (!$c) {
