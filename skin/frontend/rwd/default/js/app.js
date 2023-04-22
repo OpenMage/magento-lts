@@ -781,20 +781,28 @@ $j(document).ready(function () {
     repositionLanguageSwitcher(maxWidthMediumMediaQuery);
 
     // ==============================================
+    // Menu State
+    // ==============================================
+
+    resetMenuState = function (mq) {
+        $j('.menu-active').removeClass('menu-active');
+        $j('.sub-menu-active').removeClass('sub-menu-active');
+        $j('.skip-active').removeClass('skip-active');
+    }
+    maxWidthMediumMediaQuery.addEventListener('change', resetMenuState);
+    resetMenuState(maxWidthMediumMediaQuery);
+
+    // ==============================================
     // UI Pattern - Media Switcher
     // ==============================================
 
     // Used to swap primary product photo from thumbnails.
-
     var mediaListLinks = $j('.media-list').find('a');
     var mediaPrimaryImage = $j('.primary-image').find('img');
-
     if (mediaListLinks.length) {
         mediaListLinks.on('click', function (e) {
             e.preventDefault();
-
             var self = $j(this);
-
             mediaPrimaryImage.attr('src', self.attr('href'));
         });
     }
