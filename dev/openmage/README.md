@@ -32,6 +32,7 @@ on the containers used in this setup, but here are some quick tips:
 Here are some common commands you may wish to try:
 
 ```
+$ docker-compose run --rm -u $(id -u):$(id -g) cli composer require {some-module}
 $ docker-compose run --rm cli magerun sys:check
 $ docker-compose run --rm cli magerun cache:clean
 $ docker-compose run --rm cli magerun db:console

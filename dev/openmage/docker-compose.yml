@@ -33,7 +33,8 @@ services:
     user: www-data
     volumes:
       - ../..:/var/www/html
-#    environment:
+    environment:
+      - COMPOSER_HOME=${COMPOSER_HOME:-/var/www/html/var/.composer}
 #      - AWS_ACCESS_KEY_ID=00000000000000000000
 #      - AWS_SECRET_ACCESS_KEY=0000000000000000000000000000000000000000
 #      - AWS_REGION=eu-west-1
@@ -42,11 +43,6 @@ services:
     links:
       - mysql
       - "apache:${HOST_NAME:-openmage-7f000001.nip.io}"
-
-  composer:
-    image: composer:2.4
-    volumes:
-      - ../..:/app
 
   mysql:
     image: mysql:5.7

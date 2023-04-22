@@ -35,8 +35,9 @@ if test -f ../../app/etc/local.xml; then
 fi
 
 echo "Preparing filesystem..."
-chmod 777 ../../app/etc ../../media ../../media/* ../../var
-chmod g+s ../../app/etc ../../media ../../media/* ../../var
+mkdir -p ../../vendor
+chgrp 33 ../../app/etc ../../media ../../media/* ../../var ../../vendor
+chmod g+ws ../../app/etc ../../media ../../media/* ../../var ../../vendor
 $dc run --rm --no-deps cli mkdir -p var/cache var/log var/locks var/session
 
 echo "Starting services..."
@@ -48,7 +49,7 @@ for i in $(seq 1 20); do
 done
 
 echo "Installing Composer dependencies..."
-$dc run --rm composer composer install --no-progress --ignore-platform-req=ext-*
+$dc run --rm -u "$(id -u):$(id -g)" cli composer install --no-progress
 
 echo "Installing OpenMage LTS..."
 $dc run --rm cli php install.php \
