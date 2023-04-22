@@ -64,7 +64,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Generated word
      *
-     * @var string|null
+     * @var string
      */
     protected $_word;
 
