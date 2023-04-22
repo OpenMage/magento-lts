@@ -29,15 +29,19 @@ on the containers used in this setup, but here are some quick tips:
 - The `cli` service contains many useful tools like `composer`, `magerun`, `modman`, `mageconfigsync` and more.
 - XDebug is enabled using `remote_connect_back=1` with `idekey=phpstorm`. Customize this in `.env` if needed as described below.
 
-Here are some common commands you may wish to try:
+Here are some common commands you may wish to try (from the `dev/openmage` directory):
 
 ```
-$ docker-compose run --rm -u $(id -u):$(id -g) cli composer require {some-module}
+$ docker-compose run --rm -u $(id -u):$(id -g) cli composer show
+$ docker-compose run --rm -u $(id -u):$(id -g) cli bash
 $ docker-compose run --rm cli magerun sys:check
 $ docker-compose run --rm cli magerun cache:clean
 $ docker-compose run --rm cli magerun db:console
 $ docker-compose exec mysql mysql
 ```
+
+- *The cli container runs as `www-data` by default so use `-u $(id -u):$(id -g)` with composer so that the container will create/modify files with your user permissions to avoid file permission errors in your IDE.*
+- *Always use `run --rm` with the cli container to avoid creating lots of orphan containers.*
 
 Environment Variables
 ---
