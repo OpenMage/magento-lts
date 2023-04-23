@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Payment_Model_Recurring_Profile_MethodInterface
 {

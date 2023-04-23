@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setLogoAlt(string $value)
  * @method $this setLogoSrc(string $value)

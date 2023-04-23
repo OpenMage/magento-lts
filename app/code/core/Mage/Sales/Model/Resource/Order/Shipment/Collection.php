@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Order_Shipment getItemById(int $value)
  * @method Mage_Sales_Model_Order_Shipment[] getItems()

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.4.2.0
  */
 class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract

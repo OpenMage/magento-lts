@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Order getOrder()
  * @method Mage_Sales_Model_Quote getQuote()

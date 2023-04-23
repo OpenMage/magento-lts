@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Uploader
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setMaxSizePlural (string $sizePlural) Set plural info about max upload size
  * @method $this setMaxSizeInBytes (int $sizeInBytes) Set max upload size in bytes

@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Varien_Db_Adapter_Interface
 {

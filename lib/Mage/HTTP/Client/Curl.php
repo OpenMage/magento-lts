@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_HTTP
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Widget_Model_Widget_Instance getWidgetInstance()
  * @method $this setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)

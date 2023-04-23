@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Tax_Model_Mysql4_Sales_Order_Tax extends Mage_Tax_Model_Resource_Sales_Order_Tax

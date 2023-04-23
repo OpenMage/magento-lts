@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Log
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 {

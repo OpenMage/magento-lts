@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Persistent
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Persistent_Block_Form_Remember extends Mage_Core_Block_Template
 {

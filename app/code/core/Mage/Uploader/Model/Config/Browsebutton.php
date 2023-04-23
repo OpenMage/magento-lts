@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Uploader
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setDomNodes(array $domNodesIds)
  *      Array of element browse buttons ids

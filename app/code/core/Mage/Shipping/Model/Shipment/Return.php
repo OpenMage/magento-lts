@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Shipping
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setOrderShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
  * @method Mage_Sales_Model_Order_Shipment getOrderShipment()

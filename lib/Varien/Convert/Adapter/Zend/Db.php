@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Adapter_Zend_Db extends Varien_Convert_Adapter_Abstract
 {

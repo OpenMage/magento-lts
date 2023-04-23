@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Install
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_IndexController extends Mage_Install_Controller_Action
 {

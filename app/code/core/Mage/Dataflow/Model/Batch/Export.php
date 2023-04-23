@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Dataflow_Model_Resource_Batch_Export _getResource()
  * @method Mage_Dataflow_Model_Resource_Batch_Export getResource()
