@@ -410,7 +410,7 @@ ZipUpdater.prototype = {
                 wildCard.hide();
             }
         } else {
-            if (label != undefined && !label.hasClassName('required')) {
+            if (label !== undefined && !label.hasClassName('required')) {
                 label.addClassName('required');
             }
             this.zipElement.addClassName('required-entry');
