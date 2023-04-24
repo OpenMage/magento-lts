@@ -994,7 +994,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ]);
 
         foreach ($dateFields as $dateField) {
-            if (array_key_exists($dateField, $array) && !empty($dateField)) {
+            if (array_key_exists($dateField, $array) && !empty($dateField) && !empty($array[$dateField])) {
                 $array[$dateField] = $filterInput->filter($array[$dateField]);
                 $array[$dateField] = $filterInternal->filter($array[$dateField]);
             }
