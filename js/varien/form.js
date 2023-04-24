@@ -400,7 +400,7 @@ ZipUpdater.prototype = {
 
         // Make Zip and its label required/optional
         if (optionalZipCountries.indexOf(this.country) != -1) {
-            if (label != undefined && label.hasClassName('required')) {
+            if (label !== undefined && label.hasClassName('required')) {
                 label.removeClassName('required');
             }
             while (this.zipElement.hasClassName('required-entry')) {
