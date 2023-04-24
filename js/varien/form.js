@@ -384,13 +384,13 @@ ZipUpdater.prototype = {
 
     _setPostcodeOptional: function(){
         this.zipElement = $(this.zipElement);
-        if (this.zipElement == undefined) {
+        if (this.zipElement === undefined) {
             return false;
         }
 
         // find label
         var label = $$('label[for="' + this.zipElement.id + '"]')[0];
-        if (label != undefined) {
+        if (label !== undefined) {
             var wildCard = label.down('em') || label.down('span.required');
             if (!wildCard) {
                 label.insert(' <span class="required">*</span>');
@@ -406,7 +406,7 @@ ZipUpdater.prototype = {
             while (this.zipElement.hasClassName('required-entry')) {
                 this.zipElement.removeClassName('required-entry');
             }
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.hide();
             }
         } else {
@@ -414,7 +414,7 @@ ZipUpdater.prototype = {
                 label.addClassName('required');
             }
             this.zipElement.addClassName('required-entry');
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.show();
             }
         }
