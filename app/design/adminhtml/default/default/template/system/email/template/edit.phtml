@@ -155,10 +155,10 @@
             } else {
                 $('preview_type').value = 2;
             }
-            if (typeof tinyMCE == 'undefined' || !tinyMCE.getInstanceById('template_text')) {
+            if (typeof tinymce == 'undefined' || !tinymce.get('template_text')) {
                 $('preview_text').value = $('template_text').value;
             } else {
-                $('preview_text').value = tinyMCE.getInstanceById('template_text').getHTML();
+                $('preview_text').value = tinymce.get('template_text').getContent();
             }
 
             if ($('template_styles') != undefined) {
