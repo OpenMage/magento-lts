@@ -13,18 +13,18 @@
  */
 
 tinymce.PluginManager.add('openmagewidget', (ed, url) => {
-    ed.addCommand('mceMagentowidget', function() {
-        widgetTools.openDialog(ed.settings.magentowidget_url + 'widget_target_id/' + ed.getElement().id + '/');
-    });
-
     // Register Widget plugin button
-    ed.addButton('magentowidget', {
-        title : 'magentowidget.insert_widget',
-        cmd : 'mceMagentowidget',
-        image : url + '/img/icon.gif'
+    //TODO: the button doesn't show on the toolbar
+    ed.ui.registry.addButton('magentowidget', {
+        text : 'Insert Widget',
+        onAction: () => {
+            //TODO: the code of this method needs to be converted to tinymce6
+            widgetTools.openDialog(ed.settings.magentowidget_url + 'widget_target_id/' + ed.getElement().id + '/');
+        }
     });
 
     // Add a node change handler, selects the button in the UI when a image is selected
+    // TODO: is this needed? in case, needs to be converted
     ed.onNodeChange.add(function(ed, cm, n) {
         cm.setActive('magentowidget', false);
         if (n.id && n.nodeName == 'IMG') {
@@ -36,6 +36,7 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
     });
 
     // Add a widget placeholder image double click callback
+    // TODO: all this method needs to be converted
     ed.onDblClick.add(function(ed, e) {
         var n = e.target;
         if (n.id && n.nodeName == 'IMG') {
