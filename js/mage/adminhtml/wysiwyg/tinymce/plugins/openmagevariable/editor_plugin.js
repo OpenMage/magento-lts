@@ -12,18 +12,16 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-tinymce.PluginManager.add('OpenMageVariablePlugin', (ed, url) => {
-    ed.addCommand('mceMagentovariable', function() {
-        var pluginSettings = ed.settings.magentoPluginsOptions.get('magentovariable');
-        MagentovariablePlugin.setEditor(ed);
-        MagentovariablePlugin.loadChooser(pluginSettings.url, null);
-    });
-
-    // Register Widget plugin button
-    ed.addButton('magentovariable', {
-        title : 'magentovariable.insert_variable',
-        cmd : 'mceMagentovariable',
-        image : url + '/img/icon.gif'
+tinymce.PluginManager.add('openmagevariable', (ed, url) => {
+    //TODO: the button doesn't show on the toolbar
+    ed.ui.registry.addButton('openmagevariable', {
+        text: 'Insert Variable',
+        onAction: () => {
+            //TODO: the code of this method needs to be converted to tinymce6
+            var pluginSettings = ed.settings.magentoPluginsOptions.get('openmagevariable');
+            openmagevariable.setEditor(ed);
+            openmagevariable.loadChooser(pluginSettings.url, null);
+        }
     });
 
     return {

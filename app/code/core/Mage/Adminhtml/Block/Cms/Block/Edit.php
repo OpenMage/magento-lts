@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         $this->_formScripts[] = "
             function toggleEditor() {
                 if (tinymce.get('block_content') === null) {
-                    tinymce.init({selector: 'textarea#block_content', branding: false, promotion: false, plugins: 'lists advlist directionality image link media nonbreaking preview quickbars'});
+                    tinymce.init({selector: 'textarea#block_content', branding: false, promotion: false, plugins: 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable'});
                 } else {
                     tinymce.get('block_content').remove();
                 }

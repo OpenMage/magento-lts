@@ -12,7 +12,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-tinymce.PluginManager.add('OpenMageWidgetPlugin', (ed, url) => {
+tinymce.PluginManager.add('openmagewidget', (ed, url) => {
     ed.addCommand('mceMagentowidget', function() {
         widgetTools.openDialog(ed.settings.magentowidget_url + 'widget_target_id/' + ed.getElement().id + '/');
     });
