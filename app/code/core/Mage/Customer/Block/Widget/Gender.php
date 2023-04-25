@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Block_Widget_Gender extends Mage_Customer_Block_Widget_Abstract
 {

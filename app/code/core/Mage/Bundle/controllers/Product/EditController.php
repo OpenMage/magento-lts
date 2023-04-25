@@ -19,7 +19,6 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.ph
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  after 1.4.2.0 Mage_Bundle_Adminhtml_Product_EditController is used
  */
 class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController

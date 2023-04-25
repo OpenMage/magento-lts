@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rating
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Rating_Model_Resource_Rating_Option_Collection getResourceCollection()
  * @method Mage_Rating_Model_Resource_Rating_Option _getResource()

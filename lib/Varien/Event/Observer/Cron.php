@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCronExpr()
  * @method bool hasNow()

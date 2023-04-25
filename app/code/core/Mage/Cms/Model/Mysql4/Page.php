@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Cms_Model_Mysql4_Page extends Mage_Cms_Model_Resource_Page

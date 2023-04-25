@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Archive
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Archive_Interface
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sendfriend
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Model_Observer
 {

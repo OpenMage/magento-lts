@@ -16,7 +16,6 @@
  /**
  * Error processor
  *
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Error_Processor
 {
