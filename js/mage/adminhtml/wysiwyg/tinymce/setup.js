@@ -20,7 +20,11 @@ tinyMceWysiwygSetup.prototype =
 
     initialize: function(htmlId, config)
     {
+        this.branding = false;
+        this.promotion = false;
+        this.plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
         this.id = htmlId;
+        this.selector = 'textarea#' + htmlId;
         this.config = config;
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
         if(typeof tinyMceEditors == 'undefined') {
@@ -31,19 +35,14 @@ tinyMceWysiwygSetup.prototype =
 
     setup: function(mode)
     {
-        if (this.config.widget_plugin_src) {
-            //tinymce.PluginManager.load('magentowidget', this.config.widget_plugin_src);
-        }
-
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
                 tinymce.PluginManager.load(plugin.name, plugin.src);
             });
         }
-
-        tinyMCE.init(this.getSettings(mode));
     },
 
+    /*
     getSettings: function(mode)
     {
         var plugins = 'inlinepopups,safari,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras';
@@ -395,6 +394,7 @@ tinyMceWysiwygSetup.prototype =
 
         return settings;
     },
+    */
 
     openFileBrowser: function(o) {
         var typeTitle;
@@ -433,38 +433,36 @@ tinyMceWysiwygSetup.prototype =
     },
 
     getToggleButton: function() {
-        return $('toggle' + this.id);
+        return document.getElementById('toggle' + this.id);
     },
 
     getPluginButtons: function() {
-        return $$('#buttons' + this.id + ' > button.plugin');
+        return document.querySelectorAll('#buttons' + this.id + ' > button.plugin');
     },
 
     turnOn: function() {
         this.closePopups();
-        this.setup();
-        tinyMCE.execCommand('mceAddControl', false, this.id);
-        this.getPluginButtons().each(function(e) {
+        tinymce.init(this)
+        this.getPluginButtons().forEach(function (e) {
             e.hide();
         });
     },
 
     turnOff: function() {
         this.closePopups();
-        tinyMCE.execCommand('mceRemoveControl', false, this.id);
-        this.getPluginButtons().each(function(e) {
+        tinymce.activeEditor.remove();
+        this.getPluginButtons().forEach(function (e) {
             e.show();
         });
     },
 
     closePopups: function() {
-        // close all popups to avoid problems with updating parent content area
         closeEditorPopup('widget_window' + this.id);
         closeEditorPopup('browser_window' + this.id);
     },
 
     toggle: function() {
-        if (!tinyMCE.get(this.id)) {
+        if (tinymce.get(this.id) === null) {
             this.turnOn();
             return true;
         } else {
@@ -474,15 +472,16 @@ tinyMceWysiwygSetup.prototype =
     },
 
     onFormValidation: function() {
-        if (tinyMCE.get(this.id)) {
-            $(this.id).value = tinyMCE.get(this.id).getContent();
+        if (tinymce.get(this.id)) {
+            document.getElementById(this.id).value = tinymce.get(this.id).getContent();
         }
     },
 
     onChangeContent: function() {
+        // TODO THIS NEED TO BE CHECKED
         // Add "changed" to tab class if it exists
         if(this.config.tab_id) {
-            var tab = $$('a[id$=' + this.config.tab_id + ']')[0];
+            var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
             if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
                 $(tab).addClassName('changed');
             }
