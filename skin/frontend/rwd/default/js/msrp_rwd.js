@@ -12,8 +12,8 @@
  */
 
 Catalog.Map.showHelp = Catalog.Map.showHelp.wrap(function (parent, event) {
-    var helpBox = $('map-popup');
-    var bodyNode = $$('body')[0];
+    var helpBox = document.getElementById('map-popup');
+    var bodyNode = document.getElementsByTagName('body')[0];
 
     // Resolve calculation bug in parent so we can actually use these classes...
     if (helpBox && this != Catalog.Map && Catalog.Map.active != this.link) {
