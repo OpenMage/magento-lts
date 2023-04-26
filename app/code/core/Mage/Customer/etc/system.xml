@@ -24,12 +24,18 @@
     <sections>
         <customer translate="label" module="customer">
             <class>separator-top</class>
-            <label>Customer Configuration</label>
+            <label>Customers</label>
             <tab>customer</tab>
-            <sort_order>130</sort_order>
+            <sort_order>100</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
+            <buttons>
+                <customers translate="title" module="customer">
+                    <title>Customers</title>
+                    <action>adminhtml/customer/index</action>
+                </customers>
+            </buttons>
             <groups>
                 <account_share translate="label">
                     <label>Account Sharing Options</label>
