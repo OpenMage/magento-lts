@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CurrencySymbol
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this resetValues()
  */

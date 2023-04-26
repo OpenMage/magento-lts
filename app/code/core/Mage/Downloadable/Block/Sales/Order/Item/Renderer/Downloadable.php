@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable extends Mage_Sales_Block_Order_Item_Renderer_Default
 {

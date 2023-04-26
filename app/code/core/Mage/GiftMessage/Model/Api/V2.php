@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
 {

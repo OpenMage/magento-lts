@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Block_System_Config_Form_Field
 {

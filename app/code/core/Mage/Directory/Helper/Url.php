@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Helper_Url extends Mage_Core_Helper_Url
 {

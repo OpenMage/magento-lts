@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controller_Action
 {
@@ -45,7 +44,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/order')
+            ->_setActiveMenu('sales/creditmemo')
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
             ->_addBreadcrumb($this->__('Credit Memos'), $this->__('Credit Memos'));
         return $this;

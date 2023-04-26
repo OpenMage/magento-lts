@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
 {

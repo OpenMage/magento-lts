@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Base
 {

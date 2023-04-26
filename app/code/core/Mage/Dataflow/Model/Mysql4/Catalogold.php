@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.5.0.1
  */
 class Mage_Catalog_Model_Mysql4_Convert

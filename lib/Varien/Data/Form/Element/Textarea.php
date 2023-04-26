@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCols(int $int)
  * @method $this setRows(int $int)

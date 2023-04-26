@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {

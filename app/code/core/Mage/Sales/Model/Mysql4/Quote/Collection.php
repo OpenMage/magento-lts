@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Sales_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Resource_Quote_Collection

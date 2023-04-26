@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review_Model_Resource_Review_Collection
 {

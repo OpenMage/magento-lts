@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Newsletter_Model_Resource_Queue

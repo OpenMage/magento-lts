@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 {

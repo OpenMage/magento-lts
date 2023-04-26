@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()

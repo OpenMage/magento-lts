@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)
@@ -176,6 +175,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 if ($coupon->getId()) {
                     // check entire usage limit
                     if ($coupon->getUsageLimit() && $coupon->getTimesUsed() >= $coupon->getUsageLimit()) {
+                        $rule->setIsValidForAddress($address, false);
+                        return false;
+                    }
+                    // check coupon expiration
+                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
                         $rule->setIsValidForAddress($address, false);
                         return false;
                     }

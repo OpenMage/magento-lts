@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Io
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {

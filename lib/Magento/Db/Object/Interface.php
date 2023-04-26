@@ -18,7 +18,6 @@
  *
  * @category   Magento
  * @package    Magento_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Magento_Db_Object_Interface
 {

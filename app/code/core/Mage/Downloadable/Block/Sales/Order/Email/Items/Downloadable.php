@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Downloadable_Model_Link_Purchased_Item getItem()
  */

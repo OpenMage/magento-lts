@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs
 {

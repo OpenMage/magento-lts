@@ -15,7 +15,6 @@
 /**
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_ExpressController extends Mage_Paypal_Controller_Express_Abstract
 {

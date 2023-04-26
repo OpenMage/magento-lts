@@ -6,8 +6,8 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage
+ * @category   Mage
+ * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -49,8 +49,6 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
 
 /**
  * Main Mage hub class
- *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 final class Mage
 {
@@ -208,7 +206,7 @@ final class Mage
                 'major'     => '20',
                 'minor'     => '1',
                 'patch'     => '0',
-                'stability' => 'rc3', // beta,alpha,rc
+                'stability' => 'rc4', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -217,7 +215,7 @@ final class Mage
             'major'     => '19',
             'minor'     => '5',
             'patch'     => '0',
-            'stability' => 'rc3', // beta,alpha,rc
+            'stability' => 'rc4', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }

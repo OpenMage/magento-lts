@@ -18,7 +18,6 @@
  *
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property mixed $uploader
  */

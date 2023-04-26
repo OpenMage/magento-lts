@@ -19,7 +19,6 @@
  *
  * @category   Varien
  * @package    Varien_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 require_once 'Varien/Db/Tree/Exception.php';
