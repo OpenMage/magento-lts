@@ -33,10 +33,12 @@
                 <products translate="title" module="catalog">
                     <title>Products</title>
                     <action>adminhtml/catalog_product/index</action>
+                    <sort_order>1</sort_order>
                 </products>
                 <categories translate="title" module="catalog">
                     <title>Categories</title>
                     <action>adminhtml/catalog_category/index</action>
+                    <sort_order>2</sort_order>
                 </categories>
             </buttons>
             <groups>

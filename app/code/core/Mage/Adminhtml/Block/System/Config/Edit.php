@@ -67,8 +67,10 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     {
         $buttonsNode = $this->_section->buttons;
         if (!empty($buttonsNode)) {
-            $buttons = [];
-            foreach ($buttonsNode->children() as $buttonNode) {
+            $buttons  = [];
+            $allNodes = (array)$buttonsNode->children();
+            usort($allNodes, [$this, '_sort']);
+            foreach ($allNodes as $buttonNode) {
                 $buttons[] = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'   => Mage::helper($buttonNode->getAttribute('module') ?? 'adminhtml')->__((string)$buttonNode->title),
@@ -80,6 +82,16 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
             return implode($buttons);
         }
         return '';
+    }
+
+    /**
+     * @param Mage_Core_Model_Config_Element $a
+     * @param Mage_Core_Model_Config_Element $b
+     * @return int
+     */
+    protected function _sort($a, $b)
+    {
+        return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
     }
 
     /**
