@@ -23,7 +23,6 @@
     </tabs>
     <sections>
         <catalog translate="label" module="catalog">
-            <class>separator-top</class>
             <label>Catalog</label>
             <tab>catalog</tab>
             <sort_order>40</sort_order>

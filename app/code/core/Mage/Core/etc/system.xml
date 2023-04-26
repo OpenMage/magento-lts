@@ -125,7 +125,6 @@
             </groups>
         </advanced>
         <trans_email translate="label" module="core">
-            <class>separator-top</class>
             <label>Store Email Addresses</label>
             <tab>general</tab>
             <sort_order>90</sort_order>
@@ -895,7 +894,6 @@
             </groups>
         </general>
         <system translate="label" module="core">
-            <class>separator-top</class>
             <label>System</label>
             <tab>advanced</tab>
             <sort_order>900</sort_order>

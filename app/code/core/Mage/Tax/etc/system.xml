@@ -17,7 +17,6 @@
 <config>
     <sections>
         <tax translate="label" module="tax">
-            <class>separator-top</class>
             <label>Tax</label>
             <tab>sales</tab>
             <sort_order>303</sort_order>

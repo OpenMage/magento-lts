@@ -17,7 +17,6 @@
 <config>
     <sections>
         <promo translate="label" module="salesrule">
-            <class>separator-top</class>
             <label>Promotions</label>
             <tab>customer</tab>
             <sort_order>400</sort_order>

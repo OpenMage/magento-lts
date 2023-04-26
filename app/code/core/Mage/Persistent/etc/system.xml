@@ -17,14 +17,12 @@
 <config>
     <sections>
         <persistent translate="label" module="persistent">
-            <class>separator-top</class>
             <label>Persistent Shopping Cart</label>
             <tab>customer</tab>
             <sort_order>500</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>0</show_in_store>
-
             <groups>
                 <options translate="label" module="persistent">
                     <label>General Options</label>
@@ -32,7 +30,6 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
-
                     <fields>
                         <enabled translate="label" module="persistent">
                             <label>Enable Persistence</label>
@@ -43,7 +40,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </enabled>
-
                         <lifetime translate="label" module="persistent">
                             <label>Persistence Lifetime (seconds)</label>
                             <validate>validate-digits validate-digits-range digits-range-0-3153600000</validate>
@@ -53,7 +49,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </lifetime>
-
                         <remember_enabled translate="label" module="persistent">
                             <label>Enable &quot;Remember Me&quot;</label>
                             <frontend_type>select</frontend_type>
@@ -64,7 +59,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </remember_enabled>
-
                         <remember_default translate="label" module="persistent">
                             <label>&quot;Remember Me&quot; Default Value</label>
                             <frontend_type>select</frontend_type>
@@ -75,7 +69,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </remember_default>
-
                         <logout_clear translate="label" module="persistent">
                             <label>Clear Persistence on Log Out</label>
                             <frontend_type>select</frontend_type>
@@ -86,7 +79,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </logout_clear>
-
                         <shopping_cart translate="label" module="persistent">
                             <label>Persist Shopping Cart</label>
                             <frontend_type>select</frontend_type>

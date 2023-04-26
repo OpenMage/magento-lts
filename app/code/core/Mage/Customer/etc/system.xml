@@ -23,7 +23,6 @@
     </tabs>
     <sections>
         <customer translate="label" module="customer">
-            <class>separator-top</class>
             <label>Customers</label>
             <tab>customer</tab>
             <sort_order>100</sort_order>
