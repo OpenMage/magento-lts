@@ -29,6 +29,13 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     protected $_stateStatuses;
 
     /**
+     * Statuses array
+     *
+     * @var array
+     */
+    protected $_statuses;
+
+    /**
      * States array
      *
      * @var array
@@ -84,9 +91,12 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatusLabel($code)
     {
-        $status = Mage::getModel('sales/order_status')
-            ->load($code);
-        return $status->getStoreLabel();
+        $key = $code.'/'.Mage::app()->getStore()->getStoreId();
+        if (!isset($this->_statuses[$key])) {
+            $status = Mage::getModel('sales/order_status')->load($code);
+            $this->_statuses[$key] = $status->getStoreLabel();
+        }
+        return $this->_statuses[$key];
     }
 
     /**
