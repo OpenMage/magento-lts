@@ -569,7 +569,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         $size = explode('x', strtolower($string));
-        if (is_array($size) && count($size) === 2) {
+        if (count($size) === 2) {
             return [
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
