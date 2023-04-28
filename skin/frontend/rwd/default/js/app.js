@@ -767,7 +767,7 @@ $j(document).ready(function () {
 
     // In order to display the language switcher next to the logo, we are moving the content at different viewports,
     // rather than having duplicate markup or changing the design
-    repositionLanguageSwitcher = function (mq) {
+    let repositionLanguageSwitcher = function (mq) {
         if (mq.matches) {
             $j('.page-header-container .store-language-container').prepend($j('.form-language'));
         } else {
@@ -784,7 +784,7 @@ $j(document).ready(function () {
     // Menu State
     // ==============================================
 
-    resetMenuState = function (mq) {
+    let resetMenuState = function (mq) {
         $j('.menu-active').removeClass('menu-active');
         $j('.sub-menu-active').removeClass('sub-menu-active');
         $j('.skip-active').removeClass('skip-active');
@@ -944,7 +944,7 @@ $j(document).ready(function () {
     // (since other blocks can be inserted into left_first), it creates simpler code to move the entire
     // .col-left-first block, so that is the approach we're taking
     if ($j('.col-left-first > .block').length && $j('div.category-products').length) {
-        repositionLayered = function (mq) {
+        let repositionLayered = function (mq) {
             if (mq.matches) {
                 $j('.col-left-first').insertBefore($j('div.category-products'));
             } else {
@@ -961,7 +961,7 @@ $j(document).ready(function () {
 
     // On viewports smaller than 1000px, move the right column into the left column
     if ($j('.main-container.col3-layout').length > 0) {
-        reposition3rdColumn = function (mq) {
+        let reposition3rdColumn = function (mq) {
             if (mq.matches) {
                 var rightColumn = $j('.col-right');
                 var colWrapper = $j('.col-wrapper');
@@ -981,7 +981,7 @@ $j(document).ready(function () {
     // Block collapsing (on smaller viewports)
     // ==============================================
 
-    toggleElementsForMediumSize = function (mq) {
+    let toggleElementsForMediumSize = function (mq) {
         if (mq.matches) {
             $j(
                 '.col-left-first .block:not(.block-layered-nav) .block-title, ' +
@@ -1004,7 +1004,7 @@ $j(document).ready(function () {
     // ==============================================
 
     if ($j('body.checkout-onepage-index').length) {
-        repositionCheckoutProgress = function (mq) {
+        let repositionCheckoutProgress = function (mq) {
             if (mq.matches) {
                 $j('#checkout-step-review').prepend($j('#checkout-progress-wrapper'));
             } else {
