@@ -22,7 +22,7 @@
 class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
 {
     /**
-     * @var array<string, string>|null
+     * @inheritdoc
      */
     protected $_messageTemplates;
 
@@ -34,7 +34,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         $haystack = $helper->getInputTypesValidatorData();
 
         //reset message template and set custom
-        $this->_messageTemplates = null;
+        $this->_messageTemplates = [];
         $this->_initMessageTemplates();
 
         //parent construct with options
