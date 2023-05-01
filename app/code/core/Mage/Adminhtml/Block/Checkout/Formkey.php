@@ -36,9 +36,18 @@ class Mage_Adminhtml_Block_Checkout_Formkey extends Mage_Adminhtml_Block_Templat
      * Get url for edit Advanced -> Admin section
      *
      * @return string
+     * @deprecated
      */
     public function getSecurityAdminUrl()
     {
         return Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit/section/admin');
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnableCSRFUrl()
+    {
+        return Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit/section/system');
     }
 }
