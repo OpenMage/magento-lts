@@ -43,9 +43,14 @@ include_once "Varien/Autoload.php";
 Varien_Autoload::register();
 
 /** AUTOLOADER PATCH **/
-if (file_exists($autoloaderPath = (getenv('COMPOSER_VENDOR_PATH') ?: BP . DS .  'vendor') . DS . 'autoload.php')) {
-    require $autoloaderPath;
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = BP . DS . 'vendor';
+    }
 }
+require $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
