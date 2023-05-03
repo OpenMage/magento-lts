@@ -91,7 +91,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatusLabel($code)
     {
-        $key = $code.'/'.Mage::app()->getStore()->getStoreId();
+        $key = $code . '/' . Mage::app()->getStore()->getStoreId();
         if (!isset($this->_statuses[$key])) {
             $status = Mage::getModel('sales/order_status')->load($code);
             $this->_statuses[$key] = $status->getStoreLabel();
