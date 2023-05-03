@@ -18,7 +18,6 @@ Catalog.Map.showHelp = Catalog.Map.showHelp.wrap(function (parent, event) {
     // Resolve calculation bug in parent so we can actually use these classes...
     if (helpBox && this != Catalog.Map && Catalog.Map.active != this.link) {
         parent(event);
-
         helpBox.classList.remove('map-popup-right');
         helpBox.classList.remove('map-popup-left');
         if (Element.getWidth(bodyNode) < event.pageX + (Element.getWidth(helpBox) / 2)) {
