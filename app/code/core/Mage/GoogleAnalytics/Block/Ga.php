@@ -209,10 +209,10 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $orderData = [
                 'currency' => $order->getBaseCurrencyCode(),
                 'transaction_id' => $order->getIncrementId(),
-                'value' => number_format($order->getBaseGrandTotal(), 2),
+                'value' => (float)number_format($order->getBaseGrandTotal(), 2),
                 'coupon' => strtoupper($order->getCouponCode()),
-                'shipping' => number_format($order->getBaseShippingAmount(), 2),
-                'tax' => number_format($order->getBaseTaxAmount(), 2),
+                'shipping' => (float)number_format($order->getBaseShippingAmount(), 2),
+                'tax' => (float)number_format($order->getBaseTaxAmount(), 2),
                 'items' => []
             ];
 
