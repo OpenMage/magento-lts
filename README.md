@@ -330,7 +330,13 @@ grep -rn 'urn:Magento' --include \*.xml
 - Open your site in browser
   ```bash
   ddev launch
-  ``` 
+  ```
+
+## Development with PHP 8.1+
+
+Deprecation errors are supressed by default.
+
+If you want to work on PHP 8.1+ support, set environment variable `DEV_PHP_STRICT` to `1`, to show all errors.
 
 ## PhpStorm Factory Helper
 
