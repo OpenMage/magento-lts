@@ -105,7 +105,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $ignoreAgents = $this->_config->getNode('global/ignore_user_agents');
         if ($ignoreAgents) {
             $ignoreAgents = $ignoreAgents->asArray();
-            if (in_array($userAgent, $ignoreAgents)) {
+            if (in_array($userAgent, $ignoreAgents) || stristr($userAgent, $ignoreAgents)) {
                 $this->_skipRequestLogging = true;
             }
         }
