@@ -91,6 +91,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
      * Retrieve customer address model cache
      *
      * @return Mage_Customer_Model_Address|object
+     * @deprecated
      */
     public function getCustomerAddressModel()
     {
