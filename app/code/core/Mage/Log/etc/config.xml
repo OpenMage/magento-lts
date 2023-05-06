@@ -46,7 +46,7 @@
             <semrushbot>SemrushBot</semrushbot>
             <alphabot>AlphaBot</alphabot>
             <facebookexternalhit>facebookexternalhit</facebookexternalhit>
-            <seotester2>SEOTesterBot/seotester2</seotester2>
+            <seotester2>SEOTesterBot</seotester2>
             <ZoominfoBot>ZoominfoBot</ZoominfoBot>
             <amazonbot>Amazonbot</amazonbot>
         </ignore_user_agents>
