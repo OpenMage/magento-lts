@@ -29,7 +29,6 @@ textarea {
 select {
   @extend %extend_18;
   height: 26px;
-  margin: 0 0 8px;
   border: 1px solid $color_silver_approx;
   box-sizing: border-box;
   text-transform: none;
@@ -357,7 +356,7 @@ button[disabled] {
     @extend %extend_19;
 
     label {
-      padding: 5px 15px 0 0;
+      padding: 0 15px 0 0;
       @extend %extend_19;
     }
   }
