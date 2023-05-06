@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_htmlId      = $this->getElement()->getHtmlId() ?>
@@ -34,22 +23,22 @@
     <table cellspacing="0" class="data border" id="<?php echo $_htmlId; ?>_table">
         <?php if ($_multiWebsite): ?>
         <col width="135" />
-        <?php endif; ?>
+        <?php endif ?>
         <col width="140" />
         <col />
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
+                <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
                 <th><?php echo Mage::helper('catalog')->__('Country/State') ?> <span class="required">*</span></th>
                 <th><?php echo Mage::helper('catalog')->__('Tax') ?> <span class="required">*</span></th>
                 <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
             </tr>
             <tr id="<?php echo $_htmlId ?>_add_template" class="template no-display">
-                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>>
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>>
                 <select disabled="no-template" class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[__index__][website_id]" id="#{prefix}_weee_tax_row___index___website">
                     <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
-                    <option value="<?php echo $_websiteId ?>"><?php echo $_info['name'] ?><?php if (!empty($_info['currency'])): ?> [<?php echo $_info['currency'] ?>]<?php endif; ?></option>
+                    <option value="<?php echo $_websiteId ?>"><?php echo $_info['name'] ?><?php if (!empty($_info['currency'])): ?> [<?php echo $_info['currency'] ?>]<?php endif ?></option>
                     <?php endforeach ?>
                 </select>
                 </td>
@@ -75,7 +64,7 @@
         </thead>
         <tfoot>
             <tr>
-                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>></td>
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>></td>
                 <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
@@ -114,7 +103,7 @@
             $(data.prefix + '_weee_tax_row_'+data.index+'_country').value = data.country;
             $(data.prefix + '_weee_tax_row_'+data.index+'_website').value = data.website_id;
 
-            updater = new RegionUpdater(data.prefix + '_weee_tax_row_'+data.index+'_country', null, data.prefix + '_weee_tax_row_'+data.index+'_state', <?php echo $this->helper('directory')->getRegionJson() ?>, 'disable', true);
+            updater = new RegionUpdater(data.prefix + '_weee_tax_row_'+data.index+'_country', null, data.prefix + '_weee_tax_row_'+data.index+'_state', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, 'disable', true);
             updater.update();
 
             $(data.prefix + '_weee_tax_row_'+data.index+'_state').value   = data.state;
@@ -181,7 +170,7 @@
     }
     <?php foreach ($this->getValues() as $_item): ?>
     weeeTaxControl.addItem('<?php echo $_htmlId ?>', '<?php echo $_item['website_id'] ?>', '<?php echo $_item['country'] ?>', '<?php echo $_item['state'] ?>', '<?php echo sprintf('%.2f', $_item['value']) ?>');
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
     if (typeof weeeEditorPrefixes == 'undefined') {
         var weeeEditorPrefixes = new Array();

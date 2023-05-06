@@ -22,34 +22,43 @@ Visit [http://openmage-7f000001.nip.io/](http://openmage-7f000001.nip.io/) and s
 Tips
 ===
 
-See [meanbee/docker-magento](https://github.com/meanbee/docker-magento) for more information on the containers
-used in this setup, but here are some quick tips:
+See [colinmollenhour/docker-openmage-dev](https://github.com/colinmollenhour/docker-openmage-dev) for more information
+on the containers used in this setup, but here are some quick tips:
 
 - You can start the cron task using `docker-compose up -d cron`.
 - The `cli` service contains many useful tools like `composer`, `magerun`, `modman`, `mageconfigsync` and more.
-- XDebug is enabled using `remote_connect_back=1` with `idekey=phpstorm`. Customize this in `docker-compose.yml` if needed.
+- XDebug is enabled using `remote_connect_back=1` with `idekey=phpstorm`. Customize this in `.env` if needed as described below.
 
-Here are some common commands you may wish to try:
+Here are some common commands you may wish to try (from the `dev/openmage` directory):
 
 ```
+$ docker-compose run --rm -u $(id -u):$(id -g) cli composer show
+$ docker-compose run --rm -u $(id -u):$(id -g) cli bash
 $ docker-compose run --rm cli magerun sys:check
 $ docker-compose run --rm cli magerun cache:clean
 $ docker-compose run --rm cli magerun db:console
 $ docker-compose exec mysql mysql
 ```
 
+- *The cli container runs as `www-data` by default so use `-u $(id -u):$(id -g)` with composer so that the container will create/modify files with your user permissions to avoid file permission errors in your IDE.*
+- *Always use `run --rm` with the cli container to avoid creating lots of orphan containers.*
+
 Environment Variables
 ---
 
-You can override some defaults using environment variables defined in a file that you must create at `dev/openmage/.env`.
+You can override some defaults using environment variables defined in a file (that you must create) at `dev/openmage/.env`.
 
+- `ENABLE_SENDMAIL=false` - Disable the sendmail MTA
+- `XDEBUG_CONFIG=...` - Override the default XDebug config
 - `HOST_NAME=your-preferred-hostname`
   - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `HOST_PORT=8888`
-   - `80` is used by default 
+   - `80` is used by default
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD`
+- `MAGE_IS_DEVELOPER_MODE`
+  - Set to 1 by default, set to 0 to disable
 
 Wiping
 ---
@@ -58,18 +67,4 @@ If you want to start fresh, wipe out your installation with the following comman
 
 ```
 $ docker-compose down --volumes && rm -f ../../app/etc/local.xml
-```
-
-Building
-===
-
-The Docker images are built using the [meanbee/docker-magento](https://github.com/meanbee/docker-magento) source files so to build new images first
-clone the source files into this directory and then run `docker-compose build`. 
-
-```
-$ git clone https://github.com/meanbee/docker-magento.git
-$ docker build -t openmage/php-dev:7.3-cli docker-magento/7.3/cli
-$ docker push openmage/php-dev:7.3-cli
-$ docker build -t openmage/php-dev:7.3-apache docker-magento/7.3/apache
-$ docker push openmage/php-dev:7.3-apache
 ```

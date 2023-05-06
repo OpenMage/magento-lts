@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_GoogleAnalytics
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleAnalytics
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * GoogleAnalitics Page Block
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
@@ -67,11 +54,11 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
     /**
      * Get a specific page name (may be customized via layout)
      *
-     * @return string|null
+     * @return string
      */
     public function getPageName()
     {
-        return $this->_getData('page_name');
+        return $this->_getData('page_name') ?? '';
     }
 
     /**
@@ -83,11 +70,13 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
      */
     protected function _getPageTrackingCode($accountId)
     {
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseUniversalAnalytics()) {
             return $this->_getPageTrackingCodeUniversal($accountId);
-        } else {
-            return $this->_getPageTrackingCodeAnalytics($accountId);
         }
+
+        return $this->_getPageTrackingCodeAnalytics($accountId);
     }
 
     /**
@@ -133,20 +122,26 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      * Render information about specified orders and their items
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCode()
     {
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseAnalytics4()) {
+            return $this->_getOrdersTrackingCodeAnalytics4();
+        } elseif ($helper->isUseUniversalAnalytics()) {
             return $this->_getOrdersTrackingCodeUniversal();
-        } else {
-            return $this->_getOrdersTrackingCodeAnalytics();
         }
+
+        return $this->_getOrdersTrackingCodeAnalytics();
     }
 
     /**
      * Render information about specified orders and their items
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCodeUniversal()
     {
@@ -155,11 +150,12 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             return;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds));
-        $result = array();
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
         $result[] = "ga('require', 'ecommerce')";
         foreach ($collection as $order) {
-            $result[] = sprintf("ga('ecommerce:addTransaction', {
+            $result[] = sprintf(
+                "ga('ecommerce:addTransaction', {
 'id': '%s',
 'affiliation': '%s',
 'revenue': '%s',
@@ -173,7 +169,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $order->getBaseShippingAmount()
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("ga('ecommerce:addItem', {
+                $result[] = sprintf(
+                    "ga('ecommerce:addItem', {
 'id': '%s',
 'sku': '%s',
 'name': '%s',
@@ -195,10 +192,51 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     }
 
     /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getOrdersTrackingCodeAnalytics4()
+    {
+        $orderIds = $this->getOrderIds();
+        if (empty($orderIds) || !is_array($orderIds)) {
+            return '';
+        }
+        $collection = Mage::getResourceModel('sales/order_collection')
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
+        /** @var Mage_Sales_Model_Order $order */
+        foreach ($collection as $order) {
+            $orderData = [
+                'currency' => $order->getBaseCurrencyCode(),
+                'transaction_id' => $order->getIncrementId(),
+                'value' => number_format($order->getBaseGrandTotal(), 2),
+                'coupon' => strtoupper($order->getCouponCode()),
+                'shipping' => number_format($order->getBaseShippingAmount(), 2),
+                'tax' => number_format($order->getBaseTaxAmount(), 2),
+                'items' => []
+            ];
+
+            /** @var Mage_Sales_Model_Order_Item $item */
+            foreach ($order->getAllVisibleItems() as $item) {
+                $orderData['items'][] = [
+                    'item_id' => $item->getSku(),
+                    'item_name' => $item->getName(),
+                    'quantity' => $item->getQtyOrdered(),
+                    'price' => $item->getBasePrice(),
+                    'discount' => $item->getBaseDiscountAmount()
+                ];
+            }
+            $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
+        }
+        return implode("\n", $result);
+    }
+
+    /**
      * Render information about specified orders and their items
      *
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._addTrans
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCodeAnalytics()
     {
@@ -207,15 +245,16 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             return;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds));
-        $result = array();
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
         foreach ($collection as $order) {
             if ($order->getIsVirtual()) {
                 $address = $order->getBillingAddress();
             } else {
                 $address = $order->getShippingAddress();
             }
-            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
+            $result[] = sprintf(
+                "_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
                 $order->getIncrementId(),
                 $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
                 $order->getBaseGrandTotal(),
@@ -226,11 +265,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
+                $result[] = sprintf(
+                    "_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
                     $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
+                    $this->jsQuoteEscape($item->getSku()),
+                    $this->jsQuoteEscape($item->getName()),
                     null, // there is no "category" defined for the order item
-                    $item->getBasePrice(), $item->getQtyOrdered()
+                    $item->getBasePrice(),
+                    $item->getQtyOrdered()
                 );
             }
             $result[] = "_gaq.push(['_trackTrans']);";
@@ -248,11 +290,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         if (!Mage::helper('googleanalytics')->isIpAnonymizationEnabled()) {
             return '';
         }
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseUniversalAnalytics()) {
             return $this->_getAnonymizationCodeUniversal();
-        } else {
-            return $this->_getAnonymizationCodeAnalytics();
         }
+
+        return $this->_getAnonymizationCodeAnalytics();
     }
 
     /**

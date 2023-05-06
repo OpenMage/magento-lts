@@ -237,7 +237,11 @@ Object.extend(Validation, {
     },
     hideAdvice : function(elm, advice){
         if (advice != null) {
-            new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
+            if(typeof Effect == 'undefined') {
+                advice.hide();
+            } else {
+                new Effect.Fade(advice, {duration : 1, afterFinishInternal : function() {advice.hide();}});
+            }
         }
     },
     updateCallback : function(elm, status) {
@@ -476,6 +480,12 @@ Validation.addAllThese([
 
                 return result;
             }],
+    ['validate-hex-color', 'Please enter a valid hexadecimal color. For example ff0000.', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^[a-f0-9]{6}$/i.test(v)
+            }],
+    ['validate-hex-color-hash', 'Please enter a valid hexadecimal color with hash. For example #ff0000.', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^#[a-f0-9]{6}$/i.test(v)
+            }],
     ['validate-alpha', 'Please use letters only (a-z or A-Z) in this field.', function (v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[a-zA-Z]+$/.test(v)
             }],
@@ -682,6 +692,7 @@ Validation.addAllThese([
         // Passed on non-related validators conditions (to not change order of validation)
         if(
             !priceInput
+            || !$F(priceInput)
             || Validation.get('IsEmpty').test(v)
             || !Validation.get('validate-number').test(v)
         ) {
