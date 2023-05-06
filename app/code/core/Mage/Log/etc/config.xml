@@ -29,9 +29,26 @@
             </entities>
         </ignoredModules>
         <ignore_user_agents>
-            <google1>Googlebot/1.0 (googlebot@googlebot.com http://googlebot.com/)</google1>
-            <google2>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</google2>
-            <google3>Googlebot/2.1 (+http://www.googlebot.com/bot.html)</google3>
+            <google1>Googlebot</google1>
+            <googleimage>Googlebot-Image</googleimage>
+            <mauibot>MauiBot</mauibot>
+            <blexbot>BLEXBot</blexbot>
+            <hrefsbot>AhrefsBot</hrefsbot>
+            <bingbot>bingbot</bingbot>
+            <dotbot>DotBot</dotbot>
+            <istellabot>istellabot</istellabot>
+            <mod_pagespeed>mod_pagespeed</mod_pagespeed>
+            <mj12bot>MJ12bot</mj12bot>
+            <yandexbot>YandexMobileBot</yandexbot>
+            <yandexmobile>YandexMobileBot</yandexmobile>
+            <yandeximage>YandexImages</yandeximage>
+            <opensiteexplorer>spbot</opensiteexplorer>
+            <semrushbot>SemrushBot</semrushbot>
+            <alphabot>AlphaBot</alphabot>
+            <facebookexternalhit>facebookexternalhit</facebookexternalhit>
+            <seotester2>SEOTesterBot/seotester2</seotester2>
+            <ZoominfoBot>ZoominfoBot</ZoominfoBot>
+            <amazonbot>Amazonbot</amazonbot>
         </ignore_user_agents>
         <helpers>
             <log>
