@@ -288,7 +288,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             $defaultBillingId  = $customer->getDefaultBilling();
             $defaultShippingId = $customer->getDefaultShipping();
 
-            $customerAddress   = Mage::getModel('customer/address');
+            $customerAddress = Mage::getModel('customer/address');
 
             if (!$defaultBillingId) {
                 foreach ($this->getFields() as $code => $node) {
