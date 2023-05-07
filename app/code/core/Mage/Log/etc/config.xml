@@ -30,7 +30,6 @@
         </ignoredModules>
         <ignore_user_agents>
             <google1>Googlebot</google1>
-            <googleimage>Googlebot-Image</googleimage>
             <mauibot>MauiBot</mauibot>
             <blexbot>BLEXBot</blexbot>
             <hrefsbot>AhrefsBot</hrefsbot>
