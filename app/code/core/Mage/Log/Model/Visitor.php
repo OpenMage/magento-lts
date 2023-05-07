@@ -105,11 +105,12 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ($ignoreAgents) {
             $ignoreAgents = $ignoreAgents->asArray();
             $userAgent = $this->_httpHelper->getHttpUserAgent();
-            array_walk($ignoreAgents, function ($item) use ($userAgent) {
-                if (stristr($userAgent, $item)) {
+            foreach ($ignoreAgents as $ignoreAgent) {
+                if (stripos($userAgent, $ignoreAgent) !== false) {
                     $this->_skipRequestLogging = true;
+                    break;
                 }
-            });
+            })
         }
         if ($this->_logCondition->isLogDisabled()) {
             $this->_skipRequestLogging = true;
