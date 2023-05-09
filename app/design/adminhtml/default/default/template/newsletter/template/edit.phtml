@@ -165,11 +165,11 @@
         },
 
         isEditor: function() {
-            return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+            return (typeof tinyMceEditors != 'undefined' && tinyMceEditors[this.id] != undefined)
         },
 
         getEditor: function() {
-            return tinyMceEditors.get(this.id);
+            return tinyMceEditors[this.id];
         }
     };
 

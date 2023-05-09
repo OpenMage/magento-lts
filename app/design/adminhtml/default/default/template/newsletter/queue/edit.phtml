@@ -76,7 +76,7 @@ var queueControl = {
         return false;
     },
     isEditor: function() {
-        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors[this.id] != undefined)
     },
     resume: function() {
         $('_resume_flag').value = '1';

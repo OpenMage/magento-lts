@@ -214,7 +214,7 @@ Mediabrowser.prototype = {
     getTargetElement: function() {
         if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId)) {
             if ((opener = this.getMediaBrowserOpener())) {
-                var targetElementId = tinyMceEditors.get(this.targetElementId).getMediaBrowserTargetElementId();
+                var targetElementId = tinyMceEditors[this.targetElementId].getMediaBrowserTargetElementId();
                 return opener.document.getElementById(targetElementId);
             } else {
                 return null;
@@ -233,8 +233,8 @@ Mediabrowser.prototype = {
          if (typeof(tinyMCE) != 'undefined'
              && tinyMCE.get(this.targetElementId)
              && typeof(tinyMceEditors) != 'undefined'
-             && ! tinyMceEditors.get(this.targetElementId).getMediaBrowserOpener().closed) {
-             return tinyMceEditors.get(this.targetElementId).getMediaBrowserOpener();
+             && ! tinyMceEditors[this.targetElementId].getMediaBrowserOpener().closed) {
+             return tinyMceEditors[this.targetElementId].getMediaBrowserOpener();
          } else {
              return null;
          }

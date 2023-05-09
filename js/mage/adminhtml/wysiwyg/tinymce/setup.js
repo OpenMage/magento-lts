@@ -26,11 +26,15 @@ tinyMceWysiwygSetup.prototype =
         this.id = htmlId;
         this.selector = 'textarea#' + htmlId;
         this.config = config;
+        this.automatic_uploads = false;
+        this.file_picker_callback = function(fieldName, url, objectType, w) {
+            varienGlobalEvents.fireEvent("open_browser_callback", {win:w, type:objectType, field:fieldName});
+        };
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
-        if(typeof tinyMceEditors == 'undefined') {
-            tinyMceEditors = $H({});
+        if (typeof tinyMceEditors == 'undefined') {
+            tinyMceEditors = [];
         }
-        tinyMceEditors.set(this.id, this);
+        tinyMceEditors[this.id] = this;
         this.turnOff();
     },
 
