@@ -187,6 +187,8 @@ Mediabrowser.prototype = {
                     Windows.close('browser_window');
                     if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'input') {
                         targetEl.value = transport.responseText;
+                    } else if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
+                        updateElementAtCursor(targetEl, transport.responseText);
                     } else {
                         targetEl(transport.responseText);
                     }
