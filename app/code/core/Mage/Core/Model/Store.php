@@ -749,6 +749,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
+     * @deprecated
      * @return bool
      */
     public function isCurrentlySecure()
