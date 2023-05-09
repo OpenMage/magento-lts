@@ -1,6 +1,22 @@
-# OpenMage DDEV environment
+# Development with DDEV
 
-__This is work-in-progress.__
+## Basic Setup
+
+- Install [ddev](https://ddev.com/get-started/)
+- Clone the repository as described in installation ([Git](#git))
+- Create a ddev config, defaults should be good for you
+  ```bash
+  ddev config
+  ```
+- Open `.ddev/config.yaml` and change the php version to your needs
+- Download and start the containers
+  ```bash
+  ddev start
+  ```
+- Open your site in browser
+  ```bash
+  ddev launch
+  ``` 
 
 ## Enable developer mode
 
