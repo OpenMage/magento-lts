@@ -31,6 +31,7 @@ tinyMceWysiwygSetup.prototype =
             tinyMceEditors = $H({});
         }
         tinyMceEditors.set(this.id, this);
+        this.turnOff();
     },
 
     setup: function(mode)
@@ -442,7 +443,7 @@ tinyMceWysiwygSetup.prototype =
 
     turnOn: function() {
         this.closePopups();
-        tinymce.init(this)
+        tinymce.init(this);
         this.getPluginButtons().forEach(function (e) {
             e.hide();
         });
@@ -450,7 +451,7 @@ tinyMceWysiwygSetup.prototype =
 
     turnOff: function() {
         this.closePopups();
-        tinymce.activeEditor.remove();
+        if (tinymce.activeEditor) tinymce.activeEditor.remove();
         this.getPluginButtons().forEach(function (e) {
             e.show();
         });
