@@ -1295,6 +1295,9 @@ class Mage_Core_Model_App
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isCurrentlySecure()
     {
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
