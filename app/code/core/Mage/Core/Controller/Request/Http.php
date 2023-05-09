@@ -307,7 +307,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->getStore()->isCurrentlySecure()) ?
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
             self::SCHEME_HTTPS :
             self::SCHEME_HTTP;
     }
