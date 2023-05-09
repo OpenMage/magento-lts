@@ -309,7 +309,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($upperPrice)) {
             $select->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));
         }
-        $select->order("$priceExpression ASC")->limit($limit, $offset);
+        $select->order(new Zend_Db_Expr("$priceExpression ASC"))->limit($limit, $offset);
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
@@ -372,7 +372,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         if (!is_null($upperPrice)) {
             $pricesSelect->where("$priceExpression < " . $this->_getComparingValue($upperPrice, $filter));
         }
-        $pricesSelect->order("$priceExpression DESC")->limit($rightIndex - $offset + 1, $offset - 1);
+        $pricesSelect->order(new Zend_Db_Expr("$priceExpression DESC"))->limit($rightIndex - $offset + 1, $offset - 1);
 
         return array_reverse($this->_getReadAdapter()->fetchCol($pricesSelect));
     }

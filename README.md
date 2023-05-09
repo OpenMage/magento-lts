@@ -115,27 +115,23 @@ composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
 
 <small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
 
-Step 4: Require `magento-lts`:
+Step 4: Require the appropriate version of `magento-lts`:
 
 ```bash
-# OpenMage v19
+# Latest tagged v20 series release
+composer require "openmage/magento-lts":"^20.0.0"
+
+# Legacy v19 tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
 composer require "openmage/magento-lts":"^19.4.0"
 
-# OpenMage v20
-composer require "openmage/magento-lts":"^20.0.0"
+# Latest on "main" development branch
+composer require "openmage/magento-lts":"dev-main"
+
+# Latest on "next" development branch
+composer require "openmage/magento-lts":"dev-next"
 ```
 
 <small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
-
-To install the latest development version (may be unstable):
-
-```bash
-# OpenMage v19
-composer require "openmage/magento-lts":"1.9.4.x-dev"
-
-# OpenMage v20
-composer require "openmage/magento-lts":"20.0.x-dev"
-```
 
 When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
 
