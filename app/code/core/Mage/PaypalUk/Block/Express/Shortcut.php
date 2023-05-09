@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_PaypalUk
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_PaypalUk_Block_Express_Shortcut extends Mage_Paypal_Block_Express_Shortcut
 {

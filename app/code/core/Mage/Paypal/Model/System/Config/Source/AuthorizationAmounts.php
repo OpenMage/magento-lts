@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated since 1.6.2.0
  */
 class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts

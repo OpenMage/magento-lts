@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sendfriend
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()

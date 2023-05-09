@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Model_Config
 {

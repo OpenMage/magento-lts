@@ -48,7 +48,6 @@
  *
  * @category  Mage
  * @package   Mage_Cache
- * @author    Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cache_Backend_Redis extends Cm_Cache_Backend_Redis
 {

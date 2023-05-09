@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rating
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Rating_Model_Mysql4_Rating_Entity extends Mage_Rating_Model_Resource_Rating_Entity

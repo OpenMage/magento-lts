@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
@@ -364,6 +363,23 @@ class Mage_Core_Model_App
 
             $this->getFrontController()->dispatch();
         }
+
+        // Finish the request explicitly, no output allowed beyond this point
+        if (php_sapi_name() == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        } else {
+            flush();
+        }
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
+
+        try {
+            Mage::dispatchEvent('core_app_run_after', ['app' => $this]);
+        } catch (Throwable $e) {
+            Mage::logException($e);
+        }
+
         return $this;
     }
 
@@ -999,13 +1015,14 @@ class Mage_Core_Model_App
         $websites = [];
         if (is_array($this->_websites)) {
             foreach ($this->_websites as $website) {
-                if (!$withDefault && $website->getId() == 0) {
+                $id = $website->getId();
+                if (!$withDefault && $id == 0) {
                     continue;
                 }
                 if ($codeKey) {
                     $websites[$website->getCode()] = $website;
                 } else {
-                    $websites[$website->getId()] = $website;
+                    $websites[$id] = $website;
                 }
             }
         }

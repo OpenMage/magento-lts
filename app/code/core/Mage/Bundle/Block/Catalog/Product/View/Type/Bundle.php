@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getAddToCartUrl(Mage_Catalog_Model_Product $value)
  */

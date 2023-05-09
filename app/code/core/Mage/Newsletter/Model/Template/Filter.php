@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Template_Filter extends Mage_Widget_Model_Template_Filter
 {

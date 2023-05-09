@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {

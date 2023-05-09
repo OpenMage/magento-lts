@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_Action
 {
@@ -126,7 +125,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
 
                 Mage::getSingleton('adminhtml/session')
                     ->addSuccess($this->__('The design change has been deleted.'));
-            } catch (Mage_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addError($e->getMessage());
             } catch (Exception $e) {

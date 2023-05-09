@@ -6,8 +6,8 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Shell
+ * @category   Mage
+ * @package    Mage_Shell
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -18,9 +18,8 @@ require_once 'abstract.php';
 /**
  * Magento Log Shell Script
  *
- * @category    Mage
- * @package     Mage_Shell
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Shell
  */
 class Mage_Shell_Log extends Mage_Shell_Abstract
 {

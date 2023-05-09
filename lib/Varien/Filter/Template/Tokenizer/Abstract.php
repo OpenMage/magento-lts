@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Filter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Varien_Filter_Template_Tokenizer_Abstract
@@ -102,7 +101,8 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function isWhiteSpace()
     {
-        return trim($this->char()) != $this->char();
+        $char = $this->char();
+        return trim($char) != $char;
     }
 
     abstract public function tokenize();

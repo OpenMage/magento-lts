@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
 {

@@ -20,7 +20,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setFormFieldName(string $value)
  * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors

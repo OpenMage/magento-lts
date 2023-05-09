@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Model_Resource_Link_Purchased extends Mage_Core_Model_Resource_Db_Abstract
 {

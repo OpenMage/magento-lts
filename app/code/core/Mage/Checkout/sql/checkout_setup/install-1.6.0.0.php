@@ -779,12 +779,4 @@ if ($data) {
     }
 }
 
-$setup->insert(
-    $this->getTable('core_config_data'),
-    [
-        'path' => 'admin/security/validate_formkey_checkout',
-        'value' => '1'
-    ]
-);
-
 $installer->endSetup();

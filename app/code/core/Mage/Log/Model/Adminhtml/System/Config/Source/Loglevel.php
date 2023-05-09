@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Log
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
 {

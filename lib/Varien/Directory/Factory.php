@@ -18,7 +18,6 @@
  * *
  * @category   Varien
  * @package    Varien_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 require_once("Varien/Directory/Collection.php");

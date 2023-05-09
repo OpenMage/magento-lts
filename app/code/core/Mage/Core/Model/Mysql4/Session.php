@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Core_Model_Mysql4_Session extends Mage_Core_Model_Resource_Session
