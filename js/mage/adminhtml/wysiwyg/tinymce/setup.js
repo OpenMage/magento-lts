@@ -15,8 +15,9 @@
 var tinyMceWysiwygSetup = Class.create();
 tinyMceWysiwygSetup.prototype =
 {
-    mediaBrowserOpener: null,
-    mediaBrowserTargetElementId: null,
+    mediaBrowserCallback: null,
+    mediaBrowserMetal: null,
+    mediaBrowserValue: null,
 
     initialize: function(htmlId, config)
     {
@@ -27,9 +28,9 @@ tinyMceWysiwygSetup.prototype =
         this.selector = 'textarea#' + htmlId;
         this.config = config;
         this.automatic_uploads = false;
-        this.file_picker_callback = function(fieldName, url, objectType, w) {
-            varienGlobalEvents.fireEvent("open_browser_callback", {win:w, type:objectType, field:fieldName});
-        };
+        this.file_picker_callback = (callback, value, meta) => {
+            varienGlobalEvents.fireEvent("open_browser_callback", {callback:callback, value:value, meta:meta});
+        }
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
         if (typeof tinyMceEditors == 'undefined') {
             tinyMceEditors = [];
@@ -408,12 +409,13 @@ tinyMceWysiwygSetup.prototype =
                    'target_element_id/' + this.id + '/' +
                    'store/' + storeId + '/';
 
-        this.mediaBrowserOpener = o.win;
-        this.mediaBrowserTargetElementId = o.field;
+        this.mediaBrowserCallback = o.callback;
+        this.mediaBrowserMeta = o.meta;
+        this.mediaBrowserValue = o.value;
 
-        if (typeof(o.type) != 'undefined' && o.type != "") {
-            typeTitle = 'image' == o.type ? this.translate('Insert Image...') : this.translate('Insert Media...');
-            wUrl = wUrl + "type/" + o.type + "/";
+        if (typeof(o.meta.filetype) != 'undefined' && o.meta.filetype == "image") {
+            typeTitle = 'image' == o.meta.filetype ? this.translate('Insert Image...') : this.translate('Insert Media...');
+            wUrl = wUrl + "type/" + o.meta.filetype + "/";
         } else {
             typeTitle = this.translate('Insert File...');
         }
@@ -427,14 +429,6 @@ tinyMceWysiwygSetup.prototype =
 
     translate: function(string) {
         return 'undefined' != typeof(Translator) ? Translator.translate(string) : string;
-    },
-
-    getMediaBrowserOpener: function() {
-        return this.mediaBrowserOpener;
-    },
-
-    getMediaBrowserTargetElementId: function() {
-        return this.mediaBrowserTargetElementId;
     },
 
     getToggleButton: function() {
@@ -583,5 +577,9 @@ tinyMceWysiwygSetup.prototype =
 
     widgetPlaceholderExist: function(filename) {
         return this.config.widget_placeholders.indexOf(filename) != -1;
+    },
+
+    getMediaBrowserCallback: function() {
+        return this.mediaBrowserCallback;
     }
 };
