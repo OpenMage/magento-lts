@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Wishlist_Model_Resource_Item_Option_Collection getCollection()
  * @method string getCode()

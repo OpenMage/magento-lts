@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setConfig(Varien_Object $value)
  * @method $this setElement(Varien_Data_Form_Element_Abstract $value)

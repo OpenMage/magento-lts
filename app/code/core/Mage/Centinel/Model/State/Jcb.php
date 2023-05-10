@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Centinel
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
 {

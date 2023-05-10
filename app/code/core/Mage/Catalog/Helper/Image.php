@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
@@ -565,6 +564,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     protected function parseSize($string)
     {
+        if ($string === null) {
+            return false;
+        }
+
         $size = explode('x', strtolower($string));
         if (count($size) === 2) {
             return [
@@ -572,6 +575,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
             ];
         }
+
         return false;
     }
 

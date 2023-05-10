@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Core_Model_Url_Rewrite_Interface
 {

@@ -18,11 +18,6 @@ if(typeof Product=='undefined') {
 /********************* IMAGE ZOOMER ***********************/
 
 Product.Zoom = Class.create();
-/**
- * Image zoom control
- *
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 Product.Zoom.prototype = {
     initialize: function(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl){
         this.containerEl = $(imageEl).parentNode;

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Checkout_Formkey extends Mage_Adminhtml_Block_Template
 {
@@ -30,16 +29,25 @@ class Mage_Adminhtml_Block_Checkout_Formkey extends Mage_Adminhtml_Block_Templat
      */
     public function canShow()
     {
-        return !Mage::getStoreConfigFlag('admin/security/validate_formkey_checkout');
+        return !Mage::helper('core')->isFormKeyEnabled();
     }
 
     /**
      * Get url for edit Advanced -> Admin section
      *
      * @return string
+     * @deprecated
      */
     public function getSecurityAdminUrl()
     {
         return Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit/section/admin');
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnableCSRFUrl()
+    {
+        return Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit/section/system');
     }
 }

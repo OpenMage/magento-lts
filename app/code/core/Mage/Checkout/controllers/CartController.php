@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 {
@@ -63,14 +62,14 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Set back redirect url to response
      *
      * @return $this
-     * @throws Mage_Exception
+     * @throws Mage_Core_Exception
      */
     protected function _goBack()
     {
         $returnUrl = $this->getRequest()->getParam('return_url');
         if ($returnUrl) {
             if (!$this->_isUrlInternal($returnUrl)) {
-                throw new Mage_Exception('External urls redirect to "' . $returnUrl . '" denied!');
+                throw new Mage_Core_Exception('External urls redirect to "' . $returnUrl . '" denied!');
             }
 
             $this->_getSession()->getMessages(true);
@@ -193,7 +192,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @throws Mage_Exception
+     * @throws Mage_Core_Exception
      */
     public function addAction()
     {

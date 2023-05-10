@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Image
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Image
 {

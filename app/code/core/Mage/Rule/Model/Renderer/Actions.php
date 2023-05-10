@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rule_Model_Renderer_Actions implements Varien_Data_Form_Element_Renderer_Interface
 {

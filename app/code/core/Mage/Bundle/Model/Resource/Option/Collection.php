@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Bundle_Model_Option[] getItems()
  * @method Mage_Bundle_Model_Option getItemById($idValue)

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Uploader
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
 {

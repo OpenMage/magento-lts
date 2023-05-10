@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
 {

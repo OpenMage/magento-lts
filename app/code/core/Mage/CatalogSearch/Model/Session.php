@@ -15,7 +15,6 @@
 /**
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Session extends Mage_Core_Model_Session_Abstract
 {

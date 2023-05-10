@@ -68,7 +68,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
+- PHP 8.1+ for OM v21, PHP 7.4+ for OpenMage v19/v20
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -115,27 +115,23 @@ composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
 
 <small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
 
-Step 4: Require `magento-lts`:
+Step 4: Require the appropriate version of `magento-lts`:
 
 ```bash
-# OpenMage v19
+# Latest tagged v20 series release
+composer require "openmage/magento-lts":"^20.0.0"
+
+# Legacy v19 tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
 composer require "openmage/magento-lts":"^19.4.0"
 
-# OpenMage v20
-composer require "openmage/magento-lts":"^20.0.0"
+# Latest on "main" development branch
+composer require "openmage/magento-lts":"dev-main"
+
+# Latest on "next" development branch
+composer require "openmage/magento-lts":"dev-next"
 ```
 
 <small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
-
-To install the latest development version (may be unstable):
-
-```bash
-# OpenMage v19
-composer require "openmage/magento-lts":"1.9.4.x-dev"
-
-# OpenMage v20
-composer require "openmage/magento-lts":"20.0.x-dev"
-```
 
 When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
 
@@ -276,7 +272,6 @@ If you see SQL errors after upgrading please remember to check for this specific
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `dev/log/max_level`
-- `newsletter/security/enable_form_key`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`

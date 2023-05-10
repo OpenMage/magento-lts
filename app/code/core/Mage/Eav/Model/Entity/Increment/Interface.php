@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Eav_Model_Entity_Increment_Interface
 {

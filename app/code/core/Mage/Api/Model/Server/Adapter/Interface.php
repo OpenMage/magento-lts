@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Api_Model_Server_Adapter_Interface
 {

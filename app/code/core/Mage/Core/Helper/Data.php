@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -1000,5 +999,13 @@ XML;
             }
         }
         return $data;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFormKeyEnabled(): bool
+    {
+        return Mage::getStoreConfigFlag(Mage_Core_Controller_Front_Action::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }
