@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3']
+        php-versions: ['8.1']
     steps:
     - name: Checkout repository
       uses: actions/checkout@master
@@ -40,6 +40,9 @@ jobs:
 
     - name: Composer install
       run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev
+
+    - name: Optimize autoloader
+      run: composer dump-autoload --optimize
 
     - name: Create ZIP file
       run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'

@@ -2,18 +2,12 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage
+ * @category   Mage
+ * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -48,6 +42,17 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = BP . DS . 'vendor';
+    }
+}
+require $autoloaderPath . DS . 'autoload.php';
+/** AUTOLOADER PATCH **/
+
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
@@ -55,8 +60,6 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
 
 /**
  * Main Mage hub class
- *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 final class Mage
 {
@@ -214,7 +217,7 @@ final class Mage
                 'major'     => '20',
                 'minor'     => '1',
                 'patch'     => '0',
-                'stability' => 'rc2', // beta,alpha,rc
+                'stability' => 'rc4', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -223,7 +226,7 @@ final class Mage
             'major'     => '19',
             'minor'     => '5',
             'patch'     => '0',
-            'stability' => 'rc2', // beta,alpha,rc
+            'stability' => 'rc4', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
@@ -526,7 +529,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Mage_Core_Model_Abstract
+     * @return  Mage_Core_Model_Abstract|false
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {

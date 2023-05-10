@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller_Action
 {
@@ -134,7 +127,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             /** @var Mage_Catalog_Model_Product $configProduct */
             $data = [];
             foreach ($configProduct->getTypeInstance()->getEditableAttributes() as $attribute) {
-
                 /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
                 if (!$attribute->getIsUnique()
                     && $attribute->getFrontend()->getInputType() != 'gallery'
@@ -445,7 +437,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.super.group')
-            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', []));
+            ->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
         $this->renderLayout();
     }
 

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
@@ -135,7 +128,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     {
         /** @var Mage_GoogleAnalytics_Helper_Data $helper */
         $helper = $this->helper('googleanalytics');
-        if ($helper->isUseUniversalAnalytics()) {
+        if ($helper->isUseAnalytics4()) {
+            return $this->_getOrdersTrackingCodeAnalytics4();
+        } elseif ($helper->isUseUniversalAnalytics()) {
             return $this->_getOrdersTrackingCodeUniversal();
         }
 
@@ -192,6 +187,46 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 );
             }
             $result[] = "ga('ecommerce:send');";
+        }
+        return implode("\n", $result);
+    }
+
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getOrdersTrackingCodeAnalytics4()
+    {
+        $orderIds = $this->getOrderIds();
+        if (empty($orderIds) || !is_array($orderIds)) {
+            return '';
+        }
+        $collection = Mage::getResourceModel('sales/order_collection')
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
+        /** @var Mage_Sales_Model_Order $order */
+        foreach ($collection as $order) {
+            $orderData = [
+                'currency' => $order->getBaseCurrencyCode(),
+                'transaction_id' => $order->getIncrementId(),
+                'value' => number_format($order->getBaseGrandTotal(), 2),
+                'coupon' => strtoupper($order->getCouponCode()),
+                'shipping' => number_format($order->getBaseShippingAmount(), 2),
+                'tax' => number_format($order->getBaseTaxAmount(), 2),
+                'items' => []
+            ];
+
+            /** @var Mage_Sales_Model_Order_Item $item */
+            foreach ($order->getAllVisibleItems() as $item) {
+                $orderData['items'][] = [
+                    'item_id' => $item->getSku(),
+                    'item_name' => $item->getName(),
+                    'quantity' => $item->getQtyOrdered(),
+                    'price' => $item->getBasePrice(),
+                    'discount' => $item->getBaseDiscountAmount()
+                ];
+            }
+            $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
         }
         return implode("\n", $result);
     }

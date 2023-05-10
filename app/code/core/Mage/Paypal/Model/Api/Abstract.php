@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
@@ -382,12 +375,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      *
      * @param array &$request
      * @param int $i
-     * @return true|bool
+     * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 0)
     {
         if (!$this->_cart) {
-            return;
+            return false;
         }
 
         // always add cart totals, even if line items are not requested
@@ -403,9 +396,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         // add cart line items
         $items = $this->_cart->getItems();
         if (empty($items) || !$this->getIsLineItemsEnabled()) {
-            return;
+            return false;
         }
-        $result = null;
+        $result = false;
         foreach ($items as $item) {
             foreach ($this->_lineItemExportItemsFormat as $publicKey => $privateFormat) {
                 $result = true;

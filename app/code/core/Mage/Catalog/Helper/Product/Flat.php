@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
 {
@@ -89,7 +82,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     /**
      * Old Catalog Product Flat forced status
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_forceFlatStatusOld;
 
@@ -97,13 +90,16 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * Retrieve Catalog Product Flat Flag object
      *
      * @return Mage_Catalog_Model_Product_Flat_Flag
+     * @throws Mage_Core_Exception
      */
     public function getFlag()
     {
         if (is_null($this->_flagObject)) {
             $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
-            $this->_flagObject = Mage::getSingleton($className)
-                ->loadSelf();
+            /** @var Mage_Catalog_Model_Product_Flat_Flag $classInstance */
+            $classInstance = Mage::getSingleton($className);
+            $this->_flagObject = $classInstance;
+            $this->_flagObject->loadSelf();
         }
         return $this->_flagObject;
     }

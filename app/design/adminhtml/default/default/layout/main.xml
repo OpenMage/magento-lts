@@ -3,15 +3,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
@@ -81,10 +75,9 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
                 <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
 
-                <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name><params/><if/><condition>can_load_ext_js</condition></action>
+                <action method="addItem"><type>js</type><name>extjs/ext-tree.min.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js</type><name>extjs/fix-defer.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name><params/><if/><condition>can_load_ext_js</condition></action>
-                <action method="addItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name><params/><if/><condition>can_load_ext_js</condition></action>
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>

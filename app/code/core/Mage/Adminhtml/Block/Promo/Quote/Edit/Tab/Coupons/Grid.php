@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -26,7 +20,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -34,6 +27,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     {
         parent::__construct();
         $this->setId('couponCodesGrid');
+        $this->setDefaultSort('created_at');
         $this->setUseAjax(true);
     }
 
@@ -134,5 +128,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     public function getGridUrl()
     {
         return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRowUrl($row)
+    {
+        return '';
     }
 }

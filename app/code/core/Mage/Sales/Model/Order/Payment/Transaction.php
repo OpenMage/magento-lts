@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -26,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
@@ -319,7 +312,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             case self::TYPE_AUTH:
                 $authTransaction = $this;
                 break;
-            // case self::TYPE_PAYMENT?
+                // case self::TYPE_PAYMENT?
         }
         if ($authTransaction) {
             if (!$dryRun) {

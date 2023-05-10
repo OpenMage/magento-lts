@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -135,14 +129,12 @@ try {
             $globalCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $baseCurrencyCodeTable . '` WHERE `attribute_id` = ' . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //delete old data in base_currency_code
         $query = 'DELETE FROM `' . $baseCurrencyCodeTable . '` WHERE `attribute_id` = '
             . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_currency_code into base_currency_code
@@ -151,7 +143,6 @@ try {
             $baseCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeCurrencyCodeTable . '` WHERE `attribute_id` = ' . $storeCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_base_rate into base_to_global_rate
@@ -160,7 +151,6 @@ try {
             $baseToGlobalRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToBaseRateTable . '` WHERE `attribute_id` = ' . $storeToBaseRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_order_rate into base_to_order_rate
@@ -169,7 +159,6 @@ try {
             $baseToOrderRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToOrderRateTable . '` WHERE `attribute_id` = ' . $storeToOrderRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
     }
 

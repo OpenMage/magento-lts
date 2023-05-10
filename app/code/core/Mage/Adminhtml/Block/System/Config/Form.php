@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -229,6 +222,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param Varien_Simplexml_Element $section
      * @param string $fieldPrefix
      * @param string $labelPrefix
+     * @throw Mage_Core_Exception
      * @return $this
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix = '', $labelPrefix = '')
@@ -298,8 +292,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     . Mage::helper($helperName)->__((string)$element->label);
                 $hint  = (string)$element->hint ? Mage::helper($helperName)->__((string)$element->hint) : '';
 
-                if ($element->backend_model) {
-                    $model = Mage::getModel((string)$element->backend_model);
+                $helper = Mage::helper('adminhtml/config');
+                $backendClass = $helper->getBackendModelByFieldConfig($element);
+                if ($backendClass) {
+                    $model = Mage::getModel($backendClass);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
                         Mage::throwException('Invalid config field backend model: ' . (string)$element->backend_model);
                     }
@@ -423,21 +419,30 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
 
                     $sourceModel = Mage::getSingleton($factoryName);
+                    if (!$sourceModel) {
+                        Mage::throwException("Source model '{$factoryName}' is not found");
+                    }
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
+
+                    $optionArray = [];
                     if ($method) {
                         if ($fieldType == 'multiselect') {
                             $optionArray = $sourceModel->$method();
                         } else {
-                            $optionArray = [];
                             foreach ($sourceModel->$method() as $value => $label) {
                                 $optionArray[] = ['label' => $label, 'value' => $value];
                             }
                         }
                     } else {
-                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
+                        if (method_exists($sourceModel, 'toOptionArray')) {
+                            $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
+                        } else {
+                            Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
+                        }
                     }
+
                     $field->setValues($optionArray);
                 }
             }
@@ -635,9 +640,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     public function getScopeLabel($element)
     {
-        if ($element->show_in_store == 1) {
+        if ((int)$element->show_in_store === 1) {
             return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ($element->show_in_website == 1) {
+        } elseif ((int)$element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
         return $this->_scopeLabels[self::SCOPE_DEFAULT];

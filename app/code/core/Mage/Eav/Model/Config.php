@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Config
 {
@@ -209,7 +202,7 @@ class Mage_Eav_Model_Config
     protected function _loadEntityAttributes($entityType, $storeId)
     {
         // preload attributes in array form to avoid instantiating models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->getAttributeCollection()
+        $entityAttributes = $entityType->newAttributeCollection()
             ->addStoreLabel($storeId)
             ->getData();
 
@@ -221,7 +214,7 @@ class Mage_Eav_Model_Config
             $attributeId = $entityAttributeData['attribute_id'];
             $attributeCode = $entityAttributeData['attribute_code'];
 
-            // workaround for getAttributeCollection()->getData() returning all columns as string
+            // workaround for newAttributeCollection()->getData() returning all columns as string
             foreach (self::NUMERIC_ATTRIBUTE_COLUMNS as $key) {
                 if (!isset($entityAttributeData[$key])) {
                     continue;
@@ -482,6 +475,11 @@ class Mage_Eav_Model_Config
             }
         } else {
             $attribute = $this->_getDefaultAttributeIfExists($entityType, $code, $storeId);
+        }
+
+        // return an empty model to avoid breaking compatibility
+        if (!$attribute) {
+            $attribute = $this->_hydrateAttribute(["entity_type_id" => $entityType->getId()]);
         }
 
         return $attribute;

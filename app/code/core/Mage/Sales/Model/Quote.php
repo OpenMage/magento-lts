@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -31,7 +25,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
@@ -1116,7 +1109,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         Mage::dispatchEvent('sales_quote_product_add_after', ['items' => $items]);
 
-        return $item;
+        return $parentItem;
     }
 
     /**
@@ -2106,7 +2099,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param string $couponCode
      * @return $this
      */
-    public function setCouponCode(string $couponCode) #static with php74
+    public function setCouponCode(string $couponCode)
     {
         return $this->setData('coupon_code', $couponCode);
     }

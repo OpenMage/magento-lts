@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     base_default
@@ -30,7 +24,7 @@
     <?php if ($this->isPartialAuthorization()): ?>
         <?php echo $this->getChildHtml('cards') ?>
         <div class="release-amounts">
-            <button class="button" type="button" id="payment-button-cancel"><span><span>Cancel</span></span></button>
+            <button class="button" type="button" id="payment-button-cancel">Cancel</button>
             <span><?php echo $this->__('To cancel pending authorizations and release amounts that have already been processed during this payment, click Cancel.') ?></span>
         </div>
         <?php echo $this->showNoticeMessage($this->__('Please enter another credit card number to complete your purchase.')) ?>

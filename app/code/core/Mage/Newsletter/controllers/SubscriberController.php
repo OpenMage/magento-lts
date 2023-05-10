@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Newsletter
@@ -24,15 +18,9 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Action
 {
-    /**
-     * Use CSRF validation flag from newsletter config
-     */
-    public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
-
     /**
       * New subscription action
       */
@@ -133,15 +121,5 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             }
         }
         $this->_redirectReferer();
-    }
-
-    /**
-     * Check if form key validation is enabled in newsletter config.
-     *
-     * @return bool
-     */
-    protected function _isFormKeyEnabled()
-    {
-        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }

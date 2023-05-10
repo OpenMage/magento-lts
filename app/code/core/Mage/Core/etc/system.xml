@@ -3,15 +3,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -1505,6 +1499,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Provide the name of the request header set by the upstream proxy to indicate a secure connection.
+                                The header <code>X-Forwarded-Proto: https</code> is already checked by default regardless of this configuration option.
+                            ]]></comment>
                         </offloader_header>
                     </fields>
                 </secure>
