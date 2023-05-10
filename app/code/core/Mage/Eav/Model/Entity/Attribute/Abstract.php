@@ -145,6 +145,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             $this->_getResource()->loadByCode($this, $entityTypeId, $code);
         }
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->_hasDataChanges = false;
         Varien_Profiler::stop('_LOAD_ATTRIBUTE_BY_CODE__');
         return $this;
     }
