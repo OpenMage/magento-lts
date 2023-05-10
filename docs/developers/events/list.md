@@ -1,6 +1,4 @@
-# Full events list
-
-## List
+# Events list
 
 | Event name | With Magento or since OpenMage |
 | ---------- | -------------- |
@@ -191,7 +189,6 @@
 | controller_front_send_response_after | 1.9.4.5 |
 | controller_front_send_response_before | 1.9.4.5 |
 | controller_response_redirect | 1.9.4.5 |
-| core_app_run_after | 20.1.0 |
 | core_block_abstract_prepare_layout_after | 1.9.4.5 |
 | core_block_abstract_prepare_layout_before | 1.9.4.5 |
 | core_block_abstract_to_html_after | 1.9.4.5 |
@@ -338,36 +335,3 @@
 | wishlist_product_add_after | 1.9.4.5 |
 | wishlist_share | 1.9.4.5 |
 | wishlist_update_item | 1.9.4.5 |
-
-## Example
-
-For example, if you want to add custom logic for `customer_login` event.
-Add in your `config.xml`:
-
-```xml
-<config>
-    <global><!-- or adminhtml or frontend -->
-        <events>
-            <customer_login>
-                <observers>
-                    <yourNamespace_yourModule>
-                        <class>yourShortClass/observer</class>
-                        <method>yourMethod</method>
-                    </yourNamespace_yourModule>
-                </observers>
-            </customer_login>
-        </events>
-    </global>
-</config>
-```
-
-And in your `Observer.php`:
-
-```php
-class YourNamespace_YourModule_Model_Observer {
-
-    // EVENT customer_login
-    public function yourMethod(Varien_Event_Observer $observer) {
-        $customer = $observer->getData('customer');
-    }
-}
