@@ -1,4 +1,4 @@
-## For Multistore setups
+# For Multistore setups
 
 If you want to setup multiple stores with a different layout and localized content for each store, this is done by passing the `$_GET['skin']` parameter to the intended processor In the example below, we are using a `503` type error template file, which requires localized content.
 
@@ -12,7 +12,7 @@ if (isset($_GET['skin'])) {
 
 This can also be added a rewrite rule in the `.htaccess` file that will append a `skin` parameter to the URL.
 
-### $_GET['skin'] parameter
+## `$_GET['skin']` parameter
 
 To use the `skin` parameter:
 
