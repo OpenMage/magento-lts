@@ -264,15 +264,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            $keyValueArray = explode("=", $values[0]);
-            if (!array_key_exists(1, $keyValueArray)) {
+            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen($key)) {
                 continue;
             }
-            $key = trim($keyValueArray[0]);
-            if (!strlen($key)) {
-                continue;
-            }
-            $val = trim($keyValueArray[1]);
             $out[$key] = $val;
         }
         return $out;
@@ -295,15 +290,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            $keyValueArray = explode("=", $values[0]);
-            if (!array_key_exists(1, $keyValueArray)) {
+            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen($key)) {
                 continue;
             }
-            $key = trim($keyValueArray[0]);
-            if (!strlen($key)) {
-                continue;
-            }
-            $val = trim($keyValueArray[1]);
             $out[$key] = ['value' => $val];
             array_shift($values);
             $c--;
