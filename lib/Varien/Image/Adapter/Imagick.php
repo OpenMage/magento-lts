@@ -128,8 +128,6 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
     }
 
     /**
-     * Change the image size
-     *
      * @param int $frameWidth
      * @param int $frameHeight
      */
