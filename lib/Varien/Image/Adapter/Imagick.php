@@ -121,6 +121,9 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
         $this->_imageHandler->writeImage($fileName);
     }
 
+    /**
+     * @return string
+     */
     public function display()
     {
         header("Content-type: " . $this->getMimeTypeWithOutFileType());
