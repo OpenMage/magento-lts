@@ -381,12 +381,6 @@ class Mage_Core_Model_Cache
             return true;
         }
 
-        /**
-         * Add global magento cache tag to all cached data exclude config cache
-         */
-        if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
-            $tags[] = Mage_Core_Model_App::CACHE_TAG;
-        }
         return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
     }
 
