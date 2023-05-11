@@ -421,8 +421,7 @@ class Mage_Core_Model_Cache
             }
             $res = $this->getFrontend()->clean($mode, $this->_tags($tags));
         } else {
-            $res = $this->getFrontend()->clean($mode, [Mage_Core_Model_App::CACHE_TAG]);
-            $res = $res && $this->getFrontend()->clean($mode, [Mage_Core_Model_Config::CACHE_TAG]);
+            $this->flush();
         }
         return $res;
     }
