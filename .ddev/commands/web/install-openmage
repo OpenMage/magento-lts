@@ -1,0 +1,94 @@
+#!/bin/bash
+
+## Description: Install OpenMage
+## Usage: install-openmage
+## Example: ddev install-openmage
+
+ROOT="${PWD}"
+
+LOCALXML="${ROOT}/app/etc/local.xml"
+if [ -f "${LOCALXML}" ]; then
+  read -r -p "OpenMage is already installed. Delete local.xml and drop database[y/N]:" DELETE
+  DELETE=${DELETE,,} # to lower
+  if [[ "${DELETE}" =~ ^(yes|y) ]]; then
+    mysql -u db -h db -e "DROP SCHEMA IF EXISTS db; CREATE SCHEMA db;";
+    rm "${LOCALXML}"
+  else
+    exit 1
+  fi
+fi
+
+read -r -p "Install sample data? [y/N]" INSTALL_SAMPLE_DATA
+INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
+if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
+  SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
+  SAMPLE_DATA_DIRECTORY="${ROOT}/.sampleData"
+  SAMPLE_DATA_FILE=sample_data.tgz
+
+  if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
+    echo "Creating backup directory"
+    mkdir -p "${SAMPLE_DATA_DIRECTORY}"
+  fi
+
+  cd "${SAMPLE_DATA_DIRECTORY}" || exit
+  if [[ ! -f "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}" ]]; then
+    echo "Downloading sample data"
+    wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_FILE}"
+  fi
+
+  echo "Uncompress sample data"
+  tar xf "${SAMPLE_DATA_FILE}"
+
+  echo "Copy sample data"
+  cp -r magento-sample-data-1.9.2.4/* "${PWD}/"
+
+  echo "Import sample data"
+  mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
+
+  # remove sample data
+  if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
+    rm -rf $(
+      find . -maxdepth 1 -type f -name "*" ! -name "${SAMPLE_DATA_FILE}")
+  else
+    cd "${ROOT}" || exit
+    rm -rf "${SAMPLE_DATA_DIRECTORY}"
+  fi
+fi
+
+cd "${ROOT}" || exit
+
+read -r -p "Admin user [admin]:" ADMIN_USER
+ADMIN_USER=${ADMIN_USER:-admin}
+read -r -p "Admin firstname [OpenMage]:" ADMIN_FIRSTNAME
+ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
+read -r -p "Admin lastname [User]:" ADMIN_LASTNAME
+ADMIN_LASTNAME=${ADMIN_LASTNAME:-User}
+read -r -p "Admin email [admin@example.com]:" ADMIN_EMAIL
+ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+read -r -p "Admin password [veryl0ngpassw0rd]:" ADMIN_PASSWORD
+ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+
+php -f install.php -- \
+  --license_agreement_accepted 'yes' \
+  --locale 'en_US' \
+  --timezone 'America/New_York' \
+  --db_host 'db' \
+  --db_name 'db' \
+  --db_user 'db' \
+  --db_pass 'db' \
+  --db_prefix '' \
+  --url "${DDEV_PRIMARY_URL}" \
+  --use_rewrites 'yes' \
+  --use_secure 'no' \
+  --secure_base_url "${DDEV_PRIMARY_URL}" \
+  --use_secure_admin 'no' \
+  --admin_username "${ADMIN_USER}" \
+  --admin_lastname "${ADMIN_LASTNAME}" \
+  --admin_firstname "${ADMIN_FIRSTNAME}" \
+  --admin_email "${ADMIN_EMAIL}" \
+  --admin_password "${ADMIN_PASSWORD}" \
+  --session_save 'files' \
+  --admin_frontname 'admin' \
+  --backend_frontname 'admin' \
+  --default_currency 'USD' \
+  --skip_url_validation 'yes'
