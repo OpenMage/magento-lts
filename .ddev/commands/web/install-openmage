@@ -67,6 +67,8 @@ read -r -p "Admin email [admin@example.com]:" ADMIN_EMAIL
 ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
 read -r -p "Admin password [veryl0ngpassw0rd]:" ADMIN_PASSWORD
 ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+read -r -p "Database prefix []:" DB_PREFIX
+DB_PREFIX=${DB_PREFIX:-}
 
 php -f install.php -- \
   --license_agreement_accepted 'yes' \
@@ -76,7 +78,7 @@ php -f install.php -- \
   --db_name 'db' \
   --db_user 'db' \
   --db_pass 'db' \
-  --db_prefix '' \
+  --db_prefix "${DB_PREFIX}" \
   --url "${DDEV_PRIMARY_URL}" \
   --use_rewrites 'yes' \
   --use_secure 'no' \
