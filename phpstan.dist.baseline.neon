@@ -2126,16 +2126,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
