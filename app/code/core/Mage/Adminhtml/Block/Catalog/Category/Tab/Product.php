@@ -159,12 +159,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 [
                     'caption'   => Mage::helper('catalog')->__('Edit'),
                     'id'        => 'editlink',
+                    'field'     => 'id',
+                    'onclick'  => 'event.stopPropagation()',
                     'url'       => [
                         'base'      => 'adminhtml/catalog_product/edit',
                         'params'    => ['store' => $this->getRequest()->getParam('store')],
-                    ],
-                    'field'     => 'id',
-                    'onclick'  => 'popWin(this.href,\'_blank\',\'width=1024,height=750,resizable=1,scrollbars=1\');return false;'
+                    ]
                 ],
             ],
             'filter' => false,
