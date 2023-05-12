@@ -82,13 +82,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'product_id=entity_id',
                 'category_id=' . (int) $this->getRequest()->getParam('id', 0),
                 'left');
-        $collection->joinAttribute(
-            'status',
-            'catalog_product/status',
-            'entity_id',
-            null,
-            'inner'
-        );
+        $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
         $this->setCollection($collection);
 
         if ($this->getCategory()->getProductsReadonly()) {
@@ -148,36 +142,34 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'editable'  => !$this->getCategory()->getProductsReadonly()
             //'renderer'  => 'adminhtml/widget_grid_column_renderer_input'
         ]);
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'    => Mage::helper('catalog')->__('Status'),
             'width'     => '70',
             'index'     => 'status',
             'type'      => 'options',
             'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-        ));
-        $this->addColumn('action', array(
+        ]);
+        $this->addColumn('action', [
             'header'    => Mage::helper('catalog')->__('Action'),
             'width'     => '50px',
             'type'      => 'action',
             'getter'    => 'getId',
-            'actions'   => array(
-                array(
+            'actions'   => [
+                [
                     'caption'   => Mage::helper('catalog')->__('Edit'),
                     'id'        => 'editlink',
-                    'url'       => array(
+                    'url'       => [
                         'base'      => 'adminhtml/catalog_product/edit',
-                        'params'    => array(
-                            'store'     => $this->getRequest()->getParam('store'),
-                        ),
-                    ),
+                        'params'    => ['store' => $this->getRequest()->getParam('store')],
+                    ],
                     'field'     => 'id',
                     'onclick'  => 'popWin(this.href,\'_blank\',\'width=1024,height=750,resizable=1,scrollbars=1\');return false;'
-                ),
-            ),
+                ],
+            ],
             'filter' => false,
             'sortable' => false,
             'index' => 'stores',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
