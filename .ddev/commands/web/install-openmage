@@ -2,9 +2,21 @@
 
 ## Description: Install OpenMage
 ## Usage: install-openmage
-## Example: ddev install-openmage
+## Example: ddev install-openmage -d -s -k
 
 ROOT="${PWD}"
+
+SAMPLE_DATA_FLAG=''
+SAMPLE_DATA_KEEP_FLAG=''
+USE_DEFAULT_FLAG=''
+
+while getopts 'dsk' flag; do
+  case "${flag}" in
+    d) USE_DEFAULT_FLAG='true' ;;
+    s) SAMPLE_DATA_FLAG='true' ;;
+    k) SAMPLE_DATA_KEEP_FLAG='true' ;;
+  esac
+done
 
 LOCALXML="${ROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
@@ -18,8 +30,14 @@ if [ -f "${LOCALXML}" ]; then
   fi
 fi
 
-read -r -p "Install sample data? [y/N]" INSTALL_SAMPLE_DATA
-INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
+# install sample data
+if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
+  INSTALL_SAMPLE_DATA='y'
+else
+  read -r -p "Install sample data? [y/N]" INSTALL_SAMPLE_DATA
+  INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
+fi
+
 if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
   SAMPLE_DATA_DIRECTORY="${ROOT}/.sampleData"
@@ -57,18 +75,27 @@ fi
 
 cd "${ROOT}" || exit
 
-read -r -p "Admin user [admin]:" ADMIN_USER
-ADMIN_USER=${ADMIN_USER:-admin}
-read -r -p "Admin firstname [OpenMage]:" ADMIN_FIRSTNAME
-ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
-read -r -p "Admin lastname [User]:" ADMIN_LASTNAME
-ADMIN_LASTNAME=${ADMIN_LASTNAME:-User}
-read -r -p "Admin email [admin@example.com]:" ADMIN_EMAIL
-ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
-read -r -p "Admin password [veryl0ngpassw0rd]:" ADMIN_PASSWORD
-ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
-read -r -p "Database prefix []:" DB_PREFIX
-DB_PREFIX=${DB_PREFIX:-}
+if [[ "${USE_DEFAULT_FLAG}" ]]; then
+  ADMIN_USER='admin'
+  ADMIN_FIRSTNAME='OpenMage'
+  ADMIN_LASTNAME='User'
+  ADMIN_EMAIL='admin@example.com'
+  ADMIN_PASSWORD='veryl0ngpassw0rd'
+  DB_PREFIX=''
+else
+  read -r -p "Admin user [admin]:" ADMIN_USER
+  ADMIN_USER=${ADMIN_USER:-admin}
+  read -r -p "Admin firstname [OpenMage]:" ADMIN_FIRSTNAME
+  ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
+  read -r -p "Admin lastname [User]:" ADMIN_LASTNAME
+  ADMIN_LASTNAME=${ADMIN_LASTNAME:-User}
+  read -r -p "Admin email [admin@example.com]:" ADMIN_EMAIL
+  ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+  read -r -p "Admin password [veryl0ngpassw0rd]:" ADMIN_PASSWORD
+  ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+  read -r -p "Database prefix []:" DB_PREFIX
+  DB_PREFIX=${DB_PREFIX:-}
+fi
 
 php -f install.php -- \
   --license_agreement_accepted 'yes' \
