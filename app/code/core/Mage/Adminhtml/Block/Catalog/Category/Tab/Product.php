@@ -81,7 +81,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'position',
                 'product_id=entity_id',
                 'category_id=' . (int) $this->getRequest()->getParam('id', 0),
-                'left');
+                'left'
+            );
         $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
         $this->setCollection($collection);
 
