@@ -21,9 +21,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Adminhtml/>
-                <Mage_Customer/>
-                <Mage_Sendfriend/>
-                <Mage_Wishlist/>
+                <Mage_Customer/> 
             </depends>
         </Mage_Captcha>
     </modules>
