@@ -2,26 +2,40 @@
 
 ## Description: Install OpenMage
 ## Usage: install-openmage
-## Example: ddev install-openmage -d -s -k
+## Example: ddev install-openmage -d -s -k -q
 
 ROOT="${PWD}"
 
+QUIET_INSTALL_FLAG=''
 SAMPLE_DATA_FLAG=''
 SAMPLE_DATA_KEEP_FLAG=''
 USE_DEFAULT_FLAG=''
 
-while getopts 'dsk' flag; do
+while getopts 'dskq' flag; do
   case "${flag}" in
     d) USE_DEFAULT_FLAG='true' ;;
     s) SAMPLE_DATA_FLAG='true' ;;
     k) SAMPLE_DATA_KEEP_FLAG='true' ;;
+    q) QUIET_INSTALL_FLAG='true' ;;
   esac
 done
 
+
+#quiet install
+if [[ "${QUIET_INSTALL_FLAG}" ]]; then
+  USE_DEFAULT_FLAG='true'
+  SAMPLE_DATA_FLAG='true'
+fi
+
 LOCALXML="${ROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
-  read -r -p "OpenMage is already installed. Delete local.xml and drop database[y/N]:" DELETE
-  DELETE=${DELETE,,} # to lower
+  if [[ "${QUIET_INSTALL_FLAG}" ]]; then
+    DELETE='y'
+  else
+    read -r -p "OpenMage is already installed. Delete local.xml and drop database[y/N]:" DELETE
+    DELETE=${DELETE,,} # to lower
+  fi
+
   if [[ "${DELETE}" =~ ^(yes|y) ]]; then
     mysql -u db -h db -e "DROP SCHEMA IF EXISTS db; CREATE SCHEMA db;";
     rm "${LOCALXML}"
@@ -31,7 +45,7 @@ if [ -f "${LOCALXML}" ]; then
 fi
 
 # install sample data
-if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
+if [[ "${SAMPLE_DATA_FLAG}" ]]; then
   INSTALL_SAMPLE_DATA='y'
 else
   read -r -p "Install sample data? [y/N]" INSTALL_SAMPLE_DATA
