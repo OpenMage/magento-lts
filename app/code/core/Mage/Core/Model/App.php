@@ -37,12 +37,6 @@ class Mage_Core_Model_App
     public const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
-     * Cache tag for all cache data exclude config cache
-     *
-     */
-    public const CACHE_TAG = 'MAGE';
-
-    /**
      * Default store Id (for install)
      */
     public const DISTRO_STORE_ID       = 1;
