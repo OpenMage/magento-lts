@@ -1041,10 +1041,21 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function reindexProductsMassAction($observer)
     {
-        Mage::getSingleton('index/indexer')->indexEvents(
-            Mage_Catalog_Model_Product::ENTITY,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+        $helper = Mage::helper('cataloginventory');
+        $ids = $helper->getProductIdsForMassReindex();
+        if (!$ids) {
+            return;
+        }
+
+        $massObject = new Varien_Object();
+        $massObject->setAttributesData(array('force_reindex_required' => 1));
+        $massObject->setProductIds($ids);
+
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $massObject, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
+
+        $helper->clearProductIdsForMassReindex();
     }
 
     /**
