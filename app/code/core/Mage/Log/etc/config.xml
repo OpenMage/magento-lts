@@ -29,24 +29,28 @@
             </entities>
         </ignoredModules>
         <ignore_user_agents>
-            <google>Googlebot</google>
-            <mauibot>MauiBot</mauibot>
-            <blexbot>BLEXBot</blexbot>
-            <hrefsbot>AhrefsBot</hrefsbot>
-            <bingbot>bingbot</bingbot>
-            <dotbot>DotBot</dotbot>
-            <istellabot>istellabot</istellabot>
-            <mod_pagespeed>mod_pagespeed</mod_pagespeed>
-            <mj12bot>MJ12bot</mj12bot>
-            <yandexbot>YandexMobileBot</yandexbot>
-            <yandeximage>YandexImages</yandeximage>
-            <opensiteexplorer>spbot</opensiteexplorer>
-            <semrushbot>SemrushBot</semrushbot>
+            <adsbot>AdsBot</adsbot>
             <alphabot>AlphaBot</alphabot>
-            <facebookexternalhit>facebookexternalhit</facebookexternalhit>
-            <seotester>SEOTesterBot</seotester>
-            <ZoominfoBot>ZoominfoBot</ZoominfoBot>
             <amazonbot>Amazonbot</amazonbot>
+            <bingbot>bingbot</bingbot>
+            <blexbot>BLEXBot</blexbot>
+            <dotbot>DotBot</dotbot>
+            <facebookexternalhit>facebookexternalhit</facebookexternalhit>
+            <google>Googlebot</google>
+            <google-site-verification>Google-Site-Verification</google-site-verification>
+            <hrefsbot>AhrefsBot</hrefsbot>
+            <istellabot>istellabot</istellabot>
+            <mauibot>MauiBot</mauibot>
+            <mj12bot>MJ12bot</mj12bot>
+            <mod_pagespeed>mod_pagespeed</mod_pagespeed>
+            <opensiteexplorer>spbot</opensiteexplorer>
+            <pinterestbot>Pinterestbot</pinterestbot>
+            <semrushbot>SemrushBot</semrushbot>
+            <seotester>SEOTesterBot</seotester>
+            <yandexbot>YandexBot</yandexbot>
+            <yandeximage>YandexImages</yandeximage>
+            <yandexmobilebot>YandexMobileBot</yandexmobilebot>
+            <zoominfobot>ZoominfoBot</zoominfobot>
         </ignore_user_agents>
         <helpers>
             <log>
