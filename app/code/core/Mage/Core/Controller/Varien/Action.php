@@ -809,7 +809,7 @@ abstract class Mage_Core_Controller_Varien_Action
             /**
              * Url must start from base secure or base unsecure url
              */
-            if ((strpos($url, Mage::app()->getStore()->getBaseUrl()) === 0)
+            if ((str_starts_with($url, Mage::app()->getStore()->getBaseUrl()))
                 || (strpos($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)) === 0)
             ) {
                 return true;

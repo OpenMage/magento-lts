@@ -805,7 +805,7 @@ class Mage_Catalog_Model_Url
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) === 0
+                && str_starts_with($existingRequestPath, $requestPath)
             ) {
                 $existingRequestPath = preg_replace(
                     '/^' . preg_quote($requestPath, '/') . '/',

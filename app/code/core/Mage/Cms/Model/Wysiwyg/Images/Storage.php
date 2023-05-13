@@ -239,7 +239,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
         }
 
-        if (strpos($pathCmp, $rootCmp) === 0) {
+        if (str_starts_with($pathCmp, $rootCmp)) {
             $io->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
         }
     }
@@ -319,7 +319,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     {
         $mediaRootDir = $this->getHelper()->getStorageRoot();
 
-        if (strpos($filePath, $mediaRootDir) === 0) {
+        if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbPath = $this->getThumbnailRoot() . DS . substr($filePath, strlen($mediaRootDir));
 
             if (!$checkFile || is_readable($thumbPath)) {
@@ -340,7 +340,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     public function getThumbnailUrl($filePath, $checkFile = false)
     {
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir() . DS;
-        if (strpos($filePath, $mediaRootDir) === 0) {
+        if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
@@ -420,7 +420,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir();
         $thumbnailDir = $this->getThumbnailRoot();
 
-        if ($filePath && strpos($filePath, $mediaRootDir) === 0) {
+        if ($filePath && str_starts_with($filePath, $mediaRootDir)) {
             $thumbnailDir .= DS . dirname(substr($filePath, strlen($mediaRootDir)));
         }
 

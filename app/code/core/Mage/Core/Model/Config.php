@@ -1583,7 +1583,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         // If unsecure base url is https, then all urls should be secure
-        if (strpos(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://') === 0) {
+        if (str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
             return true;
         }
 
@@ -1591,7 +1591,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_secureUrlCache[$url] = false;
             $secureUrls = $this->getNode('frontend/secure_url');
             foreach ($secureUrls->children() as $match) {
-                if (strpos($url, (string)$match) === 0) {
+                if (str_starts_with($url, (string)$match)) {
                     $this->_secureUrlCache[$url] = true;
                     break;
                 }
