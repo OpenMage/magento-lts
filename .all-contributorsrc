@@ -1382,6 +1382,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Judx",
+      "name": "Juho Hölsä",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15036353?v=4",
+      "profile": "https://juhoholsa.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
