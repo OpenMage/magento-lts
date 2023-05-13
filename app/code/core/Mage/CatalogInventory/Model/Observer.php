@@ -1038,6 +1038,7 @@ class Mage_CatalogInventory_Model_Observer
      * Reindex all events of product-massAction type
      *
      * @param Varien_Event_Observer $observer
+     * @return void
      */
     public function reindexProductsMassAction($observer)
     {
