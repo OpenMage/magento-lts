@@ -165,7 +165,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     }
 
     /**
-     * Enable Catalog Product Flat
+     * Enable Catalog Product Flat.
      *
      * @param bool $save
      */
