@@ -1401,6 +1401,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     public function reindexAll()
     {
         foreach (Mage::app()->getStores() as $storeId => $store) {
+            if (!$store->getIsActive()) continue;
             $this->prepareFlatTable($storeId);
             $this->beginTransaction();
             try {
