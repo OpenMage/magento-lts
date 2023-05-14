@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Index_Model_Mysql4_Event_Collection extends Mage_Index_Model_Resource_Event_Collection

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Review
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getFormData()
  * @method $this setFormData(array $value)

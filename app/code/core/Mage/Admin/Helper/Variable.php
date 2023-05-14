@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Helper_Variable
 {

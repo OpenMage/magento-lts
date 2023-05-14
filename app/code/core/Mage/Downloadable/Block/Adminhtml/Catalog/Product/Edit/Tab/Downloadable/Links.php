@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()

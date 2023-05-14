@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  since 1.7.0.1
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface

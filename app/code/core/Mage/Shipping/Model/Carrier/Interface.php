@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Shipping
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Shipping_Model_Carrier_Interface
 {

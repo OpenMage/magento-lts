@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Exception extends Mage_Core_Exception
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resource_Db_Abstract
 {

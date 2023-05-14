@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Captcha
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
 {
@@ -65,7 +64,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Generated word
      *
-     * @var string|null
+     * @var string
      */
     protected $_word;
 
@@ -484,7 +483,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     protected function _clearWord()
     {
         $this->getSession()->unsetData($this->_getFormIdKey(self::SESSION_WORD));
-        $this->_word = null;
+        $this->_word = '';
         return $this;
     }
 

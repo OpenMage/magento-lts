@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstract
 {

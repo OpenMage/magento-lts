@@ -18,7 +18,6 @@
  *
  * @category   Magento
  * @package    Magento_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Magento_Db_Object
 {

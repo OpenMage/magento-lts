@@ -24,7 +24,6 @@
  *
  * @category   Mage
  * @package    Mage_Shipping
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCarrier(string $value)
  * @method $this setCarrierTitle(string $value)

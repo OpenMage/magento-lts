@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Archive
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Interface
 {

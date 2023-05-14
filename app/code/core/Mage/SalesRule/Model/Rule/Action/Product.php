@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Abstract
 {
@@ -37,10 +36,10 @@ class Mage_SalesRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_Ab
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
-            'to_fixed' => Mage::helper('salesrule')->__('To Fixed Value'),
-            'to_percent' => Mage::helper('salesrule')->__('To Percentage'),
-            'by_fixed' => Mage::helper('salesrule')->__('By Fixed value'),
-            'by_percent' => Mage::helper('salesrule')->__('By Percentage'),
+            'to_fixed'   => static::$translate ? Mage::helper('salesrule')->__('To Fixed Value') : 'To Fixed Value',
+            'to_percent' => static::$translate ? Mage::helper('salesrule')->__('To Percentage') : 'To Percentage',
+            'by_fixed'   => static::$translate ? Mage::helper('salesrule')->__('By Fixed value') : 'By Fixed value',
+            'by_percent' => static::$translate ? Mage::helper('salesrule')->__('By Percentage') : 'By Percentage',
         ]);
         return $this;
     }

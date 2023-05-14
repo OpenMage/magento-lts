@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 {
@@ -53,7 +52,7 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
     {
         // load layout, set active menu and breadcrumbs
         $this->loadLayout()
-            ->_setActiveMenu('catalog/system_sitemap')
+            ->_setActiveMenu('catalog/sitemap')
             ->_addBreadcrumb(
                 Mage::helper('catalog')->__('Catalog'),
                 Mage::helper('catalog')->__('Catalog')

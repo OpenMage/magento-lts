@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCheckoutRedirectUrl()
  * @method $this setInfoInstance(Mage_Payment_Model_Info $value)

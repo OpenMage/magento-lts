@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()

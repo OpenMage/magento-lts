@@ -19,7 +19,6 @@
  * @deprecated now the process of creating the label is on DHL side
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
 {

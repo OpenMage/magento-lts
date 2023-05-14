@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()
@@ -187,12 +186,13 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
 
         try {
+            $id = $this->getId();
             $entityStoreConfig = Mage::getModel('eav/entity_store')
-                ->loadByEntityStore($this->getId(), $storeId);
+                ->loadByEntityStore($id, $storeId);
 
             if (!$entityStoreConfig->getId()) {
                 $entityStoreConfig
-                    ->setEntityTypeId($this->getId())
+                    ->setEntityTypeId($id)
                     ->setStoreId($storeId)
                     ->setIncrementPrefix($storeId)
                     ->save();

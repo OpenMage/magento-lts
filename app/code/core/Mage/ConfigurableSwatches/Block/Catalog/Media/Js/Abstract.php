@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends Mage_Core_Block_Template
 {

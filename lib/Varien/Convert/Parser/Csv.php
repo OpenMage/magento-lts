@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
 {

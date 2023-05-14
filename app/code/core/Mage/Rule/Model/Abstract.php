@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this unsActions()
  * @method bool hasActionsSerialized()

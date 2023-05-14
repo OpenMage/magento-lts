@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 {

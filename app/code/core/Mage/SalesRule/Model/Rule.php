@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
@@ -201,7 +200,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      */
     protected function _afterSave()
     {
-        $couponCode = trim($this->getCouponCode());
+        $couponCode = trim((string)$this->getCouponCode());
         if (strlen($couponCode)
             && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
             && !$this->getUseAutoGeneration()

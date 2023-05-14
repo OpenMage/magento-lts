@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Paypal_Block_Logo extends Mage_Core_Block_Template
