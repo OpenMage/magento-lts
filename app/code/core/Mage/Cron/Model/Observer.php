@@ -220,7 +220,7 @@ class Mage_Cron_Model_Observer
 
         $now = time();
         foreach ($history->getIterator() as $record) {
-            if (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()]) {
+            if (strtotime($record->getExecutedAt() ?? '') < $now - $historyLifetimes[$record->getStatus()]) {
                 $record->delete();
             }
         }
