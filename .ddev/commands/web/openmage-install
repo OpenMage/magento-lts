@@ -120,8 +120,12 @@ else
   ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
   read -r -p "Admin password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
   ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
-  read -r -p "Table prefix []: " TABLE_PREFIX
-  TABLE_PREFIX=${TABLE_PREFIX:-}
+  if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
+    TABLE_PREFIX=''
+  else
+    read -r -p "Table prefix []: " TABLE_PREFIX
+    TABLE_PREFIX=${TABLE_PREFIX:-}
+  fi
 fi
 
 php -f install.php -- \
