@@ -35,7 +35,7 @@ elif [[ "${ACTION}" =~ ^(create|c) ]]; then
     mysql -u db -h db db -e "INSERT INTO admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name) VALUES (1, 2, 0, 'U',(SELECT user_id FROM admin_user WHERE username = '"${ADMIN_USER}"'),'"${ADMIN_FIRSTNAME}"')"
     echo "The account "$ADMIN_USER" has been created."
   else
-    echo "The account "$ADMIN_USER" exists. Use the Update action instead if you want to change the password."
+    echo "The account "$ADMIN_USER" exists. If you want to change the password run again and choose the Update action."
   fi
 else
   exit 1
