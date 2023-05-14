@@ -199,8 +199,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     private function _isPunycode($host)
     {
-        if (str_starts_with($host, 'xn--') || strpos($host, '.xn--') !== false
-            || str_starts_with($host, 'XN--') || strpos($host, '.XN--') !== false
+        if (str_starts_with($host, 'xn--') || str_contains($host, '.xn--')
+            || str_starts_with($host, 'XN--') || str_contains($host, '.XN--')
         ) {
             return true;
         }

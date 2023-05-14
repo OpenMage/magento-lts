@@ -805,7 +805,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _isUrlInternal($url)
     {
-        if (strpos($url, 'http') !== false) {
+        if (str_contains($url, 'http')) {
             /**
              * Url must start from base secure or base unsecure url
              */

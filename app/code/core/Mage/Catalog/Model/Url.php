@@ -608,7 +608,7 @@ class Mage_Catalog_Model_Url
      */
     public function getUnusedPathByUrlKey($storeId, $requestPath, $idPath, $urlKey)
     {
-        if (strpos($idPath, 'product') !== false) {
+        if (str_contains($idPath, 'product')) {
             $suffix = $this->getProductUrlSuffix($storeId);
         } else {
             $suffix = $this->getCategoryUrlSuffix($storeId);

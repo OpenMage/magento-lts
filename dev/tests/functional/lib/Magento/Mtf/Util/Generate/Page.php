@@ -177,7 +177,7 @@ class Page extends AbstractGenerate
      */
     protected function getParentPage($folderPath, $mca, $area)
     {
-        if (strpos($folderPath, 'Adminhtml') !== false && $area === 'Adminhtml') {
+        if (str_contains($folderPath, 'Adminhtml') && $area === 'Adminhtml') {
             $areaMtfPage = 'BackendPage';
         } else {
             if (strpos($mca, 'http') === false) {

@@ -226,7 +226,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $io->getFilteredPath($path)
             ));
         }
-        if (strpos($pathCmp, chr(0)) !== false
+        if (str_contains($pathCmp, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $pathCmp)
         ) {
             throw new Exception('Detected malicious path or filename input.');
