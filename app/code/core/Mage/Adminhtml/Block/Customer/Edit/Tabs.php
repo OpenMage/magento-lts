@@ -73,13 +73,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
-            $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
-            if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
-                $this->addTab('newsletter', [
-                    'label'     => Mage::helper('customer')->__('Newsletter'),
-                    'content'   => $block->initForm()->toHtml()
-                ]);
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter')) {
+                /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
+                $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
+                if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
+                    $this->addTab('newsletter', [
+                        'label'     => Mage::helper('customer')->__('Newsletter'),
+                        'content'   => $block->initForm()->toHtml()
+                    ]);
+                }
             }
 
             if (Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
