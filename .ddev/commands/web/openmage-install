@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Description: Install OpenMage
-## Usage: install-openmage
-## Example: ddev install-openmage -d -s -k -q
+## Usage: openmage-install
+## Example: ddev openmage-install -d -s -k -q
 
 ROOT="${PWD}"
 
@@ -32,7 +32,7 @@ if [ -f "${LOCALXML}" ]; then
   if [[ "${QUIET_INSTALL_FLAG}" ]]; then
     DELETE='y'
   else
-    read -r -p "OpenMage is already installed. Delete local.xml and drop database[y/N]:" DELETE
+    read -r -p "OpenMage is already installed. Delete local.xml and drop database [y/N]: " DELETE
     DELETE=${DELETE,,} # to lower
   fi
 
@@ -48,7 +48,7 @@ fi
 if [[ "${SAMPLE_DATA_FLAG}" ]]; then
   INSTALL_SAMPLE_DATA='y'
 else
-  read -r -p "Install sample data? [y/N]" INSTALL_SAMPLE_DATA
+  read -r -p "Install sample data? [y/N]: " INSTALL_SAMPLE_DATA
   INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
 fi
 
@@ -92,23 +92,23 @@ cd "${ROOT}" || exit
 if [[ "${USE_DEFAULT_FLAG}" ]]; then
   ADMIN_USER='admin'
   ADMIN_FIRSTNAME='OpenMage'
-  ADMIN_LASTNAME='User'
+  ADMIN_LASTNAME='Administrator'
   ADMIN_EMAIL='admin@example.com'
   ADMIN_PASSWORD='veryl0ngpassw0rd'
-  DB_PREFIX=''
+  TABLE_PREFIX=''
 else
-  read -r -p "Admin user [admin]:" ADMIN_USER
+  read -r -p "Admin user [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
-  read -r -p "Admin firstname [OpenMage]:" ADMIN_FIRSTNAME
+  read -r -p "Admin firstname [OpenMage]: " ADMIN_FIRSTNAME
   ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
-  read -r -p "Admin lastname [User]:" ADMIN_LASTNAME
-  ADMIN_LASTNAME=${ADMIN_LASTNAME:-User}
-  read -r -p "Admin email [admin@example.com]:" ADMIN_EMAIL
+  read -r -p "Admin lastname [Administrator]: " ADMIN_LASTNAME
+  ADMIN_LASTNAME=${ADMIN_LASTNAME:-Administrator}
+  read -r -p "Admin email [admin@example.com]: " ADMIN_EMAIL
   ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
-  read -r -p "Admin password [veryl0ngpassw0rd]:" ADMIN_PASSWORD
+  read -r -p "Admin password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
   ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
-  read -r -p "Database prefix []:" DB_PREFIX
-  DB_PREFIX=${DB_PREFIX:-}
+  read -r -p "Table prefix []: " TABLE_PREFIX
+  TABLE_PREFIX=${TABLE_PREFIX:-}
 fi
 
 php -f install.php -- \
@@ -119,12 +119,12 @@ php -f install.php -- \
   --db_name 'db' \
   --db_user 'db' \
   --db_pass 'db' \
-  --db_prefix "${DB_PREFIX}" \
+  --db_prefix "${TABLE_PREFIX}" \
   --url "${DDEV_PRIMARY_URL}" \
   --use_rewrites 'yes' \
-  --use_secure 'no' \
+  --use_secure 'yes' \
   --secure_base_url "${DDEV_PRIMARY_URL}" \
-  --use_secure_admin 'no' \
+  --use_secure_admin 'yes' \
   --admin_username "${ADMIN_USER}" \
   --admin_lastname "${ADMIN_LASTNAME}" \
   --admin_firstname "${ADMIN_FIRSTNAME}" \
@@ -134,4 +134,5 @@ php -f install.php -- \
   --admin_frontname 'admin' \
   --backend_frontname 'admin' \
   --default_currency 'USD' \
+  --enable_charts 'yes' \
   --skip_url_validation 'yes'
