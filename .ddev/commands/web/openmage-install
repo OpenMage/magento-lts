@@ -22,7 +22,10 @@ while :; do
          -k|--keep)
             SAMPLE_DATA_KEEP_FLAG='true' ;;
          -q|--quiet)
-            QUIET_INSTALL_FLAG='true' ;;
+            QUIET_INSTALL_FLAG='true'
+            USE_DEFAULT_FLAG='true'
+            SAMPLE_DATA_FLAG='true'
+            ;;
          --)              # End of all options.
              shift
              break
@@ -36,12 +39,6 @@ while :; do
 
      shift
  done
-
-#quiet install
-if [[ "${QUIET_INSTALL_FLAG}" ]]; then
-  USE_DEFAULT_FLAG='true'
-  SAMPLE_DATA_FLAG='true'
-fi
 
 LOCALXML="${ROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
