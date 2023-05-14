@@ -1138,7 +1138,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function sessionUrlVar($html)
     {
-        if (strpos($html, '__SID') === false) {
+        if (!str_contains($html, '__SID')) {
             return $html;
         } else {
             return preg_replace_callback(

@@ -156,7 +156,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
+        if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);

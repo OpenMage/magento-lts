@@ -180,7 +180,7 @@ class Page extends AbstractGenerate
         if (str_contains($folderPath, 'Adminhtml') && $area === 'Adminhtml') {
             $areaMtfPage = 'BackendPage';
         } else {
-            if (strpos($mca, 'http') === false) {
+            if (!str_contains($mca, 'http')) {
                 $areaMtfPage = 'FrontendPage';
             } else {
                 $areaMtfPage = 'ExternalPage';
