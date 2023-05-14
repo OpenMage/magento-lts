@@ -108,7 +108,7 @@ if [[ "${USE_DEFAULT_FLAG}" ]]; then
   ADMIN_LASTNAME='Administrator'
   ADMIN_EMAIL='admin@example.com'
   ADMIN_PASSWORD='veryl0ngpassw0rd'
-  TABLE_PREFIX=''
+  TABLE_PREFIX='om_'
 else
   read -r -p "Admin user [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
@@ -123,8 +123,8 @@ else
   if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
     TABLE_PREFIX=''
   else
-    read -r -p "Table prefix []: " TABLE_PREFIX
-    TABLE_PREFIX=${TABLE_PREFIX:-}
+    read -r -p "Table prefix [om_]: " TABLE_PREFIX
+    TABLE_PREFIX=${TABLE_PREFIX:-om_}
   fi
 fi
 
