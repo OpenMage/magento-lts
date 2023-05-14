@@ -81,13 +81,13 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
     wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_FILE}"
   fi
 
-  echo "Uncompress sample data ..."
+  echo "Uncompressing sample data ..."
   tar xf "${SAMPLE_DATA_FILE}"
 
-  echo "Copy sample data ..."
+  echo "Copying sample data ..."
   cp -r magento-sample-data-1.9.2.4/* "${PWD}/"
 
-  echo "Import sample data ..."
+  echo "Importing sample data ..."
   mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
 
   # remove sample data
