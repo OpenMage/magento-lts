@@ -123,8 +123,7 @@ else
   if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
     TABLE_PREFIX=''
   else
-    read -r -p "Table prefix [om_]: " TABLE_PREFIX
-    TABLE_PREFIX=${TABLE_PREFIX:-om_}
+    read -r -e -i 'om_' -p "Table prefix [om_]: " TABLE_PREFIX
   fi
 fi
 
