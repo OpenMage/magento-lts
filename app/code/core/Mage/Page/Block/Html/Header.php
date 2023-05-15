@@ -24,6 +24,9 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
+    const LOGO_DIR          = 'header/logo/';
+    const LOGO_SMALL_DIR    = 'header/logo_small/';
+
     public function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
@@ -57,9 +60,15 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrc()
     {
         if (empty($this->_data['logo_src'])) {
-            $this->_data['logo_src'] = Mage::getStoreConfig('design/header/logo_src');
+            if (file_exists(Mage::getBaseDir('media') . DS . self::LOGO_DIR . Mage::getStoreConfig('design/header/logo_src'))) {
+                $mediaBaseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+                $this->_data['logo_src'] = $mediaBaseUrl . self::LOGO_DIR . Mage::getStoreConfig('design/header/logo_src');
+            } else {
+                $this->_data['logo_src'] = Mage::getStoreConfig('design/header/logo_src');
+                $this->_data['logo_src'] = $this->getSkinUrl($this->_data['logo_src']);
+            }
         }
-        return $this->getSkinUrl($this->_data['logo_src']);
+        return $this->_data['logo_src'];
     }
 
     /**
@@ -68,9 +77,15 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
-            $this->_data['logo_src_small'] = Mage::getStoreConfig('design/header/logo_src_small');
+            if (file_exists(Mage::getBaseDir('media') . DS . self::LOGO_DIR . Mage::getStoreConfig('design/header/logo_src_small'))) {
+                $mediaBaseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+                $this->_data['logo_src_small'] = $mediaBaseUrl . self::LOGO_DIR . Mage::getStoreConfig('design/header/logo_src_small');
+            } else {
+                $this->_data['logo_src_small'] = Mage::getStoreConfig('design/header/logo_src_small');
+                $this->_data['logo_src_small'] = $this->getSkinUrl($this->_data['logo_src_small']);
+            }
         }
-        return $this->getSkinUrl($this->_data['logo_src_small']);
+        return $this->_data['logo_src_small'];
     }
 
     /**
