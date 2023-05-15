@@ -76,8 +76,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                     continue;
                 }
 
-                $attributeCode = $attribute->getAttributeCode();
-
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
                     $inputType,
