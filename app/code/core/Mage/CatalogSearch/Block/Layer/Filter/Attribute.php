@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Block_Layer_Filter_Attribute extends Mage_Catalog_Block_Layer_Filter_Attribute
 {

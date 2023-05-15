@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Crypt
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Crypt
 {

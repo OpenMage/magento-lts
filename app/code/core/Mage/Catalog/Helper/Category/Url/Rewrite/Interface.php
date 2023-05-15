@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_Catalog_Helper_Category_Url_Rewrite_Interface
 {

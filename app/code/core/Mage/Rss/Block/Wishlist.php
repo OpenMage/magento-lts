@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 {

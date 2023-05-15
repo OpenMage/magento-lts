@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setActions(array $value)
  * @method string getAggregator()
@@ -109,8 +108,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function loadAggregatorOptions()
     {
         $this->setAggregatorOption([
-            'all' => Mage::helper('rule')->__('ALL'),
-            'any' => Mage::helper('rule')->__('ANY'),
+            'all' => static::$translate ? Mage::helper('rule')->__('ALL') : 'ALL',
+            'any' => static::$translate ? Mage::helper('rule')->__('ANY') : 'ANY',
         ]);
         return $this;
     }
@@ -161,8 +160,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function loadValueOptions()
     {
         $this->setValueOption([
-            1 => Mage::helper('rule')->__('TRUE'),
-            0 => Mage::helper('rule')->__('FALSE'),
+            1 => static::$translate ? Mage::helper('rule')->__('TRUE') : 'TRUE',
+            0 => static::$translate ? Mage::helper('rule')->__('FALSE') : 'FALSE',
         ]);
         return $this;
     }

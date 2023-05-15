@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
 {
@@ -163,6 +162,20 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isAddChildData()
     {
         return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA);
+    }
+
+    /**
+     * Enable Catalog Product Flat
+     *
+     * @param bool $save
+     */
+    public function enableFlatCollection($save = false)
+    {
+        if ($save) {
+            $this->_forceFlatStatusOld = $this->_forceFlatStatus;
+        }
+
+        $this->_forceFlatStatus = false;
     }
 
     /**

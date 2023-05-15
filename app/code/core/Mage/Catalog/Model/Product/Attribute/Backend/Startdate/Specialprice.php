@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extends Mage_Catalog_Model_Product_Attribute_Backend_Startdate
 {

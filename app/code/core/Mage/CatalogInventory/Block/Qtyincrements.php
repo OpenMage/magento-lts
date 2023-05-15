@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
 {

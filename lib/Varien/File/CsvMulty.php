@@ -16,7 +16,6 @@
 /**
  * Csv parse
  *
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 require_once 'Varien/File/Csv.php';

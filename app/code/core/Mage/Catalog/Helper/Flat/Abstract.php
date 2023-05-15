@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Helper_Flat_Abstract extends Mage_Core_Helper_Abstract
 {

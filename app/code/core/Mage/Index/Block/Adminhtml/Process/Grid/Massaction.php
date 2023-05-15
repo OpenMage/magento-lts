@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Block_Adminhtml_Process_Grid_Massaction extends Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
 {

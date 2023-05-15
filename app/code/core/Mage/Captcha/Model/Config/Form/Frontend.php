@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Captcha
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Config_Form_Frontend extends Mage_Captcha_Model_Config_Form_Abstract
 {

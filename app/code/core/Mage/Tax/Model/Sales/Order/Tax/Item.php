@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item _getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item getResource()

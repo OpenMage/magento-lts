@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 {

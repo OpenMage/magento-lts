@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
@@ -75,7 +74,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     public function getOptionText($value)
     {
         $isMultiple = false;
-        if (strpos($value, ',')) {
+        if ($value && strpos($value, ',')) {
             $isMultiple = true;
             $value = explode(',', $value);
         }

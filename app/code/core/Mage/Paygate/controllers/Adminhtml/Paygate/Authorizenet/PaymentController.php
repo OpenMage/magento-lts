@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paygate
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage_Adminhtml_Controller_Action
 {

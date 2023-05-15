@@ -28,7 +28,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Form_Abstract extends Varien_Object
 {
@@ -133,7 +132,13 @@ class Varien_Data_Form_Abstract extends Varien_Object
         } else {
             $className = 'Varien_Data_Form_Element_' . ucfirst(strtolower($type));
         }
-        $element = new $className($config);
+
+        if (class_exists($className)) {
+            $element = new $className($config);
+        } else {
+            $className = 'Varien_Data_Form_Element_Note';
+            $element = new $className($config);
+        }
         $element->setId($elementId);
         $this->addElement($element, $after);
         return $element;

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {

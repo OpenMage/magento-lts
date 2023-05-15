@@ -2126,16 +2126,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
@@ -3229,11 +3219,6 @@ parameters:
 			message: "#^Offset 'path' does not exist on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\|array\\{false\\}\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Config.php
-
-		-
-			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
 
 		-
 			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
  * @method Mage_Api2_Model_Acl_Global_Role getRole()

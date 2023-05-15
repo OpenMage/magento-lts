@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Controller_Action
 {
@@ -37,7 +36,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_setTypeId();
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/sets');
+        $this->_setActiveMenu('catalog/attributes/sets');
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
@@ -71,7 +70,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         Mage::register('current_attribute_set', $attributeSet);
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/sets');
+        $this->_setActiveMenu('catalog/attributes/sets');
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));

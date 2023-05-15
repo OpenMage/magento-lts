@@ -18,7 +18,6 @@
  * *
  * @category   Varien
  * @package    Varien_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 interface IFactory

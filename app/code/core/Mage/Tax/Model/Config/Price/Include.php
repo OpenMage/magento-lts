@@ -15,7 +15,6 @@
 /**
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Config_Price_Include extends Mage_Core_Model_Config_Data
 {

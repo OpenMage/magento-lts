@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_Block_Widget
 {
@@ -51,10 +50,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if ($this->getParentBlock() && ($order = $this->getOrder())) {
-            $this->setEntity($order);
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            if ($this->getParentBlock() && ($order = $this->getOrder())) {
+                $this->setEntity($order);
+            }
+            return parent::_beforeToHtml();
+        } else {
+            return parent::_beforeToHtml();
         }
-        return parent::_beforeToHtml();
     }
 
     /**
@@ -64,15 +67,16 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                    'class'   => 'save'
-                ])
-        );
-
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            $this->setChild(
+                'save_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
+                        'class'   => 'save'
+                    ])
+            );
+        }
         return $this;
     }
 

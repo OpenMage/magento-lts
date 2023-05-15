@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Block_Adminhtml_Sales_Items_Column_Downloadable_Name extends Mage_Adminhtml_Block_Sales_Items_Column_Name
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_HTTP
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 {
@@ -265,11 +264,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = explode("=", $values[0]);
-            if (is_null($val)) {
+            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen($key)) {
                 continue;
             }
-            $out[trim($key)] = trim($val);
+            $out[$key] = $val;
         }
         return $out;
     }
@@ -291,11 +290,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = explode("=", $values[0]);
-            if (is_null($val)) {
+            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen($key)) {
                 continue;
             }
-            $out[trim($key)] = ['value' => trim($val)];
+            $out[$key] = ['value' => $val];
             array_shift($values);
             $c--;
             if (!$c) {

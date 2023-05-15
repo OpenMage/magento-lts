@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
 {

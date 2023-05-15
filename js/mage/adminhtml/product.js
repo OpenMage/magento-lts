@@ -399,7 +399,6 @@ Product.Configurable.prototype = {
         this.attributes.each(function (attribute, index) {
             var li = $(document.createElement('LI'));
             li.className = 'attribute';
-
             li.id = this.idPrefix + '_attribute_' + index;
             attribute.html_id = li.id;
             if (attribute && attribute.label && attribute.label.blank()) {
@@ -407,7 +406,7 @@ Product.Configurable.prototype = {
             }
             var label_readonly = '';
             var use_default_checked = '';
-            if (attribute.use_default == '1') {
+            if (attribute.use_default == '1' || attribute.id == null) {
                 use_default_checked = ' checked="checked"';
                 label_readonly = ' readonly="readonly"';
             }

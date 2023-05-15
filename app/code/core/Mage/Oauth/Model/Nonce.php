@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Oauth_Model_Resource_Nonce getResource()
  * @method Mage_Oauth_Model_Resource_Nonce _getResource()

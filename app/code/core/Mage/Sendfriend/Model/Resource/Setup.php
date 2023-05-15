@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sendfriend
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sendfriend_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {

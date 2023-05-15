@@ -23,7 +23,6 @@ include_once '3Dsecure/CentinelClient.php';
  *
  * @category   Mage
  * @package    Mage_Centinel
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_Api_Client extends CentinelClient
 {

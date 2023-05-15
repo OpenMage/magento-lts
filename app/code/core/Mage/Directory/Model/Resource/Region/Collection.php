@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
