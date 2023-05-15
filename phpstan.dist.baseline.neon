@@ -3221,11 +3221,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
