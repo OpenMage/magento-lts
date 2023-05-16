@@ -8,7 +8,7 @@
 read -r -p "Choose your action for the administrator account [Create/Update]: " ACTION
 ACTION=${ACTION,,} # to lower
 
-if [[ "${ACTION}" ]]; then
+if [[ "${ACTION}" =~ ^(update|u) || "${ACTION}" =~ ^(create|c) ]]; then
   read -r -p "Admin user [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
   read -r -p "Admin firstname [OpenMage]: " ADMIN_FIRSTNAME
