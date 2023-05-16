@@ -155,7 +155,6 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                     throw new Mage_Core_Exception('Could not write image file to disk. Invalid image data?');
                 }
                 unset($fileContent);
-            
                 $filePath = $tmpDirectory . DS . $fileName;
                 Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
