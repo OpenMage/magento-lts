@@ -257,7 +257,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 		else if ($moduleName == 'catalog' && $controllerName == 'category') {
 			$layer = Mage::getSingleton('catalog/layer');
 			$category = $layer->getCurrentCategory();
-			$productCollection = $layer->getProductCollection();
+			$productCollection = clone $layer->getProductCollection();
 			$toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
 			$pageSize = $toolbarBlock->getLimit();
 			$currentPage = $toolbarBlock->getCurrentPage();
