@@ -147,12 +147,13 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 $result = false;
             }
         } elseif ($entity == Mage_Core_Model_Store::ENTITY) {
+            Mage::log(__METHOD__);
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = true;
             } else {
                 /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
-                if ($store && $store->isObjectNew()) {
+                if ($store && ($store->isObjectNew() || $store->getOrigData('is_active') != $store->getIsActive() && $store->getIsActive())) {
                     $result = true;
                 } else {
                     $result = false;
@@ -194,7 +195,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                     $this->_registerCoreStoreEvent($event);
                     break;
-                }
+                } 
                 // no break
             case Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY:
             case Mage_Core_Model_Store_Group::ENTITY:
