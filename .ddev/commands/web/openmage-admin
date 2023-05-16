@@ -1,20 +1,14 @@
 #!/bin/bash
 
 ## ProjectTypes: magento
-## Description: Create/Update OpenMage Admininstrator Account
+## Description: Create/Update OpenMage Administrator Account
 ## Usage: openmage-admin
 ## Example: ddev openmage-admin
 
 read -r -p "Choose your action for the administrator account [Create/Update]: " ACTION
 ACTION=${ACTION,,} # to lower
 
-if [[ "${USE_DEFAULT_FLAG}" ]]; then
-  ADMIN_USER='admin'
-  ADMIN_FIRSTNAME='OpenMage'
-  ADMIN_LASTNAME='Administrator'
-  ADMIN_EMAIL='admin@example.com'
-  ADMIN_PASSWORD='veryl0ngpassw0rd'
-else
+if [[ "${ACTION}" ]]; then
   read -r -p "Admin user [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
   read -r -p "Admin firstname [OpenMage]: " ADMIN_FIRSTNAME
@@ -25,18 +19,25 @@ else
   ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
   read -r -p "Admin password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
   ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+  read -r -p "Table prefix []: " TABLE_PREFIX
+  TABLE_PREFIX=${TABLE_PREFIX:-}
+else
+  echo "Please run again and choose an action."
+  exit 1
 fi
 
 if [[ "${ACTION}" =~ ^(update|u) ]]; then
-  mysql -u db -h db db -e "UPDATE admin_user SET password=CONCAT(MD5('zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd"${ADMIN_PASSWORD}"'),':zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd') WHERE username='"${ADMIN_USER}"'"
-  echo "If the account "${ADMIN_USER}" exists it has been updated."
+  if mysql -u db -h db db -e "UPDATE "${TABLE_PREFIX}"admin_user SET password=CONCAT(MD5('zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd"${ADMIN_PASSWORD}"'),':zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd') WHERE username='"${ADMIN_USER}"'"; then
+    echo "If the account "${ADMIN_USER}" exists it has been updated."
+  else
+    exit 1
+  fi
 elif [[ "${ACTION}" =~ ^(create|c) ]]; then
-  if mysql -u db -h db db -e "INSERT INTO admin_user (firstname, lastname, email, username, password) VALUES ('"${ADMIN_FIRSTNAME}"', '"${ADMIN_LASTNAME}"', '"${ADMIN_EMAIL}"', '"${ADMIN_USER}"', CONCAT(MD5('zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd"${ADMIN_PASSWORD}"'), ':zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd'))"; then
-    mysql -u db -h db db -e "INSERT INTO admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name) VALUES (1, 2, 0, 'U',(SELECT user_id FROM admin_user WHERE username = '"${ADMIN_USER}"'),'"${ADMIN_FIRSTNAME}"')"
+  if mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_user (firstname, lastname, email, username, password) VALUES ('"${ADMIN_FIRSTNAME}"', '"${ADMIN_LASTNAME}"', '"${ADMIN_EMAIL}"', '"${ADMIN_USER}"', CONCAT(MD5('zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd"${ADMIN_PASSWORD}"'), ':zmQetUQSrQwdbyS1XVDwG9AsfKkgfXAd'))"; then
+    mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name)
+    VALUES (1, 2, 0, 'U',(SELECT user_id FROM "${TABLE_PREFIX}"admin_user WHERE username = '"${ADMIN_USER}"'),'"${ADMIN_FIRSTNAME}"')"
     echo "The account "$ADMIN_USER" has been created."
   else
-    echo "The account "$ADMIN_USER" exists. If you want to change the password run again and choose the Update action."
+    exit 1
   fi
-else
-  exit 1
 fi
