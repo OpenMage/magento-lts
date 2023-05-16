@@ -2301,11 +2301,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
-			message: "#^Binary operation \"\\.\" between \\(string\\|false\\) and array results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
@@ -3344,11 +3339,6 @@ parameters:
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and 0\\.0001 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
-
-		-
-			message: "#^Binary operation \"\\-\" between string and int\\<\\-9, 9\\> results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
 			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"
