@@ -364,7 +364,7 @@ class Mage_Catalog_Model_Url
         $process = true;
         $lastEntityId = 0;
         $firstIteration = true;
-        while ($process == true) {
+        while ($process === true) {
             $products = $this->getResource()->getProductsByCategory($category, $lastEntityId);
             if (!$products) {
                 if ($firstIteration) {
@@ -463,7 +463,7 @@ class Mage_Catalog_Model_Url
             return $this;
         }
 
-        $product = $this->getResource()->getProduct($productId, $storeId, $createForDisabled);
+        $product = $this->getResource()->getProduct($productId, $storeId);
         if (!$product) {
             // Product doesn't belong to this store - clear all its url rewrites including root one
             $this->getResource()->clearProductRewrites($productId, $storeId, []);
@@ -497,7 +497,7 @@ class Mage_Catalog_Model_Url
         $excludeCategoryIds = array_keys($categories);
 
         // Product is disabled and in configuration set to not create for disabled - clear all its url rewrites including root one
-        if (!$createForDisabled && $product->getStatus() === Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
+        if ($product->getStatus() === Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
             $excludeCategoryIds = [];
         }
 
@@ -985,10 +985,7 @@ class Mage_Catalog_Model_Url
             $rewriteData['options'] = 'RP'; // Redirect = Permanent
             $this->getResource()->saveRewriteHistory($rewriteData);
         }
-        $this->getResource()->clearProductRewrites($productId, $storeId, $excludeCategoryIds);
-
-        unset($categories);
-        unset($product);
+        $this->getResource()->clearProductRewrites($productId, $storeId);
 
         return $this;
     }
