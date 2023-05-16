@@ -1075,6 +1075,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $storeId
      * @return $this
+     * @deprecated
      */
     public function clearCategoryProduct($storeId)
     {
