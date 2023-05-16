@@ -694,14 +694,14 @@ class Mage_Paypal_Model_Express_Checkout
         if ($this->getCustomerSession()->isLoggedIn()) {
             return Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
         }
-        if (!$this->_quote->getCheckoutMethod()) {
-            if (Mage::helper('checkout')->isAllowedGuestCheckout($this->_quote)) {
-                $this->_quote->setCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_GUEST);
-            } else {
-                $this->_quote->setCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER);
-            }
+
+        if (Mage::helper('checkout')->isAllowedGuestCheckout($this->_quote)) {
+            $this->_quote->setCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_GUEST);
+            return Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
+        } else {
+            $this->_quote->setCheckoutMethod(Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER);
+            return Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
         }
-        return $this->_quote->getCheckoutMethod();
     }
 
     /**
@@ -811,8 +811,8 @@ class Mage_Paypal_Model_Express_Checkout
 
                 $options[$i] = new Varien_Object([
                     'is_default' => $isDefault,
-                    'name'       => trim("{$rate->getCarrier()} - {$rate->getMethodTitle()}", ' -'),
-                    'code'       => $rate->getCode(),
+                    'name'       => $rate->getCode(),
+                    'code'       => trim("{$rate->getCarrierTitle()} - {$rate->getMethodTitle()}", ' -'),
                     'amount'     => $amountExclTax,
                 ]);
                 if ($calculateTax) {
@@ -896,7 +896,7 @@ class Mage_Paypal_Model_Express_Checkout
                 // workaround: PayPal may concatenate code and name, and return it instead of the code:
                 || $selectedCode === "{$option['code']} {$option['name']}"
             ) {
-                return $option['code'];
+                return $option['name'];
             }
         }
         return '';
