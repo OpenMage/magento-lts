@@ -36,8 +36,8 @@ class Mage_Catalog_Model_Url
      */
     public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
-    const XML_PATH_PRODUCT_USE_CATEGORIES = 'catalog/seo/product_use_categories';
-    const XML_PATH_CREATE_URL_FOR_DISABLED = 'catalog/seo/create_url_for_disabled';
+    public const XML_PATH_PRODUCT_USE_CATEGORIES = 'catalog/seo/product_use_categories';
+    public const XML_PATH_CREATE_URL_FOR_DISABLED = 'catalog/seo/create_url_for_disabled';
 
     /**
      * Resource model
@@ -542,25 +542,25 @@ class Mage_Catalog_Model_Url
                 }
             }
 
-                if ($loadCategories) {
-                    foreach ($this->getResource()->getCategories($loadCategories, $storeId, $createForDisabled) as $category) {
-                        $this->_categories[$category->getId()] = $category;
+            if ($loadCategories) {
+                foreach ($this->getResource()->getCategories($loadCategories, $storeId, $createForDisabled) as $category) {
+                    $this->_categories[$category->getId()] = $category;
+                }
+            }
+        }
+
+        foreach ($products as $product) {
+            $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
+            if ($productUseCategories) {
+                foreach ($product->getCategoryIds() as $categoryId) {
+                    if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
+                        if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
+                            continue;
+                        }
+                        $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);
                     }
                 }
             }
-
-            foreach ($products as $product) {
-                $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
-                if ($productUseCategories) {
-                    foreach ($product->getCategoryIds() as $categoryId) {
-                        if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
-                            if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
-                                continue;
-                            }
-                            $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);
-                        }
-                    }
-                }
 
             unset($products);
             $this->_rewrites = [];

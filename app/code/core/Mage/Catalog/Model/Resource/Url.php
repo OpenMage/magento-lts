@@ -1185,7 +1185,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('tur.is_system = 1');
 
         if ($createUrlForDisabled) {
-
             // Find rewrites for cartegory/product
             $select->where('tur.category_id IS NOT NULL')
                 ->where('tur.product_id IS NOT NULL');
@@ -1194,13 +1193,12 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             // (either to other category or deleted), so rewrite "category_id-product_id" is invalid
             if ($productUseCategories) {
                 $select->joinLeft(
-                        ['tcp' => $this->getTable('catalog/category_product')],
-                        'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
-                        []
-                    )
+                    ['tcp' => $this->getTable('catalog/category_product')],
+                    'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
+                    []
+                )
                     ->where('tcp.category_id IS NULL');
             }
-
         } else {
             // Find products, cartegories and cartegory/product rewrites for disabled products or cartegories
             $productTable = $this->getTable(['catalog/product', 'int']);
@@ -1209,7 +1207,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 ['cpei' => $productTable],
                 'cpei.entity_id = tur.product_id AND cpei.attribute_id = :product_status_attribute_id',
                 []
-                )
+            )
                 ->joinLeft(
                     ['ccei1' => $categoryTable],
                     'ccei1.attribute_id = :is_active_category_attribute_id AND ccei1.store_id = 0 AND ccei1.entity_id = tur.category_id',
@@ -1219,14 +1217,14 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                     ['ccei2' => $categoryTable],
                     'ccei2.attribute_id = :is_active_category_attribute_id AND ccei2.store_id = :store_id AND ccei2.entity_id = tur.category_id',
                     []
-            );
+                );
             $productStatusAttributeId = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
             $bind['product_status_attribute_id'] = $productStatusAttributeId->getId();
 
-                $isActiveCategoryAttribute = Mage::getSingleton('eav/config')
-                    ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
-                $bind['is_active_category_attribute_id'] = $isActiveCategoryAttribute->getId();
+            $isActiveCategoryAttribute = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+            $bind['is_active_category_attribute_id'] = $isActiveCategoryAttribute->getId();
 
             // product_is_disabled OR (category is disabled) OR (cartegory/product rewrite)
             $where = '(cpei.value = 2 OR (IF(ccei2.value_id > 0, ccei2.value, ccei1.value) = 0) OR (tur.category_id IS NOT NULL AND tur.product_id IS NOT NULL) )';
