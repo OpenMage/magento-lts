@@ -36,6 +36,9 @@ class Mage_Catalog_Model_Url
      */
     public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
+    const XML_PATH_PRODUCT_USE_CATEGORIES = 'catalog/seo/product_use_categories';
+    const XML_PATH_CREATE_URL_FOR_DISABLED = 'catalog/seo/create_url_for_disabled';
+
     /**
      * Resource model
      *
@@ -72,20 +75,6 @@ class Mage_Catalog_Model_Url
     protected $_rewrite;
 
     /**
-     * Cache for product rewrite suffix
-     *
-     * @var array
-     */
-    protected $_productUrlSuffix = [];
-
-    /**
-     * Cache for category rewrite suffix
-     *
-     * @var array
-     */
-    protected $_categoryUrlSuffix = [];
-
-    /**
      * Flag to overwrite config settings for Catalog URL rewrites history maintainance
      *
      * @var bool
@@ -98,22 +87,6 @@ class Mage_Catalog_Model_Url
     * @var Mage_Catalog_Model_Category
     */
     protected static $_categoryForUrlPath;
-
-    /**
-     * @var bool
-     */
-    protected $productUseCategories;
-
-    /**
-     * @var bool
-     */
-    protected $createForDisabled;
-
-    public function __construct()
-    {
-        $this->productUseCategories = Mage::getStoreConfigFlag('catalog/seo/product_use_categories');
-        $this->createForDisabled = Mage::getStoreConfigFlag('catalog/seo/create_url_for_disabled');
-    }
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -437,22 +410,23 @@ class Mage_Catalog_Model_Url
      */
     public function refreshCategoryRewrite($categoryId, $storeId = null, $refreshProducts = null)
     {
-        if (is_null($refreshProducts)) {
-            $refreshProducts = $this->productUseCategories;
-        }
         if (is_null($storeId)) {
             foreach ($this->getStores() as $store) {
-                $this->refreshCategoryRewrite($categoryId, $store->getId(), $refreshProducts);
+                $this->refreshCategoryRewrite($categoryId, $store->getId());
             }
             return $this;
+        }
+        if (is_null($refreshProducts)) {
+            $refreshProducts = Mage::getStoreConfigFlag(self::XML_PATH_PRODUCT_USE_CATEGORIES, $storeId);
         }
 
         $category = $this->getResource()->getCategory($categoryId, $storeId);
         if (!$category) {
             return $this;
         }
+        $createForDisabled = Mage::getStoreConfigFlag(self::XML_PATH_CREATE_URL_FOR_DISABLED, $storeId);
 
-        if (!$this->createForDisabled && !$category->getIsActive()) {
+        if (!$createForDisabled && !$category->getIsActive()) {
             $this->getResource()->clearDisabledCategory($category->getId());
             return $this;
         }
@@ -489,7 +463,7 @@ class Mage_Catalog_Model_Url
             return $this;
         }
 
-        $product = $this->getResource()->getProduct($productId, $storeId, $this->createForDisabled);
+        $product = $this->getResource()->getProduct($productId, $storeId, $createForDisabled);
         if (!$product) {
             // Product doesn't belong to this store - clear all its url rewrites including root one
             $this->getResource()->clearProductRewrites($productId, $storeId, []);
@@ -502,7 +476,7 @@ class Mage_Catalog_Model_Url
         $this->_rewrites = $this->getResource()->prepareRewrites($storeId, '', $productId);
 
         $categories = [];
-        if ($this->productUseCategories) {
+        if (Mage::getStoreConfigFlag(self::XML_PATH_PRODUCT_USE_CATEGORIES, $storeId)) {
             // List of categories the product is assigned to, filtered by being within the store's categories root
             $categories = $this->getResource()->getCategories($product->getCategoryIds(), $storeId);
         }
@@ -523,7 +497,7 @@ class Mage_Catalog_Model_Url
         $excludeCategoryIds = array_keys($categories);
 
         // Product is disabled and in configuration set to not create for disabled - clear all its url rewrites including root one
-        if (!$this->createForDisabled && $product->getStatus() === Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
+        if (!$createForDisabled && $product->getStatus() === Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
             $excludeCategoryIds = [];
         }
 
@@ -542,15 +516,15 @@ class Mage_Catalog_Model_Url
         $storeRootCategoryId    = $this->getStores($storeId)->getRootCategoryId();
         $storeRootCategoryPath  = $this->getStores($storeId)->getRootCategoryPath();
         $this->_categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
+        $productUseCategories = Mage::getStoreConfigFlag(self::XML_PATH_PRODUCT_USE_CATEGORIES, $storeId);
+        $createForDisabled = Mage::getStoreConfigFlag(self::XML_PATH_CREATE_URL_FOR_DISABLED, $storeId);
 
         $lastEntityId = 0;
-        $process = true;
 
-        while ($process == true) {
-            $products = $this->getResource()->getProductsByStore($storeId, $lastEntityId, $this->createForDisabled);
+        while (true) {
+            $products = $this->getResource()->getProductsByStore($storeId, $lastEntityId, $createForDisabled);
 
             if (!$products) {
-                $process = false;
                 break;
             }
 
@@ -558,7 +532,7 @@ class Mage_Catalog_Model_Url
 
             $loadCategories = [];
 
-            if ($this->productUseCategories) {
+            if ($productUseCategories) {
                 foreach ($products as $product) {
                     foreach ($product->getCategoryIds() as $categoryId) {
                         if (!isset($this->_categories[$categoryId])) {
@@ -569,7 +543,7 @@ class Mage_Catalog_Model_Url
             }
 
                 if ($loadCategories) {
-                    foreach ($this->getResource()->getCategories($loadCategories, $storeId, $this->createForDisabled) as $category) {
+                    foreach ($this->getResource()->getCategories($loadCategories, $storeId, $createForDisabled) as $category) {
                         $this->_categories[$category->getId()] = $category;
                     }
                 }
@@ -577,7 +551,7 @@ class Mage_Catalog_Model_Url
 
             foreach ($products as $product) {
                 $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
-                if ($this->productUseCategories) {
+                if ($productUseCategories) {
                     foreach ($product->getCategoryIds() as $categoryId) {
                         if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
                             if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
@@ -610,6 +584,7 @@ class Mage_Catalog_Model_Url
             }
             return $this;
         }
+        $createForDisabled = Mage::getStoreConfigFlag(self::XML_PATH_CREATE_URL_FOR_DISABLED, $storeId);
 
         $this->getResource()->clearStoreInvalidRewrites($storeId);
         return $this;

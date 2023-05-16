@@ -272,7 +272,7 @@
                             <backend_model>adminhtml/system_config_backend_seo</backend_model>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </create_url_for_disabled>
                         <save_rewrites_history translate="label">
