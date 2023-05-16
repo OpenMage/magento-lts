@@ -57,12 +57,25 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     protected $_rootChildrenIds             = [];
 
     /**
+     * @var int
+     */
+    protected $_productEntityTypeId;
+
+    /**
+     * @var int
+     */
+    protected $_statusAttributeId;
+
+    /**
      * Load core Url rewrite model
      *
      */
     protected function _construct()
     {
         $this->_init('core/url_rewrite', 'url_rewrite_id');
+        $this->_productEntityTypeId = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
+        $this->_statusAttributeId = Mage::getModel('catalog/resource_eav_attribute')
+            ->loadByCode($this->_productEntityTypeId, 'status')->getId();
     }
 
     /**
@@ -678,9 +691,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param int|array $categoryIds
      * @param int $storeId
      * @param string $path
+     * @param bool $withDisabled
      * @return array
      */
-    protected function _getCategories($categoryIds, $storeId = null, $path = null)
+    protected function _getCategories($categoryIds, $storeId = null, $path = null, $withDisabled = true)
     {
         $isActiveAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
@@ -728,6 +742,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $rootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
             $rootCategoryPathLength = strlen($rootCategoryPath);
         }
+        if (!$withDisabled) {
+            $select->where('IF(c.value_id > 0, c.value, d.value) = 1');
+        }
+
         $bind = [
             'attribute_id' => (int)$isActiveAttribute->getId(),
             'store_id'     => (int)$storeId
@@ -796,15 +814,16 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int|array $categoryIds
      * @param int $storeId
+     * @param bool $withDisabled
      * @return Mage_Catalog_Model_Category[]|false
      */
-    public function getCategories($categoryIds, $storeId)
+    public function getCategories($categoryIds, $storeId, $withDisabled = true)
     {
         if (!$categoryIds || !$storeId) {
             return false;
         }
 
-        return $this->_getCategories($categoryIds, $storeId);
+        return $this->_getCategories($categoryIds, $storeId, null, $withDisabled);
     }
 
     /**
@@ -927,9 +946,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param int $storeId
      * @param int $entityId
      * @param int $lastEntityId
+     * @param bool $withDisabled
      * @return array
      */
-    protected function _getProducts($productIds, $storeId, $entityId, &$lastEntityId)
+    protected function _getProducts($productIds, $storeId, $entityId, &$lastEntityId, $withDisabled = true)
     {
         $products   = [];
         $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
@@ -956,6 +976,14 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->limit($this->_productLimit);
         if ($productIds !== null) {
             $select->where('e.entity_id IN(?)', $productIds);
+        }
+        if (!$withDisabled) {
+            $select->join(
+                ['cpei' => 'catalog_product_entity_int'],
+                'cpei.entity_id = e.entity_id AND cpei.entity_type_id = ' . $this->_productEntityTypeId . ' AND cpei.attribute_id = ' . $this->_statusAttributeId,
+                []
+            );
+            $select->where('cpei.value <> ' . Mage_Catalog_Model_Product_Status::STATUS_DISABLED);
         }
 
         $rowSet = $adapter->fetchAll($select, $bind);
@@ -1001,9 +1029,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $productId
      * @param int $storeId
+     * @param bool $withDisabled
      * @return Varien_Object|false
+     * @throws Mage_Core_Model_Store_Exception
      */
-    public function getProduct($productId, $storeId)
+    public function getProduct($productId, $storeId, $withDisabled = true)
     {
         $entityId = 0;
         $products = $this->_getProducts($productId, $storeId, 0, $entityId);
@@ -1015,11 +1045,12 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int $storeId
      * @param int $lastEntityId
+     * @param bool $withDisabled
      * @return Mage_Catalog_Model_Product[]
      */
-    public function getProductsByStore($storeId, &$lastEntityId)
+    public function getProductsByStore($storeId, &$lastEntityId, $withDisabled = true)
     {
-        return $this->_getProducts(null, $storeId, $lastEntityId, $lastEntityId);
+        return $this->_getProducts(null, $storeId, $lastEntityId, $lastEntityId, $withDisabled);
     }
 
     /**
@@ -1028,6 +1059,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param Varien_Object $category
      * @param int $lastEntityId
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProductsByCategory(Varien_Object $category, &$lastEntityId)
     {
@@ -1039,33 +1071,185 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Find and remove unused products rewrites - a case when products were moved away from the category
-     * (either to other category or deleted), so rewrite "category_id-product_id" is invalid
+     * Unused function. Left for backward compatibility
      *
      * @param int $storeId
      * @return $this
      */
     public function clearCategoryProduct($storeId)
     {
+        return $this->clearRewrites($storeId);
+    }
+
+    /**
+     * Find and remove unused rewrites a case when
+     * - products were moved away from the category (either to other category or deleted), so rewrite "category_id-product_id" is invalid
+     * - category
+     *
+     * @param int $storeId
+     * @return $this
+     */
+    public function clearRewrites($storeId)
+    {
         $adapter = $this->_getWriteAdapter();
-        $select = $adapter->select()
-            ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
-            ->joinLeft(
-                ['tcp' => $this->getTable('catalog/category_product')],
-                'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
-                []
-            )
-            ->where('tur.store_id = :store_id')
-            ->where('tur.category_id IS NOT NULL')
-            ->where('tur.product_id IS NOT NULL')
-            ->where('tcp.category_id IS NULL');
-        $rewriteIds = $adapter->fetchCol($select, ['store_id' => $storeId]);
+        list($select, $bind) = $this->getSelectToClearRewrites($adapter, $storeId);
+
+        $rewriteIds = $adapter->fetchCol($select, $bind);
         if ($rewriteIds) {
             $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
             $adapter->delete($this->getMainTable(), $where);
         }
 
         return $this;
+    }
+
+    /**
+     * Find and remove unused category rewrites - a case when category is disabled and in config field
+     * catalog/seo/create_url_for_disabled is set as false
+     *
+     * @param int $categoryId
+     * @param int|Mage_Core_Model_Store|null $storeId
+     * @return $this
+     */
+    public function clearDisabledCategory($categoryId, $storeId = null)
+    {
+        if (Mage::getStoreConfigFlag('catalog/seo/create_url_for_disabled')) {
+            return $this;
+        }
+
+        if (is_null($storeId)) {
+            foreach ($this->getStores() as $store) {
+                $this->clearDisabledCategory($categoryId, $store);
+            }
+            return $this;
+        }
+        if ($storeId instanceof Mage_Core_Model_Store) {
+            $storeId = $storeId->getStoreId();
+        } elseif (!is_int($storeId)) {
+            throw new Exception('StoreId must by int or Mage_Core_Model_Store');
+        }
+
+        $adapter = $this->_getWriteAdapter();
+
+        $table = $this->getTable(['catalog/category', 'int']);
+        $select = $adapter->select()
+            ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
+            ->joinLeft(
+                ['ccei1' => $table],
+                'ccei1.attribute_id = :is_active_category_attribute_id AND ccei1.store_id = 0 AND ccei1.entity_id = tur.category_id',
+                []
+            )
+            ->joinLeft(
+                ['ccei2' => $table],
+                'ccei2.attribute_id = :is_active_category_attribute_id AND ccei2.store_id = :store_id AND ccei2.entity_id = tur.category_id',
+                []
+            )
+            ->where('IF(ccei2.value_id > 0, ccei2.value, ccei1.value) = 0')
+            ->where('tur.store_id = :store_id')
+            ->where('tur.category_id = :category_id');
+
+        $isActiveCategoryAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+        $bind = [
+            'store_id' => $storeId,
+            'is_active_category_attribute_id' => $isActiveCategoryAttribute->getId(),
+            'category_id' => $categoryId
+        ];
+
+        $rewriteIds = $adapter->fetchCol($select, $bind);
+        if ($rewriteIds) {
+            $where = [$this->getIdFieldName() . ' IN(?)' => $rewriteIds];
+            $adapter->delete($this->getMainTable(), $where);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare select to find unused rewrites
+     * as set in configuration fields catalog/seo/product_use_categories and catalog/seo/create_url_for_disabled
+     *
+     * @param Magento_Db_Adapter_Pdo_Mysql $adapter
+     * @param int $storeId
+     * @return array
+     */
+    protected function getSelectToClearRewrites($adapter, $storeId)
+    {
+        $productUseCategories = Mage::getStoreConfigFlag('catalog/seo/product_use_categories');
+        $createUrlForDisabled = Mage::getStoreConfigFlag('catalog/seo/create_url_for_disabled');
+
+        $bind = ['store_id' => $storeId];
+        $select = $adapter->select()
+            ->from(['tur' => $this->getMainTable()], $this->getIdFieldName())
+            ->where('tur.store_id = :store_id')
+            ->where('tur.is_system = 1');
+
+        if ($createUrlForDisabled) {
+
+            // Find rewrites for cartegory/product
+            $select->where('tur.category_id IS NOT NULL')
+                ->where('tur.product_id IS NOT NULL');
+
+            // Find unused products rewrites - a case when products were moved away from the category
+            // (either to other category or deleted), so rewrite "category_id-product_id" is invalid
+            if ($productUseCategories) {
+                $select->joinLeft(
+                        ['tcp' => $this->getTable('catalog/category_product')],
+                        'tur.category_id = tcp.category_id AND tur.product_id = tcp.product_id',
+                        []
+                    )
+                    ->where('tcp.category_id IS NULL');
+            }
+
+        } else {
+            // Find products, cartegories and cartegory/product rewrites for disabled products or cartegories
+            $productTable = $this->getTable(['catalog/product', 'int']);
+            $categoryTable = $this->getTable(['catalog/category', 'int']);
+            $select->joinLeft(
+                ['cpei' => $productTable],
+                'cpei.entity_id = tur.product_id AND cpei.attribute_id = :product_status_attribute_id',
+                []
+                )
+                ->joinLeft(
+                    ['ccei1' => $categoryTable],
+                    'ccei1.attribute_id = :is_active_category_attribute_id AND ccei1.store_id = 0 AND ccei1.entity_id = tur.category_id',
+                    []
+                )
+                ->joinLeft(
+                    ['ccei2' => $categoryTable],
+                    'ccei2.attribute_id = :is_active_category_attribute_id AND ccei2.store_id = :store_id AND ccei2.entity_id = tur.category_id',
+                    []
+            );
+            $productStatusAttributeId = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
+            $bind['product_status_attribute_id'] = $productStatusAttributeId->getId();
+
+                $isActiveCategoryAttribute = Mage::getSingleton('eav/config')
+                    ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+                $bind['is_active_category_attribute_id'] = $isActiveCategoryAttribute->getId();
+
+            // product_is_disabled OR (category is disabled) OR (cartegory/product rewrite)
+            $where = '(cpei.value = 2 OR (IF(ccei2.value_id > 0, ccei2.value, ccei1.value) = 0) OR (tur.category_id IS NOT NULL AND tur.product_id IS NOT NULL) )';
+
+            // Find products, categories and cartegory/product rewrites for disabled products or categories
+            if ($productUseCategories) {
+                $select
+                    ->joinLeft(
+                        ['tcp' => $this->getTable('catalog/category_product')],
+                        'tcp.category_id = tur.category_id AND tcp.product_id = tur.product_id',
+                        []
+                    );
+                // product_is_disabled OR (category is disabled) OR (cartegory/product rewrite AND product were moved away from the category)
+                $where ='(cpei.value = 2 OR (IF(ccei2.value_id > 0, ccei2.value, ccei1.value) = 0) OR (tur.category_id IS NOT NULL AND tur.product_id IS NOT NULL AND tcp.category_id IS NULL))';
+            }
+            $select->where($where);
+        }
+        $select->group('url_rewrite_id');
+
+        return [
+            $select,
+            $bind
+        ];
     }
 
     /**

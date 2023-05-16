@@ -40,7 +40,8 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      */
     protected $_matchedEntities = [
         Mage_Catalog_Model_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
+            Mage_Index_Model_Event::TYPE_MASS_ACTION
         ],
         Mage_Catalog_Model_Category::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
@@ -173,12 +174,36 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     protected function _registerProductEvent(Mage_Index_Model_Event $event)
     {
         $product = $event->getDataObject();
-        $dataChange = $product->dataHasChangedFor('url_key')
-            || $product->getIsChangedCategories()
-            || $product->getIsChangedWebsites();
+        $dataChange = false;
+        $products = [];
 
-        if (!$product->getExcludeUrlRewrite() && $dataChange) {
-            $event->addNewData('rewrite_product_ids', [$product->getId()]);
+        if ($product instanceof Mage_Catalog_Model_Product_Action) {
+            $attributesData = $product->getData('attributes_data');
+            $productsIds = $product->getData('product_ids');
+            $dataChange = isset($attributesData['status']) && isset($productsIds) && count($productsIds) > 0;
+            if ($dataChange) {
+                $products = Mage::getModel('catalog/product')->getCollection()
+                    ->addFieldToFilter('entity_id', ['in'=> $productsIds]);
+            } else {
+                return;
+            }
+        }
+
+        if ($product instanceof Mage_Catalog_Model_Product) {
+            $dataChange =
+                (
+                    $product->dataHasChangedFor('url_key')
+                    || $product->dataHasChangedFor('status')
+                    || $product->getIsChangedCategories()
+                    || $product->getIsChangedWebsites()
+                ) && !$product->getExcludeUrlRewrite();
+            $products = [$product];
+        }
+
+        if ($dataChange) {
+            foreach ($products as $product) {
+                $event->addNewData('rewrite_product_ids', [$product->getId()]);
+            }
         }
     }
 
@@ -191,7 +216,11 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     {
         $category = $event->getDataObject();
         if (!$category->getInitialSetupFlag() && $category->getLevel() > 1) {
-            if ($category->dataHasChangedFor('url_key') || $category->getIsChangedProductList()) {
+            if (
+                $category->dataHasChangedFor('url_key')
+                || $category->getIsChangedProductList()
+                || $category->dataHasChangedFor('is_active')
+            ) {
                 $event->addNewData('rewrite_category_ids', [$category->getId()]);
             }
             /**
