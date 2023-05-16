@@ -197,180 +197,180 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      */
     protected function _getOrdersTrackingCodeAnalytics4()
     {
-		$result = [];
-		$request = $this->getRequest();
-		$moduleName = $request->getModuleName();
-		$controllerName = $request->getControllerName();
+        $result = [];
+        $request = $this->getRequest();
+        $moduleName = $request->getModuleName();
+        $controllerName = $request->getControllerName();
 
-		//purchase events
-		$orderIds = $this->getOrderIds();
-        if (!empty($orderIds) && is_array($orderIds)){
-			$collection = Mage::getResourceModel('sales/order_collection')
-							  ->addFieldToFilter('entity_id',['in' => $orderIds]);
-			/** @var Mage_Sales_Model_Order $order */
-			foreach ($collection as $order) {
-				$orderData = [
-					'currency' => $order->getBaseCurrencyCode(),
-					'transaction_id' => $order->getIncrementId(),
-					'value' => number_format($order->getBaseGrandTotal(),2),
-					'coupon' => strtoupper($order->getCouponCode()),
-					'shipping' => number_format($order->getBaseShippingAmount(),2),
-					'tax' => number_format($order->getBaseTaxAmount(),2),
-					'items' => []
-				];
+        //purchase events
+        $orderIds = $this->getOrderIds();
+        if (!empty($orderIds) && is_array($orderIds)) {
+            $collection = Mage::getResourceModel('sales/order_collection')
+                              ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+            /** @var Mage_Sales_Model_Order $order */
+            foreach ($collection as $order) {
+                $orderData = [
+                    'currency' => $order->getBaseCurrencyCode(),
+                    'transaction_id' => $order->getIncrementId(),
+                    'value' => number_format($order->getBaseGrandTotal(), 2),
+                    'coupon' => strtoupper($order->getCouponCode()),
+                    'shipping' => number_format($order->getBaseShippingAmount(), 2),
+                    'tax' => number_format($order->getBaseTaxAmount(), 2),
+                    'items' => []
+                ];
 
-				/** @var Mage_Sales_Model_Order_Item $item */
-				foreach ($order->getAllVisibleItems() as $item) {
-					$orderData['items'][] = [
-						'item_id' => $item->getSku(),
-						'item_name' => $item->getName(),
-						'quantity' => $item->getQtyOrdered(),
-						'price' => $item->getBasePrice(),
-						'discount' => $item->getBaseDiscountAmount()
-					];
-				}
-				$result[] = "gtag('event', 'purchase', " . json_encode($orderData,JSON_THROW_ON_ERROR) . ");";
-			}
-		}
+                /** @var Mage_Sales_Model_Order_Item $item */
+                foreach ($order->getAllVisibleItems() as $item) {
+                    $orderData['items'][] = [
+                        'item_id' => $item->getSku(),
+                        'item_name' => $item->getName(),
+                        'quantity' => $item->getQtyOrdered(),
+                        'price' => $item->getBasePrice(),
+                        'discount' => $item->getBaseDiscountAmount()
+                    ];
+                }
+                $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
+            }
+        }
 
-		//Begin advanced eCommerce events
-		//product page
-		if ($moduleName == 'catalog' && $controllerName == 'product') {
-			$productViewed = Mage::registry('current_product');
-			$eventData = [];
-			$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-			$eventData['value'] = number_format($productViewed->getFinalPrice(), 2);
-			$eventData['items'] = [];
-			$eventData['items'][] = [
-				'id' => $productViewed->getSku(),
-				'name' => $productViewed->getName(),
-				'list_name' => 'Product Detail Page',
-				'brand' => $productViewed->getAttributeText('manufacturer'),
-				'category' => 'Products',
-				'price' => number_format($productViewed->getFinalPrice(), 2),
-			];
+        //Begin advanced eCommerce events
+        //product page
+        if ($moduleName == 'catalog' && $controllerName == 'product') {
+            $productViewed = Mage::registry('current_product');
+            $eventData = [];
+            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+            $eventData['value'] = number_format($productViewed->getFinalPrice(), 2);
+            $eventData['items'] = [];
+            $eventData['items'][] = [
+                'id' => $productViewed->getSku(),
+                'name' => $productViewed->getName(),
+                'list_name' => 'Product Detail Page',
+                'brand' => $productViewed->getAttributeText('manufacturer'),
+                'category' => 'Products',
+                'price' => number_format($productViewed->getFinalPrice(), 2),
+            ];
 
-			$result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-		}
+            $result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+        }
 
-		//category page
-		else if ($moduleName == 'catalog' && $controllerName == 'category') {
-			$layer = Mage::getSingleton('catalog/layer');
-			$category = $layer->getCurrentCategory();
-			$productCollection = clone $layer->getProductCollection();
-			$toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
-			$pageSize = $toolbarBlock->getLimit();
-			$currentPage = $toolbarBlock->getCurrentPage();
-			if ($pageSize !== 'all') {
-				$productCollection->setPageSize($pageSize)->setCurPage($currentPage);
-			}
-			$eventData = [];
-			$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-			$eventData['value'] = 0.00;
-			$eventData['item_list_id'] = 'category_'.$category->getUrlKey();
-			$eventData['item_list_name'] = $category->getName();
-			$eventData['items'] = [];
+        //category page
+        elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+            $layer = Mage::getSingleton('catalog/layer');
+            $category = $layer->getCurrentCategory();
+            $productCollection = clone $layer->getProductCollection();
+            $toolbarBlock = Mage::app()->getLayout()->getBlock('product_list_toolbar');
+            $pageSize = $toolbarBlock->getLimit();
+            $currentPage = $toolbarBlock->getCurrentPage();
+            if ($pageSize !== 'all') {
+                $productCollection->setPageSize($pageSize)->setCurPage($currentPage);
+            }
+            $eventData = [];
+            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+            $eventData['value'] = 0.00;
+            $eventData['item_list_id'] = 'category_'.$category->getUrlKey();
+            $eventData['item_list_name'] = $category->getName();
+            $eventData['items'] = [];
 
-			foreach ($productCollection as $productViewed) {
-				$eventData['items'][] = [
-					'id' => $productViewed->getSku(),
-					'name' => $productViewed->getName(),
-					'list_name' => 'Product Detail Page',
-					'brand' => $productViewed->getAttributeText('manufacturer'),
-					'category' => 'Products',
-					'price' => number_format($productViewed->getFinalPrice(), 2),
-				];
-				$eventData['value'] += $productViewed->getFinalPrice();
-			}
-			$eventData['value'] = number_format($eventData['value'], 2);
-			$result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-		}
+            foreach ($productCollection as $productViewed) {
+                $eventData['items'][] = [
+                    'id' => $productViewed->getSku(),
+                    'name' => $productViewed->getName(),
+                    'list_name' => 'Product Detail Page',
+                    'brand' => $productViewed->getAttributeText('manufacturer'),
+                    'category' => 'Products',
+                    'price' => number_format($productViewed->getFinalPrice(), 2),
+                ];
+                $eventData['value'] += $productViewed->getFinalPrice();
+            }
+            $eventData['value'] = number_format($eventData['value'], 2);
+            $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+        }
 
-		//cart
-		else if ($moduleName == 'checkout' && $controllerName == 'cart') {
-			$removedProduct = Mage::getSingleton('core/session')->getRemovedProductCart();
-			if ($removedProduct) {
-				//product removed from cart
-				$_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
-				$eventData = [];
-				$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-				$eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
-				$eventData['items'] = [];
-				$eventData['items'][] = [
-					'id' => $_removedProduct->getSku(),
-					'name' => $_removedProduct->getName(),
-					'list_name' => 'Product Detail Page',
-					'brand' => $_removedProduct->getAttributeText('manufacturer'),
-					'category' => 'Products',
-					'price' => number_format($_removedProduct->getFinalPrice(), 2),
-				];
-				$result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-				Mage::getSingleton('core/session')->unsRemovedProductCart();
-			}
+        //cart
+        elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
+            $removedProduct = Mage::getSingleton('core/session')->getRemovedProductCart();
+            if ($removedProduct) {
+                //product removed from cart
+                $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
+                $eventData = [];
+                $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
+                $eventData['items'] = [];
+                $eventData['items'][] = [
+                    'id' => $_removedProduct->getSku(),
+                    'name' => $_removedProduct->getName(),
+                    'list_name' => 'Product Detail Page',
+                    'brand' => $_removedProduct->getAttributeText('manufacturer'),
+                    'category' => 'Products',
+                    'price' => number_format($_removedProduct->getFinalPrice(), 2),
+                ];
+                $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                Mage::getSingleton('core/session')->unsRemovedProductCart();
+            }
 
-			$addedProduct = Mage::getSingleton('core/session')->getAddedProductCart();
-			if ($addedProduct) {
-				//product added to cart
-				$_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
-				$eventData = [];
-				$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-				$eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
-				$eventData['items'] = [];
-				$eventData['items'][] = [
-					'id' => $_addedProduct->getSku(),
-					'name' => $_addedProduct->getName(),
-					'list_name' => 'Product Detail Page',
-					'brand' => $_addedProduct->getAttributeText('manufacturer'),
-					'category' => 'Products',
-					'price' => number_format($_addedProduct->getFinalPrice(), 2),
-				];
-				$result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-				Mage::getSingleton('core/session')->unsAddedProductCart();
-			}
+            $addedProduct = Mage::getSingleton('core/session')->getAddedProductCart();
+            if ($addedProduct) {
+                //product added to cart
+                $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
+                $eventData = [];
+                $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
+                $eventData['items'] = [];
+                $eventData['items'][] = [
+                    'id' => $_addedProduct->getSku(),
+                    'name' => $_addedProduct->getName(),
+                    'list_name' => 'Product Detail Page',
+                    'brand' => $_addedProduct->getAttributeText('manufacturer'),
+                    'category' => 'Products',
+                    'price' => number_format($_addedProduct->getFinalPrice(), 2),
+                ];
+                $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                Mage::getSingleton('core/session')->unsAddedProductCart();
+            }
 
-			$productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
-			$eventData = [];
-			$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-			$eventData['value'] = 0.00;
-			$eventData['items'] = [];
+            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+            $eventData = [];
+            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+            $eventData['value'] = 0.00;
+            $eventData['items'] = [];
 
-			foreach ($productCollection as $productInCart) {
-				$eventData['items'][] = [
-					'id' => $productInCart->getSku(),
-					'name' => $productInCart->getName(),
-					'list_name' => 'Product Detail Page',
-					'brand' => $productInCart->getAttributeText('manufacturer'),
-					'category' => 'Products',
-					'price' => number_format($productInCart->getFinalPrice(), 2),
-				];
-				$eventData['value'] += $productInCart->getFinalPrice();
-			}
-			$eventData['value'] = number_format($eventData['value'], 2);
-			$result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-		}
+            foreach ($productCollection as $productInCart) {
+                $eventData['items'][] = [
+                    'id' => $productInCart->getSku(),
+                    'name' => $productInCart->getName(),
+                    'list_name' => 'Product Detail Page',
+                    'brand' => $productInCart->getAttributeText('manufacturer'),
+                    'category' => 'Products',
+                    'price' => number_format($productInCart->getFinalPrice(), 2),
+                ];
+                $eventData['value'] += $productInCart->getFinalPrice();
+            }
+            $eventData['value'] = number_format($eventData['value'], 2);
+            $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+        }
 
-		//begin checkout
-		else if ($moduleName == 'checkout' && $controllerName == 'onepage') {
-			$productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
-			$eventData = [];
-			$eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-			$eventData['value'] = 0.00;
-			$eventData['items'] = [];
+        //begin checkout
+        elseif ($moduleName == 'checkout' && $controllerName == 'onepage') {
+            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+            $eventData = [];
+            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+            $eventData['value'] = 0.00;
+            $eventData['items'] = [];
 
-			foreach ($productCollection as $productInCart) {
-				$eventData['items'][] = [
-					'id' => $productInCart->getSku(),
-					'name' => $productInCart->getName(),
-					'list_name' => 'Product Detail Page',
-					'brand' => $productInCart->getAttributeText('manufacturer'),
-					'category' => 'Products',
-					'price' => number_format($productInCart->getFinalPrice(), 2),
-				];
-				$eventData['value'] += $productInCart->getFinalPrice();
-			}
-			$eventData['value'] = number_format($eventData['value'], 2);
-			$result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-		}
+            foreach ($productCollection as $productInCart) {
+                $eventData['items'][] = [
+                    'id' => $productInCart->getSku(),
+                    'name' => $productInCart->getName(),
+                    'list_name' => 'Product Detail Page',
+                    'brand' => $productInCart->getAttributeText('manufacturer'),
+                    'category' => 'Products',
+                    'price' => number_format($productInCart->getFinalPrice(), 2),
+                ];
+                $eventData['value'] += $productInCart->getFinalPrice();
+            }
+            $eventData['value'] = number_format($eventData['value'], 2);
+            $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+        }
         return implode("\n", $result);
     }
 

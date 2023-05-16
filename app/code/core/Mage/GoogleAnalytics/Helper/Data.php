@@ -104,5 +104,4 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
     }
-
 }
