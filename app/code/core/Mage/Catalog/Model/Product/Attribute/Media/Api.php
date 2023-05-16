@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 // Write image file
                 $fileWritten = $ioAdapter->write($fileName, $fileContent, 0666);
                 if ($fileWritten === false) {
-                    throw new Mage_Core_Exception('Could not write image file to disk. Invalid image data?');
+                    throw new Mage_Core_Exception('Could not write image file to disk. Invalid image data.');
                 }
                 unset($fileContent);
             
