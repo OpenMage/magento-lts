@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Acl getAcl()
  * @method $this setAcl(Mage_Admin_Model_Acl $acl)
@@ -161,6 +160,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+                if ($backendLocale = $user->getBackendLocale()) {
+                    Mage::getSingleton('adminhtml/session')->setLocale($backendLocale);
+                }
 
                 $alternativeUrl = $this->_getRequestUri($request);
                 $redirectUrl = $this->_urlPolicy->getRedirectUrl($user, $request, $alternativeUrl);

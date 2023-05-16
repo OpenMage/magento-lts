@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Entity_Collection_Abstract getProductCollection()
  */

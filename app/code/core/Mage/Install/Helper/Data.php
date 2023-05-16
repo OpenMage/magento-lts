@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Install
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Helper_Data extends Mage_Core_Helper_Abstract
 {

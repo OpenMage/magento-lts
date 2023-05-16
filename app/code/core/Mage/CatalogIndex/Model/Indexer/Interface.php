@@ -16,7 +16,6 @@
 /**
  * Catalog indexer interface
  *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_CatalogIndex_Model_Indexer_Interface
 {

@@ -20,7 +20,6 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {

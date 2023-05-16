@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated since 1.7.0.0
  */
 class Mage_Adminhtml_Helper_Media_Js extends Mage_Core_Helper_Js

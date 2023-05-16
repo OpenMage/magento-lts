@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -688,7 +687,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
-        $tags[] = Mage_Core_Model_App::CACHE_TAG;
         $tags[] = self::CACHE_TAG;
         return $tags;
     }

@@ -20,7 +20,6 @@ require_once 'Mage/Downloadable/controllers/Adminhtml/Downloadable/FileControlle
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated  after 1.4.2.0 Mage_Downloadable_Adminhtml_Downloadable_FileController is used
  */
 class Mage_Downloadable_FileController extends Mage_Downloadable_Adminhtml_Downloadable_FileController

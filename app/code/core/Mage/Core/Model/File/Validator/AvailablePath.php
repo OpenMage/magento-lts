@@ -33,7 +33,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract
 {

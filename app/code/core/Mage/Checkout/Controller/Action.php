@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Front_Action
 {

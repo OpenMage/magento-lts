@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api_Model_User getUser()
  * @method $this setUser(Mage_Api_Model_User $user)

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Model_Indexer
 {
@@ -283,10 +282,10 @@ class Mage_Index_Model_Indexer
      * @param   Varien_Object $entity
      * @param   string $entityType
      * @param   string $eventType
-     * @throws Exception
      * @return  Mage_Index_Model_Indexer
+     * @throws Exception|Throwable
      */
-    public function processEntityAction(Varien_Object $entity, $entityType, $eventType)
+    public function processEntityAction(Varien_Object $entity, $entityType, $eventType): Mage_Index_Model_Indexer
     {
         $event = $this->logEvent($entity, $entityType, $eventType, false);
         /**

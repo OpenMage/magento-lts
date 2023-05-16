@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Model_Resource_Store _getResource()
  * @method Mage_Core_Model_Resource_Store getResource()
@@ -750,34 +749,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
+     * @deprecated
      * @return bool
      */
     public function isCurrentlySecure()
     {
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-            return true;
-        }
-
-        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-            return true;
-        }
-
-        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
-            return true;
-        }
-
-        if (Mage::isInstalled()) {
-            $offloaderHeader = strtoupper(trim((string) Mage::getStoreConfig(self::XML_PATH_OFFLOADER_HEADER)));
-            if ($offloaderHeader) {
-                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
-                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return Mage::app()->isCurrentlySecure();
     }
 
     /*************************************************************************************

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Media
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getFileName()
  * @method $this setFileName(string $value)

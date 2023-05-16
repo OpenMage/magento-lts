@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Design_Package
 {
@@ -57,7 +56,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Package theme
      *
-     * @var string
+     * @var array
      */
     protected $_theme;
 
@@ -243,7 +242,7 @@ class Mage_Core_Model_Design_Package
     {
         switch (func_num_args()) {
             case 1:
-                foreach (['layout', 'template', 'skin', 'locale'] as $type) {
+                foreach (['layout', 'template', 'skin', 'locale', 'default'] as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
                 break;

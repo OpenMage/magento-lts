@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Tag
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tag_ListController extends Mage_Core_Controller_Front_Action
 {

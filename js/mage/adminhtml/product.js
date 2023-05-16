@@ -392,7 +392,7 @@ Product.Configurable.prototype = {
                 }
                 var label_readonly = '';
                 var use_default_checked = '';
-                if (attribute.use_default == '1') {
+                if (attribute.use_default == '1' || attribute.id == null) {
                     use_default_checked = ' checked="checked"';
                     label_readonly = ' readonly="readonly"';
                 }

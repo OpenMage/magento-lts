@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
@@ -995,7 +994,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ]);
 
         foreach ($dateFields as $dateField) {
-            if (array_key_exists($dateField, $array) && !empty($dateField)) {
+            if ($dateField && !empty($array[$dateField])) {
                 $array[$dateField] = $filterInput->filter($array[$dateField]);
                 $array[$dateField] = $filterInternal->filter($array[$dateField]);
             }

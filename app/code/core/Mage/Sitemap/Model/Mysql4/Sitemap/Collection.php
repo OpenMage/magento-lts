@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sitemap
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Sitemap_Model_Mysql4_Sitemap_Collection extends Mage_Sitemap_Model_Resource_Sitemap_Collection

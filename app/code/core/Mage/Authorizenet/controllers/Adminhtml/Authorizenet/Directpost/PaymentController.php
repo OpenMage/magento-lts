@@ -19,7 +19,6 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
  *
  * @category   Mage
  * @package    Mage_Authorizenet
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
