@@ -28,8 +28,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_TYPE          = 'google/analytics/type';
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
     public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
-    public const XML_PATH_ECOMM         = 'google/analytics/enhanced_ecommerce';
-
 
     /**
      * @var string google analytics 4
@@ -107,14 +105,4 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
     }
 
-    /**
-     * Whether GA Enhanced eCommerce data should be submitted
-     *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
-     * @return bool
-     */
-    public function isEnhancedECommEnabled($store = null)
-    {
-        return Mage::getStoreConfigFlag(self::XML_PATH_ECOMM, $store);
-    }
 }
