@@ -290,7 +290,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
             $removedProduct = Mage::getSingleton('core/session')->getRemovedProductCart();
             if ($removedProduct) {
-                //product removed from cart
                 $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
@@ -310,7 +309,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
             $addedProduct = Mage::getSingleton('core/session')->getAddedProductCart();
             if ($addedProduct) {
-                //product added to cart
                 $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
