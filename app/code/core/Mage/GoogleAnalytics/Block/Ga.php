@@ -423,7 +423,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         return implode("\n", $result);
     }
 
-
     /**
      * Render IP anonymization code for page tracking javascript code
      *
