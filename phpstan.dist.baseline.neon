@@ -4811,41 +4811,6 @@ parameters:
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
 
 		-
-			message: "#^Call to static method registry\\(\\) on an unknown class Zend\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Dead catch \\- PDOException is never thrown in the try block\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Undefined variable\\: \\$pID$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns false but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/NodeSet.php
-
-		-
-			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/NodeSet.php
-
-		-
-			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
-			count: 1
-			path: lib/Varien/File/Uploader/Image.php
-
-		-
-			message: "#^Call to function is_callable\\(\\) with array\\{\\$this\\(Varien_Filter_Template\\), 'dependDirective'\\|'ifDirective'\\} will always evaluate to true\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Template.php
-
-		-
 			message: "#^Right side of && is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Parameter.php
