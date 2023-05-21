@@ -241,7 +241,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $countSelect->columns('COUNT(*)');
 
             // Simple optimization - remove all joins if there are no where clauses using joined tables and all joins are left joins
-            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function($table) {
+            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
             if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
