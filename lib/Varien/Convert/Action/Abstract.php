@@ -20,7 +20,6 @@
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Varien_Convert_Action_Abstract implements Varien_Convert_Action_Interface
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Wishlist_Model_Item getItemById(int|string $value)
  * @method Mage_Wishlist_Model_Item[] getItems()

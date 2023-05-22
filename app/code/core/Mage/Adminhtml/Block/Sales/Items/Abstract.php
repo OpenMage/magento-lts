@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Template
 {
@@ -212,10 +211,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     {
         return Mage::registry('current_creditmemo');
     }
-
-    /**
-     * ######################### SALES ##################################
-     */
 
     /**
      * Retrieve available order

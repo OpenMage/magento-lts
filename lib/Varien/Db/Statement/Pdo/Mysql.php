@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
 {

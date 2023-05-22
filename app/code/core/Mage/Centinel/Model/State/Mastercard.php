@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Centinel
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbstract
 {

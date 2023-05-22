@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  * @todo       Needs to be reimplemented to get rid of the copypasted methods
  */
 class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template

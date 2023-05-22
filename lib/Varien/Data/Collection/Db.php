@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {
@@ -240,7 +239,32 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
         } else {
             $countSelect->columns('COUNT(*)');
+
+            // Simple optimization - remove all joins if there are no where clauses using joined tables and all joins are left joins
+            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
+                return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
+            });
+            if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
+                $mainTable = array_filter($leftJoins, function ($table) {
+                    return $table['joinType'] == Zend_Db_Select::FROM;
+                });
+                $mainTable = key($mainTable);
+                $mainTable = preg_quote($mainTable, '/');
+                $pattern = "/^$mainTable\\.\\w+/";
+                $whereUsingJoin = array_filter($countSelect->getPart(Zend_Db_Select::WHERE), function ($clause) use ($pattern) {
+                    $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
+                    return array_filter($clauses, function ($clause) use ($pattern) {
+                        $clause = preg_replace('/[()`\s]+/', '', $clause);
+                        return !preg_match($pattern, $clause);
+                    });
+                });
+                if (empty($whereUsingJoin)) {
+                    $from = array_slice($leftJoins, 0, 1);
+                    $countSelect->setPart(Zend_Db_Select::FROM, $from);
+                }
+            }
         }
+
         return $countSelect;
     }
 

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method float getQty()
  * @method int getProductId()

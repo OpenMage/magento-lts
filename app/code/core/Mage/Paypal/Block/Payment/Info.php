@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Block_Payment_Info extends Mage_Payment_Block_Info_Cc
 {

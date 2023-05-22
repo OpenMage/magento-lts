@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAttributeOption(array $value)
  * @method $this setOperatorOption(array $value)
@@ -83,14 +82,14 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
-            '=='  => Mage::helper('rule')->__('is'),
-            '!='  => Mage::helper('rule')->__('is not'),
-            '>='  => Mage::helper('rule')->__('equals or greater than'),
-            '<='  => Mage::helper('rule')->__('equals or less than'),
-            '>'   => Mage::helper('rule')->__('greater than'),
-            '<'   => Mage::helper('rule')->__('less than'),
-            '()'  => Mage::helper('rule')->__('is one of'),
-            '!()' => Mage::helper('rule')->__('is not one of'),
+            '=='  => static::$translate ? Mage::helper('rule')->__('is') : 'is',
+            '!='  => static::$translate ? Mage::helper('rule')->__('is not') : 'is not',
+            '>='  => static::$translate ? Mage::helper('rule')->__('equals or greater than') : 'equals or greater than',
+            '<='  => static::$translate ? Mage::helper('rule')->__('equals or less than') : 'equals or less than',
+            '>'   => static::$translate ? Mage::helper('rule')->__('greater than') : 'greater than',
+            '<'   => static::$translate ? Mage::helper('rule')->__('less than') : 'less than',
+            '()'  => static::$translate ? Mage::helper('rule')->__('is one of') : 'is one of',
+            '!()' => static::$translate ? Mage::helper('rule')->__('is not one of') : 'is not one of',
         ]);
         return $this;
     }

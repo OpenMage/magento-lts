@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Model_Type_Onepage
 {
@@ -719,9 +718,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::helper('core')->copyFieldset('checkout_onepage_quote', 'to_customer', $quote, $customer);
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
-        $passwordCreatedTime = $this->_checkoutSession->getSessionValidatorData()['session_expire_timestamp']
-            - Mage::getSingleton('core/cookie')->getLifetime();
-        $customer->setPasswordCreatedAt($passwordCreatedTime);
+        $customer->setPasswordCreatedAt(time());
         $quote->setCustomer($customer)
             ->setCustomerId(true);
         $quote->setPasswordHash('');

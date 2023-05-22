@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminhtml_Controller_Action
 {
@@ -150,7 +149,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
     {
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/oauth/authorizedTokens');
+        return $session->isAllowed('system/api/oauth_authorized_tokens');
     }
 
     /**

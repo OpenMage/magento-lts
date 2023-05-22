@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {

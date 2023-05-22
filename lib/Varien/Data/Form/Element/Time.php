@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
 {
@@ -57,7 +56,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
 
         if ($value = $this->getValue()) {
             $values = explode(',', $value);
-            if (is_array($values) && count($values) == 3) {
+            if (count($values) === 3) {
                 $value_hrs = $values[0];
                 $value_min = $values[1];
                 $value_sec = $values[2];

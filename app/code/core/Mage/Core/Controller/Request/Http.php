@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
@@ -143,7 +142,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
+            } elseif ($baseUrl !== null && !$pathInfo) {
                 $pathInfo = '';
             } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
@@ -308,7 +307,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->getStore()->isCurrentlySecure()) ?
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
             self::SCHEME_HTTPS :
             self::SCHEME_HTTP;
     }

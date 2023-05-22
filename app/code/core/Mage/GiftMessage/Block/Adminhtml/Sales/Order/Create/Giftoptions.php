@@ -17,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Giftoptions extends Mage_Adminhtml_Block_Template
 {

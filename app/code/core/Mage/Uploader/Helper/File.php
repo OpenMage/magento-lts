@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Uploader
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
 {
@@ -718,7 +717,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getDataMaxSizeInBytes()
     {
         $iniSize = $this->getDataMaxSize();
-        $size = substr($iniSize, 0, -1);
+        $size = (int)substr($iniSize, 0, -1);
         $parsedSize = 0;
         switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
             case 't':

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated
  */
 class Mage_Bundle_Model_Mysql4_Selection_Collection extends Mage_Bundle_Model_Resource_Selection_Collection

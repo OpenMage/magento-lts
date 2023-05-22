@@ -2126,16 +2126,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
@@ -2309,11 +2299,6 @@ parameters:
 			message: "#^Property Mage_Core_Model_Resource_Setup\\:\\:\\$_resourceConfig \\(Mage_Core_Model_Config_Element\\) does not accept SimpleXMLElement\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
-			message: "#^Binary operation \"\\.\" between \\(string\\|false\\) and array results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -3231,11 +3216,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
@@ -3359,11 +3339,6 @@ parameters:
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and 0\\.0001 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
-
-		-
-			message: "#^Binary operation \"\\-\" between string and int\\<\\-9, 9\\> results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
 			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"

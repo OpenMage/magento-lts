@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Weee
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_Tax
 {

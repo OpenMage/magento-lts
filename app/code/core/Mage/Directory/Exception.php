@@ -16,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Exception extends Mage_Core_Exception
 {

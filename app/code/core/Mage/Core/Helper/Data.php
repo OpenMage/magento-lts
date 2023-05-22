@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -974,7 +973,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false && in_array($firstLetter, ["=", "+", "-"])) {
+                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
                     $data[$key] = ' ' . $value;
                 }
             }

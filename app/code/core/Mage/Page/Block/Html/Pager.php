@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Page
- * @author     Magento Core Team <core@magentocommerce.com>
  * @todo       Separate order, mode and pager
  */
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template

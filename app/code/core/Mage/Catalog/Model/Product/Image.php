@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setImageOpacity(int $value)
  */
@@ -252,14 +251,16 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $memoryLimit = "128M";
         }
 
+        $value = (int)substr($memoryLimit, 0, -1);
+
         if (substr($memoryLimit, -1) == 'K') {
-            return substr($memoryLimit, 0, -1) * 1024;
+            return $value * 1024;
         }
         if (substr($memoryLimit, -1) == 'M') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+            return $value * 1024 * 1024;
         }
         if (substr($memoryLimit, -1) == 'G') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
+            return $value * 1024 * 1024 * 1024;
         }
         return $memoryLimit;
     }

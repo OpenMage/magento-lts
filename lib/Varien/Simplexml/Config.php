@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Simplexml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Simplexml_Config
 {

@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage_Index_Model_Resource_Abstract
 {

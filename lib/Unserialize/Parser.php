@@ -6,8 +6,8 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Unserialize
- * @package     Unserialize_Parser
+ * @category   Unserialize
+ * @package    Unserialize_Parser
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */

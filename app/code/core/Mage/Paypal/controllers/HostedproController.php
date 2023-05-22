@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
 {

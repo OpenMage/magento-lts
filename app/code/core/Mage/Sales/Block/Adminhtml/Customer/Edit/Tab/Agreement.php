@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {

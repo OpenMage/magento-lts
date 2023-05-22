@@ -18,7 +18,6 @@
  *
  * @category   Magento
  * @package    Magento_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Magento_Db_Object_Table extends Magento_Db_Object implements Magento_Db_Object_Interface
 {

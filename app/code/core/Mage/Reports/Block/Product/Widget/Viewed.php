@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Block_Product_Widget_Viewed extends Mage_Reports_Block_Product_Viewed implements Mage_Widget_Block_Interface
 {
