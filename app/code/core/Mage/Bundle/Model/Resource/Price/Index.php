@@ -544,11 +544,10 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $price   = $this->_getAttribute('price');
         $adapter = $this->_getReadAdapter();
 
-        $bind = [
-            ':product_id' => $productId,
-            ':store_id'   => $store->getId(),
-
-        ];
+        $bind = [':product_id' => $productId];
+        if (!$price->isScopeGlobal()) {
+            $bind[':store_id'] =  $store->getId();
+        }
         $select = $adapter->select()
             ->from(
                 ['option_table' => $this->getTable('catalog/product_option')],
