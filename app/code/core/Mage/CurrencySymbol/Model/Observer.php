@@ -23,16 +23,11 @@ class Mage_CurrencySymbol_Model_Observer
 {
     /**
      * Generate options for currency displaying with custom currency symbol
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function currencyDisplayOptions(Varien_Event_Observer $observer)
     {
         $baseCode = $observer->getEvent()->getBaseCode();
         $currencyOptions = $observer->getEvent()->getCurrencyOptions();
         $currencyOptions->setData(Mage::helper('currencysymbol')->getCurrencyOptions($baseCode));
-
-        return $this;
     }
 }

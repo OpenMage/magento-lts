@@ -32,38 +32,35 @@ class Mage_Persistent_Model_Observer
      * Apply persistent data
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function applyPersistentData($observer)
     {
         if (!Mage::helper('persistent')->canProcess($observer)
             || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
         ) {
-            return $this;
+            return;
         }
         Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(Mage::helper('persistent')->getPersistentConfigFilePath())
             ->fire();
-        return $this;
     }
 
     /**
      * Apply persistent data to specific block
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function applyBlockPersistentData($observer)
     {
         if (!$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {
-            return $this;
+            return;
         }
 
         /** @var Mage_Core_Block_Abstract $block */
         $block = $observer->getEvent()->getBlock();
 
         if (!$block) {
-            return $this;
+            return;
         }
 
         $xPath = '//instances/blocks/*[block_type="' . get_class($block) . '"]';
@@ -79,8 +76,6 @@ class Mage_Persistent_Model_Observer
         foreach ($persistentConfig->getXmlConfig()->xpath($xPath) as $persistentConfigInfo) {
             $persistentConfig->fireOne($persistentConfigInfo->asArray(), $block);
         }
-
-        return $this;
     }
     /**
      * Emulate welcome message with persistent data
@@ -530,8 +525,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Create handle for persistent session if persistent cookie and customer not logged in
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function createPersistentHandleLayout(Varien_Event_Observer $observer)
     {
@@ -549,8 +542,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Update customer id and customer group id if user is in persistent session
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function updateCustomerCookies(Varien_Event_Observer $observer)
     {

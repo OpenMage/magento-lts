@@ -25,7 +25,6 @@ class Mage_Centinel_Model_Observer extends Varien_Object
      * Set cmpi data to payment
      *
      * @param Varien_Object $observer
-     * @return $this
      */
     public function salesEventConvertQuoteToOrder($observer)
     {
@@ -35,14 +34,12 @@ class Mage_Centinel_Model_Observer extends Varien_Object
             $to = [$payment, 'setAdditionalInformation'];
             $payment->getMethodInstance()->getCentinelValidator()->exportCmpiData($to);
         }
-        return $this;
     }
 
     /**
      * Add cmpi data to info block
      *
      * @param Varien_Object $observer
-     * @return $this
      */
     public function paymentInfoBlockPrepareSpecificInformation($observer)
     {
@@ -66,14 +63,12 @@ class Mage_Centinel_Model_Observer extends Varien_Object
                 $transport->setData($helper->getCmpiLabel($key), $helper->getCmpiValue($key, $value));
             }
         }
-        return $this;
     }
 
     /**
      * Add centinel logo block into payment form
      *
      * @param Varien_Object $observer
-     * @return $this
      */
     public function paymentFormBlockToHtmlBefore($observer)
     {
@@ -86,14 +81,12 @@ class Mage_Centinel_Model_Observer extends Varien_Object
                 Mage::helper('centinel')->getMethodFormBlock($method)
             );
         }
-        return $this;
     }
 
     /**
      * Reset validation data
      *
      * @param Varien_Object $observer
-     * @return $this
      */
     public function checkoutSubmitAllAfter($observer)
     {
@@ -110,7 +103,6 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         if ($method && $method->getIsCentinelValidationEnabled()) {
             $method->getCentinelValidator()->reset();
         }
-        return $this;
     }
 
     /**

@@ -23,8 +23,6 @@ class Mage_Persistent_Model_Observer_Session
 {
     /**
      * Create/Update and Load session when customer log in
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentOnLogin(Varien_Event_Observer $observer)
     {
@@ -72,8 +70,6 @@ class Mage_Persistent_Model_Observer_Session
 
     /**
      * Unload persistent session (if set in config)
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentOnLogout(Varien_Event_Observer $observer)
     {
@@ -96,8 +92,6 @@ class Mage_Persistent_Model_Observer_Session
 
     /**
      * Synchronize persistent session info
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function synchronizePersistentInfo(Varien_Event_Observer $observer)
     {
@@ -120,8 +114,6 @@ class Mage_Persistent_Model_Observer_Session
 
     /**
      * Set Checked status of "Remember Me"
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function setRememberMeCheckedStatus(Varien_Event_Observer $observer)
     {

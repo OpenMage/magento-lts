@@ -58,9 +58,6 @@ class Mage_Core_Model_Domainpolicy
 
     /**
      * Add X-Frame-Options header to response, depends on config settings
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function addDomainPolicyHeader(Varien_Event_Observer $observer)
     {
@@ -77,8 +74,6 @@ class Mage_Core_Model_Domainpolicy
             $response = $action->getResponse();
             $response->setHeader('X-Frame-Options', $policy, true);
         }
-
-        return $this;
     }
 
     /**

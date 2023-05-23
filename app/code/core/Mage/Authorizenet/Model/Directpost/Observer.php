@@ -23,24 +23,16 @@ class Mage_Authorizenet_Model_Directpost_Observer
 {
     /**
      * Save order into registry to use it in the overloaded controller.
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::register('directpost_order', $order, true);
-
-        return $this;
     }
 
     /**
      * Set data for response of frontend saveOrder action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function addAdditionalFieldsToResponseFrontend(Varien_Event_Observer $observer)
     {
@@ -74,23 +66,16 @@ class Mage_Authorizenet_Model_Directpost_Observer
                 }
             }
         }
-
-        return $this;
     }
 
     /**
      * Update all edit increments for all orders if module is enabled.
      * Needed for correct work of edit orders in Admin area.
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::helper('authorizenet')->updateOrderEditIncrements($order);
-
-        return $this;
     }
 }

@@ -61,7 +61,7 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order is placed
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
+     * @throws Throwable
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_afterPlace($observer)
@@ -70,7 +70,7 @@ class Mage_SalesRule_Model_Observer
         $order = $observer->getEvent()->getOrder();
 
         if (!$order) {
-            return $this;
+            return;
         }
 
         // lookup rule ids
@@ -126,6 +126,7 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order payment is canceled
      *
      * @param Varien_Event_Observer $observer
+     * @throws Throwable
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_paymentCancel($observer)
@@ -241,9 +242,6 @@ class Mage_SalesRule_Model_Observer
 
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
     {
@@ -252,16 +250,11 @@ class Mage_SalesRule_Model_Observer
         if ($attribute->dataHasChangedFor('is_used_for_promo_rules') && !$attribute->getIsUsedForPromoRules()) {
             $this->_checkSalesRulesAvailability($attribute->getAttributeCode());
         }
-
-        return $this;
     }
 
     /**
      * After delete attribute check rules that contains deleted attribute
-     * If rules was found they will seted to inactive and added notice to admin session
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
+     * If rules was found they will set to inactive and added notice to admin session
      */
     public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
     {
@@ -270,15 +263,10 @@ class Mage_SalesRule_Model_Observer
         if ($attribute->getIsUsedForPromoRules()) {
             $this->_checkSalesRulesAvailability($attribute->getAttributeCode());
         }
-
-        return $this;
     }
 
     /**
      * Append sales rule product attributes to select by quote item collection
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function addProductAttributes(Varien_Event_Observer $observer)
     {
@@ -295,14 +283,12 @@ class Mage_SalesRule_Model_Observer
             $result[$attribute['attribute_code']] = true;
         }
         $attributesTransfer->addData($result);
-        return $this;
     }
 
     /**
      * Add coupon's rule name to order data
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function addSalesRuleNameToOrder($observer)
     {
@@ -311,7 +297,7 @@ class Mage_SalesRule_Model_Observer
         $couponCode = $order->getCouponCode();
 
         if (empty($couponCode)) {
-            return $this;
+            return;
         }
 
         /**
@@ -323,7 +309,7 @@ class Mage_SalesRule_Model_Observer
         $ruleId = $couponModel->getRuleId();
 
         if (empty($ruleId)) {
-            return $this;
+            return;
         }
 
         /**
@@ -333,7 +319,5 @@ class Mage_SalesRule_Model_Observer
         $ruleModel->load($ruleId);
 
         $order->setCouponRuleName($ruleModel->getName());
-
-        return $this;
     }
 }

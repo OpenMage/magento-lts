@@ -196,24 +196,20 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 
     /**
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function productEventAggregate($observer)
     {
         $this->_getProductEventTagsCollection($observer)->walk('aggregate');
-        return $this;
     }
 
     /**
      * Product delete event action
      *
      * @param  Varien_Event_Observer $observer
-     * @return $this
      */
     public function productDeleteEventAction($observer)
     {
         $this->_getResource()->decrementProducts($this->_getProductEventTagsCollection($observer)->getAllIds());
-        return $this;
     }
 
     /**

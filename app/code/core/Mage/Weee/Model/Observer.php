@@ -23,9 +23,6 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 {
     /**
      * Assign custom renderer for product create/edit form weee attribute element
-     *
-     * @param Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function setWeeeRendererInForm(Varien_Event_Observer $observer)
     {
@@ -42,15 +39,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 );
             }
         }
-
-        return $this;
     }
 
     /**
      * Exclude WEEE attributes from standard form generation
-     *
-     * @param Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function updateExcludedFieldList(Varien_Event_Observer $observer)
     {
@@ -63,27 +55,22 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $list = array_merge($list, array_values($attributes));
 
         $block->setFormExcludedFieldList($list);
-
-        return $this;
     }
 
     /**
      * Add additional price calculation to select object which is using for select indexed data
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function prepareCatalogIndexSelect(Varien_Event_Observer $observer)
     {
         $storeId = (int)$observer->getEvent()->getStoreId();
         if (!Mage::helper('weee')->isEnabled($storeId)) {
-            return $this;
+            return;
         }
 
         switch (Mage::helper('weee')->getListPriceDisplayType()) {
             case Mage_Weee_Model_Tax::DISPLAY_EXCL_DESCR_INCL:
             case Mage_Weee_Model_Tax::DISPLAY_EXCL:
-                return $this;
+                return;
         }
 
         /** @var Varien_Db_Select $select */
@@ -158,7 +145,6 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 []
             );
         }
-        return $this;
     }
 
     /**
@@ -173,9 +159,6 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
     /**
      * Add new attribute type to manage attributes interface
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function addWeeeTaxAttributeType(Varien_Event_Observer $observer)
     {
@@ -202,15 +185,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         ];
 
         $response->setTypes($types);
-
-        return $this;
     }
 
     /**
-     * Automaticaly assign backend model to weee attributes
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
+     * Automatically assign backend model to weee attributes
      */
     public function assignBackendModelToAttribute(Varien_Event_Observer $observer)
     {
@@ -230,15 +208,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 $object->setApplyTo($applyTo);
             }
         }
-
-        return $this;
     }
 
     /**
      * Add custom element type for attributes form
-     *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_Weee_Model_Observer
      */
     public function updateElementTypes(Varien_Event_Observer $observer)
     {
@@ -246,19 +219,15 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $types = $response->getTypes();
         $types['weee'] = Mage::getConfig()->getBlockClassName('weee/element_weee_tax');
         $response->setTypes($types);
-        return $this;
     }
 
     /**
      * Update WEEE amounts discount percents
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function updateDiscountPercents(Varien_Event_Observer $observer)
     {
         if (!Mage::helper('weee')->isEnabled()) {
-            return $this;
+            return;
         }
 
         $productCondition = $observer->getEvent()->getProductCondition();
@@ -268,22 +237,17 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $eventProduct = $observer->getEvent()->getProduct();
         }
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
-
-        return $this;
     }
 
     /**
      * Update configurable options of the product view page
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
         /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
-            return $this;
+            return;
         }
 
         $response = $observer->getEvent()->getResponseObject();
@@ -294,7 +258,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $_product = $eventProduct ? $eventProduct : Mage::registry('current_product');
 
         if (!$_product) {
-            return $this;
+            return;
         }
 
         $amount = $weeeHelper->getAmountForDisplay($_product);
@@ -320,22 +284,17 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         $response->setAdditionalOptions($options);
-
-        return $this;
     }
 
     /**
      * Process bundle options selection for prepare view json
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Weee_Model_Observer
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {
         /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
-            return $this;
+            return;
         }
 
         $response = $observer->getEvent()->getResponseObject();
@@ -346,7 +305,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $typeDynamic = Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend::DYNAMIC;
         if (!$_product || $_product->getPriceType() != $typeDynamic) {
-            return $this;
+            return;
         }
 
         $amount = $weeeHelper->getAmountForDisplay($selection);
@@ -369,16 +328,11 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         $response->setAdditionalOptions($options);
-
-        return $this;
     }
 
     /**
      * Notify weee helper about the admin session quote store when creating order
      * in the backend
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function setSessionQuoteStore(Varien_Event_Observer $observer)
     {
@@ -390,7 +344,5 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         if ($sessionQuote) {
             $weeeHelper->setStore($sessionQuote->getStore());
         }
-
-        return $this;
     }
 }

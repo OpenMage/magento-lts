@@ -21,24 +21,18 @@
  */
 class Mage_Newsletter_Model_Observer
 {
-    /**
-     * @param Varien_Event_Observer $observer
-     * @return $this
-     */
     public function subscribeCustomer(Varien_Event_Observer $observer)
     {
         $customer = $observer->getEvent()->getCustomer();
         if (($customer instanceof Mage_Customer_Model_Customer)) {
             Mage::getModel('newsletter/subscriber')->subscribeCustomer($customer);
         }
-        return $this;
     }
 
     /**
      * Customer delete handler
      *
-     * @param Varien_Event_Observer $observer
-     * @return $this
+     * @throws Throwable
      */
     public function customerDeleted(Varien_Event_Observer $observer)
     {
@@ -47,7 +41,6 @@ class Mage_Newsletter_Model_Observer
         if ($subscriber->getId()) {
             $subscriber->delete();
         }
-        return $this;
     }
 
     /**

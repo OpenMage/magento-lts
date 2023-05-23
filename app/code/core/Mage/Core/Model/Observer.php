@@ -23,9 +23,6 @@ class Mage_Core_Model_Observer
 {
     /**
      * Check if synchronize process is finished and generate notification message
-     *
-     * @param  Varien_Event_Observer $observer
-     * @return $this
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
@@ -78,8 +75,6 @@ class Mage_Core_Model_Observer
 
             $adminSession->setSyncProcessStopWatch(false);
         }
-
-        return $this;
     }
 
     /**
@@ -93,37 +88,27 @@ class Mage_Core_Model_Observer
         Mage::dispatchEvent('core_clean_cache');
     }
 
-    /**
-     * Cleans cache by tags
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
-     */
     public function cleanCacheByTags(Varien_Event_Observer $observer)
     {
         /** @var array $tags */
         $tags = $observer->getEvent()->getTags();
         if (empty($tags)) {
             Mage::app()->cleanCache();
-            return $this;
+            return;
         }
 
         Mage::app()->cleanCache($tags);
-        return $this;
     }
 
     /**
      * Checks method availability for processing in variable
      *
-     * @param Varien_Event_Observer $observer
      * @throws Exception
-     * @return Mage_Core_Model_Observer
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)
     {
         if (Mage::registry('varProcessing')) {
             Mage::throwException(Mage::helper('core')->__('Disallowed template variable method.'));
         }
-        return $this;
     }
 }

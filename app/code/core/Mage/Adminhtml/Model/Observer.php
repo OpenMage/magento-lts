@@ -28,19 +28,15 @@ class Mage_Adminhtml_Model_Observer
                 $locale->setLocaleCode($choosedLocale);
             }
         }
-        return $this;
     }
 
     public function bindStore()
     {
         Mage::app()->setCurrentStore('admin');
-        return $this;
     }
 
     /**
      * Prepare massaction separated data
-     *
-     * @return $this
      */
     public function massactionPrepareKey()
     {
@@ -49,17 +45,13 @@ class Mage_Adminhtml_Model_Observer
             $value = is_array($request->getPost($key)) ? $request->getPost($key) : explode(',', $request->getPost($key));
             $request->setPost($key, $value ? $value : null);
         }
-        return $this;
     }
 
     /**
      * Clear result of configuration files access level verification in system cache
-     *
-     * @return $this
      */
     public function clearCacheConfigurationFilesAccessLevelVerification()
     {
         Mage::app()->removeCache(Mage_Adminhtml_Block_Notification_Security::VERIFICATION_RESULT_CACHE_KEY);
-        return $this;
     }
 }

@@ -25,7 +25,6 @@ class Mage_Bundle_Model_Observer
      * Setting Bundle Items Data to product for father processing
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function prepareProductSave($observer)
     {
@@ -55,15 +54,12 @@ class Mage_Bundle_Model_Observer
         $product->setCanSaveBundleSelections(
             (bool)$request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly()
         );
-
-        return $this;
     }
 
     /**
      * Append bundles in upsell list for current product
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function appendUpsellProducts($observer)
     {
@@ -74,7 +70,7 @@ class Mage_Bundle_Model_Observer
          * Check is current product type is allowed for bundle selection product type
          */
         if (!in_array($product->getTypeId(), Mage::helper('bundle')->getAllowedSelectionTypes())) {
-            return $this;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
@@ -89,7 +85,7 @@ class Mage_Bundle_Model_Observer
 
         $productIds = array_keys($collection->getItems());
         if (!is_null($limit) && $limit <= count($productIds)) {
-            return $this;
+            return;
         }
 
         // retrieve bundle product ids
@@ -98,7 +94,7 @@ class Mage_Bundle_Model_Observer
         $bundleIds  = array_diff($bundleIds, $productIds);
 
         if (!$bundleIds) {
-            return $this;
+            return;
         }
 
         $bundleCollection = $product->getCollection()
@@ -127,15 +123,12 @@ class Mage_Bundle_Model_Observer
             }
             $collection->setItems($items);
         }
-
-        return $this;
     }
 
     /**
      * Append selection attributes to selection's order item
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function appendBundleSelectionData($observer)
     {
@@ -149,8 +142,6 @@ class Mage_Bundle_Model_Observer
             $productOptions['bundle_selection_attributes'] = $attributes->getValue();
             $orderItem->setProductOptions($productOptions);
         }
-
-        return $this;
     }
 
     /**
@@ -158,31 +149,27 @@ class Mage_Bundle_Model_Observer
      * only for front end
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function loadProductOptions($observer)
     {
         $collection = $observer->getEvent()->getCollection();
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection->addPriceData();
-
-        return $this;
     }
 
     /**
      * duplicating bundle options and selections
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function duplicateProduct($observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getCurrentProduct();
 
-        if ($product->getTypeId() != Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+        if ($product->getTypeId() !== Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             //do nothing if not bundle
-            return $this;
+            return;
         }
 
         /** @var Mage_Catalog_Model_Product $newProduct */
@@ -228,38 +215,31 @@ class Mage_Bundle_Model_Observer
 
         $newProduct->setBundleOptionsData($optionRawData);
         $newProduct->setBundleSelectionsData($selectionRawData);
-        return $this;
     }
 
     /**
      * Setting attribute tab block for bundle
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function setAttributeTabBlock($observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
-        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+        if ($product->getTypeId() === Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
-        return $this;
     }
 
     /**
      * Initialize product options renderer with bundle specific params
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function initOptionRenderer(Varien_Event_Observer $observer)
     {
         /** @var Mage_Wishlist_Block_Customer_Wishlist_Item_Options $block */
         $block = $observer->getBlock();
         $block->addOptionsRenderCfg('bundle', 'bundle/catalog_product_configuration');
-        return $this;
     }
 
     /**
@@ -286,16 +266,11 @@ class Mage_Bundle_Model_Observer
      * CatalogIndex Indexer after plain reindex process
      *
      * @deprecated since 1.4.0.0
-     * @see Mage_Bundle_Model_Resource_Indexer_Price
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
+     * @see Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
     {
         $products = $observer->getEvent()->getProducts();
         Mage::getSingleton('bundle/price_index')->reindex($products);
-
-        return $this;
     }
 }

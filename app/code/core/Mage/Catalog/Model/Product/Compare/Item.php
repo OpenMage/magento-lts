@@ -159,30 +159,23 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Customer login bind process
-     *
-     * @return $this
+     * Customer login bind process, called through observer
      */
     public function bindCustomerLogin()
     {
         $this->_getResource()->updateCustomerFromVisitor($this);
 
         Mage::helper('catalog/product_compare')->setCustomerId($this->getCustomerId())->calculate();
-        return $this;
     }
 
     /**
-     * Customer logout bind process
-     *
-     * @param Varien_Event_Observer|null $observer
-     * @return $this
+     * Customer logout bind process, called through observer
      */
-    public function bindCustomerLogout(Varien_Event_Observer $observer = null)
+    public function bindCustomerLogout(Varien_Event_Observer $observer)
     {
         $this->_getResource()->purgeVisitorByCustomer($this);
 
         Mage::helper('catalog/product_compare')->calculate(true);
-        return $this;
     }
 
     /**

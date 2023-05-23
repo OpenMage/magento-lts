@@ -124,6 +124,9 @@ class Mage_Customer_Model_Observer
      * Address after save event handler
      *
      * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
      */
     public function afterAddressSave($observer)
     {

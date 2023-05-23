@@ -23,8 +23,6 @@ class Mage_Tax_Model_Observer
 {
     /**
      * Put quote address tax information into order
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
@@ -45,8 +43,6 @@ class Mage_Tax_Model_Observer
 
     /**
      * Save order tax information
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
@@ -147,9 +143,6 @@ class Mage_Tax_Model_Observer
 
     /**
      * Prepare select which is using to select index data for layered navigation
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Tax_Model_Observer
      */
     public function prepareCatalogIndexPriceSelect(Varien_Event_Observer $observer)
     {
@@ -172,15 +165,10 @@ class Mage_Tax_Model_Observer
              */
             //Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
         }
-
-        return $this;
     }
 
     /**
      * Add tax percent values to product collection items
-     *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Tax_Model_Observer
      */
     public function addTaxPercentToProductCollection($observer)
     {
@@ -189,7 +177,7 @@ class Mage_Tax_Model_Observer
         $collection = $observer->getEvent()->getCollection();
         $store = $collection->getStoreId();
         if (!$helper->needPriceConversion($store)) {
-            return $this;
+            return;
         }
 
         if ($collection->requireTaxPercent()) {
@@ -205,7 +193,6 @@ class Mage_Tax_Model_Observer
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
         }
-        return $this;
     }
 
     /**
@@ -226,9 +213,6 @@ class Mage_Tax_Model_Observer
 
     /**
      * Reset extra tax amounts on quote addresses before recollecting totals
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
     {
@@ -238,6 +222,5 @@ class Mage_Tax_Model_Observer
             $address->setExtraTaxAmount(0);
             $address->setBaseExtraTaxAmount(0);
         }
-        return $this;
     }
 }
