@@ -52,11 +52,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportCustomerCsvAction()
     {
-        $fileName   = 'tag_customer.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_customer.csv', -1));
     }
 
     /**
@@ -64,11 +61,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportCustomerExcelAction()
     {
-        $fileName   = 'tag_customer.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_customer.xml', -1));
     }
 
     public function productAction()
@@ -89,11 +83,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportProductCsvAction()
     {
-        $fileName   = 'tag_product.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_product.csv', -1));
     }
 
     /**
@@ -101,11 +92,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportProductExcelAction()
     {
-        $fileName   = 'tag_product.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_product.xml', -1));
     }
 
     public function popularAction()
@@ -126,11 +114,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportPopularCsvAction()
     {
-        $fileName   = 'tag_popular.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_popular.csv', -1));
     }
 
     /**
@@ -138,11 +123,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportPopularExcelAction()
     {
-        $fileName   = 'tag_popular.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_popular.xml', -1));
     }
 
     public function customerDetailAction()
@@ -167,11 +149,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportCustomerDetailCsvAction()
     {
-        $fileName   = 'tag_customer_detail.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_customer_detail.csv', -1));
     }
 
     /**
@@ -179,11 +158,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportCustomerDetailExcelAction()
     {
-        $fileName   = 'tag_customer_detail.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_customer_detail.xml', -1));
     }
 
     public function productDetailAction()
@@ -208,11 +184,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportProductDetailCsvAction()
     {
-        $fileName   = 'tag_product_detail.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_product_detail.csv', -1));
     }
 
     /**
@@ -220,11 +193,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportProductDetailExcelAction()
     {
-        $fileName   = 'tag_product_detail.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_product_detail.xml', -1));
     }
 
     public function tagDetailAction()
@@ -249,11 +219,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportTagDetailCsvAction()
     {
-        $fileName   = 'tag_detail.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tag_detail.csv', -1));
     }
 
     /**
@@ -261,11 +228,8 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
      */
     public function exportTagDetailExcelAction()
     {
-        $fileName   = 'tag_detail.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tag_detail.xml', -1));
     }
 
     /**

@@ -440,11 +440,19 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as CSV
      *
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsv());
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
+     *
+     * @param string $fileName
+     * @param int $limit
      * @return string
+     * @throws Exception
      */
-    public function getCsv()
+    public function getCsv($fileName = '', $limit = 0)
     {
         $csv = '';
+        $count = 0;
         $this->_prepareGrid();
 
         $data = ['"' . $this->__('Period') . '"'];
@@ -469,6 +477,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     }
                 }
                 $csv .= implode(',', $data) . "\n";
+                $count++;
+                if (($limit > 0) && ($count > $limit)) {
+                    exit('Too many results');
+                }
             }
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
                 $data = ['"' . $_index . '"'];
@@ -495,18 +507,26 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             $csv .= implode(',', $data) . "\n";
         }
 
-        return $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return mixed
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
+     *
+     * @param string $fileName the Workbook sheet name
+     * @param int $limit
+     * @return string
+     * @throws Exception
      */
-    public function getExcel($filename = '')
+    public function getExcel($fileName = '', $limit = 0)
     {
         $this->_prepareGrid();
 
+        $count = 0;
         $data = [];
         $row = [$this->__('Period')];
         foreach ($this->_columns as $column) {
@@ -526,6 +546,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     }
                 }
                 $data[] = $row;
+                $count++;
+                if (($limit > 0) && ($count > $limit)) {
+                    exit('Too many results');
+                }
             }
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
                 $row = [$_index];
@@ -551,11 +575,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
 
         $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
+        $xmlObj->setVar('single_sheet', $fileName);
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**

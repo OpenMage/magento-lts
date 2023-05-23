@@ -408,11 +408,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function exportCsvAction()
     {
-        $fileName   = 'customers.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('customers.csv', -1));
     }
 
     /**
@@ -420,11 +417,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function exportXmlAction()
     {
-        $fileName   = 'customers.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getExcelFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('customers.xml', -1));
     }
 
     /**

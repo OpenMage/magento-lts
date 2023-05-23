@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @var string|null
      */
-    protected $_emptyTextCss    = 'a-center';
+    protected $_emptyTextCss = 'a-center';
 
     /**
      * Pager visibility
@@ -213,10 +213,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected $defaultColumnSettings = [
         'date' => [
-            'width' => 140
+            'width' => 140,
         ],
         'datetime' => [
-            'width' => 160
+            'width' => 160,
         ],
     ];
 
@@ -1141,15 +1141,27 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve a file container array by grid data as CSV
      *
-     * Return array with keys type and value
+     * Return array with keys type and value [the original way]
+     * Return array with keys file name, type and value, file mime type [the new way]
      *
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsvFile($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsvFile($fileName), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsvFile($fileName, -1));
+     *
+     * @param string $fileName
+     * @param int $limit
      * @return array
      * @throws Exception
      */
-    public function getCsvFile()
+    public function getCsvFile($fileName = '', $limit = 0)
     {
         $this->_isExport = true;
         $this->_prepareGrid();
+
+        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            exit('Too many results');
+        }
 
         $io = new Varien_Io_File();
 
@@ -1174,20 +1186,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $io->streamUnlock();
         $io->streamClose();
 
-        return [
+        $data = [
             'type'  => 'filename',
             'value' => $file,
-            'rm'    => true // can delete file after use
+            'rm'    => true, // can delete file after use
         ];
+
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $data, 'text/csv'] : $data;
     }
 
     /**
      * Retrieve Grid data as CSV
      *
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsv());
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
+     *
+     * @param string $fileName
+     * @param int $limit
      * @return string
      * @throws Exception
      */
-    public function getCsv()
+    public function getCsv($fileName = '', $limit = 0)
     {
         $csv = '';
         $this->_isExport = true;
@@ -1197,6 +1217,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
+
+        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            exit('Too many results');
+        }
 
         $data = [];
         foreach ($this->_columns as $column) {
@@ -1234,7 +1259,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $csv .= implode(',', $data) . "\n";
         }
 
-        return $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
@@ -1294,16 +1319,27 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve a file container array by grid data as MS Excel 2003 XML Document
      *
-     * Return array with keys type and value
+     * Return array with keys type and value [the original way]
+     * Return array with keys file name, type and value, file mime type [the new way]
+     *
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcelFile($fileName, -1));
      *
      * @param string $sheetName
+     * @param int $limit
      * @return array
      * @throws Exception
      */
-    public function getExcelFile($sheetName = '')
+    public function getExcelFile($sheetName = '', $limit = 0)
     {
         $this->_isExport = true;
         $this->_prepareGrid();
+
+        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            exit('Too many results');
+        }
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
         $io     = new Varien_Io_File();
@@ -1329,21 +1365,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $io->streamUnlock();
         $io->streamClose();
 
-        return [
+        $data = [
             'type'  => 'filename',
             'value' => $file,
-            'rm'    => true // can delete file after use
+            'rm'    => true, // can delete file after use
         ];
+
+        return (!empty($sheetName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $sheetName), $data, 'application/vnd.ms-excel'] : $data;
     }
 
     /**
      * Retrieve grid data as MS Excel 2003 XML Document
      *
-     * @param string $filename the Workbook sheet name
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
+     *
+     * @param string $fileName the Workbook sheet name
+     * @param int $limit
      * @return string
      * @throws Exception
      */
-    public function getExcel($filename = '')
+    public function getExcel($fileName = '', $limit = 0)
     {
         $this->_isExport = true;
         $this->_prepareGrid();
@@ -1352,6 +1395,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
+
+        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            exit('Too many results');
+        }
+
         $headers = [];
         $data = [];
         foreach ($this->_columns as $column) {
@@ -1382,11 +1431,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         }
 
         $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
+        $xmlObj->setVar('single_sheet', $fileName);
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**

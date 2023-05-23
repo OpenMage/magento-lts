@@ -245,22 +245,19 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export shipping table rates in csv format
-     *
      */
     public function exportTableratesAction()
     {
-        $fileName   = 'tablerates.csv';
-        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $gridBlock */
-        $gridBlock  = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
-        $website    = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
+        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $grid */
+        $grid    = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
+        $website = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
         if ($this->getRequest()->getParam('conditionName')) {
             $conditionName = $this->getRequest()->getParam('conditionName');
         } else {
             $conditionName = $website->getConfig('carriers/tablerate/condition_name');
         }
-        $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
-        $content    = $gridBlock->getCsvFile();
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid->setWebsiteId($website->getId())->setConditionName($conditionName);
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tablerates.csv', -1));
     }
 
     /**

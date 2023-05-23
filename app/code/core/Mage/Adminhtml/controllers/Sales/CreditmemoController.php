@@ -26,23 +26,21 @@ class Mage_Adminhtml_Sales_CreditmemoController extends Mage_Adminhtml_Controlle
      */
     public function exportCsvAction()
     {
-        $fileName   = 'creditmemos.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('creditmemos.csv', -1));
     }
 
     /**
-     *  Export credit memo grid to Excel XML format
+     * Export credit memo grid to Excel XML format
      */
     public function exportExcelAction()
     {
-        $fileName   = 'creditmemos.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_creditmemo_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('creditmemos.xml', -1));
     }
 
     /**
-     *  Index page
+     * Index page
      */
     public function indexAction()
     {

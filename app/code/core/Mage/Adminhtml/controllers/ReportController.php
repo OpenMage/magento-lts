@@ -46,11 +46,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
      */
     public function exportSearchCsvAction()
     {
-        $fileName   = 'search.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_search_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('search.csv', -1));
     }
 
     /**
@@ -58,11 +55,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
      */
     public function exportSearchExcelAction()
     {
-        $fileName   = 'search.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_search_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('search.xml', -1));
     }
 
     /**
