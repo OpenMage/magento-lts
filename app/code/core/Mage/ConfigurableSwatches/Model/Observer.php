@@ -27,7 +27,9 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function productListCollectionLoadAfter(Varien_Event_Observer $observer)
     {
-        if (!Mage::helper('configurableswatches')->isEnabled()) { // check if functionality disabled
+        // check if functionality disabled or if no attribute selected for product list
+        $noAttribute = empty(Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE));
+        if ($noAttribute || !Mage::helper('configurableswatches')->isEnabled()) {
             return; // exit without loading swatch functionality
         }
 
