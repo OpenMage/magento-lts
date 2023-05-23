@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /** @var $this Mage_Sales_Block_Order_Info */ ?>
+<?php /** @var Mage_Sales_Block_Order_Info $this */ ?>
 <?php $_order = $this->getOrder() ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title title-buttons">
@@ -27,7 +27,7 @@
         <?php $_links = $this->getLinks(); ?>
         <ul id="order-info-tabs">
         <?php foreach ($_links as $_link): ?>
-            <?php if($_link->getUrl()): ?>
+            <?php if ($_link->getUrl()): ?>
                 <li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
             <?php else: ?>
                 <li class="current"><?php echo $_link->getLabel() ?></li>

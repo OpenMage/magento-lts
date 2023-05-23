@@ -17,7 +17,7 @@
  * Install database configuration template
  *
  * @see Mage_Install_Block_Config
- * @var $this Mage_Install_Block_Config
+ * @var Mage_Install_Block_Config $this
  */
 ?>
 <script type="text/javascript">
@@ -43,8 +43,8 @@ function showContent(select)
             <div class="input-box">
                 <label for="prefix"><?php echo $this->__('Database Type') ?></label><br />
                 <select name="config[db_model]" onchange="showContent(this)">
-                    <?php foreach($dbTypeOptions as $block): ?>
-                        <option value="<?php echo $block->getIdPrefix()?>" <?php if($this->getFormData()->getDbModel() == $block->getIdPrefix()):?>selected="selected"<?php endif ?>><?php echo $block->getTitle()?></option>
+                    <?php foreach ($dbTypeOptions as $block): ?>
+                        <option value="<?php echo $block->getIdPrefix()?>" <?php if ($this->getFormData()->getDbModel() == $block->getIdPrefix()):?>selected="selected"<?php endif ?>><?php echo $block->getTitle()?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -59,7 +59,7 @@ function showContent(select)
             </script>
             <?php $block = $this->getDatabaseBlock($block->getIdPrefix()) ?>
 
-            <div id="<?php echo $block->getIdPrefix() ?>_conn_form" <?php if($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif ?>>
+            <div id="<?php echo $block->getIdPrefix() ?>_conn_form" <?php if ($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif ?>>
                 <ul>
                     <?php echo $block->toHtml(); ?>
                 </ul>

@@ -14,7 +14,7 @@
  */
 ?>
 
-<?php /* @var $this Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options */ ?>
+<?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options $this */ ?>
 <?php $options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
 <?php if (count($options)): ?>
 
@@ -24,7 +24,7 @@
     <h4><?php echo Mage::helper('catalog')->__('Custom Options') ?></h4>
     <div class="product-options">
         <dl>
-            <?php foreach($options as $option): ?>
+            <?php foreach ($options as $option): ?>
                 <?php echo $this->getOptionHtml($option); ?>
             <?php endforeach ?>
         </dl>

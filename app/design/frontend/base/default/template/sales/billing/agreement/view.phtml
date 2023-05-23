@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Sales_Block_Billing_Agreement_View */ ?>
+<?php /** @var Mage_Sales_Block_Billing_Agreement_View $this */ ?>
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Billing Agreement # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
@@ -39,7 +39,7 @@
                         <th><?php echo $this->__('Created:') ?></th>
                         <td><?php echo $this->escapeHtml($this->getAgreementCreatedAt()) ?></td>
                     </tr>
-                    <?php if($this->getAgreementUpdatedAt()): ?>
+                    <?php if ($this->getAgreementUpdatedAt()): ?>
                     <tr>
                         <th><?php echo $this->__('Updated:') ?></th>
                         <td><?php echo $this->escapeHtml($this->getAgreementUpdatedAt()); ?></td>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <?php $relatedOrders = $this->getRelatedOrders() ?>
-    <?php if(count($relatedOrders) > 0): ?>
+    <?php if (count($relatedOrders) > 0): ?>
     <?php echo $this->getChildHtml('pager'); ?>
     <h2 class="table-caption"><?php echo $this->__('Related Orders') ?></h2>
     <table class="data-table" id="related-orders-table">

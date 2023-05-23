@@ -17,14 +17,14 @@
 /**
  * Shopping cart template
  *
- * @var $this Mage_Checkout_Block_Cart
+ * @var Mage_Checkout_Block_Cart $this
  */
 ?>
 <?php $_priceDisplay = ($this->helper('tax')->displayCartBothPrices()) ? 'display-both-prices' : 'display-single-price'; ?>
 <div class="cart <?php echo $_priceDisplay; ?>">
     <div class="page-title title-buttons">
         <h1><?php echo $this->__('Shopping Cart') ?></h1>
-        <?php if(!$this->hasError()): ?>
+        <?php if (!$this->hasError()): ?>
         <ul class="checkout-types top">
         <?php foreach ($this->getMethods('top_methods') as $method): ?>
             <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
@@ -103,7 +103,7 @@
                 </tr>
             </tfoot>
             <tbody>
-            <?php foreach($this->getItems() as $_item): ?>
+            <?php foreach ($this->getItems() as $_item): ?>
                 <?php echo $this->getItemHtml($_item) ?>
             <?php endforeach ?>
             </tbody>
@@ -122,7 +122,7 @@
     <div class="cart-totals-wrapper">
         <div class="cart-totals">
             <?php echo $this->getChildHtml('totals'); ?>
-            <?php if(!$this->hasError()): ?>
+            <?php if (!$this->hasError()): ?>
             <ul class="checkout-types bottom">
             <?php foreach ($this->getMethods('methods') as $method): ?>
                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>

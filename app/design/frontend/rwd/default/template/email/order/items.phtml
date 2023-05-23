@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th class="cell-name">
-                            <?php if($_itemCount > 1): ?>
+                            <?php if ($_itemCount > 1): ?>
                                 <?php echo $this->__('Items in your order'); ?>
                             <?php else: ?>
                                 <?php echo $this->__('Item in your order'); ?>
@@ -40,7 +40,11 @@
                     </tr>
                 </thead>
             <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
-            <?php if($_item->getParentItem()) continue; else $i++; ?>
+            <?php if ($_item->getParentItem()) {
+    continue;
+} else {
+    $i++;
+} ?>
                 <?php echo $this->getItemHtml($_item) ?>
             <?php endforeach ?>
             </table>

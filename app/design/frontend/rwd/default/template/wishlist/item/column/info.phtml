@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/* @var Mage_Wishlist_Model_Item $item */
+/** @var Mage_Wishlist_Model_Item $item */
 $item = $this->getItem();
 $product = $item->getProduct();
 ?>
@@ -25,11 +25,11 @@ $product = $item->getProduct();
     <span><?php echo $this->__('SKU'); ?> <?php echo $this->escapeHtml($product->getSku()) ?></span>
 </div>
 
-<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Comment')) ?>" placeholder="<?php echo $this->helper('wishlist')->defaultCommentString(); ?>"><?php echo ($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
+<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Comment')) ?>" placeholder="<?php echo $this->helper('wishlist')->defaultCommentString(); ?>"><?php echo($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
 
-<?php if($this->getSortedChildren()): ?>
+<?php if ($this->getSortedChildren()): ?>
     <div class="item-manage">
-    <?php foreach($this->getSortedChildren() as $childName):?>
+    <?php foreach ($this->getSortedChildren() as $childName):?>
         <?php echo $this->getChildHtml($childName, false);?>
     <?php endforeach ?>
     </div>

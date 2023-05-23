@@ -12,7 +12,7 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/* @var $this Mage_Wishlist_Block_Share_Wishlist */
+/** @var Mage_Wishlist_Block_Share_Wishlist $this */
 ?>
 <div class="my-wishlist">
     <div class="page-title">
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($this->getWishlistItems() as $item): ?>
+            <?php foreach ($this->getWishlistItems() as $item): ?>
                 <?php
                     $product = $item->getProduct();
                     $isVisibleProduct = $product->isVisibleInSiteVisibility();
@@ -72,7 +72,7 @@
         </fieldset>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-            <?php if($this->isSaleable()):?>
+            <?php if ($this->isSaleable()):?>
                 <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', ['_current'=>true]) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
             <?php endif ?>
         </div>

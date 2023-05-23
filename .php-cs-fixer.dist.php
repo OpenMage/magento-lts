@@ -46,7 +46,7 @@ return $config
         // There should be no empty lines after class opening brace.
         'no_blank_lines_after_class_opening' => true,
         // There must be a comment when fall-through is intentional in a non-empty case body.
-        'no_break_comment' => true,
+        'no_break_comment' => false,
         // The closing `? >` tag MUST be omitted from files containing only PHP.
         'no_closing_tag' => true,
         // Remove leading slashes in `use` clauses.
@@ -96,12 +96,14 @@ return $config
         PhpCsFixer\Finder::create()
             ->in([
                 'app/code/core/Mage/',
+                'app/design/',
                 'lib/Mage/',
                 'lib/Magento/',
                 'lib/Varien/',
                 'shell/',
             ])
             ->name('*.php')
+            ->name('*.phtml')
             ->ignoreDotFiles(true)
             ->ignoreVCS(true)
     );

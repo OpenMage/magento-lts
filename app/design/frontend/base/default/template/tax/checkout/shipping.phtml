@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
- * @var $this Mage_Tax_Block_Checkout_Shipping
+ * @var Mage_Tax_Block_Checkout_Shipping $this
  * @see Mage_Tax_Block_Checkout_Shipping
  */
 ?>
@@ -34,7 +34,7 @@
         <?php echo $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
-<?php elseif($this->displayIncludeTax()) : ?>
+<?php elseif ($this->displayIncludeTax()) : ?>
 <tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->getTotal()->getTitle() ?>

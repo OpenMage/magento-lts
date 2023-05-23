@@ -12,8 +12,12 @@
  * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
+ * @var Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form $this
+ */
 ?>
-<?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
 <?php if ($_shippingRateGroups): ?>
     <div id="order-shipping-method-choose" style="display:none">
@@ -75,7 +79,7 @@
     <?php else: ?>
         <script type="text/javascript">$('order-shipping-method-choose').show();</script>
     <?php endif ?>
-<?php elseif($this->getIsRateRequest()): ?>
+<?php elseif ($this->getIsRateRequest()): ?>
     <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
 <?php else: ?>
     <div id="order-shipping-method-summary">

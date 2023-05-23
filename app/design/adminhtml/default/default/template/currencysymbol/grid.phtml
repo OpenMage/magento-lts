@@ -15,7 +15,7 @@
 ?>
 <?php
 /**
- * @var $this Mage_Currencysymbol_Block_Adminhtml_System_Currencysymbol
+ * @var Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol $this
  */
 ?>
 <div class="content-header">
@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($this->getCurrencySymbolsData() as $code => $data): ?>
+                            <?php foreach ($this->getCurrencySymbolsData() as $code => $data): ?>
                             <tr>
                                 <td class="label">
                                 <label for="custom_currency_symbol<?php echo $this->escapeHtml($code); ?>"><?php echo $this->escapeHtml($code); ?> (<?php echo $this->escapeHtml($data['displayName']); ?>)</label>

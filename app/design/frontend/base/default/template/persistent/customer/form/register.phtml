@@ -19,7 +19,7 @@
  *
  * @see app/design/frontend/base/default/template/customer/form/register.phtml
  */
-/** @var $this Mage_Customer_Block_Form_Register */
+/** @var Mage_Customer_Block_Form_Register $this */
 ?>
 <div class="account-create">
     <div class="page-title">
@@ -46,7 +46,7 @@
                 <?php if ($this->isNewsletterEnabled()): ?>
                 <li class="control">
                     <div class="input-box">
-                        <input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif ?> class="checkbox" />
+                        <input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if ($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif ?> class="checkbox" />
                     </div>
                     <label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
                 </li>
@@ -65,7 +65,7 @@
             <?php endif ?>
             </ul>
         </div>
-    <?php if($this->getShowAddressFields()): ?>
+    <?php if ($this->getShowAddressFields()): ?>
         <div class="fieldset">
             <input type="hidden" name="create_address" value="1" />
             <h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
@@ -183,7 +183,7 @@
     <script type="text/javascript">
     //<![CDATA[
         var dataForm = new VarienForm('form-validate', true);
-        <?php if($this->getShowAddressFields()): ?>
+        <?php if ($this->getShowAddressFields()): ?>
         new RegionUpdater('country', 'region', 'region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'zip');
         <?php endif ?>
     //]]>

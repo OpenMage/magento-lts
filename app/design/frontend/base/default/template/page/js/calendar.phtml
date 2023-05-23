@@ -17,6 +17,7 @@
  * Calendar localization script. Should be put into page header.
  *
  * @see Mage_Core_Block_Html_Calendar
+ * @var Mage_Core_Block_Html_Calendar $this
  */
 ?>
 
@@ -48,7 +49,7 @@ Calendar._TT["ABOUT"] =
 Calendar._TT["ABOUT_TIME"] = '\n\n' +
 '<?php echo $this->jsQuoteEscape($this->__('Time selection:')) ?>\n' +
 '<?php echo $this->jsQuoteEscape($this->__('- Click on any of the time parts to increase it')) ?>\n' +
-'<?php echo $this->jsQuoteEscape($this->__('- or Shift-click to decrease it') ) ?>\n' +
+'<?php echo $this->jsQuoteEscape($this->__('- or Shift-click to decrease it')) ?>\n' +
 '<?php echo $this->jsQuoteEscape($this->__('- or click and drag for faster selection.')) ?>';
 
 Calendar._TT["PREV_YEAR"] = '<?php echo $this->jsQuoteEscape($this->__('Prev. year (hold for menu)')); ?>';

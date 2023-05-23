@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Sales_Block_Recurring_Profile_View */ ?>
+<?php /** @var Mage_Sales_Block_Recurring_Profile_View $this */ ?>
 
 <div class="order-page">
 
@@ -21,13 +21,13 @@
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Recurring Profile # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
     <?php endif ?>
     <?php if ($this->getCanSuspend()): ?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
     <?php endif ?>
     <?php if ($this->getCanActivate()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
     <?php endif ?>
     <?php if ($this->getCanUpdate()):?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
@@ -68,7 +68,7 @@
             </div>
             <div class="box-content">
                 <?php $html = $this->getChildHtml($alias) ?>
-                <?php echo ($html ? $html : $this->__('No information available.')) ; ?>
+                <?php echo($html ? $html : $this->__('No information available.')) ; ?>
             </div>
         </div>
     </div>

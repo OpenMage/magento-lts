@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Sales_Block_Billing_Agreements */ ?>
+<?php /** @var Mage_Sales_Block_Billing_Agreements $this */ ?>
 <div class="page-title">
     <h1><?php echo $this->__('Billing Agreements') ?></h1>
 </div>
@@ -42,7 +42,7 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($billingAgreements as $item): ?>
+            <?php foreach ($billingAgreements as $item): ?>
                 <tr>
                     <td class="reference-id"><span class="nobr"><?php echo $this->getItemValue($item, 'reference_id') ?></span></td>
                     <td class="status" data-rwd-label="Status"><?php echo $this->getItemValue($item, 'status') ?></td>

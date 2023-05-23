@@ -17,7 +17,8 @@
 /**
  * Template for filter items block
  *
- * @see Mage_Catalog_Block_Layer_Filter
+ * @see Mage_Catalog_Block_Layer_Filter_Abstract
+ * @var Mage_Catalog_Block_Layer_Filter_Abstract $this
  */
 
 $_dimHelper = Mage::helper('configurableswatches/swatchdimensions');
@@ -38,13 +39,17 @@ $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Help
         $_linkCss = 'height:' . $_swatchOuterHeight . 'px; ' . ((!$_hasImage) ? 'min-' : '') . 'width:' . $_swatchOuterWidth . 'px;';
         $_lineHeight = $_swatchOuterHeight + 2;
         ?>
-        <li<?php if ($_hasImage){ echo ' style="line-height: ' . $_lineHeight . 'px;"'; } ?>>
+        <li<?php if ($_hasImage) {
+            echo ' style="line-height: ' . $_lineHeight . 'px;"';
+        } ?>>
             <?php if ($_hasItems): ?>
                 <a href="<?php echo $this->escapeUrl($_item->getUrl()) ?>" class="<?php echo $_linkClass ?>">
             <?php else: ?>
                 <span class="<?php echo $_linkClass ?>">
             <?php endif ?>
-                <span class="swatch-label"<?php if ($_hasImage){ echo ' style="' . $_linkCss . '"'; } ?>>
+                <span class="swatch-label"<?php if ($_hasImage) {
+            echo ' style="' . $_linkCss . '"';
+        } ?>>
                     <?php if ($_hasImage): ?>
                         <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_label; ?>" title="<?php echo $_label ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
                     <?php else: ?>

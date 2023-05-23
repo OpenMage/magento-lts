@@ -18,6 +18,7 @@
  * Catalog advanced search form
  *
  * @see Mage_CatalogSearch_Block_Advanced_Form
+ * @var Mage_CatalogSearch_Block_Advanced_Form $this
  */
 ?>
 <?php $maxQueryLength= $this->helper('catalogsearch')->getMaxQueryLength();?>
@@ -33,7 +34,7 @@
             <?php $_code = $_attribute->getAttributeCode() ?>
             <li>
                 <label for="<?php echo $_code ?>"><?php echo $this->getAttributeLabel($_attribute) ?></label>
-                <?php switch($this->getAttributeInputType($_attribute)):
+                <?php switch ($this->getAttributeInputType($_attribute)):
                     case 'number': ?>
                     <div class="input-range">
                         <input type="text" pattern="\d*" name="<?php echo $_code ?>[from]" value="<?php echo $this->escapeHtml($this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->escapeHtml($this->getAttributeLabel($_attribute)) ?>" class="input-text validate-number" maxlength="<?php echo $maxQueryLength;?>" />

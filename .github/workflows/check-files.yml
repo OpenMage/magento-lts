@@ -9,6 +9,9 @@ on:
       php:
         description: "Count changed PHP files"
         value: ${{ jobs.check.outputs.php }}
+      phtml:
+        description: "Count changed Template files"
+        value: ${{ jobs.check.outputs.phtml }}
       xml:
         description: "Count changed XML files"
         value: ${{ jobs.check.outputs.xml }}
@@ -77,6 +80,7 @@ jobs:
             composer.*
             *.php
             **/*.php
+            **/*.phtml
             **/*.xml
             .github/workflows/**
             **phpcs**
@@ -128,7 +132,7 @@ jobs:
           echo "$count PHPCS file(s) changed"
           echo "phpcs=$count" >> $GITHUB_OUTPUT
 
-      - name: Check if PHP-CS-Fixer files changed 
+      - name: Check if PHP-CS-Fixer files changed
         id: changes-php-cs-fixer
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |

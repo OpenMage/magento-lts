@@ -17,6 +17,7 @@
  * Top menu for store
  *
  * @see Mage_Catalog_Block_Navigation
+ * @var Mage_Catalog_Block_Navigation $this
  */
 ?>
 <?php
@@ -27,8 +28,8 @@
  * string If specified wraps children list in div with this class
  */
 ?>
-<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
-<?php if($_menu): ?>
+<?php $_menu = $this->renderCategoriesMenuHtml(0, 'level-top') ?>
+<?php if ($_menu): ?>
 <div class="nav-container">
     <ul id="nav">
         <?php echo $_menu ?>

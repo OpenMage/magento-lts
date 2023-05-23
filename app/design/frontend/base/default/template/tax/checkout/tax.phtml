@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
- * @var $this Mage_Tax_Block_Checkout_Tax
+ * @var Mage_Tax_Block_Checkout_Tax $this
  * @see Mage_Tax_Block_Checkout_Tax
  */
 ?>
@@ -25,7 +25,9 @@
 <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?>
 <?php $isTop = 1; ?>
     <?php foreach ($this->getTotal()->getFullInfo() as $info): ?>
-        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+        <?php if (isset($info['hidden']) && $info['hidden']) {
+    continue;
+} ?>
         <?php $percent = $info['percent']; ?>
         <?php $amount = $info['amount']; ?>
         <?php $rates = $info['rates']; ?>

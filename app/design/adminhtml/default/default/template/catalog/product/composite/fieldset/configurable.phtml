@@ -14,7 +14,7 @@
  */
  ?>
 
-<?php /* @var $this Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable */ ?>
+<?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable $this */ ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes()); ?>
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>
@@ -23,9 +23,9 @@
     <h4><?php echo Mage::helper('catalog')->__('Associated Products') ?></h4>
     <div class="product-options">
         <dl>
-        <?php foreach($_attributes as $_attribute): ?>
+        <?php foreach ($_attributes as $_attribute): ?>
             <dt><label class="required"><em>*</em><?php echo $this->escapeHtml($_attribute->getLabel()) ?></label></dt>
-            <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+            <dd<?php if ($_attribute->decoratedIsLast) {?> class="last"<?php }?>>
                 <div class="input-box">
                     <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
                         <option><?php echo Mage::helper('catalog')->__('Choose an Option...') ?></option>

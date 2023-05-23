@@ -18,18 +18,18 @@
 /**
  * Template for displaying product price at catalog and sidebars
  *
- * @var $this Mage_Catalog_Block_Product_Price
+ * @var Mage_Catalog_Block_Product_Price $this
  */
 ?>
 <?php
-    /** @var $_product Mage_Catalog_Model_Product */
+    /** @var Mage_Catalog_Model_Product $_product */
     $_product = $this->getProduct();
     $_msrpPrice = "";
 ?>
     <div class="price-box map-info">
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
         <?php if ($_product->getMsrp()): ?>
-            <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
+            <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(), true, true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
         <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>

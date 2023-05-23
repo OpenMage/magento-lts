@@ -4616,6 +4616,601 @@ parameters:
 			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/multi.phtml
+
+		-
+			message: "#^Call to protected method _getDefaultValues\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+
+		-
+			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+
+		-
+			message: "#^Call to protected method _getDefaultValues\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+
+		-
+			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+
+		-
+			message: "#^Call to method __\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 3
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getFormId\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 3
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getImgHeight\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getImgWidth\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getRefreshUrl\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getSkinUrl\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$this contains unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/date.phtml
+
+		-
+			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/select.phtml
+
+		-
+			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/text.phtml
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/report/grid.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Tax_Block_Checkout_Grandtotal\\:\\:formatPrice\\(\\)\\.$#"
+			count: 3
+			path: app/design/adminhtml/default/default/template/sales/order/create/totals/grandtotal.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Tax_Block_Checkout_Shipping\\:\\:formatPrice\\(\\)\\.$#"
+			count: 4
+			path: app/design/adminhtml/default/default/template/sales/order/create/totals/shipping.phtml
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/sales/order/shipment/packaging/grid.phtml
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/system/config/switcher.phtml
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 2
+			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 2
+			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+
+		-
+			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:getEmptyCellColspan\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+
+		-
+			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:getMultipleRowColumns\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getTotalPrices\\(\\)\\.$#"
+			count: 2
+			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/multi.phtml
+
+		-
+			message: "#^Call to protected method _getDefaultValues\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 2
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
+
+		-
+			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
+
+		-
+			message: "#^Call to protected method _getDefaultValues\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 2
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getPrices\\(\\)\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:getImgSrc\\(\\)\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:isCaseSensitive\\(\\)\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to function is_array\\(\\) with Mage_Catalog_Model_Resource_Category_Collection will always evaluate to false\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalog/navigation/left.phtml
+
+		-
+			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalog/product/price.phtml
+
+		-
+			message: "#^Access to an undefined property Mage_Catalog_Model_Product_Option\\:\\:\\$decoratedIsLast\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalog/product/view/options/type/select.phtml
+
+		-
+			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/catalogsearch/form.mini.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/base/default/template/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 6
+			path: app/design/frontend/base/default/template/checkout/cart/sidebar/default.phtml
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/base/default/template/checkout/multishipping/overview/item.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Block_Multishipping_Shipping\\:\\:getItemsEditUrl\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/multishipping/shipping.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/login.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/login.phtml
+
+		-
+			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/progress/payment.phtml
+
+		-
+			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/progress/shipping.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/progress/shipping.phtml
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/progress/shipping.phtml
+
+		-
+			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/checkout/onepage/progress/shipping_method.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/base/default/template/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
+			count: 3
+			path: app/design/frontend/base/default/template/customer/form/register.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/base/default/template/downloadable/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/base/default/template/downloadable/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/oauth/customer/token/list.phtml
+
+		-
+			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/page/html/cookienotice.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/design/frontend/base/default/template/paypal/express/review.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/design/frontend/base/default/template/paypal/express/review/shipping/method.phtml
+
+		-
+			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
+			count: 4
+			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
+			count: 3
+			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
+
+		-
+			message: "#^Call to method getCleanProductPriceHtml\\(\\) on an unknown class Mage_Wishlist_Block_Customer_Wishlist_Render_Item_Price\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/wishlist/render/item/price.phtml
+
+		-
+			message: "#^Call to method getProduct\\(\\) on an unknown class Mage_Wishlist_Block_Customer_Wishlist_Render_Item_Price\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/wishlist/render/item/price.phtml
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$this contains unknown class Mage_Wishlist_Block_Customer_Wishlist_Render_Item_Price\\.$#"
+			count: 1
+			path: app/design/frontend/base/default/template/wishlist/render/item/price.phtml
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/design/frontend/default/iphone/template/catalog/product/view.phtml
+
+		-
+			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
+			count: 1
+			path: app/design/frontend/default/iphone/template/catalogsearch/form.mini.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/default/iphone/template/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/default/iphone/template/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/default/iphone/template/downloadable/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/default/iphone/template/downloadable/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: app/design/frontend/default/iphone/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/design/frontend/default/iphone/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^File ends with a trailing whitespace\\. This may cause problems when running the code in the web browser\\. Remove the closing \\?\\> mark or remove the whitespace\\.$#"
+			count: 1
+			path: app/design/frontend/default/iphone/template/shipping/tracking/ajax.phtml
+
+		-
+			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
+			count: 1
+			path: app/design/frontend/default/modern/template/catalogsearch/form.mini.phtml
+
+		-
+			message: "#^Call to protected method _getDefaultValues\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 2
+			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
+
+		-
+			message: "#^Call to method __\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 3
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getCaptchaModel\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getFormId\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 9
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getImgHeight\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getRefreshUrl\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Call to method getSkinUrl\\(\\) on an unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$captcha contains unknown class Mage_Core_Model_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$this contains unknown class Mage_Core_Block_Captcha_Zend\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/captcha/zend.phtml
+
+		-
+			message: "#^Cannot call method setFilter\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
+
+		-
+			message: "#^Cannot call method toHtml\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/layer/state.phtml
+
+		-
+			message: "#^Call to function is_array\\(\\) with Mage_Catalog_Model_Resource_Category_Collection will always evaluate to false\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/navigation/left.phtml
+
+		-
+			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
+
+		-
+			message: "#^Cannot call method setAttributeObj\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
+
+		-
+			message: "#^Cannot call method setProduct\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
+
+		-
+			message: "#^Cannot call method toHtml\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalog/product/view/type/options/configurable.phtml
+
+		-
+			message: "#^Class Mage_CatalogSearch_Helper_Data referenced with incorrect case\\: Mage_Catalogsearch_Helper_Data\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/catalogsearch/form.mini.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/rwd/default/template/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 6
+			path: app/design/frontend/rwd/default/template/checkout/cart/minicart/default.phtml
+
+		-
+			message: "#^Call to an undefined method Mage_Checkout_Block_Cart_Minicart\\:\\:isPossibleOnepageCheckout\\(\\)\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/checkout/cart/minicart/items.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 6
+			path: app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/rwd/default/template/checkout/multishipping/overview/item.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/rwd/default/template/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/rwd/default/template/downloadable/checkout/cart/item/default.phtml
+
+		-
+			message: "#^Method Mage_Checkout_Helper_Data\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
+			count: 12
+			path: app/design/frontend/rwd/default/template/downloadable/checkout/onepage/review/item.phtml
+
+		-
+			message: "#^Call to protected method _getRenderedMenuItemAttributes\\(\\) of class Mage_Page_Block_Html_Topmenu\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/page/html/topmenu/renderer.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/design/frontend/rwd/default/template/paypal/express/review.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/design/frontend/rwd/default/template/paypal/express/review/shipping/method.phtml
+
+		-
+			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
+			count: 4
+			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
+
+		-
+			message: "#^Cannot call method isEnabled\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
+			count: 3
+			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
+
+		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
 			count: 1
 			path: lib/Mage/Archive.php

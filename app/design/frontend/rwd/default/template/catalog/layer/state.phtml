@@ -18,13 +18,14 @@
  * Category layered navigation state
  *
  * @see Mage_Catalog_Block_Layer_State
+ * @var Mage_Catalog_Block_Layer_State $this
  */
 ?>
 <?php
 $_filters = $this->getActiveFilters();
 $_renderers = $this->getParentBlock()->getChild('state_renderers')->getSortedChildren();
 ?>
-<?php if(!empty($_filters)): ?>
+<?php if (!empty($_filters)): ?>
 <div class="currently">
     <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
     <ol>

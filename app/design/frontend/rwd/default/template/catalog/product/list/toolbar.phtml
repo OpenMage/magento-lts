@@ -20,17 +20,17 @@
  * @var Mage_Catalog_Block_Product_List_Toolbar $this
  */
 ?>
-<?php if($this->getCollection()->getSize()): ?>
+<?php if ($this->getCollection()->getSize()): ?>
 <div class="toolbar">
-    <?php if( $this->isExpanded() ): ?>
+    <?php if ($this->isExpanded()): ?>
         <div class="sorter">
-            <?php if( $this->isEnabledViewSwitcher() ): ?>
+            <?php if ($this->isEnabledViewSwitcher()): ?>
                 <p class="view-mode">
                     <?php $_modes = $this->getModes(); ?>
-                    <?php if($_modes && count($_modes)>1): ?>
+                    <?php if ($_modes && count($_modes)>1): ?>
                         <label><?php echo $this->__('View as') ?></label>
                         <?php foreach ($this->getModes() as $_code => $_label): ?>
-                            <?php if($this->isModeActive($_code)): ?>
+                            <?php if ($this->isModeActive($_code)): ?>
                                 <strong title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php echo $_label ?></strong>
                             <?php else: ?>
                                 <a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php echo $_label ?></a>
@@ -43,13 +43,13 @@
             <div class="sort-by">
                 <label><?php echo $this->__('Sort By') ?></label>
                 <select onchange="window.location.href=this.value" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sort By')) ?>">
-                    <?php foreach($this->getAvailableOrders() as $_key => $_order): ?>
-                        <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                    <?php foreach ($this->getAvailableOrders() as $_key => $_order): ?>
+                        <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if ($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
                             <?php echo $this->__($_order) ?>
                         </option>
                     <?php endforeach ?>
                 </select>
-                <?php if($this->getCurrentDirection() === 'desc'): ?>
+                <?php if ($this->getCurrentDirection() === 'desc'): ?>
                     <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" class="sort-by-switcher sort-by-switcher--desc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Ascending Direction')) ?>"><?php echo $this->__('Set Ascending Direction') ?></a>
                 <?php else: ?>
                     <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" class="sort-by-switcher sort-by-switcher--asc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Descending Direction')) ?>"><?php echo $this->__('Set Descending Direction') ?></a>
@@ -59,7 +59,7 @@
     <?php endif ?>
     <div class="pager">
         <div class="count-container">
-            <?php if($this->getLastPageNum()>1): ?>
+            <?php if ($this->getLastPageNum()>1): ?>
                 <p class="amount amount--has-pages">
                     <?php echo $this->__('%s-%s of %s', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
                 </p>
@@ -75,7 +75,7 @@
                     <label><?php echo $this->__('Show') ?></label>
                     <select onchange="window.location.href=this.value" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
                     <?php foreach ($availableLimits as $_key => $_limit): ?>
-                        <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                        <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if ($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                             <?php echo $_limit ?>
                         </option>
                     <?php endforeach ?>

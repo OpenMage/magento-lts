@@ -16,7 +16,7 @@
 <?php
 /**
  * Temlate for Mage_Customer_Block_Address_Book block
- * @var $test Mage_Customer_Block_Address_Book
+ * @var Mage_Customer_Block_Address_Book $test
  */
 ?>
 <div class="page-title title-buttons">
@@ -63,7 +63,7 @@
         <h2><?php echo $this->__('Additional Address Entries') ?></h2>
         <ol>
         <?php if ($_pAddsses = $this->getAdditionalAddresses()): ?>
-            <?php foreach($_pAddsses as $_address): ?>
+            <?php foreach ($_pAddsses as $_address): ?>
             <li class="item">
                 <address>
                     <?php echo $this->getAddressHtml($_address) ?>

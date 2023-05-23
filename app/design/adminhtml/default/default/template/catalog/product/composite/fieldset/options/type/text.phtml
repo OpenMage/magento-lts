@@ -13,11 +13,15 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Catalog_Block_Product_View_Options_Type_Text */ ?>
+<?php /** @var Mage_Catalog_Block_Product_View_Options_Type_Text $this */ ?>
 <?php $_option = $this->getOption(); ?>
-<dt><label<?php if ($_option->getIsRequire()) echo ' class="required"' ?>><?php if ($_option->getIsRequire()) echo '<em>*</em>' ?><?php echo  $this->escapeHtml($_option->getTitle()) ?></label>
+<dt><label<?php if ($_option->getIsRequire()) {
+    echo ' class="required"';
+} ?>><?php if ($_option->getIsRequire()) {
+    echo '<em>*</em>';
+} ?><?php echo  $this->escapeHtml($_option->getTitle()) ?></label>
     <?php echo $this->getFormatedPrice() ?></dt>
-<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+<dd<?php if ($_option->decoratedIsLast) {?> class="last"<?php }?>>
     <div class="input-box">
     <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD): ?>
         <input type="text" id="options_<?php echo $_option->getId() ?>_text" class="input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-' . $_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>" />

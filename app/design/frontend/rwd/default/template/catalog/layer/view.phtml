@@ -18,9 +18,10 @@
  * Category layered navigation
  *
  * @see Mage_Catalog_Block_Layer_View
+ * @var Mage_Catalog_Block_Layer_View $this
  */
 ?>
-<?php if($this->canShowBlock()): ?>
+<?php if ($this->canShowBlock()): ?>
 <div class="block block-layered-nav<?php if (!$this->getLayer()->getState()->getFilters()): ?> block-layered-nav--no-filters<?php endif ?>">
     <div class="block-title">
         <strong><span><?php echo $this->__('Shop By') ?></span></strong>
@@ -30,12 +31,12 @@
         <?php if ($this->getLayer()->getState()->getFilters()): ?>
             <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
         <?php endif ?>
-        <?php if($this->canShowOptions()): ?>
+        <?php if ($this->canShowOptions()): ?>
             <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Filter') ?></p>
             <dl id="narrow-by-list">
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
-                <?php if($_filter->getItemsCount()): ?>
+                <?php if ($_filter->getItemsCount()): ?>
                     <dt><?php echo $this->__($_filter->getName()) ?></dt>
                     <dd><?php echo $_filter->getHtml() ?></dd>
                 <?php endif ?>

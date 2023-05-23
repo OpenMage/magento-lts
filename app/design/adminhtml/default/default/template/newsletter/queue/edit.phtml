@@ -11,7 +11,7 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/* @var $this Mage_Adminhtml_Block_Newsletter_Queue_Edit */
+/** @var Mage_Adminhtml_Block_Newsletter_Queue_Edit $this */
 ?>
 <div class="content-header">
     <table cellspacing="0">
@@ -20,11 +20,11 @@
             <td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
                 <?php echo $this->getPreviewButtonHtml(); ?>
-                <?php if(!$this->getIsPreview()): ?>
+                <?php if (!$this->getIsPreview()): ?>
                     <?php echo $this->getResetButtonHtml() ?>
                     <?php echo $this->getSaveButtonHtml() ?>
                 <?php endif ?>
-                <?php if($this->getCanResume()): ?>
+                <?php if ($this->getCanResume()): ?>
                     <?php echo $this->getResumeButtonHtml() ?>
                 <?php endif ?>
             </td>
@@ -41,7 +41,7 @@
 <form action="<?php echo $this->getPreviewUrl() ?>" method="post" id="newsletter_queue_preview_form" target="_blank">
     <?php echo $this->getBlockHtml('formkey')?>
     <div class="no-display">
-        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType()?1:2 ?>" />
+        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType() ? 1 : 2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
         <input type="hidden" id="preview_styles" name="styles" value="" />
         <input type="hidden" id="preview_id" name="id" value="" />

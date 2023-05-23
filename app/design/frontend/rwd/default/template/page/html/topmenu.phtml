@@ -17,11 +17,12 @@
  * Top menu for store
  *
  * @see Mage_Page_Block_Html_Topmenu
+ * @var Mage_Page_Block_Html_Topmenu $this
  */
 ?>
 <?php $_menu = $this->getHtml('level-top') ?>
 
-<?php if($_menu): ?>
+<?php if ($_menu): ?>
     <nav id="nav">
         <ol class="nav-primary">
             <?php echo $_menu ?>
