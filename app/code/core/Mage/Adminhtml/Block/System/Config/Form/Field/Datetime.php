@@ -19,11 +19,30 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Datetime extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Mage_Adminhtml_Block_System_Config_Form_Field_Datetime extends Mage_Adminhtml_Block_System_Config_Form_Field_AbstractDate
 {
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    /**
+     * @return Varien_Data_Form_Element_Datetime
+     */
+    protected function getDateClass(): Varien_Data_Form_Element_Datetime
     {
-        $format = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-        return Mage::app()->getLocale()->date((int) $element->getValue())->toString($format);
+        return new Varien_Data_Form_Element_Datetime();
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    protected function getDateFormat(string $format): string
+    {
+        return $this->getLocale()->getDateTimeFormat($format);
+    }
+
+    /**
+     * @return true
+     */
+    protected function isShowTime(): bool
+    {
+        return true;
     }
 }
