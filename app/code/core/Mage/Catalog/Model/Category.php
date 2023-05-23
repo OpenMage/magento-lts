@@ -105,7 +105,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
     public const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
 
-
     const CACHE_TAG             = 'catalog_category';
 
     /**
