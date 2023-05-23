@@ -19,8 +19,6 @@ $installer->startSetup();
 
 $installer->run("
 
-SET NAMES utf8;
-
 SET SQL_MODE='';
 
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';

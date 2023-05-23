@@ -84,8 +84,8 @@
         <databases>
             <mysql4>
                 <type>pdo_mysql</type>
-                <initStatements>SET NAMES utf8</initStatements>
-                <min_version>4.1.20</min_version>
+                <initStatements>SET NAMES utf8mb4</initStatements>
+                <min_version>5.5.3</min_version>
                 <extensions>
                     <pdo_mysql>1</pdo_mysql>
                 </extensions>
