@@ -82,7 +82,7 @@ class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Pro
                     'url_rewrite.category_id IS NULL AND url_rewrite.store_id = ? AND ',
                     (int)$storeId
                 ) .
-                $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['like' => 'product/%']),
+                $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['eq' => 'product']),
             ['request_path' => 'url_rewrite.request_path']
         );
         return $this;
