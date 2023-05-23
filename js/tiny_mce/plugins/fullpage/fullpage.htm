@@ -36,24 +36,27 @@
 							<td><textarea id="metadescription" name="metadescription" rows="4"></textarea></td>
 						</tr>
 						<tr>
+							<td class="nowrap"><label for="metarobots">{#fullpage_dlg.meta_robots}</label>&nbsp;</td>
+							<td>
+								<select id="metarobots" name="metarobots">
+									<option value="">{#not_set}</option>
+									<option value="index,follow">{#fullpage_dlg.meta_index_follow}</option>
+									<option value="index,nofollow">{#fullpage_dlg.meta_index_nofollow}</option>
+									<option value="noindex,follow">{#fullpage_dlg.meta_noindex_follow}</option>
+									<option value="noindex,nofollow">{#fullpage_dlg.meta_noindex_nofollow}</option>
+									<option value="index,follow,noarchive">{#fullpage_dlg.meta_index_follow_noarchive}</option>
+									<option value="index,nofollow,noarchive">{#fullpage_dlg.meta_index_nofollow_noarchive}</option>
+									<option value="noindex,nofollow,noarchive">{#fullpage_dlg.meta_noindex_nofollow_noarchive}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
 							<td class="nowrap"><label for="metaauthor">{#fullpage_dlg.author}</label>&nbsp;</td>
 							<td><input type="text" id="metaauthor" name="metaauthor" value="" /></td>
 						</tr>
 						<tr>
 							<td class="nowrap"><label for="metacopyright">{#fullpage_dlg.copyright}</label>&nbsp;</td>
 							<td><input type="text" id="metacopyright" name="metacopyright" value="" /></td>
-						</tr>
-						<tr>
-							<td class="nowrap"><label for="metarobots">{#fullpage_dlg.meta_robots}</label>&nbsp;</td>
-							<td>
-								<select id="metarobots" name="metarobots">
-											<option value="">{#not_set}</option> 
-											<option value="index,follow">{#fullpage_dlg.meta_index_follow}</option>
-											<option value="index,nofollow">{#fullpage_dlg.meta_index_nofollow}</option>
-											<option value="noindex,follow">{#fullpage_dlg.meta_noindex_follow}</option>
-											<option value="noindex,nofollow">{#fullpage_dlg.meta_noindex_nofollow}</option>
-								</select>
-							</td>
 						</tr>
 					</table>
 				</fieldset>

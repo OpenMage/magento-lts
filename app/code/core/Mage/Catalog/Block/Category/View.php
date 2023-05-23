@@ -47,12 +47,20 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
             /** @var Mage_Catalog_Helper_Category $helper */
             $helper = $this->helper('catalog/category');
+
+            if ($robots = $category->getMetaRobots()) {
+                if ($helper->canUseNoindexFollow() && Mage::helper('catalog/category')->isNotFirstCategoryPage()) {
+                    $headBlock->setRobots(Mage::getSingleton('catalog/category_attribute_source_robots')->getOptionLabel(3));
+                } else {
+                    $headBlock->setRobots(Mage::getSingleton('catalog/category_attribute_source_robots')->getOptionLabel($robots));
+                }
+            }
+
             if ($helper->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
-            /*
-            want to show rss feed in the url
-            */
+
+            // want to show rss feed in the url
             if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
                 $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
                 $headBlock->addItem('rss', $this->getRssLink(), 'title="' . $title . '"');

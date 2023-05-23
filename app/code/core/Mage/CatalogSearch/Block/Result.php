@@ -72,6 +72,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         // modify page title
         $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
         $this->getLayout()->getBlock('head')->setTitle($title);
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
 
         return parent::_prepareLayout();
     }

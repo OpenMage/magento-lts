@@ -22,6 +22,7 @@
  * @method $this setCanLoadCalendarJs(bool $value)
  * @method $this setDescription(string $value)
  * @method $this setKeywords(string $value)
+ * @method $this setRobots(int $value)
  * @method $this setCanLoadTinyMce(bool $value)
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
@@ -455,7 +456,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve content for keyvords tag
+     * Retrieve content for keywords tag
      *
      * @return string
      */
@@ -468,9 +469,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve URL to robots file
+     * Retrieve values for robots tag
      *
-     * @return string
+     * @return integer
      */
     public function getRobots()
     {

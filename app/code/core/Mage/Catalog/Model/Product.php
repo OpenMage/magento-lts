@@ -135,6 +135,7 @@
  * @method array getMediaGallery()
  * @method $this setMediaGallery(array $value)
  * @method string getMessage()
+ * @method int getMetaRobot()
  * @method string getMetaDescription()
  * @method string getMetaKeyword()
  * @method string getMetaTitle()
@@ -262,6 +263,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public const ENTITY          = 'catalog_product';
     public const CACHE_TAG       = 'catalog_product';
+
+    /**
+     * Product robots
+     */
+    public const META_ROBOTS_INDEX_FOLLOW               = 1;
+    public const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    public const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    public const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    public const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
+
     protected $_cacheTag         = 'catalog_product';
     protected $_eventPrefix      = 'catalog_product';
     protected $_eventObject      = 'product';

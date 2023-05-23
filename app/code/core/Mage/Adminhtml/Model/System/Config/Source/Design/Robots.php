@@ -26,6 +26,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Design_Robots
             ['value' => 'NOINDEX,FOLLOW', 'label' => 'NOINDEX, FOLLOW'],
             ['value' => 'INDEX,NOFOLLOW', 'label' => 'INDEX, NOFOLLOW'],
             ['value' => 'NOINDEX,NOFOLLOW', 'label' => 'NOINDEX, NOFOLLOW'],
+            ['value' => 'INDEX,FOLLOW,NOARCHIVE', 'label' => 'INDEX, FOLLOW, NOARCHIVE'],
+            ['value' => 'INDEX,NOINDEX,NOARCHIVE', 'label' => 'INDEX, NOINDEX, NOARCHIVE'],
+            ['value' => 'NOINDEX,NOFOLLOW,NOARCHIVE', 'label' => 'NOINDEX, NOFOLLOW, NOARCHIVE'],
         ];
     }
 }

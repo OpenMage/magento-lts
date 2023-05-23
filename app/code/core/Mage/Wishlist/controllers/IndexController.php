@@ -150,6 +150,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $this->_initLayoutMessages('catalog/session');
         $this->_initLayoutMessages('wishlist/session');
 
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/wishlist'));
+
         $this->renderLayout();
     }
 
@@ -607,6 +609,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('wishlist/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/wishlist'));
         $this->renderLayout();
     }
 

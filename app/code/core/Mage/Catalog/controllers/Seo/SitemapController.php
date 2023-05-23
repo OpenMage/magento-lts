@@ -50,6 +50,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
         }
         $this->loadLayoutUpdates();
         $this->generateLayoutXml()->generateLayoutBlocks();
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/sitemap'));
         $this->renderLayout();
     }
 
@@ -60,6 +61,7 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
     public function productAction()
     {
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/sitemap'));
         $this->renderLayout();
     }
 }
