@@ -111,8 +111,8 @@ class Error_Processor
         $this->_root  = is_dir($this->_indexDir.'app');
 
         $this->_prepareConfig();
-        if (isset($_GET['skin'])) {
-            $this->_setSkin($_GET['skin']);
+        if (isset($_SERVER['MAGE_ERRORS_SKIN']) || isset($_GET['skin'])) {
+            $this->_setSkin($_SERVER['MAGE_ERRORS_SKIN'] ?? $_GET['skin']);
         }
     }
 
@@ -208,7 +208,7 @@ class Error_Processor
      */
     protected function _getClientIp(): string
     {
-        return $_SERVER['REMOTE_ADDR'] ?? 'undefined';
+        return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'undefined';
     }
 
     protected function _getIndexDir(): string
