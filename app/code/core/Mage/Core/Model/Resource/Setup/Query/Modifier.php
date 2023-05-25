@@ -89,7 +89,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      *
      * @param string $haystack
      * @param string $needle
-     * @param array $replacement
+     * @param string $replacement
      * @param bool $caseInsensitive
      * @return string
      */

@@ -142,7 +142,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
+            } elseif ($baseUrl !== null && !$pathInfo) {
                 $pathInfo = '';
             } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
