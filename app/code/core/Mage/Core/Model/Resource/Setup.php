@@ -603,6 +603,7 @@ class Mage_Core_Model_Resource_Setup
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
             $this->getConnection()->disallowDdlCache();
             try {
+                $this->getConnection()->beginTransaction();
                 switch ($fileType) {
                     case 'php':
                         $conn   = $this->getConnection();
@@ -624,7 +625,9 @@ class Mage_Core_Model_Resource_Setup
                 if ($result) {
                     $this->_setResourceVersion($actionType, $file['toVersion']);
                 }
+                $this->getConnection()->commit();
             } catch (Exception $e) {
+                $this->getConnection()->rollBack();
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $fileName, $e->getMessage()));
             }
             $version = $file['toVersion'];
