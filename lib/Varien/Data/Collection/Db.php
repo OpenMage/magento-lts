@@ -240,8 +240,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } else {
             $countSelect->columns('COUNT(*)');
 
-            // Simple optimization - remove all joins if there are no where clauses using joined tables and all joins are left joins
-            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
+            // Simple optimization - remove all joins if:
+            // - there are no where clauses using joined tables
+            // - all joins are left joins
+            // - there are no join conditions using bind params (for simplicity)
+            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
             if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
@@ -258,7 +261,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !preg_match($pattern, $clause);
                     });
                 });
-                if (empty($whereUsingJoin)) {
+                if ($this->_bindParams) {
+                    $bindPattern = '/('.implode('|', array_keys($this->_bindParams)).')/';
+                    $joinUsingBind = array_filter($leftJoins, function ($table) use ($bindPattern) {
+                        return preg_match($bindPattern, $table['joinCondition']);
+                    });
+                }
+                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
                 }
