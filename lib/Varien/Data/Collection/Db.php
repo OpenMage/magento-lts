@@ -244,7 +244,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             // - there are no where clauses using joined tables
             // - all joins are left joins
             // - there are no join conditions using bind params (for simplicity)
-            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function($table) {
+            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
             if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
@@ -262,7 +262,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     });
                 });
                 if ($this->_bindParams) {
-                    $bindParams = array_map(function($token) { return ltrim($token, ':'); }, array_keys($this->_bindParams));
+                    $bindParams = array_map(function ($token) {
+                        return ltrim($token, ':');
+                    }, array_keys($this->_bindParams));
                     $bindPattern = '/:('.implode('|', $bindParams).')/';
                     $joinUsingBind = array_filter($leftJoins, function ($table) use ($bindPattern) {
                         return preg_match($bindPattern, $table['joinCondition']);
