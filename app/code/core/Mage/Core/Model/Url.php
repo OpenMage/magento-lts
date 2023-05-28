@@ -1211,13 +1211,18 @@ class Mage_Core_Model_Url extends Varien_Object
     public function isOwnOriginUrl()
     {
         $storeDomains = [];
-        $referer = parse_url(Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER'), PHP_URL_HOST);
+        $httpReferer = Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER');
+        $referer = $httpReferer ? parse_url($httpReferer, PHP_URL_HOST) : '';
+        if (empty($referer)) {
+            return true;
+        }
+
         foreach (Mage::app()->getStores() as $store) {
             $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
             $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
         $storeDomains = array_unique($storeDomains);
-        if (empty($referer) || in_array($referer, $storeDomains)) {
+        if (in_array($referer, $storeDomains)) {
             return true;
         }
         return false;
