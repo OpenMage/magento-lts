@@ -49,4 +49,30 @@ class Mage_GoogleAnalytics_Model_Observer
             $block->setOrderIds($orderIds);
         }
     }
+
+    /**
+     * Add 'removed item' from cart into session for GA4 block to render event on cart view
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
+    {
+        $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
+        if ($productRemoved) {
+            Mage::getSingleton('core/session')->setRemovedProductCart($productRemoved->getId());
+        }
+    }
+
+    /**
+     * Add 'added item' to cart into session for GA4 block to render event on cart view
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
+    {
+        $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
+        if ($productAdded) {
+            Mage::getSingleton('core/session')->setAddedProductCart($productAdded->getId());
+        }
+    }
 }
