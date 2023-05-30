@@ -1,8 +1,19 @@
 <?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   Mage
+ * @package    Mage_Shell
+ * @copyright  Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 
-// DO NOT RUN DIRECTLY IN YOUR PRODUCTION ENVIRONMENT!
-// This script is distributed in the hope that it will be useful, but without any warranty.
-
+// TEST IT BEFORE RUN IN YOUR PRODUCTION ENVIRONMENT!
+// See https://github.com/OpenMage/magento-lts/pull/2395
 chdir(dirname(__DIR__, 1));
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
