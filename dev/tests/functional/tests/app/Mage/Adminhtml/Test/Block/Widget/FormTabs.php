@@ -80,7 +80,7 @@ class FormTabs extends Form
     {
         $realPath = str_replace('\\', '/', get_class($this)) . '.xml';
         $paths = glob(MTF_TESTS_PATH . preg_replace('/Mage\/\w+/', '*/*', $realPath));
-        if (strpos($realPath, 'Adminhtml') !== false) {
+        if (str_contains($realPath, 'Adminhtml')) {
             $paths = array_merge(
                 $paths,
                 glob(MTF_TESTS_PATH . preg_replace('/Mage\/(\w+)(\/.*Block\/)/', '*/*$2$1/', $realPath)),
