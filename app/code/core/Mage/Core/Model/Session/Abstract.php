@@ -484,7 +484,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
 
         $urlPath = trim($path, '/') . '/';
 
-        return strpos($urlPath, $cookiePath) === 0;
+        return str_starts_with($urlPath, $cookiePath);
     }
 
     /**

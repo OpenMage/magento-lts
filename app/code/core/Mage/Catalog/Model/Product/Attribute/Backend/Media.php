@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
-        if (strpos($file, chr(0)) !== false
+        if (str_contains($file, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
         ) {
             throw new Exception('Detected malicious path or filename input.');

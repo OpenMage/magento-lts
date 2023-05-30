@@ -120,7 +120,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle multiple options
-        if (strpos($expr, ',') !== false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -130,7 +130,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr, '/') !== false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
@@ -148,7 +148,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if ($expr === '*') {
             $from = 0;
             $to = 60;
-        } elseif (strpos($expr, '-') !== false) { // handle range
+        } elseif (str_contains($expr, '-')) { // handle range
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);
