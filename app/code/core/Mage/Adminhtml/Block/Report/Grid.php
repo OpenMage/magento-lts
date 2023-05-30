@@ -412,7 +412,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * recalc totals if we have average
          */
         foreach ($this->getColumns() as $key => $_column) {
-            if (strpos($_column->getTotal(), '/') !== false) {
+            if (str_contains($_column->getTotal(), '/')) {
                 list($t1, $t2) = explode('/', $_column->getTotal());
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
