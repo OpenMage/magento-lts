@@ -120,7 +120,8 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
 
             if ($orderItem->isDummy()) {
-                $qty = $orderItem->getQtyOrdered() - $orderItem->getQtyInvoiced() - $orderItem->getQtyCanceled(); // default value, but can be wrong for bundle items
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyOrdered() - $orderItem->getQtyInvoiced() - $orderItem->getQtyCanceled();
 
                 $parentItem = $orderItem->getParentItem();
                 if (isset($qtys[$orderItem->getParentItemId()])) {
@@ -186,7 +187,8 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToShipmentItem($orderItem);
 
             if ($orderItem->isDummy(true)) {
-                $qty = 0; // default value, but can be wrong for bundle items
+                // default value, but can be wrong for bundle items
+                $qty = 0;
 
                 if (isset($qtys[$orderItem->getParentItemId()])) {
                     $parentQty = $qtys[$orderItem->getParentItemId()];
@@ -246,7 +248,8 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = $orderItem->getQtyToRefund(); // default value, but can be wrong for bundle items
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyToRefund();
                 $orderItem->setLockedDoShip(true);
 
                 if (isset($qtys[$orderItem->getParentItemId()])) {
@@ -342,7 +345,8 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = $orderItem->getQtyToRefund(); // default value, but can be wrong for bundle items
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyToRefund();
 
                 if (isset($qtys[$orderItem->getParentItemId()])) {
                     $parentQty = $qtys[$orderItem->getParentItemId()];
