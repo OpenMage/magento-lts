@@ -973,7 +973,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false && in_array($firstLetter, ["=", "+", "-"])) {
+                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
                     $data[$key] = ' ' . $value;
                 }
             }
@@ -999,5 +999,13 @@ XML;
             }
         }
         return $data;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFormKeyEnabled(): bool
+    {
+        return Mage::getStoreConfigFlag(Mage_Core_Controller_Front_Action::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }

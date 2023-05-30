@@ -20,7 +20,7 @@
 <?php $_order = $this->getOrder() ?>
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('My Orders - Details') ?></h1>
-    <button class="button"><span><span><?php echo $this->__('Print All Invoices') ?></span></span></button>
+    <button class="button"><?php echo $this->__('Print All Invoices') ?></button>
 </div>
 <h3><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h3>
 <?php foreach ($this->getInvoices() as $_invoice): ?>

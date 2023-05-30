@@ -165,6 +165,20 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     }
 
     /**
+     * Enable Catalog Product Flat
+     *
+     * @param bool $save
+     */
+    public function enableFlatCollection($save = false)
+    {
+        if ($save) {
+            $this->_forceFlatStatusOld = $this->_forceFlatStatus;
+        }
+
+        $this->_forceFlatStatus = false;
+    }
+
+    /**
      * Disable Catalog Product Flat
      *
      * @param bool $save

@@ -194,7 +194,7 @@ class Mage_Core_Model_Resource
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
-        if (strpos($requiredConnectionName, 'read') !== false) {
+        if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE);
         }
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);

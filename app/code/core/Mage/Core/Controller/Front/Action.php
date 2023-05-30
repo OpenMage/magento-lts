@@ -177,16 +177,18 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      */
     protected function _isFormKeyEnabled()
     {
-        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
+        return Mage::helper('core')->isFormKeyEnabled();
     }
 
     /**
      * Check if form_key validation enabled on checkout process
      *
+     * @deprecated
+     * @see _isFormKeyEnabled
      * @return bool
      */
     protected function isFormkeyValidationOnCheckoutEnabled()
     {
-        return Mage::getStoreConfigFlag('admin/security/validate_formkey_checkout');
+        return $this->_isFormKeyEnabled();
     }
 }

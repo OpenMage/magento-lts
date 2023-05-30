@@ -20,6 +20,18 @@
             <version>1.6.0.0</version>
         </Mage_Index>
     </modules>
+    <crontab>
+        <jobs>
+            <index_clean_events>
+                <schedule>
+                    <cron_expr>30 */4 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>index/observer::cleanOutdatedEvents</model>
+                </run>
+            </index_clean_events>
+        </jobs>
+    </crontab>
     <global>
         <helpers>
             <index>

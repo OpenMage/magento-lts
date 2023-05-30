@@ -354,7 +354,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $afterId = array_pop(explode(',', $parentChildren));
         }
 
-        if (strpos($parent_category->getPath(), $category->getPath()) === 0) {
+        if (str_starts_with($parent_category->getPath(), $category->getPath())) {
             $this->_fault('not_moved', "Operation do not allow to move a parent category to any of children category");
         }
 

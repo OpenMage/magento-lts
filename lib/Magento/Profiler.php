@@ -151,7 +151,7 @@ class Magento_Profiler
             return;
         }
 
-        if (strpos($timerName, self::NESTING_SEPARATOR) !== false) {
+        if (str_contains($timerName, self::NESTING_SEPARATOR)) {
             throw new Varien_Exception('Timer name must not contain a nesting separator.');
         }
 

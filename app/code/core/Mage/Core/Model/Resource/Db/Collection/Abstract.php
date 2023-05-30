@@ -152,7 +152,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function setMainTable($table)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 
@@ -687,7 +687,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
-        $tags[] = Mage_Core_Model_App::CACHE_TAG;
         $tags[] = self::CACHE_TAG;
         return $tags;
     }
