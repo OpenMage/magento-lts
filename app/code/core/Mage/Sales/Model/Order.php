@@ -1359,6 +1359,23 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * @return string|false
+     */
+    public function getCurrentCustomerEmail()
+    {
+        if (!$this->getData('current_customer_email')) {
+            if ($this->getCustomer()) {
+                $email = $this->getCustomer()->getEmail();
+            } else {
+                $email = Mage::getResourceSingleton('customer/customer')->getEmail($this->getCustomerId());
+            }
+            $this->setData('current_customer_email', $email);
+        }
+
+        return $this->getData('current_customer_email');
+    }
+
+    /**
      * Queue email with new order data
      *
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
@@ -1417,7 +1434,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         /** @var Mage_Core_Model_Email_Info $emailInfo */
         $emailInfo = Mage::getModel('core/email_info');
-        $emailInfo->addTo($this->getCustomerEmail(), $customerName);
+        $emailInfo->addTo($this->getCurrentCustomerEmail() ?: $this->getCustomerEmail(), $customerName);
         if ($copyTo && $copyMethod == 'bcc') {
             // Add bcc to customer email
             foreach ($copyTo as $email) {
@@ -1509,7 +1526,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             /** @var Mage_Core_Model_Email_Info $emailInfo */
             $emailInfo = Mage::getModel('core/email_info');
-            $emailInfo->addTo($this->getCustomerEmail(), $customerName);
+            $emailInfo->addTo($this->getCurrentCustomerEmail() ?: $this->getCustomerEmail(), $customerName);
             if ($copyTo && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
