@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_Tags') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
+            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',
