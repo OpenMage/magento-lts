@@ -67,7 +67,7 @@ class AssertUserWithRestrictedResources extends AbstractConstraint
 
         $browser->open($_ENV['app_backend_url'] . $this->manageProductsUrl);
         \PHPUnit_Framework_Assert::assertTrue(
-            strpos($dashboard->getMainBlock()->getMainBlockText(), self::ACCESS_DENIED) !== false,
+            str_contains($dashboard->getMainBlock()->getMainBlockText(), self::ACCESS_DENIED),
             self::ACCESS_DENIED . " text is not visible on dashboard page.");
     }
 
