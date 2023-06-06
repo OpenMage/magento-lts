@@ -496,7 +496,12 @@ FormElementDependenceController.prototype = {
         }
         return result;
     },
-
+    hideElem : function(ele) {
+        ele.hide();
+    },
+    showElem : function(ele) {
+        ele.show();
+    },
     /**
      * Define whether target element should be toggled and show/hide its row
      *
@@ -507,8 +512,17 @@ FormElementDependenceController.prototype = {
      */
     trackChange : function(e, idTo, valuesFrom)
     {
+        let upLevels = this._config.levels_up;
+        let ele;
         if (!$(idTo)) {
-            return;
+            if ($('row_' + idTo)) {
+                idTo = 'row_' + idTo;
+                ele = $(idTo);
+            } else {
+                return;
+            }
+        } else {
+            ele = $(idTo).up(upLevels);
         }
 
         // define whether the target should show up
@@ -536,22 +550,22 @@ FormElementDependenceController.prototype = {
         // toggle target row
         if (shouldShowUp) {
             var currentConfig = this._config;
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
+            ele.select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
                     && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
                     item.disabled = false;
                 }
             });
-            $(idTo).up(this._config.levels_up).show();
+            this.showElem(ele);
         } else {
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
+            ele.select('input', 'select', 'td', 'div').each(function (item){
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
                     item.disabled = true;
                 }
             });
-            $(idTo).up(this._config.levels_up).hide();
+            this.hideElem(ele);
         }
     }
 };
