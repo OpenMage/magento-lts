@@ -577,7 +577,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getValueElementRenderer()
     {
-        if (strpos($this->getValueElementType(), '/') !== false) {
+        if (str_contains($this->getValueElementType(), '/')) {
             return Mage::getBlockSingleton($this->getValueElementType());
         }
         return Mage::getBlockSingleton('rule/editable');
