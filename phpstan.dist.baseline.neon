@@ -2346,11 +2346,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate.php
-
-		-
 			message: "#^Method Mage_Core_Model_Url\\:\\:getRequest\\(\\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url.php

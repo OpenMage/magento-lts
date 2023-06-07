@@ -26,14 +26,14 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      *
      * @var array
      */
-    protected $_ratesCache              = [];
+    protected $_ratesCache = [];
 
     /**
      * Primery key auto increment flag
      *
      * @var bool
      */
-    protected $_isPkAutoIncrement    = false;
+    protected $_isPkAutoIncrement = false;
 
     protected function _construct()
     {
@@ -81,8 +81,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     {
         $rates = $this->_getRates($request);
         return [
-            'process'   => $this->getCalculationProcess($request, $rates),
-            'value'     => $this->_calculateRate($rates)
+            'process' => $this->getCalculationProcess($request, $rates),
+            'value'   => $this->_calculateRate($rates),
         ];
     }
 
@@ -235,7 +235,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $customerClassId = $request->getCustomerClassId();
         $countryId = $request->getCountryId();
         $regionId = $request->getRegionId();
-        $postcode = trim($request->getPostcode());
+        $postcode = trim((string)$request->getPostcode());
 
         // Process productClassId as it can be array or usual value. Form best key for cache.
         $productClassId = $request->getProductClassId();
