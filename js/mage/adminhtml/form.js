@@ -515,10 +515,9 @@ FormElementDependenceController.prototype = {
         let upLevels = this._config.levels_up;
         let ele;
         if (!$(idTo)) {
-            if ($('row_' + idTo)) {
-                idTo = 'row_' + idTo;
-                ele = $(idTo);
-            } else {
+            idTo = 'row_' + idTo;
+            ele = $(idTo);
+            if (!ele) {
                 return;
             }
         } else {
