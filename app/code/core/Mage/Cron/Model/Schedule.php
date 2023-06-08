@@ -22,6 +22,7 @@
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
  * @method string getStatus()
@@ -51,6 +52,14 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function _construct()
     {
         $this->_init('cron/schedule');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsError()
+    {
+        return !empty($this->getData('is_error'));
     }
 
     /**
