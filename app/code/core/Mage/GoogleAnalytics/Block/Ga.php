@@ -274,7 +274,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             if ($pageSize !== 'all') {
                 $productCollection->setPageSize($pageSize)->setCurPage($currentPage);
             }
-            
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
