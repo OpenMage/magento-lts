@@ -294,7 +294,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
-            
             $eventData['value'] = number_format($eventData['value'], 2);
             $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
