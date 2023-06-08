@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $html .= '</td>';
 
         if ($addInheritCheckbox) {
-            $defText = $element->getDefaultValue();
+            $defText = (string)$element->getDefaultValue();
             if ($options) {
                 $defTextArr = [];
                 foreach ($options as $k => $v) {
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
                 . $namePrefix . '[inherit]" type="checkbox" value="1" class="checkbox config-inherit" '
                 . $inherit . ' onclick="toggleValueElements(this, Element.previous(this.parentNode))" /> ';
             $html .= '<label for="' . $id . '_inherit" class="inherit" title="'
-                . htmlspecialchars((string)$defText) . '">' . $checkboxLabel . '</label>';
+                . htmlspecialchars($defText) . '">' . $checkboxLabel . '</label>';
             $html .= '</td>';
         }
 
