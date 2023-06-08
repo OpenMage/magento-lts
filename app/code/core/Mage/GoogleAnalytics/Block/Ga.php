@@ -277,7 +277,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = '0.00';
+            $eventData['value'] = 0.00;
             $eventData['item_list_id'] = 'category_'.$category->getUrlKey();
             $eventData['item_list_name'] = $category->getName();
             $eventData['items'] = [];
@@ -339,7 +339,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = '0.00';
+            $eventData['value'] = 0.00;
             $eventData['items'] = [];
 
             foreach ($productCollection as $productInCart) {
