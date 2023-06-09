@@ -108,7 +108,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Whether GA Debug Mode is enabled (only for development ip)
+     * Whether GA Debug Mode is enabled (only for development IP)
      *
      * @param null $store
      * @return bool
