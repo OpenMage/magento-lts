@@ -93,7 +93,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 gtag('js', new Date());
 ";
         if (!$this->helper('googleanalytics')->isDebugModeEnabled()) {
-            $trackingCode.= "
+            $trackingCode .= "
 gtag('config', '{$this->jsQuoteEscape($accountId)}');
 ";
         } else {
