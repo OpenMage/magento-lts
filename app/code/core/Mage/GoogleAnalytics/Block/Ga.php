@@ -355,7 +355,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
 
         //begin checkout
-        elseif (($moduleName == 'checkout' && $controllerName == 'onepage') || ($moduleName == 'firecheckout' && $controllerName == 'index')) {
+        elseif ($moduleName == 'checkout' && $controllerName == 'onepage') {
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
             if ($productCollection) {
                 $eventData = [];
