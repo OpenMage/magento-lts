@@ -97,8 +97,8 @@ gtag('js', new Date());
 gtag('config', '{$this->jsQuoteEscape($accountId)}');
 ";
         } else {
-            $trackingCode.= "
-gtag('config', '{$this->jsQuoteEscape($accountId)}', { 'debug_mode': true });
+            $trackingCode .= "
+gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
 ";
         }
 
