@@ -58,7 +58,7 @@
                             <show_in_store>1</show_in_store>
                         </account>
                         <user_id translate="label">
-                            <label>User_id tracking</label>
+                            <label>User ID tracking</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>21</sort_order>
