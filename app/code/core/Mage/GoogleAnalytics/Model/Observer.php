@@ -59,7 +59,10 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productRemoved) {
-            Mage::getSingleton('core/session')->setRemovedProductCart($productRemoved->getId());
+            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
+            $_removedProducts[] = $productRemoved->getId();
+            $_removedProducts = array_unique($_removedProducts);
+            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
         }
     }
 
@@ -72,7 +75,16 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productAdded) {
-            Mage::getSingleton('core/session')->setAddedProductCart($productAdded->getId());
+            /**
+             * Fix double add to cart for configurable products, skip child product
+             */
+            if ($productAdded->getParentProductId()) {
+                return;
+            }
+            $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
+            $_addedProducts[] = $productAdded->getParentItem() ? $productAdded->getParentItem()->getId() : $productAdded->getId();
+            $_addedProducts = array_unique($_addedProducts);
+            Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
         }
     }
 }

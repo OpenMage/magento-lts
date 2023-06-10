@@ -242,44 +242,48 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
         //Begin advanced eCommerce events
         //cart actions events
-        $removedProduct = Mage::getSingleton('core/session')->getRemovedProductCart();
-        if ($removedProduct) {
-            $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
-            $eventData = [];
-            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
-            $eventData['items'] = [];
-            $_item = [
-                'item_id' => $_removedProduct->getSku(),
-                'item_name' => $_removedProduct->getName(),
-                'price' => number_format($_removedProduct->getFinalPrice(), 2),
-            ];
-            if ($_removedProduct->getAttributeText('manufacturer')) {
-                $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
+        $removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart();
+        if ($removedProducts) {
+            foreach ($removedProducts as $removedProduct) {
+                $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
+                $eventData = [];
+                $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
+                $eventData['items'] = [];
+                $_item = [
+                    'item_id' => $_removedProduct->getSku(),
+                    'item_name' => $_removedProduct->getName(),
+                    'price' => number_format($_removedProduct->getFinalPrice(), 2),
+                ];
+                if ($_removedProduct->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
+                }
+                array_push($eventData['items'], $_item);
+                $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
             }
-            array_push($eventData['items'], $_item);
-            $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-            Mage::getSingleton('core/session')->unsRemovedProductCart();
+            Mage::getSingleton('core/session')->unsRemovedProductsCart();
         }
 
-        $addedProduct = Mage::getSingleton('core/session')->getAddedProductCart();
-        if ($addedProduct) {
-            $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
-            $eventData = [];
-            $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
-            $eventData['items'] = [];
-            $_item = [
-                'item_id' => $_addedProduct->getSku(),
-                'item_name' => $_addedProduct->getName(),
-                'price' => number_format($_addedProduct->getFinalPrice(), 2),
-            ];
-            if ($_addedProduct->getAttributeText('manufacturer')) {
-                $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
+        $addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart();
+        if ($addedProducts) {
+            foreach ($addedProducts as $addedProduct) {
+                $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
+                $eventData = [];
+                $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
+                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
+                $eventData['items'] = [];
+                $_item = [
+                    'item_id' => $_addedProduct->getSku(),
+                    'item_name' => $_addedProduct->getName(),
+                    'price' => number_format($_addedProduct->getFinalPrice(), 2),
+                ];
+                if ($_addedProduct->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
+                }
+                array_push($eventData['items'], $_item);
+                $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                Mage::getSingleton('core/session')->unsAddedProductsCart();
             }
-            array_push($eventData['items'], $_item);
-            $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-            Mage::getSingleton('core/session')->unsAddedProductCart();
         }
 
         //product page
