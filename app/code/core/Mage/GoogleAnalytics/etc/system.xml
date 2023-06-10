@@ -70,7 +70,7 @@
                               <type>analytics4</type>
                             </depends>
                         </user_id>
-                        <debug translate="label">
+                        <debug translate="label comment">
                             <label>Debug</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
