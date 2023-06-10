@@ -249,14 +249,17 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = number_format($productViewed->getFinalPrice(), 2);
             $eventData['items'] = [];
-            $eventData['items'][] = [
+            $_item = [
                 'item_id' => $productViewed->getSku(),
                 'item_name' => $productViewed->getName(),
                 'list_name' => 'Product Detail Page',
-                'item_brand' => $productViewed->getAttributeText('manufacturer'),
                 'item_category' => $category,
                 'price' => number_format($productViewed->getFinalPrice(), 2),
             ];
+            if ($productViewed->getAttributeText('manufacturer')) {
+                $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
+            }
+            array_push($eventData['items'], $_item);
 
             $result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
@@ -283,14 +286,19 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
             $index = 1;
             foreach ($productCollection as $key => $productViewed) {
-                $eventData['items'][] = [
+                $_item = [
                     'item_id' => $productViewed->getSku(),
                     'index' => $index,
                     'item_name' => $productViewed->getName(),
-                    'item_brand' => $productViewed->getAttributeText('manufacturer'),
-                    'item_category' => $productViewed->getCategory()->getName(),
                     'price' => number_format($productViewed->getFinalPrice(), 2),
                 ];
+                if ($productViewed->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
+                }
+                if ($productViewed->getCategory()->getName()) {
+                    $_item['item_category'] = $productViewed->getCategory()->getName();
+                }
+                array_push($eventData['items'], $_item);
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
@@ -307,12 +315,15 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
                 $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
                 $eventData['items'] = [];
-                $eventData['items'][] = [
+                $_item = [
                     'item_id' => $_removedProduct->getSku(),
                     'item_name' => $_removedProduct->getName(),
-                    'item_brand' => $_removedProduct->getAttributeText('manufacturer'),
                     'price' => number_format($_removedProduct->getFinalPrice(), 2),
                 ];
+                if ($_removedProduct->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
+                }
+                array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
                 Mage::getSingleton('core/session')->unsRemovedProductCart();
             }
@@ -324,12 +335,15 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
                 $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
                 $eventData['items'] = [];
-                $eventData['items'][] = [
+                $_item = [
                     'item_id' => $_addedProduct->getSku(),
                     'item_name' => $_addedProduct->getName(),
-                    'item_brand' => $_addedProduct->getAttributeText('manufacturer'),
                     'price' => number_format($_addedProduct->getFinalPrice(), 2),
                 ];
+                if ($_addedProduct->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
+                }
+                array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
                 Mage::getSingleton('core/session')->unsAddedProductCart();
             }
@@ -342,12 +356,15 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
             foreach ($productCollection as $productInCart) {
                 $_product = Mage::getModel('catalog/product')->load($productInCart->getProductId());
-                $eventData['items'][] = [
+                $_item = [
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
-                    'item_brand' => $_product->getAttributeText('manufacturer'),
                     'price' => number_format($_product->getFinalPrice(), 2),
                 ];
+                if ($_product->getAttributeText('manufacturer')) {
+                    $_item['item_brand'] = $_product->getAttributeText('manufacturer');
+                }
+                array_push($eventData['items'], $_item);
                 $eventData['value'] += $_product->getFinalPrice();
             }
             $eventData['value'] = number_format($eventData['value'], 2);
@@ -364,12 +381,15 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $eventData['items'] = [];
                 foreach ($productCollection as $productInCart) {
                     $_product = Mage::getModel('catalog/product')->load($productInCart->getProductId());
-                    $eventData['items'][] = [
+                    $_item = [
                         'item_id' => $_product->getSku(),
                         'item_name' => $_product->getName(),
-                        'item_brand' => $_product->getAttributeText('manufacturer'),
                         'price' => number_format($_product->getFinalPrice(), 2),
                     ];
+                    if ($_product->getAttributeText('manufacturer')) {
+                        $_item['item_brand'] = $_product->getAttributeText('manufacturer');
+                    }
+                    array_push($eventData['items'], $_item);
                     $eventData['value'] += $_product->getFinalPrice();
                 }
                 $eventData['value'] = number_format($eventData['value'], 2);
