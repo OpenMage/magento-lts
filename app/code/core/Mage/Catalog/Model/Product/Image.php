@@ -295,7 +295,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $imageInfo = getimagesize($file);
 
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+        if ($imageInfo === false) {
             return 0;
         }
         if (!isset($imageInfo['channels'])) {
