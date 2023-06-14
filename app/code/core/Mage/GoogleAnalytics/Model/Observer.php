@@ -75,9 +75,7 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productAdded) {
-            /**
-             * Fix double add to cart for configurable products, skip child product
-             */
+            // Fix double add to cart for configurable products, skip child product
             if ($productAdded->getParentProductId()) {
                 return;
             }
