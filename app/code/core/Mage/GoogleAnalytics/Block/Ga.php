@@ -55,7 +55,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
      * Get a specific page name (may be customized via layout)
      *
      * @return string
-     * @deprecated 
+     * @deprecated
      */
     public function getPageName()
     {
@@ -233,7 +233,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
     /**
      * Render information about specified orders and their items
-     * 
+     *
      * @return string
      * @throws JsonException
      */
