@@ -119,7 +119,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Log debug message 
+     * Log debug message
      *
      * @param string $message
      */

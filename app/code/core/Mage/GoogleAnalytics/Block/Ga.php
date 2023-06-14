@@ -244,9 +244,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $moduleName = $request->getModuleName();
         $controllerName = $request->getControllerName();
 
-        /** 
+        /**
          * This event signifies that an item was removed from a cart.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#remove_from_cart
          */
         $removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart();
@@ -276,9 +276,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             Mage::getSingleton('core/session')->unsRemovedProductsCart();
         }
 
-        /** 
+        /**
          * This event signifies that an item was added to a cart for purchase.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#add_to_cart
          */
         $addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart();
@@ -308,9 +308,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             }
         }
 
-        /** 
+        /**
          * This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
          */
         if ($moduleName == 'catalog' && $controllerName == 'product') {
@@ -334,9 +334,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
-        /** 
+        /**
          * Log this event when the user has been presented with a list of items of a certain category.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
          */
         elseif ($moduleName == 'catalog' && $controllerName == 'category') {
@@ -380,9 +380,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
-        /** 
+        /**
          * This event signifies that a user viewed their cart.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
          */
         elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
@@ -414,9 +414,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
-        /** 
+        /**
          * This event signifies that a user has begun a checkout.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
          */
         elseif ($moduleName == 'checkout' && $controllerName == 'onepage') {
@@ -451,7 +451,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
 
         /**
          *  This event signifies when one or more items is purchased by a user.
-         * 
+         *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events?hl=it#purchase
          */
         $orderIds = $this->getOrderIds();
