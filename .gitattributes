@@ -2,6 +2,7 @@
 /.ddev export-ignore
 /.github export-ignore
 /dev
+/docs
 
 /.all-contributorsrc
 /.gitattributes export-ignore
