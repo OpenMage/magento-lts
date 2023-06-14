@@ -119,6 +119,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Log debug message 
+     *
+     * @param string $message
+     */
+    public function log($message = null)
+    {
+        $filename = sprintf('google%s.log', Mage::getStoreConfig(self::XML_PATH_TYPE));
+        Mage::log($message, Zend_Log::DEBUG, $filename, true);
+    }
+
+    /**
      * Whether GA IP Anonymization is enabled
      *
      * @param null $store
