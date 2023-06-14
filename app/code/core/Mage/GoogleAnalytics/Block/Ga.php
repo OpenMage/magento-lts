@@ -381,7 +381,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         }
 
         /**
-         * This event signifies that a user viewed their cart.
+         * This event signifies that a user viewed his cart.
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
          */
