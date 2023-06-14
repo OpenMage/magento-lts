@@ -23,10 +23,9 @@
  */
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
-    public function __construct($file = null)
+    public function __construct()
     {
         register_shutdown_function([$this, 'destruct']);
-        $this->newUploader($file);
     }
 
     /**
@@ -351,7 +350,3 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
         $this->uploader->image_background_color = $color;
     }
 }
-
-// ft:php
-// fileformat:unix
-// tabstop:4
