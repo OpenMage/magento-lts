@@ -57,6 +57,32 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </account>
+                        <user_id translate="label comment">
+                            <label>User ID tracking</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable GA4 User_id tracking for logged in customers.</comment>
+                            <depends>
+                              <type>analytics4</type>
+                            </depends>
+                        </user_id>
+                        <debug translate="label comment">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable GA4 Debug Real Time view for Development IP.</comment>
+                            <depends>
+                              <type>analytics4</type>
+                            </depends>
+                        </debug>
                         <anonymization translate="label">
                             <label>Enable IP anonymization</label>
                             <frontend_type>select</frontend_type>
@@ -65,6 +91,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <type>universal</type>
+                            </depends>
                         </anonymization>
                     </fields>
                 </analytics>
