@@ -265,8 +265,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_removedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
                 }
-                if ($_removedProduct->getCategoryIds()) {
-                    $_lastCat = end($_removedProduct->getCategoryIds());
+                $_removedProductCategoryIds = $_removedProduct->getCategoryIds();
+                if ($_removedProductCategoryIds) {
+                    $_lastCat = end($_removedProductCategoryIds);
                     $_cat = Mage::getModel('catalog/category')->load($_lastCat);
                     $_item['item_category'] = $_cat->getName();
                 }
@@ -297,8 +298,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_addedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
                 }
-                if ($_addedProduct->getCategoryIds()) {
-                    $_lastCat = end($_addedProduct->getCategoryIds());
+                $_addedProductCategoryIds = $_addedProduct->getCategoryIds();
+                if ($_addedProductCategoryIds) {
+                    $_lastCat = end($_addedProductCategoryIds);
                     $_cat = Mage::getModel('catalog/category')->load($_lastCat);
                     $_item['item_category'] = $_cat->getName();
                 }
@@ -402,8 +404,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
-                if ($_product->getCategoryIds()) {
-                    $_lastCat = end($_product->getCategoryIds());
+                $_producCategoryIds = $_product->getCategoryIds();
+                if ($_producCategoryIds) {
+                    $_lastCat = end($_producCategoryIds);
                     $_cat = Mage::getModel('catalog/category')->load($_lastCat);
                     $_item['item_category'] = $_cat->getName();
                 }
@@ -436,8 +439,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-                    if ($_product->getCategoryIds()) {
-                        $_lastCat = end($_product->getCategoryIds());
+                    $_producCategoryIds = $_product->getCategoryIds();
+                    if ($_producCategoryIds) {
+                        $_lastCat = end($_producCategoryIds);
                         $_cat = Mage::getModel('catalog/category')->load($_lastCat);
                         $_item['item_category'] = $_cat->getName();
                     }
@@ -483,8 +487,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-                    if ($_product->getCategoryIds()) {
-                        $_lastCat = end($_product->getCategoryIds());
+                    $_productCategoryIds = $_product->getCategoryIds();
+                    if ($_productCategoryIds) {
+                        $_lastCat = end($_productCategoryIds);
                         $_cat = Mage::getModel('catalog/category')->load($_lastCat);
                         $_item['item_category'] = $_cat->getName();
                     }
