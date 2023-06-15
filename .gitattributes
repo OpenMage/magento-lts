@@ -1,13 +1,13 @@
 # Make packagist / composer download smaller
 /.ddev export-ignore
 /.github export-ignore
-/dev
-/docs
+/dev export-ignore
+/docs export-ignore
 
-/.all-contributorsrc
+/.all-contributorsrc export-ignore
 /.gitattributes export-ignore
-/.gitignore
-/.gitpod.yml
+/.gitignore export-ignore
+/.gitpod.yml export-ignore
 
 /.php-cs-fixer.dist.php export-ignore
 /.phpcs.ecg.xml.dist export-ignore
