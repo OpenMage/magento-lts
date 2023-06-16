@@ -128,9 +128,6 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 foreach ($constructions as $index => $construction) {
                     $replacedValue = '';
                     $callback = [$this, $directive];
-                    if (!is_callable($callback)) {
-                        continue;
-                    }
                     try {
                         $replacedValue = call_user_func($callback, $construction);
                     } catch (Exception $e) {
