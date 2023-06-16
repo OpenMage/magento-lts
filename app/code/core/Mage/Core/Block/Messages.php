@@ -247,6 +247,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         if ($html) {
             $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         }
+        $this->_messages = null;
         return $html;
     }
 
