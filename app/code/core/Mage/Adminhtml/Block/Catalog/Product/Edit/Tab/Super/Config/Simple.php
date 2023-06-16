@@ -76,15 +76,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                     continue;
                 }
 
+                $entityAttribute = clone $attribute; //prevent in-memory changing of attribute in cached collection
+                $entityAttribute->setAttributeCode('simple_product_' . $attributeCode);
+
                 $element = $fieldset->addField(
-                    'simple_product_' . $attributeCode,
+                    $entityAttribute->getAttributeCode(),
                     $inputType,
                     [
-                        'label'    => $attribute->getFrontend()->getLabel(),
+                        'label'    => $entityAttribute->getFrontend()->getLabel(),
                         'name'     => $attributeCode,
-                        'required' => $attribute->getIsRequired(),
+                        'required' => $entityAttribute->getIsRequired(),
                     ]
-                )->setEntityAttribute($attribute);
+                )->setEntityAttribute($entityAttribute);
 
                 if (in_array($attributeCode, $attributesConfig['autogenerate'])) {
                     $element->setDisabled('true');
@@ -100,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 }
 
                 if ($inputType == 'select' || $inputType == 'multiselect') {
-                    $element->setValues($attribute->getFrontend()->getSelectOptions());
+                    $element->setValues($entityAttribute->getFrontend()->getSelectOptions());
                 }
             }
         }
