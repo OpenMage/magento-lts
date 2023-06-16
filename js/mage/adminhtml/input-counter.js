@@ -1,4 +1,3 @@
-// https://stackoverflow.com/a/44436408/5703627
 window.addEventListener('load', function() {
     Element.addMethods({
         // setup once, memorize the counter element and maxLen
