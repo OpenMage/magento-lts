@@ -862,12 +862,12 @@ class Varien_Object implements ArrayAccess
     public function __toString()
     {
         if (Mage::getIsDeveloperMode()) {
-            if (PHP_SAPI != 'cli') {
-                return empty($this->getId()) ? '<div><b>warning_echo_object[' . get_class($this) . ']</b></div>' :
-                    '<div><b>warning_echo_object[' . get_class($this) . '#' . $this->getId() . ']</b></div>';
+            if (PHP_SAPI == 'cli') {
+                return empty($this->getId()) ? "\n" . 'warning_echo_object[' . get_class($this) . ']' . "\n" :
+                    "\n" . 'warning_echo_object[' . get_class($this) . '#' . $this->getId() . ']' . "\n";
             }
-            return empty($this->getId()) ? "\n" . 'warning_echo_object[' . get_class($this) . ']' . "\n" :
-                "\n" . 'warning_echo_object[' . get_class($this) . '#' . $this->getId() . ']' . "\n";
+            return empty($this->getId()) ? '<div><b>warning_echo_object[' . get_class($this) . ']</b></div>' :
+                '<div><b>warning_echo_object[' . get_class($this) . '#' . $this->getId() . ']</b></div>';
         }
         Mage::throwException('Object of class ' . get_class($this) . ' could not be converted to string');
     }
