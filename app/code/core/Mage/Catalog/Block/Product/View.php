@@ -61,9 +61,12 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             }
             $description = $product->getMetaDescription();
             if ($description) {
-                $headBlock->setDescription(($description));
+                $headBlock->setDescription($description);
             } else {
-                $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
+                $description = $product->getDescription();
+                if ($description) {
+                    $headBlock->setDescription(Mage::helper('core/string')->substr($description, 0, 255));
+                }
             }
 
             /** @var Mage_Catalog_Helper_Product $helper */
