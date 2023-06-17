@@ -28,6 +28,8 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_TYPE          = 'google/analytics/type';
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
     public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
+    public const XML_PATH_DEBUG         = 'google/analytics/debug';
+    public const XML_PATH_USERID        = 'google/analytics/user_id';
 
     /**
      * @var string google analytics 4
@@ -103,5 +105,38 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function isUseAnalytics4($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_ANALYTICS4;
+    }
+
+    /**
+     * Whether GA Debug Mode is enabled (only for development IP)
+     *
+     * @param null $store
+     * @return bool
+     */
+    public function isDebugModeEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_DEBUG, $store) && Mage::helper('core')->isDevAllowed();
+    }
+
+    /**
+     * Log debug message
+     *
+     * @param string $message
+     */
+    public function log($message = null)
+    {
+        $filename = sprintf('google%s.log', Mage::getStoreConfig(self::XML_PATH_TYPE));
+        Mage::log($message, Zend_Log::DEBUG, $filename, true);
+    }
+
+    /**
+     * Whether GA IP Anonymization is enabled
+     *
+     * @param null $store
+     * @return bool
+     */
+    public function isUserIdEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_USERID, $store);
     }
 }
