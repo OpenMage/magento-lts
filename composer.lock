@@ -2760,16 +2760,16 @@
         },
         {
             "name": "macopedia/phpstan-magento1",
-            "version": "v1.0.5",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d"
+                "reference": "348ab687063bdd78c571091a16b0865935798b18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/69346472b19422b2aefeb928d6488b5d907e8b1d",
-                "reference": "69346472b19422b2aefeb928d6488b5d907e8b1d",
+                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/348ab687063bdd78c571091a16b0865935798b18",
+                "reference": "348ab687063bdd78c571091a16b0865935798b18",
                 "shasum": ""
             },
             "require": {
@@ -2793,9 +2793,9 @@
             "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
             "support": {
                 "issues": "https://github.com/macopedia/phpstan-magento1/issues",
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.5"
+                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.7"
             },
-            "time": "2022-12-30T08:43:52+00:00"
+            "time": "2023-06-13T14:11:06+00:00"
         },
         {
             "name": "magento-ecg/coding-standard",
