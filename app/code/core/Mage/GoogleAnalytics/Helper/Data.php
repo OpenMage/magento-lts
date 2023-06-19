@@ -139,4 +139,20 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_USERID, $store);
     }
+
+    /**
+     * Returns last category name
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getLastCategoryName($product)
+    {
+        $_categoryIds = $product->getCategoryIds();
+        if ($_categoryIds) {
+            $_lastCat = array_pop($_categoryIds);
+            $_cat = Mage::getModel('catalog/category')->load($_lastCat);
+            return $_cat->getName();
+        }
+    }
 }

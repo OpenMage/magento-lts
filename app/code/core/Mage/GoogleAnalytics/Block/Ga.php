@@ -265,10 +265,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_removedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
                 }
-                if ($_removedProduct->getCategoryIds()) {
-                    $_lastCat = end($_removedProduct->getCategoryIds());
-                    $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-                    $_item['item_category'] = $_cat->getName();
+                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_removedProduct);
+                if ($item_category) {
+                    $_item['item_category'] = $item_category;
                 }
                 array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
@@ -297,10 +296,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_addedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
                 }
-                if ($_addedProduct->getCategoryIds()) {
-                    $_lastCat = end($_addedProduct->getCategoryIds());
-                    $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-                    $_item['item_category'] = $_cat->getName();
+                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_addedProduct);
+                if ($item_category) {
+                    $_item['item_category'] = $item_category;
                 }
                 array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
@@ -398,14 +396,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
                     'price' => number_format($_product->getFinalPrice(), 2),
+                    'quantity' => intval($productInCart->getQty()),
                 ];
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
-                if ($_product->getCategoryIds()) {
-                    $_lastCat = end($_product->getCategoryIds());
-                    $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-                    $_item['item_category'] = $_cat->getName();
+                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                if ($item_category) {
+                    $_item['item_category'] = $item_category;
                 }
                 array_push($eventData['items'], $_item);
                 $eventData['value'] += $_product->getFinalPrice();
@@ -436,10 +434,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-                    if ($_product->getCategoryIds()) {
-                        $_lastCat = end($_product->getCategoryIds());
-                        $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-                        $_item['item_category'] = $_cat->getName();
+                    $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    if ($item_category) {
+                        $_item['item_category'] = $item_category;
                     }
                     array_push($eventData['items'], $_item);
                     $eventData['value'] += $_product->getFinalPrice();
@@ -475,18 +472,17 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     $_item = [
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
-                        'quantity' => $item->getQtyOrdered(),
-                        'price' => $item->getBasePrice(),
-                        'discount' => $item->getBaseDiscountAmount()
+                        'quantity' => intval($item->getQtyOrdered()),
+                        'price' => number_format($item->getBasePrice(), 2),
+                        'discount' => number_format($item->getBaseDiscountAmount(), 2)
                     ];
                     $_product = Mage::getModel('catalog/product')->load($item->getProductId());
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-                    if ($_product->getCategoryIds()) {
-                        $_lastCat = end($_product->getCategoryIds());
-                        $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-                        $_item['item_category'] = $_cat->getName();
+                    $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    if ($item_category) {
+                        $_item['item_category'] = $item_category;
                     }
                     array_push($orderData['items'], $_item);
                 }
