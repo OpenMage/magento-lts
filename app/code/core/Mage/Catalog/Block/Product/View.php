@@ -66,7 +66,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
                 $description = $product->getDescription();
                 if ($description) {
                     $headBlock->setDescription(Mage::helper('core/string')->substr($description, 0, 255));
-               } else {
+                } else {
                     $headBlock->setDescription('');
                 }
             }
