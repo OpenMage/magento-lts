@@ -189,7 +189,6 @@ class Mage_Eav_Model_Config
 
         /** @var Mage_Eav_Model_Entity_Type $entityType */
         foreach ($entityTypeCollection as $entityType) {
-
             // Ensure eav entity type model class is defined, otherwise skip processing it.
             // This check prevents leftover eav_entity_type entries from disabled/removed modules creating errors and
             // is necessary because the entire EAV model is now loaded eagerly for performance optimization.
