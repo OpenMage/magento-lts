@@ -151,18 +151,19 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         $links = $productType->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
+            $price = $item->getPrice();
             $tmpLinkItem = [
-                'link_id' => $item->getId(),
-                'title' => $this->escapeHtml($item->getTitle()),
-                'price' => $this->getCanReadPrice() ? $this->getPriceValue($item->getPrice()) : '',
+                'link_id'      => $item->getId(),
+                'title'        => $this->escapeHtml($item->getTitle()),
+                'price'        => (isset($price) && $this->getCanReadPrice()) ? $this->getPriceValue($price) : '',
                 'number_of_downloads' => $item->getNumberOfDownloads(),
                 'is_shareable' => $item->getIsShareable(),
-                'link_url' => $item->getLinkUrl(),
-                'link_type' => $item->getLinkType(),
-                'sample_file' => $item->getSampleFile(),
-                'sample_url' => $item->getSampleUrl(),
-                'sample_type' => $item->getSampleType(),
-                'sort_order' => $item->getSortOrder(),
+                'link_url'     => $item->getLinkUrl(),
+                'link_type'    => $item->getLinkType(),
+                'sample_file'  => $item->getSampleFile(),
+                'sample_url'   => $item->getSampleUrl(),
+                'sample_type'  => $item->getSampleType(),
+                'sort_order'   => $item->getSortOrder(),
             ];
 
             if ($item->getLinkFile()) {
@@ -181,10 +182,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                         ]) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
                     $tmpLinkItem['file_save'] = [
                         [
-                            'file' => $item->getLinkFile(),
-                            'name' => $name,
-                            'size' => filesize($file),
-                            'status' => 'old'
+                            'file'   => $item->getLinkFile(),
+                            'name'   => $name,
+                            'size'   => filesize($file),
+                            'status' => 'old',
                         ]
                     ];
                 }
@@ -197,10 +198,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 if (is_file($sampleFile)) {
                     $tmpLinkItem['sample_file_save'] = [
                         [
-                            'file' => $item->getSampleFile(),
-                            'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
-                            'size' => filesize($sampleFile),
-                            'status' => 'old'
+                            'file'   => $item->getSampleFile(),
+                            'name'   => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
+                            'size'   => filesize($sampleFile),
+                            'status' => 'old',
                         ]
                     ];
                 }
