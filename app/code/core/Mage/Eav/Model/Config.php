@@ -198,7 +198,7 @@ class Mage_Eav_Model_Config
                 if (Mage::getIsDeveloperMode()) {
                     throw new Exception('Failed loading of eav entity type because it does not exist: ' . $entityModelClass);
                 } else {
-                    Mage::log('skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
+                    Mage::log('Skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
                 }
                 continue;
             }
