@@ -265,9 +265,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 if ($_removedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
                 }
-                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_removedProduct);
-                if ($item_category) {
-                    $_item['item_category'] = $item_category;
+                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_removedProduct);
+                if ($itemCategory) {
+                    $_item['item_category'] = $itemCategory;
                 }
                 array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
@@ -297,9 +297,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
                 }
 
-                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_addedProduct);
-                if ($item_category) {
-                    $_item['item_category'] = $item_category;
+                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_addedProduct);
+                if ($itemCategory) {
+                    $_item['item_category'] = $itemCategory;
                 }
                 array_push($eventData['items'], $_item);
                 $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
@@ -404,9 +404,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
 
-                $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
-                if ($item_category) {
-                    $_item['item_category'] = $item_category;
+                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                if ($itemCategory) {
+                    $_item['item_category'] = $itemCategory;
                 }
                 array_push($eventData['items'], $_item);
                 $eventData['value'] += $_product->getFinalPrice();
@@ -438,9 +438,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
 
-                    $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
-                    if ($item_category) {
-                        $_item['item_category'] = $item_category;
+                    $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    if ($itemCategory) {
+                        $_item['item_category'] = $itemCategory;
                     }
                     array_push($eventData['items'], $_item);
                     $eventData['value'] += $_product->getFinalPrice();
@@ -485,9 +485,9 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
 
-                    $item_category = Mage::helper('googleanalytics')->getLastCategoryName($_product);
-                    if ($item_category) {
-                        $_item['item_category'] = $item_category;
+                    $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    if ($itemCategory) {
+                        $_item['item_category'] = $itemCategory;
                     }
                     array_push($orderData['items'], $_item);
                 }
