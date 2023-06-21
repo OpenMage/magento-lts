@@ -154,5 +154,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
             $_cat = Mage::getModel('catalog/category')->load($_lastCat);
             return $_cat->getName();
         }
+        return '';
     }
 }
