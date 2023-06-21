@@ -475,7 +475,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     $_item = [
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
-                        'quantity' => intval($item->getQtyOrdered()),
+                        'quantity' => (int) $item->getQtyOrdered(),
                         'price' => number_format($item->getBasePrice(), 2),
                         'discount' => number_format($item->getBaseDiscountAmount(), 2)
                     ];
