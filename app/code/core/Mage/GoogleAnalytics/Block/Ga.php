@@ -111,7 +111,7 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
 gtag('set', 'user_id', '{$customer->getId()}');
 ";
         }
-      
+
         if ($this->helper('googleanalytics')->isDebugModeEnabled()) {
             $this->helper('googleanalytics')->log($trackingCode);
         }
