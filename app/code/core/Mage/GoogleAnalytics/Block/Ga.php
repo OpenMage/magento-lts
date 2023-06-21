@@ -397,7 +397,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
                     'price' => number_format($_product->getFinalPrice(), 2),
-                    'quantity' => intval($productInCart->getQty()),
+                    'quantity' => (int) $productInCart->getQty(),
                 ];
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
