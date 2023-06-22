@@ -343,7 +343,9 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function quoteEscape($data, $addSlashes = false)
     {
-        $data = (string)$data;
+        if (!$data) {
+            return $data;
+        }
         if ($addSlashes === true) {
             $data = addslashes($data);
         }
