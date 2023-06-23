@@ -53,11 +53,16 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $email = false,
         $includeComment = false
     ) {
+        if (!is_array($itemsQty)) {
+            $itemsQty = [];
+        }
+
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
+
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
