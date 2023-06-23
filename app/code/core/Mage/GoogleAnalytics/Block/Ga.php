@@ -35,6 +35,8 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
         if ($helper->isUseAnalytics4()) {
             return $this->_getPageTrackingCodeAnalytics4($accountId);
         }
+
+        return '';
     }
 
     /**
@@ -80,14 +82,11 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @param string $accountId
      * @return string
+     * @deprecated
      */
     protected function _getPageTrackingCodeUniversal($accountId)
     {
-        return "
-ga('create', '{$this->jsQuoteEscape($accountId)}', 'auto');
-" . $this->_getAnonymizationCode() . "
-ga('send', 'pageview');
-";
+        return '';
     }
 
     /**
@@ -98,19 +97,11 @@ ga('send', 'pageview');
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
      * @param string $accountId
      * @return string
+     * @deprecated
      */
     protected function _getPageTrackingCodeAnalytics($accountId)
     {
-        $pageName   = trim($this->getPageName());
-        $optPageURL = '';
-        if ($pageName && preg_match('/^\/.*/i', $pageName)) {
-            $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
-        }
-        return "
-_gaq.push(['_setAccount', '{$this->jsQuoteEscape($accountId)}']);
-" . $this->_getAnonymizationCode() . "
-_gaq.push(['_trackPageview'{$optPageURL}]);
-";
+        return '';
     }
 
     /**
