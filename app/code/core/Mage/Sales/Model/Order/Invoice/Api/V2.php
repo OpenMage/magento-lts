@@ -33,12 +33,17 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
      */
     public function create($invoiceIncrementId, $itemsQty = [], $comment = null, $email = false, $includeComment = false)
     {
+        if (!is_array($itemsQty)) {
+            $itemsQty = [];
+        }
+
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->loadByIncrementId($invoiceIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
-        /** @var Mage_Sales_Model_Order $order */
+
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
