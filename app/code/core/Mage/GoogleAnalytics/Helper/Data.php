@@ -27,7 +27,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_ACTIVE        = 'google/analytics/active';
     public const XML_PATH_TYPE          = 'google/analytics/type';
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
-    public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
     public const XML_PATH_USERID        = 'google/analytics/user_id';
 
@@ -37,17 +36,8 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const TYPE_ANALYTICS4 = 'analytics4';
 
     /**
-     * @var string classic google analytics tracking code
-     * @deprecated
+     * @var string
      */
-    public const TYPE_ANALYTICS = 'analytics';
-
-    /**
-     * @var string google analytics universal tracking code
-     * @deprecated
-     */
-    public const TYPE_UNIVERSAL = 'universal';
-
     protected $_moduleName = 'Mage_GoogleAnalytics';
 
     /**
@@ -67,10 +57,11 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
+     * @deprecated
      */
     public function isIpAnonymizationEnabled($store = null)
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_ANONYMIZATION, $store);
+        return false;
     }
 
     /**
@@ -93,7 +84,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isUseUniversalAnalytics($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+        return false;
     }
 
     /**
