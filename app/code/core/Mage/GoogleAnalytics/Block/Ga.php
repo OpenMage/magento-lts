@@ -109,15 +109,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated
      */
     protected function _getOrdersTrackingCode()
     {
-        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
-        $helper = $this->helper('googleanalytics');
-        if ($helper->isUseAnalytics4()) {
-            return $this->_getOrdersTrackingCodeAnalytics4();
-        }
-
         return '';
     }
 
@@ -127,7 +122,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * @return string
      * @throws JsonException
      */
-    protected function _getOrdersTrackingCodeAnalytics4()
+    protected function _getEnhancedEcommerceDataForAnalytics4()
     {
         $result = [];
         $request = $this->getRequest();
