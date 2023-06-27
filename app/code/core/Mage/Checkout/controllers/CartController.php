@@ -263,7 +263,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
-            Mage::logException($e);
             $this->_goBack();
         }
     }
@@ -299,7 +298,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
             } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
-                Mage::logException($e);
                 $this->_goBack();
             }
         }
@@ -418,7 +416,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
-            Mage::logException($e);
             $this->_goBack();
         }
         $this->_redirect('*/*');
@@ -480,7 +477,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
-            Mage::logException($e);
         }
     }
 
