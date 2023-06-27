@@ -59,7 +59,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         $html = '';
         if ($this->getCanBeEmpty()) {
             $html .= '<input type="hidden" name="' . parent::getName() . '" value=""';
-            $html .= (!empty($this->_data['disabled'])) ? ' disabled="disabled"' : '';
+            $html .= empty($this->_data['disabled']) ? '' : ' disabled="disabled"';
             $html .= '/>';
         }
         $html .= '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' .
