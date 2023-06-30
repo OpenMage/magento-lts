@@ -272,6 +272,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     public function getQuote()
     {
+        if (is_null($this->_quote)) {
+            $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
+        }
         return $this->_quote;
     }
 
