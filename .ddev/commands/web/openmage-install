@@ -45,7 +45,7 @@ if [ -f "${LOCALXML}" ]; then
   if [[ "${QUIET_INSTALL_FLAG}" ]]; then
     DELETE='y'
   else
-    read -r -p "OpenMage is already installed. Delete local.xml and drop database [y/N] " DELETE
+    read -r -p "OpenMage is already installed. Delete local.xml and drop the database? [y/N] " DELETE
     DELETE=${DELETE,,} # to lower
   fi
 
@@ -61,7 +61,7 @@ fi
 if [[ "${SAMPLE_DATA_FLAG}" ]]; then
   INSTALL_SAMPLE_DATA='y'
 else
-  read -r -p "Install sample data? [y/N] " INSTALL_SAMPLE_DATA
+  read -r -p "Install Sample Data? [y/N] " INSTALL_SAMPLE_DATA
   INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
 fi
 
@@ -71,23 +71,23 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   SAMPLE_DATA_FILE=sample_data.tgz
 
   if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
-    echo "Creating backup directory ..."
+    echo "Creating Sample Data directory..."
     mkdir -p "${SAMPLE_DATA_DIRECTORY}"
   fi
 
   cd "${SAMPLE_DATA_DIRECTORY}" || exit
   if [[ ! -f "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}" ]]; then
-    echo "Downloading sample data ..."
+    echo "Downloading Sample Data..."
     wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_FILE}"
   fi
 
-  echo "Uncompressing sample data ..."
+  echo "Uncompressing Sample Data..."
   tar xf "${SAMPLE_DATA_FILE}"
 
-  echo "Copying sample data ..."
-  cp -r magento-sample-data-1.9.2.4/* "${PWD}/"
+  echo "Copying Sample Data into the OpenMage directory..."
+  cp -r magento-sample-data-1.9.2.4/* "${ROOT}/"
 
-  echo "Importing sample data ..."
+  echo "Importing Sample Data into the database..."
   mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
 
   # remove sample data
@@ -110,20 +110,20 @@ if [[ "${USE_DEFAULT_FLAG}" ]]; then
   ADMIN_PASSWORD='veryl0ngpassw0rd'
   TABLE_PREFIX='om_'
 else
-  read -r -p "Admin user [admin]: " ADMIN_USER
+  read -r -p "Admin User [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
-  read -r -p "Admin firstname [OpenMage]: " ADMIN_FIRSTNAME
+  read -r -p "Admin Firstname [OpenMage]: " ADMIN_FIRSTNAME
   ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
-  read -r -p "Admin lastname [Administrator]: " ADMIN_LASTNAME
+  read -r -p "Admin Lastname [Administrator]: " ADMIN_LASTNAME
   ADMIN_LASTNAME=${ADMIN_LASTNAME:-Administrator}
-  read -r -p "Admin email [admin@example.com]: " ADMIN_EMAIL
+  read -r -p "Admin Email [admin@example.com]: " ADMIN_EMAIL
   ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
-  read -r -p "Admin password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
+  read -r -p "Admin Password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
   ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
   if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
     TABLE_PREFIX=''
   else
-    read -r -e -i 'om_' -p "Table prefix [om_]: " TABLE_PREFIX
+    read -r -e -i 'om_' -p "Table Prefix [om_]: " TABLE_PREFIX
   fi
 fi
 
