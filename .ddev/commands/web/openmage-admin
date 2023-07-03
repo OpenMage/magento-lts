@@ -9,17 +9,17 @@ read -r -p "Choose your action for the administrator account [Create/Update]: " 
 ACTION=${ACTION,,} # to lower
 
 if [[ "${ACTION}" =~ ^(update|u) || "${ACTION}" =~ ^(create|c) ]]; then
-  read -r -p "Admin user [admin]: " ADMIN_USER
+  read -r -p "Admin User [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
-  read -r -p "Admin firstname [OpenMage]: " ADMIN_FIRSTNAME
+  read -r -p "Admin Firstname [OpenMage]: " ADMIN_FIRSTNAME
   ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
-  read -r -p "Admin lastname [Administrator]: " ADMIN_LASTNAME
+  read -r -p "Admin Lastname [Administrator]: " ADMIN_LASTNAME
   ADMIN_LASTNAME=${ADMIN_LASTNAME:-Administrator}
-  read -r -p "Admin email [admin@example.com]: " ADMIN_EMAIL
+  read -r -p "Admin Email [admin@example.com]: " ADMIN_EMAIL
   ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
-  read -r -p "Admin password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
+  read -r -p "Admin Password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
   ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
-  read -r -p "Table prefix []: " TABLE_PREFIX
+  read -r -p "Table Prefix []: " TABLE_PREFIX
   TABLE_PREFIX=${TABLE_PREFIX:-}
 else
   echo "Please run again and choose an action."
