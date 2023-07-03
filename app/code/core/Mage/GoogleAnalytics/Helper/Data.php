@@ -30,6 +30,9 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
     public const XML_PATH_USERID        = 'google/analytics/user_id';
 
+    public const XML_PATH_GTM_ACTIVE    = 'google/gtm/active';
+    public const XML_PATH_GTM_CONTAINER_ID   = 'google/gtm/container_id';
+
     /**
      * @var string google analytics 4
      */
@@ -39,6 +42,18 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * @var string
      */
     protected $_moduleName = 'Mage_GoogleAnalytics';
+
+    /**
+     * Whether GTM is ready to use
+     *
+     * @param mixed $store
+     * @return bool
+     */
+    public function isGoogleTagManagerAvailable($store = null)
+    {
+        $containerId = Mage::getStoreConfig(self::XML_PATH_GTM_CONTAINER_ID, $store);
+        return $containerId && Mage::getStoreConfigFlag(self::XML_PATH_GTM_ACTIVE, $store);
+    }
 
     /**
      * Whether GA is ready to use
@@ -76,6 +91,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get GTM account id
+     *
+     * @param string $store
+     * @return string
+     */
+    public function getGoogleTagManagerContainerId($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_GTM_CONTAINER_ID, $store);
+    }
+
+    /**
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
@@ -85,6 +111,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function isUseUniversalAnalytics($store = null)
     {
         return false;
+    }
+
+    /**
+     * Returns true if should use Google Tag Manager
+     *
+     * @param string $store
+     * @return bool
+     */
+    public function isUseGoogleTagManager($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_GTM_ACTIVE, $store);
     }
 
     /**
