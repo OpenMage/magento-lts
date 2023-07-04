@@ -1661,11 +1661,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Link/Product/Collection.php
 
 		-
-			message: "#^Loose comparison using \\=\\= between true and true will always evaluate to true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
 			message: "#^Property Mage_Catalog_Model_Url\\:\\:\\$_saveRewritesHistory \\(bool\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
