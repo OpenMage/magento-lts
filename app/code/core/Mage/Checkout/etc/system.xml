@@ -80,6 +80,7 @@
                     <fields>
                         <delete_quote_after translate="label">
                             <label>Quote Lifetime (days)</label>
+                            <validate>validate-not-negative-number</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

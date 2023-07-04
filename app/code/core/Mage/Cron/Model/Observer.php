@@ -326,6 +326,11 @@ class Mage_Cron_Model_Observer
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
         }
+
+        if ($schedule->getIsError()) {
+            $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_ERROR);
+        }
+
         $schedule->save();
 
         return $this;
