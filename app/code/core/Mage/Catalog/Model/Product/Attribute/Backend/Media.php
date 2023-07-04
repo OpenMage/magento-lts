@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -157,6 +150,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $mediaAttrCode = $mediaAttribute->getAttributeCode();
             $attrData = $object->getData($mediaAttrCode);
 
+            if (empty($attrData)) {
+                continue;
+            }
+
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
@@ -276,6 +273,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
+        if (str_contains($file, chr(0))
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         $file = realpath($file);
 
         if (!$file || !file_exists($file)) {

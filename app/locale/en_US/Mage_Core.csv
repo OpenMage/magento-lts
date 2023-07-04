@@ -49,7 +49,7 @@
 "Before modifying the website code please make sure that it is not used in index.php.","Before modifying the website code please make sure that it is not used in index.php."
 "Block with name ""%s"" already exists","Block with name ""%s"" already exists"
 "Browser Capabilities Detection","Browser Capabilities Detection"
-"CSRF protection","CSRF protection"
+"CSRF protection","CSRF Protection"
 "CSS Settings","CSS Settings"
 "Cache Storage Management","Cache Storage Management"
 "Cache storage may contain additional data. Are you sure that you want flush it?","Cache storage may contain additional data. Are you sure that you want flush it?"

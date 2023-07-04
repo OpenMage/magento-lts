@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -25,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Cart
 {
@@ -442,7 +435,7 @@ class Mage_Paypal_Model_Cart
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $qty = (int) $salesItem->getQtyOrdered();
             $amount = (float) $salesItem->getBasePrice();
-        // TODO: nominal item for order
+            // TODO: nominal item for order
         } else {
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();

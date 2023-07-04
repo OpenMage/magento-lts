@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
@@ -375,8 +368,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 []
             )
             ->joinLeft(
-                ['t2' => $this->getTable(['customer/entity', 'datetime'])],
-                't1.attribute_id = t2.attribute_id',
+                ['t2' => $this->getTable(['customer/entity', 'int'])],
+                't1.attribute_id = t2.attribute_id AND t2.entity_id = t0.entity_id',
                 []
             )
             ->where('t0.entity_id = ?', $customerId)

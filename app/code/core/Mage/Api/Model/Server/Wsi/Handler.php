@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Abstract
 {
@@ -59,7 +52,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
         foreach ($nodes as $resource => $prefix) {
             $prefix = $prefix->asArray();
-            if (strpos($function, $prefix) !== false) {
+            if (str_contains($function, $prefix)) {
                 $method = substr($function, strlen($prefix));
                 $apiKey = $resource . '.' . strtolower($method[0]) . substr($method, 1);
             }

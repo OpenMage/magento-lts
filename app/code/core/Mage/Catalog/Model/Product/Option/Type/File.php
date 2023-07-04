@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getCustomOptionUrlParams()
  */
@@ -807,14 +800,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $_bytes = @ini_get($ini_key);
 
-        // kilobytes
         if (stristr($_bytes, 'k')) {
+            // kilobytes
             $_bytes = (int) $_bytes * 1024;
-        // megabytes
         } elseif (stristr($_bytes, 'm')) {
+            // megabytes
             $_bytes = (int) $_bytes * 1024 * 1024;
-        // gigabytes
         } elseif (stristr($_bytes, 'g')) {
+            // gigabytes
             $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;

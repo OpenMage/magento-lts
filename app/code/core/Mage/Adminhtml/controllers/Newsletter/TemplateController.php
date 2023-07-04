@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -23,7 +17,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Controller_Action
 {
@@ -176,10 +169,10 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
-                $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_HTML);
+                $template->setTemplateType(Mage_Core_Model_Template::TYPE_HTML);
             }
             if ($this->getRequest()->getParam('_change_type_flag')) {
-                $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_TEXT);
+                $template->setTemplateType(Mage_Core_Model_Template::TYPE_TEXT);
                 $template->setTemplateStyles('');
             }
             if ($this->getRequest()->getParam('_save_as_flag')) {

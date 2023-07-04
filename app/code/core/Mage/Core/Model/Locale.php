@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Locale
 {
@@ -840,16 +833,16 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime($dateFrom);
-        $toTimeStamp    = strtotime($dateTo);
+        $fromTimeStamp  = strtotime((string)$dateFrom);
+        $toTimeStamp    = strtotime((string)$dateTo);
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;
         }
 
         $result = false;
-        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }

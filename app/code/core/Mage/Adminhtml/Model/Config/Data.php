@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getGroups()
  * @method $this setGroups(array $value)
@@ -129,6 +122,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     ? $fieldData['value'] : null;
             }
 
+            $helper = Mage::helper('adminhtml/config');
             foreach ($groupData['fields'] as $field => $fieldData) {
                 $field = ltrim($field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
@@ -143,10 +137,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
 
-                /**
-                 * Get field backend model
-                 */
-                $backendClass = (isset($fieldConfig->backend_model)) ? $fieldConfig->backend_model : false;
+                $backendClass = $fieldConfig ? $helper->getBackendModelByFieldConfig($fieldConfig) : false;
                 if (!$backendClass) {
                     $backendClass = 'core/config_data';
                 }

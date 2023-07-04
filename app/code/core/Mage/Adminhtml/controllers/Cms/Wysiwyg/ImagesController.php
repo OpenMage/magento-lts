@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Controller_Action
 {
@@ -128,8 +121,8 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
                 $_filePath = realpath($path . DS . $file);
-                if (strpos($_filePath, realpath($path)) === 0 &&
-                    strpos($_filePath, realpath($helper->getStorageRoot())) === 0
+                if (str_starts_with($_filePath, realpath($path)) &&
+                    str_starts_with($_filePath, realpath($helper->getStorageRoot()))
                 ) {
                     $this->getStorage()->deleteFile($path . DS . $file);
                 }

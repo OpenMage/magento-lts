@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -22,7 +16,6 @@
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Layout_Update
 {
@@ -405,10 +398,16 @@ class Mage_Core_Model_Layout_Update
     public function fetchRecursiveUpdates($updateXml)
     {
         foreach ($updateXml->children() as $child) {
-            if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
-                $this->merge((string)$child['handle']);
-                // Adding merged layout handle to the list of applied hanles
-                $this->addHandle((string)$child['handle']);
+            if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
+                $allow = true;
+                if (isset($child['ifconfig']) && ($configPath = (string)$child['ifconfig'])) {
+                    $allow = Mage::getStoreConfigFlag($configPath);
+                }
+                if ($allow) {
+                    $this->merge((string)$child['handle']);
+                    // Adding merged layout handle to the list of applied hanles
+                    $this->addHandle((string)$child['handle']);
+                }
             }
         }
         return $this;

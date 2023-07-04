@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     rwd_default
@@ -114,7 +108,7 @@ $_deleteUrl = $this->getDeleteUrlCustom(false);
                 <a id="<?php echo $helpLinkId ?>" href="#" class="map-help-link"><?php echo $this->__("What's this?"); ?></a>
 
                 <script type="text/javascript">
-                    Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo $this->__("What&#39;s this?") ?>");
+                    Catalog.Map.addHelpLink($('<?php echo $helpLinkId ?>'), "<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")); ?>");
                 </script>
 
             </span>

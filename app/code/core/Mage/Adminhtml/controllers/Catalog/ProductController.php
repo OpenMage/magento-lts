@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller_Action
 {
@@ -134,7 +127,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             /** @var Mage_Catalog_Model_Product $configProduct */
             $data = [];
             foreach ($configProduct->getTypeInstance()->getEditableAttributes() as $attribute) {
-
                 /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
                 if (!$attribute->getIsUnique()
                     && $attribute->getFrontend()->getInputType() != 'gallery'
@@ -406,7 +398,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.related')
-            ->setProductsRelated($this->getRequest()->getPost('products_related', null));
+            ->setProductsRelated($this->getRequest()->getPost('products_related', []));
         $this->renderLayout();
     }
 
@@ -419,7 +411,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.upsell')
-            ->setProductsRelated($this->getRequest()->getPost('products_upsell', null));
+            ->setProductsUpsell($this->getRequest()->getPost('products_upsell', []));
         $this->renderLayout();
     }
 
@@ -432,7 +424,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $this->_initProduct();
         $this->loadLayout();
         $this->getLayout()->getBlock('catalog.product.edit.tab.crosssell')
-            ->setProductsRelated($this->getRequest()->getPost('products_crosssell', null));
+            ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', []));
         $this->renderLayout();
     }
 

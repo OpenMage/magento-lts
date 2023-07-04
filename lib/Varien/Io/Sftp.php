@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Io
@@ -19,14 +13,11 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once('phpseclib/Net/SFTP.php');
-
 /**
  * Sftp client interface
  *
  * @category   Varien
  * @package    Varien_Io
- * @author     Magento Core Team <core@magentocommerce.com>
  * @link        http://www.php.net/manual/en/function.ssh2-connect.php
  */
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
@@ -35,7 +26,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     public const SSH2_PORT = 22;
 
     /**
-     * @var phpseclib\Net\SFTP $_connection
+     * @var \phpseclib3\Net\SFTP $_connection
      */
     protected $_connection = null;
 
@@ -60,7 +51,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $host = $args['host'];
             $port = self::SSH2_PORT;
         }
-        $this->_connection = new phpseclib\Net\SFTP($host, $port, $args['timeout']);
+        $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
         }
@@ -117,7 +108,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $list = $this->_connection->nlist();
             if (!count($list)) {
                 // Go back
-                $this->_connection->chdir($pwd);
+                $this->_connection->chdir($cwd);
                 return $this->rmdir($dir, false);
             } else {
                 foreach ($list as $filename) {
@@ -129,7 +120,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                     }
                 }
             }
-            $no_errors = $no_errors && ($this->_connection->chdir($pwd) && $this->_connection->rmdir($dir));
+            $no_errors = $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
             return $no_errors;
         } else {
             return $this->_connection->rmdir($dir);
@@ -234,6 +225,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function writeFile($filename, $src)
     {
-        return $this->_connection->put($filename, $src, phpseclib\Net\SFTP::SOURCE_LOCAL_FILE);
+        return $this->_connection->put($filename, $src, \phpseclib3\Net\SFTP::SOURCE_LOCAL_FILE);
     }
 }

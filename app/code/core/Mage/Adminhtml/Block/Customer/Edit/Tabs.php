@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -80,9 +73,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
-            $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
-            if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
+                /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
+                $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
                 $this->addTab('newsletter', [
                     'label'     => Mage::helper('customer')->__('Newsletter'),
                     'content'   => $block->initForm()->toHtml()
@@ -97,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
+            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',

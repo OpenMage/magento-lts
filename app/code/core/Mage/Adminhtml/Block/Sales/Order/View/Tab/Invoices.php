@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -127,9 +120,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
 
-    /**
-     * ######################## TAB settings #################################
-     */
     public function getTabLabel()
     {
         return Mage::helper('sales')->__('Invoices');
@@ -137,12 +127,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
 
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order Invoices');
+        return Mage::helper('sales')->__('Invoices');
     }
 
     public function canShowTab()
     {
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
     }
 
     public function isHidden()

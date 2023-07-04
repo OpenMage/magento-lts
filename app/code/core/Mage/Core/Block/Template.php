@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)
@@ -163,7 +156,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
@@ -252,7 +245,7 @@ HTML;
         try {
             if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
-                ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
+                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
@@ -260,7 +253,10 @@ HTML;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
         } catch (Throwable $e) {
-            ob_get_clean();
+            if (!$do) {
+                ob_get_clean();
+                $do = true;
+            }
             if (Mage::getIsDeveloperMode()) {
                 throw $e;
             }

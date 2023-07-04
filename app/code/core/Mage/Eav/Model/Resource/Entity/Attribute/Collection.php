@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
  *
@@ -40,6 +33,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * @var bool
      */
     protected $_addSetInfoFlag   = false;
+
+    /**
+     * Tracks if addStoreLabel has been called to avoid conflicts on duplicate calls
+     *
+     * @var bool|int
+     */
+    protected $_addedStoreLabelsFlag = false;
 
     /**
      * Resource model initialization
@@ -418,14 +418,21 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      */
     public function addStoreLabel($storeId)
     {
-        $adapter        = $this->getConnection();
-        $joinExpression = $adapter
-            ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $storeId);
-        $this->getSelect()->joinLeft(
-            ['al' => $this->getTable('eav/attribute_label')],
-            $joinExpression,
-            ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
-        );
+        // if not called previously
+        if ($this->_addedStoreLabelsFlag === false) {
+            $adapter = $this->getConnection();
+            $joinExpression = $adapter
+                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int)$storeId);
+            $this->getSelect()->joinLeft(
+                ['al' => $this->getTable('eav/attribute_label')],
+                $joinExpression,
+                ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
+            );
+            $this->_addedStoreLabelsFlag = $storeId;
+        } // check that previous call $storeId matches current call
+        elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+            throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
+        }
 
         return $this;
     }

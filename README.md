@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-151-orange.svg" alt="All Contributors"></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-152-orange.svg" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
@@ -16,40 +16,130 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with bug fixes and security patches from the community are encouraged and welcome!**
 
+---
+
+## Table of contents
+
+- [Releases and Versioning](#releases-and-versioning)
+  - [Currently Maintained Versions](#currently-maintained-versions)
+- [Requirements](#requirements)
+- [Installation](#installation)
+  - [Manual Install](#manual-install)
+  - [Composer](#composer)
+  - [Git](#git)
+- [Secure your installation](#secure-your-installation)
+  - [Apache .htaccess](#apache-htaccess)
+  - [Nginx](#nginx)
+- [Magento 1 Compatibility](#magento-1-compatibility)
+- [Changes](#changes)
+  - [Between Magento 1.9.4.5 and OpenMage 19.x](#between-magento-1945-and-openmage-19x)
+  - [Since OpenMage 19.5.0 / 20.1.0](#since-openmage-1950--2010)
+  - [New Config Options](#new-config-options)
+  - [New Events](#new-events)
+  - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
+- [Development Environment with ddev](#development-environment-with-ddev)
+- [PhpStorm Factory Helper](#phpstorm-factory-helper)
+- [Public Communication](#public-communication)
+- [Maintainers](#maintainers)
+- [License](#license)
+- [Contributors](#contributors-)
+
+## Releases and Versioning
+
+This project more strictly adheres to [Semantic Versioning](http://semver.org/) compared to the original Magento version numbering system where the "1"
+was essentially a fixed number. See the [Terminology](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md#terminology)
+section of [RFC 0002 - Release Schedule](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md) for more information on how the terms MAJOR, MINOR and PATCH are defined and applied.
+
+The OpenMage team and community maintains OpenMage LTS versions as follows:
+
+- The latest MAJOR.MINOR version always receives PATCH updates.
+- The latest MAJOR version always receives MINOR updates.
+- The latest MAJOR.MINOR branch for each MAJOR version receives PATCH updates for at least 2 years from the time of inception of the initial MAJOR version release.
+
+In a nutshell:
+
+- If you want to stay on the cutting edge with the latest improvements use the latest MAJOR version.
+- If you want maximum backwards compatibility and minimal upgrade hassle use the next-latest MAJOR version so that you can still receive important security/stability/regression fixes.
+
+### Currently Maintained Versions
+
+- 20.x is the latest MAJOR version and will receive PATCH updates until 2 years after the date that 21.x is released.
+- 19.4.x will receive PATCH updates until April 4, 2025.
+
 ## Requirements
 
-- PHP 7.3+ (PHP 8.0 is supported)
+- PHP 8.1+ for OM v21, PHP 7.4+ for OpenMage v19/v20
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
+- optional: Redis 5.x, 6.x and 7.0.x are supported
 
 
 - PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
 - Command `patch` 2.7+ (or `gpatch` on MacOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
 
-__Please be aware that although OpenMage is compatible that one or more extensions may not be.__
-
-### Optional
-
-- Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
-
 ## Installation
 
-### Using Composer
+### Manual Install
 
-Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
+Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install. **Important:** you must download the ZIP file from a tagged version on the releases page, otherwise there will be missing dependencies.
+
+### Composer
+
+Step 1: Create a new composer project:
 
 ```bash
-composer require "openmage/magento-lts":"^19.5.0"
+composer init
 ```
 
-To get the latest changes use:
+Step 2: Configure composer. **The below options are required.** You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
 
 ```bash
+# Allow composer to apply patches to dependencies of magento-lts
+composer config --json extra.enable-patching true
+
+# Configure Magento core composer installer to use magento-lts as the Magento source package
+composer config extra.magento-core-package-type magento-source
+
+# Configure the root directory that magento-lts will be installed to, such as "pub", "htdocs", or "www"
+composer config extra.magento-root-dir pub
+```
+
+Step 3: Require `magento-core-composer-installer`:
+
+``` bash
+# PHP 7
+composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0"
+
+# PHP 8
+composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
+
+Step 4: Require the appropriate version of `magento-lts`:
+
+```bash
+# Latest tagged v20 series release
+composer require "openmage/magento-lts":"^20.0.0"
+
+# Legacy v19 tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
+composer require "openmage/magento-lts":"^19.4.0"
+
+# Latest on "main" development branch
 composer require "openmage/magento-lts":"dev-main"
+
+# Latest on "next" development branch
+composer require "openmage/magento-lts":"dev-next"
 ```
 
-<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
+<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
 
-### Using Git
+When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
+
+```bash
+composer dump-autoload --optimize
+```
+
+### Git
 
 If you want to contribute to the project:
 
@@ -58,7 +148,7 @@ git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
 git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
-git pull upstream 1.9.4.x
+git pull upstream main
 git add -A && git commit
 ```
 
@@ -84,8 +174,23 @@ Don't use common paths like /admin for OpenMage Backend URL. Don't use the path 
 
 Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
 
-* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
-* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+### Apache .htaccess
+```
+RewriteRule ^api/rest api.php?type=rest [QSA,L]
+```
+
+### Nginx
+```
+rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+```
+
+## Magento 1 Compatibility
+
+OpenMage LTS 19.4.0 is the first tagged version using the OpenMage LTS version naming system and all 19.x versions are mostly backward-compatible
+with Magento 1.9.4.x.
+
+OpenMage LTS 20.x and later have more changes that may not be 100% backward-compatible, but minimizing migration and upgrade hassle for users is always
+considered an important goal and factors heavily into the changes that are accepted even when accepting changes for "MAJOR" releases, described in [Releases and Versioning](#releases-and-versioning) above.
 
 ## Changes
 
@@ -94,55 +199,72 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-- bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
-- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
-- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
-- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
+- bug fixes and PHP 7.x, 8.0, 8.1 and 8.2 compatibility
+- added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
+- added frontend_type color ([#2945](https://github.com/OpenMage/magento-lts/pull/2945))
+- search for "NULL" in backend grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
+- removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
+- Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
+- PHP extension `intl` is required
+- Deprecation errors are not suppressed anymore
 - removed modules:
+  - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
   - `Mage_GoogleBase`
-  - `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+  - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
+- `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
-
-### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
-
-- PHP extension `intl` is required
+- `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
-- fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
-- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
-- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
-- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
-- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
-- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api [#1257](https://github.com/OpenMage/magento-lts/pull/1257)
+- removed IE conditional comments, IE styles, IE scripts and IE eot files ([#1073](https://github.com/OpenMage/magento-lts/pull/1073))
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) ([#1525](https://github.com/OpenMage/magento-lts/pull/1525))
+- added redis as a valid option for `global/session_save` ([#1513](https://github.com/OpenMage/magento-lts/pull/1513))
+- reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))
+- removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
+- enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
+- made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
+- removed module Mage_Poll ([3098](https://github.com/OpenMage/magento-lts/pull/3098), you can install it with `composer require openmage/module-mage-poll`)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### Since OpenMage 19.5.0 / 20.1.0
 
+PHP 7.4 is now the minimum required version.
+
 Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
 This allows for better maintenance and upgradability.
 
 Specifically:
-- phpseclib, mcrypt_compat, Cm_RedisSession, Cm_Cache_Backend_Redis, Pelago_Emogrifier (#2411)
-- Zend Framework 1 (#2827)
+- `phpseclib`, `mcrypt_compat`, `Cm_RedisSession`, `Cm_Cache_Backend_Redis`, `Pelago_Emogrifier` ([#2411](https://github.com/OpenMage/magento-lts/pull/2411))
+- Zend Framework 1 ([#2827](https://github.com/OpenMage/magento-lts/pull/2827))
 
 If your project uses OpenMage through composer then all dependencies will be managed automatically.  
 If you just extracted the release zip/tarball in your project's main folder then be sure to:
 - remove the old copy of aforementioned libraries from your project, you can do that with this command:
-  `rm -rf lib/Cm lib/Credis lib/mcryptcompat lib/Pelago lib/phpseclib lib/Zend`
+  ```bash
+  rm -rf app/code/core/Zend lib/Cm lib/Credis lib/mcryptcompat lib/Pelago lib/phpseclib lib/Zend
+  ```
+
 - download the new release zip file that is named `openmage-VERSIONNUMBER.zip`, this one is built to contain the `vendor`
   folder generated by composer, with all the dependencies in it
 - extract the zip file in your project's repository as you always did
+
+We also decided to remove our Zend_DB patches (that were stored in `app/code/core/Zend`) because they were very old and
+not compatible with the new implementations made by ZF1-Future, which is much more advanced and feature rich.
+This may generate a problem with `Zend_Db_Select' statements that do not use 'Zend_Db_Expr' to quote expressions.
+If you see SQL errors after upgrading please remember to check for this specific issue in your code.
+
+UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
 
 ### New Config Options
 
@@ -152,7 +274,6 @@ If you just extracted the release zip/tarball in your project's main folder then
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `dev/log/max_level`
-- `newsletter/security/enable_form_key`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
@@ -163,6 +284,7 @@ If you just extracted the release zip/tarball in your project's main folder then
 - `adminhtml_block_widget_tabs_html_before`
 - `adminhtml_sales_order_create_save_before`
 - `checkout_cart_product_add_before`
+- `core_app_run_after`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
@@ -189,27 +311,27 @@ targetNamespace="urn:{{var wsdl.name}}"
  to avoid any problem.
 
 To find which files need the modification you can run this command from the root directory of your project.
-```
+```bash
 grep -rn 'urn:Magento' --include \*.xml
 ```
 
-## Development Environment with ddev
+## Development Environment with DDEV
 
 - Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in installation ([Using Git](https://github.com/OpenMage/magento-lts#using-git))
+- Clone the repository as described in installation ([Git](#git))
 - Create a ddev config, defaults should be good for you
   ```bash
-  $ ddev config
+  ddev config
   ```
 - Open `.ddev/config.yaml` and change the php version to your needs
 - Download and start the containers
   ```bash
-  $ ddev start
+  ddev start
   ```
 - Open your site in browser
   ```bash
-  $ ddev launch
-  ```
+  ddev launch
+  ``` 
 
 ## PhpStorm Factory Helper
 
@@ -217,7 +339,7 @@ This repo includes class maps for the core Magento files in `.phpstorm.meta.php`
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
 and run command:
 
-```
+```bash
 n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
@@ -225,25 +347,20 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
-## Versioning
-
-Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition. Each Magento `1.<minor>.<revision>` release will get its own branch (named `1.<minor>.<revision>.x`)
-that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
-to do so (based on available resources). For example, Magento version `1.9.4.5` was merged into the `1.9.4.x` branch.
-
 ## Public Communication
 
 * [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
 
 ## Maintainers
 
-* [Lee Saferite](https://github.com/LeeSaferite)
+* [Daniel Fahlke](https://github.com/Flyingmana)
 * [David Robinson](https://github.com/drobinson)
-* [Daniel Fahlke aka Flyingmana](https://github.com/Flyingmana)
-* [Tymoteusz Motylewski](https://github.com/tmotyl)
-* [Sven Reichel](https://github.com/sreichel)
 * [Fabrizio Balliano](https://github.com/fballiano)
+* [Lee Saferite](https://github.com/LeeSaferite)
+* [Mohamed Elidrissi](https://github.com/elidrissidev)
+* [Ng Kiat Siong](https://github.com/kiatng)
+* [Sven Reichel](https://github.com/sreichel)
+* [Tymoteusz Motylewski](https://github.com/tmotyl)
 
 ## License
 
@@ -453,6 +570,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AGelzer"><img src="https://avatars.githubusercontent.com/u/34437931?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Gelzer</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
     </tr>
   </tbody>
 </table>

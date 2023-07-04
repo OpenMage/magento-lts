@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
@@ -60,7 +53,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             $blocks = [$blocks];
         }
 
-        $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter'));
+        $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter', ''));
         $requestData = $this->_filterDates($requestData, ['from', 'to']);
         $requestData['store_ids'] = $this->getRequest()->getParam('store_ids');
         $params = new Varien_Object();
@@ -94,7 +87,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 
-        if (!is_array($codes) && strpos($codes, ',') === false) {
+        if (!is_array($codes) && !str_contains($codes, ',')) {
             $codes = [$codes];
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);

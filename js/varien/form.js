@@ -1,15 +1,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Varien
  * @package     js
@@ -28,7 +22,9 @@ VarienForm.prototype = {
         this.cache      = $A();
         this.currLoader = false;
         this.currDataIndex = false;
-        this.validator  = new Validation(this.form);
+        if (typeof Validation === 'function') {
+            this.validator  = new Validation(this.form);
+        }
         this.elementFocus   = this.elementOnFocus.bindAsEventListener(this);
         this.elementBlur    = this.elementOnBlur.bindAsEventListener(this);
         this.childLoader    = this.onChangeChildLoad.bindAsEventListener(this);
@@ -187,7 +183,9 @@ RegionUpdater.prototype = {
         var regionRequired = this.config.regions_required.indexOf(this.countryEl.value) >= 0;
 
         elements.each(function(currentElement) {
-            Validation.reset(currentElement);
+            if (typeof Validation !== 'undefined') {
+                Validation.reset(currentElement);
+            }
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
@@ -293,7 +291,9 @@ RegionUpdater.prototype = {
                     this.regionTextEl.style.display = '';
                 }
                 this.regionSelectEl.style.display = 'none';
-                Validation.reset(this.regionSelectEl);
+                if (typeof Validation !== 'undefined') {
+                    Validation.reset(this.regionSelectEl);
+                }
             } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = false;
@@ -373,7 +373,9 @@ ZipUpdater.prototype = {
 
         // Ajax-request and normal content load compatibility
         if (this.zipElement != undefined) {
-            Validation.reset(this.zipElement);
+            if (typeof Validation !== 'undefined') {
+                Validation.reset(this.zipElement);
+            }
             this._setPostcodeOptional();
         } else {
             Event.observe(window, "load", this._setPostcodeOptional.bind(this));
@@ -382,13 +384,13 @@ ZipUpdater.prototype = {
 
     _setPostcodeOptional: function(){
         this.zipElement = $(this.zipElement);
-        if (this.zipElement == undefined) {
+        if (this.zipElement === undefined) {
             return false;
         }
 
         // find label
         var label = $$('label[for="' + this.zipElement.id + '"]')[0];
-        if (label != undefined) {
+        if (label !== undefined) {
             var wildCard = label.down('em') || label.down('span.required');
             if (!wildCard) {
                 label.insert(' <span class="required">*</span>');
@@ -398,21 +400,21 @@ ZipUpdater.prototype = {
 
         // Make Zip and its label required/optional
         if (optionalZipCountries.indexOf(this.country) != -1) {
-            if (label.hasClassName('required')) {
+            if (label !== undefined && label.hasClassName('required')) {
                 label.removeClassName('required');
             }
             while (this.zipElement.hasClassName('required-entry')) {
                 this.zipElement.removeClassName('required-entry');
             }
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.hide();
             }
         } else {
-            if (!label.hasClassName('required')) {
+            if (label !== undefined && !label.hasClassName('required')) {
                 label.addClassName('required');
             }
             this.zipElement.addClassName('required-entry');
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.show();
             }
         }

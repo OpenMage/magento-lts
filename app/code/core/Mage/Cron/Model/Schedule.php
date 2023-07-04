@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Cron
@@ -24,11 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Cron
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
  * @method string getStatus()
@@ -58,6 +52,14 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function _construct()
     {
         $this->_init('cron/schedule');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsError(): bool
+    {
+        return !empty($this->getData('is_error'));
     }
 
     /**
@@ -107,8 +109,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             && $this->matchCronExpression($e[4], $d['wday']);
 
         if ($match) {
-            $this->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-            $this->setScheduledAt(strftime('%Y-%m-%d %H:%M', (int)$time));
+            $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
+            $this->setScheduledAt(date('Y-m-d H:i:00', (int)$time));
         }
         return $match;
     }
@@ -127,7 +129,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle multiple options
-        if (strpos($expr, ',') !== false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -137,7 +139,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr, '/') !== false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
@@ -155,7 +157,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if ($expr === '*') {
             $from = 0;
             $to = 60;
-        } elseif (strpos($expr, '-') !== false) { // handle range
+        } elseif (str_contains($expr, '-')) { // handle range
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);

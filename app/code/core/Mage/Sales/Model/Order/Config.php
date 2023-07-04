@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
 {
@@ -34,6 +27,13 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * @var array
      */
     protected $_stateStatuses;
+
+    /**
+     * Statuses array
+     *
+     * @var array
+     */
+    protected $_statuses;
 
     /**
      * States array
@@ -91,9 +91,12 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatusLabel($code)
     {
-        $status = Mage::getModel('sales/order_status')
-            ->load($code);
-        return $status->getStoreLabel();
+        $key = $code . '/' . Mage::app()->getStore()->getStoreId();
+        if (!isset($this->_statuses[$key])) {
+            $status = Mage::getModel('sales/order_status')->load($code);
+            $this->_statuses[$key] = $status->getStoreLabel();
+        }
+        return $this->_statuses[$key];
     }
 
     /**

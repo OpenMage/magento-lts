@@ -1,15 +1,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -258,7 +252,6 @@ var toolbarToggle = {
     headerOffset: null, // Normal toolbar offset - calculated once
     headerCopy: null, // Floating toolbar
     eventsAdded: false, // We're listening to scroll/resize
-    compatible: !navigator.appVersion.match('MSIE 6.'), // Whether object is compatible with browser (do not support old browsers, legacy code)
 
     // Inits object and pushes it into work. Can be used to init/reset(update) object by current DOM.
     reset: function () {
@@ -272,10 +265,6 @@ var toolbarToggle = {
 
     // Creates toolbar and inits all needed properties
     createToolbar: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         // Extract header that we will use as toolbar
         var headers = $$('.content-header');
         for (var i = headers.length - 1; i >= 0; i--) {
@@ -319,7 +308,7 @@ var toolbarToggle = {
     // Checks whether object properties are ready and valid
     ready: function () {
         // Return definitely boolean value
-        return (this.compatible && this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
+        return (this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
     },
 
     // Updates toolbars for current scroll - shows/hides normal and floating toolbar
@@ -410,10 +399,6 @@ var toolbarToggle = {
 
     // Starts object on window load
     startOnLoad: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         if (!this.funcOnWindowLoad) {
             this.funcOnWindowLoad = this.start.bind(this);
         }
@@ -430,10 +415,6 @@ var toolbarToggle = {
 
     // Starts object by creating toolbar and enabling scroll/resize events
     start: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         this.reset();
         this.startListening();
     },

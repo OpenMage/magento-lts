@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_ImportExport
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -1516,6 +1509,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Retrieve pattern for time formatting
      *
+     * @deprecated
      * @return string
      */
     protected function _getStrftimeFormat()
@@ -1569,7 +1563,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $storeIds = [0];
 
             if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
+                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $attrValue = $product->formatUrlKey($product->getName());

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interface
 {
@@ -58,17 +51,15 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      * Filter value
      *
      * @param string|array $value
-     * @return string|array         Filtered value
+     * @return string|array
      */
     public function filter($value)
     {
-        $result = false;
         do {
-            $subject = $result ? $result : $value;
-            $result = preg_replace($this->_expressions, '', $subject, -1, $count);
+            $value = preg_replace($this->_expressions, '', $value, -1, $count);
         } while ($count !== 0);
 
-        return $result;
+        return $value;
     }
 
     /**

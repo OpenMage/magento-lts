@@ -844,7 +844,7 @@
         <part name="carrier" type="xsd:string" />
         <part name="title" type="xsd:string" />
         <part name="trackNumber" type="xsd:string" />
-        <part name="weight" type="xsd:double" minOccurs="0" />
+        <part name="weight" type="xsd:double" />
     </message>
     <message name="salesOrderShipmentAddTrackResponse">
         <part name="result" type="xsd:int" />

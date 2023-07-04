@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Data
@@ -24,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getHtmlIdPrefix()
  * @method $this setHtmlIdPrefix(string $value)
@@ -301,7 +294,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form ' . $this->serialize($this->getHtmlAttributes()) . '>';
             $html .= '<div>';
-            if (strtolower($this->getData('method')) == 'post') {
+            if (strtolower((string)$this->getData('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="' . Mage::getSingleton('core/session')->getFormKey() . '" />';
             }
             $html .= '</div>';

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Checkout
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 {
@@ -69,14 +62,14 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Set back redirect url to response
      *
      * @return $this
-     * @throws Mage_Exception
+     * @throws Mage_Core_Exception
      */
     protected function _goBack()
     {
         $returnUrl = $this->getRequest()->getParam('return_url');
         if ($returnUrl) {
             if (!$this->_isUrlInternal($returnUrl)) {
-                throw new Mage_Exception('External urls redirect to "' . $returnUrl . '" denied!');
+                throw new Mage_Core_Exception('External urls redirect to "' . $returnUrl . '" denied!');
             }
 
             $this->_getSession()->getMessages(true);
@@ -199,7 +192,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @throws Mage_Exception
+     * @throws Mage_Core_Exception
      */
     public function addAction()
     {
@@ -270,7 +263,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
-            Mage::logException($e);
             $this->_goBack();
         }
     }
@@ -306,7 +298,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
             } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
-                Mage::logException($e);
                 $this->_goBack();
             }
         }
@@ -425,7 +416,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
-            Mage::logException($e);
             $this->_goBack();
         }
         $this->_redirect('*/*');
@@ -487,7 +477,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
         } catch (Exception $e) {
             $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
-            Mage::logException($e);
         }
     }
 

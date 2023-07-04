@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Log
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Log
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Log_Model_Resource_Aggregation getResource()
  * @method Mage_Log_Model_Resource_Aggregation _getResource()
@@ -167,7 +160,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $out = $in;
         if (is_numeric($in)) {
-            $out = date("Y-m-d H:i:s", $in);
+            $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
         return $out;
     }

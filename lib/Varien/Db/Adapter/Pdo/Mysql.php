@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Db
@@ -311,7 +305,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $hostInfo = new Varien_Object();
         $matches = [];
-        if (strpos($hostName, '/') !== false) {
+        if (str_contains($hostName, '/')) {
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
         } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
@@ -325,7 +319,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
-        } elseif (strpos($hostName, ':') !== false) {
+        } elseif (str_contains($hostName, ':')) {
             list($hostAddress, $hostPort) = explode(':', $hostName);
             $hostInfo->setAddressType(
                 filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
@@ -3209,7 +3203,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string|int $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
-    public function getIfNullSql($expression, $value = 0)
+    public function getIfNullSql($expression, $value = '0')
     {
         if ($expression instanceof Zend_Db_Expr || $expression instanceof Zend_Db_Select) {
             $expression = sprintf("IFNULL((%s), %s)", $expression, $value);

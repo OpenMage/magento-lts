@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
@@ -103,9 +96,9 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
             #->loadStores()
-                #->loadProducts()
-                #->loadAttributeSets()
-                #->loadAttributeOptions();
+            #->loadProducts()
+            #->loadAttributeSets()
+            #->loadAttributeOptions();
         }
         return $this->_resource;
     }
@@ -362,8 +355,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
-                    //echo 'Before **********************<br/><pre>';
-                    //print_r($model->getData());
                     if (!$rowError) {
                         $collection->addItem($model);
                     }

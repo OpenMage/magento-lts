@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_ImportExport
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -364,7 +357,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     {
         /** @var Mage_Customer_Model_Customer $resource */
         $resource       = Mage::getModel('customer/customer');
-        $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper         = Mage::getResourceHelper('importexport');
@@ -392,7 +384,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? $now : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
+                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
                         'updated_at' => $now
                     ];
 
@@ -424,7 +416,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
                             } elseif ($attrParams['type'] === 'datetime') {
-                                $value = gmstrftime($strftimeFormat, strtotime($value));
+                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
                             } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));

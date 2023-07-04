@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Db
@@ -25,7 +19,6 @@
  *
  * @category   Varien
  * @package    Varien_Db
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 require_once 'Varien/Db/Tree/Exception.php';
@@ -71,11 +64,6 @@ class Varien_Db_Tree
         if (! empty($config['db'])) {
             // convenience variable
             $db = $config['db'];
-
-            // use an object from the registry?
-            if (is_string($db)) {
-                $db = Zend::registry($db);
-            }
 
             // make sure it's a Zend_Db_Adapter
             if (! $db instanceof Zend_Db_Adapter_Abstract) {
@@ -230,7 +218,7 @@ class Varien_Db_Tree
 
         try {
             $this->_db->insert($this->_table, $data);
-        } catch (PDOException $e) {
+        } catch (Zend_Db_Adapter_Exception $e) {
             echo $e->getMessage();
         }
         return $this->_db->lastInsertId();
@@ -431,7 +419,7 @@ class Varien_Db_Tree
 
         if ($pId == 0) { //move to root
             $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
-        } elseif ($aId != 0 && $pID == $eInfo[$this->_pid]) { // if we have after ID
+        } elseif ($aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
             $left_key_near = $aInfo[$this->_left];
         } elseif ($aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID
@@ -523,7 +511,6 @@ class Varien_Db_Tree
             $data['minLevel'] = $info[$this->_level] + $start_level;
         }
 
-        //echo $dbSelect->__toString();
         $data = $this->_db->fetchAll($dbSelect, $data);
 
         $nodeSet = new Varien_Db_Tree_NodeSet();

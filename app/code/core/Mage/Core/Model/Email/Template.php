@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -35,7 +29,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
  * @method Mage_Core_Model_Resource_Email_Template getResource()
@@ -459,7 +452,30 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('email_template_send_before', [
+                'mail'      => $mail,
+                'template'  => $this,
+                'transport' => $transport,
+                'variables' => $variables
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            foreach ($emails as $key => $email) {
+                Mage::dispatchEvent('email_template_send_after', [
+                    'to'         => $email,
+                    'html'       => !$this->isPlain(),
+                    'subject'    => $subject,
+                    'template'   => $this->getTemplateId(),
+                    'email_body' => $text
+                ]);
+            }
             $this->_mail = null;
         } catch (Exception $e) {
             $this->_mail = null;

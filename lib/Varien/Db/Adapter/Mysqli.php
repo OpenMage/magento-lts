@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Db
@@ -43,7 +37,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         // Suppress connection warnings here.
         // Throw an exception instead.
         @$conn = new mysqli();
-        if (false === $conn || mysqli_connect_errno()) {
+        if (mysqli_connect_errno()) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_errno());
         }
 
@@ -61,8 +55,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             list($this->_config['host'], $port) = explode(':', $this->_config['host']);
         }
 
-        #echo "<pre>".print_r($this->_config,1)."</pre>"; die;
-        @$conn->real_connect(
+        $connectionSuccessful = @$conn->real_connect(
             $this->_config['host'],
             $this->_config['username'],
             $this->_config['password'],
@@ -70,7 +63,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $port,
             $socket
         );
-        if (mysqli_connect_errno()) {
+        if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
         }
 
@@ -84,7 +77,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * Run RAW Query
      *
      * @param string $sql
-     * @return Zend_Db_Statement_Interface
+     * @return mysqli_result
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_query($sql)
@@ -95,7 +88,9 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $retry = false;
             try {
                 $this->clear_result();
-                $result = $this->getConnection()->query($sql);
+                /** @var mysqli $connection */
+                $connection = $this->getConnection();
+                $result = $connection->query($sql);
                 $this->clear_result();
             } catch (Exception $e) {
                 if ($tries < 10 && $e->getMessage() == $timeoutMessage) {
@@ -115,7 +110,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
-        return strftime('%Y-%m-%d', strtotime($date));
+        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
     }
 
     public function convertDateTime($datetime)
@@ -123,7 +118,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
-        return strftime('%Y-%m-%d %H:%M:%S', strtotime($datetime));
+        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -148,11 +143,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $this->beginTransaction();
         try {
             $this->clear_result();
-            if ($this->getConnection()->multi_query($sql)) {
+            /** @var mysqli $connection */
+            $connection = $this->getConnection();
+            if ($connection->multi_query($sql)) {
                 $this->clear_result();
                 $this->commit();
             } else {
-                throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: ' . $this->getConnection()->error);
+                throw new Zend_Db_Adapter_Mysqli_Exception('multi_query: ' . $connection->error);
             }
         } catch (Exception $e) {
             $this->rollBack();
@@ -165,11 +162,13 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function clear_result()
     {
-        while ($this->getConnection()->next_result()) {
-            if ($result = $this->getConnection()->store_result()) {
+        /** @var mysqli $connection */
+        $connection = $this->getConnection();
+        while ($connection->next_result()) {
+            if ($result = $connection->store_result()) {
                 $result->free_result();
-            } elseif ($this->getConnection()->error) {
-                throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: ' . $this->getConnection()->error);
+            } elseif ($connection->error) {
+                throw new Zend_Db_Adapter_Mysqli_Exception('clear_result: ' . $connection->error);
             }
         }
     }

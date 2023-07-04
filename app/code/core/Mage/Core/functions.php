@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -113,7 +107,7 @@ function mageFindClassFile($class)
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
-    if (strpos($errstr, 'DateTimeZone::__construct') !== false) {
+    if (str_contains($errstr, 'DateTimeZone::__construct')) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
     }
@@ -121,11 +115,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     $errno = $errno & error_reporting();
     if ($errno == 0) {
         return false;
-    }
-
-    // Suppress deprecation warnings on PHP 7.x
-    if ($errno == E_DEPRECATED && version_compare(PHP_VERSION, '7.0.0', '>=')) {
-        return true;
     }
 
     // PEAR specific message handling
@@ -322,114 +311,4 @@ function is_dir_writeable($dir)
         return true;
     }
     return false;
-}
-
-if (!function_exists('sys_get_temp_dir')) {
-    // Based on http://www.phpit.net/
-    // article/creating-zip-tar-archives-dynamically-php/2/
-    /**
-     * @return bool|string
-     */
-    function sys_get_temp_dir()
-    {
-        // Try to get from environment variable
-        if (!empty($_ENV['TMP'])) {
-            return realpath($_ENV['TMP']);
-        } elseif (!empty($_ENV['TMPDIR'])) {
-            return realpath($_ENV['TMPDIR']);
-        } elseif (!empty($_ENV['TEMP'])) {
-            return realpath($_ENV['TEMP']);
-        } else {
-            // Try to use system's temporary directory
-            // as random name shouldn't exist
-            $temp_file = tempnam(md5(uniqid(rand(), true)), '');
-            if ($temp_file) {
-                $temp_dir = realpath(dirname($temp_file));
-                unlink($temp_file);
-                return $temp_dir;
-            } else {
-                return false;
-            }
-        }
-    }
-}
-
-if (!function_exists('hash_equals')) {
-    /**
-     * Compares two strings using the same time whether they're equal or not.
-     * A difference in length will leak
-     *
-     * @param string $known_string
-     * @param string $user_string
-     * @return bool Returns true when the two strings are equal, false otherwise.
-     */
-    function hash_equals($known_string, $user_string)
-    {
-        $result = 0;
-
-        if (!is_string($known_string)) {
-            trigger_error("hash_equals(): Expected known_string to be a string", E_USER_WARNING);
-            return false;
-        }
-
-        if (!is_string($user_string)) {
-            trigger_error("hash_equals(): Expected user_string to be a string", E_USER_WARNING);
-            return false;
-        }
-
-        if (strlen($known_string) != strlen($user_string)) {
-            return false;
-        }
-
-        for ($i = 0; $i < strlen($known_string); $i++) {
-            $result |= (ord($known_string[$i]) ^ ord($user_string[$i]));
-        }
-
-        return $result === 0;
-    }
-}
-
-/**
- * polyfill for PHP 8.0 function "str_contains"
- */
-if (!function_exists('str_contains')) {
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    function str_contains($haystack, $needle)
-    {
-        return $needle === '' || strpos($haystack, $needle) !== false;
-    }
-}
-
-/**
- * polyfill for PHP 8.0 function "str_starts_with"
- */
-if (!function_exists('str_starts_with')) {
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    function str_starts_with($haystack, $needle)
-    {
-        return strncmp($haystack, $needle, \strlen($needle)) === 0;
-    }
-}
-
-/**
- * polyfill for PHP 8.0 function "str_ends_with"
- */
-if (!function_exists('str_ends_with')) {
-    /**
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
-     */
-    function str_ends_with($haystack, $needle)
-    {
-        return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
-    }
 }

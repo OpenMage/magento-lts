@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
@@ -26,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
@@ -797,8 +790,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
-
-        if (!$this->_isUrlInternal($refererUrl)) {
+        if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
         return $refererUrl;
@@ -812,12 +804,12 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _isUrlInternal($url)
     {
-        if (strpos($url, 'http') !== false) {
+        if (str_contains($url, 'http')) {
             /**
              * Url must start from base secure or base unsecure url
              */
-            if ((strpos($url, Mage::app()->getStore()->getBaseUrl()) === 0)
-                || (strpos($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)) === 0)
+            if (str_starts_with($url, Mage::app()->getStore()->getBaseUrl())
+                || str_starts_with($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true))
             ) {
                 return true;
             }
@@ -1001,7 +993,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ]);
 
         foreach ($dateFields as $dateField) {
-            if (array_key_exists($dateField, $array) && !empty($dateField)) {
+            if ($dateField && !empty($array[$dateField])) {
                 $array[$dateField] = $filterInput->filter($array[$dateField]);
                 $array[$dateField] = $filterInternal->filter($array[$dateField]);
             }

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api2
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
 {
@@ -190,10 +183,10 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $prefixPrivilege = self::NAME_PRIVILEGE . self::ID_SEPARATOR;
                     $nameResource = null;
                     foreach ($checkedResources as $i => $item) {
-                        if (strpos($item, $prefixResource) === 0) {
+                        if (str_starts_with($item, $prefixResource)) {
                             $nameResource = substr($item, mb_strlen($prefixResource, 'UTF-8'));
                             $resources[$nameResource] = [];
-                        } elseif (strpos($item, $prefixPrivilege) === 0) {
+                        } elseif (str_starts_with($item, $prefixPrivilege)) {
                             $name = substr($item, mb_strlen($prefixPrivilege, 'UTF-8'));
                             $namePrivilege = str_replace($nameResource . self::ID_SEPARATOR, '', $name);
                             $resources[$nameResource][$namePrivilege] = $allow;
@@ -208,14 +201,14 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $prefixAttribute = self::NAME_ATTRIBUTE . self::ID_SEPARATOR;
                     $nameResource = null;
                     foreach ($checkedResources as $i => $item) {
-                        if (strpos($item, $prefixResource) === 0) {
+                        if (str_starts_with($item, $prefixResource)) {
                             $nameResource = substr($item, mb_strlen($prefixResource, 'UTF-8'));
                             $resources[$nameResource] = [];
-                        } elseif (strpos($item, $prefixOperation) === 0) {
+                        } elseif (str_starts_with($item, $prefixOperation)) {
                             $name = substr($item, mb_strlen($prefixOperation, 'UTF-8'));
                             $operationName = str_replace($nameResource . self::ID_SEPARATOR, '', $name);
                             $resources[$nameResource][$operationName] = [];
-                        } elseif (strpos($item, $prefixAttribute) === 0) {
+                        } elseif (str_starts_with($item, $prefixAttribute)) {
                             $name = substr($item, mb_strlen($prefixOperation, 'UTF-8'));
                             $attributeName = str_replace(
                                 $nameResource . self::ID_SEPARATOR . $operationName . self::ID_SEPARATOR,
@@ -229,7 +222,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     }
                     break;
 
-                //no default
+                    //no default
             }
         }
         return $resources;

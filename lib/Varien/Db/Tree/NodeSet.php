@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Db
@@ -64,13 +58,10 @@ class Varien_Db_Tree_NodeSet implements Iterator
         return isset($this->_nodes[$this->_current]);
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
-        if ($this->_current > $this->_currentNode) {
-            return false;
-        } else {
-            return $this->_current++;
+        if ($this->_current <= $this->_currentNode) {
+            $this->_current++;
         }
     }
 

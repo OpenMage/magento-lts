@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
@@ -81,12 +74,10 @@
  * @method string getOldEmail()
  * @method $this setOldEmail(string $value)
  *
- * @method string getPassword()
  * @method string getPasswordConfirm()
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
- * @method $this setPasswordCreatedAt(int $value)
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
@@ -335,6 +326,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Set time when password was changed to invalidate other sessions
+     *
+     * @param int $time
+     * @return $this
+     */
+    public function setPasswordCreatedAt($time)
+    {
+        $this->setData('password_created_at', $time);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+        }
+        return $this;
+    }
+
+    /**
      * Get full customer name
      *
      * @return string
@@ -470,6 +476,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->getAttributes();
         return $this->_attributes[$attributeCode] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->_getData('password');
     }
 
     /**

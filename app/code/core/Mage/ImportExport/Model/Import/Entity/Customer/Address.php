@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_ImportExport
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -156,7 +149,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $customer       = Mage::getModel('customer/customer');
         /** @var Mage_Customer_Model_Address $resource */
         $resource       = Mage::getModel('customer/address');
-        $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table          = $resource->getResource()->getEntityTable();
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper         = Mage::getResourceHelper('importexport');
@@ -201,7 +193,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         if ($attrParams['type'] === 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                         } elseif ($attrParams['type'] === 'datetime') {
-                            $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
+                            $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData[$attrAlias]));
                         } elseif ($attrParams['type'] === 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;

@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Cron
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cron
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Model_Observer
 {
@@ -183,7 +176,7 @@ class Mage_Cron_Model_Observer
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $ts = strftime('%Y-%m-%d %H:%M:00', $time);
+                $ts = date('Y-m-d H:i:00', $time);
                 if (!empty($exists[$jobCode . '/' . $ts])) {
                     // already scheduled
                     continue;
@@ -227,7 +220,9 @@ class Mage_Cron_Model_Observer
 
         $now = time();
         foreach ($history->getIterator() as $record) {
-            if (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()]) {
+            if (empty($record->getExecutedAt())
+                || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
+            ) {
                 $record->delete();
             }
         }
@@ -319,18 +314,23 @@ class Mage_Cron_Model_Observer
             }
 
             $schedule
-                ->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()))
+                ->setExecutedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT))
                 ->save();
 
             call_user_func_array($callback, $arguments);
 
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
-                ->setFinishedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
+                ->setFinishedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
         } catch (Exception $e) {
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
         }
+
+        if ($schedule->getIsError()) {
+            $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_ERROR);
+        }
+
         $schedule->save();
 
         return $this;
@@ -347,7 +347,7 @@ class Mage_Cron_Model_Observer
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $ts = strftime('%Y-%m-%d %H:%M:00', time());
+            $ts = date('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
                 ->setCreatedAt($ts)
                 ->setScheduledAt($ts);
