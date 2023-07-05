@@ -21,6 +21,9 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
+    protected const CHECKOUT_MODULE_NAME = "checkout";
+    protected const CHECKOUT_CONTROLLER_NAME = "onepage";
+
     /**
      * Render regular page tracking javascript code
      * The custom "page name" may be set from layout or somewhere else. It must start from slash.
@@ -109,15 +112,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated
      */
     protected function _getOrdersTrackingCode()
     {
-        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
-        $helper = $this->helper('googleanalytics');
-        if ($helper->isUseAnalytics4()) {
-            return $this->_getOrdersTrackingCodeAnalytics4();
-        }
-
         return '';
     }
 
@@ -127,7 +125,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * @return string
      * @throws JsonException
      */
-    protected function _getOrdersTrackingCodeAnalytics4()
+    protected function _getEnhancedEcommerceDataForAnalytics4()
     {
         $result = [];
         $request = $this->getRequest();
@@ -309,7 +307,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
          */
-        elseif ($moduleName == 'checkout' && $controllerName == 'onepage') {
+        elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
             if ($productCollection) {
                 $eventData = [];
@@ -347,7 +345,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         $orderIds = $this->getOrderIds();
         if (!empty($orderIds) && is_array($orderIds)) {
             $collection = Mage::getResourceModel('sales/order_collection')
-                              ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+                ->addFieldToFilter('entity_id', ['in' => $orderIds]);
             /** @var Mage_Sales_Model_Order $order */
             foreach ($collection as $order) {
                 $orderData = [

@@ -305,9 +305,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     protected function _getQuotes()
     {
         switch ($this->getConfigData('type')) {
-            case 'UPS':
-                return $this->_getCgiQuotes();
-
             case 'UPS_XML':
                 return $this->_getXmlQuotes();
         }
@@ -1058,9 +1055,7 @@ XMLRequest;
             $trackings = [$trackings];
         }
 
-        if ($this->getConfigData('type') == 'UPS') {
-            $this->_getCgiTracking($trackings);
-        } elseif ($this->getConfigData('type') == 'UPS_XML') {
+        if ($this->getConfigData('type') == 'UPS_XML') {
             $this->setXMLAccessRequest();
             $this->_getXmlTracking($trackings);
         }
