@@ -18,6 +18,8 @@
 /phpstan.dist.issues.neon export-ignore
 /phpstan.dist.neon export-ignore
 
+/README.md export-ignore
+
 # Enforce checkout with linux lf consistent over all platforms
 *.html text eol=lf
 *.css text eol=lf
