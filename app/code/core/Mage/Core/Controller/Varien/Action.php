@@ -790,8 +790,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
-
-        if (!$this->_isUrlInternal($refererUrl)) {
+        if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
         return $refererUrl;
