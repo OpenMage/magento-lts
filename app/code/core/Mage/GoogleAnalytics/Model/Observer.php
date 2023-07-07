@@ -22,18 +22,6 @@
 class Mage_GoogleAnalytics_Model_Observer
 {
     /**
-     * Create Google Analytics block for success page view
-     *
-     * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
-     * @param Varien_Event_Observer $observer
-     */
-    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function order_success_page_view($observer)
-    {
-        $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);
-    }
-
-    /**
      * Add order information into GA block to render on checkout success pages
      *
      * @param Varien_Event_Observer $observer
@@ -59,7 +47,10 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productRemoved) {
-            Mage::getSingleton('core/session')->setRemovedProductCart($productRemoved->getId());
+            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
+            $_removedProducts[] = $productRemoved->getId();
+            $_removedProducts = array_unique($_removedProducts);
+            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
         }
     }
 
@@ -72,7 +63,14 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productAdded) {
-            Mage::getSingleton('core/session')->setAddedProductCart($productAdded->getId());
+            // Fix double add to cart for configurable products, skip child product
+            if ($productAdded->getParentProductId()) {
+                return;
+            }
+            $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
+            $_addedProducts[] = $productAdded->getParentItem() ? $productAdded->getParentItem()->getId() : $productAdded->getId();
+            $_addedProducts = array_unique($_addedProducts);
+            Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
         }
     }
 }
