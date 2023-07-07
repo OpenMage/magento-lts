@@ -724,6 +724,5 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $buyRequest = $this->getRequest()->getPost();
         $buyRequestObject = new Varien_Object($buyRequest);
         $this->_getSession()->setProductBuyRequest($buyRequestObject);
-        return;
     }
 }
