@@ -13,6 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Catalog_Block_Product_View_Options_Type_Date $this
+ */
+?>
 <?php $_option = $this->getOption() ?>
 <?php $_optionId = $_option->getId() ?>
 <dt><label<?php if ($_option->getIsRequire()) echo ' class="required"' ?>><?php if ($_option->getIsRequire()) echo '<em>*</em>' ?><?php echo  $this->escapeHtml($_option->getTitle()) ?></label>
@@ -46,7 +51,7 @@
 <?php if ($_option->getIsRequire()): ?>
         Validation.addAllThese(
         [
-               ['validate-datetime-<?php echo $_optionId ?>', '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('This is a required option') )?>', function(v) {
+                ['validate-datetime-<?php echo $_optionId ?>', '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('This is a required option') )?>', function(v) {
                    var dateTimeParts = $$('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
                    for (var i=0; i < dateTimeParts.length; i++) {
                        if (dateTimeParts[i].value == "") return false;
@@ -64,13 +69,13 @@
                 var hasWithValue = false, hasWithNoValue = false;
                 var pattern = /day_part$/i;
                 for (var i=0; i < dateTimeParts.length; i++) {
-                   if (! pattern.test(dateTimeParts[i].id)) {
-                       if (dateTimeParts[i].value === "") {
-                           hasWithValue = true;
-                       } else {
-                           hasWithNoValue = true;
-                       }
-                   }
+                    if (! pattern.test(dateTimeParts[i].id)) {
+                        if (dateTimeParts[i].value === "") {
+                            hasWithValue = true;
+                        } else {
+                            hasWithNoValue = true;
+                        }
+                    }
                 }
                 return hasWithValue ^ hasWithNoValue;
             }
