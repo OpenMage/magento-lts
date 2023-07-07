@@ -257,11 +257,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $url = $this->_getSession()->getRedirectUrl(true);
             if ($url) {
+                $this->_setProductBuyRequest();
                 $this->getResponse()->setRedirect($url);
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
         } catch (Exception $e) {
+            $this->_setProductBuyRequest();
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
             $this->_goBack();
         }
@@ -415,6 +417,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
         } catch (Exception $e) {
+            $this->_setProductBuyRequest();
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
             $this->_goBack();
         }
@@ -710,5 +713,17 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     protected function _getCustomerSession()
     {
         return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * Set product form data in checkout session for populating the product form
+     * in case of errors in add to cart process.
+     */
+    protected function _setProductBuyRequest()
+    {
+        $buyRequest = $this->getRequest()->getPost();
+        $buyRequestObject = new Varien_Object($buyRequest);
+        $this->_getSession()->setProductBuyRequest($buyRequestObject);
+        return;
     }
 }
