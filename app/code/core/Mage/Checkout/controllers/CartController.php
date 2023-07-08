@@ -718,8 +718,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set product form data in checkout session for populating the product form
      * in case of errors in add to cart process.
+     * @return void
      */
-    protected function _setProductBuyRequest()
+    protected function _setProductBuyRequest(): void
     {
         $buyRequest = $this->getRequest()->getPost();
         $buyRequestObject = new Varien_Object($buyRequest);
