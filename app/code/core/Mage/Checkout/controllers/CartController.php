@@ -251,7 +251,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $messages = array_unique(explode("\n", $e->getMessage()));
                 foreach ($messages as $message) {
-                    $this->_getSession()->addError(Mage::helper('core')->escapeHtml($message));
+                    $this->_getSession()->addError(Mage::helper('core')->escapeHtml($message, ['em']));
                 }
             }
 
@@ -718,6 +718,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set product form data in checkout session for populating the product form
      * in case of errors in add to cart process.
+     *
      * @return void
      */
     protected function _setProductBuyRequest(): void
