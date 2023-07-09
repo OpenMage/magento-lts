@@ -251,17 +251,19 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             } else {
                 $messages = array_unique(explode("\n", $e->getMessage()));
                 foreach ($messages as $message) {
-                    $this->_getSession()->addError(Mage::helper('core')->escapeHtml($message));
+                    $this->_getSession()->addError(Mage::helper('core')->escapeHtml($message, ['em']));
                 }
             }
 
             $url = $this->_getSession()->getRedirectUrl(true);
             if ($url) {
+                $this->_setProductBuyRequest();
                 $this->getResponse()->setRedirect($url);
             } else {
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
         } catch (Exception $e) {
+            $this->_setProductBuyRequest();
             $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
             $this->_goBack();
         }
@@ -415,6 +417,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $this->_redirectReferer(Mage::helper('checkout/cart')->getCartUrl());
             }
         } catch (Exception $e) {
+            $this->_setProductBuyRequest();
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
             $this->_goBack();
         }
@@ -710,5 +713,18 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     protected function _getCustomerSession()
     {
         return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * Set product form data in checkout session for populating the product form
+     * in case of errors in add to cart process.
+     *
+     * @return void
+     */
+    protected function _setProductBuyRequest(): void
+    {
+        $buyRequest = $this->getRequest()->getPost();
+        $buyRequestObject = new Varien_Object($buyRequest);
+        $this->_getSession()->setProductBuyRequest($buyRequestObject);
     }
 }
