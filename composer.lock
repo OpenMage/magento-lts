@@ -2799,16 +2799,16 @@
         },
         {
             "name": "magento-ecg/coding-standard",
-            "version": "4.5.2",
+            "version": "4.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/magento-ecg/coding-standard.git",
-                "reference": "4269fe560c0b20b30ccfdb76b745d23f34996b0c"
+                "reference": "1db1da45447682108c63ea94ce07119a002a6504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/magento-ecg/coding-standard/zipball/4269fe560c0b20b30ccfdb76b745d23f34996b0c",
-                "reference": "4269fe560c0b20b30ccfdb76b745d23f34996b0c",
+                "url": "https://api.github.com/repos/magento-ecg/coding-standard/zipball/1db1da45447682108c63ea94ce07119a002a6504",
+                "reference": "1db1da45447682108c63ea94ce07119a002a6504",
                 "shasum": ""
             },
             "require": {
@@ -2830,9 +2830,9 @@
             "homepage": "https://github.com/magento-ecg/coding-standard",
             "support": {
                 "issues": "https://github.com/magento-ecg/coding-standard/issues",
-                "source": "https://github.com/magento-ecg/coding-standard/tree/4.5.2"
+                "source": "https://github.com/magento-ecg/coding-standard/tree/v4.5.2"
             },
-            "time": "2022-12-06T11:33:03+00:00"
+            "time": "2023-07-05T15:24:16+00:00"
         },
         {
             "name": "myclabs/deep-copy",
