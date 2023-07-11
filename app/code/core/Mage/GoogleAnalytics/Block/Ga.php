@@ -140,24 +140,19 @@ gtag('set', 'user_id', '{$customer->getId()}');
         $removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart();
         if ($removedProducts) {
             foreach ($removedProducts as $removedProduct) {
-                $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2, '.', '');
+                $eventData['value'] = number_format($removedProduct['price'] * $removedProduct['qty'], 2, '.', '');
                 $eventData['items'] = [];
                 $_item = [
-                    'item_id' => $_removedProduct->getSku(),
-                    'item_name' => $_removedProduct->getName(),
-                    'price' => number_format($_removedProduct->getFinalPrice(), 2, '.', ''),
+                    'item_id' => $removedProduct['sku'],
+                    'item_name' => $removedProduct['name'],
+                    'price' => number_format($removedProduct['price'], 2, '.', ''),
+                    'quantity' => $removedProduct['qty'],
+                    'item_brand' => $removedProduct['manufacturer'],
+                    'item_category' => $removedProduct['category'],
                 ];
-                if ($_removedProduct->getAttributeText('manufacturer')) {
-                    $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
-                }
-                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_removedProduct);
-                if ($itemCategory) {
-                    $_item['item_category'] = $itemCategory;
-                }
-                array_push($eventData['items'], $_item);
+                $eventData['items'][] = $_item;
                 $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
             }
             Mage::getSingleton('core/session')->unsRemovedProductsCart();

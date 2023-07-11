@@ -45,6 +45,34 @@ class Mage_GoogleAnalytics_Model_Observer
      */
     public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Sales_Model_Quote_Item $item */
+        $item = $observer->getEvent()->getQuoteItem();
+        $product = $item->getProduct();
+        if ($item && $product) {
+            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
+            $_removedProduct = [
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'qty' => $item->getQty(),
+                'price' => $product->getFinalPrice(),
+                'manufacturer' => '',
+                'category' => ''
+            ];
+
+            if ($product->getAttributeText('manufacturer')) {
+                $_removedProduct['manufacturer'] = $product->getAttributeText('manufacturer');
+            }
+
+            $productCategory = Mage::helper('googleanalytics')->getLastCategoryName($product);
+            if ($productCategory) {
+                $_removedProduct['category'] = $productCategory;
+            }
+
+            $_removedProducts[] = $_removedProduct;
+            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
+        }
+
         $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
         if ($productRemoved) {
             $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
@@ -68,7 +96,6 @@ class Mage_GoogleAnalytics_Model_Observer
             /** @var Mage_Sales_Model_Quote_Item $item */
             foreach ($items as $item) {
                 $product = $item->getProduct();
-
                 if ($product->getParentProductId()) {
                     // Fix double add to cart for configurable products, skip child product
                     continue;
