@@ -39,95 +39,53 @@ class Mage_GoogleAnalytics_Model_Observer
     }
 
     /**
-     * Add 'removed item' from cart into session for GA4 block to render event on cart view
-     *
+     * Process items added or removed from cart for GA4 block to render event on cart view
      * @param Varien_Event_Observer $observer
+     * @return void
      */
-    public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
+    public function processItemsAddedOrRemovedFromCart(Varien_Event_Observer $observer): void
     {
         /** @var Mage_Sales_Model_Quote_Item $item */
-        $item = $observer->getEvent()->getQuoteItem();
-        $product = $item->getProduct();
-        if ($item && $product) {
-            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
-            $_removedProduct = [
+        $item = $observer->getEvent()->getItem();
+        $addedQty = 0;
+        $removedQty = 0;
+
+        if ($item->isObjectNew()) {
+            $addedQty = $item->getQty();
+        } elseif($item->isDeleted()) {
+            $removedQty = $item->getQty();
+        } elseif ($item->hasDataChanges()) {
+            $newQty = $item->getQty();
+            $oldQty = $item->getOrigData('qty');
+            if ($newQty > $oldQty) {
+                $addedQty = $newQty - $oldQty;
+            } elseif ($newQty < $oldQty) {
+                $removedQty = $oldQty - $newQty;
+            }
+        }
+
+        if ($addedQty || $removedQty) {
+            $product = $item->getProduct();
+            $dataForAnalytics = [
                 'id' => $product->getId(),
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
-                'qty' => $item->getQty(),
+                'qty' => $addedQty ?: $removedQty,
                 'price' => $product->getFinalPrice(),
-                'manufacturer' => '',
-                'category' => ''
+                'manufacturer' => $product->getAttributeText('manufacturer') ?: '',
+                'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
             ];
 
-            if ($product->getAttributeText('manufacturer')) {
-                $_removedProduct['manufacturer'] = $product->getAttributeText('manufacturer');
+            $session = Mage::getSingleton('core/session');
+            if ($addedQty) {
+                $addedProducts = $session->getAddedProductsForAnalytics() ?: [];
+                $addedProducts[] = $dataForAnalytics;
+                $session->setAddedProductsForAnalytics($addedProducts);
+            } else {
+                $removedProducts = $session->getRemovedProductsForAnalytics() ?: [];
+                $removedProducts[] = $dataForAnalytics;
+                $session->setRemovedProductsForAnalytics($removedProducts);
             }
-
-            $productCategory = Mage::helper('googleanalytics')->getLastCategoryName($product);
-            if ($productCategory) {
-                $_removedProduct['category'] = $productCategory;
-            }
-
-            $_removedProducts[] = $_removedProduct;
-            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
-        }
-
-        $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productRemoved) {
-            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
-            $_removedProducts[] = $productRemoved->getId();
-            $_removedProducts = array_unique($_removedProducts);
-            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
-        }
-    }
-
-    /**
-     * Add 'added item' to cart into session for GA4 block to render event on cart view
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
-    {
-        $items = $observer->getEvent()->getItems();
-        if ($items) {
-            $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
-
-            /** @var Mage_Sales_Model_Quote_Item $item */
-            foreach ($items as $item) {
-                $product = $item->getProduct();
-                if ($product->getParentProductId()) {
-                    // Fix double add to cart for configurable products, skip child product
-                    continue;
-                }
-
-                if ($product->getParentItem()) {
-                    $product = $product->getParentItem();
-                }
-
-                $_addedProduct = [
-                    'id' => $product->getId(),
-                    'sku' => $product->getSku(),
-                    'name' => $product->getName(),
-                    'qty' => $item->getQtyToAdd(),
-                    'price' => $product->getFinalPrice(),
-                    'manufacturer' => '',
-                    'category' => ''
-                ];
-
-                if ($product->getAttributeText('manufacturer')) {
-                    $_addedProduct['manufacturer'] = $product->getAttributeText('manufacturer');
-                }
-
-                $productCategory = Mage::helper('googleanalytics')->getLastCategoryName($product);
-                if ($productCategory) {
-                    $_addedProduct['category'] = $productCategory;
-                }
-
-                $_addedProducts[] = $_addedProduct;
-            }
-
-            Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
         }
     }
 }
