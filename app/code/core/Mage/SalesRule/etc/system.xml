@@ -85,7 +85,7 @@
                 <crontab>
                     <fields>
                         <coupons_expr translate="label comment">
-                            <label>Cron definition - Coupons</label>
+                            <label>Coupons</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>600</sort_order>
                             <show_in_default>1</show_in_default>
