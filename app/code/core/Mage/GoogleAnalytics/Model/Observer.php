@@ -61,15 +61,45 @@ class Mage_GoogleAnalytics_Model_Observer
      */
     public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
     {
-        $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productAdded) {
-            // Fix double add to cart for configurable products, skip child product
-            if ($productAdded->getParentProductId()) {
-                return;
-            }
+        $items = $observer->getEvent()->getItems();
+        if ($items) {
             $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
-            $_addedProducts[] = $productAdded->getParentItem() ? $productAdded->getParentItem()->getId() : $productAdded->getId();
-            $_addedProducts = array_unique($_addedProducts);
+
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            foreach ($items as $item) {
+                $product = $item->getProduct();
+
+                if ($product->getParentProductId()) {
+                    // Fix double add to cart for configurable products, skip child product
+                    continue;
+                }
+
+                if ($product->getParentItem()) {
+                    $product = $product->getParentItem();
+                }
+
+                $_addedProduct = [
+                    'id' => $product->getId(),
+                    'sku' => $product->getSku(),
+                    'name' => $product->getName(),
+                    'qty' => $item->getQtyToAdd(),
+                    'price' => $product->getFinalPrice(),
+                    'manufacturer' => '',
+                    'category' => ''
+                ];
+
+                if ($product->getAttributeText('manufacturer')) {
+                    $_addedProduct['manufacturer'] = $product->getAttributeText('manufacturer');
+                }
+
+                $productCategory = Mage::helper('googleanalytics')->getLastCategoryName($product);
+                if ($productCategory) {
+                    $_addedProduct['category'] = $productCategory;
+                }
+
+                $_addedProducts[] = $_addedProduct;
+            }
+
             Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
         }
     }

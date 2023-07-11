@@ -170,26 +170,20 @@ gtag('set', 'user_id', '{$customer->getId()}');
          */
         $addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart();
         if ($addedProducts) {
-            foreach ($addedProducts as $addedProduct) {
-                $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
+            foreach ($addedProducts as $_addedProduct) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2, '.', '');
+                $eventData['value'] = number_format($_addedProduct['price'] * $_addedProduct['qty'], 2, '.', '');
                 $eventData['items'] = [];
                 $_item = [
-                    'item_id' => $_addedProduct->getSku(),
-                    'item_name' => $_addedProduct->getName(),
-                    'price' => number_format($_addedProduct->getFinalPrice(), 2, '.', ''),
+                    'item_id' => $_addedProduct['sku'],
+                    'item_name' => $_addedProduct['name'],
+                    'price' => number_format($_addedProduct['price'], 2, '.', ''),
+                    'quantity' => $_addedProduct['qty'],
+                    'item_brand' => $_addedProduct['manufacturer'],
+                    'item_category' => $_addedProduct['category'],
                 ];
-                if ($_addedProduct->getAttributeText('manufacturer')) {
-                    $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
-                }
-
-                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_addedProduct);
-                if ($itemCategory) {
-                    $_item['item_category'] = $itemCategory;
-                }
-                array_push($eventData['items'], $_item);
+                $eventData['items'][] = $_item;
                 $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
                 Mage::getSingleton('core/session')->unsAddedProductsCart();
             }

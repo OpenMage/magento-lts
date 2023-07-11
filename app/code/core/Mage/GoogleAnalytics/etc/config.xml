@@ -80,14 +80,14 @@
                     </googleanalytics_remove_item>
                 </observers>
             </sales_quote_remove_item>
-            <sales_quote_add_item>
+            <sales_quote_product_add_after>
                 <observers>
                     <googleanalytics_add_item>
                         <class>googleanalytics/observer</class>
                         <method>addItemToCartGoogleAnalytics</method>
                     </googleanalytics_add_item>
                 </observers>
-            </sales_quote_add_item>
+            </sales_quote_product_add_after>
         </events>
         <layout>
             <updates>
