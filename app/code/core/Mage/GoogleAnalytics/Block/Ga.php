@@ -149,7 +149,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_id' => $removedProduct['sku'],
                     'item_name' => $removedProduct['name'],
                     'price' => $helper->formatPrice($removedProduct['price']),
-                    'quantity' => (int)$removedProduct['qty'],
+                    'quantity' => (int) $removedProduct['qty'],
                     'item_brand' => $removedProduct['manufacturer'],
                     'item_category' => $removedProduct['category'],
                 ];
@@ -175,7 +175,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_id' => $_addedProduct['sku'],
                     'item_name' => $_addedProduct['name'],
                     'price' => $helper->formatPrice($_addedProduct['price']),
-                    'quantity' => (int)$_addedProduct['qty'],
+                    'quantity' => (int) $_addedProduct['qty'],
                     'item_brand' => $_addedProduct['manufacturer'],
                     'item_category' => $_addedProduct['category'],
                 ];
