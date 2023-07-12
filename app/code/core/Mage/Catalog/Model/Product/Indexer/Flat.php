@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             } else {
                 /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
-                if ($store && $store->isObjectNew()) {
+                if ($store && ($store->isObjectNew() || $store->getOrigData('is_active') != $store->getIsActive() && $store->getIsActive())) {
                     $result = true;
                 } else {
                     $result = false;
