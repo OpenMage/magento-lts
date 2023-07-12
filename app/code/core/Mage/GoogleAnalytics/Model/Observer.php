@@ -51,9 +51,17 @@ class Mage_GoogleAnalytics_Model_Observer
             return;
         }
 
+        // avoid to process the same quote_item more than once
+        // this could happen in case of double save of the same quote_item
+        $processedProductsRegistry = Mage::registry('processed_quote_items_for_analytics') ?? new ArrayObject();
+        if ($processedProductsRegistry->offsetExists($item->getId())) {
+            return;
+        }
+        $processedProductsRegistry[$item->getId()] = true;
+        Mage::register('processed_quote_items_for_analytics', $processedProductsRegistry, true);
+
         $addedQty = 0;
         $removedQty = 0;
-
         if ($item->isObjectNew()) {
             $addedQty = $item->getQty();
         } elseif ($item->isDeleted()) {
