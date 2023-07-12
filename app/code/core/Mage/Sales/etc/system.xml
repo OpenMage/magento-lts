@@ -847,7 +847,7 @@
                             <comment>Total Shipped Report</comment>
                         </shipping_expr>
                         <invoiced_expr translate="label comment">
-                            <label>Invoiced</label>
+                            <label>Total Invoiced</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>400</sort_order>
                             <show_in_default>1</show_in_default>
@@ -856,7 +856,7 @@
                             <comment>Total Invoiced VS Paid Report</comment>
                         </invoiced_expr>
                         <refunded_expr translate="label comment">
-                            <label>Refunded</label>
+                            <label>Total Refunded</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>500</sort_order>
                             <show_in_default>1</show_in_default>
