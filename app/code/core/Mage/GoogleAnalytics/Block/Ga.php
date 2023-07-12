@@ -286,7 +286,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     $_item['item_category'] = $itemCategory;
                 }
                 array_push($eventData['items'], $_item);
-                $eventData['value'] += $_product->getFinalPrice();
+                $eventData['value'] += $_product->getFinalPrice() * $productInCart->getQty();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
