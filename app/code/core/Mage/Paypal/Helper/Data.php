@@ -2,40 +2,36 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paypal Data helper
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Paypal';
+
     /**
      * US country code
      */
-    const US_COUNTRY = 'US';
+    public const US_COUNTRY = 'US';
 
     /**
      * Config path for merchant country
      */
-    const MERCHANT_COUNTRY_CONFIG_PATH = 'paypal/general/merchant_country';
+    public const MERCHANT_COUNTRY_CONFIG_PATH = 'paypal/general/merchant_country';
 
     /**
      * Cache for shouldAskToCreateBillingAgreement()
@@ -68,9 +64,10 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * Return backend config for element like JSON
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return string
+     * @return false|string
      */
-    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element) {
+    public function getElementBackendConfig(Varien_Data_Form_Element_Abstract $element)
+    {
         $config = $element->getFieldConfig()->backend_congif;
         if (!$config) {
             return false;
@@ -118,7 +115,8 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
             Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
             Mage_Paypal_Model_Config::METHOD_WPS,
-        ])) {
+            ])
+        ) {
             /** @var Mage_Paypal_Model_Config $config */
             $config = Mage::getModel('paypal/config')->setMethod($methodCode);
             $url = 'https://www.' . ($config->sandboxFlag ? 'sandbox.' : '')

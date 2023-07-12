@@ -2,26 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
@@ -51,7 +45,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             ->setCcSsIssue($data->getCcSsIssue())
             ->setCcSsStartMonth($data->getCcSsStartMonth())
             ->setCcSsStartYear($data->getCcSsStartYear())
-            ;
+        ;
         return $this;
     }
 
@@ -101,7 +95,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
-                || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
+                || ($this->otherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))
+            ) {
                 $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
@@ -149,7 +144,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         //validate credit card verification number
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
-            $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
+            $regExp = $verifcationRegEx[$info->getCcType()] ?? '';
             if (!$info->getCcCid() || !$regExp || !preg_match($regExp, $info->getCcCid())) {
                 $errorMsg = Mage::helper('payment')->__('Please enter a valid credit card verification number.');
             }
@@ -222,9 +217,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * @param string $type
      * @return bool
      */
-    public function OtherCcType($type)
+    public function otherCcType($type)
     {
-        return $type=='OT';
+        return $type == 'OT';
     }
 
     /**
@@ -238,8 +233,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $cardNumber = strrev($ccNumber);
         $numSum = 0;
 
-        for ($i=0; $i<strlen($cardNumber); $i++) {
-            $currentNum = substr($cardNumber, $i, 1);
+        for ($i = 0; $i < strlen($cardNumber); $i++) {
+            $currentNum = (int)substr($cardNumber, $i, 1);
 
             /**
              * Double every second digit
@@ -270,7 +265,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      * Other credit cart type number validation
      *
      * @param string $ccNumber
-     * @return boolean
+     * @return bool
      */
     public function validateCcNumOther($ccNumber)
     {
@@ -358,15 +353,15 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Grand total getter
      *
-     * @return string
+     * @return float
      */
     private function _getAmount()
     {
         $info = $this->getInfoInstance();
         if ($this->_isPlaceOrder()) {
-            return (double)$info->getOrder()->getQuoteBaseGrandTotal();
+            return (float)$info->getOrder()->getQuoteBaseGrandTotal();
         } else {
-            return (double)$info->getQuote()->getBaseGrandTotal();
+            return (float)$info->getQuote()->getBaseGrandTotal();
         }
     }
 
@@ -399,5 +394,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
             return true;
         }
+        return false;
     }
 }

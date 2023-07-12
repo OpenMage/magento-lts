@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Validator
 {
     /**
      * Config node key of current validator
      */
-    const CONFIG_NODE_KEY = 'eav';
+    public const CONFIG_NODE_KEY = 'eav';
 
     /**
      * Form path
@@ -145,7 +139,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                         }
                     }
                     if (!$isValid) {
-                        $errors[] = 'Invalid value "' . $value . '" for '. $attribute->getAttributeCode();
+                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
                     }
                 } else {
                     $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
@@ -188,7 +182,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             if ($this->_eavForm->ignoreInvisible() && !$attribute->getIsVisible()) {
                 continue;
             }
-            $attrValue = isset($data[$attribute->getAttributeCode()]) ? $data[$attribute->getAttributeCode()] : null;
+            $attrValue = $data[$attribute->getAttributeCode()] ?? null;
 
             $result = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->_eavForm->getEntity())
                 ->setExtractedData($data)
@@ -219,7 +213,11 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         // business asked to avoid additional validation message, so we filter it here
         $errors        = [];
         $requiredAttrs = [];
-        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/') ) . '$/';
+        $isRequiredRE  = '/^' . str_replace(
+            '%s',
+            '(.+)',
+            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/')
+        ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',

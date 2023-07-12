@@ -2,29 +2,28 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ */
 class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Action
 {
     /**
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'promo/quote';
+    public const ADMIN_RESOURCE = 'promo/quote';
 
     /**
     * Controller pre-dispatch method
@@ -83,9 +82,10 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
         if ($id) {
             $model->load($id);
-            if (! $model->getRuleId()) {
+            if (!$model->getRuleId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('salesrule')->__('This rule no longer exists.'));
+                    Mage::helper('salesrule')->__('This rule no longer exists.')
+                );
                 $this->_redirect('*/*');
                 return;
             }
@@ -112,9 +112,9 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $id ? Mage::helper('salesrule')->__('Edit Rule')
                     : Mage::helper('salesrule')->__('New Rule'),
                 $id ? Mage::helper('salesrule')->__('Edit Rule')
-                    : Mage::helper('salesrule')->__('New Rule'))
+                : Mage::helper('salesrule')->__('New Rule')
+            )
             ->renderLayout();
-
     }
 
     /**
@@ -129,7 +129,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $model = Mage::getModel('salesrule/rule');
                 Mage::dispatchEvent(
                     'adminhtml_controller_salesrule_prepare_save',
-                    ['request' => $this->getRequest()]);
+                    ['request' => $this->getRequest()]
+                );
                 $data = $this->getRequest()->getPost();
                 if (Mage::helper('adminhtml')->hasTags($data['rule'], ['attribute'], false)) {
                     Mage::throwException(Mage::helper('catalogrule')->__('Wrong rule specified'));
@@ -147,17 +148,18 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
                 $validateResult = $model->validateData(new Varien_Object($data));
                 if ($validateResult !== true) {
-                    foreach($validateResult as $errorMessage) {
+                    foreach ($validateResult as $errorMessage) {
                         $session->addError($errorMessage);
                     }
                     $session->setPageData($data);
-                    $this->_redirect('*/*/edit', ['id'=>$model->getId()]);
+                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
                 }
 
                 if (isset($data['simple_action']) && $data['simple_action'] == 'by_percent'
-                && isset($data['discount_amount'])) {
-                    $data['discount_amount'] = min(100,$data['discount_amount']);
+                    && isset($data['discount_amount'])
+                ) {
+                    $data['discount_amount'] = min(100, $data['discount_amount']);
                 }
                 if (isset($data['rule']['conditions'])) {
                     $data['conditions'] = $data['rule']['conditions'];
@@ -191,10 +193,10 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     $this->_redirect('*/*/new');
                 }
                 return;
-
             } catch (Exception $e) {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'));
+                    Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.')
+                );
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('rule_id')]);
@@ -221,21 +223,24 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('salesrule')->__('The rule has been deleted.'));
+                    Mage::helper('salesrule')->__('The rule has been deleted.')
+                );
                 $this->_redirect('*/*/');
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.'));
+                    Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
+                );
                 Mage::logException($e);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
         Mage::getSingleton('adminhtml/session')->addError(
-            Mage::helper('salesrule')->__('Unable to find a rule to delete.'));
+            Mage::helper('salesrule')->__('Unable to find a rule to delete.')
+        );
         $this->_redirect('*/*/');
     }
 
@@ -372,7 +377,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $codesIds = $this->getRequest()->getParam('ids');
 
         if (is_array($codesIds)) {
-
             $couponsCollection = Mage::getResourceModel('salesrule/coupon_collection')
                 ->addFieldToFilter('coupon_id', ['in' => $codesIds]);
 

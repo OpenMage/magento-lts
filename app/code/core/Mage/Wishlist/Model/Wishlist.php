@@ -2,24 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist model
+ *
+ * @category   Mage
+ * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
@@ -32,10 +30,6 @@
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method string getVisibility()
- *
- * @category    Mage
- * @package     Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -48,21 +42,21 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_itemCollection = null;
 
     /**
      * Store filter for wishlist
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store = null;
 
     /**
      * Shared store ids (website stores)
      *
-     * @var array
+     * @var array|null
      */
     protected $_storeIds = null;
 
@@ -420,7 +414,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $data = [];
         $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
         $data['shared']      = (int) $this->getShared();
-        $data['sharing_code']= $this->getSharingCode();
+        $data['sharing_code'] = $this->getSharingCode();
         return $data;
     }
 
@@ -571,7 +565,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 /** @var Mage_Wishlist_Model_Item $_item */
                 if ($_item->getProductId() == $product->getId()
                     && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()) {
+                    && $_item->getId() != $item->getId()
+                ) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;
                 }

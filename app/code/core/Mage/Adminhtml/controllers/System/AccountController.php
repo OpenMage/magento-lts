@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_Action
 {
@@ -31,7 +25,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/myaccount';
+    public const ADMIN_RESOURCE = 'system/myaccount';
 
     public function indexAction()
     {
@@ -49,8 +43,6 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
     public function saveAction()
     {
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();
-        $pwd    = null;
-
         $user = Mage::getModel("admin/user")->load($userId);
 
         $user->setId($userId)
@@ -58,7 +50,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             ->setFirstname($this->getRequest()->getParam('firstname', false))
             ->setLastname($this->getRequest()->getParam('lastname', false))
             ->setEmail(strtolower($this->getRequest()->getParam('email', false)));
-        if ( $this->getRequest()->getParam('new_password', false) ) {
+        if ($this->getRequest()->getParam('new_password', false)) {
             $user->setNewPassword($this->getRequest()->getParam('new_password', false));
         }
 
@@ -66,16 +58,20 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             $user->setPasswordConfirmation($this->getRequest()->getParam('password_confirmation', false));
         }
 
+        $backendLocale = $this->getRequest()->getParam('backend_locale', false);
+        $backendLocale = $backendLocale == 0 ? null : $backendLocale;
+        $user->setBackendLocale($backendLocale);
+
         //Validate current admin password
         $currentPassword = $this->getRequest()->getParam('current_password', null);
         $this->getRequest()->setParam('current_password', null);
         $result = $this->_validateCurrentPassword($currentPassword);
 
-        if(!is_array($result)){
+        if (!is_array($result)) {
             $result = $user->validate();
         }
         if (is_array($result)) {
-            foreach($result as $error) {
+            foreach ($result as $error) {
                 Mage::getSingleton('adminhtml/session')->addError($error);
             }
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
@@ -85,11 +81,9 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         try {
             $user->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
         $this->getResponse()->setRedirect($this->getUrl("*/*/"));

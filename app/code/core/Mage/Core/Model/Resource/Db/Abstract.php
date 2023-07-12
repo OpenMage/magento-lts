@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Resource_Abstract
 {
     /**
      * @deprecated since 1.5.0.0
      */
-    const CHECKSUM_KEY_NAME= 'Checksum';
+    public const CHECKSUM_KEY_NAME = 'Checksum';
 
     /**
      * Cached resources singleton
@@ -91,7 +85,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Use is object new method for save of object
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew       = false;
 
@@ -122,7 +116,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * or string 'my_field_name' - will be autoconverted to
      *      array( array( 'field' => 'my_field_name', 'title' => 'my_field_name' ) )
      *
-     * @var array
+     * @var array|null
      */
     protected $_uniqueFields         = null;
 
@@ -186,7 +180,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Set main entity table name and primary key field name
-     * If field name is ommited {table_name}_id will be used
+     * If field name is omitted {table_name}_id will be used
      *
      * @param string $mainTable
      * @param string|null $idFieldName
@@ -434,7 +428,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_beforeSave($object);
         $this->_checkUnique($object);
         if (!is_null($object->getId()) && (!$this->_useIsObjectNew || !$object->isObjectNew())) {
-            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             /**
              * Not auto increment primary key support
              */
@@ -477,8 +471,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Forsed save object data
-     * forsed update If duplicate unique key data
+     * Forced save object data
+     * forced update If duplicate unique key data
      *
      * @deprecated
      * @param Mage_Core_Model_Abstract $object
@@ -492,7 +486,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         // update
         if (!is_null($object->getId()) && $this->_isPkAutoIncrement) {
             unset($bind[$this->getIdFieldName()]);
-            $condition = $adapter->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $condition = $adapter->quoteInto($this->getIdFieldName() . '=?', $object->getId());
             $adapter->update($this->getMainTable(), $bind, $condition);
         } else {
             $adapter->insertOnDuplicate($this->getMainTable(), $bind, $this->_fieldsForUpdate);
@@ -509,6 +503,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $object)
     {
@@ -546,11 +541,11 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function resetUniqueField()
     {
         $this->_uniqueFields = [];
-         return $this;
+        return $this;
     }
 
     /**
-     * Unserialize serializeable object fields
+     * Un-serialize serializable object fields
      *
      * @param Mage_Core_Model_Abstract $object
      */
@@ -602,7 +597,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * has really changed comparing with origData
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return boolean
+     * @return bool
      */
     public function hasDataChanged($object)
     {
@@ -755,7 +750,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Serialize serializeable fields of the object
+     * Serialize serializable fields of the object
      *
      * @param Mage_Core_Model_Abstract $object
      */

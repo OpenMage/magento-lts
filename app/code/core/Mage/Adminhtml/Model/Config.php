@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
 {
@@ -55,7 +49,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $storeCode
      * @return Varien_Simplexml_Element
      */
-    public function getSections($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
         if (empty($this->_sections)) {
             $this->_initSectionsAndTabs();
@@ -97,7 +91,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param array|null $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
-    public function saveCache($tags=null)
+    public function saveCache($tags = null)
     {
         if ($this->getCacheSaved()) {
             return $this;
@@ -142,11 +136,11 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
-     * @return Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|void
      */
-    public function getSection($sectionCode=null, $websiteCode=null, $storeCode=null)
+    public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
-        if ($sectionCode){
+        if ($sectionCode) {
             return  $this->getSections()->$sectionCode;
         } elseif ($websiteCode) {
             return  $this->getSections()->$websiteCode;
@@ -159,41 +153,39 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param Varien_Simplexml_Element $node
      * @param string $websiteCode
      * @param string $storeCode
-     * @param boolean $isField
-     * @return boolean
+     * @param bool $isField
+     * @return bool
      */
-    public function hasChildren ($node, $websiteCode=null, $storeCode=null, $isField=false)
+    public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
     {
         $showTab = false;
         if ($storeCode) {
             if (isset($node->show_in_store)) {
                 if ((int)$node->show_in_store) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
             if (isset($node->show_in_website)) {
                 if ((int)$node->show_in_website) {
-                    $showTab=true;
+                    $showTab = true;
                 }
             }
         } elseif (isset($node->show_in_default)) {
-                if ((int)$node->show_in_default) {
-                    $showTab=true;
-                }
+            if ((int)$node->show_in_default) {
+                $showTab = true;
+            }
         }
         if ($showTab) {
             if (isset($node->groups)) {
-                foreach ($node->groups->children() as $children){
-                    if ($this->hasChildren ($children, $websiteCode, $storeCode)) {
+                foreach ($node->groups->children() as $children) {
+                    if ($this->hasChildren($children, $websiteCode, $storeCode)) {
                         return true;
                     }
-
                 }
-            }elseif (isset($node->fields)) {
-
-                foreach ($node->fields->children() as $children){
-                    if ($this->hasChildren ($children, $websiteCode, $storeCode, true)) {
+            } elseif (isset($node->fields)) {
+                foreach ($node->fields->children() as $children) {
+                    if ($this->hasChildren($children, $websiteCode, $storeCode, true)) {
                         return true;
                     }
                 }
@@ -253,8 +245,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             if (!empty($groupName)) {
                 $path .= '/fields/' . trim($fieldName, '/');
                 $fieldNode = $this->_sections->xpath($path);
-            }
-            else {
+            } else {
                 Mage::throwException(Mage::helper('adminhtml')->__('The group node name must be specified with field node name.'));
             }
         }
@@ -283,8 +274,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                     $field   = $node->getParent()->getName();
                     if ($explodePathToEntities) {
                         $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
-                    }
-                    else {
+                    } else {
                         $paths[] = $section . '/' . $group . '/' . $field;
                     }
                 }

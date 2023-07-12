@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,21 +18,20 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Model_Resource_Customer_Collection
 {
     /**
      * Add order statistics flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addOrderStatistics           = false;
 
     /**
      * Add order statistics is filter flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_addOrderStatisticsIsFilter   = false;
 
@@ -121,7 +115,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         $this->getSelect()
             ->joinLeft(
                 ['orders' => $this->getTable('sales/order')],
-                "orders.customer_id = e.entity_id".$dateFilter,
+                "orders.customer_id = e.entity_id" . $dateFilter,
                 []
             );
 
@@ -266,7 +260,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

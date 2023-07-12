@@ -2,24 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales Quote Item Model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Quote_Item _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item getResource()
@@ -105,6 +103,7 @@
  * @method $this setParentProductId(int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method $this setProductOrderOptions(array $value)
  * @method $this setProductType(string $value)
  * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
@@ -159,10 +158,6 @@
  * @method $this setWeeeTaxRowDisposition(float $value)
  * @method float getWeight()
  * @method $this setWeight(float $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
@@ -185,7 +180,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Quote model object
      *
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|null
      */
     protected $_quote;
 
@@ -223,10 +218,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     protected $_errorInfos = null;
 
-    /**
-     * Initialize resource model
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/quote_item');
@@ -237,7 +228,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @return Varien_Object
+     * @return $this
      */
     protected function _initOldFieldsMap()
     {
@@ -281,6 +272,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     public function getQuote()
     {
+        if (is_null($this->_quote)) {
+            $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
+        }
         return $this->_quote;
     }
 
@@ -732,7 +726,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Checks that item model has data changes.
      * Call save item options if model isn't need to save in DB
      *
-     * @return boolean
+     * @return bool
      */
     protected function _hasModelChanged()
     {
@@ -779,6 +773,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         if ($hasDataChanges && !$this->_flagOptionsSaved) {
             $this->_saveItemOptions();
         }
+
+        return $this;
     }
 
     /**

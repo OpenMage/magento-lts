@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Widget
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Widget Instance Settings tab block
  *
- * @category    Mage
- * @package     Mage_Widget
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Widget
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -56,7 +50,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     /**
      * Returns status flag about this tab can be showen or not
      *
-     * @return true
+     * @return bool
      */
     public function canShowTab()
     {
@@ -66,7 +60,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
@@ -99,7 +93,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend'=>Mage::helper('widget')->__('Settings')]
+            ['legend' => Mage::helper('widget')->__('Settings')]
         );
 
         $this->_addElementTypes($fieldset);
@@ -123,7 +117,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('widget')->__('Continue'),
-                'onclick'   => "setSettings('".$this->getContinueUrl()."', 'type', 'package_theme')",
+                'onclick'   => "setSettings('" . $this->getContinueUrl() . "', 'type', 'package_theme')",
                 'class'     => 'save'
             ]);
         $fieldset->addField('continue_button', 'note', [
@@ -170,11 +164,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
      *
      * @param array $a
      * @param array $b
-     * @return boolean
+     * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)
     {
-        return strcmp($a["label"], $b["label"]);
+        return strcmp($a['label'], $b['label']);
     }
 
     /**

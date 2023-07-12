@@ -2,28 +2,26 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Catalog_Model_Convert_Parser_Product
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
-    const MULTI_DELIMITER = ' , ';
+    public const MULTI_DELIMITER = ' , ';
 
     protected $_resource;
 
@@ -44,7 +42,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Product Type cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypes;
 
@@ -72,7 +70,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             if ($node->is('inventory')) {
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
-                    $this->_inventoryFields[] = 'use_config_'.$code;
+                    $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
             if ($node->is('internal')) {
@@ -97,10 +95,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
-                #->loadStores()
-                #->loadProducts()
-                #->loadAttributeSets()
-                #->loadAttributeOptions();
+            #->loadStores()
+            #->loadProducts()
+            #->loadAttributeSets()
+            #->loadAttributeOptions();
         }
         return $this->_resource;
     }
@@ -141,17 +139,14 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     public function getProductTypeName($code)
     {
         $productTypes = $this->getProductTypes();
-        if (isset($productTypes[$code])) {
-            return $productTypes[$code];
-        }
-        return false;
+        return $productTypes[$code] ?? false;
     }
 
     /**
      * Retrieve product type code by name
      *
      * @param string $name
-     * @return string
+     * @return string|false
      */
     public function getProductTypeId($name)
     {
@@ -268,7 +263,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         $inventoryFields = [];
 
         foreach ($data as $i => $row) {
-            $this->setPosition('Line: '.($i+1));
+            $this->setPosition('Line: ' . ($i + 1));
             try {
                 // validate SKU
                 if (empty($row['sku'])) {
@@ -278,7 +273,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     );
                     continue;
                 }
-                $this->setPosition('Line: '.($i+1).', SKU: '.$row['sku']);
+                $this->setPosition('Line: ' . ($i + 1) . ', SKU: ' . $row['sku']);
 
                 // try to get entity_id by sku if not set
                 if (empty($row['entity_id'])) {
@@ -313,7 +308,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 }
 
                 // get store ids
-                $storeIds = $this->getStoreIds(isset($row['store']) ? $row['store'] : $this->getVar('store'));
+                $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
                     $this->addException(
                         Mage::helper('catalog')->__('Invalid store specified, skipping the record.'),
@@ -360,8 +355,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         $model->setData($field, $value);
                     }//foreach ($row as $field=>$value)
 
-                    //echo 'Before **********************<br/><pre>';
-                    //print_r($model->getData());
                     if (!$rowError) {
                         $collection->addItem($model);
                     }
@@ -419,7 +412,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $this->setProductTypeInstance($product);
             /** @var Mage_Catalog_Model_Product $product */
 
-            $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());
+            $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i + 1), $product->getSku());
             $this->setPosition($position);
 
             $row = [

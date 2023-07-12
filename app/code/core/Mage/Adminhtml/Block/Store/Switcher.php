@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
@@ -40,13 +34,6 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     protected $_storeVarName = 'store';
 
     /**
-     * Url for store switcher hint
-     *
-     * @var string
-     */
-    protected $_hintUrl;
-
-    /**
      * @var bool
      */
     protected $_hasDefaultOption = true;
@@ -61,6 +48,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
+     * @return Mage_Core_Model_Resource_Website_Collection
+     * @throws Mage_Core_Exception
      * @deprecated
      */
     public function getWebsiteCollection()
@@ -94,6 +83,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
+     * @param Mage_Core_Model_Website|int|string $website
+     * @return Mage_Core_Model_Resource_Store_Group_Collection
      * @deprecated
      */
     public function getGroupCollection($website)
@@ -107,7 +98,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store groups for specified website
      *
-     * @param Mage_Core_Model_Website $website
+     * @param Mage_Core_Model_Website|int|string|null $website
      * @return array
      */
     public function getStoreGroups($website)
@@ -119,6 +110,8 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
+     * @param Mage_Core_Model_Store_Group|int|string $group
+     * @return Mage_Core_Model_Resource_Store_Collection
      * @deprecated
      */
     public function getStoreCollection($group)
@@ -137,7 +130,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     /**
      * Get store views for specified store group
      *
-     * @param Mage_Core_Model_Store_Group $group
+     * @param Mage_Core_Model_Store_Group|int|string|null $group
      * @return array
      */
     public function getStores($group)
@@ -156,6 +149,9 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         return $stores;
     }
 
+    /**
+     * @return string
+     */
     public function getSwitchUrl()
     {
         if ($url = $this->getData('switch_url')) {
@@ -164,33 +160,54 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         return $this->getUrl('*/*/*', ['_current' => true, $this->_storeVarName => null]);
     }
 
+    /**
+     * @param string $varName
+     * @return $this
+     */
     public function setStoreVarName($varName)
     {
         $this->_storeVarName = $varName;
         return $this;
     }
 
+    /**
+     * @return mixed
+     * @throws Exception
+     */
     public function getStoreId()
     {
         return $this->getRequest()->getParam($this->_storeVarName);
     }
 
+    /**
+     * @param array $storeIds
+     * @return $this
+     */
     public function setStoreIds($storeIds)
     {
         $this->_storeIds = $storeIds;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getStoreIds()
     {
         return $this->_storeIds;
     }
 
+    /**
+     * @return bool
+     */
     public function isShow()
     {
         return !Mage::app()->isSingleStoreMode();
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if (!Mage::app()->isSingleStoreMode()) {

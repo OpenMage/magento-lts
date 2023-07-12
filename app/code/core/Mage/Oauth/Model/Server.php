@@ -2,89 +2,83 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth Server
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
  */
 class Mage_Oauth_Model_Server
 {
     /**#@+
      * OAuth result statuses
      */
-    const ERR_OK                        = 0;
-    const ERR_VERSION_REJECTED          = 1;
-    const ERR_PARAMETER_ABSENT          = 2;
-    const ERR_PARAMETER_REJECTED        = 3;
-    const ERR_TIMESTAMP_REFUSED         = 4;
-    const ERR_NONCE_USED                = 5;
-    const ERR_SIGNATURE_METHOD_REJECTED = 6;
-    const ERR_SIGNATURE_INVALID         = 7;
-    const ERR_CONSUMER_KEY_REJECTED     = 8;
-    const ERR_TOKEN_USED                = 9;
-    const ERR_TOKEN_EXPIRED             = 10;
-    const ERR_TOKEN_REVOKED             = 11;
-    const ERR_TOKEN_REJECTED            = 12;
-    const ERR_VERIFIER_INVALID          = 13;
-    const ERR_PERMISSION_UNKNOWN        = 14;
-    const ERR_PERMISSION_DENIED         = 15;
+    public const ERR_OK                        = 0;
+    public const ERR_VERSION_REJECTED          = 1;
+    public const ERR_PARAMETER_ABSENT          = 2;
+    public const ERR_PARAMETER_REJECTED        = 3;
+    public const ERR_TIMESTAMP_REFUSED         = 4;
+    public const ERR_NONCE_USED                = 5;
+    public const ERR_SIGNATURE_METHOD_REJECTED = 6;
+    public const ERR_SIGNATURE_INVALID         = 7;
+    public const ERR_CONSUMER_KEY_REJECTED     = 8;
+    public const ERR_TOKEN_USED                = 9;
+    public const ERR_TOKEN_EXPIRED             = 10;
+    public const ERR_TOKEN_REVOKED             = 11;
+    public const ERR_TOKEN_REJECTED            = 12;
+    public const ERR_VERIFIER_INVALID          = 13;
+    public const ERR_PERMISSION_UNKNOWN        = 14;
+    public const ERR_PERMISSION_DENIED         = 15;
     /**#@-*/
 
     /**#@+
      * Signature Methods
      */
-    const SIGNATURE_HMAC  = 'HMAC-SHA1';
-    const SIGNATURE_RSA   = 'RSA-SHA1';
-    const SIGNATURE_PLAIN = 'PLAINTEXT';
+    public const SIGNATURE_HMAC  = 'HMAC-SHA1';
+    public const SIGNATURE_RSA   = 'RSA-SHA1';
+    public const SIGNATURE_PLAIN = 'PLAINTEXT';
     /**#@-*/
 
     /**#@+
      * Request Types
      */
-    const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
-    const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
-    const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
-    const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
+    public const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
+    public const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
+    public const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
+    public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
     /**#@-*/
 
     /**#@+
      * HTTP Response Codes
      */
-    const HTTP_OK             = 200;
-    const HTTP_BAD_REQUEST    = 400;
-    const HTTP_UNAUTHORIZED   = 401;
-    const HTTP_INTERNAL_ERROR = 500;
+    public const HTTP_OK             = 200;
+    public const HTTP_BAD_REQUEST    = 400;
+    public const HTTP_UNAUTHORIZED   = 401;
+    public const HTTP_INTERNAL_ERROR = 500;
     /**#@-*/
 
     /**
      * Possible time deviation for timestamp validation in sec.
      */
-    const TIME_DEVIATION = 600;
+    public const TIME_DEVIATION = 600;
 
     /**
      * Value of callback URL when it is established or if cliaent is unable to receive callbacks
      *
      * @link http://tools.ietf.org/html/rfc5849#section-2.1     Requirement in RFC-5849
      */
-    const CALLBACK_ESTABLISHED = 'oob';
+    public const CALLBACK_ESTABLISHED = 'oob';
 
     /**
      * Consumer object
@@ -225,7 +219,7 @@ class Mage_Oauth_Model_Server
         }
         $contentTypeHeader = $this->_request->getHeader(Zend_Http_Client::CONTENT_TYPE);
 
-        if ($contentTypeHeader && strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED) === 0) {
+        if ($contentTypeHeader && str_starts_with($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED)) {
             $protocolParamsNotSet = !$this->_protocolParams;
 
             parse_str($this->_request->getRawBody(), $bodyParams);
@@ -287,8 +281,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Initialize consumer
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _initConsumer()
     {
@@ -305,7 +297,6 @@ class Mage_Oauth_Model_Server
      * Load token object, validate it depending on request type, set access data and save
      *
      * @return $this
-     * @throws Mage_Oauth_Exception
      */
     protected function _initToken()
     {
@@ -410,7 +401,8 @@ class Mage_Oauth_Model_Server
     {
         if (self::REQUEST_INITIATE == $this->_requestType) {
             if (self::CALLBACK_ESTABLISHED == $this->_protocolParams['oauth_callback']
-                && $this->_consumer->getCallBackUrl()) {
+                && $this->_consumer->getCallBackUrl()
+            ) {
                 $callbackUrl = $this->_consumer->getCallbackUrl();
             } else {
                 $callbackUrl = $this->_protocolParams['oauth_callback'];
@@ -426,7 +418,7 @@ class Mage_Oauth_Model_Server
      *
      * @param string $message Exception message
      * @param int $code Exception code
-     * @throws Mage_Oauth_Exception
+     * @return never
      */
     protected function _throwException($message = '', $code = 0)
     {
@@ -479,8 +471,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Validate protocol parameters
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _validateProtocolParams()
     {
@@ -522,8 +512,6 @@ class Mage_Oauth_Model_Server
 
     /**
      * Validate signature
-     *
-     * @throws Mage_Oauth_Exception
      */
     protected function _validateSignature()
     {
@@ -665,8 +653,9 @@ class Mage_Oauth_Model_Server
      * Create response string for problem during request and set HTTP error code
      *
      * @param Exception $e
-     * @param Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
+     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
      * @return string
+     * @throws Zend_Controller_Response_Exception
      */
     public function reportProblem(Exception $e, Zend_Controller_Response_Http $response = null)
     {

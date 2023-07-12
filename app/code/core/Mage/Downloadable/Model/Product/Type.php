@@ -2,38 +2,32 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable product type model
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Virtual
 {
-    const TYPE_DOWNLOADABLE = 'downloadable';
+    public const TYPE_DOWNLOADABLE = 'downloadable';
 
     /**
      * Get downloadable product links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return array
+     * @return Mage_Downloadable_Model_Link[]
      */
     public function getLinks($product = null)
     {
@@ -58,7 +52,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has links
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasLinks($product = null)
     {
@@ -72,7 +66,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has options
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasOptions($product = null)
     {
@@ -99,7 +93,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product cannot be purchased with no links selected
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function getLinkSelectionRequired($product = null)
     {
@@ -129,7 +123,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product has samples
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return boolean
+     * @return bool
      */
     public function hasSamples($product = null)
     {
@@ -383,6 +377,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * based on link can be purchased separately or not
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function beforeSave($product = null)
     {
@@ -408,6 +403,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
 
         $this->getProduct($product)->setTypeHasOptions($linksExist);
         $this->getProduct($product)->setLinksExist($linksExist);
+        return $this;
     }
 
     /**

@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,28 +18,27 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model_Resource_Abstract
 {
     /**
      * Is grid available
      *
-     * @var boolean
+     * @var bool
      */
     protected $_grid                         = false;
 
     /**
      * Use additional is object new check for this resource
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIsObjectNew               = true;
 
     /**
      * Flag for using of increment id
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useIncrementId               = false;
 
@@ -70,15 +64,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     protected $_gridColumns                  = null;
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix                  = 'sales_resource';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject                  = 'resource';
@@ -230,7 +220,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             }
 
             $select->joinLeft(
-                [$tableAlias=> $table],
+                [$tableAlias => $table],
                 implode(' AND ', $joinConditionExpr),
                 [$alias => str_replace('{{table}}', $tableAlias, $column)]
             );
@@ -264,7 +254,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Retrieve grid table
      *
-     * @return string
+     * @return string|false
      */
     public function getGridTable()
     {
@@ -366,7 +356,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         if ($this->_useIncrementId && !$object->getIncrementId()) {
             /** @var Mage_Eav_Model_Entity_Type $entityType */
-            $entityType = Mage::getModel('eav/entity_type')->loadByCode($this->_entityTypeForIncrementId);
+            $entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeForIncrementId);
             $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
         }
         parent::_beforeSave($object);
@@ -435,7 +425,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         $column = [];
         $select = $adapter->select()
             ->from(['main_table' => $this->getMainTable()], $column)
-            ->where('main_table.' . $field .' = ?', $entityId);
+            ->where('main_table.' . $field . ' = ?', $entityId);
         $this->joinVirtualGridColumnsToSelect('main_table', $select, $column);
         $fieldsToUpdate = $adapter->fetchRow($select);
         if ($fieldsToUpdate) {

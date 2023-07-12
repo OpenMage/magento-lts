@@ -2,28 +2,23 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Block for Urlrewrites edit form and selectors container
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_Container
 {
@@ -42,17 +37,14 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     protected $_buttonsHtml;
 
     /**
-     * Prepare page layout, basing on different registry and request variables
-     *
-     * Generates layout of: creation modes selector, products grid, categories tree, urlrewrite edit form
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
         $this->setTemplate('urlrewrite/edit.phtml');
         $this->_addButton('back', [
             'label'   => Mage::helper('adminhtml')->__('Back'),
-            'onclick' => 'setLocation(\'' . Mage::helper('adminhtml')->getUrl('*/*/') . '\')',
+            'onclick' => Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/')),
             'class'   => 'back',
             'level'   => -1
         ]);
@@ -64,8 +56,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'item_url' => Mage::helper('adminhtml')->getUrl('*/*/*') . 'product',
                     'item'     => Mage::registry('current_product'),
                     'label'    => Mage::helper('adminhtml')->__('Product:')
-                ])
-            );
+                ]));
         }
         if ($this->getCategoryId()) {
             $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*') . 'category';
@@ -77,8 +68,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'item_url' => $itemUrl,
                     'item'     => Mage::registry('current_category'),
                     'label'    => Mage::helper('adminhtml')->__('Category:')
-                ])
-            );
+                ]));
         }
 
         $this->_headerText = Mage::helper('adminhtml')->__('Add New URL Rewrite');
@@ -87,20 +77,19 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         if ($this->getUrlrewriteId()) {
             $this->_headerText = Mage::helper('adminhtml')->__('Edit URL Rewrite');
             $this->_setFormChild();
-        }
-        elseif ($this->getProductId()) {
+        } elseif ($this->getProductId()) {
             $this->_headerText = Mage::helper('adminhtml')->__('Add URL Rewrite for a Product');
 
             // edit form for product with or without category
             if ($this->getCategoryId() || !$this->isMode('category')) {
                 $this->_setFormChild();
-            }
-            // categories selector & skip categories button
-            else {
-                $this->setChild('categories_tree',
+            } else { // categories selector & skip categories button
+                $this->setChild(
+                    'categories_tree',
                     $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree')
                 );
-                $this->setChild('skip_categories',
+                $this->setChild(
+                    'skip_categories',
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
                         'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
@@ -110,28 +99,25 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                         'level'   => -1
                     ])
                 );
-                $this->_updateButton('back', 'onclick', 'setLocation(\'' . Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product\')');
+                $this->_updateButton(
+                    'back',
+                    'onclick',
+                    Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/edit') . 'product')
+                );
             }
-        }
-        // edit form for category
-        elseif ($this->getCategoryId()) {
+        } elseif ($this->getCategoryId()) { // edit form for category
             $this->_headerText = Mage::helper('adminhtml')->__('Add URL Rewrite for a Category');
             $this->_setFormChild();
-        }
-        // modes selector and products/categories selectors, as well as edit form for custom urlrewrite
-        else {
+        } else { // modes selector and products/categories selectors, as well as edit form for custom urlrewrite
             $this->setChild('selector', $this->getLayout()->createBlock('adminhtml/urlrewrite_selector'));
 
             if ($this->isMode('id')) {
                 $this->updateModeLayout('id');
-            }
-            elseif ($this->isMode('product')) {
+            } elseif ($this->isMode('product')) {
                 $this->updateModeLayout('product');
-            }
-            elseif ($this->isMode('category')) {
+            } elseif ($this->isMode('category')) {
                 $this->updateModeLayout('category');
-            }
-            else {
+            } else {
                 $this->updateModeLayout();
             }
         }
@@ -183,12 +169,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             if ($this->getProductId()) {
                 $suffix = 'category';
                 $params['product'] = $this->getProductId();
-            }
-            elseif ($this->getCategoryId()) {
+            } elseif ($this->getCategoryId()) {
                 $suffix = 'category';
             }
         }
-        $this->_updateButton('back', 'onclick', 'setLocation(\'' . Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix . '\')');
+        $this->_updateButton(
+            'back',
+            'onclick',
+            Mage::helper('core/js')->getSetLocationJs(Mage::helper('adminhtml')->getUrl('*/*/' . $action, $params) . $suffix)
+        );
 
         return $this;
     }
@@ -206,7 +195,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         if ($this->_buttonsHtml === null) {
             $this->_buttonsHtml = parent::getButtonsHtml();
             foreach ($this->_children as $alias => $child) {
-                if (strpos($alias, '_button') !== false) {
+                if (str_contains($alias, '_button')) {
                     $this->unsetChild($alias);
                 }
             }
@@ -272,18 +261,17 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         // edit form for new custom urlrewrite
         if ($mode === 'id') {
             $this->_setFormChild();
-        }
-        // products grid
-        elseif ($mode === 'product') {
+        } elseif ($mode === 'product') { // products grid
             $this->setChild('products_grid', $this->getLayout()->createBlock('adminhtml/urlrewrite_product_grid'));
-        }
-        // categories tree
-        elseif ($mode === 'category') {
+        } elseif ($mode === 'category') { // categories tree
             $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
         }
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'icon-head head-urlrewrite';

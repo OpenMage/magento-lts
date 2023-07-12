@@ -2,36 +2,33 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resources and connections registry and factory
  *
+ * @category   Mage
+ * @package    Mage_Core
  */
 class Mage_Core_Model_Resource
 {
-    const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
-    const AUTO_UPDATE_ONCE       = 0;
-    const AUTO_UPDATE_NEVER      = -1;
-    const AUTO_UPDATE_ALWAYS     = 1;
+    public const AUTO_UPDATE_CACHE_KEY  = 'DB_AUTOUPDATE';
+    public const AUTO_UPDATE_ONCE       = 0;
+    public const AUTO_UPDATE_NEVER      = -1;
+    public const AUTO_UPDATE_ALWAYS     = 1;
 
-    const DEFAULT_READ_RESOURCE  = 'core_read';
-    const DEFAULT_WRITE_RESOURCE = 'core_write';
-    const DEFAULT_SETUP_RESOURCE = 'core_setup';
+    public const DEFAULT_READ_RESOURCE  = 'core_read';
+    public const DEFAULT_WRITE_RESOURCE = 'core_write';
+    public const DEFAULT_SETUP_RESOURCE = 'core_setup';
 
     /**
      * Instances of classes for connection types
@@ -197,7 +194,7 @@ class Mage_Core_Model_Resource
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
-        if (strpos($requiredConnectionName, 'read') !== false) {
+        if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE);
         }
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
@@ -321,11 +318,7 @@ class Mage_Core_Model_Resource
      */
     public function getMappedTableName($tableName)
     {
-        if (isset($this->_mappedTableNames[$tableName])) {
-            return $this->_mappedTableNames[$tableName];
-        } else {
-            return false;
-        }
+        return $this->_mappedTableNames[$tableName] ?? false;
     }
 
     /**

@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,14 +18,9 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('core/config_data', 'config_id');
@@ -55,8 +45,8 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->from($this->getTable('core/website'), ['website_id', 'code', 'name']);
         $rowset = $read->fetchAssoc($select);
         foreach ($rowset as $w) {
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/id', $w['website_id']);
-            $xmlConfig->setNode('websites/'.$w['code'].'/system/website/name', $w['name']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/id', $w['website_id']);
+            $xmlConfig->setNode('websites/' . $w['code'] . '/system/website/name', $w['name']);
             $websites[$w['website_id']] = ['code' => $w['code']];
         }
 
@@ -69,11 +59,11 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if (!isset($websites[$s['website_id']])) {
                 continue;
             }
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/id', $s['store_id']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/store/name', $s['name']);
-            $xmlConfig->setNode('stores/'.$s['code'].'/system/website/id', $s['website_id']);
-            $xmlConfig->setNode('websites/'.$websites[$s['website_id']]['code'].'/system/stores/'.$s['code'], $s['store_id']);
-            $stores[$s['store_id']] = ['code'=>$s['code']];
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
+            $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
+            $xmlConfig->setNode('websites/' . $websites[$s['website_id']]['code'] . '/system/stores/' . $s['code'], $s['store_id']);
+            $stores[$s['store_id']] = ['code' => $s['code']];
             $websites[$s['website_id']]['stores'][$s['store_id']] = $s['code'];
         }
 
@@ -93,7 +83,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'default') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             $xmlConfig->setNode('default/' . $r['path'], $value);
         }
 
@@ -110,7 +100,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'websites') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             if (isset($websites[$r['scope_id']])) {
                 $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
                 $xmlConfig->setNode($nodePath, $value);
@@ -124,7 +114,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $extendSource = $xmlConfig->getNode('websites/' . $website['code']);
             if (isset($website['stores'])) {
                 foreach ($website['stores'] as $sCode) {
-                    $storeNode = $xmlConfig->getNode('stores/'.$sCode);
+                    $storeNode = $xmlConfig->getNode('stores/' . $sCode);
                     /**
                      * $extendSource DO NOT need overwrite source
                      */
@@ -139,7 +129,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'stores') {
                 continue;
             }
-            $value = str_replace($substFrom, $substTo, $r['value']);
+            $value = str_replace($substFrom, $substTo, (string)$r['value']);
             if (isset($stores[$r['scope_id']])) {
                 $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
                 $xmlConfig->setNode($nodePath, $value);

@@ -2,35 +2,25 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Product Eav Select and Multiply Select Attributes Indexer resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
-    /**
-     * Initialize connection and define main index table
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav', 'entity_id');
@@ -111,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
                 '1 = 1 AND d.store_id = 0',
                 ['entity_id', 'attribute_id', 'value']
             )
-            ->where('s.store_id != 0');
+            ->where('s.store_id != ? AND s.is_active=1', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
         $statusCond = $adapter->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         $this->_addAttributeToSelect($subSelect, 'status', 'd.entity_id', 's.store_id', $statusCond);
@@ -214,7 +204,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
                 'pvd.store_id=?',
                 $adapter->getIfNullSql('pvs.store_id', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             )
-            ->where('cs.store_id!=?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
+            ->where('cs.store_id != ? AND cs.is_active=1', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             ->where('pvd.attribute_id IN(?)', $attrIds);
 
         $statusCond = $adapter->quoteInto('=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
@@ -238,7 +228,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $data  = [];
         $query = $select->query();
         while ($row = $query->fetch()) {
-            $values = array_unique(explode(',', $row['value']));
+            $values = empty($row['value']) ? [] : array_unique(explode(',', $row['value']));
             foreach ($values as $valueId) {
                 if (isset($options[$row['attribute_id']][$valueId])) {
                     $data[] = [
@@ -247,7 +237,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
                         $row['store_id'],
                         $valueId
                     ];
-                    $i ++;
+                    $i++;
                     if ($i % 10000 == 0) {
                         $this->_saveIndexData($data);
                         $data = [];

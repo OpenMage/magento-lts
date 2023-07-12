@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer dashboard block
  *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
  *
  * @method string getRefererUrl()
  * @method $this setRefererUrl(string $value)
@@ -45,7 +39,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAccountUrl()
     {
-        return Mage::getUrl('customer/account/edit', ['_secure'=>true]);
+        return Mage::getUrl('customer/account/edit', ['_secure' => true]);
     }
 
     /**
@@ -53,7 +47,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAddressesUrl()
     {
-        return Mage::getUrl('customer/address/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/address/index', ['_secure' => true]);
     }
 
     /**
@@ -62,7 +56,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getAddressEditUrl($address)
     {
-        return Mage::getUrl('customer/address/edit', ['_secure'=>true, 'id'=>$address->getId()]);
+        return Mage::getUrl('customer/address/edit', ['_secure' => true, 'id' => $address->getId()]);
     }
 
     /**
@@ -70,7 +64,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getOrdersUrl()
     {
-        return Mage::getUrl('customer/order/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/order/index', ['_secure' => true]);
     }
 
     /**
@@ -78,7 +72,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getReviewsUrl()
     {
-        return Mage::getUrl('review/customer/index', ['_secure'=>true]);
+        return Mage::getUrl('review/customer/index', ['_secure' => true]);
     }
 
     /**
@@ -86,7 +80,7 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
      */
     public function getWishlistUrl()
     {
-        return Mage::getUrl('customer/wishlist/index', ['_secure'=>true]);
+        return Mage::getUrl('customer/wishlist/index', ['_secure' => true]);
     }
 
     /**

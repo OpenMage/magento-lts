@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -50,7 +44,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     public function addSearchFilter($query)
     {
         $this->_searchQuery = $query;
-        $this->addFieldToFilter('entity_id', ['in'=>new Zend_Db_Expr($this->_getSearchEntityIdsSql($query))]);
+        $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($this->_getSearchEntityIdsSql($query))]);
         return $this;
     }
 
@@ -76,14 +70,15 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Check attribute is Text and is Searchable
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _isAttributeTextAndSearchable($attribute)
     {
         if (($attribute->getIsSearchable()
             && !in_array($attribute->getFrontendInput(), ['select', 'multiselect']))
             && (in_array($attribute->getBackendType(), ['varchar', 'text'])
-                || $attribute->getBackendType() == 'static')) {
+                || $attribute->getBackendType() == 'static')
+        ) {
             return true;
         }
         return false;
@@ -93,12 +88,13 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Check attributes has options and searchable
      *
      * @param Mage_Catalog_Model_Entity_Attribute $attribute
-     * @return boolean
+     * @return bool
      */
     protected function _hasAttributeOptionsAndSearchable($attribute)
     {
         if ($attribute->getIsSearchable()
-            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])) {
+            && in_array($attribute->getFrontendInput(), ['select', 'multiselect'])
+        ) {
             return true;
         }
 
@@ -118,7 +114,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         /** @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
-        $likeOptions = ['position' => 'any'];
+        $likeOptions = ['position' => 'start'];
 
         /**
          * Collect tables and attribute ids of attributes with string values
@@ -150,7 +146,8 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                     ['t2' => $table],
                     $this->getConnection()->quoteInto(
                         't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = ?',
-                        $this->getStoreId()),
+                        $this->getStoreId()
+                    ),
                     []
                 )
                 ->where('t1.attribute_id IN (?)', $attributeIds)
@@ -171,7 +168,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
      * Retrieve SQL for search entities by option
      *
      * @param string $query
-     * @return string
+     * @return false|string
      */
     protected function _getSearchInOptionSql($query)
     {
@@ -204,17 +201,23 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         $ifStoreId = $this->getConnection()->getIfNullSql('s.store_id', 'd.store_id');
         $ifValue   = $this->getConnection()->getCheckSql('s.value_id > 0', 's.value', 'd.value');
         $select = $this->getConnection()->select()
-            ->from(['d'=>$optionValueTable],
-                   ['option_id',
-                         'o.attribute_id',
-                         'store_id' => $ifStoreId,
-                         'a.frontend_input'])
-            ->joinLeft(['s'=>$optionValueTable],
+            ->from(
+                ['d' => $optionValueTable],
+                ['option_id',
+                      'o.attribute_id',
+                      'store_id' => $ifStoreId,
+                      'a.frontend_input']
+            )
+            ->joinLeft(
+                ['s' => $optionValueTable],
                 $this->getConnection()->quoteInto('s.option_id = d.option_id AND s.store_id=?', $storeId),
-                [])
-            ->join(['o'=>$optionTable],
+                []
+            )
+            ->join(
+                ['o' => $optionTable],
                 'o.option_id=d.option_id',
-                [])
+                []
+            )
             ->join(['a' => $attributesTable], 'o.attribute_id=a.attribute_id', [])
             ->where('d.store_id=0')
             ->where('o.attribute_id IN (?)', $attributeIds)
@@ -227,10 +230,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         // build selects of entity ids for specified options ids by frontend input
         $selects = [];
-        foreach ([
-            'select'      => 'eq',
-            'multiselect' => 'finset']
-                 as $frontendInput => $condition) {
+        foreach (['select' => 'eq', 'multiselect' => 'finset'] as $frontendInput => $condition) {
             if (isset($attributeTables[$frontendInput])) {
                 $where = [];
                 foreach ($options as $option) {

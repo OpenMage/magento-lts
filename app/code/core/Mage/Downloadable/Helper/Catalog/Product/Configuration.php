@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,10 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
 {
+    protected $_moduleName = 'Mage_Downloadable';
+
     /**
      * Retrieves item links options
      *
@@ -39,8 +35,9 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
         $itemLinks = [];
         $linkIds = $item->getOptionByCode('downloadable_link_ids');
         if ($linkIds) {
-            $productLinks = $product->getTypeInstance(true)
-                ->getLinks($product);
+            /** @var Mage_Downloadable_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
+            $productLinks = $productType->getLinks($product);
             foreach (explode(',', $linkIds->getValue()) as $linkId) {
                 if (isset($productLinks[$linkId])) {
                     $itemLinks[] = $productLinks[$linkId];
@@ -62,7 +59,8 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
         if (strlen($title)) {
             return $title;
         }
-        return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
+
+        return (string)Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 
     /**

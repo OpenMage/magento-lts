@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 {
@@ -43,10 +37,10 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
-
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
+        return $this;
     }
 
     /**
@@ -142,7 +136,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 if (count($errors) === 0) {
                     $address->save();
                     $this->_getSession()->addSuccess($this->__('The address has been saved.'));
-                    $this->_redirectSuccess(Mage::getUrl('*/*/index', ['_secure'=>true]));
+                    $this->_redirectSuccess(Mage::getUrl('*/*/index', ['_secure' => true]));
                     return;
                 } else {
                     $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
@@ -157,9 +151,11 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
                     ->addException($e, $this->__('Cannot save address.'));
             }
+
+            return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
         }
 
-        return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
+        $this->_redirectReferer();
     }
 
     /**

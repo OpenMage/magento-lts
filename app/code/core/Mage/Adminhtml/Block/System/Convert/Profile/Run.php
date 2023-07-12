@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,13 +18,12 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
 {
     /**
      * Flag for batch model
-     * @var boolean
+     * @var bool
      */
     protected $_batchModelPrepared = false;
     /**
@@ -158,32 +152,33 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
      */
     public function getExceptions()
     {
-        if (!is_null(parent::getExceptions()))
+        if (!is_null(parent::getExceptions())) {
             return parent::getExceptions();
+        }
         $exceptions = [];
         $this->getProfile()->run();
         foreach ($this->getProfile()->getExceptions() as $e) {
-                switch ($e->getLevel()) {
-                    case Varien_Convert_Exception::FATAL:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FBB; ';
-                        break;
-                    case Varien_Convert_Exception::ERROR:
-                        $img = 'error_msg_icon.gif';
-                        $liStyle = 'background-color:#FDD; ';
-                        break;
-                    case Varien_Convert_Exception::WARNING:
-                        $img = 'fam_bullet_error.gif';
-                        $liStyle = 'background-color:#FFD; ';
-                        break;
-                    case Varien_Convert_Exception::NOTICE:
-                        $img = 'fam_bullet_success.gif';
-                        $liStyle = 'background-color:#DDF; ';
-                        break;
-                }
-                $exceptions[] = [
+            switch ($e->getLevel()) {
+                case Varien_Convert_Exception::FATAL:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FBB; ';
+                    break;
+                case Varien_Convert_Exception::ERROR:
+                    $img = 'error_msg_icon.gif';
+                    $liStyle = 'background-color:#FDD; ';
+                    break;
+                case Varien_Convert_Exception::WARNING:
+                    $img = 'fam_bullet_error.gif';
+                    $liStyle = 'background-color:#FFD; ';
+                    break;
+                case Varien_Convert_Exception::NOTICE:
+                    $img = 'fam_bullet_success.gif';
+                    $liStyle = 'background-color:#DDF; ';
+                    break;
+            }
+            $exceptions[] = [
                     "style"     => $liStyle,
-                    "src"       => Mage::getDesign()->getSkinUrl('images/'.$img),
+                    "src"       => Mage::getDesign()->getSkinUrl('images/' . $img),
                     "message"   => $e->getMessage(),
                     "position" => $e->getPosition()
                 ];

@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,17 +19,16 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Cache
 {
     /**
      * Cache settings
      */
-    const DEFAULT_LIFETIME  = 7200;
-    const OPTIONS_CACHE_ID  = 'core_cache_options';
-    const INVALIDATED_TYPES = 'core_cache_invalidate';
-    const XML_PATH_TYPES    = 'global/cache/types';
+    public const DEFAULT_LIFETIME  = 7200;
+    public const OPTIONS_CACHE_ID  = 'core_cache_options';
+    public const INVALIDATED_TYPES = 'core_cache_invalidate';
+    public const XML_PATH_TYPES    = 'global/cache/types';
 
     /**
      * Id prefix
@@ -46,7 +40,7 @@ class Mage_Core_Model_Cache
     /**
      * Cache frontend API
      *
-     * @var Varien_Cache_Core
+     * @var Varien_Cache_Core|Zend_Cache_Core
      */
     protected $_frontend;
 
@@ -57,7 +51,7 @@ class Mage_Core_Model_Cache
      */
     protected $_shmBackends = [
         'apc', 'memcached', 'xcache',
-        'zendserver_shmem', 'zendserver_disk', 'varien_eaccelerator',
+        'zendserver_shmem', 'zendserver_disk',
     ];
 
     /**
@@ -95,7 +89,7 @@ class Mage_Core_Model_Cache
     /**
      * List of allowed cache options
      *
-     * @var array
+     * @var array|null
      */
     protected $_allowedCacheOptions;
 
@@ -113,17 +107,16 @@ class Mage_Core_Model_Cache
      */
     public function __construct(array $options = [])
     {
-        $this->_defaultBackendOptions['cache_dir'] = isset($options['cache_dir']) ? $options['cache_dir'] :
-            Mage::getBaseDir('cache');
+        $this->_defaultBackendOptions['cache_dir'] = $options['cache_dir'] ?? Mage::getBaseDir('cache');
         /**
          * Initialize id prefix
          */
-        $this->_idPrefix = isset($options['id_prefix']) ? $options['id_prefix'] : '';
+        $this->_idPrefix = $options['id_prefix'] ?? '';
         if (!$this->_idPrefix && isset($options['prefix'])) {
             $this->_idPrefix = $options['prefix'];
         }
         if (empty($this->_idPrefix)) {
-            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3).'_';
+            $this->_idPrefix = substr(md5(Mage::getConfig()->getOptions()->getEtcDir()), 0, 3) . '_';
         }
 
         $backend    = $this->_getBackendOptions($options);
@@ -157,7 +150,7 @@ class Mage_Core_Model_Cache
     protected function _getBackendOptions(array $cacheOptions)
     {
         $enable2levels = false;
-        $type   = isset($cacheOptions['backend']) ? $cacheOptions['backend'] : $this->_defaultBackend;
+        $type   = $cacheOptions['backend'] ?? $this->_defaultBackend;
         if (isset($cacheOptions['backend_options']) && is_array($cacheOptions['backend_options'])) {
             $options = $cacheOptions['backend_options'];
         } else {
@@ -196,13 +189,6 @@ class Mage_Core_Model_Cache
                 if (extension_loaded('xcache')) {
                     $enable2levels = true;
                     $backendType = 'Xcache';
-                }
-                break;
-            case 'eaccelerator':
-            case 'varien_cache_backend_eaccelerator':
-                if (extension_loaded('eaccelerator') && ini_get('eaccelerator.enable')) {
-                    $enable2levels = true;
-                    $backendType = 'Varien_Cache_Backend_Eaccelerator';
                 }
                 break;
             case 'varien_cache_backend_database':
@@ -317,13 +303,12 @@ class Mage_Core_Model_Cache
      */
     protected function _getFrontendOptions(array $cacheOptions)
     {
-        $options = isset($cacheOptions['frontend_options']) ? $cacheOptions['frontend_options'] : [];
+        $options = $cacheOptions['frontend_options'] ?? [];
         if (!array_key_exists('caching', $options)) {
             $options['caching'] = true;
         }
         if (!array_key_exists('lifetime', $options)) {
-            $options['lifetime'] = isset($cacheOptions['lifetime']) ? $cacheOptions['lifetime']
-                : self::DEFAULT_LIFETIME;
+            $options['lifetime'] = $cacheOptions['lifetime'] ?? self::DEFAULT_LIFETIME;
         }
         if (!array_key_exists('automatic_cleaning_factor', $options)) {
             $options['automatic_cleaning_factor'] = 0;
@@ -363,7 +348,7 @@ class Mage_Core_Model_Cache
     /**
      * Get cache frontend API object
      *
-     * @return Varien_Cache_Core
+     * @return Varien_Cache_Core|Zend_Cache_Core
      */
     public function getFrontend()
     {
@@ -374,7 +359,7 @@ class Mage_Core_Model_Cache
      * Load data from cache by id
      *
      * @param   string $id
-     * @return  string
+     * @return  string|false
      */
     public function load($id)
     {
@@ -396,12 +381,6 @@ class Mage_Core_Model_Cache
             return true;
         }
 
-        /**
-         * Add global magento cache tag to all cached data exclude config cache
-         */
-        if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
-            $tags[] = Mage_Core_Model_App::CACHE_TAG;
-        }
         return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
     }
 
@@ -440,12 +419,10 @@ class Mage_Core_Model_Cache
             if (!is_array($tags)) {
                 $tags = [$tags];
             }
-            $res = $this->getFrontend()->clean($mode, $this->_tags($tags));
-        } else {
-            $res = $this->getFrontend()->clean($mode, [Mage_Core_Model_App::CACHE_TAG]);
-            $res = $res && $this->getFrontend()->clean($mode, [Mage_Core_Model_Config::CACHE_TAG]);
+            return $this->getFrontend()->clean($mode, $this->_tags($tags));
         }
-        return $res;
+
+        return $this->flush();
     }
 
     /**
@@ -714,6 +691,6 @@ class Mage_Core_Model_Cache
      */
     protected function _getProcessor($processor)
     {
-        return new $processor;
+        return new $processor();
     }
 }

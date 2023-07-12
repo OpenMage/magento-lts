@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getFirstShow()
  * @method string getIndex()
@@ -47,9 +41,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _beforeToHtml()
     {
-        $this->setId($this->getId().'_'.$this->getIndex());
-        $this->getChild('reset_filter_button')->setData('onclick', $this->getJsObjectName().'.resetFilter()');
-        $this->getChild('search_button')->setData('onclick', $this->getJsObjectName().'.doFilter()');
+        $this->setId($this->getId() . '_' . $this->getIndex());
+        $this->getChild('reset_filter_button')->setData('onclick', $this->getJsObjectName() . '.resetFilter()');
+        $this->getChild('search_button')->setData('onclick', $this->getJsObjectName() . '.doFilter()');
 
         return parent::_beforeToHtml();
     }
@@ -68,7 +62,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToFilter('type_id', ['in' => $this->getAllowedSelectionTypes()])
             ->addFilterByRequiredOptions()
-            ->addStoreFilter();
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+            ]);
 
         if ($products = $this->_getProducts()) {
             $collection->addIdFilter($this->_getProducts(), true);
@@ -78,8 +75,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             $collection->addIdFilter('-1');
             $this->setEmptyText($this->__('Please enter search conditions to view products.'));
         }
-
-        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
 
         $this->setCollection($collection);
 
@@ -102,7 +97,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'index'     => 'name',
-            'column_css_class'=> 'name'
+            'column_css_class' => 'name'
         ]);
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -113,7 +108,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         $this->addColumn(
             'set_name',
             [
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+                'header' => Mage::helper('catalog')->__('Attrib. Set Name'),
                 'width' => '100px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
@@ -125,7 +120,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'header'    => Mage::helper('sales')->__('SKU'),
             'width'     => '80px',
             'index'     => 'sku',
-            'column_css_class'=> 'sku'
+            'column_css_class' => 'sku'
         ]);
         $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
@@ -150,7 +145,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'sortable'  => false,
             'header'    => Mage::helper('sales')->__('Qty to Add'),
             'name'      => 'qty',
-            'inline_css'=> 'qty',
+            'inline_css' => 'qty',
             'align'     => 'right',
             'type'      => 'input',
             'validate_class' => 'validate-number',

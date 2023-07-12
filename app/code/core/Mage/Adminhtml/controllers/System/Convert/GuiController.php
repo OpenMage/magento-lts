@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +20,6 @@ include_once "ProfileController.php";
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_Convert_ProfileController
 {
@@ -33,7 +27,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'admin/system/convert/gui';
+    public const ADMIN_RESOURCE = 'admin/system/convert/gui';
 
     /**
      * Profiles list action
@@ -124,7 +118,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
-        if (!$filename || strpos($filename, '..')!==false || $filename[0]==='.') {
+        if (!$filename || str_contains($filename, '..') || $filename[0] === '.') {
             return;
         }
         $this->_initProfile();

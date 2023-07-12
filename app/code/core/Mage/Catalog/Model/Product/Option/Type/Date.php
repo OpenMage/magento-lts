@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array|null getUserValue()
  * @method $this setUserValue(array|null $userValue)
@@ -65,14 +59,14 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if ($isValid) {
             $this->setUserValue(
                 [
-                    'date' => isset($value['date']) ? $value['date'] : '',
-                    'year' => isset($value['year']) ? intval($value['year']) : 0,
-                    'month' => isset($value['month']) ? intval($value['month']) : 0,
-                    'day' => isset($value['day']) ? intval($value['day']) : 0,
-                    'hour' => isset($value['hour']) ? intval($value['hour']) : 0,
-                    'minute' => isset($value['minute']) ? intval($value['minute']) : 0,
-                    'day_part' => isset($value['day_part']) ? $value['day_part'] : '',
-                    'date_internal' => isset($value['date_internal']) ? $value['date_internal'] : '',
+                    'date' => $value['date'] ?? '',
+                    'year' => isset($value['year']) ? (int) $value['year'] : 0,
+                    'month' => isset($value['month']) ? (int) $value['month'] : 0,
+                    'day' => isset($value['day']) ? (int) $value['day'] : 0,
+                    'hour' => isset($value['hour']) ? (int) $value['hour'] : 0,
+                    'minute' => isset($value['minute']) ? (int) $value['minute'] : 0,
+                    'day_part' => $value['day_part'] ?? '',
+                    'date_internal' => $value['date_internal'] ?? '',
                 ]
             );
         } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
@@ -124,7 +118,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
 
             if ($this->_timeExists()) {
                 // 24hr hour conversion
-                if (! $this->is24hTimeFormat()) {
+                if (!$this->is24hTimeFormat()) {
                     $pmDayPart = (strtolower($value['day_part']) == 'pm');
                     if ($value['hour'] == 12) {
                         $value['hour'] = $pmDayPart ? 12 : 0;
@@ -242,7 +236,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Use Calendar on frontend or not
      *
-     * @return boolean
+     * @return bool
      */
     public function useCalendar()
     {
@@ -252,7 +246,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Time Format
      *
-     * @return boolean
+     * @return bool
      */
     public function is24hTimeFormat()
     {
@@ -308,7 +302,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Does option have date?
      *
-     * @return boolean
+     * @return bool
      */
     protected function _dateExists()
     {
@@ -321,7 +315,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     /**
      * Does option have time?
      *
-     * @return boolean
+     * @return bool
      */
     protected function _timeExists()
     {

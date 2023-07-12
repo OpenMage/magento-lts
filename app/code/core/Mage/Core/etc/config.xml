@@ -3,20 +3,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -444,7 +439,7 @@
         </admin>
         <general>
             <country>
-                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB,HR</eu_countries>
+                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,HR</eu_countries>
             </country>
             <locale>
                 <firstday>0</firstday>
@@ -495,10 +490,6 @@
                     </protected>
                 </public_files_valid_paths>
             </file>
-            <!-- NOTE: If you turn off images reprocessing, then your upload images process may cause security risks. -->
-            <reprocess_images>
-                <active>1</active>
-            </reprocess_images>
             <!-- Additional email for notifications -->
             <additional_notification_emails>
                 <!-- On creating a new admin user. You can specify several emails separated by commas. -->

@@ -2,56 +2,50 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile
  *
+ * @category   Mage
+ * @package    Mage_Dataflow
+ *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
  * @method string getName()
- * @method Mage_Dataflow_Model_Profile setName(string $value)
+ * @method $this setName(string $value)
  * @method string getCreatedAt()
- * @method Mage_Dataflow_Model_Profile setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_Dataflow_Model_Profile setUpdatedAt(string $value)
+ * @method $this setUpdatedAt(string $value)
  * @method string getActionsXml()
- * @method Mage_Dataflow_Model_Profile setActionsXml(string $value)
+ * @method $this setActionsXml(string $value)
  * @method string getGuiData()
- * @method Mage_Dataflow_Model_Profile setGuiData(string $value)
+ * @method $this setGuiData(string $value)
  * @method string getDirection()
- * @method Mage_Dataflow_Model_Profile setDirection(string $value)
+ * @method $this setDirection(string $value)
  * @method string getEntityType()
- * @method Mage_Dataflow_Model_Profile setEntityType(string $value)
+ * @method $this setEntityType(string $value)
  * @method int getStoreId()
- * @method Mage_Dataflow_Model_Profile setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getDataTransfer()
- * @method Mage_Dataflow_Model_Profile setDataTransfer(string $value)
+ * @method $this setDataTransfer(string $value)
  * @method int getAdminUserId()
- * @method Mage_Dataflow_Model_Profile setAdminUserId(int $value)
- *
- * @category    Mage
- * @package     Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setAdminUserId(int $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
-    const DEFAULT_EXPORT_PATH = 'var/export';
-    const DEFAULT_EXPORT_FILENAME = 'export_';
+    public const DEFAULT_EXPORT_PATH = 'var/export';
+    public const DEFAULT_EXPORT_FILENAME = 'export_';
 
     /**
      * Product table permanent attributes
@@ -93,7 +87,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
         if (strlen($actionsXML) < 0 &&
-        @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false) {
+            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        ) {
             Mage::throwException(Mage::helper('dataflow')->__("Actions XML is not valid."));
         }
 
@@ -103,13 +98,14 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
-                || (strlen($guiData['file']['path']) == 1
-                && in_array($guiData['file']['path'], $charSingleList))) {
+                    || (strlen($guiData['file']['path']) == 1
+                    && in_array($guiData['file']['path'], $charSingleList))
+                ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
                 }
                 if (empty($guiData['file']['filename'])) {
                     $guiData['file']['filename'] = self::DEFAULT_EXPORT_FILENAME . $data['entity_type']
-                        . '.' . ($guiData['parse']['type']=='csv' ? $guiData['parse']['type'] : 'xml');
+                        . '.' . ($guiData['parse']['type'] == 'csv' ? $guiData['parse']['type'] : 'xml');
                 }
 
                 //validate export available path
@@ -154,7 +150,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $profileHistory = Mage::getModel('dataflow/profile_history');
 
         $adminUserId = $this->getAdminUserId();
-        if($adminUserId) {
+        if ($adminUserId) {
             $profileHistory->setUserId($adminUserId);
         }
 
@@ -171,17 +167,17 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $newUploadedFilenames = [];
 
         if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
-        || isset($_FILES['file_3']['tmp_name'])) {
+            || isset($_FILES['file_3']['tmp_name'])
+        ) {
             for ($index = 0; $index < 3; $index++) {
-                if ($file = $_FILES['file_' . ($index+1)]['tmp_name']) {
+                if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
                     $uploader = new Mage_Core_Model_File_Uploader('file_' . ($index + 1));
                     $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if (
-                        $_FILES['file_' . ($index + 1)]['type'] == "text/csv"
+                    if ($_FILES['file_' . ($index + 1)]['type'] == "text/csv"
                         || $_FILES['file_' . ($index + 1)]['type'] == "application/vnd.ms-excel"
                     ) {
                         $fileData = $csvParser->getData($path . $uploadFile);
@@ -230,7 +226,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         );
                     }
                     if ($uploadFile) {
-                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index+1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }
@@ -247,6 +243,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             }
         }
         parent::_afterSave();
+        return $this;
     }
 
     /**
@@ -284,8 +281,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
             $profile->setDataflowProfile($this->getData());
             $profile->run();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo $e;
         }
 
@@ -296,10 +292,10 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     public function _parseGuiData()
     {
         $nl = "\r\n";
-        $import = $this->getDirection()==='import';
+        $import = $this->getDirection() === 'import';
         $p = $this->getGuiData();
 
-        if ($this->getDataTransfer()==='interactive') {
+        if ($this->getDataTransfer() === 'interactive') {
             $interactiveXml = '<action type="dataflow/convert_adapter_http" method="'
                 . ($import ? 'load' : 'save') . '">' . $nl;
             $interactiveXml .= '</action>';
@@ -313,7 +309,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $fileXml .= '    <var name="type">' . $p['file']['type'] . '</var>' . $nl;
             $fileXml .= '    <var name="path">' . $p['file']['path'] . '</var>' . $nl;
             $fileXml .= '    <var name="filename"><![CDATA[' . $p['file']['filename'] . ']]></var>' . $nl;
-            if ($p['file']['type']==='ftp') {
+            if ($p['file']['type'] === 'ftp') {
                 $hostArr = explode(':', $p['file']['host']);
                 $fileXml .= '    <var name="host"><![CDATA[' . $hostArr[0] . ']]></var>' . $nl;
                 if (isset($hostArr[1])) {
@@ -345,7 +341,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $parseFileXml = '<action type="dataflow/convert_parser_xml_excel" method="'
                     . ($import ? 'parse' : 'unparse') . '">' . $nl;
                 $parseFileXml .= '    <var name="single_sheet"><![CDATA['
-                    . ($p['parse']['single_sheet'] !== '' ? $p['parse']['single_sheet'] : '')
+                    . ($p['parse']['single_sheet'])
                     . ']]></var>' . $nl;
                 break;
 
@@ -365,12 +361,12 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $mapXml = '';
 
         if (isset($p['map']) && is_array($p['map'])) {
-            foreach ($p['map'] as $side=>$fields) {
+            foreach ($p['map'] as $side => $fields) {
                 if (!is_array($fields)) {
                     continue;
                 }
-                foreach ($fields['db'] as $i=>$k) {
-                    if ($k=='' || $k=='0') {
+                foreach ($fields['db'] as $i => $k) {
+                    if ($k == '' || $k == '0') {
                         unset($p['map'][$side]['db'][$i]);
                         unset($p['map'][$side]['file'][$i]);
                     }
@@ -380,11 +376,11 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $mapXml .= '<action type="dataflow/convert_mapper_column" method="map">' . $nl;
         $map = $p['map'][$this->getEntityType()];
         if (count($map['db'])) {
-            $from = $map[$import?'file':'db'];
-            $to = $map[$import?'db':'file'];
+            $from = $map[$import ? 'file' : 'db'];
+            $to = $map[$import ? 'db' : 'file'];
             $mapXml .= '    <var name="map">' . $nl;
             $parseFileXmlInter .= '    <var name="map">' . $nl;
-            foreach ($from as $i=>$f) {
+            foreach ($from as $i => $f) {
                 $mapXml .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
                 $parseFileXmlInter .= '        <map name="' . $f . '"><![CDATA[' . $to[$i] . ']]></map>' . $nl;
             }
@@ -399,8 +395,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $mapXml .= '</action>' . $nl . $nl;
 
         $parsers = [
-            'product'=>'catalog/convert_parser_product',
-            'customer'=>'customer/convert_parser_customer',
+            'product' => 'catalog/convert_parser_product',
+            'customer' => 'customer/convert_parser_customer',
         ];
 
         if ($import) {
@@ -416,8 +412,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
 
         $adapters = [
-            'product'=>'catalog/convert_adapter_product',
-            'customer'=>'customer/convert_adapter_customer',
+            'product' => 'catalog/convert_adapter_product',
+            'customer' => 'customer/convert_adapter_customer',
         ];
 
         if ($import) {
@@ -427,8 +423,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         } else {
             $entityXml = '<action type="' . $adapters[$this->getEntityType()] . '" method="load">' . $nl;
             $entityXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-            foreach ($p[$this->getEntityType()]['filter'] as $f=>$v) {
-
+            foreach ($p[$this->getEntityType()]['filter'] as $f => $v) {
                 if (empty($v)) {
                     continue;
                 }
@@ -436,8 +431,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $entityXml .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                     $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                 } elseif (is_array($v)) {
-                    foreach ($v as $a=>$b) {
-
+                    foreach ($v as $a => $b) {
                         if (strlen($b) == 0) {
                             continue;
                         }
@@ -453,13 +447,13 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
         // Need to rewrite the whole xml action format
         if ($import) {
-            $numberOfRecords = isset($p['import']['number_of_records']) ? $p['import']['number_of_records'] : 1;
-            $decimalSeparator = isset($p['import']['decimal_separator']) ? $p['import']['decimal_separator'] : ' . ';
+            $numberOfRecords = $p['import']['number_of_records'] ?? 1;
+            $decimalSeparator = $p['import']['decimal_separator'] ?? ' . ';
             $parseFileXmlInter .= '    <var name="number_of_records">'
                 . $numberOfRecords . '</var>' . $nl;
             $parseFileXmlInter .= '    <var name="decimal_separator"><![CDATA['
                 . $decimalSeparator . ']]></var>' . $nl;
-            if ($this->getDataTransfer()==='interactive') {
+            if ($this->getDataTransfer() === 'interactive') {
                 $xml = $parseFileXmlInter;
                 $xml .= '    <var name="adapter">' . $adapters[$this->getEntityType()] . '</var>' . $nl;
                 $xml .= '    <var name="method">parse</var>' . $nl;
@@ -472,16 +466,15 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $xml .= '</action>';
             }
             //$xml = $interactiveXml.$fileXml.$parseFileXml.$mapXml.$parseDataXml.$entityXml;
-
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }
 
         $this->setGuiData($p);
         $this->setActionsXml($xml);
-/*echo "<pre>" . print_r($p,1) . "</pre>";
-echo "<xmp>" . $xml . "</xmp>";
-die;*/
+        /*echo "<pre>" . print_r($p,1) . "</pre>";
+        echo "<xmp>" . $xml . "</xmp>";
+        die;*/
         return $this;
     }
 

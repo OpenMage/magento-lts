@@ -2,26 +2,24 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_PaypalUk
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_PaypalUk
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Website Payments Pro (Payflow Edition) implementation for payment method instances
  * This model was created because right now PayPal Direct and PayPal Express payment
  * (Payflow Edition) methods cannot have same abstract
+ *
+ * @category   Mage
+ * @package    Mage_PaypalUk
  */
 class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
 {
@@ -44,7 +42,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
      *
      * @var string
      */
-    const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
+    public const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
 
     /**
      * Refund a capture transaction
@@ -81,7 +79,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     {
         if ($payment->getParentTransactionId()) {
             return $payment->getTransaction($payment->getParentTransactionId())
-                ->getAdditionalInformation(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID);
+                ->getAdditionalInformation(self::TRANSPORT_PAYFLOW_TXN_ID);
         }
         return $payment->getParentTransactionId();
     }
@@ -89,17 +87,17 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
     {
         $payment->setTransactionId($api->getPaypalTransactionId())
             ->setIsTransactionClosed(false)
             ->setTransactionAdditionalInfo(
-                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                self::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
-        );
+            );
         $payment->setPreparedMessage(
             Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
         );
@@ -124,8 +122,8 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param bool $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
@@ -134,9 +132,9 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             ->setIsTransactionClosed(1) // refund initiated by merchant
             ->setShouldCloseParentTransaction(!$canRefundMore)
             ->setTransactionAdditionalInfo(
-                Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID,
+                self::TRANSPORT_PAYFLOW_TXN_ID,
                 $api->getTransactionId()
-        );
+            );
         $payment->setPreparedMessage(
             Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId())
         );

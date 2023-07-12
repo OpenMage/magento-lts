@@ -2,35 +2,29 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment transaction model
  * Tracks transaction history
  *
+ * @category   Mage
+ * @package    Mage_Paypal
+ *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
  * @method string getTxnId()
  * @method string getCreatedAt()
- * @method Mage_Paypal_Model_Payment_Transaction setCreatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setCreatedAt(string $value)
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -42,16 +36,12 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     protected $_isFailsafe = false;
 
     /**
-     * Event object prefix
-     *
      * @see Mage_Core_Model_Absctract::$_eventPrefix
      * @var string
      */
     protected $_eventPrefix = 'paypal_payment_transaction';
 
     /**
-     * Event object prefix
-     *
      * @see Mage_Core_Model_Absctract::$_eventObject
      * @var string
      */
@@ -107,7 +97,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
-            $this, $txnId
+            $this,
+            $txnId
         );
         $this->_afterLoadByTxnId();
         return $this;
@@ -131,7 +122,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      *
      * @param string $key
      * @param mixed $value
-     * @return Mage_Paypal_Model_Order_Payment_Transaction
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function setAdditionalInformation($key, $value)
@@ -159,7 +150,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
             $info = [];
         }
         if ($key) {
-            return (isset($info[$key]) ? $info[$key] : null);
+            return $info[$key] ?? null;
         }
         return $info;
     }
@@ -200,7 +191,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Verify data required for saving
      * @return $this
-     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {

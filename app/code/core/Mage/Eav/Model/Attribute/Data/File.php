@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -38,7 +32,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Extract data from request and return value
      *
      * @param Zend_Controller_Request_Http $request
-     * @return array|string
+     * @return false|array|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {
@@ -51,7 +45,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
             $value  = [];
-            if (strpos($this->_requestScope, '/') !== false) {
+            if (str_contains($this->_requestScope, '/')) {
                 $scopes = explode('/', $this->_requestScope);
                 $mainScope  = array_shift($scopes);
             } else {
@@ -258,7 +252,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     }
 
     /**
-     * Return formated attribute value from entity model
+     * Return formatted attribute value from entity model
      *
      * @param string $format
      * @return string|array

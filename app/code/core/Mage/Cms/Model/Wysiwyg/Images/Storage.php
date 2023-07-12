@@ -2,39 +2,33 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wysiwyg Images model
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Cms
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
-    const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
-    const THUMBS_DIRECTORY_NAME = '.thumbs';
-    const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
+    public const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
+    public const THUMBS_DIRECTORY_NAME = '.thumbs';
+    public const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
 
     /**
      * Config object
      *
-     * @var Mage_Core_Model_Config_Element
+     * @var Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
      */
     protected $_config;
 
@@ -84,7 +78,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
 
             if (array_key_exists(end($rootChildParts), $conditions['plain'])
-                || ($regExp && preg_match($regExp, $value->getFilename()))) {
+                || ($regExp && preg_match($regExp, $value->getFilename()))
+            ) {
                 $collection->removeItemByKey($key);
             }
         }
@@ -98,6 +93,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param string $path Parent directory path
      * @param string $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function getFilesCollection($path, $type = null)
     {
@@ -110,7 +107,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             }
         }
 
-        /** @var Varien_Data_Collection_Filesystem $collection */
         $collection = $this->getCollection($path)
             ->setCollectDirs(false)
             ->setCollectFiles(true)
@@ -119,7 +115,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         // Add files extension filter
         if ($allowed = $this->getAllowedExtensions($type)) {
-            $collection->setFilesFilter('/\.(' . implode('|', $allowed). ')$/i');
+            $collection->setFilesFilter('/\.(' . implode('|', $allowed) . ')$/i');
         }
 
         $helper = $this->getHelper();
@@ -136,7 +132,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $thumbUrl = $this->getThumbnailUrl($path . DS . $thumbImg, true);
 
                 // generate thumbnail "on the fly" if it does not exists
-                if (! $thumbUrl) {
+                if (!$thumbUrl) {
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', ['file' => $item->getId()]);
                 }
 
@@ -230,6 +226,11 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $io->getFilteredPath($path)
             ));
         }
+        if (str_contains($pathCmp, chr(0))
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $pathCmp)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
 
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);
@@ -238,7 +239,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
         }
 
-        if (strpos($pathCmp, $rootCmp) === 0) {
+        if (str_starts_with($pathCmp, $rootCmp)) {
             $io->rmdir($this->getThumbnailRoot() . DS . ltrim(substr($pathCmp, strlen($rootCmp)), '\\/'), true);
         }
     }
@@ -311,17 +312,17 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail path getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string | false
      */
     public function getThumbnailPath($filePath, $checkFile = false)
     {
         $mediaRootDir = $this->getHelper()->getStorageRoot();
 
-        if (strpos($filePath, $mediaRootDir) === 0) {
+        if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbPath = $this->getThumbnailRoot() . DS . substr($filePath, strlen($mediaRootDir));
 
-            if (! $checkFile || is_readable($thumbPath)) {
+            if (!$checkFile || is_readable($thumbPath)) {
                 return $thumbPath;
             }
         }
@@ -333,13 +334,13 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Thumbnail URL getter
      *
      * @param  string $filePath original file path
-     * @param  boolean $checkFile OPTIONAL is it necessary to check file availability
+     * @param bool $checkFile OPTIONAL is it necessary to check file availability
      * @return string|false
      */
     public function getThumbnailUrl($filePath, $checkFile = false)
     {
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir() . DS;
-        if (strpos($filePath, $mediaRootDir) === 0) {
+        if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
@@ -419,7 +420,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir();
         $thumbnailDir = $this->getThumbnailRoot();
 
-        if ($filePath && strpos($filePath, $mediaRootDir) === 0) {
+        if ($filePath && str_starts_with($filePath, $mediaRootDir)) {
             $thumbnailDir .= DS . dirname(substr($filePath, strlen($mediaRootDir)));
         }
 
@@ -452,7 +453,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfig()
     {
-        if (! $this->_config) {
+        if (!$this->_config) {
             $this->_config = Mage::getConfig()->getNode('cms/browser', 'adminhtml');
         }
 
@@ -466,7 +467,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function getConfigAsArray()
     {
-        if (! $this->_configAsArray) {
+        if (!$this->_configAsArray) {
             $this->_configAsArray = $this->getConfig()->asCanonicalArray();
         }
 

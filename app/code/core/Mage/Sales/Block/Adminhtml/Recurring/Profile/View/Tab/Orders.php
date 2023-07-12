@@ -2,24 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile orders grid
+ *
+ * @category   Mage
+ * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -59,7 +57,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     protected function _prepareColumns()
     {
         $this->addColumn('real_order_id', [
-            'header'=> Mage::helper('sales')->__('Order #'),
+            'header' => Mage::helper('sales')->__('Order #'),
             'width' => '80px',
             'type'  => 'text',
             'index' => 'increment_id',
@@ -70,7 +68,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
                 'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view'=> true,
+                'store_view' => true,
                 'display_deleted' => true,
             ]);
         }
@@ -79,7 +77,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',
-            'width' => '100px',
         ]);
 
         $this->addColumn('billing_name', [
@@ -125,7 +122,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
                     'actions'   => [
                         [
                             'caption' => Mage::helper('sales')->__('View'),
-                            'url'     => ['base'=>'*/sales_order/view'],
+                            'url'     => ['base' => '*/sales_order/view'],
                             'field'   => 'order_id'
                         ]
                     ],

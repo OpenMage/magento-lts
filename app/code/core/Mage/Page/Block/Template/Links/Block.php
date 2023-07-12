@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,8 +17,7 @@
  * Simple links list block
  *
  * @category   Mage
- * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Page
  */
 class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
 {
@@ -211,21 +205,21 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
         return '';
     }
 
-     /**
-     * Return Li Params
-     *
-     * @return string
-     */
+    /**
+    * Return Li Params
+    *
+    * @return string
+    */
     public function getLiParams()
     {
         return $this->_prepareParams($this->_liParams);
     }
 
-     /**
-     * Return Link Tag Params
-     *
-     * @return string
-     */
+    /**
+    * Return Link Tag Params
+    *
+    * @return string
+    */
     public function getAParams()
     {
         return $this->_prepareParams($this->_aParams);

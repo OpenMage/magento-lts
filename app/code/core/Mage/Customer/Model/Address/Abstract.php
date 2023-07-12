@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,8 +17,7 @@
  * Address abstract model
  *
  * @category   Mage
- * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Customer
  *
  * @method string getCustomerId()
  * @method string getFirstname()
@@ -36,7 +30,7 @@
  * @method $this setCity(string $value)
  * @method string getTelephone()
  * @method $this setTelephone(string $value)
- * @method int getCountryId()
+ * @method string getCountryId()
  * @method $this setCountryId(string $value)
  * @method string getPostcode()
  * @method $this setPostcode(string $value)
@@ -45,7 +39,11 @@
  * @method bool getIsDefaultBilling()
  * @method $this setIsDefaultBilling(bool $value)
  * @method bool getIsDefaultShipping()
- * @method bool getVatId()
+ * @method string getVatId()
+ * @method int getVatIsValid()
+ * @method string getVatRequestId()
+ * @method string getVatRequestDate()
+ * @method int getVatRequestSuccess()
  * @method $this setIsDefaultShipping(bool $value)
  * @method bool getIsPrimaryBilling()
  * @method $this setIsPrimaryBilling(bool $value)
@@ -69,8 +67,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Possible customer address types
      */
-    const TYPE_BILLING  = 'billing';
-    const TYPE_SHIPPING = 'shipping';
+    public const TYPE_BILLING  = 'billing';
+    public const TYPE_SHIPPING = 'shipping';
 
     /**
      * Prefix of model events
@@ -98,14 +96,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_countryModels = [];
+    protected static $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = [];
+    protected static $_regionModels = [];
 
     /**
      * Get full customer name
@@ -134,7 +132,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * get address street
      *
      * @param   int $line address line index
-     * @return  string
+     * @return  string|array
      */
     public function getStreet($line = 0)
     {
@@ -142,11 +140,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         if ($line === -1) {
             return $street;
         } else {
-            $arr = is_array($street) ? $street : explode("\n", $street);
+            $arr = is_array($street) ? $street : explode("\n", (string)$street);
             if ($line === 0 || $line === null) {
                 return $arr;
-            } elseif (isset($arr[$line-1])) {
-                return $arr[$line-1];
+            } elseif (isset($arr[$line - 1])) {
+                return $arr[$line - 1];
             } else {
                 return '';
             }
@@ -227,7 +225,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         $streetLines = $this->getStreet();
         foreach ($streetLines as $i => $line) {
-            $this->setData('street'.($i+1), $line);
+            $this->setData('street' . ($i + 1), $line);
         }
         return $this;
     }
@@ -391,7 +389,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function format($type)
     {
         if (!($formatType = $this->getConfig()->getFormatByCode($type))
-            || !$formatType->getRenderer()) {
+            || !$formatType->getRenderer()
+        ) {
             return null;
         }
         Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);

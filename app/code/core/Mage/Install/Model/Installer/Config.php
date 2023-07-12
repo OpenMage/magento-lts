@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,12 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Install
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_Abstract
 {
-    const TMP_INSTALL_DATE_VALUE= 'd-d-d-d-d';
-    const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
+    public const TMP_INSTALL_DATE_VALUE = 'd-d-d-d-d';
+    public const TMP_ENCRYPT_KEY_VALUE = 'k-k-k-k-k';
 
     /**
      * Path to local configuration file
@@ -60,7 +54,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function install()
     {
         $data = $this->getConfigData();
-        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index=>$value) {
+        foreach (Mage::getModel('core/config')->getDistroServerVars() as $index => $value) {
             if (!isset($data[$index])) {
                 $data[$index] = $value;
             }
@@ -82,7 +76,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             }
 
             if (!empty($data['use_secure'])
-                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()) {
+                && !$this->_getInstaller()->getDataModel()->getSkipUrlValidation()
+            ) {
                 $this->_checkUrl($data['secure_base_url']);
             }
         }
@@ -157,8 +152,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
             $body = $response->getBody();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $this->_getInstaller()->getDataModel()
                 ->addError(Mage::helper('install')->__('The URL "%s" is not accessible.', $url));
             throw $e;

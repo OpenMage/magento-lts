@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,13 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
     protected function _prepareForm()
     {
-
         $form = new Varien_Data_Form();
         /**
          * Initialize product object as form property
@@ -55,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             }
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form'=>$form]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form' => $form]);
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
@@ -72,9 +65,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 
         $response = new Varien_Object();
         $response->setTypes([]);
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response'=>$response]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response' => $response]);
 
-        foreach ($response->getTypes() as $typeName=>$typeClass) {
+        foreach ($response->getTypes() as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;
         }
 

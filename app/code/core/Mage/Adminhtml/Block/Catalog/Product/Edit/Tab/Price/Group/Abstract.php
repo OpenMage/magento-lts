@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,11 +18,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
-    extends Mage_Adminhtml_Block_Widget
-    implements Varien_Data_Form_Element_Renderer_Interface
+abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract extends Mage_Adminhtml_Block_Widget implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Form element instance
@@ -46,7 +38,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Websites cache
      *
-     * @var array
+     * @var array|null
      */
     protected $_websites;
 
@@ -76,7 +68,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      * Set form element instance
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
+     * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
     {
@@ -150,7 +142,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         }
 
         if ($groupId !== null) {
-            return isset($this->_customerGroups[$groupId]) ? $this->_customerGroups[$groupId] : [];
+            return $this->_customerGroups[$groupId] ?? [];
         }
 
         return $this->_customerGroups;
@@ -272,9 +264,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     {
         if ($this->hasData('price_column_header')) {
             return $this->getData('price_column_header');
-        } else {
-            return $default;
         }
+        return $default;
     }
 
     /**
@@ -287,9 +278,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     {
         if ($this->hasData('price_validation')) {
             return $this->getData('price_validation');
-        } else {
-            return $default;
         }
+        return $default;
     }
 
     /**

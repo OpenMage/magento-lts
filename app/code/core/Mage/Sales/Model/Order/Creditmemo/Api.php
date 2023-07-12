@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resource
 {
@@ -159,7 +153,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice($refundToStoreCreditAmount);
                 $creditmemo->setBaseCustomerBalanceTotalRefunded($refundToStoreCreditAmount);
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice(
-                    $refundToStoreCreditAmount*$order->getStoreToOrderRate()
+                    $refundToStoreCreditAmount * $order->getStoreToOrderRate()
                 );
                 // this field can be used by customer balance observer
                 $creditmemo->setBsCustomerBalTotalRefunded($refundToStoreCreditAmount);
@@ -190,9 +184,9 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      *
      * @param string $creditmemoIncrementId
      * @param string $comment
-     * @param boolean $notifyCustomer
-     * @param boolean $includeComment
-     * @return boolean
+     * @param bool $notifyCustomer
+     * @param bool $includeComment
+     * @return bool
      */
     public function addComment($creditmemoIncrementId, $comment, $notifyCustomer = false, $includeComment = false)
     {
@@ -212,7 +206,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Cancel credit memo
      *
      * @param string $creditmemoIncrementId
-     * @return boolean
+     * @return bool
      */
     public function cancel($creditmemoIncrementId)
     {
@@ -233,12 +227,12 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     /**
      * Hook method, could be replaced in derived classes
      *
-     * @param  array $data
+     * @param  array|null $data
      * @return array
      */
     protected function _prepareCreateData($data)
     {
-        $data = isset($data) ? $data : [];
+        $data = $data ?? [];
 
         if (isset($data['qtys']) && count($data['qtys'])) {
             $qtysArray = [];
@@ -261,7 +255,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      * Load CreditMemo by IncrementId
      *
      * @param mixed $incrementId
-     * @return Mage_Core_Model_Abstract|Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     protected function _getCreditmemo($incrementId)
     {

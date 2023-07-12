@@ -2,40 +2,39 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ */
 class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Notification_Toolbar
 {
     /**
      * XML path of Severity icons url
      */
-    const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
+    public const XML_SEVERITY_ICONS_URL_PATH  = 'system/adminnotification/severity_icons_url';
 
     /**
      * Severity icons url
      *
-     * @var string
+     * @var string|null
      */
     protected $_severityIconsUrl;
 
     /**
      * Is available flag
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_available = null;
 
@@ -139,8 +138,11 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         if (is_null($this->_severityIconsUrl)) {
             $this->_severityIconsUrl =
                 (Mage::app()->getFrontController()->getRequest()->isSecure() ? 'https://' : 'http://')
-                . sprintf(Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH), Mage::getVersion(),
-                    $this->getNoticeSeverity())
+                . sprintf(
+                    Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
+                    Mage::getVersion(),
+                    $this->getNoticeSeverity()
+                )
             ;
         }
         return $this->_severityIconsUrl;

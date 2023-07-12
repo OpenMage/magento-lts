@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
@@ -81,11 +75,11 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected $_recurringPaymentProfiles = [];
 
-   /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
-     */
+    /**
+      * Fields that should be replaced in debug with '***'
+      *
+      * @var array
+      */
     protected $_debugReplacePrivateDataKeys = [];
 
     /**
@@ -305,7 +299,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
-     * Always take into accoun
+     * Always take into account
      */
     public function getFraudManagementFiltersEnabled()
     {
@@ -381,12 +375,12 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      *
      * @param array &$request
      * @param int $i
-     * @return true|bool
+     * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 0)
     {
         if (!$this->_cart) {
-            return;
+            return false;
         }
 
         // always add cart totals, even if line items are not requested
@@ -402,9 +396,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         // add cart line items
         $items = $this->_cart->getItems();
         if (empty($items) || !$this->getIsLineItemsEnabled()) {
-            return;
+            return false;
         }
-        $result = null;
+        $result = false;
         foreach ($items as $item) {
             foreach ($this->_lineItemExportItemsFormat as $publicKey => $privateFormat) {
                 $result = true;
@@ -526,7 +520,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {
-        $keys = func_get_args(); array_shift($keys); array_shift($keys);
+        $keys = func_get_args();
+        array_shift($keys);
+        array_shift($keys);
         $street = $address->getStreet();
         if (!$keys || !$street || !is_array($street)) {
             return;
@@ -537,7 +533,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
         $i = 0;
         foreach ($keys as $key) {
-            $to[$key] = isset($street[$i]) ? $street[$i]: '';
+            $to[$key] = $street[$i] ?? '';
             $i++;
         }
     }
@@ -558,11 +554,11 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Paypal note: The value for quantity must be a positive integer. Null, zero, or negative numbers are not allowed.
      *
      * @param float|string|int $value
-     * @return string
+     * @return int
      */
     protected function _filterQty($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     /**

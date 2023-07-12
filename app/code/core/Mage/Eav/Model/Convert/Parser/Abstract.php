@@ -2,26 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
@@ -43,7 +37,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                 if (is_numeric($store)) {
                     $storeIds[] = $store;
                 } else {
-                    $storeNode = Mage::getConfig()->getNode('stores/'.$store);
+                    $storeNode = Mage::getConfig()->getNode('stores/' . $store);
                     if (!$storeNode) {
                         return false;
                     }
@@ -61,7 +55,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
      */
     public function getStoreCode($storeId)
     {
-        return Mage::app()->getStore($storeId?$storeId:0)->getCode();
+        return Mage::app()->getStore($storeId ? $storeId : 0)->getCode();
     }
 
     /**
@@ -97,7 +91,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsById[$id]) ? $this->_attributeSetsById[$id] : false;
+        return $this->_attributeSetsById[$id] ?? false;
     }
 
     /**
@@ -110,7 +104,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
-        return isset($this->_attributeSetsByName[$name]) ? $this->_attributeSetsByName[$name] : false;
+        return $this->_attributeSetsByName[$name] ?? false;
     }
 
     /**
@@ -121,7 +115,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value)==0) {
+            if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
         }

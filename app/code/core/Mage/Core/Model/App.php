@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,45 +20,38 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
-    const XML_PATH_INSTALL_DATE = 'global/install/date';
+    public const XML_PATH_INSTALL_DATE = 'global/install/date';
 
-    const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
+    public const XML_PATH_SKIP_PROCESS_MODULES_UPDATES = 'global/skip_process_modules_updates';
 
     /**
      * if this node set to true, we will ignore Developer Mode for applying updates
      */
-    const XML_PATH_IGNORE_DEV_MODE = 'global/skip_process_modules_updates_ignore_dev_mode';
+    public const XML_PATH_IGNORE_DEV_MODE = 'global/skip_process_modules_updates_ignore_dev_mode';
 
-    const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
+    public const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
 
-    const DISTRO_LOCALE_CODE = 'en_US';
-
-    /**
-     * Cache tag for all cache data exclude config cache
-     *
-     */
-    const CACHE_TAG = 'MAGE';
+    public const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
      * Default store Id (for install)
      */
-    const DISTRO_STORE_ID       = 1;
+    public const DISTRO_STORE_ID       = 1;
 
     /**
      * Default store code (for install)
      *
      */
-    const DISTRO_STORE_CODE     = 'default';
+    public const DISTRO_STORE_CODE     = 'default';
 
     /**
      * Admin store Id
      *
      */
-    const ADMIN_STORE_ID = 0;
+    public const ADMIN_STORE_ID = 0;
 
     /**
      * The absolute minimum of password length for all types of passwords
@@ -79,7 +67,7 @@ class Mage_Core_Model_App
      * 4. maybe, the value of deprecated `const MIN_PASSWORD_LENGTH` in `app/code/core/Mage/Admin/Model/User.php`,
      *    (if the absolute minimum of password length is higher then this value).
      */
-    const ABSOLUTE_MIN_PASSWORD_LENGTH = 7;
+    public const ABSOLUTE_MIN_PASSWORD_LENGTH = 7;
 
     /**
      * Application loaded areas array
@@ -91,14 +79,14 @@ class Mage_Core_Model_App
     /**
      * Application store object
      *
-     * @var Mage_Core_Model_Store
+     * @var Mage_Core_Model_Store|null
      */
     protected $_store;
 
     /**
      * Application website object
      *
-     * @var Mage_Core_Model_Website
+     * @var Mage_Core_Model_Website|null
      */
     protected $_website;
 
@@ -255,9 +243,6 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
     }
@@ -274,7 +259,7 @@ class Mage_Core_Model_App
     {
         $this->_initEnvironment();
         if (is_string($options)) {
-            $options = ['etc_dir'=>$options];
+            $options = ['etc_dir' => $options];
         }
 
         Varien_Profiler::start('mage::app::init::config');
@@ -319,7 +304,7 @@ class Mage_Core_Model_App
     /**
      * Run light version of application with specified modules support
      *
-     * @see Mage_Core_Model_App->run()
+     * @see Mage_Core_Model_App::run()
      *
      * @param  string|array $scopeCode
      * @param  string $scopeType
@@ -352,7 +337,7 @@ class Mage_Core_Model_App
      */
     public function run($params)
     {
-        $options = isset($params['options']) ? $params['options'] : [];
+        $options = $params['options'] ?? [];
         $this->baseInit($options);
         Mage::register('application_params', $params);
 
@@ -363,8 +348,8 @@ class Mage_Core_Model_App
             $this->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
 
             if ($this->_config->isLocalConfigLoaded()) {
-                $scopeCode = isset($params['scope_code']) ? $params['scope_code'] : '';
-                $scopeType = isset($params['scope_type']) ? $params['scope_type'] : 'store';
+                $scopeCode = $params['scope_code'] ?? '';
+                $scopeType = $params['scope_type'] ?? 'store';
                 $this->_initCurrentStore($scopeCode, $scopeType);
                 $this->_initRequest();
                 Mage_Core_Model_Resource_Setup::applyAllDataUpdates();
@@ -372,6 +357,23 @@ class Mage_Core_Model_App
 
             $this->getFrontController()->dispatch();
         }
+
+        // Finish the request explicitly, no output allowed beyond this point
+        if (php_sapi_name() == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        } else {
+            flush();
+        }
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
+
+        try {
+            Mage::dispatchEvent('core_app_run_after', ['app' => $this]);
+        } catch (Throwable $e) {
+            Mage::logException($e);
+        }
+
         return $this;
     }
 
@@ -591,13 +593,16 @@ class Mage_Core_Model_App
         $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
-            && $this->_stores[$store]->getIsActive()) {
+            && $this->_stores[$store]->getIsActive()
+        ) {
             if ($type == 'website'
-                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()) {
+                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'group'
-                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()) {
+                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
+            ) {
                 $this->_currentStore = $store;
             }
             if ($type == 'store') {
@@ -751,7 +756,7 @@ class Mage_Core_Model_App
     /**
      * Set current default store
      *
-     * @param string $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setCurrentStore($store)
@@ -830,7 +835,7 @@ class Mage_Core_Model_App
      * Retrieve application store object
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $id
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getStore($id = null)
@@ -935,7 +940,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve default store for default group and website
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreView()
     {
@@ -982,9 +987,9 @@ class Mage_Core_Model_App
                     throw Mage::exception('Mage_Core', 'Invalid website id requested.');
                 }
             } elseif (is_string($id)) {
-                $websiteConfig = $this->_config->getNode('websites/'.$id);
+                $websiteConfig = $this->_config->getNode('websites/' . $id);
                 if (!$websiteConfig) {
-                    throw Mage::exception('Mage_Core', 'Invalid website code requested: '.$id);
+                    throw Mage::exception('Mage_Core', 'Invalid website code requested: ' . $id);
                 }
                 $website->loadConfig($id);
             }
@@ -1004,13 +1009,14 @@ class Mage_Core_Model_App
         $websites = [];
         if (is_array($this->_websites)) {
             foreach ($this->_websites as $website) {
-                if (!$withDefault && $website->getId() == 0) {
+                $id = $website->getId();
+                if (!$withDefault && $id == 0) {
                     continue;
                 }
                 if ($codeKey) {
                     $websites[$website->getCode()] = $website;
                 } else {
-                    $websites[$website->getId()] = $website;
+                    $websites[$id] = $website;
                 }
             }
         }
@@ -1164,7 +1170,7 @@ class Mage_Core_Model_App
      * Loading cache data
      *
      * @param   string $id
-     * @return  mixed
+     * @return  string|false
      */
     public function loadCache($id)
     {
@@ -1251,7 +1257,7 @@ class Mage_Core_Model_App
      */
     public function cleanAllSessions()
     {
-        if (session_module_name()=='files') {
+        if (session_module_name() == 'files') {
             $dir = session_save_path();
             mageDelTree($dir);
         }
@@ -1281,6 +1287,37 @@ class Mage_Core_Model_App
     {
         $this->_request = $request;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentlySecure()
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            return true;
+        }
+
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
+            return true;
+        }
+
+        if (Mage::isInstalled()) {
+            $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
+            if ($offloaderHeader) {
+                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
+                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -1347,7 +1384,7 @@ class Mage_Core_Model_App
                     $observers[$obsName] = [
                         'type'  => (string)$obsConfig->type,
                         'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
-                        'method'=> (string)$obsConfig->method,
+                        'method' => (string)$obsConfig->method,
                         'args'  => (array)$obsConfig->args,
                     ];
                 }
@@ -1363,8 +1400,8 @@ class Mage_Core_Model_App
             }
 
             foreach ($events[$eventName]['observers'] as $obsName => $obs) {
-                $observer->setData(['event'=>$event]);
-                Varien_Profiler::start('OBSERVER: '.$obsName);
+                $observer->setData(['event' => $event]);
+                Varien_Profiler::start('OBSERVER: ' . $obsName);
                 switch ($obs['type']) {
                     case 'disabled':
                         break;
@@ -1382,7 +1419,7 @@ class Mage_Core_Model_App
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
-                Varien_Profiler::stop('OBSERVER: '.$obsName);
+                Varien_Profiler::stop('OBSERVER: ' . $obsName);
             }
         }
         return $this;
@@ -1430,6 +1467,11 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
+    /**
+     * @param string $text
+     * @throws Mage_Core_Model_Store_Exception
+     * @return never
+     */
     public function throwStoreException($text = '')
     {
         throw new Mage_Core_Model_Store_Exception($text);
@@ -1569,7 +1611,7 @@ class Mage_Core_Model_App
      */
     public function getUseCacheFilename()
     {
-        return $this->_config->getOptions()->getEtcDir().DS.'use_cache.ser';
+        return $this->_config->getOptions()->getEtcDir() . DS . 'use_cache.ser';
     }
 
     /**

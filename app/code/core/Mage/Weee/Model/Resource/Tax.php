@@ -2,35 +2,25 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wee tax resource model
  *
- * @category    Mage
- * @package     Mage_Weee
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Weee
  */
 class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('weee/tax', 'value_id');
@@ -133,13 +123,13 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
             }
             if ($row['action_operator'] == 'by_percent') {
                 if (isset($productData[$key])) {
-                    $productData[$key]['value'] -= $productData[$key]['value']/100*$row['action_amount'];
+                    $productData[$key]['value'] -= $productData[$key]['value'] / 100 * $row['action_amount'];
                 } else {
                     $productData[$key] = [
                         'entity_id'         => $row['product_id'],
                         'customer_group_id' => $row['customer_group_id'],
                         'website_id'        => $row['website_id'],
-                        'value'             => 100-max(0, min(100, $row['action_amount'])),
+                        'value'             => 100 - max(0, min(100, $row['action_amount'])),
                     ];
                 }
             }

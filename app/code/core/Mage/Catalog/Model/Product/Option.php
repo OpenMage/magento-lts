@@ -2,24 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product option model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Resource_Product_Option _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option getResource()
@@ -51,82 +49,78 @@
  * @method string getTitle()
  * @method string getType()
  * @method $this setType(string $value)
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 {
     /**
      * Option group text
      */
-    const OPTION_GROUP_TEXT   = 'text';
+    public const OPTION_GROUP_TEXT   = 'text';
 
     /**
      * Option group file
      */
-    const OPTION_GROUP_FILE   = 'file';
+    public const OPTION_GROUP_FILE   = 'file';
 
     /**
      * Option group select
      */
-    const OPTION_GROUP_SELECT = 'select';
+    public const OPTION_GROUP_SELECT = 'select';
 
     /**
      * Option group date
      */
-    const OPTION_GROUP_DATE   = 'date';
+    public const OPTION_GROUP_DATE   = 'date';
 
     /**
      * Option type field
      */
-    const OPTION_TYPE_FIELD     = 'field';
+    public const OPTION_TYPE_FIELD     = 'field';
 
     /**
      * Option type area
      */
-    const OPTION_TYPE_AREA      = 'area';
+    public const OPTION_TYPE_AREA      = 'area';
 
     /**
      * Option group file
      */
-    const OPTION_TYPE_FILE      = 'file';
+    public const OPTION_TYPE_FILE      = 'file';
 
     /**
      * Option type drop down
      */
-    const OPTION_TYPE_DROP_DOWN = 'drop_down';
+    public const OPTION_TYPE_DROP_DOWN = 'drop_down';
 
     /**
      * Option type radio
      */
-    const OPTION_TYPE_RADIO     = 'radio';
+    public const OPTION_TYPE_RADIO     = 'radio';
 
     /**
      * Option type checkbox
      */
-    const OPTION_TYPE_CHECKBOX  = 'checkbox';
+    public const OPTION_TYPE_CHECKBOX  = 'checkbox';
 
     /**
      * Option type multiple
      */
-    const OPTION_TYPE_MULTIPLE  = 'multiple';
+    public const OPTION_TYPE_MULTIPLE  = 'multiple';
 
     /**
      * Option type date
      */
-    const OPTION_TYPE_DATE      = 'date';
+    public const OPTION_TYPE_DATE      = 'date';
 
     /**
      * Option type date/time
      */
-    const OPTION_TYPE_DATE_TIME = 'date_time';
+    public const OPTION_TYPE_DATE_TIME = 'date_time';
 
     /**
      * Option type time
      */
-    const OPTION_TYPE_TIME      = 'time';
+    public const OPTION_TYPE_TIME      = 'time';
 
     /**
      * Product instance
@@ -156,9 +150,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     protected $_values = [];
 
-    /**
-     * Constructor
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_option');
@@ -184,11 +175,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     public function getValueById($valueId)
     {
-        if (isset($this->_values[$valueId])) {
-            return $this->_values[$valueId];
-        }
-
-        return null;
+        return $this->_values[$valueId] ?? null;
     }
 
     /**
@@ -272,7 +259,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set product instance
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
@@ -305,7 +292,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             self::OPTION_TYPE_TIME => self::OPTION_GROUP_DATE,
         ];
 
-        return isset($optionGroupsToTypes[$type])?$optionGroupsToTypes[$type]:'';
+        return $optionGroupsToTypes[$type] ?? '';
     }
 
     /**
@@ -340,7 +327,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             } else {
                 $this->setId($this->getData('option_id'));
             }
-            $isEdit = (bool)$this->getId()? true:false;
+            $isEdit = (bool)$this->getId() ? true : false;
 
             if ($this->getData('is_delete') == '1') {
                 if ($isEdit) {
@@ -425,7 +412,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getProduct()->getFinalPrice();
-            return $basePrice * ($this->_getData('price')/100);
+            return $basePrice * ($this->_getData('price') / 100);
         }
         return $this->_getData('price');
     }

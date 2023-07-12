@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getChecked()
  */
@@ -33,7 +27,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * Varien_Data_Form_Element_Checkbox constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('checkbox');
@@ -45,7 +39,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex');
+        return ['type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex'];
     }
 
     /**
@@ -55,8 +49,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
     {
         if ($checked = $this->getChecked()) {
             $this->setData('checked', true);
-        }
-        else {
+        } else {
             $this->unsetData('checked');
         }
         return parent::getElementHtml();
@@ -68,7 +61,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      * @param boolean $value
      * @return Varien_Data_Form_Element_Checkbox
      */
-    public function setIsChecked($value=false)
+    public function setIsChecked($value = false)
     {
         $this->setData('checked', $value);
         return $this;
@@ -79,7 +72,8 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
      *
      * @return boolean
      */
-    public function getIsChecked() {
+    public function getIsChecked()
+    {
         return $this->getData('checked');
     }
 }

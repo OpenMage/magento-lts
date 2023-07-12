@@ -2,33 +2,29 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Checkout default helper
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
  */
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
-    const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
+    public const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
+    public const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
+
+    protected $_moduleName = 'Mage_Checkout';
 
     protected $_agreements = null;
 
@@ -97,7 +93,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canOnepageCheckout()
     {
-        return (bool)Mage::getStoreConfig('checkout/options/onepage_checkout_enabled');
+        return Mage::getStoreConfigFlag('checkout/options/onepage_checkout_enabled');
     }
 
     /**
@@ -115,7 +111,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
 
         //Unit price is rowtotal/qty
-        return $qty > 0 ? $this->getSubtotalInclTax($item)/$qty :0;
+        return $qty > 0 ? $this->getSubtotalInclTax($item) / $qty : 0;
     }
 
     /**
@@ -169,7 +165,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $tax = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation()
             - $this->_getWeeeHelper()->getBaseTotalRowTaxAppliedForWeeeTax($item);
-        return $item->getBaseRowTotal()+$tax;
+        return $item->getBaseRowTotal() + $tax;
     }
 
     /**
@@ -200,8 +196,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $_reciever = Mage::getStoreConfig('checkout/payment_failed/reciever', $checkout->getStoreId());
         $sendTo = [
             [
-                'email' => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/email', $checkout->getStoreId()),
-                'name'  => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/name', $checkout->getStoreId())
+                'email' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/email', $checkout->getStoreId()),
+                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId())
             ]
         ];
 
@@ -227,14 +223,14 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $items = '';
         foreach ($checkout->getAllVisibleItems() as $_item) {
             /** @var Mage_Sales_Model_Quote_Item $_item */
-            $items .= $_item->getProduct()->getName() . '  x '. $_item->getQty() . '  '
+            $items .= $_item->getProduct()->getName() . '  x ' . $_item->getQty() . '  '
                 . $checkout->getStoreCurrencyCode() . ' '
                 . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
         }
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
-            $mailTemplate->setDesignConfig(['area'=>'frontend', 'store'=>$checkout->getStoreId()])
+            $mailTemplate->setDesignConfig(['area' => 'frontend', 'store' => $checkout->getStoreId()])
                 ->sendTransactional(
                     $template,
                     Mage::getStoreConfig('checkout/payment_failed/identity', $checkout->getStoreId()),
@@ -295,7 +291,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             && (($quote->getItemsSummaryQty() - $quote->getItemVirtualQty()) > 0)
             && ($quote->getItemsSummaryQty() <= $maximunQty)
             && !$quote->hasNominalItems()
-            ;
+        ;
     }
 
     /**
@@ -341,7 +337,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if user must be logged during checkout process
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomerMustBeLogged()
     {

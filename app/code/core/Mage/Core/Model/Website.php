@@ -2,24 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core Website model
+ *
+ * @category   Mage
+ * @package    Mage_Core
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
@@ -41,16 +39,11 @@
  * @method bool hasWebsiteId()
  * @method int getWebsiteId()
  * @method bool hasDefaultGroupId()
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
-    const ENTITY    = 'core_website';
-    const CACHE_TAG = 'website';
+    public const ENTITY    = 'core_website';
+    public const CACHE_TAG = 'website';
     protected $_cacheTag = true;
 
     /**
@@ -73,7 +66,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Group Coleection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_groups;
 
@@ -94,7 +87,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Website Store collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_stores;
 
@@ -136,7 +129,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * is can delete website
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_isCanDelete;
 
@@ -185,7 +178,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
                 }
             }
         } else {
-            $website = Mage::getConfig()->getNode('websites/'.$code);
+            $website = Mage::getConfig()->getNode('websites/' . $code);
         }
         if (!empty($website)) {
             $this->setCode($code);
@@ -204,7 +197,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function getConfig($path)
     {
         if (!isset($this->_configCache[$path])) {
-            $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
+            $config = Mage::getConfig()->getNode('websites/' . $this->getCode() . '/' . $path);
             if (!$config) {
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));

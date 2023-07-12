@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,10 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Product Compare Items Collection
      *
@@ -91,18 +87,12 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function __construct(array $data = [])
     {
-        $this->_logCondition = isset($data['log_condition'])
-            ? $data['log_condition'] : Mage::helper('log');
-        $this->_catalogSession = isset($data['catalog_session'])
-            ? $data['catalog_session'] : Mage::getSingleton('catalog/session');
-        $this->_customerSession = isset($data['customer_session'])
-            ? $data['customer_session'] : Mage::getSingleton('customer/session');
-        $this->_coreSession = isset($data['core_session'])
-            ? $data['core_session'] :  Mage::getSingleton('core/session');
-        $this->_productVisibility = isset($data['product_visibility'])
-            ? $data['product_visibility'] : Mage::getSingleton('catalog/product_visibility');
-        $this->_logVisitor = isset($data['log_visitor'])
-            ? $data['log_visitor'] : Mage::getSingleton('log/visitor');
+        $this->_logCondition = $data['log_condition'] ?? Mage::helper('log');
+        $this->_catalogSession = $data['catalog_session'] ?? Mage::getSingleton('catalog/session');
+        $this->_customerSession = $data['customer_session'] ?? Mage::getSingleton('customer/session');
+        $this->_coreSession = $data['core_session'] ?? Mage::getSingleton('core/session');
+        $this->_productVisibility = $data['product_visibility'] ?? Mage::getSingleton('catalog/product_visibility');
+        $this->_logVisitor = $data['log_visitor'] ?? Mage::getSingleton('log/visitor');
     }
 
     /**
@@ -127,7 +117,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
             $itemIds[] = $item->getId();
         }
 
-         $params = [
+        $params = [
             'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
          ];

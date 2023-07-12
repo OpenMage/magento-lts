@@ -2,29 +2,25 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category    Mage
- * @package     Mage_Shipping
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Shipping
  */
 class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Shipping';
+
     /**
      * Allowed hash keys
      *
@@ -53,7 +49,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated the non-model usage
      *
      * @param  string $key
-     * @param  integer|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
+     * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string $method - option
      * @return string
      */
@@ -68,9 +64,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
                 'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
             ];
         }
-         $storeId = is_object($model) ? $model->getStoreId() : null;
-         $storeModel = Mage::app()->getStore($storeId);
-         return $storeModel->getUrl('shipping/tracking/popup', $param);
+        $storeId = is_object($model) ? $model->getStoreId() : null;
+        $storeModel = Mage::app()->getStore($storeId);
+        return $storeModel->getUrl('shipping/tracking/popup', $param);
     }
 
     /**

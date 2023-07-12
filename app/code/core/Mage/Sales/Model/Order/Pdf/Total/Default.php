@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getAmountPrefix()
  * @method bool getDisplayZero()
@@ -51,7 +45,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     {
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
         if ($this->getAmountPrefix()) {
-            $amount = $this->getAmountPrefix().$amount;
+            $amount = $this->getAmountPrefix() . $amount;
         }
         $title = $this->_getSalesHelper()->__($this->getTitle());
         if ($this->getTitleSourceField()) {
@@ -97,7 +91,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
 
         if (!empty($taxClassAmount)) {
             foreach ($taxClassAmount as &$tax) {
-                $percent          = $tax['percent'] ? ' (' . $tax['percent']. '%)' : '';
+                $percent          = $tax['percent'] ? ' (' . $tax['percent'] . '%)' : '';
                 $tax['amount']    = $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($tax['tax_amount']);
                 $tax['label']     = $this->_getTaxHelper()->__($tax['title']) . $percent . ':';
                 $tax['font_size'] = $fontSize;
@@ -115,7 +109,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     $_amount = $info['amount'];
 
                     foreach ($info['rates'] as $rate) {
-                        $percent = $rate['percent'] ? ' (' . $rate['percent']. '%)' : '';
+                        $percent = $rate['percent'] ? ' (' . $rate['percent'] . '%)' : '';
 
                         $tax_info[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),

@@ -2,26 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
@@ -43,10 +37,10 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Predefined event types
      */
-    const TYPE_SAVE        = 'save';
-    const TYPE_DELETE      = 'delete';
-    const TYPE_MASS_ACTION = 'mass_action';
-    const TYPE_REINDEX     = 'reindex';
+    public const TYPE_SAVE        = 'save';
+    public const TYPE_DELETE      = 'delete';
+    public const TYPE_MASS_ACTION = 'mass_action';
+    public const TYPE_REINDEX     = 'reindex';
 
     /**
      * Array of related processes ids
@@ -257,7 +251,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             $data = [];
         }
         if ($useNamespace && $this->_dataNamespace) {
-            return isset($data[$this->_dataNamespace]) ? $data[$this->_dataNamespace] : [];
+            return $data[$this->_dataNamespace] ?? [];
         }
         return $data;
     }

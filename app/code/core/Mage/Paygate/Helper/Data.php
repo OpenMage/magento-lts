@@ -2,31 +2,27 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paygate data helper
  *
- * @category    Mage
- * @package     Mage_Paygate
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paygate
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Paygate';
+
     /**
      * Converts a lot of messages to message
      *
@@ -41,36 +37,52 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
      * @return bool|string
      */
-    public function getTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
+    public function getTransactionMessage(
+        $payment,
+        $requestType,
+        $lastTransactionId,
+        $card,
+        $amount = false,
         $exception = false
     ) {
         return $this->getExtendedTransactionMessage(
-            $payment, $requestType, $lastTransactionId, $card, $amount, $exception
+            $payment,
+            $requestType,
+            $lastTransactionId,
+            $card,
+            $amount,
+            $exception
         );
     }
 
     /**
      * Return message for gateway transaction request
      *
-     * @param  Mage_Payment_Model_Info $payment
-     * @param  string $requestType
-     * @param  string $lastTransactionId
-     * @param  Varien_Object $card
-     * @param float $amount
-     * @param string $exception
-     * @param string $additionalMessage Custom message, which will be added to the end of generated message
+     * @param Mage_Payment_Model_Info $payment
+     * @param string $requestType
+     * @param string $lastTransactionId
+     * @param Varien_Object $card
+     * @param float|false $amount
+     * @param string|false $exception
+     * @param string|false $additionalMessage Custom message, which will be added to the end of generated message
      * @return bool|string
      */
-    public function getExtendedTransactionMessage($payment, $requestType, $lastTransactionId, $card, $amount = false,
-        $exception = false, $additionalMessage = false
+    public function getExtendedTransactionMessage(
+        $payment,
+        $requestType,
+        $lastTransactionId,
+        $card,
+        $amount = false,
+        $exception = false,
+        $additionalMessage = false
     ) {
         $operation = $this->_getOperation($requestType);
 

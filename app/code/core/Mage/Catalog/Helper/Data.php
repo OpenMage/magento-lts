@@ -2,19 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,27 +18,28 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const PRICE_SCOPE_GLOBAL               = 0;
-    const PRICE_SCOPE_WEBSITE              = 1;
-    const XML_PATH_PRICE_SCOPE             = 'catalog/price/scope';
-    const XML_PATH_SEO_SAVE_HISTORY        = 'catalog/seo/save_rewrites_history';
-    const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
-    const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
-    const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
-    const XML_PATH_DISPLAY_PRODUCT_COUNT   = 'catalog/layered_navigation/display_product_count';
+    public const PRICE_SCOPE_GLOBAL               = 0;
+    public const PRICE_SCOPE_WEBSITE              = 1;
+    public const XML_PATH_PRICE_SCOPE             = 'catalog/price/scope';
+    public const XML_PATH_SEO_SAVE_HISTORY        = 'catalog/seo/save_rewrites_history';
+    public const CONFIG_USE_STATIC_URLS           = 'cms/wysiwyg/use_static_urls_in_catalog';
+    public const CONFIG_PARSE_URL_DIRECTIVES      = 'catalog/frontend/parse_url_directives';
+    public const XML_PATH_CONTENT_TEMPLATE_FILTER = 'global/catalog/content/tempate_filter';
+    public const XML_PATH_DISPLAY_PRODUCT_COUNT   = 'catalog/layered_navigation/display_product_count';
 
     /**
      * Minimum advertise price constants
      */
-    const XML_PATH_MSRP_ENABLED = 'sales/msrp/enabled';
-    const XML_PATH_MSRP_DISPLAY_ACTUAL_PRICE_TYPE = 'sales/msrp/display_price_type';
-    const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
-    const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
-    const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
+    public const XML_PATH_MSRP_ENABLED = 'sales/msrp/enabled';
+    public const XML_PATH_MSRP_DISPLAY_ACTUAL_PRICE_TYPE = 'sales/msrp/display_price_type';
+    public const XML_PATH_MSRP_APPLY_TO_ALL = 'sales/msrp/apply_for_all';
+    public const XML_PATH_MSRP_EXPLANATION_MESSAGE = 'sales/msrp/explanation_message';
+    public const XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS = 'sales/msrp/explanation_message_whats_this';
+
+    protected $_moduleName = 'Mage_Catalog';
 
     /**
      * Breadcrumb Path cache
@@ -97,7 +93,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-                        $path['category'.$categoryId] = [
+                        $path['category' . $categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
                         ];
@@ -106,7 +102,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             if ($this->getProduct()) {
-                $path['product'] = ['label'=>$this->getProduct()->getName()];
+                $path['product'] = ['label' => $this->getProduct()->getName()];
             }
 
             $this->_categoryPath = $path;
@@ -299,7 +295,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isMsrpEnabled()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_MSRP_ENABLED, $this->_storeId);
+        return Mage::getStoreConfigFlag(self::XML_PATH_MSRP_ENABLED, $this->_storeId);
     }
 
     /**
@@ -319,7 +315,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isMsrpApplyToAll()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_MSRP_APPLY_TO_ALL, $this->_storeId);
+        return Mage::getStoreConfigFlag(self::XML_PATH_MSRP_APPLY_TO_ALL, $this->_storeId);
     }
 
     /**
@@ -413,8 +409,8 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($this->_mapApplyToProductType === null) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
-            $attribute = Mage::getModel('catalog/resource_eav_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled');
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled');
             $this->_mapApplyToProductType = $attribute->getApplyTo();
         }
         return empty($this->_mapApplyToProductType) || in_array($product->getTypeId(), $this->_mapApplyToProductType);
@@ -429,15 +425,9 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getMsrpPriceMessage($product)
     {
         $message = "";
-        if ($this->canApplyMsrp(
-            $product,
-            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_IN_CART
-        )) {
+        if ($this->canApplyMsrp($product, Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_IN_CART)) {
             $message = $this->__('To see product price, add this item to your cart. You can always remove it later.');
-        } elseif ($this->canApplyMsrp(
-            $product,
-            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM
-        )) {
+        } elseif ($this->canApplyMsrp($product, Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM)) {
             $message = $this->__('See price before order confirmation.');
         }
         return $message;
