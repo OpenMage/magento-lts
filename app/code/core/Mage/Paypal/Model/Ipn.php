@@ -559,7 +559,7 @@ class Mage_Paypal_Model_Ipn
             ->setTransactionId($this->getRequestData('txn_id'))
             ->setParentTransactionId($this->getRequestData('parent_txn_id'))
             ->setIsTransactionClosed($isRefundFinal)
-            ->registerRefundNotification(-1 * $this->getRequestData('mc_gross'));
+            ->registerRefundNotification(-1 * (float)$this->getRequestData('mc_gross'));
         $this->_order->addStatusHistoryComment($comment, false);
         $this->_order->save();
 

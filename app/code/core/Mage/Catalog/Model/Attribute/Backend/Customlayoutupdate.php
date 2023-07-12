@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
     public function validate($object)
     {
         $attributeName = $this->getAttribute()->getName();
-        $xml = trim($object->getData($attributeName));
+        $xml = trim((string)$object->getData($attributeName));
 
         if (!$this->getAttribute()->getIsRequired() && empty($xml)) {
             return true;
@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_M
         $validator = Mage::getModel('adminhtml/layoutUpdate_validator');
         if (!$validator->isValid($xml)) {
             $messages = $validator->getMessages();
-            //Add first message to exception
+            // add first message to exception
             $massage = array_shift($messages);
             $eavExc = new Mage_Eav_Model_Entity_Attribute_Exception($massage);
             $eavExc->setAttributeCode($attributeName);
