@@ -56,7 +56,7 @@ class Mage_GoogleAnalytics_Model_Observer
 
         if ($item->isObjectNew()) {
             $addedQty = $item->getQty();
-        } elseif($item->isDeleted()) {
+        } elseif ($item->isDeleted()) {
             $removedQty = $item->getQty();
         } elseif ($item->hasDataChanges()) {
             $newQty = $item->getQty();
