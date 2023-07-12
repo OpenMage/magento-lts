@@ -47,6 +47,10 @@ class Mage_GoogleAnalytics_Model_Observer
     {
         /** @var Mage_Sales_Model_Quote_Item $item */
         $item = $observer->getEvent()->getItem();
+        if ($item->getParentItem()) {
+            return;
+        }
+
         $addedQty = 0;
         $removedQty = 0;
 
