@@ -131,6 +131,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         $request = $this->getRequest();
         $moduleName = $request->getModuleName();
         $controllerName = $request->getControllerName();
+        $helper = Mage::helper('googleanalytics');
 
         /**
          * This event signifies that an item was removed from a cart.
@@ -142,12 +143,12 @@ gtag('set', 'user_id', '{$customer->getId()}');
             foreach ($removedProducts as $removedProduct) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($removedProduct['price'] * $removedProduct['qty'], 2, '.', '');
+                $eventData['value'] = $helper->formatPrice($removedProduct['price'] * $removedProduct['qty']);
                 $eventData['items'] = [];
                 $_item = [
                     'item_id' => $removedProduct['sku'],
                     'item_name' => $removedProduct['name'],
-                    'price' => number_format($removedProduct['price'], 2, '.', ''),
+                    'price' => $helper->formatPrice($removedProduct['price']),
                     'quantity' => $removedProduct['qty'],
                     'item_brand' => $removedProduct['manufacturer'],
                     'item_category' => $removedProduct['category'],
@@ -168,12 +169,12 @@ gtag('set', 'user_id', '{$customer->getId()}');
             foreach ($addedProducts as $_addedProduct) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($_addedProduct['price'] * $_addedProduct['qty'], 2, '.', '');
+                $eventData['value'] = $helper->formatPrice($_addedProduct['price'] * $_addedProduct['qty']);
                 $eventData['items'] = [];
                 $_item = [
                     'item_id' => $_addedProduct['sku'],
                     'item_name' => $_addedProduct['name'],
-                    'price' => number_format($_addedProduct['price'], 2, '.', ''),
+                    'price' => $helper->formatPrice($_addedProduct['price']),
                     'quantity' => $_addedProduct['qty'],
                     'item_brand' => $_addedProduct['manufacturer'],
                     'item_category' => $_addedProduct['category'],
@@ -194,14 +195,14 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $category = Mage::registry('current_category') ? Mage::registry('current_category')->getName() : false;
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = number_format($productViewed->getFinalPrice(), 2, '.', '');
+            $eventData['value'] = $helper->formatPrice($productViewed->getFinalPrice());
             $eventData['items'] = [];
             $_item = [
                 'item_id' => $productViewed->getSku(),
                 'item_name' => $productViewed->getName(),
                 'list_name' => 'Product Detail Page',
                 'item_category' => $category,
-                'price' => number_format($productViewed->getFinalPrice(), 2, '.', ''),
+                'price' => $helper->formatPrice($productViewed->getFinalPrice()),
             ];
             if ($productViewed->getAttributeText('manufacturer')) {
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
@@ -240,7 +241,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_id' => $productViewed->getSku(),
                     'index' => $index,
                     'item_name' => $productViewed->getName(),
-                    'price' => number_format($productViewed->getFinalPrice(), 2, '.', ''),
+                    'price' => $helper->formatPrice($productViewed->getFinalPrice()),
                 ];
                 if ($productViewed->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
@@ -252,7 +253,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
-            $eventData['value'] = number_format($eventData['value'], 2, '.', '');
+            $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -273,21 +274,21 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $_item = [
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
-                    'price' => number_format($_product->getFinalPrice(), 2, '.', ''),
+                    'price' => $helper->formatPrice($_product->getFinalPrice()),
                     'quantity' => (int) $productInCart->getQty(),
                 ];
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
 
-                $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                $itemCategory = $helper->getLastCategoryName($_product);
                 if ($itemCategory) {
                     $_item['item_category'] = $itemCategory;
                 }
                 array_push($eventData['items'], $_item);
                 $eventData['value'] += $_product->getFinalPrice();
             }
-            $eventData['value'] = number_format($eventData['value'], 2, '.', '');
+            $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -308,21 +309,21 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     $_item = [
                         'item_id' => $_product->getSku(),
                         'item_name' => $_product->getName(),
-                        'price' => number_format($_product->getFinalPrice(), 2, '.', ''),
+                        'price' => $helper->formatPrice($_product->getFinalPrice()),
                         'quantity' => (int) $productInCart->getQty(),
                     ];
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
 
-                    $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
                     array_push($eventData['items'], $_item);
                     $eventData['value'] += $_product->getFinalPrice();
                 }
-                $eventData['value'] = number_format($eventData['value'], 2, '.', '');
+                $eventData['value'] = $helper->formatPrice($eventData['value']);
                 $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
             }
         }
@@ -341,10 +342,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $orderData = [
                     'currency' => $order->getBaseCurrencyCode(),
                     'transaction_id' => $order->getIncrementId(),
-                    'value' => number_format($order->getBaseGrandTotal(), 2, '.', ''),
+                    'value' => $helper->formatPrice($order->getBaseGrandTotal()),
                     'coupon' => strtoupper($order->getCouponCode()),
-                    'shipping' => number_format($order->getBaseShippingAmount(), 2, '.', ''),
-                    'tax' => number_format($order->getBaseTaxAmount(), 2, '.', ''),
+                    'shipping' => $helper->formatPrice($order->getBaseShippingAmount()),
+                    'tax' => $helper->formatPrice($order->getBaseTaxAmount()),
                     'items' => []
                 ];
 
@@ -354,15 +355,15 @@ gtag('set', 'user_id', '{$customer->getId()}');
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
                         'quantity' => (int) $item->getQtyOrdered(),
-                        'price' => number_format($item->getBasePrice(), 2, '.', ''),
-                        'discount' => number_format($item->getBaseDiscountAmount(), 2, '.', '')
+                        'price' => $helper->formatPrice($item->getBasePrice()),
+                        'discount' => $helper->formatPrice($item->getBaseDiscountAmount())
                     ];
                     $_product = Mage::getModel('catalog/product')->load($item->getProductId());
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
 
-                    $itemCategory = Mage::helper('googleanalytics')->getLastCategoryName($_product);
+                    $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
