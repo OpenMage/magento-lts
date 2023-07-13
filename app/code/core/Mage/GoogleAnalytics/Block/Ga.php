@@ -263,14 +263,15 @@ gtag('set', 'user_id', '{$customer->getId()}');
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
          */
         elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
             $eventData['items'] = [];
 
             foreach ($productCollection as $productInCart) {
-                $_product = Mage::getModel('catalog/product')->load($productInCart->getProductId());
+                if ($productInCart->getParentItem()) continue;
+                $_product = $productInCart->getProduct();
                 $_item = [
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
@@ -298,14 +299,15 @@ gtag('set', 'user_id', '{$customer->getId()}');
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
          */
         elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             if ($productCollection) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
                 $eventData['value'] = 0.00;
                 $eventData['items'] = [];
                 foreach ($productCollection as $productInCart) {
-                    $_product = Mage::getModel('catalog/product')->load($productInCart->getProductId());
+                    if ($productInCart->getParentItem()) continue;
+                    $_product = $productInCart->getProduct();
                     $_item = [
                         'item_id' => $_product->getSku(),
                         'item_name' => $_product->getName(),
@@ -350,7 +352,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 ];
 
                 /** @var Mage_Sales_Model_Order_Item $item */
-                foreach ($order->getAllVisibleItems() as $item) {
+                foreach ($order->getAllItems() as $item) {
+                    if ($productInCart->getParentItem()) continue;
+                    $_product = $productInCart->getProduct();
                     $_item = [
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
@@ -358,7 +362,6 @@ gtag('set', 'user_id', '{$customer->getId()}');
                         'price' => $helper->formatPrice($item->getBasePrice()),
                         'discount' => $helper->formatPrice($item->getBaseDiscountAmount())
                     ];
-                    $_product = Mage::getModel('catalog/product')->load($item->getProductId());
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
