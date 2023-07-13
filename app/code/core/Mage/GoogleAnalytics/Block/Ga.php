@@ -270,7 +270,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData['items'] = [];
 
             foreach ($productCollection as $productInCart) {
-                if ($productInCart->getParentItem()) continue;
+                if ($productInCart->getParentItem()) {
+                    continue;
+                }
                 $_product = $productInCart->getProduct();
                 $_item = [
                     'item_id' => $_product->getSku(),
@@ -281,7 +283,6 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($_product->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                 }
-
                 $itemCategory = $helper->getLastCategoryName($_product);
                 if ($itemCategory) {
                     $_item['item_category'] = $itemCategory;
@@ -306,7 +307,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['value'] = 0.00;
                 $eventData['items'] = [];
                 foreach ($productCollection as $productInCart) {
-                    if ($productInCart->getParentItem()) continue;
+                    if ($productInCart->getParentItem()) {
+                        continue;
+                    }
                     $_product = $productInCart->getProduct();
                     $_item = [
                         'item_id' => $_product->getSku(),
@@ -317,7 +320,6 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-
                     $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
@@ -353,7 +355,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
 
                 /** @var Mage_Sales_Model_Order_Item $item */
                 foreach ($order->getAllItems() as $item) {
-                    if ($productInCart->getParentItem()) continue;
+                    if ($productInCart->getParentItem()) {
+                        continue;
+                    }
                     $_product = $productInCart->getProduct();
                     $_item = [
                         'item_id' => $item->getSku(),
@@ -365,7 +369,6 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
                     }
-
                     $itemCategory = $helper->getLastCategoryName($_product);
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
