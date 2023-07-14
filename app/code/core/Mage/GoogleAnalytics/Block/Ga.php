@@ -347,7 +347,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'currency' => $order->getBaseCurrencyCode(),
                     'transaction_id' => $order->getIncrementId(),
                     'value' => $helper->formatPrice($order->getBaseGrandTotal()),
-                    'coupon' => strtoupper($order->getCouponCode()),
+                    'coupon' => strtoupper((string)$order->getCouponCode()),
                     'shipping' => $helper->formatPrice($order->getBaseShippingAmount()),
                     'tax' => $helper->formatPrice($order->getBaseTaxAmount()),
                     'items' => []
@@ -355,10 +355,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
 
                 /** @var Mage_Sales_Model_Order_Item $item */
                 foreach ($order->getAllItems() as $item) {
-                    if ($productInCart->getParentItem()) {
+                    if ($item->getParentItem()) {
                         continue;
                     }
-                    $_product = $productInCart->getProduct();
+                    $_product = $item->getProduct();
                     $_item = [
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
