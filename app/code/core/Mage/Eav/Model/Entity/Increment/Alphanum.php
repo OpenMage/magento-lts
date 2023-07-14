@@ -35,7 +35,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
     {
         $lastId = $this->getLastId();
 
-        if (strpos($lastId, $this->getPrefix()) === 0) {
+        if (str_starts_with($lastId, $this->getPrefix())) {
             $lastId = substr($lastId, strlen($this->getPrefix()));
         }
 

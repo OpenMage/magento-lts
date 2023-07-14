@@ -79,7 +79,6 @@
                         </failed_attempts_login>
                         <failed_attempts_ip translate="label">
                             <label>Number of Unsuccessful Attempts to Login per IP Address</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

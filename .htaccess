@@ -247,7 +247,7 @@
         Order allow,deny
         Deny from all
     </FilesMatch>
-    <FilesMatch \.(dist|lock|md|neon|sample|sh|yml|yaml)$>
+    <FilesMatch \.(dist|flag|ip|lock|md|neon|sample|sh|yml|yaml)$>
         Order allow,deny
         Deny from all
     </FilesMatch>

@@ -40,7 +40,7 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
      */
     public function getClassNameByType($type)
     {
-        if (strpos($type, '/') !== false) {
+        if (str_contains($type, '/')) {
             return Mage::getConfig()->getModelClassName($type);
         }
         return parent::getClassNameByType($type);

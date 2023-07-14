@@ -88,6 +88,10 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
             if (isset($data['region_id'])) {
                 $data['region_id'] = (int)$data['region_id'];
             }
+            if ($data->getDob()) {
+                $dob = $data->getYear() . '-' . $data->getMonth() . '-' . $data->getDay();
+                $data->setDob($dob);
+            }
             $this->setData('form_data', $data);
         }
         return $data;

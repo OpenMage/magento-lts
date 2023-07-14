@@ -1,5 +1,4 @@
-// https://stackoverflow.com/a/44436408/5703627
-document.observe('dom:loaded', function() {
+window.addEventListener('DOMContentLoaded', function() {
     Element.addMethods({
         // setup once, memorize the counter element and maxLen
         prepare_for_countdown: function(element) {

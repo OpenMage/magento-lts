@@ -177,7 +177,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     public function _getFieldTableAlias($field)
     {
-        if (strpos($field, 'customer') === 0) {
+        if (str_starts_with($field, 'customer')) {
             return $field . '_table.value';
         }
 

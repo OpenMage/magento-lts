@@ -79,7 +79,7 @@ class AssertSitemapContent extends AbstractConstraint
     protected function checkContent($content, $urls)
     {
         foreach ($urls as $url) {
-            if (strpos($content, $url) === false) {
+            if (!str_contains($content, $url)) {
                 return false;
             }
         }

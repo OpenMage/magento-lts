@@ -112,7 +112,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $wherePart = $select->getPart(Zend_Db_Select::WHERE);
         $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
         foreach ($wherePart as $key => $wherePartItem) {
-            if (strpos($wherePartItem, $excludedWherePart) !== false) {
+            if (str_contains($wherePartItem, $excludedWherePart)) {
                 $wherePart[$key] = new Zend_Db_Expr('1=1');
                 continue;
             }
@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $select->setPart(Zend_Db_Select::WHERE, $wherePart);
         $excludeJoinPart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.entity_id';
         foreach ($priceIndexJoinConditions as $condition) {
-            if (strpos($condition, $excludeJoinPart) !== false) {
+            if (str_contains($condition, $excludeJoinPart)) {
                 continue;
             }
             $select->where($this->_replaceTableAlias($condition));

@@ -50,7 +50,7 @@ class AssertProductCompareItemsLink extends AbstractConstraint
         );
 
         \PHPUnit_Framework_Assert::assertTrue(
-            strpos($cmsIndex->getCompareBlock()->getCompareLinkUrl(), $this->compareProductUrl) !== false,
+            str_contains($cmsIndex->getCompareBlock()->getCompareLinkUrl(), $this->compareProductUrl),
             'Compare product link isn\'t lead to Compare Product Page.'
         );
     }

@@ -250,7 +250,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         $this->addParam('extension', $extension);
 
         if (!$this->hasSpecialImage()) {
-            if (strpos($size, 'x') !== false) {
+            if (str_contains($size, 'x')) {
                 list($width, $height) = explode('x', $size);
             } else {
                 $width = $size;

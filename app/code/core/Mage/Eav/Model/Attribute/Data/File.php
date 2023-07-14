@@ -45,7 +45,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
             $value  = [];
-            if (strpos($this->_requestScope, '/') !== false) {
+            if (str_contains($this->_requestScope, '/')) {
                 $scopes = explode('/', $this->_requestScope);
                 $mainScope  = array_shift($scopes);
             } else {

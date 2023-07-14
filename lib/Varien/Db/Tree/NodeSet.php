@@ -58,13 +58,10 @@ class Varien_Db_Tree_NodeSet implements Iterator
         return isset($this->_nodes[$this->_current]);
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
-        if ($this->_current > $this->_currentNode) {
-            return false;
-        } else {
-            return $this->_current++;
+        if ($this->_current <= $this->_currentNode) {
+            $this->_current++;
         }
     }
 

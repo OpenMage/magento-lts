@@ -107,7 +107,7 @@ function mageFindClassFile($class)
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
-    if (strpos($errstr, 'DateTimeZone::__construct') !== false) {
+    if (str_contains($errstr, 'DateTimeZone::__construct')) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
     }

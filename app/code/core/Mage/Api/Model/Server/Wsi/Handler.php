@@ -52,7 +52,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
         foreach ($nodes as $resource => $prefix) {
             $prefix = $prefix->asArray();
-            if (strpos($function, $prefix) !== false) {
+            if (str_contains($function, $prefix)) {
                 $method = substr($function, strlen($prefix));
                 $apiKey = $resource . '.' . strtolower($method[0]) . substr($method, 1);
             }

@@ -73,7 +73,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle multiple options
-        if (strpos($expr, ',') !== false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -83,7 +83,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr, '/') !== false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -98,7 +98,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr, '-') !== false) {
+        if (str_contains($expr, '-')) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;

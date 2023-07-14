@@ -134,7 +134,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (strpos($this->_remoteAddr, ',') !== false) {
+        if (str_contains($this->_remoteAddr, ',')) {
             $ipList = explode(',', $this->_remoteAddr);
             $this->_remoteAddr = trim(reset($ipList));
         }

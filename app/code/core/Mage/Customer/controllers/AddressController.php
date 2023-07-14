@@ -151,9 +151,11 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 $this->_getSession()->setAddressFormData($this->getRequest()->getPost())
                     ->addException($e, $this->__('Cannot save address.'));
             }
+
+            return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
         }
 
-        return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
+        $this->_redirectReferer();
     }
 
     /**

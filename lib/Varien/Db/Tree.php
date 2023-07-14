@@ -65,11 +65,6 @@ class Varien_Db_Tree
             // convenience variable
             $db = $config['db'];
 
-            // use an object from the registry?
-            if (is_string($db)) {
-                $db = Zend::registry($db);
-            }
-
             // make sure it's a Zend_Db_Adapter
             if (! $db instanceof Zend_Db_Adapter_Abstract) {
                 throw new Varien_Db_Tree_Exception('db object does not implement Zend_Db_Adapter_Abstract');
@@ -223,7 +218,7 @@ class Varien_Db_Tree
 
         try {
             $this->_db->insert($this->_table, $data);
-        } catch (PDOException $e) {
+        } catch (Zend_Db_Adapter_Exception $e) {
             echo $e->getMessage();
         }
         return $this->_db->lastInsertId();
@@ -424,7 +419,7 @@ class Varien_Db_Tree
 
         if ($pId == 0) { //move to root
             $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
-        } elseif ($aId != 0 && $pID == $eInfo[$this->_pid]) { // if we have after ID
+        } elseif ($aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
             $left_key_near = $aInfo[$this->_left];
         } elseif ($aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID

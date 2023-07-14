@@ -1,0 +1,37 @@
+# Make packagist / composer download smaller
+/.ddev export-ignore
+/.github export-ignore
+/dev export-ignore
+/docs export-ignore
+
+/.all-contributorsrc export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.gitpod.yml export-ignore
+
+/.php-cs-fixer.dist.php export-ignore
+/.phpcs.ecg.xml.dist export-ignore
+/.phpcs.php.xml.dist export-ignore
+/.phpcs.xml.dist export-ignore
+/.phpmd.dist.xml export-ignore
+/phpstan.dist.baseline.neon export-ignore
+/phpstan.dist.issues.neon export-ignore
+/phpstan.dist.neon export-ignore
+
+/README.md export-ignore
+
+# Enforce checkout with linux lf consistent over all platforms
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.php text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.sh text eol=lf
+*.sql text eol=lf
+*.svg text eol=lf
+*.txt text eol=lf
+*.phtml text eol=lf

@@ -196,7 +196,7 @@ class Mage_Core_Model_Translate
      * Loading data from module translation files
      *
      * @param string $moduleName
-     * @param string $files
+     * @param array $files
      * @param bool $forceReload
      * @return $this
      */
@@ -224,7 +224,7 @@ class Mage_Core_Model_Translate
                 continue;
             }
             $key    = $this->_prepareDataString($key);
-            $value  = $this->_prepareDataString($value);
+            $value  = $value === null ? '' : $this->_prepareDataString($value);
             if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
                 /**
                  * Checking previos value

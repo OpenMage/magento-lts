@@ -46,8 +46,9 @@ class Mage_Rule_Block_Editable extends Mage_Core_Block_Abstract implements Varie
 
             $translate = Mage::getSingleton('core/translate_inline');
 
-            $html .= $translate->isAllowed() ? Mage::helper('core')->escapeHtml($valueName) :
-                Mage::helper('core')->escapeHtml(Mage::helper('core/string')->truncate($valueName, 33, '...'));
+            $html .= $translate->isAllowed()
+                ? Mage::helper('core')->escapeHtml($valueName)
+                : Mage::helper('core')->escapeHtml(Mage::helper('core/string')->truncate($valueName, 100, '...'));
 
             $html .= '</a><span class="element"> ' . $element->getElementHtml();
 

@@ -56,7 +56,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
     {
-        return strpos($attributeCode, 'quote_item_') === 0;
+        return str_starts_with($attributeCode, 'quote_item_');
     }
 
     /**

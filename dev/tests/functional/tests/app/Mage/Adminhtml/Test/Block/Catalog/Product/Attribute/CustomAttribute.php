@@ -155,7 +155,7 @@ class CustomAttribute extends SimpleElement
     {
         $element = null;
         foreach ($this->classReference as $key => $reference) {
-            if (strpos($class, $key) !== false) {
+            if (str_contains($class, $key)) {
                 $element = $reference;
             }
         }

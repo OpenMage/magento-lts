@@ -800,14 +800,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $_bytes = @ini_get($ini_key);
 
-        // kilobytes
         if (stristr($_bytes, 'k')) {
+            // kilobytes
             $_bytes = (int) $_bytes * 1024;
-        // megabytes
         } elseif (stristr($_bytes, 'm')) {
+            // megabytes
             $_bytes = (int) $_bytes * 1024 * 1024;
-        // gigabytes
         } elseif (stristr($_bytes, 'g')) {
+            // gigabytes
             $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;

@@ -608,7 +608,7 @@ class Mage_Catalog_Model_Url
      */
     public function getUnusedPathByUrlKey($storeId, $requestPath, $idPath, $urlKey)
     {
-        if (strpos($idPath, 'product') !== false) {
+        if (str_contains($idPath, 'product')) {
             $suffix = $this->getProductUrlSuffix($storeId);
         } else {
             $suffix = $this->getCategoryUrlSuffix($storeId);
@@ -805,7 +805,7 @@ class Mage_Catalog_Model_Url
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) === 0
+                && str_starts_with($existingRequestPath, $requestPath)
             ) {
                 $existingRequestPath = preg_replace(
                     '/^' . preg_quote($requestPath, '/') . '/',

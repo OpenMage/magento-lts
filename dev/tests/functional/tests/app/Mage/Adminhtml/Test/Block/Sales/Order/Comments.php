@@ -56,7 +56,7 @@ class Comments extends Block
     {
         $comments = $this->getCommentsElements();
         foreach ($comments as $comment) {
-            if (strpos($comment->getText(), $commentText) !== false) {
+            if (str_contains($comment->getText(), $commentText)) {
                 return true;
             }
         }

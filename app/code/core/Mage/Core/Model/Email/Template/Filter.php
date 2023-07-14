@@ -302,7 +302,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             $params['_query'] = [];
         }
         foreach ($params as $k => $v) {
-            if (strpos($k, '_query_') === 0) {
+            if (str_starts_with($k, '_query_')) {
                 $params['_query'][substr($k, 7)] = $v;
                 unset($params[$k]);
             }

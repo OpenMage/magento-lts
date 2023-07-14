@@ -51,6 +51,10 @@ if (file_exists($maintenanceFile)) {
         include_once __DIR__ . '/errors/503.php';
         exit;
     }
+
+    // remove config cache to make the system check for DB updates
+    $config = Mage::app()->getConfig();
+    $config->getCache()->remove($config->getCacheId());
 }
 
 Mage::run($mageRunCode, $mageRunType);
