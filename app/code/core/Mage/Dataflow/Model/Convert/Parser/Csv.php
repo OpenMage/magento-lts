@@ -237,9 +237,9 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $escapedValue = Mage::helper("core")->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
-            if (strpos($value, $delimiter) !== false ||
+            if (str_contains($value, $delimiter) ||
                 empty($enclosure) ||
-                strpos($value, $enclosure) !== false ||
+                str_contains($value, $enclosure) ||
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||

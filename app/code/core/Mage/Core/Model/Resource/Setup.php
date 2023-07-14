@@ -707,7 +707,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 
@@ -742,7 +742,7 @@ class Mage_Core_Model_Resource_Setup
     */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 
@@ -775,7 +775,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 
@@ -813,7 +813,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function updateTable($table, $conditionExpr, $valueExpr)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
         $query = sprintf(
@@ -836,7 +836,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function tableExists($table)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 

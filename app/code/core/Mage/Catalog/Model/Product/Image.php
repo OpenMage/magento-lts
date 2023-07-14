@@ -251,14 +251,16 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $memoryLimit = "128M";
         }
 
+        $value = (int)substr($memoryLimit, 0, -1);
+
         if (substr($memoryLimit, -1) == 'K') {
-            return substr($memoryLimit, 0, -1) * 1024;
+            return $value * 1024;
         }
         if (substr($memoryLimit, -1) == 'M') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+            return $value * 1024 * 1024;
         }
         if (substr($memoryLimit, -1) == 'G') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
+            return $value * 1024 * 1024 * 1024;
         }
         return $memoryLimit;
     }
@@ -293,7 +295,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $imageInfo = getimagesize($file);
 
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+        if ($imageInfo === false) {
             return 0;
         }
         if (!isset($imageInfo['channels'])) {

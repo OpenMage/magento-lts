@@ -37,12 +37,6 @@ class Mage_Core_Model_App
     public const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
-     * Cache tag for all cache data exclude config cache
-     *
-     */
-    public const CACHE_TAG = 'MAGE';
-
-    /**
      * Default store Id (for install)
      */
     public const DISTRO_STORE_ID       = 1;
@@ -1293,6 +1287,37 @@ class Mage_Core_Model_App
     {
         $this->_request = $request;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentlySecure()
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            return true;
+        }
+
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
+            return true;
+        }
+
+        if (Mage::isInstalled()) {
+            $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
+            if ($offloaderHeader) {
+                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
+                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -299,7 +299,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             'unsigned' => $column['unsigned'],
             'nullable' => $column['is_null'],
             'default'  => $column['default'],
-            'identity' => stripos($column['extra'], 'auto_increment') !== false
+            'identity' => !empty($column['extra']) && (stripos($column['extra'], 'auto_increment') !== false),
         ];
 
         /**

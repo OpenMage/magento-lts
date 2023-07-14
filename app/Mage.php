@@ -43,9 +43,14 @@ include_once "Varien/Autoload.php";
 Varien_Autoload::register();
 
 /** AUTOLOADER PATCH **/
-if (file_exists($autoloaderPath = (getenv('COMPOSER_VENDOR_PATH') ?: BP . DS .  'vendor') . DS . 'autoload.php')) {
-    require $autoloaderPath;
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = BP . DS . 'vendor';
+    }
 }
+require $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
@@ -212,7 +217,7 @@ final class Mage
                 'major'     => '20',
                 'minor'     => '1',
                 'patch'     => '0',
-                'stability' => 'rc4', // beta,alpha,rc
+                'stability' => 'rc7', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -221,7 +226,7 @@ final class Mage
             'major'     => '19',
             'minor'     => '5',
             'patch'     => '0',
-            'stability' => 'rc4', // beta,alpha,rc
+            'stability' => 'rc7', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
@@ -866,7 +871,7 @@ final class Mage
 
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
 
-        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
             return;
         }
 

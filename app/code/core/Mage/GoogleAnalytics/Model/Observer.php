@@ -22,18 +22,6 @@
 class Mage_GoogleAnalytics_Model_Observer
 {
     /**
-     * Create Google Analytics block for success page view
-     *
-     * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
-     * @param Varien_Event_Observer $observer
-     */
-    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function order_success_page_view($observer)
-    {
-        $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);
-    }
-
-    /**
      * Add order information into GA block to render on checkout success pages
      *
      * @param Varien_Event_Observer $observer
@@ -47,6 +35,42 @@ class Mage_GoogleAnalytics_Model_Observer
         $block = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');
         if ($block) {
             $block->setOrderIds($orderIds);
+        }
+    }
+
+    /**
+     * Add 'removed item' from cart into session for GA4 block to render event on cart view
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
+    {
+        $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
+        if ($productRemoved) {
+            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
+            $_removedProducts[] = $productRemoved->getId();
+            $_removedProducts = array_unique($_removedProducts);
+            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
+        }
+    }
+
+    /**
+     * Add 'added item' to cart into session for GA4 block to render event on cart view
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
+    {
+        $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
+        if ($productAdded) {
+            // Fix double add to cart for configurable products, skip child product
+            if ($productAdded->getParentProductId()) {
+                return;
+            }
+            $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
+            $_addedProducts[] = $productAdded->getParentItem() ? $productAdded->getParentItem()->getId() : $productAdded->getId();
+            $_addedProducts = array_unique($_addedProducts);
+            Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
         }
     }
 }
