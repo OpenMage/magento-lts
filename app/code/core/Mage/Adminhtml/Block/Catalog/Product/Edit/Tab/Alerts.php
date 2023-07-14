@@ -45,14 +45,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
         if ($alertPriceAllow) {
             $accordion->addItem('price', [
                 'title'     => Mage::helper('adminhtml')->__('Product price alert'),
-                'content'   => '<div class="entry-edit"><div class="fieldset fieldset-wide">' . $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml() . '</div></div>',
+                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml(),
                 'open'      => true
             ]);
         }
         if ($alertStockAllow) {
             $accordion->addItem('stock', [
                 'title'     => Mage::helper('adminhtml')->__('Product stock alert'),
-                'content'   => '<div class="entry-edit"><div class="fieldset fieldset-wide">' . $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock')->toHtml() . '</div></div>',
+                'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock')->toHtml(),
                 'open'      => true
             ]);
         }
