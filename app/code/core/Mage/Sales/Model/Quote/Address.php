@@ -427,6 +427,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getQuote()
     {
+        if (is_null($this->_quote)) {
+            $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
+        }
         return $this->_quote;
     }
 

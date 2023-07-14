@@ -71,7 +71,7 @@ jobs:
 
       - name: Get changed files
         id: changed-files-specific
-        uses: tj-actions/changed-files@v36
+        uses: tj-actions/changed-files@v37
         with:
           files: |
             composer.*

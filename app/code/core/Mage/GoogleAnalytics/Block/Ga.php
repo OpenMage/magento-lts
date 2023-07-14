@@ -21,46 +21,8 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
-    /**
-     * @deprecated after 1.4.1.1
-     * @see self::_getOrdersTrackingCode()
-     * @return string
-     */
-    public function getQuoteOrdersHtml()
-    {
-        return '';
-    }
-
-    /**
-     * @deprecated after 1.4.1.1
-     * self::_getOrdersTrackingCode()
-     * @return string
-     */
-    public function getOrderHtml()
-    {
-        return '';
-    }
-
-    /**
-     * @deprecated after 1.4.1.1
-     * @see _toHtml()
-     * @return string
-     */
-    public function getAccount()
-    {
-        return '';
-    }
-
-    /**
-     * Get a specific page name (may be customized via layout)
-     *
-     * @return string
-     * @deprecated
-     */
-    public function getPageName()
-    {
-        return $this->_getData('page_name') ?? '';
-    }
+    protected const CHECKOUT_MODULE_NAME = "checkout";
+    protected const CHECKOUT_CONTROLLER_NAME = "onepage";
 
     /**
      * Render regular page tracking javascript code
@@ -75,11 +37,9 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
         $helper = $this->helper('googleanalytics');
         if ($helper->isUseAnalytics4()) {
             return $this->_getPageTrackingCodeAnalytics4($accountId);
-        } elseif ($helper->isUseUniversalAnalytics()) {
-            return $this->_getPageTrackingCodeUniversal($accountId);
-        } else {
-            return $this->_getPageTrackingCodeAnalytics($accountId);
         }
+
+        return '';
     }
 
     /**
@@ -125,14 +85,11 @@ gtag('set', 'user_id', '{$customer->getId()}');
      *
      * @param string $accountId
      * @return string
+     * @deprecated
      */
     protected function _getPageTrackingCodeUniversal($accountId)
     {
-        return "
-ga('create', '{$this->jsQuoteEscape($accountId)}', 'auto');
-" . $this->_getAnonymizationCode() . "
-ga('send', 'pageview');
-";
+        return '';
     }
 
     /**
@@ -143,19 +100,11 @@ ga('send', 'pageview');
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApi_gaq.html
      * @param string $accountId
      * @return string
+     * @deprecated
      */
     protected function _getPageTrackingCodeAnalytics($accountId)
     {
-        $pageName   = trim($this->getPageName());
-        $optPageURL = '';
-        if ($pageName && preg_match('/^\/.*/i', $pageName)) {
-            $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
-        }
-        return "
-_gaq.push(['_setAccount', '{$this->jsQuoteEscape($accountId)}']);
-" . $this->_getAnonymizationCode() . "
-_gaq.push(['_trackPageview'{$optPageURL}]);
-";
+        return '';
     }
 
     /**
@@ -163,72 +112,11 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      *
      * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @deprecated
      */
     protected function _getOrdersTrackingCode()
     {
-        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
-        $helper = $this->helper('googleanalytics');
-        if ($helper->isUseAnalytics4()) {
-            return $this->_getOrdersTrackingCodeAnalytics4();
-        } elseif ($helper->isUseUniversalAnalytics()) {
-            return $this->_getOrdersTrackingCodeUniversal();
-        }
-
-        return $this->_getOrdersTrackingCodeAnalytics();
-    }
-
-    /**
-     * Render information about specified orders and their items
-     *
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getOrdersTrackingCodeUniversal()
-    {
-        $orderIds = $this->getOrderIds();
-        if (empty($orderIds) || !is_array($orderIds)) {
-            return;
-        }
-        $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
-        $result = [];
-        $result[] = "ga('require', 'ecommerce')";
-        foreach ($collection as $order) {
-            $result[] = sprintf(
-                "ga('ecommerce:addTransaction', {
-'id': '%s',
-'affiliation': '%s',
-'revenue': '%s',
-'tax': '%s',
-'shipping': '%s'
-});",
-                $order->getIncrementId(),
-                $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
-                $order->getBaseGrandTotal(),
-                $order->getBaseTaxAmount(),
-                $order->getBaseShippingAmount()
-            );
-            foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf(
-                    "ga('ecommerce:addItem', {
-'id': '%s',
-'sku': '%s',
-'name': '%s',
-'category': '%s',
-'price': '%s',
-'quantity': '%s'
-});",
-                    $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()),
-                    $this->jsQuoteEscape($item->getName()),
-                    null, // there is no "category" defined for the order item
-                    $item->getBasePrice(),
-                    $item->getQtyOrdered()
-                );
-            }
-            $result[] = "ga('ecommerce:send');";
-        }
-        return implode("\n", $result);
+        return '';
     }
 
     /**
@@ -237,7 +125,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      * @return string
      * @throws JsonException
      */
-    protected function _getOrdersTrackingCodeAnalytics4()
+    protected function _getEnhancedEcommerceDataForAnalytics4()
     {
         $result = [];
         $request = $this->getRequest();
@@ -255,12 +143,12 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $_removedProduct = Mage::getModel('catalog/product')->load($removedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2);
+                $eventData['value'] = number_format($_removedProduct->getFinalPrice(), 2, '.', '');
                 $eventData['items'] = [];
                 $_item = [
                     'item_id' => $_removedProduct->getSku(),
                     'item_name' => $_removedProduct->getName(),
-                    'price' => number_format($_removedProduct->getFinalPrice(), 2),
+                    'price' => number_format($_removedProduct->getFinalPrice(), 2, '.', ''),
                 ];
                 if ($_removedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_removedProduct->getAttributeText('manufacturer');
@@ -286,12 +174,12 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $_addedProduct = Mage::getModel('catalog/product')->load($addedProduct);
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2);
+                $eventData['value'] = number_format($_addedProduct->getFinalPrice(), 2, '.', '');
                 $eventData['items'] = [];
                 $_item = [
                     'item_id' => $_addedProduct->getSku(),
                     'item_name' => $_addedProduct->getName(),
-                    'price' => number_format($_addedProduct->getFinalPrice(), 2),
+                    'price' => number_format($_addedProduct->getFinalPrice(), 2, '.', ''),
                 ];
                 if ($_addedProduct->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $_addedProduct->getAttributeText('manufacturer');
@@ -317,14 +205,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             $category = Mage::registry('current_category') ? Mage::registry('current_category')->getName() : false;
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
-            $eventData['value'] = number_format($productViewed->getFinalPrice(), 2);
+            $eventData['value'] = number_format($productViewed->getFinalPrice(), 2, '.', '');
             $eventData['items'] = [];
             $_item = [
                 'item_id' => $productViewed->getSku(),
                 'item_name' => $productViewed->getName(),
                 'list_name' => 'Product Detail Page',
                 'item_category' => $category,
-                'price' => number_format($productViewed->getFinalPrice(), 2),
+                'price' => number_format($productViewed->getFinalPrice(), 2, '.', ''),
             ];
             if ($productViewed->getAttributeText('manufacturer')) {
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
@@ -363,7 +251,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     'item_id' => $productViewed->getSku(),
                     'index' => $index,
                     'item_name' => $productViewed->getName(),
-                    'price' => number_format($productViewed->getFinalPrice(), 2),
+                    'price' => number_format($productViewed->getFinalPrice(), 2, '.', ''),
                 ];
                 if ($productViewed->getAttributeText('manufacturer')) {
                     $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
@@ -375,7 +263,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
-            $eventData['value'] = number_format($eventData['value'], 2);
+            $eventData['value'] = number_format($eventData['value'], 2, '.', '');
             $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -396,7 +284,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $_item = [
                     'item_id' => $_product->getSku(),
                     'item_name' => $_product->getName(),
-                    'price' => number_format($_product->getFinalPrice(), 2),
+                    'price' => number_format($_product->getFinalPrice(), 2, '.', ''),
                     'quantity' => (int) $productInCart->getQty(),
                 ];
                 if ($_product->getAttributeText('manufacturer')) {
@@ -410,7 +298,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 array_push($eventData['items'], $_item);
                 $eventData['value'] += $_product->getFinalPrice();
             }
-            $eventData['value'] = number_format($eventData['value'], 2);
+            $eventData['value'] = number_format($eventData['value'], 2, '.', '');
             $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
         }
 
@@ -419,7 +307,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
          */
-        elseif ($moduleName == 'checkout' && $controllerName == 'onepage') {
+        elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
             if ($productCollection) {
                 $eventData = [];
@@ -431,7 +319,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     $_item = [
                         'item_id' => $_product->getSku(),
                         'item_name' => $_product->getName(),
-                        'price' => number_format($_product->getFinalPrice(), 2),
+                        'price' => number_format($_product->getFinalPrice(), 2, '.', ''),
+                        'quantity' => (int) $productInCart->getQty(),
                     ];
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
@@ -444,7 +333,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                     array_push($eventData['items'], $_item);
                     $eventData['value'] += $_product->getFinalPrice();
                 }
-                $eventData['value'] = number_format($eventData['value'], 2);
+                $eventData['value'] = number_format($eventData['value'], 2, '.', '');
                 $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
             }
         }
@@ -457,16 +346,16 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         $orderIds = $this->getOrderIds();
         if (!empty($orderIds) && is_array($orderIds)) {
             $collection = Mage::getResourceModel('sales/order_collection')
-                              ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+                ->addFieldToFilter('entity_id', ['in' => $orderIds]);
             /** @var Mage_Sales_Model_Order $order */
             foreach ($collection as $order) {
                 $orderData = [
                     'currency' => $order->getBaseCurrencyCode(),
                     'transaction_id' => $order->getIncrementId(),
-                    'value' => number_format($order->getBaseGrandTotal(), 2),
+                    'value' => number_format($order->getBaseGrandTotal(), 2, '.', ''),
                     'coupon' => strtoupper($order->getCouponCode()),
-                    'shipping' => number_format($order->getBaseShippingAmount(), 2),
-                    'tax' => number_format($order->getBaseTaxAmount(), 2),
+                    'shipping' => number_format($order->getBaseShippingAmount(), 2, '.', ''),
+                    'tax' => number_format($order->getBaseTaxAmount(), 2, '.', ''),
                     'items' => []
                 ];
 
@@ -476,8 +365,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                         'item_id' => $item->getSku(),
                         'item_name' => $item->getName(),
                         'quantity' => (int) $item->getQtyOrdered(),
-                        'price' => number_format($item->getBasePrice(), 2),
-                        'discount' => number_format($item->getBaseDiscountAmount(), 2)
+                        'price' => number_format($item->getBasePrice(), 2, '.', ''),
+                        'discount' => number_format($item->getBaseDiscountAmount(), 2, '.', '')
                     ];
                     $_product = Mage::getModel('catalog/product')->load($item->getProductId());
                     if ($_product->getAttributeText('manufacturer')) {
@@ -501,97 +390,6 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
     }
 
     /**
-     * Render information about specified orders and their items
-     *
-     * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._addTrans
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getOrdersTrackingCodeAnalytics()
-    {
-        $orderIds = $this->getOrderIds();
-        if (empty($orderIds) || !is_array($orderIds)) {
-            return;
-        }
-        $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
-        $result = [];
-        foreach ($collection as $order) {
-            if ($order->getIsVirtual()) {
-                $address = $order->getBillingAddress();
-            } else {
-                $address = $order->getShippingAddress();
-            }
-            $result[] = sprintf(
-                "_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                $order->getIncrementId(),
-                $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
-                $order->getBaseGrandTotal(),
-                $order->getBaseTaxAmount(),
-                $order->getBaseShippingAmount(),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCity())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getRegion())),
-                $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
-            );
-            foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf(
-                    "_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
-                    $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()),
-                    $this->jsQuoteEscape($item->getName()),
-                    null, // there is no "category" defined for the order item
-                    $item->getBasePrice(),
-                    $item->getQtyOrdered()
-                );
-            }
-            $result[] = "_gaq.push(['_trackTrans']);";
-        }
-        return implode("\n", $result);
-    }
-
-    /**
-     * Render IP anonymization code for page tracking javascript code
-     *
-     * @return string
-     */
-    protected function _getAnonymizationCode()
-    {
-        if (!Mage::helper('googleanalytics')->isIpAnonymizationEnabled()) {
-            return '';
-        }
-
-        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
-        $helper = $this->helper('googleanalytics');
-        if ($helper->isUseUniversalAnalytics()) {
-            return $this->_getAnonymizationCodeUniversal();
-        }
-
-        return $this->_getAnonymizationCodeAnalytics();
-    }
-
-    /**
-     * Render IP anonymization code for page tracking javascript universal analytics code
-     *
-     * @return string
-     */
-    protected function _getAnonymizationCodeUniversal()
-    {
-        return "ga('set', 'anonymizeIp', true);";
-    }
-
-    /**
-     * Render IP anonymization code for page tracking javascript google analytics code
-     *
-     * @return string
-     */
-    protected function _getAnonymizationCodeAnalytics()
-    {
-        return "_gaq.push (['_gat._anonymizeIp']);";
-    }
-
-    /**
-     * Is ga available
-     *
      * @return bool
      */
     protected function _isAvailable()

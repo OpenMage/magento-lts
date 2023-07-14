@@ -7,25 +7,38 @@
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
- * @package    Mage_Usa
+ * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- *
- * Usa Ups type action Dropdown source
+ * GoogleTagManager Page Block
  *
  * @category   Mage
- * @package    Mage_Usa
+ * @package    Mage_GoogleAnalytics
  */
-class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Type
+class Mage_GoogleAnalytics_Block_Gtm extends Mage_Core_Block_Template
 {
-    public function toOptionArray()
+    /**
+     * @return bool
+     */
+    protected function _isAvailable()
     {
-        return [
-            ['value' => 'UPS_XML', 'label' => Mage::helper('usa')->__('United Parcel Service XML')],
-        ];
+        return Mage::helper('googleanalytics')->isGoogleTagManagerAvailable();
+    }
+
+    /**
+     * Render GA tracking scripts
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!$this->_isAvailable()) {
+            return '';
+        }
+        return parent::_toHtml();
     }
 }
