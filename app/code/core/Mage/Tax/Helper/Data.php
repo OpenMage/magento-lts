@@ -1174,7 +1174,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDisplaySettings()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY);
+        return (bool) $this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_PRICE_DISPLAY);
     }
 
     /**
@@ -1184,7 +1184,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDiscountSettings()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT);
+        return (bool) $this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_DISPLAY_NOTIFICATION_DISCOUNT);
     }
 
     /**
@@ -1205,7 +1205,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDisplaySettingsIgnored()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
+        return (bool) $this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
     }
 
     /**
@@ -1215,7 +1215,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDiscountSettingsIgnored()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
+        return (bool) $this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
     }
 
     /**
@@ -1237,6 +1237,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isCrossBorderTradeEnabled($store = null)
     {
-        return (bool)$this->_config->crossBorderTradeEnabled($store);
+        return (bool) $this->_config->crossBorderTradeEnabled($store);
     }
 }
