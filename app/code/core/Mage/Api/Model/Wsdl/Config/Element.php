@@ -158,18 +158,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * @deprecated due to conflict with PHP8 parent class update
-     * @param Varien_Simplexml_Element $source
-     * @return array
-     */
-    #[\ReturnTypeWillChange]
-    public function getChildren($source = null)
-    {
-        Mage::log('Use of deprecated method: ' . __METHOD__);
-        return self::_getChildren($source);
-    }
-
-    /**
      * Return children of all namespaces
      *
      * @param Varien_Simplexml_Element $source
