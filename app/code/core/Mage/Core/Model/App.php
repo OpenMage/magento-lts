@@ -37,12 +37,6 @@ class Mage_Core_Model_App
     public const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
-     * Cache tag for all cache data exclude config cache
-     *
-     */
-    public const CACHE_TAG = 'MAGE';
-
-    /**
      * Default store Id (for install)
      */
     public const DISTRO_STORE_ID       = 1;
@@ -1316,7 +1310,7 @@ class Mage_Core_Model_App
             $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }

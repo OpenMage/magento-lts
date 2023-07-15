@@ -18,7 +18,6 @@ class Varien_Image_Adapter
     public const ADAPTER_GD    = 'GD';
     public const ADAPTER_GD2   = 'GD2';
     public const ADAPTER_IM    = 'IMAGEMAGIC';
-    public const ADAPTER_IME   = 'IMAGEMAGIC_EXTERNAL';
 
     public static function factory($adapter)
     {
@@ -33,10 +32,6 @@ class Varien_Image_Adapter
 
             case self::ADAPTER_IM:
                 return new Varien_Image_Adapter_Imagemagic();
-                break;
-
-            case self::ADAPTER_IME:
-                return new Varien_Image_Adapter_ImagemagicExternal();
                 break;
 
             default:

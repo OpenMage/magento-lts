@@ -2126,16 +2126,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Cannot assign offset 'layout'\\|'locale'\\|'skin'\\|'template' to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Cannot assign offset string to string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
@@ -2311,11 +2301,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
-			message: "#^Binary operation \"\\.\" between \\(string\\|false\\) and array results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
@@ -2359,11 +2344,6 @@ parameters:
 			message: "#^Property Mage_Core_Model_Store\\:\\:\\$_priceFilter \\(Mage_Directory_Model_Currency_Filter\\) does not accept Varien_Filter_Sprintf\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate.php
 
 		-
 			message: "#^Method Mage_Core_Model_Url\\:\\:getRequest\\(\\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\\.$#"
@@ -2946,16 +2926,6 @@ parameters:
 			path: app/code/core/Mage/GiftMessage/controllers/IndexController.php
 
 		-
-			message: "#^Method Mage_GoogleAnalytics_Block_Ga\\:\\:_getOrdersTrackingCodeAnalytics\\(\\) should return string but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
-
-		-
-			message: "#^Method Mage_GoogleAnalytics_Block_Ga\\:\\:_getOrdersTrackingCodeUniversal\\(\\) should return string but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_GoogleCheckout_Model_Payment\\:\\:authorize\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Abstract\\)\\) of method Mage_Payment_Model_Method_Abstract\\:\\:authorize\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/GoogleCheckout/Model/Payment.php
@@ -3231,11 +3201,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer.php
@@ -3359,11 +3324,6 @@ parameters:
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and 0\\.0001 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
-
-		-
-			message: "#^Binary operation \"\\-\" between string and int\\<\\-9, 9\\> results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
 			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"
@@ -3709,11 +3669,6 @@ parameters:
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rss/Helper/Data.php
-
-		-
-			message: "#^Offset 'actions'\\|'conditions' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
 
 		-
 			message: "#^Property Mage_Rule_Model_Abstract\\:\\:\\$_conditions \\(Mage_Rule_Model_Condition_Combine\\) in empty\\(\\) is not falsy\\.$#"
@@ -4834,41 +4789,6 @@ parameters:
 			message: "#^Cannot call method execute\\(\\) on object\\|resource\\.$#"
 			count: 1
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
-
-		-
-			message: "#^Call to static method registry\\(\\) on an unknown class Zend\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Dead catch \\- PDOException is never thrown in the try block\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Undefined variable\\: \\$pID$#"
-			count: 1
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns false but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/NodeSet.php
-
-		-
-			message: "#^Method Varien_Db_Tree_NodeSet\\:\\:next\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: lib/Varien/Db/Tree/NodeSet.php
-
-		-
-			message: "#^Call to an undefined method Varien_File_Uploader_Image\\:\\:newUploader\\(\\)\\.$#"
-			count: 1
-			path: lib/Varien/File/Uploader/Image.php
-
-		-
-			message: "#^Call to function is_callable\\(\\) with array\\{\\$this\\(Varien_Filter_Template\\), 'dependDirective'\\|'ifDirective'\\} will always evaluate to true\\.$#"
-			count: 1
-			path: lib/Varien/Filter/Template.php
 
 		-
 			message: "#^Right side of && is always false\\.$#"

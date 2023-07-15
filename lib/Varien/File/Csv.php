@@ -126,8 +126,8 @@ class Varien_File_Csv
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
-            if (strpos($value, $delimiter) !== false ||
-                strpos($value, $enclosure) !== false ||
+            if (str_contains($value, $delimiter) ||
+                str_contains($value, $enclosure) ||
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||

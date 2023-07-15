@@ -220,7 +220,9 @@ class Mage_Cron_Model_Observer
 
         $now = time();
         foreach ($history->getIterator() as $record) {
-            if (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()]) {
+            if (empty($record->getExecutedAt())
+                || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
+            ) {
                 $record->delete();
             }
         }
@@ -324,6 +326,11 @@ class Mage_Cron_Model_Observer
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
         }
+
+        if ($schedule->getIsError()) {
+            $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_ERROR);
+        }
+
         $schedule->save();
 
         return $this;
