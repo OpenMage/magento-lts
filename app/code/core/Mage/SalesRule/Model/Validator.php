@@ -465,10 +465,10 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $discountAmount = $result->getDiscountAmount();
             $baseDiscountAmount = $result->getBaseDiscountAmount();
 
-            $percentKey = $item->getDiscountPercent();
             /**
              * Process "delta" rounding
              */
+            $percentKey = (string) $item->getDiscountPercent();
             if ($percentKey) {
                 $delta      = $this->_roundingDeltas[$percentKey] ?? 0;
                 $baseDelta  = $this->_baseRoundingDeltas[$percentKey] ?? 0;
