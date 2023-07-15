@@ -39,38 +39,65 @@ class Mage_GoogleAnalytics_Model_Observer
     }
 
     /**
-     * Add 'removed item' from cart into session for GA4 block to render event on cart view
-     *
+     * Process items added or removed from cart for GA4 block to render event on cart view
      * @param Varien_Event_Observer $observer
+     * @return void
      */
-    public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
+    public function processItemsAddedOrRemovedFromCart(Varien_Event_Observer $observer): void
     {
-        $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productRemoved) {
-            $_removedProducts = Mage::getSingleton('core/session')->getRemovedProductsCart() ?: [];
-            $_removedProducts[] = $productRemoved->getId();
-            $_removedProducts = array_unique($_removedProducts);
-            Mage::getSingleton('core/session')->setRemovedProductsCart($_removedProducts);
+        /** @var Mage_Sales_Model_Quote_Item $item */
+        $item = $observer->getEvent()->getItem();
+        if ($item->getParentItem()) {
+            return;
         }
-    }
 
-    /**
-     * Add 'added item' to cart into session for GA4 block to render event on cart view
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
-    {
-        $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productAdded) {
-            // Fix double add to cart for configurable products, skip child product
-            if ($productAdded->getParentProductId()) {
-                return;
+        // avoid to process the same quote_item more than once
+        // this could happen in case of double save of the same quote_item
+        $processedProductsRegistry = Mage::registry('processed_quote_items_for_analytics') ?? new ArrayObject();
+        if ($processedProductsRegistry->offsetExists($item->getId())) {
+            return;
+        }
+        $processedProductsRegistry[$item->getId()] = true;
+        Mage::register('processed_quote_items_for_analytics', $processedProductsRegistry, true);
+
+        $addedQty = 0;
+        $removedQty = 0;
+        if ($item->isObjectNew()) {
+            $addedQty = $item->getQty();
+        } elseif ($item->isDeleted()) {
+            $removedQty = $item->getQty();
+        } elseif ($item->hasDataChanges()) {
+            $newQty = $item->getQty();
+            $oldQty = $item->getOrigData('qty');
+            if ($newQty > $oldQty) {
+                $addedQty = $newQty - $oldQty;
+            } elseif ($newQty < $oldQty) {
+                $removedQty = $oldQty - $newQty;
             }
-            $_addedProducts = Mage::getSingleton('core/session')->getAddedProductsCart() ?: [];
-            $_addedProducts[] = $productAdded->getParentItem() ? $productAdded->getParentItem()->getId() : $productAdded->getId();
-            $_addedProducts = array_unique($_addedProducts);
-            Mage::getSingleton('core/session')->setAddedProductsCart($_addedProducts);
+        }
+
+        if ($addedQty || $removedQty) {
+            $product = $item->getProduct();
+            $dataForAnalytics = [
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'qty' => $addedQty ?: $removedQty,
+                'price' => $product->getFinalPrice(),
+                'manufacturer' => $product->getAttributeText('manufacturer') ?: '',
+                'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
+            ];
+
+            $session = Mage::getSingleton('core/session');
+            if ($addedQty) {
+                $addedProducts = $session->getAddedProductsForAnalytics() ?: [];
+                $addedProducts[] = $dataForAnalytics;
+                $session->setAddedProductsForAnalytics($addedProducts);
+            } else {
+                $removedProducts = $session->getRemovedProductsForAnalytics() ?: [];
+                $removedProducts[] = $dataForAnalytics;
+                $session->setRemovedProductsForAnalytics($removedProducts);
+            }
         }
     }
 }

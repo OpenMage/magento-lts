@@ -680,7 +680,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 if ($qty == 0) {
                     $cart->removeItem($id);
                 } else {
-                    $quoteItem->setQty($qty)->save();
+                    $quoteItem->setQty($qty);
                 }
                 $this->_getCart()->save();
 
