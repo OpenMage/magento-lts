@@ -72,22 +72,22 @@
                     </googleanalytics_order_success>
                 </observers>
             </checkout_multishipping_controller_success_action>
-            <sales_quote_remove_item>
+            <sales_quote_item_save_after>
                 <observers>
-                    <googleanalytics_remove_item>
+                    <mage_googleanalytics>
                         <class>googleanalytics/observer</class>
-                        <method>removeItemFromCartGoogleAnalytics</method>
-                    </googleanalytics_remove_item>
+                        <method>processItemsAddedOrRemovedFromCart</method>
+                    </mage_googleanalytics>
                 </observers>
-            </sales_quote_remove_item>
-            <sales_quote_add_item>
+            </sales_quote_item_save_after>
+            <sales_quote_item_delete_after>
                 <observers>
-                    <googleanalytics_add_item>
+                    <mage_googleanalytics>
                         <class>googleanalytics/observer</class>
-                        <method>addItemToCartGoogleAnalytics</method>
-                    </googleanalytics_add_item>
+                        <method>processItemsAddedOrRemovedFromCart</method>
+                    </mage_googleanalytics>
                 </observers>
-            </sales_quote_add_item>
+            </sales_quote_item_delete_after>
         </events>
         <layout>
             <updates>
