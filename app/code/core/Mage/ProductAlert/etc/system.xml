@@ -34,7 +34,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </email_identity>
-                        <head_price>
+                        <head_price translate="label">
                             <label>Allow Alert When Product Price Changes</label>
                             <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
                             <sort_order>10</sort_order>
