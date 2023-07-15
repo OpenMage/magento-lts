@@ -478,7 +478,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     {
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
-            if (strpos($this->_requestScope, '/') !== false) {
+            if (str_contains($this->_requestScope, '/')) {
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {

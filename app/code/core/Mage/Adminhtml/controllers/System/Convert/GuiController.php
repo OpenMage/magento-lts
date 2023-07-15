@@ -118,7 +118,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
     public function downloadAction()
     {
         $filename = $this->getRequest()->getParam('filename');
-        if (!$filename || strpos($filename, '..') !== false || $filename[0] === '.') {
+        if (!$filename || str_contains($filename, '..') || $filename[0] === '.') {
             return;
         }
         $this->_initProfile();
