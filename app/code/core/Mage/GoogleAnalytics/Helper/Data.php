@@ -184,4 +184,13 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return '';
     }
+
+    /**
+     * @param int|float|string $price
+     * @return string
+     */
+    public function formatPrice($price): string
+    {
+        return number_format($price, 2, '.', '');
+    }
 }
