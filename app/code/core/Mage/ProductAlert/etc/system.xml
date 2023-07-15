@@ -60,7 +60,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </email_price_template>
-                        <head_stock>
+                        <head_stock translate="label">
                             <label>Allow Alert When Product Comes Back in Stock</label>
                             <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
                             <sort_order>20</sort_order>
