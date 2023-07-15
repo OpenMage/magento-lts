@@ -38,7 +38,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
             $values = [];
             foreach ($statuses as $code => $label) {
-                if (strpos($code, 'pending') === false) {
+                if (!str_contains($code, 'pending')) {
                     $values[] = [
                         'label' => Mage::helper('reports')->__($label),
                         'value' => $code

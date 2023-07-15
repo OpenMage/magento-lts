@@ -186,8 +186,23 @@ class Mage_Eav_Model_Config
         $this->_entityTypes = [];
         $this->_entityTypeByCode = [];
         $entityTypeCollection = Mage::getResourceModel('eav/entity_type_collection');
+
         /** @var Mage_Eav_Model_Entity_Type $entityType */
         foreach ($entityTypeCollection as $entityType) {
+            // Ensure eav entity type model class is defined, otherwise skip processing it.
+            // This check prevents leftover eav_entity_type entries from disabled/removed modules creating errors and
+            // is necessary because the entire EAV model is now loaded eagerly for performance optimization.
+            $entityModelClass = $entityType['entity_model'];
+            $fqEntityModelClass = Mage::getConfig()->getModelClassName($entityModelClass);
+            if (!class_exists($fqEntityModelClass)) {
+                if (Mage::getIsDeveloperMode()) {
+                    throw new Exception('Failed loading of eav entity type because it does not exist: ' . $entityModelClass);
+                } else {
+                    Mage::log('Skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
+                }
+                continue;
+            }
+
             $this->_entityTypes[$entityType->getId()] = $entityType;
             $this->_entityTypeByCode[$entityType->getEntityTypeCode()] = $entityType;
         }
