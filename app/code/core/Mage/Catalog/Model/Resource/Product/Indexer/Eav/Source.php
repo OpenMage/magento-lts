@@ -228,7 +228,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $data  = [];
         $query = $select->query();
         while ($row = $query->fetch()) {
-            $values = array_unique(explode(',', $row['value']));
+            $values = empty($row['value']) ? [] : array_unique(explode(',', $row['value']));
             foreach ($values as $valueId) {
                 if (isset($options[$row['attribute_id']][$valueId])) {
                     $data[] = [
