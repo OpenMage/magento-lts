@@ -24,7 +24,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
     /**
      * @return array
      */
-    public function getAllowedExtensions()
+    public function getAllowedExtensions(): array
     {
         return ['jpg', 'jpeg', 'gif', 'png'];
     }
