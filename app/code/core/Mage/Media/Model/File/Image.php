@@ -91,6 +91,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             case 'jpeg':
                 $resource = imagecreatefromjpeg($object->getFilePath());
                 break;
+                
             case 'webp':
                 $resource = imagecreatefromwebp($object->getFilePath());
 
