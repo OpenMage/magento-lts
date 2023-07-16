@@ -823,7 +823,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), ['jpg', 'jpeg', 'gif', 'bmp', 'png'])
+                        && in_array(strtolower($pathinfo['extension']), ['webp', 'jpg', 'jpeg', 'gif', 'bmp', 'png'])
                         && $list_item['size'] > 0
                     ) {
                         $list_item['is_image'] = true;

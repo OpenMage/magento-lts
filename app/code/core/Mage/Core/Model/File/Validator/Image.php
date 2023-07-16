@@ -24,6 +24,7 @@ class Mage_Core_Model_File_Validator_Image
     public const NAME = "isImage";
 
     protected $_allowedImageTypes = [
+        IMAGETYPE_WEBP,
         IMAGETYPE_JPEG,
         IMAGETYPE_GIF,
         IMAGETYPE_JPEG2000,
@@ -42,6 +43,7 @@ class Mage_Core_Model_File_Validator_Image
     public function setAllowedImageTypes(array $imageFileExtensions = [])
     {
         $map = [
+            'webp' => [IMAGETYPE_WEBP],
             'tif' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
             'tiff' => [IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM],
             'jpg' => [IMAGETYPE_JPEG, IMAGETYPE_JPEG2000],
@@ -120,6 +122,9 @@ class Mage_Core_Model_File_Validator_Image
                             break;
                         case IMAGETYPE_JPEG:
                             imagejpeg($img, $filePath, $imageQuality);
+                            break;
+                        case IMAGETYPE_WEBP:
+                            imagewebp($img, $filePath, $imageQuality);
                             break;
                         case IMAGETYPE_PNG:
                             imagepng($img, $filePath);

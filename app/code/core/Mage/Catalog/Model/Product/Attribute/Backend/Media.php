@@ -288,7 +288,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', ['product' => $product, 'image' => $file]);
 
         $pathinfo = pathinfo($file);
-        $imgExtensions = ['jpg','jpeg','gif','png'];
+        $imgExtensions = ['webp','jpg','jpeg','gif','png'];
         if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), $imgExtensions)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }

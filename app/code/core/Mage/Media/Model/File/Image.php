@@ -91,6 +91,8 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             case 'jpeg':
                 $resource = imagecreatefromjpeg($object->getFilePath());
                 break;
+            case 'webp':
+                $resource = imagecreatefromwebp($object->getFilePath());
 
             case 'gif':
                 $resource = imagecreatefromgif($object->getFilePath());
@@ -175,6 +177,9 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             case 'jpg':
             case 'jpeg':
                 $result = imagejpeg($object->getTmpImage(), $object->getFilePath(true), 80);
+                break;
+            case 'webp':
+                $result = imagewebp($object->getTmpImage(), $object->getFilePath(true), 80);
                 break;
             case 'gif':
                 $result = imagegif($object->getTmpImage(), $object->getFilePath(true));
