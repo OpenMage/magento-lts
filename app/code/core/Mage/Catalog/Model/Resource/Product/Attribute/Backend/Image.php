@@ -24,7 +24,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_E
     /**
      * @return array
      */
-    public function getAllowedExtensions()
+    public function getAllowedExtensions(): array
     {
         return ['jpg', 'jpeg', 'gif', 'png'];
     }
