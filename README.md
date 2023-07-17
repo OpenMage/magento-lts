@@ -268,7 +268,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 
 ### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
-- PHP 8.1 is now the minimum version
+- PHP 8.1 as minimum required version
 - Removed scriptaculous/dragdrop.js (#3215)
 - RWD theme: updated jQuery to 3.7.0 (#3204)
 - Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
