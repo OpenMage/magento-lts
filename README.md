@@ -148,7 +148,7 @@ git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
 git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
-git pull upstream 1.9.4.x
+git pull upstream main
 git add -A && git commit
 ```
 
@@ -263,6 +263,8 @@ We also decided to remove our Zend_DB patches (that were stored in `app/code/cor
 not compatible with the new implementations made by ZF1-Future, which is much more advanced and feature rich.
 This may generate a problem with `Zend_Db_Select' statements that do not use 'Zend_Db_Expr' to quote expressions.
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
+
+UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
 
 ### New Config Options
 

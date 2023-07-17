@@ -381,4 +381,19 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
         return $value;
     }
+
+    /**
+     * Get email by customer ID.
+     *
+     * @param int $customerId
+     * @return string|false
+     */
+    public function getEmail($customerId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'email')
+            ->where('entity_id = ?', $customerId);
+
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 }

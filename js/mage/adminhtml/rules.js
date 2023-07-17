@@ -245,8 +245,8 @@ VarienRulesForm.prototype = {
                 elem.value = str;
                 if (str=='') {
                     str = '...';
-                } else if (str.length>30) {
-                    str = str.substr(0, 30)+'...';
+                } else if (str.length>100) {
+                    str = str.substr(0, 100)+'...';
                 }
                 label.innerHTML = str.escapeHTML();
             }

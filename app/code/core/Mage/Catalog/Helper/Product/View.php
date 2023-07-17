@@ -118,7 +118,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);
         }
 
-        $buyRequest = $params->getBuyRequest();
+        /** @see Mage_Checkout_CartController::_setProductBuyRequest() */
+        $checkoutBuyRequest = Mage::getSingleton('checkout/session')->getProductBuyRequest(true);
+        $buyRequest = $params->getBuyRequest() ?: $checkoutBuyRequest;
         if ($buyRequest) {
             $productHelper->prepareProductOptions($product, $buyRequest);
         }
