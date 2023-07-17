@@ -1041,11 +1041,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/List.php
 
 		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Crosssell\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
-
-		-
 			message: "#^Method Mage_Catalog_Block_Product_List_Toolbar\\:\\:getDefaultPerPageValue\\(\\) should return string but returns int\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
@@ -1134,16 +1129,6 @@ parameters:
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Helper_Product_Compare\\:\\:getItemCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection but returns Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
-
-		-
-			message: "#^Property Mage_Catalog_Helper_Product_Compare\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setStoreId\\(\\)\\.$#"
@@ -1399,11 +1384,6 @@ parameters:
 			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:groupFactory\\(\\) should return Mage_Catalog_Model_Product_Option_Type_Default but returns Mage_Core_Model_Abstract\\|false\\.$#"
