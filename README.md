@@ -273,7 +273,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - RWD theme: updated jQuery to 3.7.0 (#3204)
 - Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
 - Removed double span element from HTML buttons (#3123)
-- Removed all deprecated Mysql4_ classes (#2730). If you have old modules/extensions that still use such classes, you have to run 'shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script.
+- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
 
 ### New Config Options
 
