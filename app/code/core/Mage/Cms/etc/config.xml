@@ -98,18 +98,18 @@
                 </dirs>
                 <extensions>
                     <allowed>
-                        <webp>1</webp>
                         <jpg>1</jpg>
                         <jpeg>1</jpeg>
                         <png>1</png>
                         <gif>1</gif>
+                        <webp>1</webp>
                     </allowed>
                     <image_allowed>
-                        <webp>1</webp>
                         <jpg>1</jpg>
                         <jpeg>1</jpeg>
                         <png>1</png>
                         <gif>1</gif>
+                        <webp>1</webp>
                     </image_allowed>
                     <media_allowed>
                         <flv>1</flv>

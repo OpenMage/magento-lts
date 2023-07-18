@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         $browseConfig = $this->getUploader()->getButtonConfig();
         $browseConfig
             ->setAttributes([
-                'accept' => $browseConfig->getMimeTypesByExtensions('webp, gif, png, jpeg, jpg')
+                'accept' => $browseConfig->getMimeTypesByExtensions('gif, png, jpeg, jpg, webp')
             ]);
 
         Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);
