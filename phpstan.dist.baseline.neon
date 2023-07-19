@@ -2406,11 +2406,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
-			message: "#^Variable \\$res might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cache.php
-
-		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
@@ -2904,11 +2899,6 @@ parameters:
 			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but empty return statement found\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Variable \\$address might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AddressController.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
@@ -5386,19 +5376,9 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: lib/Mage/HTTP/Client/Socket.php
 
 		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
