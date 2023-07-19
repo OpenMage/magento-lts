@@ -227,7 +227,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getPriceValue($value)
     {
-        return number_format($value, 2, null, '');
+        return number_format($value ?? 0, 2, null, '');
     }
 
     /**

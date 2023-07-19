@@ -24,6 +24,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     protected $_tmpDir  = '';
     protected $_destDir = '';
     protected $_allowedMimeTypes = [
+        'webp' => 'image/webp',
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'gif' => 'image/gif',

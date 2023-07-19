@@ -28,7 +28,6 @@
             </reports>
             <reports_resource>
                 <class>Mage_Reports_Model_Resource</class>
-                <deprecatedNode>reports_mysql4</deprecatedNode>
                 <entities>
                     <event>
                         <table>report_event</table>
@@ -199,13 +198,16 @@
                 <ytd_start>1,1</ytd_start>
                 <mtd_start>1</mtd_start>
             </dashboard>
+            <crontab>
+                <viewed_expr>0 0 * * *</viewed_expr>
+            </crontab>
         </reports>
     </default>
     <crontab>
         <jobs>
             <aggregate_reports_report_product_viewed_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/viewed_expr</config_path>
                 </schedule>
                 <run>
                     <model>reports/observer::aggregateReportsReportProductViewedData</model>

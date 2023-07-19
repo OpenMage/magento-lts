@@ -27,7 +27,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
      */
     protected function _getAllowedExtensions()
     {
-        return ['jpg', 'jpeg', 'gif', 'png'];
+        return Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS;
     }
 
     /**
