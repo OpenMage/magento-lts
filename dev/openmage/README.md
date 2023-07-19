@@ -1,9 +1,10 @@
-OpenMage Dev Environment
+OpenMage Stack
 ===
 
-With these files you can have a fully operational OpenMage LTS development environment in ONE step!
+With these stack configuration files you can have a fully operational OpenMage LTS development in ONE step!
+Upgrade it to production with just a few more easy steps!
 
-**NOTE: This is not for production use!**
+**NOTE: Use at your own risk! No warrants or guarantees are provided as to the stability, security or general quality of these environment files.**
 
 For a more robust development environment that supports https, please consider using [ddev](https://ddev.readthedocs.io/en/stable/users/cli-usage/#magento-1-quickstart).
 
@@ -71,4 +72,44 @@ If you want to start fresh, wipe out your installation with the following comman
 
 ```
 $ docker-compose down --volumes && rm -f ../../app/etc/local.xml
+```
+
+HTTPS / Production
+=====
+
+You can easily have a multi-store SSL-protected environment using Docker with the `docker-compose-production.yml` file.
+
+Features included out of the box:
+
+- Free and automatic SSL provided by [Caddy](https://caddyserver.com/docs/caddyfile)
+- Separate domains for frontend and admin sites
+- Examples included for redirects, Basic Auth, multi-store routing
+- Easily add routes to your other sites
+
+**Do not try to run a dev environment and a production environment from the same working copy!**
+
+1. Run the normal installation for the dev environment described above
+1. Run `docker-compose down` to stop the development environment
+1. `echo "COMPOSE_FILE=docker-compose-production.yml" >> .env` to make the production stack the default
+1. `cp Caddyfile-sample Caddyfile` and edit the `Caddyfile` to reflect your domain names and Magento store codes
+1. If you did not hard-code your admin domain name in `Caddyfile` edit `.env` and make sure it includes `ADMIN_HOST_NAME`
+1. Run `docker-compose up -d` to launch your new production-ready environment!
+
+**Backups, intrusion protection and other security features are not provided and are left up to you! This is simply a
+web server configuration that adds an easy to configure and maintain SSL termination.**
+
+Building
+========
+
+The Docker images are built using the [meanbee/docker-magento](https://github.com/meanbee/docker-magento) source files so to build new images first
+clone the source files into this directory and then run `docker-compose build`. 
+
+```
+$ git clone https://github.com/meanbee/docker-magento.git
+$ docker build -t openmage/php-dev:7.3-cli docker-magento/7.3/cli
+$ docker push openmage/php-dev:7.3-cli
+$ docker build -t openmage/php-dev:7.3-fpm docker-magento/7.3/fpm
+$ docker push openmage/php-dev:7.3-fpm
+$ docker build -t openmage/php-dev:7.3-apache docker-magento/7.3/apache
+$ docker push openmage/php-dev:7.3-apache
 ```

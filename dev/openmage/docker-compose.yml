@@ -77,9 +77,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_USER=openmage
-      - MYSQL_PASSWORD=openmage
-      - MYSQL_DATABASE=openmage
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-}
+      - MYSQL_USER=${MYSQL_USER:-openmage}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-openmage}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-openmage}
     volumes:
       - mysql:/var/lib/mysql
 

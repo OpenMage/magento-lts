@@ -39,6 +39,8 @@
 # https://github.com/OpenMage/magento-lts/pull/1012
 /dev/openmage/docker-magento
 /dev/openmage/.env
+/dev/openmage/Caddyfile
+/dev/openmage/pub
 /dev/tests/functional/generated
 /dev/tests/functional/vendor
 

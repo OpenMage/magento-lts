@@ -1,0 +1,82 @@
+version: "3.7"
+
+services:
+  php-fpm:
+    image: openmage/php-dev:7.3-fpm
+    volumes:
+      - ../..:/var/www/html
+    environment:
+      - ENABLE_SENDMAIL=true
+    links:
+      - mysql
+
+  frontend:
+    image: library/nginx:latest
+    environment:
+      - NGINX_MAGE_RUN_CODE=default
+      - NGINX_MAGE_RUN_TYPE=store
+    links:
+      - php-fpm
+    volumes:
+      - ./nginx-frontend.conf:/etc/nginx/templates/default.conf.template:ro
+      - ../..:/var/www/html
+
+  admin:
+    image: library/nginx:latest
+    environment:
+      - NGINX_MAGE_RUN_CODE=admin
+      - NGINX_MAGE_RUN_TYPE=store
+    links:
+      - php-fpm
+    volumes:
+      - ./nginx-admin.conf:/etc/nginx/templates/default.conf.template:ro
+      - ../..:/var/www/html
+
+  cron:
+    image: openmage/php-dev:7.3-cli
+    working_dir: /var/www/html
+    command: /run-cron.sh
+    user: www-data
+    volumes:
+      - ../..:/var/www/html
+    environment:
+      - ENABLE_SENDMAIL=true
+    links:
+      - mysql
+
+  cli:
+    image: openmage/php-dev:7.3-cli
+    working_dir: /var/www/html
+    volumes:
+      - ../..:/var/www/html
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - mysql:/var/lib/mysql
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  mysql:
+  caddy_data:
+  caddy_config:
