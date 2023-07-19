@@ -23,15 +23,22 @@ ADMIN_URL="http://${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}${ADMIN_HOST
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
+MYSQL_DATABASE="${MYSQL_DATABASE:-openmage}"
 
+if [[ "$1" = "--reset" ]]; then
+  echo "Wiping previous installation..."
+  cd $dir && $dc down --volumes --remove-orphans && rm -f ../../app/etc/local.xml
+fi
 if test -f ../../app/etc/local.xml; then
   echo "Already installed!";
-  if [[ "$1" = "--reset" ]]; then
-    echo "Wiping previous installation..."
-    cd $dir && $dc down --volumes && rm ../../app/etc/local.xml
-  else
+  if [[ "$1" != "--reset" ]]; then
+    mysql_server_ip=$($dc exec php-fpm getent hosts mysql | awk '{print $1}')
+    if [[ -z $mysql_server_ip ]]; then
+      echo "Services are not running.. Start containers with 'docker-compose up -d' or run with '--reset' to start fresh."
+      exit 1
+    fi
     echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
-    echo "MySQL server IP: $($dc exec apache getent hosts mysql | awk '{print $1}')"
+    echo "MySQL server IP: $mysql_server_ip"
     echo "To start a clean installation run: $0 --reset"
     exit 1
   fi
@@ -39,16 +46,18 @@ fi
 
 echo "Preparing filesystem..."
 mkdir -p ../../vendor
-chgrp 33 ../../app/etc ../../media ../../media/* ../../var ../../vendor
-chmod g+ws ../../app/etc ../../media ../../media/* ../../var ../../vendor
+$dc run --rm --no-deps cli chgrp 33 app/etc var vendor
+$dc run --rm --no-deps cli chgrp -R 33 media
+$dc run --rm --no-deps cli chmod g+ws app/etc var vendor
+$dc run --rm --no-deps cli chmod -R g+ws media
 $dc run --rm --no-deps cli mkdir -p var/cache var/log var/locks var/session
 
 echo "Starting services..."
-$dc up -d mysql redis
+$dc up -d mysql redis php-fpm
 sleep 4
 for i in $(seq 1 20); do
   sleep 1
-  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF 'openmage' && break
+  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF "$MYSQL_DATABASE" && break
 done
 
 echo "Installing Composer dependencies..."
@@ -61,9 +70,9 @@ $dc run --rm cli php install.php \
   --timezone America/New_York \
   --default_currency USD \
   --db_host mysql \
-  --db_name openmage \
-  --db_user openmage \
-  --db_pass openmage \
+  --db_name "$MYSQL_DATABASE" \
+  --db_user "${MYSQL_USER:-openmage}" \
+  --db_pass "${MYSQL_PASSWORD:-openmage}" \
   --url "$BASE_URL" \
   --use_rewrites yes \
   --use_secure no \
@@ -75,15 +84,35 @@ $dc run --rm cli php install.php \
   --admin_email "$ADMIN_EMAIL" \
   --admin_username "$ADMIN_USERNAME" \
   --admin_password "$ADMIN_PASSWORD"
-docker-compose run --rm cli magerun \
-  config:set -n --scope="stores" --scope-id="0" --force web/secure/base_url "${ADMIN_URL}"
 
-echo "Starting services..."
-$dc up -d php-fpm frontend admin cron
+# Update URL config to split frontend/admin
+#$dc run --rm cli magerun \
+#  config:set -n --scope="default" --scope-id="0" --force admin/url/use_custom 1
+#$dc run --rm cli magerun \
+#  config:set -n --scope="stores" --scope-id="0" --force web/unsecure/base_url "${ADMIN_URL}"
+#$dc run --rm cli magerun \
+#  config:set -n --scope="stores" --scope-id="0" --force web/secure/base_url "${ADMIN_URL}"
+$dc exec mysql mysql -e "
+INSERT INTO core_config_data (scope, scope_id, path, value) VALUES
+('default',0,'admin/url/use_custom','1'),
+('stores',0,'web/unsecure/base_url','http://openmage-admin-7f000001.nip.io:81/'),
+('stores',0,'web/secure/base_url','http://openmage-admin-7f000001.nip.io:81/');
+" "$MYSQL_DATABASE"
+rm -rf ../../var/cache/*
+
+echo "Starting web services..."
+$dc up -d frontend admin cron
+if command -v curl >/dev/null 2>&1; then
+  for i in $(seq 1 20); do
+    sleep 1
+    curl --silent --fail ${BASE_URL} >/dev/null && break
+  done
+  curl --silent --show-error --fail ${BASE_URL} || true
+fi
 
 echo ""
 echo "Setup is complete!"
 echo "Admin URL: ${ADMIN_URL}admin"
 echo "Admin login: $ADMIN_USERNAME : $ADMIN_PASSWORD"
 echo "Frontend URL: ${BASE_URL}"
-echo "MySQL server IP: $($dc exec apache getent hosts mysql | awk '{print $1}')"
+echo "MySQL server IP: $($dc exec php-fpm getent hosts mysql | awk '{print $1}')"

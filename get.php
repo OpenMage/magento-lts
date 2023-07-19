@@ -42,6 +42,17 @@ include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = $bp . $ds . 'vendor';
+    }
+}
+require_once $autoloaderPath . $ds . 'autoload.php';
+/** AUTOLOADER PATCH **/
+
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
 
 $configCacheFile = $varDirectory . $ds . 'resource_config.json';

@@ -97,19 +97,3 @@ Features included out of the box:
 
 **Backups, intrusion protection and other security features are not provided and are left up to you! This is simply a
 web server configuration that adds an easy to configure and maintain SSL termination.**
-
-Building
-========
-
-The Docker images are built using the [meanbee/docker-magento](https://github.com/meanbee/docker-magento) source files so to build new images first
-clone the source files into this directory and then run `docker-compose build`. 
-
-```
-$ git clone https://github.com/meanbee/docker-magento.git
-$ docker build -t openmage/php-dev:7.3-cli docker-magento/7.3/cli
-$ docker push openmage/php-dev:7.3-cli
-$ docker build -t openmage/php-dev:7.3-fpm docker-magento/7.3/fpm
-$ docker push openmage/php-dev:7.3-fpm
-$ docker build -t openmage/php-dev:7.3-apache docker-magento/7.3/apache
-$ docker push openmage/php-dev:7.3-apache
-```

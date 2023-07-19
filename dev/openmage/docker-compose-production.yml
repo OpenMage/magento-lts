@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   php-fpm:
-    image: openmage/php-dev:7.3-fpm
+    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-fpm
     volumes:
       - ../..:/var/www/html
     environment:
@@ -33,7 +33,7 @@ services:
       - ../..:/var/www/html
 
   cron:
-    image: openmage/php-dev:7.3-cli
+    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
     working_dir: /var/www/html
     command: /run-cron.sh
     user: www-data
@@ -45,7 +45,7 @@ services:
       - mysql
 
   cli:
-    image: openmage/php-dev:7.3-cli
+    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
     working_dir: /var/www/html
     volumes:
       - ../..:/var/www/html
@@ -53,17 +53,24 @@ services:
       - mysql
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     ports:
       - 3306
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-}
+      - MYSQL_USER=${MYSQL_USER:-openmage}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-openmage}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-openmage}
     volumes:
       - mysql:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --maxmemory 10m
+    volumes:
+      - redis:/data
 
   caddy:
     image: caddy:2-alpine
