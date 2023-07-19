@@ -53,7 +53,11 @@ You can override some defaults using environment variables defined in a file (th
 - `HOST_NAME=your-preferred-hostname`
   - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `HOST_PORT=8888`
-   - `80` is used by default
+   - `80` is used by default 
+- `ADMIN_HOST_NAME`
+  - `openmage-admin-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
+- `ADMIN_HOST_PORT`
+  - `81` is used by default to avoid conflicts with the frontend port
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD`

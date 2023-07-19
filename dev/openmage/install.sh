@@ -6,7 +6,7 @@ cd $dir
 # Detect "docker compose" or "docker-compose"
 dc="docker compose"
 if ! docker compose --help >/dev/null; then
-  if ! command -v docker-compose 2>&1 >/dev/null; then
+  if ! command -v docker-compose >/dev/null 2>&1 ; then
     echo "Please first install docker-compose."
   else
     dc="docker-compose"
@@ -16,7 +16,10 @@ test -f .env && source .env
 
 HOST_PORT=":${HOST_PORT:-80}"
 test "$HOST_PORT" = ":80" && HOST_PORT=""
-BASE_URL=${BASE_URL:-"http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"}
+BASE_URL="http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"
+ADMIN_HOST_PORT=":${ADMIN_HOST_PORT:-81}"
+test "$ADMIN_HOST_PORT" = ":80" && ADMIN_HOST_PORT=""
+ADMIN_URL="http://${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}${ADMIN_HOST_PORT}/"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
@@ -72,8 +75,11 @@ $dc run --rm cli php install.php \
   --admin_email "$ADMIN_EMAIL" \
   --admin_username "$ADMIN_USERNAME" \
   --admin_password "$ADMIN_PASSWORD"
-
+docker-compose run --rm cli magerun \
+  config:set -n --scope="stores" --scope-id="0" --force web/secure/base_url "${ADMIN_URL}"
 echo ""
 echo "Setup is complete!"
-echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
+echo "Admin URL: ${ADMIN_URL}admin"
+echo "Admin login: $ADMIN_USERNAME : $ADMIN_PASSWORD"
+echo "Frontend URL: ${BASE_URL}"
 echo "MySQL server IP: $($dc exec apache getent hosts mysql | awk '{print $1}')"

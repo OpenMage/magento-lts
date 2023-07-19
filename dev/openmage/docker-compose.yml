@@ -1,11 +1,8 @@
 version: "3.7"
 
 services:
-  apache:
-    build: apache
-    hostname: ${HOST_NAME:-openmage-7f000001.nip.io}
-    ports:
-      - "${HOST_PORT:-80}:80"
+  php-fpm:
+    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-fpm
     volumes:
       - ../..:/var/www/html
     environment:
@@ -14,6 +11,34 @@ services:
       - MAGE_IS_DEVELOPER_MODE=${MAGE_IS_DEVELOPER_MODE:-1}
     links:
       - mysql
+
+  frontend:
+    image: library/nginx:latest
+    hostname: ${HOST_NAME:-openmage-7f000001.nip.io}
+    ports:
+      - "${HOST_PORT:-80}:80"
+    environment:
+      - NGINX_MAGE_RUN_CODE=default
+      - NGINX_MAGE_RUN_TYPE=store
+    links:
+      - php-fpm
+    volumes:
+      - ./nginx-frontend.conf:/etc/nginx/templates/default.conf.template:ro
+      - ../..:/var/www/html
+
+  admin:
+    image: library/nginx:latest
+    hostname: ${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}
+    ports:
+      - "${ADMIN_HOST_PORT:-81}:80"
+    environment:
+      - NGINX_MAGE_RUN_CODE=admin
+      - NGINX_MAGE_RUN_TYPE=store
+    links:
+      - php-fpm
+    volumes:
+      - ./nginx-admin.conf:/etc/nginx/templates/default.conf.template:ro
+      - ../..:/var/www/html
 
   cron:
     image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
@@ -29,8 +54,8 @@ services:
   cli:
     image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
     working_dir: /var/www/html
-    command: /bin/true
-    user: www-data
+#    command: /bin/true
+#    user: www-data
     volumes:
       - ../..:/var/www/html
     environment:
@@ -42,7 +67,8 @@ services:
 #      - AWS_MEDIA_BUCKET=magemm
     links:
       - mysql
-      - "apache:${HOST_NAME:-openmage-7f000001.nip.io}"
+      - "frontend:${HOST_NAME:-openmage-7f000001.nip.io}"
+      - "admin:${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}"
 
   mysql:
     image: mysql:8.0
