@@ -91,6 +91,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected $_streamException;
 
+    /**
+     * @var string[]
+     */
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
+
     public function __construct()
     {
         // Initialize shutdown function
@@ -819,7 +824,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), ['jpg', 'jpeg', 'gif', 'bmp', 'png'])
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
                         && $list_item['size'] > 0
                     ) {
                         $list_item['is_image'] = true;
