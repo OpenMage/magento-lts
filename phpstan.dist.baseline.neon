@@ -5650,11 +5650,6 @@ parameters:
 			path: lib/Varien/Db/Tree.php
 
 		-
-			message: "#^Variable \\$result might not be defined\\.$#"
-			count: 3
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			message: "#^Variable \\$methodName might not be defined\\.$#"
 			count: 2
 			path: lib/Varien/Debug.php
