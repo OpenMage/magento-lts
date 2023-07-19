@@ -235,6 +235,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xjisp' => 'application/vnd.jisp',
             'xjlt' => 'application/vnd.hp-jlyt',
             'xjoda' => 'application/vnd.joost.joda-archive',
+            'xwebp' => 'image/webp',
             'xjpe' => 'image/jpeg',
             'xjpeg' => 'image/jpeg',
             'xjpg' => 'image/jpeg',
@@ -717,7 +718,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getDataMaxSizeInBytes()
     {
         $iniSize = $this->getDataMaxSize();
-        $size = substr($iniSize, 0, -1);
+        $size = (int)substr($iniSize, 0, -1);
         $parsedSize = 0;
         switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
             case 't':

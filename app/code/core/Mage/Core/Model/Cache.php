@@ -419,11 +419,10 @@ class Mage_Core_Model_Cache
             if (!is_array($tags)) {
                 $tags = [$tags];
             }
-            $res = $this->getFrontend()->clean($mode, $this->_tags($tags));
-        } else {
-            $this->flush();
+            return $this->getFrontend()->clean($mode, $this->_tags($tags));
         }
-        return $res;
+
+        return $this->flush();
     }
 
     /**

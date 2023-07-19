@@ -32,6 +32,7 @@ class Varien_File_Transfer_Adapter_Http
         'flv' => 'video/x-flv',
 
         // images
+        'webp' => 'image/webp',
         'png' => 'image/png',
         'jpe' => 'image/jpeg',
         'jpeg' => 'image/jpeg',

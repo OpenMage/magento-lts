@@ -435,7 +435,7 @@ class Mage_Paypal_Model_Cart
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
             $qty = (int) $salesItem->getQtyOrdered();
             $amount = (float) $salesItem->getBasePrice();
-        // TODO: nominal item for order
+            // TODO: nominal item for order
         } else {
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();

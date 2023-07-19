@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
-        if (strpos($file, chr(0)) !== false
+        if (str_contains($file, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
         ) {
             throw new Exception('Detected malicious path or filename input.');
@@ -288,8 +288,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', ['product' => $product, 'image' => $file]);
 
         $pathinfo = pathinfo($file);
-        $imgExtensions = ['jpg','jpeg','gif','png'];
-        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), $imgExtensions)) {
+        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }
 
