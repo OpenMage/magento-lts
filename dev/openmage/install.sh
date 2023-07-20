@@ -37,7 +37,9 @@ if test -f ../../app/etc/local.xml; then
       echo "Services are not running.. Start containers with 'docker-compose up -d' or run with '--reset' to start fresh."
       exit 1
     fi
-    echo "Visit ${BASE_URL}admin and login with '$ADMIN_USERNAME' : '$ADMIN_PASSWORD'"
+    echo "Admin URL: ${ADMIN_URL}admin"
+    echo "Admin login: $ADMIN_USERNAME : $ADMIN_PASSWORD"
+    echo "Frontend URL: ${BASE_URL}"
     echo "MySQL server IP: $mysql_server_ip"
     echo "To start a clean installation run: $0 --reset"
     exit 1

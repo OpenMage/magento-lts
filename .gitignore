@@ -40,7 +40,6 @@
 /dev/openmage/docker-magento
 /dev/openmage/.env
 /dev/openmage/Caddyfile
-/dev/openmage/pub
 /dev/tests/functional/generated
 /dev/tests/functional/vendor
 
