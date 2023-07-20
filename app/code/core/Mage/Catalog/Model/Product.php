@@ -2255,23 +2255,23 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         $this->setData([]);
         $this->setOrigData();
-        $this->_customOptions       = [];
-        $this->_optionInstance      = null;
-        $this->_options             = [];
-        $this->_canAffectOptions    = false;
-        $this->_errors              = [];
-        $this->_defaultValues       = [];
-        $this->_storeValuesFlags    = [];
-        $this->_lockedAttributes    = [];
-        $this->_typeInstance        = null;
+        $this->_customOptions         = [];
+        $this->_optionInstance        = null;
+        $this->_options               = [];
+        $this->_canAffectOptions      = false;
+        $this->_errors                = [];
+        $this->_defaultValues         = [];
+        $this->_storeValuesFlags      = [];
+        $this->_lockedAttributes      = [];
+        $this->_typeInstance          = null;
         $this->_typeInstanceSingleton = null;
-        $this->_linkInstance        = null;
-        $this->_reservedAttributes  = null;
-        $this->_isDuplicable        = true;
-        $this->_calculatePrice      = true;
-        $this->_stockItem           = null;
-        $this->_isDeleteable        = true;
-        $this->_isReadonly          = false;
+        $this->_linkInstance          = null;
+        $this->_reservedAttributes    = null;
+        $this->_isDuplicable          = true;
+        $this->_calculatePrice        = true;
+        $this->_stockItem             = null;
+        $this->_isDeleteable          = true;
+        $this->_isReadonly            = false;
 
         return $this;
     }
