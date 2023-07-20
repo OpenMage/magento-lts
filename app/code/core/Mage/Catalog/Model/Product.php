@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract
+     * @var Mage_Catalog_Model_Product_Type_Abstract|null
      */
     protected $_typeInstance            = null;
 
@@ -282,7 +282,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product link instance
      *
-     * @var Mage_Catalog_Model_Product_Link
+     * @var Mage_Catalog_Model_Product_Link|null
      */
     protected $_linkInstance;
 
@@ -296,7 +296,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product Url Instance
      *
-     * @var Mage_Catalog_Model_Product_Url
+     * @var Mage_Catalog_Model_Product_Url|null
      */
     protected $_urlModel = null;
 
@@ -329,7 +329,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
-     * @var Mage_CatalogInventory_Model_Stock_Item
+     * @var Mage_CatalogInventory_Model_Stock_Item|null
      */
     protected $_stockItem;
 
