@@ -2263,6 +2263,15 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_defaultValues       = [];
         $this->_storeValuesFlags    = [];
         $this->_lockedAttributes    = [];
+        $this->_typeInstance        = null;
+        $this->_typeInstanceSingleton = null;
+        $this->_linkInstance        = null;
+        $this->_reservedAttributes  = null;
+        $this->_isDuplicable        = true;
+        $this->_calculatePrice      = true;
+        $this->_stockItem           = null;
+        $this->_isDeleteable        = true;
+        $this->_isReadonly          = false;
 
         return $this;
     }
