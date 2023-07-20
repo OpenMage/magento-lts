@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_System
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_System
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,49 +41,42 @@ class Mage_System_Args
 
     /**
      * Constructor
-     * @param array $argv, if false $GLOBALS['argv'] is taken
+     * @param array|false $argv, if false $GLOBALS['argv'] is taken
      * @return void
      */
-    public function __construct($source = false)
+    public function __construct($argv = false)
     {
-        $this->flags = array();
-        $this->filtered = array();
+        $this->flags = [];
+        $this->filtered = [];
 
-        if(false === $source) {
+        if (false === $argv) {
             $argv = $GLOBALS['argv'];
             array_shift($argv);
         }
 
-        for($i = 0, $iCount = count($argv); $i < $iCount; $i++)
-        {
+        for ($i = 0, $iCount = count($argv); $i < $iCount; $i++) {
             $str = $argv[$i];
 
             // --foo
-            if(strlen($str) > 2 && substr($str, 0, 2) == '--')
-            {
+            if (strlen($str) > 2 && substr($str, 0, 2) == '--') {
                 $str = substr($str, 2);
                 $parts = explode('=', $str);
                 $this->flags[$parts[0]] = true;
 
                 // Does not have an =, so choose the next arg as its value
-                if(count($parts) == 1 && isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0)
-                {
+                if (count($parts) == 1 && isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
                     $this->flags[$parts[0]] = $argv[$i + 1];
                     $argv[$i + 1] = null;
-                }
-                elseif(count($parts) == 2) // Has a =, so pick the second piece
-                {
+                } elseif (count($parts) == 2) { // Has a =, so pick the second piece
                     $this->flags[$parts[0]] = $parts[1];
                 }
-            }
-            elseif(strlen($str) == 2 && $str[0] == '-') // -a
-            {
+            } elseif (strlen($str) == 2 && $str[0] == '-') { // -a
                 $this->flags[$str[1]] = true;
-                if(isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
+                if (isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
                     $this->flags[$str[1]] = $argv[$i + 1];
                     $argv[$i + 1] = null;
                 }
-            } else if(!is_null($str)) {
+            } elseif (!is_null($str)) {
                 $this->filtered[] = $str;
             }
         }

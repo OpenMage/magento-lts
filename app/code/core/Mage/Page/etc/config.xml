@@ -1,28 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -116,21 +105,21 @@
     <default>
         <design>
             <head translate="default_description" module="page">
-                <default_title>Magento Commerce</default_title>
+                <default_title>OpenMage</default_title>
                 <default_description>Default Description</default_description>
-                <default_keywords>Magento, Varien, E-commerce</default_keywords>
+                <default_keywords>OpenMage, e-commerce</default_keywords>
                 <default_robots>*</default_robots>
                 <default_media_type>text/html</default_media_type>
                 <default_charset>utf-8</default_charset>
             </head>
             <header translate="welcome" module="page">
-                <logo_src>images/logo.gif</logo_src>
-                <logo_alt>Magento Commerce</logo_alt>
-                <logo_src_small>images/logo.gif</logo_src_small>
-                <welcome>Default welcome msg!</welcome>
+                <logo_src>images/logo.svg</logo_src>
+                <logo_alt>OpenMage</logo_alt>
+                <logo_src_small>images/logo.svg</logo_src_small>
+                <welcome>Welcome!</welcome>
             </header>
             <footer translate="copyright" module="page">
-                <copyright>&amp;copy; 2020 OpenMage Demo Store. All Rights Reserved.</copyright>
+                <copyright>&amp;copy; 2023 OpenMage Demo Store. All Rights Reserved.</copyright>
             </footer>
         </design>
         <system>

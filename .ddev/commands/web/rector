@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: run rector
+## Usage: rector
+## Example: ddev rector <path-to-files>
+
+cp -n vendor/sreichel/openmage-rector/rector.php rector.php
+php vendor/bin/rector process "$@"

@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Sales_Model_Order_Item
+ *
+ * @category   Mage
+ * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Item getResource()
@@ -196,25 +188,20 @@
  * @method $this setQuoteParentItemId(int $value)
  * @method int getParentProductId()
  * @method int getQuoteParentItemId()
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
 {
-
-    const STATUS_PENDING        = 1; // No items shipped, invoiced, canceled, refunded nor backordered
-    const STATUS_SHIPPED        = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
-    const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
-    const STATUS_BACKORDERED    = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
-    const STATUS_CANCELED       = 5; // When qty ordered = qty canceled
-    const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
+    public const STATUS_PENDING        = 1; // No items shipped, invoiced, canceled, refunded nor backordered
+    public const STATUS_SHIPPED        = 2; // When qty ordered - [qty canceled + qty returned] = qty shipped
+    public const STATUS_INVOICED       = 9; // When qty ordered - [qty canceled + qty returned] = qty invoiced
+    public const STATUS_BACKORDERED    = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
+    public const STATUS_CANCELED       = 5; // When qty ordered = qty canceled
+    public const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
                                      // < qty ordered
-    const STATUS_MIXED          = 7; // All other combinations
-    const STATUS_REFUNDED       = 8; // When qty ordered = qty refunded
+    public const STATUS_MIXED          = 7; // All other combinations
+    public const STATUS_REFUNDED       = 8; // When qty ordered = qty refunded
 
-    const STATUS_RETURNED       = 4; // When qty ordered = qty returned // not used at the moment
+    public const STATUS_RETURNED       = 4; // When qty ordered = qty returned // not used at the moment
 
     protected $_eventPrefix = 'sales_order_item';
     protected $_eventObject = 'item';
@@ -224,11 +211,12 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Order instance
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_order       = null;
+
     protected $_parentItem  = null;
-    protected $_children    = array();
+    protected $_children    = [];
 
     /**
      * Init resource model
@@ -238,7 +226,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         $this->_init('sales/order_item');
     }
 
-     /**
+    /**
      * Init mapping array of short fields to
      * its full names
      *
@@ -303,7 +291,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canInvoice()
     {
-        return $this->getQtyToInvoice()>0;
+        return $this->getQtyToInvoice() > 0;
     }
 
     /**
@@ -313,7 +301,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canShip()
     {
-        return $this->getQtyToShip()>0;
+        return $this->getQtyToShip() > 0;
     }
 
     /**
@@ -323,7 +311,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function canRefund()
     {
-        return $this->getQtyToRefund()>0;
+        return $this->getQtyToRefund() > 0;
     }
 
     /**
@@ -381,7 +369,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if ($this->isDummy()) {
             return 0;
         }
-        return max($this->getQtyInvoiced()-$this->getQtyRefunded(), 0);
+        return max($this->getQtyInvoiced() - $this->getQtyRefunded(), 0);
     }
 
     /**
@@ -549,10 +537,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null(self::$_statuses)) {
             self::getStatuses();
         }
-        if (isset(self::$_statuses[$statusId])) {
-            return self::$_statuses[$statusId];
-        }
-        return Mage::helper('sales')->__('Unknown Status');
+        return self::$_statuses[$statusId] ?? Mage::helper('sales')->__('Unknown Status');
     }
 
     /**
@@ -563,7 +548,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         if ($this->getStatusId() !== self::STATUS_CANCELED) {
-            Mage::dispatchEvent('sales_order_item_cancel', array('item'=>$this));
+            Mage::dispatchEvent('sales_order_item_cancel', ['item' => $this]);
             $this->setQtyCanceled($this->getQtyToCancel());
             $this->setTaxCanceled(
                 $this->getTaxCanceled() +
@@ -585,7 +570,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public static function getStatuses()
     {
         if (is_null(self::$_statuses)) {
-            self::$_statuses = array(
+            self::$_statuses = [
                 self::STATUS_PENDING        => Mage::helper('sales')->__('Ordered'),
                 self::STATUS_SHIPPED        => Mage::helper('sales')->__('Shipped'),
                 self::STATUS_INVOICED       => Mage::helper('sales')->__('Invoiced'),
@@ -595,7 +580,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
                 self::STATUS_CANCELED       => Mage::helper('sales')->__('Canceled'),
                 self::STATUS_PARTIAL        => Mage::helper('sales')->__('Partial'),
                 self::STATUS_MIXED          => Mage::helper('sales')->__('Mixed'),
-            );
+            ];
         }
         return self::$_statuses;
     }
@@ -636,7 +621,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if ($options = $this->_getData('product_options')) {
             return unserialize($options, ['allowed_classes' => false]);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -644,7 +629,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * If code is null return all options
      *
      * @param string $code
-     * @return array
+     * @return array|null
      */
     public function getProductOptionByCode($code = null)
     {
@@ -652,10 +637,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         if (is_null($code)) {
             return $options;
         }
-        if (isset($options[$code])) {
-            return $options[$code];
-        }
-        return null;
+        return $options[$code] ?? null;
     }
 
     /**
@@ -710,8 +692,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
 
         if (isset($options['product_calculations']) &&
-             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
-                return true;
+             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+        ) {
+            return true;
         }
         return false;
     }
@@ -746,8 +729,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
 
         if (isset($options['shipment_type']) &&
-             $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
-                return true;
+            $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+        ) {
+            return true;
         }
         return false;
     }
@@ -808,7 +792,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         $option = $this->getProductOptionByCode('info_buyRequest');
         if (!$option) {
-            $option = array();
+            $option = [];
         }
         $buyRequest = new Varien_Object($option);
         $buyRequest->setQty($this->getQtyOrdered() * 1);
@@ -823,7 +807,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getProduct()
     {
         if (!$this->getData('product')) {
-            $product = Mage::getModel('catalog/product')->load($this->getProductId());
+            $product = Mage::getModel('catalog/product')->setStoreId($this->getStoreId())->load($this->getProductId());
             $this->setProduct($product);
         }
 
@@ -846,8 +830,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_base_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_base_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['base_weee_discount'])
-                    ? $weeeTaxAppliedAmount['base_weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['base_weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;
@@ -869,8 +852,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             if (isset($weeeTaxAppliedAmount['total_weee_discount'])) {
                 return $weeeTaxAppliedAmount['total_weee_discount'];
             } else {
-                $totalDiscount += isset($weeeTaxAppliedAmount['weee_discount'])
-                    ? $weeeTaxAppliedAmount['weee_discount'] : 0;
+                $totalDiscount += $weeeTaxAppliedAmount['weee_discount'] ?? 0;
             }
         }
         return $totalDiscount;

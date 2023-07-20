@@ -1,29 +1,22 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ */
 class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_Template
 {
     /**
@@ -36,8 +29,6 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()
@@ -48,14 +39,14 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         $curStore   = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
 
         $url = Mage::getModel('adminhtml/url');
 
         $options = [];
         $options['default'] = [
             'label'    => Mage::helper('adminhtml')->__('Default Config'),
-            'url'      => $url->getUrl('*/*/*', ['section'=>$section]),
+            'url'      => $url->getUrl('*/*/*', ['section' => $section]),
             'selected' => !$curWebsite && !$curStore,
             'style'    => 'background:#ccc; font-weight:bold;',
         ];
@@ -75,7 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
                             'label'    => $website->getName(),
-                            'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode()]),
+                            'url'      => $url->getUrl('*/*/*', ['section' => $section, 'website' => $website->getCode()]),
                             'selected' => !$curStore && $curWebsite == $website->getCode(),
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
@@ -92,7 +83,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
-                        'url'      => $url->getUrl('*/*/*', ['section'=>$section, 'website'=>$website->getCode(), 'store'=>$storeCode]),
+                        'url'      => $url->getUrl('*/*/*', ['section' => $section, 'website' => $website->getCode(), 'store' => $storeCode]),
                         'selected' => $curStore == $storeCode,
                         'style'    => '',
                     ];

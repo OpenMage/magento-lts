@@ -1,28 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -51,7 +40,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <use_form_key translate="label">
-                            <label>Add Secret Key To Url</label>
+                            <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -1066,6 +1055,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_legacy_theme>
+                        <loading_timeout translate="label comment">
+                            <label>Loading Indicator Timeout</label>
+                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "200". An empty value disables the delay.</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loading_timeout>
                     </fields>
                 </design>
 
@@ -1277,6 +1275,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </crate_admin_user_notification>
+                        <reprocess_image_quality translate="label comment">
+                            <label>Image Reprocess Quality</label>
+                            <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
+                            <validate>validate-digits validate-digits-range digits-range-0-100</validate>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reprocess_image_quality>
                     </fields>
                 </security>
                 <dashboard translate="label">
@@ -1369,6 +1376,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label">
                             <label>Base Link URL</label>
@@ -1377,6 +1385,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1385,6 +1394,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1393,6 +1403,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1402,6 +1413,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                     </fields>
                 </unsecure>
@@ -1420,6 +1432,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label comment">
                             <label>Base Link URL</label>
@@ -1429,6 +1442,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1437,6 +1451,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1445,6 +1460,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1454,6 +1470,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>
@@ -1482,6 +1499,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Provide the name of the request header set by the upstream proxy to indicate a secure connection.
+                                The header <code>X-Forwarded-Proto: https</code> is already checked by default regardless of this configuration option.
+                            ]]></comment>
                         </offloader_header>
                     </fields>
                 </secure>

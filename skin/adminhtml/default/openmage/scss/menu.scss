@@ -6,7 +6,7 @@
 @import "base";
 
 .nav-bar {
-  background: $color_dorado_approx;
+  background: $openmage_base_blue;
   padding: 0 350px 0 70px;
 
   &:after {
@@ -21,13 +21,13 @@
 }
 
 #nav {
-  padding-left:0px;
+  padding-left:0;
   li {
     position: relative;
     text-align: left;
     float: left;
 
-    &.over {
+    &:hover {
       z-index: 999;
 
       a {
@@ -46,14 +46,14 @@
           font-size: 12px;
         }
 
-        li.over ul {
+        li:hover ul {
           left: 100px;
 
           ul {
             left: -10000px;
           }
 
-          li.over ul {
+          li:hover ul {
             left: 100px;
           }
         }
@@ -106,7 +106,7 @@
         border-color: transparent transparent transparent $color_silver_approx;
       }
 
-      &.over > a {
+      &:hover > a {
         background: darken($openmage_base_blue,12);
         color: $white;
       }
@@ -196,11 +196,13 @@
 
       a {
         background: $white;
-        color: $color_dorado_approx;
         padding: $menu_padding_v $menu_padding_h;
         color: $color_dorado_approx;
         font-size: 12px;
 
+        &.active {
+          text-decoration: underline;
+        }
         &:hover {
           background: $color_dorado_approx;
           color: $white;
@@ -231,7 +233,7 @@
         }
       }
 
-      &.over a {
+      &:hover a {
         font-weight: normal;
 
         &:hover {
@@ -309,19 +311,19 @@
         display: block;
       }
       span {
-        border-bottom: 1px dotted var(--color-main-m);
+        border-bottom: 1px dotted $color-main-m;
         display: block;
         line-height: 31px;
         padding: 0 10px;
       }
     }
-    &.over ul {
+    &:hover ul {
       right: 27px;
       display: block;
       a {
         color: $header_background;
         text-decoration: none;
-        background: var(--color-main-xs);
+        background: $color-main-xs;
         display: block;
       }
     }

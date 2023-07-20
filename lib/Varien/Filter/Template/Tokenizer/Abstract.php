@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Filter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Filter
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Varien_Filter_Template_Tokenizer_Abstract
@@ -54,7 +42,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function next()
     {
-        if($this->_currentIndex + 1 >= strlen($this->_string)) {
+        if ($this->_currentIndex + 1 >= strlen($this->_string)) {
             return false;
         }
 
@@ -71,7 +59,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function prev()
     {
-        if($this->_currentIndex - 1 < 0) {
+        if ($this->_currentIndex - 1 < 0) {
             return false;
         }
 
@@ -88,7 +76,6 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
     {
         return $this->_string[$this->_currentIndex];
     }
-
 
     /**
      * Set string for tokenize
@@ -112,10 +99,11 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      *
      * @return boolean
      */
-    public function isWhiteSpace() {
-        return trim($this->char()) != $this->char();
+    public function isWhiteSpace()
+    {
+        $char = $this->char();
+        return trim($char) != $char;
     }
 
     abstract public function tokenize();
-
 }

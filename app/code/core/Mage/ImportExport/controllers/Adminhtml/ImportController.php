@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ImportExport
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import controller
  *
- * @category    Mage
- * @package     Mage_ImportExport
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Controller_Action
 {
@@ -37,12 +25,10 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/convert/import';
+    public const ADMIN_RESOURCE = 'system/convert/import';
 
     /**
      * Custom constructor.
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -66,8 +52,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -84,8 +68,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Start import process action.
-     *
-     * @return void
      */
     public function startAction()
     {
@@ -108,7 +90,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $this->renderLayout();
                 return;
             }
-            $resultBlock->addAction('hide', array('edit_form', 'upload_button', 'messages'))
+            $resultBlock->addAction('hide', ['edit_form', 'upload_button', 'messages'])
                 ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
         } else {
@@ -118,8 +100,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Validate uploaded files action.
-     *
-     * @return void
      */
     public function validateAction()
     {
@@ -130,9 +110,9 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             // common actions
             $resultBlock->addAction('show', 'import_validation_container')
-                ->addAction('clear', array(
+                ->addAction('clear', [
                     Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
-                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE));
+                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE]);
 
             try {
                 /** @var Mage_ImportExport_Model_Import $import */
@@ -177,8 +157,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'),
-                                false
+                                $this->__('File is valid, but import is not possible')
                             );
                         }
                     }
@@ -192,6 +171,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
             $this->loadLayout(false);
+            /** @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $resultBlock */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             $resultBlock->addError($this->__('File was not uploaded'));
             $this->renderLayout();

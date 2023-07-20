@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_Block_Widget
 {
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Eav_Model_Entity_Abstract
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_entity;
 
@@ -53,16 +41,23 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message
+     * @var Mage_GiftMessage_Model_Message|null
      */
     protected $_giftMessage;
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
-        if ($this->getParentBlock() && ($order = $this->getOrder())) {
-            $this->setEntity($order);
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            if ($this->getParentBlock() && ($order = $this->getOrder())) {
+                $this->setEntity($order);
+            }
+            return parent::_beforeToHtml();
+        } else {
+            return parent::_beforeToHtml();
         }
-        return parent::_beforeToHtml();
     }
 
     /**
@@ -72,14 +67,16 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _prepareLayout()
     {
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                    'class'   => 'save'
-                ))
-        );
-
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            $this->setChild(
+                'save_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
+                        'class'   => 'save'
+                    ])
+            );
+        }
         return $this;
     }
 
@@ -87,11 +84,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve save button html
      *
      * @return string
+     * @throws Exception
      */
     public function getSaveButtonHtml()
     {
         $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\''. $this->getHtmlId() .'\')'
+            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
         );
 
         return $this->getChildHtml('save_button');
@@ -100,7 +98,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Set entity for form
      *
-     * @param Varien_Object $entity
+     * @param Mage_Sales_Model_Order $entity
      * @return $this
      */
     public function setEntity(Varien_Object $entity)
@@ -112,11 +110,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve entity for form
      *
-     * @return Varien_Object
+     * @return Mage_Sales_Model_Order
+     * @throws Exception
      */
     public function getEntity()
     {
-        if(is_null($this->_entity)) {
+        if (is_null($this->_entity)) {
             $this->setEntity(Mage::getModel('giftmessage/message')->getEntityModelByType('order'));
             $this->getEntity()->load($this->getRequest()->getParam('entity'));
         }
@@ -127,14 +126,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve default value for giftmessage sender
      *
      * @return string
+     * @throws Exception
      */
     public function getDefaultSender()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
-        if($this->getEntity()->getOrder()) {
+        if ($this->getEntity()->getOrder()) {
             return $this->getEntity()->getOrder()->getCustomerName();
         }
 
@@ -145,24 +145,29 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve default value for giftmessage recipient
      *
      * @return string
+     * @throws Exception
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
-        if($this->getEntity()->getOrder()) {
+        if ($this->getEntity()->getOrder()) {
             if ($this->getEntity()->getOrder()->getShippingAddress()) {
                 return $this->getEntity()->getOrder()->getShippingAddress()->getName();
-            } else if ($this->getEntity()->getOrder()->getBillingAddress()) {
+            }
+
+            if ($this->getEntity()->getOrder()->getBillingAddress()) {
                 return $this->getEntity()->getOrder()->getBillingAddress()->getName();
             }
         }
 
         if ($this->getEntity()->getShippingAddress()) {
             return $this->getEntity()->getShippingAddress()->getName();
-        } else if ($this->getEntity()->getBillingAddress()) {
+        }
+
+        if ($this->getEntity()->getBillingAddress()) {
             return $this->getEntity()->getBillingAddress()->getName();
         }
 
@@ -174,6 +179,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      *
      * @param string $name
      * @return string
+     * @throws Exception
      */
     public function getFieldName($name)
     {
@@ -183,8 +189,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
+     * @throws Exception
      */
     public function getFieldId($id)
     {
@@ -195,6 +202,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve field html id prefix
      *
      * @return string
+     * @throws Exception
      */
     public function getFieldIdPrefix()
     {
@@ -205,18 +213,19 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Initialize gift message for entity
      *
      * @return $this
+     * @throws Exception
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-                                   $this->getEntity()->getGiftMessageId()
-                              );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
 
         // init default values for giftmessage form
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -227,24 +236,30 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
+     * @throws Exception
      */
     public function getMessage()
     {
-        if(is_null($this->_giftMessage)) {
+        if (is_null($this->_giftMessage)) {
             $this->_initMessage();
         }
 
         return $this->_giftMessage;
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/sales_order_view_giftmessage/save',
-            array(
-                'entity'=>$this->getEntity()->getId(),
-                'type'  =>'order',
+        return $this->getUrl(
+            '*/sales_order_view_giftmessage/save',
+            [
+                'entity' => $this->getEntity()->getId(),
+                'type'  => 'order',
                 'reload' => 1
-            )
+            ]
         );
     }
 
@@ -252,6 +267,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * Retrieve block html id
      *
      * @return string
+     * @throws Exception
      */
     public function getHtmlId()
     {
@@ -261,13 +277,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Indicates that block can display giftmessages form
      *
-     * @return boolean
+     * @return bool
+     * @throws Exception
      */
     public function canDisplayGiftmessage()
     {
-        return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'order', $this->getEntity(), $this->getEntity()->getStoreId()
-        );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable('order', $this->getEntity(), $this->getEntity()->getStoreId());
     }
-
 }
