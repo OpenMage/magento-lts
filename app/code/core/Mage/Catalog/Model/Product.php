@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract|null
+     * @var Mage_Catalog_Model_Product_Type_Abstract|null|false
      */
     protected $_typeInstance            = null;
 
@@ -698,7 +698,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem
      * @return $this
      */
     public function setStockItem($stockItem)
