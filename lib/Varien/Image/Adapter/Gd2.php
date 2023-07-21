@@ -17,6 +17,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = ["gd"];
     private static $_callbacks = [
+        IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
         IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
         IMAGETYPE_PNG  => ['output' => 'imagepng',  'create' => 'imagecreatefrompng'],
@@ -148,6 +149,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             } catch (Exception $e) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
             }
+        }
+
+        // convert palette based image to true color
+        if ($this->_fileType == IMAGETYPE_WEBP) {
+            imagepalettetotruecolor($this->_imageHandler);
         }
 
         if (!$this->_resized) {

@@ -230,10 +230,10 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             $sortOrder = 1;
             foreach ($this->_items as $item) {
                 $productAttribute = $item->getProductAttribute();
-                $productAttributeCode = $productAttribute->getAttributeCode();
                 if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
                     continue;
                 }
+                $productAttributeCode = $productAttribute->getAttributeCode();
                 $options = $productAttribute->getFrontend()->getSelectOptions();
 
                 $optionsByValue = [];

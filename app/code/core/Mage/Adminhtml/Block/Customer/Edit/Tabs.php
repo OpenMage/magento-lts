@@ -73,15 +73,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter')) {
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
                 /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
                 $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
-                if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
-                    $this->addTab('newsletter', [
-                        'label'     => Mage::helper('customer')->__('Newsletter'),
-                        'content'   => $block->initForm()->toHtml()
-                    ]);
-                }
+                $this->addTab('newsletter', [
+                    'label'     => Mage::helper('customer')->__('Newsletter'),
+                    'content'   => $block->initForm()->toHtml()
+                ]);
             }
 
             if (Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
@@ -92,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
+            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',

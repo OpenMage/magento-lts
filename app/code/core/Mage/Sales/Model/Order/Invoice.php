@@ -830,7 +830,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
-            $emailInfo->addTo($order->getCustomerEmail(), $customerName);
+            $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
             if ($copyTo && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
@@ -905,7 +905,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
-            $emailInfo->addTo($order->getCustomerEmail(), $customerName);
+            $emailInfo->addTo($order->getCurrentCustomerEmail(), $customerName);
             if ($copyTo && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {

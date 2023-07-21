@@ -47,6 +47,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             1   => 'gif',
             2   => 'jpg',
             3   => 'png',
+            18  => 'webp'
         ];
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
