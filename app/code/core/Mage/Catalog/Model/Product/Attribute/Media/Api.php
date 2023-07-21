@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @var array
      */
     protected $_mimeTypes = [
+        'image/webp' => 'webp',
         'image/jpeg' => 'jpg',
         'image/gif'  => 'gif',
         'image/png'  => 'png'

@@ -235,6 +235,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xjisp' => 'application/vnd.jisp',
             'xjlt' => 'application/vnd.hp-jlyt',
             'xjoda' => 'application/vnd.joost.joda-archive',
+            'xwebp' => 'image/webp',
             'xjpe' => 'image/jpeg',
             'xjpeg' => 'image/jpeg',
             'xjpg' => 'image/jpeg',

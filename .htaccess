@@ -216,6 +216,7 @@
 ## Add default Expires header
 ## http://developer.yahoo.com/performance/rules.html#expires
     ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
