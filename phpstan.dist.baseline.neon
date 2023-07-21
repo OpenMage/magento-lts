@@ -1571,16 +1571,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_stockItem \\(Mage_CatalogInventory_Model_Stock_Item\\) does not accept Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Property Mage_Catalog_Model_Product\\:\\:\\$_typeInstance \\(Mage_Catalog_Model_Product_Type_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
 			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
