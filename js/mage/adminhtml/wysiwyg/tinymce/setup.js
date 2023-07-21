@@ -21,363 +21,83 @@ tinyMceWysiwygSetup.prototype =
 
     initialize: function(htmlId, config)
     {
-        this.branding = false;
-        this.promotion = false;
-        this.plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
         this.id = htmlId;
         this.selector = 'textarea#' + htmlId;
         this.config = config;
-        this.automatic_uploads = false;
-        this.file_picker_callback = (callback, value, meta) => {
-            varienGlobalEvents.fireEvent("open_browser_callback", {callback:callback, value:value, meta:meta});
-        }
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
+        varienGlobalEvents.attachEventHandler('tinymceBeforeSetContent', this.beforeSetContent.bind(this));
+        varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
+        varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
+
         if (typeof tinyMceEditors == 'undefined') {
             tinyMceEditors = [];
         }
         tinyMceEditors[this.id] = this;
-        this.turnOff();
     },
 
     setup: function(mode)
     {
+        this.turnOff();
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
                 tinymce.PluginManager.load(plugin.name, plugin.src);
             });
         }
+        tinymce.init(this.getSettings(mode));
     },
 
-    /*
-    getSettings: function(mode)
+    getSettings: function(mode) 
     {
-        var plugins = 'inlinepopups,safari,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,media,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras';
-
-        if (this.config.widget_plugin_src) {
-            plugins = 'magentowidget,' + plugins;
-        }
-
-        var magentoPluginsOptions = $H({});
-        var magentoPlugins = '';
-
-        if (this.config.plugins) {
-            (this.config.plugins).each(function(plugin){
-                magentoPlugins = plugin.name + ',' + magentoPlugins;
-                magentoPluginsOptions.set(plugin.name, plugin.options);
-            });
-            if (magentoPlugins) {
-                plugins = '-' + magentoPlugins + plugins;
-            }
-        }
-
+        var plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
         var settings = {
-            schema : 'html5',
-            valid_elements : ""
-                +"a[accesskey|charset|class|coords|dir<ltr?rtl|href|hreflang|id|lang|name"
-                +"|onblur|onclick|ondblclick|onfocus|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|rel|rev"
-                +"|shape<circle?default?poly?rect|style|tabindex|title|target|type],"
-                +"abbr[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"acronym[class|dir<ltr?rtl|id|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"address[class|align|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"applet[align<bottom?left?middle?right?top|alt|archive|class|code|codebase"
-                +"|height|hspace|id|name|object|style|title|vspace|width],"
-                +"area[accesskey|alt|class|coords|dir<ltr?rtl|href|id|lang|nohref<nohref"
-                +"|onblur|onclick|ondblclick|onfocus|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup"
-                +"|shape<circle?default?poly?rect|style|tabindex|title|target],"
-                +"base[href|target],"
-                +"basefont[color|face|id|size],"
-                +"bdo[class|dir<ltr?rtl|id|lang|style|title],"
-                +"big[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"blockquote[cite|class|dir<ltr?rtl|id|lang|onclick|ondblclick"
-                +"|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
-                +"|onmouseover|onmouseup|style|title],"
-                +"body[alink|background|bgcolor|class|dir<ltr?rtl|id|lang|link|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|onunload|style|title|text|vlink],"
-                +"br[class|clear<all?left?none?right|id|style|title],"
-                +"button[accesskey|class|dir<ltr?rtl|disabled<disabled|id|lang|name|onblur"
-                +"|onclick|ondblclick|onfocus|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|style|tabindex|title|type"
-                +"|value],"
-                +"caption[align<bottom?left?right?top|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"center[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"cite[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"code[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"col[align<center?char?justify?left?right|char|charoff|class|dir<ltr?rtl|id"
-                +"|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|span|style|title"
-                +"|valign<baseline?bottom?middle?top|width],"
-                +"colgroup[align<center?char?justify?left?right|char|charoff|class|dir<ltr?rtl"
-                +"|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|span|style|title"
-                +"|valign<baseline?bottom?middle?top|width],"
-                +"dd[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title],"
-                +"del[cite|class|datetime|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"dfn[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"dir[class|compact<compact|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"div[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"dl[class|compact<compact|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"dt[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title],"
-                +"em/i[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"fieldset[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"font[class|color|dir<ltr?rtl|face|id|lang|size|style|title],"
-                +"form[accept|accept-charset|action|class|dir<ltr?rtl|enctype|id|lang"
-                +"|method<get?post|name|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onsubmit"
-                +"|style|title|target],"
-                +"frame[class|frameborder|id|longdesc|marginheight|marginwidth|name"
-                +"|noresize<noresize|scrolling<auto?no?yes|src|style|title],"
-                +"frameset[class|cols|id|onload|onunload|rows|style|title],"
-                +"h1[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"h2[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"h3[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"h4[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"h5[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"h6[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"head[dir<ltr?rtl|lang|profile],"
-                +"hr[align<center?left?right|class|dir<ltr?rtl|id|lang|noshade<noshade|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|size|style|title|width],"
-                +"html[dir<ltr?rtl|lang|version],"
-                +"iframe[align<bottom?left?middle?right?top|class|frameborder|height|id"
-                +"|longdesc|marginheight|marginwidth|name|scrolling<auto?no?yes|src|style"
-                +"|title|width],"
-                +"img[align<bottom?left?middle?right?top|alt|border|class|dir<ltr?rtl|height"
-                +"|hspace|id|ismap<ismap|lang|longdesc|name|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|sizes|src|srcset|style|title|usemap|vspace|width],"
-                +"input[accept|accesskey|align<bottom?left?middle?right?top|alt"
-                +"|checked<checked|class|dir<ltr?rtl|disabled<disabled|id|ismap<ismap|lang"
-                +"|maxlength|name|onblur|onclick|ondblclick|onfocus|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onselect"
-                +"|readonly<readonly|size|src|style|tabindex|title"
-                +"|type<button?checkbox?file?hidden?image?password?radio?reset?submit?text"
-                +"|usemap|value],"
-                +"ins[cite|class|datetime|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"isindex[class|dir<ltr?rtl|id|lang|prompt|style|title],"
-                +"kbd[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"label[accesskey|class|dir<ltr?rtl|for|id|lang|onblur|onclick|ondblclick"
-                +"|onfocus|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
-                +"|onmouseover|onmouseup|style|title],"
-                +"legend[align<bottom?left?right?top|accesskey|class|dir<ltr?rtl|id|lang"
-                +"|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"li[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title|type"
-                +"|value],"
-                +"link[charset|class|dir<ltr?rtl|href|hreflang|id|lang|media|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|rel|rev|style|title|target|type],"
-                +"map[class|dir<ltr?rtl|id|lang|name|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"menu[class|compact<compact|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"meta[content|dir<ltr?rtl|http-equiv|lang|name|scheme],"
-                +"noframes[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"noscript[class|dir<ltr?rtl|id|lang|style|title],"
-                +"object[align<bottom?left?middle?right?top|archive|border|class|classid"
-                +"|codebase|codetype|data|declare|dir<ltr?rtl|height|hspace|id|lang|name"
-                +"|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|standby|style|tabindex|title|type|usemap"
-                +"|vspace|width],"
-                +"ol[class|compact<compact|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|start|style|title|type],"
-                +"optgroup[class|dir<ltr?rtl|disabled<disabled|id|label|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"option[class|dir<ltr?rtl|disabled<disabled|id|label|lang|onclick|ondblclick"
-                +"|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
-                +"|onmouseover|onmouseup|selected<selected|style|title|value],"
-                +"p[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|style|title],"
-                +"param[id|name|type|value|valuetype<DATA?OBJECT?REF],"
-                +"pre/listing/plaintext/xmp[align|class|dir<ltr?rtl|id|lang|onclick|ondblclick"
-                +"|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout"
-                +"|onmouseover|onmouseup|style|title|width],"
-                +"q[cite|class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"s[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title],"
-                +"samp[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"script[charset|defer|language|src|type],"
-                +"select[class|dir<ltr?rtl|disabled<disabled|id|lang|multiple<multiple|name"
-                +"|onblur|onchange|onclick|ondblclick|onfocus|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|size|style"
-                +"|tabindex|title],"
-                +"small[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"span[align<center?justify?left?right|class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"strike[class|class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title],"
-                +"strong/b[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"style[dir<ltr?rtl|lang|media|title|type],"
-                +"sub[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"sup[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title],"
-                +"table[align<center?left?right|bgcolor|border|cellpadding|cellspacing|class"
-                +"|dir<ltr?rtl|frame|height|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|rules"
-                +"|style|summary|title|width],"
-                +"tbody[align<center?char?justify?left?right|char|class|charoff|dir<ltr?rtl|id"
-                +"|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|style|title"
-                +"|valign<baseline?bottom?middle?top],"
-                +"td[abbr|align<center?char?justify?left?right|axis|bgcolor|char|charoff|class"
-                +"|colspan|dir<ltr?rtl|headers|height|id|lang|nowrap<nowrap|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|rowspan|scope<col?colgroup?row?rowgroup"
-                +"|style|title|valign<baseline?bottom?middle?top|width],"
-                +"textarea[accesskey|class|cols|dir<ltr?rtl|disabled<disabled|id|lang|name"
-                +"|onblur|onclick|ondblclick|onfocus|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onselect"
-                +"|readonly<readonly|rows|style|tabindex|title],"
-                +"tfoot[align<center?char?justify?left?right|char|charoff|class|dir<ltr?rtl|id"
-                +"|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|style|title"
-                +"|valign<baseline?bottom?middle?top],"
-                +"th[abbr|align<center?char?justify?left?right|axis|bgcolor|char|charoff|class"
-                +"|colspan|dir<ltr?rtl|headers|height|id|lang|nowrap<nowrap|onclick"
-                +"|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove"
-                +"|onmouseout|onmouseover|onmouseup|rowspan|scope<col?colgroup?row?rowgroup"
-                +"|style|title|valign<baseline?bottom?middle?top|width],"
-                +"thead[align<center?char?justify?left?right|char|charoff|class|dir<ltr?rtl|id"
-                +"|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup|onmousedown"
-                +"|onmousemove|onmouseout|onmouseover|onmouseup|style|title"
-                +"|valign<baseline?bottom?middle?top],"
-                +"title[dir<ltr?rtl|lang],"
-                +"tr[abbr|align<center?char?justify?left?right|bgcolor|char|charoff|class"
-                +"|rowspan|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title|valign<baseline?bottom?middle?top],"
-                +"tt[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title],"
-                +"u[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress|onkeyup"
-                +"|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style|title],"
-                +"ul[class|compact<compact|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown"
-                +"|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover"
-                +"|onmouseup|style|title|type],"
-                +"var[class|dir<ltr?rtl|id|lang|onclick|ondblclick|onkeydown|onkeypress"
-                +"|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
-                +"|title]",
-            mode : (mode != undefined ? mode : 'none'),
-            elements : this.id,
-            theme : 'advanced',
-            plugins : plugins,
-            theme_advanced_buttons1 : magentoPlugins + 'magentowidget,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect',
-            theme_advanced_buttons2 : 'cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,forecolor,backcolor',
-            theme_advanced_buttons3 : 'tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,iespell,media,advhr,|,ltr,rtl,|,fullscreen',
-            theme_advanced_buttons4 : 'insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,pagebreak',
-            theme_advanced_toolbar_location : 'top',
-            theme_advanced_toolbar_align : 'left',
-            theme_advanced_statusbar_location : 'bottom',
-            theme_advanced_resizing : true,
-            convert_urls : false,
-            relative_urls : false,
-            media_disable_flash : this.config.media_disable_flash,
-            content_css: this.config.content_css,
-            custom_popup_css: this.config.popup_css,
-            magentowidget_url: this.config.widget_window_url,
-            magentoPluginsOptions: magentoPluginsOptions,
-            doctype : '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+            selector: this.selector,
+            config: this.config,
+            plugins: plugins,
+            automatic_uploads: false,
+            branding: false,
+            promotion: false,
+            convert_urls: false,
+            relative_urls: true,
+            setup: (editor) => {
 
-            setup : function(ed) {
-                ed.onSubmit.add(function(ed, e) {
-                    varienGlobalEvents.fireEvent('tinymceSubmit', e);
+                var onChange;
+                
+                editor.on('BeforeSetContent', function (evt) {
+                    varienGlobalEvents.fireEvent('tinymceBeforeSetContent', evt);
+                });
+                
+                editor.on('SaveContent', function (evt) {
+                    varienGlobalEvents.fireEvent('tinymceSaveContent', evt);
                 });
 
-                ed.onPaste.add(function(ed, e, o) {
+                editor.on('Paste', function (ed, e, o) {
                     varienGlobalEvents.fireEvent('tinymcePaste', o);
                 });
 
-                ed.onBeforeSetContent.add(function(ed, o) {
-                    varienGlobalEvents.fireEvent('tinymceBeforeSetContent', o);
+                editor.on('PostProcess', function (evt) {
+                    varienGlobalEvents.fireEvent('tinymceSaveContent', evt);
                 });
 
-                ed.onSetContent.add(function(ed, o) {
-                    varienGlobalEvents.fireEvent('tinymceSetContent', o);
+                editor.on('setContent', function (evt) {
+                    varienGlobalEvents.fireEvent('tinymceSetContent', evt);
                 });
 
-                ed.onSaveContent.add(function(ed, o) {
-                    varienGlobalEvents.fireEvent('tinymceSaveContent', o);
-                });
+                onChange = function (evt) {
+                    varienGlobalEvents.fireEvent('tinymceChange', evt);
+                };
 
-                ed.onChange.add(function(ed, l) {
-                    varienGlobalEvents.fireEvent('tinymceChange', l);
-                });
+                editor.on('Change', onChange);
+                editor.on('keyup', onChange);
 
-                ed.onExecCommand.add(function(ed, cmd, ui, val) {
+                editor.on('ExecCommand', function (cmd, ui, val) {
                     varienGlobalEvents.fireEvent('tinymceExecCommand', cmd);
                 });
+                
+                editor.on('init', function (args) {
+                    varienGlobalEvents.fireEvent('wysiwygEditorInitialized', args.target);
+                });
             }
-        };
+        }
 
         // Set the document base URL
         if (this.config.document_base_url) {
@@ -385,22 +105,12 @@ tinyMceWysiwygSetup.prototype =
         }
 
         if (this.config.files_browser_window_url) {
-            settings.file_browser_callback = function(fieldName, url, objectType, w) {
-                varienGlobalEvents.fireEvent("open_browser_callback", {win:w, type:objectType, field:fieldName});
+            settings.file_picker_callback = (callback, value, meta) => {
+                varienGlobalEvents.fireEvent("open_browser_callback", { callback: callback, value: value, meta: meta });
             };
         }
-
-        if (this.config.width) {
-            settings.width = this.config.width;
-        }
-
-        if (this.config.height) {
-            settings.height = this.config.height;
-        }
-
         return settings;
     },
-    */
 
     openFileBrowser: function(o) {
         var typeTitle;
@@ -441,7 +151,7 @@ tinyMceWysiwygSetup.prototype =
 
     turnOn: function() {
         this.closePopups();
-        tinymce.init(this);
+        this.setup();
         this.getPluginButtons().forEach(function (e) {
             e.hide();
         });
@@ -449,7 +159,9 @@ tinyMceWysiwygSetup.prototype =
 
     turnOff: function() {
         this.closePopups();
-        if (tinymce.activeEditor) tinymce.activeEditor.remove();
+        if (tinymce.get(this.id)) {
+            tinymce.get(this.id).destroy();
+        } 
         this.getPluginButtons().forEach(function (e) {
             e.show();
         });
@@ -477,14 +189,68 @@ tinyMceWysiwygSetup.prototype =
     },
 
     onChangeContent: function() {
-        // TODO THIS NEED TO BE CHECKED
-        // Add "changed" to tab class if it exists
+        this.updateTextArea();
         if(this.config.tab_id) {
             var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
             if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
                 $(tab).addClassName('changed');
             }
         }
+    },
+
+    beforeSetContent: function (o) {
+        o.content = this.encodeContent(o.content);
+    },
+
+    saveContent: function (o) {
+        o.content = this.decodeContent(o.content);
+    },
+
+    updateTextArea: function () {
+        content = tinymce.get(this.id).getContent();
+        content = this.decodeContent(content);
+        this.getTextArea().value = content;
+        this.triggerChange(this.getTextArea());
+    },  
+
+    getTextArea: function () {
+        return document.getElementById(this.id);
+    },
+
+    triggerChange: function(element) {
+        if ("createEvent" in document) {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            element.dispatchEvent(evt);
+        } else {
+            element.fireEvent("onchange");
+        }
+        return element;
+    },
+    
+    encodeContent: function(content) {
+        if (this.config.add_widgets) {
+            content = this.encodeWidgets(content);
+            content = this.encodeDirectives(content);
+        } else if (this.config.add_directives) {
+            content = this.encodeDirectives(content);
+        }
+
+        content = varienGlobalEvents.fireEventReducer('wysiwygEncodeContent', content);
+
+        return content;
+    },
+    
+    decodeContent: function(content) {
+        if (this.config.add_widgets) {
+            content = this.decodeWidgets(content);
+            content = this.decodeDirectives(content);
+        } else if (this.config.add_directives) {
+            content = this.decodeDirectives(content);
+        }
+
+        content = varienGlobalEvents.fireEventReducer('wysiwygDecodeContent', content);
+        return content;
     },
 
     // retrieve directives URL with substituted directive value
@@ -555,24 +321,6 @@ tinyMceWysiwygSetup.prototype =
             result[match[1]] = match[2];
         });
         return result;
-    },
-
-    beforeSetContent: function(o) {
-        if (this.config.add_widgets) {
-            o.content = this.encodeWidgets(o.content);
-            o.content = this.encodeDirectives(o.content);
-        } else if (this.config.add_directives) {
-            o.content = this.encodeDirectives(o.content);
-        }
-    },
-
-    saveContent: function(o) {
-        if (this.config.add_widgets) {
-            o.content = this.decodeWidgets(o.content);
-            o.content = this.decodeDirectives(o.content);
-        } else if (this.config.add_directives) {
-            o.content = this.decodeDirectives(o.content);
-        }
     },
 
     widgetPlaceholderExist: function(filename) {
