@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract
+     * @var Mage_Catalog_Model_Product_Type_Abstract|null|false
      */
     protected $_typeInstance            = null;
 
@@ -282,7 +282,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product link instance
      *
-     * @var Mage_Catalog_Model_Product_Link
+     * @var Mage_Catalog_Model_Product_Link|null
      */
     protected $_linkInstance;
 
@@ -296,7 +296,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product Url Instance
      *
-     * @var Mage_Catalog_Model_Product_Url
+     * @var Mage_Catalog_Model_Product_Url|null
      */
     protected $_urlModel = null;
 
@@ -329,7 +329,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
-     * @var Mage_CatalogInventory_Model_Stock_Item
+     * @var Mage_CatalogInventory_Model_Stock_Item|null
      */
     protected $_stockItem;
 
@@ -698,7 +698,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem
      * @return $this
      */
     public function setStockItem($stockItem)
@@ -2255,14 +2255,23 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         $this->setData([]);
         $this->setOrigData();
-        $this->_customOptions       = [];
-        $this->_optionInstance      = null;
-        $this->_options             = [];
-        $this->_canAffectOptions    = false;
-        $this->_errors              = [];
-        $this->_defaultValues       = [];
-        $this->_storeValuesFlags    = [];
-        $this->_lockedAttributes    = [];
+        $this->_customOptions         = [];
+        $this->_optionInstance        = null;
+        $this->_options               = [];
+        $this->_canAffectOptions      = false;
+        $this->_errors                = [];
+        $this->_defaultValues         = [];
+        $this->_storeValuesFlags      = [];
+        $this->_lockedAttributes      = [];
+        $this->_typeInstance          = null;
+        $this->_typeInstanceSingleton = null;
+        $this->_linkInstance          = null;
+        $this->_reservedAttributes    = null;
+        $this->_isDuplicable          = true;
+        $this->_calculatePrice        = true;
+        $this->_stockItem             = null;
+        $this->_isDeleteable          = true;
+        $this->_isReadonly            = false;
 
         return $this;
     }
