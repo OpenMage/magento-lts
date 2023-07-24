@@ -302,19 +302,19 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
         $isAlpha     = false;
         $isTrueColor = false;
-        // assume that transparency is supported by gif/png only
-        if ((IMAGETYPE_GIF === $fileType) || (IMAGETYPE_PNG === $fileType)) {
+        // assume that transparency is supported by gif/png/webp only
+        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif (IMAGETYPE_PNG === $fileType) { // assume that truecolor PNG has transparency
-                $isAlpha     = $this->checkAlpha($this->_fileName);
+            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+                $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
                 return $transparentIndex; // -1
             }
         }
-        if (IMAGETYPE_JPEG === $fileType) {
+        if ($fileType === IMAGETYPE_JPEG) {
             $isTrueColor = true;
         }
         return false;
