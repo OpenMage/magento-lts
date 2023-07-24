@@ -474,7 +474,7 @@ final class Mage
     }
 
     /**
-     * Add observer to even object
+     * Add observer to events object
      *
      * @param string $eventName
      * @param callback $callback
