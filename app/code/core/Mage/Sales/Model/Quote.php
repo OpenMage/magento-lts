@@ -2023,7 +2023,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if ($this->getData('trigger_recollect') == 1) {
+        if ($this->getIsActive() && $this->getData('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }
