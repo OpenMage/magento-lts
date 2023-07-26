@@ -33,122 +33,33 @@ function setPLocation(url, setFocus){
  *
  * @param elements - array of elements to be decorated
  * [@param decorateParams] - array of classes to be set. If omitted, all available will be used
+ * @deprecated
  */
-function decorateGeneric(elements, decorateParams)
-{
-    var allSupportedParams = ['odd', 'even', 'first', 'last'];
-    var _decorateParams = {};
-    var total = elements.length;
-
-    if (total) {
-        // determine params called
-        if (typeof(decorateParams) == 'undefined') {
-            decorateParams = allSupportedParams;
-        }
-        if (!decorateParams.length) {
-            return;
-        }
-        for (var k in allSupportedParams) {
-            _decorateParams[allSupportedParams[k]] = false;
-        }
-        for (var k in decorateParams) {
-            _decorateParams[decorateParams[k]] = true;
-        }
-
-        // decorate elements
-        // elements[0].addClassName('first'); // will cause bug in IE (#5587)
-        if (_decorateParams.first) {
-            Element.addClassName(elements[0], 'first');
-        }
-        if (_decorateParams.last) {
-            Element.addClassName(elements[total-1], 'last');
-        }
-        for (var i = 0; i < total; i++) {
-            if ((i + 1) % 2 == 0) {
-                if (_decorateParams.even) {
-                    Element.addClassName(elements[i], 'even');
-                }
-            }
-            else {
-                if (_decorateParams.odd) {
-                    Element.addClassName(elements[i], 'odd');
-                }
-            }
-        }
-    }
+function decorateGeneric(elements, decorateParams) {
 }
 
 /**
  * Decorate table rows and cells, tbody etc
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateTable(table, options) {
-    var table = $(table);
-    if (table) {
-        // set default options
-        var _options = {
-            'tbody'    : false,
-            'tbody tr' : ['odd', 'even', 'first', 'last'],
-            'thead tr' : ['first', 'last'],
-            'tfoot tr' : ['first', 'last'],
-            'tr td'    : ['last']
-        };
-        // overload options
-        if (typeof(options) != 'undefined') {
-            for (var k in options) {
-                _options[k] = options[k];
-            }
-        }
-        // decorate
-        if (_options['tbody']) {
-            decorateGeneric(table.select('tbody'), _options['tbody']);
-        }
-        if (_options['tbody tr']) {
-            decorateGeneric(table.select('tbody tr'), _options['tbody tr']);
-        }
-        if (_options['thead tr']) {
-            decorateGeneric(table.select('thead tr'), _options['thead tr']);
-        }
-        if (_options['tfoot tr']) {
-            decorateGeneric(table.select('tfoot tr'), _options['tfoot tr']);
-        }
-        if (_options['tr td']) {
-            var allRows = table.select('tr');
-            if (allRows.length) {
-                for (var i = 0; i < allRows.length; i++) {
-                    decorateGeneric(allRows[i].getElementsByTagName('TD'), _options['tr td']);
-                }
-            }
-        }
-    }
 }
 
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateList(list, nonRecursive) {
-    if ($(list)) {
-        if (typeof(nonRecursive) == 'undefined') {
-            var items = $(list).select('li');
-        }
-        else {
-            var items = $(list).childElements();
-        }
-        decorateGeneric(items, ['odd', 'even', 'last']);
-    }
 }
 
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateDataList(list) {
-    list = $(list);
-    if (list) {
-        decorateGeneric(list.select('dt'), ['odd', 'even', 'last']);
-        decorateGeneric(list.select('dd'), ['odd', 'even', 'last']);
-    }
 }
 
 /**
