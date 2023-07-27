@@ -599,6 +599,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => Mage::helper('usa')->__('Priority Mail International DVD Flat Rate priced box'),
                 'INT_25' => Mage::helper('usa')->__('Priority Mail International Large Video Flat Rate priced box'),
                 'INT_27' => Mage::helper('usa')->__('Priority Mail Express International Padded Flat Rate Envelope'),
+                '1058'   => Mage::helper('usa')->__('USPS Ground Advantage'),
             ],
 
             'service_to_code' => [
@@ -678,6 +679,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => 'Priority',
                 'INT_25' => 'Priority',
                 'INT_27' => 'Priority Express',
+                '1058'   => 'Ground Advantage',
             ],
 
        // Added because USPS has different services but with same CLASSID value, which is "0"
