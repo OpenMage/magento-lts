@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   php-fpm:
-    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-fpm
+    image: ghcr.io/colinmollenhour/docker-openmage:8.2-fpm
     volumes:
       - ../..:/var/www/html
     environment:
@@ -41,7 +41,7 @@ services:
       - ../..:/var/www/html
 
   cron:
-    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
+    image: ghcr.io/colinmollenhour/docker-openmage:8.2-cli
     working_dir: /var/www/html
     command: /run-cron.sh
     volumes:
@@ -52,7 +52,7 @@ services:
       - mysql
 
   cli:
-    image: ghcr.io/colinmollenhour/docker-openmage-dev:8.2-cli
+    image: ghcr.io/colinmollenhour/docker-openmage:8.2-cli
     working_dir: /var/www/html
 #    command: /bin/true
 #    user: www-data

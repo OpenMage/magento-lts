@@ -23,7 +23,7 @@ Visit [http://openmage-7f000001.nip.io/](http://openmage-7f000001.nip.io/) and s
 Tips
 ===
 
-See [colinmollenhour/docker-openmage-dev](https://github.com/colinmollenhour/docker-openmage-dev) for more information
+See [colinmollenhour/docker-openmage](https://github.com/colinmollenhour/docker-openmage) for more information
 on the containers used in this setup, but here are some quick tips:
 
 - You can start the cron task using `docker-compose up -d cron`.

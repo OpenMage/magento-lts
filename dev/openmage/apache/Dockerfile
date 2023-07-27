@@ -1,4 +1,4 @@
-FROM ghcr.io/colinmollenhour/docker-openmage-dev:8.2-apache
+FROM ghcr.io/colinmollenhour/docker-openmage:8.2-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/pub/default
 
