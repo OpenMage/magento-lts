@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,9 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Io
- * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property mixed $_streamException
  */
 class Varien_Io_File extends Varien_Io_Abstract
 {
@@ -70,7 +61,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream open file pointer
      *
-     * @var resource
+     * @var resource|null
      */
     protected $_streamHandler;
 
@@ -94,6 +85,16 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @var bool
      */
     protected $_streamLocked = false;
+
+    /**
+     * @var Exception
+     */
+    protected $_streamException;
+
+    /**
+     * @var string[]
+     */
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
 
     public function __construct()
     {
@@ -128,7 +129,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             throw new Exception('Permission denied for write to ' . $this->getFilteredPath($this->_cwd));
         }
 
-        if (!ini_get('auto_detect_line_endings')) {
+        if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
             ini_set('auto_detect_line_endings', 1);
         }
 
@@ -486,9 +487,16 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param int $mode
      *
      * @return int|boolean
+     * @throws Exception
      */
     public function write($filename, $src, $mode = null)
     {
+        if (str_contains($filename, chr(0))
+            || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $filename)
+        ) {
+            throw new Exception('Detected malicious path or filename input.');
+        }
+
         if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }
@@ -522,7 +530,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (is_string($src)) {
             // If its a file we check for null byte
             // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
-            return !(@file_exists($src) && strpos($src, chr(0)) !== false);
+            return !(@file_exists($src) && str_contains($src, chr(0)));
         } elseif (is_resource($src)) {
             return true;
         }
@@ -820,7 +828,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), ['jpg', 'jpeg', 'gif', 'bmp', 'png'])
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
                         && $list_item['size'] > 0
                     ) {
                         $list_item['is_image'] = true;

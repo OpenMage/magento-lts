@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
@@ -85,7 +78,6 @@
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
- * @method $this setPasswordCreatedAt(int $value)
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
@@ -330,6 +322,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function changePassword($newPassword)
     {
         $this->_getResource()->changePassword($this, $newPassword);
+        return $this;
+    }
+
+    /**
+     * Set time when password was changed to invalidate other sessions
+     *
+     * @param int $time
+     * @return $this
+     */
+    public function setPasswordCreatedAt($time)
+    {
+        $this->setData('password_created_at', $time);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+        }
         return $this;
     }
 

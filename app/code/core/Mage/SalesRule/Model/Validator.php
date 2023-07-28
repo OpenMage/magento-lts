@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)
@@ -185,6 +178,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $rule->setIsValidForAddress($address, false);
                         return false;
                     }
+                    // check coupon expiration
+                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
+                        $rule->setIsValidForAddress($address, false);
+                        return false;
+                    }
                     // check per customer usage limit
                     $customerId = $address->getQuote()->getCustomerId();
                     if ($customerId && $coupon->getUsagePerCustomer()) {
@@ -340,7 +338,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
                     $rulePercent = max(0, 100 - $rule->getDiscountAmount());
-                //no break;
+                    //no break;
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     $step = $rule->getDiscountStep();
                     if ($step) {
@@ -467,10 +465,10 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $discountAmount = $result->getDiscountAmount();
             $baseDiscountAmount = $result->getBaseDiscountAmount();
 
-            $percentKey = $item->getDiscountPercent();
             /**
              * Process "delta" rounding
              */
+            $percentKey = (string) $item->getDiscountPercent();
             if ($percentKey) {
                 $delta      = $this->_roundingDeltas[$percentKey] ?? 0;
                 $baseDelta  = $this->_baseRoundingDeltas[$percentKey] ?? 0;

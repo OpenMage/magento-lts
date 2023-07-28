@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3']
+        php-versions: ['7.4']
     steps:
     - name: Checkout repository
       uses: actions/checkout@master
@@ -26,6 +26,10 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
+    - name: Require legacy frontend themes on v19
+      if: startsWith(github.event.release.tag_name, 'v19')
+      run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/legacy-frontend-themes
+
     - name: Require Mage_Backup on v19
       if: startsWith(github.event.release.tag_name, 'v19')
       run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/module-mage-backup
@@ -36,6 +40,9 @@ jobs:
 
     - name: Composer install
       run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev
+
+    - name: Optimize autoloader
+      run: composer dump-autoload --optimize
 
     - name: Create ZIP file
       run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x '.git/*'

@@ -1,7 +1,7 @@
 includes:
     - vendor/macopedia/phpstan-magento1/extension.neon
-    - phpstan.dist.issues.neon
     - phpstan.dist.baseline.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     magentoRootPath: %currentWorkingDirectory%
     paths:
@@ -70,9 +70,6 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    stubFiles:
-        - dev/phpstan/stubs/Zend_Captcha_Word.stub
-        - dev/phpstan/stubs/Zend_Validate_InArray.stub
     level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true

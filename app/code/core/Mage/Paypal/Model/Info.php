@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +22,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Info
 {
@@ -575,7 +568,7 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('Matched whole nine-didgit ZIP (no Address)');
             case 'Y':
                 return Mage::helper('paypal')->__('Yes. Matched Address and five-didgit ZIP');
-            // Maestro and Solo
+                // Maestro and Solo
             case '0':
                 return Mage::helper('paypal')->__('All the address information matched');
             case '1':
@@ -614,7 +607,7 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('N/A. Service not available');
             case 'X':
                 return Mage::helper('paypal')->__('N/A. No response');
-            // Maestro and Solo
+                // Maestro and Solo
             case '0':
                 return Mage::helper('paypal')->__('Matched (CVV2)');
             case '1':

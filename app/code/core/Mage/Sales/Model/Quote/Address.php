@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address getResource()
@@ -88,7 +81,6 @@
  * @method $this setCompany(string $value)
  * @method string getCountryId()
  * @method $this setCountryId(string $value)
- * @method string getCouponCode()
  * @method $this setCouponCode(string $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
@@ -435,6 +427,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getQuote()
     {
+        if (is_null($this->_quote)) {
+            $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
+        }
         return $this->_quote;
     }
 
@@ -1175,8 +1170,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getAppliedTaxes()
     {
+        $tax = $this->getData('applied_taxes');
+        if (empty($tax)) {
+            return [];
+        }
         try {
-            $return = Mage::helper('core/unserializeArray')->unserialize($this->getData('applied_taxes'));
+            $return = Mage::helper('core/unserializeArray')->unserialize($tax);
         } catch (Exception $e) {
             $return = [];
         }
@@ -1340,5 +1339,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getSubtotalWithDiscount()
     {
         return $this->getSubtotal() + $this->getDiscountAmount();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCouponCode(): string
+    {
+        return (string)$this->_getData('coupon_code');
     }
 }

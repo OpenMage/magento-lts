@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -417,7 +410,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function addAttributeToSelect($attribute, $joinType = false)
     {
         if (is_array($attribute)) {
-            Mage::getSingleton('eav/config')->loadCollectionAttributes($this->getEntity()->getType(), $attribute);
             foreach ($attribute as $a) {
                 $this->addAttributeToSelect($a, $joinType);
             }
@@ -438,7 +430,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $attrInstance = $this->_joinAttributes[$attribute]['attribute'];
             } else {
                 $attrInstance = Mage::getSingleton('eav/config')
-                    ->getCollectionAttribute($this->getEntity()->getType(), $attribute);
+                    ->getAttribute($this->getEntity()->getType(), $attribute);
+                // failure to resolve an attribute from the eav config implies it does not exist
+                if (empty($attrInstance) || !$attrInstance->getId()) {
+                    return $this;
+                }
             }
             if (empty($attrInstance)) {
                 throw Mage::exception(
@@ -696,7 +692,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = Mage::getSingleton('core/resource')->getTableName($table);
         }
         $tableAlias = $this->_getAttributeTableAlias($alias);
@@ -763,7 +759,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (is_string($tableName) && strpos($tableName, '/') !== false) {
+        if (is_string($tableName) && str_contains($tableName, '/')) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
         if (empty($tableAlias)) {
@@ -1098,7 +1094,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!$attributeId) {
                 continue;
             }
-            $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute($entity->getType(), $attributeCode);
+            $attribute = Mage::getSingleton('eav/config')->getAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
                 $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
                 if (!isset($attributeTypes[$attribute->getBackendTable()])) {
@@ -1205,7 +1201,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $attributeCode = array_search($valueInfo['attribute_id'], $this->_selectAttributes);
         if (!$attributeCode) {
-            $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute(
+            $attribute = Mage::getSingleton('eav/config')->getAttribute(
                 $this->getEntity()->getType(),
                 $valueInfo['attribute_id']
             );

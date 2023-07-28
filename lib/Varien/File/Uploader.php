@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +21,6 @@
  *
  * @category   Varien
  * @package    Varien_File
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Varien_File_Uploader
@@ -146,7 +139,11 @@ class Varien_File_Uploader
 
     public const SINGLE_STYLE = 0;
     public const MULTIPLE_STYLE = 1;
-    public const TMP_NAME_EMPTY = 666;
+
+    /**
+     * @deprecated Use UPLOAD_ERR_NO_FILE instead
+     */
+    public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
 
     /**
      * Resulting of uploaded file
@@ -161,11 +158,9 @@ class Varien_File_Uploader
         $this->_setUploadFileId($fileId);
         if (empty($this->_file['tmp_name']) || !file_exists($this->_file['tmp_name'])) {
             $errorCode = $this->_file['error'] ?? 0;
-            if ($errorCode && isset(self::UPLOAD_ERRORS[$errorCode])) {
-                throw new Exception(self::UPLOAD_ERRORS[$errorCode]);
+            if (isset(self::UPLOAD_ERRORS[$errorCode])) {
+                throw new Exception(self::UPLOAD_ERRORS[$errorCode], $errorCode);
             }
-            $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
-            throw new Exception('File was not uploaded.', $code);
         } else {
             $this->_fileExists = true;
         }
@@ -509,7 +504,7 @@ class Varien_File_Uploader
     private function _setUploadFileId($fileId)
     {
         if (empty($_FILES)) {
-            throw new Exception('$_FILES array is empty', self::TMP_NAME_EMPTY);
+            throw new Exception('$_FILES array is empty', UPLOAD_ERR_NO_FILE);
         }
 
         if (is_array($fileId)) {

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -312,9 +305,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     protected function _getQuotes()
     {
         switch ($this->getConfigData('type')) {
-            case 'UPS':
-                return $this->_getCgiQuotes();
-
             case 'UPS_XML':
                 return $this->_getXmlQuotes();
         }
@@ -1065,9 +1055,7 @@ XMLRequest;
             $trackings = [$trackings];
         }
 
-        if ($this->getConfigData('type') == 'UPS') {
-            $this->_getCgiTracking($trackings);
-        } elseif ($this->getConfigData('type') == 'UPS_XML') {
+        if ($this->getConfigData('type') == 'UPS_XML') {
             $this->setXMLAccessRequest();
             $this->_getXmlTracking($trackings);
         }
@@ -1494,7 +1482,7 @@ XMLAuth;
 
         $deliveryConfirmation = $packageParams->getDeliveryConfirmation();
         if ($deliveryConfirmation) {
-            /** @var SimpleXMLElement $serviceOptionsNode */
+            /** @var SimpleXMLElement|null $serviceOptionsNode */
             $serviceOptionsNode = null;
             switch ($this->_getDeliveryConfirmationLevel($request->getRecipientAddressCountryCode())) {
                 case self::DELIVERY_CONFIRMATION_PACKAGE:

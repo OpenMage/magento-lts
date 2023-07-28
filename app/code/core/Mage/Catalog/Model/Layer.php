@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setStore(int $value)
  */
@@ -202,7 +195,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection|array
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
     public function getFilterableAttributes()
     {
@@ -210,17 +203,26 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (!$setIds) {
             return [];
         }
-        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
-        $collection = Mage::getResourceModel('catalog/product_attribute_collection');
-        $collection
-            ->setItemObjectClass('catalog/resource_eav_attribute')
-            ->setAttributeSetFilter($setIds)
-            ->addStoreLabel(Mage::app()->getStore()->getId())
-            ->setOrder('position', 'ASC');
-        $collection = $this->_prepareAttributeCollection($collection);
-        $collection->load();
 
-        return $collection;
+        $eavConfig = Mage::getSingleton('eav/config');
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $attributes */
+        $attributes = [];
+        foreach ($setIds as $setId) {
+            $setAttributeIds = $eavConfig->getAttributeSetAttributeIds($setId);
+            foreach ($setAttributeIds as $attributeId) {
+                if (!isset($attributes[$attributeId])) {
+                    $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
+                    if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
+                        $attributes[$attributeId] = $attribute;
+                    }
+                }
+            }
+        }
+        usort($attributes, function ($a, $b) {
+            return $a->getPosition() - $b->getPosition();
+        });
+
+        return $attributes;
     }
 
     /**

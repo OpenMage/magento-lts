@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.3 <8.2",
+        "php": ">=7.4 <8.3",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -23,7 +23,7 @@
         "ext-soap": "*",
         "ext-zlib": "*",
         "colinmollenhour/cache-backend-redis": "^1.14",
-        "colinmollenhour/magento-redis-session": "^3.0",
+        "colinmollenhour/magento-redis-session": "^3.1",
         "cweagans/composer-patches": "^1.7",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "pelago/emogrifier": "^7.0",
@@ -84,15 +84,13 @@
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-main": "1.9.4.x-dev"
-        },
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
         "magento-deploystrategy-overwrite": {
             "openmage/dev-copyright": "copy",
-            "openmage/dev-translations": "copy"
+            "openmage/dev-translations": "copy",
+            "openmage/legacy-frontend-themes": "copy"
         },
         "magento-force": true,
         "patches": {
@@ -104,7 +102,8 @@
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-918.patch",
                 "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-1081.patch",
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
+                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch",
+                "OM-ZF1F-344 - Emails are displayed incorrectly in PHP 8.1+": "https://raw.githubusercontent.com/OpenMage/composer-patches/52f16eda0dc78ba95945ccab8e47f4c642584333/patches/OM-ZF1F-344.patch"
             }
         }
     },
@@ -115,7 +114,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.3"
+            "php": "7.4"
         },
         "sort-packages": true
     }

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,6 +17,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = ["gd"];
     private static $_callbacks = [
+        IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
         IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
         IMAGETYPE_PNG  => ['output' => 'imagepng',  'create' => 'imagecreatefrompng'],
@@ -50,7 +45,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+        if (is_resource($this->_imageHandler) || (class_exists('GdImage') && $this->_imageHandler instanceof \GdImage)) {
             @imagedestroy($this->_imageHandler);
         }
     }
@@ -109,7 +104,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
-            $memoryValue = $matches[1];
+            $memoryValue = (int)$matches[1];
             switch ($option) {
                 case 'g':
                     $memoryValue *= 1024;
@@ -154,6 +149,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             } catch (Exception $e) {
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
             }
+        }
+
+        // convert palette based image to true color
+        if ($this->_fileType == IMAGETYPE_WEBP) {
+            imagepalettetotruecolor($this->_imageHandler);
         }
 
         if (!$this->_resized) {
@@ -302,19 +302,19 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
         $isAlpha     = false;
         $isTrueColor = false;
-        // assume that transparency is supported by gif/png only
-        if ((IMAGETYPE_GIF === $fileType) || (IMAGETYPE_PNG === $fileType)) {
+        // assume that transparency is supported by gif/png/webp only
+        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif (IMAGETYPE_PNG === $fileType) { // assume that truecolor PNG has transparency
-                $isAlpha     = $this->checkAlpha($this->_fileName);
+            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+                $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
                 return $transparentIndex; // -1
             }
         }
-        if (IMAGETYPE_JPEG === $fileType) {
+        if ($fileType === IMAGETYPE_JPEG) {
             $isTrueColor = true;
         }
         return false;
@@ -440,8 +440,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             'Unsupported watermark image format.'
         ), $watermarkImage);
 
-        $merged = false;
-
         if ($this->getWatermarkWidth() &&
             $this->getWatermarkHeigth() &&
             ($this->getWatermarkPosition() != self::POSITION_STRETCH)
@@ -559,7 +557,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             );
         }
 
-        if ($repeat === false && $merged === false) {
+        if ($repeat === false) {
             imagecopymerge(
                 $this->_imageHandler,
                 $watermark,
