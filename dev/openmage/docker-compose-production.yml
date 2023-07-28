@@ -11,7 +11,7 @@ services:
       - mysql
 
   frontend:
-    image: library/nginx:latest
+    image: library/nginx:1.25
     environment:
       - NGINX_MAGE_RUN_CODE=default
       - NGINX_MAGE_RUN_TYPE=store
@@ -22,7 +22,7 @@ services:
       - ../..:/var/www/html
 
   admin:
-    image: library/nginx:latest
+    image: library/nginx:1.25
     environment:
       - NGINX_MAGE_RUN_CODE=admin
       - NGINX_MAGE_RUN_TYPE=store
@@ -54,8 +54,6 @@ services:
 
   mysql:
     image: mysql:8.0
-    ports:
-      - 3306
     command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes

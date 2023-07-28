@@ -5,7 +5,7 @@ cd $dir
 
 # Detect "docker compose" or "docker-compose"
 dc="docker compose"
-if ! docker compose --help >/dev/null; then
+if ! docker compose >/dev/null 2>&1; then
   if ! command -v docker-compose >/dev/null 2>&1 ; then
     echo "Please first install docker-compose."
   else
@@ -14,12 +14,13 @@ if ! docker compose --help >/dev/null; then
 fi
 test -f .env && source .env
 
+SRC_DIR=${SRC_DIR:-${SRC_DIR}}
 HOST_PORT=":${HOST_PORT:-80}"
 test "$HOST_PORT" = ":80" && HOST_PORT=""
-BASE_URL="http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"
+BASE_URL="${BASE_URL:-http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/}"
 ADMIN_HOST_PORT=":${ADMIN_HOST_PORT:-81}"
 test "$ADMIN_HOST_PORT" = ":80" && ADMIN_HOST_PORT=""
-ADMIN_URL="http://${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}${ADMIN_HOST_PORT}/"
+ADMIN_URL="${ADMIN_URL:-http://${ADMIN_HOST_NAME:-openmage-admin-7f000001.nip.io}${ADMIN_HOST_PORT}/}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"
@@ -27,9 +28,9 @@ MYSQL_DATABASE="${MYSQL_DATABASE:-openmage}"
 
 if [[ "$1" = "--reset" ]]; then
   echo "Wiping previous installation..."
-  cd $dir && $dc down --volumes --remove-orphans && rm -f ../../app/etc/local.xml
+  cd $dir && $dc down --volumes --remove-orphans && rm -f ${SRC_DIR}/app/etc/local.xml
 fi
-if test -f ../../app/etc/local.xml; then
+if test -f ${SRC_DIR}/app/etc/local.xml; then
   echo "Already installed!";
   if [[ "$1" != "--reset" ]]; then
     mysql_server_ip=$($dc exec php-fpm getent hosts mysql | awk '{print $1}')
@@ -46,8 +47,13 @@ if test -f ../../app/etc/local.xml; then
   fi
 fi
 
+if [[ ${#ADMIN_PASSWORD} -lt 14 ]]; then
+  echo "Admin password must be at least 14 characters."
+  exit 1
+fi
+
 echo "Preparing filesystem..."
-mkdir -p ../../vendor
+mkdir -p ${SRC_DIR}/vendor
 $dc run --rm --no-deps cli chgrp 33 app/etc var vendor
 $dc run --rm --no-deps cli chgrp -R 33 media
 $dc run --rm --no-deps cli chmod g+ws app/etc var vendor
@@ -97,10 +103,10 @@ $dc run --rm cli php install.php \
 $dc exec mysql mysql -e "
 INSERT INTO core_config_data (scope, scope_id, path, value) VALUES
 ('default',0,'admin/url/use_custom','1'),
-('stores',0,'web/unsecure/base_url','http://openmage-admin-7f000001.nip.io:81/'),
-('stores',0,'web/secure/base_url','http://openmage-admin-7f000001.nip.io:81/');
+('stores',0,'web/unsecure/base_url','$ADMIN_URL'),
+('stores',0,'web/secure/base_url','$ADMIN_URL');
 " "$MYSQL_DATABASE"
-rm -rf ../../var/cache/*
+rm -rf ${SRC_DIR}/var/cache/*
 
 echo "Starting web services..."
 $dc up -d frontend admin cron
