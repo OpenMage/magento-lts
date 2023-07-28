@@ -57,8 +57,8 @@ mkdir -p ${SRC_DIR}/vendor
 $dc run --rm --no-deps cli chgrp 33 app/etc var vendor
 $dc run --rm --no-deps cli chgrp -R 33 media
 $dc run --rm --no-deps cli chmod g+ws app/etc var vendor
-$dc run --rm --no-deps cli chmod -R g+ws media
 $dc run --rm --no-deps cli mkdir -p var/cache var/log var/locks var/session
+$dc run --rm --no-deps cli chmod -R g+ws media var/cache var/log var/locks var/session
 
 echo "Starting services..."
 $dc up -d mysql redis php-fpm
