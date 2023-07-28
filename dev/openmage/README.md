@@ -61,9 +61,17 @@ You can override some defaults using environment variables defined in a file (th
   - `81` is used by default to avoid conflicts with the frontend port
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
+- `ADMIN_PASSWORD` (must be 14 characters or more)
+- `ADMIN_FIRSTNAME`
+- `ADMIN_LASTNAME`
 - `MAGE_IS_DEVELOPER_MODE`
-  - Set to 1 by default, set to 0 to disable
+  - `1` is used by default, set to `0` to disable
+- `CURRENCY`
+  - `USD` is used by default
+- `LOCALE`
+  - `en-US` is used by default
+- `TIMEZONE`
+  - `America/New_York` is used by default
 
 Wiping
 ---
@@ -88,12 +96,19 @@ Features included out of the box:
 
 **Do not try to run a dev environment and a production environment from the same working copy!**
 
-1. Run the normal installation for the dev environment described above
-1. Run `docker-compose down` to stop the development environment
 1. `echo "COMPOSE_FILE=docker-compose-production.yml" >> .env` to make the production stack the default
+1. Add `BASE_URL` and `ADMIN_URL` to your `.env` file
 1. `cp Caddyfile-sample Caddyfile` and edit the `Caddyfile` to reflect your domain names and Magento store codes
 1. If you did not hard-code your admin domain name in `Caddyfile` edit `.env` and make sure it includes `ADMIN_HOST_NAME`
 1. Run `docker-compose up -d` to launch your new production-ready environment!
+1. Run `install.sh` if you wish to start with a fresh installation, otherwise you will need to load your database files into the MySQL container volume. 
+
+Environment variables supported by the `docker-compose-production.yml` file and `install.sh` which may be set in `.env`
+when installing a new production environment:
+
+- `SRC_DIR=./src`
+- `BASE_URL=https://frontend.example.com/` (overrides `HOST_NAME` and `HOST_PORT`)
+- `ADMIN_URL=https://backend.exmaple.com/` (overrides `ADMIN_HOST_NAME` and `ADMIN_HOST_PORT`)
 
 **Backups, intrusion protection and other security features are not provided and are left up to you! This is simply a
 web server configuration that adds an easy to configure and maintain SSL termination.**

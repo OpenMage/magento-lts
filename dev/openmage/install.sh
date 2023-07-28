@@ -74,32 +74,26 @@ $dc run --rm -u "$(id -u):$(id -g)" cli composer install --no-progress
 echo "Installing OpenMage LTS..."
 $dc run --rm cli php install.php \
   --license_agreement_accepted yes \
-  --locale en_US \
-  --timezone America/New_York \
-  --default_currency USD \
+  --locale "${LOCALE:-en_US}" \
+  --timezone "${TIMEZONE:-America/New_York}" \
+  --default_currency "${CURRENCY:-USD}" \
   --db_host mysql \
   --db_name "$MYSQL_DATABASE" \
   --db_user "${MYSQL_USER:-openmage}" \
   --db_pass "${MYSQL_PASSWORD:-openmage}" \
   --url "$BASE_URL" \
   --use_rewrites yes \
-  --use_secure no \
+  --use_secure "$([[ $BASE_URL == https* ]] && echo yes || echo no)" \
   --secure_base_url "$BASE_URL" \
-  --use_secure_admin no \
+  --use_secure_admin "$([[ $ADMIN_URL == https* ]] && echo yes || echo no)" \
   --skip_url_validation \
-  --admin_firstname OpenMage  \
-  --admin_lastname User \
+  --admin_firstname "${ADMIN_FIRSTNAME:-OpenMage}"  \
+  --admin_lastname "${ADMIN_LASTNAME:-User}" \
   --admin_email "$ADMIN_EMAIL" \
   --admin_username "$ADMIN_USERNAME" \
   --admin_password "$ADMIN_PASSWORD"
 
 # Update URL config to split frontend/admin
-#$dc run --rm cli magerun \
-#  config:set -n --scope="default" --scope-id="0" --force admin/url/use_custom 1
-#$dc run --rm cli magerun \
-#  config:set -n --scope="stores" --scope-id="0" --force web/unsecure/base_url "${ADMIN_URL}"
-#$dc run --rm cli magerun \
-#  config:set -n --scope="stores" --scope-id="0" --force web/secure/base_url "${ADMIN_URL}"
 $dc exec mysql mysql -e "
 INSERT INTO core_config_data (scope, scope_id, path, value) VALUES
 ('default',0,'admin/url/use_custom','1'),

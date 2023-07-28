@@ -4,7 +4,7 @@ services:
   php-fpm:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-fpm
     volumes:
-      - ../..:/var/www/html
+      - ${SRC_DIR:-../..}:/var/www/html
     environment:
       - ENABLE_SENDMAIL=true
     links:
@@ -19,7 +19,7 @@ services:
       - php-fpm
     volumes:
       - ./nginx-frontend.conf:/etc/nginx/templates/default.conf.template:ro
-      - ../..:/var/www/html
+      - ${SRC_DIR:-../..}:/var/www/html
 
   admin:
     image: library/nginx:1.25
@@ -30,7 +30,7 @@ services:
       - php-fpm
     volumes:
       - ./nginx-admin.conf:/etc/nginx/templates/default.conf.template:ro
-      - ../..:/var/www/html
+      - ${SRC_DIR:-../..}:/var/www/html
 
   cron:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-cli
@@ -38,7 +38,7 @@ services:
     command: /run-cron.sh
     user: www-data
     volumes:
-      - ../..:/var/www/html
+      - ${SRC_DIR:-../..}:/var/www/html
     environment:
       - ENABLE_SENDMAIL=true
     links:
@@ -48,7 +48,7 @@ services:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-cli
     working_dir: /var/www/html
     volumes:
-      - ../..:/var/www/html
+      - ${SRC_DIR:-../..}:/var/www/html
     links:
       - mysql
 
