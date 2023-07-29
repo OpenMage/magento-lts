@@ -121,8 +121,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     public function updateRecord($itemId, $data)
     {
         $adapter = $this->_getWriteAdapter();
-        $where = ['item_id = ?' => $itemId];
-        $adapter->update($this->getMainTable(), $data, $where);
+        $adapter->update($this->getMainTable(), $data, ['item_id = ?' => $itemId]);
         return $this;
     }
 }
