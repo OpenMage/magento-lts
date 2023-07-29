@@ -800,12 +800,11 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         $dataCommited = false;
         try {
             $this->_beforeSave();
-            $updatedFields = [
+            $this->getResource()->updateRecord($this->getId(), [
                 'is_in_stock' => $this->getIsInStock(),
                 'stock_status_changed_auto' => $this->getStockStatusChangedAutomatically(),
                 'low_stock_date' => $this->getLowStockDate()
-            ];
-            $this->getResource()->updateRecord($this->getId(), $updatedFields);
+            ]);
             $this->_afterSave();
             $this->_getResource()
                 ->addCommitCallback(array($this, 'afterCommitCallback'))
