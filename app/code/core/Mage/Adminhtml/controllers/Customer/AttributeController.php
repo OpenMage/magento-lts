@@ -64,5 +64,4 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Eav_Controller_Ad
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/customer_attributes');
     }
-
 }

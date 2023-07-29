@@ -107,7 +107,7 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    const ENTITY = 'customer';
+    public const ENTITY = 'customer';
 
     /**#@+
      * Configuration pathes for email templates and identities

@@ -53,8 +53,7 @@ class Mage_Customer_Model_Form extends Mage_Eav_Model_Form
             $group = Mage::getModel('customer/group')
                    ->load($entity->getGroupId());
             $attributeSetId = $group->getCustomerAttributeSetId();
-
-        } else if ($entity instanceof Mage_Customer_Model_Address) {
+        } elseif ($entity instanceof Mage_Customer_Model_Address) {
             $customer = $entity->getCustomer();
             if ($customer) {
                 $group = Mage::getModel('customer/group')

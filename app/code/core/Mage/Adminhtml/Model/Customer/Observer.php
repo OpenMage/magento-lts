@@ -28,7 +28,6 @@
  */
 class Mage_Adminhtml_Model_Customer_Observer
 {
-
     /**
      * Add frontend properties to customer attribute edit form
      *
@@ -73,7 +72,6 @@ class Mage_Adminhtml_Model_Customer_Observer
 
         $data = $request->getPost();
         if ($data) {
-
             /** @var Mage_Eav_Model_Entity_Attribute $model */
             $model = $observer->getObject();
 
@@ -82,7 +80,6 @@ class Mage_Adminhtml_Model_Customer_Observer
             }
 
             $model->setData('used_in_forms', $data['use_in_forms']);
-
         }
         return $this;
     }
@@ -131,7 +128,6 @@ class Mage_Adminhtml_Model_Customer_Observer
 
         $data = $request->getPost();
         if ($data) {
-
             /** @var Mage_Eav_Model_Entity_Attribute $model */
             $model = $observer->getObject();
 
@@ -140,9 +136,7 @@ class Mage_Adminhtml_Model_Customer_Observer
             }
 
             $model->setData('used_in_forms', $data['use_in_forms']);
-
         }
         return $this;
     }
-
 }

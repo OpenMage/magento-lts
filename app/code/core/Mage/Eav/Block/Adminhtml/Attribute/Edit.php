@@ -20,7 +20,6 @@
 
 class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
     public function __construct()
     {
         $this->_objectId = 'attribute_id';
@@ -57,8 +56,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widge
                 $frontendLabel = $frontendLabel[0];
             }
             return Mage::helper('eav')->__('Edit %s Attribute "%s"', Mage::helper('eav')->formatTypeCode(Mage::registry('entity_type')), $this->escapeHtml($frontendLabel));
-        }
-        else {
+        } else {
             return Mage::helper('eav')->__('New %s Attribute', Mage::helper('eav')->formatTypeCode(Mage::registry('entity_type')));
         }
     }
@@ -77,5 +75,4 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widge
     {
         return 'icon-head head-eav-attribute';
     }
-
 }

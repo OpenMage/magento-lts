@@ -24,7 +24,6 @@
  */
 class Mage_Customer_Model_Config_Forms
 {
-
     /**
      * Options getter
      *
@@ -68,5 +67,4 @@ class Mage_Customer_Model_Config_Forms
             array_column($this->toOptionArray(), 'label')
         );
     }
-
 }

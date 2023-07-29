@@ -28,7 +28,6 @@
 
 abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adminhtml_Controller_Action
 {
-
     /** @var string $_entityCode */
     protected $_entityCode;
 
@@ -77,7 +76,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
 
             if (! $model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('eav')->__('This attribute no longer exists'));
+                    Mage::helper('eav')->__('This attribute no longer exists')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -85,7 +85,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
             // entity type check
             if ($model->getEntityTypeId() != $this->_entityType->getEntityTypeId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('eav')->__('This attribute cannot be edited.'));
+                    Mage::helper('eav')->__('This attribute cannot be edited.')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -117,7 +118,6 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
         );
 
         $this->renderLayout();
-
     }
 
     public function validateAction()
@@ -134,7 +134,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
 
         if ($attribute->getId() && !$attributeId) {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('eav')->__('Attribute with the same code already exists'));
+                Mage::helper('eav')->__('Attribute with the same code already exists')
+            );
             $this->_initLayoutMessages('adminhtml/session');
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
@@ -217,7 +218,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
 
                 if (!$model->getId()) {
                     $session->addError(
-                        Mage::helper('eav')->__('This Attribute no longer exists'));
+                        Mage::helper('eav')->__('This Attribute no longer exists')
+                    );
                     $this->_redirect('*/*/');
                     return;
                 }
@@ -225,7 +227,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
                 // entity type check
                 if ($model->getEntityTypeId() != $this->_entityType->getEntityTypeId()) {
                     $session->addError(
-                        Mage::helper('eav')->__('This attribute cannot be updated.'));
+                        Mage::helper('eav')->__('This attribute cannot be updated.')
+                    );
                     $session->setAttributeData($data);
                     $this->_redirect('*/*/');
                     return;
@@ -280,7 +283,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
             try {
                 $model->save();
                 $session->addSuccess(
-                    Mage::helper('eav')->__('The attribute has been saved.'));
+                    Mage::helper('eav')->__('The attribute has been saved.')
+                );
 
                 /**
                  * Clear translation cache because attribute labels are stored in translation
@@ -312,7 +316,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
             $model->load($id);
             if ($model->getEntityTypeId() != $this->_entityType->getEntityTypeId() || !$model->getIsUserDefined()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('eav')->__('This attribute cannot be deleted.'));
+                    Mage::helper('eav')->__('This attribute cannot be deleted.')
+                );
                 $this->_redirect('*/*/');
                 return;
             }
@@ -320,7 +325,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
             try {
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('eav')->__('The attribute has been deleted.'));
+                    Mage::helper('eav')->__('The attribute has been deleted.')
+                );
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {
@@ -330,8 +336,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
             }
         }
         Mage::getSingleton('adminhtml/session')->addError(
-            Mage::helper('eav')->__('Unable to find an attribute to delete.'));
+            Mage::helper('eav')->__('Unable to find an attribute to delete.')
+        );
         $this->_redirect('*/*/');
     }
-
 }

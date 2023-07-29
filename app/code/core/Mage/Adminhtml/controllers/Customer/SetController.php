@@ -64,5 +64,4 @@ class Mage_Adminhtml_Customer_SetController extends Mage_Eav_Controller_Adminhtm
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/customer_sets');
     }
-
 }

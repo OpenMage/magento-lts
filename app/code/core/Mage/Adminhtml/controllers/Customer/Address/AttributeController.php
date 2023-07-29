@@ -64,5 +64,4 @@ class Mage_Adminhtml_Customer_Address_AttributeController extends Mage_Eav_Contr
     {
         return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/customer_address_attributes');
     }
-
 }

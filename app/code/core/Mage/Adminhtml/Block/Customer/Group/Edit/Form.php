@@ -32,8 +32,10 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Group Information')]);
 
-        $validateClass = sprintf('required-entry validate-length maximum-length-%d',
-            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH);
+        $validateClass = sprintf(
+            'required-entry validate-length maximum-length-%d',
+            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH
+        );
         $name = $fieldset->addField('customer_group_code', 'text', [
             'name'  => 'code',
             'label' => Mage::helper('customer')->__('Group Name'),
@@ -87,7 +89,6 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
                 'required' => true,
                 'values' => $setsAddress
             ]);
-
         }
 
         if (!is_null($customerGroup->getId())) {
