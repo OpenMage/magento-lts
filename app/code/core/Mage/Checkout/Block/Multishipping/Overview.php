@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_Abstract
 {
@@ -51,7 +45,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -83,6 +77,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      * Get object with payment info posted data
      *
      * @return Varien_Object
+     * @throws Exception
      */
     public function getPayment()
     {
@@ -172,8 +167,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     {
         $totals = $address->getTotals();
         foreach ($totals as $total) {
-            if ($total->getCode()=='grand_total') {
-                if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_BILLING) {
+            if ($total->getCode() === 'grand_total') {
+                if ($address->getAddressType() === Mage_Sales_Model_Quote_Address::TYPE_BILLING) {
                     $total->setTitle($this->__('Total'));
                 } else {
                     $total->setTitle($this->__('Total for this address'));
@@ -205,7 +200,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditShippingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editShipping', array('id'=>$address->getCustomerAddressId()));
+        return $this->getUrl('*/multishipping_address/editShipping', ['id' => $address->getCustomerAddressId()]);
     }
 
     /**
@@ -214,7 +209,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditBillingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editBilling', array('id'=>$address->getCustomerAddressId()));
+        return $this->getUrl('*/multishipping_address/editBilling', ['id' => $address->getCustomerAddressId()]);
     }
 
     /**
@@ -266,7 +261,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getVirtualItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getBillingAddress()->getItemsCollection() as $_item) {
             if ($_item->isDeleted()) {
                 continue;
@@ -297,16 +292,17 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->getShippingAddressTotals($_address);
     }
 
-
     /**
      * @param Mage_Sales_Model_Order_Total $totals
-     * @param null $colspan
+     * @param int|null $colspan
      * @return string
      */
     public function renderTotals($totals, $colspan = null)
     {
         if ($colspan === null) {
-            $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
+            /** @var Mage_Tax_Helper_Data $helper */
+            $helper = $this->helper('tax');
+            $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
         $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);

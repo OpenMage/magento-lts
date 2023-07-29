@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
@@ -43,11 +37,8 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @var array
      */
-    static protected $_commitCallbacks = array();
+    protected static $_commitCallbacks = [];
 
-    /**
-     * Resource initialization
-     */
     abstract protected function _construct();
 
     /**
@@ -101,7 +92,7 @@ abstract class Mage_Core_Model_Resource_Abstract
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
                 $callbacks = self::$_commitCallbacks[$adapterKey];
-                self::$_commitCallbacks[$adapterKey] = array();
+                self::$_commitCallbacks[$adapterKey] = [];
                 foreach ($callbacks as $index => $callback) {
                     call_user_func($callback);
                 }
@@ -121,7 +112,7 @@ abstract class Mage_Core_Model_Resource_Abstract
         if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
-                self::$_commitCallbacks[$adapterKey] = array();
+                self::$_commitCallbacks[$adapterKey] = [];
             }
         }
         return $this;
@@ -130,13 +121,13 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date|true|null $date
+     * @param int|string|Zend_Date|bool|null $date
      * @param bool $includeTime
      * @return string|null
      */
     public function formatDate($date, $includeTime = true)
     {
-         return Varien_Date::formatDate($date, $includeTime);
+        return Varien_Date::formatDate($date, $includeTime);
     }
 
     /**
@@ -204,7 +195,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
-        $data = array();
+        $data = [];
         $fields = $this->_getReadAdapter()->describeTable($table);
         foreach (array_keys($fields) as $field) {
             if ($object->hasData($field)) {
@@ -212,7 +203,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 if ($fieldValue instanceof Zend_Db_Expr) {
                     $data[$field] = $fieldValue;
                 } else {
-                    if (null !== $fieldValue) {
+                    if ($fieldValue !== null) {
                         $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
                     } elseif (!empty($fields[$field]['NULLABLE'])) {
@@ -233,9 +224,8 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareTableValueForSave($value, $type)
     {
-        $type = strtolower($type);
         if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
-            $value = Mage::app()->getLocale()->getNumber($value);
+            return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
     }

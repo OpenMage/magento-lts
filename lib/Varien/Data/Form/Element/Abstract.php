@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Varien
- * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Data
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAfterElementHtml(string $value)
  * @method string getClass()
@@ -58,7 +52,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * Varien_Data_Form_Element_Abstract constructor.
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->_renderer = Varien_Data_Form::getElementRenderer();
@@ -71,7 +65,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param string|false $after
      * @return  $this
      */
-    public function addElement(Varien_Data_Form_Element_Abstract $element, $after=false)
+    public function addElement(Varien_Data_Form_Element_Abstract $element, $after = false)
     {
         if ($this->getForm()) {
             $this->getForm()->checkElementId($element->getId());
@@ -149,7 +143,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form $form
+     * @param Varien_Data_Form_Abstract $form
      * @return $this
      */
     public function setForm($form)
@@ -172,7 +166,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');
+        return ['type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
     }
 
     /**
@@ -182,7 +176,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function addClass($class)
     {
         $oldClass = $this->getClass();
-        $this->setClass($oldClass.' '.$class);
+        $this->setClass($oldClass . ' ' . $class);
         return $this;
     }
 
@@ -215,14 +209,14 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      * @param string|null $index
      * @return string
      */
-    public function getEscapedValue($index=null)
+    public function getEscapedValue($index = null)
     {
         $value = $this->getValue($index);
 
         if ($filter = $this->getValueFilter()) {
             $value = $filter->filter($value);
         }
-        return $this->_escape($value);
+        return $this->_escape((string)$value);
     }
 
     /**
@@ -248,9 +242,9 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
      */
     public function getElementHtml()
     {
-        $html = '<input id="'.$this->getHtmlId().'" name="'.$this->getName()
-             .'" value="'.$this->getEscapedValue().'" '.$this->serialize($this->getHtmlAttributes()).'/>'."\n";
-        $html.= $this->getAfterElementHtml();
+        $html = '<input id="' . $this->getHtmlId() . '" name="' . $this->getName()
+             . '" value="' . $this->getEscapedValue() . '" ' . $this->serialize($this->getHtmlAttributes()) . '/>' . "\n";
+        $html .= $this->getAfterElementHtml();
         return $html;
     }
 
@@ -271,8 +265,8 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
-                  . ( $this->getRequired() ? ' <span class="required">*</span>' : '' ) . '</label>' . "\n";
+            $html = '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())
+                  . ($this->getRequired() ? ' <span class="required">*</span>' : '') . '</label>' . "\n";
         } else {
             $html = '';
         }
@@ -286,10 +280,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     {
         $html = $this->getData('default_html');
         if (is_null($html)) {
-            $html = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
-            $html.= $this->getLabelHtml();
-            $html.= $this->getElementHtml();
-            $html.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+            $html = ($this->getNoSpan() === true) ? '' : '<span class="field-row">' . "\n";
+            $html .= $this->getLabelHtml();
+            $html .= $this->getElementHtml();
+            $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
         return $html;
     }
@@ -304,8 +298,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
         if ($this->_renderer) {
             $html = $this->_renderer->render($this);
-        }
-        else {
+        } else {
             $html = $this->getDefaultHtml();
         }
         return $html;
@@ -322,18 +315,16 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * @inheritDoc
      */
-    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
             $this->_data['disabled'] = 'disabled';
-        }
-        else {
+        } else {
             unset($this->_data['disabled']);
         }
         if (in_array('checked', $attributes) && !empty($this->_data['checked'])) {
             $this->_data['checked'] = 'checked';
-        }
-        else {
+        } else {
             unset($this->_data['checked']);
         }
         return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
@@ -378,7 +369,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         }
         if (!is_array($values)) {
             $values = Mage::helper('core')->escapeHtml(trim($values));
-            $values = array($values => $values);
+            $values = [$values => $values];
         }
         $elementValues = $this->getValues();
         if (!empty($elementValues)) {

@@ -2,34 +2,27 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Media
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Media
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Media library file image resource model
  *
  * @category   Mage
  * @package    Mage_Media
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
 {
     /**
-     * Resource initialization
+     * @return $this
      */
     protected function _construct()
     {
@@ -37,7 +30,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Retrieve connection for read data
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getReadAdapter()
     {
@@ -45,7 +38,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Retrieve connection for write data
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getWriteAdapter()
     {
@@ -55,7 +48,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * @param Mage_Media_Model_Image $object
      * @param mixed $file
-     * @param null $field
+     * @param mixed|null $field
      * @return $this
      */
     public function load(Mage_Media_Model_Image $object, $file, $field = null)
@@ -99,6 +92,10 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
                 $resource = imagecreatefromjpeg($object->getFilePath());
                 break;
 
+            case 'webp':
+                $resource = imagecreatefromwebp($object->getFilePath());
+                break;
+
             case 'gif':
                 $resource = imagecreatefromgif($object->getFilePath());
                 break;
@@ -112,7 +109,6 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-
         return $resource;
     }
 
@@ -120,12 +116,11 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Create tmp image resource for operations
      *
      * @param Mage_Media_Model_Image $object
-     * @return false|resource
+     * @return resource
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
-        $resource = imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
-        return $resource;
+        return imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
     }
 
     /**
@@ -185,6 +180,9 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             case 'jpeg':
                 $result = imagejpeg($object->getTmpImage(), $object->getFilePath(true), 80);
                 break;
+            case 'webp':
+                $result = imagewebp($object->getTmpImage(), $object->getFilePath(true), 80);
+                break;
             case 'gif':
                 $result = imagegif($object->getTmpImage(), $object->getFilePath(true));
                 break;
@@ -205,6 +203,8 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      *
      * @param Mage_Media_Model_Image $object
      * @return Varien_Object
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function getDimensions(Mage_Media_Model_Image $object)
     {
@@ -213,7 +213,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-        $info = array('width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]);
+        $info = ['width' => $info[0], 'height' => $info[1], 'type' => $info[2]];
         return new Varien_Object($info);
     }
 

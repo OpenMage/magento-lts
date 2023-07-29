@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,28 +18,27 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Server
 {
     /**
      * Api2 REST type
      */
-    const API_TYPE_REST = 'rest';
+    public const API_TYPE_REST = 'rest';
 
     /**#@+
      * HTTP Response Codes
      */
-    const HTTP_OK                 = 200;
-    const HTTP_CREATED            = 201;
-    const HTTP_MULTI_STATUS       = 207;
-    const HTTP_BAD_REQUEST        = 400;
-    const HTTP_UNAUTHORIZED       = 401;
-    const HTTP_FORBIDDEN          = 403;
-    const HTTP_NOT_FOUND          = 404;
-    const HTTP_METHOD_NOT_ALLOWED = 405;
-    const HTTP_NOT_ACCEPTABLE     = 406;
-    const HTTP_INTERNAL_ERROR     = 500;
+    public const HTTP_OK                 = 200;
+    public const HTTP_CREATED            = 201;
+    public const HTTP_MULTI_STATUS       = 207;
+    public const HTTP_BAD_REQUEST        = 400;
+    public const HTTP_UNAUTHORIZED       = 401;
+    public const HTTP_FORBIDDEN          = 403;
+    public const HTTP_NOT_FOUND          = 404;
+    public const HTTP_METHOD_NOT_ALLOWED = 405;
+    public const HTTP_NOT_ACCEPTABLE     = 406;
+    public const HTTP_INTERNAL_ERROR     = 500;
     /**#@- */
 
     /**
@@ -52,7 +46,7 @@ class Mage_Api2_Model_Server
      *
      * @var array
      */
-    protected static $_apiTypes = array(self::API_TYPE_REST);
+    protected static $_apiTypes = [self::API_TYPE_REST];
 
     /**
      * @var Mage_Api2_Model_Auth_User_Abstract
@@ -93,7 +87,6 @@ class Mage_Api2_Model_Server
         }
         // default case
         try {
-            /** @var Mage_Api2_Model_Auth_User_Abstract $apiUser */
             $apiUser = $this->_authenticate($request);
 
             $this->_route($request)
@@ -267,11 +260,11 @@ class Mage_Api2_Model_Server
             //add last error to stack
             $response->setException($exception);
 
-            $messages = array();
+            $messages = [];
 
             /** @var Exception $exception */
             foreach ($response->getException() as $exception) {
-                $message = array('code' => $exception->getCode(), 'message' => $exception->getMessage());
+                $message = ['code' => $exception->getCode(), 'message' => $exception->getMessage()];
 
                 if (Mage::getIsDeveloperMode()) {
                     $message['trace'] = $exception->getTraceAsString();

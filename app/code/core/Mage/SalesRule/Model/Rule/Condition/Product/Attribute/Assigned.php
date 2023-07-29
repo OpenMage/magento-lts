@@ -2,46 +2,39 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- *Rule product condition attribute data model
+ * Rule product condition attribute data model
  *
- * @category Mage
- * @package Mage_SalesRule
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mage_Rule_Model_Condition_Product_Abstract
 {
     /**
      * The operator type which indicates whether the attribute was assigned
      */
-    const OPERATOR_ATTRIBUTE_IS_ASSIGNED = 'is_assigned';
+    public const OPERATOR_ATTRIBUTE_IS_ASSIGNED = 'is_assigned';
 
     /**
      * The operator type which indicates whether the attribute was not assigned
      */
-    const OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED = 'is_not_assigned';
+    public const OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED = 'is_not_assigned';
 
     /**
      * A default operator code
      */
-    const DEFAULT_OPERATOR = self::OPERATOR_ATTRIBUTE_IS_ASSIGNED;
+    public const DEFAULT_OPERATOR = self::OPERATOR_ATTRIBUTE_IS_ASSIGNED;
 
     /**
      * Operator select options hash
@@ -51,7 +44,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
 
     /**
      * A cached options list
-     * @var array
+     * @var array|null
      */
     protected $_cachedOperatorSelectOptionsCache = null;
 
@@ -82,10 +75,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
      */
     public function __construct()
     {
-        $this->_operatorSelectOptionsHash = array(
+        $this->_operatorSelectOptionsHash = [
             self::OPERATOR_ATTRIBUTE_IS_ASSIGNED        => $this->_getHelper()->__('is assigned'),
             self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned')
-        );
+        ];
 
         parent::__construct();
     }
@@ -97,12 +90,12 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     public function getOperatorSelectOptions()
     {
         if (is_null($this->_cachedOperatorSelectOptionsCache)) {
-            $this->_cachedOperatorSelectOptionsCache = array();
+            $this->_cachedOperatorSelectOptionsCache = [];
             foreach ($this->_operatorSelectOptionsHash as $operatorValue => $operatorLabel) {
-                $this->_cachedOperatorSelectOptionsCache[] = array(
+                $this->_cachedOperatorSelectOptionsCache[] = [
                     'label' => $operatorLabel,
                     'value' => $operatorValue
-                );
+                ];
             }
         }
 
@@ -136,7 +129,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             || $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
             && !array_key_exists($this->getAttribute(), $attributes);
     }
-
 
     /**
      * Generate a condition html

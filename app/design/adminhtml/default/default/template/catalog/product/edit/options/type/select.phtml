@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 
@@ -67,7 +62,6 @@ selectOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : OptionTemplateSelectRow,
     add : function(data) {
-
         this.template = new Template(this.templateText, this.templateSyntax);
 
         if (data.target || data.srcElement) {//data is Event (work in IE and Firefox)
@@ -85,6 +79,11 @@ selectOptionType = {
         data.id  = optionId;
 
         Element.insert($(this.div+'_'+data.id), {'bottom':this.template.evaluate(data)});
+
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' input', '#product_option_'+data.id+'_select_'+data.select_id+' select', '#product_option_'+data.id+'_select_'+data.select_id+' textarea');
+        inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+        var inputs = $$('#product_option_'+data.id+'_select_'+data.select_id+' button');
+        inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  });
 
         if (data.checkboxScopeTitle) {
             //set disabled

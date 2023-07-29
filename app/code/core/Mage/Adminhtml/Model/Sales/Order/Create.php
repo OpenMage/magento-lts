@@ -2,29 +2,24 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Order create model
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ *
+ * @method int getSendConfirmation()
  */
 class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements Mage_Checkout_Model_Cart_Interface
 {
@@ -38,42 +33,42 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Quote customer wishlist model object
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|false|null
      */
     protected $_wishlist;
 
     /**
      * Sales Quote instance
      *
-     * @var Mage_Sales_Model_Quote
+     * @var Mage_Sales_Model_Quote|null
      */
     protected $_cart;
 
     /**
      * Catalog Compare List instance
      *
-     * @var Mage_Catalog_Model_Product_Compare_List
+     * @var Mage_Catalog_Model_Product_Compare_List|false|null
      */
     protected $_compareList;
 
     /**
      * Re-collect quote flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollect;
 
     /**
      * Re-collect cart flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_needCollectCart = false;
 
     /**
      * Collect (import) data and validate it flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isValidate              = false;
 
@@ -87,14 +82,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Customer Address Form instance
      *
-     * @var Mage_Customer_Model_Form
+     * @var Mage_Customer_Model_Form|null
      */
     protected $_customerAddressForm;
 
     /**
      * Customer Form instance
      *
-     * @var Mage_Customer_Model_Form
+     * @var Mage_Customer_Model_Form|null
      */
     protected $_customerForm;
 
@@ -103,7 +98,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Quote associated with the model
@@ -120,7 +115,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set validate data in import data flag
      *
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setIsValidate($flag)
@@ -132,7 +127,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Return is validate data in import flag
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsValidate()
     {
@@ -143,7 +138,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Retrieve quote item
      *
      * @param   int|Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Sales_Model_Quote_Item
+     * @return  Mage_Sales_Model_Quote_Item|false
      */
     protected function _getQuoteItem($item)
     {
@@ -162,11 +157,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     public function initRuleData()
     {
-        Mage::register('rule_data', new Varien_Object(array(
+        Mage::register('rule_data', new Varien_Object([
             'store_id'  => $this->_session->getStore()->getId(),
             'website_id'  => $this->_session->getStore()->getWebsiteId(),
             'customer_group_id' => $this->getCustomerGroupId(),
-        )));
+        ]));
         return $this;
     }
 
@@ -188,7 +183,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @return  Mage_Adminhtml_Model_Sales_Order_Create
      */
-    public function recollectCart(){
+    public function recollectCart()
+    {
         if ($this->_needCollectCart === true) {
             $this->getCustomerCart()
                 ->collectTotals()
@@ -256,7 +252,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order
      *
      * @param Mage_Sales_Model_Order $order
-     * @return unknown
+     * @return $this
      */
     public function initFromOrder(Mage_Sales_Model_Order $order)
     {
@@ -280,18 +276,23 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $session->setStoreId($order->getStoreId());
 
         //Notify other modules about the session quote
-        Mage::dispatchEvent('init_from_order_session_quote_initialized',
-                array('session_quote' => $session));
+        Mage::dispatchEvent(
+            'init_from_order_session_quote_initialized',
+            ['session_quote' => $session]
+        );
 
         /**
          * Initialize catalog rule data with new session values
          */
         $this->initRuleData();
-        foreach ($order->getItemsCollection(
+
+        $itemsCollection = $order->getItemsCollection(
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
-            ) as $orderItem) {
-            /* @var $orderItem Mage_Sales_Model_Order_Item */
+        );
+
+        foreach ($itemsCollection as $orderItem) {
+            /** @var Mage_Sales_Model_Order_Item $orderItem */
             if (!$orderItem->getParentItem()) {
                 if ($order->getReordered()) {
                     $qty = $orderItem->getQtyOrdered();
@@ -328,7 +329,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         $quote->getPayment()->addData($order->getPayment()->getData());
 
-
         $orderCouponCode = $order->getCouponCode();
         if ($orderCouponCode) {
             $quote->setCouponCode($orderCouponCode);
@@ -345,10 +345,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $quote
         );
 
-        Mage::dispatchEvent('sales_convert_order_to_quote', array(
+        Mage::dispatchEvent('sales_convert_order_to_quote', [
             'order' => $order,
             'quote' => $quote
-        ));
+        ]);
 
         if (!$order->getCustomerId()) {
             $quote->setCustomerIsGuest(true);
@@ -433,18 +433,18 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
             if ($additionalOptions = $orderItem->getProductOptionByCode('additional_options')) {
                 $item->addOption(new Varien_Object(
-                    array(
+                    [
                         'product' => $item->getProduct(),
                         'code' => 'additional_options',
                         'value' => serialize($additionalOptions)
-                    )
+                    ]
                 ));
             }
 
-            Mage::dispatchEvent('sales_convert_order_item_to_quote_item', array(
+            Mage::dispatchEvent('sales_convert_order_item_to_quote_item', [
                 'order_item' => $orderItem,
                 'quote_item' => $item
-            ));
+            ]);
             return $item;
         }
 
@@ -465,7 +465,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
         if ($this->getSession()->getCustomer()->getId()) {
             $this->_wishlist = Mage::getModel('wishlist/wishlist')->loadByCustomer(
-                $this->getSession()->getCustomer(), true
+                $this->getSession()->getCustomer(),
+                true
             );
             $this->_wishlist->setStore($this->getSession()->getStore())
                 ->setSharedStoreIds($this->getSession()->getStore()->getWebsite()->getStoreIds());
@@ -579,11 +580,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             $info->setQty($qty);
                             $info->setOptions($this->_prepareOptionsForRequest($item));
                         } else {
-                            $info = new Varien_Object(array(
+                            $info = new Varien_Object([
                                 'product_id' => $product->getId(),
                                 'qty' => $qty,
                                 'options' => $this->_prepareOptionsForRequest($item)
-                            ));
+                            ]);
                         }
 
                         $cartItem = $cart->addProduct($product, $info);
@@ -652,7 +653,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if (isset($data['add_order_item'])) {
             foreach ($data['add_order_item'] as $orderItemId => $value) {
-                /* @var $orderItem Mage_Sales_Model_Order_Item */
+                /** @var Mage_Sales_Model_Order_Item $orderItem */
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
                 $item = $this->initFromOrderItem($orderItem);
                 if (is_string($item)) {
@@ -680,7 +681,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         }
         if (isset($data['add'])) {
             foreach ($data['add'] as $productId => $qty) {
-                $this->addProduct($productId, array('qty' => $qty));
+                $this->addProduct($productId, ['qty' => $qty]);
             }
         }
         if (isset($data['remove'])) {
@@ -754,7 +755,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function addProduct($product, $config = 1)
     {
         if (!is_array($config) && !($config instanceof Varien_Object)) {
-            $config = array('qty' => $config);
+            $config = ['qty' => $config];
         }
         $config = new Varien_Object($config);
 
@@ -814,11 +815,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $config['qty'] = isset($config['qty']) ? (float)$config['qty'] : 1;
             try {
                 $this->addProduct($productId, $config);
-            }
-            catch (Mage_Core_Exception $e){
+            } catch (Mage_Core_Exception $e) {
                 $this->getSession()->addError($e->getMessage());
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 return $e;
             }
         }
@@ -898,18 +897,18 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             ->setProduct($item->getProduct())
             ->getProductOptions();
 
-        $newOptions = array();
-        $newAdditionalOptions = array();
+        $newOptions = [];
+        $newAdditionalOptions = [];
 
         foreach (explode("\n", $additionalOptions) as $_additionalOption) {
             if (strlen(trim($_additionalOption))) {
                 try {
-                    if (strpos($_additionalOption, ':') === false) {
+                    if (!str_contains($_additionalOption, ':')) {
                         Mage::throwException(
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.')
                         );
                     }
-                    list($label,$value) = explode(':', $_additionalOption, 2);
+                    list($label, $value) = explode(':', $_additionalOption, 2);
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }
@@ -932,24 +931,24 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                     if ($parsedValue !== null) {
                         $newOptions[$optionId] = $parsedValue;
                     } else {
-                        $newAdditionalOptions[] = array(
+                        $newAdditionalOptions[] = [
                             'label' => $label,
                             'value' => $value
-                        );
+                        ];
                     }
                 } else {
-                    $newAdditionalOptions[] = array(
+                    $newAdditionalOptions[] = [
                         'label' => $label,
                         'value' => $value
-                    );
+                    ];
                 }
             }
         }
 
-        return array(
+        return [
             'options' => $newOptions,
             'additional_options' => $newAdditionalOptions
-        );
+        ];
     }
 
     /**
@@ -963,7 +962,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if ($optionIds = $item->getOptionByCode('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                $item->removeOption('option_'.$optionId);
+                $item->removeOption('option_' . $optionId);
             }
             $item->removeOption('option_ids');
         }
@@ -973,30 +972,30 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $item->save();
         if (!empty($options['options'])) {
             $item->addOption(new Varien_Object(
-                array(
+                [
                     'product' => $item->getProduct(),
                     'code' => 'option_ids',
                     'value' => implode(',', array_keys($options['options']))
-                )
+                ]
             ));
 
             foreach ($options['options'] as $optionId => $optionValue) {
                 $item->addOption(new Varien_Object(
-                    array(
+                    [
                         'product' => $item->getProduct(),
-                        'code' => 'option_'.$optionId,
+                        'code' => 'option_' . $optionId,
                         'value' => $optionValue
-                    )
+                    ]
                 ));
             }
         }
         if (!empty($options['additional_options'])) {
             $item->addOption(new Varien_Object(
-                array(
+                [
                     'product' => $item->getProduct(),
                     'code' => 'additional_options',
                     'value' => serialize($options['additional_options'])
-                )
+                ]
             ));
         }
 
@@ -1011,11 +1010,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     protected function _prepareOptionsForRequest($item)
     {
-        $newInfoOptions = array();
+        $newInfoOptions = [];
         if ($optionIds = $item->getOptionByCode('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
-                $optionValue = $item->getOptionByCode('option_'.$optionId)->getValue();
+                $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
 
                 $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
                     ->setOption($option)
@@ -1030,7 +1029,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _parseCustomPrice($price)
     {
         $price = Mage::app()->getLocale()->getNumber($price);
-        $price = $price>0 ? $price : 0;
+        $price = $price > 0 ? $price : 0;
         return $price;
     }
 
@@ -1092,10 +1091,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         // prepare request
         // save original request structure for files
         if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING) {
-            $requestData  = array('order' => array('shipping_address' => $data));
+            $requestData  = ['order' => ['shipping_address' => $data]];
             $requestScope = 'order/shipping_address';
         } else {
-            $requestData = array('order' => array('billing_address' => $data));
+            $requestData = ['order' => ['billing_address' => $data]];
             $requestScope = 'order/billing_address';
         }
         $request        = $addressForm->prepareRequest($requestData);
@@ -1256,7 +1255,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $data    = $form->extractData($request);
         $form->restoreData($data);
 
-        $data = array();
+        $data = [];
         foreach ($form->getAttributes() as $attribute) {
             $code = sprintf('customer_%s', $attribute->getAttributeCode());
             $data[$code] = $customer->getData($attribute->getAttributeCode());
@@ -1325,7 +1324,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Check whether we need to create new customer (for another website) during order creation
      *
      * @param   Mage_Core_Model_Store $store
-     * @return  boolean
+     * @return bool
      */
     protected function _customerIsInStore($store)
     {
@@ -1348,7 +1347,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $form->setEntity($customer);
 
         // emulate request
-        $request = $form->prepareRequest(array('order' => $this->getData()));
+        $request = $form->prepareRequest(['order' => $this->getData()]);
         $data    = $form->extractData($request, 'order/account');
         if ($this->getIsValidate()) {
             $errors = $form->validateData($data);
@@ -1374,7 +1373,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     public function _prepareCustomer()
     {
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->getQuote();
         if ($quote->getCustomerIsGuest()) {
             return $this;
@@ -1401,7 +1399,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if ($this->getBillingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerBillingAddress */
                 $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1412,7 +1409,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $this->getShippingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1440,7 +1436,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         } else {
             // Prepare new customer
-            /** @var Mage_Customer_Model_Address $customerBillingAddress */
             $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
             $customer->addData($customerBillingAddress->getData())
                 ->setPassword($customer->generatePassword())
@@ -1453,13 +1448,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->addAddress($customerBillingAddress);
             }
 
-            /** @var Mage_Sales_Model_Quote_Address $shippingAddress */
             $shippingAddress = $this->getShippingAddress();
             if (!$this->getQuote()->isVirtual()
                 && !$shippingAddress->getSameAsBilling()
                 && $shippingAddress->getSaveInAddressBook()
             ) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $shippingAddress->exportCustomerAddress();
                 $customerShippingAddress->setIsDefaultShipping(true);
                 $customer->addAddress($customerShippingAddress);
@@ -1499,7 +1492,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _prepareQuoteItems()
     {
         foreach ($this->getQuote()->getAllItems() as $item) {
-            $options = array();
+            $options = [];
             $productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
             if ($productOptions) {
                 $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
@@ -1534,19 +1527,19 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             if (!$originalId) {
                 $originalId = $oldOrder->getIncrementId();
             }
-            $orderData = array(
+            $orderData = [
                 'original_increment_id'     => $originalId,
                 'relation_parent_id'        => $oldOrder->getId(),
                 'relation_parent_real_id'   => $oldOrder->getIncrementId(),
-                'edit_increment'            => $oldOrder->getEditIncrement()+1,
-                'increment_id'              => $originalId.'-'.($oldOrder->getEditIncrement()+1)
-            );
+                'edit_increment'            => $oldOrder->getEditIncrement() + 1,
+                'increment_id'              => $originalId . '-' . ($oldOrder->getEditIncrement() + 1)
+            ];
             $quote->setReservedOrderId($orderData['increment_id']);
             $service->setOrderData($orderData);
 
             $oldOrder->cancel();
 
-            if(!$oldOrder->isCanceled()){
+            if (!$oldOrder->isCanceled()) {
                 Mage::throwException('Could not cancel the old order during order edit.');
             }
         }
@@ -1575,7 +1568,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $order->queueNewOrderEmail();
         }
 
-        Mage::dispatchEvent('checkout_submit_all_after', array('order' => $order, 'quote' => $quote));
+        Mage::dispatchEvent('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
 
         return $order;
     }
@@ -1656,7 +1649,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
             $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
-            $email = $account.'@'. $host;
+            $email = $account . '@' . $host;
             $account = $this->getData('account');
             $account['email'] = $email;
             $this->setData('account', $account);
@@ -1671,7 +1664,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
-            /** @var Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
 
             $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
@@ -1706,7 +1699,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _saveCustomerAfterOrder($order)
     {
         if ($this->_customer) {
-            if (! $this->_customer->getId()) {
+            if (!$this->_customer->getId()) {
                 $billing          = $this->getBillingAddress();
                 $customerBilling  = $billing->exportCustomerAddress();
                 $shipping         = $this->getShippingAddress();
@@ -1714,7 +1707,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                 $this->_customer->addAddress($customerBilling);
 
-                if (! $shipping->getSameAsBilling()) {
+                if (!$shipping->getSameAsBilling()) {
                     $this->_customer->addAddress($customerShipping);
                 }
                 // preliminary save to find addresses id
@@ -1758,13 +1751,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
     /**
      * @deprecated after 1.1.7
-     * @return unknown
+     * @return $this
      */
     protected function _saveCustomer()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
             $customer = Mage::getModel('customer/customer');
-            /* @var $customer Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
 
             $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
 
@@ -1782,7 +1775,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $shippingAddress = $billingAddress;
             }
             $customer->save();
-
 
             $customer->setEmail($this->_getNewCustomerEmail($customer))
                 ->setDefaultBilling($billingAddress->getId())

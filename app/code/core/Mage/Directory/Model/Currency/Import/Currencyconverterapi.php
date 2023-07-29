@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,35 +18,34 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Directory_Model_Currency_Import_Abstract
 {
     /**
      * XML path to Currency Converter timeout setting
      */
-    const XML_PATH_CURRENCY_CONVERTER_TIMEOUT = 'currency/currencyconverterapi/timeout';
+    public const XML_PATH_CURRENCY_CONVERTER_TIMEOUT = 'currency/currencyconverterapi/timeout';
 
     /**
      * XML path to Currency Converter API key setting
      */
-    const XML_PATH_CURRENCY_CONVERTER_API_KEY = 'currency/currencyconverterapi/api_key';
+    public const XML_PATH_CURRENCY_CONVERTER_API_KEY = 'currency/currencyconverterapi/api_key';
 
     /**
      * URL template for currency rates import
      *
      * @var string
      */
-    protected $_url = '';
+    protected $_url = 'https://free.currconv.com/api/v7/convert?apiKey={{API_KEY}}&q={{CURRENCY_FROM}}_{{CURRENCY_TO}}&compact=ultra';
 
     /**
      * Information messages stack
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
-     /**
+    /**
      * HTTP client
      *
      * @var Varien_Http_Client
@@ -64,10 +58,6 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     public function __construct()
     {
         $this->_httpClient = new Varien_Http_Client();
-        if (empty($this->_url)) {
-            $this->_url = 'https://free.currconv.com/api/v7/convert'
-                . '?apiKey={{API_KEY}}&q={{CURRENCY_FROM}}_{{CURRENCY_TO}}&compact=ultra';
-        }
     }
 
     /**
@@ -85,13 +75,13 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     public function fetchRates()
     {
-        $data = array();
+        $data = [];
         $currencies = $this->_getCurrencyCodes();
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
 
         foreach ($defaultCurrencies as $currencyFrom) {
             if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = array();
+                $data[$currencyFrom] = [];
             }
 
             $data = $this->_convertBatch($data, $currencyFrom, $currencies);
@@ -122,8 +112,8 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
         foreach ($currenciesTo as $currencyTo) {
             $currenciesCombined = $currencyFrom . '_' . $currencyTo;
             $url = str_replace(
-                array('{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'),
-                array($apiKey, $currenciesCombined),
+                ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
+                [$apiKey, $currenciesCombined],
                 $this->_url
             );
 
@@ -162,11 +152,11 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     protected function _getServiceResponse($url, $retry = 0)
     {
-        $response = array();
+        $response = [];
         try {
             $jsonResponse = $this->_httpClient
                 ->setUri($url)
-                ->setConfig(array('timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)))
+                ->setConfig(['timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)])
                 ->request('GET')
                 ->getBody();
 

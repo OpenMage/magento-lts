@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getTotalLimit()
  */
@@ -61,7 +55,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCollectionSize()
     {
-        if (null === $this->_collectionSize) {
+        if ($this->_collectionSize === null) {
             $this->_collectionSize = $this->getCollection()->getSize();
             if ($this->getTotalLimit() && $this->_collectionSize > $this->getTotalLimit()) {
                 $this->_collectionSize = $this->getTotalLimit();
@@ -79,7 +73,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCurrentPage()
     {
-        if (null === $this->_currentPage) {
+        if ($this->_currentPage === null) {
             $page = abs((int)$this->getRequest()->getParam($this->getPageVarName()));
             if ($page > $this->getLastPageNum()) {
                 $this->_currentPage = $this->getLastPageNum();
@@ -168,11 +162,11 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     /**
      * Return number of last page
      *
-     * @return bool
+     * @return float|int
      */
     public function getLastPageNum()
     {
-        if (null === $this->_lastPage) {
+        if ($this->_lastPage === null) {
             $this->_lastPage = ceil($this->getCollectionSize() / $this->getLimit());
             if ($this->_lastPage <= 0) {
                 $this->_lastPage = 1;
@@ -208,7 +202,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getPages()
     {
-        $pages = array();
+        $pages = [];
         if ($this->getLastPageNum() <= $this->_displayPages) {
             $pages = range(1, $this->getLastPageNum());
         } else {

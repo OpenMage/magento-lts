@@ -2,31 +2,29 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Indexer strategy
+ *
+ * @category   Mage
+ * @package    Mage_Index
  */
 class Mage_Index_Model_Indexer
 {
     /**
      * Collection of available processes
      *
-     * @var Mage_Index_Model_Resource_Process_Collection
+     * @var Mage_Index_Model_Resource_Process_Collection|null
      */
     protected $_processesCollection;
 
@@ -58,7 +56,7 @@ class Mage_Index_Model_Indexer
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class constructor. Initialize index processes based on configuration
@@ -121,8 +119,8 @@ class Mage_Index_Model_Indexer
      */
     public function getProcessesCollectionByCodes(array $codes)
     {
-        $processes = array();
-        $this->_errors = array();
+        $processes = [];
+        $this->_errors = [];
         foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
@@ -179,7 +177,7 @@ class Mage_Index_Model_Indexer
     }
 
     /**
-     * Check if onject actions are locked
+     * Check if object actions are locked
      *
      * @deprecated after 1.6.1.0
      * @return bool
@@ -207,14 +205,14 @@ class Mage_Index_Model_Indexer
 
         $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
         if ($allowTableChanges) {
-            $this->_currentEvent = array($entity, $type);
+            $this->_currentEvent = [$entity, $type];
             $this->_changeKeyStatus(false);
         }
 
         $resourceModel->beginTransaction();
         $this->_allowTableChanges = false;
         try {
-            $this->_runAll('indexEvents', array($entity, $type));
+            $this->_runAll('indexEvents', [$entity, $type]);
             $resourceModel->commit();
         } catch (Exception $e) {
             $resourceModel->rollBack();
@@ -237,7 +235,7 @@ class Mage_Index_Model_Indexer
      */
     public function indexEvent(Mage_Index_Model_Event $event)
     {
-        $this->_runAll('safeProcessEvent', array($event));
+        $this->_runAll('safeProcessEvent', [$event]);
         return $this;
     }
 
@@ -249,7 +247,7 @@ class Mage_Index_Model_Indexer
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {
-        $this->_runAll('register', array($event));
+        $this->_runAll('register', [$event]);
         return $this;
     }
 
@@ -284,10 +282,10 @@ class Mage_Index_Model_Indexer
      * @param   Varien_Object $entity
      * @param   string $entityType
      * @param   string $eventType
-     * @throws Exception
      * @return  Mage_Index_Model_Indexer
+     * @throws Exception|Throwable
      */
-    public function processEntityAction(Varien_Object $entity, $entityType, $eventType)
+    public function processEntityAction(Varien_Object $entity, $entityType, $eventType): Mage_Index_Model_Indexer
     {
         $event = $this->logEvent($entity, $entityType, $eventType, false);
         /**
@@ -341,7 +339,7 @@ class Mage_Index_Model_Indexer
     protected function _runAll($method, $args)
     {
         $checkLocks = $method != 'register';
-        $processed = array();
+        $processed = [];
         foreach ($this->getProcessesCollection() as $process) {
             $code = $process->getIndexerCode();
             if (in_array($code, $processed)) {
@@ -356,7 +354,7 @@ class Mage_Index_Model_Indexer
                         if ($checkLocks && $dependProcess->isLocked()) {
                             $hasLocks = true;
                         } else {
-                            call_user_func_array(array($dependProcess, $method), $args);
+                            call_user_func_array([$dependProcess, $method], $args);
                             if ($checkLocks && $dependProcess->getMode() == Mage_Index_Model_Process::MODE_MANUAL) {
                                 $hasLocks = true;
                             } else {
@@ -368,7 +366,7 @@ class Mage_Index_Model_Indexer
             }
 
             if (!$hasLocks) {
-                call_user_func_array(array($process, $method), $args);
+                call_user_func_array([$process, $method], $args);
                 $processed[] = $code;
             }
         }
@@ -382,7 +380,7 @@ class Mage_Index_Model_Indexer
      */
     protected function _changeKeyStatus($enable = true)
     {
-        $processed = array();
+        $processed = [];
         foreach ($this->getProcessesCollection() as $process) {
             $code = $process->getIndexerCode();
             if (in_array($code, $processed)) {
@@ -421,10 +419,12 @@ class Mage_Index_Model_Indexer
         if ($process instanceof Mage_Index_Model_Process
             && $process->getMode() !== Mage_Index_Model_Process::MODE_MANUAL
             && !$process->isLocked()
-            && (is_null($event)
+            && (
+                is_null($event)
                 || ($event instanceof Mage_Index_Model_Event && $process->matchEvent($event))
                 || (is_array($event) && $process->matchEntityAndType($event[0], $event[1]))
-        )) {
+            )
+        ) {
             if ($enable) {
                 $process->enableIndexerKeys();
             } else {

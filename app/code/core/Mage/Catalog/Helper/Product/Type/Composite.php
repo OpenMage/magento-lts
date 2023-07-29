@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Catalog';
+
     /**
      * Calculation real price
      *
@@ -78,7 +74,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * Convert price from default currency to current currency
      *
      * @param float $price
-     * @param boolean $round
+     * @param bool $round
      * @param null|int $storeId
      * @return float
      */
@@ -116,7 +112,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      */
     public function prepareJsonGeneralConfig()
     {
-        return array(
+        return [
             'priceFormat'       => Mage::app()->getLocale()->getJsPriceFormat(),
             'includeTax'        => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
             'showIncludeTax'    => Mage::helper('tax')->displayPriceIncludingTax(),
@@ -127,10 +123,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             'plusDispositionTax'  => 0,
             'oldMinusDisposition' => 0,
             'minusDisposition'    => 0,
-        );
+        ];
     }
-
-
 
     /**
      * Prepare product specific params to be used in getJsonConfig()
@@ -179,8 +173,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
             $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
         }
-        $_tierPrices = array();
-        $_tierPricesInclTax = array();
+        $_tierPrices = [];
+        $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
             $_tierPrices[] = Mage::helper('core')->currency(
                 Mage::helper('tax')->getPrice($product, (float)$tierPrice['website_price'], false) - $_priceExclTax,
@@ -194,7 +188,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             );
         }
 
-        return array(
+        return [
             'productId'           => $product->getId(),
             'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
             'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
@@ -206,6 +200,6 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             'tierPrices'          => $_tierPrices,
             'tierPricesInclTax'   => $_tierPricesInclTax,
             'swatchPrices'        => $product->getSwatchPrices(),
-        );
+        ];
     }
 }

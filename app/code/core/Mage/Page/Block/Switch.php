@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Store and language switcher block
  *
  * @category   Mage
- * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Page
  */
 class Mage_Page_Block_Switch extends Mage_Core_Block_Template
 {
@@ -65,7 +59,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
         if (!$this->hasData('raw_groups')) {
             $websiteGroups = Mage::app()->getWebsite()->getGroups();
 
-            $groups = array();
+            $groups = [];
             foreach ($websiteGroups as $group) {
                 $groups[$group->getId()] = $group;
             }
@@ -82,17 +76,16 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     {
         if (!$this->hasData('raw_stores')) {
             $websiteStores = Mage::app()->getWebsite()->getStores();
-            $stores = array();
+            $stores = [];
             foreach ($websiteStores as $store) {
-                /* @var Mage_Core_Model_Store $store */
                 if (!$store->getIsActive()) {
                     continue;
                 }
                 $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
 
-                $params = array(
-                    '_query' => array()
-                );
+                $params = [
+                    '_query' => []
+                ];
                 if (!$this->isStoreInUrl()) {
                     $params['_query']['___store'] = $store->getCode();
                 }
@@ -117,10 +110,9 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $rawGroups = $this->getRawGroups();
             $rawStores = $this->getRawStores();
 
-            $groups = array();
+            $groups = [];
             $localeCode = Mage::getStoreConfig('general/locale/code');
             foreach ($rawGroups as $group) {
-                /* @var Mage_Core_Model_Store_Group $group */
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }
@@ -151,7 +143,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
 
             $groupId = $this->getCurrentGroupId();
             if (!isset($rawStores[$groupId])) {
-                $stores = array();
+                $stores = [];
             } else {
                 $stores = $rawStores[$groupId];
             }

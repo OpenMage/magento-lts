@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
 {
@@ -42,7 +36,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('period', array(
+        $this->addColumn('period', [
             'header'        => Mage::helper('sales')->__('Period'),
             'index'         => 'period',
             'width'         => 100,
@@ -50,38 +44,37 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
             'period_type'   => $this->getPeriodType(),
             'renderer'      => 'adminhtml/report_sales_grid_column_renderer_date',
             'totals_label'  => Mage::helper('adminhtml')->__('Total'),
-            'html_decorators' => array('nobr'),
-        ));
+            'html_decorators' => ['nobr'],
+        ]);
 
-        $this->addColumn('product_name', array(
+        $this->addColumn('product_name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'index'     => 'product_name',
             'type'      => 'string',
             'sortable'  => false
-        ));
+        ]);
 
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
         $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('product_price', array(
+        $this->addColumn('product_price', [
             'header'        => Mage::helper('sales')->__('Price'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
             'index'         => 'product_price',
             'sortable'      => false,
             'rate'          => $this->getRate($currencyCode),
-        ));
+        ]);
 
-        $this->addColumn('qty_ordered', array(
+        $this->addColumn('qty_ordered', [
             'header'    => Mage::helper('sales')->__('Quantity Ordered'),
             'index'     => 'qty_ordered',
             'type'      => 'number',
             'total'     => 'sum',
             'sortable'  => false
-        ));
-
+        ]);
 
         $this->addExportType('*/*/exportBestsellersCsv', Mage::helper('adminhtml')->__('CSV'));
         $this->addExportType('*/*/exportBestsellersExcel', Mage::helper('adminhtml')->__('Excel XML'));

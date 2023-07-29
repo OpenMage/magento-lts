@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /** @var $upsModel Mage_Usa_Model_Shipping_Carrier_Ups */
@@ -114,6 +109,7 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
 
             this.setFormValues();
             Event.observe($(this.carriersUpsTypeId), 'change', this.setFormValues.bind(this));
+            Event.observe($('carriers_ups_active'), 'change', this.setFormValues.bind(this));
         },
         updateAllowedMethods: function(originShipmentTitle)
         {
@@ -164,23 +160,15 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
         setFormValues: function()
         {
             var a;
-            if ($F(this.carriersUpsTypeId) == 'UPS') {
-                for (a = 0; a < this.checkingUpsXmlId.length; a++) {
-                    $(this.checkingUpsXmlId[a]).removeClassName('required-entry');
-                }
-                for (a = 0; a < this.checkingUpsId.length; a++) {
-                    $(this.checkingUpsXmlId[a]).addClassName('required-entry');
-                }
-                Event.stopObserving($('carriers_ups_origin_shipment'), 'change', this.changeOriginShipment.bind(this));
-                showRowArrayElements(this.onlyUpsElements);
-                hideRowArrayElements(this.onlyUpsXmlElements);
-                this.changeOriginShipment(null, 'default');
-            } else {
-                for (a = 0; a < this.checkingUpsXmlId.length; a++) {
-                    $(this.checkingUpsXmlId[a]).addClassName('required-entry');
-                }
-                for (a = 0; a < this.checkingUpsId.length; a++) {
-                    $(this.checkingUpsXmlId[a]).removeClassName('required-entry');
+            if ($F(this.carriersUpsTypeId) == 'UPS_XML') {
+                if (document.getElementById('carriers_ups_active').value == 1) {
+                    for (a = 0; a < this.checkingUpsXmlId.length; a++) {
+                        $(this.checkingUpsXmlId[a]).addClassName('required-entry');
+                    }
+                } else {
+                    for (a = 0; a < this.checkingUpsXmlId.length; a++) {
+                        $(this.checkingUpsXmlId[a]).removeClassName('required-entry');
+                    }
                 }
                 Event.observe($('carriers_ups_origin_shipment'), 'change', this.changeOriginShipment.bind(this));
                 showRowArrayElements(this.onlyUpsXmlElements);

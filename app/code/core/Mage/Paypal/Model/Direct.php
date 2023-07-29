@@ -2,27 +2,23 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  *
  * PayPal Direct Module
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 {
@@ -60,7 +56,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      */
     protected $_proType = 'paypal/pro';
 
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $proInstance = array_shift($params);
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
@@ -81,7 +77,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if (null === $store) {
+        if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
@@ -121,9 +117,9 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         $country = $this->_pro->getConfig()->getMerchantCountry();
 
         if ($country == 'GB') {
-            $ccTypes = array_intersect(array('SM', 'SO', 'MC', 'DI', 'VI'), $ccTypes);
+            $ccTypes = array_intersect(['SM', 'SO', 'MC', 'DI', 'VI'], $ccTypes);
         } elseif ($country == 'CA') {
-            $ccTypes = array_intersect(array('MC', 'VI'), $ccTypes);
+            $ccTypes = array_intersect(['MC', 'VI'], $ccTypes);
         }
         return implode(',', $ccTypes);
     }
@@ -151,8 +147,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function getConfigData($field, $storeId = null)
     {
         $value = null;
-        switch ($field)
-        {
+        switch ($field) {
             case 'cctypes':
                 $value = $this->getAllowedCcTypes();
                 break;
@@ -193,7 +188,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      */
     public function capture(Varien_Object $payment, $amount)
     {
-        if (false === $this->_pro->capture($payment, $amount)) {
+        if ($this->_pro->capture($payment, $amount) === false) {
             $this->_placeOrder($payment, $amount);
         }
         return $this;
@@ -302,7 +297,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setCurrencyCode($order->getBaseCurrencyCode())
             ->setInvNum($order->getIncrementId())
             ->setEmail($order->getCustomerEmail())
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/', array('_store' => $order->getStore()->getStoreId())))
+            ->setNotifyUrl(Mage::getUrl('paypal/ipn/', ['_store' => $order->getStore()->getStoreId()]))
             ->setCreditCardType($payment->getCcType())
             ->setCreditCardNumber($payment->getCcNumber())
             ->setCreditCardExpirationDate(
@@ -330,7 +325,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         }
 
         // add line items
-        $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+        $api->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled)
         ;
 

@@ -2,29 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales observer
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Observer
 {
@@ -33,28 +26,31 @@ class Mage_Sales_Model_Observer
      *
      * @var array
      */
-    protected $_expireQuotesFilterFields = array();
+    protected $_expireQuotesFilterFields = [];
 
     /**
      * Clean expired quotes (cron process)
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes($schedule)
     {
-        Mage::dispatchEvent('clear_expired_quotes_before', array('sales_observer' => $this));
-
+        Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
-        foreach ($lifetimes as $storeId => $lifetime) {
-            $lifetime *= 86400;
 
-            /** @var Mage_Sales_Model_Mysql4_Quote_Collection $quotes */
-            $quotes = Mage::getModel('sales/quote')->getCollection();
+        foreach ($lifetimes as $storeId => $day) {
+            $day = (int) $day;
+            $lifetime = 86400 * $day;
 
+            /** @var Mage_Sales_Model_Resource_Quote_Collection $quotes */
+            $quotes = Mage::getResourceModel('sales/quote_collection');
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', array('to'=>date("Y-m-d", time()-$lifetime)));
-            $quotes->addFieldToFilter('is_active', 0);
+            $quotes->addFieldToFilter('updated_at', ['to' => date('Y-m-d', time() - $lifetime)]);
+            if ($day == 0) {
+                $quotes->addFieldToFilter('is_active', 0);
+            }
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {
                 $quotes->addFieldToFilter($field, $condition);
@@ -62,6 +58,7 @@ class Mage_Sales_Model_Observer
 
             $quotes->walk('delete');
         }
+
         return $this;
     }
 
@@ -120,7 +117,7 @@ class Mage_Sales_Model_Observer
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
                 ->getChildrenIds($product->getId(), false);
 
-            $productIdList = array($product->getId());
+            $productIdList = [$product->getId()];
             foreach ($childrenProductList as $groupData) {
                 $productIdList = array_merge($productIdList, $groupData);
             }
@@ -190,6 +187,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportShipmentData($schedule)
     {
@@ -206,6 +204,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportInvoicedData($schedule)
     {
@@ -222,6 +221,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportRefundedData($schedule)
     {
@@ -238,6 +238,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportBestsellersData($schedule)
     {
@@ -266,13 +267,16 @@ class Mage_Sales_Model_Observer
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock(
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
             'adminhtml_recurring_profile_edit_form_dependence'
-        )->addFieldMap('is_recurring', 'product[is_recurring]')
+        );
+        $dependencies = $block
+            ->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
-            ->addConfigOptions(array('levels_up' => 2));
+            ->addConfigOptions(['levels_up' => 2]);
         $observer->getEvent()->getResult()->output .= $dependencies->toHtml();
     }
 
@@ -309,7 +313,7 @@ class Mage_Sales_Model_Observer
              * if customer accounts are shared between all of them
              */
             $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope())
-                ? array(Mage::app()->getWebsite($customer->getWebsiteId()))
+                ? [Mage::app()->getWebsite($customer->getWebsiteId())]
                 : Mage::app()->getWebsites();
 
             /** @var Mage_Sales_Model_Quote $quote */
@@ -435,7 +439,6 @@ class Mage_Sales_Model_Observer
         $quoteAddress = $observer->getQuoteAddress();
         /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
-        /** @var Mage_Customer_Model_Customer $customerInstance */
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
 
@@ -497,12 +500,12 @@ class Mage_Sales_Model_Observer
                 ->save();
         } else {
             // Restore validation results from corresponding quote address
-            $gatewayResponse = new Varien_Object(array(
+            $gatewayResponse = new Varien_Object([
                 'is_valid' => (int)$quoteAddress->getVatIsValid(),
                 'request_identifier' => (string)$quoteAddress->getVatRequestId(),
                 'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (boolean)$quoteAddress->getVatRequestSuccess()
-            ));
+                'request_success' => (bool)$quoteAddress->getVatRequestSuccess()
+            ]);
         }
 
         // Magento always has to emulate group even if customer uses default billing/shipping address

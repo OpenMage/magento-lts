@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth authorize controller
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
  */
 class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 {
@@ -77,7 +71,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
         /** @var Mage_Core_Helper_Url $helper */
         $helper = Mage::helper('core/url');
-        $session->setAfterAuthUrl(Mage::getUrl('customer/account/login', array('_nosid' => true)))
+        $session->setAfterAuthUrl(Mage::getUrl('customer/account/login', ['_nosid' => true]))
                 ->setBeforeAuthUrl($helper->getCurrentUrl());
 
         $block->setIsSimple($simple)
@@ -116,7 +110,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Oauth_Model_Server $server */
             $server = Mage::getModel('oauth/server');
 
-            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->authorizeToken($session->getCustomerId(), Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER);
 
             if (($callback = $helper->getFullCallbackUrl($token))) { //false in case of OOB
@@ -160,7 +153,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             $block = $this->getLayout()->getBlock('oauth.authorize.reject');
             $block->setIsSimple($simple);
 
-            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->checkAuthorizeRequest();
             /** @var Mage_Oauth_Helper_Data $helper */
             $helper = Mage::helper('oauth');

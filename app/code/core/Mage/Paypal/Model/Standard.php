@@ -2,27 +2,23 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  *
  * PayPal Standard Checkout Module
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
@@ -50,11 +46,11 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         return $this->getConfig()->isCurrencyCodeSupported($currencyCode);
     }
 
-     /**
-     * Get paypal session namespace
-     *
-     * @return Mage_Paypal_Model_Session
-     */
+    /**
+    * Get paypal session namespace
+    *
+    * @return Mage_Paypal_Model_Session
+    */
     public function getSession()
     {
         return Mage::getSingleton('paypal/session');
@@ -86,12 +82,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function createFormBlock($name)
     {
-        $block = $this->getLayout()->createBlock('paypal/standard_form', $name)
+        return $this->getLayout()->createBlock('paypal/standard_form', $name)
             ->setMethod('paypal_standard')
             ->setPayment($this->getPayment())
             ->setTemplate('paypal/standard/form.phtml');
-
-        return $block;
     }
 
     /**
@@ -101,7 +95,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getOrderPlaceRedirectUrl()
     {
-          return Mage::getUrl('paypal/standard/redirect', array('_secure' => true));
+        return Mage::getUrl('paypal/standard/redirect', ['_secure' => true]);
     }
 
     /**
@@ -113,7 +107,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         $orderIncrementId = $this->getCheckout()->getLastRealOrderId();
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-        /* @var $api Mage_Paypal_Model_Api_Standard */
+        /** @var Mage_Paypal_Model_Api_Standard $api */
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
         $api->setOrderId($orderIncrementId)
             ->setCurrencyCode($order->getBaseCurrencyCode())
@@ -133,13 +127,12 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         }
 
         // add cart totals and line items
-        $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+        $api->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
         ;
         $api->setCartSummary($this->_getAggregatedCartSummary());
         $api->setLocale($api->getLocaleCode());
-        $result = $api->getStandardCheckoutRequest();
-        return $result;
+        return $api->getStandardCheckoutRequest();
     }
 
     /**
@@ -153,6 +146,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         $stateObject->setState($state);
         $stateObject->setStatus('pending_payment');
         $stateObject->setIsNotified(false);
+
+        return $this;
     }
 
     /**
@@ -161,8 +156,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getConfig()
     {
-        if (null === $this->_config) {
-            $params = array($this->_code);
+        if ($this->_config === null) {
+            $params = [$this->_code];
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
             }

@@ -2,28 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Top menu block
  *
- * @category    Mage
- * @package     Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Page
  */
 class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
 {
@@ -46,11 +40,11 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function _construct()
     {
-        $this->_menu = new Varien_Data_Tree_Node(array(), 'root', new Varien_Data_Tree());
+        $this->_menu = new Varien_Data_Tree_Node([], 'root', new Varien_Data_Tree());
         /*
         * setting cache to save the topmenu block
         */
-        $this->setCacheTags(array(Mage_Catalog_Model_Category::CACHE_TAG));
+        $this->setCacheTags([Mage_Catalog_Model_Category::CACHE_TAG]);
         $this->setCacheLifetime(false);
     }
 
@@ -63,10 +57,10 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getHtml($outermostClass = '', $childrenWrapClass = '')
     {
-        Mage::dispatchEvent('page_block_html_topmenu_gethtml_before', array(
+        Mage::dispatchEvent('page_block_html_topmenu_gethtml_before', [
             'menu' => $this->_menu,
             'block' => $this
-        ));
+        ]);
 
         $this->_menu->setOutermostClass($outermostClass);
         $this->_menu->setChildrenWrapClass($childrenWrapClass);
@@ -78,10 +72,10 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             $html = $this->_getHtml($this->_menu, $childrenWrapClass);
         }
 
-        Mage::dispatchEvent('page_block_html_topmenu_gethtml_after', array(
+        Mage::dispatchEvent('page_block_html_topmenu_gethtml_after', [
             'menu' => $this->_menu,
             'html' => $html
-        ));
+        ]);
 
         return $html;
     }
@@ -173,11 +167,9 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
     {
         $menuItemClasses = $this->_getMenuItemClasses($item);
-        $attributes = array(
+        return [
             'class' => implode(' ', $menuItemClasses)
-        );
-
-        return $attributes;
+        ];
     }
 
     /**
@@ -188,7 +180,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     protected function _getMenuItemClasses(Varien_Data_Tree_Node $item)
     {
-        $classes = array();
+        $classes = [];
 
         $classes[] = 'level' . $item->getLevel();
         $classes[] = $item->getPositionClass();
@@ -223,7 +215,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $shortCacheId = array(
+        $shortCacheId = [
             'TOPMENU',
             Mage::app()->getStore()->getId(),
             Mage::getDesign()->getPackageName(),
@@ -232,7 +224,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             'template' => $this->getTemplate(),
             'name' => $this->getNameInLayout(),
             $this->getCurrentEntityKey()
-        );
+        ];
         $cacheId = $shortCacheId;
 
         $shortCacheId = array_values($shortCacheId);
@@ -252,7 +244,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getCurrentEntityKey()
     {
-        if (null === $this->_currentEntityKey) {
+        if ($this->_currentEntityKey === null) {
             $this->_currentEntityKey = Mage::registry('current_entity_key')
                 ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
         }

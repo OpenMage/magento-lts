@@ -2,28 +2,29 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Autocomplete queries list
+ *
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 {
-    protected $_suggestData = null;
+    /**
+     * @var array
+     */
+    protected $_suggestData;
 
     /**
      * @return string
@@ -64,7 +65,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             $html .= $this->escapeHtml($item['title']) . '</li>';
         }
 
-        $html.= '</ul>';
+        $html .= '</ul>';
 
         return $html;
     }
@@ -75,16 +76,18 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
     public function getSuggestData()
     {
         if (!$this->_suggestData) {
-            $collection = $this->helper('catalogsearch')->getSuggestCollection();
-            $query = $this->helper('catalogsearch')->getQueryText();
+            /** @var Mage_CatalogSearch_Helper_Data $helper */
+            $helper = $this->helper('catalogsearch');
+            $collection = $helper->getSuggestCollection();
+            $query = $helper->getQueryText();
             $counter = 0;
-            $data = array();
+            $data = [];
             foreach ($collection as $item) {
-                $_data = array(
+                $_data = [
                     'title' => $item->getQueryText(),
-                    'row_class' => (++$counter)%2?'odd':'even',
+                    'row_class' => (++$counter) % 2 ? 'odd' : 'even',
                     'num_of_results' => $item->getNumResults()
-                );
+                ];
 
                 if ($item->getQueryText() == $query) {
                     array_unshift($data, $_data);
@@ -96,7 +99,4 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
         }
         return $this->_suggestData;
     }
-/*
- *
-*/
 }

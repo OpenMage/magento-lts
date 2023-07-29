@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Config
 {
@@ -39,10 +33,10 @@ class Mage_Payment_Model_Config
      */
     public function getActiveMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
                 if (array_key_exists('model', $methodConfig)) {
                     $methodModel = Mage::getModel($methodConfig['model']);
                     if ($methodModel && $methodModel->getConfigData('active', $store)) {
@@ -62,11 +56,11 @@ class Mage_Payment_Model_Config
      */
     public function getAllMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             $data = $this->_getMethod($code, $methodConfig);
-            if (false !== $data) {
+            if ($data !== false) {
                 $methods[$code] = $data;
             }
         }
@@ -76,7 +70,7 @@ class Mage_Payment_Model_Config
     /**
      * @param string $code
      * @param array $config
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)
@@ -88,13 +82,10 @@ class Mage_Payment_Model_Config
             return false;
         }
         $modelName = $config['model'];
-
-        $className = Mage::getConfig()->getModelClassName($modelName);
-        if (!mageFindClassFile($className)) {
+        $method = Mage::getModel($modelName);
+        if (!$method) {
             return false;
         }
-
-        $method = Mage::getModel($modelName);
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
@@ -109,9 +100,9 @@ class Mage_Payment_Model_Config
     {
         $_types = Mage::getConfig()->getNode('global/payment/cc/types')->asArray();
 
-        uasort($_types, array('Mage_Payment_Model_Config', 'compareCcTypes'));
+        uasort($_types, ['Mage_Payment_Model_Config', 'compareCcTypes']);
 
-        $types = array();
+        $types = [];
         foreach ($_types as $data) {
             if (isset($data['code']) && isset($data['name'])) {
                 $types[$data['code']] = $data['name'];
@@ -129,7 +120,7 @@ class Mage_Payment_Model_Config
     {
         $data = Mage::app()->getLocale()->getTranslationList('month');
         foreach ($data as $key => $value) {
-            $monthNum = ($key < 10) ? '0'.$key : $key;
+            $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
         return $data;
@@ -142,10 +133,10 @@ class Mage_Payment_Model_Config
      */
     public function getYears()
     {
-        $years = array();
+        $years = [];
         $first = date("Y");
 
-        for ($index=0; $index <= 10; $index++) {
+        for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;
             $years[$year] = $year;
         }

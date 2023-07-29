@@ -2,20 +2,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,19 +18,18 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_List extends Mage_Core_Block_Template
 {
-    const XML_PATH_RSS_METHODS = 'rss';
+    public const XML_PATH_RSS_METHODS = 'rss';
 
-    protected $_rssFeeds = array();
-
+    protected $_rssFeeds = [];
 
     /**
      * Add Link elements to head
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
@@ -44,7 +38,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $feeds  = $this->getRssMiscFeeds();
         if ($head && !empty($feeds)) {
             foreach ($feeds as $feed) {
-                $head->addItem('rss', $feed['url'], 'title="'.$feed['label'].'"');
+                $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
             }
         }
         return parent::_prepareLayout();
@@ -70,25 +64,25 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function addRssFeed($url, $label, $param = array(), $customerGroup=false)
+    public function addRssFeed($url, $label, $param = [], $customerGroup = false)
     {
-        $param = array_merge($param, array('store_id' => $this->getCurrentStoreId()));
+        $param = array_merge($param, ['store_id' => $this->getCurrentStoreId()]);
         if ($customerGroup) {
-            $param = array_merge($param, array('cid' => $this->getCurrentCustomerGroupId()));
+            $param = array_merge($param, ['cid' => $this->getCurrentCustomerGroupId()]);
         }
 
         $this->_rssFeeds[] = new Varien_Object(
-            array(
+            [
                 'url'   => Mage::getUrl($url, $param),
                 'label' => $label
-            )
+            ]
         );
         return $this;
     }
 
     public function resetRssFeed()
     {
-        $this->_rssFeeds=array();
+        $this->_rssFeeds = [];
     }
 
     /**
@@ -118,84 +112,71 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function getRssCatalogFeeds()
     {
         $this->resetRssFeed();
-        $this->CategoriesRssFeed();
+        $this->categoriesRssFeed();
         return $this->getRssFeeds();
-
-/*      $section = Mage::getSingleton('adminhtml/config')->getSections();
-        $catalogFeeds = $section->rss->groups->catalog->fields[0];
-        $res = array();
-        foreach($catalogFeeds as $code => $feed){
-            $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
-            if (!Mage::getStoreConfig($prefix) || $code=='tag') {
-                continue;
-            }
-            $res[$code] = $feed;
-        }
-        return $res;
-*/
     }
 
     /**
      * @return array|false
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRssMiscFeeds()
     {
         $this->resetRssFeed();
-        $this->NewProductRssFeed();
-        $this->SpecialProductRssFeed();
-        $this->SalesRuleProductRssFeed();
+        $this->newProductRssFeed();
+        $this->specialProductRssFeed();
+        $this->salesRuleProductRssFeed();
         return $this->getRssFeeds();
     }
 
-    /*
-    public function getCatalogRssUrl($code)
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function newProductRssFeed()
     {
-        $store_id = Mage::app()->getStore()->getId();
-        $param = array('store_id' => $store_id);
-        $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        if ($custGroup) {
-            $param = array_merge($param, array('cid' => $custGroup));
-        }
-
-        return Mage::getUrl('rss/catalog/'.$code, $param);
-    }
-    */
-
-    public function NewProductRssFeed()
-    {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/new';
-        if((bool)Mage::getStoreConfig($path)){
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/new';
+        if (Mage::getStoreConfigFlag($path)) {
             $this->addRssFeed($path, $this->__('New Products'));
         }
     }
 
-    public function SpecialProductRssFeed()
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function specialProductRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special Products'),array(),true);
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/special';
+        if (Mage::getStoreConfigFlag($path)) {
+            $this->addRssFeed($path, $this->__('Special Products'), [], true);
         }
     }
 
-    public function SalesRuleProductRssFeed()
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function salesRuleProductRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
-        if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Coupons/Discounts'),array(),true);
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/salesrule';
+        if (Mage::getStoreConfigFlag($path)) {
+            $this->addRssFeed($path, $this->__('Coupons/Discounts'), [], true);
         }
     }
 
-    public function CategoriesRssFeed()
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function categoriesRssFeed()
     {
-        $path = self::XML_PATH_RSS_METHODS.'/catalog/category';
-        if((bool)Mage::getStoreConfig($path)){
+        $path = self::XML_PATH_RSS_METHODS . '/catalog/category';
+        if (Mage::getStoreConfigFlag($path)) {
             $category = Mage::getModel('catalog/category');
 
-            /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
+            /** @var Varien_Data_Tree_Node $treeModel */
             $treeModel = $category->getTreeModel()->loadNode(Mage::app()->getStore()->getRootCategoryId());
             $nodes = $treeModel->loadChildren()->getChildren();
 
-            $nodeIds = array();
+            $nodeIds = [];
             foreach ($nodes as $node) {
                 $nodeIds[] = $node->getId();
             }
@@ -204,13 +185,13 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 ->addAttributeToSelect('url_key')
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_anchor')
-                ->addAttributeToFilter('is_active',1)
+                ->addAttributeToFilter('is_active', 1)
                 ->addIdFilter($nodeIds)
                 ->addAttributeToSort('name')
                 ->load();
 
             foreach ($collection as $category) {
-                $this->addRssFeed('rss/catalog/category', $category->getName(),array('cid'=>$category->getId()));
+                $this->addRssFeed('rss/catalog/category', $category->getName(), ['cid' => $category->getId()]);
             }
         }
     }

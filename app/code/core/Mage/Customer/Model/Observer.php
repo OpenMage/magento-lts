@@ -2,38 +2,34 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer module observer
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
  */
 class Mage_Customer_Model_Observer
 {
     /**
      * VAT ID validation processed flag code
      */
-    const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
+    public const VIV_PROCESSED_FLAG = 'viv_after_address_save_processed';
 
     /**
      * VAT ID validation currently saved address flag
      */
-    const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
+    public const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
 
     /**
      * Check whether specified billing address is default for its customer
@@ -150,7 +146,8 @@ class Mage_Customer_Model_Observer
             $customerHelper = Mage::helper('customer');
 
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
+                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())
+            ) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -225,7 +222,7 @@ class Mage_Customer_Model_Observer
     {
         $resource   = Mage::getSingleton('core/resource');
         $connection = $resource->getConnection('write');
-        $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
+        $condition  = ['requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day')];
         $connection->delete($resource->getTableName('customer_flowpassword'), $condition);
     }
 

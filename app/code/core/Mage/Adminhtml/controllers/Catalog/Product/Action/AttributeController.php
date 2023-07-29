@@ -2,29 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml catalog product action attribute update controller
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adminhtml_Controller_Action
 {
@@ -32,7 +25,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/update_attributes';
+    public const ADMIN_RESOURCE = 'catalog/update_attributes';
 
     protected function _construct()
     {
@@ -60,10 +53,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         }
 
         /* Collect Data */
-        $inventoryData      = $this->getRequest()->getParam('inventory', array());
-        $attributesData     = $this->getRequest()->getParam('attributes', array());
-        $websiteRemoveData  = $this->getRequest()->getParam('remove_website_ids', array());
-        $websiteAddData     = $this->getRequest()->getParam('add_website_ids', array());
+        $inventoryData      = $this->getRequest()->getParam('inventory', []);
+        $attributesData     = $this->getRequest()->getParam('attributes', []);
+        $websiteRemoveData  = $this->getRequest()->getParam('remove_website_ids', []);
+        $websiteAddData     = $this->getRequest()->getParam('add_website_ids', []);
         $attributeName      = '';
 
         /* Prepare inventory data item options (use config settings) */
@@ -91,12 +84,12 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     $attribute->getBackend()->validate($data);
                     if ($attribute->getBackendType() == 'datetime') {
                         if (!empty($value)) {
-                            $filterInput    = new Zend_Filter_LocalizedToNormalized(array(
+                            $filterInput    = new Zend_Filter_LocalizedToNormalized([
                                 'date_format' => $dateFormat
-                            ));
-                            $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
+                            ]);
+                            $filterInternal = new Zend_Filter_NormalizedToLocalized([
                                 'date_format' => Varien_Date::DATE_INTERNAL_FORMAT
-                            ));
+                            ]);
                             $value = $filterInternal->filter($filterInput->filter($value));
                         } else {
                             $value = null;
@@ -124,10 +117,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
                 $stockItem->setProcessIndexEvents(false);
                 $stockItemSaved = false;
-                $changedProductIds = array();
+                $changedProductIds = [];
 
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
-                    $stockItem->setData(array());
+                    $stockItem->setData([]);
                     $stockItem->loadByProduct($productId)
                         ->setProductId($productId);
 
@@ -151,14 +144,14 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         Mage_Index_Model_Event::TYPE_SAVE
                     );
 
-                    Mage::dispatchEvent('catalog_product_stock_item_mass_change', array(
+                    Mage::dispatchEvent('catalog_product_stock_item_mass_change', [
                         'products' => $changedProductIds,
-                    ));
+                    ]);
                 }
             }
 
             if ($websiteAddData || $websiteRemoveData) {
-                /* @var $actionModel Mage_Catalog_Model_Product_Action */
+                /** @var Mage_Catalog_Model_Product_Action $actionModel */
                 $actionModel = Mage::getSingleton('catalog/product_action');
                 $productIds  = $this->_getHelper()->getProductIds();
 
@@ -169,9 +162,9 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     $actionModel->updateWebsites($productIds, $websiteAddData, 'add');
                 }
 
-                Mage::dispatchEvent('catalog_product_to_website_change', array(
+                Mage::dispatchEvent('catalog_product_to_website_change', [
                     'products' => $productIds
-                ));
+                ]);
 
                 $notice = Mage::getConfig()->getNode('adminhtml/messages/website_chnaged_indexers/label');
                 if ($notice) {
@@ -182,25 +175,22 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
             );
-        }
-        catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_getSession()->addError($attributeName . ': ' . $e->getMessage());
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred while updating the product(s) attributes.'));
         }
 
-        $this->_redirect('*/catalog_product/', array('store'=>$this->_getHelper()->getSelectedStoreId()));
+        $this->_redirect('*/catalog_product/', ['store' => $this->_getHelper()->getSelectedStoreId()]);
     }
 
     /**
      * Validate selection of products for massupdate
      *
-     * @return boolean
+     * @return bool
      */
     protected function _validateProducts()
     {
@@ -208,13 +198,13 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $productIds = $this->_getHelper()->getProductIds();
         if (!is_array($productIds)) {
             $error = $this->__('Please select products for attributes update');
-        } else if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
+        } elseif (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
             $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
         }
 
         if ($error) {
             $this->_getSession()->addError($error);
-            $this->_redirect('*/catalog_product/', array('_current'=>true));
+            $this->_redirect('*/catalog_product/', ['_current' => true]);
         }
 
         return !$error;
@@ -238,7 +228,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     {
         $response = new Varien_Object();
         $response->setError(false);
-        $attributesData = $this->getRequest()->getParam('attributes', array());
+        $attributesData = $this->getRequest()->getParam('attributes', []);
         $data = new Varien_Object();
 
         try {
