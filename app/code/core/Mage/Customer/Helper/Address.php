@@ -1,49 +1,41 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
  */
 class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 {
     /**
      * VAT Validation parameters XML paths
      */
-    const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT = 'customer/create_account/viv_disable_auto_group_assign_default';
-    const XML_PATH_VIV_ON_EACH_TRANSACTION         = 'customer/create_account/viv_on_each_transaction';
-    const XML_PATH_VAT_VALIDATION_ENABLED          = 'customer/create_account/auto_group_assign';
-    const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
-    const XML_PATH_VAT_FRONTEND_VISIBILITY = 'customer/create_account/vat_frontend_visibility';
+    public const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT  = 'customer/create_account/viv_disable_auto_group_assign_default';
+    public const XML_PATH_VIV_ON_EACH_TRANSACTION          = 'customer/create_account/viv_on_each_transaction';
+    public const XML_PATH_VAT_VALIDATION_ENABLED           = 'customer/create_account/auto_group_assign';
+    public const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
+    public const XML_PATH_VAT_FRONTEND_VISIBILITY          = 'customer/create_account/vat_frontend_visibility';
+
+    protected $_moduleName = 'Mage_Customer';
 
     /**
      * Array of Customer Address Attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 
@@ -52,15 +44,15 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_config          = array();
+    protected $_config          = [];
 
     /**
      * Customer Number of Lines in a Street Address per website
      *
      * @var array
      */
-    protected $_streetLines     = array();
-    protected $_formatTemplate  = array();
+    protected $_streetLines     = [];
+    protected $_formatTemplate  = [];
 
     /**
      * Addresses url
@@ -162,8 +154,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            $this->_attributes = array();
-            /* @var Mage_Eav_Model_Config $config */
+            $this->_attributes = [];
+            /** @var Mage_Eav_Model_Config $config */
             $config = Mage::getSingleton('eav/config');
             foreach ($config->getEntityAttributeCodes('customer_address') as $attributeCode) {
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);
@@ -181,11 +173,10 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributeValidationClass($attributeCode)
     {
         /** @var Mage_Customer_Model_Attribute $attribute */
-        $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode]
-            : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
+        $attribute = $this->_attributes[$attributeCode] ?? Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
         $class = $attribute ? $attribute->getFrontend()->getClass() : '';
 
-        if (in_array($attributeCode, array('firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'))) {
+        if (in_array($attributeCode, ['firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'])) {
             if ($class && !$attribute->getIsVisible()) {
                 $class = ''; // address attribute is not visible thus its validation rules are not applied
             }
@@ -217,9 +208,9 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function convertStreetLines($origStreets, $toCount)
     {
-        $lines = array();
+        $lines = [];
         if (!empty($origStreets) && $toCount > 0) {
-            $countArgs = (int)floor(count($origStreets)/$toCount);
+            $countArgs = (int)floor(count($origStreets) / $toCount);
             $modulo = count($origStreets) % $toCount;
             $offset = 0;
             $neededLinesCount = 0;
@@ -231,9 +222,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                     --$modulo;
                 }
                 $values = array_slice($origStreets, $offset, $neededLinesCount);
-                if (is_array($values)) {
-                    $lines[] = implode(' ', $values);
-                }
+                $lines[] = implode(' ', $values);
             }
         }
 
@@ -248,7 +237,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function isVatValidationEnabled($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VAT_VALIDATION_ENABLED, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_VAT_VALIDATION_ENABLED, $store);
     }
 
     /**
@@ -258,7 +247,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getDisableAutoGroupAssignDefaultValue()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT);
+        return Mage::getStoreConfigFlag(self::XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT);
     }
 
     /**
@@ -269,7 +258,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getValidateOnEachTransaction($store = null)
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VIV_ON_EACH_TRANSACTION, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_VIV_ON_EACH_TRANSACTION, $store);
     }
 
     /**
@@ -286,10 +275,10 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check if VAT ID address attribute has to be shown on frontend (on Customer Address management forms)
      *
-     * @return boolean
+     * @return bool
      */
     public function isVatAttributeVisible()
     {
-        return (bool)Mage::getStoreConfig(self::XML_PATH_VAT_FRONTEND_VISIBILITY);
+        return Mage::getStoreConfigFlag(self::XML_PATH_VAT_FRONTEND_VISIBILITY);
     }
 }

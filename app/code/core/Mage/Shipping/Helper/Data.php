@@ -1,40 +1,32 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Shipping data helper
+ * @category   Mage
+ * @package    Mage_Shipping
  */
 class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Shipping';
+
     /**
      * Allowed hash keys
      *
      * @var array
      */
-    protected $_allowedHashKeys = array('ship_id', 'order_id', 'track_id');
+    protected $_allowedHashKeys = ['ship_id', 'order_id', 'track_id'];
 
     /**
      * Decode url hash
@@ -46,9 +38,9 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $hash = explode(':', Mage::helper('core')->urlDecode($hash));
         if (count($hash) === 3 && in_array($hash[0], $this->_allowedHashKeys)) {
-            return array('key' => $hash[0], 'id' => (int)$hash[1], 'hash' => $hash[2]);
+            return ['key' => $hash[0], 'id' => (int)$hash[1], 'hash' => $hash[2]];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -57,24 +49,24 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated the non-model usage
      *
      * @param  string $key
-     * @param  integer|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
+     * @param  int|Mage_Sales_Model_Order|Mage_Sales_Model_Order_Shipment|Mage_Sales_Model_Order_Shipment_Track $model
      * @param  string $method - option
      * @return string
      */
     protected function _getTrackingUrl($key, $model, $method = 'getId')
     {
         if (empty($model)) {
-            $param = array($key => ''); // @deprecated after 1.4.0.0-alpha3
+            $param = [$key => '']; // @deprecated after 1.4.0.0-alpha3
         } elseif (!is_object($model)) {
-            $param = array($key => $model); // @deprecated after 1.4.0.0-alpha3
+            $param = [$key => $model]; // @deprecated after 1.4.0.0-alpha3
         } else {
-            $param = array(
+            $param = [
                 'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
-            );
+            ];
         }
-         $storeId = is_object($model) ? $model->getStoreId() : null;
-         $storeModel = Mage::app()->getStore($storeId);
-         return $storeModel->getUrl('shipping/tracking/popup', $param);
+        $storeId = is_object($model) ? $model->getStoreId() : null;
+        $storeModel = Mage::app()->getStore($storeId);
+        return $storeModel->getUrl('shipping/tracking/popup', $param);
     }
 
     /**

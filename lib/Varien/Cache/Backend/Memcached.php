@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Cache
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,19 +18,17 @@
  *
  * @deprecated after 1.7.0.2
  */
-class Varien_Cache_Backend_Memcached
-    extends Zend_Cache_Backend_Memcached
-    implements Zend_Cache_Backend_ExtendedInterface
+class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implements Zend_Cache_Backend_ExtendedInterface
 {
     /**
      * Maximum chunk of data that could be saved in one memcache cell (1 MiB)
      */
-    const DEFAULT_SLAB_SIZE = 1048576;
+    public const DEFAULT_SLAB_SIZE = 1048576;
 
     /**
      * Used to tell chunked data from ordinary
      */
-    const CODE_WORD = '{splitted}';
+    public const CODE_WORD = '{splitted}';
 
     /**
      * Constructor
@@ -49,7 +36,7 @@ class Varien_Cache_Backend_Memcached
      * @throws Varien_Exception
      * @param array $options @see Zend_Cache_Backend_Memcached::__construct()
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
 
@@ -81,7 +68,6 @@ class Varien_Cache_Backend_Memcached
      *
      * @param string $id     ID of data's info cell
      * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     * @return null
      */
     protected function _cleanTheMess($id, $chunks)
     {
@@ -101,7 +87,7 @@ class Varien_Cache_Backend_Memcached
      * @param bool   $specificLifetime @see Zend_Cache_Backend_Memcached::save()
      * @return bool
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if (is_string($data) && (strlen($data) > $this->_options['slab_size'])) {
             $dataChunks = str_split($data, $this->_options['slab_size']);
@@ -137,7 +123,7 @@ class Varien_Cache_Backend_Memcached
 
             $arr = explode('|', $data);
             $chunks = isset($arr[1]) ? $arr[1] : false;
-            $chunkData = array();
+            $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {
                 for ($i = 0; $i < $chunks; $i++) {

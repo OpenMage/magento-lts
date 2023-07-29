@@ -1,36 +1,28 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Centinel
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Centinel
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Centinel module base helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Centinel
  */
 class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Centinel';
+
     /**
      * Return label for cmpi field
      *
@@ -41,15 +33,15 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     {
         switch ($fieldName) {
             case Mage_Centinel_Model_Service::CMPI_PARES:
-               return $this->__('3D Secure Verification Result');
+                return $this->__('3D Secure Verification Result');
             case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-               return $this->__('3D Secure Cardholder Validation');
+                return $this->__('3D Secure Cardholder Validation');
             case Mage_Centinel_Model_Service::CMPI_ECI:
-               return $this->__('3D Secure Electronic Commerce Indicator');
+                return $this->__('3D Secure Electronic Commerce Indicator');
             case Mage_Centinel_Model_Service::CMPI_CAVV:
-               return $this->__('3D Secure CAVV');
+                return $this->__('3D Secure CAVV');
             case Mage_Centinel_Model_Service::CMPI_XID:
-               return $this->__('3D Secure XID');
+                return $this->__('3D Secure XID');
         }
         return '';
     }
@@ -65,14 +57,14 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     {
         switch ($fieldName) {
             case Mage_Centinel_Model_Service::CMPI_PARES:
-               return $this->_getCmpiParesValue($value);
+                return $this->_getCmpiParesValue($value);
             case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-               return $this->_getCmpiEnrolledValue($value);
+                return $this->_getCmpiEnrolledValue($value);
             case Mage_Centinel_Model_Service::CMPI_ECI:
-               return $this->_getCmpiEciValue($value);
+                return $this->_getCmpiEciValue($value);
             case Mage_Centinel_Model_Service::CMPI_CAVV: // break intentionally omitted
             case Mage_Centinel_Model_Service::CMPI_XID:
-               return $value;
+                return $value;
         }
         return '';
     }
@@ -143,17 +135,16 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      * Return centinel block for payment form with logos
      *
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return Mage_Centinel_Block_Logo
+     * @return Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract|false
      */
     public function getMethodFormBlock($method)
     {
         $blockType = 'centinel/logo';
         if ($this->getLayout()) {
             $block = $this->getLayout()->createBlock($blockType);
-        }
-        else {
+        } else {
             $className = Mage::getConfig()->getBlockClassName($blockType);
-            $block = new $className;
+            $block = new $className();
         }
         $block->setMethod($method);
         return $block;

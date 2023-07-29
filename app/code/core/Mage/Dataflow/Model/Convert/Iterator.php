@@ -1,27 +1,21 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
@@ -31,14 +25,14 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         $import = Mage::getResourceModel('dataflow/import');
         $total = $import->loadTotalBySessionId($sessionId);
 
-        $callbacks = array();
+        $callbacks = [];
         if ($mapperCb = $this->_parseCallback($this->getVar('mapper'), 'mapRow')) {
             $callbacks[] = $mapperCb;
         }
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
-        $callbacks[] = array($this, 'updateProgress');
+        $callbacks[] = [$this, 'updateProgress'];
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 
@@ -55,12 +49,12 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
             . '" style="position:absolute;background:green;height:2px; width:0; top:-2px; left:-2px; overflow:hidden; ">
         </div>
         <div>
-            ' . $this->__('Total records: %s', '<strong>' . $totalRows . '</strong>').',
+            ' . $this->__('Total records: %s', '<strong>' . $totalRows . '</strong>') . ',
             ' . $this->__('Processed records: %s', '<strong><span id="records_processed_'
-                  . $sessionId . '">0</span></strong>') .',
+                  . $sessionId . '">0</span></strong>') . ',
             ' . $this->__('ETA: %s', '<strong><span id="finish_eta_' . $sessionId . '">N/A</span></strong>') . ',
             ' . $this->__('Memory Used: %s', '<strong><span id="memory_' . $sessionId . '">'
-            . memory_get_usage(true).'</span></strong>') . '
+            . memory_get_usage(true) . '</span></strong>') . '
         </div>
     </div>
 </li>
@@ -106,10 +100,10 @@ function updateProgress(sessionId, idx, time, memory) {
             . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
-        return array();
+        return [];
     }
 
-    protected function _parseCallback($callback, $defaultMethod=null)
+    protected function _parseCallback($callback, $defaultMethod = null)
     {
         if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
             return false;
@@ -120,6 +114,6 @@ function updateProgress(sessionId, idx, time, memory) {
         if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
             return false;
         }
-        return array($model, $method);
+        return [$model, $method];
     }
 }

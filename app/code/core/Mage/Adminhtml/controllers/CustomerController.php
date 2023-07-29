@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer admin controller
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 {
@@ -37,7 +25,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'customer/manage';
+    public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
      * Controller pre-dispatch method
@@ -46,10 +34,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete', 'massDelete'));
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
+    /**
+     * @param string $idFieldName
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _initCustomer($idFieldName = 'id')
     {
         $this->_title($this->__('Customers'))->_title($this->__('Manage Customers'));
@@ -113,7 +106,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
         $this->loadLayout();
 
-        /* @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::registry('current_customer');
 
         // set entered data if was error when we do save
@@ -125,7 +118,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $request->setParams($data);
 
             if (isset($data['account'])) {
-                /* @var $customerForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $customerForm */
                 $customerForm = Mage::getModel('customer/form');
                 $customerForm->setEntity($customer)
                     ->setFormCode('adminhtml_customer')
@@ -135,12 +128,12 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
 
             if (isset($data['address']) && is_array($data['address'])) {
-                /* @var $addressForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('adminhtml_customer_address');
 
                 foreach (array_keys($data['address']) as $addressId) {
-                    if ($addressId == '_template_') {
+                    if ($addressId === '_template_') {
                         continue;
                     }
 
@@ -187,8 +180,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 $customer->load($customer->getId());
                 $customer->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The customer has been deleted.'));
-            }
-            catch (Exception $e){
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -223,15 +215,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
 
             $errors = null;
-            if ($customer->getId()&& !empty($data['account']['new_password'])
+            if ($customer->getId() && !empty($data['account']['new_password'])
                 && Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()
             ) {
                 //Validate current admin password
-                if (isset($data['account']['current_password'])) {
-                    $currentPassword = $data['account']['current_password'];
-                } else {
-                    $currentPassword = null;
-                }
+                $currentPassword = $data['account']['current_password'] ?? null;
                 unset($data['account']['current_password']);
                 $errors = $this->_validateCurrentPassword($currentPassword);
             }
@@ -245,7 +233,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $this->_getSession()->addError($error);
                 }
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             }
 
@@ -256,7 +244,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 unset($data['address']['_template_']);
             }
 
-            $modifiedAddresses = array();
+            $modifiedAddresses = [];
             if (!empty($data['address'])) {
                 /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
@@ -286,8 +274,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                             $this->_getSession()->addError($error);
                         }
                         $this->_getSession()->setCustomerData($data);
-                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array(
-                            'id' => $customer->getId())
+                        $this->getResponse()->setRedirect($this->getUrl(
+                            '*/customer/edit',
+                            [
+                            'id' => $customer->getId()]
                         ));
                         return;
                     }
@@ -341,16 +331,16 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $customer->setPassword($data['account']['password']);
                     $customer->setPasswordCreatedAt(time());
                     $customer->setForceConfirmed(true);
-                    if ($customer->getPassword() == 'auto') {
+                    if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;
                         $customer->setPassword($customer->generatePassword());
                     }
                 }
 
-                Mage::dispatchEvent('adminhtml_customer_prepare_save', array(
+                Mage::dispatchEvent('adminhtml_customer_prepare_save', [
                     'customer'  => $customer,
                     'request'   => $this->getRequest()
-                ));
+                ]);
 
                 $customer->save();
 
@@ -367,7 +357,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
                 if (!empty($data['account']['new_password'])) {
                     $newPassword = trim($data['account']['new_password']);
-                    if ($newPassword == 'auto') {
+                    if ($newPassword === 'auto') {
                         $newPassword = $customer->generatePassword();
                     } else {
                         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
@@ -383,28 +373,30 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The customer has been saved.')
                 );
-                Mage::dispatchEvent('adminhtml_customer_save_after', array(
+                Mage::dispatchEvent('adminhtml_customer_save_after', [
                     'customer'  => $customer,
                     'request'   => $this->getRequest()
-                ));
+                ]);
 
                 if ($redirectBack) {
-                    $this->_redirect('*/*/edit', array(
+                    $this->_redirect('*/*/edit', [
                         'id' => $customer->getId(),
                         '_current' => true
-                    ));
+                    ]);
                     return;
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             } catch (Exception $e) {
-                $this->_getSession()->addException($e,
-                    Mage::helper('adminhtml')->__('An error occurred while saving the customer.'));
+                $this->_getSession()->addException(
+                    $e,
+                    Mage::helper('adminhtml')->__('An error occurred while saving the customer.')
+                );
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id'=>$customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             }
         }
@@ -445,16 +437,16 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      * @param string $content
      * @param string $contentType
      */
-    protected function _sendUploadResponse($fileName, $content, $contentType='application/octet-stream')
+    protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
     {
         $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
 
     /**
      * Customer orders grid
-     *
      */
-    public function ordersAction() {
+    public function ordersAction()
+    {
         $this->_initCustomer();
         $this->loadLayout();
         $this->renderLayout();
@@ -462,9 +454,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customer last orders grid for ajax
-     *
      */
-    public function lastOrdersAction() {
+    public function lastOrdersAction()
+    {
         $this->_initCustomer();
         $this->loadLayout();
         $this->renderLayout();
@@ -472,7 +464,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customer newsletter grid
-     *
      */
     public function newsletterAction()
     {
@@ -490,12 +481,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
         $customer = Mage::registry('current_customer');
         if ($customer->getId()) {
-            if($itemId = (int) $this->getRequest()->getParam('delete')) {
+            if ($itemId = (int) $this->getRequest()->getParam('delete')) {
                 try {
                     Mage::getModel('wishlist/item')->load($itemId)
                         ->delete();
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     Mage::logException($e);
                 }
             }
@@ -510,7 +500,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Customer last view wishlist for ajax
-     *
      */
     public function viewWishlistAction()
     {
@@ -521,8 +510,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * [Handle and then] get a cart grid contents
-     *
-     * @return string
      */
     public function cartAction()
     {
@@ -549,7 +536,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Get shopping cart to view only
-     *
      */
     public function viewCartAction()
     {
@@ -563,7 +549,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Get shopping carts from all websites for specified client
-     *
      */
     public function cartsAction()
     {
@@ -574,7 +559,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Get customer's product reviews list
-     *
      */
     public function productReviewsAction()
     {
@@ -589,7 +573,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Get customer's tags list
-     *
      */
     public function productTagsAction()
     {
@@ -624,11 +607,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         if ($customerId) {
             $customer->load($customerId);
             $websiteId = $customer->getWebsiteId();
-        } else if (isset($accountData['website_id'])) {
+        } elseif (isset($accountData['website_id'])) {
             $websiteId = $accountData['website_id'];
         }
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setEntity($customer)
             ->setFormCode('adminhtml_customer')
@@ -662,11 +645,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         $addressesData = $this->getRequest()->getParam('address');
         if (is_array($addressesData)) {
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
             foreach (array_keys($addressesData) as $index) {
-                if ($index == '_template_') {
+                if ($index === '_template_') {
                     continue;
                 }
                 $address = $customer->getAddressItemById($index);
@@ -699,9 +682,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function massSubscribeAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
-        if(!is_array($customersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
-
+        if (!is_array($customersIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
         } else {
             try {
                 foreach ($customersIds as $customerId) {
@@ -722,8 +704,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function massUnsubscribeAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
-        if(!is_array($customersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
+        if (!is_array($customersIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
         } else {
             try {
                 foreach ($customersIds as $customerId) {
@@ -745,8 +727,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function massDeleteAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
-        if(!is_array($customersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
+        if (!is_array($customersIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
         } else {
             try {
                 $customer = Mage::getModel('customer/customer');
@@ -769,8 +751,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function massAssignGroupAction()
     {
         $customersIds = $this->getRequest()->getParam('customer');
-        if(!is_array($customersIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
+        if (!is_array($customersIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select customer(s).'));
         } else {
             try {
                 foreach ($customersIds as $customerId) {
@@ -796,7 +778,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         if ($this->getRequest()->getParam('file')) {
             // download file
             $file   = Mage::helper('core')->urlDecode($this->getRequest()->getParam('file'));
-        } else if ($this->getRequest()->getParam('image')) {
+        } elseif ($this->getRequest()->getParam('image')) {
             // show plain image
             $file   = Mage::helper('core')->urlDecode($this->getRequest()->getParam('image'));
             $plain  = true;
@@ -807,7 +789,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $path = Mage::getBaseDir('media') . DS . 'customer';
 
         $ioFile = new Varien_Io_File();
-        $ioFile->open(array('path' => $path));
+        $ioFile->open(['path' => $path]);
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 
@@ -825,6 +807,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     break;
                 case 'jpg':
                     $contentType = 'image/jpeg';
+                    break;
+                case 'webp':
+                    $contentType = 'image/webp';
                     break;
                 case 'png':
                     $contentType = 'image/png';
@@ -847,15 +832,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 
-            while (false !== ($buffer = $ioFile->streamRead())) {
+            while (($buffer = $ioFile->streamRead()) !== false) {
                 echo $buffer;
             }
         } else {
             $name = pathinfo($fileName, PATHINFO_BASENAME);
-            $this->_prepareDownloadResponse($name, array(
+            $this->_prepareDownloadResponse($name, [
                 'type'  => 'filename',
                 'value' => $fileName
-            ));
+            ]);
         }
 
         exit();
@@ -864,12 +849,12 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array
+     * @param array $data
      * @return array
      */
     protected function _filterPostData($data)
     {
-        $data['account'] = $this->_filterDates($data['account'], array('dob'));
+        $data['account'] = $this->_filterDates($data['account'], ['dob']);
         return $data;
     }
 }

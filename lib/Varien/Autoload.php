@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Autoload
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Autoload
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,14 +21,14 @@ class Varien_Autoload
     /**
      * @var Varien_Autoload
      */
-    static protected $_instance;
+    protected static $_instance;
 
     /**
      * Singleton pattern implementation
      *
      * @return Varien_Autoload
      */
-    static public function instance()
+    public static function instance()
     {
         if (!self::$_instance) {
             self::$_instance = new Varien_Autoload();
@@ -50,9 +39,9 @@ class Varien_Autoload
     /**
      * Register SPL autoload function
      */
-    static public function register()
+    public static function register()
     {
-        spl_autoload_register(array(self::instance(), 'autoload'));
+        spl_autoload_register([self::instance(), 'autoload']);
     }
 
     /**
@@ -62,6 +51,11 @@ class Varien_Autoload
      */
     public function autoload($class)
     {
-        return @include str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
+        $path = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
+        /** @see https://stackoverflow.com/a/5504486/716029 */
+        $found = stream_resolve_include_path($path);
+        if ($found !== false) {
+            return include $found;
+        }
     }
 }

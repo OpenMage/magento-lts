@@ -1,41 +1,27 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert container abstract
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Dataflow_Model_Convert_Container_Abstract
-    implements Mage_Dataflow_Model_Convert_Container_Interface
+abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Dataflow_Model_Convert_Container_Interface
 {
-    protected $_batchParams = array();
+    protected $_batchParams = [];
 
     protected $_vars;
 
@@ -58,7 +44,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return Mage::helper('core/string')->isSerializedArrayOrObject($data);
     }
 
-    public function getVar($key, $default=null)
+    public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && strlen($this->_vars[$key]) == 0)) {
             return $default;
@@ -71,7 +57,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $this->_vars;
     }
 
-    public function setVar($key, $value=null)
+    public function setVar($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_vars = $key;
@@ -152,7 +138,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $result;
     }
 
-    public function validateDataString($data=null)
+    public function validateDataString($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -163,7 +149,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return true;
     }
 
-    public function validateDataArray($data=null)
+    public function validateDataArray($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -174,13 +160,13 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return true;
     }
 
-    public function validateDataGrid($data=null)
+    public function validateDataGrid($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
         }
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data)==0) {
+            if (count($data) == 0) {
                 return true;
             }
             $this->addException(
@@ -193,9 +179,9 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
 
     public function getGridFields($grid)
     {
-        $fields = array();
-        foreach ($grid as $i=>$row) {
-            foreach ($row as $fieldName=>$data) {
+        $fields = [];
+        foreach ($grid as $i => $row) {
+            foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
@@ -204,7 +190,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
         return $fields;
     }
 
-    public function addException($error, $level=null)
+    public function addException($error, $level = null)
     {
         $e = new Mage_Dataflow_Model_Convert_Exception($error);
         $e->setLevel(!is_null($level) ? $level : Mage_Dataflow_Model_Convert_Exception::NOTICE);
@@ -240,7 +226,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract
     public function getBatchParams($key = null)
     {
         if (!empty($key)) {
-            return isset($this->_batchParams[$key]) ? $this->_batchParams[$key] : null;
+            return $this->_batchParams[$key] ?? null;
         }
         return $this->_batchParams;
     }

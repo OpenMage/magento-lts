@@ -1,34 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 // very long update :)
 set_time_limit(0);
 
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
@@ -46,21 +35,21 @@ $installer->getConnection()->addColumn(
     'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
-$installer->addAttribute('quote', 'global_currency_code', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_global_rate', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_quote_rate', array('type'=>'static'));
+$installer->addAttribute('quote', 'global_currency_code', ['type' => 'static']);
+$installer->addAttribute('quote', 'base_to_global_rate', ['type' => 'static']);
+$installer->addAttribute('quote', 'base_to_quote_rate', ['type' => 'static']);
 
-$installer->addAttribute('order', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('order', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('order', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('order', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('order', 'base_to_order_rate', ['type' => 'decimal']);
 
-$installer->addAttribute('invoice', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('invoice', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('invoice', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('invoice', 'base_to_order_rate', ['type' => 'decimal']);
 
-$installer->addAttribute('creditmemo', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('creditmemo', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'global_currency_code', ['type' => 'varchar']);
+$installer->addAttribute('creditmemo', 'base_to_global_rate', ['type' => 'decimal']);
+$installer->addAttribute('creditmemo', 'base_to_order_rate', ['type' => 'decimal']);
 
 /*
  * getting all base currency codes and placing them in newly created attribute
@@ -73,9 +62,9 @@ $invoiceEntityType['entity_table'] = 'sales_order_entity';
 $creditmemoEntityType = $installer->getEntityType('creditmemo');
 $creditmemoEntityType['entity_table'] = 'sales_order_entity';
 
-$entityTypes = array($orderEntityType['entity_type_id'] => $orderEntityType,
+$entityTypes = [$orderEntityType['entity_type_id'] => $orderEntityType,
     $invoiceEntityType['entity_type_id'] => $invoiceEntityType,
-    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType);
+    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType];
 
 try {
     $installer->getConnection()->beginTransaction();
@@ -140,14 +129,12 @@ try {
             $globalCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $baseCurrencyCodeTable . '` WHERE `attribute_id` = ' . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //delete old data in base_currency_code
         $query = 'DELETE FROM `' . $baseCurrencyCodeTable . '` WHERE `attribute_id` = '
             . $baseCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_currency_code into base_currency_code
@@ -156,7 +143,6 @@ try {
             $baseCurrencyCode['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeCurrencyCodeTable . '` WHERE `attribute_id` = ' . $storeCurrencyCode['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_base_rate into base_to_global_rate
@@ -165,7 +151,6 @@ try {
             $baseToGlobalRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToBaseRateTable . '` WHERE `attribute_id` = ' . $storeToBaseRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
 
         //copy data from store_to_order_rate into base_to_order_rate
@@ -174,7 +159,6 @@ try {
             $baseToOrderRate['attribute_id'] . '" as `attribute_id`, `entity_id`, `value` FROM `' .
             $storeToOrderRateTable . '` WHERE `attribute_id` = ' . $storeToOrderRate['attribute_id'] . ';';
 
-        //echo $query . "<br />";
         $installer->getConnection()->query($query);
     }
 

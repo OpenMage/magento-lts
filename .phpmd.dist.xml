@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<ruleset name="OpenMage ruleset"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        OpenMage ruleset
+    </description>
+
+    <!-- UNUSEDCODE
+    [?] UnusedFormalParameter
+    [x] UnusedLocalVariable
+    [x] UnusedPrivateField
+    [x] UnusedPrivateMethod
+    -->
+    <rule ref="rulesets/unusedcode.xml" />
+
+    <!-- CLEANCODE
+    [-] BooleanArgumentFlag
+    [?] ElseExpression
+    [?] ErrorControlOperator
+    [x] DuplicatedArrayKey
+    [ ] IfStatementAssignment
+    [?] MissingImport
+    [-] StaticAccess
+    [?] UndefinedVariable
+    -->
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="BooleanArgumentFlag" />
+        <exclude name="ElseExpression" /> <!-- can be fixed in some cases -->
+        <exclude name="IfStatementAssignment" /> <!-- can be fixed -->
+        <exclude name="MissingImport" /> <!-- can be fixed -->
+        <exclude name="StaticAccess" />
+        <exclude name="UndefinedVariable" /> <!-- can be fixed -->
+    </rule>
+    <rule ref="rulesets/cleancode.xml/MissingImport">
+        <properties>
+            <property name="ignore-global" value="true" />
+        </properties>
+    </rule>
+
+    <!-- CONTROVERSIAL
+    [ ] CamelCaseClassName
+    [ ] CamelCaseMethodName
+    [ ] CamelCaseParameterName
+    [ ] CamelCasePropertyName
+    [ ] CamelCaseVariableName
+    [x] Superglobals
+    -->
+    <rule ref="rulesets/controversial.xml/CamelCaseMethodName">
+        <properties>
+            <property name="allow-underscore" value="true" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/controversial.xml/CamelCaseParameterName" />
+    <rule ref="rulesets/controversial.xml/CamelCasePropertyName">
+        <properties>
+            <property name="allow-underscore" value="true" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/controversial.xml/CamelCaseVariableName">
+        <properties>
+            <property name="allow-underscore" value="true" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/controversial.xml/Superglobals" />
+
+    <!-- NAMEING
+    [ ] BooleanGetMethodName
+    [ ] ConstantNamingConventions
+    [ ] ConstructorWithNameAsEnclosingClass
+    [ ] LongClassName
+    [ ] ShortClassName
+    [ ] LongVariable
+    [?] ShortVariable
+    [ ] ShortMethodName
+    -->
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName" />
+
+    <!-- DESIGN
+    [-] CountInLoopExpression
+    [x] CouplingBetweenObjects
+    [-] DepthOfInheritance
+    [x] DevelopmentCodeFragment
+    [x] EmptyCatchBlock
+    [x] EvalExpression
+    [x] ExitExpression
+    [x] GotoStatement
+    [-] NumberOfChildren
+    -->
+    <rule ref="rulesets/design.xml">
+        <exclude name="CouplingBetweenObjects" />
+        <exclude name="DepthOfInheritance" />
+        <exclude name="NumberOfChildren" />
+    </rule>
+
+    <!-- CODESIZE
+    [-] ExcessiveClassComplexity
+    [-] ExcessiveClassLength
+    [-] ExcessiveMethodLength
+    [-] ExcessiveParameterList
+    [-] ExcessivePublicCount
+    [-] CyclomaticComplexity
+    [-] NPathComplexity
+    [-] TooManyFields
+    [-] TooManyMethods
+    [-] TooManyPublicMethods
+    -->
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="CyclomaticComplexity" />
+        <exclude name="ExcessiveClassComplexity" />
+        <exclude name="ExcessiveClassLength" />
+        <exclude name="ExcessiveMethodLength" />
+        <exclude name="ExcessivePublicCount" />
+        <exclude name="NPathComplexity" />
+        <exclude name="TooManyFields" />
+        <exclude name="TooManyMethods" />
+        <exclude name="TooManyPublicMethods" />
+    </rule>
+</ruleset>
