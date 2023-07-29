@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -42,49 +30,48 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form();
         $customerGroup = Mage::registry('current_group');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Group Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('customer')->__('Group Information')]);
 
         $validateClass = sprintf('required-entry validate-length maximum-length-%d',
             Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH);
-        $name = $fieldset->addField('customer_group_code', 'text', array(
+        $name = $fieldset->addField('customer_group_code', 'text', [
             'name'  => 'code',
             'label' => Mage::helper('customer')->__('Group Name'),
             'title' => Mage::helper('customer')->__('Group Name'),
             'note'  => Mage::helper('customer')->__('Maximum length must be less then %s symbols', Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH),
             'class' => $validateClass,
             'required' => true,
-        ));
+        ]);
 
-        if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode() ) {
+        if ($customerGroup->getId() == 0 && $customerGroup->getCustomerGroupCode()) {
             $name->setDisabled(true);
         }
 
-        $fieldset->addField('tax_class_id', 'select', array(
+        $fieldset->addField('tax_class_id', 'select', [
             'name'  => 'tax_class',
             'label' => Mage::helper('customer')->__('Tax Class'),
             'title' => Mage::helper('customer')->__('Tax Class'),
             'class' => 'required-entry',
             'required' => true,
             'values' => Mage::getSingleton('tax/class_source_customer')->toOptionArray()
-        ));
+        ]);
 
         // show attribute set fields for all groups except not logged in
         if (is_null($customerGroup->getId()) || (int)$customerGroup->getId() !== Mage_Customer_Model_Group::NOT_LOGGED_IN_ID) {
-
             $setsCustomer = Mage::getResourceModel('eav/entity_attribute_set_collection')
                           ->setEntityTypeFilter(Mage::getResourceModel('customer/customer')->getEntityType()->getId())
                           ->setOrder('attribute_set_name', 'asc')
                           ->load()
                           ->toOptionArray();
 
-            $fieldset->addField('customer_attribute_set_id', 'select', array(
+            $fieldset->addField('customer_attribute_set_id', 'select', [
                 'name'  => 'customer_attribute_set',
                 'label' => Mage::helper('customer')->__('Customer Attribute Set'),
                 'title' => Mage::helper('customer')->__('Customer Attribute Set'),
                 'class' => 'required-entry',
                 'required' => true,
                 'values' => $setsCustomer
-            ));
+            ]);
 
             $setsAddress = Mage::getResourceModel('eav/entity_attribute_set_collection')
                          ->setEntityTypeFilter(Mage::getResourceModel('customer/address')->getEntityType()->getId())
@@ -92,28 +79,30 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
                          ->load()
                          ->toOptionArray();
 
-            $fieldset->addField('customer_address_attribute_set_id', 'select', array(
+            $fieldset->addField('customer_address_attribute_set_id', 'select', [
                 'name'  => 'customer_address_attribute_set',
                 'label' => Mage::helper('customer')->__('Customer Address Attribute Set'),
                 'title' => Mage::helper('customer')->__('Customer Address Attribute Set'),
                 'class' => 'required-entry',
                 'required' => true,
                 'values' => $setsAddress
-            ));
+            ]);
 
         }
 
         if (!is_null($customerGroup->getId())) {
             // If edit add id
-            $form->addField('id', 'hidden',
-                array(
+            $form->addField(
+                'id',
+                'hidden',
+                [
                     'name'  => 'id',
                     'value' => $customerGroup->getId(),
-                )
+                ]
             );
         }
 
-        if( Mage::getSingleton('adminhtml/session')->getCustomerGroupData() ) {
+        if (Mage::getSingleton('adminhtml/session')->getCustomerGroupData()) {
             $form->addValues(Mage::getSingleton('adminhtml/session')->getCustomerGroupData());
             Mage::getSingleton('adminhtml/session')->setCustomerGroupData(null);
         } else {

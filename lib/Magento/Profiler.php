@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Magento
- * @package     Magento_Profiler
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Magento
+ * @package    Magento_Profiler
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,64 +21,64 @@ class Magento_Profiler
     /**
      * Separator literal to assemble timer identifier from timer names
      */
-    const NESTING_SEPARATOR = '->';
+    public const NESTING_SEPARATOR = '->';
 
     /**
      * FETCH_* constants represent keys to retrieve profiling results
      */
-    const FETCH_TIME    = 'sum';
-    const FETCH_COUNT   = 'count';
-    const FETCH_AVG     = 'avg';
-    const FETCH_REALMEM = 'realmem';
-    const FETCH_EMALLOC = 'emalloc';
+    public const FETCH_TIME    = 'sum';
+    public const FETCH_COUNT   = 'count';
+    public const FETCH_AVG     = 'avg';
+    public const FETCH_REALMEM = 'realmem';
+    public const FETCH_EMALLOC = 'emalloc';
 
     /**
      * Storage for timers statistics
      *
      * @var array
      */
-    static private $_timers = array();
+    private static $_timers = [];
 
     /**
      * Whether profiling is active or not
      *
      * @var bool
      */
-    static private $_enabled = false;
+    private static $_enabled = false;
 
     /**
      * Nesting path that represents namespace to resolve timer names
      *
      * @var array
      */
-    static private $_currentPath = array();
+    private static $_currentPath = [];
 
     /**
      * Collection of profiler outputs
      *
      * @var array
      */
-    static private $_outputs = array();
+    private static $_outputs = [];
 
     /**
      * Whether an initialization is done or not
      *
      * @var bool
      */
-    static private $_isInitialized = false;
+    private static $_isInitialized = false;
 
     /**
      * Supported timer statistics keys
      *
      * @var array
      */
-    private static $_supportedFetchKeys = array(
+    private static $_supportedFetchKeys = [
         self::FETCH_TIME,
         self::FETCH_AVG,
         self::FETCH_COUNT,
         self::FETCH_EMALLOC,
         self::FETCH_REALMEM,
-    );
+    ];
 
     /**
      * Retrieve unique identifier among all timers
@@ -113,7 +102,7 @@ class Magento_Profiler
     public static function enable()
     {
         if (!self::$_isInitialized) {
-            register_shutdown_function(array(__CLASS__, 'display'));
+            register_shutdown_function([__CLASS__, 'display']);
             self::$_isInitialized = true;
         }
         self::$_enabled = true;
@@ -136,18 +125,18 @@ class Magento_Profiler
     public static function reset($timerName = null)
     {
         if ($timerName === null) {
-            self::$_timers = array();
-            self::$_currentPath = array();
+            self::$_timers = [];
+            self::$_currentPath = [];
             return;
         }
         $timerId = self::_getTimerId($timerName);
-        self::$_timers[$timerId] = array(
+        self::$_timers[$timerId] = [
             'start'             => false,
             self::FETCH_TIME    => 0,
             self::FETCH_COUNT   => 0,
             self::FETCH_REALMEM => 0,
             self::FETCH_EMALLOC => 0,
-        );
+        ];
     }
 
     /**
@@ -162,7 +151,7 @@ class Magento_Profiler
             return;
         }
 
-        if (strpos($timerName, self::NESTING_SEPARATOR) !== false) {
+        if (str_contains($timerName, self::NESTING_SEPARATOR)) {
             throw new Varien_Exception('Timer name must not contain a nesting separator.');
         }
 
@@ -281,7 +270,7 @@ class Magento_Profiler
         if (!self::$_enabled) {
             return;
         }
-        /** @var $output Magento_Profiler_OutputAbstract */
+        /** @var Magento_Profiler_OutputAbstract $output */
         foreach (self::$_outputs as $output) {
             $output->display();
         }

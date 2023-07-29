@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getExtraParams()
  * @method $this setExtraParams(string $value)
@@ -41,7 +29,7 @@
  */
 class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 {
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Get options of the element
@@ -73,9 +61,9 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * @param array  $params HTML attributes
      * @return $this
      */
-    public function addOption($value, $label, $params = array())
+    public function addOption($value, $label, $params = [])
     {
-        $this->_options[] = array('value' => $value, 'label' => $label, 'params' => $params);
+        $this->_options[] = ['value' => $value, 'label' => $label, 'params' => $params];
         return $this;
     }
 
@@ -162,9 +150,9 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
 
         if (!is_array($values)) {
             if (!is_null($values)) {
-                $values = array($values);
+                $values = [$values];
             } else {
-                $values = array();
+                $values = [];
             }
         }
 
@@ -173,22 +161,22 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             if ($isArrayOption && is_array($option)) {
                 $value  = $option['value'];
                 $label  = (string)$option['label'];
-                $params = (!empty($option['params'])) ? $option['params'] : array();
+                $params = (!empty($option['params'])) ? $option['params'] : [];
             } else {
                 $value = (string)$key;
                 $label = (string)$option;
                 $isArrayOption = false;
-                $params = array();
+                $params = [];
             }
 
             if (is_array($value)) {
                 $html .= '<optgroup label="' . $label . '">';
                 foreach ($value as $keyGroup => $optionGroup) {
                     if (!is_array($optionGroup)) {
-                        $optionGroup = array(
+                        $optionGroup = [
                             'value' => $keyGroup,
                             'label' => $optionGroup
-                        );
+                        ];
                     }
                     $html .= $this->_optionToHtml(
                         $optionGroup,
@@ -198,11 +186,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_optionToHtml(
-                    array(
+                    [
                         'value' => $value,
                         'label' => $label,
                         'params' => $params
-                    ),
+                    ],
                     in_array($value, $values)
                 );
             }
@@ -215,7 +203,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
      * Return option HTML node
      *
      * @param array $option
-     * @param boolean $selected
+     * @param bool $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected = false)

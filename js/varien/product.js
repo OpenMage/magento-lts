@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
     var Product = {};
@@ -29,11 +18,6 @@ if(typeof Product=='undefined') {
 /********************* IMAGE ZOOMER ***********************/
 
 Product.Zoom = Class.create();
-/**
- * Image zoom control
- *
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 Product.Zoom.prototype = {
     initialize: function(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl){
         this.containerEl = $(imageEl).parentNode;
@@ -109,12 +93,6 @@ Product.Zoom.prototype = {
     toggleFull: function () {
         this.showFull = !this.showFull;
 
-        //Hide selects for IE6 only
-        if (typeof document.body.style.maxHeight == "undefined")  {
-            for (i=0; i<this.selects.length; i++) {
-                this.selects[i].style.visibility = this.showFull ? 'hidden' : 'visible';
-            }
-        }
         val_scale = !this.showFull ? this.slider.value : 1;
         this.scale(val_scale);
 

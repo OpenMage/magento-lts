@@ -1,39 +1,27 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GiftMessage
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @deprecated after 1.3.2.4
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated after 1.3.2.4
  */
 class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
 {
     /**
-     * @var Mage_GiftMessage_Model_Message
+     * @var Mage_GiftMessage_Model_Message|null
      */
     protected $_giftMessage = null;
 
@@ -49,11 +37,13 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     public function getSaveUrl()
     {
-        return $this->helper('giftmessage/url')->getSaveUrl(
+        /** @var Mage_GiftMessage_Helper_Url $helper */
+        $helper = $this->helper('giftmessage/url');
+        return $helper->getSaveUrl(
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
             $this->getRequest()->getParam('message'),
-            array('uniqueId'=>$this->getRequest()->getParam('uniqueId'))
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
         );
     }
 
@@ -63,7 +53,9 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     public function getEditUrl()
     {
-        return $this->helper('giftmessage/url')->getEditUrl(
+        /** @var Mage_GiftMessage_Helper_Url $helper */
+        $helper = $this->helper('giftmessage/url');
+        return $helper->getEditUrl(
             $this->getRequest()->getParam('entity'),
             $this->getRequest()->getParam('type')
         );
@@ -75,7 +67,9 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     public function getButtonUrl()
     {
-        return $this->helper('giftmessage/url')->getButtonUrl(
+        /** @var Mage_GiftMessage_Helper_Url $helper */
+        $helper = $this->helper('giftmessage/url');
+        return $helper->getButtonUrl(
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type')
         );
@@ -87,10 +81,12 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     public function getRemoveUrl()
     {
-        return $this->helper('giftmessage/url')->getRemoveUrl(
+        /** @var Mage_GiftMessage_Helper_Url $helper */
+        $helper = $this->helper('giftmessage/url');
+        return $helper->getRemoveUrl(
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
-            array('uniqueId'=>$this->getRequest()->getParam('uniqueId'))
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
         );
     }
 
@@ -100,14 +96,15 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-            $this->getRequest()->getParam('message')
-        );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getRequest()->getParam('message'));
         return $this;
     }
 
     /**
      * @return Mage_GiftMessage_Model_Message
+     * @throws Exception
      */
     public function getMessage()
     {

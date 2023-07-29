@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Convert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Convert
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert container abstract
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Container_Interface
 {
@@ -39,7 +26,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     protected $_data;
     protected $_position;
 
-    public function getVar($key, $default=null)
+    public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key])) {
             return $default;
@@ -52,7 +39,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this->_vars;
     }
 
-    public function setVar($key, $value=null)
+    public function setVar($key, $value = null)
     {
         if (is_array($key) && is_null($value)) {
             $this->_vars = $key;
@@ -90,7 +77,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $this;
     }
 
-    public function validateDataString($data=null)
+    public function validateDataString($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -101,7 +88,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataArray($data=null)
+    public function validateDataArray($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
@@ -112,13 +99,13 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return true;
     }
 
-    public function validateDataGrid($data=null)
+    public function validateDataGrid($data = null)
     {
         if (is_null($data)) {
             $data = $this->getData();
         }
         if (!is_array($data) || !is_array(current($data))) {
-            if (count($data)==0) {
+            if (count($data) == 0) {
                 return true;
             }
             $this->addException("Invalid data type, expecting 2D grid array.", Varien_Convert_Exception::FATAL);
@@ -128,9 +115,9 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
 
     public function getGridFields($grid)
     {
-        $fields = array();
-        foreach ($grid as $i=>$row) {
-            foreach ($row as $fieldName=>$data) {
+        $fields = [];
+        foreach ($grid as $i => $row) {
+            foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
@@ -139,7 +126,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         return $fields;
     }
 
-    public function addException($error, $level=null)
+    public function addException($error, $level = null)
     {
         $e = new Varien_Convert_Exception($error);
         $e->setLevel(!is_null($level) ? $level : Varien_Convert_Exception::NOTICE);

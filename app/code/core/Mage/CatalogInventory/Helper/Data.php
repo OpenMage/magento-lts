@@ -1,46 +1,38 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Catalo
+ * @category   Mage
+ * @package    Mage_CatalogInventory
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
-    const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
+    public const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
+    public const XML_PATH_ITEM_AUTO_RETURN     = 'cataloginventory/item_options/auto_return';
     /**
      * Path to configuration option 'Display product stock status'
      */
-    const XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS = 'cataloginventory/options/display_product_stock_status';
+    public const XML_PATH_DISPLAY_PRODUCT_STOCK_STATUS = 'cataloginventory/options/display_product_stock_status';
 
     /**
      * Error codes, that Catalog Inventory module can set to quote or quote items
      */
-    const ERROR_QTY =               1;
-    const ERROR_QTY_INCREMENTS =    2;
+    public const ERROR_QTY =               1;
+    public const ERROR_QTY_INCREMENTS =    2;
+
+    protected $_moduleName = 'Mage_CatalogInventory';
 
     /**
      * All product types registry in scope of quantity availability
@@ -58,10 +50,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function isQty($productTypeId)
     {
         $this->getIsQtyTypeIds();
-        if (!isset(self::$_isQtyTypeIds[$productTypeId])) {
-            return false;
-        }
-        return self::$_isQtyTypeIds[$productTypeId];
+        return self::$_isQtyTypeIds[$productTypeId] ?? false;
     }
 
     /**
@@ -72,14 +61,14 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIsQtyTypeIds($filter = null)
     {
-        if (null === self::$_isQtyTypeIds) {
-            self::$_isQtyTypeIds = array();
+        if (self::$_isQtyTypeIds === null) {
+            self::$_isQtyTypeIds = [];
             $productTypesXml = Mage::getConfig()->getNode('global/catalog/product/type');
             foreach ($productTypesXml->children() as $typeId => $configXml) {
                 self::$_isQtyTypeIds[$typeId] = (bool)$configXml->is_qty;
             }
         }
-        if (null === $filter) {
+        if ($filter === null) {
             return self::$_isQtyTypeIds;
         }
         $result = self::$_isQtyTypeIds;
@@ -98,7 +87,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfigItemOptions()
     {
-        return array(
+        return [
             'min_qty',
             'backorders',
             'min_sale_qty',
@@ -108,7 +97,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'enable_qty_increments',
             'qty_increments',
             'is_decimal_divided',
-        );
+        ];
     }
 
     /**
