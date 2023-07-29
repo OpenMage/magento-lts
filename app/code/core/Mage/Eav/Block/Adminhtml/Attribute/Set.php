@@ -50,5 +50,4 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set extends Mage_Adminhtml_Block_Widget
     {
         return 'icon-head head-eav-attribute-sets';
     }
-
 }

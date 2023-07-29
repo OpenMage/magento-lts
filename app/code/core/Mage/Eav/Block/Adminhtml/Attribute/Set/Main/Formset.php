@@ -51,7 +51,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml
             'value' => $data->getAttributeSetName()
         ));
 
-        if( !$this->getRequest()->getParam('id', false) ) {
+        if (!$this->getRequest()->getParam('id', false)) {
             $fieldset->addField('gotoEdit', 'hidden', array(
                 'name' => 'gotoEdit',
                 'value' => '1'

@@ -64,5 +64,4 @@ class Mage_Adminhtml_Catalog_Category_AttributeController extends Mage_Eav_Admin
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/attributes/category_attributes');
     }
-
 }
