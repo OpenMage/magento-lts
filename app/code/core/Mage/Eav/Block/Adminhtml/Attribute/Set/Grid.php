@@ -27,7 +27,6 @@
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -68,5 +67,4 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_W
     {
         return $this->getUrl('*/*/edit', array('id'=>$row->getAttributeSetId()));
     }
-
 }

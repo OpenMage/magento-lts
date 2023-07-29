@@ -47,5 +47,4 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit_Tabs extends Mage_Adminhtml_Block_
 
         return parent::_beforeToHtml();
     }
-
 }

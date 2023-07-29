@@ -28,7 +28,6 @@
 
 abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml_Controller_Action
 {
-
     /** @var string $_entityCode */
     protected $_entityCode;
 
@@ -88,7 +87,8 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
         $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('eav/adminhtml_attribute_set_grid')
-                ->toHtml());
+                ->toHtml()
+        );
     }
 
     /**
@@ -143,8 +143,10 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
             $this->_getSession()->addError($e->getMessage());
             $hasError = true;
         } catch (Exception $e) {
-            $this->_getSession()->addException($e,
-                Mage::helper('eav')->__('An error occurred while saving the attribute set.'));
+            $this->_getSession()->addException(
+                $e,
+                Mage::helper('eav')->__('An error occurred while saving the attribute set.')
+            );
             $hasError = true;
         }
 
@@ -191,5 +193,4 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
             $this->_redirectReferer();
         }
     }
-
 }
