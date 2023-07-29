@@ -797,7 +797,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $this;
         }
         $this->_getResource()->beginTransaction();
-        $dataCommited = false;
         try {
             $this->_beforeSave();
             $this->getResource()->updateRecord($this->getId(), [
@@ -810,14 +809,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->addCommitCallback(array($this, 'afterCommitCallback'))
                 ->commit();
             $this->_hasDataChanges = false;
-            $dataCommited = true;
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
-        }
-        if ($dataCommited) {
-            $this->_afterSaveCommit();
         }
         return $this;
     }
