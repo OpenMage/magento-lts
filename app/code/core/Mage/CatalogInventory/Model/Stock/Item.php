@@ -806,7 +806,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             ]);
             $this->_afterSave();
             $this->_getResource()
-                ->addCommitCallback(array($this, 'afterCommitCallback'))
+                ->addCommitCallback([$this, 'afterCommitCallback'])
                 ->commit();
             $this->_hasDataChanges = false;
         } catch (Exception $e) {
