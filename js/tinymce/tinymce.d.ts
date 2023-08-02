@@ -1377,6 +1377,7 @@ interface DomParserSettings {
     forced_root_block?: boolean | string;
     forced_root_block_attrs?: Record<string, string>;
     inline_styles?: boolean;
+    pad_empty_with_br?: boolean;
     preserve_cdata?: boolean;
     remove_trailing_brs?: boolean;
     root_name?: string;
@@ -1913,6 +1914,7 @@ interface BaseEditorOptions {
     noneditable_regexp?: RegExp | RegExp[];
     nowrap?: boolean;
     object_resizing?: boolean | string;
+    pad_empty_with_br?: boolean;
     paste_as_text?: boolean;
     paste_block_drop?: boolean;
     paste_data_images?: boolean;
@@ -2061,6 +2063,7 @@ interface EditorOptions extends NormalizedEditorOptions {
     noneditable_class: string;
     noneditable_regexp: RegExp[];
     object_resizing: string;
+    pad_empty_with_br: boolean;
     paste_as_text: boolean;
     preview_styles: string;
     promotion: boolean;
