@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -203,7 +203,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
             <?php endif ?>
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    "<?php echo $_product->getName() ?>",
+                    "<?php echo $this->escapeHtml($_product->getName()) ?>",
                     <?php echo json_encode($_price['real_price_html']) ?>,
                     "<?php echo $this->helper('core')->currency($_product->getMsrp(),true,false) ?>",
                     newLink
