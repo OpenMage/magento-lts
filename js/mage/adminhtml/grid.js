@@ -57,7 +57,7 @@ varienGrid.prototype = {
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);
                 Event.observe(this.rows[row],'mouseout',this.trOnMouseOut);
                 Event.observe(this.rows[row],'mousedown',this.trOnClick);
-                Event.observe(this.rows[row],'mouseup',this.trOnClick);
+                Event.observe(this.rows[row],'click',this.trOnClick);
                 Event.observe(this.rows[row],'dblclick',this.trOnDblClick);
             }
         }
