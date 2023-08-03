@@ -56,7 +56,8 @@ varienGrid.prototype = {
 
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);
                 Event.observe(this.rows[row],'mouseout',this.trOnMouseOut);
-                Event.observe(this.rows[row],'click',this.trOnClick);
+                Event.observe(this.rows[row],'mousedown',this.trOnClick);
+                Event.observe(this.rows[row],'mouseup',this.trOnClick);
                 Event.observe(this.rows[row],'dblclick',this.trOnDblClick);
             }
         }
@@ -304,16 +305,23 @@ varienGrid.prototype = {
     }
 };
 
-function openGridRow(grid, event){
-    var element = Event.findElement(event, 'tr');
-    if(['a', 'input', 'select', 'option'].indexOf(Event.element(event).tagName.toLowerCase())!=-1) {
+function openGridRow(grid, evt){
+    if (evt.button != 1 && evt.type == "mousedown") {
+        return; // Ignore mousedown for any button except middle
+    }
+    if (evt.button == 2) {
+        return; // Ignore right click
+    }
+
+    var trElement = Event.findElement(evt, 'tr');
+    if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
     }
-    if(element.title){
-        if (event.ctrlKey) {
-            window.open(element.title, '_blank');
+    if(trElement.title){
+        if (evt.ctrlKey || evt.button == 1) {
+            window.open(trElement.title, '_blank');
         } else {
-            setLocation(element.title);
+            setLocation(trElement.title);
         }
     }
 }
@@ -433,6 +441,12 @@ varienGridMassaction.prototype = {
         this.getOldCallback('init_row')(grid, row);
     },
     onGridRowClick: function(grid, evt) {
+        if (evt.button != 1 && evt.type == "mousedown") {
+            return; // Ignore mousedown for any button except middle
+        }
+        if (evt.button == 2) {
+            return; // Ignore right click
+        }
 
         var tdElement = Event.findElement(evt, 'td');
         var trElement = Event.findElement(evt, 'tr');
@@ -442,7 +456,7 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                if (evt.ctrlKey) {
+                if (evt.ctrlKey || evt.button == 1) {
                     window.open(trElement.title, '_blank');
                 } else {
                     setLocation(trElement.title);
