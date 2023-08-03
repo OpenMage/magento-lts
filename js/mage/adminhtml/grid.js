@@ -309,9 +309,12 @@ function openGridRow(grid, event){
     if(['a', 'input', 'select', 'option'].indexOf(Event.element(event).tagName.toLowerCase())!=-1) {
         return;
     }
-
     if(element.title){
-        setLocation(element.title);
+        if (event.ctrlKey) {
+            window.open(element.title, '_blank');
+        } else {
+            setLocation(element.title);
+        }
     }
 }
 
