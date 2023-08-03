@@ -120,6 +120,12 @@ varienGrid.prototype = {
         Element.removeClassName(element, 'on-mouse');
     },
     rowMouseClick : function(event){
+        if (event.button != 1 && event.type == "mousedown") {
+            return; // Ignore mousedown for any button except middle
+        }
+        if (event.button == 2) {
+            return; // Ignore right click
+        }
         if(this.rowClickCallback){
             try{
                 this.rowClickCallback(this, event);
@@ -306,13 +312,6 @@ varienGrid.prototype = {
 };
 
 function openGridRow(grid, evt){
-    if (evt.button != 1 && evt.type == "mousedown") {
-        return; // Ignore mousedown for any button except middle
-    }
-    if (evt.button == 2) {
-        return; // Ignore right click
-    }
-
     var trElement = Event.findElement(evt, 'tr');
     if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
@@ -441,13 +440,6 @@ varienGridMassaction.prototype = {
         this.getOldCallback('init_row')(grid, row);
     },
     onGridRowClick: function(grid, evt) {
-        if (evt.button != 1 && evt.type == "mousedown") {
-            return; // Ignore mousedown for any button except middle
-        }
-        if (evt.button == 2) {
-            return; // Ignore right click
-        }
-
         var tdElement = Event.findElement(evt, 'td');
         var trElement = Event.findElement(evt, 'tr');
 
