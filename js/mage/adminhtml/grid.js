@@ -439,7 +439,11 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                setLocation(trElement.title);
+                if (evt.ctrlKey) {
+                    window.open(trElement.title, '_blank');
+                } else {
+                    setLocation(trElement.title);
+                }
             }
             else{
                 var checkbox = Element.select(trElement, 'input');
