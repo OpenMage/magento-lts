@@ -311,13 +311,19 @@ varienGrid.prototype = {
     }
 };
 
+function shouldOpenGridRowNewTab(evt){
+    return evt.ctrlKey // Windows ctrl + click
+        || evt.metaKey // macOS command + click
+        || evt.button == 1 // Middle mouse click
+}
+
 function openGridRow(grid, evt){
     var trElement = Event.findElement(evt, 'tr');
     if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
     }
     if(trElement.title){
-        if (evt.ctrlKey || evt.button == 1) {
+        if (shouldOpenGridRowNewTab(evt)) {
             window.open(trElement.title, '_blank');
         } else {
             setLocation(trElement.title);
@@ -440,6 +446,7 @@ varienGridMassaction.prototype = {
         this.getOldCallback('init_row')(grid, row);
     },
     onGridRowClick: function(grid, evt) {
+
         var tdElement = Event.findElement(evt, 'td');
         var trElement = Event.findElement(evt, 'tr');
 
@@ -448,7 +455,7 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                if (evt.ctrlKey || evt.button == 1) {
+                if (shouldOpenGridRowNewTab(evt)) {
                     window.open(trElement.title, '_blank');
                 } else {
                     setLocation(trElement.title);
