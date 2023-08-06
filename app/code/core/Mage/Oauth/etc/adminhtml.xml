@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -23,7 +23,7 @@
                         <children>
                             <api>
                                 <children>
-                                    <consumer translate="title" module="oauth">
+                                    <oauth_consumer translate="title" module="oauth">
                                         <title>OAuth Consumers</title>
                                         <sort_order>20</sort_order>
                                         <children>
@@ -36,11 +36,11 @@
                                                 <sort_order>40</sort_order>
                                             </delete>
                                         </children>
-                                    </consumer>
-                                    <authorizedTokens translate="title" module="oauth">
+                                    </oauth_consumer>
+                                    <oauth_authorized_tokens translate="title" module="oauth">
                                         <title>OAuth Authorized Tokens</title>
                                         <sort_order>30</sort_order>
-                                    </authorizedTokens>
+                                    </oauth_authorized_tokens>
                                     <oauth_admin_token translate="title" module="oauth">
                                         <title>OAuth Admin My Apps</title>
                                         <sort_order>40</sort_order>
