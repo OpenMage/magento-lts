@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -217,7 +217,7 @@ final class Mage
                 'major'     => '20',
                 'minor'     => '1',
                 'patch'     => '0',
-                'stability' => 'rc7', // beta,alpha,rc
+                'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -226,7 +226,7 @@ final class Mage
             'major'     => '19',
             'minor'     => '5',
             'patch'     => '0',
-            'stability' => 'rc7', // beta,alpha,rc
+            'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
@@ -474,7 +474,7 @@ final class Mage
     }
 
     /**
-     * Add observer to even object
+     * Add observer to events object
      *
      * @param string $eventName
      * @param callback $callback
