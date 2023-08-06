@@ -79,10 +79,6 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'translator'                    => Mage::helper('cms'),
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
-            'popup_css'                     =>
-                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/themes/advanced/skins/default/dialog.css',
-            'content_css'                   =>
-                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
             'plugins'                       => [],
             // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
