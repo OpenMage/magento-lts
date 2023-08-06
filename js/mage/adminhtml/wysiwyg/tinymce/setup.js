@@ -94,7 +94,7 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
-            skin: 'oxide',
+            skin: 'oxide-dark',
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
