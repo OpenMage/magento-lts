@@ -49,6 +49,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      */
     public const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
 
+    public const WYSIWYG_LOCALES = ['ar','az','be','bg_BG','bn_BD','ca','cs','cy','da','de','dv','el','eo','es','es_MX','et','eu','fa','fi','fr_FR','ga','gl','he_IL','hi','hr','hu_HU','hy','id','is_IS','it','ja','ka_GE','kab','kk','ko_KR','ku','lt','lv','nb_NO','ne','nl','nl_BE','oc','pl','pt_BR','README.md','ro','ru','sk','sl_SI','sq','sr','sv_SE','ta','tg','th_TH','tr','ug','uk','uz','vi','zh-Hans','zh-Hant','zh_HK','zh_MO','zh_SG'];
+
     /**
      * Return Wysiwyg config as Varien_Object
      *
@@ -69,6 +71,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     {
         $config = new Varien_Object();
 
+        $locale = Mage::app()->getLocale()->getLocaleCode();
+        $lang = in_array($locale, self::WYSIWYG_LOCALES) ? $locale : substr($locale, 0, 2);
         $config->setData([
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
@@ -81,8 +85,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
             'width'                         => '100%',
             'plugins'                       => [],
-            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
-            'lang'                          => substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2)
+            'lang'                          => $lang
         ]);
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
 
