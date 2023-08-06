@@ -94,19 +94,13 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
-            // TODO
-            // Possible values: oxide (default), oxide-dark, tinymce-5, tinymce-5-dark
-            skin: 'oxide-dark',
-            // TODO: why load this custom css? propose to delete all themes/advanced/skins/default/*.css
-            // https://www.tiny.cloud/docs/tinymce/6/add-css-options/#content_css
-            //content_css: this.config.content_css,
+            skin: 'oxide',
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
                 return url;
             },
             setup: (editor) => {
-
                 var onChange;
                 
                 editor.on('BeforeSetContent', function (evt) {
