@@ -226,7 +226,7 @@ Mediabrowser.prototype = {
      */
     getMediaBrowserCallback: function() {
         if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId) && typeof(tinyMceEditors) != 'undefined') {
-            return tinyMceEditors[this.targetElementId].getMediaBrowserCallback();
+            return tinyMceEditors.get(this.targetElementId).getMediaBrowserCallback();
         }
         return null;
     },

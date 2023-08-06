@@ -111,7 +111,7 @@ var Variables = {
     }
 };
 
-MagentovariablePlugin = {
+OpenmagevariablePlugin = {
     editor: null,
     variables: null,
     textareaId: null,
@@ -125,7 +125,7 @@ MagentovariablePlugin = {
                 parameters: {},
                 onComplete: function (transport) {
                     if (transport.responseText.isJSON()) {
-                        Variables.init(null, 'MagentovariablePlugin.insertVariable');
+                        Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
                         this.variables = transport.responseText.evalJSON();
                         this.openChooser(this.variables);
                     }

@@ -19,6 +19,8 @@ tinyMceWysiwygSetup.prototype =
     mediaBrowserMetal: null,
     mediaBrowserValue: null,
 
+    openmagePluginsOptions: $H({}),
+
     initialize: function(htmlId, config)
     {
         this.id = htmlId;
@@ -29,35 +31,80 @@ tinyMceWysiwygSetup.prototype =
         varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
         varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
 
-        if (typeof tinyMceEditors == 'undefined') {
-            tinyMceEditors = [];
+        if (typeof tinyMceEditors === 'undefined') {
+            window.tinyMceEditors = $H({});
         }
-        tinyMceEditors[this.id] = this;
+        tinyMceEditors.set(this.id, this);
     },
 
     setup: function(mode)
     {
-        this.turnOff();
+        var self = this;
+
+        if (this.config.widget_plugin_src) {
+            tinymce.PluginManager.load('openmagewidget', this.config.widget_plugin_src);
+            this.openmagePluginsOptions.set('openmagewidget', {
+                'widget_window_url': this.config.widget_window_url
+            });
+        }
+
         if (this.config.plugins) {
             (this.config.plugins).each(function(plugin){
                 tinymce.PluginManager.load(plugin.name, plugin.src);
+                self.openmagePluginsOptions.set(plugin.name, plugin.options);
             });
         }
+
         tinymce.init(this.getSettings(mode));
     },
 
+
     getSettings: function(mode) 
-    {
-        var plugins = 'lists advlist directionality image link media nonbreaking preview quickbars openmagevariable';
+    {                
+        var plugins = 'autoresize accordion visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
+        var toolbar = [
+            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
+            'cut paste pastetext copy | searchreplace | bullist numlist advlist accordion | indent outdent blockquote | undo redo | link unlink anchor | image charmap emoticons code | forecolor backcolor',
+            'table | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
+        ];
+
+        // load and add to toolbar openmagePlugins
+        if (this.openmagePluginsOptions) {
+            var openmageToolbarButtons = '';
+            this.openmagePluginsOptions.each(function (plugin, key) {
+                plugins = plugin.key + ' ' + plugins;
+                openmageToolbarButtons = plugin.key + ' ' + openmageToolbarButtons;
+            });
+            toolbar[0] = openmageToolbarButtons + ' | ' + toolbar[0];
+        }
+
         var settings = {
             selector: this.selector,
             config: this.config,
+            menubar: false,
             plugins: plugins,
+            toolbar: toolbar,
+            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
+            // view app/code/core/Mage/Cms/Model/Wysiwyg/Config.php
+            language: this.config.lang,
+            paste_as_text: true,
+            file_picker_types: 'file image media',
             automatic_uploads: false,
             branding: false,
             promotion: false,
             convert_urls: false,
             relative_urls: true,
+            // TODO
+            // Possible values: oxide (default), oxide-dark, tinymce-5, tinymce-5-dark
+            skin: 'oxide-dark',
+            // TODO: why load this custom css? propose to delete all themes/advanced/skins/default/*.css
+            // https://www.tiny.cloud/docs/tinymce/6/add-css-options/#content_css
+            //content_css: this.config.content_css,
+            urlconverter_callback: (url, node, on_save, name) => {
+                // some callback here to convert urls
+                //url = this.decodeContent(url);
+                return url;
+            },
             setup: (editor) => {
 
                 var onChange;
@@ -235,9 +282,6 @@ tinyMceWysiwygSetup.prototype =
         } else if (this.config.add_directives) {
             content = this.encodeDirectives(content);
         }
-
-        content = varienGlobalEvents.fireEventReducer('wysiwygEncodeContent', content);
-
         return content;
     },
     
@@ -248,8 +292,6 @@ tinyMceWysiwygSetup.prototype =
         } else if (this.config.add_directives) {
             content = this.decodeDirectives(content);
         }
-
-        content = varienGlobalEvents.fireEventReducer('wysiwygDecodeContent', content);
         return content;
     },
 

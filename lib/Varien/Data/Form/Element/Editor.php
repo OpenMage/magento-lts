@@ -73,14 +73,6 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             </script>';
 
         if ($this->isEnabled()) {
-            // add Firebug notice translations
-            $warn = 'Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.';
-            $this->getConfig()->addData([
-                'firebug_warning_title'  => $this->translate('Warning'),
-                'firebug_warning_text'   => $this->translate($warn),
-                'firebug_warning_anchor' => $this->translate('Hide'),
-            ]);
-
             $translatedString = [
                 'Insert Image...' => $this->translate('Insert Image...'),
                 'Insert Media...' => $this->translate('Insert Media...'),
