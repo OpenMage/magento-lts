@@ -21,8 +21,7 @@ tinyMceWysiwygSetup.prototype =
 
     openmagePluginsOptions: $H({}),
 
-    initialize: function(htmlId, config)
-    {
+    initialize: function (htmlId, config) {
         this.id = htmlId;
         this.selector = 'textarea#' + htmlId;
         this.config = config;
@@ -37,8 +36,7 @@ tinyMceWysiwygSetup.prototype =
         tinyMceEditors.set(this.id, this);
     },
 
-    setup: function(mode)
-    {
+    setup: function (mode) {
         var self = this;
 
         if (this.config.widget_plugin_src) {
@@ -49,7 +47,7 @@ tinyMceWysiwygSetup.prototype =
         }
 
         if (this.config.plugins) {
-            (this.config.plugins).each(function(plugin){
+            (this.config.plugins).each(function (plugin) {
                 tinymce.PluginManager.load(plugin.name, plugin.src);
                 self.openmagePluginsOptions.set(plugin.name, plugin.options);
             });
@@ -59,8 +57,7 @@ tinyMceWysiwygSetup.prototype =
     },
 
 
-    getSettings: function(mode) 
-    {                
+    getSettings: function (mode) {
         var plugins = 'autoresize accordion visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
         var toolbar = [
             'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
@@ -84,8 +81,6 @@ tinyMceWysiwygSetup.prototype =
             menubar: false,
             plugins: plugins,
             toolbar: toolbar,
-            // TODO resolve different language names in official js files, like Francais is fr_FR.js and Italian is it.js
-            // view app/code/core/Mage/Cms/Model/Wysiwyg/Config.php
             language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',
@@ -94,7 +89,7 @@ tinyMceWysiwygSetup.prototype =
             promotion: false,
             convert_urls: false,
             relative_urls: true,
-            skin: 'oxide-dark',
+            skin: this.config.skin,
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
@@ -102,11 +97,11 @@ tinyMceWysiwygSetup.prototype =
             },
             setup: (editor) => {
                 var onChange;
-                
+
                 editor.on('BeforeSetContent', function (evt) {
                     varienGlobalEvents.fireEvent('tinymceBeforeSetContent', evt);
                 });
-                
+
                 editor.on('SaveContent', function (evt) {
                     varienGlobalEvents.fireEvent('tinymceSaveContent', evt);
                 });
@@ -133,7 +128,7 @@ tinyMceWysiwygSetup.prototype =
                 editor.on('ExecCommand', function (cmd, ui, val) {
                     varienGlobalEvents.fireEvent('tinymceExecCommand', cmd);
                 });
-                
+
                 editor.on('init', function (args) {
                     varienGlobalEvents.fireEvent('wysiwygEditorInitialized', args.target);
                 });
@@ -153,18 +148,18 @@ tinyMceWysiwygSetup.prototype =
         return settings;
     },
 
-    openFileBrowser: function(o) {
+    openFileBrowser: function (o) {
         var typeTitle;
         var storeId = this.config.store_id !== null ? this.config.store_id : 0;
         var wUrl = this.config.files_browser_window_url +
-                   'target_element_id/' + this.id + '/' +
-                   'store/' + storeId + '/';
+            'target_element_id/' + this.id + '/' +
+            'store/' + storeId + '/';
 
         this.mediaBrowserCallback = o.callback;
         this.mediaBrowserMeta = o.meta;
         this.mediaBrowserValue = o.value;
 
-        if (typeof(o.meta.filetype) != 'undefined' && o.meta.filetype == "image") {
+        if (typeof (o.meta.filetype) != 'undefined' && o.meta.filetype == "image") {
             typeTitle = 'image' == o.meta.filetype ? this.translate('Insert Image...') : this.translate('Insert Media...');
             wUrl = wUrl + "type/" + o.meta.filetype + "/";
         } else {
@@ -172,25 +167,25 @@ tinyMceWysiwygSetup.prototype =
         }
 
         MediabrowserUtility.openDialog(wUrl, false, false, typeTitle, {
-            onBeforeShow: function(win) {
-                win.element.setStyle({zIndex: 300200});
+            onBeforeShow: function (win) {
+                win.element.setStyle({ zIndex: 300200 });
             }
         });
     },
 
-    translate: function(string) {
-        return 'undefined' != typeof(Translator) ? Translator.translate(string) : string;
+    translate: function (string) {
+        return 'undefined' != typeof (Translator) ? Translator.translate(string) : string;
     },
 
-    getToggleButton: function() {
+    getToggleButton: function () {
         return document.getElementById('toggle' + this.id);
     },
 
-    getPluginButtons: function() {
+    getPluginButtons: function () {
         return document.querySelectorAll('#buttons' + this.id + ' > button.plugin');
     },
 
-    turnOn: function() {
+    turnOn: function () {
         this.closePopups();
         this.setup();
         this.getPluginButtons().forEach(function (e) {
@@ -198,22 +193,22 @@ tinyMceWysiwygSetup.prototype =
         });
     },
 
-    turnOff: function() {
+    turnOff: function () {
         this.closePopups();
         if (tinymce.get(this.id)) {
             tinymce.get(this.id).destroy();
-        } 
+        }
         this.getPluginButtons().forEach(function (e) {
             e.show();
         });
     },
 
-    closePopups: function() {
+    closePopups: function () {
         closeEditorPopup('widget_window' + this.id);
         closeEditorPopup('browser_window' + this.id);
     },
 
-    toggle: function() {
+    toggle: function () {
         if (tinymce.get(this.id) === null) {
             this.turnOn();
             return true;
@@ -223,15 +218,15 @@ tinyMceWysiwygSetup.prototype =
         }
     },
 
-    onFormValidation: function() {
+    onFormValidation: function () {
         if (tinymce.get(this.id)) {
             document.getElementById(this.id).value = tinymce.get(this.id).getContent();
         }
     },
 
-    onChangeContent: function() {
+    onChangeContent: function () {
         this.updateTextArea();
-        if(this.config.tab_id) {
+        if (this.config.tab_id) {
             var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
             if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
                 $(tab).addClassName('changed');
@@ -252,13 +247,13 @@ tinyMceWysiwygSetup.prototype =
         content = this.decodeContent(content);
         this.getTextArea().value = content;
         this.triggerChange(this.getTextArea());
-    },  
+    },
 
     getTextArea: function () {
         return document.getElementById(this.id);
     },
 
-    triggerChange: function(element) {
+    triggerChange: function (element) {
         if ("createEvent" in document) {
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent("change", false, true);
@@ -268,8 +263,8 @@ tinyMceWysiwygSetup.prototype =
         }
         return element;
     },
-    
-    encodeContent: function(content) {
+
+    encodeContent: function (content) {
         if (this.config.add_widgets) {
             content = this.encodeWidgets(content);
             content = this.encodeDirectives(content);
@@ -278,8 +273,8 @@ tinyMceWysiwygSetup.prototype =
         }
         return content;
     },
-    
-    decodeContent: function(content) {
+
+    decodeContent: function (content) {
         if (this.config.add_widgets) {
             content = this.decodeWidgets(content);
             content = this.decodeDirectives(content);
@@ -290,16 +285,16 @@ tinyMceWysiwygSetup.prototype =
     },
 
     // retrieve directives URL with substituted directive value
-    makeDirectiveUrl: function(directive) {
+    makeDirectiveUrl: function (directive) {
         return this.config.directives_url.replace('directive', 'directive/___directive/' + directive);
     },
 
-    encodeDirectives: function(content) {
+    encodeDirectives: function (content) {
         // collect all HTML tags with attributes that contain directives
-        return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=".*?\{\{.+?\}\}.*?".+?)>/i, function(match) {
+        return content.gsub(/<([a-z0-9\-\_]+.+?)([a-z0-9\-\_]+=".*?\{\{.+?\}\}.*?".+?)>/i, function (match) {
             var attributesString = match[2];
             // process tag attributes string
-            attributesString = attributesString.gsub(/([a-z0-9\-\_]+)="(.*?)(\{\{.+?\}\})(.*?)"/i, function(m) {
+            attributesString = attributesString.gsub(/([a-z0-9\-\_]+)="(.*?)(\{\{.+?\}\})(.*?)"/i, function (m) {
                 return m[1] + '="' + m[2] + this.makeDirectiveUrl(Base64.mageEncode(m[3])) + m[4] + '"';
             }.bind(this));
 
@@ -308,8 +303,8 @@ tinyMceWysiwygSetup.prototype =
         }.bind(this));
     },
 
-    encodeWidgets: function(content) {
-        return content.gsub(/\{\{widget(.*?)\}\}/i, function(match){
+    encodeWidgets: function (content) {
+        return content.gsub(/\{\{widget(.*?)\}\}/i, function (match) {
             var attributes = this.parseAttributesString(match[1]);
             if (attributes.type) {
                 var placeholderFilename = attributes.type.replace(/\//g, "__") + ".gif";
@@ -318,29 +313,29 @@ tinyMceWysiwygSetup.prototype =
                 }
                 var imageSrc = this.config.widget_images_url + placeholderFilename;
                 var imageHtml = '<img';
-                    imageHtml+= ' id="' + Base64.idEncode(match[0]) + '"';
-                    imageHtml+= ' src="' + imageSrc + '"';
-                    imageHtml+= ' title="' + match[0].replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/\"/g, '&quot;') + '"';
-                    imageHtml+= '>';
+                imageHtml += ' id="' + Base64.idEncode(match[0]) + '"';
+                imageHtml += ' src="' + imageSrc + '"';
+                imageHtml += ' title="' + match[0].replace(/\{\{/g, '{').replace(/\}\}/g, '}').replace(/\"/g, '&quot;') + '"';
+                imageHtml += '>';
 
                 return imageHtml;
             }
         }.bind(this));
     },
 
-    decodeDirectives: function(content) {
+    decodeDirectives: function (content) {
         // escape special chars in directives url to use it in regular expression
         var url = this.makeDirectiveUrl('%directive%').replace(/([$^.?*!+:=()\[\]{}|\\])/g, '\\$1');
         var reg = new RegExp(url.replace('%directive%', '([a-zA-Z0-9,_-]+)'));
-        return content.gsub(reg, function(match) {
+        return content.gsub(reg, function (match) {
             return Base64.mageDecode(match[1]);
         }.bind(this));
     },
 
-    decodeWidgets: function(content) {
-        return content.gsub(/<img([^>]+id=\"[^>]+)>/i, function(match) {
+    decodeWidgets: function (content) {
+        return content.gsub(/<img([^>]+id=\"[^>]+)>/i, function (match) {
             var attributes = this.parseAttributesString(match[1]);
-            if(attributes.id) {
+            if (attributes.id) {
                 var widgetCode = Base64.idDecode(attributes.id);
                 if (widgetCode.indexOf('{{widget') != -1) {
                     return widgetCode;
@@ -351,19 +346,19 @@ tinyMceWysiwygSetup.prototype =
         }.bind(this));
     },
 
-    parseAttributesString: function(attributes) {
+    parseAttributesString: function (attributes) {
         var result = {};
-        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/, function(match){
+        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/, function (match) {
             result[match[1]] = match[2];
         });
         return result;
     },
 
-    widgetPlaceholderExist: function(filename) {
+    widgetPlaceholderExist: function (filename) {
         return this.config.widget_placeholders.indexOf(filename) != -1;
     },
 
-    getMediaBrowserCallback: function() {
+    getMediaBrowserCallback: function () {
         return this.mediaBrowserCallback;
     }
 };

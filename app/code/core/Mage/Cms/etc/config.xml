@@ -200,6 +200,7 @@
         <cms>
             <wysiwyg>
                 <enabled>enabled</enabled>
+                <skin>tinymce-5</skin>
             </wysiwyg>
         </cms>
         <system>

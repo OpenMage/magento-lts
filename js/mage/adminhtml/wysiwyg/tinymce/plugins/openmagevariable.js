@@ -34,7 +34,7 @@ tinymce.PluginManager.add('openmagevariable', (ed, url) => {
             
             editor.ui.registry.addToggleButton('openmagevariable', {
                 icon: 'openmagevariable',
-                tooltip: 'Insert Variable',
+                tooltip: Translator.translate('Insert Variable'),
                 onAction: function () {
                     editor.execCommand('openVariablesPopup');
                 }

@@ -76,6 +76,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
         $config->setData([
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
+            'skin'                          => Mage::getStoreConfig('cms/wysiwyg/skin'),
             'use_container'                 => false,
             'add_variables'                 => Mage::getSingleton('admin/session')->isAllowed('system/variable'),
             'add_widgets'                   => Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance'),

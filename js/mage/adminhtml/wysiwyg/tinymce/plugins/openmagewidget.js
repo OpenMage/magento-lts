@@ -38,7 +38,7 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
             );
             editor.ui.registry.addToggleButton('openmagewidget', {
                 icon: 'openmagewidget',
-                tooltip: 'Insert Widget',
+                tooltip: Translator.translate('Insert Widget'),
 
                 /**
                  * execute openVariablesSlideout for onAction callback
