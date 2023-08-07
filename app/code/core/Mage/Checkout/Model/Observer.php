@@ -40,9 +40,6 @@ class Mage_Checkout_Model_Observer
         }
     }
 
-    /**
-     * @param Varien_Event_Observer $observer
-     */
     public function salesQuoteSaveAfter(Varien_Event_Observer $observer)
     {
         $quote = $observer->getEvent()->getQuote();

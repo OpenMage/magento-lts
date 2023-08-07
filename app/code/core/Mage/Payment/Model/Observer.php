@@ -25,23 +25,23 @@ class Mage_Payment_Model_Observer
      * Set forced canCreditmemo flag
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function salesOrderBeforeSave($observer)
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
 
-        if ($order->getPayment() && $order->getPayment()->getMethodInstance()->getCode() != 'free') {
-            return $this;
+        if ($order->getPayment()->getMethodInstance()->getCode() != 'free') {
+            return;
         }
 
         if ($order->canUnhold()) {
-            return $this;
+            return;
         }
 
         if ($order->isCanceled() || $order->getState() === Mage_Sales_Model_Order::STATE_CLOSED) {
-            return $this;
+            return;
         }
         /**
          * Allow forced creditmemo just in case if it wasn't defined before
@@ -49,7 +49,6 @@ class Mage_Payment_Model_Observer
         if (!$order->hasForcedCanCreditmemo()) {
             $order->setForcedCanCreditmemo(true);
         }
-        return $this;
     }
 
     /**
@@ -102,7 +101,7 @@ class Mage_Payment_Model_Observer
     /**
      * Sets current instructions for bank transfer account
      *
-     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
      */
     public function beforeOrderPaymentSave(Varien_Event_Observer $observer)
     {

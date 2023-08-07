@@ -26,8 +26,7 @@ class Mage_Downloadable_Model_Observer
     /**
      * Prepare product to save
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Downloadable_Model_Observer
+     * @param Varien_Event_Observer $observer
      */
     public function prepareProductSave($observer)
     {
@@ -38,15 +37,10 @@ class Mage_Downloadable_Model_Observer
         if ($downloadable = $request->getPost('downloadable')) {
             $product->setDownloadableData($downloadable);
         }
-
-        return $this;
     }
 
     /**
      * Save data from order to purchased links
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function saveDownloadableOrderItem(Varien_Event_Observer $observer)
     {
@@ -54,14 +48,14 @@ class Mage_Downloadable_Model_Observer
         $orderItem = $observer->getEvent()->getItem();
         if (!$orderItem->getId()) {
             //order not saved in the database
-            return $this;
+            return;
         }
         $product = $orderItem->getProduct();
         if ($product && $product->getTypeId() != Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
-            return $this;
+            return;
         }
         if (Mage::getModel('downloadable/link_purchased')->load($orderItem->getId(), 'order_item_id')->getId()) {
-            return $this;
+            return;
         }
         if (!$product) {
             $product = Mage::getModel('catalog/product')
@@ -117,15 +111,12 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
-
-        return $this;
     }
 
     /**
      * Set checkout session flag if order has downloadable product(s)
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function setHasDownloadableProducts($observer)
     {
@@ -144,14 +135,13 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
-        return $this;
     }
 
     /**
      * Set status of link
      *
      * @param Varien_Event_Observer $observer
-     * @return $this
+     * @throws Throwable
      */
     public function setLinkStatus($observer)
     {
@@ -160,7 +150,7 @@ class Mage_Downloadable_Model_Observer
 
         if (!$order->getId()) {
             //order not saved in the database
-            return $this;
+            return;
         }
 
         /** @var Mage_Sales_Model_Order $order */
@@ -246,14 +236,10 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
-        return $this;
     }
 
     /**
-     * Check is allowed guest checkuot if quote contain downloadable product(s)
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
+     * Check is allowed guest checkout if quote contain downloadable product(s)
      */
     public function isAllowedGuestCheckout(Varien_Event_Observer $observer)
     {
@@ -275,20 +261,14 @@ class Mage_Downloadable_Model_Observer
         if ($isContain && Mage::getStoreConfigFlag(self::XML_PATH_DISABLE_GUEST_CHECKOUT, $store)) {
             $result->setIsAllowed(false);
         }
-
-        return $this;
     }
 
     /**
      * Initialize product options renderer with downloadable specific params
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function initOptionRenderer(Varien_Event_Observer $observer)
     {
         $block = $observer->getBlock();
         $block->addOptionsRenderCfg('downloadable', 'downloadable/catalog_product_configuration');
-        return $this;
     }
 }

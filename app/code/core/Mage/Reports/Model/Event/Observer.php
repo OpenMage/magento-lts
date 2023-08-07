@@ -69,14 +69,11 @@ class Mage_Reports_Model_Event_Observer
 
     /**
      * Customer login action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn() || !$this->_enabledReports) {
-            return $this;
+            return;
         }
 
         $visitorId  = Mage::getSingleton('log/visitor')->getId();
@@ -90,15 +87,10 @@ class Mage_Reports_Model_Event_Observer
         Mage::getModel('reports/product_index_viewed')
             ->updateCustomerFromVisitor()
             ->calculate();
-
-        return $this;
     }
 
     /**
      * Customer logout processing
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
@@ -110,20 +102,15 @@ class Mage_Reports_Model_Event_Observer
                 ->purgeVisitorByCustomer()
                 ->calculate();
         }
-
-        return $this;
     }
 
     /**
      * View Catalog Product action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductView(Varien_Event_Observer $observer)
     {
         if (!$this->_enabledReports) {
-            return $this;
+            return;
         }
 
         $productId = $observer->getEvent()->getProduct()->getId();
@@ -133,22 +120,19 @@ class Mage_Reports_Model_Event_Observer
             ->save()
             ->calculate();
 
-        return $this->_event(Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW, $productId);
+        $this->_event(Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW, $productId);
     }
 
     /**
      * Send Product link to friends action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function sendfriendProduct(Varien_Event_Observer $observer)
     {
         if (!$this->_enabledReports) {
-            return $this;
+            return;
         }
 
-        return $this->_event(
+        $this->_event(
             Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
             $observer->getEvent()->getProduct()->getId()
         );
@@ -158,48 +142,35 @@ class Mage_Reports_Model_Event_Observer
      * Remove Product from Compare Products action
      *
      * Reset count of compared products cache
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductCompareRemoveProduct(Varien_Event_Observer $observer)
     {
         if ($this->_enabledReports) {
             Mage::getModel('reports/product_index_compared')->calculate();
         }
-
-        return $this;
     }
 
     /**
      * Remove All Products from Compare Products
      *
      * Reset count of compared products cache
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductCompareClear(Varien_Event_Observer $observer)
     {
         if ($this->_enabledReports) {
             Mage::getModel('reports/product_index_compared')->calculate();
         }
-
-        return $this;
     }
 
     /**
      * Add Product to Compare Products List action
      *
      * Reset count of compared products cache
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductCompareAddProduct(Varien_Event_Observer $observer)
     {
         if (!$this->_enabledReports) {
-            return $this;
+            return;
         }
 
         $productId = $observer->getEvent()->getProduct()->getId();
@@ -209,14 +180,11 @@ class Mage_Reports_Model_Event_Observer
             ->save()
             ->calculate();
 
-        return $this->_event(Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE, $productId);
+        $this->_event(Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE, $productId);
     }
 
     /**
      * Add product to shopping cart action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function checkoutCartAddProduct(Varien_Event_Observer $observer)
     {
@@ -228,23 +196,18 @@ class Mage_Reports_Model_Event_Observer
                 $this->_event(Mage_Reports_Model_Event::EVENT_PRODUCT_TO_CART, $productId);
             }
         }
-
-        return $this;
     }
 
     /**
      * Add product to wishlist action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function wishlistAddProduct(Varien_Event_Observer $observer)
     {
         if (!$this->_enabledReports) {
-            return $this;
+            return;
         }
 
-        return $this->_event(
+        $this->_event(
             Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
             $observer->getEvent()->getProduct()->getId()
         );
@@ -252,17 +215,14 @@ class Mage_Reports_Model_Event_Observer
 
     /**
      * Share customer wishlist action
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function wishlistShare(Varien_Event_Observer $observer)
     {
         if (!$this->_enabledReports) {
-            return $this;
+            return;
         }
 
-        return $this->_event(
+        $this->_event(
             Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
             $observer->getEvent()->getWishlist()->getId()
         );
@@ -272,9 +232,6 @@ class Mage_Reports_Model_Event_Observer
      * Clean events by old visitors
      *
      * @see Global Log Clean Settings
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function eventClean(Varien_Event_Observer $observer)
     {
@@ -284,7 +241,5 @@ class Mage_Reports_Model_Event_Observer
 
         Mage::getModel('reports/product_index_compared')->clean();
         Mage::getModel('reports/product_index_viewed')->clean();
-
-        return $this;
     }
 }

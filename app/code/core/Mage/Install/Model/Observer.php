@@ -28,7 +28,6 @@ class Mage_Install_Model_Observer
                 $locale->setLocaleCode($choosedLocale);
             }
         }
-        return $this;
     }
 
     public function installFailure($observer)

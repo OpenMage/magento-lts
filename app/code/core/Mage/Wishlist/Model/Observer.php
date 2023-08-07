@@ -38,8 +38,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Check move quote item to wishlist request
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  Mage_Wishlist_Model_Observer
+     * @param Varien_Event_Observer $observer
+     * @throws Throwable
      */
     public function processCartUpdateBefore($observer)
     {
@@ -49,7 +49,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
         $wishlist = $this->_getWishlist($cart->getQuote()->getCustomerId());
         if (!$wishlist) {
-            return $this;
+            return;
         }
 
         /**
@@ -76,7 +76,6 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $wishlist->save();
             Mage::helper('wishlist')->calculate();
         }
-        return $this;
     }
 
     /**
@@ -135,27 +134,17 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
     /**
      * Customer login processing
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
         Mage::helper('wishlist')->calculate();
-
-        return $this;
     }
 
     /**
      * Customer logout processing
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
         Mage::getSingleton('customer/session')->setWishlistItemCount(0);
-
-        return $this;
     }
 }

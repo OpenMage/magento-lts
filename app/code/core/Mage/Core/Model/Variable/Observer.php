@@ -23,9 +23,6 @@ class Mage_Core_Model_Variable_Observer
 {
     /**
      * Add variable wysiwyg plugin config
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function prepareWysiwygPluginConfig(Varien_Event_Observer $observer)
     {
@@ -35,6 +32,5 @@ class Mage_Core_Model_Variable_Observer
             $settings = Mage::getModel('core/variable_config')->getWysiwygPluginSettings($config);
             $config->addData($settings);
         }
-        return $this;
     }
 }

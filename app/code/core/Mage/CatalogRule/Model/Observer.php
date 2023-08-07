@@ -39,47 +39,41 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Apply all catalog price rules for specific product
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
      */
     public function applyAllRulesOnProduct($observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         if ($product->getIsMassupdate()) {
-            return $this;
+            return;
         }
 
         Mage::getModel('catalogrule/rule')->applyAllRulesToProduct($product);
-
-        return $this;
     }
 
     /**
      * Load matched catalog price rules for specific product.
      * Is used for comparison in Mage_CatalogRule_Model_Resource_Rule::applyToProduct method
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
      */
     public function loadProductRules($observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         if (!$product instanceof Mage_Catalog_Model_Product) {
-            return $this;
+            return;
         }
         Mage::getModel('catalogrule/rule')->loadProductRules($product);
-        return $this;
     }
 
     /**
      * Apply all price rules for current date.
      * Handle catalog_product_import_after event
      *
-     * @param   Varien_Event_Observer $observer
-     *
-     * @return  $this
+     * @param Varien_Event_Observer $observer
+     * @throws Throwable
      */
     public function applyAllRules($observer)
     {
@@ -89,16 +83,10 @@ class Mage_CatalogRule_Model_Observer
         Mage::getModel('catalogrule/flag')->loadSelf()
             ->setState(0)
             ->save();
-
-        return $this;
     }
 
     /**
      * Preload all price rules for all items in quote
-     *
-     * @param   Varien_Event_Observer $observer
-     *
-     * @return  $this
      */
     public function preloadPriceRules(Varien_Event_Observer $observer)
     {
@@ -124,16 +112,13 @@ class Mage_CatalogRule_Model_Observer
             $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
             $this->_rulePrices[$key] = $price;
         }
-
-        return $this;
     }
 
     /**
      * Apply catalog price rules to product on frontend
      *
-     * @param   Varien_Event_Observer $observer
-     *
-     * @return  $this
+     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function processFrontFinalPrice($observer)
     {
@@ -172,15 +157,13 @@ class Mage_CatalogRule_Model_Observer
             $finalPrice = min($product->getData('final_price'), $this->_rulePrices[$key]);
             $product->setFinalPrice($finalPrice);
         }
-        return $this;
     }
 
     /**
      * Apply catalog price rules to product in admin
      *
-     * @param   Varien_Event_Observer $observer
-     *
-     * @return  $this
+     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function processAdminFinalPrice($observer)
     {
@@ -214,16 +197,10 @@ class Mage_CatalogRule_Model_Observer
                 $product->setFinalPrice($finalPrice);
             }
         }
-
-        return $this;
     }
 
     /**
      * Calculate price using catalog price rules of configurable product
-     *
-     * @param Varien_Event_Observer $observer
-     *
-     * @return $this
      */
     public function catalogProductTypeConfigurablePrice(Varien_Event_Observer $observer)
     {
@@ -238,8 +215,6 @@ class Mage_CatalogRule_Model_Observer
                 $product->setConfigurablePrice($productPriceRule);
             }
         }
-
-        return $this;
     }
 
     /**
@@ -271,9 +246,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Calculate minimal final price with catalog rule price
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
     {
@@ -296,8 +268,6 @@ class Mage_CatalogRule_Model_Observer
                 $updateFields,
                 $websiteDate
             );
-
-        return $this;
     }
 
     /**
@@ -360,10 +330,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
-     *
-     * @param Varien_Event_Observer $observer
-     *
-     * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
     {
@@ -372,15 +338,10 @@ class Mage_CatalogRule_Model_Observer
         if ($attribute->dataHasChangedFor('is_used_for_promo_rules') && !$attribute->getIsUsedForPromoRules()) {
             $this->_checkCatalogRulesAvailability($attribute->getAttributeCode());
         }
-
-        return $this;
     }
 
     /**
      * After delete attribute check rules that contains deleted attribute
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
     {
@@ -389,13 +350,9 @@ class Mage_CatalogRule_Model_Observer
         if ($attribute->getIsUsedForPromoRules()) {
             $this->_checkCatalogRulesAvailability($attribute->getAttributeCode());
         }
-
-        return $this;
     }
 
     /**
-     * @param Varien_Event_Observer $observer
-     * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
     public function prepareCatalogProductCollectionPrices(Varien_Event_Observer $observer)
@@ -438,14 +395,12 @@ class Mage_CatalogRule_Model_Observer
                 $this->_rulePrices[$key] = $rulePrices[$productId] ?? false;
             }
         }
-
-        return $this;
     }
 
     /**
      * Create catalog rule relations for imported products
      *
-     * @param Varien_Event_Observer $observer
+     * @throws Mage_Core_Exception
      */
     public function createCatalogRulesRelations(Varien_Event_Observer $observer)
     {

@@ -88,22 +88,16 @@ class Mage_Sales_Model_Observer
      * When deleting product, substract it from all quotes quantities
      *
      * @throws Exception
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function substractQtyFromQuotes(Varien_Event_Observer $observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         Mage::getResourceSingleton('sales/quote')->substractProductFromQuotes($product);
-        return $this;
     }
 
     /**
      * When applying a catalog price rule, make related quotes recollect on demand
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function markQuotesRecollectOnCatalogRules(Varien_Event_Observer $observer)
     {
@@ -126,44 +120,33 @@ class Mage_Sales_Model_Observer
         }
 
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollectByAffectedProduct($productIdList);
-        return $this;
     }
 
     /**
      * Catalog Product After Save (change status process)
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         if ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
-            return $this;
+            return;
         }
 
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($product->getId());
-
-        return $this;
     }
 
     /**
      * Catalog Mass Status update process
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
     {
-        $status     = $observer->getEvent()->getStatus();
+        $status = $observer->getEvent()->getStatus();
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
-            return $this;
+            return;
         }
-        $productId  = $observer->getEvent()->getProductId();
+        $productId = $observer->getEvent()->getProductId();
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($productId);
-
-        return $this;
     }
 
     /**
@@ -299,8 +282,8 @@ class Mage_Sales_Model_Observer
     /**
      * Set new customer group to all his quotes
      *
-     * @param  Varien_Event_Observer $observer
-     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function customerSaveAfter(Varien_Event_Observer $observer)
     {
@@ -330,14 +313,10 @@ class Mage_Sales_Model_Observer
                 }
             }
         }
-
-        return $this;
     }
 
     /**
      * Set Quote information about MSRP price enabled
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function setQuoteCanApplyMsrp(Varien_Event_Observer $observer)
     {
@@ -359,8 +338,6 @@ class Mage_Sales_Model_Observer
 
     /**
      * Add VAT validation request date and identifier to order comments
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
     {
@@ -428,8 +405,6 @@ class Mage_Sales_Model_Observer
 
     /**
      * Handle customer VAT number if needed on collect_totals_before event of quote address
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function changeQuoteCustomerGroupId(Varien_Event_Observer $observer)
     {

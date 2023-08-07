@@ -138,14 +138,10 @@ class Mage_Catalog_Model_Observer
 
     /**
      * Catalog Product Compare Items Clean
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function catalogProductCompareClean(Varien_Event_Observer $observer)
     {
         Mage::getModel('catalog/product_compare_item')->clean();
-        return $this;
     }
 
     /**
@@ -167,8 +163,6 @@ class Mage_Catalog_Model_Observer
 
     /**
      * Checking whether the using static urls in WYSIWYG allowed event
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {
@@ -192,8 +186,6 @@ class Mage_Catalog_Model_Observer
 
     /**
      * Adds catalog categories to top menu
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function addCatalogToTopmenuItems(Varien_Event_Observer $observer)
     {
@@ -275,7 +267,6 @@ class Mage_Catalog_Model_Observer
     /**
      * Checks whether attribute_code by current module is reserved
      *
-     * @param Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      */
     public function checkReservedAttributeCodes(Varien_Event_Observer $observer)

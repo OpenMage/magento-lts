@@ -204,13 +204,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "controller_action_predispatch"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
+     * @throws Throwable
      */
     public function initByRequest($observer)
     {
         if ($this->_skipRequestLogging || $this->isModuleIgnored($observer)) {
-            return $this;
+            return;
         }
 
         $this->setData($this->_session->getVisitorData());
@@ -225,7 +225,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (!$visitorId || $this->_isVisitorSessionNew()) {
             Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
-        return $this;
     }
 
     /**
@@ -248,13 +247,13 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "controller_action_postdispatch"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
+     * @throws Throwable
      */
     public function saveByRequest($observer)
     {
         if ($this->_skipRequestLogging || $this->isModuleIgnored($observer)) {
-            return $this;
+            return;
         }
 
         try {
@@ -264,7 +263,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         } catch (Exception $e) {
             Mage::logException($e);
         }
-        return $this;
     }
 
     /**
@@ -272,8 +270,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "customer_login"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
      */
     public function bindCustomerLogin($observer)
     {
@@ -283,7 +280,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
-        return $this;
     }
 
     /**
@@ -291,20 +287,17 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      *
      * Used in event "customer_logout"
      *
-     * @param   Varien_Event_Observer $observer
-     * @return  $this
+     * @param Varien_Event_Observer $observer
      */
     public function bindCustomerLogout($observer)
     {
         if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
-        return $this;
     }
 
     /**
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function bindQuoteCreate($observer)
     {
@@ -316,12 +309,10 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
                 $this->setDoQuoteCreate(true);
             }
         }
-        return $this;
     }
 
     /**
      * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function bindQuoteDestroy($observer)
     {
@@ -330,7 +321,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
-        return $this;
     }
 
     /**

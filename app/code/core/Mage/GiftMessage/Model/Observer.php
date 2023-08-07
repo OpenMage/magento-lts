@@ -23,9 +23,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 {
     /**
      * Set gift messages to order item on import item
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function salesEventConvertQuoteItemToOrderItem(Varien_Event_Observer $observer)
     {
@@ -42,14 +39,10 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
         $orderItem->setGiftMessageId($quoteItem->getGiftMessageId())
             ->setGiftMessageAvailable($isAvailable);
-        return $this;
     }
 
     /**
      * Set gift messages to order from quote address
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
@@ -57,20 +50,15 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             $observer->getEvent()->getOrder()
                 ->setGiftMessageId($observer->getEvent()->getAddress()->getGiftMessageId());
         }
-        return $this;
     }
 
     /**
      * Set gift messages to order from quote address
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function salesEventConvertQuoteToOrder(Varien_Event_Observer $observer)
     {
         $observer->getEvent()->getOrder()
             ->setGiftMessageId($observer->getEvent()->getQuote()->getGiftMessageId());
-        return $this;
     }
 
     /**
@@ -89,10 +77,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     }
 
     /**
-     * Operate with gift messages on checkout proccess
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
+     * Operate with gift messages on checkout process
      */
     public function checkoutEventCreateGiftMessage(Varien_Event_Observer $observer)
     {
@@ -149,7 +134,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 }
             }
         }
-        return $this;
     }
 
     /**
@@ -167,9 +151,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
     /**
      * Duplicates giftmessage from order to quote on import or reorder
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function salesEventOrderToQuote(Varien_Event_Observer $observer)
     {
@@ -177,11 +158,11 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $order = $observer->getEvent()->getOrder();
         // Do not import giftmessage data if order is reordered
         if ($order->getReordered()) {
-            return $this;
+            return;
         }
 
         if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())) {
-            return $this;
+            return;
         }
         $giftMessageId = $order->getGiftMessageId();
         if ($giftMessageId) {
@@ -190,15 +171,10 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 ->save();
             $observer->getEvent()->getQuote()->setGiftMessageId($giftMessage->getId());
         }
-
-        return $this;
     }
 
     /**
      * Duplicates giftmessage from order item to quote item on import or reorder
-     *
-     * @param Varien_Event_Observer $observer
-     * @return $this
      */
     public function salesEventOrderItemToQuoteItem(Varien_Event_Observer $observer)
     {
@@ -207,7 +183,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         // Do not import giftmessage data if order is reordered
         $order = $orderItem->getOrder();
         if ($order && $order->getReordered()) {
-            return $this;
+            return;
         }
 
         $isAvailable = Mage::helper('giftmessage/message')->isMessagesAvailable(
@@ -216,7 +192,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             $orderItem->getStoreId()
         );
         if (!$isAvailable) {
-            return $this;
+            return;
         }
 
         /** @var Mage_Sales_Model_Quote_Item $quoteItem */
@@ -227,6 +203,5 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 ->save();
             $quoteItem->setGiftMessageId($giftMessage->getId());
         }
-        return $this;
     }
 }
