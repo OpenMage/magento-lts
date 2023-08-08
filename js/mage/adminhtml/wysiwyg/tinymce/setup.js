@@ -26,9 +26,6 @@ tinyMceWysiwygSetup.prototype =
         this.selector = 'textarea#' + htmlId;
         this.config = config;
         varienGlobalEvents.attachEventHandler('tinymceChange', this.onChangeContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceBeforeSetContent', this.beforeSetContent.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSetContent', this.updateTextArea.bind(this));
-        varienGlobalEvents.attachEventHandler('tinymceSaveContent', this.saveContent.bind(this));
 
         if (typeof tinyMceEditors === 'undefined') {
             window.tinyMceEditors = $H({});
@@ -226,7 +223,6 @@ tinyMceWysiwygSetup.prototype =
     },
 
     onChangeContent: function () {
-        this.updateTextArea();
         if (this.config.tab_id) {
             var tab = document.querySelector('a[id$=' + this.config.tab_id + ']');
             if ($(tab) != undefined && $(tab).hasClassName('tab-item-link')) {
