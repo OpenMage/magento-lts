@@ -90,6 +90,7 @@ tinyMceWysiwygSetup.prototype =
             convert_urls: false,
             relative_urls: true,
             skin: this.config.skin,
+            min_height: 460,
             urlconverter_callback: (url, node, on_save, name) => {
                 // some callback here to convert urls
                 //url = this.decodeContent(url);
