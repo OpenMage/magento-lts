@@ -19,10 +19,6 @@ $installer = $this;
 // Curaçao (CW, CUW, 531) and Sint Maarten (Dutch part) (SX, SXM, 534).
 //
 // See: https://www.iso.org/obp/ui/#iso:code:3166:AN
-$installer->getConnection()->delete(
-    $installer->getTable('directory/country'),
-    ['country_id = ?' => 'AN']
-);
 
 $data = [
     ['BQ', 'BQ', 'BES'],
