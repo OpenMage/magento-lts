@@ -15,7 +15,7 @@
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-// The Netherlands Antilles (AN) was divided into Bonaire, Saint Eustatius and Saba (BQ, BES, 535), 
+// The Netherlands Antilles (AN) was divided into Bonaire, Saint Eustatius and Saba (BQ, BES, 535),
 // Curaçao (CW, CUW, 531) and Sint Maarten (Dutch part) (SX, SXM, 534).
 //
 // See: https://www.iso.org/obp/ui/#iso:code:3166:AN
