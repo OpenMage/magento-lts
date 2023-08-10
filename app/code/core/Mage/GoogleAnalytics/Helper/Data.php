@@ -178,9 +178,12 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $_categoryIds = $product->getCategoryIds();
         if ($_categoryIds) {
-            $_lastCat = array_pop($_categoryIds);
-            $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-            return $_cat->getName();
+            do {
+                $_lastCat = array_pop($_categoryIds);
+                $_cat = Mage::getModel('catalog/category')->load($_lastCat);
+                $_catName = $_cat->getName();
+            } while (empty($_catName));
+            return $_catName ?? "";
         }
         return '';
     }
