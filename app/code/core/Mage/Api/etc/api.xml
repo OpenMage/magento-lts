@@ -58,6 +58,11 @@
                 <handler>default</handler>
                 <active>1</active>
             </xmlrpc>
+            <jsonrpc>
+                <model>api/server_adapter_jsonrpc</model>
+                <handler>default</handler>
+                <active>1</active>
+            </jsonrpc>
             <default>
                 <use>soap</use>
             </default>
