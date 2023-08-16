@@ -72,6 +72,10 @@ You can override some defaults using environment variables defined in a file (th
   - `en-US` is used by default
 - `TIMEZONE`
   - `America/New_York` is used by default
+- `PM_MAX_CHILDREN` - Tune to your environment and needs - see [PHP-FPM configuration](https://www.php.net/manual/en/install.fpm.configuration.php)
+- `PM_START_SERVERS`
+- `PM_MIN_SPARE_SERVERS`
+- `PM_MAX_SPARE_SERVERS`
 
 Wiping
 ---

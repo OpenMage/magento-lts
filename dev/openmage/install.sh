@@ -14,7 +14,7 @@ if ! docker compose >/dev/null 2>&1; then
 fi
 test -f .env && source .env
 
-SRC_DIR=${SRC_DIR:-${SRC_DIR}}
+SRC_DIR=${SRC_DIR:-../..}
 HOST_PORT=":${HOST_PORT:-80}"
 test "$HOST_PORT" = ":80" && HOST_PORT=""
 BASE_URL="${BASE_URL:-http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/}"

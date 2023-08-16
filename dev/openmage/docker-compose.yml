@@ -9,6 +9,10 @@ services:
       - ENABLE_SENDMAIL=${ENABLE_SENDMAIL:-true}
       - XDEBUG_CONFIG=${XDEBUG_CONFIG:-client_host=host.docker.internal mode=debug force_display_errors=1 start_with_request=yes}
       - MAGE_IS_DEVELOPER_MODE=${MAGE_IS_DEVELOPER_MODE:-1}
+      - PM_MAX_CHILDREN=${PM_MAX_CHILDREN:-5}
+      - PM_START_SERVERS=${PM_START_SERVERS:-2}
+      - PM_MIN_SPARE_SERVERS=${PM_MIN_SPARE_SERVERS:-1}
+      - PM_MAX_SPARE_SERVERS=${PM_MAX_SPARE_SERVERS:-3}
     links:
       - mysql
 

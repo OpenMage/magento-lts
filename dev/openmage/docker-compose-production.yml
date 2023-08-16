@@ -7,6 +7,10 @@ services:
       - ${SRC_DIR:-../..}:/var/www/html
     environment:
       - ENABLE_SENDMAIL=true
+      - PM_MAX_CHILDREN=${PM_MAX_CHILDREN:-40}
+      - PM_START_SERVERS=${PM_START_SERVERS:-10}
+      - PM_MIN_SPARE_SERVERS=${PM_MIN_SPARE_SERVERS:-6}
+      - PM_MAX_SPARE_SERVERS=${PM_MAX_SPARE_SERVERS:-8}
     links:
       - mysql
 
