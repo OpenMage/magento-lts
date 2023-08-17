@@ -56,6 +56,7 @@ varienGrid.prototype = {
 
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);
                 Event.observe(this.rows[row],'mouseout',this.trOnMouseOut);
+                Event.observe(this.rows[row],'mousedown',this.trOnClick);
                 Event.observe(this.rows[row],'click',this.trOnClick);
                 Event.observe(this.rows[row],'dblclick',this.trOnDblClick);
             }
@@ -119,6 +120,12 @@ varienGrid.prototype = {
         Element.removeClassName(element, 'on-mouse');
     },
     rowMouseClick : function(event){
+        if (event.button != 1 && event.type == "mousedown") {
+            return; // Ignore mousedown for any button except middle
+        }
+        if (event.button == 2) {
+            return; // Ignore right click
+        }
         if(this.rowClickCallback){
             try{
                 this.rowClickCallback(this, event);
@@ -304,14 +311,23 @@ varienGrid.prototype = {
     }
 };
 
-function openGridRow(grid, event){
-    var element = Event.findElement(event, 'tr');
-    if(['a', 'input', 'select', 'option'].indexOf(Event.element(event).tagName.toLowerCase())!=-1) {
+function shouldOpenGridRowNewTab(evt){
+    return evt.ctrlKey // Windows ctrl + click
+        || evt.metaKey // macOS command + click
+        || evt.button == 1 // Middle mouse click
+}
+
+function openGridRow(grid, evt){
+    var trElement = Event.findElement(evt, 'tr');
+    if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
     }
-
-    if(element.title){
-        setLocation(element.title);
+    if(trElement.title){
+        if (shouldOpenGridRowNewTab(evt)) {
+            window.open(trElement.title, '_blank');
+        } else {
+            setLocation(trElement.title);
+        }
     }
 }
 
@@ -439,7 +455,11 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                setLocation(trElement.title);
+                if (shouldOpenGridRowNewTab(evt)) {
+                    window.open(trElement.title, '_blank');
+                } else {
+                    setLocation(trElement.title);
+                }
             }
             else{
                 var checkbox = Element.select(trElement, 'input');
