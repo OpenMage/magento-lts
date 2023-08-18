@@ -154,7 +154,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_category' => $removedProduct['category'],
                 ];
                 $eventData['items'][] = $_item;
-                $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['remove_from_cart', $eventData];
             }
             Mage::getSingleton('core/session')->unsRemovedProductsForAnalytics();
         }
@@ -180,7 +180,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_category' => $_addedProduct['category'],
                 ];
                 $eventData['items'][] = $_item;
-                $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['add_to_cart', $eventData];
                 Mage::getSingleton('core/session')->unsAddedProductsForAnalytics();
             }
         }
@@ -208,7 +208,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
             }
             array_push($eventData['items'], $_item);
-            $result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+            $result[] = ['view_item', $eventData];
         }
 
         /**
@@ -254,7 +254,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
-            $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+            $result[] = ['view_item_list', $eventData];
         }
 
         /**
@@ -291,7 +291,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['value'] += $_product->getFinalPrice() * $productInCart->getQty();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
-            $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+            $result[] = ['view_cart', $eventData];
         }
 
         /**
@@ -328,7 +328,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     $eventData['value'] += $_product->getFinalPrice();
                 }
                 $eventData['value'] = $helper->formatPrice($eventData['value']);
-                $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['begin_checkout', $eventData];
             }
         }
 
@@ -375,12 +375,21 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     }
                     array_push($orderData['items'], $_item);
                 }
-                $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['purchase', $orderData];
             }
         }
 
+        $ga4DataTransport = new Varien_Object();
+        $ga4DataTransport->setData($result);
+        Mage::dispatchEvent('googleanalytics_ga4_send_data_before', ['ga4_data_transport' => $ga4DataTransport]);
+        $result = $ga4DataTransport->getData();
+
         if ($this->helper('googleanalytics')->isDebugModeEnabled() && count($result) > 0) {
             $this->helper('googleanalytics')->log($result);
+        }
+
+        foreach ($result as $k => $ga4Event) {
+            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ");";
         }
         return implode("\n", $result);
     }
