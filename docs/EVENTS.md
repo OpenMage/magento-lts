@@ -81,7 +81,7 @@
 | adminhtml_widget_grid_filter_collection | 1.9.4.5 |
 | after_reindex_process_[getIndexerCode] | 1.9.4.5 |
 | ajax_cart_remove_item_success | 1.9.4.5 |
-| api_server_adapter_jsonrpc_run_after | 20.1.0 |
+| api_server_adapter_jsonrpc_run_after | 20.1.1 |
 | api_user_authenticated | 1.9.4.5 |
 | api_user_html_before | 1.9.4.5 |
 | application_clean_cache | 1.9.4.5 |
