@@ -95,6 +95,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
+        $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
+
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -132,6 +134,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'width'     => 60,
             'index'     => 'entity_id'
         ]);
+
+        $this->addColumn(
+            'image',
+            [
+                'header' => Mage::helper('catalog')->__('Image'),
+                'type'  => 'image',
+                'index' => 'image',
+            ]
+        );
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
