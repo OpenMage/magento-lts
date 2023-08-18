@@ -288,6 +288,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             case 'theme':
                 $rendererClass = 'adminhtml/widget_grid_column_renderer_theme';
                 break;
+            case 'image':
+                $rendererClass = 'adminhtml/widget_grid_column_renderer_image';
+                break;
             default:
                 $rendererClass = 'adminhtml/widget_grid_column_renderer_text';
                 break;

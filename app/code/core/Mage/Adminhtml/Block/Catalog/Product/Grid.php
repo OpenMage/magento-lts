@@ -46,11 +46,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     {
         $store = $this->_getStore();
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect('sku')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('attribute_set_id')
-            ->addAttributeToSelect('type_id');
-
+        ->addAttributeToSelect('sku')
+        ->addAttributeToSelect('name')
+        ->addAttributeToSelect('attribute_set_id')
+        ->addAttributeToSelect('type_id');
+        
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             $collection->joinField(
                 'qty',
@@ -61,6 +61,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'left'
             );
         }
+        
+        $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
+
         if ($store->getId()) {
             //$collection->setStoreId($store->getId());
             $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
@@ -151,6 +154,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'index' => 'entity_id',
             ]
         );
+
+        $this->addColumn(
+            'image',
+            [
+                'header' => Mage::helper('catalog')->__('Image'),
+                'type'  => 'image',
+                'index' => 'image',
+            ]
+        );
+
         $this->addColumn(
             'name',
             [
