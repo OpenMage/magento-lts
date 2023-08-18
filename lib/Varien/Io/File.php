@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,6 +90,11 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @var Exception
      */
     protected $_streamException;
+
+    /**
+     * @var string[]
+     */
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
 
     public function __construct()
     {
@@ -819,7 +824,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
                     if (isset($pathinfo['extension'])
-                        && in_array(strtolower($pathinfo['extension']), ['jpg', 'jpeg', 'gif', 'bmp', 'png'])
+                        && in_array(strtolower($pathinfo['extension']), self::ALLOWED_IMAGES_EXTENSIONS)
                         && $list_item['size'] > 0
                     ) {
                         $list_item['is_image'] = true;
