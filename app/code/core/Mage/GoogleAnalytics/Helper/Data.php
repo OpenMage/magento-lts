@@ -174,7 +174,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return ?string
      */
-    public function getLastCategoryName($product): ?string
+    public function getLastCategoryName($product): string
     {
         // force root category to current store
         $rootCategory = Mage::getModel('catalog/category')
