@@ -23,6 +23,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminhtml_Block_Widget_Grid
 {
+    use Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns;
+    
     /**
      * Set grid params
      *
@@ -96,8 +98,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
-        $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
-
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -136,15 +136,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'width'     => 60,
             'index'     => 'entity_id'
         ]);
-
-        $this->addColumn(
-            'image',
-            [
-                'header' => Mage::helper('catalog')->__('Image'),
-                'type'  => 'productimage',
-                'index' => 'image',
-            ]
-        );
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),

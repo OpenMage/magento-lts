@@ -23,6 +23,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_Block_Widget_Grid
 {
+    use Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns;
+
     /**
      * Mage_Adminhtml_Block_Catalog_Category_Tab_Product constructor.
      */
@@ -84,8 +86,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'left'
             );
 
-        $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
-
         $this->setCollection($collection);
 
         if ($this->getCategory()->getProductsReadonly()) {
@@ -121,14 +121,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'width'     => '60',
             'index'     => 'entity_id'
         ]);
-        $this->addColumn(
-            'image',
-            [
-                'header' => Mage::helper('catalog')->__('Image'),
-                'type'  => 'productimage',
-                'index' => 'image',
-            ]
-        );
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name'
