@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Image extends Mage_Adminh
 
     public function renderCss()
     {
-        return 'a-center';
+        return parent::renderCss() . ' a-center';
     }
 
     protected function _getHelperImage($image) : Mage_Catalog_Helper_Image
