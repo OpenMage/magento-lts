@@ -27,32 +27,28 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Image extends Mage_Adminh
     public function render(Varien_Object $row)
     {
         $image = $this->_checkImageIsSelected($row);
-        if ($image) {
-            $result = '';
-            $imageDimensions = $this->getColumn()->getWidth() ?: $this->_defaultWidth;
-            
-            $imageSrc = $this->_getHelperImage($image)
-                ->resize($imageDimensions, $imageDimensions);
-            $imageUrl = Mage::getBaseUrl('media') . 'catalog/product/' . $image;
-
-            $result .= '<a href="' . $imageUrl . '" title="' . basename($imageUrl) . '" target="_blank">';
-                $result .= '<img src="' . $imageSrc . '" alt="' . basename($imageUrl) . '" title="' . basename($imageUrl) . '" width="' . $imageWidth . '" height="' . $imageHeight . '"/>';
-            $result .= '</a>';
-        }/*  else {
-            return '<img src="' . Mage::getStoreConfig('catalog/placeholder/image_placeholder') . ' " width="' . $imageWidth . '" height="' . $imageHeight . '" />';
-        } */
-
+        if (!$image) {
+            return '';
+            //return '<img src="' . Mage::getStoreConfig('catalog/placeholder/image_placeholder') . ' " />';
+        }
+        $imageDimensions = $this->getColumn()->getWidth() ?: $this->_defaultWidth;
+        $imageSrc = $this->_getHelperImage($image)
+        ->resize($imageDimensions, $imageDimensions);
+        $imageUrl = $this->_getImageUrl($image);
+        $result = '';
+        $result .= '<a href="' . $imageUrl . '" title="' . basename($imageUrl) . '" target="_blank">';
+            $result .= '<img src="' . $imageSrc . '" alt="' . basename($imageUrl) . '" title="' . basename($imageUrl) . '" width="' . $imageDimensions . '" height="' . $imageDimensions . '"/>';
+        $result .= '</a>';
         return $result;
     }
 
-    public function renderExport(Varien_Object $row)
+    public function renderExport(Varien_Object $row) : string
     {
         $image = $this->_checkImageIsSelected($row);
-        if ($image) {
-            return Mage::getBaseUrl('media') . 'catalog/product/' . $image;
-        } else {
+        if (!$image) {
             return '';
         }
+        return $this->_getImageUrl($image);
     }
 
     public function renderCss()
@@ -60,14 +56,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Image extends Mage_Adminh
         return 'a-center';
     }
 
-    protected function _getHelperImage($image)
+    protected function _getHelperImage($image) : Mage_Catalog_Helper_Image
     {
         $dummyProduct = Mage::getModel('catalog/product');
-        return Mage::helper('catalog/image')
-        ->init($dummyProduct, $this->getColumn()->getAttributeCode(), $image);
+        return Mage::helper('catalog/image')->init($dummyProduct, $this->getColumn()->getAttributeCode(), $image);
     }
 
-    private function _checkImageIsSelected($row)
+    protected function _getImageUrl($image) : string {
+        if (!$image) {
+            return '';
+        }
+        return Mage::getBaseUrl('media') . 'catalog/product/' . $image;
+    }
+
+    private function _checkImageIsSelected($row) : string|null
     {
         $value = $this->_getValue($row);
         if (!$value || $value == 'no_selection') return false;
