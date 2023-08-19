@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
             'image',
             [
                 'header' => Mage::helper('catalog')->__('Image'),
-                'type'  => 'image',
+                'type'  => 'productimage',
                 'index' => 'image',
             ]
         );

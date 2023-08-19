@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'image',
             [
                 'header' => Mage::helper('catalog')->__('Image'),
-                'type'  => 'image',
+                'type'  => 'productimage',
                 'index' => 'image',
             ]
         );

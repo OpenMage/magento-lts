@@ -159,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             'image',
             [
                 'header' => Mage::helper('catalog')->__('Image'),
-                'type'  => 'image',
+                'type'  => 'productimage',
                 'index' => 'image',
             ]
         );
