@@ -23,7 +23,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Productimage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
 
-    protected $_defaultWidth = 128;
+    protected $_defaultWidth = 64;
 
     /**
      * Renders grid column
