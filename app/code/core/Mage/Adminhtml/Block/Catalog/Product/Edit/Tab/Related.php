@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         }
 
         $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
-        
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

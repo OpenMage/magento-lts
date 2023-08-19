@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Productimage extends Mage
      * @param Varien_Object $row
      * @return string|false
      */
-    private function _checkImageIsSelected($row): string|false
+    private function _checkImageIsSelected($row)
     {
         $value = $this->_getValue($row);
         if (!$value || $value == 'no_selection') return false;

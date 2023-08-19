@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                 'left'
             );
         }
-        
+
         $collection->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
 
         if ($store->getId()) {
