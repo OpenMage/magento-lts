@@ -26,10 +26,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Image extends Mage_Adminh
 
     public function render(Varien_Object $row)
     {
-        $result = '';
-
         $image = $this->_checkImageIsSelected($row);
         if ($image) {
+            $result = '';
             $imageDimensions = $this->getColumn()->getWidth() ?: $this->_defaultWidth;
             
             $imageSrc = $this->_getHelperImage($image)
@@ -39,7 +38,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Image extends Mage_Adminh
             $result .= '<a href="' . $imageUrl . '" title="' . basename($imageUrl) . '" target="_blank">';
                 $result .= '<img src="' . $imageSrc . '" alt="' . basename($imageUrl) . '" title="' . basename($imageUrl) . '" width="' . $imageWidth . '" height="' . $imageHeight . '"/>';
             $result .= '</a>';
-
         }/*  else {
             return '<img src="' . Mage::getStoreConfig('catalog/placeholder/image_placeholder') . ' " width="' . $imageWidth . '" height="' . $imageHeight . '" />';
         } */
