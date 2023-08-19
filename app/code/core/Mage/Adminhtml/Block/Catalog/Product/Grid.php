@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         ->addAttributeToSelect('name')
         ->addAttributeToSelect('attribute_set_id')
         ->addAttributeToSelect('type_id');
-        
+
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             $collection->joinField(
                 'qty',
