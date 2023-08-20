@@ -176,12 +176,13 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLastCategoryName($product): string
     {
-        $storeRootCategory = Mage::app()->getStore()->getRootCategoryId();
+        $storeRootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+        $storeRootCategory = Mage::getModel('catalog/category')->load($storeRootCategoryId);
         $lastCategory = Mage::getResourceModel('catalog/category_collection')
             ->addAttributeToSelect('name')
             ->addIdFilter($product->getCategoryIds())
             ->addIsActiveFilter()
-            ->addFieldToFilter('path', ['like' => "{$storeRootCategory}/%"])
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . "/%"])
             ->addOrder('level')
             ->getFirstItem();
         return $lastCategory->getName() ?: '';
