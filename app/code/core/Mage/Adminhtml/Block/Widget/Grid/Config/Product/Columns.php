@@ -69,6 +69,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
     protected function _prepareColumnsFromConfig()
     {
         $_keepOrder = 'entity_id';
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
         /** @var Mage_Eav_Model_Attribute $_attributeEntity */
         foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
             switch ($_attributeEntity->getFrontendInput()) {
@@ -86,6 +87,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                     );
                     break;
                 case 'price':
+                    $_currency = Mage::app()->getStore($storeId)->getBaseCurrency()->getCode();
                     $this->addColumnAfter(
                         $attributeCode,
                         [
@@ -93,7 +95,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                             'type'  => 'price',
                             'index' => $attributeCode,
                             'attribute_code' => $attributeCode,
-                            'currency_code' => $this->_getStore()->getBaseCurrency()->getCode(),
+                            'currency_code' => $_currency,
                         ],
                         $_keepOrder
                     );
