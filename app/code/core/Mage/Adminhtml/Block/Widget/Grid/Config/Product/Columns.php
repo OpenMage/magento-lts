@@ -37,7 +37,10 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
     {
         if (empty($this->_configColumns)) {
             if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMNS)) {
-                $this->_configColumns = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMNS));
+                $_attributeCodes = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMNS));
+                foreach ($_attributeCodes as $attributeCode) {
+                    $this->_configColumns[$attributeCode] = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+                }
             }
         }
         return $this->_configColumns;
@@ -50,13 +53,9 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareCollectionFromConfig()
     {
-        if ($this->getCollection()) {
-            foreach ($this->getGridConfigColumns() as $value) {
-                switch ($value) {
-                    case 'productimage':
-                        $this->getCollection()->joinAttribute('image', 'catalog_product/image', 'entity_id', null, 'left');
-                        break;
-                }
+        if ($this->getCollection()) {   
+            foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
+                $this->getCollection()->addAttributeToSelect($attributeCode);
             }
         }
         return $this;
@@ -69,21 +68,84 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareColumnsFromConfig()
     {
-        foreach ($this->getGridConfigColumns() as $value) {
-            switch ($value) {
-                case 'productimage':
+        $_keepOrder = 'entity_id';
+        /** @var Mage_Eav_Model_Attribute $_attributeEntity */
+        foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
+            switch ($_attributeEntity->getFrontendInput()) {
+                case 'media_image':
                     $this->addColumnAfter(
-                        'image',
+                        $attributeCode,
                         [
-                            'header' => Mage::helper('catalog')->__('Image'),
+                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
                             'width' => Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH),
                             'type'  => 'productimage',
-                            'index' => 'image',
+                            'index' => $attributeCode,
+                            'attribute_code' => $attributeCode,
                         ],
-                        'entity_id'
+                        $_keepOrder
+                    );
+                    break;
+                case 'price':
+                    $this->addColumnAfter(
+                        $attributeCode,
+                        [
+                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
+                            'type'  => 'price',
+                            'index' => $attributeCode,
+                            'attribute_code' => $attributeCode,
+                            'currency_code' => $this->_getStore()->getBaseCurrency()->getCode(),
+                        ],
+                        $_keepOrder
+                    );
+                    break;
+                case 'date':
+                    $this->addColumnAfter(
+                        $attributeCode,
+                        [
+                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
+                            'type'  => 'date',
+                            'index' => $attributeCode,
+                            'attribute_code' => $attributeCode,
+                        ],
+                        $_keepOrder
+                    );
+                    break;
+                case 'multiselect':
+                case 'select':
+                    
+                    if ($_attributeEntity->usesSource()) {
+                        $_allOptions = $_attributeEntity->getSource()->getAllOptions(false, true);
+                        foreach ($_allOptions as $key => $option) {
+                            $_options[$option['value']] = $option['label'];
+                        }
+                    }
+                    $this->addColumnAfter(
+                        $attributeCode,
+                        [
+                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
+                            /* 'width' => '150px', */
+                            'type'  => 'options',
+                            'index' => $attributeCode,
+                            'options' => $_options,
+                            'attribute_code' => $attributeCode,
+                        ],
+                        $_keepOrder
+                    );
+                    break;
+                default:
+                    $this->addColumnAfter(
+                        $attributeCode,
+                        [
+                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
+                            'type'  => 'text',
+                            'index' => $attributeCode,
+                            'attribute_code' => $attributeCode,
+                        ],
+                        $_keepOrder
                     );
                     break;
             }
+            $_keepOrder = $attributeCode;
         }
         return $this;
     }

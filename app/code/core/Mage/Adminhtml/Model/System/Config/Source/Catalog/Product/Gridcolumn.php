@@ -22,11 +22,56 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Catalog_Product_GridColumn
 {
+    /**
+     * Attributes array
+     *
+     * @var null|array
+     */
+    protected $_attributes = null;
+
+    protected $_supportedColumnsType = [
+        'text',
+        'textarea',
+        'price',
+        'date',
+        'weight',
+        'media_image',
+        'select'
+    ];
+
+    protected $_excludeDefaultAttributesCode = [
+        'name',
+        'price',
+        'sku',
+        'visibility',
+        'status',
+    ];
+
+    /**
+     * Retrieve attributes as array
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
-        // TODO collect all columns for catalog product grids
-        $result = [];
-        $result[] = array('value' => 'productimage', 'label' => Mage::helper('catalog')->__('Product Image'));
-        return $result;
+        if (is_null($this->_attributes)) {
+            $attrCollection = Mage::getResourceModel('catalog/product_attribute_collection')
+            ->addVisibleFilter()
+                ->setFrontendInputTypeFilter($this->_supportedColumnsType)
+                ->addFieldToFilter('frontend_label', ['notnull' => true])
+                ->setOrder('frontend_label', Varien_Data_Collection::SORT_ORDER_ASC);
+
+            $this->_attributes = [];
+            /** @var Mage_Eav_Model_Attribute $attribute */
+            foreach ($attrCollection as $attribute) {
+                if (!in_array($attribute->getAttributeCode(), $this->_excludeDefaultAttributesCode)) {
+                    $this->_attributes[] = [
+                        'label' => $attribute->getFrontendLabel(),
+                        'value' => $attribute->getAttributeCode(),
+                    ];
+                }
+            }
+        }
+        return $this->_attributes;
     }
 }
