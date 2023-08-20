@@ -55,10 +55,10 @@ tinyMceWysiwygSetup.prototype =
 
 
     getSettings: function (mode) {
-        var plugins = 'autoresize accordion visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
+        var plugins = 'autoresize accordion searchreplace visualblocks visualchars anchor emoticons code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
         var toolbar = [
-            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontselect fontsize ',
-            'cut paste pastetext copy | searchreplace | bullist numlist advlist accordion | indent outdent blockquote | undo redo | link unlink anchor | image charmap emoticons code | forecolor backcolor',
+            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontfamily fontsize',
+            'cut paste pastetext copy | searchreplace | bullist numlist advlist accordion | indent outdent blockquote | undo redo | link unlink anchor | image charmap media emoticons code | forecolor backcolor',
             'table | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
         ];
 
