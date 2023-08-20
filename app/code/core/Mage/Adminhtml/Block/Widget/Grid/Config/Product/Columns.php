@@ -23,7 +23,7 @@
  */
 trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
-    public const CONFIG_PATH_GRID_ENBALED = 'admin/grid_catalog/enabled';
+    public const CONFIG_PATH_GRID_ENABLED = 'admin/grid_catalog/enabled';
     public const CONFIG_PATH_GRID_COLUMNS = 'admin/grid_catalog/columns';
     public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'admin/grid_catalog/imagewith';
 
@@ -38,8 +38,8 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
     public function getGridEnabled(): array
     {
         if (empty($this->_enabledGrids)) {
-            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENBALED)) {
-                $this->_enabledGrids = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENBALED));
+            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENABLED)) {
+                $this->_enabledGrids = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENABLED));
             }
         }
         return $this->_enabledGrids;
