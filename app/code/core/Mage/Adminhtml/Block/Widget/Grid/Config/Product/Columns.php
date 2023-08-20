@@ -151,6 +151,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                 case 'select':
                     
                     if ($_attributeEntity->usesSource()) {
+                        $_options = [];
                         $_allOptions = $_attributeEntity->getSource()->getAllOptions(false, true);
                         foreach ($_allOptions as $key => $option) {
                             $_options[$option['value']] = $option['label'];
