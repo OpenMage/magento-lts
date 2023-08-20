@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_System_Config_Source_Catalog_Product_GridColumn
+class Mage_Adminhtml_Model_System_Config_Source_Grid_Catalog_Product_Column
 {
     /**
      * Attributes array

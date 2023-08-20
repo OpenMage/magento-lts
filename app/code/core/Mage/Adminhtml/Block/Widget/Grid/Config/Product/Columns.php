@@ -23,10 +23,37 @@
  */
 trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
+    public const CONFIG_PATH_GRID_ENBALED = 'admin/grid_catalog/enabled';
     public const CONFIG_PATH_GRID_COLUMNS = 'admin/grid_catalog/columns';
     public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'admin/grid_catalog/imagewith';
 
     protected $_configColumns = [];
+    protected $_enabledGrids = [];
+
+    /**
+     * Get grid enabled for custom columns
+     *
+     * @return array
+     */
+    public function getGridEnabled(): array
+    {
+        if (empty($this->_enabledGrids)) {
+            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENBALED)) {
+                $this->_enabledGrids = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENBALED));
+            }
+        }
+        return $this->_enabledGrids;
+    }
+
+    /**
+     * Get grid enabled for custom columns
+     *
+     * @return array
+     */
+    public function isGridEnabled(): bool
+    {
+        return in_array($this->getId(), $this->getGridEnabled());
+    }
 
     /**
      * Get list of columns that should be showed
@@ -53,6 +80,10 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareCollectionFromConfig()
     {
+        if (!$this->isGridEnabled()) {
+            return false;
+        }
+
         if ($this->getCollection()) {   
             foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
@@ -68,6 +99,10 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareColumnsFromConfig()
     {
+        if (!$this->isGridEnabled()) {
+            return false;
+        }
+
         $_keepOrder = 'entity_id';
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         /** @var Mage_Eav_Model_Attribute $_attributeEntity */
