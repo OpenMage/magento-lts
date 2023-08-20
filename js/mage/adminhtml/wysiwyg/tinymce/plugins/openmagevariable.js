@@ -51,5 +51,4 @@ tinymce.PluginManager.add('openmagevariable', (ed, url) => {
             };
         }
     }
-
 });
