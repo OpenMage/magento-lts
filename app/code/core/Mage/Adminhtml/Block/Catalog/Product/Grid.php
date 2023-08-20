@@ -48,10 +48,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     {
         $store = $this->_getStore();
         $collection = Mage::getModel('catalog/product')->getCollection()
-        ->addAttributeToSelect('sku')
-        ->addAttributeToSelect('name')
-        ->addAttributeToSelect('attribute_set_id')
-        ->addAttributeToSelect('type_id');
+            ->addAttributeToSelect('sku')
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('attribute_set_id')
+            ->addAttributeToSelect('type_id');
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             $collection->joinField(
