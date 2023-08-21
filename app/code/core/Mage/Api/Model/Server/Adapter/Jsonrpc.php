@@ -66,7 +66,7 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
 
         if (null === $controller) {
             $controller = new Varien_Object(
-                array('request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse())
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
             );
 
             $this->setData('controller', $controller);
@@ -83,10 +83,33 @@ class Mage_Api_Model_Server_Adapter_Jsonrpc extends Varien_Object implements Mag
     {
         $this->_jsonRpc = new Zend_Json_Server();
         $this->_jsonRpc->setClass($this->getHandler());
+
+        // Allow soap_v2 style request.
+        $request = $this->_jsonRpc->getRequest();
+        $method = $request->getMethod();
+        if (!$this->_jsonRpc->getServiceMap()->getService($method)) {
+            // Convert request to v1 style.
+            $request->setMethod('call');
+            $params = $request->getParams();
+            $sessionId = $params[0] ?? null;
+            unset($params[0]);
+            $params = count($params)
+                ? [$sessionId, $method, $params]
+                : [$sessionId, $method];
+            $request->setParams($params);
+        }
+
         $this->getController()->getResponse()
             ->clearHeaders()
             ->setHeader('Content-Type', 'application/json; charset=utf8')
             ->setBody($this->_jsonRpc->handle());
+
+        Mage::dispatchEvent('api_server_adapter_jsonrpc_run_after', [
+            'method' => $method,
+            'request' => $request,
+            'response' => $this->_jsonRpc->getResponse()
+        ]);
+
         return $this;
     }
 
