@@ -25,6 +25,8 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
     public const CONFIG_PATH_GRID_ENABLED = 'admin/grid_catalog/enabled';
     public const CONFIG_PATH_GRID_COLUMNS = 'admin/grid_catalog/columns';
+    public const CONFIG_PATH_GRID_CREATED_AT = 'admin/grid_catalog/created_at';
+    public const CONFIG_PATH_GRID_UPDATED_AT = 'admin/grid_catalog/updated_at';
     public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'admin/grid_catalog/imagewith';
 
     protected $_configColumns = [];
@@ -83,10 +85,16 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
         if (!$this->isGridEnabled()) {
             return false;
         }
-
+        /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {   
             foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
+            }
+            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_CREATED_AT)) {
+                $this->getCollection()->addAttributeToSelect('created_at');
+            }
+            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_UPDATED_AT)) {
+                $this->getCollection()->addAttributeToSelect('updated_at');
             }
         }
         return $this;
@@ -103,8 +111,36 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             return false;
         }
 
-        $_keepOrder = 'entity_id';
         $storeId = (int) $this->getRequest()->getParam('store', 0);
+        $_keepOrder = 'entity_id';
+
+        if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_CREATED_AT)) {
+            $this->addColumnAfter(
+                'created_at',
+                [
+                    'header' => Mage::helper('catalog')->__('Created At'),
+                    'type'  => 'datetime',
+                    'index' => 'created_at',
+                    'attribute_code' => 'created_at',
+                ],
+                $_keepOrder
+            );
+            $_keepOrder = 'created_at';
+        }
+        if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_UPDATED_AT)) {
+            $this->addColumnAfter(
+                'updated_at',
+                [
+                    'header' => Mage::helper('catalog')->__('Updated At'),
+                    'type'  => 'datetime',
+                    'index' => 'updated_at',
+                    'attribute_code' => 'updated_at',
+                ],
+                $_keepOrder
+            );
+            $_keepOrder = 'updated_at';
+        }
+
         /** @var Mage_Eav_Model_Attribute $_attributeEntity */
         foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
             switch ($_attributeEntity->getFrontendInput()) {
