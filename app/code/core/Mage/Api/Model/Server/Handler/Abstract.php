@@ -35,9 +35,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $errorFile
      * @return bool
      */
-    public function handlePhpError($errorCode, $errorMessage, $errorFile)
+    public function handlePhpError($errorCode, $errorMessage, $errorFile, $errLine)
     {
-        Mage::log($errorMessage . $errorFile);
+        Mage::log($errorMessage . ' in ' . $errorFile . ' on line ' . $errLine, Zend_Log::ERR);
         if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }
@@ -225,6 +225,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function call($sessionId, $apiPath, $args = [])
     {
+        // Allow insta-login via HTTP Basic Auth
+        if ($sessionId === null && ! empty($_SERVER['PHP_AUTH_USER']) && ! empty($_SERVER['PHP_AUTH_PW'])) {
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
         $this->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
@@ -309,6 +313,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
     {
+        // Allow insta-login via HTTP Basic Auth
+        if ($sessionId === null && ! empty($_SERVER['PHP_AUTH_USER']) && ! empty($_SERVER['PHP_AUTH_PW'])) {
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
         $this->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
@@ -437,6 +445,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function resources($sessionId)
     {
+        // Allow insta-login via HTTP Basic Auth
+        if ($sessionId === null && ! empty($_SERVER['PHP_AUTH_USER']) && ! empty($_SERVER['PHP_AUTH_PW'])) {
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
         $this->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
@@ -501,6 +513,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function resourceFaults($sessionId, $resourceName)
     {
+        // Allow insta-login via HTTP Basic Auth
+        if ($sessionId === null && ! empty($_SERVER['PHP_AUTH_USER']) && ! empty($_SERVER['PHP_AUTH_PW'])) {
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
         $this->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
@@ -537,6 +553,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function globalFaults($sessionId)
     {
+        // Allow insta-login via HTTP Basic Auth
+        if ($sessionId === null && ! empty($_SERVER['PHP_AUTH_USER']) && ! empty($_SERVER['PHP_AUTH_PW'])) {
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
         $this->_startSession($sessionId);
         return array_values($this->_getConfig()->getFaults());
     }
