@@ -984,16 +984,16 @@
         },
         {
             "name": "shardj/zf1-future",
-            "version": "1.23.0",
+            "version": "1.23.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shardj/zf1-future.git",
-                "reference": "aa077dde19ee94c308ca6a4f6ee6522029ba5c92"
+                "reference": "7ae8cb4a15a85dfd77c69661795590f4a9cff335"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/aa077dde19ee94c308ca6a4f6ee6522029ba5c92",
-                "reference": "aa077dde19ee94c308ca6a4f6ee6522029ba5c92",
+                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/7ae8cb4a15a85dfd77c69661795590f4a9cff335",
+                "reference": "7ae8cb4a15a85dfd77c69661795590f4a9cff335",
                 "shasum": ""
             },
             "require": {
@@ -1040,9 +1040,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Shardj/zf1-future/issues",
-                "source": "https://github.com/Shardj/zf1-future/tree/release-1.23.0"
+                "source": "https://github.com/Shardj/zf1-future/tree/release-1.23.2"
             },
-            "time": "2023-08-10T19:08:01+00:00"
+            "time": "2023-08-15T13:34:11+00:00"
         },
         {
             "name": "symfony/console",
