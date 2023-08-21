@@ -78,6 +78,7 @@ tinyMceWysiwygSetup.prototype =
             menubar: false,
             plugins: plugins,
             toolbar: toolbar,
+            toolbar_mode: 'scrolling',
             language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',
