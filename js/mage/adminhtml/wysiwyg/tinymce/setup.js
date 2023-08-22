@@ -55,12 +55,8 @@ tinyMceWysiwygSetup.prototype =
 
 
     getSettings: function (mode) {
-        var plugins = 'autoresize accordion searchreplace visualblocks visualchars anchor code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking';
-        var toolbar = [
-            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify alignnone | styles fontfamily fontsize',
-            'cut paste pastetext copy | searchreplace | bullist numlist advlist accordion | indent outdent blockquote | undo redo | link unlink anchor | image charmap media code | forecolor backcolor',
-            'table | h1 h2 h3 h4 h5 h6 | hr removeformat | subscript superscript | visualblocks visualchars nonbreaking pagebreak | ltr rtl | wordcount fullscreen'
-        ];
+        var plugins = 'autoresize accordion searchreplace visualblocks visualchars anchor code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking help';
+        var toolbar = 'undo redo | bold italic underline strikethrough | insertfile image media template link anchor codesample | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | fontfamily fontsize blocks | pagebreak | charmap | fullscreen preview save print | ltr rtl'
 
         // load and add to toolbar openmagePlugins
         if (this.openmagePluginsOptions) {
@@ -69,16 +65,21 @@ tinyMceWysiwygSetup.prototype =
                 plugins = plugin.key + ' ' + plugins;
                 openmageToolbarButtons = plugin.key + ' ' + openmageToolbarButtons;
             });
-            toolbar[0] = openmageToolbarButtons + ' | ' + toolbar[0];
+            toolbar = openmageToolbarButtons + ' | ' + toolbar;
         }
 
         var settings = {
             selector: this.selector,
             config: this.config,
-            menubar: false,
+            menu: {
+                insert: {
+                    title: 'Insert',
+                    items: 'image link media addcomment pageembed template codesample inserttable | openmagevariable openmagewidget | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents | insertdatetime'
+                }
+            },
+            menubar: 'file edit view insert format tools table help',
             plugins: plugins,
             toolbar: toolbar,
-            toolbar_mode: 'scrolling',
             language: this.config.lang,
             paste_as_text: true,
             file_picker_types: 'file image media',

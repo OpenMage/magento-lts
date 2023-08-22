@@ -35,25 +35,36 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
                 '</svg>'
             );
 
+            let onAction = function () {
+                editor.execCommand('mceOpenmagewidget');
+            }
+
+            let onSetup = function (api) {
+                // Add a node change handler, selects the button in the UI when a image is selected
+                editor.on('NodeChange', function (e) {
+                    api.setActive(false);
+                    var n = e.target;
+                    if (n.id && n.nodeName == 'IMG') {
+                        var widgetCode = Base64.idDecode(n.id);
+                        if (widgetCode.indexOf('{{widget') != -1) {
+                            api.setActive(true);
+                        }
+                    }
+                });
+            }
+
             editor.ui.registry.addToggleButton('openmagewidget', {
                 icon: 'openmagewidget',
-                tooltip: Translator.translate('Insert Widget'),
-                onAction: function () {
-                    editor.execCommand('mceOpenmagewidget');
-                },
-                onSetup: function (api) {
-                    // Add a node change handler, selects the button in the UI when a image is selected
-                    editor.on('NodeChange', function (e) {
-                        api.setActive(false);
-                        var n = e.target;
-                        if (n.id && n.nodeName == 'IMG') {
-                            var widgetCode = Base64.idDecode(n.id);
-                            if (widgetCode.indexOf('{{widget') != -1) {
-                                api.setActive(true);
-                            }
-                        }
-                    });
-                }
+                tooltip: Translator.translate('OpenMage Widget'),
+                onAction: onAction,
+                onSetup: onSetup
+            });
+
+            editor.ui.registry.addMenuItem('openmagewidget', {
+                icon: 'openmagewidget',
+                text: Translator.translate('OpenMage Variable'),
+                onAction: onAction,
+                onSetup: onSetup
             });
 
             // Add a widget placeholder image double click callback
