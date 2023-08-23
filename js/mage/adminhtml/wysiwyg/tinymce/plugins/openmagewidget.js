@@ -42,12 +42,12 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
             let onSetup = function (api) {
                 // Add a node change handler, selects the button in the UI when a image is selected
                 editor.on('NodeChange', function (e) {
-                    api.setActive(false);
+                    if (api.setActive) api.setActive(false);
                     var n = e.target;
                     if (n.id && n.nodeName == 'IMG') {
                         var widgetCode = Base64.idDecode(n.id);
                         if (widgetCode.indexOf('{{widget') != -1) {
-                            api.setActive(true);
+                            if (api.setActive) api.setActive(true);
                         }
                     }
                 });
