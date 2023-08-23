@@ -62,7 +62,7 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
 
             editor.ui.registry.addMenuItem('openmagewidget', {
                 icon: 'openmagewidget',
-                text: Translator.translate('OpenMage Variable'),
+                text: Translator.translate('OpenMage Widget'),
                 onAction: onAction,
                 onSetup: onSetup
             });
