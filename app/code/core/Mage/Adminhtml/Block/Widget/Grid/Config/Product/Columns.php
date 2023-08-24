@@ -23,31 +23,16 @@
  */
 trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
-    protected $_configColumns = [];
-
     /* @var Mage_Adminhtml_Helper_Widget_Grid_Config $_helper */
-    private $_helperConfig = NULL;
+    private $_helperAdvancedGrid = NULL;
 
-    protected function getHelperConfig(): Mage_Adminhtml_Helper_Widget_Grid_Config
+    protected function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config
     {
-        if (!$this->_helperConfig) {
-            $this->_helperConfig = Mage::helper('adminhtml/widget_grid_config');
+        if (!$this->_helperAdvancedGrid) {
+            $this->_helperAdvancedGrid = Mage::helper('adminhtml/widget_grid_config');
         }
-        $this->_helperConfig->setGridId($this->getId());
-        return $this->_helperConfig;
-    }
-
-    /**
-     * Get list of columns that should be showed
-     *
-     * @return array
-     */
-    public function getEntityColumns() : array|null
-    {
-        foreach ($this->getHelperConfig()->getColumns() as $attributeCode) {
-            $this->_configColumns[$this->getId()][$attributeCode] = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
-        }
-        return $this->_configColumns[$this->getId()];
+        $this->_helperAdvancedGrid->setGridId($this->getId());
+        return $this->_helperAdvancedGrid;
     }
 
     /**
@@ -57,20 +42,20 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareCollectionFromConfig()
     {
-        if (!$this->getHelperConfig()->isGridEnabled()) {
+        if (!$this->getHelperAdvancedGrid()->isGridEnabled()) {
             return $this;
         }
         /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {   
-            foreach ($this->getEntityColumns() as $attributeCode => $_attributeEntity) {
+            foreach ($this->getHelperAdvancedGrid()->getColumns() as $attributeCode) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
             }
 
-            if ($this->getHelperConfig()->isCreatedAtEnabled()) {
+            if ($this->getHelperAdvancedGrid()->isCreatedAtEnabled()) {
                 $this->getCollection()->addAttributeToSelect('created_at');
             }
 
-            if ($this->getHelperConfig()->isUpdatedAtEnabled()) {
+            if ($this->getHelperAdvancedGrid()->isUpdatedAtEnabled()) {
                 $this->getCollection()->addAttributeToSelect('updated_at');
             }
         }
@@ -84,14 +69,14 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareColumnsFromConfig()
     {
-        if (!$this->getHelperConfig()->isGridEnabled()) {
+        if (!$this->getHelperAdvancedGrid()->isGridEnabled()) {
             return $this;
         }
 
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         $_keepOrder = 'entity_id';
 
-        if ($this->getHelperConfig()->isCreatedAtEnabled()) {
+        if ($this->getHelperAdvancedGrid()->isCreatedAtEnabled()) {
             $this->addColumnAfter(
                 'created_at',
                 [
@@ -105,7 +90,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             $_keepOrder = 'created_at';
         }
 
-        if ($this->getHelperConfig()->isUpdatedAtEnabled()) {
+        if ($this->getHelperAdvancedGrid()->isUpdatedAtEnabled()) {
             $this->addColumnAfter(
                 'updated_at',
                 [
@@ -119,15 +104,16 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             $_keepOrder = 'updated_at';
         }
 
-        /** @var Mage_Eav_Model_Attribute $_attributeEntity */
-        foreach ($this->getEntityColumns() as $attributeCode => $_attributeEntity) {
+        foreach ($this->getHelperAdvancedGrid()->getColumns() as $attributeCode) {
+            /** @var Mage_Eav_Model_Attribute $_attributeEntity */
+            $_attributeEntity = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
             switch ($_attributeEntity->getFrontendInput()) {
                 case 'media_image':
                     $this->addColumnAfter(
                         $attributeCode,
                         [
                             'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
-                            'width' => $this->getHelperConfig()->getProductImageWidth(),
+                            'width' => $this->getHelperAdvancedGrid()->getProductImageWidth(),
                             'type'  => 'productimage',
                             'index' => $attributeCode,
                             'attribute_code' => $attributeCode,

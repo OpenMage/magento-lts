@@ -28,15 +28,25 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
     public const CONFIG_PATH_GRID_UPDATED_AT = 'advanced_grid/%s/updated_at';
     public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'advanced_grid/%s/imagewith';
 
-    protected $_gridId = NULL;
+    protected $_gridId = '';
 
-    public function setGridId($id): self
+    /**
+     * Set grid id configuration scope
+     *
+     * @return $this
+     */
+    public function setGridId($id)
     {
         $this->_gridId = $id;
         return $this;
     }
 
-    public function getGridId(): string|null
+    /**
+     * Get grid id configuration scope
+     *
+     * @return string|null
+     */
+    public function getGridId(): string
     {
         return $this->_gridId;
     }
