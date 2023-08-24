@@ -64,7 +64,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
      */
     public function getStoreConfigGridId($configPath)
     {   
-        if(!$this->_gridId) {
+        if (!$this->_gridId) {
             Mage::throwException(Mage::helper('adminhtml')->__('Grid Id must be set.'));
         }
         $config = sprintf($configPath, $this->_gridId);
