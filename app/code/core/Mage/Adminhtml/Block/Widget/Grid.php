@@ -566,7 +566,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareCollection()
     {
         if ($this->getCollection()) {
-            $this->_prepareCollectionFromConfig();
+            $this->_prepareCollectionAdvancedGrid();
             $this->_preparePage();
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
@@ -629,7 +629,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
-        $this->_prepareColumnsFromConfig();
+        $this->_prepareColumnsAdvancedGrid();
         $this->sortColumnsByOrder();
         return $this;
     }
@@ -639,7 +639,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
-    protected function _prepareCollectionFromConfig()
+    protected function _prepareCollectionAdvancedGrid()
     {
         return $this;
     }
@@ -649,7 +649,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return $this
      */
-    protected function _prepareColumnsFromConfig()
+    protected function _prepareColumnsAdvancedGrid()
     {
         return $this;
     }

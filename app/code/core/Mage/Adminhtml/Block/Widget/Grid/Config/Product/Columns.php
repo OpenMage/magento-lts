@@ -40,7 +40,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      *
      * @return $this
      */
-    protected function _prepareCollectionFromConfig()
+    protected function _prepareCollectionAdvancedGrid()
     {
         if (!$this->getHelperAdvancedGrid()->isEnabled()) {
             return $this;
@@ -71,7 +71,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      *
      * @return $this
      */
-    protected function _prepareColumnsFromConfig()
+    protected function _prepareColumnsAdvancedGrid()
     {
         if (!$this->getHelperAdvancedGrid()->isEnabled()) {
             return $this;
