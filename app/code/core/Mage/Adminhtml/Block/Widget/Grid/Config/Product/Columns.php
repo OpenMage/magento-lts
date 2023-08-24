@@ -45,7 +45,6 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
         if (!$this->getHelperAdvancedGrid()->isEnabled()) {
             return $this;
         }
-        /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {
             foreach ($this->getHelperAdvancedGrid()->getAttributeColumns() as $attributeCode) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
