@@ -1067,71 +1067,6 @@
                     </fields>
                 </design>
 
-                <grid_catalog>
-                    <label>Catalog Grid Configuration</label>
-                    <sort_order>6</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>0</show_in_website>
-                    <show_in_store>0</show_in_store>
-                    <fields>
-                        <enabled>
-                            <label>Enable Grids</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>adminhtml/system_config_source_grid_catalog_product_gridIdList</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </enabled>
-                        <created_at translate="label">
-                            <label>Show Created At</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </created_at>
-                        <updated_at translate="label">
-                            <label>Show Updated At</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </updated_at>
-                        <columns translate="label">
-                            <label>Columns</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
-                            <sort_order>4</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>5</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
-                        </imagewith>
-                    </fields>
-                </grid_catalog>
-
-
                 <global_search>
                     <label>Global Search</label>
                     <show_in_default>1</show_in_default>
@@ -1744,5 +1679,386 @@
                 </browser_capabilities>
             </groups>
         </web>
+        
+        <advanced_grid translate="label" module="core">
+            <label>Grid Configuration</label>
+            <tab>advanced</tab>
+            <sort_order>21</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <productGrid>
+                    <label>Catalog Product Grid</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <created_at translate="label">
+                            <label>Show Created At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </created_at>
+                        <updated_at translate="label">
+                            <label>Show Updated At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </updated_at>
+                        <columns translate="label">
+                            <label>Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </columns>
+                        <imagewith translate="label comment">
+                            <label>Product Image Width</label>
+                            <!-- <comment></comment> -->
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!-- <depends>
+                                <columns separator="|">
+                                    <value>image|small_image|thumbnail</value>
+                                </columns>
+                            </depends> -->
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </imagewith>
+                    </fields>
+                </productGrid>
+                <catalog_category_products>
+                    <label>Catalog Category Product Grid</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <created_at translate="label">
+                            <label>Show Created At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </created_at>
+                        <updated_at translate="label">
+                            <label>Show Updated At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </updated_at>
+                        <columns translate="label">
+                            <label>Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </columns>
+                        <imagewith translate="label comment">
+                            <label>Product Image Width</label>
+                            <!-- <comment></comment> -->
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!-- <depends>
+                                <columns separator="|">
+                                    <value>image|small_image|thumbnail</value>
+                                </columns>
+                            </depends> -->
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </imagewith>
+                    </fields>
+                </catalog_category_products>
+                <related_product_grid>
+                    <label>Catalog Product View Related Products Grid</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <created_at translate="label">
+                            <label>Show Created At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </created_at>
+                        <updated_at translate="label">
+                            <label>Show Updated At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </updated_at>
+                        <columns translate="label">
+                            <label>Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </columns>
+                        <imagewith translate="label comment">
+                            <label>Product Image Width</label>
+                            <!-- <comment></comment> -->
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!-- <depends>
+                                <columns separator="|">
+                                    <value>image|small_image|thumbnail</value>
+                                </columns>
+                            </depends> -->
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </imagewith>
+                    </fields>
+                </related_product_grid>
+                <up_sell_product_grid>
+                    <label>Catalog Product View Up-Sells Grid</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <created_at translate="label">
+                            <label>Show Created At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </created_at>
+                        <updated_at translate="label">
+                            <label>Show Updated At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </updated_at>
+                        <columns translate="label">
+                            <label>Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </columns>
+                        <imagewith translate="label comment">
+                            <label>Product Image Width</label>
+                            <!-- <comment></comment> -->
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!-- <depends>
+                                <columns separator="|">
+                                    <value>image|small_image|thumbnail</value>
+                                </columns>
+                            </depends> -->
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </imagewith>
+                    </fields>
+                </up_sell_product_grid>
+                <cross_sell_product_grid>
+                    <label>Catalog Product View Cross-Sells Grid</label>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <created_at translate="label">
+                            <label>Show Created At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </created_at>
+                        <updated_at translate="label">
+                            <label>Show Updated At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </updated_at>
+                        <columns translate="label">
+                            <label>Columns</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </columns>
+                        <imagewith translate="label comment">
+                            <label>Product Image Width</label>
+                            <!-- <comment></comment> -->
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <!-- <depends>
+                                <columns separator="|">
+                                    <value>image|small_image|thumbnail</value>
+                                </columns>
+                            </depends> -->
+                            <depends>
+                                <enabled>1</enabled>
+                            </depends>
+                        </imagewith>
+                    </fields>
+                </cross_sell_product_grid>
+            </groups>
+        </advanced_grid>
     </sections>
 </config>

@@ -198,6 +198,10 @@
                                         <title>Admin</title>
                                         <sort_order>100</sort_order>
                                     </admin>
+                                    <advanced_grid translate="title">
+                                        <title>Advanced Grid Configuration</title>
+                                        <sort_order>101</sort_order>
+                                    </advanced_grid>
                                 </children>
                             </config>
                             <currency translate="title">

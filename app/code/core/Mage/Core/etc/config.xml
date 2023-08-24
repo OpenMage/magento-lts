@@ -421,9 +421,6 @@
             <design>
                 <loading_timeout>200</loading_timeout>
             </design>
-            <grid_catalog>
-                <imagewith>64</imagewith>
-            </grid_catalog>
             <startup>
                 <page>dashboard</page>
             </startup>
@@ -440,6 +437,28 @@
                 <secure_system_configuration_save_disabled>0</secure_system_configuration_save_disabled>
             </security>
         </admin>
+        <advanced_grid>
+            <productGrid>
+                <enabled>0</enabled>
+                <imagewith>64</imagewith>
+            </productGrid>
+            <catalog_category_products>
+                <enabled>0</enabled>
+                <imagewith>64</imagewith>
+            </catalog_category_products>
+            <related_product_grid>
+                <enabled>0</enabled>
+                <imagewith>64</imagewith>
+            </related_product_grid>
+            <up_sell_product_grid>
+                <enabled>0</enabled>
+                <imagewith>64</imagewith>
+            </up_sell_product_grid>
+            <cross_sell_product_grid>
+                <enabled>0</enabled>
+                <imagewith>64</imagewith>
+            </cross_sell_product_grid>
+        </advanced_grid>
         <general>
             <country>
                 <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,HR</eu_countries>

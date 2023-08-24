@@ -23,38 +23,18 @@
  */
 trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
-    public const CONFIG_PATH_GRID_ENABLED = 'admin/grid_catalog/enabled';
-    public const CONFIG_PATH_GRID_COLUMNS = 'admin/grid_catalog/columns';
-    public const CONFIG_PATH_GRID_CREATED_AT = 'admin/grid_catalog/created_at';
-    public const CONFIG_PATH_GRID_UPDATED_AT = 'admin/grid_catalog/updated_at';
-    public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'admin/grid_catalog/imagewith';
-
     protected $_configColumns = [];
-    protected $_enabledGrids = [];
 
-    /**
-     * Get grid enabled for custom columns
-     *
-     * @return array
-     */
-    public function getGridEnabled(): array
+    /* @var Mage_Adminhtml_Helper_Widget_Grid_Config $_helper */
+    private $_helperConfig = NULL;
+
+    protected function getHelperConfig(): Mage_Adminhtml_Helper_Widget_Grid_Config
     {
-        if (empty($this->_enabledGrids)) {
-            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENABLED)) {
-                $this->_enabledGrids = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_ENABLED));
-            }
+        if (!$this->_helperConfig) {
+            $this->_helperConfig = Mage::helper('adminhtml/widget_grid_config');
         }
-        return $this->_enabledGrids;
-    }
-
-    /**
-     * Get grid enabled for custom columns
-     *
-     * @return array
-     */
-    public function isGridEnabled(): bool
-    {
-        return in_array($this->getId(), $this->getGridEnabled());
+        $this->_helperConfig->setGridId($this->getId());
+        return $this->_helperConfig;
     }
 
     /**
@@ -62,17 +42,12 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      *
      * @return array
      */
-    public function getGridConfigColumns() : array
+    public function getEntityColumns() : array|null
     {
-        if (empty($this->_configColumns)) {
-            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMNS)) {
-                $_attributeCodes = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMNS));
-                foreach ($_attributeCodes as $attributeCode) {
-                    $this->_configColumns[$attributeCode] = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
-                }
-            }
+        foreach ($this->getHelperConfig()->getColumns() as $attributeCode) {
+            $this->_configColumns[$this->getId()][$attributeCode] = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
         }
-        return $this->_configColumns;
+        return $this->_configColumns[$this->getId()];
     }
 
     /**
@@ -82,18 +57,20 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareCollectionFromConfig()
     {
-        if (!$this->isGridEnabled()) {
+        if (!$this->getHelperConfig()->isGridEnabled()) {
             return false;
         }
         /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {   
-            foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
+            foreach ($this->getEntityColumns() as $attributeCode => $_attributeEntity) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
             }
-            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_CREATED_AT)) {
+
+            if ($this->getHelperConfig()->isCreatedAtEnabled()) {
                 $this->getCollection()->addAttributeToSelect('created_at');
             }
-            if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_UPDATED_AT)) {
+
+            if ($this->getHelperConfig()->isUpdatedAtEnabled()) {
                 $this->getCollection()->addAttributeToSelect('updated_at');
             }
         }
@@ -107,14 +84,14 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareColumnsFromConfig()
     {
-        if (!$this->isGridEnabled()) {
+        if (!$this->getHelperConfig()->isGridEnabled()) {
             return false;
         }
 
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         $_keepOrder = 'entity_id';
 
-        if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_CREATED_AT)) {
+        if ($this->getHelperConfig()->isCreatedAtEnabled()) {
             $this->addColumnAfter(
                 'created_at',
                 [
@@ -127,7 +104,8 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             );
             $_keepOrder = 'created_at';
         }
-        if (Mage::getStoreConfig(self::CONFIG_PATH_GRID_UPDATED_AT)) {
+
+        if ($this->getHelperConfig()->isUpdatedAtEnabled()) {
             $this->addColumnAfter(
                 'updated_at',
                 [
@@ -142,14 +120,14 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
         }
 
         /** @var Mage_Eav_Model_Attribute $_attributeEntity */
-        foreach ($this->getGridConfigColumns() as $attributeCode => $_attributeEntity) {
+        foreach ($this->getEntityColumns() as $attributeCode => $_attributeEntity) {
             switch ($_attributeEntity->getFrontendInput()) {
                 case 'media_image':
                     $this->addColumnAfter(
                         $attributeCode,
                         [
                             'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
-                            'width' => Mage::getStoreConfig(self::CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH),
+                            'width' => $this->getHelperConfig()->getProductImageWidth(),
                             'type'  => 'productimage',
                             'index' => $attributeCode,
                             'attribute_code' => $attributeCode,
@@ -185,7 +163,6 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                     break;
                 case 'multiselect':
                 case 'select':
-                    
                     if ($_attributeEntity->usesSource()) {
                         $_options = [];
                         $_allOptions = $_attributeEntity->getSource()->getAllOptions(false, true);
