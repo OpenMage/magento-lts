@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_System_Config_Source_Grid_Catalog_Product_Column
+class Mage_Adminhtml_Model_System_Config_Source_Grid_Catalog_Product_MediaImage
 {
     /**
      * Attributes array
@@ -30,20 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Grid_Catalog_Product_Column
     protected $_attributes = null;
 
     protected $_supportedColumnsType = [
-        'text',
-        'textarea',
-        'price',
-        'date',
-        'weight',
-        'select'
-    ];
-
-    protected $_excludeDefaultAttributesCode = [
-        'name',
-        'price',
-        'sku',
-        'visibility',
-        'status',
+        'media_image',
     ];
 
     /**
@@ -63,12 +50,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Grid_Catalog_Product_Column
             $this->_attributes = [];
             /** @var Mage_Eav_Model_Attribute $attribute */
             foreach ($attrCollection as $attribute) {
-                if (!in_array($attribute->getAttributeCode(), $this->_excludeDefaultAttributesCode)) {
-                    $this->_attributes[] = [
-                        'label' => $attribute->getFrontendLabel(),
-                        'value' => $attribute->getAttributeCode(),
-                    ];
-                }
+                $this->_attributes[] = [
+                    'label' => $attribute->getFrontendLabel(),
+                    'value' => $attribute->getAttributeCode(),
+                ];
             }
         }
         return $this->_attributes;

@@ -42,12 +42,16 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareCollectionFromConfig()
     {
-        if (!$this->getHelperAdvancedGrid()->isGridEnabled()) {
+        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
             return $this;
         }
         /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {   
             foreach ($this->getHelperAdvancedGrid()->getColumns() as $attributeCode) {
+                $this->getCollection()->addAttributeToSelect($attributeCode);
+            }
+
+            foreach ($this->getHelperAdvancedGrid()->getImageColumns() as $attributeCode) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
             }
 
@@ -69,12 +73,29 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
      */
     protected function _prepareColumnsFromConfig()
     {
-        if (!$this->getHelperAdvancedGrid()->isGridEnabled()) {
+        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
             return $this;
         }
 
         $storeId = (int) $this->getRequest()->getParam('store', 0);
         $_keepOrder = 'entity_id';
+
+        foreach ($this->getHelperAdvancedGrid()->getImageColumns() as $attributeCode) {
+            /** @var Mage_Eav_Model_Attribute $_attributeEntity */
+            $_attributeEntity = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+            $this->addColumnAfter(
+                $attributeCode,
+                [
+                    'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
+                    'width' => $this->getHelperAdvancedGrid()->getProductImageWidth(),
+                    'type'  => 'productimage',
+                    'index' => $attributeCode,
+                    'attribute_code' => $attributeCode,
+                ],
+                $_keepOrder
+            );
+            $_keepOrder = $attributeCode;
+        }
 
         if ($this->getHelperAdvancedGrid()->isCreatedAtEnabled()) {
             $this->addColumnAfter(
@@ -108,19 +129,6 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             /** @var Mage_Eav_Model_Attribute $_attributeEntity */
             $_attributeEntity = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
             switch ($_attributeEntity->getFrontendInput()) {
-                case 'media_image':
-                    $this->addColumnAfter(
-                        $attributeCode,
-                        [
-                            'header' => Mage::helper('catalog')->__($_attributeEntity->getFrontendLabel()),
-                            'width' => $this->getHelperAdvancedGrid()->getProductImageWidth(),
-                            'type'  => 'productimage',
-                            'index' => $attributeCode,
-                            'attribute_code' => $attributeCode,
-                        ],
-                        $_keepOrder
-                    );
-                    break;
                 case 'price':
                     $_currency = Mage::app()->getStore($storeId)->getBaseCurrency()->getCode();
                     $this->addColumnAfter(

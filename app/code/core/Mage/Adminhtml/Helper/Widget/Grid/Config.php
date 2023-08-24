@@ -26,8 +26,13 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
     public const CONFIG_PATH_GRID_COLUMNS = 'advanced_grid/%s/columns';
     public const CONFIG_PATH_GRID_CREATED_AT = 'advanced_grid/%s/created_at';
     public const CONFIG_PATH_GRID_UPDATED_AT = 'advanced_grid/%s/updated_at';
-    public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'advanced_grid/%s/imagewith';
+    public const CONFIG_PATH_GRID_COLUMN_IMAGE = 'advanced_grid/%s/media_image';
+    public const CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH = 'advanced_grid/%s/media_image_width';
 
+    /**
+     * Scope grid id for configurations
+     *
+     */
     protected $_gridId = '';
 
     /**
@@ -44,7 +49,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
     /**
      * Get grid id configuration scope
      *
-     * @return string|null
+     * @return string
      */
     public function getGridId(): string
     {
@@ -68,18 +73,28 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
     /**
      * Get grid enabled for custom columns
      *
-     * @return array
+     * @return bool
      */
-    public function isGridEnabled(): bool
+    public function isEnabled(): bool
     {
         return $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_ENABLED);
     }
 
+    /**
+     * Get column created_at is enabled
+     *
+     * @return bool
+     */
     public function isCreatedAtEnabled()
     {
         return $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_CREATED_AT);
     }
 
+    /**
+     * Get column updated_at is enabled
+     *
+     * @return bool
+     */
     public function isUpdatedAtEnabled()
     {
         return $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_UPDATED_AT);
@@ -92,14 +107,32 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
      */
     public function getColumns(): array
     {
-        if ($this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMNS)) {
-            return explode(',', $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMNS));
+        if (!$this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMNS)) {
+            return [];
         }
+        return explode(',', $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMNS));
     }
 
+    /**
+     * Get grid enabled for custom columns
+     *
+     * @return array
+     */
+    public function getImageColumns(): array
+    {
+        if (!$this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMN_IMAGE)) {
+            return [];
+        }
+        return explode(',', $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMN_IMAGE));
+    }
+
+    /**
+     * Get media product image width
+     *
+     * @return string
+     */
     public function getProductImageWidth(): string
     {
         return $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMN_IMAGE_WIDTH);
     }
-   
 }

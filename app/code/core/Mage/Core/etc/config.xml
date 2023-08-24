@@ -440,23 +440,23 @@
         <advanced_grid>
             <productGrid>
                 <enabled>0</enabled>
-                <imagewith>64</imagewith>
+                <media_image_width>64</media_image_width>
             </productGrid>
             <catalog_category_products>
                 <enabled>0</enabled>
-                <imagewith>64</imagewith>
+                <media_image_width>64</media_image_width>
             </catalog_category_products>
             <related_product_grid>
                 <enabled>0</enabled>
-                <imagewith>64</imagewith>
+                <media_image_width>64</media_image_width>
             </related_product_grid>
             <up_sell_product_grid>
                 <enabled>0</enabled>
-                <imagewith>64</imagewith>
+                <media_image_width>64</media_image_width>
             </up_sell_product_grid>
             <cross_sell_product_grid>
                 <enabled>0</enabled>
-                <imagewith>64</imagewith>
+                <media_image_width>64</media_image_width>
             </cross_sell_product_grid>
         </advanced_grid>
         <general>

@@ -1681,7 +1681,7 @@
         </web>
         
         <advanced_grid translate="label" module="core">
-            <label>Grid Configuration</label>
+            <label>Advanced Grids</label>
             <tab>advanced</tab>
             <sort_order>21</sort_order>
             <show_in_default>1</show_in_default>
@@ -1689,14 +1689,15 @@
             <show_in_store>0</show_in_store>
             <groups>
                 <productGrid>
-                    <label>Catalog Product Grid</label>
+                    <label>Catalog Product Grid Columns</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <enabled>
-                            <label>Enable</label>
+                            <label>Customize Columns</label>
+                            <comment><![CDATA[Enable Custom Columns Settings]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
@@ -1705,7 +1706,8 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Show Created At</label>
+                            <label>Created At</label>
+                            <comment><![CDATA[Show "Created At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1718,7 +1720,8 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Show Updated At</label>
+                            <label>Updated At</label>
+                            <comment><![CDATA[Show "Updated At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1731,7 +1734,8 @@
                             </depends>
                         </updated_at>
                         <columns translate="label">
-                            <label>Columns</label>
+                            <label>Attributes</label>
+                            <comment><![CDATA[Select Product Attributes to Show as Column in Grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
                             <sort_order>4</sort_order>
@@ -1743,34 +1747,45 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
+                        <media_image translate="label">
+                            <label>Product Image Preview</label>
+                            <comment><![CDATA[Select Product Media Image Types]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
+                            <can_be_empty>1</can_be_empty>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
-                        </imagewith>
+                        </media_image>
+                        <media_image_width translate="label comment">
+                            <label>Product Image Column Width</label>
+                            <comment><![CDATA[Set Product Image Preview Width]]></comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <!-- <media_image>1</media_image> -->
+                            </depends>
+                        </media_image_width>
                     </fields>
                 </productGrid>
                 <catalog_category_products>
-                    <label>Catalog Category Product Grid</label>
+                    <label>Catalog Category Product Grid Columns</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <enabled>
-                            <label>Enable</label>
+                            <label>Customize Columns</label>
+                            <comment><![CDATA[Enable Custom Columns Settings]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
@@ -1779,7 +1794,8 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Show Created At</label>
+                            <label>Created At</label>
+                            <comment><![CDATA[Show "Created At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1792,7 +1808,8 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Show Updated At</label>
+                            <label>Updated At</label>
+                            <comment><![CDATA[Show "Updated At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1805,7 +1822,8 @@
                             </depends>
                         </updated_at>
                         <columns translate="label">
-                            <label>Columns</label>
+                            <label>Attributes</label>
+                            <comment><![CDATA[Select Product Attributes to Show as Column in Grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
                             <sort_order>4</sort_order>
@@ -1817,34 +1835,45 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
+                        <media_image translate="label">
+                            <label>Product Image Preview</label>
+                            <comment><![CDATA[Select Product Media Image Types]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
+                            <can_be_empty>1</can_be_empty>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
-                        </imagewith>
+                        </media_image>
+                        <media_image_width translate="label comment">
+                            <label>Product Image Column Width</label>
+                            <comment><![CDATA[Set Product Image Preview Width]]></comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <!-- <media_image>1</media_image> -->
+                            </depends>
+                        </media_image_width>
                     </fields>
                 </catalog_category_products>
                 <related_product_grid>
-                    <label>Catalog Product View Related Products Grid</label>
+                    <label>Catalog Product View Related Products Grid Columns</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <enabled>
-                            <label>Enable</label>
+                            <label>Customize Columns</label>
+                            <comment><![CDATA[Enable Custom Columns Settings]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
@@ -1853,7 +1882,8 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Show Created At</label>
+                            <label>Created At</label>
+                            <comment><![CDATA[Show "Created At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1866,7 +1896,8 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Show Updated At</label>
+                            <label>Updated At</label>
+                            <comment><![CDATA[Show "Updated At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1879,7 +1910,8 @@
                             </depends>
                         </updated_at>
                         <columns translate="label">
-                            <label>Columns</label>
+                            <label>Attributes</label>
+                            <comment><![CDATA[Select Product Attributes to Show as Column in Grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
                             <sort_order>4</sort_order>
@@ -1891,34 +1923,45 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
+                        <media_image translate="label">
+                            <label>Product Image Preview</label>
+                            <comment><![CDATA[Select Product Media Image Types]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
+                            <can_be_empty>1</can_be_empty>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
-                        </imagewith>
+                        </media_image>
+                        <media_image_width translate="label comment">
+                            <label>Product Image Column Width</label>
+                            <comment><![CDATA[Set Product Image Preview Width]]></comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <!-- <media_image>1</media_image> -->
+                            </depends>
+                        </media_image_width>
                     </fields>
                 </related_product_grid>
                 <up_sell_product_grid>
-                    <label>Catalog Product View Up-Sells Grid</label>
+                    <label>Catalog Product View Up-Sells Grid Columns</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <enabled>
-                            <label>Enable</label>
+                            <label>Customize Columns</label>
+                            <comment><![CDATA[Enable Custom Columns Settings]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
@@ -1927,7 +1970,8 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Show Created At</label>
+                            <label>Created At</label>
+                            <comment><![CDATA[Show "Created At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1940,7 +1984,8 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Show Updated At</label>
+                            <label>Updated At</label>
+                            <comment><![CDATA[Show "Updated At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1953,7 +1998,8 @@
                             </depends>
                         </updated_at>
                         <columns translate="label">
-                            <label>Columns</label>
+                            <label>Attributes</label>
+                            <comment><![CDATA[Select Product Attributes to Show as Column in Grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
                             <sort_order>4</sort_order>
@@ -1965,34 +2011,45 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
+                        <media_image translate="label">
+                            <label>Product Image Preview</label>
+                            <comment><![CDATA[Select Product Media Image Types]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
+                            <can_be_empty>1</can_be_empty>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
-                        </imagewith>
+                        </media_image>
+                        <media_image_width translate="label comment">
+                            <label>Product Image Column Width</label>
+                            <comment><![CDATA[Set Product Image Preview Width]]></comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <!-- <media_image>1</media_image> -->
+                            </depends>
+                        </media_image_width>
                     </fields>
                 </up_sell_product_grid>
                 <cross_sell_product_grid>
-                    <label>Catalog Product View Cross-Sells Grid</label>
+                    <label>Catalog Product View Cross-Sells Grid Columns</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <enabled>
-                            <label>Enable</label>
+                            <label>Customize Columns</label>
+                            <comment><![CDATA[Enable Custom Columns Settings]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>1</sort_order>
@@ -2001,7 +2058,8 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Show Created At</label>
+                            <label>Created At</label>
+                            <comment><![CDATA[Show "Created At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -2014,7 +2072,8 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Show Updated At</label>
+                            <label>Updated At</label>
+                            <comment><![CDATA[Show "Updated At" Date Column]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -2027,7 +2086,8 @@
                             </depends>
                         </updated_at>
                         <columns translate="label">
-                            <label>Columns</label>
+                            <label>Attributes</label>
+                            <comment><![CDATA[Select Product Attributes to Show as Column in Grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_column</source_model>
                             <sort_order>4</sort_order>
@@ -2039,23 +2099,33 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <imagewith translate="label comment">
-                            <label>Product Image Width</label>
-                            <!-- <comment></comment> -->
-                            <validate>validate-number validate-zero-or-greater</validate>
+                        <media_image translate="label">
+                            <label>Product Image Preview</label>
+                            <comment><![CDATA[Select Product Media Image Types]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <!-- <depends>
-                                <columns separator="|">
-                                    <value>image|small_image|thumbnail</value>
-                                </columns>
-                            </depends> -->
+                            <can_be_empty>1</can_be_empty>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
-                        </imagewith>
+                        </media_image>
+                        <media_image_width translate="label comment">
+                            <label>Product Image Column Width</label>
+                            <comment><![CDATA[Set Product Image Preview Width]]></comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enabled>1</enabled>
+                                <!-- <media_image>1</media_image> -->
+                            </depends>
+                        </media_image_width>
                     </fields>
                 </cross_sell_product_grid>
             </groups>
