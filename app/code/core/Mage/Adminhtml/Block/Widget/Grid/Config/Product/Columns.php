@@ -24,7 +24,7 @@
 trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
 {
     /* @var Mage_Adminhtml_Helper_Widget_Grid_Config $_helper */
-    private $_helperAdvancedGrid = NULL;
+    private $_helperAdvancedGrid = null;
 
     protected function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config
     {
