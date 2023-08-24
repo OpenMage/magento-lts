@@ -47,7 +47,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
         }
         /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $this->getCollection() */
         if ($this->getCollection()) {   
-            foreach ($this->getHelperAdvancedGrid()->getColumns() as $attributeCode) {
+            foreach ($this->getHelperAdvancedGrid()->getAttributeColumns() as $attributeCode) {
                 $this->getCollection()->addAttributeToSelect($attributeCode);
             }
 
@@ -125,7 +125,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
             $_keepOrder = 'updated_at';
         }
 
-        foreach ($this->getHelperAdvancedGrid()->getColumns() as $attributeCode) {
+        foreach ($this->getHelperAdvancedGrid()->getAttributeColumns() as $attributeCode) {
             /** @var Mage_Eav_Model_Attribute $_attributeEntity */
             $_attributeEntity = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
             switch ($_attributeEntity->getFrontendInput()) {

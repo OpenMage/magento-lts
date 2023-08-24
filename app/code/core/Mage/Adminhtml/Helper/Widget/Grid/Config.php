@@ -105,7 +105,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
      *
      * @return array
      */
-    public function getColumns(): array
+    public function getAttributeColumns(): array
     {
         if (!$this->getStoreConfigGridId(self::CONFIG_PATH_GRID_COLUMNS)) {
             return [];
