@@ -81,11 +81,8 @@ tinymce.PluginManager.add('openmagewidget', (ed, url) => {
 
         getMetadata: function () {
             return {
-                longname: 'OpenMage Widget Manager Plugin',
-                author: 'OpenMage Core Team',
-                authorurl: 'https://www.openmage.org',
-                infourl: 'https://www.openmage.org',
-                version: '1.0'
+                name: 'OpenMage Widget Manager Plugin',
+                url: 'https://www.openmage.org'
             };
         }
     }

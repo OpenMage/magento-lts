@@ -51,11 +51,8 @@ tinymce.PluginManager.add('openmagevariable', (ed, url) => {
 
         getMetadata: function () {
             return {
-                longname: 'OpenMage Variable Manager Plugin',
-                author: 'OpenMage Core Team',
-                authorurl: 'https://www.openmage.org',
-                infourl: 'https://www.openmage.org',
-                version: '1.0'
+                name: 'OpenMage Variable Manager Plugin',
+                url: 'https://www.openmage.org'
             };
         }
     }
