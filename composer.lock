@@ -984,16 +984,16 @@
         },
         {
             "name": "shardj/zf1-future",
-            "version": "1.23.2",
+            "version": "1.23.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shardj/zf1-future.git",
-                "reference": "7ae8cb4a15a85dfd77c69661795590f4a9cff335"
+                "reference": "0464ee916ca73142ab733d80c83210d89cba3936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/7ae8cb4a15a85dfd77c69661795590f4a9cff335",
-                "reference": "7ae8cb4a15a85dfd77c69661795590f4a9cff335",
+                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/0464ee916ca73142ab733d80c83210d89cba3936",
+                "reference": "0464ee916ca73142ab733d80c83210d89cba3936",
                 "shasum": ""
             },
             "require": {
@@ -1040,9 +1040,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Shardj/zf1-future/issues",
-                "source": "https://github.com/Shardj/zf1-future/tree/release-1.23.2"
+                "source": "https://github.com/Shardj/zf1-future/tree/release-1.23.5"
             },
-            "time": "2023-08-15T13:34:11+00:00"
+            "time": "2023-08-24T14:07:53+00:00"
         },
         {
             "name": "symfony/console",
@@ -3382,16 +3382,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.29",
+            "version": "1.10.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ee5d8f2d3977fb09e55603eee6fb53bdd76ee9c1"
+                "reference": "c47e47d3ab03137c0e121e77c4d2cb58672f6d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ee5d8f2d3977fb09e55603eee6fb53bdd76ee9c1",
-                "reference": "ee5d8f2d3977fb09e55603eee6fb53bdd76ee9c1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
+                "reference": "c47e47d3ab03137c0e121e77c4d2cb58672f6d44",
                 "shasum": ""
             },
             "require": {
@@ -3440,7 +3440,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-14T13:24:11+00:00"
+            "time": "2023-08-24T21:54:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
