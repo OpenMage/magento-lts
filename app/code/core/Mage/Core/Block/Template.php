@@ -86,7 +86,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Get relevant path to template
      *
-     * @return string
+     * @return string|null
      */
     public function getTemplate()
     {
@@ -117,7 +117,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($area) {
             $params['_area'] = $area;
         }
-        return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
+        return Mage::getDesign()->getTemplateFilename((string)$this->getTemplate(), $params);
     }
 
     /**
