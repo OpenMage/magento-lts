@@ -229,7 +229,7 @@ $numColumns = count($this->getColumns());
         [].forEach.call(cols, function(col) {
             col.classList.remove('overDrag');
             col.classList.remove('overDrag__left');
-            col.classList.remove('overDrag_right');
+            col.classList.remove('overDrag__right');
         });
 
         // disable drop self
@@ -241,12 +241,12 @@ $numColumns = count($this->getColumns());
         if (isBefore(_currentDragItem, _dest)) {
             this.classList.add('overDrag__left');
         }else{
-            this.classList.add('overDrag_right');
+            this.classList.add('overDrag__right');
         }
     }
 
     function listenerDragLeave(e) {
-        //this.classList.remove('overDrag').remove('overDrag__left').remove('overDrag_right');
+        //this.classList.remove('overDrag').remove('overDrag__left').remove('overDrag__right');
         
     }
 
@@ -275,7 +275,7 @@ $numColumns = count($this->getColumns());
         [].forEach.call(cols, function(col) {
             col.classList.remove('overDrag');
             col.classList.remove('overDrag__left');
-            col.classList.remove('overDrag_right');
+            col.classList.remove('overDrag__right');
         });
 
         if (_columnOrderChanged) {
@@ -342,7 +342,7 @@ $numColumns = count($this->getColumns());
     .overDrag__left::after {
         left: -10px;
     }
-    .overDrag_right::after {
+    .overDrag__right::after {
         right: -10px;
     }
 </style>
