@@ -113,7 +113,7 @@ $numColumns = count($this->getColumns());
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
-                    <?php foreach ($this->getColumns() as $_column): ?>
+                    <?php foreach ($this->getColumns() as $key => $_column): ?>
                         <th data-entity="<?php echo $key; ?>" draggable="true" <?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
                     <?php endforeach ?>
                     </tr>
