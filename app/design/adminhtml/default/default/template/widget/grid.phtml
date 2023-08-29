@@ -199,7 +199,7 @@ $numColumns = count($this->getColumns());
     let _columnOrderChanged = false;
 
     function listenerDragStart(e) {
-        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.effectAllowed = "copyMove";
         e.dataTransfer.setData("text/plain", null);
         _currentDragItem = e.target.closest('th');
     }
@@ -228,6 +228,8 @@ $numColumns = count($this->getColumns());
         var cols = document.querySelectorAll('th');
         [].forEach.call(cols, function(col) {
             col.classList.remove('overDrag');
+            col.classList.remove('overDrag__left');
+            col.classList.remove('overDrag_right');
         });
 
         // disable drop self
@@ -236,10 +238,16 @@ $numColumns = count($this->getColumns());
         if (!_dest.closest('.headings')) return false;
 
         this.classList.add('overDrag');
+        if (isBefore(_currentDragItem, _dest)) {
+            this.classList.add('overDrag__left');
+        }else{
+            this.classList.add('overDrag_right');
+        }
     }
 
     function listenerDragLeave(e) {
-        //this.classList.remove('overDrag');
+        //this.classList.remove('overDrag').remove('overDrag__left').remove('overDrag_right');
+        
     }
 
     function listenerDrop(e) {
@@ -263,6 +271,13 @@ $numColumns = count($this->getColumns());
     }
 
     function listenerDragEnd(e) {
+        var cols = document.querySelectorAll('th');
+        [].forEach.call(cols, function(col) {
+            col.classList.remove('overDrag');
+            col.classList.remove('overDrag__left');
+            col.classList.remove('overDrag_right');
+        });
+
         if (_columnOrderChanged) {
             let nameElements = document.querySelectorAll('tr.headings th');
             let orderColumns = [];
@@ -309,8 +324,26 @@ $numColumns = count($this->getColumns());
     //]]>
 </script>
 <style>
+    .grid tr.headings th {
+        position: relative;
+    }
     .overDrag {
         background-color: red !important;
+    }
+    .overDrag:after {
+        content: '⮝';
+        position: absolute;
+        overflow: hidden;
+        color: red;
+        z-index: 99999999999999;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .overDrag__left::after {
+        left: -10px;
+    }
+    .overDrag_right::after {
+        right: -10px;
     }
 </style>
 <?php if($this->canDisplayContainer()): ?>
