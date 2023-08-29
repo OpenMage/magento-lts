@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "902e142809dc8d50b1e628dad67320a2",
+    "content-hash": "d2c7d1ef752587a200077be1ef2a74de",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
