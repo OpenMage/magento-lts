@@ -24,6 +24,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
 {
     public const CONFIG_PATH_GRID_ENABLED = 'advanced_grid/%s/enabled';
     public const CONFIG_PATH_GRID_COLUMNS = 'advanced_grid/%s/columns';
+    public const CONFIG_PATH_GRID_ORDER = 'advanced_grid/%s/order';
     public const CONFIG_PATH_GRID_CREATED_AT = 'advanced_grid/%s/created_at';
     public const CONFIG_PATH_GRID_UPDATED_AT = 'advanced_grid/%s/updated_at';
     public const CONFIG_PATH_GRID_COLUMN_IMAGE = 'advanced_grid/%s/media_image';
@@ -70,6 +71,23 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
         $config = sprintf($configPath, $this->_gridId);
         return Mage::getStoreConfig($config);
     }
+
+
+    public function saveOrderColumns($value)
+    {
+        $configPath = sprintf(self::CONFIG_PATH_GRID_ORDER, $this->_gridId);
+        Mage::getModel('core/config')->saveConfig($configPath, $value);
+    }
+
+    public function getOrderColumns() : array
+    {
+        $data = $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_ORDER);
+        if(!$data) return [];
+
+        $data = Mage::helper('core')->jsonDecode($data);
+        return $data;
+    }
+        
 
     /**
      * Get grid enabled for custom columns

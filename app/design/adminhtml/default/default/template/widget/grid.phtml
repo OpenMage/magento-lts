@@ -114,7 +114,7 @@ $numColumns = count($this->getColumns());
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
                     <?php foreach ($this->getColumns() as $_column): ?>
-                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
+                        <th data-entity="<?php echo $key; ?>" draggable="true" <?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
                     <?php endforeach ?>
                     </tr>
                 <?php endif ?>
@@ -194,6 +194,125 @@ $numColumns = count($this->getColumns());
     </table>
     </div>
 </div>
+<script>
+    let _currentDragItem;
+    let _columnOrderChanged = false;
+
+    function listenerDragStart(e) {
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", null);
+        _currentDragItem = e.target.closest('th');
+    }
+
+    function listenerDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+
+        let _dest = e.target.closest('th');
+
+        // disable drop out of headings
+        if (!_dest.closest('.headings')) return false;
+    }
+
+    function isBefore(el1, el2) {
+        if (el2.parentNode === el1.parentNode)
+            for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling)
+                if (cur === el2)
+                    return true;
+        return false;
+    }
+
+    function listenerDragEnter(e) {
+        let _dest = e.target.closest('th');
+        var cols = document.querySelectorAll('th');
+        [].forEach.call(cols, function(col) {
+            col.classList.remove('overDrag');
+        });
+
+        // disable drop self
+        if (_currentDragItem == _dest) return false;
+        // disable drop out of headings
+        if (!_dest.closest('.headings')) return false;
+
+        this.classList.add('overDrag');
+    }
+
+    function listenerDragLeave(e) {
+        //this.classList.remove('overDrag');
+    }
+
+    function listenerDrop(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+
+        let _dest = document.getElementsByClassName('overDrag')[0];
+        if(_dest) {
+            if (isBefore(_currentDragItem, _dest)) {
+                e.target.parentNode.closest('tr').insertBefore(_currentDragItem, _dest);
+            } else {
+                e.target.parentNode.closest('tr').insertBefore(_currentDragItem, _dest.nextSibling);
+            }
+            _columnOrderChanged = true;
+        }
+        return false;
+    }
+
+    function listenerDragEnd(e) {
+        if (_columnOrderChanged) {
+            let nameElements = document.querySelectorAll('tr.headings th');
+            let orderColumns = [];
+
+            nameElements.forEach(function(element) {
+                let attributeName = element.getAttribute('data-entity');
+                orderColumns.push(attributeName);
+            });
+
+            new Ajax.Request('<?php echo $this->getUrl('*/*/gridColumnReorder'); ?>?isAjax=true', {
+                method: 'post',
+                dataType: "json",
+                parameters: {
+                    "gridId": '<?php echo $this->getId() ?>',
+                    "data": JSON.stringify(orderColumns)
+                },
+                onComplete: function() {
+                    <?php echo $this->getJsObjectName() ?>.reload();
+                    _columnOrderChanged = false;
+                },
+                onSuccess: function(transport) {}
+            });
+        }
+
+    }
+
+    function initDragColumns() {
+        let cols = document.querySelectorAll('th');
+        [].forEach.call(cols, function(col) {
+            col.addEventListener('dragstart', listenerDragStart, false);
+            col.addEventListener('dragenter', listenerDragEnter, false);
+            col.addEventListener('dragover', listenerDragOver, false);
+            col.addEventListener('dragleave', listenerDragLeave, false);
+            col.addEventListener('drop', listenerDrop, false);
+            col.addEventListener('dragend', listenerDragEnd, false);
+        });
+    }
+    /* document.addEventListener("DOMContentLoaded", function() {
+
+    }); */
+    initDragColumns();
+
+
+    //]]>
+</script>
+<style>
+    .overDrag {
+        background-color: red !important;
+    }
+</style>
 <?php if($this->canDisplayContainer()): ?>
 </div>
 <script type="text/javascript">

@@ -77,7 +77,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
         }
 
         $storeId = (int) $this->getRequest()->getParam('store', 0);
-        $_keepOrder = 'entity_id';
+        $_keepDefaultOrder = 'entity_id';
 
         foreach ($this->getHelperAdvancedGrid()->getImageColumns() as $attributeCode) {
             /** @var Mage_Eav_Model_Attribute $_attributeEntity */
@@ -91,9 +91,9 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                     'index' => $attributeCode,
                     'attribute_code' => $attributeCode,
                 ],
-                $_keepOrder
+                $_keepDefaultOrder
             );
-            $_keepOrder = $attributeCode;
+            $_keepDefaultOrder = $attributeCode;
         }
 
         if ($this->getHelperAdvancedGrid()->isCreatedAtEnabled()) {
@@ -105,9 +105,9 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                     'index' => 'created_at',
                     'attribute_code' => 'created_at',
                 ],
-                $_keepOrder
+                $_keepDefaultOrder
             );
-            $_keepOrder = 'created_at';
+            $_keepDefaultOrder = 'created_at';
         }
 
         if ($this->getHelperAdvancedGrid()->isUpdatedAtEnabled()) {
@@ -119,9 +119,9 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                     'index' => 'updated_at',
                     'attribute_code' => 'updated_at',
                 ],
-                $_keepOrder
+                $_keepDefaultOrder
             );
-            $_keepOrder = 'updated_at';
+            $_keepDefaultOrder = 'updated_at';
         }
 
         foreach ($this->getHelperAdvancedGrid()->getAttributeColumns() as $attributeCode) {
@@ -139,7 +139,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                             'attribute_code' => $attributeCode,
                             'currency_code' => $_currency,
                         ],
-                        $_keepOrder
+                        $_keepDefaultOrder
                     );
                     break;
                 case 'date':
@@ -151,7 +151,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                             'index' => $attributeCode,
                             'attribute_code' => $attributeCode,
                         ],
-                        $_keepOrder
+                        $_keepDefaultOrder
                     );
                     break;
                 case 'multiselect':
@@ -173,7 +173,7 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                             'options' => $_options,
                             'attribute_code' => $attributeCode,
                         ],
-                        $_keepOrder
+                        $_keepDefaultOrder
                     );
                     break;
                 default:
@@ -185,11 +185,23 @@ trait Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns
                             'index' => $attributeCode,
                             'attribute_code' => $attributeCode,
                         ],
-                        $_keepOrder
+                        $_keepDefaultOrder
                     );
                     break;
             }
-            $_keepOrder = $attributeCode;
+            $_keepDefaultOrder = $attributeCode;
+        }
+
+        // customize order column
+        $_orderColumns = $this->getHelperAdvancedGrid()->getOrderColumns();
+        if ($_orderColumns) {
+            // Reset Column Order
+            $this->_columnsOrder = [];
+            uksort($this->_columns, function($a, $b) use ($_orderColumns) {
+                $posA = array_search($a, $_orderColumns);
+                $posB = array_search($b, $_orderColumns);
+                return $posA > $posB;
+            });
         }
         return $this;
     }
