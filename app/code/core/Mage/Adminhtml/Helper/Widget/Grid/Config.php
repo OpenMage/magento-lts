@@ -104,7 +104,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isCreatedAtEnabled()
+    public function isCreatedAtEnabled(): bool
     {
         return $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_CREATED_AT);
     }
