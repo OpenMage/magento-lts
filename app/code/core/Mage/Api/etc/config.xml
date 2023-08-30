@@ -115,7 +115,7 @@
         <jobs>
             <api_session_cleanup>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <cron_expr>0 35 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>api/cron::sessionCleanup</model>
