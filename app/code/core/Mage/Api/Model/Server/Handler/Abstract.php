@@ -116,16 +116,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     *  Check session expiration
-     *
-     *  @return  bool
-     */
-    protected function _isSessionExpired()
-    {
-        return $this->_getSession()->isSessionExpired();
-    }
-
-    /**
      * Dispatch webservice fault
      *
      * @param string $faultName
