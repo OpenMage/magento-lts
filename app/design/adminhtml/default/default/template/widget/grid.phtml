@@ -194,135 +194,6 @@ $numColumns = count($this->getColumns());
     </table>
     </div>
 </div>
-<script>
-    let _currentDragItem;
-    let _columnOrderChanged = false;
-
-    function listenerDragStart(e) {
-        e.dataTransfer.effectAllowed = "copyMove";
-        e.dataTransfer.setData("text/plain", null);
-        _currentDragItem = e.target.closest('th');
-    }
-
-    function listenerDragOver(e) {
-        if (e.preventDefault) {
-            e.preventDefault();
-        }
-
-        let _dest = e.target.closest('th');
-
-        // disable drop out of headings
-        if (!_dest.closest('.headings')) return false;
-    }
-
-    function isBefore(el1, el2) {
-        if (el2.parentNode === el1.parentNode)
-            for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling)
-                if (cur === el2)
-                    return true;
-        return false;
-    }
-
-    function listenerDragEnter(e) {
-        let _dest = e.target.closest('th');
-        var cols = document.querySelectorAll('th');
-        [].forEach.call(cols, function(col) {
-            col.classList.remove('overDrag');
-            col.classList.remove('overDrag__left');
-            col.classList.remove('overDrag__right');
-        });
-
-        // disable drop self
-        if (_currentDragItem == _dest) return false;
-        // disable drop out of headings
-        if (!_dest.closest('.headings')) return false;
-
-        this.classList.add('overDrag');
-        if (isBefore(_currentDragItem, _dest)) {
-            this.classList.add('overDrag__left');
-        }else{
-            this.classList.add('overDrag__right');
-        }
-    }
-
-    function listenerDragLeave(e) {
-        //this.classList.remove('overDrag').remove('overDrag__left').remove('overDrag__right');
-        
-    }
-
-    function listenerDrop(e) {
-        if (e.preventDefault) {
-            e.preventDefault();
-        }
-        if (e.stopPropagation) {
-            e.stopPropagation();
-        }
-
-        let _dest = document.getElementsByClassName('overDrag')[0];
-        if(_dest) {
-            if (isBefore(_currentDragItem, _dest)) {
-                e.target.parentNode.closest('tr').insertBefore(_currentDragItem, _dest);
-            } else {
-                e.target.parentNode.closest('tr').insertBefore(_currentDragItem, _dest.nextSibling);
-            }
-            _columnOrderChanged = true;
-        }
-        return false;
-    }
-
-    function listenerDragEnd(e) {
-        var cols = document.querySelectorAll('th');
-        [].forEach.call(cols, function(col) {
-            col.classList.remove('overDrag');
-            col.classList.remove('overDrag__left');
-            col.classList.remove('overDrag__right');
-        });
-
-        if (_columnOrderChanged) {
-            let nameElements = document.querySelectorAll('tr.headings th');
-            let orderColumns = [];
-
-            nameElements.forEach(function(element) {
-                let attributeName = element.getAttribute('data-entity');
-                orderColumns.push(attributeName);
-            });
-
-            new Ajax.Request('<?php echo $this->getUrl('*/*/gridColumnReorder'); ?>?isAjax=true', {
-                method: 'post',
-                dataType: "json",
-                parameters: {
-                    "gridId": '<?php echo $this->getId() ?>',
-                    "data": JSON.stringify(orderColumns)
-                },
-                onComplete: function() {
-                    <?php echo $this->getJsObjectName() ?>.reload();
-                    _columnOrderChanged = false;
-                },
-                onSuccess: function(transport) {}
-            });
-        }
-
-    }
-
-    function initDragColumns() {
-        let cols = document.querySelectorAll('th');
-        [].forEach.call(cols, function(col) {
-            col.addEventListener('dragstart', listenerDragStart, false);
-            col.addEventListener('dragenter', listenerDragEnter, false);
-            col.addEventListener('dragover', listenerDragOver, false);
-            col.addEventListener('dragleave', listenerDragLeave, false);
-            col.addEventListener('drop', listenerDrop, false);
-            col.addEventListener('dragend', listenerDragEnd, false);
-        });
-    }
-    /* document.addEventListener("DOMContentLoaded", function() {
-
-    }); */
-    initDragColumns();
-
-
-    //]]>
-</script>
 <style>
     .grid tr.headings th {
         position: relative;
@@ -366,7 +237,178 @@ $numColumns = count($this->getColumns());
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
     <?php echo $this->getAdditionalJavaScript(); ?>
-//]]>
+
+    class varienGridAdvanced {
+        _currentDragItem = '';
+        _targetDragColumn = '';
+        _currentColumnsOrder = [];
+        _columnOrderChanged = false;
+        oldCallbacks = {};
+        _columnSelector = 'tr.headings th';
+
+        constructor(containerId, grid, url) {
+            this.containerId = containerId;
+            this.grid = grid;
+            this.url = url;
+            this.initReorderColumns();
+            
+            this.setOldCallback('init', grid.initCallback);
+            this.grid.initCallback = this.onGridInit.bind(this);
+            
+        }
+
+        initReorderColumns() {
+            this.getColumns().forEach((elm) => {
+                elm.addEventListener('dragstart', this.onDragStart.bind(this), false);
+                elm.addEventListener('dragenter', this.onDragEnter.bind(this), false);
+                elm.addEventListener('dragover', this.onDragOver.bind(this), false);
+                //elm.addEventListener('dragleave', this.onDragLeave.bind(this), false);
+                elm.addEventListener('drop', this.onDrop.bind(this), false);
+                elm.addEventListener('dragend', this.onDragEnd.bind(this), false);
+            }, this);
+            this._saveCurrentColumnsOrder();
+        }
+        
+        onDragStart(e) {
+            e.dataTransfer.effectAllowed = "copyMove";
+            e.dataTransfer.setData("text/plain", null);
+            this._currentDragItem = e.target.closest(this._columnSelector);
+        }
+
+        onDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+        }
+
+        onDragEnter(e) {
+            this._resetClassStyle();
+
+            // disable drop self
+            let _currentTargetColumn = e.target.closest(this._columnSelector);
+            if(this._isSameColumn(_currentTargetColumn)) {
+                this._targetDragColumn = null;
+                return false;
+            } 
+
+            this._targetDragColumn = _currentTargetColumn;
+
+            this._targetDragColumn.classList.add('overDrag');
+            if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
+                this._targetDragColumn.classList.add('overDrag__left');
+            }else{
+                this._targetDragColumn.classList.add('overDrag__right');
+            }
+        }
+
+        /* onDragLeave(e) {
+            this._resetClassStyle();
+        } */
+
+        onDrop(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if(this._targetDragColumn) {
+                if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
+                    e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn);
+                } else {
+                    e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn.nextSibling);
+                }
+                this._saveCurrentColumnsOrder(true);
+            }
+            return false;
+        }
+
+        onDragEnd(e) {
+            this._resetClassStyle();
+
+            if (this._columnOrderChanged) {
+                new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                    method: 'post',
+                    dataType: "json",
+                    parameters: {
+                        "gridId": this.containerId,
+                        "data": JSON.stringify(this._currentColumnsOrder)
+                    },
+                    onComplete: this.onReorderComplete.bind(this),
+                    onSuccess: function(transport) {}
+                }, this);
+            }
+        }
+
+        onReorderComplete(transport) {
+            this._columnOrderChanged = false;
+            this.grid.reload();
+        }
+
+        // ensure varienGrid events propagation
+        getOldCallback(callbackName) {
+            return this.oldCallbacks[callbackName] ? this.oldCallbacks[callbackName] : Prototype.emptyFunction;
+        }
+
+        setOldCallback(callbackName, callback) {
+            this.oldCallbacks[callbackName] = callback;
+        }
+
+        onGridInit(grid) {
+            this.initReorderColumns();
+            this.getOldCallback('init')(grid);
+        }
+
+        getColumns() {
+            return Array.from(document.querySelectorAll(this._columnSelector));
+        }
+
+        _saveCurrentColumnsOrder(orderChanged = false) {
+            this._currentColumnsOrder = [];
+            this.getColumns().forEach((elm) => {
+                this._currentColumnsOrder.push(elm.getAttribute('data-entity'));
+            });
+            if(orderChanged != false) {
+                console.log('set order changed');
+                this._columnOrderChanged = true;
+            }
+            return this._currentColumnsOrder;
+        }
+        
+        _checkElementisBefore(el1, el2) {
+            if (el2.parentNode === el1.parentNode) {
+                for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling) {
+                    if (cur === el2) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        _isSameColumn(element) {
+            if (this._currentDragItem == element) {
+                return true;
+            }
+            return false;
+        }
+
+        _resetClassStyle() {
+            this.getColumns().forEach((elm) => {
+                elm.classList.remove('overDrag');
+                elm.classList.remove('overDrag__left');
+                elm.classList.remove('overDrag__right');
+            });
+        }
+    }
+
+    const _gridAdvanced = new varienGridAdvanced('<?php echo $this->getId() ?>', <?php echo $this->getJsObjectName() ?>, '<?php echo $this->getUrl('*/catalog_product/gridColumnReorder'); ?>');
+
 </script>
 <?php endif ?>
 <?php endif ?>
