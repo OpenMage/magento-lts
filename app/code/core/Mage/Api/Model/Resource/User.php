@@ -98,13 +98,13 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         return $this;
     }
 
-    /**
+     /**
      * Clean old session
      *
-     * @param Mage_Api_Model_User $user
+     * @param Mage_Api_Model_User|null $user
      * @return $this
      */
-    public function cleanOldSessions(Mage_Api_Model_User $user)
+    public function cleanOldSessions(?Mage_Api_Model_User $user)
     {
         $readAdapter    = $this->_getReadAdapter();
         $writeAdapter   = $this->_getWriteAdapter();
@@ -114,9 +114,15 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $timeout,
             Varien_Db_Adapter_Interface::INTERVAL_SECOND
         );
+        $where = [
+            $readAdapter->quote(Varien_Date::now()) . ' > '.$timeSubtract
+        ];
+        if ($user) {
+            $where['user_id = ?'] = $user->getId();
+        }
         $writeAdapter->delete(
             $this->getTable('api/session'),
-            ['user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract]
+            $where
         );
         return $this;
     }

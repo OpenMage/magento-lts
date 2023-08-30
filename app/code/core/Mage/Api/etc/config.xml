@@ -111,6 +111,18 @@
             </modules>
         </translate>
     </adminhtml>
+    <crontab>
+        <jobs>
+            <api_session_cleanup>
+                <schedule>
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>api/cron::sessionCleanup</model>
+                </run>
+            </api_session_cleanup>
+        </jobs>
+    </crontab>
     <default>
         <api>
             <config>
