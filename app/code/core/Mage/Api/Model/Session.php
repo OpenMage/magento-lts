@@ -113,7 +113,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @return bool
      */
-    public function getIsInstaLogin()
+    public function getIsInstaLogin(): bool
     {
         return (bool) $this->getData('is_insta_login');
     }
