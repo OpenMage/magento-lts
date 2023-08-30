@@ -33,7 +33,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
     public function indexAction()
     {
         // save extra params for widgets insertion form
-        $skipped = $this->getRequest()->getParam('skip_widgets');
+        $skipped = (string)$this->getRequest()->getParam('skip_widgets');
         $skipped = Mage::getSingleton('widget/widget_config')->decodeWidgetsFromQuery($skipped);
 
         Mage::register('skip_widgets', $skipped);
