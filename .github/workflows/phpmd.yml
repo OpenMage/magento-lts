@@ -30,4 +30,3 @@ jobs:
 
       - name: PHPMD
         run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml
-        continue-on-error: true
