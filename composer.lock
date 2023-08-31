@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "950d608bb8de1372dfcd6912b1208567",
+    "content-hash": "ef430b33b2eb14549244f5f151ea5c07",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -282,6 +282,7 @@
                 "issues": "https://github.com/eloquent/enumeration/issues",
                 "source": "https://github.com/eloquent/enumeration/tree/master"
             },
+            "abandoned": true,
             "time": "2015-11-03T22:21:38+00:00"
         },
         {
@@ -2795,7 +2796,7 @@
         },
         {
             "name": "magento-ecg/coding-standard",
-            "version": "4.5.2",
+            "version": "v4.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/magento-ecg/coding-standard.git",
@@ -2826,7 +2827,7 @@
             "homepage": "https://github.com/magento-ecg/coding-standard",
             "support": {
                 "issues": "https://github.com/magento-ecg/coding-standard/issues",
-                "source": "https://github.com/magento-ecg/coding-standard/tree/4.5.2"
+                "source": "https://github.com/magento-ecg/coding-standard/tree/v4.5.2"
             },
             "time": "2022-12-06T11:33:03+00:00"
         },
