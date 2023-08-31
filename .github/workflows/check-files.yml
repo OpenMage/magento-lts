@@ -24,6 +24,9 @@ on:
       phpstan:
         description: "Count changed PHPStan files"
         value: ${{ jobs.check.outputs.phpstan }}
+      phpmd:
+        description: "Count changed PHPMD files"
+        value: ${{ jobs.check.outputs.phpmd }}
       phpunit-test:
         description: "Count changed PhpUnit test files"
         value: ${{ jobs.check.outputs.phpunit-test }}
@@ -48,6 +51,7 @@ jobs:
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
       php-cs-fixer: ${{ steps.changes-php-cs-fixer.outputs.php-cs-fixer }}
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
+      phpmd: ${{ steps.changes-phpstan.outputs.phpmd }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
       sonar: ${{ steps.changes-sonar.outputs.sonar }}
@@ -82,6 +86,7 @@ jobs:
             **phpcs**
             **php-cs-fixer**
             **phpstan**
+            **phpmd**
             dev/tests/
             dev/phpunit*
             dev/sonar*
@@ -143,6 +148,14 @@ jobs:
           count="$(grep -oE "**phpstan**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPStan file(s) changed"
           echo "phpstan=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if PHPMD files changed
+        id: changes-phpmd
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "**phpmd**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHPMD file(s) changed"
+          echo "phpmd=$count" >> $GITHUB_OUTPUT
 
       - name: Check if PHPUnit test files changed
         id: changes-phpunit-test

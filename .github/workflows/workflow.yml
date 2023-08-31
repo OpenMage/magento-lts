@@ -12,6 +12,7 @@ on:
       - '.phpcs.xml.dist'
       - '.phpcs.ecg.xml.dist'
       - '.phpcs.php.xml.dist'
+      - '.phpmd.dist.xml'
       - 'phpstan.dist.neon'
       - 'phpstan.dist.baseline.neon'
 
@@ -26,6 +27,7 @@ on:
       - '.phpcs.xml.dist'
       - '.phpcs.ecg.xml.dist'
       - '.phpcs.php.xml.dist'
+      - '.phpmd.dist.xml'
       - 'phpstan.dist.neon'
       - 'phpstan.dist.baseline.neon'
 
@@ -81,8 +83,18 @@ jobs:
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpstan.yml
 
+  phpmd:
+    name: PHPMD
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpmd > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpmd.yml
+
   # DOES NOT run by default
-  # runs on schedule or when worklfow changed
+  # runs on schedule or when workflow changed
   syntax_php:
     name: Syntax
     needs: [check, phpcs, php-cs-fixer]
