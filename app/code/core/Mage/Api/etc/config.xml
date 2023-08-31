@@ -17,7 +17,7 @@
 <config>
     <modules>
         <Mage_Api>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_Api>
     </modules>
     <global>
