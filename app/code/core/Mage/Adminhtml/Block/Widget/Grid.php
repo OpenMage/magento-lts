@@ -181,6 +181,27 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_massactionBlockName = 'adminhtml/widget_grid_massaction';
 
     /**
+     * Advanced Grid block name
+     *
+     * @var string
+     */
+    protected $_advancedGridBlockName = 'adminhtml/widget_grid_advanced';
+
+    /**
+     * Advanced Grid helper name
+     *
+     * @var string
+     */
+    protected $_advancedGridHelperName = 'adminhtml/widget_grid_config';
+
+    /**
+     * Advanced Grid helper
+     *
+     * @var Mage_Adminhtml_Helper_Widget_Grid_Config|null
+     */
+    protected $_advancedGridHelper = null;
+
+    /**
     * RSS list
     *
     * @var array
@@ -566,7 +587,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareCollection()
     {
         if ($this->getCollection()) {
-            $this->_prepareCollectionAdvancedGrid();
+            $this->_prepareAdvancedGrid();
             $this->_preparePage();
 
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
@@ -629,28 +650,91 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
-        $this->_prepareColumnsAdvancedGrid();
         $this->sortColumnsByOrder();
         return $this;
     }
 
     /**
-     * Prepare collection custom config
+     * Prepare grid advanced grid block
      *
      * @return $this
      */
-    protected function _prepareCollectionAdvancedGrid()
+    protected function _prepareAdvancedGridBlock()
     {
+        $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
+        if ($this->getHelperAdvancedGrid()->isEnabled()) {
+            $this->_prepareAdvancedGridColumn();
+        }
+        return $this;
+    }    
+
+    /**
+     * Get Helper Advanced Grid 
+     *
+     * @return Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
+     */
+    public function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
+    {
+        if (!$this->_advancedGridHelper) {
+            
+            // TODO create factory class 
+            if($this->getCollection() instanceof Mage_Catalog_Model_Resource_Product_Collection) {
+                $this->setAdvancedGridHelperName('adminhtml/widget_grid_config_catalog_product');
+            }
+            $this->_advancedGridHelper = Mage::helper($this->getAdvancedGridHelperName());
+
+            if (!($this->_advancedGridHelper instanceof Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract)) {
+                Mage::throwException(
+                    $this->__("Helper for advanced grid config doesn't implement required interface. %s must extends Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract", get_class($this->_advancedGridHelper))
+                );
+            }
+        }
+        $this->_advancedGridHelper->setGridId($this->getId());
+        return $this->_advancedGridHelper;
+    }
+
+    /**
+     * Prepare advanced grid collection
+     *
+     * @return $this
+     */
+    protected function _prepareAdvancedGrid()
+    {
+        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
+            return $this;
+        }
+        $this->getHelperAdvancedGrid()->applyAdvancedGridCollection($this->getCollection());
         return $this;
     }
 
     /**
-     * Prepare columns custom config
+     * Prepare advanced grid column
      *
      * @return $this
      */
-    protected function _prepareColumnsAdvancedGrid()
+    protected function _prepareAdvancedGridColumn()
     {
+        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
+            return $this;
+        }
+        //if ($helper instanceof CollectionStrategyInterface) {
+        $this->getHelperAdvancedGrid()->applyAdvancedGridColumn($this);
+        // customize order column
+        $_orderColumns = $this->getHelperAdvancedGrid()->getOrderColumns();
+        if ($_orderColumns) {
+            // Reset Column Order
+            $this->_columnsOrder = [];
+            // TODO Deprecated functionality: uksort(): Returning bool from comparison function is deprecated, return an integer less than, equal to, or greater than zero
+            @uksort($this->_columns, function($a, $b) use ($_orderColumns) {
+                $posA = array_search($a, $_orderColumns);
+                $posB = array_search($b, $_orderColumns);
+                return $posA > $posB;
+            });
+        }else{
+            $this->sortColumnsByOrder();
+        }
+
+        
         return $this;
     }
 
@@ -721,6 +805,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_prepareColumns();
         $this->_prepareMassactionBlock();
         $this->_prepareCollection();
+        $this->_prepareAdvancedGridBlock();
         return $this;
     }
 
@@ -1601,6 +1686,68 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getMassactionBlockHtml()
     {
         return $this->getChildHtml('massaction');
+    }
+    
+    /**
+     * Retrieve advanced grid block name
+     *
+     * @return string
+     */
+    public function getAdvancedGridBlockName()
+    {
+        return $this->_advancedGridBlockName;
+    }
+
+    /**
+     * Set advanced grid block name
+     *
+     * @param  string    $blockName
+     * @return $this
+     */
+    public function setAdvancedGridBlockName($blockName)
+    {
+        $this->_advancedGridBlockName = $blockName;
+        return $this;
+    }
+
+    /**
+     * Retrieve advanced grid helper name
+     *
+     * @return string
+     */
+    public function getAdvancedGridHelperName()
+    {
+        return $this->_advancedGridHelperName;
+    }
+
+    /**
+     * Set advanced grid helper name
+     *
+     * @param  string    $helperName
+     * @return $this
+     */
+    public function setAdvancedGridHelperName($helperName)
+    {
+        $this->_advancedGridHelperName = $helperName;
+        return $this;
+    }
+
+    /**
+     * Retrieve advanced grid block
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract
+     */
+    public function getAdvancedGridBlock()
+    {
+        return $this->getChild('advanced_grid');
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdvancedGridBlockHtml()
+    {
+        return $this->getChildHtml('advanced_grid');
     }
 
     /**

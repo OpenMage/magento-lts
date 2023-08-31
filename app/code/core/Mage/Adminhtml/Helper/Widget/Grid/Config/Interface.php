@@ -15,12 +15,12 @@
  */
 
 /**
- * Adminhtml Catalog Grid Config Advanced Helper
+ * Adminhtml Catalog Grid Config Advanced Helper Contract
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
+interface Mage_Adminhtml_Helper_Widget_Grid_Config_Interface
 {
     /**
      * Collection object
@@ -28,9 +28,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Wid
      * @var Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * return $this
      */
-    public function applyAdvancedGridCollection($collection) {
-        return $this;
-    }
+    public function applyAdvancedGridCollection($collection);
 
     /**
      * Collection object
@@ -38,7 +36,5 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Wid
      * @var Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * return $this
      */
-    public function applyAdvancedGridColumn($gridBlock) {
-        return $this;
-    }
+    public function applyAdvancedGridColumn($gridBlock);
 }

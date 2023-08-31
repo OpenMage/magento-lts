@@ -458,6 +458,10 @@
                 <enabled>0</enabled>
                 <media_image_width>64</media_image_width>
             </cross_sell_product_grid>
+            <super_product_links>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </super_product_links>
         </advanced_grid>
         <general>
             <country>

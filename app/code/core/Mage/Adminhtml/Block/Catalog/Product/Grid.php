@@ -25,8 +25,6 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    use Mage_Adminhtml_Block_Widget_Grid_Config_Product_Columns;
-
     public function __construct()
     {
         parent::__construct();
