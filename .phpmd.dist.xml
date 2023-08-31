@@ -78,7 +78,7 @@
     -->
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
-            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />
+            <property name="exceptions" value="a,b,e,fk,fp,i,id,idx,io,ip,pk,to,x,y,x1,x2,y1,y2" />
         </properties>
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
@@ -90,13 +90,14 @@
     [x] DevelopmentCodeFragment
     [x] EmptyCatchBlock
     [x] EvalExpression
-    [x] ExitExpression
+    [-] ExitExpression
     [x] GotoStatement
     [-] NumberOfChildren
     -->
     <rule ref="rulesets/design.xml">
         <exclude name="CouplingBetweenObjects" />
         <exclude name="DepthOfInheritance" />
+        <exclude name="ExitExpression" />
         <exclude name="NumberOfChildren" />
     </rule>
 
