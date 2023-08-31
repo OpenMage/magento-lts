@@ -2130,7 +2130,7 @@
                 </cross_sell_product_grid>
                 <super_product_links>
                     <label>Catalog Product View Associated Products Grid Columns</label>
-                    <sort_order>6</sort_order>
+                    <sort_order>7</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
