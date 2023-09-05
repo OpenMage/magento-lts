@@ -96,16 +96,16 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
 
     /**
      * Collection object
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      *
-     * @var Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * return $this
      */
     abstract public function applyAdvancedGridCollection($collection);
 
     /**
-     * Collection object
+     * Adminhtml grid widget block
+     * @param Mage_Adminhtml_Block_Widget_Grid $gridBlock
      *
-     * @var Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * return $this
      */
     abstract public function applyAdvancedGridColumn($gridBlock);

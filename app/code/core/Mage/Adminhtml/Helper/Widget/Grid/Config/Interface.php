@@ -24,17 +24,17 @@ interface Mage_Adminhtml_Helper_Widget_Grid_Config_Interface
 {
     /**
      * Collection object
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      *
-     * @var Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * return $this
      */
-    public function applyAdvancedGridCollection($collection);
+    public function applyAdvancedGridCollection(Mage_Core_Model_Resource_Db_Collection_Abstract $collection);
 
     /**
-     * Collection object
+     * Adminhtml grid widget block
+     * @param Mage_Adminhtml_Block_Widget_Grid $gridBlock
      *
-     * @var Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * return $this
      */
-    public function applyAdvancedGridColumn($gridBlock);
+    public function applyAdvancedGridColumn(Mage_Adminhtml_Block_Widget_Grid $gridBlock);
 }

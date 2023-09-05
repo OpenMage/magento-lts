@@ -30,8 +30,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
 
     /**
      * Collection object
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      *
-     * @var Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * return $this
      */
     public function applyAdvancedGridCollection($collection) {
@@ -59,9 +59,9 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
     }
 
     /**
-     * Collection object
+     * Adminhtml grid widget block
+     * @param Mage_Adminhtml_Block_Widget_Grid $gridBlock
      *
-     * @var Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * return $this
      */
     public function applyAdvancedGridColumn($gridBlock) {
@@ -145,8 +145,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
                     break;
                 case 'multiselect':
                 case 'select':
+                    $_options = [];
                     if ($_attributeEntity->usesSource()) {
-                        $_options = [];
                         $_allOptions = $_attributeEntity->getSource()->getAllOptions(false, true);
                         foreach ($_allOptions as $key => $option) {
                             $_options[$option['value']] = $option['label'];
