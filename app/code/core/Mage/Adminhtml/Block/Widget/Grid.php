@@ -669,15 +669,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Get Helper Advanced Grid 
+     * Get Helper Advanced Grid
      *
      * @return Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
      */
     public function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
     {
-        if (!$this->_advancedGridHelper) {            
+        if (!$this->_advancedGridHelper) {
             // TODO create factory class
-            if($this->getCollection() instanceof Mage_Catalog_Model_Resource_Product_Collection) {
+            if ($this->getCollection() instanceof Mage_Catalog_Model_Resource_Product_Collection) {
                 $this->setAdvancedGridHelperName('adminhtml/widget_grid_config_catalog_product');
             }
             $this->_advancedGridHelper = Mage::helper($this->getAdvancedGridHelperName());

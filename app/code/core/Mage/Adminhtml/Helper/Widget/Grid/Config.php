@@ -24,7 +24,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Wid
 {
     /**
      * Collection object
-     * 
+     *
      * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      *
      * return $this

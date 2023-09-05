@@ -77,7 +77,7 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
     public function getOrderColumns(): array
     {
         $data = $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_ORDER);
-        if(!$data) {
+        if (!$data) {
             return [];
         }
 

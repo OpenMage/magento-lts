@@ -71,7 +71,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
         return " var {$this->getJsObjectName()} = new varienGridAdvanced('{$this->getGridId()}', "
                 . "{$this->getGridJsObjectName()}, '{$this->getUrl('*/catalog_product/gridColumnReorder')}}');";
     }
-    
+
     /**
      * Checks are advanced grid available
      *

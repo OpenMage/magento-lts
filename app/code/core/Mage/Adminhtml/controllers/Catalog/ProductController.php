@@ -309,10 +309,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $gridId = $this->getRequest()->getPost('gridId');
         $data = $this->getRequest()->getPost('data');
-        if(!$gridId || !$data) {
+        if (!$gridId || !$data) {
             return false;
         }
-        
+
         Mage::helper('adminhtml/widget_grid_config')
             ->setGridId($gridId)
             ->saveOrderColumns($data);
