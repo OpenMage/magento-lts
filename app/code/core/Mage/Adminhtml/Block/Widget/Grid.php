@@ -666,7 +666,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->_prepareAdvancedGridColumn();
         }
         return $this;
-    }    
+    }
 
     /**
      * Get Helper Advanced Grid 
@@ -675,9 +675,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
     {
-        if (!$this->_advancedGridHelper) {
-            
-            // TODO create factory class 
+        if (!$this->_advancedGridHelper) {            
+            // TODO create factory class
             if($this->getCollection() instanceof Mage_Catalog_Model_Resource_Product_Collection) {
                 $this->setAdvancedGridHelperName('adminhtml/widget_grid_config_catalog_product');
             }
@@ -725,16 +724,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             // Reset Column Order
             $this->_columnsOrder = [];
             // TODO Deprecated functionality: uksort(): Returning bool from comparison function is deprecated, return an integer less than, equal to, or greater than zero
-            @uksort($this->_columns, function($a, $b) use ($_orderColumns) {
+            @uksort($this->_columns, function ($a, $b) use ($_orderColumns) {
                 $posA = array_search($a, $_orderColumns);
                 $posB = array_search($b, $_orderColumns);
                 return $posA > $posB;
             });
-        }else{
+        } else {
             $this->sortColumnsByOrder();
         }
 
-        
         return $this;
     }
 
@@ -1687,7 +1685,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         return $this->getChildHtml('massaction');
     }
-    
+
     /**
      * Retrieve advanced grid block name
      *

@@ -29,7 +29,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Wid
      *
      * return $this
      */
-    public function applyAdvancedGridCollection($collection) {
+    public function applyAdvancedGridCollection($collection)
+    {
         return $this;
     }
 
@@ -39,7 +40,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config extends Mage_Adminhtml_Helper_Wid
      *
      * return $this
      */
-    public function applyAdvancedGridColumn($gridBlock) {
+    public function applyAdvancedGridColumn($gridBlock)
+    {
         return $this;
     }
 }

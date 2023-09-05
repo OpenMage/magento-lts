@@ -22,7 +22,7 @@ use Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract as AdvancedGrid;
  * @package    Mage_Adminhtml
  *
  */
-abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_Adminhtml_Block_Widget
+abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_Adminhtml_Block_Widget
 {
     /**
      * Sets Advanced Gird template
@@ -38,7 +38,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_
      *
      * @return mixed
      */
-    public function getJsObjectName() : mixed
+    public function getJsObjectName(): mixed
     {
         return $this->getHtmlId() . 'JsObject';
     }
@@ -48,7 +48,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_
      *
      * @return string
      */
-    public function getGridJsObjectName() : string
+    public function getGridJsObjectName(): string
     {
         return $this->getParentBlock()->getJsObjectName();
     }
@@ -58,7 +58,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_
      *
      * @return mixed
      */
-    public function getGridId() : mixed
+    public function getGridId(): mixed
     {
         return $this->getParentBlock()->getId();
     }
@@ -66,7 +66,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_
     /**
      * @return string
      */
-    public function getJavaScript() : string
+    public function getJavaScript(): string
     {
         return " var {$this->getJsObjectName()} = new varienGridAdvanced('{$this->getGridId()}', "
                 . "{$this->getGridJsObjectName()}, '{$this->getUrl('*/catalog_product/gridColumnReorder')}}');";
@@ -77,8 +77,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract  extends Mage_
      *
      * @return bool
      */
-    public function isAvailable() : bool
+    public function isAvailable(): bool
     {
         return $this->getParentBlock()->getHelperAdvancedGrid()->isEnabled();
     }
-} 
+}

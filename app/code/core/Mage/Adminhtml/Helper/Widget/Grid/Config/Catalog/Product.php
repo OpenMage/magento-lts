@@ -34,7 +34,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
      *
      * return $this
      */
-    public function applyAdvancedGridCollection($collection) {
+    public function applyAdvancedGridCollection($collection)
+    {
         if (!$this->isEnabled()) {
             return $this;
         }
@@ -64,7 +65,8 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
      *
      * return $this
      */
-    public function applyAdvancedGridColumn($gridBlock) {
+    public function applyAdvancedGridColumn($gridBlock)
+    {
         $storeId = (int) $gridBlock->getRequest()->getParam('store', 0);
         $_keepDefaultOrder = 'entity_id';
 

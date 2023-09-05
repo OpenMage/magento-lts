@@ -59,7 +59,7 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
      * @throws Mage_Core_Exception
      */
     public function getStoreConfigGridId($configPath)
-    {   
+    {
         if (!$this->_gridId) {
             Mage::throwException(Mage::helper('adminhtml')->__('Grid Id must be set.'));
         }
@@ -74,15 +74,16 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
         Mage::getModel('core/config')->saveConfig($configPath, $value);
     }
 
-    public function getOrderColumns() : array
+    public function getOrderColumns(): array
     {
         $data = $this->getStoreConfigGridId(self::CONFIG_PATH_GRID_ORDER);
-        if(!$data) return [];
+        if(!$data) {
+            return [];
+        }
 
         $data = Mage::helper('core')->jsonDecode($data);
         return $data;
     }
-        
 
     /**
      * Get grid enabled for custom columns
