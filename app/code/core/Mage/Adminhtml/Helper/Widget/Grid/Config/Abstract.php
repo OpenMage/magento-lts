@@ -97,7 +97,7 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
 
     /**
      * Collection object
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @param Varien_Data_Collection_Db $collection
      *
      * return $this
      */

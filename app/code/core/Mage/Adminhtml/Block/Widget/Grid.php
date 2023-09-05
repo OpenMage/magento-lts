@@ -197,7 +197,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Advanced Grid helper
      *
-     * @var Mage_Adminhtml_Helper_Widget_Grid_Config|null
      */
     protected $_advancedGridHelper = null;
 

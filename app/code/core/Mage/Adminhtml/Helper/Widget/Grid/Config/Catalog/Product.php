@@ -116,7 +116,7 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
         }
 
         foreach ($this->getAttributeColumns() as $attributeCode) {
-            /** @var Mage_Eav_Model_Attribute $_attributeEntity */
+            /** @var Mage_Eav_Model_Entity_Attribute $_attributeEntity */
             $_attributeEntity = Mage::getModel('eav/entity_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
             switch ($_attributeEntity->getFrontendInput()) {
                 case 'price':
@@ -149,7 +149,9 @@ class Mage_Adminhtml_Helper_Widget_Grid_Config_Catalog_Product extends Mage_Admi
                 case 'select':
                     $_options = [];
                     if ($_attributeEntity->usesSource()) {
-                        $_allOptions = $_attributeEntity->getSource()->getAllOptions(false, true);
+                        /** @var Mage_Eav_Model_Entity_Attribute_Source_Table $_sourceModel */
+                        $_sourceModel = $_attributeEntity->getSource();
+                        $_allOptions = $_sourceModel->getAllOptions(false, true);
                         foreach ($_allOptions as $key => $option) {
                             $_options[$option['value']] = $option['label'];
                         }

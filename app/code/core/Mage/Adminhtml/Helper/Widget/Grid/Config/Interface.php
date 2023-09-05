@@ -24,11 +24,11 @@ interface Mage_Adminhtml_Helper_Widget_Grid_Config_Interface
 {
     /**
      * Collection object
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @param Varien_Data_Collection_Db $collection
      *
      * return $this
      */
-    public function applyAdvancedGridCollection(Mage_Core_Model_Resource_Db_Collection_Abstract $collection);
+    public function applyAdvancedGridCollection(Varien_Data_Collection_Db $collection);
 
     /**
      * Adminhtml grid widget block
