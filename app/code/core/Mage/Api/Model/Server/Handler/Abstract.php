@@ -548,7 +548,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     {
         $this->_instaLogin($sessionId)
             ->_startSession($sessionId);
-        $this->_startSession($sessionId);
         return array_values($this->_getConfig()->getFaults());
     }
 
