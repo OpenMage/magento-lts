@@ -149,10 +149,10 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      * @return $this
      */
     public function clearProductIdsForMassReindex()
-     {
-         $this->_productIdsForMassReindex = array();
-         return $this;
-     }
+    {
+        $this->_productIdsForMassReindex = array();
+        return $this;
+    }
 
     /**
      * @return array

@@ -1053,7 +1053,9 @@ class Mage_CatalogInventory_Model_Observer
         $massObject->setProductIds($ids);
 
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $massObject, Mage_Catalog_Model_Product::ENTITY, Mage_Index_Model_Event::TYPE_MASS_ACTION
+            $massObject,
+            Mage_Catalog_Model_Product::ENTITY,
+            Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
 
         $helper->clearProductIdsForMassReindex();
