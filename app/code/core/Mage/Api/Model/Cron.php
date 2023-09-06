@@ -20,7 +20,7 @@ class Mage_Api_Model_Cron
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
-    public function sessionCleanUp($schedule)
+    public function cleanOldSessions($schedule)
     {
         Mage::getResourceSingleton('api/user')->cleanOldSessions(null);
         return $this;
