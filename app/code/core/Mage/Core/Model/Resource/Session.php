@@ -162,6 +162,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessName ignored
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         return true;
@@ -172,6 +173,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         $this->gc($this->getLifeTime());
@@ -185,6 +187,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($sessId)
     {
         $select = $this->_read->select()
@@ -208,6 +211,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessData
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function write($sessId, $sessData)
     {
         $bindValues = [
@@ -241,6 +245,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
@@ -254,6 +259,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param int $sessMaxLifeTime ignored
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
         if ($this->_automaticCleaningFactor > 0) {
