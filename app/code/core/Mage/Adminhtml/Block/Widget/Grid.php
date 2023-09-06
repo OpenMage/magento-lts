@@ -650,6 +650,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareColumns()
     {
         $this->sortColumnsByOrder();
+        $this->_prepareAdvancedGridColumn();
         return $this;
     }
 
@@ -661,9 +662,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareAdvancedGridBlock()
     {
         $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
-        if ($this->getHelperAdvancedGrid()->isEnabled()) {
-            $this->_prepareAdvancedGridColumn();
-        }
         return $this;
     }
 
@@ -675,9 +673,16 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
     {
         if (!$this->_advancedGridHelper) {
-            // TODO create factory class
-            if ($this->getCollection() instanceof Mage_Catalog_Model_Resource_Product_Collection) {
-                $this->setAdvancedGridHelperName('adminhtml/widget_grid_config_catalog_product');
+            // TODO create factory class map block id to helper - create a new grid.xml configuration file
+            switch ($this->getId()) {
+                case 'productGrid':
+                case 'catalog_category_products':
+                case 'related_product_grid':
+                case 'up_sell_product_grid':
+                case 'cross_sell_product_grid':
+                case 'super_product_links':
+                    $this->setAdvancedGridHelperName('adminhtml/widget_grid_config_catalog_product');
+                    break;
             }
             $this->_advancedGridHelper = Mage::helper($this->getAdvancedGridHelperName());
 
