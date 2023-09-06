@@ -303,22 +303,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * Grid reorder columns action for ajax request
-     */
-    public function gridColumnReorderAction()
-    {
-        $gridId = $this->getRequest()->getPost('gridId');
-        $data = $this->getRequest()->getPost('data');
-        if (!$gridId || !$data) {
-            return false;
-        }
-
-        Mage::helper('adminhtml/widget_grid_config')
-            ->setGridId($gridId)
-            ->saveOrderColumns($data);
-    }
-
-    /**
      * Product grid for AJAX request
      */
     public function gridAction()

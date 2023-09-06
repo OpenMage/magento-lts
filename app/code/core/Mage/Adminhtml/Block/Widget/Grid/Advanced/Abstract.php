@@ -68,8 +68,12 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
      */
     public function getJavaScript(): string
     {
-        return " var {$this->getJsObjectName()} = new varienGridAdvanced('{$this->getGridId()}', "
-                . "{$this->getGridJsObjectName()}, '{$this->getUrl('*/catalog_product/gridColumnReorder')}}');";
+        return sprintf("var %s = new varienGridAdvanced('%s', %s, '%s')", 
+            $this->getJsObjectName(),
+            $this->getGridId(),
+            $this->getGridJsObjectName(),
+            $this->getUrl('adminhtml/grid/saveColumnOrder')
+        );
     }
 
     /**

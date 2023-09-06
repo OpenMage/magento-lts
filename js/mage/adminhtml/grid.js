@@ -929,7 +929,6 @@ class varienGridAdvanced {
         _columnSelector = 'tr.headings th';
 
         constructor(containerId, grid, url) {
-            console.log('varienGridAdvanced init');
             this.containerId = containerId;
             this.grid = grid;
             this.url = url;
@@ -941,7 +940,6 @@ class varienGridAdvanced {
         }
 
         initReorderColumns() {
-            console.log(this.grid);
             this.getColumns().forEach((elm) => {
                 elm.addEventListener('dragstart', this.onDragStart.bind(this), false);
                 elm.addEventListener('dragenter', this.onDragEnter.bind(this), false);
@@ -1062,7 +1060,6 @@ class varienGridAdvanced {
                 this._currentColumnsOrder.push(elm.getAttribute('data-entity'));
             });
             if(orderChanged != false) {
-                console.log('set order changed');
                 this._columnOrderChanged = true;
             }
             return this._currentColumnsOrder;
