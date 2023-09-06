@@ -13,19 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
+          php-version: '8.2'
+          tools: phpstan
 
       - name: PHPStan Static Analysis
-        run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
+        run: phpstan analyze
