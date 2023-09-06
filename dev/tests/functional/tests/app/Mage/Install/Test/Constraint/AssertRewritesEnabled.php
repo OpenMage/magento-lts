@@ -9,6 +9,7 @@
  * @category   Tests
  * @package    Tests_Functional
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +38,7 @@ class AssertRewritesEnabled extends AbstractConstraint
         $homePage->open();
         $homePage->getTopmenu()->selectCategory($category->getName());
         \PHPUnit_Framework_Assert::assertTrue(
-            strpos($browser->getUrl(), 'index.php') === false,
+            !str_contains($browser->getUrl(), 'index.php'),
             'Apache redirect for category does not work.'
         );
     }
