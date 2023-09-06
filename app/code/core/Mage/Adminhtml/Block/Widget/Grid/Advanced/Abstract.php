@@ -68,7 +68,8 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
      */
     public function getJavaScript(): string
     {
-        return sprintf("var %s = new varienGridAdvanced('%s', %s, '%s')", 
+        return sprintf(
+            "var %s = new varienGridAdvanced('%s', %s, '%s')", 
             $this->getJsObjectName(),
             $this->getGridId(),
             $this->getGridJsObjectName(),
