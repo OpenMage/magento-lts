@@ -49,7 +49,7 @@ Environment Variables
 
 You can override some defaults using environment variables defined in a file (that you must create) at `dev/openmage/.env`.
 
-- `ENABLE_SENDMAIL=false` - Disable the sendmail MTA
+- `ENABLE_SENDMAIL=true` - Enable the sendmail MTA
 - `XDEBUG_CONFIG=...` - Override the default XDebug config
 - `HOST_NAME=your-preferred-hostname`
   - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
@@ -72,6 +72,8 @@ You can override some defaults using environment variables defined in a file (th
   - `en-US` is used by default
 - `TIMEZONE`
   - `America/New_York` is used by default
+- `MYSQL_PORT`
+  - `3306` is used by default
 - `PM_MAX_CHILDREN` - Tune to your environment and needs - see [PHP-FPM configuration](https://www.php.net/manual/en/install.fpm.configuration.php)
 - `PM_START_SERVERS`
 - `PM_MIN_SPARE_SERVERS`
@@ -100,19 +102,43 @@ Features included out of the box:
 
 **Do not try to run a dev environment and a production environment from the same working copy!**
 
+If using OpenMage as a composer dependency, to avoid files being overwritten by composer upon updating OpenMage,
+it is recommended to copy the following files into your own project root and modify them as needed:
+
+- `dev/openmage/docker-compose-production.yml`
+- `dev/openmage/nginx-admin.conf`
+- `dev/openmage/nginx-frontend.conf`
+- `dev/openmage/Caddyfile-sample` -> `Caddyfile`
+- `pub/admin/` -> `pub/admin/`
+- `pub/default/{favicon.ico,robots.txt}` -> `pub/default/`
+
+Then perform the following steps:
+
 1. `echo "COMPOSE_FILE=docker-compose-production.yml" >> .env` to make the production stack the default
 1. Add `BASE_URL` and `ADMIN_URL` to your `.env` file
 1. `cp Caddyfile-sample Caddyfile` and edit the `Caddyfile` to reflect your domain names and Magento store codes
 1. If you did not hard-code your admin domain name in `Caddyfile` edit `.env` and make sure it includes `ADMIN_HOST_NAME`
 1. Run `docker-compose up -d` to launch your new production-ready environment!
-1. Run `install.sh` if you wish to start with a fresh installation, otherwise you will need to load your database files into the MySQL container volume. 
+1. Load your existing database into the MySQL container volume and copy an existing `local.xml` file into the `app/etc/` subdirectory of your OpenMage root (`src/` by default).
+   1. OR copy `dev/openmage/install.sh` into your root directory and run it to create a fresh installation.
 
 Environment variables supported by the `docker-compose-production.yml` file and `install.sh` which may be set in `.env`
 when installing a new production environment:
 
-- `SRC_DIR=./src`
+- `SRC_DIR=./src` - relative path to the OpenMage root
+- `PUB_DIR=./pub` - relative path to the directory which contains a subdirectory for `admin` and each store view - only static assets should exist in these directories.
 - `BASE_URL=https://frontend.example.com/` (overrides `HOST_NAME` and `HOST_PORT`)
 - `ADMIN_URL=https://backend.exmaple.com/` (overrides `ADMIN_HOST_NAME` and `ADMIN_HOST_PORT`)
 
 **Backups, intrusion protection and other security features are not provided and are left up to you! This is simply a
 web server configuration that adds an easy to configure and maintain SSL termination.**
+
+### Adding more store views
+
+1. Create your new website and/or store codes in OpenMage.
+2. Create new directories in your public directory such as `pub/store1` for your static assets.
+3. Edit `Caddyfile` to map your domain name to the appropriate `runcode` and `runtype`.
+4. Configure the URLs in the System > Configuration.
+5. Set up your DNS and relaunch Caddy (`docker compose restart caddy`).
+
+Mapping paths to different stores can be done using additional `reverse_proxy` declarations. See `@customfrontend` as an example.
