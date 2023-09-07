@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
+class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 {
     /**
      * Session maximum cookie lifetime
@@ -162,7 +162,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessName ignored
      * @return bool
      */
-    public function open($savePath, $sessName)
+    public function open($savePath, $sessName): bool
     {
         return true;
     }
@@ -172,7 +172,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @return bool
      */
-    public function close()
+    public function close(): bool
     {
         $this->gc($this->getLifeTime());
 
@@ -183,9 +183,9 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Fetch session data
      *
      * @param string $sessId
-     * @return string
+     * @return string|false
      */
-    public function read($sessId)
+    public function read($sessId): string|false
     {
         $select = $this->_read->select()
                 ->from($this->_sessionTable, ['session_data'])
@@ -208,7 +208,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessData
      * @return bool
      */
-    public function write($sessId, $sessData)
+    public function write($sessId, $sessData): bool
     {
         $bindValues = [
             'session_id'      => $sessId
@@ -241,7 +241,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return bool
      */
-    public function destroy($sessId)
+    public function destroy($sessId): bool
     {
         $where = ['session_id = ?' => $sessId];
         $this->_write->delete($this->_sessionTable, $where);
@@ -252,18 +252,18 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return bool
+     * @return int|false
      */
-    public function gc($sessMaxLifeTime)
+    public function gc($sessMaxLifeTime): int|false
     {
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
                 rand(1, $this->_automaticCleaningFactor) == 1
             ) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
+                return $this->_write->delete($this->_sessionTable, $where);
             }
         }
-        return true;
+        return false;
     }
 }
