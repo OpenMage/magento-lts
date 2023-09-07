@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Return type mixed of method Mage_Core_Model_Resource_Session\\:\\:\\w+\\(\\) is not covariant with tentative return type \\w+ of method SessionHandlerInterface\\:\\:\\w+\\(\\)\\.$#"
+			message: "#^Return type mixed of method Mage_Core_Model_Resource_Session::\\w+\\(\\) is not covariant with tentative return type [\\w\\|]+ of method SessionHandlerInterface::\\w+\\(\\)\\.$#"
 			count: 6
 			path: app/code/core/Mage/Core/Model/Resource/Session.php
 
