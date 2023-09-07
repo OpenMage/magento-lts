@@ -24,7 +24,7 @@ services:
     volumes:
       - ./nginx-frontend.conf:/etc/nginx/templates/default.conf.template:ro
       - ${SRC_DIR:-../..}:/var/www/html
-      - ${PUB_DIR:-../../pub}:/pub
+      - ${STATIC_DIR:-../../pub}:/pub
 
   admin:
     image: library/nginx:1.25
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./nginx-admin.conf:/etc/nginx/templates/default.conf.template:ro
       - ${SRC_DIR:-../..}:/var/www/html
-      - ${PUB_DIR:-../../pub}:/pub
+      - ${STATIC_DIR:-../../pub}:/pub
 
   cron:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-cli

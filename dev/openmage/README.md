@@ -99,18 +99,19 @@ Features included out of the box:
 - Separate domains for frontend and admin sites
 - Examples included for redirects, Basic Auth, multi-store routing
 - Easily add routes to your other sites
+- Root static assets (e.g. robots.txt) in a separate directory for each store view 
 
 **Do not try to run a dev environment and a production environment from the same working copy!**
 
 If using OpenMage as a composer dependency, to avoid files being overwritten by composer upon updating OpenMage,
 it is recommended to copy the following files into your own project root and modify them as needed:
 
-- `dev/openmage/docker-compose-production.yml`
-- `dev/openmage/nginx-admin.conf`
-- `dev/openmage/nginx-frontend.conf`
-- `dev/openmage/Caddyfile-sample` -> `Caddyfile`
-- `pub/admin/` -> `pub/admin/`
-- `pub/default/{favicon.ico,robots.txt}` -> `pub/default/`
+- `dev/openmage/docker-compose-production.yml` --> `docker-compose.yml`
+- `dev/openmage/nginx-admin.conf` --> `nginx-admin.conf`
+- `dev/openmage/nginx-frontend.conf` --> `nginx-frontend.conf`
+- `dev/openmage/Caddyfile-sample` --> `Caddyfile`
+- `pub/admin/` --> `static/admin/`
+- `pub/default/{favicon.ico,robots.txt}` --> `static/default/`
 
 Then perform the following steps:
 
@@ -119,14 +120,14 @@ Then perform the following steps:
 1. `cp Caddyfile-sample Caddyfile` and edit the `Caddyfile` to reflect your domain names and Magento store codes
 1. If you did not hard-code your admin domain name in `Caddyfile` edit `.env` and make sure it includes `ADMIN_HOST_NAME`
 1. Run `docker-compose up -d` to launch your new production-ready environment!
-1. Load your existing database into the MySQL container volume and copy an existing `local.xml` file into the `app/etc/` subdirectory of your OpenMage root (`src/` by default).
+1. Load your existing database into the MySQL container volume and copy an existing `local.xml` file into the `app/etc/` subdirectory of your OpenMage root (e.g. `pub/app/etc/local.xml` for composer installations with default `magento-root-dir`).
    1. OR copy `dev/openmage/install.sh` into your root directory and run it to create a fresh installation.
 
 Environment variables supported by the `docker-compose-production.yml` file and `install.sh` which may be set in `.env`
 when installing a new production environment:
 
-- `SRC_DIR=./src` - relative path to the OpenMage root
-- `PUB_DIR=./pub` - relative path to the directory which contains a subdirectory for `admin` and each store view - only static assets should exist in these directories.
+- `SRC_DIR=./pub` - relative path to the OpenMage root - corresponds to the composer `magento-root-dir`
+- `STATIC_DIR=./static` - relative path to the directory which contains custom static files to be served from the root - must contain a subdirectory for `admin` and each store view.
 - `BASE_URL=https://frontend.example.com/` (overrides `HOST_NAME` and `HOST_PORT`)
 - `ADMIN_URL=https://backend.exmaple.com/` (overrides `ADMIN_HOST_NAME` and `ADMIN_HOST_PORT`)
 
@@ -136,7 +137,7 @@ web server configuration that adds an easy to configure and maintain SSL termina
 ### Adding more store views
 
 1. Create your new website and/or store codes in OpenMage.
-2. Create new directories in your public directory such as `pub/store1` for your static assets.
+2. Create new root static asset directories in your static asset directory such as `static/store1`, `static/store2`, etc...
 3. Edit `Caddyfile` to map your domain name to the appropriate `runcode` and `runtype`.
 4. Configure the URLs in the System > Configuration.
 5. Set up your DNS and relaunch Caddy (`docker compose restart caddy`).
