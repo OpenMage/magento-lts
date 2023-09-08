@@ -67,7 +67,7 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
         //add user_id
         if ($this->helper('googleanalytics')->isUserIdEnabled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $trackingCode.= "
+            $trackingCode .= "
 gtag('set', 'user_id', '{$customer->getId()}');
 ";
         }
@@ -231,7 +231,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
-            $eventData['item_list_id'] = 'category_'.$category->getUrlKey();
+            $eventData['item_list_id'] = 'category_' . $category->getUrlKey();
             $eventData['item_list_name'] = $category->getName();
             $eventData['items'] = [];
 
