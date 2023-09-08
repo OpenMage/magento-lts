@@ -264,6 +264,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 return $this->_write->delete($this->_sessionTable, $where);
             }
         }
-        return false;
+        return 0;
     }
 }
