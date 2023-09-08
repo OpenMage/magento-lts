@@ -250,7 +250,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return bool
+     * @return int|false
      */
     public function gc($sessMaxLifeTime): int|false
     {
@@ -259,9 +259,9 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 rand(1, $this->_automaticCleaningFactor) == 1
             ) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
+                return $this->_write->delete($this->_sessionTable, $where);
             }
         }
-        return true;
+        return 0;
     }
 }
