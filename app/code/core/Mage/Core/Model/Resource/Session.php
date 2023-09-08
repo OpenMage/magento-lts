@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
+class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 {
     /**
      * Session maximum cookie lifetime
