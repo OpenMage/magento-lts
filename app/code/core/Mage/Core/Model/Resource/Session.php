@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
+class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
 {
     /**
      * Session maximum cookie lifetime
@@ -162,7 +162,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param string $sessName ignored
      * @return bool
      */
-    public function open($savePath, $sessName): bool
+    public function open($savePath, $sessName)
     {
         return true;
     }
@@ -172,7 +172,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @return bool
      */
-    public function close(): bool
+    public function close()
     {
         $this->gc($this->getLifeTime());
 
@@ -183,22 +183,20 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * Fetch session data
      *
      * @param string $sessId
-     * @return string|false
+     * @return string
      */
-    public function read($sessId): string|false
+    public function read($sessId)
     {
         $select = $this->_read->select()
-                ->from($this->_sessionTable, ['session_data'])
-                ->where('session_id = :session_id')
-                ->where('session_expires > :session_expires');
+            ->from($this->_sessionTable, ['session_data'])
+            ->where('session_id = :session_id')
+            ->where('session_expires > :session_expires');
         $bind = [
             'session_id'      => $sessId,
             'session_expires' => Varien_Date::toTimestamp(true)
         ];
 
-        $data = $this->_read->fetchOne($select, $bind);
-
-        return (string)$data;
+        return $this->_read->fetchOne($select, $bind);
     }
 
     /**
@@ -208,14 +206,14 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param string $sessData
      * @return bool
      */
-    public function write($sessId, $sessData): bool
+    public function write($sessId, $sessData)
     {
         $bindValues = [
             'session_id'      => $sessId
         ];
         $select = $this->_write->select()
-                ->from($this->_sessionTable)
-                ->where('session_id = :session_id');
+            ->from($this->_sessionTable)
+            ->where('session_id = :session_id');
         $exists = $this->_read->fetchOne($select, $bindValues);
 
         $bind = [
@@ -241,7 +239,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param string $sessId
      * @return bool
      */
-    public function destroy($sessId): bool
+    public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
         $this->_write->delete($this->_sessionTable, $where);
@@ -252,18 +250,18 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return int|false
+     * @return bool
      */
-    public function gc($sessMaxLifeTime): int|false
+    public function gc($sessMaxLifeTime)
     {
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
                 rand(1, $this->_automaticCleaningFactor) == 1
             ) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                return $this->_write->delete($this->_sessionTable, $where);
+                $this->_write->delete($this->_sessionTable, $where);
             }
         }
-        return 0;
+        return true;
     }
 }
