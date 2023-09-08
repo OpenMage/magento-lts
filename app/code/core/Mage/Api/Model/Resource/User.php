@@ -115,7 +115,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             Varien_Db_Adapter_Interface::INTERVAL_SECOND
         );
         $where = [
-            $readAdapter->quote(Varien_Date::now()) . ' > '. $timeSubtract
+            $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract
         ];
         if ($user) {
             $where['user_id = ?'] = $user->getId();
