@@ -67,7 +67,7 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
         //add user_id
         if ($this->helper('googleanalytics')->isUserIdEnabled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $trackingCode.= "
+            $trackingCode .= "
 gtag('set', 'user_id', '{$customer->getId()}');
 ";
         }
@@ -185,12 +185,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
         }
 
-        /**
-         * This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
-         */
         if ($moduleName == 'catalog' && $controllerName == 'product') {
+            // This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
             $productViewed = Mage::registry('current_product');
             $category = Mage::registry('current_category') ? Mage::registry('current_category')->getName() : false;
             $eventData = [];
@@ -209,14 +206,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
             array_push($eventData['items'], $_item);
             $result[] = ['view_item', $eventData];
-        }
-
-        /**
-         * Log this event when the user has been presented with a list of items of a certain category.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
-         */
-        elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+        } elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+            // Log this event when the user has been presented with a list of items of a certain category.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
             $layer = Mage::getSingleton('catalog/layer');
             $category = $layer->getCurrentCategory();
             $productCollection = clone $layer->getProductCollection();
@@ -231,7 +223,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
-            $eventData['item_list_id'] = 'category_'.$category->getUrlKey();
+            $eventData['item_list_id'] = 'category_' . $category->getUrlKey();
             $eventData['item_list_name'] = $category->getName();
             $eventData['items'] = [];
 
@@ -255,14 +247,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = ['view_item_list', $eventData];
-        }
-
-        /**
-         * This event signifies that a user viewed his cart.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
-         */
-        elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
+        } elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
+            // This event signifies that a user viewed his cart.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
@@ -292,14 +279,9 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
             $result[] = ['view_cart', $eventData];
-        }
-
-        /**
-         * This event signifies that a user has begun a checkout.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
-         */
-        elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
+        } elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
+            // This event signifies that a user has begun a checkout.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             if ($productCollection) {
                 $eventData = [];
@@ -332,11 +314,8 @@ gtag('set', 'user_id', '{$customer->getId()}');
             }
         }
 
-        /**
-         *  This event signifies when one or more items is purchased by a user.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events?hl=it#purchase
-         */
+        // This event signifies when one or more items is purchased by a user.
+        // @see https://developers.google.com/tag-platform/gtagjs/reference/events?hl=it#purchase
         $orderIds = $this->getOrderIds();
         if (!empty($orderIds) && is_array($orderIds)) {
             $collection = Mage::getResourceModel('sales/order_collection')

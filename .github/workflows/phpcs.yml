@@ -40,4 +40,4 @@ jobs:
 
       - name: PHPCodeSniffer
         run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules.path }}
-        continue-on-error: ${{ matrix.rules.path != '.github/phpcs-ruleset.xml' }}
+        continue-on-error: ${{ matrix.rules.path != '.phpcs.xml.dist' }}
