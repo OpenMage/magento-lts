@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -608,7 +608,7 @@ class Mage_Catalog_Model_Url
      */
     public function getUnusedPathByUrlKey($storeId, $requestPath, $idPath, $urlKey)
     {
-        if (strpos($idPath, 'product') !== false) {
+        if (str_contains($idPath, 'product')) {
             $suffix = $this->getProductUrlSuffix($storeId);
         } else {
             $suffix = $this->getCategoryUrlSuffix($storeId);
@@ -805,7 +805,7 @@ class Mage_Catalog_Model_Url
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) === 0
+                && str_starts_with($existingRequestPath, $requestPath)
             ) {
                 $existingRequestPath = preg_replace(
                     '/^' . preg_quote($requestPath, '/') . '/',
