@@ -226,6 +226,7 @@
 | end_index_events_[getEventTypeName] | 1.9.4.5 |
 | end_process_event_[getEventTypeName] | 1.9.4.5 |
 | gift_options_prepare_items | 1.9.4.5 |
+| googleanalytics_ga4_send_data_before | 20.1.1 |
 | http_response_send_before | 1.9.4.5 |
 | index_process_change_status | 1.9.4.5 |
 | init_from_order_session_quote_initialized | 1.9.4.5 |
