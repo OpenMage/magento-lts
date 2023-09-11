@@ -563,13 +563,13 @@ foreach ($todo as $search => $replace) {
     echo $search,"\n";
 
     $files = [];
-    exec('grep -Hlrn "'.$search.'" app/', $files);
+    exec('grep -Hlrn "' . $search . '" app/', $files);
 
     if ($search[0] == '<') {
         foreach ($files as $file) {
             echo '  ',$file,"\n";
-            file_put_contents($file, preg_replace('#[[:<:]]'.$search.'[[:>:]]#', $replace, file_get_contents($file)));
-            file_put_contents($file, preg_replace('#[[:<:]]'.str_replace('<', '</', $search).'[[:>:]]#', str_replace('<', '</', $replace), file_get_contents($file)));
+            file_put_contents($file, preg_replace('#[[:<:]]' . $search . '[[:>:]]#', $replace, file_get_contents($file)));
+            file_put_contents($file, preg_replace('#[[:<:]]' . str_replace('<', '</', $search) . '[[:>:]]#', str_replace('<', '</', $replace), file_get_contents($file)));
         }
     } else {
         foreach ($files as $file) {
@@ -577,7 +577,7 @@ foreach ($todo as $search => $replace) {
                 continue;
             }
             echo '  ',$file,"\n";
-            file_put_contents($file, preg_replace('#[[:<:]]'.$search.'[[:>:]]#', $replace, file_get_contents($file)));
+            file_put_contents($file, preg_replace('#[[:<:]]' . $search . '[[:>:]]#', $replace, file_get_contents($file)));
         }
     }
 }

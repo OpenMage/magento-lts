@@ -766,11 +766,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
 
 		-
-			message: "#^Method Mage_Api_Model_Session\\:\\:isSessionExpired\\(\\) invoked with 0 parameters, 1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
-
-		-
 			message: "#^Result of method SoapServer\\:\\:handle\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php

@@ -212,12 +212,14 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Mage_Compiler`
   - `Mage_GoogleBase`
   - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
+  - `Mage_Poll`  ([#3098](https://github.com/OpenMage/magento-lts/pull/3098))
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
+- `Mage_Poll`: `composer require openmage/module-mage-poll`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.x and 20.x
@@ -233,7 +235,6 @@ Do not use 20.x.x if you need IE support.
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
 - made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 - rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
-- removed module Mage_Poll ([3098](https://github.com/OpenMage/magento-lts/pull/3098), you can install it with `composer require openmage/module-mage-poll`)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -265,6 +266,15 @@ This may generate a problem with `Zend_Db_Select' statements that do not use 'Ze
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
 
 UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
+
+### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+
+- PHP 8.1 as minimum required version
+- Removed scriptaculous/dragdrop.js (#3215)
+- RWD theme: updated jQuery to 3.7.0 (#3204), removed enquire.js (#3208)
+- Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
+- Removed double span element from HTML buttons (#3123)
+- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
 
 ### New Config Options
 

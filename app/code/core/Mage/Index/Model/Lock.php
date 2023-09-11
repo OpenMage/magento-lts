@@ -276,6 +276,7 @@ class Mage_Index_Model_Lock
      *
      * @param string $lockName
      * @return resource
+     * @throws Exception
      */
     protected function _getLockFile($lockName)
     {
@@ -286,6 +287,10 @@ class Mage_Index_Model_Lock
                 self::$_lockFileResource[$lockName] = fopen($file, 'w');
             } else {
                 self::$_lockFileResource[$lockName] = fopen($file, 'x');
+            }
+            if (!self::$_lockFileResource[$lockName]) {
+                self::$_lockFileResource[$lockName] = null;
+                throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
             fwrite(self::$_lockFileResource[$lockName], date('r'));
         }
