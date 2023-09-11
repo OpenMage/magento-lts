@@ -1705,7 +1705,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1718,7 +1718,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1745,7 +1745,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -1759,7 +1759,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
@@ -1790,7 +1790,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1803,7 +1803,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1830,7 +1830,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -1844,7 +1844,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
@@ -1875,7 +1875,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1888,7 +1888,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -1915,7 +1915,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -1929,7 +1929,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
@@ -1960,7 +1960,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -1973,7 +1973,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -2000,7 +2000,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -2014,7 +2014,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
@@ -2045,7 +2045,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -2058,7 +2058,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -2085,7 +2085,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -2099,7 +2099,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
@@ -2130,7 +2130,7 @@
                             <show_in_store>0</show_in_store>
                         </enabled>
                         <created_at translate="label">
-                            <label>Created At</label>
+                            <label>Display Created At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>2</sort_order>
@@ -2143,7 +2143,7 @@
                             </depends>
                         </created_at>
                         <updated_at translate="label">
-                            <label>Updated At</label>
+                            <label>Display Updated At Column</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>3</sort_order>
@@ -2170,7 +2170,7 @@
                             </depends>
                         </columns>
                         <media_image translate="label">
-                            <label>Product image preview</label>
+                            <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_grid_catalog_product_mediaImage</source_model>
@@ -2184,7 +2184,7 @@
                             </depends>
                         </media_image>
                         <media_image_width translate="label comment">
-                            <label>Product image width</label>
+                            <label>Product Image Width</label>
                             <comment><![CDATA[Set product image preview width]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
