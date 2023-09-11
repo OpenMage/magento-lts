@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -235,6 +235,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xjisp' => 'application/vnd.jisp',
             'xjlt' => 'application/vnd.hp-jlyt',
             'xjoda' => 'application/vnd.joost.joda-archive',
+            'xwebp' => 'image/webp',
             'xjpe' => 'image/jpeg',
             'xjpeg' => 'image/jpeg',
             'xjpg' => 'image/jpeg',
