@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,6 +51,10 @@ if (file_exists($maintenanceFile)) {
         include_once __DIR__ . '/errors/503.php';
         exit;
     }
+
+    // remove config cache to make the system check for DB updates
+    $config = Mage::app()->getConfig();
+    $config->getCache()->remove($config->getCacheId());
 }
 
 Mage::run($mageRunCode, $mageRunType);

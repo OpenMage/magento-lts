@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,17 +38,19 @@ class Mage_Sales_Model_Observer
     public function cleanExpiredQuotes($schedule)
     {
         Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
-
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
-        foreach ($lifetimes as $storeId => $lifetime) {
-            $lifetime = (int)$lifetime * 86400;
+
+        foreach ($lifetimes as $storeId => $day) {
+            $day = (int) $day;
+            $lifetime = 86400 * $day;
 
             /** @var Mage_Sales_Model_Resource_Quote_Collection $quotes */
-            $quotes = Mage::getModel('sales/quote')->getCollection();
-
+            $quotes = Mage::getResourceModel('sales/quote_collection');
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', ['to' => date("Y-m-d", time() - $lifetime)]);
-            $quotes->addFieldToFilter('is_active', 0);
+            $quotes->addFieldToFilter('updated_at', ['to' => date('Y-m-d', time() - $lifetime)]);
+            if ($day == 0) {
+                $quotes->addFieldToFilter('is_active', 0);
+            }
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {
                 $quotes->addFieldToFilter($field, $condition);
@@ -56,6 +58,7 @@ class Mage_Sales_Model_Observer
 
             $quotes->walk('delete');
         }
+
         return $this;
     }
 
