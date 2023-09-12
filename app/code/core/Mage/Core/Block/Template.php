@@ -248,7 +248,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($hints) {
-
             $_isCacheEnabled = $this->_getCacheHintStatus();
             echo <<<HTML
 <div style="position:relative; border:1px dotted {$_isCacheEnabled}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
