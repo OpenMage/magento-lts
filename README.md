@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-152-orange.svg" alt="All Contributors"></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-156-orange.svg" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
@@ -148,7 +148,7 @@ git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
 git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
-git pull upstream 1.9.4.x
+git pull upstream main
 git add -A && git commit
 ```
 
@@ -212,12 +212,14 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Mage_Compiler`
   - `Mage_GoogleBase`
   - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
+  - `Mage_Poll`  ([#3098](https://github.com/OpenMage/magento-lts/pull/3098))
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
+- `Mage_Poll`: `composer require openmage/module-mage-poll`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.x and 20.x
@@ -233,7 +235,6 @@ Do not use 20.x.x if you need IE support.
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
 - made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 - rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
-- removed module Mage_Poll ([3098](https://github.com/OpenMage/magento-lts/pull/3098), you can install it with `composer require openmage/module-mage-poll`)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -263,6 +264,17 @@ We also decided to remove our Zend_DB patches (that were stored in `app/code/cor
 not compatible with the new implementations made by ZF1-Future, which is much more advanced and feature rich.
 This may generate a problem with `Zend_Db_Select' statements that do not use 'Zend_Db_Expr' to quote expressions.
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
+
+UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
+
+### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+
+- PHP 8.1 as minimum required version
+- Removed scriptaculous/dragdrop.js (#3215)
+- RWD theme: updated jQuery to 3.7.0 (#3204), removed enquire.js (#3208)
+- Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
+- Removed double span element from HTML buttons (#3123)
+- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
 
 ### New Config Options
 
@@ -568,7 +580,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AGelzer"><img src="https://avatars.githubusercontent.com/u/34437931?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Gelzer</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gorbunovav"><img src="https://avatars.githubusercontent.com/u/2665015?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andrey Gorbunov</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Tomasz-Silpion"><img src="https://avatars.githubusercontent.com/u/5328659?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomasz Gregorczyk</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://juhoholsa.com/"><img src="https://avatars.githubusercontent.com/u/15036353?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Juho Hölsä</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/seifer7"><img src="https://avatars.githubusercontent.com/u/13601073?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kane</b></sub></a></td>
     </tr>
   </tbody>
 </table>

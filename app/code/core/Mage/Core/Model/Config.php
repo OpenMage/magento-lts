@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1319,19 +1319,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
-        } else {
-            /**
-             * Backwards compatibility for pre-MMDB extensions.
-             * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-             * to keep name of previously used nodes, that still may be used by non-updated extensions.
-             */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
-            }
         }
 
         $className = trim($className);
@@ -1362,7 +1349,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getBlockClassName($blockType)
     {
-        if (strpos($blockType, '/') === false) {
+        if (!str_contains($blockType, '/')) {
             return $blockType;
         }
         return $this->getGroupedClassName('block', $blockType);
@@ -1376,7 +1363,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getHelperClassName($helperName)
     {
-        if (strpos($helperName, '/') === false) {
+        if (!str_contains($helperName, '/')) {
             $helperName .= '/data';
         }
         return $this->getGroupedClassName('helper', $helperName);
@@ -1413,7 +1400,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModelClassName($modelClass)
     {
         $modelClass = trim($modelClass);
-        if (strpos($modelClass, '/') === false) {
+        if (!str_contains($modelClass, '/')) {
             return $modelClass;
         }
         return $this->getGroupedClassName('model', $modelClass);
@@ -1583,7 +1570,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         // If unsecure base url is https, then all urls should be secure
-        if (strpos(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://') === 0) {
+        if (str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
             return true;
         }
 
@@ -1591,7 +1578,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_secureUrlCache[$url] = false;
             $secureUrls = $this->getNode('frontend/secure_url');
             foreach ($secureUrls->children() as $match) {
-                if (strpos($url, (string)$match) === 0) {
+                if (str_starts_with($url, (string)$match)) {
                     $this->_secureUrlCache[$url] = true;
                     break;
                 }

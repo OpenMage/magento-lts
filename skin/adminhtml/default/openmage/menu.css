@@ -11,7 +11,7 @@
  240 = blue,
  300 = purple
 */
-#nav ul li, #nav ul li.active {
+#nav ul li.active, #nav ul li {
   float: none;
   height: auto;
   background: none;
@@ -47,33 +47,32 @@
   text-align: left;
   float: left;
 }
-#nav li.over {
+#nav li:hover {
   z-index: 999;
 }
-#nav li.over a {
+#nav li:hover a {
   color: #d6e2e5;
 }
-#nav li.over ul {
+#nav li:hover ul {
   left: 0;
 }
-#nav li.over ul ul {
+#nav li:hover ul ul {
   left: -10000px;
 }
-#nav li.over ul a {
+#nav li:hover ul a {
   color: #202856;
   font-size: 12px;
 }
-#nav li.over ul li.over ul {
+#nav li:hover ul li:hover ul {
   left: 100px;
 }
-#nav li.over ul li.over ul ul {
+#nav li:hover ul li:hover ul ul {
   left: -10000px;
 }
-#nav li.over ul li.over ul li.over ul {
+#nav li:hover ul li:hover ul li:hover ul {
   left: 100px;
 }
 #nav li.active {
-  z-index: 1000;
   margin-left: -1px;
   color: #fff;
   font-weight: bold;
@@ -111,7 +110,7 @@
   border-width: 5px 0 5px 6px;
   border-color: transparent transparent transparent #c8c8c8;
 }
-#nav li.level0.over > a {
+#nav li.level0:hover > a {
   background: #293470;
   color: #fff;
 }
@@ -158,7 +157,7 @@
   width: 189px;
   top: 38px;
   left: -10000px;
-  box-shadow: rgba(0, 0, 0, 0.18039) 1px 3px 4px;
+  box-shadow: rgba(0, 0, 0, 0.180392) 1px 3px 4px;
 }
 #nav ul li {
   padding: 0;
@@ -172,6 +171,9 @@
   padding: 9px 12px;
   color: #202856;
   font-size: 12px;
+}
+#nav ul li a.active {
+  text-decoration: underline;
 }
 #nav ul li a:hover {
   background: #202856;
@@ -191,10 +193,10 @@
 #nav ul li.parent li a {
   background-image: none;
 }
-#nav ul li.over a {
+#nav ul li:hover a {
   font-weight: normal;
 }
-#nav ul li.over a:hover {
+#nav ul li:hover a:hover {
   font-weight: normal;
 }
 #nav ul a {
@@ -238,7 +240,7 @@
   top: 40px;
   right: -10000px;
   display: none;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.20784), 0 0 5px rgba(0, 0, 0, 0.20784);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
   background: #fff;
 }
 #usermenu ul li a:hover {
@@ -252,19 +254,19 @@
   display: block;
 }
 #usermenu li ul span {
-  border-bottom: 1px dotted #a6c4d9;
+  border-bottom: 1px dotted hsl(205, 40%, 75%);
   display: block;
   line-height: 31px;
   padding: 0 10px;
 }
-#usermenu li.over ul {
+#usermenu li:hover ul {
   right: 27px;
   display: block;
 }
-#usermenu li.over ul a {
+#usermenu li:hover ul a {
   color: #000537;
   text-decoration: none;
-  background: #ecf3f9;
+  background: hsl(205, 52%, 95%);
   display: block;
 }
 #usermenu > li > a {

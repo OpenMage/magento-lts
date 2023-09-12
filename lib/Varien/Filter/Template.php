@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,9 +128,6 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 foreach ($constructions as $index => $construction) {
                     $replacedValue = '';
                     $callback = [$this, $directive];
-                    if (!is_callable($callback)) {
-                        continue;
-                    }
                     try {
                         $replacedValue = call_user_func($callback, $construction);
                     } catch (Exception $e) {

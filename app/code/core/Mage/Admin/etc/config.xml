@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -28,7 +28,6 @@
             </admin>
             <admin_resource>
                 <class>Mage_Admin_Model_Resource</class>
-                <deprecatedNode>admin_mysql4</deprecatedNode>
                 <entities>
                     <user>
                         <table>admin_user</table>
