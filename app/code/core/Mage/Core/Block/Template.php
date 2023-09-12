@@ -206,9 +206,8 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     }
 
     /**
-     * Retrieve block view from file (template)
+     * Retrieve block cache status
      *
-     * @param   string $fileName
      * @return  string
      */
     private function _getCacheHintStatus(): string
