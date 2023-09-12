@@ -24,13 +24,12 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
      * Observes: catalog_block_product_list_collection
      *
      * @param Varien_Event_Observer $observer
+     * @return void
      */
     public function productListCollectionLoadAfter(Varien_Event_Observer $observer)
     {
-        // check if functionality disabled or if no attribute selected for product list
-        $noAttribute = empty(Mage::getStoreConfig(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_LIST_SWATCH_ATTRIBUTE));
-        if ($noAttribute || !Mage::helper('configurableswatches')->isEnabled()) {
-            return; // exit without loading swatch functionality
+        if (!Mage::helper('configurableswatches')->isEnabled()) {
+            return;
         }
 
         /** @var Mage_ConfigurableSwatches_Helper_Mediafallback $mediaHelper */
