@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,11 +64,6 @@ class Varien_Db_Tree
         if (! empty($config['db'])) {
             // convenience variable
             $db = $config['db'];
-
-            // use an object from the registry?
-            if (is_string($db)) {
-                $db = Zend::registry($db);
-            }
 
             // make sure it's a Zend_Db_Adapter
             if (! $db instanceof Zend_Db_Adapter_Abstract) {
@@ -223,7 +218,7 @@ class Varien_Db_Tree
 
         try {
             $this->_db->insert($this->_table, $data);
-        } catch (PDOException $e) {
+        } catch (Zend_Db_Adapter_Exception $e) {
             echo $e->getMessage();
         }
         return $this->_db->lastInsertId();
@@ -424,7 +419,7 @@ class Varien_Db_Tree
 
         if ($pId == 0) { //move to root
             $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
-        } elseif ($aId != 0 && $pID == $eInfo[$this->_pid]) { // if we have after ID
+        } elseif ($aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
             $left_key_near = $aInfo[$this->_left];
         } elseif ($aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID

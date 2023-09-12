@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -222,7 +222,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     protected function _prepareType()
     {
-        if (strpos((string)$this->_getData('type'), '-') !== false) {
+        if (str_contains((string)$this->_getData('type'), '-')) {
             $this->setData('type', str_replace('-', '/', $this->_getData('type')));
         }
         return $this;
