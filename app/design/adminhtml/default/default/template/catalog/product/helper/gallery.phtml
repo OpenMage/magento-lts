@@ -145,6 +145,6 @@
        value="<?php echo $this->escapeHtml($this->getImagesValuesJson()) ?>"/>
 <script type="text/javascript">
 //<![CDATA[
-var <?php echo $_block->getJsObjectName(); ?> = new Product.Gallery('<?php echo $_block->getHtmlId() ?>', <?php echo $_block->getImageTypesJson() ?>);
+var <?php echo $this->getJsObjectName(); ?> = new Product.Gallery('<?php echo $this->getHtmlId() ?>', <?php echo $this->getImageTypesJson() ?>);
 //]]>
 </script>

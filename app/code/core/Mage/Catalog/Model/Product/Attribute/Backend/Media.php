@@ -110,6 +110,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
+        if (!is_array($value['values']) && strlen($value['values']) > 0) {
+            $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
+        }
+
         if (!is_array($value['images'])) {
             $value['images'] = [];
         }
@@ -160,17 +164,17 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
+        }
 
+        foreach ($value['values'] as $mediaAttrCode => $attrData) {
             if (array_key_exists($attrData, $newImages)) {
-                $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label'] ?: $newImages[$attrData]['label_default']);
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label'] ?: $existImages[$attrData]['label_default']);
             }
         }
-
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
         $object->setData($attrCode, $value);
         return $this;
