@@ -215,13 +215,13 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if (!is_null($this->getCacheLifetime())) {
             return 'green';
         } else {
-            $_currentParentBlock = $this;
+            $currentParentBlock = $this;
             $i = 0;
-            while ($i++ < 20 && $_currentParentBlock instanceof Mage_Core_Block_Abstract) {
-                if (!is_null($_currentParentBlock->getCacheLifetime())) {
+            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
+                if (!is_null($currentParentBlock->getCacheLifetime())) {
                     return 'orange'; // not cached, but within cached
                 }
-                $_currentParentBlock = $_currentParentBlock->getParentBlock();
+                $currentParentBlock = $currentParentBlock->getParentBlock();
             }
         }
         return 'red';
@@ -248,17 +248,17 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($hints) {
-            $_isCacheEnabled = $this->_getCacheHintStatus();
+            $isCacheEnabled = $this->_getCacheHintStatus();
             echo <<<HTML
-<div style="position:relative; border:1px dotted {$_isCacheEnabled}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
-<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$_isCacheEnabled}; color:white; font:normal 11px Arial;
+<div style="position:relative; border:1px dotted {$isCacheEnabled}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$isCacheEnabled}; color:white; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
-<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$_isCacheEnabled}; color:blue; font:normal 11px Arial;
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$isCacheEnabled}; color:blue; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
 title="{$thisClass}">{$thisClass}</div>
 HTML;
