@@ -210,7 +210,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @return  string
      */
-    private function _getCacheHintStatus(): string
+    private function _getCacheHintStatusColor(): string
     {
         if (!is_null($this->getCacheLifetime())) {
             return 'green';
@@ -248,17 +248,17 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($hints) {
-            $isCacheEnabled = $this->_getCacheHintStatus();
+            $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
-<div style="position:relative; border:1px dotted {$isCacheEnabled}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
-<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$isCacheEnabled}; color:white; font:normal 11px Arial;
+<div style="position:relative; border:1px dotted {$cacheHintStatusColor}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:white; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
-<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$isCacheEnabled}; color:blue; font:normal 11px Arial;
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
 title="{$thisClass}">{$thisClass}</div>
 HTML;
