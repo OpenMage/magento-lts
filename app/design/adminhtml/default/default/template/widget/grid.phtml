@@ -194,29 +194,6 @@ $numColumns = count($this->getColumns());
     </table>
     </div>
 </div>
-<style>
-    .grid tr.headings th {
-        position: relative;
-    }
-    .overDrag {
-        background-color: red !important;
-    }
-    .overDrag:after {
-        content: '⮝';
-        position: absolute;
-        overflow: hidden;
-        color: red;
-        z-index: 99999999999999;
-        font-weight: bold;
-        font-size: 20px;
-    }
-    .overDrag__left::after {
-        left: -10px;
-    }
-    .overDrag__right::after {
-        right: -10px;
-    }
-</style>
 <?php if($this->canDisplayContainer()): ?>
 </div>
 <script type="text/javascript">
@@ -240,6 +217,7 @@ $numColumns = count($this->getColumns());
     <?php echo $this->getAdvancedGridBlock()->getJavaScript() ?>
     <?php endif ?>
     <?php echo $this->getAdditionalJavaScript(); ?>
+//]]>
 </script>
 <?php endif ?>
 <?php endif ?>
