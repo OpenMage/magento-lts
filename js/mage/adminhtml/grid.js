@@ -202,22 +202,6 @@ varienGrid.prototype = {
             location.href = url;
         }
     },
-    /*_processComplete : function(transport){
-        console.log(transport);
-        if (transport && transport.responseText){
-            try{
-                response = eval('(' + transport.responseText + ')');
-            }
-            catch (e) {
-                response = {};
-            }
-        }
-        if (response.ajaxExpired && response.ajaxRedirect) {
-            location.href = response.ajaxRedirect;
-            return false;
-        }
-        this.initGrid();
-    },*/
     _processFailure : function(transport){
         location.href = BASE_URL;
     },
@@ -254,7 +238,6 @@ varienGrid.prototype = {
         if (!$(this.containerId)) {
             return;
         }
-//        var dataElements = $(this.containerId+this.tableSufix).down('.data tbody').select('input', 'select');
         var dataElements = $(this.containerId+this.tableSufix).down('tbody').select('input', 'select');
         for(var i=0; i<dataElements.length;i++){
             Event.observe(dataElements[i], 'change', dataElements[i].setHasChanges.bind(dataElements[i]));
