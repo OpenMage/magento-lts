@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -9,8 +8,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,6 +20,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Productimage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    /** @var int */
     protected $_defaultWidth = 64;
 
     /**
@@ -35,7 +34,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Productimage extends Mage
         $image = $this->_checkImageIsSelected($row);
         if (!$image) {
             return '';
-            //return '<img src="' . Mage::getStoreConfig('catalog/placeholder/image_placeholder') . ' " />';
         }
         $imageDimensions = $this->getColumn()->getWidth() ?: $this->_defaultWidth;
         $imageSrc = $this->_getHelperImage($image)->resize($imageDimensions, $imageDimensions);
