@@ -168,11 +168,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         foreach ($value['values'] as $mediaAttrCode => $attrData) {
             if (array_key_exists($attrData, $newImages)) {
-                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label'] ?: $newImages[$attrData]['label_default']);
+                $object->setData($mediaAttrCode . '_label', ($newImages[$attrData]['label'] === null || $newImages[$attrData]['label_use_default']) ? $newImages[$attrData]['label_default'] : $newImages[$attrData]['label']);
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label'] ?: $existImages[$attrData]['label_default']);
+                $object->setData($mediaAttrCode . '_label', ($existImages[$attrData]['label'] === null || $existImages[$attrData]['label_use_default']) ? $existImages[$attrData]['label_default'] : $existImages[$attrData]['label']);
             }
         }
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
