@@ -1751,7 +1751,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1836,7 +1836,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1921,7 +1921,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
@@ -2006,7 +2006,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
@@ -2091,7 +2091,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
@@ -2176,7 +2176,7 @@
                         </media_image>
                         <media_image_width translate="label comment">
                             <label>Product Image Width</label>
-                            <comment><![CDATA[Set product image preview width]]></comment>
+                            <comment><![CDATA[Set product image preview width, in pixels (eg: 64)]]></comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>51</sort_order>
                             <show_in_default>1</show_in_default>
