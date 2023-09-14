@@ -1679,14 +1679,14 @@
             <show_in_website>0</show_in_website>
             <show_in_store>0</show_in_store>
             <groups>
-                <productGrid>
+                <productGrid translate="label">
                     <label>Catalog > Manage Products</label>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -1759,19 +1759,18 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
                 </productGrid>
-                <related_product_grid>
+                <related_product_grid translate="label">
                     <label>Catalog > Manage Products > Edit | Related Products</label>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -1806,7 +1805,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </updated_at>
-                        <columns translate="label">
+                        <columns translate="label comment">
                             <label>Attributes</label>
                             <comment><![CDATA[Select product attributes to show as column in grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -1820,7 +1819,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <media_image translate="label">
+                        <media_image translate="label comment">
                             <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -1844,19 +1843,18 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
                 </related_product_grid>
-                <up_sell_product_grid>
+                <up_sell_product_grid translate="label">
                     <label>Catalog > Manage Products > Edit | Up-Sells</label>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -1891,7 +1889,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </updated_at>
-                        <columns translate="label">
+                        <columns translate="label comment">
                             <label>Attributes</label>
                             <comment><![CDATA[Select product attributes to show as column in grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -1905,7 +1903,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <media_image translate="label">
+                        <media_image translate="label comment">
                             <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -1929,19 +1927,18 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
                 </up_sell_product_grid>
-                <cross_sell_product_grid>
+                <cross_sell_product_grid translate="label">
                     <label>Catalog > Manage Products > Edit | Cross-Sells</label>
                     <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -1976,7 +1973,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </updated_at>
-                        <columns translate="label">
+                        <columns translate="label comment">
                             <label>Attributes</label>
                             <comment><![CDATA[Select product attributes to show as column in grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -1990,7 +1987,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <media_image translate="label">
+                        <media_image translate="label comment">
                             <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -2014,19 +2011,18 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
                 </cross_sell_product_grid>
-                <super_product_links>
+                <super_product_links translate="label">
                     <label>Catalog > Manage Products > Edit | Associated Products</label>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -2061,7 +2057,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </updated_at>
-                        <columns translate="label">
+                        <columns translate="label comment">
                             <label>Attributes</label>
                             <comment><![CDATA[Select product attributes to show as column in grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -2075,7 +2071,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <media_image translate="label">
+                        <media_image translate="label comment">
                             <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -2099,19 +2095,18 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
                 </super_product_links>
-                <catalog_category_products>
+                <catalog_category_products translate="label">
                     <label>Catalog > Manage Categories | Category Products</label>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <enabled>
+                        <enabled translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -2146,7 +2141,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </updated_at>
-                        <columns translate="label">
+                        <columns translate="label comment">
                             <label>Attributes</label>
                             <comment><![CDATA[Select product attributes to show as column in grid]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -2160,7 +2155,7 @@
                                 <enabled>1</enabled>
                             </depends>
                         </columns>
-                        <media_image translate="label">
+                        <media_image translate="label comment">
                             <label>Product Image Preview</label>
                             <comment><![CDATA[Select product media image types]]></comment>
                             <frontend_type>multiselect</frontend_type>
@@ -2184,7 +2179,6 @@
                             <show_in_store>0</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
-                                <!-- <media_image>1</media_image> -->
                             </depends>
                         </media_image_width>
                     </fields>
