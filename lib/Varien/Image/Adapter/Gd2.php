@@ -409,6 +409,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         );
 
         // sharpening filter to avoid blurry thumbnails
+        // https://stackoverflow.com/questions/2799159/php-gd-image-resizing-to-smaller-new-image-blurring-problem
         $sharpeningMatrix = [[-1, -1, -1], [-1, 16, -1], [-1, -1, -1]];
         $sharpeningDivisor = array_sum(array_map('array_sum', $sharpeningMatrix));
         imageconvolution($newImage, $sharpeningMatrix, $sharpeningDivisor, 0);
