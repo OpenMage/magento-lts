@@ -60,9 +60,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Path to template file in theme.
      *
-     * @var string|null
+     * @var string
      */
-    protected $_template;
+    protected $_template = '';
 
     /**
      * Internal constructor, that is called from real constructor
