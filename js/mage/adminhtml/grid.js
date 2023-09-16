@@ -913,6 +913,7 @@ class varienGridAdvanced {
         _columnSelector = 'tr.headings th';
         _btnToggleSelector = 'toggle_columns_order_button';
         _btnResetSelector = 'reset_columns_order_button';
+        resetConfirmText = 'Are you sure?'
 
         constructor(containerId, grid, url) {
             this.containerId = containerId;
@@ -956,7 +957,7 @@ class varienGridAdvanced {
             this.getColumns().forEach((elm) => {
                 elm.removeAttribute('draggable');
                 this._unwrap(elm);
-                elm.replaceWith(elm.cloneNode(true));
+                //elm.replaceWith(elm.cloneNode(true)); // issues: this remove all events also sorting 
             });
             this._getResetBtn().style.display = 'none';
             
@@ -1068,16 +1069,18 @@ class varienGridAdvanced {
         }
 
         resetColumnsOrder() {
-            new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
-                method: 'post',
-                dataType: "json",
-                parameters: {
-                    "gridId": this.containerId,
-                    "reset": true
-                },
-                onComplete: this.onReorderComplete.bind(this),
-                onSuccess: function(transport) {}
-            }, this);
+            if( confirm(this.resetConfirmText) ) {
+                new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                    method: 'post',
+                    dataType: "json",
+                    parameters: {
+                        "gridId": this.containerId,
+                        "reset": true
+                    },
+                    onComplete: this.onReorderComplete.bind(this),
+                    onSuccess: function(transport) {}
+                }, this);
+            }
         }
 
         onDragEnd(e) {

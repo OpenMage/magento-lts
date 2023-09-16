@@ -30,6 +30,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
     public function __construct()
     {
         parent::__construct();
+        $this->setResetConfirmText(Mage::helper('core')->jsQuoteEscape(Mage::helper('core')->__('Are you sure? The columns order will be resetted to default')));
         //$this->setTemplate('widget/grid/advanced.phtml');
     }
 
@@ -76,13 +77,15 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
      */
     public function getJavaScript(): string
     {
-        return sprintf(
-            "var %s = new varienGridAdvanced('%s', %s, '%s')",
+        $_content = sprintf(
+            "var %s = new varienGridAdvanced('%s', %s, '%s');",
             $this->getJsObjectName(),
             $this->getGridId(),
             $this->getGridJsObjectName(),
             $this->getUrl('adminhtml/grid/saveColumnOrder')
         );
+        $_content.="{$this->getJsObjectName()}.resetConfirmText = '{$this->getResetConfirmText()}';";
+        return $_content;
     }
 
     /**

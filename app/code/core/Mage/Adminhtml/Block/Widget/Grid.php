@@ -700,7 +700,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                         'id'        => 'reset_columns_order_button',
                         'label'     => Mage::helper('adminhtml')->__('Reset Columns Order'),
                         'class'     => 'delete',
-                        //'onclick'   => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
+                        'onclick'   => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
                     ])
             );
         }
