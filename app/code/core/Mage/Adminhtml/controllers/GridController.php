@@ -29,7 +29,7 @@ class Mage_Adminhtml_GridController extends Mage_Adminhtml_Controller_Action
         $gridId = $this->getRequest()->getPost('gridId');
         $data = $this->getRequest()->getPost('data');
         $reset = $this->getRequest()->getPost('reset');
-        if (!$gridId || (!$data AND !$reset)) {
+        if (!$gridId || (!$data && !$reset)) {
             return false;
         }
 

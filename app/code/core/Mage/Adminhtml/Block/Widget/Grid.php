@@ -682,7 +682,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareAdvancedGridBlock()
     {
         $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
-        
+
         if ($this->getHelperAdvancedGrid()->isEnabled()) {
             $this->setChild(
                 'toggle_columns_order_button',
