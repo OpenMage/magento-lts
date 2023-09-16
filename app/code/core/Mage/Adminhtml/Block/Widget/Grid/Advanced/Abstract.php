@@ -84,7 +84,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
             $this->getGridJsObjectName(),
             $this->getUrl('adminhtml/grid/saveColumnOrder')
         );
-        $_content.="{$this->getJsObjectName()}.resetConfirmText = '{$this->getResetConfirmText()}';";
+        $_content .= "{$this->getJsObjectName()}.resetConfirmText = '{$this->getResetConfirmText()}';";
         return $_content;
     }
 
