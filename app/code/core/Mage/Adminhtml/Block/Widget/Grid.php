@@ -297,6 +297,22 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @return string
      */
+    public function getResetColumnsButtonHtml()
+    {
+        return $this->getChildHtml('reset_columns_order_button');
+    }
+
+    /**
+     * @return string
+     */
+    public function getToggleColumnsOrderButtonHtml()
+    {
+        return $this->getChildHtml('toggle_columns_order_button');
+    }
+
+    /**
+     * @return string
+     */
     public function getResetFilterButtonHtml()
     {
         return $this->getChildHtml('reset_filter_button');
@@ -316,6 +332,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getMainButtonsHtml()
     {
         $html = '';
+        if ($this->getHelperAdvancedGrid()->isEnabled()) {
+            $html .= $this->getToggleColumnsOrderButtonHtml();
+            $html .= $this->getResetColumnsButtonHtml();
+        }
         if ($this->getFilterVisibility()) {
             $html .= $this->getResetFilterButtonHtml();
             $html .= $this->getSearchButtonHtml();
@@ -662,6 +682,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _prepareAdvancedGridBlock()
     {
         $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
+        
+        if ($this->getHelperAdvancedGrid()->isEnabled()) {
+            $this->setChild(
+                'toggle_columns_order_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'id'        => 'toggle_columns_order_button',
+                        'label'     => Mage::helper('adminhtml')->__('Sort Columns'),
+                        //'onclick'   => $this->getAdvancedGridBlock()->getJsObjectName() . '.enableColumnsOrder(this)',
+                    ])
+            );
+            $this->setChild(
+                'reset_columns_order_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'id'        => 'reset_columns_order_button',
+                        'label'     => Mage::helper('adminhtml')->__('Reset Columns Order'),
+                        'class'     => 'delete',
+                        //'onclick'   => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
+                    ])
+            );
+        }
         return $this;
     }
 

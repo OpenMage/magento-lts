@@ -907,34 +907,108 @@ class varienGridAdvanced {
         _currentDragItem = '';
         _targetDragColumn = '';
         _currentColumnsOrder = [];
+        _enabled = false;
         _columnOrderChanged = false;
         oldCallbacks = {};
         _columnSelector = 'tr.headings th';
+        _btnToggleSelector = 'toggle_columns_order_button';
+        _btnResetSelector = 'reset_columns_order_button';
 
         constructor(containerId, grid, url) {
             this.containerId = containerId;
             this.grid = grid;
             this.url = url;
-            this.initReorderColumns();
             
             this.setOldCallback('init', grid.initCallback);
             this.grid.initCallback = this.onGridInit.bind(this);
-            
+            this.initReorderColumns();
         }
 
         initReorderColumns() {
+            if (this._enabled) {
+                this.enableColumnsOrder()
+            } else {
+                this.disableColumnsOrder();
+            }
+            this._saveCurrentColumnsOrder();
+        }
+
+        enableColumnsOrder() {
             this.getColumns().forEach((elm) => {
+                elm.setAttribute('draggable', true);
                 elm.addEventListener('dragstart', this.onDragStart.bind(this), false);
                 elm.addEventListener('dragenter', this.onDragEnter.bind(this), false);
                 elm.addEventListener('dragover', this.onDragOver.bind(this), false);
                 //elm.addEventListener('dragleave', this.onDragLeave.bind(this), false);
                 elm.addEventListener('drop', this.onDrop.bind(this), false);
                 elm.addEventListener('dragend', this.onDragEnd.bind(this), false);
-            }, this);
-            this._saveCurrentColumnsOrder();
+                this._wrap(elm);
+            });
+            this._getResetBtn().style.display = 'inherit';
+            
+            this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
+            this._getToggleBtn().addEventListener('click', this.disableColumnsOrder.bind(this), false);
+
+            this._enabled = true;            
+        }
+
+        disableColumnsOrder() {
+            this.getColumns().forEach((elm) => {
+                elm.removeAttribute('draggable');
+                this._unwrap(elm);
+                elm.replaceWith(elm.cloneNode(true));
+            });
+            this._getResetBtn().style.display = 'none';
+            
+            this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
+            this._getToggleBtn().addEventListener('click', this.enableColumnsOrder.bind(this), false);
+
+            this._enabled = false;
+        }
+
+        buildDragPreview(elm) {
+            const _columnIndex = elm.cellIndex + 1;
+            
+            const _tableColPReview = document.createElement('table');
+            _tableColPReview.style.width = elm.getBoundingClientRect().width + 'px';
+            
+            const _tHead = _tableColPReview.createTHead();
+            
+            const trHeading =  _tHead.insertRow();
+            trHeading.classList.add('headings');
+            trHeading.append(elm.clone(true));
+
+            const trFilter =  _tHead.insertRow();
+            trFilter.classList.add('filter');
+            const _selectorFilterRows = 'thead tr.filter th:nth-child(' + _columnIndex + ')';
+            Array.from(elm.closest('table').querySelectorAll( _selectorFilterRows )).forEach((row) => {
+                trFilter.appendChild(row.clone(true));
+            });
+            
+            const _tBody = _tableColPReview.createTBody();
+            const _selectorRows = 'tbody td:nth-child(' + _columnIndex + ')';
+            Array.from(elm.closest('table').querySelectorAll( _selectorRows )).forEach((row) => {
+                const tr =  _tBody.insertRow();
+                tr.appendChild(row.clone(true));
+            });
+            
+
+            const previewGrid = document.createElement('div');
+            previewGrid.classList.add('grid');
+            previewGrid.classList.add('grid__dragPreview');
+            previewGrid.style.width = elm.getBoundingClientRect().width + 'px';
+            previewGrid.setAttribute('id', 'dragPreview_placeholder')
+            previewGrid.append(_tableColPReview);
+            console.log(_tableColPReview);
+            return previewGrid;
         }
         
         onDragStart(e) {
+            const placeholder = this.buildDragPreview(e.target.closest(this._columnSelector));
+            document.body.appendChild(placeholder);
+            e.dataTransfer.setDragImage(placeholder, 0, 0);
+
+            
             e.dataTransfer.effectAllowed = "copyMove";
             e.dataTransfer.setData("text/plain", null);
             this._currentDragItem = e.target.closest(this._columnSelector);
@@ -958,7 +1032,7 @@ class varienGridAdvanced {
             if(this._isSameColumn(_currentTargetColumn)) {
                 this._targetDragColumn = null;
                 return false;
-            } 
+            }
 
             this._targetDragColumn = _currentTargetColumn;
 
@@ -993,8 +1067,23 @@ class varienGridAdvanced {
             return false;
         }
 
+        resetColumnsOrder() {
+            new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                method: 'post',
+                dataType: "json",
+                parameters: {
+                    "gridId": this.containerId,
+                    "reset": true
+                },
+                onComplete: this.onReorderComplete.bind(this),
+                onSuccess: function(transport) {}
+            }, this);
+        }
+
         onDragEnd(e) {
             this._resetClassStyle();
+            
+            document.getElementById('dragPreview_placeholder').remove();
 
             if (this._columnOrderChanged) {
                 new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
@@ -1025,6 +1114,7 @@ class varienGridAdvanced {
         }
 
         onGridInit(grid) {
+            console.log('inGridInit')
             this.initReorderColumns();
             this.getOldCallback('init')(grid);
         }
@@ -1035,6 +1125,14 @@ class varienGridAdvanced {
              */
             let tableContainer = '#' + this.containerId + '_table';
             return Array.from(document.querySelectorAll(tableContainer + ' ' +this._columnSelector));
+        }
+
+        _getToggleBtn() {
+            return document.getElementById(this._btnToggleSelector);
+        }
+
+        _getResetBtn() {
+            return document.getElementById(this._btnResetSelector);
         }
 
         _saveCurrentColumnsOrder(orderChanged = false) {
@@ -1072,5 +1170,22 @@ class varienGridAdvanced {
                 elm.classList.remove('overDrag__left');
                 elm.classList.remove('overDrag__right');
             });
+        }
+
+        _wrap(target) {
+            if (!target.querySelector('.draggable')) {
+                let wrapper = document.createElement('span');
+                wrapper.classList.add('draggable');
+                [ ...target.childNodes ].forEach(child => wrapper.appendChild(child));
+                target.appendChild(wrapper);
+                return wrapper;
+            }
+        }
+
+        _unwrap(target) {
+            let wrapper = target.querySelector('.draggable');
+            if (wrapper) {
+                target.querySelector('.draggable').replaceWith(...target.querySelector('.draggable').childNodes);
+            }
         }
     }

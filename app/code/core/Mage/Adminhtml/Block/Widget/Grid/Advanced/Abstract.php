@@ -34,6 +34,14 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
     }
 
     /**
+     * @return string
+     */
+    public function getHtmlId()
+    {
+        return $this->getParentBlock()->getHtmlId() . '_advanced';
+    }
+
+    /**
      * Retrieve advanced block js object name
      *
      * @return mixed

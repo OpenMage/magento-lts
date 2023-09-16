@@ -221,11 +221,19 @@ tr.dynamic-grid input.input-text { width:154px; }
 .not-available { color:#800; }
 
 /* Grid heading drag&drop */
-.overDrag { background-color: red !important; }
-.overDrag:after { content: '↑'; position: absolute; overflow: hidden; color: red; z-index: 99999999999999; font-weight: bold; font-size: 20px; }
+.overDrag { background-color: rgba(255, 255, 255, 0.60) !important; }
+.overDrag:after { content: '▲'; position: absolute; overflow: hidden; color: red; z-index: 99999999999999; font-weight: bold; font-size: 18px; }
 .overDrag__left::after { left: -10px; }
 .overDrag__right::after { right: -10px; }
-
+.grid__dragPreview { border: 1px solid red; }
+.grid tr.headings th[draggable],
+.grid tr.headings th[draggable] a { cursor: move; position: relative; }
+.grid tr.headings th[draggable] span.draggable { display: flex; gap: 8px; align-items: center; }
+.grid tr.headings th[draggable] span.draggable:before {
+    content: url('data:image/svg+xml,<svg fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><polygon points="130.412 323.98 78.529 272.098 240 272.098 240 433.568 188.118 381.687 165.49 404.313 256 494.823 346.51 404.313 323.882 381.687 272 433.568 272 272.098 432.667 272.098 380.784 323.98 403.412 346.607 493.921 256.098 403.412 165.588 380.784 188.215 432.667 240.098 272 240.098 272 79.432 323.882 131.313 346.51 108.687 256 18.177 165.49 108.687 188.118 131.313 240 79.432 240 240.098 78.529 240.098 130.412 188.215 107.784 165.588 17.274 256.098 107.785 346.608 130.412 323.98"/></svg>');
+    width: 12px;
+    height: 12px;    
+}
 
 /* ACCORDION
 *******************************************************************************/
