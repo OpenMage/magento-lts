@@ -945,7 +945,7 @@ class varienGridAdvanced {
                 elm.addEventListener('dragend', this.onDragEnd.bind(this), false);
                 this._wrap(elm);
             });
-            this._getResetBtn().style.display = 'inherit';
+            this._getResetBtn().style.display = 'initial';
             
             this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
             this._getToggleBtn().addEventListener('click', this.disableColumnsOrder.bind(this), false);
