@@ -222,10 +222,10 @@ tr.dynamic-grid input.input-text { width:154px; }
 
 /* Grid heading drag&drop */
 .overDrag { background-color: rgba(255, 255, 255, 0.60) !important; }
-.overDrag:after { content: '▲'; position: absolute; overflow: hidden; color: red; z-index: 99999999999999; font-weight: bold; font-size: 18px; }
+.overDrag:after { content: '▲'; position: absolute; overflow: hidden; color: #a92000; z-index: 99999999999999; font-weight: bold; font-size: 18px; }
 .overDrag__left::after { left: -10px; }
 .overDrag__right::after { right: -10px; }
-.grid__dragPreview { border: 1px solid red; }
+.grid__dragPreview { border: 1px solid #a92000; }
 .grid tr.headings th[draggable],
 .grid tr.headings th[draggable] a { cursor: move; position: relative; }
 .grid tr.headings th[draggable] span.draggable { display: flex; gap: 8px; align-items: center; }

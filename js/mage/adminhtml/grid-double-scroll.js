@@ -59,7 +59,7 @@ class gridDoubleScroll {
         scrollbarTop.appendChild(document.createElement('div'));
         scrollbarTop.style.overflow = 'auto';
         scrollbarTop.style.overflowY = 'hidden';
-        //scrollbarTop.firstChild.style.height = '0';
+        scrollbarTop.firstChild.style.height = '0';
         scrollbarTop.firstChild.style.paddingTop = '1px';
         scrollbarTop.firstChild.appendChild(document.createTextNode('\xA0'));
         this.wrapperScrollBar.parentNode.insertBefore(scrollbarTop, this.wrapperScrollBar);
