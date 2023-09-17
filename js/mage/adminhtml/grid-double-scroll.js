@@ -20,6 +20,10 @@ class gridDoubleScroll {
         this.grid = grid;
         this.setOldCallback('init', grid.initCallback);
         this.grid.initCallback = this.onGridInit.bind(this);
+
+        this.handlerSyncWrapperScrollBar = this.syncWrapperScrollBar.bind(this);
+        this.handlerSyncScrollBarTop = this.syncScrollBarTop.bind(this);
+        this.handlerUpdateDoubleScrollWidth = this.updateDoubleScrollWidth.bind(this);
         
         this.initDoubleScroll();
     }
@@ -30,9 +34,9 @@ class gridDoubleScroll {
             let scrollbarTop = this.wrapperScrollBar.parentNode.querySelector('.hor-scroll-top');
             if (!scrollbarTop){
                 this.createDoubleScroll(this.wrapperScrollBar);
-                this.scrollbarTop.addEventListener('scroll', this.syncWrapperScrollBar.bind(this), false);
-                this.wrapperScrollBar.addEventListener('scroll', this.syncScrollBarTop.bind(this), false);
-                const observer = new MutationObserver( this.updateDoubleScrollWidth.bind(this) );
+                this.scrollbarTop.addEventListener('scroll', this.handlerSyncWrapperScrollBar, false);
+                this.wrapperScrollBar.addEventListener('scroll', this.handlerSyncScrollBarTop, false);
+                const observer = new MutationObserver( this.handlerUpdateDoubleScrollWidth );
                 observer.observe(this.wrapperScrollBar, { childList: true, subtree: true });
             }
             this.updateDoubleScrollWidth();
