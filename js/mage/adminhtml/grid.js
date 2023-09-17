@@ -904,291 +904,290 @@ serializerController.prototype = {
 };
 
 class varienGridAdvanced {
-        _currentDragItem = '';
-        _targetDragColumn = '';
-        _currentColumnsOrder = [];
-        _enabled = false;
-        _columnOrderChanged = false;
-        oldCallbacks = {};
-        _columnSelector = 'tr.headings th';
-        _btnToggleSelector = 'toggle_columns_order_button';
-        _btnResetSelector = 'reset_columns_order_button';
-        resetConfirmText = 'Are you sure?'
+    oldCallbacks = {};
+    resetConfirmText = 'Are you sure?'
 
-        constructor(containerId, grid, url) {
-            this.containerId = containerId;
-            this.grid = grid;
-            this.url = url;
-            
-            this.setOldCallback('init', grid.initCallback);
-            this.grid.initCallback = this.onGridInit.bind(this);
-            this.initReorderColumns();
+    enabled = false;
+    columnOrderChanged = false;
+
+    _currentDragItem = '';
+    _targetDragColumn = '';
+    _currentColumnsOrder = [];
+
+    _columnSelector = 'tr.headings th';
+    _btnToggleSelector = '.toggle_columns_order_button';
+    _btnResetSelector = '.reset_columns_order_button';
+
+    constructor(containerId, grid, url) {
+        this.containerId = containerId;
+        this.grid = grid;
+        this.url = url;
+
+        this.setOldCallback('init', grid.initCallback);
+        this.grid.initCallback = this.onGridInit.bind(this);
+        this.initReorderColumns();
+    }
+
+    initReorderColumns() {
+        if (this.enabled) {
+            this.enableColumnsOrder();
+        } else {
+            this.disableColumnsOrder();
+        }
+        this._saveCurrentColumnsOrder();
+    }
+
+    enableColumnsOrder() {
+        this.getColumns().forEach((elm) => {
+            elm.setAttribute('draggable', true);
+            elm.addEventListener('dragstart', this.onDragStart.bind(this), false);
+            elm.addEventListener('dragenter', this.onDragEnter.bind(this), false);
+            elm.addEventListener('dragover', this.onDragOver.bind(this), false);
+            elm.addEventListener('drop', this.onDrop.bind(this), false);
+            elm.addEventListener('dragend', this.onDragEnd.bind(this), false);
+            this._wrap(elm);
+        });
+        this._getResetBtn().style.display = 'initial';
+
+        this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
+        this._getToggleBtn().addEventListener('click', this.disableColumnsOrder.bind(this), false);
+
+        this.enabled = true;
+    }
+
+    disableColumnsOrder() {
+        this.getColumns().forEach((elm) => {
+            elm.removeAttribute('draggable');
+            this._unwrap(elm);
+            //elm.replaceWith(elm.cloneNode(true)); // issues: this remove all events also sorting 
+        });
+        this._getResetBtn().style.display = 'none';
+
+        this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
+        this._getToggleBtn().addEventListener('click', this.enableColumnsOrder.bind(this), false);
+
+        this.enabled = false;
+    }
+
+    buildDragPreview(elm) {
+        const _columnIndex = elm.cellIndex + 1;
+
+        const _tableColPReview = document.createElement('table');
+        _tableColPReview.style.width = elm.getBoundingClientRect().width + 'px';
+
+        const _tHead = _tableColPReview.createTHead();
+
+        const trHeading =  _tHead.insertRow();
+        trHeading.classList.add('headings');
+        trHeading.append(elm.clone(true));
+
+        const trFilter =  _tHead.insertRow();
+        trFilter.classList.add('filter');
+        const _selectorFilterRows = 'thead tr.filter th:nth-child(' + _columnIndex + ')';
+        Array.from(elm.closest('table').querySelectorAll( _selectorFilterRows )).forEach((row) => {
+            trFilter.appendChild(row.clone(true));
+        });
+
+        const _tBody = _tableColPReview.createTBody();
+        const _selectorRows = 'tbody td:nth-child(' + _columnIndex + ')';
+        Array.from(elm.closest('table').querySelectorAll( _selectorRows )).forEach((row) => {
+            const tr =  _tBody.insertRow();
+            tr.appendChild(row.clone(true));
+        });
+
+        const previewGrid = document.createElement('div');
+        previewGrid.classList.add('grid');
+        previewGrid.classList.add('grid__dragPreview');
+        previewGrid.style.width = elm.getBoundingClientRect().width + 'px';
+        previewGrid.setAttribute('id', 'dragPreview_placeholder');
+        previewGrid.append(_tableColPReview);
+
+        return previewGrid;
+    }
+
+    onDragStart(e) {
+        const placeholder = this.buildDragPreview(e.target.closest(this._columnSelector));
+        document.body.appendChild(placeholder);
+        e.dataTransfer.setDragImage(placeholder, 0, 0);
+
+        e.dataTransfer.effectAllowed = "copyMove";
+        e.dataTransfer.setData("text/plain", null);
+        this._currentDragItem = e.target.closest(this._columnSelector);
+    }
+
+    onDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
         }
 
-        initReorderColumns() {
-            if (this._enabled) {
-                this.enableColumnsOrder()
-            } else {
-                this.disableColumnsOrder();
-            }
-            this._saveCurrentColumnsOrder();
-        }
-
-        enableColumnsOrder() {
-            this.getColumns().forEach((elm) => {
-                elm.setAttribute('draggable', true);
-                elm.addEventListener('dragstart', this.onDragStart.bind(this), false);
-                elm.addEventListener('dragenter', this.onDragEnter.bind(this), false);
-                elm.addEventListener('dragover', this.onDragOver.bind(this), false);
-                //elm.addEventListener('dragleave', this.onDragLeave.bind(this), false);
-                elm.addEventListener('drop', this.onDrop.bind(this), false);
-                elm.addEventListener('dragend', this.onDragEnd.bind(this), false);
-                this._wrap(elm);
-            });
-            this._getResetBtn().style.display = 'initial';
-            
-            this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
-            this._getToggleBtn().addEventListener('click', this.disableColumnsOrder.bind(this), false);
-
-            this._enabled = true;            
-        }
-
-        disableColumnsOrder() {
-            this.getColumns().forEach((elm) => {
-                elm.removeAttribute('draggable');
-                this._unwrap(elm);
-                //elm.replaceWith(elm.cloneNode(true)); // issues: this remove all events also sorting 
-            });
-            this._getResetBtn().style.display = 'none';
-            
-            this._getToggleBtn().replaceWith(this._getToggleBtn().cloneNode(true));
-            this._getToggleBtn().addEventListener('click', this.enableColumnsOrder.bind(this), false);
-
-            this._enabled = false;
-        }
-
-        buildDragPreview(elm) {
-            const _columnIndex = elm.cellIndex + 1;
-            
-            const _tableColPReview = document.createElement('table');
-            _tableColPReview.style.width = elm.getBoundingClientRect().width + 'px';
-            
-            const _tHead = _tableColPReview.createTHead();
-            
-            const trHeading =  _tHead.insertRow();
-            trHeading.classList.add('headings');
-            trHeading.append(elm.clone(true));
-
-            const trFilter =  _tHead.insertRow();
-            trFilter.classList.add('filter');
-            const _selectorFilterRows = 'thead tr.filter th:nth-child(' + _columnIndex + ')';
-            Array.from(elm.closest('table').querySelectorAll( _selectorFilterRows )).forEach((row) => {
-                trFilter.appendChild(row.clone(true));
-            });
-            
-            const _tBody = _tableColPReview.createTBody();
-            const _selectorRows = 'tbody td:nth-child(' + _columnIndex + ')';
-            Array.from(elm.closest('table').querySelectorAll( _selectorRows )).forEach((row) => {
-                const tr =  _tBody.insertRow();
-                tr.appendChild(row.clone(true));
-            });
-            
-
-            const previewGrid = document.createElement('div');
-            previewGrid.classList.add('grid');
-            previewGrid.classList.add('grid__dragPreview');
-            previewGrid.style.width = elm.getBoundingClientRect().width + 'px';
-            previewGrid.setAttribute('id', 'dragPreview_placeholder')
-            previewGrid.append(_tableColPReview);
-            console.log(_tableColPReview);
-            return previewGrid;
-        }
-        
-        onDragStart(e) {
-            const placeholder = this.buildDragPreview(e.target.closest(this._columnSelector));
-            document.body.appendChild(placeholder);
-            e.dataTransfer.setDragImage(placeholder, 0, 0);
-
-            
-            e.dataTransfer.effectAllowed = "copyMove";
-            e.dataTransfer.setData("text/plain", null);
-            this._currentDragItem = e.target.closest(this._columnSelector);
-        }
-
-        onDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-        }
-
-        onDragEnter(e) {
-            this._resetClassStyle();
-
-            // disable drop self
-            let _currentTargetColumn = e.target.closest(this._columnSelector);
-            if(this._isSameColumn(_currentTargetColumn)) {
-                this._targetDragColumn = null;
-                return false;
-            }
-
-            this._targetDragColumn = _currentTargetColumn;
-
-            this._targetDragColumn.classList.add('overDrag');
-            if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
-                this._targetDragColumn.classList.add('overDrag__left');
-            }else{
-                this._targetDragColumn.classList.add('overDrag__right');
-            }
-        }
-
-        /* onDragLeave(e) {
-            this._resetClassStyle();
-        } */
-
-        onDrop(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-
-            if(this._targetDragColumn) {
-                if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
-                    e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn);
-                } else {
-                    e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn.nextSibling);
-                }
-                this._saveCurrentColumnsOrder(true);
-            }
-            return false;
-        }
-
-        resetColumnsOrder() {
-            if( confirm(this.resetConfirmText) ) {
-                new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
-                    method: 'post',
-                    dataType: "json",
-                    parameters: {
-                        "gridId": this.containerId,
-                        "reset": true
-                    },
-                    onComplete: this.onReorderComplete.bind(this),
-                    onSuccess: function(transport) {}
-                }, this);
-            }
-        }
-
-        onDragEnd(e) {
-            this._resetClassStyle();
-            
-            document.getElementById('dragPreview_placeholder').remove();
-
-            if (this._columnOrderChanged) {
-                new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
-                    method: 'post',
-                    dataType: "json",
-                    parameters: {
-                        "gridId": this.containerId,
-                        "data": JSON.stringify(this._currentColumnsOrder)
-                    },
-                    onComplete: this.onReorderComplete.bind(this),
-                    onSuccess: function(transport) {}
-                }, this);
-            }
-        }
-
-        onReorderComplete(transport) {
-            this._columnOrderChanged = false;
-            this.grid.reload();
-        }
-
-        // ensure varienGrid events propagation
-        getOldCallback(callbackName) {
-            return this.oldCallbacks[callbackName] ? this.oldCallbacks[callbackName] : Prototype.emptyFunction;
-        }
-
-        setOldCallback(callbackName, callback) {
-            this.oldCallbacks[callbackName] = callback;
-        }
-
-        onGridInit(grid) {
-            console.log('inGridInit')
-            this.initReorderColumns();
-            this.getOldCallback('init')(grid);
-        }
-
-        getColumns() {
-            /**
-             * Example: table#up_sell_product_grid_table > tr.headings > th
-             */
-            let tableContainer = '#' + this.containerId + '_table';
-            return Array.from(document.querySelectorAll(tableContainer + ' ' +this._columnSelector));
-        }
-
-        _getToggleBtn() {
-            return document.getElementById(this._btnToggleSelector);
-        }
-
-        _getResetBtn() {
-            return document.getElementById(this._btnResetSelector);
-        }
-
-        _saveCurrentColumnsOrder(orderChanged = false) {
-            this._currentColumnsOrder = [];
-            this.getColumns().forEach((elm) => {
-                this._currentColumnsOrder.push(elm.getAttribute('data-entity'));
-            });
-            if(orderChanged != false) {
-                this._columnOrderChanged = true;
-            }
-            return this._currentColumnsOrder;
-        }
-        
-        _checkElementisBefore(el1, el2) {
-            if (el2.parentNode === el1.parentNode) {
-                for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling) {
-                    if (cur === el2) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        _isSameColumn(element) {
-            if (this._currentDragItem == element) {
-                return true;
-            }
-            return false;
-        }
-
-        _resetClassStyle() {
-            this.getColumns().forEach((elm) => {
-                elm.classList.remove('overDrag');
-                elm.classList.remove('overDrag__left');
-                elm.classList.remove('overDrag__right');
-            });
-        }
-
-        _wrap(target) {
-            if (!target.querySelector('.draggable')) {
-                let wrapper = document.createElement('span');
-                wrapper.classList.add('draggable');
-                [ ...target.childNodes ].forEach(child => wrapper.appendChild(child));
-                target.appendChild(wrapper);
-                return wrapper;
-            }
-        }
-
-        _unwrap(target) {
-            let wrapper = target.querySelector('.draggable');
-            if (wrapper) {
-                target.querySelector('.draggable').replaceWith(...target.querySelector('.draggable').childNodes);
-            }
+        if (e.stopPropagation) {
+            e.stopPropagation();
         }
     }
+
+    onDragEnter(e) {
+        this._resetClassStyle();
+
+        // disable drop self
+        let _currentTargetColumn = e.target.closest(this._columnSelector);
+        if (this._isSameColumn(_currentTargetColumn)) {
+            this._targetDragColumn = null;
+            return false;
+        }
+
+        this._targetDragColumn = _currentTargetColumn;
+
+        this._targetDragColumn.classList.add('overDrag');
+        if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
+            this._targetDragColumn.classList.add('overDrag__left');
+        } else {
+            this._targetDragColumn.classList.add('overDrag__right');
+        }
+    }
+
+    onDrop(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+
+        if (this._targetDragColumn) {
+            if (this._checkElementisBefore(this._currentDragItem, this._targetDragColumn)) {
+                e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn);
+            } else {
+                e.target.parentNode.closest('tr').insertBefore(this._currentDragItem, this._targetDragColumn.nextSibling);
+            }
+            this._saveCurrentColumnsOrder(true);
+        }
+        return false;
+    }
+
+    resetColumnsOrder() {
+        if (confirm(this.resetConfirmText)) {
+            new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                method: 'post',
+                dataType: "json",
+                parameters: {
+                    "gridId": this.containerId,
+                    "reset": true
+                },
+                onComplete: this.onReorderComplete.bind(this),
+                onSuccess: function(transport) {}
+            }, this);
+        }
+    }
+
+    onDragEnd(e) {
+        this._resetClassStyle();
+        
+        document.getElementById('dragPreview_placeholder').remove();
+
+        if (this.columnOrderChanged) {
+            new Ajax.Request(this.url + (this.url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                method: 'post',
+                dataType: "json",
+                parameters: {
+                    "gridId": this.containerId,
+                    "data": JSON.stringify(this._currentColumnsOrder)
+                },
+                onComplete: this.onReorderComplete.bind(this),
+                onSuccess: function(transport) {}
+            }, this);
+        }
+    }
+
+    onReorderComplete(transport) {
+        this.columnOrderChanged = false;
+        this.grid.reload();
+    }
+
+    // ensure varienGrid events propagation
+    getOldCallback(callbackName) {
+        return this.oldCallbacks[callbackName] ? this.oldCallbacks[callbackName] : Prototype.emptyFunction;
+    }
+
+    setOldCallback(callbackName, callback) {
+        this.oldCallbacks[callbackName] = callback;
+    }
+
+    onGridInit(grid) {
+        this.initReorderColumns();
+        this.getOldCallback('init')(grid);
+    }
+
+    getColumns() {
+        return Array.from(this._getTableHTMLElement().querySelectorAll(this._columnSelector));
+    }
+
+    _getContainerHTMLElement() {
+        return document.getElementById(this.containerId);
+    }
+
+    _getTableHTMLElement() {
+        return this._getContainerHTMLElement().querySelector('#' + this.containerId + '_table');
+    }
+
+    _getToggleBtn() {
+        return this._getContainerHTMLElement().querySelector(this._btnToggleSelector);
+    }
+
+    _getResetBtn() {
+        return this._getContainerHTMLElement().querySelector(this._btnResetSelector);
+    }
+
+    _saveCurrentColumnsOrder(orderChanged = false) {
+        this._currentColumnsOrder = [];
+        this.getColumns().forEach((elm) => {
+            this._currentColumnsOrder.push(elm.getAttribute('data-entity'));
+        });
+        if (orderChanged != false) {
+            this.columnOrderChanged = true;
+        }
+        return this._currentColumnsOrder;
+    }
+
+    _checkElementisBefore(el1, el2) {
+        if (el2.parentNode === el1.parentNode) {
+            for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling) {
+                if (cur === el2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    _isSameColumn(element) {
+        if (this._currentDragItem == element) {
+            return true;
+        }
+        return false;
+    }
+
+    _resetClassStyle() {
+        this.getColumns().forEach((elm) => {
+            elm.classList.remove('overDrag');
+            elm.classList.remove('overDrag__left');
+            elm.classList.remove('overDrag__right');
+        });
+    }
+
+    _wrap(target) {
+        if (!target.querySelector('.draggable')) {
+            let wrapper = document.createElement('span');
+            wrapper.classList.add('draggable');
+            [ ...target.childNodes ].forEach(child => wrapper.appendChild(child));
+            target.appendChild(wrapper);
+            return wrapper;
+        }
+    }
+
+    _unwrap(target) {
+        let wrapper = target.querySelector('.draggable');
+        if (wrapper) {
+            target.querySelector('.draggable').replaceWith(...target.querySelector('.draggable').childNodes);
+        }
+    }
+}
