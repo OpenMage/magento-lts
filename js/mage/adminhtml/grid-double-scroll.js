@@ -12,24 +12,45 @@
  */
 
 class gridDoubleScroll {
-
+    oldCallbacks = {};
     _scrolling = false;
 
-    constructor(wrapperScrollBar) {
-        this.init(wrapperScrollBar);   
+    constructor(containerId, grid) {
+        this.containerId = containerId;
+        this.grid = grid;
+        this.setOldCallback('init', grid.initCallback);
+        this.grid.initCallback = this.onGridInit.bind(this);
+        
+        this.initDoubleScroll();
     }
 
-    init(wrapperScrollBar) {
-        this.wrapperScrollBar = wrapperScrollBar;
-        let scrollbarTop = this.wrapperScrollBar.parentNode.querySelector('.hor-scroll-top');
-        if (!scrollbarTop){
-            this.createDoubleScroll(this.wrapperScrollBar);
-            this.scrollbarTop.addEventListener('scroll', this.syncWrapperScrollBar.bind(this), false);
-            this.wrapperScrollBar.addEventListener('scroll', this.syncScrollBarTop.bind(this), false);
-            const observer = new MutationObserver( this.updateDoubleScrollWidth.bind(this) );
-            observer.observe(this.wrapperScrollBar, { childList: true, subtree: true });
+    initDoubleScroll() {
+        this.wrapperScrollBar = document.getElementById(this.containerId).querySelector('.hor-scroll');
+        if (this.wrapperScrollBar) {
+            let scrollbarTop = this.wrapperScrollBar.parentNode.querySelector('.hor-scroll-top');
+            if (!scrollbarTop){
+                this.createDoubleScroll(this.wrapperScrollBar);
+                this.scrollbarTop.addEventListener('scroll', this.syncWrapperScrollBar.bind(this), false);
+                this.wrapperScrollBar.addEventListener('scroll', this.syncScrollBarTop.bind(this), false);
+                const observer = new MutationObserver( this.updateDoubleScrollWidth.bind(this) );
+                observer.observe(this.wrapperScrollBar, { childList: true, subtree: true });
+            }
+            this.updateDoubleScrollWidth();
         }
-        this.updateDoubleScrollWidth();
+    }
+
+    // ensure varienGrid events propagation
+    getOldCallback(callbackName) {
+        return this.oldCallbacks[callbackName] ? this.oldCallbacks[callbackName] : Prototype.emptyFunction;
+    }
+
+    setOldCallback(callbackName, callback) {
+        this.oldCallbacks[callbackName] = callback;
+    }
+
+    onGridInit(grid) {
+        this.initDoubleScroll();
+        this.getOldCallback('init')(grid);
     }
 
     createDoubleScroll() {
@@ -70,10 +91,3 @@ class gridDoubleScroll {
         }
     }
 };
-
-window.addEventListener('DOMContentLoaded', function() {
-    let horScrolls = document.querySelectorAll('.hor-scroll');
-    horScrolls.forEach( (horScroll) => {
-        new gridDoubleScroll(horScroll);
-    });
-});

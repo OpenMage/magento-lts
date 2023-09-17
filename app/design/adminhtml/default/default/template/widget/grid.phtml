@@ -217,6 +217,8 @@ $numColumns = count($this->getColumns());
     <?php echo $this->getAdvancedGridBlock()->getJavaScript() ?>
     <?php endif ?>
     <?php echo $this->getAdditionalJavaScript(); ?>
+
+    new gridDoubleScroll('<?php echo $this->getId() ?>', <?php echo $this->getJsObjectName() ?>);
 //]]>
 </script>
 <?php endif ?>
