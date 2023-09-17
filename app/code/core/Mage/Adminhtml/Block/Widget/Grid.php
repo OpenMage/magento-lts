@@ -688,17 +688,17 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 'toggle_columns_order_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'class'        => 'toggle_columns_order_button',
-                        'label'     => Mage::helper('adminhtml')->__('Sort Columns'),
+                        'class' => 'toggle_columns_order_button',
+                        'label' => Mage::helper('adminhtml')->__('Rearrange Columns'),
                     ])
             );
             $this->setChild(
                 'reset_columns_order_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
-                        'label'     => Mage::helper('adminhtml')->__('Reset Columns Order'),
-                        'class'        => 'reset_columns_order_button delete',
-                        'onclick'   => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
+                        'label'   => Mage::helper('adminhtml')->__('Reset Columns Order'),
+                        'class'   => 'reset_columns_order_button delete',
+                        'onclick' => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
                     ])
             );
         }

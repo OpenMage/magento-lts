@@ -931,22 +931,22 @@ class varienGridAdvanced {
         this.handlerOnDragOver = this.onDragOver.bind(this);
         this.handlerOnDrop = this.onDrop.bind(this);
         this.handlerOnDragEnd = this.onDragEnd.bind(this);
-        this.handlerEnableColumnsOrder = this.enableColumnsOrder.bind(this);
-        this.handlerDisableColumnsOrder = this.disableColumnsOrder.bind(this);
+        this.handlerEnableColumnsOrder = this.enableColumnsRearrangement.bind(this);
+        this.handlerDisableColumnsOrder = this.disableColumnsRearrangement.bind(this);
 
-        this.initReorderColumns();
+        this.initColumnsRearrangement();
     }
 
-    initReorderColumns() {
+    initColumnsRearrangement() {
         if (this.enabled) {
-            this.enableColumnsOrder();
+            this.enableColumnsRearrangement();
         } else {
-            this.disableColumnsOrder();
+            this.disableColumnsRearrangement();
         }
         this._saveCurrentColumnsOrder();
     }
 
-    enableColumnsOrder() {
+    enableColumnsRearrangement() {
         this.getColumns().forEach((elm) => {
             elm.setAttribute('draggable', true);
             this._wrap(elm);
@@ -958,14 +958,13 @@ class varienGridAdvanced {
         });
         this._getResetBtn().style.display = 'initial';
 
-        
         this._getToggleBtn().removeEventListener('click', this.handlerEnableColumnsOrder, false);
         this._getToggleBtn().addEventListener('click', this.handlerDisableColumnsOrder, false);
 
         this.enabled = true;
     }
 
-    disableColumnsOrder() {
+    disableColumnsRearrangement() {
         this.getColumns().forEach((elm) => {
             elm.removeAttribute('draggable');
             this._unwrap(elm);
@@ -1127,7 +1126,7 @@ class varienGridAdvanced {
     }
 
     onGridInit(grid) {
-        this.initReorderColumns();
+        this.initColumnsRearrangement();
         this.getOldCallback('init')(grid);
     }
 
