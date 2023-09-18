@@ -429,8 +429,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
                 ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
             );
             $this->_addedStoreLabelsFlag = $storeId;
-        } // check that previous call $storeId matches current call
-        elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+        } elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+            // check that previous call $storeId matches current call
             throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
         }
 
