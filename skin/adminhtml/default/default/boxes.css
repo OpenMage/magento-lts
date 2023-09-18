@@ -222,9 +222,9 @@ tr.dynamic-grid input.input-text { width:154px; }
 
 /* Grid heading drag&drop */
 .overDrag { background-color: rgba(255, 255, 255, 0.60) !important; }
-.overDrag:after { content: '▼'; position: absolute; color: #a92000; z-index: 999999999999999; font-weight: bold; font-size: 18px; top: -15px; overflow: visible }
-.overDrag__left::after { left: -10px; }
-.overDrag__right::after { right: -10px; }
+.overDrag:after { content: ''; position: absolute; background: #a92000; top: 0; width: 4px; height: 100% }
+.overDrag__left::after { left:0; }
+.overDrag__right::after { right: 0; }
 .grid__dragPreview { border: 1px solid #a92000; }
 .grid tr.headings th[draggable],
 .grid tr.headings th[draggable] a { cursor: move; position: relative; }

@@ -948,7 +948,6 @@ class varienGridAdvanced {
     }
 
     enableColumnsRearrangement() {
-        document.getElementById(this.grid.containerId + '_table').setAttribute('style', 'margin-top: 10px');
         this.getColumns().forEach((elm) => {
             elm.setAttribute('draggable', true);
             this._wrap(elm);
@@ -968,7 +967,6 @@ class varienGridAdvanced {
     }
 
     disableColumnsRearrangement() {
-        document.getElementById(this.grid.containerId + '_table').setAttribute('style', '');
         this.getColumns().forEach((elm) => {
             elm.removeAttribute('draggable');
             this._unwrap(elm);
