@@ -207,6 +207,11 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
         $this->_resized = true;
     }
 
+    /**
+     * @param $angle float
+     * @return void
+     * @throws ImagickException
+     */
     public function rotate($angle)
     {
         $this->_imageHandler->rotateImage($this->imageBackgroundColor, $angle);
