@@ -105,7 +105,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     '(' . $orWhereCondition . ') AND rule_coupons.code = ?',
                     $couponCode
                 );
-                $subSelect->order('sort_order '.self::SORT_ORDER_ASC);
+                $subSelect->order('sort_order ' . self::SORT_ORDER_ASC);
 
                 // main request
                 $select->where(
