@@ -8,8 +8,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,6 +20,12 @@
  */
 class Mage_Adminhtml_GridController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'catalog/products';
+
     /**
      * Save grid columns order action
      */
@@ -43,10 +48,10 @@ class Mage_Adminhtml_GridController extends Mage_Adminhtml_Controller_Action
     /**
      * Check is allowed access to action
      *
-     * @return true
+     * @return bool
      */
     protected function _isAllowed()
     {
-        return true;
+        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 }
