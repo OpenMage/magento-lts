@@ -933,6 +933,7 @@ class varienGridAdvanced {
         this.handlerOnDragEnd = this.onDragEnd.bind(this);
         this.handlerEnableColumnsOrder = this.enableColumnsRearrangement.bind(this);
         this.handlerDisableColumnsOrder = this.disableColumnsRearrangement.bind(this);
+        this.handlerResetColumnsOrder = this.resetColumnsOrder.bind(this);
 
         this.initColumnsRearrangement();
     }
@@ -957,6 +958,7 @@ class varienGridAdvanced {
             elm.addEventListener('drop', this.handlerOnDrop, false);
             elm.addEventListener('dragend', this.handlerOnDragEnd, false);
         });
+        this._getResetBtn().addEventListener('click', this.handlerResetColumnsOrder, false);
         this._getResetBtn().classList.remove('no-display');
 
         this._getToggleBtn().removeEventListener('click', this.handlerEnableColumnsOrder, false);
@@ -976,6 +978,7 @@ class varienGridAdvanced {
             elm.removeEventListener('drop', this.handlerOnDrop, false);
             elm.removeEventListener('dragend', this.handlerOnDragEnd, false);
         });
+        this._getResetBtn().removeEventListener('click', this.handlerResetColumnsOrder, false);
         this._getResetBtn().classList.add('no-display');
 
         this._getToggleBtn().removeEventListener('click', this.handlerDisableColumnsOrder, false);

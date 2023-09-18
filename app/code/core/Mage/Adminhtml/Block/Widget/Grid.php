@@ -698,7 +698,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                     ->setData([
                         'label'   => Mage::helper('adminhtml')->__('Reset Columns Order'),
                         'class'   => 'reset_columns_order_button delete',
-                        'onclick' => $this->getAdvancedGridBlock()->getJsObjectName() . '.resetColumnsOrder()',
                     ])
             );
         }
