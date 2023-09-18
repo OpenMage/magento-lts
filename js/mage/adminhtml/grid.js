@@ -957,7 +957,7 @@ class varienGridAdvanced {
             elm.addEventListener('drop', this.handlerOnDrop, false);
             elm.addEventListener('dragend', this.handlerOnDragEnd, false);
         });
-        this._getResetBtn().style.display = 'initial';
+        this._getResetBtn().classList.remove('no-display');
 
         this._getToggleBtn().removeEventListener('click', this.handlerEnableColumnsOrder, false);
         this._getToggleBtn().addEventListener('click', this.handlerDisableColumnsOrder, false);
@@ -976,7 +976,7 @@ class varienGridAdvanced {
             elm.removeEventListener('drop', this.handlerOnDrop, false);
             elm.removeEventListener('dragend', this.handlerOnDragEnd, false);
         });
-        this._getResetBtn().style.display = 'none';
+        this._getResetBtn().classList.add('no-display');
 
         this._getToggleBtn().removeEventListener('click', this.handlerDisableColumnsOrder, false);
         this._getToggleBtn().addEventListener('click', this.handlerEnableColumnsOrder, false);
