@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,6 +22,7 @@
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
  * @method string getStatus()
@@ -51,6 +52,14 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function _construct()
     {
         $this->_init('cron/schedule');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsError(): bool
+    {
+        return !empty($this->getData('is_error'));
     }
 
     /**

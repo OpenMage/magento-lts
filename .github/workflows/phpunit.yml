@@ -13,7 +13,7 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: OpenMage/Testfield
           path: ./
@@ -36,7 +36,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-reqs
 
       - name: Checkout OpenMage repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: openmage
 
@@ -48,7 +48,7 @@ jobs:
         run: bash ./run_unit_tests.sh
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.40
+        uses: EnricoMi/publish-unit-test-result-action@v2.7
         if: always()
         continue-on-error: true
         with:
