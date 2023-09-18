@@ -30,7 +30,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
     public function __construct()
     {
         parent::__construct();
-        $this->setResetConfirmText(Mage::helper('core')->jsQuoteEscape(Mage::helper('core')->__('Are you sure? The columns order will be resetted to default')));
+        $this->setResetConfirmText(Mage::helper('core')->jsQuoteEscape(Mage::helper('core')->__('Are you sure?')));
         //$this->setTemplate('widget/grid/advanced.phtml');
     }
 
