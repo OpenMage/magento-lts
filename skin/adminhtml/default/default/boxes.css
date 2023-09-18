@@ -158,7 +158,7 @@ table.actions td                { vertical-align:top; }
 
 
 /* Grid - Headings */
-.grid tr.headings { background:url(images/sort_row_bg.gif) 0 50% repeat-x; position: relative;}
+.grid tr.headings { background:url(images/sort_row_bg.gif) 0 50% repeat-x; }
 .grid tr.headings th { border-width:1px; border-color:#f9f9f9 #d1cfcf #f9f9f9 #f9f9f9; border-style:solid; padding-top:1px; padding-bottom:0; font-size:.9em; }
 .grid tr.headings th.last { border-right:0; }
 .grid tr.headings th.no-link { /* Grid th with no sorting functionality */ padding-top:2px; padding-bottom:1px; color:#67767e; }
