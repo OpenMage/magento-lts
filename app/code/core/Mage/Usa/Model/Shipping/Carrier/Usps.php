@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,7 +19,6 @@
  * @link       http://www.usps.com/webtools/htm/Development-Guide-v3-0b.htm
  * @category   Mage
  * @package    Mage_Usa
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
@@ -527,7 +526,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '0_FCLE' => Mage::helper('usa')->__('First-Class Mail Large Envelope'),
                 '0_FCL'  => Mage::helper('usa')->__('First-Class Mail Letter'),
                 '0_FCSL' => Mage::helper('usa')->__('First-Class Mail Stamped Letter'),
-                '0_FCP'  => Mage::helper('usa')->__('First-Class Package Service - Retail'),
                 '0_FCPC' => Mage::helper('usa')->__('First-Class Mail Postcards'),
                 '1'      => Mage::helper('usa')->__('Priority Mail'),
                 '2'      => Mage::helper('usa')->__('Priority Mail Express Hold For Pickup'),
@@ -570,7 +568,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '57'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Flat Rate Boxes'),
                 '58'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C'),
                 '59'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C Hold For Pickup'),
-                '61'     => Mage::helper('usa')->__('First-Class Package Service'),
                 '62'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope'),
                 '63'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope Hold For Pickup'),
                 '64'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Padded Flat Rate Envelope'),
@@ -600,13 +597,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => Mage::helper('usa')->__('Priority Mail International DVD Flat Rate priced box'),
                 'INT_25' => Mage::helper('usa')->__('Priority Mail International Large Video Flat Rate priced box'),
                 'INT_27' => Mage::helper('usa')->__('Priority Mail Express International Padded Flat Rate Envelope'),
+                '1058'   => Mage::helper('usa')->__('USPS Ground Advantage'),
             ],
 
             'service_to_code' => [
                 '0_FCLE' => 'First Class',
                 '0_FCL'  => 'First Class',
                 '0_FCSL' => 'First Class',
-                '0_FCP'  => 'First Class',
                 '0_FCPC' => 'First Class',
                 '1'      => 'Priority',
                 '2'      => 'Priority Express',
@@ -649,7 +646,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '57'     => 'Priority Express',
                 '58'     => 'Priority',
                 '59'     => 'Priority',
-                '61'     => 'First Class',
                 '62'     => 'Priority Express',
                 '63'     => 'Priority Express',
                 '64'     => 'Priority Express',
@@ -679,6 +675,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => 'Priority',
                 'INT_25' => 'Priority',
                 'INT_27' => 'Priority Express',
+                '1058'   => 'Ground Advantage',
             ],
 
        // Added because USPS has different services but with same CLASSID value, which is "0"
@@ -687,7 +684,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                'First-Class Mail Letter'              => '0_FCL',
                'First-Class Mail Stamped Letter'      => '0_FCSL',
                'First-Class Mail Metered Letter'      => '72',
-               'First-Class Package Service - Retail' => '0_FCP',
             ],
 
             'first_class_mail_type' => [

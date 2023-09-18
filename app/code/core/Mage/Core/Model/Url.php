@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setType(string $value)
  * @method $this setSecure(bool $value)
@@ -1139,7 +1138,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function sessionUrlVar($html)
     {
-        if (strpos($html, '__SID') === false) {
+        if (!str_contains($html, '__SID')) {
             return $html;
         } else {
             return preg_replace_callback(
@@ -1212,13 +1211,18 @@ class Mage_Core_Model_Url extends Varien_Object
     public function isOwnOriginUrl()
     {
         $storeDomains = [];
-        $referer = parse_url(Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER'), PHP_URL_HOST);
+        $httpReferer = Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER');
+        $referer = $httpReferer ? parse_url($httpReferer, PHP_URL_HOST) : '';
+        if (empty($referer)) {
+            return true;
+        }
+
         foreach (Mage::app()->getStores() as $store) {
             $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
             $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
         $storeDomains = array_unique($storeDomains);
-        if (empty($referer) || in_array($referer, $storeDomains)) {
+        if (in_array($referer, $storeDomains)) {
             return true;
         }
         return false;

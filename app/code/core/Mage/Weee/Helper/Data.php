@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Weee
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -444,7 +443,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns all summed weee taxes with all local taxes applied
      *
-     * @throws Mage_Exception
+     * @throws Mage_Core_Exception
      * @param array $attributes Array of Varien_Object, result from getProductWeeeAttributes()
      * @return float
      */
@@ -457,7 +456,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $amount += $attribute->getAmount() + $attribute->getTaxAmount();
             }
         } else {
-            throw new Mage_Exception('$attributes must be an array');
+            throw new Mage_Core_Exception('$attributes must be an array');
         }
 
         return (float)$amount;

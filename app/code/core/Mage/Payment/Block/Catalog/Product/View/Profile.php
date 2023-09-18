@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setDateHtmlId(string $string)
  */
@@ -93,7 +92,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
     protected function _toHtml()
     {
         if (!$this->_profile) {
-            $this->_template = null;
+            $this->_template = '';
         }
         return parent::_toHtml();
     }

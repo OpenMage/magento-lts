@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstract
 {
@@ -381,5 +380,20 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $value = Varien_Date::toTimestamp($value);
         }
         return $value;
+    }
+
+    /**
+     * Get email by customer ID.
+     *
+     * @param int $customerId
+     * @return string|false
+     */
+    public function getEmail($customerId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'email')
+            ->where('entity_id = ?', $customerId);
+
+        return $this->_getReadAdapter()->fetchOne($select);
     }
 }

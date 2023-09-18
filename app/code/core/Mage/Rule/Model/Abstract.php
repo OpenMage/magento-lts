@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this unsActions()
  * @method bool hasActionsSerialized()
@@ -320,10 +319,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $path = explode('--', $id);
                     $node =& $arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
-                        if (!isset($node[$key][$path[$i]])) {
-                            $node[$key][$path[$i]] = [];
-                        }
-                        $node =& $node[$key][$path[$i]];
+                        $node =& $node[$key][$path[$i]] ?? [];
                     }
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
