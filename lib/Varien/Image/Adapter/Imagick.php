@@ -1,4 +1,22 @@
 <?php
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category   Varien
+ * @package    Varien_Image
+ * @copyright  Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 
 class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
 {
@@ -97,16 +115,6 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
                 throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
             }
         }
-
-//        if ($this->_fileType == IMAGETYPE_JPEG) {
-//            $threshold = (int)Mage::getStoreConfig('catalog/product_image/progressive_threshold');
-//            if ($threshold && $threshold <= (imagesx($this->_imageHandler) * imagesy($this->_imageHandler) / 1000000)) {
-//                imageinterlace($this->_imageHandler, 1);
-//
-//                TODO support progressive JPG? Like this?
-//                $this->_imageHandler->setInterlaceScheme();
-//            }
-//        }
 
         // set quality param for PNG file type
         $quality = $this->quality();
