@@ -382,6 +382,7 @@
 "Timezone","Timezone"
 "Title Prefix","Title Prefix"
 "Title Suffix","Title Suffix"
+"Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.","Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again."
 "Transactional Emails","Transactional Emails"
 "Translate Inline","Translate Inline"
 "Translate, blocks and other output caches should be disabled for both frontend and admin inline translations.","Translate, blocks and other output caches should be disabled for both frontend and admin inline translations."
