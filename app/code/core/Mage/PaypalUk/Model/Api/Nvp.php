@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_PaypalUk
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_PaypalUk
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 {
@@ -33,11 +26,11 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @var mixed
      */
-    const TRXTYPE_AUTH_ONLY         = 'A';
-    const TRXTYPE_SALE              = 'S';
-    const TRXTYPE_CREDIT            = 'C';
-    const TRXTYPE_DELAYED_CAPTURE   = 'D';
-    const TRXTYPE_DELAYED_VOID      = 'V';
+    public const TRXTYPE_AUTH_ONLY         = 'A';
+    public const TRXTYPE_SALE              = 'S';
+    public const TRXTYPE_CREDIT            = 'C';
+    public const TRXTYPE_DELAYED_CAPTURE   = 'D';
+    public const TRXTYPE_DELAYED_VOID      = 'V';
     /**#@-*/
 
     /**#@+
@@ -45,8 +38,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @var mixed
      */
-    const TENDER_CC                 = 'C';
-    const TENDER_PAYPAL             = 'P';
+    public const TENDER_CC                 = 'C';
+    public const TENDER_PAYPAL             = 'P';
     /**#@-*/
 
     /**#@+
@@ -54,9 +47,9 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @var string
      */
-    const EXPRESS_SET               = 'S';
-    const EXPRESS_GET               = 'G';
-    const EXPRESS_DO_PAYMENT        = 'D';
+    public const EXPRESS_SET               = 'S';
+    public const EXPRESS_GET               = 'G';
+    public const EXPRESS_DO_PAYMENT        = 'D';
     /**#@-*/
 
     /**#@+
@@ -64,8 +57,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @var mixed
      */
-    const RESPONSE_CODE_APPROVED = 0;
-    const RESPONSE_CODE_FRAUD = 126;
+    public const RESPONSE_CODE_APPROVED = 0;
+    public const RESPONSE_CODE_FRAUD = 126;
     /**#@-*/
 
     /**#@+
@@ -437,7 +430,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected function _getPaypalUkActionName($methodName)
     {
-        switch($methodName) {
+        switch ($methodName) {
             case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
                 return self::EXPRESS_SET;
             case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
@@ -451,12 +444,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Map paypal method names
      *
-     * @param string| $methodName
-     * @return string
+     * @param string $methodName
+     * @return string|void
      */
     protected function _mapPaypalMethodName($methodName)
     {
-        switch($methodName) {
+        switch ($methodName) {
             case Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT:
             case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
             case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
@@ -518,8 +511,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _buildQuery($request)
     {
         $result = '';
-        foreach ($request as $k=>$v) {
-            $result .= '&'.$k.'='.$v;
+        foreach ($request as $k => $v) {
+            $result .= '&' . $k . '=' . $v;
         }
         return trim($result, '&');
     }

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setArea(string $value)
  * @method $this setPackage(string $value)
@@ -162,10 +155,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             ->setName('block')
             ->setClass('required-entry select')
             ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
-                .' this.up(\'div.group_container\'), this.value)"')
+                . ' this.up(\'div.group_container\'), this.value)"')
             ->setOptions($this->getBlocks())
             ->setValue($this->getSelected());
-        return parent::_toHtml().$selectBlock->toHtml();
+        return parent::_toHtml() . $selectBlock->toHtml();
     }
 
     /**
@@ -200,7 +193,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         foreach ($this->getLayoutHandle() as $handle) {
             $this->_mergeLayoutHandles($handle);
         }
-        $updatesStr = '<'.'?xml version="1.0"?'.'><layout>'.implode('', $this->_layoutHandleUpdates).'</layout>';
+        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
         $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 

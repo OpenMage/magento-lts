@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,26 +18,25 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 {
-    const ID_FIELD    = 'id';
-    const PATH_FIELD  = 'path';
-    const ORDER_FIELD = 'order';
-    const LEVEL_FIELD = 'level';
+    public const ID_FIELD    = 'id';
+    public const PATH_FIELD  = 'path';
+    public const ORDER_FIELD = 'order';
+    public const LEVEL_FIELD = 'level';
 
     /**
      * Categories resource collection
      *
-     * @var Mage_Catalog_Model_Resource_Category_Collection
+     * @var Mage_Catalog_Model_Resource_Category_Collection|null
      */
     protected $_collection;
 
     /**
      * Id of 'is_active' category attribute
      *
-     * @var int
+     * @var string|null
      */
     protected $_isActiveAttributeId              = null;
 
@@ -143,8 +136,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $nodeIds = [];
-        foreach ($this->getNodes() as $node) {
-            $id = $node->getId();
+        foreach ($this->getNodes() as $id => $node) {
             if (!in_array($id, $exclude)) {
                 $nodeIds[] = $id;
             }
@@ -174,8 +166,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 }
             }
 
-            foreach ($this->getNodes() as $node) {
-                if (!$collection->getItemById($node->getId()) && $node->getParent()) {
+            foreach ($this->getNodes() as $id => $node) {
+                if (!$collection->getItemById($id) && $node->getParent()) {
                     $this->removeNode($node);
                 }
             }
@@ -260,7 +252,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Returns attribute id for attribute "is_active"
      *
-     * @return int
+     * @return string
      */
     protected function _getIsActiveAttributeId()
     {
@@ -271,8 +263,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 'attribute_code'   => 'is_active'
             ];
             $select = $this->_conn->select()
-                ->from(['a'=>$resource->getTableName('eav/attribute')], ['attribute_id'])
-                ->join(['t'=>$resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
+                ->from(['a' => $resource->getTableName('eav/attribute')], ['attribute_id'])
+                ->join(['t' => $resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
                 ->where('entity_type_code = :entity_type_code')
                 ->where('attribute_code = :attribute_code');
 
@@ -298,17 +290,17 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $bind = [
             'attribute_id' => $attributeId,
             'store_id'     => $storeId,
-            'zero_store_id'=> 0,
+            'zero_store_id' => 0,
             'cond'         => 0,
 
         ];
         $select = $this->_conn->select()
-            ->from(['d'=>$table], ['d.entity_id'])
+            ->from(['d' => $table], ['d.entity_id'])
             ->where('d.attribute_id = :attribute_id')
             ->where('d.store_id = :zero_store_id')
             ->where('d.entity_id IN (?)', $filter)
             ->joinLeft(
-                ['c'=>$table],
+                ['c' => $table],
                 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id',
                 []
             )

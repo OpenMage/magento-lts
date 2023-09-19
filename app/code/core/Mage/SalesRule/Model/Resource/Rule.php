@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_SalesRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
@@ -144,7 +137,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getCustomerUses($rule, $customerId)
     {
         $read = $this->_getReadAdapter();
-        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt'=>'count(*)'])
+        $select = $read->select()->from($this->getTable('rule_customer'), ['cnt' => 'count(*)'])
             ->where('rule_id = :rule_id')
             ->where('customer_id = :customer_id');
         return $read->fetchOne($select, [':rule_id' => $rule->getRuleId(), ':customer_id' => $customerId]);
@@ -300,11 +293,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getProductAttributes($serializedString)
     {
         $result = [];
-        if (preg_match_all(
-            '~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
-            $serializedString,
-            $matches
-        )) {
+        if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s', $serializedString, $matches)) {
             foreach ($matches[1] as $offset => $attributeCode) {
                 $result[] = $attributeCode;
             }

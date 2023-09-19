@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,19 +18,18 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
 {
     /**
      * Default layout template
      */
-    const LAYOUT_TEMPLATE = 'minLayout';
+    public const LAYOUT_TEMPLATE = 'minLayout';
 
     /**
      * Mobile layout template
      */
-    const MOBILE_LAYOUT_TEMPLATE = 'mobile';
+    public const MOBILE_LAYOUT_TEMPLATE = 'mobile';
 
     /**
      * Controller for callback urls
@@ -99,13 +92,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Gateway request URL
      * @var string
      */
-    const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
+    public const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
 
     /**
      * Error message
      * @var string
      */
-    const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
+    public const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
 
     /**
      * Key for storing secure hash in additional information of payment model
@@ -288,7 +281,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $payment->setAdditionalInformation('paypal_cvv2_match', $response->getCvv2match());
         }
 
-        switch ($response->getType()){
+        switch ($response->getType()) {
             case self::TRXTYPE_AUTH_ONLY:
                 $payment->registerAuthorizationNotification($payment->getBaseAmountAuthorized());
                 break;
@@ -390,9 +383,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             ->setCustref($payment->getOrder()->getIncrementId())
             ->setPonum($payment->getOrder()->getId());
         //This is PaPal issue with taxes and shipping
-            //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
-            //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
-            //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
+        //->setSubtotal($this->_formatStr('%.2F', $payment->getOrder()->getBaseSubtotal()))
+        //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
+        //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
 
         $order = $payment->getOrder();
         if (empty($order)) {
@@ -526,8 +519,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     protected function _processTokenErrors($response, $payment)
     {
         if (!$response->getSecuretoken() &&
-            $response->getResult() != self::RESPONSE_CODE_APPROVED
-            && $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER) {
+            $response->getResult() != self::RESPONSE_CODE_APPROVED &&
+            $response->getResult() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
+        ) {
             Mage::throwException($response->getRespmsg());
         } else {
             $payment->setAdditionalInformation('secure_token_id', $response->getSecuretokenid())

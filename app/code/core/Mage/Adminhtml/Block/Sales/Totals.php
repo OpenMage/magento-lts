@@ -2,27 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
 {
@@ -57,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
         $this->_totals['subtotal'] = new Varien_Object([
             'code'      => 'subtotal',
             'value'     => $this->getSource()->getSubtotal(),
-            'base_value'=> $this->getSource()->getBaseSubtotal(),
+            'base_value' => $this->getSource()->getBaseSubtotal(),
             'label'     => $this->helper('sales')->__('Subtotal')
         ]);
 
@@ -70,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             $this->_totals['shipping'] = new Varien_Object([
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),
-                'base_value'=> $this->getSource()->getBaseShippingAmount(),
+                'base_value' => $this->getSource()->getBaseShippingAmount(),
                 'label' => $this->helper('sales')->__('Shipping & Handling')
             ]);
         }
@@ -78,7 +71,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
         /**
          * Add discount
          */
-        if (((float)$this->getSource()->getDiscountAmount()) != 0) {
+        if ((float)$this->getSource()->getDiscountAmount() != 0) {
             if ($this->getSource()->getDiscountDescription()) {
                 $discountLabel = $this->helper('sales')->__(
                     'Discount (%s)',
@@ -90,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             $this->_totals['discount'] = new Varien_Object([
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),
-                'base_value'=> $this->getSource()->getBaseDiscountAmount(),
+                'base_value' => $this->getSource()->getBaseDiscountAmount(),
                 'label'     => $discountLabel
             ]);
         }
@@ -99,7 +92,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'code'      => 'grand_total',
             'strong'    => true,
             'value'     => $this->getSource()->getGrandTotal(),
-            'base_value'=> $this->getSource()->getBaseGrandTotal(),
+            'base_value' => $this->getSource()->getBaseGrandTotal(),
             'label'     => $this->helper('sales')->__('Grand Total'),
             'area'      => 'footer'
         ]);

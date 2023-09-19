@@ -2,29 +2,23 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Adminhtml transaction detail
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Block_Widget_Container
 {
@@ -37,7 +31,6 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
 
     /**
      * Add control buttons
-     *
      */
     public function __construct()
     {
@@ -48,16 +41,16 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
-            'onclick' => "setLocation('{$backUrl}')",
+            'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
             'class'   => 'back'
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
-            && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()) {
-            $fetchUrl = $this->getUrl('*/*/fetch' , ['_current' => true]);
+            && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()
+        ) {
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
-                'onclick' => "setLocation('{$fetchUrl}')",
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
                 'class'   => 'button'
             ]);
         }
@@ -70,9 +63,20 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
      */
     public function getHeaderText()
     {
-        return Mage::helper('sales')->__("Transaction # %s | %s", $this->_txn->getTxnId(), $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true));
+        return Mage::helper('sales')->__(
+            "Transaction # %s | %s",
+            $this->_txn->getTxnId(),
+            $this->formatDate(
+                $this->_txn->getCreatedAt(),
+                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+                true
+            )
+        );
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(

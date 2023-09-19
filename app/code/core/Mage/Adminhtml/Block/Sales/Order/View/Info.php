@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
@@ -74,6 +67,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getCustomerViewUrl()
     {
+        if (!Mage::getSingleton('admin/session')->isAllowed('customer/manage')) {
+            return false;
+        }
         if ($this->getOrder()->getCustomerIsGuest() || !$this->getOrder()->getCustomerId()) {
             return false;
         }
@@ -82,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/sales_order/view', ['order_id'=>$orderId]);
+        return $this->getUrl('*/sales_order/view', ['order_id' => $orderId]);
     }
 
     /**
@@ -148,13 +144,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      * @param string $label
      * @return string
      */
-    public function getAddressEditLink($address, $label='')
+    public function getAddressEditLink($address, $label = '')
     {
         if (empty($label)) {
             $label = $this->__('Edit');
         }
-        $url = $this->getUrl('*/sales_order/address', ['address_id'=>$address->getId()]);
-        return '<a href="'.$url.'">' . $label . '</a>';
+        $url = $this->getUrl('*/sales_order/address', ['address_id' => $address->getId()]);
+        return '<a href="' . $url . '">' . $label . '</a>';
     }
 
     /**

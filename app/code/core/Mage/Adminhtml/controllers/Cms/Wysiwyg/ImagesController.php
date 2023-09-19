@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Controller_Action
 {
@@ -32,7 +25,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'cms/media_gallery';
+    public const ADMIN_RESOURCE = 'cms/media_gallery';
 
     /**
      * Init storage
@@ -118,7 +111,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     {
         try {
             if (!$this->getRequest()->isPost()) {
-                throw new Exception ('Wrong request.');
+                throw new Exception('Wrong request.');
             }
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
@@ -128,8 +121,8 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
                 $_filePath = realpath($path . DS . $file);
-                if (strpos($_filePath, realpath($path)) === 0 &&
-                    strpos($_filePath, realpath($helper->getStorageRoot())) === 0
+                if (str_starts_with($_filePath, realpath($path)) &&
+                    str_starts_with($_filePath, realpath($helper->getStorageRoot()))
                 ) {
                     $this->getStorage()->deleteFile($path . DS . $file);
                 }

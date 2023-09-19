@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getGiftmessages()
  */
@@ -46,7 +39,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             return $this;
         }
 
-        foreach ($giftmessages as $entityId=>$giftmessage) {
+        foreach ($giftmessages as $entityId => $giftmessage) {
             $this->_saveOne($entityId, $giftmessage);
         }
 
@@ -73,7 +66,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             return $this;
         }
 
-        foreach ($giftmessages as $entityId=>$giftmessage) {
+        foreach ($giftmessages as $entityId => $giftmessage) {
             $this->_saveOne($entityId, $giftmessage);
         }
 
@@ -94,7 +87,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
-        switch($entityType) {
+        switch ($entityType) {
             case 'quote':
                 $entityModel = $this->_getQuote();
                 break;
@@ -143,7 +136,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @return $this
      * @throws Throwable
      */
-    protected function _deleteOne($entityModel, $giftmessageModel=null)
+    protected function _deleteOne($entityModel, $giftmessageModel = null)
     {
         if (is_null($giftmessageModel)) {
             $giftmessageModel = Mage::getModel('giftmessage/message')
@@ -260,7 +253,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         $allowedItems = $this->getAllowQuoteItems();
         $deleteAllowedItems = [];
-        foreach ($products as $productId=>$data) {
+        foreach ($products as $productId => $data) {
             $product = Mage::getModel('catalog/product')
                 ->setStore($this->_getSession()->getStore())
                 ->load($productId);
@@ -271,10 +264,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
         }
@@ -289,7 +284,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         $allowedItems = $this->getAllowQuoteItems();
         $deleteAllowedItems = [];
-        foreach ($items as $itemId=>$data) {
+        foreach ($items as $itemId => $data) {
             $item = $this->_getQuote()->getItemById($itemId);
 
             if (!$item) {
@@ -299,10 +294,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             }
 
             if (in_array($item->getId(), $allowedItems)
-                && !isset($data['giftmessage'])) {
+                && !isset($data['giftmessage'])
+            ) {
                 $deleteAllowedItems[] = $item->getId();
             } elseif (!in_array($item->getId(), $allowedItems)
-                      && isset($data['giftmessage'])) {
+                      && isset($data['giftmessage'])
+            ) {
                 $allowedItems[] = $item->getId();
             }
         }

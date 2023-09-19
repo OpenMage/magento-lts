@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
@@ -81,12 +74,10 @@
  * @method string getOldEmail()
  * @method $this setOldEmail(string $value)
  *
- * @method string getPassword()
  * @method string getPasswordConfirm()
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
- * @method $this setPasswordCreatedAt(int $value)
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
@@ -119,54 +110,54 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**#@+
      * Configuration pathes for email templates and identities
      */
-    const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
-    const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
-    const XML_PATH_REMIND_EMAIL_TEMPLATE = 'customer/password/remind_email_template';
-    const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'customer/password/forgot_email_template';
-    const XML_PATH_FORGOT_EMAIL_IDENTITY = 'customer/password/forgot_email_identity';
-    const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
-    const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
-    const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
-    const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
-    const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
-    const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
-    const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
+    public const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
+    public const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
+    public const XML_PATH_REMIND_EMAIL_TEMPLATE = 'customer/password/remind_email_template';
+    public const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'customer/password/forgot_email_template';
+    public const XML_PATH_FORGOT_EMAIL_IDENTITY = 'customer/password/forgot_email_identity';
+    public const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
+    public const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
+    public const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
+    public const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
+    public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
+    public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
+    public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
     /**#@-*/
 
     /**#@+
      * Codes of exceptions related to customer model
      */
-    const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
-    const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
-    const EXCEPTION_EMAIL_EXISTS              = 3;
-    const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
-    const EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID = 5;
+    public const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
+    public const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
+    public const EXCEPTION_EMAIL_EXISTS              = 3;
+    public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
+    public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID = 5;
     /**#@-*/
 
     /**#@+
      * Subscriptions
      */
-    const SUBSCRIBED_YES = 'yes';
-    const SUBSCRIBED_NO  = 'no';
+    public const SUBSCRIBED_YES = 'yes';
+    public const SUBSCRIBED_NO  = 'no';
     /**#@-*/
 
-    const CACHE_TAG = 'customer';
+    public const CACHE_TAG = 'customer';
 
     /**
      * Minimum Password Length
      * @deprecated Use getMinPasswordLength() method instead
      */
-    const MINIMUM_PASSWORD_LENGTH = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
+    public const MINIMUM_PASSWORD_LENGTH = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
 
     /**
      * Configuration path for minimum length of password
      */
-    const XML_PATH_MIN_PASSWORD_LENGTH = 'customer/password/min_password_length';
+    public const XML_PATH_MIN_PASSWORD_LENGTH = 'customer/password/min_password_length';
 
     /**
      * Maximum Password Length
      */
-    const MAXIMUM_PASSWORD_LENGTH = 256;
+    public const MAXIMUM_PASSWORD_LENGTH = 256;
 
     /**
      * Model event prefix
@@ -192,14 +183,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Assoc array of customer attributes
      *
-     * @var array
+     * @var array|null
      */
     protected $_attributes;
 
     /**
      * Customer addresses array
      *
-     * @var Mage_Customer_Model_Address[]
+     * @var Mage_Customer_Model_Address[]|null
      * @deprecated after 1.4.0.0-rc1
      */
     protected $_addresses = null;
@@ -207,7 +198,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Customer addresses collection
      *
-     * @var Mage_Customer_Model_Entity_Address_Collection
+     * @var Mage_Customer_Model_Resource_Address_Collection|null
      */
     protected $_addressesCollection;
 
@@ -331,6 +322,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function changePassword($newPassword)
     {
         $this->_getResource()->changePassword($this, $newPassword);
+        return $this;
+    }
+
+    /**
+     * Set time when password was changed to invalidate other sessions
+     *
+     * @param int $time
+     * @return $this
+     */
+    public function setPasswordCreatedAt($time)
+    {
+        $this->setData('password_created_at', $time);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+        }
         return $this;
     }
 
@@ -463,13 +469,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Get customer attribute model object
      *
      * @param string $attributeCode
-     * @return Mage_Customer_Model_Entity_Attribute|null
+     * @return Mage_Customer_Model_Customer|null
      * @throws Mage_Core_Exception
      */
     public function getAttribute($attributeCode)
     {
         $this->getAttributes();
         return $this->_attributes[$attributeCode] ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->_getData('password');
     }
 
     /**
@@ -754,7 +768,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         }
         if (self::$_isConfirmationRequired === null) {
             $storeId = $this->getStoreId() ?: null;
-            self::$_isConfirmationRequired = (bool)Mage::getStoreConfig(self::XML_PATH_IS_CONFIRM, $storeId);
+            self::$_isConfirmationRequired = Mage::getStoreConfigFlag(self::XML_PATH_IS_CONFIRM, $storeId);
         }
 
         return self::$_isConfirmationRequired;
@@ -1184,7 +1198,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $regions->addRegionNameFilter($row['billing_region'])->load();
             if ($regions) {
                 foreach ($regions as $region) {
-                    $regionId = intval($region->getId());
+                    $regionId = (int) $region->getId();
                 }
             }
 
@@ -1228,7 +1242,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
             if ($regions) {
                 foreach ($regions as $region) {
-                    $regionId = intval($region->getId());
+                    $regionId = (int) $region->getId();
                 }
             }
 
@@ -1363,7 +1377,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     return false;
                 }
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])) {
+                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
+                ) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
                     }

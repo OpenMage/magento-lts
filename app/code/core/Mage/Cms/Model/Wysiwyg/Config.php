@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getStoreId()
  * @method $this setStoreId(string $value)
@@ -34,27 +27,27 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     /**
      * Wysiwyg behaviour: enabled
      */
-    const WYSIWYG_ENABLED = 'enabled';
+    public const WYSIWYG_ENABLED = 'enabled';
 
     /**
      * Wysiwyg behaviour: hidden
      */
-    const WYSIWYG_HIDDEN = 'hidden';
+    public const WYSIWYG_HIDDEN = 'hidden';
 
     /**
      * Wysiwyg behaviour: disabled
      */
-    const WYSIWYG_DISABLED = 'disabled';
+    public const WYSIWYG_DISABLED = 'disabled';
 
     /**
      * constant for image directory
      */
-    const IMAGE_DIRECTORY = 'wysiwyg';
+    public const IMAGE_DIRECTORY = 'wysiwyg';
 
     /**
      * Path to skin image placeholder file
      */
-    const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
+    public const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
 
     /**
      * Return Wysiwyg config as Varien_Object
@@ -87,12 +80,12 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
             'popup_css'                     =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
+                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
             'content_css'                   =>
-                Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
+                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
             'plugins'                       => [],
-            'media_disable_flash'           => Mage::helper('cms')->isSwfDisabled()
+            'media_disable_flash'           => true
         ]);
 
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));

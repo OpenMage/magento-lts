@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_Block_Widget
 {
     /**
      * Entity for editing of gift message
      *
-     * @var Mage_Sales_Model_Order
+     * @var Mage_Sales_Model_Order|null
      */
     protected $_entity;
 
@@ -48,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Giftmessage object
      *
-     * @var Mage_GiftMessage_Model_Message
+     * @var Mage_GiftMessage_Model_Message|null
      */
     protected $_giftMessage;
 
@@ -57,10 +50,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if ($this->getParentBlock() && ($order = $this->getOrder())) {
-            $this->setEntity($order);
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            if ($this->getParentBlock() && ($order = $this->getOrder())) {
+                $this->setEntity($order);
+            }
+            return parent::_beforeToHtml();
+        } else {
+            return parent::_beforeToHtml();
         }
-        return parent::_beforeToHtml();
     }
 
     /**
@@ -70,15 +67,16 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                    'class'   => 'save'
-                ])
-        );
-
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+            $this->setChild(
+                'save_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
+                        'class'   => 'save'
+                    ])
+            );
+        }
         return $this;
     }
 
@@ -91,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     public function getSaveButtonHtml()
     {
         $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\''. $this->getHtmlId() .'\')'
+            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
         );
 
         return $this->getChildHtml('save_button');
@@ -258,8 +256,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         return $this->getUrl(
             '*/sales_order_view_giftmessage/save',
             [
-                'entity'=>$this->getEntity()->getId(),
-                'type'  =>'order',
+                'entity' => $this->getEntity()->getId(),
+                'type'  => 'order',
                 'reload' => 1
             ]
         );

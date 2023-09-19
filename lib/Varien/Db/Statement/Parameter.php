@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Varien
- * @package     Varien_Db
+ * @category   Varien
+ * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,9 +21,8 @@
  * Most used properties and methods are defined in interface. Specific things for concrete DB adapter can be
  * transmitted using 'addtional' property (Varien_Object) as a container.
  *
- * @category    Varien
- * @package     Varien_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Db
  */
 class Varien_Db_Statement_Parameter
 {
@@ -47,22 +40,22 @@ class Varien_Db_Statement_Parameter
      */
     protected $_isBlob = false;
 
-    /*
+    /**
      * Data type to set to DB driver during parameter bind
      */
     protected $_dataType = null;
 
-    /*
+    /**
      * Length to set to DB driver during parameter bind
      */
     protected $_length = null;
 
-    /*
+    /**
      * Specific driver options to set to DB driver during parameter bind
      */
     protected $_driverOptions = null;
 
-    /*
+    /**
      * Additional information to be used by DB adapter internally
      */
     protected $_additional = null;
@@ -71,13 +64,11 @@ class Varien_Db_Statement_Parameter
      * Inits instance
      *
      * @param mixed $value
-     * @return Varien_Db_Statement_Parameter
      */
     public function __construct($value)
     {
         $this->_value = $value;
         $this->_additional = new Varien_Object();
-        return $this;
     }
 
     /**

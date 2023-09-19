@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Url
 {
@@ -33,7 +26,7 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const MAX_REQUEST_PATH_LENGTH = 240;
+    public const MAX_REQUEST_PATH_LENGTH = 240;
 
     /**
      * Number of characters allowed to be in URL path
@@ -41,12 +34,12 @@ class Mage_Catalog_Model_Url
      *
      * @var int
      */
-    const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
+    public const ALLOWED_REQUEST_PATH_OVERFLOW = 10;
 
     /**
      * Resource model
      *
-     * @var Mage_Catalog_Model_Resource_Url
+     * @var Mage_Catalog_Model_Resource_Url|null
      */
     protected $_resourceModel;
 
@@ -74,7 +67,7 @@ class Mage_Catalog_Model_Url
     /**
      * Current url rewrite rule
      *
-     * @var Varien_Object
+     * @var Varien_Object|null
      */
     protected $_rewrite;
 
@@ -99,12 +92,12 @@ class Mage_Catalog_Model_Url
      */
     protected $_saveRewritesHistory = null;
 
-     /**
-     * Singleton of category model for building URL path
-     *
-     * @var Mage_Catalog_Model_Category
-     */
-    static protected $_categoryForUrlPath;
+    /**
+    * Singleton of category model for building URL path
+    *
+    * @var Mage_Catalog_Model_Category
+    */
+    protected static $_categoryForUrlPath;
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -615,7 +608,7 @@ class Mage_Catalog_Model_Url
      */
     public function getUnusedPathByUrlKey($storeId, $requestPath, $idPath, $urlKey)
     {
-        if (strpos($idPath, 'product') !== false) {
+        if (str_contains($idPath, 'product')) {
             $suffix = $this->getProductUrlSuffix($storeId);
         } else {
             $suffix = $this->getCategoryUrlSuffix($storeId);
@@ -812,7 +805,7 @@ class Mage_Catalog_Model_Url
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && strpos($existingRequestPath, $requestPath) === 0
+                && str_starts_with($existingRequestPath, $requestPath)
             ) {
                 $existingRequestPath = preg_replace(
                     '/^' . preg_quote($requestPath, '/') . '/',
@@ -824,7 +817,7 @@ class Mage_Catalog_Model_Url
                 }
             }
 
-            $fullPath = $requestPath.$suffix;
+            $fullPath = $requestPath . $suffix;
             if ($this->_deleteOldTargetPath($fullPath, $idPath, $storeId)) {
                 return $fullPath;
             }
@@ -833,7 +826,7 @@ class Mage_Catalog_Model_Url
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
         $validatedPath = $this->getResource()->checkRequestPaths(
-            [$requestPath.$suffix, $requestPath.'-'.$product->getId().$suffix],
+            [$requestPath . $suffix, $requestPath . '-' . $product->getId() . $suffix],
             $storeId
         );
 

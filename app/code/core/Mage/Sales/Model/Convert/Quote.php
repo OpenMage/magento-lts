@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Convert_Quote extends Varien_Object
 {
@@ -48,7 +41,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setCustomer($quote->getCustomer());
 
         Mage::helper('core')->copyFieldset('sales_convert_quote', 'to_order', $quote, $order);
-        Mage::dispatchEvent('sales_convert_quote_to_order', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('sales_convert_quote_to_order', ['order' => $order, 'quote' => $quote]);
         return $order;
     }
 
@@ -67,7 +60,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 
         Mage::helper('core')->copyFieldset('sales_convert_quote_address', 'to_order', $address, $order);
 
-        Mage::dispatchEvent('sales_convert_quote_address_to_order', ['address'=>$address, 'order'=>$order]);
+        Mage::dispatchEvent('sales_convert_quote_address_to_order', ['address' => $address, 'order' => $order]);
         return $order;
     }
 
@@ -143,7 +136,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
         Mage::helper('core')->copyFieldset('sales_convert_quote_item', 'to_order_item', $item, $orderItem);
 
         if ($item->getParentItem()) {
-            $orderItem->setQtyOrdered($orderItem->getQtyOrdered()*$item->getParentItem()->getQty());
+            $orderItem->setQtyOrdered($orderItem->getQtyOrdered() * $item->getParentItem()->getQty());
         }
 
         if (!$item->getNoDiscount()) {
@@ -152,7 +145,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 
         Mage::dispatchEvent(
             'sales_convert_quote_item_to_order_item',
-            ['order_item'=>$orderItem, 'item'=>$item]
+            ['order_item' => $orderItem, 'item' => $item]
         );
         return $orderItem;
     }

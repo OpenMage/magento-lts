@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -75,7 +68,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         $this->_map['fields']['customer_middlename'] = 'customer_middlename_table.value';
         $this->_map['fields']['customer_firstname']  = 'customer_firstname_table.value';
         $this->_map['fields']['type']                = $this->getResource()->getReadConnection()
-            ->getCheckSql('main_table.customer_id = 0', 1, 2);
+            ->getCheckSql('main_table.customer_id = 0', '1', '2');
         $this->_map['fields']['website_id']          = 'store.website_id';
         $this->_map['fields']['group_id']            = 'store.group_id';
         $this->_map['fields']['store_id']            = 'main_table.store_id';
@@ -90,7 +83,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
         $this->getSelect()
-            ->join(['link'=>$this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
+            ->join(['link' => $this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
             ->where("link.queue_id = ? ", $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
@@ -128,19 +121,19 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
                 ['customer_lastname_table' => $lastname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_lastname_table.entity_id=main_table.customer_id
                     AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()),
-                ['customer_lastname'=>'value']
+                ['customer_lastname' => 'value']
             )
             ->joinLeft(
                 ['customer_middlename_table' => $middlename->getBackend()->getTable()],
                 $adapter->quoteInto('customer_middlename_table.entity_id=main_table.customer_id
                     AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()),
-                ['customer_middlename'=>'value']
+                ['customer_middlename' => 'value']
             )
             ->joinLeft(
                 ['customer_firstname_table' => $firstname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_firstname_table.entity_id=main_table.customer_id
                     AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()),
-                ['customer_firstname'=>'value']
+                ['customer_firstname' => 'value']
             );
 
         return $this;
@@ -154,7 +147,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function addSubscriberTypeField()
     {
         $this->getSelect()
-            ->columns(['type'=>new Zend_Db_Expr($this->_getMappedField('type'))]);
+            ->columns(['type' => new Zend_Db_Expr($this->_getMappedField('type'))]);
         return $this;
     }
 
@@ -184,12 +177,12 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     public function _getFieldTableAlias($field)
     {
-        if (strpos($field, 'customer') === 0) {
-            return $field .'_table.value';
+        if (str_starts_with($field, 'customer')) {
+            return $field . '_table.value';
         }
 
         if ($field == 'type') {
-            return $this->getConnection()->getCheckSql('main_table.customer_id = 0', 1, 2);
+            return $this->getConnection()->getCheckSql('main_table.customer_id = 0', '1', '2');
         }
 
         if (in_array($field, ['website_id', 'group_id'])) {
@@ -244,7 +237,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      */
     public function addStoreFilter($storeIds)
     {
-        $this->addFieldToFilter('main_table.store_id', ['in'=>$storeIds]);
+        $this->addFieldToFilter('main_table.store_id', ['in' => $storeIds]);
         return $this;
     }
 }

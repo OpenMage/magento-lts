@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Authorizenet
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 {
@@ -94,14 +87,15 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $payment->setAnetTransType(self::REQUEST_TYPE_AUTH_CAPTURE);
         }
 
-        $request= $this->_buildRequest($payment);
+        $request = $this->_buildRequest($payment);
         $result = $this->_postRequest($request);
 
         switch ($result->getResponseCode()) {
             case self::RESPONSE_CODE_APPROVED:
                 if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
                     if (!$payment->getParentTransactionId() ||
-                        $result->getTransactionId() != $payment->getParentTransactionId()) {
+                        $result->getTransactionId() != $payment->getParentTransactionId()
+                    ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
                     $payment
@@ -110,9 +104,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment capturing error.'));
         }
@@ -171,9 +167,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment voiding error.'));
         }
@@ -263,9 +261,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     return $this;
                 }
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('paygate')->__('Payment refunding error.'));
         }
@@ -294,7 +294,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $storeId = $this->getStore();
         }
         return Mage::app()->getStore($storeId)
-            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).
+            ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
             'authorizenet/directpost_payment/response';
     }
 
@@ -345,6 +345,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             default:
                 break;
         }
+
+        return $this;
     }
 
     /**
@@ -486,6 +488,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             case self::RESPONSE_CODE_DECLINED:
             case self::RESPONSE_CODE_ERROR:
                 Mage::throwException($this->_wrapGatewayError($this->getResponse()->getXResponseReasonText()));
+                // no break
             default:
                 Mage::throwException(Mage::helper('authorizenet')->__('Payment authorization error.'));
         }
@@ -515,7 +518,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     protected function _matchAmount($amount)
     {
-         return sprintf('%.2F', $amount) == sprintf('%.2F', $this->getResponse()->getXAmount());
+        return sprintf('%.2F', $amount) == sprintf('%.2F', $this->getResponse()->getXAmount());
     }
 
     /**

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,34 +18,33 @@
  *
  * @category   Mage
  * @package    Mage_Sitemap
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sitemap_Model_Observer
 {
     /**
      * Enable/disable configuration
      */
-    const XML_PATH_GENERATION_ENABLED = 'sitemap/generate/enabled';
+    public const XML_PATH_GENERATION_ENABLED = 'sitemap/generate/enabled';
 
     /**
      * Cronjob expression configuration
      */
-    const XML_PATH_CRON_EXPR = 'crontab/jobs/generate_sitemaps/schedule/cron_expr';
+    public const XML_PATH_CRON_EXPR = 'crontab/jobs/generate_sitemaps/schedule/cron_expr';
 
     /**
      * Error email template configuration
      */
-    const XML_PATH_ERROR_TEMPLATE  = 'sitemap/generate/error_email_template';
+    public const XML_PATH_ERROR_TEMPLATE  = 'sitemap/generate/error_email_template';
 
     /**
      * Error email identity configuration
      */
-    const XML_PATH_ERROR_IDENTITY  = 'sitemap/generate/error_email_identity';
+    public const XML_PATH_ERROR_IDENTITY  = 'sitemap/generate/error_email_identity';
 
     /**
      * 'Send error emails to' configuration
      */
-    const XML_PATH_ERROR_RECIPIENT = 'sitemap/generate/error_email';
+    public const XML_PATH_ERROR_RECIPIENT = 'sitemap/generate/error_email';
 
     /**
      * Generate sitemaps

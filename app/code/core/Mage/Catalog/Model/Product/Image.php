@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setImageOpacity(int $value)
  */
@@ -41,6 +34,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      * @var int
      */
     protected $_height;
+
     protected $_quality = 90;
 
     /**
@@ -116,7 +110,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getWidth()
     {
@@ -134,7 +128,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getHeight()
     {
@@ -237,7 +231,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated
-     * @param null $file
+     * @param string|null $file
      * @return bool
      */
     protected function _checkMemory($file = null)
@@ -257,14 +251,16 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $memoryLimit = "128M";
         }
 
+        $value = (int)substr($memoryLimit, 0, -1);
+
         if (substr($memoryLimit, -1) == 'K') {
-            return substr($memoryLimit, 0, -1) * 1024;
+            return $value * 1024;
         }
         if (substr($memoryLimit, -1) == 'M') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+            return $value * 1024 * 1024;
         }
         if (substr($memoryLimit, -1) == 'G') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
+            return $value * 1024 * 1024 * 1024;
         }
         return $memoryLimit;
     }
@@ -299,7 +295,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $imageInfo = getimagesize($file);
 
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+        if ($imageInfo === false) {
             return 0;
         }
         if (!isset($imageInfo['channels'])) {
@@ -403,8 +399,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // add misc params as a hash
         $miscParams = [
-                ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
-                ($this->_keepFrame        ? '' : 'no')  . 'frame',
+                ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
+                ($this->_keepFrame ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
                 ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
                 $this->_backgroundColorStr,
@@ -461,7 +457,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getImageProcessor()
     {
         if (!$this->_processor) {
-            $this->_processor = new Varien_Image($this->getBaseFile());
+            $this->_processor = Mage::getModel('varien/image', $this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
         $this->_processor->keepFrame($this->_keepFrame);
@@ -491,7 +487,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function rotate($angle)
     {
-        $angle = intval($angle);
+        $angle = (int) $angle;
         $this->getImageProcessor()->rotate($angle);
         return $this;
     }
@@ -777,7 +773,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     public function clearCache()
     {
-        $directory = Mage::getBaseDir('media') . DS.'catalog'.DS.'product'.DS.'cache'.DS;
+        $directory = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . DS . 'cache' . DS;
         $io = new Varien_Io_File();
         $io->rmdir($directory, true);
 

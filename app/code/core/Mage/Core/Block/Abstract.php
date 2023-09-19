@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +21,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
@@ -48,16 +41,16 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Prefix for cache key
      */
-    const CACHE_KEY_PREFIX = 'BLOCK_';
+    public const CACHE_KEY_PREFIX = 'BLOCK_';
     /**
      * Cache group Tag
      */
-    const CACHE_GROUP = 'block_html';
+    public const CACHE_GROUP = 'block_html';
 
     /**
      * Cache tags data key
      */
-    const CACHE_TAGS_DATA_KEY = 'cache_tags';
+    public const CACHE_TAGS_DATA_KEY = 'cache_tags';
 
     /**
      * Block name in layout
@@ -132,7 +125,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Messages block instance
      *
-     * @var Mage_Core_Block_Messages
+     * @var Mage_Core_Block_Messages|null
      */
     protected $_messagesBlock = null;
 
@@ -184,14 +177,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Factory instance
      *
-     * @var Mage_Core_Model_Factory
+     * @var Mage_Core_Model_Factory|null
      */
     protected $_factory;
 
     /**
      * Application instance
      *
-     * @var Mage_Core_Model_App
+     * @var Mage_Core_Model_App|null
      */
     protected $_app;
 
@@ -852,6 +845,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $alias = $block->getBlockAlias();
             if (in_array($alias, $this->_childGroups[$groupName])) {
                 if ($callback) {
+                    Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($this, $callback, [$alias]);
                     $row = $this->$callback($alias);
                     if (!$skipEmptyResults || $row) {
                         $result[$alias] = $row;
@@ -949,7 +943,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
          * Use single transport object instance for all blocks
          */
         if (self::$_transportObject === null) {
-            self::$_transportObject = new Varien_Object;
+            self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setHtml($html);
         Mage::dispatchEvent(

@@ -2,27 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 {
@@ -30,7 +23,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'system/api/users';
+    public const ADMIN_RESOURCE = 'system/api/users';
 
     /**
      * Controller pre-dispatch method
@@ -81,7 +74,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -160,17 +153,17 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
             try {
                 $model->save();
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
                             ->saveRelations();
-                    } else if (count($uRoles) > 1) {
+                    } elseif (count($uRoles) > 1) {
                         //@FIXME: stupid fix of previous multi-roles logic.
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = [];
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
@@ -211,8 +204,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;

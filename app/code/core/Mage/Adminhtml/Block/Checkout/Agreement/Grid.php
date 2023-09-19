@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
  */
@@ -58,10 +51,11 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('agreement_id',
+        $this->addColumn(
+            'agreement_id',
             [
-                'header'=>Mage::helper('checkout')->__('ID'),
-                'align' =>'right',
+                'header' => Mage::helper('checkout')->__('ID'),
+                'align' => 'right',
                 'width' => '50px',
                 'index' => 'agreement_id'
             ]
@@ -69,15 +63,16 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
 
         $this->addColumn('position', [
             'header'    => Mage::helper('adminhtml')->__('Position'),
-            'align'     =>'right',
+            'align'     => 'right',
             'width'     => '50px',
             'index'     => 'position',
             'type'      => 'text',
         ]);
 
-        $this->addColumn('name',
+        $this->addColumn(
+            'name',
             [
-                'header'=>Mage::helper('checkout')->__('Condition Name'),
+                'header' => Mage::helper('checkout')->__('Condition Name'),
                 'index' => 'name'
             ]
         );

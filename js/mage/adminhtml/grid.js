@@ -1,20 +1,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienGrid = new Class.create();
@@ -62,6 +56,7 @@ varienGrid.prototype = {
 
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);
                 Event.observe(this.rows[row],'mouseout',this.trOnMouseOut);
+                Event.observe(this.rows[row],'mousedown',this.trOnClick);
                 Event.observe(this.rows[row],'click',this.trOnClick);
                 Event.observe(this.rows[row],'dblclick',this.trOnDblClick);
             }
@@ -125,6 +120,12 @@ varienGrid.prototype = {
         Element.removeClassName(element, 'on-mouse');
     },
     rowMouseClick : function(event){
+        if (event.button != 1 && event.type == "mousedown") {
+            return; // Ignore mousedown for any button except middle
+        }
+        if (event.button == 2) {
+            return; // Ignore right click
+        }
         if(this.rowClickCallback){
             try{
                 this.rowClickCallback(this, event);
@@ -183,27 +184,10 @@ varienGrid.prototype = {
                                 setLocation(response.ajaxRedirect);
                             }
                         } else {
-                            /**
-                             * For IE <= 7.
-                             * If there are two elements, and first has name, that equals id of second.
-                             * In this case, IE will choose one that is above
-                             *
-                             * @see https://prototype.lighthouseapp.com/projects/8886/tickets/994-id-selector-finds-elements-by-name-attribute-in-ie7
-                             */
-                            var divId = $(this.containerId);
-                            if (divId.id == this.containerId) {
-                                divId.update(responseText);
-                            } else {
-                                $$('div[id="'+this.containerId+'"]')[0].update(responseText);
-                            }
+                            $(this.containerId).update(responseText);
                         }
                     } catch (e) {
-                        var divId = $(this.containerId);
-                        if (divId.id == this.containerId) {
-                            divId.update(responseText);
-                        } else {
-                            $$('div[id="'+this.containerId+'"]')[0].update(responseText);
-                        }
+                        $(this.containerId).update(responseText);
                     }
                 }.bind(this)
             });
@@ -327,14 +311,23 @@ varienGrid.prototype = {
     }
 };
 
-function openGridRow(grid, event){
-    var element = Event.findElement(event, 'tr');
-    if(['a', 'input', 'select', 'option'].indexOf(Event.element(event).tagName.toLowerCase())!=-1) {
+function shouldOpenGridRowNewTab(evt){
+    return evt.ctrlKey // Windows ctrl + click
+        || evt.metaKey // macOS command + click
+        || evt.button == 1 // Middle mouse click
+}
+
+function openGridRow(grid, evt){
+    var trElement = Event.findElement(evt, 'tr');
+    if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
     }
-
-    if(element.title){
-        setLocation(element.title);
+    if(trElement.title){
+        if (shouldOpenGridRowNewTab(evt)) {
+            window.open(trElement.title, '_blank');
+        } else {
+            setLocation(trElement.title);
+        }
     }
 }
 
@@ -462,7 +455,11 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                setLocation(trElement.title);
+                if (shouldOpenGridRowNewTab(evt)) {
+                    window.open(trElement.title, '_blank');
+                } else {
+                    setLocation(trElement.title);
+                }
             }
             else{
                 var checkbox = Element.select(trElement, 'input');

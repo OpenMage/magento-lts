@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query getResource()
@@ -61,11 +54,11 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'catalogsearch_query';
 
-    const CACHE_TAG                     = 'SEARCH_QUERY';
-    const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
-    const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
-    const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
-    const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
+    public const CACHE_TAG                     = 'SEARCH_QUERY';
+    public const XML_PATH_MIN_QUERY_LENGTH     = 'catalog/search/min_query_length';
+    public const XML_PATH_MAX_QUERY_LENGTH     = 'catalog/search/max_query_length';
+    public const XML_PATH_MAX_QUERY_WORDS      = 'catalog/search/max_query_words';
+    public const XML_PATH_AJAX_SUGGESTION_COUNT = 'catalog/search/show_autocomplete_results_count';
 
     /**
      * Init resource model

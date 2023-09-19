@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -19,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Setup  $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -121,7 +115,7 @@ $installer->addAttribute($entityTypeId, 'available_sort_by', [
     'required'      => 1,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_available',
+    'input_renderer' => 'adminhtml/catalog_category_helper_sortby_available',
 ]);
 $installer->addAttribute($entityTypeId, 'default_sort_by', [
     'input'         => 'select',
@@ -131,7 +125,7 @@ $installer->addAttribute($entityTypeId, 'default_sort_by', [
     'required'      => 1,
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
-    'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_default',
+    'input_renderer' => 'adminhtml/catalog_category_helper_sortby_default',
 ]);
 
 // update attributes group and sort

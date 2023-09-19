@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,19 +18,18 @@
  *
  * @category   Mage
  * @package    Mage_CatalogRule
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
     /**
      * Store number of seconds in a day
      */
-    const SECONDS_IN_DAY = 86400;
+    public const SECONDS_IN_DAY = 86400;
 
     /**
      * Number of products in range for insert
      */
-    const RANGE_PRODUCT_STEP = 1000000;
+    public const RANGE_PRODUCT_STEP = 1000000;
 
     /**
      * Store associated with rule entities information map
@@ -392,7 +385,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $write = $this->_getWriteAdapter();
         $conds = [];
         $cond = $write->quoteInto('rule_date between ?', $this->formatDate($fromDate));
-        $cond = $write->quoteInto($cond.' and ?', $this->formatDate($toDate));
+        $cond = $write->quoteInto($cond . ' and ?', $this->formatDate($toDate));
         $conds[] = $cond;
         if (!is_null($productId)) {
             $conds[] = $write->quoteInto('product_id=?', $productId);
@@ -476,15 +469,15 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
          */
         $priceAttr  = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
         $priceTable = $priceAttr->getBackend()->getTable();
-        $attributeId= $priceAttr->getId();
+        $attributeId = $priceAttr->getId();
 
         $joinCondition = '%1$s.entity_id=rp.product_id AND (%1$s.attribute_id=' . $attributeId
             . ') and %1$s.store_id=%2$s';
 
         $select->join(
-            ['pp_default'=>$priceTable],
+            ['pp_default' => $priceTable],
             sprintf($joinCondition, 'pp_default', Mage_Core_Model_App::ADMIN_STORE_ID),
-            ['default_price'=>'pp_default.value']
+            ['default_price' => 'pp_default.value']
         );
 
         if ($websiteId !== null) {
@@ -500,16 +493,16 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 ['product_website' => $this->getTable('catalog/product_website')],
                 'product_website.product_id=rp.product_id ' .
                 'AND rp.website_id=product_website.website_id ' .
-                'AND product_website.website_id='.$websiteId,
+                'AND product_website.website_id=' . $websiteId,
                 []
             );
 
-            $tableAlias = 'pp'.$websiteId;
-            $fieldAlias = 'website_'.$websiteId.'_price';
+            $tableAlias = 'pp' . $websiteId;
+            $fieldAlias = 'website_' . $websiteId . '_price';
             $select->joinLeft(
-                [$tableAlias=>$priceTable],
+                [$tableAlias => $priceTable],
                 sprintf($joinCondition, $tableAlias, $storeId),
-                [$fieldAlias=>$tableAlias.'.value']
+                [$fieldAlias => $tableAlias . '.value']
             );
         } else {
             foreach (Mage::app()->getWebsites() as $website) {
@@ -526,7 +519,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 $select->joinLeft(
                     [$tableAlias => $priceTable],
                     sprintf($joinCondition, $tableAlias, $storeId),
-                    [$fieldAlias => $tableAlias.'.value']
+                    [$fieldAlias => $tableAlias . '.value']
                 );
             }
         }

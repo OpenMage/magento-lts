@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Adminhtml_Block_Page_Menu setAdditionalCacheKeyInfo(array $cacheKeyInfo)
+ * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  * @method array getAdditionalCacheKeyInfo()
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
-    const CACHE_TAGS = 'BACKEND_MAINMENU';
+    public const CACHE_TAGS = 'BACKEND_MAINMENU';
 
     /**
      * Adminhtml URL instance
@@ -121,7 +114,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      * @param int $level
      * @return array
      */
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
+    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path = '', $level = 0)
     {
         $parentArr = [];
         $sortOrder = 0;
@@ -152,8 +145,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 $menuArr['click'] = 'return false';
             }
 
-            $menuArr['active'] = ($this->getActive()==$path.$childName)
-                || (strpos($this->getActive(), $path.$childName.'/')===0);
+            $menuArr['active'] = ($this->getActive() == $path . $childName)
+                || (strpos((string)$this->getActive(), $path . $childName . '/') === 0);
 
             $menuArr['level'] = $level;
 
@@ -162,7 +155,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             if ($child->children) {
-                $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
+                $menuArr['children'] = $this->_buildMenuArray($child->children, $path . $childName . '/', $level + 1);
             }
             $parentArr[$childName] = $menuArr;
 
@@ -171,7 +164,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach($parentArr as $key => $value) {
+        foreach ($parentArr as $key => $value) {
             $last = $key;
         }
         if (isset($last)) {
@@ -190,7 +183,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
     }
 
     /**
@@ -245,7 +238,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
+        $html = preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
 
         return $html;
     }
@@ -285,9 +278,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
                 . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
-                . ($level === 0 && !empty($item['active']) ? 'active' : '') . '"><span>'
+                . (!empty($item['active']) ? 'active' : '') . '"><span>'
                 . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;
-
             if (!empty($item['children'])) {
                 $html .= $this->getMenuLevel($item['children'], $level + 1);
             }

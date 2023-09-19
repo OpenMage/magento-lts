@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
@@ -72,8 +65,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
-        $sourceUrl = $this->getUrl('*/catalog_category_widget/chooser',
-            ['uniq_id' => $uniqId, 'use_massaction' => false]);
+        $sourceUrl = $this->getUrl(
+            '*/catalog_category_widget/chooser',
+            ['uniq_id' => $uniqId, 'use_massaction' => false]
+        );
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
@@ -142,9 +137,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
             $chooserJsObject = $this->getId();
             $js = '
                 function (node, e) {
-                    '.$chooserJsObject.'.setElementValue("category/" + node.attributes.id);
-                    '.$chooserJsObject.'.setElementLabel(node.text);
-                    '.$chooserJsObject.'.close();
+                    ' . $chooserJsObject . '.setElementValue("category/" + node.attributes.id);
+                    ' . $chooserJsObject . '.setElementLabel(node.text);
+                    ' . $chooserJsObject . '.close();
                 }
             ';
         }
@@ -156,7 +151,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      *
      * @param Varien_Data_Tree_Node|array $node
      * @param int $level
-     * @return string
+     * @return array
      */
     protected function _getNodeJson($node, $level = 0)
     {
@@ -184,10 +179,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      *
      * @return string
      */
-    public function getLoadTreeUrl($expanded=null)
+    public function getLoadTreeUrl($expanded = null)
     {
         return $this->getUrl('*/catalog_category_widget/categoriesJson', [
-            '_current'=>true,
+            '_current' => true,
             'uniq_id' => $this->getId(),
             'use_massaction' => $this->getUseMassaction(),
         ]);

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Service_Quote
 {
@@ -185,8 +178,8 @@ class Mage_Sales_Model_Service_Quote
         /**
          * We can use configuration data for declare new order status
          */
-        Mage::dispatchEvent('checkout_type_onepage_save_order', ['order'=>$order, 'quote'=>$quote]);
-        Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('checkout_type_onepage_save_order', ['order' => $order, 'quote' => $quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_before', ['order' => $order, 'quote' => $quote]);
         try {
             $transaction->save();
         } catch (Exception $e) {
@@ -203,12 +196,12 @@ class Mage_Sales_Model_Service_Quote
                 $item->setItemId(null);
             }
 
-            Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order'=>$order, 'quote'=>$quote]);
+            Mage::dispatchEvent('sales_model_service_quote_submit_failure', ['order' => $order, 'quote' => $quote]);
             throw $e;
         }
         $this->_inactivateQuote();
-        Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order'=>$order, 'quote'=>$quote]);
-        Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order'=>$order, 'quote'=>$quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_success', ['order' => $order, 'quote' => $quote]);
+        Mage::dispatchEvent('sales_model_service_quote_submit_after', ['order' => $order, 'quote' => $quote]);
         $this->_order = $order;
         return $order;
     }
@@ -297,7 +290,7 @@ class Mage_Sales_Model_Service_Quote
                     Mage::helper('sales')->__('Please check shipping address information. %s', implode(' ', $addressValidation))
                 );
             }
-            $method= $address->getShippingMethod();
+            $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
                 Mage::throwException(Mage::helper('sales')->__('Please specify a shipping method.'));

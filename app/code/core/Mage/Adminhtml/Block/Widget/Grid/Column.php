@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getActions()
  * @method $this setActions(array $value)
@@ -41,7 +34,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_renderer;
     protected $_filter;
     protected $_type;
-    protected $_cssClass=null;
+    protected $_cssClass = null;
 
     public function setGrid($grid)
     {
@@ -87,11 +80,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     {
         if (is_null($this->_cssClass)) {
             if ($this->getAlign()) {
-                $this->_cssClass .= 'a-'.$this->getAlign();
+                $this->_cssClass .= 'a-' . $this->getAlign();
             }
             // Add a custom css class for column
             if ($this->hasData('column_css_class')) {
-                $this->_cssClass .= ' '. $this->getData('column_css_class');
+                $this->_cssClass .= ' ' . $this->getData('column_css_class');
             }
             if ($this->getEditable()) {
                 $this->_cssClass .= ' editable';
@@ -119,7 +112,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     public function getHeaderCssClass()
     {
         $class = $this->getData('header_css_class');
-        if (($this->getSortable()===false) || ($this->getGrid()->getSortable()===false)) {
+        if (($this->getSortable() === false) || ($this->getGrid()->getSortable() === false)) {
             $class .= ' no-link';
         }
         if ($this->isLast()) {
@@ -138,7 +131,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     {
         $str = '';
         if ($class = $this->getHeaderCssClass()) {
-            $str.= ' class="'.$class.'"';
+            $str .= ' class="' . $class . '"';
         }
 
         return $str;
@@ -233,7 +226,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getRendererByType()
     {
-        $type = strtolower($this->getType());
+        $type = strtolower((string)$this->getType());
         $renderers = $this->getGrid()->getColumnRenderers();
 
         if (is_array($renderers) && isset($renderers[$type])) {
@@ -328,7 +321,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getFilterByType()
     {
-        $type = strtolower($this->getType());
+        $type = strtolower((string)$this->getType());
         $filters = $this->getGrid()->getColumnFilters();
         if (is_array($filters) && isset($filters[$type])) {
             return $filters[$type];

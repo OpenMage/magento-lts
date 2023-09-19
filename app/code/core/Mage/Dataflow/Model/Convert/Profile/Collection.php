@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Profile_Collection
 {
@@ -77,7 +70,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Mage_Dataflow_Model_Convert_Profile_Interface $profile=null)
+    public function addProfile($name, Mage_Dataflow_Model_Convert_Profile_Interface $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();
@@ -125,7 +118,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         if (!$this->_xml) {
             return $this;
         }
-        $nodes = $this->_xml->xpath("//profile[@name='".$name."']");
+        $nodes = $this->_xml->xpath("//profile[@name='" . $name . "']");
         if (!$nodes) {
             return $this;
         }
@@ -135,7 +128,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         $profile->setContainers($this->getContainers());
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
-            foreach ($actionNode->attributes() as $key=>$value) {
+            foreach ($actionNode->attributes() as $key => $value) {
                 $action->setParam($key, (string)$value);
             }
 
@@ -160,7 +153,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }
                     $container->setVar((string)$varNode['name'], $mapData);
-                }  else {
+                } else {
                     $value = (string)$varNode;
 
                     /**

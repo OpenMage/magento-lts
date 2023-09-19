@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,18 +18,17 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_SITEMAP_VALID_PATHS = 'general/file/sitemap_generate_valid_paths';
+    public const XML_PATH_SITEMAP_VALID_PATHS = 'general/file/sitemap_generate_valid_paths';
 
     protected $_moduleName = 'Mage_Adminhtml';
 
     /**
      * Attribute Tab block name for product edit
      *
-     * @var string
+     * @var string|null
      */
     protected $_attributeTabBlock = null;
 
@@ -49,7 +42,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Attribute Tab Block Name for Product Edit
      *
-     * @return string
+     * @return string|null
      */
     public function getAttributeTabBlock()
     {

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getCollectRatesFlag()
  * @method $this setCollectRatesFlag(bool $value)
@@ -162,8 +155,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         if ($address) {
             $item = $address->getValidItemById($itemId);
             if ($item) {
-                if ($item->getQty()>1 && !$item->getProduct()->getIsVirtual()) {
-                    $item->setQty($item->getQty()-1);
+                if ($item->getQty() > 1 && !$item->getProduct()->getIsVirtual()) {
+                    $item->setQty($item->getQty() - 1);
                 } else {
                     $address->removeItem($item->getId());
                 }
@@ -178,9 +171,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
 
                 if ($quoteItem = $this->getQuote()->getItemById($item->getQuoteItemId())) {
-                    $newItemQty = $quoteItem->getQty()-1;
+                    $newItemQty = $quoteItem->getQty() - 1;
                     if ($newItemQty > 0 && !$item->getProduct()->getIsVirtual()) {
-                        $quoteItem->setQty($quoteItem->getQty()-1);
+                        $quoteItem->setQty($quoteItem->getQty() - 1);
                     } else {
                         $this->getQuote()->removeItem($quoteItem->getId());
                     }
@@ -271,7 +264,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             }
 
             $this->save();
-            Mage::dispatchEvent('checkout_type_multishipping_set_shipping_items', ['quote'=>$quote]);
+            Mage::dispatchEvent('checkout_type_multishipping_set_shipping_items', ['quote' => $quote]);
         }
         return $this;
     }
@@ -297,7 +290,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             if ($qty === 0) {
                 return $this;
             }
-            $quoteItem->setMultishippingQty((int)$quoteItem->getMultishippingQty()+$qty);
+            $quoteItem->setMultishippingQty((int)$quoteItem->getMultishippingQty() + $qty);
             $quoteItem->setQty($quoteItem->getMultishippingQty());
             $address = $this->getCustomer()->getAddressById($addressId);
             if ($address->getId()) {
@@ -311,7 +304,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
 
                 $quoteAddress = $this->getQuote()->getShippingAddressByCustomerAddressId($address->getId());
                 if ($quoteAddressItem = $quoteAddress->getItemByQuoteItemId($quoteItemId)) {
-                    $quoteAddressItem->setQty((int)($quoteAddressItem->getQty()+$qty));
+                    $quoteAddressItem->setQty((int)($quoteAddressItem->getQty() + $qty));
                 } else {
                     $quoteAddress->addItem($quoteItem, $qty);
                 }
@@ -475,7 +468,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             if ($addressValidation !== true) {
                 Mage::throwException(Mage::helper('checkout')->__('Please check shipping addresses information.'));
             }
-            $method= $address->getShippingMethod();
+            $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$method || !$rate) {
                 Mage::throwException(Mage::helper('checkout')->__('Please specify shipping methods for all addresses.'));
@@ -511,7 +504,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 $orders[] = $order;
                 Mage::dispatchEvent(
                     'checkout_type_multishipping_create_orders_single',
-                    ['order'=>$order, 'address'=>$address]
+                    ['order' => $order, 'address' => $address]
                 );
             }
 

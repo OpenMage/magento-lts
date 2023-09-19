@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
 {
@@ -132,13 +125,13 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     {
         $table  = $this->getTable('tax_rate');
         $select = $this->_conn->select()
-            ->from(['main_table'=>$table]);
+            ->from(['main_table' => $table]);
         foreach ($oldRateTypes as $type) {
             $id = $type['type_id'];
             $select->joinLeft(
-                ["data_{$id}"=>$this->getTable('tax_rate_data')],
+                ["data_{$id}" => $this->getTable('tax_rate_data')],
                 "data_{$id}.rate_type_id = {$id} AND data_{$id}.tax_rate_id = main_table.tax_rate_id",
-                ["data_{$id}"=>'rate_value']
+                ["data_{$id}" => 'rate_value']
             );
         }
         return $this->_conn->fetchAll($select);

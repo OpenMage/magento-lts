@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -32,7 +25,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * Attribute code for media gallery
      *
      */
-    const ATTRIBUTE_CODE = 'media_gallery';
+    public const ATTRIBUTE_CODE = 'media_gallery';
 
     /**
      * Allowed mime types for image
@@ -40,6 +33,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @var array
      */
     protected $_mimeTypes = [
+        'image/webp' => 'webp',
         'image/jpeg' => 'jpg',
         'image/gif'  => 'gif',
         'image/png'  => 'png'
@@ -55,7 +49,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return array
      */
     public function items($productId, $store = null, $identifierType = null)
@@ -85,7 +79,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param string $file
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return array
      * @throws Mage_Api_Exception
      */
@@ -108,9 +102,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param int|string $productId
      * @param array $data
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return string
      * @throws Mage_Api_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function create($productId, $data, $store = null, $identifierType = null)
     {
@@ -148,7 +144,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         try {
             // Create temporary directory for api
             $ioAdapter->checkAndCreateFolder($tmpDirectory);
-            $ioAdapter->open(['path'=>$tmpDirectory]);
+            $ioAdapter->open(['path' => $tmpDirectory]);
             // Write image file
             $ioAdapter->write($fileName, $fileContent, 0666);
             unset($fileContent);
@@ -156,7 +152,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             // try to create Image object - it fails with Exception if image is not supported
             try {
                 $filePath = $tmpDirectory . DS . $fileName;
-                new Varien_Image($filePath);
+                Mage::getModel('varien/image', $filePath);
                 Mage::getModel('core/file_validator_image')->validate($filePath);
             } catch (Exception $e) {
                 // Remove temporary directory
@@ -199,9 +195,11 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      * @param string $file
      * @param array $data
      * @param string|int $store
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function update($productId, $file, $data, $store = null, $identifierType = null)
     {
@@ -229,8 +227,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             $ioAdapter = new Varien_Io_File();
             try {
-                $fileName = Mage::getBaseDir('media'). DS . 'catalog' . DS . 'product' . $file;
-                $ioAdapter->open(['path'=>dirname($fileName)]);
+                $fileName = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . $file;
+                $ioAdapter->open(['path' => dirname($fileName)]);
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
             } catch (Exception $e) {
                 $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
@@ -243,7 +241,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $oldTypes = [];
             foreach ($product->getMediaAttributes() as $attribute) {
                 if ($product->getData($attribute->getAttributeCode()) == $file) {
-                     $oldTypes[] = $attribute->getAttributeCode();
+                    $oldTypes[] = $attribute->getAttributeCode();
                 }
             }
 
@@ -270,7 +268,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      *
      * @param int|string $productId
      * @param string $file
-     * @param null $identifierType
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -312,7 +310,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($setId)
-                && $attribute->getFrontendInput() == 'media_image') {
+                && $attribute->getFrontendInput() == 'media_image'
+            ) {
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {

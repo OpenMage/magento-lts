@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -29,12 +23,12 @@ $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_dis
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_discount_canceled', 'decimal(12,4) default NULL AFTER `base_discount_refunded`');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_discount_invoiced', 'decimal(12,4) default NULL AFTER `base_discount_canceled`');
 
-$installer->addAttribute('order', 'discount_refunded', ['type'=>'static']);
-$installer->addAttribute('order', 'discount_canceled', ['type'=>'static']);
-$installer->addAttribute('order', 'discount_invoiced', ['type'=>'static']);
-$installer->addAttribute('order', 'base_discount_refunded', ['type'=>'static']);
-$installer->addAttribute('order', 'base_discount_canceled', ['type'=>'static']);
-$installer->addAttribute('order', 'base_discount_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'discount_refunded', ['type' => 'static']);
+$installer->addAttribute('order', 'discount_canceled', ['type' => 'static']);
+$installer->addAttribute('order', 'discount_invoiced', ['type' => 'static']);
+$installer->addAttribute('order', 'base_discount_refunded', ['type' => 'static']);
+$installer->addAttribute('order', 'base_discount_canceled', ['type' => 'static']);
+$installer->addAttribute('order', 'base_discount_invoiced', ['type' => 'static']);
 
 $sql = "
     SELECT `e_int`.`value` AS `order_id`,
@@ -88,7 +82,7 @@ $select->join(
 );
 
 $installer->getConnection()->query(
-    $select->crossUpdateFromSelect(['main_table'=>$ordersTable])
+    $select->crossUpdateFromSelect(['main_table' => $ordersTable])
 );
 
 $installer->getConnection()->query(
@@ -127,7 +121,7 @@ $select->join(
 );
 
 $installer->getConnection()->query(
-    $select->crossUpdateFromSelect(['main_table'=>$ordersTable])
+    $select->crossUpdateFromSelect(['main_table' => $ordersTable])
 );
 
 $installer->getConnection()->query(
@@ -137,7 +131,7 @@ $installer->getConnection()->query(
 // Update discount_canceled (base_discount_canceled)
 $statusAttributeId = $installer->getAttributeId($ordersEntity['entity_type_id'], 'status');
 // hardcoding `sales_order_varchar` due to change in config.xml for 'sales/order'  from `sales_order` to `sales_flat_order`
-$statusAttributeTable = $installer->getTable($ordersTable.'_varchar');
+$statusAttributeTable = $installer->getTable($ordersTable . '_varchar');
 
 $select = $installer->getConnection()->select();
 $select->from(

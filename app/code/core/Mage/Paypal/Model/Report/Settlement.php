@@ -2,24 +2,18 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/*
+/**
  * Paypal Settlement Report model
  *
  * Perform fetching reports from remote servers with following saving them to database
@@ -27,18 +21,17 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
  * @method string getReportDate()
- * @method Mage_Paypal_Model_Report_Settlement setReportDate(string $value)
+ * @method $this setReportDate(string $value)
  * @method string getAccountId()
- * @method Mage_Paypal_Model_Report_Settlement setAccountId(string $value)
+ * @method $this setAccountId(string $value)
  * @method string getFilename()
- * @method Mage_Paypal_Model_Report_Settlement setFilename(string $value)
+ * @method $this setFilename(string $value)
  * @method string getLastModified()
- * @method Mage_Paypal_Model_Report_Settlement setLastModified(string $value)
+ * @method $this setLastModified(string $value)
  */
 class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 {
@@ -46,31 +39,31 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Default PayPal SFTP host
      * @var string
      */
-    const REPORTS_HOSTNAME = "reports.paypal.com";
+    public const REPORTS_HOSTNAME = "reports.paypal.com";
 
     /**
      * Default PayPal SFTP host for sandbox mode
      * @var string
      */
-    const SANDBOX_REPORTS_HOSTNAME = "reports.sandbox.paypal.com";
+    public const SANDBOX_REPORTS_HOSTNAME = "reports.sandbox.paypal.com";
 
     /**
      * PayPal SFTP path
      * @var string
      */
-    const REPORTS_PATH = "/ppreports/outgoing";
+    public const REPORTS_PATH = "/ppreports/outgoing";
 
     /**
      * Original charset of old report files
      * @var string
      */
-    const FILES_IN_CHARSET = "UTF-16";
+    public const FILES_IN_CHARSET = "UTF-16";
 
     /**
      * Target charset of report files to be parsed
      * @var string
      */
-    const FILES_OUT_CHARSET = "UTF-8";
+    public const FILES_OUT_CHARSET = "UTF-8";
 
     /**
      * Reports rows storage
@@ -187,6 +180,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      *
      * @param array $config SFTP credentials
      * @return int Number of report rows that were fetched and saved successfully
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function fetchAndSave($config)
     {
@@ -212,7 +207,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $fileEncoding = mb_detect_encoding($encoded);
 
                 if (self::FILES_OUT_CHARSET != $fileEncoding) {
-                    $decoded = @iconv($fileEncoding, self::FILES_OUT_CHARSET.'//IGNORE', $encoded);
+                    $decoded = @iconv($fileEncoding, self::FILES_OUT_CHARSET . '//IGNORE', $encoded);
                     file_put_contents($localCsv, $decoded);
                     $csvFormat = 'old';
                 }
@@ -258,12 +253,12 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
-        while($line = fgetcsv($fp)) {
+        while ($line = fgetcsv($fp)) {
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
             }
             $lineType = $line[0];
-            switch($lineType) {
+            switch ($lineType) {
                 case 'RH': // Report header.
                     $lastModified = new Zend_Date($line[1]);
                     $this->setReportLastModified($lastModified->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
@@ -286,7 +281,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     break;
                 case 'SB': // Section body.
                     $bodyItem = [];
-                    for($i = 1; $i < count($line); $i++) {
+                    for ($i = 1; $i < count($line); $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
                     $this->_rows[] = $bodyItem;
@@ -379,7 +374,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     {
         $configs = [];
         $uniques = [];
-        foreach(Mage::app()->getStores() as $store) {
+        foreach (Mage::app()->getStores() as $store) {
             /*@var $store Mage_Core_Model_Store */
             $active = (bool)$store->getConfig('paypal/fetch_reports/active');
             if (!$active && $automaticMode) {
@@ -421,7 +416,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     {
         // Currently filenames look like STL-YYYYMMDD, so that is what we care about.
         $dateSnippet = substr(basename($filename), 4, 8);
-        return substr($dateSnippet, 0, 4).'-'.substr($dateSnippet, 4, 2).'-'.substr($dateSnippet, 6, 2);
+        return substr($dateSnippet, 0, 4) . '-' . substr($dateSnippet, 4, 2) . '-' . substr($dateSnippet, 6, 2);
     }
 
     /**

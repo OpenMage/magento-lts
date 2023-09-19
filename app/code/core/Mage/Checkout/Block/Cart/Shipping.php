@@ -2,27 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstract
 {
@@ -80,7 +73,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;
@@ -153,8 +146,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCityActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return Mage::getStoreConfigFlag('carriers/dhl/active')
+            || Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
@@ -164,9 +157,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getStateActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/tablerate/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return Mage::getStoreConfigFlag('carriers/dhl/active')
+            || Mage::getStoreConfigFlag('carriers/tablerate/active')
+            || Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**

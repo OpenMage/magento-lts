@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -55,29 +48,29 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('customer')->__('ID'),
-            'width'     =>5,
-            'align'     =>'center',
-            'sortable'  =>true,
-            'index'     =>'entity_id'
+            'width'     => 5,
+            'align'     => 'center',
+            'sortable'  => true,
+            'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('customer')->__('Name'),
-            'index'     =>'name'
+            'index'     => 'name'
         ]);
         $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
-            'width'     =>40,
-            'align'     =>'center',
-            'index'     =>'email'
+            'width'     => 40,
+            'align'     => 'center',
+            'index'     => 'email'
         ]);
         $this->addColumn('telephone', [
             'header'    => Mage::helper('customer')->__('Telephone'),
-            'align'     =>'center',
-            'index'     =>'billing_telephone'
+            'align'     => 'center',
+            'index'     => 'billing_telephone'
         ]);
         $this->addColumn('billing_postcode', [
             'header'    => Mage::helper('customer')->__('ZIP/Post Code'),
-            'index'     =>'billing_postcode',
+            'index'     => 'billing_postcode',
         ]);
         $this->addColumn('billing_country_id', [
             'header'    => Mage::helper('customer')->__('Country'),
@@ -88,15 +81,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('customer')->__('Customer Since'),
             'type'      => 'date',
             'format'    => 'Y.m.d',
-            'index'     =>'created_at',
+            'index'     => 'created_at',
         ]);
         $this->addColumn('action', [
             'header'    => Mage::helper('customer')->__('Action'),
-            'align'     =>'center',
-            'format'    =>'<a href="'.$this->getUrl('*/sales/edit/id/$entity_id').'">'.Mage::helper('customer')->__('Edit').'</a>',
-            'filter'    =>false,
-            'sortable'  =>false,
-            'is_system' =>true
+            'align'     => 'center',
+            'format'    => '<a href="' . $this->getUrl('*/sales/edit/id/$entity_id') . '">' . Mage::helper('customer')->__('Edit') . '</a>',
+            'filter'    => false,
+            'sortable'  => false,
+            'is_system' => true
         ]);
 
         $this->setColumnFilter('entity_id')
@@ -110,7 +103,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/index', ['_current'=>true]);
+        return $this->getUrl('*/*/index', ['_current' => true]);
     }
-
 }

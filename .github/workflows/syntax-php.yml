@@ -1,32 +1,26 @@
-name: "PHP Syntax Check"
+name: PHP Syntax
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.php'
-      - '**.phtml'
-  pull_request:
-    paths:
-      - '**.php'
-      - '**.phtml'
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  php_syntax:
+  syntax_php:
     runs-on: [ubuntu-latest]
 
     strategy:
       matrix:
-        php: ['7.3', '8.1', '8.2']
+        php: ['7.4', '8.1', '8.2']
 
     name: PHP Syntax ${{ matrix.php }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

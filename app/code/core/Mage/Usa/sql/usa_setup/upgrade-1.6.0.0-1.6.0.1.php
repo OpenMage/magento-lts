@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Usa
@@ -67,8 +61,9 @@ $conn = $installer->getConnection();
 
 $select = $conn->select()
         ->from($configDataTable)
-        ->where('path IN (?)',
-                [
+        ->where(
+            'path IN (?)',
+            [
                     'carriers/fedex/packaging',
                     'carriers/fedex/dropoff',
                     'carriers/fedex/free_method',
@@ -79,11 +74,11 @@ $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
     if (stripos($mapOld['path'], 'packaging') && isset($codes['packaging'][$mapOld['value']])) {
         $mapNew = $codes['packaging'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
+    } elseif (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
         $mapNew = $codes['dropoff'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
+    } elseif (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
-    } else if (stripos($mapOld['path'], 'allowed_methods')) {
+    } elseif (stripos($mapOld['path'], 'allowed_methods')) {
         $mapNew = [];
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
@@ -99,9 +94,10 @@ foreach ($mapsOld as $mapOld) {
 
     if (!empty($mapNew) && $mapNew != $mapOld['value']) {
         $whereConfigId = $conn->quoteInto('config_id = ?', $mapOld['config_id']);
-        $conn->update($configDataTable,
-                      ['value' => $mapNew],
-                      $whereConfigId
+        $conn->update(
+            $configDataTable,
+            ['value' => $mapNew],
+            $whereConfigId
         );
     }
 }

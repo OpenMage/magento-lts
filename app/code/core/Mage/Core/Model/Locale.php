@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,37 +18,36 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Locale
 {
     /**
      * Default locale name
      */
-    const DEFAULT_LOCALE    = 'en_US';
-    const DEFAULT_TIMEZONE  = 'UTC';
-    const DEFAULT_CURRENCY  = 'USD';
+    public const DEFAULT_LOCALE    = 'en_US';
+    public const DEFAULT_TIMEZONE  = 'UTC';
+    public const DEFAULT_CURRENCY  = 'USD';
 
     /**
      * XML path constants
      */
-    const XML_PATH_DEFAULT_LOCALE   = 'general/locale/code';
-    const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
+    public const XML_PATH_DEFAULT_LOCALE   = 'general/locale/code';
+    public const XML_PATH_DEFAULT_TIMEZONE = 'general/locale/timezone';
     /**
      * @deprecated since 1.4.1.0
      */
-    const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
-    const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';
-    const XML_PATH_ALLOW_CURRENCIES = 'global/locale/allow/currencies';
-    const XML_PATH_ALLOW_CURRENCIES_INSTALLED = 'system/currency/installed';
+    public const XML_PATH_DEFAULT_COUNTRY  = 'general/country/default';
+    public const XML_PATH_ALLOW_CODES      = 'global/locale/allow/codes';
+    public const XML_PATH_ALLOW_CURRENCIES = 'global/locale/allow/currencies';
+    public const XML_PATH_ALLOW_CURRENCIES_INSTALLED = 'system/currency/installed';
 
     /**
      * Date and time format codes
      */
-    const FORMAT_TYPE_FULL  = 'full';
-    const FORMAT_TYPE_LONG  = 'long';
-    const FORMAT_TYPE_MEDIUM= 'medium';
-    const FORMAT_TYPE_SHORT = 'short';
+    public const FORMAT_TYPE_FULL  = 'full';
+    public const FORMAT_TYPE_LONG  = 'long';
+    public const FORMAT_TYPE_MEDIUM = 'medium';
+    public const FORMAT_TYPE_SHORT = 'short';
 
     /**
      * Default locale code
@@ -66,7 +59,7 @@ class Mage_Core_Model_Locale
     /**
      * Locale object
      *
-     * @var Zend_Locale
+     * @var Zend_Locale|null
      */
     protected $_locale;
 
@@ -137,7 +130,7 @@ class Mage_Core_Model_Locale
         } else {
             $this->_localeCode = $this->getDefaultLocale();
         }
-        Mage::dispatchEvent('core_locale_set_locale', ['locale'=>$this]);
+        Mage::dispatchEvent('core_locale_set_locale', ['locale' => $this]);
         return $this;
     }
 
@@ -286,7 +279,7 @@ class Mage_Core_Model_Locale
      */
     public function getOptionTimezones()
     {
-        $options= [];
+        $options = [];
         $zones  = $this->getTranslationList('windowstotimezone');
         ksort($zones);
         foreach ($zones as $code => $name) {
@@ -319,9 +312,9 @@ class Mage_Core_Model_Locale
      */
     public function getOptionWeekdays($preserveCodes = false, $ucFirstCode = false)
     {
-        $options= [];
+        $options = [];
         $days = $this->getTranslationList('days');
-        $days = $preserveCodes ? $days['format']['wide']  : array_values($days['format']['wide']);
+        $days = $preserveCodes ? $days['format']['wide'] : array_values($days['format']['wide']);
         foreach ($days as $code => $name) {
             $options[] = [
                'label' => $name,
@@ -576,7 +569,7 @@ class Mage_Core_Model_Locale
     {
         $dateObj = $this->storeDate($store, $date, $includeTime);
         $dateObj->set($date, $format);
-        $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+        $dateObj->setTimezone(self::DEFAULT_TIMEZONE);
         return $dateObj;
     }
 
@@ -586,6 +579,8 @@ class Mage_Core_Model_Locale
      *
      * @param   mixed $store
      * @return  int
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function storeTimeStamp($store = null)
     {
@@ -662,7 +657,7 @@ class Mage_Core_Model_Locale
         }
 
         if (!is_string($value)) {
-            return floatval($value);
+            return (float) $value;
         }
 
         //trim spaces and apostrophes
@@ -682,7 +677,7 @@ class Mage_Core_Model_Locale
             $value = str_replace(',', '.', $value);
         }
 
-        return floatval($value);
+        return (float) $value;
     }
 
     /**
@@ -704,7 +699,7 @@ class Mage_Core_Model_Locale
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
         if ($decimalPoint !== false) {
-            $totalPrecision = (strlen($format) - (strrpos($format, '.')+1));
+            $totalPrecision = (strlen($format) - (strrpos($format, '.') + 1));
         } else {
             $decimalPoint = strlen($format);
         }
@@ -826,7 +821,7 @@ class Mage_Core_Model_Locale
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param int|string|Mage_Core_Model_Store|null $store
      * @param string|null $dateFrom
      * @param string|null $dateTo
      * @return bool
@@ -838,16 +833,16 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime($dateFrom);
-        $toTimeStamp    = strtotime($dateTo);
+        $fromTimeStamp  = strtotime((string)$dateFrom);
+        $toTimeStamp    = strtotime((string)$dateTo);
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;
         }
 
         $result = false;
-        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }

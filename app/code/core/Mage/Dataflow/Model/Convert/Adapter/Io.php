@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
-    const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
+    public const XML_PATH_EXPORT_LOCAL_VALID_PATH = 'general/file/importexport_local_valid_paths';
 
     /**
      * @return Varien_Io_Abstract|false
@@ -54,12 +47,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     if (!$validator->isValid($path)) {
                         foreach ($validator->getMessages() as $message) {
                             Mage::throwException($message);
-                            return false;
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#').'#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))) {
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
+                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
                         $baseDir = Mage::getBaseDir();

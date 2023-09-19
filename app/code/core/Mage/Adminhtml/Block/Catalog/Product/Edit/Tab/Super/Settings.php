@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -33,8 +26,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     protected function _prepareLayout()
     {
-        $onclick = "setSuperSettings('".$this->getContinueUrl()."','attribute-checkbox', 'attributes')";
-        $this->setChild('continue_button',
+        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
+        $this->setChild(
+            'continue_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Continue'),
@@ -46,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => "setLocation('".$this->getBackUrl()."')",
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
                 'class'     => 'back'
             ]);
 
@@ -73,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
     {
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('settings', [
-            'legend'=>Mage::helper('catalog')->__('Select Configurable Attributes ')
+            'legend' => Mage::helper('catalog')->__('Select Configurable Attributes ')
         ]);
 
         $product    = $this->_getProduct();
@@ -94,7 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         foreach ($attributes as $attribute) {
             if ($productType->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
-                $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', [
+                $fieldset->addField('attribute_' . $attribute->getAttributeId(), 'checkbox', [
                     'label' => $attribute->getFrontend()->getLabel(),
                     'title' => $attribute->getFrontend()->getLabel(),
                     'name'  => 'attribute',
@@ -114,8 +108,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
             $fieldset->addField('continue_button', 'note', [
                 'text' => $this->getChildHtml('continue_button'),
             ]);
-        }
-        else {
+        } else {
             $fieldset->addField('note_text', 'note', [
                 'text' => $this->__('This attribute set does not have attributes which we can use for configurable product')
             ]);
@@ -149,6 +142,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     public function getBackUrl()
     {
-        return $this->getUrl('*/*/new', ['set'=>null, 'type'=>null]);
+        return $this->getUrl('*/*/new', ['set' => null, 'type' => null]);
     }
 }

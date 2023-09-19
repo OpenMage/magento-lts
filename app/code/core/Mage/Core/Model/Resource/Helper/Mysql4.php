@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Helper_Abstract
 {
@@ -136,7 +129,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     protected function _truncateAliasName($field, $reverse = false)
     {
         $string = $field;
-        if (!is_numeric($field) && (strpos($field, '.') !== false)) {
+        if (!is_numeric($field) && (str_contains($field, '.'))) {
             $size  = strpos($field, '.');
             if ($reverse) {
                 $string = substr($field, 0, $size);
@@ -198,7 +191,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 /**
                  * Looking for column expression in the having clause
                  */
-                if (strpos($having, $correlationName) !== false) {
+                if (str_contains($having, $correlationName)) {
                     if (is_string($column)) {
                         /**
                          * Replace column expression to column alias in having clause
@@ -229,8 +222,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     protected function _assembleLimit($query, $limitCount, $limitOffset, $columnList = [])
     {
         if ($limitCount !== null) {
-            $limitCount = intval($limitCount);
-            $limitOffset = intval($limitOffset);
+            $limitCount = (int) $limitCount;
+            $limitOffset = (int) $limitOffset;
 
             if ($limitOffset + $limitCount != $limitOffset + 1) {
                 $columns = [];

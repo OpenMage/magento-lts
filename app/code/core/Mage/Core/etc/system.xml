@@ -3,21 +3,15 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php s+Academic Free License (AFL 3.0)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -56,6 +50,33 @@
                         </use_form_key>
                     </fields>
                 </csrf>
+                <rate_limit translate="label comment" module="core">
+                    <label>Rate limit</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>This functionality limits the number of requests a user (identified by IP address) can perform within a specific time frame, preventing excessive resources usage and maintaining system performance, stability and security.</comment>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <timeframe translate="label comment">
+                            <label>Timeframe</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Number of seconds between each allowed request.</comment>
+                        </timeframe>
+                    </fields>
+                </rate_limit>
                 <cache translate="label" module="core">
                     <label>Advanced Cache Settings</label>
                     <sort_order>1000</sort_order>
@@ -75,13 +96,6 @@
                 </cache>
             </groups>
         </system>
-        <!--<web_track translate="label" module="core">
-            <label>Web Tracking</label>
-            <sort_order>180</sort_order>
-            <show_in_default>1</show_in_default>
-            <show_in_website>1</show_in_website>
-            <show_in_store>1</show_in_store>
-        </web_track>-->
         <advanced translate="label" module="core">
             <label>Advanced</label>
             <tab>advanced</tab>
@@ -90,35 +104,6 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <!--datashare translate="label">
-                    <label>Datasharing</label>
-                    <sort_order>1</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
-                    <fields>
-                        <default translate="label">
-                            <label>Default</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_datashare</backend_model>
-                            <source_model>adminhtml/system_config_source_store</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default>
-                        <default translate="label">
-                            <label>Default</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_datashare</backend_model>
-                            <source_model>adminhtml/system_config_source_store</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default>
-                    </fields>
-                </datashare-->
                 <modules_disable_output translate="label">
                     <label>Disable Modules Output</label>
                     <frontend_model>adminhtml/system_config_form_fieldset_modules_disableOutput</frontend_model>
@@ -1382,6 +1367,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label">
                             <label>Base Link URL</label>
@@ -1390,6 +1376,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1398,6 +1385,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1406,6 +1394,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1415,6 +1404,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                     </fields>
                 </unsecure>
@@ -1433,6 +1423,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label comment">
                             <label>Base Link URL</label>
@@ -1442,6 +1433,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
@@ -1450,6 +1442,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
@@ -1458,6 +1451,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
@@ -1467,6 +1461,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>
@@ -1495,6 +1490,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Provide the name of the request header set by the upstream proxy to indicate a secure connection.
+                                The header <code>X-Forwarded-Proto: https</code> is already checked by default regardless of this configuration option.
+                            ]]></comment>
                         </offloader_header>
                     </fields>
                 </secure>

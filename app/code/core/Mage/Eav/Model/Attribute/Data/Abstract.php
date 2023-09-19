@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -74,7 +67,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     /**
      * Mage_Core_Model_Locale FORMAT
      *
-     * @var string
+     * @var string|null
      */
     protected $_dateFilterFormat;
 
@@ -333,19 +326,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     }
                     break;
                 case 'email':
-        /**
-        $this->__("'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded")
-        $this->__("Invalid type given. String expected")
-        $this->__("'%value%' appears to be a DNS hostname but contains a dash in an invalid position")
-        $this->__("'%value%' does not match the expected structure for a DNS hostname")
-        $this->__("'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'")
-        $this->__("'%value%' does not appear to be a valid local network name")
-        $this->__("'%value%' does not appear to be a valid URI hostname")
-        $this->__("'%value%' appears to be an IP address, but IP addresses are not allowed")
-        $this->__("'%value%' appears to be a local network name but local network names are not allowed")
-        $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
-        $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
-        */
+                    /**
+                    $this->__("'%value%' appears to be a DNS hostname but the given punycode notation cannot be decoded")
+                    $this->__("Invalid type given. String expected")
+                    $this->__("'%value%' appears to be a DNS hostname but contains a dash in an invalid position")
+                    $this->__("'%value%' does not match the expected structure for a DNS hostname")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot match against hostname schema for TLD '%tld%'")
+                    $this->__("'%value%' does not appear to be a valid local network name")
+                    $this->__("'%value%' does not appear to be a valid URI hostname")
+                    $this->__("'%value%' appears to be an IP address, but IP addresses are not allowed")
+                    $this->__("'%value%' appears to be a local network name but local network names are not allowed")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
+                    $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
+                    */
                     $validator = new Zend_Validate_EmailAddress();
                     $validator->setMessage(
                         Mage::helper('eav')->__('"%s" invalid type entered.', $label),
@@ -485,7 +478,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     {
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
-            if (strpos($this->_requestScope, '/') !== false) {
+            if (str_contains($this->_requestScope, '/')) {
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {

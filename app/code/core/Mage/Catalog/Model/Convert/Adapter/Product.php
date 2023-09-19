@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,28 +18,25 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
- *
- * @property string $_storesIdCode
  */
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity
 {
-    const MULTI_DELIMITER   = ' , ';
-    const ENTITY            = 'catalog_product_import';
+    public const MULTI_DELIMITER   = ' , ';
+    public const ENTITY            = 'catalog_product_import';
 
     protected $_eventPrefix = 'catalog_product_import';
 
     /**
      * Product model
      *
-     * @var Mage_Catalog_Model_Product
+     * @var Mage_Catalog_Model_Product|string|null
      */
     protected $_productModel;
 
     /**
      * product types collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_productTypes;
 
@@ -59,11 +50,16 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * product attribute set collection array
      *
-     * @var array
+     * @var array|null
      */
     protected $_productAttributeSets;
 
     protected $_stores;
+
+    /**
+     * @var array
+     */
+    protected $_storesIdCode = [];
 
     protected $_attributes = [];
 
@@ -373,7 +369,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $importIds = $batchImportModel->getIdCollection();
 
         foreach ($importIds as $importId) {
-            //print '<pre>'.memory_get_usage().'</pre>';
             $batchImportModel->load($importId);
             $importData = $batchImportModel->getBatchData();
 
@@ -403,7 +398,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
-                    $this->_inventoryFields[] = 'use_config_'.$code;
+                    $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
             if ($node->is('required')) {
@@ -493,7 +488,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $collections = $this->getData();
         if ($collections instanceof Mage_Catalog_Model_Resource_Product_Collection) {
-            $collections = [$collections->getEntity()->getStoreId()=>$collections];
+            $collections = [$collections->getEntity()->getStoreId() => $collections];
         } elseif (!is_array($collections)) {
             $this->addException(
                 Mage::helper('catalog')->__('No product collections found.'),
@@ -559,16 +554,16 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                             foreach ($stock as $field => $value) {
                                 if (!$stockItemId) {
                                     if (in_array($field, $this->_configs)) {
-                                        $stockItem->setData('use_config_'.$field, 0);
+                                        $stockItem->setData('use_config_' . $field, 0);
                                     }
-                                    $stockItem->setData($field, $value?$value:0);
+                                    $stockItem->setData($field, $value ? $value : 0);
                                 } else {
                                     if (in_array($field, $this->_configs)) {
-                                        if ($data['use_config_'.$field] == 0) {
-                                            $stockItem->setData($field, $value?$value:0);
+                                        if ($data['use_config_' . $field] == 0) {
+                                            $stockItem->setData($field, $value ? $value : 0);
                                         }
                                     } else {
-                                        $stockItem->setData($field, $value?$value:0);
+                                        $stockItem->setData($field, $value ? $value : 0);
                                     }
                                 }
                             }

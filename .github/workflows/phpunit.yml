@@ -1,14 +1,10 @@
-name: OpenMage LTS - Unit Tests
+name: PHPUnit
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
-  push:
-    paths:
-      - '**.php'
-  pull_request:
-    paths:
-      - '**.php'
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -17,7 +13,7 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: OpenMage/Testfield
           path: ./
@@ -30,7 +26,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -40,7 +36,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-reqs
 
       - name: Checkout OpenMage repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: openmage
 
@@ -52,7 +48,7 @@ jobs:
         run: bash ./run_unit_tests.sh
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.6
+        uses: EnricoMi/publish-unit-test-result-action@v2.7
         if: always()
         continue-on-error: true
         with:

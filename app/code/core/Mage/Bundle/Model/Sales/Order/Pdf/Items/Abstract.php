@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
 {
@@ -78,7 +71,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 $options = $parentItem->getProductOptions();
                 if ($options) {
                     if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    ) {
                         return true;
                     } else {
                         return false;
@@ -88,7 +82,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 $options = $item->getProductOptions();
                 if ($options) {
                     if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                    ) {
                         return false;
                     } else {
                         return true;
@@ -100,7 +95,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         $options = $this->getOrderItem()->getProductOptions();
         if ($options) {
             if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+            ) {
                 return true;
             }
         }
@@ -149,7 +145,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         $options = $this->getOrderItem()->getProductOptions();
         if ($options) {
             if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+            ) {
                 return true;
             }
         }
@@ -261,7 +258,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())) {
+                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
+        ) {
             return true;
         }
         return false;

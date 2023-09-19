@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getCustomOptionUrlParams()
  */
@@ -193,7 +186,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 switch ($this->getProcessMode()) {
                     case Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL:
                         Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
-                        break;
+                        // exception thrown
+                        // no break
                     default:
                         $this->setUserValue(null);
                         break;
@@ -407,7 +401,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } elseif ($errorCode == Zend_Validate_File_Extension::FALSE_EXTENSION) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
             } elseif ($errorCode == Zend_Validate_File_ImageSize::WIDTH_TOO_BIG
-                || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG) {
+                || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG
+            ) {
                 $result[] = Mage::helper('catalog')->__("Maximum allowed image size for '%s' is %sx%s px.", $option->getTitle(), $option->getImageSizeX(), $option->getImageSizeY());
             } elseif ($errorCode == Zend_Validate_File_FilesSize::TOO_BIG) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server", $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
@@ -615,6 +610,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * Quote item to order item copy process
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function copyQuoteToOrder()
     {
@@ -733,10 +730,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         if (empty($params['_store']) && Mage::app()->getStore()->isAdmin()) {
             $order = Mage::registry('current_order');
-            if (is_object($order))
+            if (is_object($order)) {
                 $params['_store'] = Mage::app()->getStore($order->getStoreId())->getCode();
-            else
+            } else {
                 $params['_store'] = Mage::app()->getDefaultStoreView()->getCode();
+            }
         }
         return Mage::getUrl($route, $params);
     }
@@ -795,20 +793,22 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @param string $ini_key php.ini Var name
      * @return int Setting value
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getBytesIniValue($ini_key)
     {
         $_bytes = @ini_get($ini_key);
 
-        // kilobytes
         if (stristr($_bytes, 'k')) {
-            $_bytes = intval($_bytes) * 1024;
-        // megabytes
+            // kilobytes
+            $_bytes = (int) $_bytes * 1024;
         } elseif (stristr($_bytes, 'm')) {
-            $_bytes = intval($_bytes) * 1024 * 1024;
-        // gigabytes
+            // megabytes
+            $_bytes = (int) $_bytes * 1024 * 1024;
         } elseif (stristr($_bytes, 'g')) {
-            $_bytes = intval($_bytes) * 1024 * 1024 * 1024;
+            // gigabytes
+            $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
         }
         return (int)$_bytes;
     }

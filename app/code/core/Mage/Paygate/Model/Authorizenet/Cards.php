@@ -2,35 +2,28 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Paygate
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Model_Authorizenet_Cards
 {
-    const CARDS_NAMESPACE = 'authorize_cards';
-    const CARD_ID_KEY = 'id';
-    const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
-    const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
-    const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
+    public const CARDS_NAMESPACE = 'authorize_cards';
+    public const CARD_ID_KEY = 'id';
+    public const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
+    public const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
+    public const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
 
     /**
      * Cards information
@@ -118,7 +111,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     {
         $this->_isPaymentValid();
         $_cards = [];
-        foreach(array_keys($this->_cards) as $key) {
+        foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
         return $_cards;

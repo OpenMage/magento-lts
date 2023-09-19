@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,19 +18,18 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 {
     /**
      * Key for cache
      */
-    const JAVASCRIPT_TRANSLATE_CONFIG_KEY = 'javascript_translate_config';
+    public const JAVASCRIPT_TRANSLATE_CONFIG_KEY = 'javascript_translate_config';
 
     /**
      * Translate file name
      */
-    const JAVASCRIPT_TRANSLATE_CONFIG_FILENAME = 'jstranslator.xml';
+    public const JAVASCRIPT_TRANSLATE_CONFIG_FILENAME = 'jstranslator.xml';
 
     protected $_moduleName = 'Mage_Core';
 
@@ -50,7 +43,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Translate config
      *
-     * @var Varien_Simplexml_Config
+     * @var Varien_Simplexml_Config|null
      */
     protected $_config = null;
 
@@ -71,7 +64,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getTranslatorScript()
     {
-        $script = 'var Translator = new Translate('.$this->getTranslateJson().');';
+        $script = 'var Translator = new Translate(' . $this->getTranslateJson() . ');';
         return $this->getScript($script);
     }
 
@@ -84,7 +77,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     public function getScript($script)
     {
         return '<script type="text/javascript">//<![CDATA[
-        '.$script.'
+        ' . $script . '
         //]]></script>';
     }
 
@@ -96,7 +89,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function includeScript($file)
     {
-        return '<script type="text/javascript" src="'.$this->getJsUrl($file).'"></script>'."\n";
+        return '<script type="text/javascript" src="' . $this->getJsUrl($file) . '"></script>' . "\n";
     }
 
     /**
@@ -107,7 +100,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function includeSkinScript($file)
     {
-        return '<script type="text/javascript" src="'.$this->getJsSkinUrl($file).'"></script>';
+        return '<script type="text/javascript" src="' . $this->getJsSkinUrl($file) . '"></script>';
     }
 
     /**
@@ -118,7 +111,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     public function getJsUrl($file)
     {
-        return Mage::getBaseUrl('js').$file;
+        return Mage::getBaseUrl('js') . $file;
     }
 
     /**
@@ -187,5 +180,63 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             $this->_config = $xmlConfig;
         }
         return $this->_config;
+    }
+
+    /**
+     * Helper for "onclick.deleteConfirm"
+     *
+     * @param string $url
+     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @return string
+     * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
+     */
+    public function getDeleteConfirmJs(string $url, ?string $message = null): string
+    {
+        if (is_null($message)) {
+            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
+        }
+
+        $message = Mage::helper('core')->jsQuoteEscape($message);
+        return 'deleteConfirm(\'' . $message . '\', \'' . $url . '\')';
+    }
+
+    /**
+     * Helper for "onclick.confirmSetLocation"
+     *
+     * @param string $url
+     * @param string|null $message null for default message, do not use jsQuoteEscape() before
+     * @return string
+     * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
+     */
+    public function getConfirmSetLocationJs(string $url, ?string $message = null): string
+    {
+        if (is_null($message)) {
+            $message = Mage::helper('adminhtml')->__('Are you sure you want to do this?');
+        }
+
+        $message = Mage::helper('core')->jsQuoteEscape($message);
+        return "confirmSetLocation('{$message}', '{$url}')";
+    }
+
+    /**
+     * Helper for "onclick.setLocation"
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getSetLocationJs(string $url): string
+    {
+        return 'setLocation(\'' . $url . '\')';
+    }
+
+    /**
+     * Helper for "onclick.saveAndContinueEdit"
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getSaveAndContinueEditJs(string $url): string
+    {
+        return 'saveAndContinueEdit(\'' . $url . '\')';
     }
 }

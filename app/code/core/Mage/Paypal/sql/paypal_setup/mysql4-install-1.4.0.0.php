@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Paypal
@@ -36,6 +30,6 @@ CREATE TABLE `{$this->getTable('paypal_api_debug')}` (
 $installer->addAttribute('quote_payment', 'paypal_payer_id', []);
 $installer->addAttribute('quote_payment', 'paypal_payer_status', []);
 $installer->addAttribute('quote_payment', 'paypal_correlation_id', []);
-$installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type'=>'int', 'visible' => false, 'default' => 0]);
+$installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type' => 'int', 'visible' => false, 'default' => 0]);
 
 $installer->endSetup();

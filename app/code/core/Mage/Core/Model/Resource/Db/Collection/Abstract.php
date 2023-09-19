@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
 {
-    const CACHE_TAG = 'COLLECTION_DATA';
+    public const CACHE_TAG = 'COLLECTION_DATA';
 
     /**
      * Model name
@@ -159,7 +152,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function setMainTable($table)
     {
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = $this->getTable($table);
         }
 
@@ -239,13 +232,14 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
                 if (($alias !== null && in_array($alias, $columnsToSelect)) ||
                     // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))) {
+                    ($alias === null && isset($alias, $columnsToSelect))
+                ) {
                     continue;
                 }
 
                 $columnEntry = ['main_table', $field, $alias];
                 array_splice($columns, $insertIndex, 0, [$columnEntry]); // Insert column
-                $insertIndex ++;
+                $insertIndex++;
             }
         } else {
             array_unshift($columns, ['main_table', '*', null]);
@@ -341,7 +335,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     {
         // validate alias
         if (!is_array($fields)) {
-            $fields = [$fields=>$fields];
+            $fields = [$fields => $fields];
         }
 
         $fullExpression = $expression;
@@ -349,7 +343,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
 
-        $this->getSelect()->columns([$alias=>new Zend_Db_Expr($fullExpression)]);
+        $this->getSelect()->columns([$alias => new Zend_Db_Expr($fullExpression)]);
 
         return $this;
     }
@@ -580,7 +574,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         parent::_beforeLoad();
         Mage::dispatchEvent('core_collection_abstract_load_before', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix.'_load_before', [
+            Mage::dispatchEvent($this->_eventPrefix . '_load_before', [
                 $this->_eventObject => $this
             ]);
         }
@@ -631,7 +625,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         }
         Mage::dispatchEvent('core_collection_abstract_load_after', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix.'_load_after', [
+            Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
                 $this->_eventObject => $this
             ]);
         }
@@ -693,7 +687,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
-        $tags[] = Mage_Core_Model_App::CACHE_TAG;
         $tags[] = self::CACHE_TAG;
         return $tags;
     }

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 {
@@ -68,7 +61,8 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             $zip            = $post['oar_zip'];
 
             if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, ['email', 'zip']))
-                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))) {
+                || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))
+            ) {
                 $errors = true;
             }
 
@@ -111,6 +105,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
                     $errors = true;
                 }
             } else {
+                Mage::helper('core')->recordRateLimitHit();
                 $errors = true;
             }
         }
@@ -120,7 +115,10 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return true;
         }
 
-        Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        if (!Mage::helper('core')->isRateLimitExceeded(true, false)) {
+            Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        }
+
         Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
         return false;
     }

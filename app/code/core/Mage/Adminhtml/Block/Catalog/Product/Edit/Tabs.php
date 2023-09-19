@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
@@ -57,19 +50,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 // do not add groups without attributes
 
                 foreach ($attributes as $key => $attribute) {
-                    if( !$attribute->getIsVisible() ) {
+                    if (!$attribute->getIsVisible()) {
                         unset($attributes[$key]);
                     }
                 }
 
-                if (count($attributes)==0) {
+                if (count($attributes) == 0) {
                     continue;
                 }
 
-                $this->addTab('group_'.$group->getId(), [
+                $this->addTab('group_' . $group->getId(), [
                     'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
-                    'content'   => $this->_translateHtml($this->getLayout()->createBlock($this->getAttributeTabBlock(),
-                        'adminhtml.catalog.product.edit.tab.attributes')->setGroup($group)
+                    'content'   => $this->_translateHtml($this->getLayout()->createBlock(
+                        $this->getAttributeTabBlock(),
+                        'adminhtml.catalog.product.edit.tab.attributes'
+                    )->setGroup($group)
                             ->setGroupAttributes($attributes)
                             ->toHtml()),
                 ]);
@@ -134,9 +129,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 ]);
             }
 
-            if( $this->getRequest()->getParam('id', false) ) {
+            if ($this->getRequest()->getParam('id', false)) {
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')){
+                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
                         $this->addTab('reviews', [
                             'label' => Mage::helper('catalog')->__('Product Reviews'),
                             'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
@@ -145,7 +140,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     }
                 }
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')){
+                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
                         $this->addTab('tags', [
                          'label'     => Mage::helper('catalog')->__('Product Tags'),
                          'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
@@ -159,7 +154,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                         ]);
                     }
                 }
-
             }
 
             /**
@@ -174,9 +168,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     'class' => 'ajax',
                 ]);
             }
-
-        }
-        else {
+        } else {
             $this->addTab('set', [
                 'label'     => Mage::helper('catalog')->__('Settings'),
                 'content'   => $this->_translateHtml($this->getLayout()
@@ -203,7 +195,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     /**
      * Getting attribute block name for tabs
      *
-     * @return string
+     * @return string|null
      */
     public function getAttributeTabBlock()
     {

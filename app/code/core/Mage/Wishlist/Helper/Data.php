@@ -2,39 +2,32 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Config key 'Display Wishlist Summary'
      */
-    const XML_PATH_WISHLIST_LINK_USE_QTY = 'wishlist/wishlist_link/use_qty';
+    public const XML_PATH_WISHLIST_LINK_USE_QTY = 'wishlist/wishlist_link/use_qty';
 
     /**
      * Config key 'Display Out of Stock Products'
      */
-    const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
+    public const XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK = 'cataloginventory/options/show_out_of_stock';
 
     protected $_moduleName = 'Mage_Wishlist';
 
@@ -48,21 +41,21 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Customer Wishlist instance
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Wishlist|null
      */
     protected $_wishlist = null;
 
     /**
      * Wishlist Product Items Collection
      *
-     * @var Mage_Wishlist_Model_Resource_Product_Collection
+     * @var Mage_Wishlist_Model_Resource_Product_Collection|null
      */
     protected $_productCollection = null;
 
     /**
      * Wishlist Items Collection
      *
-     * @var Mage_Wishlist_Model_Resource_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection|null
      */
     protected $_wishlistItemCollection = null;
 
@@ -169,7 +162,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->_getCustomerSession()->hasWishlistItemCount()
                 || ($currentDisplayType != $storedDisplayType)
                 || $this->_getCustomerSession()->hasDisplayOutOfStockProducts()
-                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)) {
+                || ($currentDisplayOutOfStockProducts != $storedDisplayOutOfStockProducts)
+        ) {
             $this->calculate();
         }
 

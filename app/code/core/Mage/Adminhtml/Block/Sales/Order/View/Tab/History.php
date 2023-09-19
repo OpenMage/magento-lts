@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,11 +18,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
-    extends Mage_Adminhtml_Block_Template
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected function _construct()
     {
@@ -57,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         $order = $this->getOrder();
 
         $history = [];
-        foreach ($order->getAllStatusHistory() as $orderComment){
+        foreach ($order->getAllStatusHistory() as $orderComment) {
             $history[] = $this->_prepareHistoryItem(
                 $orderComment->getStatusLabel(),
                 $orderComment->getIsCustomerNotified(),
@@ -66,14 +57,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             );
         }
 
-        foreach ($order->getCreditmemosCollection() as $_memo){
+        foreach ($order->getCreditmemosCollection() as $_memo) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Credit memo #%s created', $_memo->getIncrementId()),
                 $_memo->getEmailSent(),
                 $_memo->getCreatedAtDate()
             );
 
-            foreach ($_memo->getCommentsCollection() as $_comment){
+            foreach ($_memo->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Credit memo #%s comment added', $_memo->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -83,14 +74,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getShipmentsCollection() as $_shipment){
+        foreach ($order->getShipmentsCollection() as $_shipment) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Shipment #%s created', $_shipment->getIncrementId()),
                 $_shipment->getEmailSent(),
                 $_shipment->getCreatedAtDate()
             );
 
-            foreach ($_shipment->getCommentsCollection() as $_comment){
+            foreach ($_shipment->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Shipment #%s comment added', $_shipment->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -100,14 +91,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getInvoiceCollection() as $_invoice){
+        foreach ($order->getInvoiceCollection() as $_invoice) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Invoice #%s created', $_invoice->getIncrementId()),
                 $_invoice->getEmailSent(),
                 $_invoice->getCreatedAtDate()
             );
 
-            foreach ($_invoice->getCommentsCollection() as $_comment){
+            foreach ($_invoice->getCommentsCollection() as $_comment) {
                 $history[] = $this->_prepareHistoryItem(
                     $this->__('Invoice #%s comment added', $_invoice->getIncrementId()),
                     $_comment->getIsCustomerNotified(),
@@ -117,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             }
         }
 
-        foreach ($order->getTracksCollection() as $_track){
+        foreach ($order->getTracksCollection() as $_track) {
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Tracking number %s for %s assigned', $_track->getNumber(), $_track->getTitle()),
                 false,
@@ -228,7 +219,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     public function getTabTitle()
     {
-        return Mage::helper('sales')->__('Order History');
+        return Mage::helper('sales')->__('Comments History');
     }
 
     /**

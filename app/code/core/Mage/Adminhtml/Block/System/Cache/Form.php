@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -42,10 +35,10 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         ]);
 
         $fieldset->addField('all_cache', 'select', [
-            'name'=>'all_cache',
-            'label'=>'<strong>'.Mage::helper('adminhtml')->__('All Cache').'</strong>',
-            'value'=>1,
-            'options'=> [
+            'name' => 'all_cache',
+            'label' => '<strong>' . Mage::helper('adminhtml')->__('All Cache') . '</strong>',
+            'value' => 1,
+            'options' => [
                 '' => Mage::helper('adminhtml')->__('No change'),
                 'refresh' => Mage::helper('adminhtml')->__('Refresh'),
                 'disable' => Mage::helper('adminhtml')->__('Disable'),
@@ -53,12 +46,12 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
             ],
         ]);
 
-        foreach (Mage::helper('core')->getCacheTypes() as $type=>$label) {
-            $fieldset->addField('enable_'.$type, 'checkbox', [
-                'name'=>'enable['.$type.']',
-                'label'=>Mage::helper('adminhtml')->__($label),
-                'value'=>1,
-                'checked'=>(int)Mage::app()->useCache($type),
+        foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
+            $fieldset->addField('enable_' . $type, 'checkbox', [
+                'name' => 'enable[' . $type . ']',
+                'label' => Mage::helper('adminhtml')->__($label),
+                'value' => 1,
+                'checked' => (int)Mage::app()->useCache($type),
                 //'options'=>$options,
             ]);
         }
@@ -67,12 +60,12 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
             'legend' => Mage::helper('adminhtml')->__('Cache Control (beta)')
         ]);
 
-        foreach (Mage::helper('core')->getCacheBetaTypes() as $type=>$label) {
-            $fieldset->addField('beta_enable_'.$type, 'checkbox', [
-                'name'=>'beta['.$type.']',
-                'label'=>Mage::helper('adminhtml')->__($label),
-                'value'=>1,
-                'checked'=>(int)Mage::app()->useCache($type),
+        foreach (Mage::helper('core')->getCacheBetaTypes() as $type => $label) {
+            $fieldset->addField('beta_enable_' . $type, 'checkbox', [
+                'name' => 'beta[' . $type . ']',
+                'label' => Mage::helper('adminhtml')->__($label),
+                'value' => 1,
+                'checked' => (int)Mage::app()->useCache($type),
             ]);
         }
 

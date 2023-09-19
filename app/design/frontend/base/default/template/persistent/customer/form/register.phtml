@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -158,7 +152,8 @@
                                    name="password"
                                    id="password"
                                    title="<?php echo $this->quoteEscape($this->__('Password')) ?>"
-                                   class="input-text required-entry validate-password min-pass-length-<?php echo $minPasswordLength ?>" />
+                                   class="input-text required-entry validate-password min-pass-length-<?php echo $minPasswordLength ?>"
+                                   autocomplete="off" />
                             <p class="form-instructions">
                                 <?php echo Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength) ?>
                             </p>
@@ -167,7 +162,7 @@
                     <div class="field">
                         <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
                         <div class="input-box">
-                            <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                            <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" class="input-text required-entry validate-cpassword" autocomplete="off" />
                         </div>
                     </div>
                 </li>

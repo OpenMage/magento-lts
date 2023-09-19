@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -53,7 +46,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * @deprecated
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]
+     * @var Mage_Catalog_Model_Resource_Eav_Attribute[]|null
      */
     protected $_editableAttributes;
 
@@ -92,15 +85,15 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     protected $_fileQueue       = [];
 
-    const CALCULATE_CHILD = 0;
-    const CALCULATE_PARENT = 1;
+    public const CALCULATE_CHILD = 0;
+    public const CALCULATE_PARENT = 1;
 
     /**
      * values for shipment type (invoice etc)
      *
      */
-    const SHIPMENT_SEPARATELY = 1;
-    const SHIPMENT_TOGETHER = 0;
+    public const SHIPMENT_SEPARATELY = 1;
+    public const SHIPMENT_TOGETHER = 0;
 
     /**
      * Process modes
@@ -108,19 +101,19 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Full validation - all required options must be set, whole configuration
      * must be valid
      */
-    const PROCESS_MODE_FULL = 'full';
+    public const PROCESS_MODE_FULL = 'full';
 
     /**
      * Process modes
      *
      * Lite validation - only received options are validated
      */
-    const PROCESS_MODE_LITE = 'lite';
+    public const PROCESS_MODE_LITE = 'lite';
 
     /**
      * Item options prefix
      */
-    const OPTION_PREFIX = 'option_';
+    public const OPTION_PREFIX = 'option_';
 
     /**
      * Specify type instance product
@@ -243,8 +236,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
-                    || count($attribute->getApplyTo())==0
-                    || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())) {
+                    || count($attribute->getApplyTo()) == 0
+                    || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
+                ) {
                     $editableAttributes[$attributeCode] = $attribute;
                 }
             }
@@ -257,8 +251,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Retrieve product attribute by identifier
      *
      * @param int $attributeId
-     * @param null $product
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract|null
      */
     public function getAttributeById($attributeId, $product = null)
     {
@@ -330,9 +324,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         ) {
             $superProductId = (int) $superProductConfig['product_id'];
             if ($superProductId) {
-                if (!$superProduct = Mage::registry('used_super_product_'.$superProductId)) {
+                if (!$superProduct = Mage::registry('used_super_product_' . $superProductId)) {
                     $superProduct = Mage::getModel('catalog/product')->load($superProductId);
-                    Mage::register('used_super_product_'.$superProductId, $superProduct);
+                    Mage::register('used_super_product_' . $superProductId, $superProduct);
                 }
                 if ($superProduct->getId()) {
                     $assocProductIds = $superProduct->getTypeInstance(true)->getAssociatedProductIds($superProduct);
@@ -518,7 +512,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     protected function _prepareOptions(Varien_Object $buyRequest, $product, $processMode)
     {
-        $transport = new stdClass;
+        $transport = new stdClass();
         $transport->options = [];
         foreach ($this->getProduct($product)->getOptions() as $_option) {
             /** @var Mage_Catalog_Model_Product_Option $_option */
@@ -799,9 +793,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param array $options
      * @param Varien_Object $option
      * @param mixed $value
-     *
-     * @param null $product
-     * @return object       Mage_Catalog_Model_Product_Type_Abstract
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
@@ -825,8 +818,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve store filter for associated products
      *
-     * @param null $product
-     * @return int|Mage_Core_Model_Store
+     * @param Mage_Catalog_Model_Product|null $product
+     * @return Mage_Core_Model_Store|int|null
      */
     public function getStoreFilter($product = null)
     {
@@ -838,7 +831,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Set store filter for associated products
      *
      * @param int|Mage_Core_Model_Store $store
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setStoreFilter($store = null, $product = null)
@@ -852,7 +845,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Allow for updates of children quantities
      * (applicable for complicated product types. As default returns false)
      *
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return bool false
      */
     public function getForceChildItemQtyChanges($product = null)
@@ -864,12 +857,12 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare Quote Item Quantity
      *
      * @param mixed $qty
-     * @param null $product
+     * @param Mage_Catalog_Model_Product|null $product
      * @return float
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
-        return floatval($qty);
+        return (float) $qty;
     }
 
     /**

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -77,13 +70,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 } catch (Mage_Core_Model_Store_Exception $e) {
                     $this->_fault('store_not_exists');
                 }
-            } // load children of specified category id
-            else {
+            } else { // load children of specified category id
                 $storeId = $this->_getStoreId($store);
                 $ids = (int)$categoryId;
             }
-        } // load all root categories
-        else {
+        } else { // load all root categories
             $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 
@@ -118,7 +109,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Retrieve category tree
      *
-     * @param null $parentId
+     * @param int|null $parentId
      * @param string|int $store
      * @return array
      * @throws Mage_Core_Model_Store_Exception
@@ -244,7 +235,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(['path'=>implode('/', $parent_category->getPathIds())]);
+        $category->addData(['path' => implode('/', $parent_category->getPathIds())]);
         $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
         $useConfig = [];
@@ -313,7 +304,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
-                && isset($categoryData[$attribute->getAttributeCode()])) {
+                && isset($categoryData[$attribute->getAttributeCode()])
+            ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
                     $categoryData[$attribute->getAttributeCode()]
@@ -362,7 +354,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $afterId = array_pop(explode(',', $parentChildren));
         }
 
-        if (strpos($parent_category->getPath(), $category->getPath()) === 0) {
+        if (str_starts_with($parent_category->getPath(), $category->getPath())) {
             $this->_fault('not_moved', "Operation do not allow to move a parent category to any of children category");
         }
 
@@ -430,7 +422,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         $storeId = $this->_getStoreId($store);
         $collection = $category->setStoreId($storeId)->getProductCollection();
-        ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
+        ($storeId == 0) ? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
 
         $result = [];
 
@@ -479,8 +471,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      *
      * @param int $categoryId
      * @param int $productId
-     * @param int $position
-     * @param null $identifierType
+     * @param int|null $position
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */
@@ -508,8 +500,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Remove product assignment from category
      *
      * @param int $categoryId
-     * @param int $productId
-     * @param null $identifierType
+     * @param int|null $productId
+     * @param string|null $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      */

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,19 +18,18 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
+class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 {
     /**
      * Session maximum cookie lifetime
      */
-    const SEESION_MAX_COOKIE_LIFETIME = 3155692600;
+    public const SEESION_MAX_COOKIE_LIFETIME = 3155692600;
 
     /**
      * Session lifetime
      *
-     * @var int
+     * @var string|int|null
      */
     protected $_lifeTime;
 
@@ -158,7 +151,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      */
     public static function setStaticSaveHandler()
     {
-        $handler = new self;
+        $handler = new self();
         $handler->setSaveHandler();
     }
 
@@ -169,6 +162,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessName ignored
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function open($savePath, $sessName)
     {
         return true;
@@ -179,6 +173,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function close()
     {
         $this->gc($this->getLifeTime());
@@ -192,6 +187,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function read($sessId)
     {
         $select = $this->_read->select()
@@ -215,6 +211,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessData
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function write($sessId, $sessData)
     {
         $bindValues = [
@@ -248,6 +245,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function destroy($sessId)
     {
         $where = ['session_id = ?' => $sessId];
@@ -261,11 +259,13 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param int $sessMaxLifeTime ignored
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)
     {
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor) == 1) {
+                rand(1, $this->_automaticCleaningFactor) == 1
+            ) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
                 $this->_write->delete($this->_sessionTable, $where);
             }

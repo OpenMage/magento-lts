@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -25,7 +19,8 @@ $installer = $this;
 foreach ([
         'sales/order', 'sales/order_grid', 'sales/creditmemo', 'sales/creditmemo_grid',
         'sales/invoice', 'sales/invoice_grid', 'sales/shipment','sales/shipment_grid',
-         ] as $table) {
+         ] as $table
+) {
     $tableName = $installer->getTable($table);
     $installer->getConnection()->dropKey($tableName, 'IDX_INCREMENT_ID');
     $installer->getConnection()->addKey($tableName, 'UNQ_INCREMENT_ID', 'increment_id', 'unique');

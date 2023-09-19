@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Tax
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -33,14 +26,14 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      *
      * @var array
      */
-    protected $_ratesCache              = [];
+    protected $_ratesCache = [];
 
     /**
      * Primery key auto increment flag
      *
      * @var bool
      */
-    protected $_isPkAutoIncrement    = false;
+    protected $_isPkAutoIncrement = false;
 
     protected function _construct()
     {
@@ -88,8 +81,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     {
         $rates = $this->_getRates($request);
         return [
-            'process'   => $this->getCalculationProcess($request, $rates),
-            'value'     => $this->_calculateRate($rates)
+            'process' => $this->getCalculationProcess($request, $rates),
+            'value'   => $this->_calculateRate($rates),
         ];
     }
 
@@ -242,7 +235,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $customerClassId = $request->getCustomerClassId();
         $countryId = $request->getCountryId();
         $regionId = $request->getRegionId();
-        $postcode = trim($request->getPostcode());
+        $postcode = trim((string)$request->getPostcode());
 
         // Process productClassId as it can be array or usual value. Form best key for cache.
         $productClassId = $request->getProductClassId();
@@ -307,7 +300,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->where("rate.tax_region_id IN(?)", [0, (int)$regionId]);
             $postcodeIsNumeric = is_numeric($postcode);
             $postcodeIsRange = false;
-            if (is_string($postcode) && preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
+            if (preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
                 if (is_numeric($matches[2]) && strlen($matches[2]) < 5) {
                     $postcodeIsNumeric = true;
                 } else {
@@ -505,7 +498,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $rate = $this->getRate($request);
             if ($rate) {
                 $row = [
-                    'value'         => $rate/100,
+                    'value'         => $rate / 100,
                     'country'       => $one['country'],
                     'state'         => $one['region_code'],
                     'postcode'      => $one['postcode'],

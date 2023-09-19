@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Api_Model_Resource_Role_Collection getCollection()
  */
@@ -49,12 +42,11 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
                 $userRoles = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('role_id', ['in'=>$userRoles]);
+                $this->getCollection()->addFieldToFilter('role_id', ['in' => $userRoles]);
             } elseif ($userRoles) {
-                $this->getCollection()->addFieldToFilter('role_id', ['nin'=>$userRoles]);
+                $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -89,8 +81,8 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
         ]);
 
         $this->addColumn('role_name', [
-            'header'    =>Mage::helper('adminhtml')->__('Role Name'),
-            'index'     =>'role_name'
+            'header'    => Mage::helper('adminhtml')->__('Role Name'),
+            'index'     => 'role_name'
         ]);
 
         return parent::_prepareColumns();
@@ -111,13 +103,13 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Roles extends Mage_Adminhtml_Block_
      */
     protected function _getSelectedRoles($json = false)
     {
-        if ( $this->getRequest()->getParam('user_roles') != "" ) {
+        if ($this->getRequest()->getParam('user_roles') != "") {
             return $this->getRequest()->getParam('user_roles');
         }
         $uRoles = Mage::registry('api_user')->getRoles();
         if ($json) {
             $jsonRoles = [];
-            foreach($uRoles as $urid) {
+            foreach ($uRoles as $urid) {
                 $jsonRoles[$urid] = 0;
             }
             return Mage::helper('core')->jsonEncode((object)$jsonRoles);

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rating
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -177,7 +170,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
 
         $select = $readAdapter->select()
             ->from(
-                ['vote'=>$this->_ratingVoteTable],
+                ['vote' => $this->_ratingVoteTable],
                 [
                     'vote_count'         => new Zend_Db_Expr('COUNT(vote.vote_id)'),
                     'vote_value_sum'     => new Zend_Db_Expr('SUM(vote.value)'),
@@ -185,17 +178,17 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})")]
             )
             ->join(
-                ['review'   =>$this->_reviewTable],
+                ['review'   => $this->_reviewTable],
                 'vote.review_id=review.review_id',
                 []
             )
             ->joinLeft(
-                ['store'=>$this->_reviewStoreTable],
+                ['store' => $this->_reviewStoreTable],
                 'vote.review_id=store.review_id',
                 'store_id'
             )
             ->join(
-                ['rstore'   =>$this->_ratingStoreTable],
+                ['rstore'   => $this->_ratingStoreTable],
                 'vote.rating_id=rstore.rating_id AND rstore.store_id=store.store_id',
                 []
             )
@@ -216,8 +209,8 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                 'entity_pk_value'  => $entityPkValue,
                 'vote_count'       => $row['vote_count'],
                 'vote_value_sum'   => $row['vote_value_sum'],
-                'percent'          => (($row['vote_value_sum']/$row['vote_count'])/5) * 100,
-                'percent_approved' => ($row['app_vote_count'] ? ((($row['app_vote_value_sum']/$row['app_vote_count'])/5) * 100) : 0),
+                'percent'          => (($row['vote_value_sum'] / $row['vote_count']) / 5) * 100,
+                'percent_approved' => ($row['app_vote_count'] ? ((($row['app_vote_value_sum'] / $row['app_vote_count']) / 5) * 100) : 0),
                 'store_id'         => $row['store_id'],
             ];
 

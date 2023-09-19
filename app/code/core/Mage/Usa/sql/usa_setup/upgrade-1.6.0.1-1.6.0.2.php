@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Usa
@@ -71,8 +65,9 @@ $oldToNewMethodCodesMap = [
 
 $select = $connection->select()
         ->from($configDataTable)
-        ->where('path IN (?)',
-                [
+        ->where(
+            'path IN (?)',
+            [
                     'carriers/usps/free_method',
                     'carriers/usps/allowed_methods'
                 ]
@@ -82,7 +77,7 @@ $oldConfigValues = $connection->fetchAll($select);
 foreach ($oldConfigValues as $oldValue) {
     if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
-    } else if (stripos($oldValue['path'], 'allowed_methods')) {
+    } elseif (stripos($oldValue['path'], 'allowed_methods')) {
         $newValue = [];
         foreach (explode(',', $oldValue['value']) as $shippingMethod) {
             if (isset($oldToNewMethodCodesMap[$shippingMethod])) {
@@ -96,9 +91,10 @@ foreach ($oldConfigValues as $oldValue) {
 
     if (!empty($newValue) && $newValue != $oldValue['value']) {
         $whereConfigId = $connection->quoteInto('config_id = ?', $oldValue['config_id']);
-        $connection->update($configDataTable,
-                      ['value' => $newValue],
-                      $whereConfigId
+        $connection->update(
+            $configDataTable,
+            ['value' => $newValue],
+            $whereConfigId
         );
     }
 }

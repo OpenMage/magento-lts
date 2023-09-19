@@ -1,20 +1,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Varien
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -39,6 +33,7 @@ function setPLocation(url, setFocus){
  *
  * @param elements - array of elements to be decorated
  * [@param decorateParams] - array of classes to be set. If omitted, all available will be used
+ * @deprecated
  */
 function decorateGeneric(elements, decorateParams)
 {
@@ -87,6 +82,7 @@ function decorateGeneric(elements, decorateParams)
 /**
  * Decorate table rows and cells, tbody etc
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateTable(table, options) {
     var table = $(table);
@@ -132,6 +128,7 @@ function decorateTable(table, options) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateList(list, nonRecursive) {
     if ($(list)) {
@@ -148,6 +145,7 @@ function decorateList(list, nonRecursive) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateDataList(list) {
     list = $(list);
@@ -240,8 +238,8 @@ function expandDetails(el, childClass) {
     }
 }
 
-// Version 1.0
-var isIE = navigator.appVersion.match(/MSIE/) == "MSIE";
+/** @deprecated since 20.0.19 */
+var isIE = false;
 
 if (!window.Varien)
     var Varien = new Object();
@@ -573,11 +571,13 @@ Varien.FileElement.prototype = {
     }
 };
 
-Validation.addAllThese([
-    ['validate-custom', ' ', function(v,elm) {
-        return elm.validate();
-    }]
-]);
+if (typeof Validation !== 'undefined') {
+    Validation.addAllThese([
+        ['validate-custom', ' ', function(v,elm) {
+            return elm.validate();
+        }]
+    ]);
+}
 
 function truncateOptions() {
     $$('.truncated').each(function(element){
@@ -618,16 +618,9 @@ Element.addMethods({
  * @example fireEvent($('my-input', 'click'));
  */
 function fireEvent(element, event) {
-    if (document.createEvent) {
-        // dispatch for all browsers except IE before version 9
-        var evt = document.createEvent("HTMLEvents");
-        evt.initEvent(event, true, true ); // event type, bubbling, cancelable
-        return element.dispatchEvent(evt);
-    } else {
-        // dispatch for IE before version 9
-        var evt = document.createEventObject();
-        return element.fireEvent('on' + event, evt);
-    }
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent(event, true, true ); // event type, bubbling, cancelable
+    return element.dispatchEvent(evt);
 }
 
 /**
@@ -649,21 +642,6 @@ function modulo(dividend, divisor)
     }
 
     return remainder;
-}
-
-/**
- * createContextualFragment is not supported in IE9. Adding its support.
- */
-if ((typeof Range != "undefined") && !Range.prototype.createContextualFragment)
-{
-    Range.prototype.createContextualFragment = function(html)
-    {
-        var frag = document.createDocumentFragment(),
-        div = document.createElement("div");
-        frag.appendChild(div);
-        div.outerHTML = html;
-        return frag;
-    };
 }
 
 /**

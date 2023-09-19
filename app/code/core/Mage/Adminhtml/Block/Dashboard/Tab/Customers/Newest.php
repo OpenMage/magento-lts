@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml_Block_Dashboard_Grid
 {
@@ -43,10 +36,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         if ($this->getParam('store')) {
             $collection->addAttributeToFilter('store_id', $this->getParam('store'));
             $storeFilter = 1;
-        } else if ($this->getParam('website')){
+        } elseif ($this->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
             $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
-        } else if ($this->getParam('group')){
+        } elseif ($this->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
         }
@@ -83,7 +76,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_avg_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->addColumn('orders_sum_amount', [
@@ -93,7 +86,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_sum_amount',
-            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
         ]);
 
         $this->setFilterVisibility(false);
@@ -104,6 +97,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/customer/edit', ['id'=>$row->getId()]);
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
 }

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_Resource_Validator
 {
     /**
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
-    const MAX_DECIMAL_VALUE = 99999999.9999;
+    public const MAX_DECIMAL_VALUE = 99999999.9999;
 
     /**
      * Validator product
@@ -107,7 +100,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         try {
             $this->_validateProductType($data);
             /** @var Mage_Eav_Model_Entity_Type $productEntity */
-            $productEntity = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
+            $productEntity = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
             $this->_validateAttributeSet($data, $productEntity);
             $this->_validateSku($data);
             $this->_validateGiftOptions($data);
@@ -140,7 +133,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
         // Validate weight
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])) {
+            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+        ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
         // msrp_display_actual_price_type attribute values needs to be a string to pass validation
@@ -177,7 +171,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 // Validate dropdown attributes
                 if ($attribute->usesSource()
                     // skip check when field will be validated later as a required one
-                    && !(empty($value) && $attribute->getIsRequired())) {
+                    && !(empty($value) && $attribute->getIsRequired())
+                ) {
                     $allowedValues = $this->_getAttributeAllowedValues($attribute->getSource()->getAllOptions());
                     if (!is_array($value)) {
                         // make validation of select and multiselect identical
@@ -186,7 +181,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                     foreach ($value as $selectValue) {
                         $useStrictMode = !is_numeric($selectValue);
                         if (!in_array($selectValue, $allowedValues, $useStrictMode)
-                            && !$this->_isConfigValueUsed($data, $attributeCode)) {
+                            && !$this->_isConfigValueUsed($data, $attributeCode)
+                        ) {
                             $this->_addError(sprintf(
                                 'Invalid value "%s" for attribute "%s".',
                                 $selectValue,
@@ -625,6 +621,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * @param string $message
      * @param int $code
      * @throws Mage_Api2_Exception
+     * @return never
      */
     protected function _critical($message, $code)
     {

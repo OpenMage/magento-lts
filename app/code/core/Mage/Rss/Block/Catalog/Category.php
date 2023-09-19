@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 {
@@ -36,7 +29,8 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         /*
         * setting cache to save the rss for 10 minutes
         */
-        $this->setCacheKey('rss_catalog_category_'
+        $this->setCacheKey(
+            'rss_catalog_category_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('store_id') . '_'
             . Mage::getModel('customer/session')->getId()
@@ -57,7 +51,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $rssObj = Mage::getModel('rss/rss');
         if ($categoryId) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
-            if ($category && $category->getId()) {
+            if ($category->getId()) {
                 $layer = Mage::getSingleton('catalog/layer')->setStore($storeId);
                 //want to load all products no matter anchor or not
                 $category->setIsAnchor(true);
@@ -75,7 +69,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $_collection->addAttributeToSelect('url_key')
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('is_anchor')
-                    ->addAttributeToFilter('is_active',1)
+                    ->addAttributeToFilter('is_active', 1)
                     ->addIdFilter($category->getChildren())
                     ->load()
                 ;
@@ -91,13 +85,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 */
                 $_productCollection = $currentCategory
                     ->getProductCollection()
-                    ->addAttributeToSort('updated_at','desc')
+                    ->addAttributeToSort('updated_at', 'desc')
                     ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
                 ;
 
-                if ($_productCollection->getSize()>0) {
+                if ($_productCollection->getSize() > 0) {
                     $args = ['rssObj' => $rssObj];
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
@@ -130,13 +124,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $helper = $this->helper('catalog/image');
 
         $description = '<table><tr>'
-                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
+                     . '<td><a href="' . $product->getProductUrl() . '"><img src="'
                      . $helper->init($product, 'thumbnail')->resize(75, 75)
                      . '" border="0" align="left" height="75" width="75"></a></td>'
                      . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product,true);
+            $description .= $this->getPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';

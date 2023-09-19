@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Review
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Review_Model_Review[] getItems()
  */
@@ -126,7 +119,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     {
         $inCond = $this->getConnection()->prepareSqlCondition('store.store_id', ['in' => $storeId]);
         $this->getSelect()->join(
-            ['store'=>$this->_reviewStoreTable],
+            ['store' => $this->_reviewStoreTable],
             'main_table.review_id=store.review_id',
             []
         );
@@ -163,13 +156,13 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         } elseif (is_string($entity)) {
             $this->_select->join(
                 $this->_reviewEntityTable,
-                'main_table.entity_id='.$this->_reviewEntityTable.'.entity_id',
+                'main_table.entity_id=' . $this->_reviewEntityTable . '.entity_id',
                 ['entity_code']
             );
 
             $this->addFilter(
                 'entity',
-                $this->getConnection()->quoteInto($this->_reviewEntityTable.'.entity_code=?', $entity),
+                $this->getConnection()->quoteInto($this->_reviewEntityTable . '.entity_code=?', $entity),
                 'string'
             );
         }
@@ -289,7 +282,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
 
         $reviewsIds = $this->getColumnValues('review_id');
         $storesToReviews = [];
-        if (count($reviewsIds)>0) {
+        if (count($reviewsIds) > 0) {
             $inCond = $adapter->prepareSqlCondition('review_id', ['in' => $reviewsIds]);
             $select = $adapter->select()
                 ->from($this->_reviewStoreTable)

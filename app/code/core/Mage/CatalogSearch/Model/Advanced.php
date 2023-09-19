@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
@@ -65,7 +58,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Found products collection
      *
-     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     * @var Mage_CatalogSearch_Model_Resource_Advanced_Collection|null
      */
     protected $_productCollection;
 
@@ -171,12 +164,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
-                    if ($this->_getResource()->addRatedPriceFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value,
-                        $rate
-                    )
+                    if ($this->_getResource()
+                        ->addRatedPriceFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value,
+                            $rate
+                        )
                     ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
@@ -184,11 +178,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 }
             } elseif ($attribute->isIndexable()) {
                 if (!is_string($value) || strlen($value) != 0) {
-                    if ($this->_getResource()->addIndexableAttributeModifiedFilter(
-                        $this->getProductCollection(),
-                        $attribute,
-                        $value
-                    )) {
+                    if ($this->_getResource()
+                        ->addIndexableAttributeModifiedFilter(
+                            $this->getProductCollection(),
+                            $attribute,
+                            $value
+                        )
+                    ) {
                         $hasConditions = true;
                         $this->_addSearchCriteria($attribute, $value);
                     }

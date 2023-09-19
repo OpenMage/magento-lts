@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,10 +18,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Initialize block
@@ -91,12 +83,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     protected function _prepareLayout()
     {
-        $this->setChild('grid',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_config_grid',
-                'admin.product.edit.tab.super.config.grid')
+        $this->setChild(
+            'grid',
+            $this->getLayout()->createBlock(
+                'adminhtml/catalog_product_edit_tab_super_config_grid',
+                'admin.product.edit.tab.super.config.grid'
+            )
         );
 
-        $this->setChild('create_empty',
+        $this->setChild(
+            'create_empty',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Create Empty'),
@@ -106,12 +102,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         );
 
         if ($this->_getProduct()->getId()) {
-            $this->setChild('simple',
-                $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_config_simple',
-                    'catalog.product.edit.tab.super.config.simple')
+            $this->setChild(
+                'simple',
+                $this->getLayout()->createBlock(
+                    'adminhtml/catalog_product_edit_tab_super_config_simple',
+                    'catalog.product.edit.tab.super.config.simple'
+                )
             );
 
-            $this->setChild('create_from_configurable',
+            $this->setChild(
+                'create_from_configurable',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label' => Mage::helper('catalog')->__('Copy From Configurable'),
@@ -144,7 +144,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $this->_getProduct()->getTypeInstance(true);
         $attributes = $productType->getConfigurableAttributesAsArray($this->_getProduct());
-        if(!$attributes) {
+        if (!$attributes) {
             return '[]';
         } else {
             // Hide price if needed
@@ -193,7 +193,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      * @param Mage_Catalog_Model_Product $product
      * @return array
      */
-    public function getConfigurableSettings($product) {
+    public function getConfigurableSettings($product)
+    {
         $data = [];
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $this->_getProduct()->getTypeInstance(true);

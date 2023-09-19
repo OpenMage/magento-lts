@@ -2,29 +2,22 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Shell
+ * @category   Mage
+ * @package    Mage_Shell
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shell scripts abstract class
  *
- * @category    Mage
- * @package     Mage_Shell
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Shell
  */
 abstract class Mage_Shell_Abstract
 {
@@ -38,7 +31,7 @@ abstract class Mage_Shell_Abstract
     /**
      * Magento Root path
      *
-     * @var string
+     * @var string|null
      */
     protected $_rootPath;
 
@@ -61,7 +54,7 @@ abstract class Mage_Shell_Abstract
      *
      * @var array
      */
-    protected $_args        = array();
+    protected $_args        = [];
 
     /**
      * Factory instance
@@ -112,7 +105,7 @@ abstract class Mage_Shell_Abstract
         if (file_exists($htaccess)) {
             // parse htaccess file
             $data = file_get_contents($htaccess);
-            $matches = array();
+            $matches = [];
             preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
             if ($matches) {
                 foreach ($matches as $match) {
@@ -135,16 +128,20 @@ abstract class Mage_Shell_Abstract
      */
     protected function _parseArgs()
     {
+        if (empty($_SERVER['argv'])) {
+            return $this;
+        }
+
         $current = null;
         foreach ($_SERVER['argv'] as $arg) {
-            $match = array();
+            $match = [];
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
             } else {
                 if ($current) {
                     $this->_args[$current] = $arg;
-                } else if (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
                     $this->_args[$match[1]] = true;
                 }
             }

@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Action
 {
@@ -32,7 +25,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'catalog/urlrewrite';
+    public const ADMIN_RESOURCE = 'catalog/urlrewrite';
 
     /**
      * Instantiate urlrewrite, product and category
@@ -44,7 +37,9 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $this->_title($this->__('Rewrite Rules'));
 
         // initialize urlrewrite, product and category models
-        Mage::register('current_urlrewrite', Mage::getSingleton('core/factory')->getUrlRewriteInstance()
+        Mage::register(
+            'current_urlrewrite',
+            Mage::getSingleton('core/factory')->getUrlRewriteInstance()
             ->load($this->getRequest()->getParam('id', 0))
         );
         $productId  = $this->getRequest()->getParam('product', 0);
@@ -108,7 +103,8 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
     public function categoriesJsonAction()
     {
         $id = $this->getRequest()->getParam('id', null);
-        $this->getResponse()->setBody(Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
+        $this->getResponse()->setBody(
+            Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
             ->getTreeArray($id, true, 1)
         );
     }
@@ -167,7 +163,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                             $exceptionTxt = 'Chosen product does not associated with the chosen store or category.';
                             Mage::throwException($exceptionTxt);
                         }
-                        if($rewrite->getId() && $rewrite->getId() != $model->getId()) {
+                        if ($rewrite->getId() && $rewrite->getId() != $model->getId()) {
                             $model->setIdPath($idPath);
                             $model->setTargetPath($rewrite->getRequestPath());
                             $found = true;
@@ -214,7 +210,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting URL Rewrite.'));
-                $this->_redirect('*/*/edit/', ['id'=>Mage::registry('current_urlrewrite')->getId()]);
+                $this->_redirect('*/*/edit/', ['id' => Mage::registry('current_urlrewrite')->getId()]);
                 return;
             }
         }

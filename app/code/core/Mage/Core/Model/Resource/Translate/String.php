@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -42,8 +35,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         if (is_string($value)) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable())
-                ->where($this->getMainTable().'.string=:tr_string');
-            $result = $this->_getReadAdapter()->fetchRow($select, ['tr_string'=>$value]);
+                ->where($this->getMainTable() . '.string=:tr_string');
+            $result = $this->_getReadAdapter()->fetchRow($select, ['tr_string' => $value]);
             $object->setData($result);
             $this->_afterLoad($object);
             return $result;
@@ -121,8 +114,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         if (is_array($translations)) {
             foreach ($translations as $storeId => $translate) {
-                if (is_null($translate) || $translate=='') {
-                     $where = [
+                if (is_null($translate) || $translate == '') {
+                    $where = [
                         'store_id = ?'    => $storeId,
                         'string = ?'      => $object->getString()
                      ];
@@ -216,7 +209,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         if ($row = $write->fetchRow($select, $bind)) {
             $original = $string;
-            if (strpos($original, '::') !== false) {
+            if (str_contains($original, '::')) {
                 list($scope, $original) = explode('::', $original);
             }
             if ($original == $translate) {

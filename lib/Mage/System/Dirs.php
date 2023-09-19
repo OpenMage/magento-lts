@@ -2,28 +2,24 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_System
+ * @category   Mage
+ * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_System_Dirs
 {
-
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public static function rm($dirname)
     {
-        if(is_array($dirname)) {
+        if (is_array($dirname)) {
             $dirname = $dirname[1];
         }
         // Sanity check
@@ -37,7 +33,7 @@ class Mage_System_Dirs
         }
 
         // Create and iterate stack
-        $stack = array($dirname);
+        $stack = [$dirname];
         while ($entry = array_pop($stack)) {
             // Watch for symlinks
             if (@is_link($entry)) {
@@ -71,17 +67,20 @@ class Mage_System_Dirs
         return true;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
         $exists = file_exists($path);
-        if($exists && is_dir($path)) {
+        if ($exists && is_dir($path)) {
             return true;
         }
-        if($exists && !is_dir($path)) {
+        if ($exists && !is_dir($path)) {
             throw new Exception("'{$path}' already exists, should be a dir, not a file!");
         }
         $out = @mkdir($path, $mode, $recursive);
-        if(false === $out) {
+        if (false === $out) {
             throw new Exception("Can't create dir: '{$path}'");
         }
         return true;
@@ -90,9 +89,8 @@ class Mage_System_Dirs
     public static function copyFileStrict($source, $dest)
     {
         $exists = file_exists($source);
-        if(!$exists) {
-            throw new Exception('No file exists: '.$exists);
+        if (!$exists) {
+            throw new Exception('No file exists: ' . $exists);
         }
-
     }
 }

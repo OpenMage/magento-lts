@@ -2,27 +2,21 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widget
 {
@@ -33,36 +27,38 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         $this->setId('design_edit');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild('back_button',
+        $this->setChild(
+            'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
-                    'class' => 'back'
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
+                    'class'     => 'back'
                 ])
         );
 
-        $this->setChild('save_button',
+        $this->setChild(
+            'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Save'),
                     'onclick'   => 'designForm.submit()',
-                    'class' => 'save'
+                    'class'     => 'save'
                 ])
         );
 
-        $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('core')->__('Are you sure?')
-        );
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getDeleteUrl()
-                        . '\')',
-                    'class'  => 'delete'
+                    'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
+                    'class'     => 'delete'
                 ])
         );
         return parent::_prepareLayout();
@@ -73,6 +69,9 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         return Mage::registry('design')->getId();
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteUrl()
     {
         return $this->getUrlSecure('*/*/delete', [
@@ -81,24 +80,30 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true]);
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
+    /**
+     * @return string
+     */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
+    /**
+     * @return string
+     */
     public function getHeader()
     {
-        $header = '';
         if (Mage::registry('design')->getId()) {
-            $header = Mage::helper('core')->__('Edit Design Change');
-        } else {
-            $header = Mage::helper('core')->__('New Design Change');
+            return Mage::helper('core')->__('Edit Design Change');
         }
-        return $header;
+        return Mage::helper('core')->__('New Design Change');
     }
 }

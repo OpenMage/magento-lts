@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage
+ * @category   Mage
+ * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,14 +36,15 @@ try {
 umask(0);
 
 $disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$isWinOS = !str_contains(strtolower(PHP_OS), 'darwin') && str_contains(strtolower(PHP_OS), 'win');
 $isShellDisabled = in_array('shell_exec', $disabledFuncs)
-    || !str_contains(strtolower(PHP_OS), 'win')
+    || $isWinOS
     || !shell_exec('which expr 2>/dev/null')
     || !shell_exec('which ps 2>/dev/null')
     || !shell_exec('which sed 2>/dev/null');
 
 try {
-    if (stripos(PHP_OS, 'win') === false) {
+    if (!$isWinOS) {
         $options = getopt('m::');
         if (isset($options['m'])) {
             if ($options['m'] == 'always') {
@@ -59,7 +54,7 @@ try {
             } else {
                 Mage::throwException('Unrecognized cron mode was defined');
             }
-        } else if (!$isShellDisabled) {
+        } elseif (!$isShellDisabled) {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 

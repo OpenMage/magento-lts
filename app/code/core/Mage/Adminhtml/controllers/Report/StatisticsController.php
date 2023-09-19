@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
@@ -32,7 +25,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    const ADMIN_RESOURCE = 'report/statistics';
+    public const ADMIN_RESOURCE = 'report/statistics';
 
     /**
      * Admin session model
@@ -44,7 +37,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     public function _initAction()
     {
         $act = $this->getRequest()->getActionName();
-        if(!$act) {
+        if (!$act) {
             $act = 'default';
         }
 
@@ -60,7 +53,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             $blocks = [$blocks];
         }
 
-        $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter'));
+        $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter', ''));
         $requestData = $this->_filterDates($requestData, ['from', 'to']);
         $requestData['store_ids'] = $this->getRequest()->getParam('store_ids');
         $params = new Varien_Object();
@@ -94,7 +87,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
         }
 
-        if(!is_array($codes) && strpos($codes, ',') === false) {
+        if (!is_array($codes) && !str_contains($codes, ',')) {
             $codes = [$codes];
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);
@@ -139,7 +132,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');
@@ -167,7 +160,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             Mage::logException($e);
         }
 
-        if($this->_getSession()->isFirstPageAfterLogin()) {
+        if ($this->_getSession()->isFirstPageAfterLogin()) {
             $this->_redirect('*/*');
         } else {
             $this->_redirectReferer('*/*');

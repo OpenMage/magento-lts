@@ -2,33 +2,25 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Varien
- * @package     Varien_Data
+ * @category   Varien
+ * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2020 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Form element collection
  *
- * @category    Varien
- * @package     Varien_Data
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Data
  */
 class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggregate, Countable
 {
-
     /**
      * Elements storage
      *
@@ -50,7 +42,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      */
     public function __construct($container)
     {
-        $this->_elements = array();
+        $this->_elements = [];
         $this->_container = $container;
     }
 
@@ -59,7 +51,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_elements);
     }
@@ -70,7 +62,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param mixed $key
      * @param mixed $value
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->_elements[$key] = $value;
     }
@@ -81,6 +73,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * @param mixed $key
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return $this->_elements[$key];
@@ -91,7 +84,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @param mixed $key
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->_elements[$key]);
     }
@@ -100,9 +93,9 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetExists()
      *
      * @param mixed $key
-     * @return boolean
+     * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return isset($this->_elements[$key]);
     }
@@ -126,12 +119,10 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
 
         if ($after === false) {
             $this->_elements[] = $element;
-        }
-        elseif ($after === '^') {
+        } elseif ($after === '^') {
             array_unshift($this->_elements, $element);
-        }
-        elseif (is_string($after)) {
-            $newOrderElements = array();
+        } elseif (is_string($after)) {
+            $newOrderElements = [];
             foreach ($this->_elements as $index => $currElement) {
                 if ($currElement->getId() == $after) {
                     $newOrderElements[] = $currElement;
@@ -173,7 +164,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
             }
         }
         // Renumber elements for further correct adding and removing other elements
-        $this->_elements = array_merge($this->_elements, array());
+        $this->_elements = array_merge($this->_elements, []);
         return $this;
     }
 
@@ -182,7 +173,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_elements);
     }
@@ -202,5 +193,4 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
         }
         return null;
     }
-
 }

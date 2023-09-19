@@ -2,27 +2,20 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
@@ -37,7 +30,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     public function collectRoutes($configArea, $useRouterName)
     {
         $routers = [];
-        $routersConfigNode = Mage::getConfig()->getNode($configArea.'/routers');
+        $routersConfigNode = Mage::getConfig()->getNode($configArea . '/routers');
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
         }
@@ -60,7 +53,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                                 if ($position === false) {
                                     $position = count($modules);
                                 }
-                                array_splice($modules, $position+1, 0, (string)$customModule);
+                                array_splice($modules, $position + 1, 0, (string)$customModule);
                             } else {
                                 $modules[] = (string)$customModule;
                             }
@@ -196,7 +189,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             }
 
             //checking if this place should be secure
-            $this->_checkShouldBeSecure($request, '/'.$module.'/'.$controller.'/'.$action);
+            $this->_checkShouldBeSecure($request, '/' . $module . '/' . $controller . '/' . $action);
 
             $controllerClassName = $this->_validateControllerClassName($realModule, $controller);
             if (!$controllerClassName) {
@@ -254,7 +247,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         // set parameters from pathinfo
         for ($i = 3, $l = count($p); $i < $l; $i += 2) {
-            $request->setParam($p[$i], isset($p[$i+1]) ? urldecode($p[$i+1]) : '');
+            $request->setParam($p[$i], isset($p[$i + 1]) ? urldecode($p[$i + 1]) : '');
         }
 
         // dispatch action
@@ -389,7 +382,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     {
         foreach ($modules as $module) {
             if ($moduleName === $module || (is_array($module)
-                    && $this->getModuleByName($moduleName, $module))) {
+                    && $this->getModuleByName($moduleName, $module))
+            ) {
                 return true;
             }
         }
@@ -427,7 +421,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (count($parts)) {
             $file .= DS . implode(DS, $parts);
         }
-        $file .= DS.uc_words($controller, DS).'Controller.php';
+        $file .= DS . uc_words($controller, DS) . 'Controller.php';
         return $file;
     }
 
@@ -437,7 +431,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && strpos($fileName, '//') === false) {
+        if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
             return true;
         }
         return false;
@@ -450,7 +444,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerClassName($realModule, $controller)
     {
-        return $realModule.'_'.uc_words($controller).'Controller';
+        return $realModule . '_' . uc_words($controller) . 'Controller';
     }
 
     /**
@@ -512,10 +506,10 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     protected function _getCurrentSecureUrl($request)
     {
         if ($alias = $request->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS)) {
-            return Mage::getBaseUrl('link', true).ltrim($alias, '/');
+            return Mage::getBaseUrl('link', true) . ltrim($alias, '/');
         }
 
-        return Mage::getBaseUrl('link', true).ltrim($request->getPathInfo(), '/');
+        return Mage::getBaseUrl('link', true) . ltrim($request->getPathInfo(), '/');
     }
 
     /**
@@ -526,9 +520,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _shouldBeSecure($path)
     {
-        return substr(Mage::getStoreConfig('web/unsecure/base_url'), 0, 5) === 'https'
-            || Mage::getStoreConfigFlag('web/secure/use_in_frontend')
-                && substr(Mage::getStoreConfig('web/secure/base_url'), 0, 5) == 'https'
+        return substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 0, 5) === 'https'
+            || Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_FRONTEND)
+                && substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL), 0, 5) == 'https'
                 && Mage::getConfig()->shouldUrlBeSecure($path);
     }
 }
