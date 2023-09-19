@@ -9,6 +9,7 @@
  * @category   Tests
  * @package    Tests_Functional
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +57,7 @@ class Comments extends Block
     {
         $comments = $this->getCommentsElements();
         foreach ($comments as $comment) {
-            if (strpos($comment->getText(), $commentText) !== false) {
+            if (str_contains($comment->getText(), $commentText)) {
                 return true;
             }
         }
