@@ -146,10 +146,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|int|null $date If empty, return current local datetime.
-     * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
-     * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
+     * @param   string|Zend_Date|int|null $date        If empty, return current local datetime.
+     * @param   string                    $format      See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                      $showTime    Whether to include time
+     * @param   bool                      $useTimezone Convert to local datetime?
      * @return  string
      */
     public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
@@ -160,10 +160,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date   If empty, return current datetime.
-     * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
-     * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
+     * @param   string|Zend_Date|null $date        If empty, return current datetime.
+     * @param   string                $format      See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                  $showTime    Whether to include time
+     * @param   bool                  $useTimezone Convert to local datetime?
      * @return  string
      */
     public function formatTimezoneDate(
