@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -903,7 +903,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         foreach (explode("\n", $additionalOptions) as $_additionalOption) {
             if (strlen(trim($_additionalOption))) {
                 try {
-                    if (strpos($_additionalOption, ':') === false) {
+                    if (!str_contains($_additionalOption, ':')) {
                         Mage::throwException(
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.')
                         );
