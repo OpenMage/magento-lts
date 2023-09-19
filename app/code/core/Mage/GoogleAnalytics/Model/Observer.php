@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,18 +21,6 @@
  */
 class Mage_GoogleAnalytics_Model_Observer
 {
-    /**
-     * Create Google Analytics block for success page view
-     *
-     * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
-     * @param Varien_Event_Observer $observer
-     */
-    // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
-    public function order_success_page_view($observer)
-    {
-        $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);
-    }
-
     /**
      * Add order information into GA block to render on checkout success pages
      *
@@ -51,28 +39,65 @@ class Mage_GoogleAnalytics_Model_Observer
     }
 
     /**
-     * Add 'removed item' from cart into session for GA4 block to render event on cart view
-     *
+     * Process items added or removed from cart for GA4 block to render event on cart view
      * @param Varien_Event_Observer $observer
+     * @return void
      */
-    public function removeItemFromCartGoogleAnalytics(Varien_Event_Observer $observer)
+    public function processItemsAddedOrRemovedFromCart(Varien_Event_Observer $observer): void
     {
-        $productRemoved = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productRemoved) {
-            Mage::getSingleton('core/session')->setRemovedProductCart($productRemoved->getId());
+        /** @var Mage_Sales_Model_Quote_Item $item */
+        $item = $observer->getEvent()->getItem();
+        if ($item->getParentItem()) {
+            return;
         }
-    }
 
-    /**
-     * Add 'added item' to cart into session for GA4 block to render event on cart view
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function addItemToCartGoogleAnalytics(Varien_Event_Observer $observer)
-    {
-        $productAdded = $observer->getEvent()->getQuoteItem()->getProduct();
-        if ($productAdded) {
-            Mage::getSingleton('core/session')->setAddedProductCart($productAdded->getId());
+        // avoid to process the same quote_item more than once
+        // this could happen in case of double save of the same quote_item
+        $processedProductsRegistry = Mage::registry('processed_quote_items_for_analytics') ?? new ArrayObject();
+        if ($processedProductsRegistry->offsetExists($item->getId())) {
+            return;
+        }
+        $processedProductsRegistry[$item->getId()] = true;
+        Mage::register('processed_quote_items_for_analytics', $processedProductsRegistry, true);
+
+        $addedQty = 0;
+        $removedQty = 0;
+        if ($item->isObjectNew()) {
+            $addedQty = $item->getQty();
+        } elseif ($item->isDeleted()) {
+            $removedQty = $item->getQty();
+        } elseif ($item->hasDataChanges()) {
+            $newQty = $item->getQty();
+            $oldQty = $item->getOrigData('qty');
+            if ($newQty > $oldQty) {
+                $addedQty = $newQty - $oldQty;
+            } elseif ($newQty < $oldQty) {
+                $removedQty = $oldQty - $newQty;
+            }
+        }
+
+        if ($addedQty || $removedQty) {
+            $product = $item->getProduct();
+            $dataForAnalytics = [
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+                'name' => $product->getName(),
+                'qty' => $addedQty ?: $removedQty,
+                'price' => $product->getFinalPrice(),
+                'manufacturer' => $product->getAttributeText('manufacturer') ?: '',
+                'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
+            ];
+
+            $session = Mage::getSingleton('core/session');
+            if ($addedQty) {
+                $addedProducts = $session->getAddedProductsForAnalytics() ?: [];
+                $addedProducts[] = $dataForAnalytics;
+                $session->setAddedProductsForAnalytics($addedProducts);
+            } else {
+                $removedProducts = $session->getRemovedProductsForAnalytics() ?: [];
+                $removedProducts[] = $dataForAnalytics;
+                $session->setRemovedProductsForAnalytics($removedProducts);
+            }
         }
     }
 }

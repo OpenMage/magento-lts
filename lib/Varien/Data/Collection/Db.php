@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -240,7 +240,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } else {
             $countSelect->columns('COUNT(*)');
 
-            // Simple optimization - remove all joins if there are no where clauses using joined tables and all joins are left joins
+            // Simple optimization - remove all joins if:
+            // - there are no where clauses using joined tables
+            // - all joins are left joins
+            // - there are no join conditions using bind params (for simplicity)
             $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
                 return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
             });
@@ -258,7 +261,16 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !preg_match($pattern, $clause);
                     });
                 });
-                if (empty($whereUsingJoin)) {
+                if ($this->_bindParams) {
+                    $bindParams = array_map(function ($token) {
+                        return ltrim($token, ':');
+                    }, array_keys($this->_bindParams));
+                    $bindPattern = '/:(' . implode('|', $bindParams) . ')/';
+                    $joinUsingBind = array_filter($leftJoins, function ($table) use ($bindPattern) {
+                        return !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']);
+                    });
+                }
+                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
                 }
