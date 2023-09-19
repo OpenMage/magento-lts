@@ -74,6 +74,10 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                 $this->_processAttributeValues();
             }
             $this->_getWriteAdapter()->commit();
+
+            $this->getWriteConnection()->update($this->getTable('catalog/product'), [
+                'updated_at' => Varien_Date::now()
+            ], $this->getWriteConnection()->quoteInto('entity_id IN (?)', $entityIds));
         } catch (Exception $e) {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
