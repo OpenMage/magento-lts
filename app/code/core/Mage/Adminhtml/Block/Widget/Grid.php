@@ -332,7 +332,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getMainButtonsHtml()
     {
         $html = '';
-        if ($this->getHelperAdvancedGrid()->isEnabled()) {
+        if ($this->getAdvancedGridHelper()->isEnabled()) {
             $html .= $this->getToggleColumnsOrderButtonHtml();
             $html .= $this->getResetColumnsButtonHtml();
         }
@@ -683,7 +683,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
 
-        if ($this->getHelperAdvancedGrid()->isEnabled()) {
+        $helper = $this->getAdvancedGridHelper();
+        if ($helper->isEnabled() &&  $helper->isRearrangeEnabled()) {
             $this->setChild(
                 'toggle_columns_order_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -709,7 +710,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @return Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
      */
-    public function getHelperAdvancedGrid(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
+    public function getAdvancedGridHelper(): Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract
     {
         if (!$this->_advancedGridHelper) {
             // TODO create factory class map block id to helper - create a new grid.xml configuration file
@@ -742,10 +743,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareAdvancedGrid()
     {
-        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
+        if (!$this->getAdvancedGridHelper()->isEnabled()) {
             return $this;
         }
-        $this->getHelperAdvancedGrid()->applyAdvancedGridCollection($this->getCollection());
+        $this->getAdvancedGridHelper()->applyAdvancedGridCollection($this->getCollection());
         return $this;
     }
 
@@ -756,13 +757,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareAdvancedGridColumn()
     {
-        if (!$this->getHelperAdvancedGrid()->isEnabled()) {
+        if (!$this->getAdvancedGridHelper()->isEnabled()) {
             return $this;
         }
         //if ($helper instanceof CollectionStrategyInterface) {
-        $this->getHelperAdvancedGrid()->applyAdvancedGridColumn($this);
+        $this->getAdvancedGridHelper()->applyAdvancedGridColumn($this);
         // customize order column
-        $_orderColumns = $this->getHelperAdvancedGrid()->getOrderColumns();
+        $_orderColumns = $this->getAdvancedGridHelper()->getOrderColumns();
         if ($_orderColumns) {
             // Reset Column Order
             $this->_columnsOrder = [];

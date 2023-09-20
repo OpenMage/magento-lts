@@ -31,7 +31,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
     {
         parent::__construct();
         $this->setResetConfirmText(Mage::helper('core')->jsQuoteEscape(Mage::helper('core')->__('Are you sure?')));
-        //$this->setTemplate('widget/grid/advanced.phtml');
     }
 
     /**
@@ -77,6 +76,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
      */
     public function getJavaScript(): string
     {
+        // TODO: would be better to use Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract::isRearrangeEnabled
+        if (!Mage::getStoreConfig(Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract::CONFIG_PATH_ENABLE_REARRANGE_COLUMNS)) {
+            return '';
+        }
+
         $_content = sprintf(
             "var %s = new varienGridAdvanced('%s', %s, '%s');",
             $this->getJsObjectName(),
@@ -95,6 +99,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Advanced_Abstract extends Mage_A
      */
     public function isAvailable(): bool
     {
-        return $this->getParentBlock()->getHelperAdvancedGrid()->isEnabled();
+        return $this->getParentBlock()->getAdvancedGridHelper()->isEnabled();
     }
 }
