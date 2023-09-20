@@ -684,7 +684,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->setChild('advanced_grid', $this->getLayout()->createBlock($this->getAdvancedGridBlockName()));
 
         $helper = $this->getAdvancedGridHelper();
-        if ($helper->isEnabled() &&  $helper->isRearrangeEnabled()) {
+        if ($helper->isEnabled() && $helper->isRearrangeEnabled()) {
             $this->setChild(
                 'toggle_columns_order_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')

@@ -235,6 +235,9 @@
                                     </profiles>
                                 </children>
                             </convert>
+                            <rearrange_grids_columns>
+                                <title>Rearrange Grids Columns</title>
+                            </rearrange_grids_columns>
                             <cache translate="title">
                                 <title>Cache Management</title>
                             </cache>

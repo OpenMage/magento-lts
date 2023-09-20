@@ -23,6 +23,7 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
     public const CONFIG_PATH_GRID_ENABLED = 'advanced_grid/%s/enabled';
     public const CONFIG_PATH_GRID_ORDER = 'advanced_grid/%s/order';
     public const CONFIG_PATH_ENABLE_REARRANGE_COLUMNS = 'advanced_grid/general/enabled_rearrange_columns';
+    public const ACL_RESOURCE_REARRANGE_COLUMNS = 'admin/system/rearrange_grids_columns';
 
     /**
      * Scope grid id for configurations
@@ -102,7 +103,9 @@ abstract class Mage_Adminhtml_Helper_Widget_Grid_Config_Abstract extends Mage_Co
      */
     public function isRearrangeEnabled(): bool
     {
-        return Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLE_REARRANGE_COLUMNS);
+        return
+            Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLE_REARRANGE_COLUMNS) &&
+            Mage::getSingleton('admin/session')->isAllowed(self::ACL_RESOURCE_REARRANGE_COLUMNS);
     }
 
     /**
