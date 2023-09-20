@@ -52,8 +52,12 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      */
     public function flushAllAction()
     {
-        Mage::dispatchEvent('adminhtml_cache_flush_all');
+        Mage::app()->getCacheInstance()->banUse('config');
+        Mage::getConfig()->reinit();
         Mage::app()->getCacheInstance()->flush();
+        Mage::app()->getCacheInstance()->unbanUse('config');
+        Mage::getConfig()->saveCache();
+        Mage::dispatchEvent('adminhtml_cache_flush_all');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The cache storage has been flushed."));
         $this->_redirect('*/*');
     }
@@ -63,7 +67,11 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      */
     public function flushSystemAction()
     {
+        Mage::app()->getCacheInstance()->banUse('config');
+        Mage::getConfig()->reinit();
         Mage::app()->cleanCache();
+        Mage::app()->getCacheInstance()->unbanUse('config');
+        Mage::getConfig()->saveCache();
         Mage::dispatchEvent('adminhtml_cache_flush_system');
         $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The OpenMage cache storage has been flushed."));
         $this->_redirect('*/*');
