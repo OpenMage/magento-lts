@@ -502,7 +502,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getCacheSaveLock()
     {
-        if ( ! Mage::app()->useCache('config')) {
+        if (!Mage::app()->useCache('config')) {
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
@@ -523,7 +523,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function releaseCacheSaveLock()
     {
-        if ( ! Mage::app()->useCache('config')) {
+        if (!Mage::app()->useCache('config')) {
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
