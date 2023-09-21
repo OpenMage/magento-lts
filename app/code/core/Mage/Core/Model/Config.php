@@ -500,14 +500,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @return void
      * @throws Exception
      */
-    public function getCacheSaveLock()
+    public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
         if ( ! Mage::app()->useCache('config')) {
             return;
         }
+        $waitTime = $waitTime ?: (PHP_SAPI === 'cli' ? 60 : 3);
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [PHP_SAPI === 'cli' ? 60 : 3])) {
-            if (PHP_SAPI === 'cli') {
+        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
+            if ($ignoreFailure) {
+                return;
+            } else if (PHP_SAPI === 'cli') {
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
                 require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
