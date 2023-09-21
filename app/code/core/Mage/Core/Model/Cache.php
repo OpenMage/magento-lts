@@ -540,7 +540,7 @@ class Mage_Core_Model_Cache
      */
     public function unbanUse($typeCode)
     {
-        $this->_allowedCacheOptions[$typeCode] = false;
+        $this->_allowedCacheOptions[$typeCode] = true;
         return $this;
     }
 
