@@ -199,7 +199,7 @@
                                         <sort_order>100</sort_order>
                                     </admin>
                                     <advanced_grid translate="title">
-                                        <title>Advanced Grid Configuration</title>
+                                        <title>Admin Grids</title>
                                         <sort_order>101</sort_order>
                                     </advanced_grid>
                                 </children>
