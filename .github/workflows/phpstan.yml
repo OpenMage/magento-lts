@@ -8,10 +8,18 @@ on:
 jobs:
   phpstan:
     name: Analyze
-    runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.4', '8.2']
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check PHP version
+        id: check-php-version
+        run: echo "php -v" >> $GITHUB_OUTPUT
 
       - name: Get composer cache directory
         id: composer-cache
