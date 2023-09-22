@@ -19,7 +19,7 @@ jobs:
 
       - name: Check PHP version
         id: check-php-version
-        run: echo "php -v" >> $GITHUB_OUTPUT
+        run: php -v
 
       - name: Get composer cache directory
         id: composer-cache
