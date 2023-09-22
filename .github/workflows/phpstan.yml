@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
+        run: php -v && composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPStan Static Analysis
         run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
