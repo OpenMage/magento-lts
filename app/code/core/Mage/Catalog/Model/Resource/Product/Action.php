@@ -85,7 +85,8 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
     }
 
     /**
-     * Updated the "updated_at" field for all entity_ids passed to the method
+     * Updated the "updated_at" field for all entity_ids passed
+     *
      * @param array $entityIds
      * @return void
      * @throws Zend_Db_Adapter_Exception
@@ -94,13 +95,13 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
     {
         $updatedAt = Varien_Date::now();
         $catalogProductTable = $this->getTable('catalog/product');
-        $writeConnection = $this->getWriteConnection();
+        $adapter = $this->_getWriteAdapter();
 
         $entityIdsChunks = array_chunk($entityIds, 1000);
         foreach ($entityIdsChunks as $entityIdsChunk) {
-            $writeConnection->update($catalogProductTable, [
+            $adapter->update($catalogProductTable, [
                 'updated_at' => $updatedAt
-            ], $writeConnection->quoteInto('entity_id IN (?)', $entityIdsChunk));
+            ], $adapter->quoteInto('entity_id IN (?)', $entityIdsChunk));
         }
     }
 }
