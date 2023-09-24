@@ -148,7 +148,6 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
         Mage::dispatchEvent(
             'adminhtml_helper_catalog_product_edit_action_attribute_exclude',
             ['excluded_attributes' => $excludedAttributes]
-
         );
 
         return $excludedAttributes->getArrayCopy();
