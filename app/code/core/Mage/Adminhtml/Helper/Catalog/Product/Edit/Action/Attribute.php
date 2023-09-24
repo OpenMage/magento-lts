@@ -116,8 +116,8 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
                 ->addIsNotUniqueFilter()
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
-            if ($this->_excludedAttributes) {
-                $this->_attributes->addFieldToFilter('attribute_code', ['nin' => $this->_excludedAttributes]);
+            if ($exludedAttributes = $this->_getExcludedAttributes()) {
+                $this->_attributes->addFieldToFilter('attribute_code', ['nin' => $exludedAttributes]);
             }
 
             // check product type apply to limitation and remove attributes that impossible to change in mass-update
@@ -135,6 +135,23 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
         }
 
         return $this->_attributes;
+    }
+
+    /**
+     * Dispatch event to update $_excludedAttributes.
+     *
+     * @return string[]
+     */
+    protected function _getExcludedAttributes()
+    {
+        $excludedAttributes = new ArrayObject($this->_excludedAttributes);
+        Mage::dispatchEvent(
+            'adminhtml_helper_catalog_product_edit_action_attribute_exclude',
+            ['excluded_attributes' => $excludedAttributes]
+
+        );
+
+        return $excludedAttributes->getArrayCopy();
     }
 
     /**

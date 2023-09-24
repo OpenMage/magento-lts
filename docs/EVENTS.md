@@ -67,6 +67,7 @@
 | adminhtml_customer_orders_add_action_renderer | 1.9.4.5 |
 | adminhtml_customer_prepare_save | 1.9.4.5 |
 | adminhtml_customer_save_after | 1.9.4.5 |
+| adminhtml_helper_catalog_product_edit_action_attribute_exclude | 20.1.2 |
 | adminhtml_init_system_config | 1.9.4.5 |
 | adminhtml_promo_catalog_edit_tab_main_prepare_form | 1.9.4.5 |
 | adminhtml_promo_quote_edit_tab_coupons_form_prepare_form | 1.9.4.5 |
