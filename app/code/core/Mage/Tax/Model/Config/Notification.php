@@ -75,7 +75,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
      */
     protected function _resetNotificationFlag($path)
     {
-        Mage::helper('tax')->setIsIgnored($path, 0);
+        Mage::helper('tax')->setIsIgnored($path, false);
         return $this;
     }
 }
