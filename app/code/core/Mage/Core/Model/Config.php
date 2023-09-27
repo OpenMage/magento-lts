@@ -511,7 +511,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (PHP_SAPI === 'cli') {
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
-                require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
             }
         }
