@@ -506,7 +506,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [PHP_SAPI === 'cli' ? 60 : 3])) {
+        $lockWaitTime = getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3);
+        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$lockWaitTime])) {
             if (PHP_SAPI === 'cli') {
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
