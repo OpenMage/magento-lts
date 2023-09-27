@@ -32,20 +32,18 @@
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * System roles identifiers
      */
     public const ROLE_GUEST_ID = 1;
     public const ROLE_CUSTOMER_ID = 2;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Config node identifiers
      */
     public const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
     public const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
     public const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
-    /**#@-*/
 
     /**
      * Permissions model
