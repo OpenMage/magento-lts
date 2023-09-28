@@ -49,14 +49,14 @@
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * Token types
      */
     public const TYPE_REQUEST = 'request';
     public const TYPE_ACCESS  = 'access';
     /**#@- */
 
-    /**#@+
+    /**
      * Lengths of token fields
      */
     public const LENGTH_TOKEN    = 32;
@@ -64,7 +64,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     public const LENGTH_VERIFIER = 32;
     /**#@- */
 
-    /**#@+
+    /**
      * Customer types
      */
     public const USER_TYPE_ADMIN    = 'admin';
