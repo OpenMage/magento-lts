@@ -4,19 +4,17 @@ require_once 'public_html/app/Mage.php';
 umask(0); 
 Mage::init();
 
-
 function getInput($minLength = '1')
 {
-	$handle = fopen ("php://stdin","r");
+	$handle = fopen("php://stdin", "r");
 	$line = fgets($handle);
-	if(strlen(trim($line)) < $minLength){
-		echo "error - ABORTING!\n";
-		exit;
+	if (strlen(trim($line)) < $minLength) {
+            echo "error - ABORTING!\n";
+	    exit;
 	}	
 	fclose($handle);
 
 	return trim($line);
-	
 }
 
 function getStoreViewList()
