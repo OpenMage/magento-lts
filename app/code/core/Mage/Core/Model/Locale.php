@@ -227,7 +227,7 @@ class Mage_Core_Model_Locale
     {
         $options = [];
         $zendLocales = $this->getLocale()->getLocaleList();
-        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale(), '');
         $countries = $this->getCountryTranslationList();
 
         //Zend locale codes for internal allowed locale codes
@@ -770,6 +770,9 @@ class Mage_Core_Model_Locale
      */
     public function getTranslationList($path = null, $value = null)
     {
+        if (!is_string($value)) {
+            $value = (string) $value;
+        }
         return $this->getLocale()->getTranslationList($path, $this->getLocale(), $value);
     }
 
@@ -815,7 +818,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), 2);
+        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), '2');
     }
 
     /**
