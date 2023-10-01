@@ -21,7 +21,7 @@
  */
 class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /**
      * Endpoint types with appropriate routes
      */
     public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
@@ -30,19 +30,16 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
     public const ENDPOINT_INITIATE                  = 'oauth/initiate';
     public const ENDPOINT_TOKEN                     = 'oauth/token';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Cleanup xpath config settings
      */
     public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
     public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
-    /**#@-*/
 
-    /**#@+ Email template */
+    /** Email template */
     public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
     public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
-    /**#@-*/
 
     /**
      * Cleanup expiration period in minutes
