@@ -4,8 +4,7 @@ require_once 'public_html/app/Mage.php';
 umask(0); 
 Mage::init();
 
-function getInput($minLength = '1')
-{
+function getInput($minLength = '1') {
 	$handle = fopen("php://stdin", "r");
 	$line = fgets($handle);
 	if (strlen(trim($line)) < $minLength) {
@@ -17,8 +16,7 @@ function getInput($minLength = '1')
 	return trim($line);
 }
 
-function getStoreViewList()
-{
+function getStoreViewList() {
     $_store = array();
     foreach (Mage::app()->getWebsites() as $website) {
         foreach ($website->getGroups() as $group) {
