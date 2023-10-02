@@ -49,7 +49,6 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      * Get url for view order details
      *
      * @return string
-     * @deprecated after 1.4.0.1
      */
     public function getViewOrderUrl()
     {
