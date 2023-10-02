@@ -34,8 +34,7 @@ function getStoreViewList()
 
 // Print stores list
 $allStoresArray = getStoreViewList();
-foreach($allStoresArray as $store)
-{
+foreach($allStoresArray as $store) {
 	echo "[". $store['id'] . "] " . $store['name'] . "\r\n";
 }
 
@@ -49,8 +48,7 @@ $customerEmailID = getInput('5');
 
 /****************************************/
 
-if(isset($customerEmailID) && isset($websiteID))
-{
+if (isset($customerEmailID) && isset($websiteID)) {
 	$toCustomer = Mage::getModel('customer/customer')
 		->setWebsiteId($websiteID)
 		->loadByEmail($customerEmailID);
@@ -62,8 +60,7 @@ if(isset($customerEmailID) && isset($websiteID))
 		->addAttributeToFilter('customer_email', $customerEmailID);
 
 		
-	foreach($orders as $order)
-	{
+	foreach($orders as $order) {
 		try {
 			$orderByID = Mage::getModel('sales/order')->loadByIncrementId($order['increment_id']);
 
