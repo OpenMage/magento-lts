@@ -104,9 +104,25 @@ class Mage_Tax_Model_Config
      * @deprecated
      */
     public const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DEFAULT_PRODUCT_TAX_GROUP = 'catalog/product/default_tax_group';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN = 'tax/display/column_in_summary';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY = 'tax/display/full_summary';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_ZERO_TAX = 'tax/display/zero_tax';
 
     /**
