@@ -38,7 +38,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
             $skipped = Mage::getSingleton('widget/widget_config')->decodeWidgetsFromQuery($skipped);
         }
 
-        Mage::register('skip_widgets', $skipped);
+        Mage::register('skip_widgets', is_array($skipped) ? $skipped : []);
         $this->loadLayout('empty')->renderLayout();
     }
 
