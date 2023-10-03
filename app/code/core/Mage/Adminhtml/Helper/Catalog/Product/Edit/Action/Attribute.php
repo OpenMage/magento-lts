@@ -114,6 +114,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
                 ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
                 ->getAttributeCollection()
                 ->addIsNotUniqueFilter()
+                ->addFieldToFilter('frontend_input', ['neq' => 'label'])
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
             if ($this->_excludedAttributes) {
