@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb30f66aca74838b90733422e46e761a",
+    "content-hash": "7fa4970f47693e04c0b769ceb76a9a9c",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -100,16 +100,16 @@
         },
         {
             "name": "colinmollenhour/magento-redis-session",
-            "version": "3.1.1",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
-                "reference": "731f63674d25eb00c6d10b778ac4e6d4321d3d1d"
+                "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/731f63674d25eb00c6d10b778ac4e6d4321d3d1d",
-                "reference": "731f63674d25eb00c6d10b778ac4e6d4321d3d1d",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/4f10ca7b2370192f05d04d6e185cf2896b8a14aa",
+                "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa",
                 "shasum": ""
             },
             "require": {
@@ -133,9 +133,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.1.1"
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.0"
             },
-            "time": "2023-03-21T15:46:55+00:00"
+            "time": "2023-10-03T14:21:02+00:00"
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
