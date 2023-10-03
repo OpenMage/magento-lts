@@ -1192,7 +1192,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             'rm'    => true, // can delete file after use
         ];
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $data, 'text/csv'] : $data;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $data, 'text/csv'] : $data;
     }
 
     /**
@@ -1259,7 +1259,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $csv .= implode(',', $data) . "\n";
         }
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $csv, 'text/csv'] : $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
@@ -1371,7 +1371,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             'rm'    => true, // can delete file after use
         ];
 
-        return (!empty($sheetName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $sheetName), $data, 'application/vnd.ms-excel'] : $data;
+        return (!empty($sheetName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $sheetName), $data, 'application/vnd.ms-excel'] : $data;
     }
 
     /**
@@ -1435,7 +1435,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**
