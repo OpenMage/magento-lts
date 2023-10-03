@@ -1160,7 +1160,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
-            exit('Too many results');
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
         }
 
         $io = new Varien_Io_File();
@@ -1220,7 +1222,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
-            exit('Too many results');
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
         }
 
         $data = [];
@@ -1338,7 +1342,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
-            exit('Too many results');
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
         }
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
@@ -1398,7 +1404,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
-            exit('Too many results');
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
         }
 
         $headers = [];
