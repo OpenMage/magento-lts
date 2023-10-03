@@ -1001,14 +1001,18 @@ function toogleFieldEditMode(toogleIdentifier, fieldContainer) {
 }
 
 function disableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = true;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = true;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = true;
     }
 }
 
 function enableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = false;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = false;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = false;
     }
