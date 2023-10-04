@@ -33,7 +33,7 @@
 .magento_sizer { background:#deebf0; width:5px; height:3px; }
 .magento_sizer { cursor:se-resize; }
 
-.magento_close { width:16px; height:16px; background:url(magento/window_close.png) no-repeat 0 0; position:absolute; top:5px; right:7px; cursor:pointer; z-index:1000; }
+.magento_close { width:16px; height:16px; background:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMDAwMDAiIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zOnY9Imh0dHBzOi8vdmVjdGEuaW8vbmFubyI+PHBhdGggZD0iTTE2IDBDNy4xNjQgMCAwIDcuMTYzIDAgMTZzNy4xNjMgMTYgMTYgMTYgMTYtNy4xNjMgMTYtMTZTMjQuODM3IDAgMTYgMHptMCAzMC4wMzJDOC4yOCAzMC4wMzIgMiAyMy43MiAyIDE2QTE0LjAyIDE0LjAyIDAgMCAxIDE2IDJhMTQuMDIgMTQuMDIgMCAwIDEgMTQgMTRjMCA3LjcyLTYuMjggMTQuMDMyLTE0IDE0LjAzMnptNS42NTctMTkuNjg4YTEgMSAwIDAgMC0xLjQxNCAwbC00LjI0MiA0LjI0Mi00LjI0Mi00LjI0MmExIDEgMCAxIDAtMS40MTUgMS40MTRMMTQuNTg2IDE2bC00LjI0MiA0LjI0MmExIDEgMCAxIDAgMS40MTUgMS40MTRsNC4yNDItNC4yNDIgNC4yNDIgNC4yNDJhMSAxIDAgMCAwIDEuNDE0LTEuNDE0TDE3LjQxNSAxNmw0LjI0Mi00LjI0MmExIDEgMCAwIDAgMC0xLjQxNHoiLz48L3N2Zz4=") no-repeat 0 0; position:absolute; top:5px; right:7px; cursor:pointer; z-index:1000; background-size: contain}
 .magento_minimize { width:16px; height:16px; background:url(magento/window_minimize.png) 0 0 no-repeat; position:absolute; top:5px; right:28px; cursor:pointer; z-index:1000; }
 .magento_maximize { width:16px; height:16px; background:url(magento/window_maximize.png)0 0 no-repeat; position:absolute; top:5px; right:49px; cursor:pointer; z-index:1000; }
 

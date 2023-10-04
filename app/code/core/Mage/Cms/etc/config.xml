@@ -201,6 +201,7 @@
         <cms>
             <wysiwyg>
                 <enabled>enabled</enabled>
+                <skin>oxide</skin>
             </wysiwyg>
         </cms>
         <system>

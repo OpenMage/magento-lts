@@ -533,6 +533,18 @@ class Mage_Core_Model_Cache
     }
 
     /**
+     * Enable cache usage for specific data type
+     *
+     * @param string $typeCode
+     * @return $this
+     */
+    public function unbanUse($typeCode)
+    {
+        $this->_allowedCacheOptions[$typeCode] = true;
+        return $this;
+    }
+
+    /**
      * Get cache tags by cache type from configuration
      *
      * @param string $type
