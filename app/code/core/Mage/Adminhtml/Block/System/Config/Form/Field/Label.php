@@ -20,6 +20,12 @@
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Label extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $element->unsScope();
+        return parent::render($element);
+    }
+
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $field = $element->getFieldConfig();
