@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Label extends Mage_Adminhtml
 {
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $element->unsScope();
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue()->unsPath();
         return parent::render($element);
     }
 
