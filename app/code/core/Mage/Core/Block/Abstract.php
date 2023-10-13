@@ -189,6 +189,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected $_app;
 
     /**
+     * To not render the same block multiple times with getChildHtml()
+     *
+     * @var bool
+     */
+    protected $_isRendered = false;
+
+    /**
      * Initialize factory instance
      *
      * @param array $args
@@ -580,7 +587,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
             $out = '';
             foreach ($children as $child) {
-                $out .= $this->_getChildHtml($child->getBlockAlias(), $useCache);
+                if (!$child->isRendered()) {
+                    $out .= $this->_getChildHtml($child->getBlockAlias(), $useCache);
+                }
             }
             return $out;
         } else {
@@ -914,6 +923,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if (Mage::getStoreConfig('advanced/modules_disable_output/' . $this->getModuleName())) {
             return '';
         }
+
+        $this->_isRendered = true;
         $html = $this->_loadCache();
         if ($html === false) {
             $translate = Mage::getSingleton('core/translate');
@@ -1532,5 +1543,15 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
+
+    /**
+     * Flag
+     *
+     * @return bool
+     */
+    public function isRendered()
+    {
+        return $this->_isRendered;
     }
 }
