@@ -29,11 +29,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Label extends Mage_Adminhtml
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $field = $element->getFieldConfig();
+        $element->setValue($field->value);
+        $element->setBold(!empty($field->bold));
 
-        $label = Mage::getModel('Varien_Data_Form_Element_Label');
-        $label->setValue($field->value);
-        $label->setBold(!empty($field->bold));
-
-        return $label->getElementHtml();
+        return $element->getElementHtml();
     }
 }
