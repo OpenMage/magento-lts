@@ -38,43 +38,36 @@ class Mage_Page_Model_Source_Robots
      */
     public function toOptionArray()
     {
-        return array(
-            Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW,
-                    'label' => Mage::helper('cms')->__('INDEX,FOLLOW')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW,
-                    'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_FOLLOW =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_FOLLOW,
-                    'label' => Mage::helper('cms')->__('NOINDEX,FOLLOW')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW,
-                    'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('INDEX,FOLLOW,NOARCHIVE')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW,NOARCHIVE')
-                ),
-            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW,NOARCHIVE')
-                ),
-        );
+        return [
+            Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW,
+                'label' => Mage::helper('cms')->__('INDEX,FOLLOW')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW,
+                'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_FOLLOW => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_FOLLOW,
+                'label' => Mage::helper('cms')->__('NOINDEX,FOLLOW')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW,
+                'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('INDEX,FOLLOW,NOARCHIVE')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW,NOARCHIVE')
+            ],
+            Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE => [
+                'value' => Mage_Cms_Model_Page::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW,NOARCHIVE')
+            ]
+        ];
     }
 
     /**
@@ -84,7 +77,6 @@ class Mage_Page_Model_Source_Robots
     public function getOptionLabel($key)
     {
         $options = $this->toOptionArray();
-
         return $options[$key]['label'];
     }
 }
