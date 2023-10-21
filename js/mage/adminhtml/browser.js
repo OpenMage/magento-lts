@@ -8,6 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 MediabrowserUtility = {
@@ -165,15 +166,14 @@ Mediabrowser.prototype = {
             return false;
         }
         var targetEl = this.getTargetElement();
-        if (! targetEl) {
+        if (!targetEl) {
             alert("Target element not found for content update");
             Windows.close('browser_window');
             return;
         }
 
         var params = {filename:div.id, node:this.currentNode.id, store:this.storeId};
-
-        if (targetEl.tagName.toLowerCase() == 'textarea') {
+        if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
             params.as_is = 1;
         }
 
@@ -182,17 +182,16 @@ Mediabrowser.prototype = {
             onSuccess: function(transport) {
                 try {
                     this.onAjaxSuccess(transport);
-                    if (this.getMediaBrowserOpener()) {
+                    if (this.getMediaBrowserCallback()) {
                         self.blur();
                     }
                     Windows.close('browser_window');
-                    if (targetEl.tagName.toLowerCase() == 'input') {
+                    if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'input') {
                         targetEl.value = transport.responseText;
-                    } else {
+                    } else if (targetEl.tagName && targetEl.tagName.toLowerCase() == 'textarea') {
                         updateElementAtCursor(targetEl, transport.responseText);
-                        if (varienGlobalEvents) {
-                            varienGlobalEvents.fireEvent('tinymceChange');
-                        }
+                    } else {
+                        targetEl(transport.responseText);
                     }
                 } catch (e) {
                     alert(e.message);
@@ -213,9 +212,8 @@ Mediabrowser.prototype = {
      */
     getTargetElement: function() {
         if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId)) {
-            if ((opener = this.getMediaBrowserOpener())) {
-                var targetElementId = tinyMceEditors.get(this.targetElementId).getMediaBrowserTargetElementId();
-                return opener.document.getElementById(targetElementId);
+            if ((callbak = this.getMediaBrowserCallback())) {
+                return callbak;
             } else {
                 return null;
             }
@@ -225,19 +223,13 @@ Mediabrowser.prototype = {
     },
 
     /**
-     * Return opener Window object if it exists, not closed and editor is active
-     *
-     * return object | null
+     * return object|null
      */
-    getMediaBrowserOpener: function() {
-         if (typeof(tinyMCE) != 'undefined'
-             && tinyMCE.get(this.targetElementId)
-             && typeof(tinyMceEditors) != 'undefined'
-             && ! tinyMceEditors.get(this.targetElementId).getMediaBrowserOpener().closed) {
-             return tinyMceEditors.get(this.targetElementId).getMediaBrowserOpener();
-         } else {
-             return null;
-         }
+    getMediaBrowserCallback: function() {
+        if (typeof(tinyMCE) != 'undefined' && tinyMCE.get(this.targetElementId) && typeof(tinyMceEditors) != 'undefined') {
+            return tinyMceEditors.get(this.targetElementId).getMediaBrowserCallback();
+        }
+        return null;
     },
 
     newFolder: function() {

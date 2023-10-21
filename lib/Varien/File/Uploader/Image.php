@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,16 +18,14 @@
  *
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property mixed $uploader
  */
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
-    public function __construct($file = null)
+    public function __construct()
     {
         register_shutdown_function([$this, 'destruct']);
-        $this->newUploader($file);
     }
 
     /**
@@ -352,7 +350,3 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
         $this->uploader->image_background_color = $color;
     }
 }
-
-// ft:php
-// fileformat:unix
-// tabstop:4

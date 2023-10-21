@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Variable_Config
 {
@@ -33,9 +32,9 @@ class Mage_Core_Model_Variable_Config
         $variableConfig = [];
         $onclickParts = [
             'search' => ['html_id'],
-            'subject' => 'MagentovariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');'
+            'subject' => 'OpenmagevariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');'
         ];
-        $variableWysiwygPlugin = [['name' => 'magentovariable',
+        $variableWysiwygPlugin = [['name' => 'openmagevariable',
             'src' => $this->getWysiwygJsPluginSrc(),
             'options' => [
                 'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
@@ -55,7 +54,7 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygJsPluginSrc()
     {
-        return Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentovariable/editor_plugin.js';
+        return Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagevariable.js';
     }
 
     /**

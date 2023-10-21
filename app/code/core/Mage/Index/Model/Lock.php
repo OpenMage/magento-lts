@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Index
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Index_Model_Lock
 {
@@ -277,6 +276,7 @@ class Mage_Index_Model_Lock
      *
      * @param string $lockName
      * @return resource
+     * @throws Exception
      */
     protected function _getLockFile($lockName)
     {
@@ -287,6 +287,10 @@ class Mage_Index_Model_Lock
                 self::$_lockFileResource[$lockName] = fopen($file, 'w');
             } else {
                 self::$_lockFileResource[$lockName] = fopen($file, 'x');
+            }
+            if (!self::$_lockFileResource[$lockName]) {
+                self::$_lockFileResource[$lockName] = null;
+                throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
             fwrite(self::$_lockFileResource[$lockName], date('r'));
         }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCanEditPrice(bool $value)
  * @method bool getCanReadPrice()
@@ -165,41 +164,46 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'sample_type' => $item->getSampleType(),
                 'sort_order' => $item->getSortOrder(),
             ];
-            $file = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBasePath(),
-                $item->getLinkFile()
-            );
 
-            if ($item->getLinkFile() && !is_file($file)) {
-                Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
+            if ($item->getLinkFile()) {
+                $file = Mage::helper('downloadable/file')->getFilePath(
+                    Mage_Downloadable_Model_Link::getBasePath(),
+                    $item->getLinkFile()
+                );
+                if (!is_file($file)) {
+                    Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
+                }
+                if (is_file($file)) {
+                    $name = '<a href="'
+                        . $this->getUrl('*/downloadable_product_edit/link', [
+                            'id' => $item->getId(),
+                            '_secure' => true
+                        ]) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
+                    $tmpLinkItem['file_save'] = [
+                        [
+                            'file' => $item->getLinkFile(),
+                            'name' => $name,
+                            'size' => filesize($file),
+                            'status' => 'old'
+                        ]
+                    ];
+                }
             }
-
-            if ($item->getLinkFile() && is_file($file)) {
-                $name = '<a href="'
-                    . $this->getUrl('*/downloadable_product_edit/link', [
-                        'id' => $item->getId(),
-                        '_secure' => true
-                    ]) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
-                $tmpLinkItem['file_save'] = [
-                    [
-                        'file' => $item->getLinkFile(),
-                        'name' => $name,
-                        'size' => filesize($file),
-                        'status' => 'old'
-                    ]];
-            }
-            $sampleFile = Mage::helper('downloadable/file')->getFilePath(
-                Mage_Downloadable_Model_Link::getBaseSamplePath(),
-                $item->getSampleFile()
-            );
-            if ($item->getSampleFile() && is_file($sampleFile)) {
-                $tmpLinkItem['sample_file_save'] = [
-                    [
-                        'file' => $item->getSampleFile(),
-                        'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
-                        'size' => filesize($sampleFile),
-                        'status' => 'old'
-                    ]];
+            if ($item->getSampleFile()) {
+                $sampleFile = Mage::helper('downloadable/file')->getFilePath(
+                    Mage_Downloadable_Model_Link::getBaseSamplePath(),
+                    $item->getSampleFile()
+                );
+                if (is_file($sampleFile)) {
+                    $tmpLinkItem['sample_file_save'] = [
+                        [
+                            'file' => $item->getSampleFile(),
+                            'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
+                            'size' => filesize($sampleFile),
+                            'status' => 'old'
+                        ]
+                    ];
+                }
             }
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = ' checked="checked"';
@@ -223,7 +227,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getPriceValue($value)
     {
-        return number_format($value, 2, null, '');
+        return number_format($value ?? 0, 2, null, '');
     }
 
     /**

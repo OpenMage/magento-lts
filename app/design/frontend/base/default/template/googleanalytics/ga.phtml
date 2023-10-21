@@ -9,56 +9,25 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
+/** @var Mage_GoogleAnalytics_Block_Ga $this */
 $_helper = $this->helper('googleanalytics');
-$_accountId = $_helper->getAccountId();
 ?>
 <?php if (!$this->helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
     <?php if ($_helper->isUseAnalytics4()): ?>
+        <?php $_gaAccountId = $_helper->getAccountId() ?>
         <!-- BEGIN GOOGLE ANALYTICS 4 CODE -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $_accountId ?>"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $_gaAccountId ?>"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '<?= $_accountId ?>');
+            <?php echo $this->_getPageTrackingCode($_gaAccountId) ?>
+            <?php echo $this->_getEnhancedEcommerceDataForAnalytics4() ?>
         </script>
         <!-- END GOOGLE ANALYTICS 4 CODE -->
-    <?php elseif ($_helper->isUseUniversalAnalytics()): ?>
-        <!-- BEGIN GOOGLE UNIVERSAL ANALYTICS CODE -->
-        <script type="text/javascript">
-        //<![CDATA[
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            <?php echo $this->_getPageTrackingCode($_accountId) ?>
-            <?php echo $this->_getOrdersTrackingCode() ?>
-
-        //]]>
-        </script>
-        <!-- END GOOGLE UNIVERSAL ANALYTICS CODE -->
-    <?php else: ?>
-        <!-- BEGIN GOOGLE ANALYTICS CODE -->
-        <script type="text/javascript">
-        //<![CDATA[
-            var _gaq = _gaq || [];
-            <?php echo $this->_getPageTrackingCode($_accountId) ?>
-            <?php echo $this->_getOrdersTrackingCode() ?>
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-        //]]>
-        </script>
-        <!-- END GOOGLE ANALYTICS CODE -->
     <?php endif ?>
 <?php endif ?>

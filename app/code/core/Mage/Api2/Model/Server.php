@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Server
 {
@@ -27,7 +26,7 @@ class Mage_Api2_Model_Server
      */
     public const API_TYPE_REST = 'rest';
 
-    /**#@+
+    /**
      * HTTP Response Codes
      */
     public const HTTP_OK                 = 200;
@@ -40,7 +39,6 @@ class Mage_Api2_Model_Server
     public const HTTP_METHOD_NOT_ALLOWED = 405;
     public const HTTP_NOT_ACCEPTABLE     = 406;
     public const HTTP_INTERNAL_ERROR     = 500;
-    /**#@- */
 
     /**
      * List of api types

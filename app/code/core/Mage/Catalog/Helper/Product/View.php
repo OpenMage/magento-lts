@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 {
@@ -119,7 +118,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);
         }
 
-        $buyRequest = $params->getBuyRequest();
+        /** @see Mage_Checkout_CartController::_setProductBuyRequest() */
+        $checkoutBuyRequest = Mage::getSingleton('checkout/session')->getProductBuyRequest(true);
+        $buyRequest = $params->getBuyRequest() ?: $checkoutBuyRequest;
         if ($buyRequest) {
             $productHelper->prepareProductOptions($product, $buyRequest);
         }
