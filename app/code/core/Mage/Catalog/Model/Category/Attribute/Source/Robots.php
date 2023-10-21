@@ -25,43 +25,36 @@ class Mage_Catalog_Model_Category_Attribute_Source_Robots extends Mage_Eav_Model
      */
     public function getAllOptions()
     {
-        return array(
-            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW,
-                    'label' => Mage::helper('cms')->__('INDEX,FOLLOW')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW,
-                    'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_FOLLOW =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_FOLLOW,
-                    'label' => Mage::helper('cms')->__('NOINDEX,FOLLOW')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW,
-                    'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('INDEX,FOLLOW,NOARCHIVE')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW,NOARCHIVE')
-                ),
-            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE =>
-                array(
-                    'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE,
-                    'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW,NOARCHIVE')
-                ),
-        );
+        return [
+            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW,
+                'label' => Mage::helper('cms')->__('INDEX,FOLLOW')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW,
+                'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_FOLLOW => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_FOLLOW,
+                'label' => Mage::helper('cms')->__('NOINDEX,FOLLOW')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW,
+                'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('INDEX,FOLLOW,NOARCHIVE')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('INDEX,NOFOLLOW,NOARCHIVE')
+            ],
+            Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE => [
+                'value' => Mage_Catalog_Model_Category::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE,
+                'label' => Mage::helper('cms')->__('NOINDEX,NOFOLLOW,NOARCHIVE')
+            ]
+        ];
     }
 
     /**
@@ -71,7 +64,6 @@ class Mage_Catalog_Model_Category_Attribute_Source_Robots extends Mage_Eav_Model
     public function getOptionLabel($key)
     {
         $options = $this->getAllOptions();
-
         return $options[$key]['label'];
     }
 }
