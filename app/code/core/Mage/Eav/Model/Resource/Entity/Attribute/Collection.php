@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -429,8 +429,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
                 ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')]
             );
             $this->_addedStoreLabelsFlag = $storeId;
-        } // check that previous call $storeId matches current call
-        elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+        } elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+            // check that previous call $storeId matches current call
             throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
         }
 

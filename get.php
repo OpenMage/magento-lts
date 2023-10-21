@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,7 @@ require $bp . '/app/bootstrap.php';
 /**
  * Set include path
  */
-
+$paths = [];
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'local';
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'community';
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'core';
@@ -36,11 +36,21 @@ $paths[] = $bp . $ds . 'lib';
 
 $appPath = implode($ps, $paths);
 set_include_path($appPath . $ps . get_include_path());
-
 include_once 'Mage/Core/functions.php';
 include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
+
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = $bp . $ds . 'vendor';
+    }
+}
+require $autoloaderPath . $ds . 'autoload.php';
+/** AUTOLOADER PATCH **/
 
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
 

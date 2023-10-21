@@ -1031,7 +1031,7 @@
 "The Layered Navigation indexing queue has been canceled.","The Layered Navigation indexing queue has been canceled."
 "The Layered Navigation indices were refreshed.","The Layered Navigation indices were refreshed."
 "The Layered Navigation process has been queued to be killed.","The Layered Navigation process has been queued to be killed."
-"The OpenMage cache storage has been flushed.","The OpenMage cache storage has been flushed."
+"The OpenMage cache has been flushed and updates applied.","The OpenMage cache has been flushed and updates applied."
 "The Special Price is active only when lower than the Actual Price.","The Special Price is active only when lower than the Actual Price."
 "The URL Rewrite has been deleted.","The URL Rewrite has been deleted."
 "The URL Rewrite has been saved.","The URL Rewrite has been saved."

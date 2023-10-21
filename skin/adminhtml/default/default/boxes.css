@@ -8,7 +8,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -355,7 +355,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select option:disabled,
-    select:disabled option { color:#c9c9c9!important;color:#cacaca!important; text-shadow:2px 2px 2px #000; }
+    select:disabled option { color:#cacaca!important; }
 }
 
 /* Form List */ /* Table for default form data */
