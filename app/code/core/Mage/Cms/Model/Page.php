@@ -83,13 +83,13 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Page's Robots
      */
-    const META_ROBOTS_INDEX_FOLLOW               = 1;
-    const META_ROBOTS_INDEX_NOFOLLOW             = 2;
-    const META_ROBOTS_NOINDEX_FOLLOW             = 3;
-    const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
-    const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
-    const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
-    const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
+    public const META_ROBOTS_INDEX_FOLLOW               = 1;
+    public const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    public const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    public const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    public const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
 
     /**
      * Prefix of model events names
