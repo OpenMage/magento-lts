@@ -117,7 +117,6 @@
                 <?php endif ?>
                 </tbody>
             </table>
-            <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
             <?php if (is_object($track) && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
                 <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
@@ -146,7 +145,6 @@
                    <?php endforeach ?>
                    </tbody>
                 </table>
-                <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
             <?php endif ?>
             <div class="divider"></div>
             <?php if($counter!=$rowCount): ?>

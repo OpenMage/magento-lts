@@ -124,7 +124,6 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                     </li>
                 <?php endforeach ?>
             </ol>
-            <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
 
         <?php else: ?>
 
@@ -206,7 +205,6 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
             <?php endif*/ ?>
                 <?php endforeach ?>
             </ul>
-            <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
         <?php endif ?>
 
         <div class="toolbar-bottom">
