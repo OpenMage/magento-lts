@@ -199,5 +199,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if (isset($parsedUrl['query']) && (preg_match("/p=/i", $parsedUrl['query'])) && (!preg_match("/p=1/i", $parsedUrl['query']))) {
             return true;
         }
+
+        return false;
     }
 }
