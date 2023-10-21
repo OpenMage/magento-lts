@@ -240,7 +240,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
 
             $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/reviews'));
-
             $this->renderLayout();
         } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
