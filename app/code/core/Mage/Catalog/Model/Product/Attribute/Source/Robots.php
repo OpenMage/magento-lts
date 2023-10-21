@@ -68,7 +68,8 @@ class Mage_Catalog_Model_Product_Attribute_Source_Robots extends Mage_Eav_Model_
      * @param int $key
      * @return string
      */
-    public function getOptionLabel($key) {
+    public function getOptionLabel($key)
+    {
         $options = $this->getAllOptions();
 
         return $options[$key]['label'];

@@ -81,7 +81,8 @@ class Mage_Page_Model_Source_Robots
      * @param int $key
      * @return string
      */
-    public function getOptionLabel($key) {
+    public function getOptionLabel($key)
+    {
         $options = $this->toOptionArray();
 
         return $options[$key]['label'];
