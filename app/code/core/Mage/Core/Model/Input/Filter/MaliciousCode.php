@@ -51,9 +51,9 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      * Filter value
      *
      * @param string|array $value
-     * @return string|array
+     * @return mixed
      */
-    public function filter($value): array|string
+    public function filter($value)
     {
         do {
             $value = preg_replace($this->_expressions, '', $value ?? '', -1, $count);
