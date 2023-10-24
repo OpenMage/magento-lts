@@ -49,6 +49,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
 
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
         $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->getResponse()->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
         $this->_forward('nofeed', 'index', 'rss');
         return false;
     }

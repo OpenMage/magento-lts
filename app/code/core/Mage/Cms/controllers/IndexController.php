@@ -43,6 +43,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
         $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->getResponse()->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
 
         $this->loadLayout();
         $this->renderLayout();
@@ -57,6 +58,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
         $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->getResponse()->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
 
         $pageId = Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE);
         if (!Mage::helper('cms/page')->renderPage($this, $pageId)) {
@@ -73,6 +75,7 @@ class Mage_Cms_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
         $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->getResponse()->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
 
         $this->loadLayout();
         $this->renderLayout();
