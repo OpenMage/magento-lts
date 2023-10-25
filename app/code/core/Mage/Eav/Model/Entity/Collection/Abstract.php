@@ -1332,11 +1332,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        if ($joinType === true || $joinType === 'left') {
-            $joinMethod = 'joinLeft';
-        } else {
-            $joinMethod = 'join';
-        }
+        $joinMethod = ($joinType === true || $joinType === 'left') ? 'joinLeft' : $joinMethod = 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 
