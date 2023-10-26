@@ -751,6 +751,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
