@@ -267,6 +267,16 @@ If you see SQL errors after upgrading please remember to check for this specific
 
 UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
 
+### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+
+- PHP 8.1 as minimum required version
+- Removed scriptaculous/dragdrop.js (#3215)
+- RWD theme: updated jQuery to 3.7.0 (#3204)
+- Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
+- Removed double span element from HTML buttons (#3123)
+- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
+- Removed "admin routing compatibility mode" (#1551)
+
 ### New Config Options
 
 - `admin/design/use_legacy_theme`
