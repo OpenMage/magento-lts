@@ -3021,11 +3021,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
 
 		-
-			message: "#^Variable \\$importModel might not be defined\\.$#"
-			count: 2
-			path: app/code/core/Mage/Directory/Model/Observer.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
