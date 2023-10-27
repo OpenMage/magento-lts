@@ -22,49 +22,56 @@
 class Mage_Directory_Model_Observer
 {
     public const CRON_STRING_PATH = 'crontab/jobs/currency_rates_update/schedule/cron_expr';
-    public const IMPORT_ENABLE = 'currency/import/enabled';
-    public const IMPORT_SERVICE = 'currency/import/service';
+    public const IMPORT_ENABLE    = 'currency/import/enabled';
+    public const IMPORT_SERVICE   = 'currency/import/service';
 
-    public const XML_PATH_ERROR_TEMPLATE = 'currency/import/error_email_template';
-    public const XML_PATH_ERROR_IDENTITY = 'currency/import/error_email_identity';
+    public const XML_PATH_ERROR_TEMPLATE  = 'currency/import/error_email_template';
+    public const XML_PATH_ERROR_IDENTITY  = 'currency/import/error_email_identity';
     public const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
 
     /**
+     * @param Mage_Cron_Model_Schedule|null $cron
      * @throws Mage_Core_Exception
      */
-    public function scheduledUpdateCurrencyRates()
+    public function scheduledUpdateCurrencyRates($cron = null)
     {
-        $importWarnings = [];
         if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
             return;
         }
 
-        $service = Mage::getStoreConfig(self::IMPORT_SERVICE);
-        if (!$service) {
-            $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::helper('directory')->__('Invalid Import Service specified.');
-        }
+        $errors  = [];
+        $service = (string)Mage::getStoreConfig(self::IMPORT_SERVICE);
 
-        try {
-            /** @var Mage_Directory_Model_Currency_Import_Abstract $importModel */
-            $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
-        } catch (Exception $e) {
-            $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::throwException(Mage::helper('directory')->__('Unable to initialize the import model.'));
-        }
-
-        $rates = $importModel->fetchRates();
-        $errors = $importModel->getMessages();
-
-        if (count($errors)) {
-            foreach ($errors as $error) {
-                $importWarnings[] = Mage::helper('directory')->__('WARNING:') . ' ' . $error;
+        if ($service) {
+            try {
+                /** @var Mage_Directory_Model_Currency_Import_Abstract $importModel */
+                $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
+            } catch (Exception $e) {
+                $errors[] = 'FATAL ERROR: Unable to initialize the import model (' . $e->getMessage() . ').';
             }
+        } else {
+            $errors[] = 'FATAL ERROR: Invalid Import Service specified (' . $service . ').';
         }
 
-        if (!count($importWarnings)) {
+        if (is_object($importModel)) {
+            $rates  = $importModel->fetchRates();
+            $errors = $importModel->getMessages();
+        }
+
+        if (!count($errors)) {
             Mage::getModel('directory/currency')->saveRates($rates);
         } else {
-            $translate = Mage::getSingleton('core/translate');
+            $errors = 'An error occured while importing currency rates, no rates updated.' . "\n- " . implode("\n- ", $errors);
+
+            Mage::logException(new Exception($errors));
+            if (is_object($cron)) {
+                /** @var Mage_Cron_Model_Schedule $cron */
+                $cron->setMessages($errors);
+                $cron->setIsError(true);
+            }
+
             /** @var Mage_Core_Model_Translate $translate */
+            $translate = Mage::getSingleton('core/translate');
             $translate->setTranslateInline(false);
 
             /** @var Mage_Core_Model_Email_Template $mailTemplate */
@@ -77,7 +84,7 @@ class Mage_Directory_Model_Observer
                 Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                 null,
                 [
-                    'warnings' => implode("\n", $importWarnings),
+                    'warnings' => $errors,
                 ]
             );
 
