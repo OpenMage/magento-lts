@@ -59,7 +59,7 @@ class Mage_Directory_Model_Observer
             $errors = $importModel->getMessages();
         }
 
-        if (!count($errors)) {
+        if (isset($rates) && !count($errors)) {
             Mage::getModel('directory/currency')->saveRates($rates);
         } else {
             $errors = 'An error occured while importing currency rates, no rates updated.' . "\n- " . implode("\n- ", $errors);
