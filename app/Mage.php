@@ -206,8 +206,8 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '1',
-                'patch'     => '1',
+                'minor'     => '2',
+                'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
@@ -216,7 +216,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '5',
-            'patch'     => '1',
+            'patch'     => '2',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
