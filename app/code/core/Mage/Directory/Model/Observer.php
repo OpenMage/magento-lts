@@ -41,6 +41,7 @@ class Mage_Directory_Model_Observer
 
         $errors  = [];
         $service = (string)Mage::getStoreConfig(self::IMPORT_SERVICE);
+        $importModel = null;
 
         if ($service) {
             try {
