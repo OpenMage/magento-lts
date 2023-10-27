@@ -118,7 +118,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 Mage::getSingleton('customer/session')->addError($e->getMessage());
             } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please try again later'));
+                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please, try again later'));
             }
         }
 
