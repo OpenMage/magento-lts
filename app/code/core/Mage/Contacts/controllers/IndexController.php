@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Contacts
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,10 +60,6 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
             try {
-                if (!$this->_validateFormKey()) {
-                    Mage::throwException($this->__('Invalid Form Key. Please submit your request again.'));
-                }
-
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
