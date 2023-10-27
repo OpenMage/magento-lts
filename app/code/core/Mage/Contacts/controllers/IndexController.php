@@ -74,7 +74,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 if ($error) {
-                    Mage::throwException($this->__('Unable to submit your request. Please try again later'));
+                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 
                 // send email
@@ -91,7 +91,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
-                    Mage::throwException($this->__('Unable to submit your request. Please try again later'));
+                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 
                 // send customer email
