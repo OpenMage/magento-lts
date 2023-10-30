@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             ->addFieldToSelect('created_at')
             ->addFieldToSelect('grand_total')
             ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('status')
             ->addFieldToSelect('store_id')
             ->addFieldToSelect('billing_name')
             ->addFieldToSelect('shipping_name')
@@ -88,6 +89,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'index'     => 'grand_total',
             'type'      => 'currency',
             'currency'  => 'order_currency_code',
+        ]);
+
+        $this->addColumn('status', [
+            'header' => Mage::helper('customer')->__('Status'),
+            'index' => 'status',
+            'type'  => 'options',
+            'width' => '150px',
+            'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
