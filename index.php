@@ -36,7 +36,7 @@ $mageRunType = $_SERVER['MAGE_RUN_TYPE'] ?? 'store';
 if (file_exists($maintenanceFile)) {
     $maintenanceBypass = false;
 
-    if (file_exists($maintenanceIpFile) && is_readable()) {
+    if (file_exists($maintenanceIpFile) && is_readable($maintenanceIpFile)) {
         /* if maintenanceFile and maintenanceIpFile are set use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
         Mage::init($mageRunCode, $mageRunType);
         $currentIp = Mage::helper('core/http')->getRemoteAddr();
