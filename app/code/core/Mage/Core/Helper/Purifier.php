@@ -43,9 +43,9 @@ class Mage_Core_Helper_Purifier extends Mage_Core_Helper_Abstract
      * Purify Html Content
      *
      * @param array|string $content
-     * @return mixed
+     * @return array|string
      */
-    public function purify($content): mixed
+    public function purify($content)
     {
         return is_array($content) ? $this->purifier->purifyArray($content) : $this->purifier->purify($content);
     }
