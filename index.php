@@ -40,16 +40,12 @@ if (file_exists($maintenanceFile)) {
         /* if maintenanceFile and maintenanceIpFile are set use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
         Mage::init($mageRunCode, $mageRunType);
         $currentIp = Mage::helper('core/http')->getRemoteAddr();
-	$allowedIps = preg_split('/[\ \n\t\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
-	foreach ($allowedIps as $index => $value) {
-		if (!filter_var(trim($value), FILTER_VALIDATE_IP)) {
-			unset($allowedIps[$index]);
-		}
-	}
-
-        if (in_array($currentIp, $allowedIps)) {
-            /* IP address matches, bypass maintenanceMode */
-            $maintenanceBypass = true;
+        $allowedIps = preg_split('/[\ \n\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
+        foreach ($allowedIps as $allowedIp) {
+            if ($currentIp === $allowedIp && !filter_var($allowedIp, FILTER_VALIDATE_IP)) {
+                $maintenanceBypass = true;
+                break;
+            }
         }
     }
     if (!$maintenanceBypass) {
