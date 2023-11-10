@@ -1895,12 +1895,20 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Cache whether grid row is accessible
-     *
      * @param string $aclPath ACL path
      * @return bool
      */
-    protected function isViewUrlAllowed(string $aclPath): bool
+    protected function canView(string $aclPath): bool
+    {
+        return $this->_isAllowed($aclPath);
+    }
+
+    /**
+     * Cache whether grid row is accessible
+     * @param string $aclPath ACL path
+     * @return bool
+     */
+    private function _isAllowed(string $aclPath): bool
     {
         if ($this->isAllowed === null || !isset($this->isAllowed[$aclPath])) {
             /** @var Mage_Admin_Model_Session $session */

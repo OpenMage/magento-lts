@@ -212,7 +212,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function getRowUrl($row)
     {
-        if ($this->isViewUrlAllowed('sales/order/actions/view')) {
+        if ($this->canView('sales/order/actions/view')) {
             return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
         }
         return false;

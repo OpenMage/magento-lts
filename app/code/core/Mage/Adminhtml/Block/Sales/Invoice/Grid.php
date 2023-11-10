@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getRowUrl($row)
     {
-        if ($this->isViewUrlAllowed('sales/order/invoice')) {
+        if ($this->canView('sales/order/invoice')) {
             return $this->getUrl('*/sales_invoice/view', ['invoice_id' => $row->getId()]);
         }
 

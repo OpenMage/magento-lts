@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        if ($this->isViewUrlAllowed('sales/order/shipment')) {
+        if ($this->canView('sales/order/shipment')) {
             return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
         }
 
