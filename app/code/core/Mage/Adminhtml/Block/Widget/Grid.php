@@ -223,9 +223,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Allow edit status
      *
-     * @var bool|null
+     * @var array<string, bool>|null
      */
-    protected ?bool $isViewAllowed = null;
+    protected ?array $isAllowed = null;
 
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
@@ -1902,12 +1902,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function isViewUrlAllowed(string $aclPath): bool
     {
-        if ($this->isViewAllowed === null) {
+        if ($this->isAllowed === null || !isset($this->isAllowed[$aclPath])) {
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
-            $this->isViewAllowed = $session->isAllowed($aclPath);
+            $this->isAllowed[$aclPath] = $session->isAllowed($aclPath);
         }
 
-        return $this->isViewAllowed;
+        return $this->isAllowed[$aclPath];
     }
 }
