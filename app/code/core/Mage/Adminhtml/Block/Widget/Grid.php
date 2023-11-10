@@ -221,6 +221,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     ];
 
     /**
+     * Allow edit status
+     *
+     * @var bool|null
+     */
+    protected ?bool $isViewAllowed = null;
+
+    /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
      * @param array $attributes
      */
@@ -1806,7 +1813,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Check whether should render cell
+     * Check whether you should render cell
      *
      * @param Varien_Object $item
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
@@ -1885,5 +1892,22 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getLimitOptions(): array
     {
         return [20, 30, 50, 100, 200, 500, 1000];
+    }
+
+    /**
+     * Cache whether grid row is accessible
+     *
+     * @param string $aclPath ACL path
+     * @return bool
+     */
+    protected function isViewUrlAllowed(string $aclPath): bool
+    {
+        if ($this->isViewAllowed === null) {
+            /** @var Mage_Admin_Model_Session $session */
+            $session = Mage::getSingleton('admin/session');
+            $this->isViewAllowed = $session->isAllowed($aclPath);
+        }
+
+        return $this->isViewAllowed;
     }
 }
