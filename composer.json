@@ -86,7 +86,7 @@
         }
     },
     "extra": {
-        "file-copier" : {
+        "file-copy" : {
             "source": "tinymce/tinymce",
             "target": "js/tinymce"
         },
