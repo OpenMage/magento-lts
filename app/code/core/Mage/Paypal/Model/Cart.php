@@ -433,9 +433,9 @@ class Mage_Paypal_Model_Cart
     protected function _addRegularItem(Varien_Object $salesItem)
     {
         if ($this->_salesEntity instanceof Mage_Sales_Model_Order) {
+            // TODO: nominal item for order
             $qty = (int) $salesItem->getQtyOrdered();
             $amount = (float) $salesItem->getBasePrice();
-            // TODO: nominal item for order
         } else {
             $qty = (int) $salesItem->getTotalQty();
             $amount = $salesItem->isNominal() ? 0 : (float) $salesItem->getBaseCalculationPrice();
