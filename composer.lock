@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "222c3d49b4a1e79b8db69b657a66f657",
+    "content-hash": "31547e3bf2f06a87d755e074e3cabed0",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1045,17 +1045,17 @@
             "time": "2023-08-24T14:07:53+00:00"
         },
         {
-            "name": "sreichel/composer-plugin-file-copier",
-            "version": "dev-develop",
+            "name": "sreichel/composer-plugin-file-copy",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sreichel/composer-plugin-file-copier.git",
-                "reference": "5d31d5a3c96c80f91c872fade601422371d8c0f4"
+                "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
+                "reference": "8cce33537e7de7e148d1a21eba88178dd35f7cb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copier/zipball/5d31d5a3c96c80f91c872fade601422371d8c0f4",
-                "reference": "5d31d5a3c96c80f91c872fade601422371d8c0f4",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/8cce33537e7de7e148d1a21eba88178dd35f7cb3",
+                "reference": "8cce33537e7de7e148d1a21eba88178dd35f7cb3",
                 "shasum": ""
             },
             "require": {
@@ -1066,6 +1066,7 @@
             "require-dev": {
                 "composer/composer": "^2.0|2.0@dev"
             },
+            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "Sreichel\\Composer\\Plugin\\FileCopier\\ScriptHandler"
@@ -1097,9 +1098,9 @@
                 "files copy"
             ],
             "support": {
-                "source": "https://github.com/sreichel/composer-plugin-file-copier/tree/develop"
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/master"
             },
-            "time": "2023-11-10T22:09:14+00:00"
+            "time": "2023-11-10T23:32:23+00:00"
         },
         {
             "name": "symfony/console",
@@ -5646,7 +5647,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sreichel/composer-plugin-file-copier": 20
+        "sreichel/composer-plugin-file-copy": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
