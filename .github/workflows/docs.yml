@@ -1,6 +1,10 @@
 name: MkDocs
 
 on:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
   push:
     branches:
       - main
@@ -26,11 +30,7 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip3 install /
-          mkdocs /
-          mkdocs-material /
-          mkdocs-minify-plugin /
-          mkdocs-redirects
+      - run: pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
 
       - name: Publish docs
         run: mkdocs gh-deploy --force
