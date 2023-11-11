@@ -1,4 +1,4 @@
-## For Multistore setups
+# Error pages
 
 If you want to setup multiple stores with a different layout and localized content for each store, this is done by passing the `$_GET['skin']` parameter to the intended processor In the example below, we are using a `503` type error template file, which requires localized content.
 
@@ -12,14 +12,14 @@ if (isset($_GET['skin'])) {
 
 This can also be added a rewrite rule in the `.htaccess` file that will append a `skin` parameter to the URL.
 
-### $_GET['skin'] parameter
+## `$_GET['skin']` parameter
 
 To use the `skin` parameter:
 
 1. Check if the `maintenance.flag` exists
-1. Note the host address, that refers to the `HTTP_HOST`, or any other variable such as ENV variables
-1. Check if the `skin` parameter exists
-1. Set the parameter by using the rewrite rules below.
+2. Note the host address, that refers to the `HTTP_HOST`, or any other variable such as ENV variables
+3. Check if the `skin` parameter exists
+4. Set the parameter by using the rewrite rules below.
 
 This is what it looks like as a rewrite rule:
 

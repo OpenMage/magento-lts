@@ -1,4 +1,4 @@
-# OpenMage DDEV environment
+# DDEV environment
 
 __This is work-in-progress.__
 
@@ -78,5 +78,5 @@ https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the
 ## Usage: phpstan
 ## Example: ddev phpstan <path-to-files>
 
-php vendor/bin/phpstan analyze -c .github/phpstan.neon "$@"
+php vendor/bin/phpstan analyze "$@"
 ```
