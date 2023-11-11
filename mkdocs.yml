@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: OpenMage Docs
-site_url: https://github.readthedocs.io/en/latest/
+site_url: https://sreichel.github.io/openmage-strict/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
 edit_uri: blob/main/docs/content
