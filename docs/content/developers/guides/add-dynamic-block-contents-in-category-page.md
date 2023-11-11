@@ -1,4 +1,3 @@
-
 # Add dynamic block contents in category page
 
 In _backend > Catalog > Manage Categories_, we can configure a category page and put it on the main menu. The page contents are rendered in
