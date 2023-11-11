@@ -26,11 +26,7 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip3 install /
-          mkdocs /
-          mkdocs-material /
-          mkdocs-minify-plugin /
-          mkdocs-redirects
+      - run: pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
 
       - name: Publish docs
         run: mkdocs gh-deploy --force
