@@ -1,6 +1,10 @@
 name: MkDocs
 
 on:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
   push:
     branches:
       - main
