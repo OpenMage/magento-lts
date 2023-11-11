@@ -14,6 +14,7 @@
 
 # PhpStorm
 .idea
+qodana.yaml
 
 # Openmage config
 /app/etc/local.xml
@@ -80,3 +81,9 @@ phpstan*.neon
 # dev scripts loaded via composer
 /shell/update-copyright.php
 /shell/translations.php
+
+# test files
+**test*.php
+
+# rector config
+rector.php
