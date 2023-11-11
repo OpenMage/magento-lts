@@ -10,4 +10,3 @@
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
-- 
