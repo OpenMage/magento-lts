@@ -6,4 +6,4 @@
 
 
 - PHP extension `intl` <small>since 1.9.4.19 & 20.0.17</small>
-- Command `patch` 2.7+ (or `gpatch` on MacOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
+- Command `patch` 2.7+ (or `gpatch` on macOS/HomeBrew) <small>since 1.9.5.0 & 20.1.0</small>
