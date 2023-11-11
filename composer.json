@@ -116,7 +116,6 @@
             "magento-hackathon/magento-composer-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "cweagans/composer-patches": true,
-            "sreichel/composer-plugin-file-copier": true,
             "sreichel/composer-plugin-file-copy": true
         },
         "platform": {
