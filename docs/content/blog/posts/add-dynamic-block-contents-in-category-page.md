@@ -1,3 +1,16 @@
+---
+draft: false
+date: 2023-11-11
+readtime: 5
+authors:
+  - kiatng
+categories:
+  - Categories
+  - Templates
+tags:
+  - HTML5
+---
+
 # Add dynamic block contents in category page
 
 In _backend > Catalog > Manage Categories_, we can configure a category page and put it on the main menu. The page contents are rendered in
@@ -16,8 +29,8 @@ Voila, the HTML table is rendered under the menu we just created. However, every
 What if the table is constantly being updated, or there is an expiry condition on some data which shouldn't be included? In which case, we would want to render the HTML table dynamically. It's actually quite easy to do:
 
 1. In the subcategory page in backend, set the _Description_ to this: `{{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}`.
-1. Continue on to the _Display Setings_ tab and set the _CMS Block_ to _Please select a static block ..._.
-1. In our config file, either in the module `etc/config.xml` or in the `local.xml`, insert the following:
+2. Continue on to the _Display Setings_ tab and set the _CMS Block_ to _Please select a static block ..._.
+3. In our config file, either in the module `etc/config.xml` or in the `local.xml`, insert the following:
 
 ```xml
 <config>

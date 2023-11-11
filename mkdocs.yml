@@ -30,7 +30,9 @@ theme:
 
 # Plugins
 plugins:
+  - blog
   - search
+  - tags
   - redirects:
       redirect_maps:
   - minify:
@@ -48,6 +50,10 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/openmageproject
   generator: false
+  tags:
+    HTML5: html
+    JavaScript: js
+    CSS: css
 
 # Extensions
 markdown_extensions:
@@ -103,6 +109,7 @@ nav:
       - 'Versioning':
           - users/versioning/index.md
           - users/versioning/maintained.md
+      - tags.md
   - 'Modules':
       - users/modules/index.md
       - users/modules/payment.md
@@ -120,4 +127,4 @@ nav:
       - 'Documentation':
           - developers/mkdocs.md
   - 'Guides':
-      - developers/guides/add-dynamic-block-contents-in-category-page.md
+      - blog/posts/add-dynamic-block-contents-in-category-page.md
