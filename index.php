@@ -37,16 +37,11 @@ if (file_exists($maintenanceFile)) {
     $maintenanceBypass = false;
 
     if (file_exists($maintenanceIpFile) && is_readable($maintenanceIpFile)) {
-        /* if maintenanceFile and maintenanceIpFile are set use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
+        /* Use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
         Mage::init($mageRunCode, $mageRunType);
         $currentIp = Mage::helper('core/http')->getRemoteAddr();
         $allowedIps = preg_split('/[\ \n\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
-        foreach ($allowedIps as $allowedIp) {
-            if ($currentIp === $allowedIp && !filter_var($allowedIp, FILTER_VALIDATE_IP)) {
-                $maintenanceBypass = true;
-                break;
-            }
-        }
+        $maintenanceBypass = in_array($currentIp, $allowedIps, true);
     }
     if (!$maintenanceBypass) {
         include_once __DIR__ . '/errors/503.php';
