@@ -37,6 +37,7 @@ _If you rely on those modules you can reinstall them with composer:_
   ```
 
 - Module `Mage_Poll`
+
   ```bash
   composer require openmage/module-mage-poll
   ```
