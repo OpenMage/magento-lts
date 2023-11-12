@@ -25,52 +25,55 @@ Configure root directory that magento-lts will be installed to, such as `pub`, `
 composer config extra.magento-root-dir pub
 ```
 
-## Require `magento-core-composer-installer`[^1]
+## Require `magento-core-composer-installer`
 
 === "PHP 7/8"
 
+    For PHP 7 and 8[^1]
     ``` bash
     composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0 || ^2.1.0"
     ```
 
 === "PHP 7"
 
+    Only for PHP 7[^1]
     ``` bash
     composer require "aydin-hassan/magento-core-composer-installer":"^2.0.0"
     ```
 
 === "PHP 8"
 
+    Only for PHP 8[^1]
     ``` bash
     composer require "aydin-hassan/magento-core-composer-installer":"~2.1.0"
     ```
 
-## Require `magento-lts`[^1]
+## Require `magento-lts`
 
 === "v20"
 
-    Latest tagged `v20` series release
+    Latest tagged `v20` series release[^1]
     ```bash
     composer require "openmage/magento-lts":"^20.0.0"
     ```
 
 === "v19"
 
-    Legacy `v19` tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
+    Legacy `v19` tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)[^1]
     ```bash
     composer require "openmage/magento-lts":"^19.4.0"
     ```
 
 === "dev-main"
 
-    Latest on `main` development branch
+    Latest on `main` development branch[^1]
     ```bash
     composer require "openmage/magento-lts":"dev-main"
     ```
 
 === "dev-next"
 
-    Latest on `next` development branch
+    Latest on `next` development branch[^1]
     ```bash
     composer require "openmage/magento-lts":"dev-next"
     ```
@@ -83,4 +86,4 @@ When deploying to a production environment, it's recommended to optimize Compose
 composer dump-autoload --optimize
 ```
 
-[^1]: <small>Select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
+[^1]: <small>Select `y` to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
