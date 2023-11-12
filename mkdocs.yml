@@ -30,6 +30,7 @@ theme:
   icon:
     tag:
       code: fontawesome/solid/code
+      config: fontawesome/solid/clipboard-check
       css: fontawesome/brands/css3
       debug: fontawesome/solid/bug-slash
       documentation: fontawesome/regular/file
@@ -65,6 +66,7 @@ extra:
       link: https://twitter.com/openmageproject
   generator: false
   tags:
+    Configuration: config
     Contribute: share
     CSS: css
     Debug: debug
