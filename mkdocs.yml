@@ -13,6 +13,7 @@ docs_dir: docs/content
 # Configuration
 theme:
   name: material
+  favicon: assets/images/favicon.ico
   custom_dir: docs/overrides
   palette:
     - scheme: default

@@ -36,6 +36,8 @@ tags:
          content/
             index.md             # The documentation homepage.
                ...               # Other markdown pages, images and other files.
+            assets/
+            blog/                # Blog-like entries (with date, author, ...)
             developers/
             users/
          overrides/              # Theme overrides
