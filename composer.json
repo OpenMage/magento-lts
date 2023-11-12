@@ -78,6 +78,12 @@
             "role": "Maintainer"
         }
     ],
+    "funding": [
+        {
+            "type": "open_collective",
+            "url": "openmage"
+        }
+    ],
     "autoload-dev": {
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
