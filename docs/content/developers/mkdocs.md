@@ -5,14 +5,22 @@ tags:
 
 # MkDocs
 
+`mkdocs` is used to build this documentation.
+
 ## Installation
 
-1. install python3
-2. install mkdocs + plugins via `pip3` (__do not use unmaintained "apt" packages!__)
+1. Install `python3`[^1]
 
-```bash
-pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
-```
+    ```bash
+    sudo apt-get update
+    sudo apt-get install python3.8 python3-pip
+    ```
+
+2. Install `mkdocs` and plugins via `pip3`[^2]
+
+    ```bash
+    pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
+    ```
 
 ## Commands
 
@@ -23,7 +31,7 @@ pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
 
 ## Project layout
 
-      mkdocs.yml                # The configuration file.
+      mkdocs.yml                 # The configuration file.
       docs/
          content/
             index.md             # The documentation homepage.
@@ -31,3 +39,6 @@ pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
             developers/
             users/
          overrides/              # Theme overrides
+
+[^1]: see https://realpython.com/installing-python/
+[^2]: do not use unmaintained `apt` packages
