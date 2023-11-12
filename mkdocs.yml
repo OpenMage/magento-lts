@@ -27,12 +27,20 @@ theme:
     - navigation.tabs
     - navigation.top
     - navigation.tracking
+  icon:
+    tag:
+      html: fontawesome/brands/html5
+      js: fontawesome/brands/js
+      css: fontawesome/brands/css3
+      documentation: fontawesome/regular/file
+      php: fontawesome/brands/php
 
 # Plugins
 plugins:
   - blog
   - search
-  - tags
+  - tags:
+      tags_file: tags.md
   - redirects:
       redirect_maps:
   - minify:
@@ -54,6 +62,10 @@ extra:
     HTML5: html
     JavaScript: js
     CSS: css
+    Documentation: documentation
+    PHP-8.0: php
+    PHP-8.1: php
+    PHP-8.2: php
 
 # Extensions
 markdown_extensions:
@@ -127,4 +139,4 @@ nav:
       - 'Documentation':
           - developers/mkdocs.md
   - 'Guides':
-      - blog/posts/add-dynamic-block-contents-in-category-page.md
+      - blog/index.md
