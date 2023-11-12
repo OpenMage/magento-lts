@@ -83,7 +83,7 @@ phpstan*.neon
 /shell/translations.php
 
 # test files
-**test*.php
+**/test*.php
 
 # rector config
 rector.php
