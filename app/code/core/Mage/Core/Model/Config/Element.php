@@ -39,7 +39,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
             }
         }
 
-        return !empty($flag) && (strcasecmp($value, (string)$flag) === 0);
+        return !empty($flag) && (strcasecmp((string)$value, (string)$flag) === 0);
     }
 
     /**

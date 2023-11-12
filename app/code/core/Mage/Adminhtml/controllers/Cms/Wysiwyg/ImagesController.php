@@ -75,7 +75,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $this->loadLayout('empty');
             $this->renderLayout();
         } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+            if (Mage::getIsDeveloperMode()) {
+                $result = ['error' => true, 'message' => $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine()];
+            } else {
+                $result = ['error' => true, 'message' => $e->getMessage()];
+            }
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -88,7 +92,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->createDirectory($name, $path);
         } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+            if (Mage::getIsDeveloperMode()) {
+                $result = ['error' => true, 'message' => $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine()];
+            } else {
+                $result = ['error' => true, 'message' => $e->getMessage()];
+            }
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
@@ -99,7 +107,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             $this->getStorage()->deleteDirectory($path);
         } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+            if (Mage::getIsDeveloperMode()) {
+                $result = ['error' => true, 'message' => $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine()];
+            } else {
+                $result = ['error' => true, 'message' => $e->getMessage()];
+            }
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -128,7 +140,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 }
             }
         } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+            if (Mage::getIsDeveloperMode()) {
+                $result = ['error' => true, 'message' => $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine()];
+            } else {
+                $result = ['error' => true, 'message' => $e->getMessage()];
+            }
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -144,7 +160,11 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $targetPath = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->uploadFile($targetPath, $this->getRequest()->getParam('type'));
         } catch (Exception $e) {
-            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
+            if (Mage::getIsDeveloperMode()) {
+                $result = ['errorcode' => $e->getCode(), 'error' => $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine()];
+            } else {
+                $result = ['errorcode' => $e->getCode(), 'error' => $e->getMessage()];
+            }
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }

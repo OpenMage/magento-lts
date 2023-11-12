@@ -151,7 +151,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
                         'scope_table.%s',
                         'main_table.%s'
                     );
-                    $expression = sprintf($expression, $columnName, $columnName, $columnName);
+                    $expression = sprintf((string)$expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
                 } elseif (isset($extraColumns[$columnName])) {
@@ -161,7 +161,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
                         'scope_table.%s',
                         'additional_table.%s'
                     );
-                    $expression = sprintf($expression, $columnName, $columnName, $columnName);
+                    $expression = sprintf((string)$expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
                 }

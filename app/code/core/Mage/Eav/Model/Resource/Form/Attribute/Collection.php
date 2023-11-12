@@ -204,7 +204,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ea.%s', 'sa.%s');
                         $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            $expression,
+                            (string)$expression,
                             $columnName,
                             $columnName,
                             $columnName
@@ -213,7 +213,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ca.%s', 'sa.%s');
                         $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            $expression,
+                            (string)$expression,
                             $columnName,
                             $columnName,
                             $columnName

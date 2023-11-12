@@ -87,7 +87,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 // no break
             default:
                 session_save_path($this->getSessionSavePath());
-                session_module_name($moduleName);
+                session_module_name((string)$moduleName);
                 break;
         }
 
@@ -105,7 +105,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // session cookie params
         $cookieParams = [
-            'lifetime' => $cookie->getLifetime(),
+            'lifetime' => (int)$cookie->getLifetime(),
             'path'     => $cookie->getPath(),
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
