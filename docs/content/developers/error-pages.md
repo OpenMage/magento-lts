@@ -1,5 +1,7 @@
 # Error pages
 
+## Introduction
+
 If you want to set up multiple stores with a different layout and localized content for each store, this is done by passing the `$_GET['skin']` parameter to the intended processor In the example below, we are using a `503` type error template file, which requires localized content.
 
 The constructor of the `Error_Processor` class accepts a `skin` GET parameter to change layout:
@@ -12,7 +14,7 @@ if (isset($_GET['skin'])) {
 
 This can also be added a rewrite rule in the `.htaccess` file that will append a `skin` parameter to the URL.
 
-## `$_GET['skin']` parameter
+## The `$_GET['skin']` parameter
 
 To use the `skin` parameter:
 
@@ -20,6 +22,8 @@ To use the `skin` parameter:
 2. Note the host address, that refers to the `HTTP_HOST`, or any other variable such as ENV variables
 3. Check if the `skin` parameter exists
 4. Set the parameter by using the rewrite rules below.
+
+## Rewrite rule
 
 This is what it looks like as a rewrite rule:
 
@@ -29,6 +33,8 @@ RewriteCond `%{HTTP_HOST} ^sub.example.com$`
 RewriteCond `%{QUERY_STRING} !(^|&)skin=sub(&|$)` [NC]
 RewriteRule `^ %{REQUEST_URI}?skin=sub` [L]
 ```
+
+## Copy files
 
 Copy the following files:
 
