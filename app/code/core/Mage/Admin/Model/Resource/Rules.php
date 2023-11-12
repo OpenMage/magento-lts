@@ -82,6 +82,18 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
+     * Set resource ID as ID field name
+     * @see Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid::_prepareCollection()
+     *
+     * @return $this
+     */
+    public function setResourceIdAsIdFieldName()
+    {
+        $this->_idFieldName = 'resource_id';
+        return $this;
+    }
+
+    /**
      * Delete orphaned resources
      *
      * @param array $orphanedIds

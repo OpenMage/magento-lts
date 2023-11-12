@@ -43,13 +43,10 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
          * In order for mass action selection to work properly, we need to overwrite
          * the model resource $_idFieldName, from the default 'rule_id' to 'resource_id'.
          * @see Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract::getGridIdsJson()
+         * @var Mage_Admin_Model_Resource_Rules $resource
          */
         $resource = $collection->getResource();
-        $setIdFieldName = function($idFieldName) {
-            /** @var Mage_Core_Model_Resource_Db_Abstract $this */
-            return $this->_idFieldName = $idFieldName;
-        };
-        $setIdFieldName->call($resource, 'resource_id');
+        $resource->setResourceIdAsIdFieldName();
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
