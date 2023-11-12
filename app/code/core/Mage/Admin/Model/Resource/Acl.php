@@ -147,8 +147,8 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             if ($this->_orphanedResources) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
                     Mage::helper('adminhtml')->__(
-                        'The following resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.' . "\n",
-                        implode("\n", $this->_orphanedResources),
+                        'The following resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
+                        implode(', ', $this->_orphanedResources),
                         Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
                     )
                 );
