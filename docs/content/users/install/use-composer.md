@@ -27,6 +27,12 @@ composer config extra.magento-root-dir pub
 
 ## Require `magento-core-composer-installer`[^1]
 
+=== "PHP 7/8"
+
+    ``` bash
+    composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0 || ^2.1.0"
+    ```
+
 === "PHP 7"
 
     ``` bash
@@ -39,38 +45,32 @@ composer config extra.magento-root-dir pub
     composer require "aydin-hassan/magento-core-composer-installer":"~2.1.0"
     ```
 
-=== "both"
-
-    ``` bash
-    composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0 || ^2.1.0"
-    ```
-
 ## Require `magento-lts`[^1]
 
 === "v20"
 
-    Latest tagged v20 series release
+    Latest tagged `v20` series release
     ```bash
     composer require "openmage/magento-lts":"^20.0.0"
     ```
 
 === "v19"
 
-    Legacy v19 tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
+    Legacy `v19` tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
     ```bash
     composer require "openmage/magento-lts":"^19.4.0"
     ```
 
-=== "main"
+=== "dev-main"
 
-    Latest on "main" development branch
+    Latest on `main` development branch
     ```bash
     composer require "openmage/magento-lts":"dev-main"
     ```
 
-=== "next"
+=== "dev-next"
 
-    Latest on "next" development branch
+    Latest on `next` development branch
     ```bash
     composer require "openmage/magento-lts":"dev-next"
     ```
