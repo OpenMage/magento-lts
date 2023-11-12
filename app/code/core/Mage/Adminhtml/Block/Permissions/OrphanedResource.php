@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource extends Mage_Adminhtml_B
     /**
      * @return string
      */
-    protected function _toHtml()
+    protected function _toHtml(): string
     {
         Mage::dispatchEvent('permissions_orphanedresource_html_before', ['block' => $this]);
         return parent::_toHtml();
