@@ -1,3 +1,8 @@
+---
+tags:
+- Events
+---
+
 # Events list
 
 | Event name | With Magento or since OpenMage |

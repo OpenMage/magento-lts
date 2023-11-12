@@ -29,11 +29,17 @@ theme:
     - navigation.tracking
   icon:
     tag:
-      html: fontawesome/brands/html5
-      js: fontawesome/brands/js
+      code: fontawesome/solid/code
       css: fontawesome/brands/css3
+      debug: fontawesome/solid/bug-slash
       documentation: fontawesome/regular/file
+      events: fontawesome/regular/calendar-xmark
+      html: fontawesome/brands/html5
+      install: fontawesome/solid/plus
+      js: fontawesome/brands/js
+      modules: fontawesome/regular/square-plus
       php: fontawesome/brands/php
+      share: fontawesome/solid/share
 
 # Plugins
 plugins:
@@ -59,10 +65,16 @@ extra:
       link: https://twitter.com/openmageproject
   generator: false
   tags:
-    HTML5: html
-    JavaScript: js
+    Contribute: share
     CSS: css
+    Debug: debug
+    Development: code
     Documentation: documentation
+    Events: events
+    HTML5: html
+    Install: install
+    JavaScript: js
+    Modules: modules
     PHP-8.0: php
     PHP-8.1: php
     PHP-8.2: php
@@ -109,9 +121,9 @@ nav:
       - users/requirements.md
       - 'Installing':
           - users/install/index.md
-          - users/install/use-composer.md
-          - users/install/use-git.md
-          - users/install/use-tarball.md
+          - users/install/_use-composer.md
+          - users/install/_use-git.md
+          - users/install/_use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
@@ -121,11 +133,12 @@ nav:
       - 'Versioning':
           - users/versioning/index.md
           - users/versioning/maintained.md
-      - tags.md
+      - 'Quick links':
+          - tags.md
   - 'Modules':
       - users/modules/index.md
-      - users/modules/payment.md
-      - users/modules/themes.md
+      - users/modules/_payment.md
+      - users/modules/_themes.md
       - users/modules/more.md
   - 'Development':
       - 'Events':

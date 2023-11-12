@@ -1,3 +1,9 @@
+---
+tags:
+- Contribute
+- Install
+---
+
 # Composer Install
 
 ## Create new project

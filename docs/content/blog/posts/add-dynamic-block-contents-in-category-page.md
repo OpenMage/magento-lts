@@ -7,8 +7,6 @@ authors:
 categories:
   - Categories
   - Templates
-tags:
-  - HTML5
 ---
 
 # Add dynamic block contents in category page

@@ -1,3 +1,8 @@
+---
+tags:
+- Modules
+---
+
 # Payment
 
 ## Bitcoin

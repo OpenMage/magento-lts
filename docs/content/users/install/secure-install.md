@@ -1,3 +1,8 @@
+---
+tags:
+- Install
+---
+
 # Secure installation
 
 ## Backend URL

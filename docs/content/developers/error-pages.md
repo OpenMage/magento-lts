@@ -1,6 +1,6 @@
 # Error pages
 
-If you want to setup multiple stores with a different layout and localized content for each store, this is done by passing the `$_GET['skin']` parameter to the intended processor In the example below, we are using a `503` type error template file, which requires localized content.
+If you want to set up multiple stores with a different layout and localized content for each store, this is done by passing the `$_GET['skin']` parameter to the intended processor In the example below, we are using a `503` type error template file, which requires localized content.
 
 The constructor of the `Error_Processor` class accepts a `skin` GET parameter to change layout:
 

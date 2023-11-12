@@ -1,3 +1,8 @@
+---
+tags:
+- Modules
+---
+
 # More Modules
 
 Some more Modules, which we did not put into a an own category yet,

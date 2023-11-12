@@ -1,3 +1,8 @@
+---
+tags:
+- Configuration
+---
+
 # New Config Options
 
 - `admin/design/use_legacy_theme`

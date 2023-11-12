@@ -1,3 +1,8 @@
+---
+tags:
+- Install
+---
+
 # Requirements
 
 - PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)

@@ -1,3 +1,8 @@
+---
+tags:
+- Events
+---
+
 # New Events
 
 - `adminhtml_block_widget_form_init_form_values_after`

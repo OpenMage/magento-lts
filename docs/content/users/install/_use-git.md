@@ -1,3 +1,8 @@
+---
+tags:
+- Install
+---
+
 # Git (for contributors)
 
 If you want to contribute to the project:
