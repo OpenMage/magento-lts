@@ -1,3 +1,8 @@
+---
+tags:
+- Documentation
+---
+
 # MkDocs
 
 ## Installation
