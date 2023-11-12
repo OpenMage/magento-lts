@@ -81,7 +81,7 @@
     "funding": [
         {
             "type": "open_collective",
-            "url": "openmage"
+            "url": "https://opencollective.com/openmage"
         }
     ],
     "autoload-dev": {
