@@ -10,7 +10,7 @@ tags:
 1. install python3
 2. install mkdocs + plugins via `pip3` (__do not use unmaintained "apt" packages!__)
 
-```
+```bash
 pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
 ```
 
