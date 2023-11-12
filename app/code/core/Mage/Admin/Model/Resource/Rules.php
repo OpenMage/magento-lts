@@ -102,7 +102,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function deleteOrphanedResources(array $orphanedIds): int
     {
-        if (empty($orphanedIds)) {
+        if ($orphanedIds === []) {
             return 0;
         }
 
