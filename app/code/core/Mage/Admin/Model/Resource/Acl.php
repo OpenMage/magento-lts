@@ -132,7 +132,13 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {
-                Mage::logException($e);
+                Mage::getSingleton('adminhtml/session')->addNotice(
+                    Mage::helper('adminhtml')->__(
+                        'Resource %s not found. You can delete it by <a href="%s">clicking here</a>.',
+                        $resource,
+                        Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                    )
+                );
             }
         }
         return $this;

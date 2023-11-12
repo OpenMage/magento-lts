@@ -80,4 +80,33 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             Mage::logException($e);
         }
     }
+
+    /**
+     * Delete orphaned resources
+     *
+     * @param array $orphanedIds
+     * @return int
+     * @throws Mage_Core_Exception
+     */
+    public function deleteOrphanedResources(array $orphanedIds)
+    {
+        if (empty($orphanedIds)) {
+            return 0;
+        }
+
+        $resourceIds = Mage::getModel('admin/roles')->getResourcesList2D();
+        // Validate orphaned IDs are not in the list of valid resource IDs.
+        $validIds = array_intersect($orphanedIds, $resourceIds);
+        if (!empty($validIds)) {
+            throw new Mage_Core_Exception(
+                Mage::helper('adminhtml')->__(
+                    'The following resource(s) are not orphaned: %s',
+                    implode(', ', $validIds)
+                )
+            );
+        }
+
+        return $this->_getWriteAdapter()
+            ->delete($this->getMainTable(), ['resource_id IN (?)' => $orphanedIds]);
+    }
 }
