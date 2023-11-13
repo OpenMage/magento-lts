@@ -327,24 +327,6 @@ To find which files need the modification you can run this command from the root
 grep -rn 'urn:Magento' --include \*.xml
 ```
 
-## Development Environment with DDEV
-
-- Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in installation ([Git](#git))
-- Create a ddev config, defaults should be good for you
-  ```bash
-  ddev config
-  ```
-- Open `.ddev/config.yaml` and change the php version to your needs
-- Download and start the containers
-  ```bash
-  ddev start
-  ```
-- Open your site in browser
-  ```bash
-  ddev launch
-  ``` 
-
 ## PhpStorm Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
