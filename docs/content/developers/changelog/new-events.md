@@ -12,3 +12,5 @@ tags:
 - `core_app_run_after`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
+
+[Full list of events](../events/list.md)

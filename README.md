@@ -277,31 +277,6 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
 - Removed "admin routing compatibility mode" (#1551)
 
-### New Config Options
-
-- `admin/design/use_legacy_theme`
-- `admin/global_search/enable`
-- `admin/emails/admin_notification_email_template`
-- `catalog/product_image/progressive_threshold`
-- `catalog/search/search_separator`
-- `dev/log/max_level`
-- `newsletter/security/enable_form_key`
-- `sitemap/category/lastmod`
-- `sitemap/page/lastmod`
-- `sitemap/product/lastmod`
-
-### New Events
-
-- `adminhtml_block_widget_form_init_form_values_after`
-- `adminhtml_block_widget_tabs_html_before`
-- `adminhtml_sales_order_create_save_before`
-- `checkout_cart_product_add_before`
-- `core_app_run_after`
-- `sitemap_cms_pages_generating_before`
-- `sitemap_urlset_generating_before`
-
-[Full list of events](docs/EVENTS.md)
-
 ### Changes to SOAP/WSDL
 
 Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.
@@ -326,20 +301,6 @@ To find which files need the modification you can run this command from the root
 ```bash
 grep -rn 'urn:Magento' --include \*.xml
 ```
-
-## PhpStorm Factory Helper
-
-This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
-To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
-and run command:
-
-```bash
-n98-magerun.phar dev:ide:phpstorm:meta
-```
-
-You can add additional meta files in this directory to cover your own project files. See
-[PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
-for more information.
 
 ## Public Communication
 
