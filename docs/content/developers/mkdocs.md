@@ -1,6 +1,6 @@
 ---
 tags:
-- Documentation
+   - Documentation
 ---
 
 # MkDocs
@@ -24,10 +24,29 @@ tags:
 
 ## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+Create a new project
+
+```bash 
+mkdocs new [dir-name]
+```
+
+Start the live-reloading docs server
+
+```bash 
+mkdocs serve
+```
+
+Build the documentation site
+
+```bash 
+mkdocs build
+```
+
+Print this help message
+
+```bash 
+mkdocs help
+```
 
 ## Project layout
 
