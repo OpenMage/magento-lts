@@ -140,8 +140,9 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+        }
 
-            if ($this->_orphanedResources) {
+        if ($this->_orphanedResources !== []) {
                 Mage::getSingleton('adminhtml/session')->addNotice(
                     Mage::helper('adminhtml')->__(
                         'The following resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
@@ -150,7 +151,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     )
                 );
             }
-        }
         return $this;
     }
 }
