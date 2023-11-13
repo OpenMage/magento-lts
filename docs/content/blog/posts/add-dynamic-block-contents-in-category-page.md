@@ -20,6 +20,8 @@ In _backend > Catalog > Manage Categories_, we can configure a category page and
 
 If we want to render an HTML table in which its data are taken from the database, we would follow these steps:
 
+<!-- more -->
+
 1. Create a custom block `mymodule/mytable` with template `mymodule/mytable.phtml`.
 2. Whitelist our block for rendering in the frontend: backend > System > Permissions > Blocks
 3. Create a CMS static block: backend > CMS > Static Blocks and set the _Content_ to render from our block with this directive:
