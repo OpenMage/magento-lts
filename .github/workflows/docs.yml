@@ -11,6 +11,7 @@ on:
       - documentation
     paths:
       - 'docs/**.md'
+      - 'docs/**.html'
       - 'mkdocs.yml'
 permissions:
   contents: write
