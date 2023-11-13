@@ -50,16 +50,18 @@ mkdocs help
 
 ## Project layout
 
-   mkdocs.yml                 # The configuration file.
-   docs/
-      content/
-         index.md             # The documentation homepage.
-            ...               # Other markdown pages, images and other files.
-         assets/
-         blog/                # Blog-like entries (with date, author, ...)
-         developers/
-         users/
-      overrides/              # Theme overrides
+```
+mkdocs.yml                 # The configuration file.
+docs/
+   content/
+      index.md             # The documentation homepage.
+         ...               # Other markdown pages, images and other files.
+      assets/
+      blog/                # Blog-like entries (with date, author, ...)
+      developers/
+      users/
+   overrides/              # Theme overrides
+```
 
 [^1]: see https://realpython.com/installing-python/
 [^2]: do not use unmaintained `apt` packages
