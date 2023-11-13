@@ -84,8 +84,8 @@ tinyMceWysiwygSetup.prototype =
             //invalid_elements: 'script|style',
             //custom_elements:"style,script,~script",
             protect: [
-                /<(script|SCRIPT)([\s\S]*?)>([\s\S]*?)<\/(script|SCRIPT)>/g,
-                /<(style|STYLE)([\s\S]*?)>([\s\S]*?)<\/(style|STYLE)>/g
+                /<script([\s\S]*?)>([\s\S]*?)<\/script>/ig,
+                /<style([\s\S]*?)>([\s\S]*?)<\/style>/ig
             ],
             //extended_valid_elements: 'script[src|async|defer|type|charset]|style|div[x-data]',
             //custom_elements:"style,~style,script,~script",
