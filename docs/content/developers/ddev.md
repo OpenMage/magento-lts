@@ -8,20 +8,25 @@ tags:
 ## Basic setup
 
 - Install [ddev](https://ddev.com/get-started/)
-- Clone the repository as described in installation ([Git](#git))
+- Clone the repository as described in installation ([Git](../users/install/_use-git.md))
 - Create a ddev config, defaults should be good for you
-  ```bash
-  ddev config
-  ```
+
+```bash
+ddev config
+```
+
 - Open `.ddev/config.yaml` and change the php version to your needs
 - Download and start the containers
-  ```bash
-  ddev start
-  ```
+
+```bash
+ddev start
+```
+
 - Open your site in browser
-  ```bash
-  ddev launch
-  ``` 
+
+```bash
+ddev launch
+``` 
 
 ## Enable developer mode
 
@@ -74,7 +79,7 @@ hooks:
 
 ## Install compass
 
-[Compass](http://compass-style.org/) is required for editing scss-files from RWD-theme.
+[Compass](http://compass-style.org/) is required for editing scss-files from RWD-theme.[^1]
 
 `.ddev/web-build/Dockerfile.ddev-compass`
 
@@ -85,8 +90,6 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::="--force-confold" --no-install-recommends --no-install-suggests build-essential ruby-full rubygems
 RUN gem install compass
 ```
-
-https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container
 
 ## Example command shortcut
 
@@ -101,3 +104,5 @@ https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the
 
 php vendor/bin/phpstan analyze "$@"
 ```
+
+[^1]: https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container
