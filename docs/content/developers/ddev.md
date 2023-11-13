@@ -5,6 +5,8 @@ tags:
 
 # DDEV environment
 
+## Basic setup
+
 - Install [ddev](https://ddev.com/get-started/)
 - Clone the repository as described in installation ([Git](#git))
 - Create a ddev config, defaults should be good for you
