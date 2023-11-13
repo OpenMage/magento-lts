@@ -38,7 +38,9 @@ This is what it looks like as a rewrite rule:
 
 === "Nginx"
 
-    The setting should be added for multistore setups.
+    !!! question
+
+        The setting should be added for multistore setups.
 
 ## Copy files
 
