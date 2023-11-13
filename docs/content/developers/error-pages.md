@@ -27,12 +27,18 @@ To use the `skin` parameter:
 
 This is what it looks like as a rewrite rule:
 
-```
-RewriteCond `%{DOCUMENT_ROOT}/maintenance.flag -f
-RewriteCond `%{HTTP_HOST} ^sub.example.com$`
-RewriteCond `%{QUERY_STRING} !(^|&)skin=sub(&|$)` [NC]
-RewriteRule `^ %{REQUEST_URI}?skin=sub` [L]
-```
+=== "Apache"
+
+    ```
+    RewriteCond `%{DOCUMENT_ROOT}/maintenance.flag -f
+    RewriteCond `%{HTTP_HOST} ^sub.example.com$`
+    RewriteCond `%{QUERY_STRING} !(^|&)skin=sub(&|$)` [NC]
+    RewriteRule `^ %{REQUEST_URI}?skin=sub` [L]
+    ```
+
+=== "Nginx"
+
+    The setting should be added for multistore setups.
 
 ## Copy files
 
@@ -44,6 +50,3 @@ Copy the following files:
 Edit these files to provide localized content in the `503.phtml` file and custom styling in the `styles.css` file.
 
 Ensure your paths point to your `errors` directory. The directory name must match the URL parameter indicated in the RewriteRule. In the example above, the `sub` directory is used, which is specified as a parameter in the RewriteRule (`skin=sub`)
-
-### ToDo: nginx
-The nginx setting should be added for multistore setups.
