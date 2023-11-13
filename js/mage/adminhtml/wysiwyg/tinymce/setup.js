@@ -70,31 +70,11 @@ tinyMceWysiwygSetup.prototype =
         var settings = {
             selector: this.selector,
             config: this.config,
-            //schema: 'html4',
             allow_conditional_comments: true,
-            //allow_html_in_named_anchor: true,
-            //allow_unsafe_link_target: true,
-            //valid_children: '+body[script]',
-            //extended_valid_elements:"style,link[href|rel],script[language|type|src],@[+*]",
-            //extended_valid_elements: 'script[src|async|defer|type|charset]|style',
-            //forced_root_block: '',
-            //force_br_newlines: false,
-            //force_p_newlines: false,
-            //valid_children: '-body[script]',
-            //invalid_elements: 'script|style',
-            //custom_elements:"style,script,~script",
-            //verify_html : false,
             protect: [
                 /([\s\S]\*?)<script([\s\S]*?)>([\s\S]*?)<\/script>([\s\S]\*?)/ig,
                 /([\s\S]\*?)<style([\s\S]*?)>([\s\S]*?)<\/style>([\s\S]*?)/ig
             ],
-            //extended_valid_elements: 'script[src|async|defer|type|charset]|style|div[x-data]',
-            //custom_elements:"style,~style,script,~script",
-            //custom_elements:"style,link,~link,script",
-            //valid_elements : '+*[*]',
-             //valid_elements : '@[*]',
-            //valid_children: "+*[*]",
-            //valid_elements: "*[*]",
             menu: {
                 insert: {
                     title: 'Insert',
