@@ -3,11 +3,13 @@ draft: false
 date: 2023-11-11
 readtime: 5
 authors:
-  - kiatng
+   - kiatng
 categories:
-  - Categories
-  - Templates
+   - Categories
+   - Templates
 comments: true
+hide:
+   - toc
 ---
 
 # Add dynamic block contents in category page
