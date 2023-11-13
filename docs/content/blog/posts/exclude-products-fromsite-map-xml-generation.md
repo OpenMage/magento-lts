@@ -83,6 +83,8 @@ public function excludeProductsFromSitemap(Varien_Event_Observer $observer)
 2. add this attribute to all attribute sets
 3. set the products you want to exclude to `no`
 
-<small>___Note__: until Magento 1.9.3.0 the attribute should be set to `global` scope._</small>
+!!! note
+
+    Until Magento 1.9.3.0 the attribute should be set to `global` scope.
 
 [^1]: https://magento.stackexchange.com/a/151684/46249
