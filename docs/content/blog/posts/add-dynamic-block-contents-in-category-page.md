@@ -16,7 +16,9 @@ hide:
 
 In _backend > Catalog > Manage Categories_, we can configure a category page and put it on the main menu. The page contents are rendered in
 
-> app\design\frontend\base\default\template\catalog\category\view.phtml
+```
+app\design\frontend\base\default\template\catalog\category\view.phtml
+```
 
 If we want to render an HTML table in which its data are taken from the database, we would follow these steps:
 

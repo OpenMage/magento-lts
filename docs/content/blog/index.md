@@ -1,2 +1,6 @@
-# Guides
+---
+hide:
+- toc
+---
 
+# Guides
