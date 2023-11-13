@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 {
@@ -314,16 +313,19 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->setOptions($options);
         $this->loadBase();
 
-        $cacheLoad = $this->loadModulesCache();
-        if ($cacheLoad) {
-            return $this;
+        if (!$this->loadModulesCache()) {
+            try {
+                $this->getCacheSaveLock();
+                if (!$this->loadModulesCache()) {
+                    $this->_useCache = false;
+                    $this->loadModules();
+                    $this->loadDb();
+                    $this->saveCache();
+                }
+            } finally {
+                $this->releaseCacheSaveLock();
+            }
         }
-
-        $this->_useCache = false;
-
-        $this->loadModules();
-        $this->loadDb();
-        $this->saveCache();
         return $this;
     }
 
@@ -355,15 +357,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadModulesCache()
     {
-        if (Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()])) {
-            if ($this->_canUseCacheForInit()) {
-                Varien_Profiler::start('mage::app::init::config::load_cache');
-                $loaded = $this->loadCache();
-                Varien_Profiler::stop('mage::app::init::config::load_cache');
-                if ($loaded) {
-                    $this->_useCache = true;
-                    return true;
-                }
+        if ($this->_canUseCacheForInit()) {
+            Varien_Profiler::start('mage::app::init::config::load_cache');
+            $loaded = $this->loadCache();
+            Varien_Profiler::stop('mage::app::init::config::load_cache');
+            if ($loaded) {
+                $this->_useCache = true;
+                return true;
             }
         }
         return false;
@@ -475,20 +475,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _canUseCacheForInit()
     {
-        if (Mage::app()->useCache('config') && $this->_allowCacheForInit) {
-            $retries = 10;
-            do {
-                if ($this->_loadCache($this->_getCacheLockId())) {
-                    if ($retries) {
-                        usleep(500000); // 0.5 seconds
-                    }
-                } else {
-                    return true;
-                }
-            } while ($retries--);
-        }
-
-        return false;
+        return $this->_allowCacheForInit
+            && Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()])
+            && Mage::app()->useCache('config');
     }
 
     /**
@@ -502,13 +491,46 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Get lock flag cache identifier
+     * Call before building and saving cache to ensure only one process can save the cache
      *
-     * @return string
+     * If failed to get cache lock:
+     *   - CLI: throws exception
+     *   - Other: 503 error
+     *
+     * @return void
+     * @throws Exception
      */
-    protected function _getCacheLockId()
+    public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
-        return $this->getCacheId() . '.lock';
+        if (! Mage::app()->useCache('config')) {
+            return;
+        }
+        $waitTime = $waitTime ?: (PHP_SAPI === 'cli' ? 60 : 3);
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
+            if ($ignoreFailure) {
+                return;
+            } elseif (PHP_SAPI === 'cli') {
+                throw new Exception('Could not get lock on cache save operation.');
+            } else {
+                require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                die();
+            }
+        }
+    }
+
+    /**
+     * Release the cache saving lock after it is saved or no longer needed
+     *
+     * @return void
+     */
+    public function releaseCacheSaveLock()
+    {
+        if (! Mage::app()->useCache('config')) {
+            return;
+        }
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $connection->fetchOne("SELECT RELEASE_LOCK('core_config_cache_save_lock')");
     }
 
     /**
@@ -525,12 +547,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!in_array(self::CACHE_TAG, $tags)) {
             $tags[] = self::CACHE_TAG;
         }
-        $cacheLockId = $this->_getCacheLockId();
-        if ($this->_loadCache($cacheLockId)) {
-            return $this;
-        }
-
-        $this->_saveCache(time(), $cacheLockId, [], 60);
 
         if (!empty($this->_cacheSections)) {
             $xml = clone $this->_xml;
@@ -541,7 +557,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_cachePartsForSave[$this->getCacheId()] = $xml->asNiceXml('', false);
         } else {
             parent::saveCache($tags);
-            $this->_removeCache($cacheLockId);
             return $this;
         }
 
@@ -549,7 +564,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_saveCache($cacheData, $cacheId, $tags, $this->getCacheLifetime());
         }
         unset($this->_cachePartsForSave);
-        $this->_removeCache($cacheLockId);
 
         return $this;
     }
@@ -1363,7 +1377,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getBlockClassName($blockType)
     {
-        if (strpos($blockType, '/') === false) {
+        if (!str_contains($blockType, '/')) {
             return $blockType;
         }
         return $this->getGroupedClassName('block', $blockType);
@@ -1377,7 +1391,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getHelperClassName($helperName)
     {
-        if (strpos($helperName, '/') === false) {
+        if (!str_contains($helperName, '/')) {
             $helperName .= '/data';
         }
         return $this->getGroupedClassName('helper', $helperName);
@@ -1414,7 +1428,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModelClassName($modelClass)
     {
         $modelClass = trim($modelClass);
-        if (strpos($modelClass, '/') === false) {
+        if (!str_contains($modelClass, '/')) {
             return $modelClass;
         }
         return $this->getGroupedClassName('model', $modelClass);
@@ -1584,7 +1598,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         // If unsecure base url is https, then all urls should be secure
-        if (strpos(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://') === 0) {
+        if (str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
             return true;
         }
 
@@ -1592,7 +1606,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_secureUrlCache[$url] = false;
             $secureUrls = $this->getNode('frontend/secure_url');
             foreach ($secureUrls->children() as $match) {
-                if (strpos($url, (string)$match) === 0) {
+                if (str_starts_with($url, (string)$match)) {
                     $this->_secureUrlCache[$url] = true;
                     break;
                 }

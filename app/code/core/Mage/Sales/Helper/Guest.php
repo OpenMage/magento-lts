@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
 {
@@ -106,6 +105,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
                     $errors = true;
                 }
             } else {
+                Mage::helper('core')->recordRateLimitHit();
                 $errors = true;
             }
         }
@@ -115,7 +115,10 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             return true;
         }
 
-        Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        if (!Mage::helper('core')->isRateLimitExceeded(true, false)) {
+            Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+        }
+
         Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));
         return false;
     }

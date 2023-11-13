@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getCronExpr()
  * @method bool hasNow()
@@ -74,7 +73,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle multiple options
-        if (strpos($expr, ',') !== false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -84,7 +83,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle modulus
-        if (strpos($expr, '/') !== false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 return false;
@@ -99,7 +98,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         }
 
         // handle range
-        if (strpos($expr, '-') !== false) {
+        if (str_contains($expr, '-')) {
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 return false;

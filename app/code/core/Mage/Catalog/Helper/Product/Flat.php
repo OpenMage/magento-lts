@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
 {
@@ -163,6 +162,20 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function isAddChildData()
     {
         return (int) Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA);
+    }
+
+    /**
+     * Enable Catalog Product Flat
+     *
+     * @param bool $save
+     */
+    public function enableFlatCollection($save = false)
+    {
+        if ($save) {
+            $this->_forceFlatStatusOld = $this->_forceFlatStatus;
+        }
+
+        $this->_forceFlatStatus = false;
     }
 
     /**

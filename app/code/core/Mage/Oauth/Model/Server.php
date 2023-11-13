@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Model_Server
 {
-    /**#@+
+    /**
      * OAuth result statuses
      */
     public const ERR_OK                        = 0;
@@ -41,33 +40,29 @@ class Mage_Oauth_Model_Server
     public const ERR_VERIFIER_INVALID          = 13;
     public const ERR_PERMISSION_UNKNOWN        = 14;
     public const ERR_PERMISSION_DENIED         = 15;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Signature Methods
      */
     public const SIGNATURE_HMAC  = 'HMAC-SHA1';
     public const SIGNATURE_RSA   = 'RSA-SHA1';
     public const SIGNATURE_PLAIN = 'PLAINTEXT';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Request Types
      */
     public const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
     public const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
     public const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
     public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
-    /**#@-*/
 
-    /**#@+
+    /**
      * HTTP Response Codes
      */
     public const HTTP_OK             = 200;
     public const HTTP_BAD_REQUEST    = 400;
     public const HTTP_UNAUTHORIZED   = 401;
     public const HTTP_INTERNAL_ERROR = 500;
-    /**#@-*/
 
     /**
      * Possible time deviation for timestamp validation in sec.
@@ -220,7 +215,7 @@ class Mage_Oauth_Model_Server
         }
         $contentTypeHeader = $this->_request->getHeader(Zend_Http_Client::CONTENT_TYPE);
 
-        if ($contentTypeHeader && strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED) === 0) {
+        if ($contentTypeHeader && str_starts_with($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED)) {
             $protocolParamsNotSet = !$this->_protocolParams;
 
             parse_str($this->_request->getRawBody(), $bodyParams);

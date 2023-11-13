@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getStoreId()
  * @method $this setStoreId(string $value)
@@ -50,6 +49,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      */
     public const WYSIWYG_SKIN_IMAGE_PLACEHOLDER_FILE = 'images/wysiwyg/skin_image.png';
 
+    public const WYSIWYG_LOCALES = ['ar','az','be','bg_BG','bn_BD','ca','cs','cy','da','de','dv','el','eo','es','es_MX','et','eu','fa','fi','fr_FR','ga','gl','he_IL','hi','hr','hu_HU','hy','id','is_IS','it','ja','ka_GE','kab','kk','ko_KR','ku','lt','lv','nb_NO','ne','nl','nl_BE','oc','pl','pt_BR','ro','ru','sk','sl_SI','sq','sr','sv_SE','ta','tg','th_TH','tr','ug','uk','uz','vi','zh-Hans','zh-Hant','zh_HK','zh_MO','zh_SG'];
+
     /**
      * Return Wysiwyg config as Varien_Object
      *
@@ -70,9 +71,12 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     {
         $config = new Varien_Object();
 
+        $locale = Mage::app()->getLocale()->getLocaleCode();
+        $lang = in_array($locale, self::WYSIWYG_LOCALES) ? $locale : substr($locale, 0, 2);
         $config->setData([
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
+            'skin'                          => Mage::getStoreConfig('cms/wysiwyg/skin'),
             'use_container'                 => false,
             'add_variables'                 => Mage::getSingleton('admin/session')->isAllowed('system/variable'),
             'add_widgets'                   => Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance'),
@@ -80,15 +84,10 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'translator'                    => Mage::helper('cms'),
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
-            'popup_css'                     =>
-                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
-            'content_css'                   =>
-                Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
             'width'                         => '100%',
             'plugins'                       => [],
-            'media_disable_flash'           => true
+            'lang'                          => $lang
         ]);
-
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {

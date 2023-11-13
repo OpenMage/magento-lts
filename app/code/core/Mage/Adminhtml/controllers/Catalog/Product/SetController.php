@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Controller_Action
 {
@@ -37,7 +36,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_setTypeId();
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/sets');
+        $this->_setActiveMenu('catalog/attributes/sets');
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
@@ -71,7 +70,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         Mage::register('current_attribute_set', $attributeSet);
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/sets');
+        $this->_setActiveMenu('catalog/attributes/sets');
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -28,6 +27,18 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Payment';
 
     /**
+     * Retrieve the class name of the payment method's model
+     *
+     * @param $code
+     * @return string|null
+     */
+    public function getMethodModelClassName($code)
+    {
+        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
+        return Mage::getStoreConfig($key);
+    }
+
+    /**
      * Retrieve method model object
      *
      * @param   string $code
@@ -35,8 +46,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMethodInstance($code)
     {
-        $key = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/model';
-        $class = Mage::getStoreConfig($key);
+        $class = $this->getMethodModelClassName($code);
         if (is_null($class)) {
             Mage::logException(new Exception(sprintf('Unknown payment method with code "%s"', $code)));
             return false;
@@ -157,7 +167,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $result = [];
         foreach ($this->getPaymentMethods($store) as $code => $data) {
-            $method = $this->getMethodInstance($code);
+            $paymentMethodModelClassName = $this->getMethodModelClassName($code);
+            if (!$paymentMethodModelClassName) {
+                continue;
+            }
+
+            /** @var Mage_Payment_Model_Method_Abstract $method */
+            $method = Mage::getModel($paymentMethodModelClassName);
             if ($method && $method->canManageRecurringProfiles()) {
                 $result[] = $method;
             }
@@ -208,8 +224,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if ((isset($data['title']))) {
                 $methods[$code] = $data['title'];
             } else {
-                if ($this->getMethodInstance($code)) {
-                    $methods[$code] = $this->getMethodInstance($code)->getConfigData('title', $store);
+                $paymentMethodModelClassName = $this->getMethodModelClassName($code);
+                if ($paymentMethodModelClassName) {
+                    $methods[$code] = Mage::getModel($paymentMethodModelClassName)->getConfigData('title', $store);
                 }
             }
             if ($asLabelValue && $withGroups && isset($data['group'])) {

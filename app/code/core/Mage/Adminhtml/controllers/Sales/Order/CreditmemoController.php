@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Controller_Sales_Creditmemo
 {
@@ -188,7 +187,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $block = $this->getLayout()->getBlock('sales_creditmemo_view');
             $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
 
-            $this->_setActiveMenu('sales/order')
+            $this->_setActiveMenu('sales/creditmemo')
                 ->renderLayout();
         } else {
             $this->_redirect('*/*');
@@ -223,7 +222,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/creditmemo')
                 ->renderLayout();
         } else {
             $this->_forward('noRoute');

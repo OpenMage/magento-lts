@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getName() Consumer name (joined from consumer table)
  * @method Mage_Oauth_Model_Resource_Token_Collection getCollection()
@@ -50,27 +49,24 @@
  */
 class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * Token types
      */
     public const TYPE_REQUEST = 'request';
     public const TYPE_ACCESS  = 'access';
-    /**#@- */
 
-    /**#@+
+    /**
      * Lengths of token fields
      */
     public const LENGTH_TOKEN    = 32;
     public const LENGTH_SECRET   = 32;
     public const LENGTH_VERIFIER = 32;
-    /**#@- */
 
-    /**#@+
+    /**
      * Customer types
      */
     public const USER_TYPE_ADMIN    = 'admin';
     public const USER_TYPE_CUSTOMER = 'customer';
-    /**#@- */
 
     /**
      * Initialize resource model
