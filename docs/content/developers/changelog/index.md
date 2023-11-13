@@ -96,7 +96,7 @@ not compatible with the new implementations made by ZF1-Future, which is much mo
 This may generate a problem with `Zend_Db_Select` statements that do not use `Zend_Db_Expr` to quote expressions.
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
 
-UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
+UPS shut down their old CGI APIs, so we removed the support for it from the `Mage_Usa` module.
 
 ### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
