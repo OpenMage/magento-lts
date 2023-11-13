@@ -7,6 +7,7 @@ authors:
 categories:
   - Categories
   - Templates
+comments: true
 ---
 
 # Add dynamic block contents in category page
