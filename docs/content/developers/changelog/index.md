@@ -98,7 +98,7 @@ If you see SQL errors after upgrading please remember to check for this specific
 
 UPS shut down their old CGI APIs, so we removed the support for it from the `Mage_Usa` module.
 
-### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+## Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
 - PHP 8.1 as minimum required version
 - Removed `scriptaculous/dragdrop.js` ([#3215](https://github.com/OpenMage/magento-lts/pull/3215))
