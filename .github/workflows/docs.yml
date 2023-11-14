@@ -12,6 +12,7 @@ on:
     paths:
       - 'docs/**.md'
       - 'docs/**.html'
+      - 'docs/**.yml'
       - 'docs_includes/**.md'
       - 'mkdocs.yml'
 permissions:

@@ -1,8 +1,16 @@
 authors:
+  colinmollenhour:
+    name: Colin Mollenhour
+    description: Maintainer
+    avatar: https://avatars.githubusercontent.com/u/38738
   kiatng:
     name: Ng Kiat Siong
     description: Maintainer
     avatar: https://avatars.githubusercontent.com/u/1106470
+  robertrogge:
+    name: Robert Rogge
+    description: Contributor
+    avatar: https://avatars.githubusercontent.com/u/673488
   sreichel:
     name: Sven Reichel
     description: Maintainer
