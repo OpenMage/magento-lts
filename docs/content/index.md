@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
