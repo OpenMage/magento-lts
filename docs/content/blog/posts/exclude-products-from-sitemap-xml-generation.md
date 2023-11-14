@@ -1,15 +1,16 @@
 ---
 draft: false
 date: 2016-12-23
-readtime: 5
+readtime: 3
 authors:
    - sreichel
 categories:
    - Events
    - Sitemap
+tags:
+    - Events
 hide:
-  - toc
-
+    - toc
 ---
 
 # Exclude certain products from Magento sitemap.xml generation[^1]
