@@ -1,8 +1,16 @@
 authors:
+  openmage_community:
+    name: OpenMage
+    description: Community
+    avatar: https://avatars.githubusercontent.com/u/57708
   colinmollenhour:
     name: Colin Mollenhour
     description: Maintainer
     avatar: https://avatars.githubusercontent.com/u/38738
+  flyingmana:
+    name: Daniel Fahlke
+    description: Maintainer
+    avatar: https://avatars.githubusercontent.com/u/237319
   kiatng:
     name: Ng Kiat Siong
     description: Maintainer
