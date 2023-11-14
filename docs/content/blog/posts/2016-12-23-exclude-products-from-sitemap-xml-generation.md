@@ -1,7 +1,6 @@
 ---
 draft: false
 date: 2016-12-23
-readtime: 3
 authors:
    - sreichel
 categories:
