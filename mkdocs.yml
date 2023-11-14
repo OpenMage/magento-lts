@@ -43,6 +43,7 @@ theme:
       js: fontawesome/brands/js
       modules: fontawesome/regular/square-plus
       php: fontawesome/brands/php
+      security: fontawesome/solid/shield
       share: fontawesome/solid/share
 
 # Plugins
@@ -83,6 +84,7 @@ extra:
     PHP-8.0: php
     PHP-8.1: php
     PHP-8.2: php
+    Security: security
 
 # Extensions
 markdown_extensions:
