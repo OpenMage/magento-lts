@@ -15,7 +15,7 @@ map {host} {runcode} {runtype} {
   not @admin
 }
 @customfrontend {
-  expression host('store.example.com') && path_regexp('^/de/')
+  expression host('store.example.com') && path_regexp('^/(de|pl)/')
 }
 
 # Redirect-only domains
@@ -38,12 +38,25 @@ test.example.com {
     header_up X-Forwarded-For {remote_host}
     header_down Strict-Transport-Security "max-age=15552000;"
   }
-  reverse_proxy @customfrontend frontend:80 {
-    header_up X-MagentoRunCode store1_german
-    header_up X-MagentoRunType store
-    header_up X-Real-IP {remote_host}
-    header_up X-Forwarded-For {remote_host}
-    header_down Strict-Transport-Security "max-age=15552000;"
+  handle @customfrontend /de/* {
+    uri strip_prefix /de
+    reverse_proxy frontend:80 {
+      header_up X-MagentoRunCode store1_german
+      header_up X-MagentoRunType store
+      header_up X-Real-IP {remote_host}
+      header_up X-Forwarded-For {remote_host}
+      header_down Strict-Transport-Security "max-age=15552000;"
+    }
+  }
+  handle @customfrontend /pl/* {
+    uri strip_prefix /pl
+    reverse_proxy frontend:80 {
+      header_up X-MagentoRunCode store1_polish
+      header_up X-MagentoRunType store
+      header_up X-Real-IP {remote_host}
+      header_up X-Forwarded-For {remote_host}
+      header_down Strict-Transport-Security "max-age=15552000;"
+    }
   }
   reverse_proxy @frontend frontend:80 {
     header_up X-MagentoRunCode {runcode}
