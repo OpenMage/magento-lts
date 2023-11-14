@@ -112,6 +112,9 @@ markdown_extensions:
       repo: magento-lts
   - pymdownx.mark
   - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - docs_includes/abbreviations.md
   - pymdownx.superfences:
   - pymdownx.tabbed:
       alternate_style: true
@@ -156,5 +159,5 @@ nav:
           - developers/error-pages.md
       - 'Documentation':
           - developers/mkdocs.md
-  - 'Guides':
+  - 'Blog':
       - blog/index.md
