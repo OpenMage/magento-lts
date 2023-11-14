@@ -16,5 +16,3 @@ git remote add upstream https://github.com/OpenMage/magento-lts
 git pull upstream 1.9.4.x
 git add -A && git commit
 ```
-
-[More Information](http://openmage.github.io/magento-lts/install.html)
