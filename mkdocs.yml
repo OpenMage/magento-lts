@@ -45,6 +45,7 @@ theme:
       php: fontawesome/brands/php
       security: fontawesome/solid/shield
       share: fontawesome/solid/share
+      tinymce: fontawesome/solid/wand-magic-sparkles
 
 # Plugins
 plugins:
@@ -84,6 +85,8 @@ extra:
     PHP-8.0: php
     PHP-8.1: php
     PHP-8.2: php
+    PHP-8.3: php
+    TinyMCE: tinymce
     Security: security
 
 # Extensions
