@@ -12,7 +12,7 @@ hide:
     - toc
 ---
 
-# Exclude certain products from Magento sitemap.xml generation[^1]
+# Exclude certain products from Magento sitemap.xml generation [^1]
 
 Since Magento 1.9.0. you can do this without touching any core file.
 
