@@ -31,6 +31,8 @@ theme:
     - navigation.top
     - navigation.tracking
   icon:
+    icon:
+      annotation: material/plus-circle
     tag:
       code: fontawesome/solid/code
       config: fontawesome/solid/clipboard-check
