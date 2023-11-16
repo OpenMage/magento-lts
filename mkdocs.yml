@@ -57,6 +57,7 @@ plugins:
       redirect_maps:
   - minify:
       minify_html: true
+      cache_safe: true
 
 # Customization
 extra:
