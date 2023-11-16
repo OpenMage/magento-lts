@@ -3,7 +3,7 @@ site_name: OpenMage Docs
 site_url: https://sreichel.github.io/openmage-strict/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
-edit_uri: edit/main/docs/content
+edit_uri: blob/main/docs/content
 copyright: OpenMage contributors
 site_author: OpenMage contributors
 site_description: >-
