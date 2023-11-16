@@ -71,6 +71,7 @@ tinyMceWysiwygSetup.prototype =
             selector: this.selector,
             config: this.config,
             allow_conditional_comments: true,
+            valid_children: '+body[style]',
             protect: [
                 /([\s\S]\*?)<script([\s\S]*?)>([\s\S]*?)<\/script>([\s\S]\*?)/ig,
                 /([\s\S]\*?)<style([\s\S]*?)>([\s\S]*?)<\/style>([\s\S]*?)/ig
