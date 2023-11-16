@@ -23,6 +23,9 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# TinyMCE library
+/js/tinymce
+
 # Add a base setup for running unit Tests with code coverage and send them to SonarCloud
 # https://github.com/OpenMage/magento-lts/pull/1836
 /dev/testfield
