@@ -43,6 +43,9 @@ qodana.yaml
 /dev/tests/functional/generated
 /dev/tests/functional/vendor
 
+# PhpUnit cache
+/dev/.phpunit.result.cache
+
 /media/*
 !/media/.htaccess
 !/media/custom_options/.htaccess
