@@ -56,11 +56,13 @@ docs/
    content/
       index.md             # The documentation homepage.
          ...               # Other markdown pages, images and other files.
-      assets/
       blog/                # Blog-like entries (with date, author, ...)
+         assets/
+         posts/
       developers/
       users/
    overrides/              # Theme overrides
+docs_includes/             # Need to stay outside "docs"
 ```
 
 [^1]: see https://realpython.com/installing-python/
