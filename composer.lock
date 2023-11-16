@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1f30038b9bb11a7c7f0c1fa69e458ff",
+    "content-hash": "8cd31501581323b2a5df62f792d2f765",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -507,6 +507,43 @@
                 }
             ],
             "time": "2022-04-20T19:23:22+00:00"
+        },
+        {
+            "name": "mklkj/tinymce-i18n",
+            "version": "23.11.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mklkj/tinymce-i18n.git",
+                "reference": "1a275945b69d448869ff6856e173ec3f0ba15072"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/1a275945b69d448869ff6856e173ec3f0ba15072",
+                "reference": "1a275945b69d448869ff6856e173ec3f0ba15072",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TinyMCE Community"
+                }
+            ],
+            "description": "Languages for TinyMCE 4, 5 and 6",
+            "homepage": "https://github.com/mklkj/tinymce-i18n",
+            "keywords": [
+                "i18n",
+                "languages",
+                "tinymce"
+            ],
+            "support": {
+                "issues": "https://github.com/mklkj/tinymce-i18n/issues",
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/23.11.6"
+            },
+            "time": "2023-11-06T16:18:28+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
