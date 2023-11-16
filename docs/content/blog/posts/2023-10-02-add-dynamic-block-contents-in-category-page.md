@@ -13,8 +13,12 @@ hide:
 
 # Add dynamic block contents in category page
 
-In _backend > Catalog > Manage Categories_, we can configure a category page and put it on the main menu. The page contents are rendered in
+   In backend, we can configure a category page and put it on the main menu. (1)
+   { .annotate }
 
+   1.  Admin / Catalog / Manage Categories
+ 
+The page contents are rendered in
 ```
 app\design\frontend\base\default\template\catalog\category\view.phtml
 ```
@@ -23,13 +27,19 @@ If we want to render an HTML table in which its data are taken from the database
 
 <!-- more -->
 
-1. Create a custom block `mymodule/mytable` with template `mymodule/mytable.phtml`.
-2. Whitelist our block for rendering in the frontend: backend > System > Permissions > Blocks
-3. Create a CMS static block: backend > CMS > Static Blocks and set the _Content_ to render from our block with this directive:
-   ```
-    {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
-   ```
-4. Create a subcategory: backend > Catalog > Manage Categories > Add a subcategory and in the _Display Setings_ tab, set the category attribute _Display Mode_ to _Static block only_ and _CMS Block_ pointing to our block.
+   1. Create a custom block `mymodule/mytable` with template `mymodule/mytable.phtml`. (1)
+   { .annotate }
+      1.  Admin / Cms / Static Blocks
+
+   2. Whitelist our block for rendering in the frontend (1)
+   { .annotate }
+      1.  Admin / System / Permissions / Blocks
+
+   3. Create a CMS static block: backend > CMS > Static Blocks and set the _Content_ to render from our block with this directive:
+      ```
+       {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
+      ```
+   4. Create a subcategory: backend > Catalog > Manage Categories > Add a subcategory and in the _Display Setings_ tab, set the category attribute _Display Mode_ to _Static block only_ and _CMS Block_ pointing to our block.
 
 Voila, the HTML table is rendered under the menu we just created. However, every time the table in the database is updated, and because CMS blocks rendering are taken from the cache, we would need to refresh the cache.
 

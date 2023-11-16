@@ -42,5 +42,3 @@ Don't use common file names like `api.php` for OpenMage API URLs to prevent atta
     ```
     rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
     ```
-
-1.  System / Configuration / Admin / Admin Base Url
