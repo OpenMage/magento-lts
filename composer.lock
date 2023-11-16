@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31547e3bf2f06a87d755e074e3cabed0",
+    "content-hash": "41de69514d103221d8d4ebc4672eb723",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1046,16 +1046,16 @@
         },
         {
             "name": "sreichel/composer-plugin-file-copy",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "8cce33537e7de7e148d1a21eba88178dd35f7cb3"
+                "reference": "cf440e36409d345c5700ec640f673acd2d67047b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/8cce33537e7de7e148d1a21eba88178dd35f7cb3",
-                "reference": "8cce33537e7de7e148d1a21eba88178dd35f7cb3",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/cf440e36409d345c5700ec640f673acd2d67047b",
+                "reference": "cf440e36409d345c5700ec640f673acd2d67047b",
                 "shasum": ""
             },
             "require": {
@@ -1066,10 +1066,9 @@
             "require-dev": {
                 "composer/composer": "^2.0|2.0@dev"
             },
-            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
-                "class": "Sreichel\\Composer\\Plugin\\FileCopier\\ScriptHandler"
+                "class": "Sreichel\\Composer\\Plugin\\FileCopy\\ScriptHandler"
             },
             "autoload": {
                 "psr-4": {
@@ -1083,7 +1082,8 @@
             "authors": [
                 {
                     "name": "Salah Abdelkader Seif Eddine",
-                    "email": "seif.salah@gmail.com"
+                    "email": "seif.salah@gmail.com",
+                    "role": "Author"
                 },
                 {
                     "name": "Sven Reichel",
@@ -1091,16 +1091,16 @@
                     "role": "Maintainer"
                 }
             ],
-            "description": "Composer Plugin Mass Files Copier",
+            "description": "Composer Plugin Mass Files Copy",
             "keywords": [
                 "Recursive Copy",
                 "composer plugin",
                 "files copy"
             ],
             "support": {
-                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/master"
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/v1.0.0"
             },
-            "time": "2023-11-10T23:32:23+00:00"
+            "time": "2023-11-16T03:15:38+00:00"
         },
         {
             "name": "symfony/console",
@@ -2156,16 +2156,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "6.7.2",
+            "version": "6.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "a4c139bde17a4e8b2e84d225020cd5acc24a728a"
+                "reference": "2a1344eb95eb8ed512f4ad56986bfc230c8c74c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a4c139bde17a4e8b2e84d225020cd5acc24a728a",
-                "reference": "a4c139bde17a4e8b2e84d225020cd5acc24a728a",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/2a1344eb95eb8ed512f4ad56986bfc230c8c74c7",
+                "reference": "2a1344eb95eb8ed512f4ad56986bfc230c8c74c7",
                 "shasum": ""
             },
             "type": "component",
@@ -2209,9 +2209,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/6.7.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/6.7.3"
             },
-            "time": "2023-10-25T06:42:18+00:00"
+            "time": "2023-11-15T00:41:51+00:00"
         }
     ],
     "packages-dev": [
@@ -5646,9 +5646,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "sreichel/composer-plugin-file-copy": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -5672,5 +5670,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

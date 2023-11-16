@@ -30,7 +30,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.23.5",
-        "sreichel/composer-plugin-file-copy": "dev-master",
+        "sreichel/composer-plugin-file-copy": "^1.0",
         "symfony/polyfill-php74": "^1.27",
         "symfony/polyfill-php80": "^1.27",
         "symfony/polyfill-php81": "^1.27",
@@ -86,10 +86,10 @@
         }
     },
     "extra": {
-        "file-copy" : {
+        "file-copy" : [{
             "source": "tinymce/tinymce",
             "target": "js/tinymce"
-        },
+        }],
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
