@@ -66,11 +66,15 @@ What if the table is constantly being updated, or there is an expiry condition o
         <!-- copy the following and insert in your etc/config.xml or local.xml -->
         <catalog>
             <content>
-                <tempate_filter>cms/template_filter</tempate_filter> <!-- Note the typo on template must remain as "tempate". -->
+                <tempate_filter>cms/template_filter</tempate_filter>
             </content>
         </catalog>
     </global>
 </config>
 ```
+
+!!! info
+
+      The typo on template must remain as `<tempate_filter>`.
 
 That's it, the table is now rendered dynamically. There 's no need to create the CMS static block.

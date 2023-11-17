@@ -7,7 +7,12 @@ tags:
 
 ## Backend URL
 
-Don't use common paths like `admin` for OpenMage Backend URL. Don't use the path in `robots.txt` and keep it secret. You can change it from Backend (System / Configuration / Admin / Admin Base Url) or by editing `app/etc/local.xml`:
+Don't use common paths like `admin` for OpenMage backend URL. Don't use the path in `robots.txt` and keep it secret.
+
+You can change it from backend (1) or by editing `app/etc/local.xml`:
+{ .annotate }
+
+   1.  Admin / System / Configuration / Admin / Admin Base Url
 
 ```xml
 <config>
