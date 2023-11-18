@@ -1,0 +1,332 @@
+--- /dev/null
++++ ../library/Zend/Controller/Request/Abstract.php
+@@ -93,7 +93,7 @@
+      * Set the module name to use
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setModuleName($value)
+     {
+@@ -119,7 +119,7 @@
+      * Set the controller name to use
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setControllerName($value)
+     {
+@@ -145,7 +145,7 @@
+      * Set the action name
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setActionName($value)
+     {
+@@ -173,7 +173,7 @@
+      * Set the module key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setModuleKey($key)
+     {
+@@ -195,7 +195,7 @@
+      * Set the controller key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setControllerKey($key)
+     {
+@@ -217,7 +217,7 @@
+      * Set the action key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setActionKey($key)
+     {
+@@ -275,7 +275,7 @@
+      *
+      * @param string $key
+      * @param mixed $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setParam($key, $value)
+     {
+@@ -306,7 +306,7 @@
+      * Null values will unset the associated key.
+      *
+      * @param array $array
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setParams(array $array)
+     {
+@@ -324,7 +324,7 @@
+     /**
+      * Unset all user parameters
+      *
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function clearParams()
+     {
+@@ -336,7 +336,7 @@
+      * Set flag indicating whether or not request has been dispatched
+      *
+      * @param boolean $flag
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setDispatched($flag = true)
+     {
+
+--- /dev/null
++++ ../library/Zend/Controller/Request/Http.php
+@@ -244,7 +244,7 @@
+      *
+      * @param  string|array $spec
+      * @param  null|mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setQuery($spec, $value = null)
+     {
+@@ -288,7 +288,7 @@
+      *
+      * @param  string|array $spec
+      * @param  null|mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setPost($spec, $value = null)
+     {
+@@ -395,7 +395,7 @@
+      *  or $_SERVER['ORIG_PATH_INFO'] + $_SERVER['QUERY_STRING'].
+      *
+      * @param string $requestUri
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setRequestUri($requestUri = null)
+     {
+@@ -478,7 +478,7 @@
+      * ORIG_SCRIPT_NAME in its determination.
+      *
+      * @param mixed $baseUrl
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setBaseUrl($baseUrl = null)
+     {
+@@ -572,7 +572,7 @@
+      * Set the base path for the URL
+      *
+      * @param string|null $basePath
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setBasePath($basePath = null)
+     {
+@@ -621,7 +621,7 @@
+      * Set the PATH_INFO string
+      *
+      * @param string|null $pathInfo
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setPathInfo($pathInfo = null)
+     {
+@@ -681,7 +681,7 @@
+      * Can be empty array, or contain one or more of '_GET' or '_POST'.
+      *
+      * @param  array $paramSoures
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParamSources(array $paramSources = [])
+     {
+@@ -707,7 +707,7 @@
+      *
+      * @param mixed $key
+      * @param mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParam($key, $value)
+     {
+@@ -780,7 +780,7 @@
+      * using the keys specified in the array.
+      *
+      * @param array $params
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParams(array $params)
+     {
+@@ -798,7 +798,7 @@
+      *
+      * @param string $name
+      * @param string $target
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setAlias($name, $target)
+     {
+
+--- /dev/null
++++ ../library/Zend/Controller/Response/Abstract.php
+@@ -108,7 +108,7 @@
+      * @param string $name
+      * @param string $value
+      * @param boolean $replace
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setHeader($name, $value, $replace = false)
+     {
+@@ -141,7 +141,7 @@
+      *
+      * @param string $url
+      * @param int $code
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setRedirect($url, $code = 302)
+     {
+@@ -175,7 +175,7 @@
+     /**
+      * Clear headers
+      *
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function clearHeaders()
+     {
+@@ -188,7 +188,7 @@
+      * Clears the specified HTTP header
+      *
+      * @param  string $name
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function clearHeader($name)
+     {
+@@ -211,7 +211,7 @@
+      * Allows setting non key => value headers, such as status codes
+      *
+      * @param string $value
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setRawHeader($value)
+     {
+@@ -236,7 +236,7 @@
+     /**
+      * Clear all {@link setRawHeader() raw HTTP headers}
+      *
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function clearRawHeaders()
+     {
+@@ -248,7 +248,7 @@
+      * Clears the specified raw HTTP header
+      *
+      * @param  string $headerRaw
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function clearRawHeader($headerRaw)
+     {
+@@ -267,7 +267,7 @@
+     /**
+      * Clear all headers, normal and raw
+      *
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function clearAllHeaders()
+     {
+@@ -279,7 +279,7 @@
+      * Set HTTP response code to use with headers
+      *
+      * @param int $code
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setHttpResponseCode($code)
+     {
+@@ -332,7 +332,7 @@
+      * Sends any headers specified. If an {@link setHttpResponseCode() HTTP response code}
+      * has been specified, it is sent with the first header.
+      *
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function sendHeaders()
+     {
+@@ -383,7 +383,7 @@
+      *
+      * @param string $content
+      * @param null|string $name
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setBody($content, $name = null)
+     {
+@@ -401,7 +401,7 @@
+      *
+      * @param string $content
+      * @param null|string $name
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function appendBody($content, $name = null)
+     {
+@@ -480,7 +480,7 @@
+      *
+      * @param string $name
+      * @param string $content
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function append($name, $content)
+     {
+@@ -504,7 +504,7 @@
+      *
+      * @param string $name
+      * @param string $content
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function prepend($name, $content)
+     {
+@@ -531,7 +531,7 @@
+      * @param  string $parent
+      * @param  boolean $before Whether to insert the new segment before or
+      * after the parent. Defaults to false (after)
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function insert($name, $content, $parent = null, $before = false)
+     {
+@@ -592,7 +592,7 @@
+      * Register an exception with the response
+      *
+      * @param Throwable $e
+-     * @return Zend_Controller_Response_Abstract
++     * @return $this
+      */
+     public function setException(Throwable $e)
+     {
