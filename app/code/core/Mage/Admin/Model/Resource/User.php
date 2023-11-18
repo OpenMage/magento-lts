@@ -72,7 +72,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      * Load data by specified username
      *
      * @param string $username
-     * @return false|array
+     * @return array
      */
     public function loadByUsername($username)
     {
@@ -125,41 +125,30 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     }
 
     /**
-     * Encrypt password
-     *
-     * @param string $pwStr
-     * @return string
-     */
-    private function _encryptPassword($pwStr)
-    {
-        return Mage::helper('core')->getHash($pwStr, Mage_Admin_Model_User::HASH_SALT_LENGTH);
-    }
-
-    /**
      * Set created/modified values before user save
      *
-     * @param Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $object
      * @inheritDoc
      */
-    protected function _beforeSave(Mage_Core_Model_Abstract $user)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ($user->isObjectNew()) {
-            $user->setCreated($this->formatDate(true));
+        if ($object->isObjectNew()) {
+            $object->setCreated($this->formatDate(true));
         }
-        $user->setModified($this->formatDate(true));
+        $object->setModified($this->formatDate(true));
 
-        return parent::_beforeSave($user);
+        return parent::_beforeSave($object);
     }
 
     /**
      * Unserialize user extra data after user save
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Admin_Model_User $object
      * @return $this
      */
-    protected function _afterSave(Mage_Core_Model_Abstract $user)
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_unserializeExtraData($user);
+        $this->_unserializeExtraData($object);
         return $this;
     }
 
@@ -168,24 +157,24 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @inheritDoc
      */
-    protected function _afterLoad(Mage_Core_Model_Abstract $user)
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
-        return parent::_afterLoad($this->_unserializeExtraData($user));
+        return parent::_afterLoad($this->_unserializeExtraData($object));
     }
 
     /**
      * Delete user role record with user
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Admin_Model_User $object
      * @return $this
      * @throws Exception
      */
-    public function delete(Mage_Core_Model_Abstract $user)
+    public function delete(Mage_Core_Model_Abstract $object)
     {
-        $this->_beforeDelete($user);
+        $this->_beforeDelete($object);
         $adapter = $this->_getWriteAdapter();
 
-        $uid = $user->getId();
+        $uid = $object->getId();
         $adapter->beginTransaction();
         try {
             $conditions = [
@@ -199,14 +188,14 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->rollBack();
             throw $e;
         }
-        $this->_afterDelete($user);
+        $this->_afterDelete($object);
         return $this;
     }
 
     /**
      * TODO: unify _saveRelations() and add() methods, they make same things
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $user
      * @return $this|Mage_Core_Model_Abstract
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
@@ -265,7 +254,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Get user roles
      *
-     * @param Mage_Core_Model_Abstract $user
+     * @param Mage_Admin_Model_User $user
      * @return array
      */
     public function getRoles(Mage_Core_Model_Abstract $user)
@@ -301,15 +290,15 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user roles
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $user
      * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
         $dbh = $this->_getWriteAdapter();
         $aRoles = $this->hasAssigned2Role($user);
-        if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
+        if ($aRoles !== null && count($aRoles)) {
+            foreach ($aRoles as $data) {
                 $dbh->delete(
                     $this->getTable('admin/role'),
                     ['role_id = ?' => $data['role_id']]
@@ -346,7 +335,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Delete user role
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $user
      * @return $this
      */
     public function deleteFromRole(Mage_Core_Model_Abstract $user)
@@ -372,7 +361,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if role user exists
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $user
      * @return array
      */
     public function roleUserExists(Mage_Core_Model_Abstract $user)
@@ -400,7 +389,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check if user exists
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
+     * @param Mage_Admin_Model_User $user
      * @return array|false
      */
     public function userExists(Mage_Core_Model_Abstract $user)
@@ -424,7 +413,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user extra data
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Admin_Model_User $object
      * @param string $data
      * @return $this
      */
@@ -444,7 +433,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Set reload ACL flag
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Admin_Model_User $object
      * @param int $flag
      * @return $this
      */
