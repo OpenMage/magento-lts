@@ -720,7 +720,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string|bool $dayOnly
+     * @param bool $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)
