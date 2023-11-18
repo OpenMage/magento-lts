@@ -3,6 +3,7 @@
 /.github export-ignore
 /dev export-ignore
 /docs export-ignore
+/docs_includes export-ignore
 
 /.all-contributorsrc export-ignore
 /.gitattributes export-ignore
