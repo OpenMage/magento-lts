@@ -70,6 +70,53 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
+    ignoreErrors:
+        -
+            # method does not exist and is not used anywhere - remove?
+            message: '#^Call to an undefined method Mage_Admin_Model_Resource_Roles::update+[\\(\\)]+.#'
+            count: 1
+            path: app/code/core/Mage/Admin/Model/Roles.php
+        -
+            # method does not exist and is not used anywhere - remove?
+            message: '#^Call to an undefined method Mage_Admin_Model_Resource_Rules::update+[\\(\\)]+.#'
+            count: 1
+            path: app/code/core/Mage/Admin/Model/Rules.php
+        -
+            # L6: we cannot add return types w/o breaking 3rd party code ... needs rector first
+            message: '#^Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\\(\\)]+ has no return type specified.#'
+            reportUnmatched: false
+        -
+            # L6: we cannot add detailed array types... too much work right now
+            # phpstan 1.11: see: https://phpstan.org/error-identifiers#gbi-missingtype.iterablevalue
+            # identifier: missingType.iterableValue
+            message: '#^Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\\(\\)]+ has parameter \$[a-zA-Z0-9\\_]+ with no value type specified in iterable type array.#'
+            reportUnmatched: false
+        -
+            # L6: we cannot add detailed array types... too much work right now
+            # identifier: missingType.iterableValue
+            message: '#^Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\\(\\)]+ return type has no value type specified in iterable type array.#'
+            reportUnmatched: false
+        -
+            # L6: we cannot add detailed array types... too much work right now
+            # identifier: missingType.iterableValue
+            message: '#^Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+ type has no value type specified in iterable type array.#'
+            reportUnmatched: false
+        -
+            # L7: comes from Mage::getConfig()->getNode() ... need further investigation
+            message: '#^Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\\(\\)]+ should return array\|Varien_Simplexml_Element but returns array\|Varien_Simplexml_Element\|false.#'
+            reportUnmatched: false
+        -
+            # L7: comes from Mage::getConfig()->getNode() ... need further investigation
+            message: '#^Cannot call method [a-zA-Z0-9\\_\\(\\)]+ on Varien_Simplexml_Element\|false.#'
+            reportUnmatched: false
+        -
+            # L7: comes from Mage::getConfig()->getNode() ... need further investigation
+            message: '#^Cannot access property \$[a-zA-Z0-9\\_]+ on Varien_Simplexml_Element\|false.#'
+            reportUnmatched: false
+        -
+            # L8: comes from Mage::getConfig()->getNode() ... need further investigation
+            message: '#^Cannot call method [a-zA-Z0-9\\_\\(\\)]+ on Mage_Core_Model_Config\|null.#'
+            reportUnmatched: false
     level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
