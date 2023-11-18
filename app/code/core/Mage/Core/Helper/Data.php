@@ -703,7 +703,7 @@ XML;
      *
      * switch added to prevent exceptions in json_decode
      *
-     * @param string $encodedValue
+     * @param null|bool|string $encodedValue
      * @param int $objectDecodeType
      * @return mixed
      * @throws Zend_Json_Exception
