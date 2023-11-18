@@ -55,6 +55,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         $rolesArr = $adapter->fetchAll($select);
 
+        assert(is_array($rolesArr));
         $this->loadRoles($acl, $rolesArr);
 
         $select = $adapter->select()
@@ -67,6 +68,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 
         $rulesArr = $adapter->fetchAll($select);
 
+        assert(is_array($rulesArr));
         $this->loadRules($acl, $rulesArr);
 
         return $acl;
@@ -93,7 +95,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $roleId = $role['role_type'] . $role['user_id'];
                     if (!$acl->hasRole($roleId)) {
                         $acl->addRole(Mage::getModel('admin/acl_role_user', $roleId), $parent);
-                    } else {
+                    } elseif ($parent !== null) {
                         $acl->addRoleParent($roleId, $parent);
                     }
                     break;
@@ -118,9 +120,13 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $privileges = !empty($rule['privileges']) ? explode(',', $rule['privileges']) : null;
 
             $assert = null;
-            if ($rule['assert_id'] != 0) {
-                $assertClass = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type'])->getClassName();
-                $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
+            if ($rule['assert_id'] !== '0') {
+                $assertType = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type']);
+                if ($assertType) {
+                    assert($assertType instanceof Mage_Core_Model_Config_Element);
+                    $assertClass = $assertType->getClassName();
+                    $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
+                }
             }
             try {
                 if ($rule['permission'] == 'allow') {
