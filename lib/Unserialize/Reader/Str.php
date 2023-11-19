@@ -66,14 +66,15 @@ class Unserialize_Reader_Str
         }
 
         if ($this->_status == self::READING_VALUE) {
-            if (strlen($this->_value) < $this->_length) {
+            $val = is_null($this->_value) ? "" : $this->value;
+            if (strlen($val) < $this->_length) {
                 $this->_value .= $char;
                 return null;
             }
 
-            if (strlen($this->_value) == $this->_length) {
+            if (strlen($val) == $this->_length) {
                 if ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE) {
-                    return (string)$this->_value;
+                    return (string)$val;
                 }
             }
         }
