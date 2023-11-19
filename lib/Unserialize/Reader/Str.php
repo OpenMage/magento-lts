@@ -66,7 +66,7 @@ class Unserialize_Reader_Str
         }
 
         if ($this->_status == self::READING_VALUE) {
-            $val = is_null($this->_value) ? "" : $this->value;
+            $val = is_null($this->_value) ? "" : $this->_value;
             if (strlen($val) < $this->_length) {
                 $this->_value .= $char;
                 return null;
