@@ -12,7 +12,8 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-function taxToggle(details, switcher, expandedClassName) {
+function taxToggle(details, switcher, expandedClassName)
+{
     var detailsElement = document.getElementById(details);
     var switcherElement = document.getElementById(switcher);
 
