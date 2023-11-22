@@ -73,7 +73,7 @@ tinyMceWysiwygSetup.prototype =
             valid_children: '+body[style]',
             custom_elements:"style,~style",
             protect: [
-                /([\S]?)<script([\s\S]*?)>([\S]*?)<\/script>([\S]?)/ig
+                /([\S]?)<script([\s\S]*?)>([\S]*?)<\/script([\s]*?)>([\S]?)/ig
             ],
             menu: {
                 insert: {
