@@ -70,11 +70,10 @@ tinyMceWysiwygSetup.prototype =
         var settings = {
             selector: this.selector,
             config: this.config,
-            allow_conditional_comments: true,
             valid_children: '+body[style]',
             custom_elements:"style,~style",
             protect: [
-                /([\s\S]\*?)<script([\s\S]*?)>([\s\S]*?)<\/script>([\s\S]\*?)/ig
+                /([\S]?)<script([\s\S]*?)>([\S]*?)<\/script>([\S]?)/ig
             ],
             menu: {
                 insert: {
