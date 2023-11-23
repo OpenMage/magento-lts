@@ -1463,7 +1463,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 return $this->_calculator->calcTaxAmount($weeeAmountIncludingTax - $discountAmount, $rate, true, true);
             }
         }
-        $discountAmount = !$discountAmount ? 0 : $discountAmount;
+        $discountAmount = $discountAmount ? $discountAmount : 0;
 
         ///Regular case where weee does not have the tax and we want to calculate the tax
         return $this->_calculator->calcTaxAmount($weeeAmountExclTax - $discountAmount, $rate, false, true);

@@ -1226,7 +1226,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         if (is_null($this->_frontendName)) {
             $storeGroupName = (string) Mage::getStoreConfig(self::XML_PATH_STORE_STORE_NAME, $this);
-            $this->_frontendName = (!empty($storeGroupName)) ? $storeGroupName : $this->getGroup()->getName();
+            $this->_frontendName = (empty($storeGroupName)) ? $this->getGroup()->getName() : $storeGroupName;
         }
         return $this->_frontendName;
     }

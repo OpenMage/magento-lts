@@ -128,7 +128,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             self::EMAIL_TYPE_CC,
             self::EMAIL_TYPE_BCC
         ];
-        $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
+        $type = in_array($type, $_supportedEmailTypes) ? $type : self::EMAIL_TYPE_TO;
         $emails = array_values((array)$emails);
         $names = is_array($names) ? $names : (array)$names;
         $names = array_values($names);

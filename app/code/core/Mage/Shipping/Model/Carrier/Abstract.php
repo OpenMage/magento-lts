@@ -225,7 +225,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             }
         }
 
-        return !empty($containersFiltered) ? $containersFiltered : $containersAll;
+        return empty($containersFiltered) ? $containersAll : $containersFiltered;
     }
 
     /**

@@ -60,7 +60,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
          * type NULL so in DB they will be empty and not some default value
          */
         foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
-            $value = !$object->getData($field) ? null : $object->getData($field);
+            $value = $object->getData($field) ? $object->getData($field) : null;
             $object->setData($field, $this->formatDate($value));
         }
 

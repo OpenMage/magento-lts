@@ -161,7 +161,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             if ($isArrayOption && is_array($option)) {
                 $value  = $option['value'];
                 $label  = (string)$option['label'];
-                $params = (!empty($option['params'])) ? $option['params'] : [];
+                $params = (empty($option['params'])) ? [] : $option['params'];
             } else {
                 $value = (string)$key;
                 $label = (string)$option;

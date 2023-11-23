@@ -1694,13 +1694,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         }
 
         if (!empty($this->_errors) || empty($resultArr)) {
-            $resultArr = !empty($this->_errors) ? $this->_errors : $trackings;
+            $resultArr = empty($this->_errors) ? $trackings : $this->_errors;
             foreach ($resultArr as $trackNum => $err) {
                 $error = Mage::getModel('shipping/tracking_result_error');
                 $error->setCarrier($this->_code);
                 $error->setCarrierTitle($this->getConfigData('title'));
-                $error->setTracking(!empty($this->_errors) ? $trackNum : $err);
-                $error->setErrorMessage(!empty($this->_errors) ? $err : $errorTitle);
+                $error->setTracking(empty($this->_errors) ? $err : $trackNum);
+                $error->setErrorMessage(empty($this->_errors) ? $errorTitle : $err);
                 $result->append($error);
             }
         }
