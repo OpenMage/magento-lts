@@ -30,7 +30,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     /**
      * The greatest value which could be stored in CatalogInventory Qty field
      */
-    public const MAX_QTY_VALUE = 99999999.9999;
+    public const MAX_QTY_VALUE = 99_999_999.9999;
 
     /**
      * Array of actions which can be processed without secret key validation

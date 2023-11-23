@@ -57,7 +57,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     protected function _toTimestamp($value)
     {
         $value = (int)$value;
-        if ($value > 3155760000) {
+        if ($value > 3_155_760_000) {
             $value = 0;
         }
 

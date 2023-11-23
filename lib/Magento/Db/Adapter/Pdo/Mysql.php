@@ -154,8 +154,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 
         if (is_infinite($value)) {
             $value = ($value > 0)
-                ? 99999999.9999
-                : -99999999.9999;
+                ? 99_999_999.9999
+                : -99_999_999.9999;
         } elseif (is_nan($value)) {
             $value = 0.0;
         }

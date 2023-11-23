@@ -24,7 +24,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Maximum available number
      */
-    public const MAXIMUM_AVAILABLE_NUMBER = 99999999;
+    public const MAXIMUM_AVAILABLE_NUMBER = 99_999_999;
 
     /**
      * Default precision for price calculations

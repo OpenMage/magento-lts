@@ -23,7 +23,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Maximum chunk of data that could be saved in one memcache cell (1 MiB)
      */
-    public const DEFAULT_SLAB_SIZE = 1048576;
+    public const DEFAULT_SLAB_SIZE = 1_048_576;
 
     /**
      * Used to tell chunked data from ordinary

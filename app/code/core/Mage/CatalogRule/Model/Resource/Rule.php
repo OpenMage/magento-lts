@@ -29,7 +29,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Number of products in range for insert
      */
-    public const RANGE_PRODUCT_STEP = 1000000;
+    public const RANGE_PRODUCT_STEP = 1_000_000;
 
     /**
      * Store associated with rule entities information map

@@ -2536,7 +2536,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                     $cType = sprintf('%s(%d)', $cType, $length);
                 } elseif ($length > 255 && $length <= 65536) {
                     $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'text' : 'blob';
-                } elseif ($length > 65536 && $length <= 16777216) {
+                } elseif ($length > 65536 && $length <= 16_777_216) {
                     $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'mediumtext' : 'mediumblob';
                 } else {
                     $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'longtext' : 'longblob';

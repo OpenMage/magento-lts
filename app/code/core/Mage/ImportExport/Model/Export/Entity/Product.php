@@ -592,7 +592,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 break;
             default:
                 // minimum memory required by Magento
-                $memoryLimit = 250000000;
+                $memoryLimit = 250_000_000;
         }
 
         // Tested one product to have up to such size

@@ -50,12 +50,12 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
                 break;
 
             case "30d":
-                $customStart = Varien_Date::toTimestamp(true) - 2592000;
+                $customStart = Varien_Date::toTimestamp(true) - 2_592_000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
             case "1y":
-                $customStart = Varien_Date::toTimestamp(true) - 31536000;
+                $customStart = Varien_Date::toTimestamp(true) - 31_536_000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 

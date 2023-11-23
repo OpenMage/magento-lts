@@ -24,7 +24,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     /**
      * Session maximum cookie lifetime
      */
-    public const SEESION_MAX_COOKIE_LIFETIME = 3155692600;
+    public const SEESION_MAX_COOKIE_LIFETIME = 3_155_692_600;
 
     /**
      * Session lifetime

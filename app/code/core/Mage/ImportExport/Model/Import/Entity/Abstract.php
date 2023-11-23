@@ -26,7 +26,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      */
     public const DB_MAX_PACKET_COEFFICIENT = 900000;
-    public const DB_MAX_PACKET_DATA        = 1048576;
+    public const DB_MAX_PACKET_DATA        = 1_048_576;
     public const DB_MAX_VARCHAR_LENGTH     = 256;
     public const DB_MAX_TEXT_LENGTH        = 65536;
 

@@ -54,8 +54,8 @@ class Varien_Db_Ddl_Table
      * Default and maximal TEXT and BLOB columns sizes we can support for different DB systems.
      */
     public const DEFAULT_TEXT_SIZE     = 1024;
-    public const MAX_TEXT_SIZE         = 2147483648;
-    public const MAX_VARBINARY_SIZE    = 2147483648;
+    public const MAX_TEXT_SIZE         = 2_147_483_648;
+    public const MAX_VARBINARY_SIZE    = 2_147_483_648;
 
     /**
      * Default values for timestampses - fill with current timestamp on inserting record, on changing and both cases

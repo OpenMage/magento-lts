@@ -54,15 +54,15 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
         if ($number < 1000) {
             return (string)$number;
         }
-        if ($number < 1000000) {
+        if ($number < 1_000_000) {
             return sprintf('%.2fK', $number / 1000);
         }
 
-        if ($number < 1000000000) {
-            return sprintf('%.2fM', $number / 1000000);
+        if ($number < 1_000_000_000) {
+            return sprintf('%.2fM', $number / 1_000_000);
         }
 
-        return sprintf('%.2fB', $number / 1000000000);
+        return sprintf('%.2fB', $number / 1_000_000_000);
     }
 
     /**
@@ -77,15 +77,15 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
             return sprintf('%d b', $number);
         }
 
-        if ($number < 1000000) {
+        if ($number < 1_000_000) {
             return sprintf('%.2fKb', $number / 1000);
         }
 
-        if ($number < 1000000000) {
-            return sprintf('%.2fMb', $number / 1000000);
+        if ($number < 1_000_000_000) {
+            return sprintf('%.2fMb', $number / 1_000_000);
         }
 
-        return sprintf('%.2fGb', $number / 1000000000);
+        return sprintf('%.2fGb', $number / 1_000_000_000);
     }
 
     /**

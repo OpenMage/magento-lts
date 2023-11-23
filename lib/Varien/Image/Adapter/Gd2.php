@@ -194,7 +194,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         // make jpegs progressive
         if ($this->_fileType == IMAGETYPE_JPEG) {
             $threshold = (int) Mage::getStoreConfig('catalog/product_image/progressive_threshold');
-            if ($threshold && $threshold <= (imagesx($this->_imageHandler) * imagesy($this->_imageHandler) / 1000000)) {
+            if ($threshold && $threshold <= (imagesx($this->_imageHandler) * imagesy($this->_imageHandler) / 1_000_000)) {
                 imageinterlace($this->_imageHandler, 1);
             }
         }
