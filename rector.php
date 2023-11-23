@@ -6,6 +6,8 @@ use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector as DeadCode;
+use Rector\Php54\Rector as Php54;
+use Rector\Php70\Rector as Php70;
 use Rector\Php71\Rector as Php71;
 use Rector\Php80\Rector as Php80;
 use Rector\Php81\Rector as Php81;
@@ -19,7 +21,7 @@ use Rector\Visibility\Rector as Visibility;
 return static function (RectorConfig $rectorConfig): void
 {
     $rectorConfig->paths([
-        __DIR__ . '/app',
+        __DIR__ . '/app/code/core',
 //        __DIR__ . '/dev',
 //        __DIR__ . '/errors',
 //        __DIR__ . '/js',
@@ -28,6 +30,7 @@ return static function (RectorConfig $rectorConfig): void
     ]);
 
     $rectorConfig->sets([
+//        LevelSetList::UP_TO_PHP_74,
 //        LevelSetList::UP_TO_PHP_81,
 //        SetList::CODE_QUALITY,
 //        SetList::CODING_STYLE,
@@ -36,27 +39,36 @@ return static function (RectorConfig $rectorConfig): void
 //        SetList::TYPE_DECLARATION,
     ]);
 
-
-    /**
-     * Step by step
-     */
-    $rules = [
-        CodeQuality\FuncCall\SimplifyRegexPatternRector::class => true,
-        CodeQuality\Ternary\SwitchNegatedTernaryRector::class => true,
-    ];
-
     /**
      * Disabled all rules by now ... too much changes to get its merged
      *
      * More progress here;
      * @see https://github.com/sreichel/openmage-rector
      */
-    $rulesDisabled = [
+    $rules = [
+        /**
+         * Long array to short array
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#longarraytoshortarrayrector
+         */
+        Php54\Array_\LongArrayToShortArrayRector::class => true,
+
+        /**
+         * Use <=> spaceship instead of ternary with same effect
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#ternarytospaceshiprector
+         */
+        Php70\Ternary\TernaryToSpaceshipRector::class => true,
+
         /**
          * Change mixed docs type to mixed typed
          * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#mixedtyperector
          */
         Php80\FunctionLike\MixedTypeRector::class => false,
+
+        /**
+         * Remove unused variable in `catch()`
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeunusedvariableincatchrector
+         */
+        Php80\Catch_\RemoveUnusedVariableInCatchRector::class => true,
 
         /**
          * Add final to constants that does not have children
@@ -229,7 +241,10 @@ return static function (RectorConfig $rectorConfig): void
         Visibility\ClassMethod\ExplicitPublicClassMethodRector::class => true,
     ];
 
-    $run = array_filter($rules);
+    $rules = [
+        Php70\Ternary\TernaryToSpaceshipRector::class => true,
+    ];
+
     $run = array_filter($rules);
     $skip = array_diff($rules, $run);
 
