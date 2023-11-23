@@ -13,10 +13,10 @@
 
   class XMLParser{
 
-		var $xml_parser;
-		var $deseralizedResponse;
-		var $elementName;
-		var $elementValue;
+		public $xml_parser;
+		public $deseralizedResponse;
+		public $elementName;
+		public $elementValue;
 
 	    /////////////////////////////////////////////////////////////////////////////////////////////
 		// Function XMLParser()
