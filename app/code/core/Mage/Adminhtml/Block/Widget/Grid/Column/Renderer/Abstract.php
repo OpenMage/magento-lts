@@ -143,9 +143,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
 
         if ($this->getColumn()->hasData('width')) {
             $customWidth = $this->getColumn()->getData('width');
-            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
+            if (($customWidth === null) || (preg_match('/^\d+%?$/', $customWidth))) {
                 $width = $customWidth;
-            } elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
+            } elseif (preg_match('/^(\d+)px$/', $customWidth, $matches)) {
                 $width = (int)$matches[1];
             }
         }

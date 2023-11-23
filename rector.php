@@ -41,6 +41,7 @@ return static function (RectorConfig $rectorConfig): void
      * Step by step
      */
     $rules = [
+        CodeQuality\FuncCall\SimplifyRegexPatternRector::class => true,
         CodeQuality\Ternary\SwitchNegatedTernaryRector::class => true,
     ];
 
