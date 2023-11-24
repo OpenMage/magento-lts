@@ -129,10 +129,6 @@ class Varien_Io_File extends Varien_Io_Abstract
             throw new Exception('Permission denied for write to ' . $this->getFilteredPath($this->_cwd));
         }
 
-        if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
-            ini_set('auto_detect_line_endings', 1);
-        }
-
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }

@@ -77,7 +77,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
