@@ -208,9 +208,8 @@ class UpdateConfigurableProductStep implements TestStepInterface
      */
     protected function getCurrentConfigurableOptions()
     {
-        return empty($this->currentAssignedProducts)
-            ? []
-            : [
+        return !empty($this->currentAssignedProducts)
+            ? [
                 'data' => [
                     'data' => ['attributes_data' => $this->currentConfigurableOptionsData],
                     'attributes_data' => [
@@ -219,7 +218,8 @@ class UpdateConfigurableProductStep implements TestStepInterface
                     ],
                     'assigned_product' => $this->currentAssignedProducts
                 ]
-            ];
+            ]
+            : [];
     }
 
     /**

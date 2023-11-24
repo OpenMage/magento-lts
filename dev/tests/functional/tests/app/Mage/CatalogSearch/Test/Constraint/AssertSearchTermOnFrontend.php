@@ -59,9 +59,9 @@ class AssertSearchTermOnFrontend extends AbstractConstraint
         $this->searchBlock = $cmsIndex->open()->getSearchBlock();
 
         if ($searchTerm->hasData('display_in_terms') && $searchTerm->getDisplayInTerms() === 'Yes') {
-            $errors = ($this->isSugestSearchisVisible(
+            $errors = (!$this->isSugestSearchisVisible(
                 $searchTerm
-            )) ? [] : '- block "Suggest Search" when searching was not found';
+            )) ? '- block "Suggest Search" when searching was not found' : [];
         }
 
         $this->searchBlock->search($searchTerm->getQueryText());

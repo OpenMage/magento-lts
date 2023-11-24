@@ -52,7 +52,7 @@ class Unserialize_Reader_Arr
      */
     public function read($char, $prevChar)
     {
-        $this->_result = is_null($this->_result) ? [] : $this->_result;
+        $this->_result = !is_null($this->_result) ? $this->_result : array();
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;

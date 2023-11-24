@@ -98,9 +98,9 @@ class AssertProductComparePage extends AbstractConstraint
                     ? $product->getDataFieldConfig('price')['source']->getPriceData()
                     : number_format($product->getPrice(), 2));
 
-            $data['attributeValues'][$attribute] = is_array($attributeValue) ? $attributeValue : strtolower(
+            $data['attributeValues'][$attribute] = !is_array($attributeValue) ? strtolower(
                 $attributeValue
-            );
+            ) : $attributeValue;
             $attributeName = ($value === 'name' || $value === 'price') ? 'Info' : 'MetaData';
             $data['attributeValuesFromPage'][$attribute] = $this->comparePage->getCompareProductsBlock(
             )->{'getProduct' . $attributeName}(

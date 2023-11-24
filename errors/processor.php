@@ -94,7 +94,7 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'],'.php'), ['404', '503', 'report'])) {
+            if (in_array(basename($_SERVER['SCRIPT_NAME'],'.php'), array('404','503','report'))) {
                 $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
             }
             else {
@@ -184,7 +184,7 @@ class Error_Processor
 
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], [80, 433])
+            && !in_array($_SERVER['SERVER_PORT'], array(80, 433))
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
@@ -281,7 +281,7 @@ class Error_Processor
      */
     protected function _sendHeaders(int $statusCode)
     {
-        $serverProtocol = empty($_SERVER['SERVER_PROTOCOL']) ? 'HTTP/1.0' : $_SERVER['SERVER_PROTOCOL'];
+        $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
         switch ($statusCode) {
             case 404:
                 $description = 'Not Found';
@@ -318,7 +318,7 @@ class Error_Processor
     protected function _getFilePath(string $file, $directories = null)
     {
         if ($directories === null) {
-            $directories = [];
+            $directories = array();
 
             if (!$this->_root) {
                 $directories[] = $this->_indexDir . self::ERROR_DIR . '/';

@@ -84,7 +84,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             $this->_value = $value;
             return $this;
         }
-        if (preg_match('/^\d+$/', $value)) {
+        if (preg_match('/^[0-9]+$/', $value)) {
             $this->_value = new Zend_Date($this->_toTimestamp($value));
             //$this->_value = new Zend_Date((int)value);
             return $this;
