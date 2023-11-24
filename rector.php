@@ -6,9 +6,13 @@ use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector as DeadCode;
+use Rector\Php52\Rector as Php52;
+use Rector\Php53\Rector as Php53;
 use Rector\Php54\Rector as Php54;
+use Rector\Php55\Rector as Php55;
 use Rector\Php70\Rector as Php70;
 use Rector\Php71\Rector as Php71;
+use Rector\Php74\Rector as Php74;
 use Rector\Php80\Rector as Php80;
 use Rector\Php81\Rector as Php81;
 use Rector\Renaming\Rector as Renaming;
@@ -24,13 +28,12 @@ return static function (RectorConfig $rectorConfig): void
         __DIR__ . '/app/code/core',
 //        __DIR__ . '/dev',
 //        __DIR__ . '/errors',
-//        __DIR__ . '/js',
 //        __DIR__ . '/lib',
 //        __DIR__ . '/shell',
     ]);
 
     $rectorConfig->sets([
-//        LevelSetList::UP_TO_PHP_74,
+//        LevelSetList::UP_TO_PHP_54,
 //        LevelSetList::UP_TO_PHP_81,
 //        SetList::CODE_QUALITY,
 //        SetList::CODING_STYLE,
@@ -40,12 +43,22 @@ return static function (RectorConfig $rectorConfig): void
     ]);
 
     /**
-     * Disabled all rules by now ... too much changes to get its merged
-     *
      * More progress here;
      * @see https://github.com/sreichel/openmage-rector
      */
     $rules = [
+        /**
+         * Change property modifier from ´var´ to ´public´
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#vartopublicpropertyrector
+         */
+        Php52\Property\VarToPublicPropertyRector::class => true,
+
+        /**
+         * Use ?: instead of ?, where useful
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#ternarytoelvisrector
+         */
+        Php53\Ternary\TernaryToElvisRector::class => true,
+
         /**
          * Long array to short array
          * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#longarraytoshortarrayrector
@@ -53,10 +66,28 @@ return static function (RectorConfig $rectorConfig): void
         Php54\Array_\LongArrayToShortArrayRector::class => true,
 
         /**
+         * Replace string class names by ::class constant
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#stringclassnametoclassconstantrector
+         */
+        Php55\String_\StringClassNameToClassConstantRector::class => true,
+
+        /**
          * Use <=> spaceship instead of ternary with same effect
          * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#ternarytospaceshiprector
          */
         Php70\Ternary\TernaryToSpaceshipRector::class => true,
+
+        /**
+         * Add explicit public constant visibility.
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#publicconstantvisibilityrector
+         */
+        Php71\ClassConst\PublicConstantVisibilityRector::class => true,
+
+        /**
+         * Add "_" as thousands separator in numbers for higher or equals to limitValue config
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#addliteralseparatortonumberrector
+         */
+        Php74\LNumber\AddLiteralSeparatorToNumberRector::class => true,
 
         /**
          * Change mixed docs type to mixed typed
@@ -153,6 +184,12 @@ return static function (RectorConfig $rectorConfig): void
         CodeQuality\Ternary\SwitchNegatedTernaryRector::class => true,
 
         /**
+         * Remove unnecessary ternary expressions
+         * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#unnecessaryternaryexpressionrector
+         */
+        CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class => true,
+
+        /**
          * Remove and true that has no added value
          * @see https://github.com/rectorphp/rector/blob/main/docs/rector_rules_overview.md#removeandtruerector
          */
@@ -242,7 +279,7 @@ return static function (RectorConfig $rectorConfig): void
     ];
 
     $rules = [
-        Php70\Ternary\TernaryToSpaceshipRector::class => true,
+        CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class => true,
     ];
 
     $run = array_filter($rules);

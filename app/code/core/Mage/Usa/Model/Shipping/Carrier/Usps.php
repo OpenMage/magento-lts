@@ -1859,7 +1859,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     public function isGirthAllowed($countyDest = null)
     {
-        return $this->_isUSCountry($countyDest) ? false : true;
+        return !$this->_isUSCountry($countyDest);
     }
 
     /**

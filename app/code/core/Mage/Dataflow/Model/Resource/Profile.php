@@ -58,6 +58,6 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
             $select->where("{$this->getIdFieldName()} != :id");
             $bind['id'] = $id;
         }
-        return $this->_getReadAdapter()->fetchOne($select, $bind) ? true : false;
+        return (bool) $this->_getReadAdapter()->fetchOne($select, $bind);
     }
 }

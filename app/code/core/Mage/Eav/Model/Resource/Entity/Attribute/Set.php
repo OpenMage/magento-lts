@@ -82,7 +82,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
             $select->where('attribute_set_id != :attribute_set_id');
         }
 
-        return $adapter->fetchOne($select, $bind) ? false : true;
+        return !(bool) $adapter->fetchOne($select, $bind);
     }
 
     /**

@@ -152,8 +152,8 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
-        $toDelete   = empty($value['delete']) ? false : true;
-        $toUpload   = empty($value['tmp_name']) ? false : true;
+        $toDelete   = !empty($value['delete']);
+        $toUpload   = !empty($value['tmp_name']);
 
         if (!$toUpload && !$toDelete && $this->getEntity()->getData($attribute->getAttributeCode())) {
             return true;
