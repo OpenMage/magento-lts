@@ -269,8 +269,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
                 continue; // for example hide System/Tools when empty
             }
-            $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
-                . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
+            $html .= '<li class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
                 . (!empty($item['children']) ? ' parent' : '')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')

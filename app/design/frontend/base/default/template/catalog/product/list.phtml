@@ -55,7 +55,7 @@
                                     title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                     class="button btn-cart"
                                     onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
-                                <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                                <?php echo $this->__('Add to Cart') ?>
                             </button>
                         </p>
                     <?php else: ?>
@@ -94,7 +94,6 @@
         </li>
     <?php endforeach ?>
     </ol>
-    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
 
     <?php else: ?>
 
@@ -120,7 +119,7 @@
                                 title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
                                 class="button btn-cart"
                                 onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
-                            <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                            <?php echo $this->__('Add to Cart') ?>
                         </button>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
@@ -155,7 +154,6 @@
         </ul>
         <?php endif ?>
         <?php endforeach ?>
-        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
     <?php endif ?>
 
     <div class="toolbar-bottom">
