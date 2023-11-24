@@ -51,12 +51,7 @@
     </table>
 </div>
 <?php echo $this->getChildHtml('items_after'); ?>
-<script type="text/javascript">
-//<![CDATA[
-    decorateTable('checkout-review-table');
-    truncateOptions();
-//]]>
-</script>
+<script type="text/javascript">truncateOptions();</script>
 <div id="checkout-review-submit">
     <?php echo $this->getChildHtml('agreements') ?>
     <div class="buttons-set" id="review-buttons-container">

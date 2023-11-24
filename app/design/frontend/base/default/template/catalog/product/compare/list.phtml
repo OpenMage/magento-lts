@@ -64,7 +64,7 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                                         '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
                                         '<?php echo $_params ?>',
                                         'post')">
-                            <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                            <?php echo $this->__('Add to Cart') ?>
                         </button>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
@@ -135,7 +135,7 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
                                             '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
                                             '<?php echo $_params ?>',
                                             'post')">
-                                <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                                <?php echo $this->__('Add to Cart') ?>
                             </button>
                         </p>
                     <?php else: ?>
@@ -161,14 +161,12 @@ $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
         </tbody>
     </table>
     <div class="buttons-set">
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><?php echo $this->__('Close Window') ?></button>
         <span class="please-wait" id="compare-list-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Please wait...')) ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>
         </span>
     </div>
     <script type="text/javascript">
-        decorateTable('product_comparison');
-
         /**
          * Send remove item request, after that reload windows
          */

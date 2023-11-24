@@ -20,9 +20,9 @@
 <?php if ($this->canShow()): ?>
     <div class="notification-global notification-global-warning">
         <strong style="color:red">Important: </strong>
-        <span>Formkey validation on checkout disabled. This may expose security risks.
-        We strongly recommend to Enable Form Key Validation On Checkout in
-        <a href="<?php echo $this->getSecurityAdminUrl(); ?>">Admin / Security</a>,
-        for protect your own checkout process. </span>
+        <span>Formkey validation is disabled. This may expose you to security risks.
+        We strongly recommend to enable in
+        <a href="<?php echo $this->getEnableCSRFUrl(); ?>">Advanced / System / CSRF Protection</a>,
+        to protect your checkout, contact and newsletter forms.</span>
     </div>
 <?php endif ?>

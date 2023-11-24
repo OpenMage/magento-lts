@@ -1002,6 +1002,14 @@ XML;
     }
 
     /**
+     * @return bool
+     */
+    public function isFormKeyEnabled(): bool
+    {
+        return Mage::getStoreConfigFlag(Mage_Core_Controller_Front_Action::XML_CSRF_USE_FLAG_CONFIG_PATH);
+    }
+
+    /**
      * Returns true if the rate limit of the current client is exceeded
      * @param bool $setErrorMessage Adds a predefined error message to the 'core/session' object
      * @param bool $recordRateLimitHit

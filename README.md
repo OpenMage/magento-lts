@@ -68,7 +68,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
+- PHP 8.1+ for OM v21, PHP 7.4+ for OpenMage v19/v20
 - MySQL 5.6+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -271,7 +271,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 
 - PHP 8.1 as minimum required version
 - Removed scriptaculous/dragdrop.js (#3215)
-- RWD theme: updated jQuery to 3.7.0 (#3204)
+- RWD theme: updated jQuery to 3.7.0 (#3204), removed enquire.js (#3208)
 - Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
 - Removed double span element from HTML buttons (#3123)
 - Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
@@ -285,7 +285,6 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `dev/log/max_level`
-- `newsletter/security/enable_form_key`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
