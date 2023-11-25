@@ -968,15 +968,22 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
-            print '<pre>';
-
+            if (PHP_SAPI != 'cli') {
+                print '<pre style="white-space:pre-wrap;">';
+            }
             if (!empty($extra)) {
                 print $extra . "\n\n";
             }
-
-            print $e->getMessage() . "\n\n";
-            print $e->getTraceAsString();
-            print '</pre>';
+            print get_class($e) . ': ' . $e->getMessage() . "\n\n";
+            print $e->getTraceAsString() . "\n";
+            if (PHP_SAPI != 'cli') {
+                print '  thrown in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>' . "\n";
+            } else {
+                print '  thrown in ' . $e->getFile() . ' on line ' . $e->getLine() . "\n";
+            }
+            if (PHP_SAPI != 'cli') {
+                print '</pre>';
+            }
         } else {
             $reportData = [
                 (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
