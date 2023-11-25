@@ -975,10 +975,42 @@ final class Mage
                 print $extra . "\n\n";
             }
             print get_class($e) . ': ' . $e->getMessage() . "\n\n";
-            print $e->getTraceAsString() . "\n";
             if (PHP_SAPI != 'cli') {
-                print '  thrown in <b>' . $e->getFile() . '</b> on line <b>' . $e->getLine() . '</b>' . "\n";
+                $file = $e->getFile();
+                $line = $e->getLine();
+                if (!empty($_SERVER['MAGE_VSCODE_LINKS']) || !empty($_ENV['MAGE_VSCODE_LINKS'])) {
+                    // vscode doc
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', function ($data) {
+                        return
+                            $data[1] .
+                            '<a href="vscode://file/' . $data[2] . ':' . $data[3] . '">' . $data[2] . '</a>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <a href="vscode://file/' . $file . ':' . $line . '"><b>' . $file . '</b></a>';
+                    print ' on line <b>' . $line . '</b>' . "\n";
+                } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
+                    // phpstorm doc
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', function ($data) {
+                        return
+                            $data[1] .
+                            '<a href="phpstorm://open?url=file:/' . $data[2] . '&line="' . $data[3] . '>' . $data[2] . '</a>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <a href="phpstorm://open?url=file:/' . $file . '&line=' . $line . '"><b>' . $file . '</b></a>';
+                    print ' on line <b>' . $line . '</b>' . "\n";
+                } else {
+                    // https://github.com/luigifab/webext-openfileeditor
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', function ($data) {
+                        return
+                            $data[1] .
+                            '<span class="openfileeditor" data-line="' . $data[3] . '">' . $data[2] . '</span>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <span class="openfileeditor" data-line="' . $line . '"><b>' . $file . '</b></span>';
+                    print ' on line <b>' . $line . '</b>' . "\n";
+                }
             } else {
+                print $e->getTraceAsString() . "\n";
                 print '  thrown in ' . $e->getFile() . ' on line ' . $e->getLine() . "\n";
             }
             if (PHP_SAPI != 'cli') {
