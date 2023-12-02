@@ -294,8 +294,7 @@ HTML;
                     } else {
                         echo $thisClass . '</div>';
                     }
-                }
-                catch (Exception $t) {
+                } catch (Exception $t) {
                     echo $thisClass . '</div>';
                 }
             }
