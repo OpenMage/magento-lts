@@ -182,7 +182,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     if (Mage::getIsDeveloperMode()) {
         Mage::printException(new ErrorException($errorMessage . ' ' . $errstr, 0, $errno, $errfile, $errline));
     } else {
-        Mage::log($errorMessage . ': ' . $errstr . '  in ' . $errfile . ' on line ' . $errline, Zend_Log::ERR);
+        Mage::log($errorMessage . ': ' . $errstr . ' in ' . $errfile . ' on line ' . $errline, Zend_Log::ERR);
     }
 }
 
