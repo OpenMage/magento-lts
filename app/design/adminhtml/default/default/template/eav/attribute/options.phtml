@@ -64,6 +64,9 @@
         <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
+                    <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+                        <th><?php echo $this->__('Swatch'); ?></th>
+                    <?php endif ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                     <?php endforeach ?>
@@ -75,7 +78,12 @@
                             <?php endif ?>
                         </th>
                     </tr>
-                    <tr class="no-display template" id="row-template">
+                    <tr class="no-display template" id="row-template">    
+                        <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+                        <td>
+                            <input type="color" class="input-text" name="option[swatch][{{id}}]" value="{{swatch}}" />                            
+                        </td>
+                        <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <?php endforeach ?>
@@ -100,6 +108,11 @@ var optionDefaultInputType = 'radio';
 // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
 var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
+        <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+            '<td>'+
+                '<input type="color" class="input-text" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
+            '</td>'+
+        <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
             '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
 <?php endforeach ?>

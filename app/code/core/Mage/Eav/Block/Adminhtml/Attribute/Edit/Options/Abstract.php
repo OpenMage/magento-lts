@@ -209,4 +209,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         return Mage::registry('entity_attribute');
     }
+
+    /**
+     * Check if configurable swatches module is enabled and attribute is swatch type
+     *
+     * @return boolean
+     */
+    public function isConfigurableSwatchesEnabled(): bool
+    {
+        return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
+            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
+    }
+
 }
