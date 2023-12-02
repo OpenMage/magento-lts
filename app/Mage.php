@@ -992,7 +992,7 @@ final class Mage
                     print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
                         return
                             $data[1] .
-                            '<a href="phpstorm://open?url=file:/' . $data[2] . '&line="' . $data[3] . '>' . $data[2] . '</a>' .
+                            '<a href="phpstorm://open?url=file:/' . $data[2] . '&line=' . $data[3] . '">' . $data[2] . '</a>' .
                             '(' . $data[3] . '): ';
                     }, $e->getTraceAsString()) . "\n";
                     print '  thrown in <a href="phpstorm://open?url=file:/' . $file . '&line=' . $line . '"><b>' . $file . '</b></a>';
@@ -1019,8 +1019,9 @@ final class Mage
             }
         } else {
             $reportData = [
-                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
-                $e->getTraceAsString()
+                (!empty($extra) ? $extra . "\n\n" : '') . get_class($e) . ': ' . $e->getMessage(),
+                $e->getTraceAsString() . "\n" .
+                    '  thrown in ' . $e->getFile() . ' on line ' . $e->getLine()
             ];
             // retrieve server data
             if (isset($_SERVER['REQUEST_URI'])) {
