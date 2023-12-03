@@ -37,6 +37,10 @@ $table = $installer->getConnection()
         'nullable'  => true,
         'default'   => null,
     ], 'Value')
+    ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
+        'nullable'  => true,
+        'default'   => null,
+    ], 'Filename')
     ->addIndex(
         $installer->getIdxName('eav/attribute_option_value', ['option_id']),
         ['option_id'],

@@ -353,7 +353,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     if (isset($option['swatch'][$optionId])) {
                         $data = [
                             'option_id' => $intOptionId,
-                            'value'     => $option['swatch'][$optionId]
+                            'value'     => $option['swatch'][$optionId],
+                            'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
                         ];
                         $adapter->insertOnDuplicate($this->getTable('eav/attribute_option_swatch'), $data);
                     }
@@ -361,6 +362,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
+            }
+            if (isset($option['swatch'])) {
+                Mage::helper('configurableswatches/productimg')->clearSwatchesCache();
             }
         }
 
