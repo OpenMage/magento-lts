@@ -288,6 +288,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter            = $this->_getWriteAdapter();
             $optionTable        = $this->getTable('eav/attribute_option');
             $optionValueTable   = $this->getTable('eav/attribute_option_value');
+            $optionSwatchTable   = $this->getTable('eav/attribute_option_swatch');
 
             $stores = Mage::app()->getStores(true);
             if (isset($option['value'])) {
@@ -301,6 +302,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     if (!empty($option['delete'][$optionId])) {
                         if ($intOptionId) {
                             $adapter->delete($optionTable, ['option_id = ?' => $intOptionId]);
+                            $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
                         continue;
                     }
@@ -346,25 +348,19 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $adapter->insert($optionValueTable, $data);
                         }
                     }
+
+                    // Swatch Value
+                    if (isset($option['swatch'][$optionId])) {
+                        $data = [
+                            'option_id' => $intOptionId,
+                            'value'     => $option['swatch'][$optionId]
+                        ];
+                        $adapter->insertOnDuplicate($this->getTable('eav/attribute_option_swatch'), $data);
+                    }
                 }
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
-            }
-            
-            if (isset($option['swatch'])) {
-                $optionSwatchTable   = $this->getTable('eav/attribute_option_swatch');
-                foreach ($option['swatch'] as $optionId => $value) {
-                    $intOptionId = (int) $optionId;
-                    if ($intOptionId && $value) {
-                        $data = [
-                            'option_id' => $intOptionId,
-                            'value'     => $value
-                        ];
-                        $adapter->insertOnDuplicate($optionSwatchTable, $data);
-
-                    }
-                }                
             }
         }
 
