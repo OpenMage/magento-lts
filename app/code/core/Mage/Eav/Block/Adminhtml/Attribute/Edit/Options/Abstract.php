@@ -153,7 +153,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             }
             $this->setData('option_values', $values);
         }
-
         return $values;
     }
 
