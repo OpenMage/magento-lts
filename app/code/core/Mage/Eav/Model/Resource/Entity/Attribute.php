@@ -351,6 +351,21 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
             }
+            
+            if (isset($option['swatch'])) {
+                $optionSwatchTable   = $this->getTable('eav/attribute_option_swatch');
+                foreach ($option['swatch'] as $optionId => $value) {
+                    $intOptionId = (int) $optionId;
+                    if ($intOptionId && $value) {
+                        $data = [
+                            'option_id' => $intOptionId,
+                            'value'     => $value
+                        ];
+                        $adapter->insertOnDuplicate($optionSwatchTable, $data);
+
+                    }
+                }                
+            }
         }
 
         return $this;
