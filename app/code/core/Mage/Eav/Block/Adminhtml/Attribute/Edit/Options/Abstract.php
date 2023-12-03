@@ -222,5 +222,4 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
             && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
-
 }

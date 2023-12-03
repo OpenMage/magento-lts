@@ -292,7 +292,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             trim($filename, '/'),
         ];
         $destPath = implode('/', $destPathArr);
-        if (!is_dir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath))) {    
+        if (!is_dir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath))) {
             $io = new Varien_Io_File();
             $io->mkdir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath), 0777, true);
         }
