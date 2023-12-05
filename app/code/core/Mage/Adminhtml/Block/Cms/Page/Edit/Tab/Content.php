@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
         $contentField = $fieldset->addField('content', 'editor', [
             'name'      => 'content',
             'style'     => 'height:36em;',
-            'required'  => true,
+            'required'  => false,
             'disabled'  => $isElementDisabled,
             'config'    => $wysiwygConfig
         ]);
