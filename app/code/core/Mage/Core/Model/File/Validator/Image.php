@@ -80,7 +80,7 @@ class Mage_Core_Model_File_Validator_Image
     {
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
-            if ($fileType == IMAGETYPE_ICO) {
+            if ($fileType === IMAGETYPE_ICO) {
                 return null;
             }
             if ($this->isImageType($fileType)) {
