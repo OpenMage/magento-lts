@@ -1268,7 +1268,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Add attribute value table to the join if it wasn't added previously
      *
      * @param   string $attributeCode
-     * @param   string $joinType inner|left
+     * @param   bool|string $joinType inner|left
      * @throws  Mage_Eav_Exception
      * @return  $this
      */
@@ -1332,7 +1332,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        $joinMethod = $joinType === 'left' ? 'joinLeft' : 'join';
+        $joinMethod = ($joinType === true || $joinType === 'left') ? 'joinLeft' : 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 

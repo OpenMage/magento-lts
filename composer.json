@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <8.3",
+        "php": ">=7.4 <8.4",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -23,7 +23,7 @@
         "ext-soap": "*",
         "ext-zlib": "*",
         "colinmollenhour/cache-backend-redis": "^1.14",
-        "colinmollenhour/magento-redis-session": "^3.1",
+        "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "pelago/emogrifier": "^7.0",
@@ -76,6 +76,12 @@
             "name": "Sven Reichel",
             "email": "github-sr@hotmail.com",
             "role": "Maintainer"
+        }
+    ],
+    "funding": [
+        {
+            "type": "open_collective",
+            "url": "https://opencollective.com/openmage"
         }
     ],
     "autoload-dev": {
