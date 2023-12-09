@@ -260,7 +260,7 @@ HTML;
                 echo '<a href="vscode://file/' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</a></div>';
             } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
                 // phpstorm doc
-                echo '<a href="phpstorm://open?url=file:/' . $this->_viewDir . DS . $fileName . '>' . $fileName . '</a></div>';
+                echo '<a href="phpstorm://open?url=file:/' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</a></div>';
             } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
                 // https://github.com/luigifab/webext-openfileeditor
                 echo '<span class="openfileeditor" data-file="' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</span></div>';
@@ -285,7 +285,7 @@ HTML;
                         $reflector = new ReflectionClass($thisClass);
                         $fileClass = $reflector->getFileName();
                         // phpstorm doc
-                        echo '<a href="phpstorm://open?url=file:/' . $fileClass . '>' . $thisClass . '</a></div>';
+                        echo '<a href="phpstorm://open?url=file:/' . $fileClass . '">' . $thisClass . '</a></div>';
                     } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
                         $reflector = new ReflectionClass($thisClass);
                         $fileClass = $reflector->getFileName();
