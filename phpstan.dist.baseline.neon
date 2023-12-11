@@ -1211,11 +1211,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
-			message: "#^Variable \\$htmlChildren in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product.php
@@ -2219,11 +2214,6 @@ parameters:
 			message: "#^Property Mage_Checkout_Model_Type_Onepage\\:\\:\\$_quote \\(Mage_Sales_Model_Quote\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			message: "#^Comparison operation \"\\=\\=\" between 0\\|0\\.0\\|array\\|string\\|false\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
@@ -4192,11 +4182,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type Mage_Reports_Model_Report supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: "#^Loose comparison using \\!\\= between 0 and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
