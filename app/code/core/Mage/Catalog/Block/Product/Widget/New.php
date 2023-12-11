@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,30 +18,29 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_New implements Mage_Widget_Block_Interface
 {
     /**
      * Display products type
      */
-    const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
-    const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
+    public const DISPLAY_TYPE_ALL_PRODUCTS         = 'all_products';
+    public const DISPLAY_TYPE_NEW_PRODUCTS         = 'new_products';
 
     /**
      * Default value whether show pager or not
      */
-    const DEFAULT_SHOW_PAGER                = false;
+    public const DEFAULT_SHOW_PAGER                = false;
 
     /**
      * Default value for products per page
      */
-    const DEFAULT_PRODUCTS_PER_PAGE         = 5;
+    public const DEFAULT_PRODUCTS_PER_PAGE         = 5;
 
     /**
      * Name of request parameter for page number value
      */
-    const PAGE_VAR_NAME                     = 'np';
+    public const PAGE_VAR_NAME                     = 'np';
 
     /**
      * Instance of pager block
@@ -122,11 +110,11 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      */
     public function getCacheKeyInfo()
     {
-        return array_merge(parent::getCacheKeyInfo(), array(
+        return array_merge(parent::getCacheKeyInfo(), [
             $this->getDisplayType(),
             $this->getProductsPerPage(),
-            intval($this->getRequest()->getParam(self::PAGE_VAR_NAME))
-        ));
+            (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME)
+        ]);
     }
 
     /**

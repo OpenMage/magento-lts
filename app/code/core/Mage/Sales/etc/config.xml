@@ -1,34 +1,23 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Sales>
-            <version>1.6.0.10</version>
+            <version>1.6.0.11</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -1198,13 +1187,6 @@
             </product>
         </catalog>
         <sales>
-            <old_fields_map>
-                <order>
-                    <payment_authorization_expiration>payment_auth_expiration</payment_authorization_expiration>
-                    <forced_do_shipment_with_invoice>forced_shipment_with_invoice</forced_do_shipment_with_invoice>
-                    <base_shipping_hidden_tax_amount>base_shipping_hidden_tax_amnt</base_shipping_hidden_tax_amount>
-                </order>
-            </old_fields_map>
             <quote>
                 <totals>
                     <nominal>
@@ -1565,7 +1547,6 @@
                 <Mage_Sales>
                     <files>
                         <default>Mage_Sales.csv</default>
-                        <openmage_lts>Mage_Sales_LTS.csv</openmage_lts>
                     </files>
                 </Mage_Sales>
             </modules>
@@ -1722,6 +1703,15 @@
         <dashboard>
             <use_aggregated_data>0</use_aggregated_data>
         </dashboard>
+        <reports>
+            <crontab>
+                <sales_expr>0 0 * * *</sales_expr>
+                <shipping_expr>0 0 * * *</shipping_expr>
+                <invoiced_expr>0 0 * * *</invoiced_expr>
+                <refunded_expr>0 0 * * *</refunded_expr>
+                <bestsellers_expr>0 0 * * *</bestsellers_expr>
+            </crontab>
+        </reports>
     </default>
     <crontab>
         <jobs>
@@ -1735,7 +1725,7 @@
             </sales_clean_quotes>
             <aggregate_sales_report_order_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/sales_expr</config_path>
                 </schedule>
                 <run>
                     <model>sales/observer::aggregateSalesReportOrderData</model>
@@ -1743,7 +1733,7 @@
             </aggregate_sales_report_order_data>
             <aggregate_sales_report_shipment_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/shipping_expr</config_path>
                 </schedule>
                 <run>
                     <model>sales/observer::aggregateSalesReportShipmentData</model>
@@ -1751,7 +1741,7 @@
             </aggregate_sales_report_shipment_data>
             <aggregate_sales_report_invoiced_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/invoiced_expr</config_path>
                 </schedule>
                 <run>
                     <model>sales/observer::aggregateSalesReportInvoicedData</model>
@@ -1759,7 +1749,7 @@
             </aggregate_sales_report_invoiced_data>
             <aggregate_sales_report_refunded_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/refunded_expr</config_path>
                 </schedule>
                 <run>
                     <model>sales/observer::aggregateSalesReportRefundedData</model>
@@ -1767,7 +1757,7 @@
             </aggregate_sales_report_refunded_data>
             <aggregate_sales_report_bestsellers_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/bestsellers_expr</config_path>
                 </schedule>
                 <run>
                     <model>sales/observer::aggregateSalesReportBestsellersData</model>

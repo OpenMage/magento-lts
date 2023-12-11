@@ -1,43 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * SalesRule Model Resource Coupon_Usage
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Constructor
-     *
-     */
     protected function _construct()
     {
         $this->_init('salesrule/coupon_usage', '');
@@ -55,34 +38,34 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     {
         $read = $this->_getReadAdapter();
         $select = $read->select();
-        $select->from($this->getMainTable(), array('times_used'))
+        $select->from($this->getMainTable(), ['times_used'])
                 ->where('coupon_id = :coupon_id')
                 ->where('customer_id = :customer_id');
 
-        $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
+        $timesUsed = $read->fetchOne($select, [':coupon_id' => $couponId, ':customer_id' => $customerId]);
 
         if ($timesUsed !== false) {
             $timesUsed += ($decrement ? -1 : 1);
-            if($timesUsed >= 0) {
+            if ($timesUsed >= 0) {
                 $this->_getWriteAdapter()->update(
                     $this->getMainTable(),
-                    array(
+                    [
                         'times_used' => $timesUsed
-                    ),
-                    array(
+                    ],
+                    [
                         'coupon_id = ?' => $couponId,
                         'customer_id = ?' => $customerId,
-                    )
+                    ]
                 );
             }
         } else {
             $this->_getWriteAdapter()->insert(
                 $this->getMainTable(),
-                array(
+                [
                     'coupon_id' => $couponId,
                     'customer_id' => $customerId,
                     'times_used' => 1
-                )
+                ]
             );
         }
     }
@@ -104,7 +87,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 ->from($this->getMainTable())
                 ->where('customer_id =:customer_id')
                 ->where('coupon_id = :coupon_id');
-            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
+            $data = $read->fetchRow($select, [':coupon_id' => $couponId, ':customer_id' => $customerId]);
             if ($data) {
                 $object->setData($data);
             }

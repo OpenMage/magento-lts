@@ -1,28 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
@@ -491,9 +480,11 @@
             <block type="adminhtml/sales_transactions" name="sales_transactions.grid.container"></block>
         </reference>
     </adminhtml_sales_transactions_index>
+
     <adminhtml_sales_transactions_grid>
         <block type="adminhtml/sales_transactions_grid" name="sales_transactions.grid" output="toHtml"></block>
     </adminhtml_sales_transactions_grid>
+
     <adminhtml_sales_transactions_view>
         <reference name="content">
             <block type="adminhtml/sales_transactions_detail" name="sales_transactions.detail" template="sales/transactions/detail.phtml">
@@ -637,7 +628,6 @@
             <block type="adminhtml/sales_order_create_header" name="header" />
         </reference>
     </adminhtml_sales_order_create_load_block_header>
-
 
     <adminhtml_sales_order_create_load_block_sidebar>
         <reference name="content">
@@ -1057,22 +1047,29 @@
             <block type="adminhtml/sales_order_status" name="sales_order_status.grid.container"></block>
         </reference>
     </adminhtml_sales_order_status_index>
+
     <adminhtml_sales_order_status_new>
         <reference name="content">
             <block type="adminhtml/sales_order_status_new" name="sales_order_status.new.container"></block>
         </reference>
     </adminhtml_sales_order_status_new>
+
     <adminhtml_sales_order_status_edit>
         <reference name="content">
             <block type="adminhtml/sales_order_status_edit" name="sales_order_status.edit.container"></block>
         </reference>
     </adminhtml_sales_order_status_edit>
+
     <adminhtml_sales_order_status_assign>
         <reference name="content">
             <block type="adminhtml/sales_order_status_assign" name="sales_order_status.assign.container"></block>
         </reference>
     </adminhtml_sales_order_status_assign>
+
     <adminhtml_sales_order_address>
+        <reference name="head">
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
         <reference name="content">
             <block type="adminhtml/sales_order_address" name="sales_order_address.form.container"></block>
         </reference>

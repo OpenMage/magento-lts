@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Weee calculation model
  *
- * @category    Mage
- * @package     Mage_Weee
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Weee
  */
 class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_Tax
 {
@@ -75,7 +63,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Collect Weee taxes amount and prepare items prices for taxation and discount
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -87,7 +75,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         }
 
         $address->setAppliedTaxesReset(true);
-        $address->setAppliedTaxes(array());
+        $address->setAppliedTaxes([]);
 
         $this->_store = $address->getQuote()->getStore();
         $this->_helper->setStore($this->_store);
@@ -121,7 +109,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     protected function _process(Mage_Sales_Model_Quote_Address $address, $item)
     {
@@ -136,8 +124,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $this->_store->getWebsiteId()
         );
 
-        $applied = array();
-        $productTaxes = array();
+        $applied = [];
+        $productTaxes = [];
 
         $totalValue = 0;
         $baseTotalValue = 0;
@@ -189,7 +177,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
              * *_incl_tax only holds the tax associated with Tax included products
              */
 
-            $productTaxes[] = array(
+            $productTaxes[] = [
                 'title' => $title,
                 'base_amount' => $baseValueExclTax,
                 'amount' => $valueExclTax,
@@ -202,13 +190,13 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 'amount_incl_tax' => $value,
                 'row_amount_incl_tax' => $rowValue,
                 'base_row_amount_incl_tax' => $baseRowValue,
-            );
+            ];
 
-            $applied[] = array(
+            $applied[] = [
                 'id' => $attribute->getCode(),
                 'percent' => null,
                 'hidden' => $this->_helper->includeInSubtotal($this->_store),
-                'rates' => array(array(
+                'rates' => [[
                     'base_real_amount' => $baseRowValue,
                     'base_amount' => $baseRowValue,
                     'amount' => $rowValue,
@@ -217,8 +205,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     'percent' => null,
                     'position' => 1,
                     'priority' => -1000 + $k,
-                ))
-            );
+                ]]
+            ];
         }
 
         //We set the TAX exclusive value
@@ -246,6 +234,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 null
             );
         }
+
+        return $this;
     }
 
     /**
@@ -266,10 +256,9 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $this->_store
         );
 
-        $customerRatePercentage = $taxCalculationModel->getRate(
+        return $taxCalculationModel->getRate(
             $request->setProductClassId($item->getProduct()->getTaxClassId())
         );
-        return $customerRatePercentage;
     }
 
     /**
@@ -279,7 +268,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   float $value
      * @param   float $baseValue
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     protected function _processDiscountSettings($item, $value, $baseValue)
     {
@@ -297,7 +286,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   float $baseValue
      * @param   float $rowValue
      * @param   float $baseRowValue
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     protected function _processTaxSettings($item, $value, $baseValue, $rowValue, $baseRowValue)
     {
@@ -309,7 +298,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 ->unsBasePriceInclTax();
         }
         if ($this->_helper->isTaxable($this->_store)
-            && !$this->_helper->isTaxIncluded($this->_store) && $rowValue) {
+            && !$this->_helper->isTaxIncluded($this->_store) && $rowValue
+        ) {
             if (!$this->_helper->includeInSubtotal($this->_store)) {
                 $item->setExtraTaxableAmount($value)
                     ->setBaseExtraTaxableAmount($baseValue)
@@ -326,7 +316,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   float $rowValue
      * @param   float $baseRowValue
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     protected function _processTotalAmount($address, $rowValue, $baseRowValue)
     {
@@ -345,21 +335,21 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Recalculate parent item amounts based on children results
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return void
+     * @return $this
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
+        return $this;
     }
 
     /**
      * Reset information about FPT for shopping cart item
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return void
      */
     protected function _resetItemData($item)
     {
-        $this->_helper->setApplied($item, array());
+        $this->_helper->setApplied($item, []);
 
         $item->setBaseWeeeTaxDisposition(0);
         $item->setWeeeTaxDisposition(0);
@@ -378,7 +368,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Fetch FPT data to address object for display in totals block
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -405,7 +395,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   bool $updateParent
-     * @return  Mage_Weee_Model_Total_Quote_Weee
+     * @return  $this
      */
     protected function _processItem(Mage_Sales_Model_Quote_Address $address, $item, $updateParent = false)
     {
@@ -416,7 +406,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
-        /* @var Mage_Tax_Model_Calculation $taxCalculationModel */
+        /** @var Mage_Tax_Model_Calculation $taxCalculationModel */
         $request = $taxCalculationModel->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
@@ -432,15 +422,15 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $store->getWebsiteId()
         );
 
-        $applied = array();
-        $productTaxes = array();
+        $applied = [];
+        $productTaxes = [];
 
         foreach ($attributes as $k => $attribute) {
             $baseValue = $attribute->getAmount();
             $value = $store->convertPrice($baseValue);
 
-            $rowValue = $value*$item->getQty();
-            $baseRowValue = $baseValue*$item->getQty();
+            $rowValue = $value * $item->getQty();
+            $baseRowValue = $baseValue * $item->getQty();
 
             $title = $attribute->getName();
 
@@ -448,14 +438,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
              * Apply discount to fixed tax
              */
             if ($item->getDiscountPercent() && $this->_helper->isDiscounted($store)) {
-                $valueDiscount = $value/100*$item->getDiscountPercent();
-                $baseValueDiscount = $baseValue/100*$item->getDiscountPercent();
+                $valueDiscount = $value / 100 * $item->getDiscountPercent();
+                $baseValueDiscount = $baseValue / 100 * $item->getDiscountPercent();
 
-                $rowValueDiscount = $rowValue/100*$item->getDiscountPercent();
-                $baseRowValueDiscount = $baseRowValue/100*$item->getDiscountPercent();
+                $rowValueDiscount = $rowValue / 100 * $item->getDiscountPercent();
+                $baseRowValueDiscount = $baseRowValue / 100 * $item->getDiscountPercent();
 
-                $address->setDiscountAmount($address->getDiscountAmount()+$rowValueDiscount);
-                $address->setBaseDiscountAmount($address->getBaseDiscountAmount()+$baseRowValueDiscount);
+                $address->setDiscountAmount($address->getDiscountAmount() + $rowValueDiscount);
+                $address->setBaseDiscountAmount($address->getBaseDiscountAmount() + $baseRowValueDiscount);
 
                 $address->setGrandTotal($address->getGrandTotal() - $rowValueDiscount);
                 $address->setBaseGrandTotal($address->getBaseGrandTotal() - $baseRowValueDiscount);
@@ -475,14 +465,14 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $valueBeforeVAT = $rowValue;
                 $baseValueBeforeVAT = $baseRowValue;
 
-                $oneDisposition = $store->roundPrice($value/(100+$defaultPercent)*$currentPercent);
-                $baseOneDisposition = $store->roundPrice($baseValue/(100+$defaultPercent)*$currentPercent);
+                $oneDisposition = $store->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
+                $baseOneDisposition = $store->roundPrice($baseValue / (100 + $defaultPercent) * $currentPercent);
 
-                $disposition = $store->roundPrice($rowValue/(100+$defaultPercent)*$currentPercent);
-                $baseDisposition = $store->roundPrice($baseRowValue/(100+$defaultPercent)*$currentPercent);
+                $disposition = $store->roundPrice($rowValue / (100 + $defaultPercent) * $currentPercent);
+                $baseDisposition = $store->roundPrice($baseRowValue / (100 + $defaultPercent) * $currentPercent);
 
-                $item->setBaseTaxAmount($item->getBaseTaxAmount()+$baseDisposition);
-                $item->setTaxAmount($item->getTaxAmount()+$disposition);
+                $item->setBaseTaxAmount($item->getBaseTaxAmount() + $baseDisposition);
+                $item->setTaxAmount($item->getTaxAmount() + $disposition);
 
                 $value -= $oneDisposition;
                 $baseValue -= $baseOneDisposition;
@@ -494,10 +484,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $item->setBaseWeeeTaxDisposition($item->getBaseWeeeTaxDisposition() + $baseOneDisposition);
                 $item->setWeeeTaxRowDisposition($item->getWeeeTaxRowDisposition() + $disposition);
                 $item->setBaseWeeeTaxRowDisposition($item->getBaseWeeeTaxRowDisposition() + $baseDisposition);
-
-//                $item->setTaxBeforeDiscount($item->getTaxBeforeDiscount() + $disposition);
-//                $item->setBaseTaxBeforeDiscount($item->getBaseTaxBeforeDiscount() + $baseDisposition);
-
                 $address->setTaxAmount($address->getTaxAmount() + $disposition);
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $baseDisposition);
 
@@ -508,8 +494,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $this->_saveAppliedTaxes(
                     $address,
                     $taxCalculationModel->getAppliedRates($request),
-                    $store->roundPrice($valueBeforeVAT-$rowValue),
-                    $store->roundPrice($baseValueBeforeVAT-$baseRowValue),
+                    $store->roundPrice($valueBeforeVAT - $rowValue),
+                    $store->roundPrice($baseValueBeforeVAT - $baseRowValue),
                     $rate
                 );
 
@@ -527,16 +513,12 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             if ($this->_helper->includeInSubtotal($store)) {
                 $address->setSubtotal($address->getSubtotal() + $rowValue);
                 $address->setBaseSubtotal($address->getBaseSubtotal() + $baseRowValue);
-
-//                $address->setSubtotalWithDiscount($address->getSubtotalWithDiscount() + $rowValue);
-//                $address->setBaseSubtotalWithDiscount($address->getBaseSubtotalWithDiscount() + $baseRowValue);
             } else {
                 $address->setTaxAmount($address->getTaxAmount() + $rowValue);
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $baseRowValue);
             }
 
-
-            $productTaxes[] = array(
+            $productTaxes[] = [
                 'title' => $title,
                 'base_amount' => $baseValue,
                 'amount' => $value,
@@ -544,18 +526,18 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 'row_amount' => $rowValue,
                 'base_row_amount' => $baseRowValue,
 
-                'base_amount_incl_tax' => $baseValue+$baseOneDisposition,
-                'amount_incl_tax' => $value+$oneDisposition,
+                'base_amount_incl_tax' => $baseValue + $baseOneDisposition,
+                'amount_incl_tax' => $value + $oneDisposition,
 
-                'row_amount_incl_tax' => $rowValue+$disposition,
-                'base_row_amount_incl_tax' => $baseRowValue+$baseDisposition,
-            );
+                'row_amount_incl_tax' => $rowValue + $disposition,
+                'base_row_amount_incl_tax' => $baseRowValue + $baseDisposition,
+            ];
 
-            $applied[] = array(
+            $applied[] = [
                 'id' => $attribute->getCode(),
                 'percent' => null,
                 'hidden' => $this->_helper->includeInSubtotal($store),
-                'rates' => array(array(
+                'rates' => [[
                     'amount' => $rowValue,
                     'base_amount' => $baseRowValue,
                     'base_real_amount' => $baseRowValue,
@@ -564,8 +546,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     'percent' => null,
                     'position' => 1,
                     'priority' => -1000 + $k,
-                ))
-            );
+                ]]
+            ];
 
             $item->setBaseWeeeTaxAppliedAmount($item->getBaseWeeeTaxAppliedAmount() + $baseValue);
             $item->setBaseWeeeTaxAppliedRowAmount($item->getBaseWeeeTaxAppliedRowAmount() + $baseRowValue);
@@ -617,6 +599,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 null
             );
         }
+
+        return $this;
     }
 
     /**
@@ -638,7 +622,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     {
         $this->_helper = $helper;
     }
-
 
     /**
      * Set the store Object

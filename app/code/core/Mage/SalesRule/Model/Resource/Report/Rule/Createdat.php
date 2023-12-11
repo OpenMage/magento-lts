@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Rule report resource model with aggregation by created at
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
@@ -90,7 +77,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                 $this->getStoreTZOffsetQuery($sourceTable, $aggregationField, $from, $to)
             );
 
-            $columns = array(
+            $columns = [
                 'period'                  => $periodExpr,
                 'store_id'                => 'store_id',
                 'order_status'            => 'status',
@@ -100,22 +87,22 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
                 'subtotal_amount'         =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount'         =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0).') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_discount_canceled', 0) . ') * base_to_global_rate)', 0),
 
                 'total_amount'            =>
                     $adapter->getIfNullSql('SUM((base_subtotal - ' .
-                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - '.
+                        $adapter->getIfNullSql('base_subtotal_canceled', 0) . ' - ' .
                         $adapter->getIfNullSql('ABS(base_discount_amount) - ' .
-                        $adapter->getIfNullSql('base_discount_canceled', 0), 0). ')
+                        $adapter->getIfNullSql('base_discount_canceled', 0), 0) . ')
                         * base_to_global_rate)', 0),
 
                 'subtotal_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((base_subtotal_invoiced - ' .
-                        $adapter->getIfNullSql('base_subtotal_refunded', 0). ') * base_to_global_rate)', 0),
+                        $adapter->getIfNullSql('base_subtotal_refunded', 0) . ') * base_to_global_rate)', 0),
 
                 'discount_amount_actual'  =>
                     $adapter->getIfNullSql('SUM((ABS(base_discount_invoiced) - ' .
@@ -128,22 +115,22 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                         $adapter->getIfNullSql('ABS(base_discount_invoiced) - ' .
                         $adapter->getIfNullSql('base_discount_refunded', 0), 0) .
                         ') * base_to_global_rate)', 0),
-            );
+            ];
 
             $select = $adapter->select();
-            $select->from(array('source_table' => $sourceTable), $columns)
+            $select->from(['source_table' => $sourceTable], $columns)
                  ->where('coupon_code IS NOT NULL');
 
             if ($subSelect !== null) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
+            $select->group([
                 $periodExpr,
                 'store_id',
                 'status',
                 'coupon_code'
-            ));
+            ]);
 
             $select->having('COUNT(entity_id) > 0');
             $select->insertFromSelect($table, array_keys($columns));
@@ -152,7 +139,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
             $select->reset();
 
-            $columns = array(
+            $columns = [
                 'period'                  => 'period',
                 'store_id'                => new Zend_Db_Expr('0'),
                 'order_status'            => 'order_status',
@@ -165,7 +152,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                 'subtotal_amount_actual'  => 'SUM(subtotal_amount_actual)',
                 'discount_amount_actual'  => 'SUM(discount_amount_actual)',
                 'total_amount_actual'     => 'SUM(total_amount_actual)',
-            );
+            ];
 
             $select
                 ->from($table, $columns)
@@ -175,11 +162,11 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-            $select->group(array(
+            $select->group([
                 'period',
                 'order_status',
                 'coupon_code'
-            ));
+            ]);
 
             $adapter->query($select->insertFromSelect($table, array_keys($columns)));
             $adapter->commit();

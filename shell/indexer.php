@@ -1,44 +1,32 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shell
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'abstract.php';
 
 /**
- * Magento Compiler Shell Script
+ * Magento Indexer Shell Script
  *
- * @category    Mage
- * @package     Mage_Shell
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Shell
  */
-class Mage_Shell_Compiler extends Mage_Shell_Abstract
+class Mage_Shell_Indexer extends Mage_Shell_Abstract
 {
     /**
      * Get Indexer instance
      *
-     * @return Mage_Index_Model_Indexer
+     * @return Mage_Core_Model_Abstract|Mage_Index_Model_Indexer
      */
     protected function _getIndexer()
     {
@@ -53,7 +41,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
      */
     protected function _parseIndexerString($string)
     {
-        $processes = array();
+        $processes = [];
         if ($string == 'all') {
             $collection = $this->_getIndexer()->getProcessesCollection();
             foreach ($collection as $process) {
@@ -62,11 +50,11 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                 }
                 $processes[] = $process;
             }
-        } else if (!empty($string)) {
+        } elseif (!empty($string)) {
             $codes = explode(',', $string);
             $codes = array_map('trim', $codes);
             $processes = $this->_getIndexer()->getProcessesCollectionByCodes($codes);
-            foreach($processes as $key => $process) {
+            foreach ($processes as $key => $process) {
                 if ($process->getIndexer()->getVisibility() === false) {
                     unset($processes[$key]);
                 }
@@ -84,22 +72,22 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
      */
     public function run()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         if ($this->getArg('info')) {
             $processes = $this->_parseIndexerString('all');
+            /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
                 echo sprintf('%-30s', $process->getIndexerCode());
                 echo $process->getIndexer()->getName() . "\n";
             }
-        } else if ($this->getArg('status') || $this->getArg('mode')) {
+        } elseif ($this->getArg('status') || $this->getArg('mode')) {
             if ($this->getArg('status')) {
                 $processes  = $this->_parseIndexerString($this->getArg('status'));
             } else {
                 $processes  = $this->_parseIndexerString($this->getArg('mode'));
             }
+            /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
                 $status = 'unknown';
                 if ($this->getArg('status')) {
                     switch ($process->getStatus()) {
@@ -129,10 +117,9 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                             break;
                     }
                 }
-                echo sprintf('%-35s ', $process->getIndexer()->getName() . ':') . $status ."\n";
-
+                echo sprintf('%-35s ', $process->getIndexer()->getName() . ':') . $status . "\n";
             }
-        } else if ($this->getArg('mode-realtime') || $this->getArg('mode-manual')) {
+        } elseif ($this->getArg('mode-realtime') || $this->getArg('mode-manual')) {
             if ($this->getArg('mode-realtime')) {
                 $mode       = Mage_Index_Model_Process::MODE_REAL_TIME;
                 $processes  = $this->_parseIndexerString($this->getArg('mode-realtime'));
@@ -140,8 +127,8 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                 $mode       = Mage_Index_Model_Process::MODE_MANUAL;
                 $processes  = $this->_parseIndexerString($this->getArg('mode-manual'));
             }
+            /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
-                /* @var $process Mage_Index_Model_Process */
                 try {
                     $process->setMode($mode)->save();
                     echo $process->getIndexer()->getName() . " index was successfully changed index mode\n";
@@ -152,7 +139,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                     echo $e . "\n";
                 }
             }
-        } else if ($this->getArg('reindex') || $this->getArg('reindexall') || $this->getArg('reindexallrequired')) {
+        } elseif ($this->getArg('reindex') || $this->getArg('reindexall') || $this->getArg('reindexallrequired')) {
             if ($this->getArg('reindex')) {
                 $processes = $this->_parseIndexerString($this->getArg('reindex'));
             } else {
@@ -161,19 +148,19 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
 
             try {
                 Mage::dispatchEvent('shell_reindex_init_process');
+                /** @var Mage_Index_Model_Process $process */
                 foreach ($processes as $process) {
                     //reindex only if required
-                    if( $this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING ) {
+                    if ($this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING) {
                         continue;
                     }
-                    /* @var $process Mage_Index_Model_Process */
                     try {
                         $startTime = microtime(true);
                         $process->reindexEverything();
                         $resultTime = microtime(true) - $startTime;
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
-                            . " index was rebuilt successfully in " . gmdate('H:i:s', $resultTime) . "\n";
+                            . " index was rebuilt successfully in " . gmdate('H:i:s', ceil($resultTime)) . "\n";
                     } catch (Mage_Core_Exception $e) {
                         echo $e->getMessage() . "\n";
                     } catch (Exception $e) {
@@ -186,7 +173,6 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                 Mage::dispatchEvent('shell_reindex_finalize_process');
                 echo $e->getMessage() . "\n";
             }
-
         } else {
             echo $this->usageHelp();
         }
@@ -206,10 +192,10 @@ Usage:  php -f indexer.php -- [options]
   --mode-realtime <indexer>     Set index mode type "Update on Save"
   --mode-manual <indexer>       Set index mode type "Manual Update"
   --reindex <indexer>           Reindex Data
-  info                          Show allowed indexers
-  reindexall                    Reindex Data by all indexers
-  reindexallrequired            Reindex Data only if required by all indexers
-  help                          This help
+  --info                        Show allowed indexers
+  --reindexall                  Reindex Data by all indexers
+  --reindexallrequired          Reindex Data only if required by all indexers
+  --help                        This help
 
   <indexer>     Comma separated indexer codes or value "all" for all indexers
 
@@ -217,5 +203,5 @@ USAGE;
     }
 }
 
-$shell = new Mage_Shell_Compiler();
+$shell = new Mage_Shell_Indexer();
 $shell->run();

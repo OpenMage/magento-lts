@@ -1,42 +1,29 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Admin CMS page
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     /**
      * Initialize cms page edit block
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -47,11 +34,11 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
 
         if ($this->_isAllowedAction('save')) {
             $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
-            $this->_addButton('saveandcontinue', array(
+            $this->_addButton('saveandcontinue', [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
+                'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
                 'class'     => 'save',
-            ), -100);
+            ], -100);
         } else {
             $this->_removeButton('save');
         }
@@ -73,9 +60,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('cms_page')->getId()) {
             return Mage::helper('cms')->__("Edit Page '%s'", $this->escapeHtml(Mage::registry('cms_page')->getTitle()));
         }
-        else {
-            return Mage::helper('cms')->__('New Page');
-        }
+        return Mage::helper('cms')->__('New Page');
     }
 
     /**
@@ -97,17 +82,15 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
      */
     protected function _getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array(
+        return $this->getUrl('*/*/save', [
             '_current'   => true,
             'back'       => 'edit',
             'active_tab' => '{{tab_id}}'
-        ));
+        ]);
     }
 
     /**
-     * Prepare layout
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -122,11 +105,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
 
         $this->_formScripts[] = "
             function toggleEditor() {
-                if (tinyMCE.getInstanceById('page_content') == null) {
-                    tinyMCE.execCommand('mceAddControl', false, 'page_content');
-                } else {
-                    tinyMCE.execCommand('mceRemoveControl', false, 'page_content');
-                }
+                tinymce.execCommand('mceToggleEditor', false, wysiwygpage_content);
             }
 
             function saveAndContinueEdit(urlTemplate) {

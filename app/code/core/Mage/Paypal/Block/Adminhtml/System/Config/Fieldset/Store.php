@@ -1,37 +1,25 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Renderer for service JavaScript code that disables corresponding paypal methods on page load
- * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
  */
-class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
-    extends Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
     /**
      * Path to template file
@@ -59,20 +47,20 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
     protected function getPaypalDisabledMethods()
     {
         // Assoc array that contains info about paypal methods (their IDs and corresponding Config Paths)
-        $methods = array(
+        $methods = [
             'express'   => 'payment/paypal_express/active',
             'wps'       => 'payment/paypal_standard/active',
             'wpp'       => 'payment/paypal_direct/active',
             'wpppe'     => 'payment/paypaluk_direct/active',
             'verisign'  => 'payment/verisign/active',
             'expresspe' => 'payment/paypaluk_express/active'
-        );
+        ];
         // Retrieve a code of the current website
         $website = $this->getRequest()->getParam('website');
 
         $configRoot = Mage::getConfig()->getNode(null, 'website', $website);
 
-        $disabledMethods = array();
+        $disabledMethods = [];
         foreach ($methods as $methodId => $methodPath) {
             $isEnabled = (int) $configRoot->descend($methodPath);
             if ($isEnabled === 0) {

@@ -1,82 +1,70 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Magento
- * @package     Magento_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Magento
+ * @package    Magento_Db
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Magento_Db_Sql_Trigger
  *
- * @category    Magento
- * @package     Magento_Db
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Magento
+ * @package    Magento_Db
  */
 class Magento_Db_Sql_Trigger
 {
-    const NAME      = 'name';
-    const TARGET    = 'target';
-    const TIME      = 'time';
-    const EVENT     = 'event';
-    const SCOPE     = 'scope';
-    const BODY      = 'body';
+    public const NAME      = 'name';
+    public const TARGET    = 'target';
+    public const TIME      = 'time';
+    public const EVENT     = 'event';
+    public const SCOPE     = 'scope';
+    public const BODY      = 'body';
 
     /**
      * SQL constants
      */
-    const SQL_TIME_BEFORE   = 'BEFORE';
-    const SQL_TIME_AFTER    = 'AFTER';
-    const SQL_EVENT_INSERT  = 'INSERT';
-    const SQL_EVENT_UPDATE  = 'UPDATE';
-    const SQL_EVENT_DELETE  = 'DELETE';
-    const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
+    public const SQL_TIME_BEFORE   = 'BEFORE';
+    public const SQL_TIME_AFTER    = 'AFTER';
+    public const SQL_EVENT_INSERT  = 'INSERT';
+    public const SQL_EVENT_UPDATE  = 'UPDATE';
+    public const SQL_EVENT_DELETE  = 'DELETE';
+    public const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
 
     /**
      * Trigger parts
      *
      * @var array
      */
-    protected $_parts = array();
+    protected $_parts = [];
 
     /**
      * Allowed time types
      *
      * @var array
      */
-    protected $_timeTypes = array(
+    protected $_timeTypes = [
         self::SQL_TIME_AFTER,
         self::SQL_TIME_BEFORE
-    );
+    ];
 
     /**
      * Allowed event types
      *
      * @var array
      */
-    protected $_eventTypes = array(
+    protected $_eventTypes = [
         self::SQL_EVENT_INSERT,
         self::SQL_EVENT_UPDATE,
         self::SQL_EVENT_DELETE
-    );
+    ];
 
     /**
      * Initial trigger structure, for MySQL scope is always "FOR EACH ROW".
@@ -84,13 +72,13 @@ class Magento_Db_Sql_Trigger
      *
      * @var array
      */
-    protected static $_partsInit = array(
+    protected static $_partsInit = [
         self::TARGET    => null,
         self::TIME      => self::SQL_TIME_AFTER,
         self::EVENT     => null,
         self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => array()
-    );
+        self::BODY      => []
+    ];
 
     /**
      * Constructor
@@ -167,7 +155,6 @@ class Magento_Db_Sql_Trigger
         }
         return $this;
     }
-
 
     /**
      * Set body part to trigger
@@ -277,7 +264,7 @@ class Magento_Db_Sql_Trigger
     public function setBody($body)
     {
         if (!is_array($body)) {
-            $body = array($body);
+            $body = [$body];
         }
         $this->_setPart(self::BODY, $body);
         return $this;

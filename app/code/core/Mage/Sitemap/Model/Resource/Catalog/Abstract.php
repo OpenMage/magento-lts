@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sitemap resource catalog collection model
  *
- * @category    Mage
- * @package     Mage_Sitemap
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sitemap
  */
 abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -46,7 +33,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      *
      * @var array
      */
-    protected $_attributesCache = array();
+    protected $_attributesCache = [];
 
     /**
      * Catalog factory instance
@@ -60,7 +47,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         parent::__construct();
@@ -104,16 +91,15 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                 break;
             default:
                 return false;
-                break;
         }
 
         if ($attribute['backend_type'] == 'static') {
             $this->_select->where('main_table.' . $attributeCode . $conditionRule, $value);
         } else {
             $this->_select->join(
-                array('t1_' . $attributeCode => $attribute['table']),
+                ['t1_' . $attributeCode => $attribute['table']],
                 'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0',
-                array()
+                []
             )
                 ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
 
@@ -126,14 +112,14 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                     't1_' . $attributeCode . '.value'
                 );
                 $this->_select->joinLeft(
-                    array('t2_' . $attributeCode => $attribute['table']),
+                    ['t2_' . $attributeCode => $attribute['table']],
                     $this->_getWriteAdapter()->quoteInto(
                         't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
                             . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
                             . $attributeCode . '.store_id = ?',
                         $storeId
                     ),
-                    array()
+                    []
                 )
                 ->where('(' . $ifCase . ')' . $conditionRule, $value);
             }
@@ -163,7 +149,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      */
     protected function _loadEntities()
     {
-        $entities = array();
+        $entities = [];
         $query = $this->_getWriteAdapter()->query($this->_select);
         while ($row = $query->fetch()) {
             $entity = $this->_prepareObject($row);

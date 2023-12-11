@@ -1,39 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract model class
  *
+ * @category   Mage
+ * @package    Mage_Core
+ *
  * @method Mage_Core_Model_Resource_File_Storage_File _getResource()
  * @method Mage_Core_Model_Resource_File_Storage_File getResource()
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abstract
 {
@@ -47,7 +34,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Data at storage
      *
-     * @var array
+     * @var array|null
      */
     protected $_data = null;
 
@@ -56,7 +43,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class construct
@@ -127,7 +114,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function collectData($offset = 0, $count = 100, $type = 'files')
     {
-        if (!in_array($type, array('files', 'directories'))) {
+        if (!in_array($type, ['files', 'directories'])) {
             return false;
         }
 
@@ -173,7 +160,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
             return false;
         }
 
-        $result = array();
+        $result = [];
         foreach ($slice as $fileName) {
             try {
                 $fileInfo = $this->collectFileInfo($fileName);
@@ -272,12 +259,10 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
         } else {
             Mage::throwException(Mage::helper('core')->__('Wrong file info format'));
         }
-
-        return false;
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      * @return bool
      */
     public function lockCreateFile($filePath)
@@ -286,11 +271,10 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      */
     public function removeLockedFile($filePath)
     {
         $this->getResource()->removeLockedFile($filePath);
     }
-
 }

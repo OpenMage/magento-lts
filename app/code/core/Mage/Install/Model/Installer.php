@@ -1,50 +1,36 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Installer model
  *
  * @category   Mage
  * @package    Mage_Install
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Model_Installer extends Varien_Object
 {
-
     /**
      * Installer host response used to check urls
      *
      */
-    const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
+    public const INSTALLER_HOST_RESPONSE   = 'MAGENTO';
 
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Varien_Object
+     * @var Mage_Install_Model_Installer_Data|null
      */
     protected $_dataModel;
 
@@ -61,7 +47,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Get data model
      *
-     * @return Varien_Object
+     * @return Mage_Install_Model_Session
      */
     public function getDataModel()
     {
@@ -74,7 +60,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Varien_Object $model
+     * @param Mage_Install_Model_Installer_Data $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)
@@ -105,7 +91,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Retrieve server checking result status
      *
-     * @return unknown
+     * @return bool
      */
     public function getServerCheckStatus()
     {
@@ -159,7 +145,6 @@ class Mage_Install_Model_Installer extends Varien_Object
             $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 0);
         }
 
-
         $unsecureBaseUrl = Mage::getBaseUrl('web');
         if (!empty($data['unsecure_base_url'])) {
             $unsecureBaseUrl = $data['unsecure_base_url'];
@@ -172,8 +157,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             if (!empty($data['use_secure_admin'])) {
                 $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML, 1);
             }
-        }
-        elseif (!empty($data['unsecure_base_url'])) {
+        } elseif (!empty($data['unsecure_base_url'])) {
             $setupModel->setConfigData(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL, $unsecureBaseUrl);
         }
 
@@ -238,21 +222,15 @@ class Mage_Install_Model_Installer extends Varien_Object
         //to support old logic checking if real data was passed
         if (is_array($data)) {
             $data = $this->validateAndPrepareAdministrator($data);
-            if (is_array(data)) {
+            if (is_array($data)) {
                 throw new Exception(Mage::helper('install')->__('Please correct the user data and try again.'));
             }
         }
 
         //run time flag to force saving entered password
         $data->setForceNewPassword(true);
-
         $data->save();
-        $data->setRoleIds(array(1))->saveRelations();
-
-        /*Mage::getModel("permissions/user")->setRoleId(1)
-            ->setUserId($user->getId())
-            ->setFirstname($user->getFirstname())
-            ->add();*/
+        $data->setRoleIds([1])->saveRelations();
 
         return true;
     }
@@ -261,12 +239,12 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Validating encryption key.
      * Returns TRUE or array of error messages.
      *
-     * @param $key
-     * @return unknown_type
+     * @param string $key
+     * @return string[]|true
      */
     public function validateEncryptionKey($key)
     {
-        $errors = array();
+        $errors = [];
 
         try {
             if ($key) {
@@ -304,12 +282,11 @@ class Mage_Install_Model_Installer extends Varien_Object
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
-        $cacheData = array();
+        $cacheData = [];
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }
         Mage::app()->saveUseCache($cacheData);
         return $this;
     }
-
 }

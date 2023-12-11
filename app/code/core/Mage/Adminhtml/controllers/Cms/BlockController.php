@@ -1,41 +1,34 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms manage blocks controller
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'cms/block';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -95,7 +88,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         // 2. Initial checking
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -106,7 +99,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->setData($data);
         }
 
@@ -126,7 +119,6 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     {
         // check if data sent
         if ($data = $this->getRequest()->getPost()) {
-
             $id = $this->getRequest()->getParam('block_id');
             $model = Mage::getModel('cms/block')->load($id);
             if (!$model->getId() && $id) {
@@ -150,20 +142,19 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('block_id' => $model->getId()));
+                    $this->_redirect('*/*/edit', ['block_id' => $model->getId()]);
                     return;
                 }
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array('block_id' => $this->getRequest()->getParam('block_id')));
+                $this->_redirect('*/*/edit', ['block_id' => $this->getRequest()->getParam('block_id')]);
                 return;
             }
         }
@@ -189,12 +180,11 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
-
             } catch (Exception $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
-                $this->_redirect('*/*/edit', array('block_id' => $id));
+                $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }
@@ -202,15 +192,5 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
         // go to grid
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/block');
     }
 }

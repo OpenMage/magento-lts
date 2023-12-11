@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
@@ -61,20 +49,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
                 $grid = $column->getGrid();
                 if ($grid) {
                     $productHelpers = $grid->getProductConfigurationHelpers();
-                    $this->setProductHelpers($productHelpers ? $productHelpers : array());
+                    $this->setProductHelpers($productHelpers ? $productHelpers : []);
                 }
             }
         }
 
         // Check whether we have helper for our product
         $productType = $product->getTypeId();
-        if (isset($productHelpers[$productType])) {
-            $helperName = $productHelpers[$productType];
-        } else if (isset($productHelpers['default'])) {
-            $helperName = $productHelpers['default'];
-        } else {
-            $helperName = 'catalog/product_configuration';
-        }
+        $helperName = $productHelpers[$productType] ?? $productHelpers['default'] ?? 'catalog/product_configuration';
 
         $helper = Mage::helper($helperName);
         if (!($helper instanceof Mage_Catalog_Helper_Product_Configuration_Interface)) {
@@ -84,11 +66,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
         return $helper;
     }
 
-    /*
+    /**
      * Returns product associated with this block
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -111,21 +92,21 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     /**
      * Returns formatted option value for an item
      *
-     * @param Mage_Wishlist_Item_Option
+     * @param Mage_Wishlist_Model_Item_Option $option
      * @return array
      */
     protected function getFormattedOptionValue($option)
     {
-        $params = array(
+        $params = [
             'max_length' => 55
-        );
+        ];
         return Mage::helper('catalog/product_configuration')->getFormattedOptionValue($option, $params);
     }
 
-    /*
+    /**
      * Renders item product name and its configuration
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
+     * @param Varien_Object $item
      * @return string
      */
     public function render(Varien_Object $item)

@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,14 +18,13 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Dispatcher
 {
     /**
      * Template for retrieve resource class name
      */
-    const RESOURCE_CLASS_TEMPLATE = ':resource_:api_:user_v:version';
+    public const RESOURCE_CLASS_TEMPLATE = ':resource_:api_:user_v:version';
 
     /**
      * API User object
@@ -80,7 +68,7 @@ class Mage_Api2_Model_Dispatcher
     /**
      * Pack resource model class path from components and try to load it
      *
-     * @param $model
+     * @param string $model
      * @param string $apiType API type
      * @param string $userType API User type (e.g. admin, customer, guest)
      * @param int $version Requested version
@@ -91,7 +79,7 @@ class Mage_Api2_Model_Dispatcher
     {
         $class = strtr(
             self::RESOURCE_CLASS_TEMPLATE,
-            array(':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version)
+            [':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version]
         );
 
         try {
@@ -143,7 +131,7 @@ class Mage_Api2_Model_Dispatcher
      */
     public function getVersion($resourceType, $requestedVersion)
     {
-        if (false !== $requestedVersion && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
+        if ($requestedVersion !== false && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
             throw new Mage_Api2_Exception(
                 sprintf('Invalid version "%s" requested.', htmlspecialchars($requestedVersion)),
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST

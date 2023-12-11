@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,18 +18,17 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete', 'save'));
+        $this->_setForcedFormKeyActions(['delete', 'save']);
         return parent::preDispatch();
     }
 
@@ -185,7 +173,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
                 $this->_getSession()->addError($error);
             }
             if ($id) {
-                $this->_redirect('*/*/edit', array('id' => $id));
+                $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
                 $this->_redirect('*/*/new');
             }
@@ -200,7 +188,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         parse_str($oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
-        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
@@ -233,7 +220,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
-                array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE)
+                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE]
             );
             $resources = $ruleTree->getPostResources();
             $id = $role->getId();
@@ -260,7 +247,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $session->addException($e, $this->__('An error occurred while saving role.'));
         }
 
-        $this->_redirect('*/*/edit', array('id'=>$id));
+        $this->_redirect('*/*/edit', ['id' => $id]);
     }
 
     /**
@@ -269,6 +256,19 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     public function deleteAction()
     {
         $id = $this->getRequest()->getParam('id', false);
+
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/edit', ['id' => $id]);
+            return;
+        }
 
         try {
             /** @var Mage_Api2_Model_Acl_Global_Role $model */
@@ -285,15 +285,13 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     }
 
     /**
-     * Check against ACL
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/roles_rest');
+        return $session->isAllowed('system/api/rest_roles');
     }
 
     /**
@@ -326,12 +324,11 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $role = Mage::getModel('api2/acl_global_role');
         $role->setId($id);
 
-        /** @var Mage_Api2_Model_Resource_Acl_Global_Role $resource */
         $resource = $role->getResource();
         $users = $resource->getRoleUsers($role);
 
         if (!count($users)) {
-            $users = array();
+            $users = [];
         }
 
         return $users;

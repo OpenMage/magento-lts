@@ -1,40 +1,28 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model. Can be used as base for indexer resources
  *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Index
  */
 abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const IDX_SUFFIX= '_idx';
-    const TMP_SUFFIX= '_tmp';
+    public const IDX_SUFFIX = '_idx';
+    public const TMP_SUFFIX = '_tmp';
 
     /**
      * Flag that defines if need to use "_idx" index table suffix instead of "_tmp"
@@ -142,15 +130,17 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
     {
         if ($readToIndex) {
-            $sourceColumns = array_keys($this->_getWriteAdapter()->describeTable($sourceTable));
-            $targetColumns = array_keys($this->_getWriteAdapter()->describeTable($destTable));
+            $sourceColumns = array_keys($this->_getReadAdapter()->describeTable($sourceTable));
+            $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         } else {
             $sourceColumns = array_keys($this->_getIndexAdapter()->describeTable($sourceTable));
-            $targetColumns = array_keys($this->_getWriteAdapter()->describeTable($destTable));
+            $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         }
         $select = $this->_getIndexAdapter()->select()->from($sourceTable, $sourceColumns);
 
-        Mage::getResourceHelper('index')->insertData($this, $select, $destTable, $targetColumns, $readToIndex);
+        /** @var Mage_Index_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('index');
+        $helper->insertData($this, $select, $destTable, $targetColumns, $readToIndex);
         return $this;
     }
 
@@ -179,14 +169,14 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $to->query($query);
         } else {
             $stmt = $from->query($select);
-            $data = array();
+            $data = [];
             $counter = 0;
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
-                if ($counter>2000) {
+                if ($counter > 2000) {
                     $to->insertArray($destTable, $columns, $data);
-                    $data = array();
+                    $data = [];
                     $counter = 0;
                 }
             }

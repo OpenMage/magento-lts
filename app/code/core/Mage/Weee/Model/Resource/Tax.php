@@ -1,43 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wee tax resource model
  *
- * @category    Mage
- * @package     Mage_Weee
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Weee
  */
 class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('weee/tax', 'value_id');
@@ -98,7 +81,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
         $adapter = $this->_getWriteAdapter();
 
         $select  = $this->_getReadAdapter()->select();
-        $select->from(array('data' => $this->getTable('catalogrule/rule_product')));
+        $select->from(['data' => $this->getTable('catalogrule/rule_product')]);
 
         $deleteCondition = '';
         if ($productCondition) {
@@ -119,12 +102,12 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
         }
         $adapter->delete($this->getTable('weee/discount'), $deleteCondition);
 
-        $select->order(array('data.website_id', 'data.customer_group_id', 'data.product_id', 'data.sort_order'));
+        $select->order(['data.website_id', 'data.customer_group_id', 'data.product_id', 'data.sort_order']);
 
         $data = $this->_getReadAdapter()->query($select);
 
-        $productData = array();
-        $stops       = array();
+        $productData = [];
+        $stops       = [];
         $prevKey     = false;
         while ($row = $data->fetch()) {
             $key = "{$row['product_id']}-{$row['website_id']}-{$row['customer_group_id']}";
@@ -136,18 +119,18 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
                 foreach ($productData as $product) {
                     $adapter->insert($this->getTable('weee/discount'), $product);
                 }
-                $productData = array();
+                $productData = [];
             }
             if ($row['action_operator'] == 'by_percent') {
                 if (isset($productData[$key])) {
-                    $productData[$key]['value'] -= $productData[$key]['value']/100*$row['action_amount'];
+                    $productData[$key]['value'] -= $productData[$key]['value'] / 100 * $row['action_amount'];
                 } else {
-                    $productData[$key] = array(
+                    $productData[$key] = [
                         'entity_id'         => $row['product_id'],
                         'customer_group_id' => $row['customer_group_id'],
                         'website_id'        => $row['website_id'],
-                        'value'             => 100-max(0, min(100, $row['action_amount'])),
-                    );
+                        'value'             => 100 - max(0, min(100, $row['action_amount'])),
+                    ];
                 }
             }
 
