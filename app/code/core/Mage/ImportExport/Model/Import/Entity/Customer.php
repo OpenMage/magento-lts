@@ -595,7 +595,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $rowScope = $this->getRowScope($rowData);
 
         if (self::SCOPE_DEFAULT == $rowScope) {
-            $this->_processedEntitiesCount ++;
+            $this->_processedEntitiesCount++;
         }
 
         $email        = $rowData[self::COL_EMAIL];
