@@ -3741,16 +3741,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
 
 		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
 			message: "#^Method Mage_Log_Model_Aggregation\\:\\:_date\\(\\) never returns false so it can be removed from the return type\\.$#"
 			count: 1
 			path: app/code/core/Mage/Log/Model/Aggregation.php
