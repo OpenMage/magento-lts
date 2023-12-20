@@ -26,16 +26,13 @@
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^23.11",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.23.5",
-        "sreichel/composer-plugin-file-copy": "^1.0",
         "symfony/polyfill-php74": "^1.27",
         "symfony/polyfill-php80": "^1.27",
-        "symfony/polyfill-php81": "^1.27",
-        "tinymce/tinymce": "^6.8"
+        "symfony/polyfill-php81": "^1.27"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
@@ -93,13 +90,6 @@
         }
     },
     "extra": {
-        "file-copy" : [{
-            "source": "tinymce/tinymce",
-            "target": "js/tinymce"
-        }, {
-            "source": "mklkj/tinymce-i18n/langs6",
-            "target": "js/tinymce/langs"
-        }],
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
@@ -125,8 +115,7 @@
         "allow-plugins": {
             "magento-hackathon/magento-composer-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "cweagans/composer-patches": true,
-            "sreichel/composer-plugin-file-copy": true
+            "cweagans/composer-patches": true
         },
         "platform": {
             "php": "7.4"
