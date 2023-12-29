@@ -937,7 +937,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                         Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend)
                     );
                 }
-                $depends = array_merge($depends, $modules[$depend]['depends']);
+                $depends = is_array($modules[$depend]['depends']) ? array_merge($depends, $modules[$depend]['depends']) : null;
             }
             $modules[$moduleName]['depends'] = $depends;
         }
