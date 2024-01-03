@@ -152,7 +152,8 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 $model->save();
                 // Send notification to General and additional contacts (if declared) that a new admin user was created.
                 if (Mage::getStoreConfigFlag('admin/security/create_admin_user_notification') && $isNew) {
-                    Mage::getModel('admin/user')->sendAdminNotification($model);
+                    $contactEmail = Mage::getStoreConfig('admin/security/create_admin_user_notification_email');
+                    Mage::getModel('admin/user')->sendAdminNotification($model, $contactEmail);
                 }
                 if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     if (is_array($uRoles) && (count($uRoles) >= 1)) {

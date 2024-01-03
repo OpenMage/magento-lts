@@ -1258,7 +1258,7 @@
                         </extensions_compatibility_mode>
                         <create_admin_user_notification translate="label comment">
                             <label>New Admin User Create Notification</label>
-                            <comment>This setting enable notification when new admin user created.</comment>
+                            <comment>This setting enables notification when new admin user is created.</comment>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
                             <source_model>adminhtml/system_config_source_enabledisable</source_model>
@@ -1266,6 +1266,18 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </create_admin_user_notification>
+                        <create_admin_user_notification_email translate="label comment">
+                            <label>Notification Email Receiver</label>
+                            <comment>Email address to receive notifications when a new admin user is created. Defaults to the General Store email address if empty.</comment>
+                            <depends><create_admin_user_notification>1</create_admin_user_notification></depends>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-email</validate>
+                            <backend_model>adminhtml/system_config_backend_email_addressorempty</backend_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </create_admin_user_notification_email>
                         <reprocess_image_quality translate="label comment">
                             <label>Image Reprocess Quality</label>
                             <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
