@@ -1256,7 +1256,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </extensions_compatibility_mode>
-                        <crate_admin_user_notification translate="label comment">
+                        <create_admin_user_notification translate="label comment">
                             <label>New Admin User Create Notification</label>
                             <comment>This setting enable notification when new admin user created.</comment>
                             <frontend_type>select</frontend_type>
@@ -1265,7 +1265,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </crate_admin_user_notification>
+                        </create_admin_user_notification>
                         <reprocess_image_quality translate="label comment">
                             <label>Image Reprocess Quality</label>
                             <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
