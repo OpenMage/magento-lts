@@ -693,12 +693,12 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Set watermark image opacity
      *
-     * @param int $imageOpacity
+     * @param int|string $imageOpacity
      * @return $this
      */
     public function setWatermarkImageOpacity($imageOpacity)
     {
-        $this->_watermarkImageOpacity = $imageOpacity;
+        $this->_watermarkImageOpacity = (int) $imageOpacity;
         return $this;
     }
 
