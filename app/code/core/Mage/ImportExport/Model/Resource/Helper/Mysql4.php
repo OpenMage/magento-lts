@@ -54,8 +54,6 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
         if (empty($entityStatus['Auto_increment'])) {
             Mage::throwException(Mage::helper('importexport')->__('Cannot get autoincrement value'));
         }
-	
 	return $entityStatus['Auto_increment'];
     }
-
 }
