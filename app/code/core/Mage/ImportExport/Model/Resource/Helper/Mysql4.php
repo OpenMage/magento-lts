@@ -69,7 +69,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     {
         if (!self::$instantInformationSchemaStatsExpiry) {
             // Set information_schema_stats_expiry to 0
-            $this->getReadAdapter()->query('SET information_schema_stats_expiry = 0;');
+            $this->_getReadAdapter()->query('SET information_schema_stats_expiry = 0;');
             self::$instantInformationSchemaStatsExpiry = true;
         }
     }
