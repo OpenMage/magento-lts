@@ -29,8 +29,10 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
 
     /**
      * Semaphore to disable schema stats only once
+     *
+     * @var bool
      */
-    private static boolean $instantInformationSchemaStatsExpiry = false;
+    private static $instantInformationSchemaStatsExpiry = false;
     
     /**
      * Returns maximum size of packet, that we can send to DB
