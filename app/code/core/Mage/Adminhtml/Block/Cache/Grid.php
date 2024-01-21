@@ -78,14 +78,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'sortable'  => false,
         ]);
 
-        $this->addColumn('refreshed_at', array(
-            'header'    => $this->__('Refreshed At'),
-            'align'     => 'left',
-            'index'     => 'refreshed_at',
-            'width'     => '180',
-            'sortable'  => false,
-        ));
-
         $this->addColumn('tags', [
             'header'    => $this->__('Associated Tags'),
             'align'     => 'left',
@@ -103,6 +95,15 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
             'frame_callback' => [$this, 'decorateStatus']
         ]);
+
+        $this->addColumn('refreshed_at', array(
+            'header'    => $this->__('Refreshed At'),
+            'align'     => 'left',
+            'index'     => 'refreshed_at',
+            'type'      => 'datetime',
+            'width'     => '180',
+            'sortable'  => false,
+        ));
 
         return parent::_prepareColumns();
     }
