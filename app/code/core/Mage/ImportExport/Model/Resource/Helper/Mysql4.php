@@ -56,7 +56,11 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     public function getNextAutoincrement($tableName)
     {
         $adapter = $this->_getReadAdapter();
-        $this->setInformationSchemaStatsExpiry();
+        try {
+            $this->setInformationSchemaStatsExpiry();    
+        } catch (Exception $e) {
+            //this will throw an exception for < mysql8
+        }
         $entityStatus = $adapter->showTableStatus($tableName);
         if (empty($entityStatus['Auto_increment'])) {
             Mage::throwException(Mage::helper('importexport')->__('Cannot get autoincrement value'));
@@ -70,7 +74,6 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     public function setInformationSchemaStatsExpiry()
     {
         if (!self::$instantInformationSchemaStatsExpiry) {
-            // Set information_schema_stats_expiry to 0
             $this->_getReadAdapter()->query('SET information_schema_stats_expiry = 0;');
             self::$instantInformationSchemaStatsExpiry = true;
         }
