@@ -57,7 +57,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     {
         $adapter = $this->_getReadAdapter();
         try {
-            $this->setInformationSchemaStatsExpiry();    
+            $this->setInformationSchemaStatsExpiry();
         } catch (Exception $e) {
             //this will throw an exception for < mysql8
         }
