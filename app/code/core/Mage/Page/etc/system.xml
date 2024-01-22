@@ -166,7 +166,7 @@
                         </custom_logo_src>
                         <custom_logo_css translate="label">
                             <label>Custom Logo CSS</label>
-                            <comment>custom css for logo e.g. width:200px;</comment>
+                            <comment>Custom css for logo, e.g. width:200px;</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
@@ -203,7 +203,7 @@
                         </custom_logo_src_small>
                         <custom_logo_css_small translate="label">
                             <label>Custom Small Logo CSS</label>
-                            <comment>custom css for small logo width:200px;</comment>
+                            <comment>Custom css for small logo, e.g. width:200px;</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
