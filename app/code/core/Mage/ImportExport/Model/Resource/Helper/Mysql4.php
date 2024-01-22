@@ -26,14 +26,14 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
      */
     public const DB_MAX_PACKET_SIZE        = 1048576; // Maximal packet length by default in MySQL
     public const DB_MAX_PACKET_COEFFICIENT = 0.85; // The coefficient of useful data from maximum packet length
-    
+
     /**
      * Semaphore to disable schema stats only once
      *
      * @var bool
      */
     private static $instantInformationSchemaStatsExpiry = false;
-    
+
     /**
      * Returns maximum size of packet, that we can send to DB
      *
@@ -45,7 +45,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
         $maxPacket = empty($maxPacketData['Value']) ? self::DB_MAX_PACKET_SIZE : $maxPacketData['Value'];
         return floor($maxPacket * self::DB_MAX_PACKET_COEFFICIENT);
     }
-    
+
     /**
      * Returns next autoincrement value for a table
      *
@@ -67,7 +67,7 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
         }
         return $entityStatus['Auto_increment'];
     }
-    
+
     /**
      * Set information_schema_stats_expiry to 0 if not already set.
      */
