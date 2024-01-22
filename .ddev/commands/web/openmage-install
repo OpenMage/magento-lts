@@ -92,6 +92,7 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
 
   # remove sample data
   if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
+    # shellcheck disable=SC2046
     rm -rf $(
       find . -maxdepth 1 -type f -name "*" ! -name "${SAMPLE_DATA_FILE}")
   else
@@ -108,7 +109,11 @@ if [[ "${USE_DEFAULT_FLAG}" ]]; then
   ADMIN_LASTNAME='Administrator'
   ADMIN_EMAIL='admin@example.com'
   ADMIN_PASSWORD='veryl0ngpassw0rd'
-  TABLE_PREFIX='om_'
+  if [[ "${SAMPLE_DATA_FLAG}" ]]; then
+    TABLE_PREFIX=''
+  else
+    TABLE_PREFIX='om_'
+  fi
 else
   read -r -p "Admin User [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
