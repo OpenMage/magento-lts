@@ -655,7 +655,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function confirmationAction()
     {
-        $customer = $this->_getModel('customer/customer');
+        $customer = Mage::getModel('customer/customer');
         if ($this->_getSession()->isLoggedIn()) {
             $this->_redirect('*/*/');
             return;
@@ -899,19 +899,18 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return mixed
+     * @return string|false
      */
     protected function getCustomerId()
     {
         $customerId = $this->getRequest()->getQuery("id");
         if (strlen($customerId) > 12) {
-            /** @var Mage_Customer_Model_Resource_Customer_Collection $customerCollection */
-            $customerCollection = $this->_getModel('customer/customer')
+            $customerCollection = Mage::getModel('customer/customer')
                 ->getCollection()
                 ->addAttributeToSelect(['rp_customer_id'])
                 ->addFieldToFilter('rp_customer_id', $customerId);
             $customerId = count($customerCollection) === 1
-                ? $customerId = $customerCollection->getFirstItem()->getId()
+                ? $customerCollection->getFirstItem()->getId()
                 : false;
         }
 
