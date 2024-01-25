@@ -8,92 +8,74 @@
  * @category    Mage
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var CentinelAuthenticate = Class.create();
-CentinelAuthenticate.prototype = {
-    initialize : function(blockId, iframeId)
-    {
+class CentinelAuthenticate {
+    constructor(blockId, iframeId) {
         this._isAuthenticationStarted = false;
-        this._relatedBlocks = new Array();
+        this._relatedBlocks = [];
         this.centinelBlockId = blockId;
         this.iframeId = iframeId;
+
         if (this._isCentinelBlocksLoaded()) {
-            $(this.centinelBlockId).hide();
+            document.getElementById(this.centinelBlockId).style.display = 'none';
         }
-    },
+    }
 
-    isAuthenticationStarted : function()
-    {
+    isAuthenticationStarted() {
         return this._isAuthenticationStarted;
-    },
+    }
 
-    addRelatedBlock : function(blockId)
-    {
-        this._relatedBlocks[this._relatedBlocks.size()] = blockId;
-    },
+    addRelatedBlock(blockId) {
+        this._relatedBlocks.push(blockId);
+    }
 
-    _hideRelatedBlocks : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            $(this._relatedBlocks[i]).hide();
+    _hideRelatedBlocks() {
+        for (const blockId of this._relatedBlocks) {
+            document.getElementById(blockId).style.display = 'none';
         }
-    },
+    }
 
-    _showRelatedBlocks : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            $(this._relatedBlocks[i]).show();
+    _showRelatedBlocks() {
+        for (const blockId of this._relatedBlocks) {
+            document.getElementById(blockId).style.display = 'block';
         }
-    },
+    }
 
-    _isRelatedBlocksLoaded : function()
-    {
-        for (var i = 0; i < this._relatedBlocks.size(); i++) {
-            if(!$(this._relatedBlocks[i])) {
-                return false;
-            }
-        }
-        return true;
-    },
+    _isRelatedBlocksLoaded() {
+        return this._relatedBlocks.every(blockId => document.getElementById(blockId));
+    }
 
-    _isCentinelBlocksLoaded : function()
-    {
-        if(!$(this.centinelBlockId) || !$(this.iframeId)) {
-            return false;
-        }
-        return true;
-    },
+    _isCentinelBlocksLoaded() {
+        return document.getElementById(this.centinelBlockId) && document.getElementById(this.iframeId);
+    }
 
-    start : function(authenticateUrl)
-    {
+    start(authenticateUrl) {
         if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
             this._hideRelatedBlocks();
-            $(this.iframeId).src = authenticateUrl;
-            $(this.centinelBlockId).show();
+            document.getElementById(this.iframeId).src = authenticateUrl;
+            document.getElementById(this.centinelBlockId).style.display = 'block';
             this._isAuthenticationStarted = true;
         }
-    },
+    }
 
-    success : function()
-    {
+    success() {
         if (this._isRelatedBlocksLoaded() && this._isCentinelBlocksLoaded()) {
             this._showRelatedBlocks();
-            $(this.centinelBlockId).hide();
+            document.getElementById(this.centinelBlockId).style.display = 'none';
             this._isAuthenticationStarted = false;
         }
-    },
+    }
 
-    cancel : function()
-    {
+    cancel() {
         if (this._isAuthenticationStarted) {
             if (this._isRelatedBlocksLoaded()) {
                 this._showRelatedBlocks();
             }
             if (this._isCentinelBlocksLoaded()) {
-                $(this.centinelBlockId).hide();
-                $(this.iframeId).src = '';
+                document.getElementById(this.centinelBlockId).style.display = 'none';
+                document.getElementById(this.iframeId).src = '';
             }
             this._isAuthenticationStarted = false;
         }
