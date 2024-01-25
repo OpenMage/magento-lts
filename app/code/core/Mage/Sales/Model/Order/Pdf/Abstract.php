@@ -444,6 +444,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
             $tracks = [];
             if ($shipment) {
+                /** @var Mage_Sales_Model_Order_Shipment $shipment */
                 $tracks = $shipment->getAllTracks();
             }
             if (count($tracks)) {
@@ -474,7 +475,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $truncatedTitle = substr($track->getTitle(), 0, $maxTitleLen) . $endOfTitle;
                     //$page->drawText($truncatedCarrierTitle, 285, $yShipments , 'UTF-8');
                     $page->drawText($truncatedTitle, 292, $yShipments, 'UTF-8');
-                    $page->drawText($track->getNumber(), 410, $yShipments, 'UTF-8');
+                    $page->drawText($track->getNumber() ?? '', 410, $yShipments, 'UTF-8');
                     $yShipments -= $topMargin - 5;
                 }
             } else {
