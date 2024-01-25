@@ -53,10 +53,6 @@ tinyMceWysiwygSetup.prototype =
         tinymce.init(this.getSettings(mode));
     },
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     getSettings: function (mode) {
         var plugins = 'autoresize accordion searchreplace visualblocks visualchars anchor code lists advlist fullscreen pagebreak table wordcount directionality image charmap link media nonbreaking help';
         var toolbar = 'undo redo | bold italic underline strikethrough | insertfile image media template link anchor codesample | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | fontfamily fontsize blocks | pagebreak | charmap | fullscreen preview save print | ltr rtl'
