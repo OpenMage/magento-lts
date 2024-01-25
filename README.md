@@ -69,7 +69,7 @@ In a nutshell:
 ## Requirements
 
 - PHP 8.1+ for OM v21, PHP 7.4+ for OpenMage v19/v20
-- MySQL 5.6+ (8.0+ recommended) or MariaDB
+- MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
 
@@ -271,7 +271,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 
 - PHP 8.1 as minimum required version
 - Removed scriptaculous/dragdrop.js (#3215)
-- RWD theme: updated jQuery to 3.7.0 (#3204), removed enquire.js (#3208)
+- RWD theme: updated jQuery to 3.7.0 (#3204)
 - Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
 - Removed double span element from HTML buttons (#3123)
 - Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
@@ -285,6 +285,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `dev/log/max_level`
+- `newsletter/security/enable_form_key`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
@@ -588,6 +589,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://juhoholsa.com/"><img src="https://avatars.githubusercontent.com/u/15036353?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Juho Hölsä</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/seifer7"><img src="https://avatars.githubusercontent.com/u/13601073?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kane</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Sdfendor"><img src="https://avatars.githubusercontent.com/u/2728018?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kevin Jakob</b></sub></a></td>
     </tr>
   </tbody>
 </table>
