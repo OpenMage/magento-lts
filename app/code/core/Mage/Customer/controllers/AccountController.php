@@ -55,7 +55,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         parent::preDispatch();
 
         if (!$this->getRequest()->isDispatched()) {
-            return;
+            return $this;
         }
 
         $action = strtolower($this->getRequest()->getActionName());
