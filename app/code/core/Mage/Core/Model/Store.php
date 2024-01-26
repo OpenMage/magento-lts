@@ -49,7 +49,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const ENTITY = 'core_store';
 
-    /**#@+
+    /**
      * Configuration pathes
      * @var string
      */
@@ -72,7 +72,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public const XML_PATH_SECURE_IN_ADMINHTML       = 'web/secure/use_in_adminhtml';
     public const XML_PATH_OFFLOADER_HEADER          = 'web/secure/offloader_header';
     public const XML_PATH_PRICE_SCOPE               = 'catalog/price/scope';
-    /**#@-*/
 
     /**
      * Price scope constants
