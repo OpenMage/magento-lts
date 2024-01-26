@@ -184,6 +184,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _loginPostRedirect()
     {
+        Mage::dispatchEvent('before_login_post_redirect', ['controller' => $this]);
         /** @var Helper $helper */
         $helper = $this->_getHelper('customer');
 
