@@ -47,20 +47,14 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_W
 
     protected function _prepareColumns()
     {
-        /*$this->addColumn('set_id', array(
-            'header'    => Mage::helper('eav')->__('ID'),
-            'align'     => 'right',
-            'sortable'  => true,
-            'width'     => '50px',
-            'index'     => 'attribute_set_id',
-        ));*/
-
-        $this->addColumn('set_name', array(
+        $this->addColumn('set_name', [
             'header'    => Mage::helper('eav')->__('Set Name'),
             'align'     => 'left',
             'sortable'  => true,
             'index'     => 'attribute_set_name',
-        ));
+        ]);
+
+        return $this;
     }
 
     public function getRowUrl($row)
