@@ -2101,7 +2101,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_validate($rowData, $rowNum, $sku);
 
         if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
-            $this->_processedEntitiesCount ++;
+            $this->_processedEntitiesCount++;
 
             $sku = $rowData[self::COL_SKU];
 
