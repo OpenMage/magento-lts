@@ -80,6 +80,9 @@ class Mage_Core_Model_File_Validator_Image
     {
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
+            if ($fileType === IMAGETYPE_ICO) {
+                return null;
+            }
             if ($this->isImageType($fileType)) {
                 // Config 'general/reprocess_images/active' is deprecated, replacement is the following:
                 $imageQuality = Mage::getStoreConfig('admin/security/reprocess_image_quality');
