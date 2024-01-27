@@ -21,7 +21,7 @@ var Variables = {
     overlayHideEffectOptions: null,
     insertFunction: 'Variables.insertVariable',
 
-    init: function (textareaElementId, insertFunction) {
+    init: function(textareaElementId, insertFunction) {
         if (document.getElementById(textareaElementId)) {
             this.textareaElementId = textareaElementId;
         }
@@ -30,18 +30,18 @@ var Variables = {
         }
     },
 
-    resetData: function () {
+    resetData: function() {
         this.variablesContent = null;
         this.dialogWindow = null;
     },
 
-    openVariableChooser: function (variables) {
+    openVariableChooser: function(variables) {
         if (this.variablesContent == null && variables) {
             this.variablesContent = '<ul>';
-            variables.forEach(function (variableGroup) {
+            variables.forEach(function(variableGroup) {
                 if (variableGroup.label && variableGroup.value) {
                     this.variablesContent += '<li><b>' + variableGroup.label + '</b></li>';
-                    variableGroup.value.forEach(function (variable) {
+                    variableGroup.value.forEach(function(variable) {
                         if (variable.value && variable.label) {
                             this.variablesContent += '<li style="padding-left: 20px;">' +
                                 this.prepareVariableRow(variable.value, variable.label) + '</li>';
@@ -56,7 +56,7 @@ var Variables = {
         }
     },
 
-    openDialogWindow: function (variablesContent) {
+    openDialogWindow: function(variablesContent) {
         if (document.getElementById(this.dialogWindowId) && typeof Windows !== 'undefined') {
             Windows.focus(this.dialogWindowId);
             return;
@@ -84,7 +84,7 @@ var Variables = {
         variablesContent.evalScripts.bind(variablesContent).defer();
     },
 
-    closeDialogWindow: function (window) {
+    closeDialogWindow: function(window) {
         if (!window) {
             window = this.dialogWindow;
         }
@@ -95,13 +95,13 @@ var Variables = {
         }
     },
 
-    prepareVariableRow: function (varValue, varLabel) {
+    prepareVariableRow: function(varValue, varLabel) {
         var value = (varValue).replace(/"/g, '&quot;').replace(/\\/g, '\\\\').replace(/'/g, '\\&#39;');
         var content = '<a href="#" onclick="' + this.insertFunction + '(\'' + value + '\');return false;">' + varLabel + '</a>';
         return content;
     },
 
-    insertVariable: function (value) {
+    insertVariable: function(value) {
         this.closeDialogWindow(this.dialogWindow);
         var textareaElm = document.getElementById(this.textareaElementId);
         if (textareaElm) {
@@ -120,16 +120,16 @@ var OpenmagevariablePlugin = {
     variables: null,
     textareaId: null,
 
-    setEditor: function (editor) {
+    setEditor: function(editor) {
         this.editor = editor;
     },
 
-    loadChooser: function (url, textareaId) {
+    loadChooser: function(url, textareaId) {
         this.textareaId = textareaId;
         if (this.variables == null) {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     if (xhr.responseText.isJSON()) {
                         Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
@@ -145,11 +145,11 @@ var OpenmagevariablePlugin = {
         return;
     },
 
-    openChooser: function (variables) {
+    openChooser: function(variables) {
         Variables.openVariableChooser(variables);
     },
 
-    insertVariable: function (value) {
+    insertVariable: function(value) {
         if (this.textareaId) {
             Variables.init(this.textareaId);
             Variables.insertVariable(value);
