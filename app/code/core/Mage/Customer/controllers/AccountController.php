@@ -198,7 +198,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $referer = $this->getRequest()->getParam(Helper::REFERER_QUERY_PARAM_NAME);
                     if ($referer) {
                         // Rebuild referer URL to handle the case when SID was changed
-                        $referer = $this->_getModel('core/url')
+                        $referer = Mage::getModel('core/url')
                             ->getRebuiltUrl($this->_getHelper('core')->urlDecodeAndEscape($referer));
                         if ($this->_isUrlInternal($referer)) {
                             $session->setBeforeAuthUrl($referer);
@@ -361,7 +361,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $customer = $this->_getFromRegistry('current_customer');
         if (!$customer) {
-            $customer = $this->_getModel('customer/customer')->setId(null);
+            $customer = Mage::getModel('customer/customer')->setId(null);
         }
         if ($this->getRequest()->getParam('is_subscribed', false)) {
             $customer->setIsSubscribed(1);
@@ -441,8 +441,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _getCustomerForm($customer)
     {
-        /** @var Mage_Customer_Model_Form $customerForm */
-        $customerForm = $this->_getModel('customer/form');
+        $customerForm = Mage::getModel('customer/form');
         $customerForm->setFormCode('customer_account_create');
         $customerForm->setEntity($customer);
         return $customerForm;
@@ -491,10 +490,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     protected function _getErrorsOnCustomerAddress($customer)
     {
         $errors = [];
-        /** @var Mage_Customer_Model_Address $address */
-        $address = $this->_getModel('customer/address');
-        /** @var Mage_Customer_Model_Form $addressForm */
-        $addressForm = $this->_getModel('customer/form');
+        $address = Mage::getModel('customer/address');
+        $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('customer_register_address')
             ->setEntity($address);
 
@@ -517,6 +514,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
      * Get model by path
      *
      * @param string $path
@@ -609,9 +607,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             // load customer by id (try/catch in case if it throws exceptions)
             try {
-                /** @var Mage_Customer_Model_Customer $customer */
-                $customer = $this->_getModel('customer/customer')->load($id);
-                if ((!$customer) || (!$customer->getId())) {
+                $customer = Mage::getModel('customer/customer')->load($id);
+                if (!$customer->getId()) {
                     throw new Exception('Failed to load customer by id.');
                 }
             } catch (Exception $e) {
@@ -730,10 +727,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
-            /**
-             * @var Mage_Customer_Model_Flowpassword $flowPassword
-             */
-            $flowPassword = $this->_getModel('customer/flowpassword');
+            $flowPassword = Mage::getModel('customer/flowpassword');
             $flowPassword->setEmail($email)->save();
 
             if (!$flowPassword->checkCustomerForgotPasswordFlowEmail($email)) {
@@ -756,9 +750,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            /** @var Mage_Customer_Model_Customer $customer */
-            $customer = $this->_getModel('customer/customer');
-            $customer
+            $customer = Mage::getModel('customer/customer')
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
                 ->loadByEmail($email);
 
@@ -858,8 +850,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if (iconv_strlen($password) <= 0) {
             $errorMessages[] = $this->_getHelper('customer')->__('New password field cannot be empty.');
         }
-        /** @var Mage_Customer_Model_Customer $customer */
-        $customer = $this->_getModel('customer/customer')->load($customerId);
+        $customer = Mage::getModel('customer/customer')->load($customerId);
 
         $customer->setPassword($password);
         $customer->setPasswordConfirmation($passwordConfirmation);
@@ -935,8 +926,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Invalid password reset token.'));
         }
 
-        /** @var Mage_Customer_Model_Customer $customer */
-        $customer = $this->_getModel('customer/customer')->load($customerId);
+        $customer = Mage::getModel('customer/customer')->load($customerId);
         if (!$customer || !$customer->getId()) {
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Wrong customer account specified.'));
         }
@@ -986,8 +976,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
             $customer->setOldEmail($customer->getEmail());
-            /** @var Mage_Customer_Model_Form $customerForm */
-            $customerForm = $this->_getModel('customer/form');
+            $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_edit')
                 ->setEntity($customer);
 
