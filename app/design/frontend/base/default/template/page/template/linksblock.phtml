@@ -15,7 +15,7 @@
 ?>
 <?php
 /**
- * @see Mage_Page_Block_Template_Links_Block
+ * @var Mage_Page_Block_Template_Links_Block $this
  */
 ?>
 <li<?php if($this->getIsFirst()||$this->getIsLast()): ?> class="<?php if($this->getIsFirst()): ?>first<?php endif ?><?php if($this->getIsLast()): ?> last<?php endif ?>"<?php endif ?> <?php echo $this->getLiParams() ?>><?php echo $this->getBeforeText() ?><a href="<?php echo $this->getLinkUrl() ?>" title="<?php echo $this->getTitle() ?>" <?php echo $this->getAParams() ?>><?php echo $this->getLabel() ?></a><?php echo $this->getAfterText() ?></li>
