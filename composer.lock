@@ -773,16 +773,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.34",
+            "version": "3.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "56c79f16a6ae17e42089c06a2144467acc35348a"
+                "reference": "4b1827beabce71953ca479485c0ae9c51287f2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/56c79f16a6ae17e42089c06a2144467acc35348a",
-                "reference": "56c79f16a6ae17e42089c06a2144467acc35348a",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/4b1827beabce71953ca479485c0ae9c51287f2fe",
+                "reference": "4b1827beabce71953ca479485c0ae9c51287f2fe",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +863,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.34"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.35"
             },
             "funding": [
                 {
@@ -879,7 +879,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-27T11:13:31+00:00"
+            "time": "2023-12-29T01:59:53+00:00"
         },
         {
             "name": "psr/container",
@@ -5455,16 +5455,16 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.2.3",
+            "version": "11.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "793c5d0f995988af690e2a278d0133df41638528"
+                "reference": "2e4f0330a1d59e3a89e6961eda2c98dcad68792a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/793c5d0f995988af690e2a278d0133df41638528",
-                "reference": "793c5d0f995988af690e2a278d0133df41638528",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/2e4f0330a1d59e3a89e6961eda2c98dcad68792a",
+                "reference": "2e4f0330a1d59e3a89e6961eda2c98dcad68792a",
                 "shasum": ""
             },
             "require": {
@@ -5482,7 +5482,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/11.2.3"
+                "source": "https://github.com/symplify/vendor-patches/tree/11.3.6"
             },
             "funding": [
                 {
@@ -5494,7 +5494,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-07T11:23:54+00:00"
+            "time": "2024-01-01T23:18:53+00:00"
         },
         {
             "name": "theseer/tokenizer",
