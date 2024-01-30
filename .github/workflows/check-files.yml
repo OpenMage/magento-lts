@@ -45,7 +45,7 @@ jobs:
     runs-on: [ubuntu-latest]
     outputs:
       composer: ${{ steps.changes-composer.outputs.composer }}
-      js: ${{ steps.changes-php.outputs.js }}
+      js: ${{ steps.changes-js.outputs.js }}
       php: ${{ steps.changes-php.outputs.php }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
