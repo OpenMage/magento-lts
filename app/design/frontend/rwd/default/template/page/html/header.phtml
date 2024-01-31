@@ -15,8 +15,6 @@
 /**
  * @var Mage_Page_Block_Html_Header $this
  */
-$_currentStore = Mage::app()->getStore();
-$custom_header_image_option = Mage::getStoreConfig('design/header/header_image_option', $_currentStore);
 ?>
 
 <div class="header-language-background">
@@ -34,21 +32,8 @@ $custom_header_image_option = Mage::getStoreConfig('design/header/header_image_o
 <header id="header" class="page-header">
     <div class="page-header-container">
         <a class="logo" href="<?php echo $this->getUrl('') ?>">
-            <?php if (!$custom_header_image_option): ?>
             <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
             <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
-            <?php else: ?>
-                <img src="<?php echo Mage::getBaseUrl('media') . 'header/' . Mage::getStoreConfig('design/header/custom_logo_src') ?>"
-                     alt="<?php echo Mage::getStoreConfig('design/header/custom_logo_alt') ?>"
-                     class="large"
-                     style="<?php echo Mage::getStoreConfig('design/header/custom_logo_css') ?>"
-                />
-                <img src="<?php echo Mage::getBaseUrl('media') . 'header/' . Mage::getStoreConfig('design/header/custom_logo_src_small') ?>"
-                     alt="<?php echo Mage::getStoreConfig('design/header/custom_logo_alt') ?>"
-                     class="small"
-                     style="<?php echo Mage::getStoreConfig('design/header/custom_logo_css_small') ?>"
-                />
-            <?php endif; ?>
         </a>
 
         <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
