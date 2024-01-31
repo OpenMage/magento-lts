@@ -70,6 +70,11 @@ tinyMceWysiwygSetup.prototype =
         var settings = {
             selector: this.selector,
             config: this.config,
+            valid_children: '+body[style]',
+            custom_elements:"style,~style",
+            protect: [
+                /[\S]?<script[\s\S]*?>[\s\S]*?<\/script[\s\S]*?>[\S]?/ig
+            ],
             menu: {
                 insert: {
                     title: 'Insert',

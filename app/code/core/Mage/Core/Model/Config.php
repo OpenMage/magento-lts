@@ -502,10 +502,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
-        if (! Mage::app()->useCache('config')) {
+        if (!Mage::app()->useCache('config')) {
             return;
         }
-        $waitTime = $waitTime ?: (PHP_SAPI === 'cli' ? 60 : 3);
+        $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
             if ($ignoreFailure) {
@@ -513,7 +513,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             } elseif (PHP_SAPI === 'cli') {
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
-                require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Zend_Log::NOTICE);
+                require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
                 die();
             }
         }
@@ -526,7 +527,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function releaseCacheSaveLock()
     {
-        if (! Mage::app()->useCache('config')) {
+        if (!Mage::app()->useCache('config')) {
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
