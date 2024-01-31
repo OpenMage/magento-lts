@@ -40,6 +40,9 @@ while :; do
      shift
  done
 
+echo "Enable maintenance mode ..."
+touch maintenance.flag
+
 LOCALXML="${ROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
   if [[ "${QUIET_INSTALL_FLAG}" ]]; then
@@ -86,6 +89,9 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
 
   echo "Copying Sample Data into the OpenMage directory..."
   cp -r magento-sample-data-1.9.2.4/* "${ROOT}/"
+
+  echo "Clear var/cache ..."
+  rm -rf "${ROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
   mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
@@ -157,3 +163,6 @@ php -f install.php -- \
   --default_currency 'USD' \
   --enable_charts 'yes' \
   --skip_url_validation 'yes'
+
+echo "Disable maintenance mode ..."
+rm maintenance.flag
