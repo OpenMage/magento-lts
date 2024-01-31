@@ -82,22 +82,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default_robots>
-<!--
-                        <default_media_type translate="label">
-                            <label>Default Media Type</label>
-                            <sort_order>50</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default_media_type>
-                        <default_charset translate="label">
-                            <label>Default Charset</label>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default_charset>
--->
                         <includes translate="label comment">
                             <label>Miscellaneous Scripts</label>
                             <comment>This will be included before head closing tag in page HTML.</comment>
@@ -219,7 +203,7 @@
                         </custom_logo_src_small>
                         <custom_logo_css_small translate="label">
                             <label>Custom Small Logo CSS</label>
-                            <comment>Custom css for small logo width:200px;</comment>
+                            <comment>Custom css for small logo, e.g. width:200px;</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
