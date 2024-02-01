@@ -40,7 +40,7 @@ while :; do
      shift
  done
 
-echo "Enable maintenance mode ..."
+echo "Enable maintenance mode..."
 touch maintenance.flag
 
 LOCALXML="${ROOT}/app/etc/local.xml"
@@ -90,7 +90,7 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   echo "Copying Sample Data into the OpenMage directory..."
   cp -r magento-sample-data-1.9.2.4/* "${ROOT}/"
 
-  echo "Clear var/cache ..."
+  echo "Clearing var/cache..."
   rm -rf "${ROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
@@ -164,5 +164,5 @@ php -f install.php -- \
   --enable_charts 'yes' \
   --skip_url_validation 'yes'
 
-echo "Disable maintenance mode ..."
+echo "Disable maintenance mode..."
 rm maintenance.flag
