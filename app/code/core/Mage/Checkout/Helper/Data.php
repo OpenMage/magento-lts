@@ -280,7 +280,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function isMultishippingCheckoutAvailable()
     {
         $quote = $this->getQuote();
-        $isMultiShipping = (bool)Mage::getStoreConfigAsInt('shipping/option/checkout_multiple');
+        $isMultiShipping = Mage::getStoreConfigFlag('shipping/option/checkout_multiple');
         if ((!$quote) || !$quote->hasItems()) {
             return $isMultiShipping;
         }
