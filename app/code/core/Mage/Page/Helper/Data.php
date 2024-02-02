@@ -19,5 +19,11 @@
  */
 class Mage_Page_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    public const XML_PATH_DEMO_NOTICE = 'design/head/demonotice';
+
+    public const XML_PATH_DEMO_NOTICE_TEXT = 'design/head/demonotice_text';
+
+    public const XML_PATH_BROWSER_CAPABILITIES_JAVASCRIPT = 'web/browser_capabilities/javascript';
+
     protected $_moduleName = 'Mage_Page';
 }

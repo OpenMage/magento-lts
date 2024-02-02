@@ -116,6 +116,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </demonotice>
+                        <demonotice_text translate="label comment">
+                            <label>Store Notice Text</label>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><demonotice>1</demonotice></depends>
+                        </demonotice_text>
                     </fields>
                 </head>
                 <header translate="label">

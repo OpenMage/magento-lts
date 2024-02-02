@@ -28,7 +28,7 @@ class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
      */
     public function displayNoscriptNotice()
     {
-        return Mage::getStoreConfig('web/browser_capabilities/javascript');
+        return Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_BROWSER_CAPABILITIES_JAVASCRIPT);
     }
 
     /**
@@ -38,6 +38,14 @@ class Mage_Adminhtml_Block_Page_Notices extends Mage_Adminhtml_Block_Template
      */
     public function displayDemoNotice()
     {
-        return Mage::getStoreConfig('design/head/demonotice');
+        return Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_DEMO_NOTICE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDemoNoticeText(): string
+    {
+        return trim((string)Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_DEMO_NOTICE_TEXT));
     }
 }
