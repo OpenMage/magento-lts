@@ -29,7 +29,7 @@
     </noscript>
 <?php endif ?>
 <?php if ($this->displayDemoNotice()): ?>
-    <?php if (strlen($this->getDemoNoticeText())): ?>
+    <?php if ($this->getDemoNoticeText() !== ''): ?>
     <p class="demo-notice"><?php echo $this->getDemoNoticeText() ?></p>
     <?php else: ?>
     <p class="demo-notice"><?php echo $this->__('This is a demo store. Any orders placed through this store will not be honored or fulfilled.') ?></p>

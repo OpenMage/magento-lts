@@ -111,6 +111,7 @@
                 <default_robots>*</default_robots>
                 <default_media_type>text/html</default_media_type>
                 <default_charset>utf-8</default_charset>
+                <store_notice_text>This is a demo store. Any orders placed through this store will not be honored or fulfilled.</store_notice_text>
             </head>
             <header translate="welcome" module="page">
                 <logo_src>images/logo.gif</logo_src>
