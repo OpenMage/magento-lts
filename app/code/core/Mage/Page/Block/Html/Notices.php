@@ -43,10 +43,12 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
 
     /**
      * @return string
+     * @throws Exception
      */
-    public function getDemoNoticeText(): string
+    public function getStoreNoticeText(): string
     {
-        return trim((string)Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_STORE_NOTICE_TEXT));
+        $text = trim((string)Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_STORE_NOTICE_TEXT));
+        return $this->filterTemplateVars($text);
     }
 
     /**
@@ -57,5 +59,22 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
     public function getPrivacyPolicyLink()
     {
         return Mage::getUrl('privacy-policy-cookie-restriction-mode');
+    }
+
+    /**
+     * @param string $input
+     * @return string
+     * @throws Exception
+     */
+    private function filterTemplateVars(string $input): string
+    {
+        if (stripos($input, '{{') !== false && stripos($input, '}}') !== false) {
+            /** @var Mage_Cms_Helper_Data $helper */
+            $helper = Mage::helper('cms');
+            $processor = $helper->getPageTemplateProcessor();
+            return $processor->filter($input);
+        }
+
+        return $input;
     }
 }
