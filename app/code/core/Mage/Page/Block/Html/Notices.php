@@ -38,7 +38,7 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
      */
     public function displayDemoNotice()
     {
-        return Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_DEMO_NOTICE);
+        return Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_STORE_NOTICE_ENABLED);
     }
 
     /**
@@ -46,7 +46,7 @@ class Mage_Page_Block_Html_Notices extends Mage_Core_Block_Template
      */
     public function getDemoNoticeText(): string
     {
-        return trim((string)Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_DEMO_NOTICE_TEXT));
+        return trim((string)Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_STORE_NOTICE_TEXT));
     }
 
     /**
