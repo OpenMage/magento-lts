@@ -1436,6 +1436,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ahudock",
+      "name": "Andy Hudock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33500977?v=4",
+      "profile": "https://www.jrandom.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
