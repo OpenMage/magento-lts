@@ -119,6 +119,7 @@
                         <store_notice_text translate="label comment">
                             <label>Store Notice Text</label>
                             <sort_order>90</sort_order>
+                            <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
