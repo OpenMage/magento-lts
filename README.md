@@ -1,12 +1,8 @@
-<p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-157-orange.svg" alt="All Contributors"></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/github/all-contributors/openmage/magento-lts?color=ee8449)](#contributors)
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
 <a href="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml"><img src="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg" alt="CI workflow Badge" /></a>
-</p>
 
 # Magento - Long Term Support
 
