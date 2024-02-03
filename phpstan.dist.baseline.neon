@@ -286,31 +286,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
 
 		-
-			message: "#^Variable \\$addLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$deleteLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$deleteUrl might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$editLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$saveLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
 			message: "#^Variable \\$groupModel might not be defined\\.$#"
 			count: 18
 			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
