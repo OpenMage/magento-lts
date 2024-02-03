@@ -1910,7 +1910,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     private function _isAllowed(string $aclPath): bool
     {
-        if ($this->isAllowed === null || !isset($this->isAllowed[$aclPath])) {
+        if (!isset($this->isAllowed[$aclPath]) {
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
             $this->isAllowed[$aclPath] = $session->isAllowed($aclPath);
