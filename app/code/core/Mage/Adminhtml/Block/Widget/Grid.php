@@ -225,7 +225,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @var array<string, bool>|null
      */
-    protected ?array $isAllowed = null;
+    protected array $isAllowed = [];
 
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
