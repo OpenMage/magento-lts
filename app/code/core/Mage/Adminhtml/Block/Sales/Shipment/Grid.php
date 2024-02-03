@@ -133,11 +133,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/shipment')) {
-            return false;
+        if ($this->canView('sales/order/shipment')) {
+            return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
         }
 
-        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
+        return false;
     }
 
     /**
