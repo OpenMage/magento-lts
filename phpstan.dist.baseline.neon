@@ -81,21 +81,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeGlobal\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeStore\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeWebsite\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Sales.php
