@@ -24,7 +24,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring
-          tools: composer, pecl, phpcs, phpstan, phpunit:9.5
+          tools: composer, pecl, phpcs, phpstan, phpunit
           ini-values: pcov.directory=api, post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
           coverage: pcov #optional, setup coverage driver
         env:
