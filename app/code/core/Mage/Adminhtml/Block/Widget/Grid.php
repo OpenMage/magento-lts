@@ -223,7 +223,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * This array caches the status of the isAllow() method, for every acl path
      *
-     * @var array<string, bool>|null
+     * @var array<string, bool>
      */
     protected array $isAllowed = [];
 
