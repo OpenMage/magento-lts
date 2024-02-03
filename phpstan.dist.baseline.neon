@@ -176,11 +176,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
-			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addRuleFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
-
-		-
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
