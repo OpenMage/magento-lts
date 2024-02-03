@@ -101,26 +101,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
 
 		-
-			message: "#^Variable \\$d might not be defined\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localmaxlength might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localmaxvalue might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localminvalue might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
 			message: "#^Variable \\$class might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
