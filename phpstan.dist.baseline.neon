@@ -286,36 +286,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
 
 		-
-			message: "#^Variable \\$groupModel might not be defined\\.$#"
-			count: 18
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showGroupFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showStoreFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showWebsiteFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$storeModel might not be defined\\.$#"
-			count: 21
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$websiteModel might not be defined\\.$#"
-			count: 15
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
