@@ -80,3 +80,6 @@ phpstan*.neon
 # dev scripts loaded via composer
 /shell/update-copyright.php
 /shell/translations.php
+
+# sample data
+magento_sample_data_for_1.9.2.4.sql
