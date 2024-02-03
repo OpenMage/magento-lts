@@ -1290,7 +1290,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Post request to gateway and return responce
+     * Post request to gateway and return response
      *
      * @param Mage_Paygate_Model_Authorizenet_Request $request)
      * @return Mage_Paygate_Model_Authorizenet_Result
