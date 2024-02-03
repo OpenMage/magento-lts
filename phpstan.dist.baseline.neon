@@ -166,26 +166,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
 
 		-
-			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Cannot call method setPeriod\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 4
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:addColumn\\(\\) should return Mage_Adminhtml_Block_Report_Grid_Abstract but returns Mage_Adminhtml_Block_Widget_Grid\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
