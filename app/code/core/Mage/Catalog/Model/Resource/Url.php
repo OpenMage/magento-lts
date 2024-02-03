@@ -796,12 +796,12 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param int|array $categoryIds
      * @param int $storeId
-     * @return Mage_Catalog_Model_Category[]|false
+     * @return Mage_Catalog_Model_Category[]|array
      */
     public function getCategories($categoryIds, $storeId)
     {
         if (!$categoryIds || !$storeId) {
-            return false;
+            return [];
         }
 
         return $this->_getCategories($categoryIds, $storeId);

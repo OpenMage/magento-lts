@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Refresh category and childs rewrites
+     * Refresh category and children rewrites
      * Called when reindexing all rewrites and as a reaction on category change that affects rewrites
      *
      * @param int $categoryId
