@@ -21,14 +21,31 @@
  */
 class Mage_Core_Helper_EnvironmentLoader extends Mage_Core_Helper_Abstract
 {
-    const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
-    const ENV_KEY_SEPARATOR = '__';
-    const CONFIG_KEY_DEFAULT = 'DEFAULT';
-    const CONFIG_KEY_WEBSITES = 'WEBSITES';
-    const CONFIG_KEY_STORES = 'STORES';
+    protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
+    protected const ENV_KEY_SEPARATOR = '__';
+    protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
+    protected const CONFIG_KEY_WEBSITES = 'WEBSITES';
+    protected const CONFIG_KEY_STORES = 'STORES';
 
     /**
      * Load configuration values from ENV variables into xml config object
+     *
+     * Environment variables work on this schema:
+     *
+     * self::ENV_STARTS_WITH . self::ENV_KEY_SEPARATOR (OPENMAGE_CONFIG__)
+     *        ^ Prefix (required)
+     *                  <SCOPE>__
+     *                     ^ Where scope is DEFAULT, WEBSITES__<WEBSITE_CODE> or STORES__<STORE_CODE>
+     *                           <SYSTEM_VARIABLE_NAME>
+     *                                   ^ Where GROUP, SECTION and FIELD are separated by self::ENV_KEY_SEPARATOR
+     *
+     * Each example will override the 'general/store_information/name' value.
+     * Override from the default configuration:
+     * @example OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME=default
+     * Override the website 'base' configuration:
+     * @example OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME=website
+     * Override the store 'german' configuration:
+     * @example OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME=store_german
      *
      * @param Mage_Core_Model_Config $xmlConfig
      * @return void
@@ -45,7 +62,7 @@ class Mage_Core_Helper_EnvironmentLoader extends Mage_Core_Helper_Abstract
             list($_, $scope) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
             switch ($scope) {
                 case static::CONFIG_KEY_DEFAULT:
-                    list($_, $scope, $section, $group, $field) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
+                    list($_, $_, $section, $group, $field) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
                     $path = implode('/', [$section, $group, $field]);
                     $path = strtolower($path);
                     $scope = strtolower($scope);
