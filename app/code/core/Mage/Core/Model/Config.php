@@ -320,6 +320,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $this->_useCache = false;
                     $this->loadModules();
                     $this->loadDb();
+                    $this->loadEnv();
                     $this->saveCache();
                 }
             } finally {
@@ -418,6 +419,21 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $dbConf = $this->getResourceModel();
             $dbConf->loadToXml($this);
             Varien_Profiler::stop('config/load-db');
+        }
+        return $this;
+    }
+
+    /**
+     * Load environment variables and override config
+     *
+     * @return self
+     */
+    public function loadEnv(): Mage_Core_Model_Config
+    {
+        if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
+            Varien_Profiler::start('config/load-env');
+            Mage::helper('core/environmentLoader')->overrideEnvironment($this);
+            Varien_Profiler::stop('config/load-env');
         }
         return $this;
     }
