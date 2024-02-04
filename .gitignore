@@ -57,6 +57,7 @@
 
 # ddev
 .ddev/config.yaml
+.ddev/.sampleData
 
 # scss-cache
 /skin/*/*/*/scss/.sass-cache
