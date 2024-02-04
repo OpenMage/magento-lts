@@ -1,6 +1,9 @@
-# Full events list
+---
+tags:
+- Events
+---
 
-## List
+# Events list
 
 | Event name | With Magento or since OpenMage |
 | ---------- | -------------- |
@@ -81,7 +84,6 @@
 | adminhtml_widget_grid_filter_collection | 1.9.4.5 |
 | after_reindex_process_[getIndexerCode] | 1.9.4.5 |
 | ajax_cart_remove_item_success | 1.9.4.5 |
-| api_server_adapter_jsonrpc_run_after | 20.1.1 |
 | api_user_authenticated | 1.9.4.5 |
 | api_user_html_before | 1.9.4.5 |
 | application_clean_cache | 1.9.4.5 |
@@ -192,7 +194,6 @@
 | controller_front_send_response_after | 1.9.4.5 |
 | controller_front_send_response_before | 1.9.4.5 |
 | controller_response_redirect | 1.9.4.5 |
-| core_app_run_after | 20.1.0 |
 | core_block_abstract_prepare_layout_after | 1.9.4.5 |
 | core_block_abstract_prepare_layout_before | 1.9.4.5 |
 | core_block_abstract_to_html_after | 1.9.4.5 |
@@ -226,7 +227,6 @@
 | end_index_events_[getEventTypeName] | 1.9.4.5 |
 | end_process_event_[getEventTypeName] | 1.9.4.5 |
 | gift_options_prepare_items | 1.9.4.5 |
-| googleanalytics_ga4_send_data_before | 20.1.1 |
 | http_response_send_before | 1.9.4.5 |
 | index_process_change_status | 1.9.4.5 |
 | init_from_order_session_quote_initialized | 1.9.4.5 |
@@ -340,36 +340,3 @@
 | wishlist_product_add_after | 1.9.4.5 |
 | wishlist_share | 1.9.4.5 |
 | wishlist_update_item | 1.9.4.5 |
-
-## Example
-
-For example, if you want to add custom logic for `customer_login` event.
-Add in your `config.xml`:
-
-```xml
-<config>
-    <global><!-- or adminhtml or frontend -->
-        <events>
-            <customer_login>
-                <observers>
-                    <yourNamespace_yourModule>
-                        <class>yourShortClass/observer</class>
-                        <method>yourMethod</method>
-                    </yourNamespace_yourModule>
-                </observers>
-            </customer_login>
-        </events>
-    </global>
-</config>
-```
-
-And in your `Observer.php`:
-
-```php
-class YourNamespace_YourModule_Model_Observer {
-
-    // EVENT customer_login
-    public function yourMethod(Varien_Event_Observer $observer) {
-        $customer = $observer->getData('customer');
-    }
-}
