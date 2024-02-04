@@ -42,7 +42,7 @@ jobs:
 
       - name: Install OpenMage dependencies
         working-directory: ./openmage
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
 
       - name: run phpUnit
         run: bash ./run_unit_tests.sh
