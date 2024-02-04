@@ -339,9 +339,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Set referer url for redirect in responce
+     * Set referer url for redirect in response
      *
-     * Is overriden here to set defaultUrl to admin url
+     * Is overridden here to set defaultUrl to admin url
      *
      * @param   string $defaultUrl
      * @return  Mage_Adminhtml_Controller_Action
@@ -354,7 +354,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Set redirect into responce
+     * Set redirect into response
      *
      * @param string $path
      * @param array $arguments

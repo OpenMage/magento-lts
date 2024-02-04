@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Tag_Store_Switcher extends Mage_Adminhtml_Block_Store
     protected $_hasDefaultOption = false;
 
     /**
-     * Set overriden params
+     * Set overridden params
      */
     public function __construct()
     {
