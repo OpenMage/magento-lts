@@ -417,10 +417,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         $result = [];
         $options = explode(';', $options);
         foreach ($options as $value) {
-            if ($value !== null && strlen($value) > 0) {
-                $value = $this->escapeHtml(trim($value));
-            }
-            $result[$value] = $value;
+            $result[$value] = $this->escapeHtml(trim($value));
         }
         return $result;
     }
