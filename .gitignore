@@ -79,4 +79,5 @@ phpstan*.neon
 /shell/translations.php
 
 # DDEV
+.ddev/config.yaml
 .ddev/.sampleData
