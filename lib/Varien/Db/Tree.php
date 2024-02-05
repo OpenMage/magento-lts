@@ -407,7 +407,7 @@ class Varien_Db_Tree
         $right_key_near = 0;
         $left_key_near = 0;
         $skew_level = 0;
-        
+
         if ($pId != 0) {
             $pInfo = $this->getNodeInfo($pId);
             $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
