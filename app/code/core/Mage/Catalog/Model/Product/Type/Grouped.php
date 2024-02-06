@@ -28,7 +28,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @var string
      */
-    protected $_keyAssociatedProducts   = '_cache_instance_associated_products';
+    protected $_keyAssociatedProducts = '_cache_instance_associated_products';
 
     /**
      * Cache key for Associated Product Ids
@@ -42,21 +42,46 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @var string
      */
-    protected $_keyStatusFilters        = '_cache_instance_status_filters';
+    protected $_keyStatusFilters = '_cache_instance_status_filters';
 
     /**
      * Product is composite properties
      *
      * @var bool
      */
-    protected $_isComposite             = true;
+    protected $_isComposite = true;
 
     /**
      * Product is configurable
      *
      * @var bool
      */
-    protected $_canConfigure            = true;
+    protected $_canConfigure = true;
+
+    /**
+     * Attributes used in associated products
+     *
+     * @var string|string[]
+     */
+    protected $_attributesUsedInAssociatedProducts = '*';
+
+    /**
+     * @return string|string[]
+     */
+    public function getAttributesUsedInAssociatedProducts()
+    {
+        return $this->_attributesUsedInAssociatedProducts;
+    }
+
+    /**
+     * @param string|string[] $attribute
+     * @return $this
+     */
+    public function setAttributesUsedInAssociatedProducts($attribute)
+    {
+        $this->_attributesUsedInAssociatedProducts = $attribute;
+        return $this;
+    }
 
     /**
      * Return relation info about used products
@@ -123,7 +148,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
             }
 
             $collection = $this->getAssociatedProductCollection($product)
-                ->addAttributeToSelect('*')
+                ->addAttributeToSelect($this->getAttributesUsedInAssociatedProducts())
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
                 ->addStoreFilter($this->getStoreFilter($product))
