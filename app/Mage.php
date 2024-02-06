@@ -412,6 +412,26 @@ final class Mage
     }
 
     /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return float
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
+    }
+
+    /**
      * Retrieve config flag for store by path
      *
      * @param string $path
