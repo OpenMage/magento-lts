@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -199,13 +199,16 @@
                 <ytd_start>1,1</ytd_start>
                 <mtd_start>1</mtd_start>
             </dashboard>
+            <crontab>
+                <viewed_expr>0 0 * * *</viewed_expr>
+            </crontab>
         </reports>
     </default>
     <crontab>
         <jobs>
             <aggregate_reports_report_product_viewed_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/viewed_expr</config_path>
                 </schedule>
                 <run>
                     <model>reports/observer::aggregateReportsReportProductViewedData</model>

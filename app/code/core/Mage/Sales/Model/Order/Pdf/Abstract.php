@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -444,6 +444,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
             $tracks = [];
             if ($shipment) {
+                /** @var Mage_Sales_Model_Order_Shipment $shipment */
                 $tracks = $shipment->getAllTracks();
             }
             if (count($tracks)) {
@@ -474,7 +475,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $truncatedTitle = substr($track->getTitle(), 0, $maxTitleLen) . $endOfTitle;
                     //$page->drawText($truncatedCarrierTitle, 285, $yShipments , 'UTF-8');
                     $page->drawText($truncatedTitle, 292, $yShipments, 'UTF-8');
-                    $page->drawText($track->getNumber(), 410, $yShipments, 'UTF-8');
+                    $page->drawText($track->getNumber() ?? '', 410, $yShipments, 'UTF-8');
                     $yShipments -= $topMargin - 5;
                 }
             } else {

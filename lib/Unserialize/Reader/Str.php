@@ -9,6 +9,7 @@
  * @category   Unserialize
  * @package    Unserialize_Reader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,6 +66,11 @@ class Unserialize_Reader_Str
         }
 
         if ($this->_status == self::READING_VALUE) {
+            if (is_null($this->_value)) {
+                $this->_value = $char;
+                return null;
+            }
+
             if (strlen($this->_value) < $this->_length) {
                 $this->_value .= $char;
                 return null;
