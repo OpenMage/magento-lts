@@ -45,7 +45,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_connections          = [];
+    protected $_connections = [];
 
     /**
      * Resource model name that contains entities (names of tables)
@@ -59,7 +59,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_tables               = [];
+    protected $_tables = [];
 
     /**
      * Main table name
@@ -80,21 +80,21 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var bool
      */
-    protected $_isPkAutoIncrement    = true;
+    protected $_isPkAutoIncrement = true;
 
     /**
      * Use is object new method for save of object
      *
      * @var bool
      */
-    protected $_useIsObjectNew       = false;
+    protected $_useIsObjectNew = false;
 
     /**
      * Fields List for update in forsedSave
      *
      * @var array
      */
-    protected $_fieldsForUpdate      = [];
+    protected $_fieldsForUpdate = [];
 
     /**
      * Fields of main table
@@ -118,7 +118,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array|null
      */
-    protected $_uniqueFields         = null;
+    protected $_uniqueFields = null;
 
     /**
      * Serializable fields declaration
@@ -132,7 +132,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_serializableFields   = [];
+    protected $_serializableFields = [];
 
     /**
      * Standard resource model initialization
@@ -405,8 +405,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
-        $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
-        $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
+        $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
+        $field = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
         return $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where($field . '=?', $value);
@@ -644,7 +644,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
                     [
                         'field' => $fields,
                         'title' => $fields
-                    ]];
+                    ]
+                ];
             }
 
             $data = new Varien_Object($this->_prepareDataForSave($object));
@@ -656,10 +657,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
                 if (is_array($unique['field'])) {
                     foreach ($unique['field'] as $field) {
-                        $select->where($field . '=?', trim($data->getData($field)));
+                        $select->where($field . '=?', trim((string)$data->getData($field)));
                     }
                 } else {
-                    $select->where($unique['field'] . '=?', trim($data->getData($unique['field'])));
+                    $select->where($unique['field'] . '=?', trim((string)$data->getData($unique['field'])));
                 }
 
                 if ($object->getId() || $object->getId() === '0') {

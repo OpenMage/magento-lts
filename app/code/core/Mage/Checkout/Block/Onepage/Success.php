@@ -21,6 +21,11 @@
  *
  * @method $this setCanViewProfiles(bool $value)
  * @method $this setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
+ * @method string getOrderId()
+ * @method string getPrintUrl()
+ * @method bool getCanPrintOrder()
+ * @method bool getCanViewOrder()
+ * @method Mage_Sales_Model_Order getOrder()
  */
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {
@@ -28,17 +33,6 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      * @deprecated after 1.4.0.1
      */
     private $_order;
-
-    /**
-     * Retrieve identifier of created order
-     *
-     * @return string
-     * @deprecated after 1.4.0.1
-     */
-    public function getOrderId()
-    {
-        return $this->_getData('order_id');
-    }
 
     /**
      * Check order print availability
@@ -52,21 +46,9 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
     }
 
     /**
-     * Get url for order detale print
-     *
-     * @return string
-     * @deprecated after 1.4.0.1
-     */
-    public function getPrintUrl()
-    {
-        return $this->_getData('print_url');
-    }
-
-    /**
      * Get url for view order details
      *
      * @return string
-     * @deprecated after 1.4.0.1
      */
     public function getViewOrderUrl()
     {

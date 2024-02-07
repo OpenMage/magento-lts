@@ -21,7 +21,7 @@
  */
 class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
 {
-    /**#@+
+    /**
      * Error code returned by PayPal
      */
     public const API_INTERNAL_ERROR = 10001;
@@ -33,7 +33,6 @@ class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
     public const API_COUNTRY_FILTER_DECLINE            = 10537;
     public const API_MAXIMUM_AMOUNT_FILTER_DECLINE     = 10538;
     public const API_OTHER_FILTER_DECLINE              = 10539;
-    /**#@-*/
 
     /**
      * Get error message which can be displayed to website user

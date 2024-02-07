@@ -21,7 +21,7 @@
  */
 class Mage_Oauth_Model_Server
 {
-    /**#@+
+    /**
      * OAuth result statuses
      */
     public const ERR_OK                        = 0;
@@ -40,33 +40,29 @@ class Mage_Oauth_Model_Server
     public const ERR_VERIFIER_INVALID          = 13;
     public const ERR_PERMISSION_UNKNOWN        = 14;
     public const ERR_PERMISSION_DENIED         = 15;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Signature Methods
      */
     public const SIGNATURE_HMAC  = 'HMAC-SHA1';
     public const SIGNATURE_RSA   = 'RSA-SHA1';
     public const SIGNATURE_PLAIN = 'PLAINTEXT';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Request Types
      */
     public const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
     public const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
     public const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
     public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
-    /**#@-*/
 
-    /**#@+
+    /**
      * HTTP Response Codes
      */
     public const HTTP_OK             = 200;
     public const HTTP_BAD_REQUEST    = 400;
     public const HTTP_UNAUTHORIZED   = 401;
     public const HTTP_INTERNAL_ERROR = 500;
-    /**#@-*/
 
     /**
      * Possible time deviation for timestamp validation in sec.
@@ -401,7 +397,7 @@ class Mage_Oauth_Model_Server
     {
         if (self::REQUEST_INITIATE == $this->_requestType) {
             if (self::CALLBACK_ESTABLISHED == $this->_protocolParams['oauth_callback']
-                && $this->_consumer->getCallBackUrl()
+                && $this->_consumer->getCallbackUrl()
             ) {
                 $callbackUrl = $this->_consumer->getCallbackUrl();
             } else {

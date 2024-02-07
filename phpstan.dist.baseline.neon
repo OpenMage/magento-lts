@@ -16,11 +16,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Config.php
 
 		-
-			message: "#^Call to an undefined method Zend_Controller_Request_Http\\:\\:setRouteName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Observer.php
-
-		-
 			message: "#^Cannot call method getClassName\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
@@ -44,11 +39,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Rules\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Rules.php
-
-		-
-			message: "#^Call to an undefined method Zend_Controller_Response_Abstract\\:\\:sendHeadersAndExit\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Session.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -646,11 +636,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:getShippingItemsGridAction\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
@@ -919,11 +904,6 @@ parameters:
 			message: "#^Call to an undefined method Zend_Validate_Interface\\:\\:setMessage\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Fields.php
-
-		-
-			message: "#^Method Mage_Api2_Model_Response\\:\\:setMimeType\\(\\) should return \\$this\\(Mage_Api2_Model_Response\\) but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Response.php
 
 		-
 			message: "#^Parameter \\#1 \\$request \\(Mage_Api2_Model_Request\\) of method Mage_Api2_Model_Route_Abstract\\:\\:match\\(\\) should be compatible with parameter \\$path \\(string\\) of method Zend_Controller_Router_Route\\:\\:match\\(\\)$#"
@@ -5619,22 +5599,3 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between mixed and false will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
-		-
-			message: "#^Variable \\$aInfo might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$pInfo might not be defined\\.$#"
-			count: 4
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$sql might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$methodName might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Debug.php
