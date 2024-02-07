@@ -143,9 +143,6 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             try {
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
             } catch (Exception $e) {
-                if (Mage::getIsDeveloperMode()) {
-                    throw new Exception($e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine());
-                }
                 $this->_error(self::XML_INVALID);
                 return false;
             }
@@ -161,9 +158,6 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             try {
                 $this->validateTemplatePath($templatePaths);
             } catch (Exception $e) {
-                if (Mage::getIsDeveloperMode()) {
-                    throw new Exception($e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine());
-                }
                 $this->_error(self::INVALID_TEMPLATE_PATH);
                 return false;
             }

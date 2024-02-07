@@ -191,7 +191,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         } catch (Exception $e) {
             $session->addException(
                 $e,
-                Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' ' . (Mage::getIsDeveloperMode() ? $e->getMessage() . '  in ' . $e->getFile() . ' on line ' . $e->getLine() : $e->getMessage())
+                Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
+                . $e->getMessage()
             );
         }
 
