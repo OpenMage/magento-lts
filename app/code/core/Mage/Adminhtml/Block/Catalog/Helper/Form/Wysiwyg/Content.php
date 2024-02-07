@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content extends Mage_Admi
 
         $form->addField($this->getData('editor_element_id'), 'editor', [
             'name'      => 'content',
-            'style'     => 'width:725px;height:460px',
+            'style'     => 'height:460px',
             'required'  => true,
             'force_load' => true,
             'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig($config)

@@ -32,9 +32,9 @@ class Mage_Core_Model_Variable_Config
         $variableConfig = [];
         $onclickParts = [
             'search' => ['html_id'],
-            'subject' => 'MagentovariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');'
+            'subject' => 'OpenmagevariablePlugin.loadChooser(\'' . $this->getVariablesWysiwygActionUrl() . '\', \'{{html_id}}\');'
         ];
-        $variableWysiwygPlugin = [['name' => 'magentovariable',
+        $variableWysiwygPlugin = [['name' => 'openmagevariable',
             'src' => $this->getWysiwygJsPluginSrc(),
             'options' => [
                 'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
@@ -54,7 +54,7 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygJsPluginSrc()
     {
-        return Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentovariable/editor_plugin.js';
+        return Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagevariable.js';
     }
 
     /**
