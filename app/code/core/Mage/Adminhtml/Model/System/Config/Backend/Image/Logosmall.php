@@ -36,3 +36,4 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Logosmall extends Mage_Ad
         return $uploadDir;
     }
 }
+
