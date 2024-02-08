@@ -24,8 +24,8 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
-    const LOGO_DIR          = 'header/logo/';
-    const LOGO_SMALL_DIR    = 'header/logo_small/';
+    const LOGO_DIR       = 'header/logo/';
+    const LOGO_SMALL_DIR = 'header/logo_small/';
 
     public function _construct()
     {
