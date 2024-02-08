@@ -583,9 +583,9 @@ class Mage_Core_Model_Cache
                     'id'          => $type,
                     'cache_type'  => Mage::helper('core')->__((string)$node->label),
                     'description' => Mage::helper('core')->__((string)$node->description),
-                    'updated_at'  => $updatedAt,
                     'tags'        => strtoupper((string)$node->tags),
                     'status'      => (int)$this->canUse($type),
+                    'updated_at'  => $updatedAt,
                 ]);
             }
         }
