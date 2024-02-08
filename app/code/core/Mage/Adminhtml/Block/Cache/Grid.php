@@ -96,14 +96,14 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'frame_callback' => [$this, 'decorateStatus']
         ]);
 
-        $this->addColumn('refreshed_at', array(
-            'header'    => $this->__('Refreshed At'),
+        $this->addColumn('updated_at', [
+            'header'    => $this->__('Updated At'),
             'align'     => 'left',
-            'index'     => 'refreshed_at',
+            'index'     => 'updated_at',
             'type'      => 'datetime',
             'width'     => '180',
             'sortable'  => false,
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }

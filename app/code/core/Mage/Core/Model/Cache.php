@@ -574,18 +574,18 @@ class Mage_Core_Model_Cache
         $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $refreshedAt = $this->load($node->tags . "_refreshed_at");
-                if (!$refreshedAt) {
-                    $refreshedAt = '';
+                $updatedAt = $this->load($node->tags . "_updated_at");
+                if (!$updatedAt) {
+                    $updatedAt = '';
                 }
 
                 $types[$type] = new Varien_Object([
-                    'id'            => $type,
-                    'cache_type'    => Mage::helper('core')->__((string)$node->label),
-                    'description'   => Mage::helper('core')->__((string)$node->description),
-                    'refreshed_at'  => $refreshedAt,
-                    'tags'          => strtoupper((string) $node->tags),
-                    'status'        => (int)$this->canUse($type),
+                    'id'          => $type,
+                    'cache_type'  => Mage::helper('core')->__((string)$node->label),
+                    'description' => Mage::helper('core')->__((string)$node->description),
+                    'updated_at'  => $updatedAt,
+                    'tags'        => strtoupper((string)$node->tags),
+                    'status'      => (int)$this->canUse($type),
                 ]);
             }
         }
@@ -673,7 +673,7 @@ class Mage_Core_Model_Cache
         $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
         $tagsConfig = Mage::getConfig()->getNode($path);
         if ($tagsConfig) {
-            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string) $tagsConfig . "_refreshed_at");
+            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string) $tagsConfig . "_updated_at");
         }
 
         $types = $this->_getInvalidatedTypes();
