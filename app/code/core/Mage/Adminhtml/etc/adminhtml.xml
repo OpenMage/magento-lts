@@ -92,7 +92,7 @@
                             <action>adminhtml/permissions_block</action>
                         </blocks>
                         <orphaned_resources translate="title">
-                            <title>Orphaned Resources</title>
+                            <title>Orphaned Role Resources</title>
                             <action>adminhtml/permissions_orphanedResource</action>
                         </orphaned_resources>
                     </children>
@@ -150,7 +150,7 @@
                                         <title>Blocks</title>
                                     </blocks>
                                     <orphaned_resources translate="title">
-                                        <title>Orphaned Resources</title>
+                                        <title>Orphaned Role Resources</title>
                                     </orphaned_resources>
                                 </children>
                             </acl>

@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     protected function _prepareColumns()
     {
         $this->addColumn('resource_id', [
-            'header' => Mage::helper('adminhtml')->__('Orphaned Resource'),
+            'header' => Mage::helper('adminhtml')->__('Orphaned Role Resource'),
             'index' => 'resource_id'
         ]);
 

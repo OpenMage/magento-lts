@@ -112,7 +112,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
         if ($validIds !== []) {
             throw new Mage_Core_Exception(
                 Mage::helper('adminhtml')->__(
-                    'The following resource(s) are not orphaned: %s',
+                    'The following role resource(s) are not orphaned: %s',
                     implode(', ', $validIds)
                 )
             );

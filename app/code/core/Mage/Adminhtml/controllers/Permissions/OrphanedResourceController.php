@@ -38,7 +38,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
             ->_setActiveMenu('system/acl')
             ->_addBreadcrumb($this->__('System'), $this->__('System'))
             ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Orphaned Resources'), $this->__('Orphaned Resources'));
+            ->_addBreadcrumb($this->__('Orphaned Resources'), $this->__('Orphaned Role Resources'));
         return $this;
     }
 
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     {
         $this->_title($this->__('System'))
             ->_title($this->__('Permissions'))
-            ->_title($this->__('Orphaned Resources'));
+            ->_title($this->__('Orphaned Role Resources'));
 
         /** @var Mage_Adminhtml_Block_Permissions_OrphanedResource $block */
         $block = $this->getLayout()->createBlock('adminhtml/permissions_orphanedResource');
