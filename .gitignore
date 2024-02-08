@@ -48,8 +48,6 @@
 !/media/customer/.htaccess
 !/media/dhl/logo.jpg
 !/media/downloadable/.htaccess
-!/media/header/logo/images/logo.gif
-!/media/header/logo_small/images/logo.gif
 
 /var/*
 !/var/.htaccess
