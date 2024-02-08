@@ -21,7 +21,7 @@ It is also available at https://opensource.org/license/afl-3-0-php
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Image_Logosmall extends Mage_Adminhtml_Model_System_Config_Backend_Image_Logo
 {
-    const UPLOAD_DIR                = 'header/logo_small';
+    const UPLOAD_DIR = 'header/logo_small';
 
     /**
      * Return path to directory for upload file
