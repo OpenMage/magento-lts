@@ -574,10 +574,7 @@ class Mage_Core_Model_Cache
         $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $updatedAt = $this->load($node->tags . "_updated_at");
-                if (!$updatedAt) {
-                    $updatedAt = '';
-                }
+                $updatedAt = (string)$this->load($node->tags . "_updated_at");
 
                 $types[$type] = new Varien_Object([
                     'id'          => $type,
