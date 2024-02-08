@@ -14,13 +14,6 @@ declare(strict_types=1);
  * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-/**
- * Class Mage_Adminhtml_Permissions_OrphanedResourceController
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- */
 class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminhtml_Controller_Action
 {
     /**
