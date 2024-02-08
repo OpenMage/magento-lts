@@ -670,7 +670,7 @@ class Mage_Core_Model_Cache
         $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
         $tagsConfig = Mage::getConfig()->getNode($path);
         if ($tagsConfig) {
-            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string)$tagsConfig . "_updated_at");
+            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string)$tagsConfig . '_updated_at');
         }
 
         $types = $this->_getInvalidatedTypes();
