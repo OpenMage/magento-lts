@@ -366,15 +366,17 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
-            foreach ($shippingAddress as $value) {
-                if ($value !== '') {
-                    $text = [];
-                    foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                        $text[] = $_value;
-                    }
-                    foreach ($text as $part) {
-                        $page->drawText(strip_tags(ltrim($part)), 285, $this->y, 'UTF-8');
-                        $this->y -= 15;
+            if (isset($shippingAddress) and is_iterable($shippingAddress)) {
+                foreach ($shippingAddress as $value) {
+                    if ($value !== '') {
+                        $text = [];
+                        foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
+                            $text[] = $_value;
+                        }
+                        foreach ($text as $part) {
+                            $page->drawText(strip_tags(ltrim($part)), 285, $this->y, 'UTF-8');
+                            $this->y -= 15;
+                        }
                     }
                 }
             }
