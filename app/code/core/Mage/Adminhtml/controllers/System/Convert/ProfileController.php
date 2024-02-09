@@ -102,34 +102,25 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         );
     }
 
-    /**
-     * Profile edit action
-     */
     public function editAction()
     {
         $this->_initProfile();
         $this->loadLayout();
 
+        // Set entered data if was error when we do save
         $profile = Mage::registry('current_convert_profile');
-
-        // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getConvertProfileData(true);
-
-        if (!empty($data)) {
+        if (!empty($data) && is_object($profile)) {
             $profile->addData($data);
         }
 
         $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
-
         $this->_setActiveMenu('system/convert');
-
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit')
         );
 
-        /**
-         * Append edit tabs to left block
-         */
+        // Append edit tabs to left block
         $this->_addLeft($this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tabs'));
 
         $this->renderLayout();
