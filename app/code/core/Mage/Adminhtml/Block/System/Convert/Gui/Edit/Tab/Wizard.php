@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
         $value = $this->getData($key);
         if ($value === null) {
-            return '';
+            return $default;
         }
 
         return $this->escapeHtml(strlen($value) > 0 ? $value : $default);
