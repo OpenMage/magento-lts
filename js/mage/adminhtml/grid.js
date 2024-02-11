@@ -273,7 +273,7 @@ varienGrid.prototype = {
         }
         if (!this.doFilterCallback || (this.doFilterCallback && this.doFilterCallback())) {
             this.addVarToUrl(this.pageVar, 1);
-            this.reload(this.addVarToUrl(this.filterVar, encode_base64(Form.serializeElements(elements))));
+            this.reload(this.addVarToUrl(this.filterVar, btoa(Form.serializeElements(elements))));
         }
     },
     resetFilter : function(){
@@ -903,7 +903,7 @@ serializerController.prototype = {
         if(this.multidimensionalMode){
             var clone = this.gridData.clone();
             clone.each(function(pair) {
-                clone.set(pair.key, encode_base64(Object.toQueryString(pair.value)));
+                clone.set(pair.key, btoa(Object.toQueryString(pair.value)));
             });
             return clone.toQueryString();
         }
