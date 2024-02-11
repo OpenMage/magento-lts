@@ -432,7 +432,14 @@ class Mage_Core_Model_Cache
      */
     public function flush()
     {
-        return $this->getFrontend()->clean();
+        $return = $this->getFrontend()->clean();
+        if ($return) {
+            foreach ($this->getTypes() as $typeCode => $type) {
+                $this->saveUpdateAt($typeCode);
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -665,16 +672,21 @@ class Mage_Core_Model_Cache
         $tags = $this->getTagsByType($typeCode);
         $this->clean($tags);
 
-        $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
-        $tagsConfig = Mage::getConfig()->getNode($path);
-        if ($tagsConfig) {
-            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string)$tagsConfig . '_updated_at');
-        }
+        $this->saveUpdateAt($typeCode);
 
         $types = $this->_getInvalidatedTypes();
         unset($types[$typeCode]);
         $this->_saveInvalidatedTypes($types);
         return $this;
+    }
+
+    public function saveUpdateAt($typeCode)
+    {
+        $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
+        $tagsConfig = Mage::getConfig()->getNode($path);
+        if ($tagsConfig) {
+            $this->save(Mage::getSingleton('core/date')->gmtDate(), (string)$tagsConfig . '_updated_at');
+        }
     }
 
     /**
