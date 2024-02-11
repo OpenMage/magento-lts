@@ -19,8 +19,9 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Helper_EnvironmentLoader extends Mage_Core_Helper_Abstract
+class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Core';
     protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
     protected const ENV_KEY_SEPARATOR = '__';
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
@@ -52,41 +53,56 @@ class Mage_Core_Helper_EnvironmentLoader extends Mage_Core_Helper_Abstract
      */
     public function overrideEnvironment(Mage_Core_Model_Config $xmlConfig)
     {
-        // override from env
         $env = getenv();
+
         foreach ($env as $configKey => $value) {
             if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
                 continue;
             }
-            $configKey = str_replace(static::ENV_STARTS_WITH, '', $configKey);
-            list($_, $scope) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
+
+            $configKeyParts = array_filter(explode(static::ENV_KEY_SEPARATOR, str_replace(static::ENV_STARTS_WITH, '', $configKey)), 'trim');
+            list($_, $scope) = $configKeyParts;
+
             switch ($scope) {
                 case static::CONFIG_KEY_DEFAULT:
-                    list($_, $_, $section, $group, $field) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
-                    $path = implode('/', [$section, $group, $field]);
-                    $path = strtolower($path);
-                    $scope = strtolower($scope);
-
-                    $xmlConfig->setNode($scope . '/' . $path, $value);
+                    list($_, $_, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
                     break;
+
                 case static::CONFIG_KEY_WEBSITES:
-                    list($_, $_, $websiteCode, $section, $group, $field) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
-                    $path = implode('/', [$section, $group, $field]);
-                    $path = strtolower($path);
-                    $websiteCode = strtolower($websiteCode);
-
-                    $nodePath = sprintf('websites/%s/%s', $websiteCode, $path);
-                    $xmlConfig->setNode($nodePath, $value);
-                    break;
                 case static::CONFIG_KEY_STORES:
-                    list($_, $_, $storeCode, $section, $group, $field) = array_filter(explode(static::ENV_KEY_SEPARATOR, $configKey), 'trim');
-                    $path = implode('/', [$section, $group, $field]);
-                    $path = strtolower($path);
-                    $storeCode = strtolower($storeCode);
-                    $nodePath = sprintf('stores/%s/%s', $storeCode, $path);
+                    list($_, $_, $code, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
                     $xmlConfig->setNode($nodePath, $value);
                     break;
             }
         }
+    }
+
+    /**
+     * Build configuration path.
+     *
+     * @param string $section
+     * @param string $group
+     * @param string $field
+     * @return string
+     */
+    public function buildPath($section, $group, $field): string
+    {
+        return strtolower(implode('/', [$section, $group, $field]));
+    }
+
+    /**
+     * Build configuration node path.
+     *
+     * @param string $scope
+     * @param string $path
+     * @return string
+     */
+    public function buildNodePath($scope, $path): string
+    {
+        return strtolower($scope) . '/' . $path;
     }
 }
