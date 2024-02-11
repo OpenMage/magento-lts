@@ -432,7 +432,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
             Varien_Profiler::start('config/load-env');
-            Mage::helper('core/environmentLoader')->overrideEnvironment($this);
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $environmentConfigLoaderHelper->overrideEnvironment($this);
             Varien_Profiler::stop('config/load-env');
         }
         return $this;
