@@ -671,7 +671,6 @@ class Mage_Core_Model_Cache
     {
         $tags = $this->getTagsByType($typeCode);
         $this->clean($tags);
-
         $this->saveUpdateAt($typeCode);
 
         $types = $this->_getInvalidatedTypes();
