@@ -68,6 +68,9 @@ else
   INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
 fi
 
+echo "Clearing var/cache..."
+rm -rf "${ROOT}/var/cache/"*
+
 if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
   SAMPLE_DATA_DIRECTORY="${ROOT}/.ddev/.sampleData"
@@ -90,9 +93,6 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   echo "Copying Sample Data into the OpenMage directory..."
   cp -r magento-sample-data-1.9.2.4/media/* "${ROOT}/media/"
   cp -r magento-sample-data-1.9.2.4/skin/* "${ROOT}/skin/"
-
-  echo "Clearing var/cache..."
-  rm -rf "${ROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
   mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
