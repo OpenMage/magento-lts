@@ -680,7 +680,11 @@ class Mage_Core_Model_Cache
         return $this;
     }
 
-    public function saveUpdateAt($typeCode)
+    /**
+     * @param string $typeCode
+     * @return void
+     */
+    public function saveUpdateAt($typeCode): void
     {
         $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
         $tagsConfig = Mage::getConfig()->getNode($path);
