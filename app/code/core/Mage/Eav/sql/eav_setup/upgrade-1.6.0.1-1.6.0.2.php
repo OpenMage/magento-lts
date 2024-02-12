@@ -46,7 +46,7 @@ $table = $installer->getConnection()
         ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
     )
     ->addForeignKey(
-        $installer->getFkName('eav/attribute_option_value', 'option_id', 'eav/attribute_option', 'option_id'),
+        $installer->getFkName('eav/attribute_option_swatch', 'option_id', 'eav/attribute_option', 'option_id'),
         'option_id',
         $installer->getTable('eav/attribute_option'),
         'option_id',
