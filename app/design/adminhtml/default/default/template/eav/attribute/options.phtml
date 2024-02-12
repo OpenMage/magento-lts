@@ -81,7 +81,8 @@
                     <tr class="no-display template" id="row-template">    
                         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
                         <td>
-                            <input type="color" class="input-color-html5 validate-hex-color-hash" name="option[swatch][{{id}}]" value="{{swatch}}" />                            
+                            <input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />
+                            <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />                            
                         </td>
                         <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
@@ -110,7 +111,8 @@ var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
             '<td>'+
-                '<input type="color" class="input-color-html5 validate-hex-color-hash" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
+                '<input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
+                '<input type="color" class="swatch-option input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />'+
             '</td>'+
         <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
@@ -143,11 +145,16 @@ var attributeOption = {
         }
         if (!data.intype)
             data.intype = optionDefaultInputType;
+
+        if (!data.swatch)
+            data.swatch_class = 'swatch-disabled';
+        
         Element.insert(this.table, {after: this.template.evaluate(data)});
         if (isNewOption && !this.isReadOnly) {
             this.enableNewOptionDeleteButton(data.id);
         }
         this.bindRemoveButtons();
+        this.bindSwatchButtons();
         this.itemCount++;
         this.totalItems++;
         this.updateItemsCountField();
@@ -179,6 +186,27 @@ var attributeOption = {
             this.updateItemsCountField();
         }
     },
+    swatch : function(event){
+        var element = $(Event.findElement(event, 'tr')); // !!! Button already
+                                                               // have table parent in safari
+        // Safari workaround
+        element.ancestors().each(function(parentItem){
+           if (parentItem.hasClassName('option-row')) {
+               element = parentItem;
+               throw $break;
+           } else if (parentItem.hasClassName('box')) {
+               throw $break;
+           }
+        });
+
+
+        if(element){
+            var elementSwatchValue = element.getElementsByClassName('swatch-value')[0];
+            elementSwatchValue.disabled = false;
+            elementSwatchValue.value = event.target.value;
+            event.target.classList.remove('swatch-disabled');
+        }
+    },
     updateItemsCountField: function() {
         if (this.totalItems > 0) {
             $('option-count-check').value = '1';
@@ -198,6 +226,15 @@ var attributeOption = {
             if(!$(buttons[i]).binded){
                 $(buttons[i]).binded = true;
                 Event.observe(buttons[i], 'click', this.remove.bind(this));
+            }
+        }
+    },
+    bindSwatchButtons : function(){
+        var buttons = $$('.swatch-option');
+        for(var i=0;i<buttons.length;i++){
+            if(!$(buttons[i]).binded){
+                $(buttons[i]).binded = true;
+                Event.observe(buttons[i], 'change', this.swatch.bind(this));
             }
         }
     }
