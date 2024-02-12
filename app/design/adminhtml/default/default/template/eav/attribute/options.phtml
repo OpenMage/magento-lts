@@ -81,7 +81,7 @@
                     <tr class="no-display template" id="row-template">    
                         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
                         <td>
-                            <input type="color" class="input-text" name="option[swatch][{{id}}]" value="{{swatch}}" />                            
+                            <input type="color" class="input-color-html5 validate-hex-color-hash" name="option[swatch][{{id}}]" value="{{swatch}}" />                            
                         </td>
                         <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
@@ -110,7 +110,7 @@ var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
             '<td>'+
-                '<input type="color" class="input-text" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
+                '<input type="color" class="input-color-html5 validate-hex-color-hash" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
             '</td>'+
         <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
