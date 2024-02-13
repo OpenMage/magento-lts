@@ -210,6 +210,7 @@
 | custom_quote_process | 1.9.4.5 |
 | customer_address_format | 1.9.4.5 |
 | customer_address_validation_after | 1.9.4.5 |
+| customer_controller_account_login_post_redirect_before | 20.4.0 |
 | customer_customer_authenticated | 1.9.4.5 |
 | customer_login | 1.9.4.5 |
 | customer_logout | 1.9.4.5 |

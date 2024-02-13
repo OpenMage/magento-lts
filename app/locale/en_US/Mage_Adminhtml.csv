@@ -1247,6 +1247,7 @@
 "Wrong newsletter template.","Wrong newsletter template."
 "Wrong quote item.","Wrong quote item."
 "Wrong tab configuration.","Wrong tab configuration."
+"Wrong tab configuration for %s %s.","Wrong tab configuration for %s %s."
 "Wrong tag was specified.","Wrong tag was specified."
 "Wrong transaction ID specified.","Wrong transaction ID specified."
 "XML","XML"
