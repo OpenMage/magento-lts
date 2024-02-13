@@ -502,7 +502,10 @@ class Mage_Core_Model_Cache
         $this->remove(self::OPTIONS_CACHE_ID);
         $this->_getResource()->saveAllOptions($options);
         foreach ($options as $typeCode => $enabled) {
-            $this->saveUpdatedAt($typeCode, (bool)$enabled);
+            if ($enabled && !$this->_allowedCacheOptions[$typeCode]) {
+                // save the updated_at only if we're enabling a previously disabled cache
+                $this->saveUpdatedAt($typeCode);
+            }
         }
         return $this;
     }
@@ -590,7 +593,7 @@ class Mage_Core_Model_Cache
                     'description' => Mage::helper('core')->__((string)$node->description),
                     'tags'        => strtoupper((string)$node->tags),
                     'status'      => (int)$this->canUse($type),
-                    'updated_at'  => (string)$this->load($node->tags . '_updated_at'),
+                    'updated_at'  => $this->_allowedCacheOptions[$type] ? (string)$this->load($node->tags . '_updated_at') : '',
                 ]);
             }
         }
@@ -684,19 +687,11 @@ class Mage_Core_Model_Cache
 
     /**
      * @param string $typeCode
-     * @param bool|null $isCacheEnabled
      * @return void
      */
-    public function saveUpdatedAt($typeCode, $isCacheEnabled = null): void
+    public function saveUpdatedAt($typeCode): void
     {
         if (!array_key_exists($typeCode, $this->_allowedCacheOptions)) {
-            return;
-        }
-
-        if ($isCacheEnabled === null) {
-            $isCacheEnabled = $this->_allowedCacheOptions[$typeCode];
-        } elseif ($isCacheEnabled == $this->_allowedCacheOptions[$typeCode]) {
-            // if this cache was already enabled or already disabled, don't save updatedAt
             return;
         }
 
@@ -707,11 +702,7 @@ class Mage_Core_Model_Cache
         }
 
         $cacheId = (string)$tagsConfig . '_updated_at';
-        if ($isCacheEnabled) {
-            $this->save(Mage::getSingleton('core/date')->gmtDate(), $cacheId);
-        } else {
-            $this->remove($cacheId);
-        }
+        $this->save(Mage::getSingleton('core/date')->gmtDate(), $cacheId);
     }
 
     /**
