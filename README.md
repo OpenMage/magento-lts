@@ -341,6 +341,23 @@ grep -rn 'urn:Magento' --include \*.xml
   ddev launch
   ``` 
 
+## PhpStorm FileWatcher to work with SCSS files
+
+- install SCSS
+  ```bash
+  npm install -g sass
+  ```
+- open settings `CTRL+ALT+S` and go to File Watcher
+- change default setting to:
+  - Arguments: 
+  ```
+  $FileName$:$FileParentDir$/$FileNameWithoutExtension$.css
+  ```
+  - Output paths to refresh:
+  ```
+  $FileParentDir$/$FileNameWithoutExtension$.css:$FileParentDir$/$FileNameWithoutExtension$.css.map
+  ```
+
 ## PhpStorm Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
