@@ -210,4 +210,4 @@ User Name: db
 User Password: db
 ```
 
-![installation](https://github.com/ADDISON74/openmage/assets/8360474/cb6a0472-7740-4e2b-bce8-fb699ca2710c)
+![installation](https://github.com/OpenMage/magento-lts/assets/909743/7b31ccf2-f13f-43ce-b065-c0328b2a649b)
