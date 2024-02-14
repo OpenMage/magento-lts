@@ -186,6 +186,15 @@ Run the following commands in the terminal window.
 
 `ddev clean --dry-run -all`, `ddev clean`
 
+## Using mkcert (https://github.com/FiloSottile/mkcert)
+
+mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution. For example,
+
+```
+From: /
+To: /
+```
+
 ## Installing OpenMage in the browser
 
 If you want to install OpenMage in the browser rename or delete the `/app/etc/local.xml` file.
