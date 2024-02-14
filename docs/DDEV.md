@@ -2,17 +2,19 @@
 
 ## phpMyAdmin
 
-Run in the terminal window this command `ddev get ddev/ddev-phpmyadmin` then restart DDEV. To launch phpMyAdmin in the browser run this command in the terminal window `ddev phpmyadmin`.
+Run in the terminal window `ddev get ddev/ddev-phpmyadmin` to install the phpMyAdmin add-on then restart DDEV. 
+
+To launch phpMyAdmin in the browser run in the terminal window `ddev phpmyadmin`.
 
 ## Mailpit
 
-To launch Mailpit in the browser run this command in the terminal window `ddev mailpit`.
+To launch Mailpit in the browser run in the terminal window `ddev mailpit`.
 
 ## Setting up cronjobs
 
-It is mandatory to run first in the terminal window this command `ddev get ddev/ddev-cron`. 
+Run in the terminal window `ddev get ddev/ddev-cron` to install the cron add-on then restart DDEV. 
 
-By default the OpenMage cronjob is running every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
+By default the OpenMage cronjob runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
 
 You can set the OpenMage cronjob using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
 
@@ -35,7 +37,9 @@ web_environment: [
 
 ## Using Xdebug with PhpStorm
 
-Run in the terminal window the following commands to enable or disable xDebug 
+Every DDEV project is automatically configured with Xdebug so that popular IDEs can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/.
+
+Run the following commands in the terminal window to enable or disable xDebug 
 
 `ddev xdebug on`
 
@@ -49,7 +53,7 @@ xdebug.mode=debug
 xdebug.start_with_request=trigger
 ```
 
-## Accessing the Database in PhpStorm
+## Accessing the database in PhpStorm
 
 Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
@@ -83,9 +87,9 @@ RUN gem install compass
 
 For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
 
-## Creating a custom DDEV command
+## Creating a DDEV command
 
-Create a new file named `.ddev/commands/web/phpstan` and insert the following lines
+Create a new file named `phpstan` in the `.ddev/commands/web` directory and insert the following lines
 
 ```
 #!/bin/bash
@@ -97,13 +101,11 @@ Create a new file named `.ddev/commands/web/phpstan` and insert the following li
 php vendor/bin/phpstan analyze -c .github/phpstan.neon "$@"
 ```
 
-Run the custom command in the terminal window `ddev phpstan`.
+Run in the terminal window `ddev phpstan`.
 
-## OpenMage Custom DDEV commands
+## OpenMage DDEV commands
 
-**If you want to install the `Magento Sample Data` run in the terminal window this command and follow the steps**
-
-`ddev openmage-install`
+**1. If you want to install the `Magento Sample Data` run in the terminal window `ddev openmage-install` and follow the steps.**
 
 You can use flags, for example `ddev openmage-install -d -s -k -q`
 
@@ -114,13 +116,11 @@ You can use flags, for example `ddev openmage-install -d -s -k -q`
 -q (quiet mode)
 ```
 
-**By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window this command and follow the steps**
+**2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
 
-`ddev openmage-admin`
+## Useful DDEV commands (https://ddev.readthedocs.io/en/latest/users/usage/commands)
 
-## Useful DDEV Commands (https://ddev.readthedocs.io/en/latest/users/usage/commands)
-
-Run the following commands in the terminal window.
+Run in the terminal window any of the following commands for different tasks.
 
 **Create or modify a DDEV project's configuration in the current directory**
 
@@ -150,7 +150,7 @@ Run the following commands in the terminal window.
 
 `ddev npm install`, `ddev npm update`
 
-**Enable or disable XDebug**
+**Enable or disable Xdebug**
 
 `ddev xdebug on`, `ddev xdebug off`, `ddev xdebug status`
 
@@ -186,13 +186,15 @@ Run the following commands in the terminal window.
 
 `ddev clean --dry-run -all`, `ddev clean`
 
-## Using mkcert (https://github.com/FiloSottile/mkcert)
+## Using mkcert for secured connections (https://github.com/FiloSottile/mkcert)
 
-mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution. For example,
+mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution. 
+
+For example, copy `rootCA.pem` and `rootCA-key.pem`
 
 ```
-From: /
-To: /
+From: C:\Users\<User Name>\AppData\Local\mkcert
+To: /home/<user_name>/.local/share/mkcert
 ```
 
 ## Installing OpenMage in the browser
