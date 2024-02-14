@@ -57,6 +57,16 @@ Please note that DDEV changes the port numbers on every restart. If you want to 
 host_db_port: 6000
 ```
 
+## Using Browsersync (https://github.com/ddev/ddev-browsersync)
+
+Browsersync features live reloads, click mirroring, network throttling. Run the following commands in the terminal window
+
+```
+ddev get ddev/ddev-browsersync
+ddev restart
+ddev browsersync
+```
+
 ## Installing Compass (http://compass-style.org/)
 
 Compass is required for editing SCSS files.
