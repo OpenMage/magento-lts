@@ -125,7 +125,7 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function display()
     {
