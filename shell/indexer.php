@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Shell
+ * @category   Mage
+ * @package    Mage_Shell
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,9 +18,8 @@ require_once 'abstract.php';
 /**
  * Magento Indexer Shell Script
  *
- * @category    Mage
- * @package     Mage_Shell
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Shell
  */
 class Mage_Shell_Indexer extends Mage_Shell_Abstract
 {
@@ -167,7 +160,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                         $resultTime = microtime(true) - $startTime;
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
-                            . " index was rebuilt successfully in " . gmdate('H:i:s', $resultTime) . "\n";
+                            . " index was rebuilt successfully in " . gmdate('H:i:s', ceil($resultTime)) . "\n";
                     } catch (Mage_Core_Exception $e) {
                         echo $e->getMessage() . "\n";
                     } catch (Exception $e) {

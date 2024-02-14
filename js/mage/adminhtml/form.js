@@ -1,20 +1,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
@@ -502,7 +496,12 @@ FormElementDependenceController.prototype = {
         }
         return result;
     },
-
+    hideElem : function(ele) {
+        ele.hide();
+    },
+    showElem : function(ele) {
+        ele.show();
+    },
     /**
      * Define whether target element should be toggled and show/hide its row
      *
@@ -513,8 +512,16 @@ FormElementDependenceController.prototype = {
      */
     trackChange : function(e, idTo, valuesFrom)
     {
+        let upLevels = this._config.levels_up;
+        let ele;
         if (!$(idTo)) {
-            return;
+            idTo = 'row_' + idTo;
+            ele = $(idTo);
+            if (!ele) {
+                return;
+            }
+        } else {
+            ele = $(idTo).up(upLevels);
         }
 
         // define whether the target should show up
@@ -542,22 +549,22 @@ FormElementDependenceController.prototype = {
         // toggle target row
         if (shouldShowUp) {
             var currentConfig = this._config;
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
+            ele.select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
                     && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
                     item.disabled = false;
                 }
             });
-            $(idTo).up(this._config.levels_up).show();
+            this.showElem(ele);
         } else {
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
+            ele.select('input', 'select', 'td', 'div').each(function (item){
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
                     item.disabled = true;
                 }
             });
-            $(idTo).up(this._config.levels_up).hide();
+            this.hideElem(ele);
         }
     }
 };

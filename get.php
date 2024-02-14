@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage
+ * @category   Mage
+ * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +28,7 @@ require $bp . '/app/bootstrap.php';
 /**
  * Set include path
  */
-
+$paths = [];
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'local';
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'community';
 $paths[] = $bp . $ds . 'app' . $ds . 'code' . $ds . 'core';
@@ -42,16 +36,24 @@ $paths[] = $bp . $ds . 'lib';
 
 $appPath = implode($ps, $paths);
 set_include_path($appPath . $ps . get_include_path());
-
 include_once 'Mage/Core/functions.php';
 include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = $bp . $ds . 'vendor';
+    }
+}
+require $autoloaderPath . $ds . 'autoload.php';
+/** AUTOLOADER PATCH **/
+
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
-
 $configCacheFile = $varDirectory . $ds . 'resource_config.json';
-
 $mediaDirectory = null;
 $allowedResources = [];
 
@@ -66,10 +68,9 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
 }
 
 $request = new Zend_Controller_Request_Http();
-
 $pathInfo = str_replace('..', '', ltrim($request->getPathInfo(), '/'));
-
 $filePath = str_replace('/', $ds, rtrim($bp, $ds) . $ds . $pathInfo);
+$relativeFilename = '';
 
 if ($mediaDirectory) {
     if (0 !== stripos($pathInfo, $mediaDirectory . '/') || is_dir($filePath)) {
@@ -82,7 +83,6 @@ if ($mediaDirectory) {
 }
 
 $mageFilename = 'app/Mage.php';
-
 if (!file_exists($mageFilename)) {
     echo $mageFilename . ' was not found';
 }

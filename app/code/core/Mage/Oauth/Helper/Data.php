@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /**
      * Endpoint types with appropriate routes
      */
     public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
@@ -37,19 +30,16 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
     public const ENDPOINT_INITIATE                  = 'oauth/initiate';
     public const ENDPOINT_TOKEN                     = 'oauth/token';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Cleanup xpath config settings
      */
     public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
     public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
-    /**#@-*/
 
-    /**#@+ Email template */
+    /** Email template */
     public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
     public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
-    /**#@-*/
 
     /**
      * Cleanup expiration period in minutes
@@ -207,7 +197,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public function isCleanupProbability()
     {
         // Safe get cleanup probability value from system configuration
-        $configValue = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_PROBABILITY);
+        $configValue = Mage::getStoreConfigAsInt(self::XML_PATH_CLEANUP_PROBABILITY);
         return $configValue > 0 ? mt_rand(1, $configValue) == 1 : false;
     }
 
@@ -218,7 +208,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCleanupExpirationPeriod()
     {
-        $minutes = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_EXPIRATION_PERIOD);
+        $minutes = Mage::getStoreConfigAsInt(self::XML_PATH_CLEANUP_EXPIRATION_PERIOD);
         return $minutes > 0 ? $minutes : self::CLEANUP_EXPIRATION_PERIOD_DEFAULT;
     }
 

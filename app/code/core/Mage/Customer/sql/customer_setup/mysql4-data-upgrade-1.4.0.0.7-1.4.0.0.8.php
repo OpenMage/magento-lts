@@ -2,15 +2,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Customer
@@ -175,7 +169,10 @@ $attributes = [
 foreach ($attributes as $attributeCode => $data) {
     /** @var Mage_Customer_Model_Attribute $attribute */
     $attribute = $eavConfig->getAttribute('customer', $attributeCode);
-    $attribute->setWebsite($store->getWebsite());
+    $website = $store->getWebsite();
+    if ($website !== false) {
+        $attribute->setWebsite($website);
+    }
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -332,7 +329,10 @@ $attributes = [
 
 foreach ($attributes as $attributeCode => $data) {
     $attribute = $eavConfig->getAttribute('customer_address', $attributeCode);
-    $attribute->setWebsite($store->getWebsite());
+    $website = $store->getWebsite();
+    if ($website !== false) {
+        $attribute->setWebsite($website);
+    }
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [

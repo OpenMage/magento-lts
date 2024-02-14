@@ -3,15 +3,9 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Api
@@ -23,7 +17,7 @@
 <config>
     <modules>
         <Mage_Api>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_Api>
     </modules>
     <global>
@@ -117,6 +111,18 @@
             </modules>
         </translate>
     </adminhtml>
+    <crontab>
+        <jobs>
+            <api_session_cleanup>
+                <schedule>
+                    <cron_expr>0 35 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>api/cron::cleanOldSessions</model>
+                </run>
+            </api_session_cleanup>
+        </jobs>
+    </crontab>
     <default>
         <api>
             <config>

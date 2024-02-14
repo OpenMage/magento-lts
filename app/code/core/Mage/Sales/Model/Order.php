@@ -2,20 +2,14 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +25,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
@@ -1366,6 +1359,29 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Get the current customer email.
+     *
+     * @return string
+     */
+    public function getCurrentCustomerEmail()
+    {
+        if (!$this->getData('current_customer_email')) {
+            if ($this->getCustomer()) {
+                $email = $this->getCustomer()->getEmail();
+            } elseif ($this->getCustomerId()) {
+                $email = Mage::getResourceSingleton('customer/customer')->getEmail($this->getCustomerId());
+            }
+            // Guest checkout or customer was deleted.
+            if (empty($email)) {
+                $email = $this->getCustomerEmail();
+            }
+            $this->setData('current_customer_email', $email);
+        }
+
+        return $this->getData('current_customer_email');
+    }
+
+    /**
      * Queue email with new order data
      *
      * @param bool $forceMode if true then email will be sent regardless of the fact that it was already sent previously
@@ -1424,7 +1440,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         /** @var Mage_Core_Model_Email_Info $emailInfo */
         $emailInfo = Mage::getModel('core/email_info');
-        $emailInfo->addTo($this->getCustomerEmail(), $customerName);
+        $emailInfo->addTo($this->getCurrentCustomerEmail(), $customerName);
         if ($copyTo && $copyMethod == 'bcc') {
             // Add bcc to customer email
             foreach ($copyTo as $email) {
@@ -1516,7 +1532,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             /** @var Mage_Core_Model_Email_Info $emailInfo */
             $emailInfo = Mage::getModel('core/email_info');
-            $emailInfo->addTo($this->getCustomerEmail(), $customerName);
+            $emailInfo->addTo($this->getCurrentCustomerEmail(), $customerName);
             if ($copyTo && $copyMethod == 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
@@ -2356,7 +2372,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         if (!$this->getId()) {
-            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+            $this->setData('protect_code', Mage::helper('core')->getRandomString(16));
         }
 
         if ($this->getStatus() !== $this->getOrigData('status')) {
