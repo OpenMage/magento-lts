@@ -56,9 +56,6 @@
 # composer
 /vendor
 
-# ddev
-.ddev/config.yaml
-
 # scss-cache
 /skin/*/*/*/scss/.sass-cache
 
@@ -81,3 +78,7 @@ phpstan*.neon
 # dev scripts loaded via composer
 /shell/update-copyright.php
 /shell/translations.php
+
+# DDEV
+.ddev/config.yaml
+.ddev/.sampleData

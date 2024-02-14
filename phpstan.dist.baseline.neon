@@ -16,11 +16,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Config.php
 
 		-
-			message: "#^Call to an undefined method Zend_Controller_Request_Http\\:\\:setRouteName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Observer.php
-
-		-
 			message: "#^Cannot call method getClassName\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Resource/Acl.php
@@ -44,11 +39,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Rules\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Rules.php
-
-		-
-			message: "#^Call to an undefined method Zend_Controller_Response_Abstract\\:\\:sendHeadersAndExit\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Session.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -646,11 +636,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:getShippingItemsGridAction\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
@@ -919,11 +904,6 @@ parameters:
 			message: "#^Call to an undefined method Zend_Validate_Interface\\:\\:setMessage\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Fields.php
-
-		-
-			message: "#^Method Mage_Api2_Model_Response\\:\\:setMimeType\\(\\) should return \\$this\\(Mage_Api2_Model_Response\\) but returns Zend_Controller_Response_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Response.php
 
 		-
 			message: "#^Parameter \\#1 \\$request \\(Mage_Api2_Model_Request\\) of method Mage_Api2_Model_Route_Abstract\\:\\:match\\(\\) should be compatible with parameter \\$path \\(string\\) of method Zend_Controller_Router_Route\\:\\:match\\(\\)$#"
@@ -1207,11 +1187,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Catalog_Block_Navigation\\:\\:\\$_currentCategoryKey \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
-			message: "#^Variable \\$htmlChildren in empty\\(\\) always exists and is always falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
@@ -2219,11 +2194,6 @@ parameters:
 			message: "#^Property Mage_Checkout_Model_Type_Onepage\\:\\:\\$_quote \\(Mage_Sales_Model_Quote\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			message: "#^Comparison operation \"\\=\\=\" between 0\\|0\\.0\\|array\\|string\\|false\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
@@ -3751,26 +3721,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
 
 		-
-			message: "#^Method Mage_Install_IndexController\\:\\:preDispatch\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Install_WizardController\\:\\:preDispatch\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
 			message: "#^Method Mage_Log_Model_Aggregation\\:\\:_date\\(\\) never returns false so it can be removed from the return type\\.$#"
 			count: 1
 			path: app/code/core/Mage/Log/Model/Aggregation.php
@@ -4192,11 +4142,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type Mage_Reports_Model_Report supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: "#^Loose comparison using \\!\\= between 0 and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
@@ -5619,22 +5564,3 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between mixed and false will always evaluate to false\\.$#"
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
-		-
-			message: "#^Variable \\$aInfo might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$pInfo might not be defined\\.$#"
-			count: 4
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$sql might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Db/Tree.php
-
-		-
-			message: "#^Variable \\$methodName might not be defined\\.$#"
-			count: 2
-			path: lib/Varien/Debug.php

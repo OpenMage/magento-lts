@@ -316,6 +316,9 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     public function renderRowValue(Varien_Object $row)
     {
         $value = $row->getValue();
+        if ($value === null) {
+            return '';
+        }
         if (is_array($value)) {
             $value = implode("\n", $value);
         }

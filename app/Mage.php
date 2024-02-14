@@ -215,7 +215,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '3',
+                'minor'     => '4',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -409,6 +409,26 @@ final class Mage
     public static function getStoreConfig($path, $store = null)
     {
         return self::app()->getStore($store)->getConfig($path);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return float
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
     }
 
     /**

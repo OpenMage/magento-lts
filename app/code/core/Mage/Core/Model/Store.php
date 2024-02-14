@@ -364,7 +364,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function initConfigCache()
     {
         /**
-         * Funtionality related with config separation
+         * Functionality related with config separation
          */
         if ($this->_configCache === null) {
             $code = $this->getCode();
