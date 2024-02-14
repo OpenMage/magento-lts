@@ -1,38 +1,12 @@
 # OpenMage Environment Based on DDEV (https://ddev.com/)
 
-## Enabling the Developer Mode
+## phpMyAdmin
 
-Set environment variables editing the file `.ddev/config.yaml`. If you want to enable the Developer Mode insert the following lines
+Run in the terminal window this command `ddev get ddev/ddev-phpmyadmin` then restart DDEV. To launch phpMyAdmin in the browser run this command in the terminal window `ddev phpmyadmin`.
 
-```
-web_environment: [
-    MAGE_IS_DEVELOPER_MODE=1
-]
-```
+## Mailpit
 
-## Using xDebug with PhpStorm
-
-Run in the terminal window the following commands to enable or disable xDebug 
-
-`ddev xdebug on`
-
-`ddev xdebug off`
-
-If xDebug does not work properly with PHPStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
-
-```
-[xdebug]
-xdebug.mode=debug
-xdebug.start_with_request=trigger
-```
-
-## Accessing the Database in PhpStorm
-
-Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
-
-```
-host_db_port: 6000
-```
+To launch Mailpit in the browser run this command in the terminal window `ddev mailpit`.
 
 ## Setting up cronjobs
 
@@ -49,11 +23,45 @@ hooks:
 
 ```
 
+## Enabling the Developer Mode
+
+Set environment variables editing the file `.ddev/config.yaml`. If you want to enable the Developer Mode insert the following lines
+
+```
+web_environment: [
+    MAGE_IS_DEVELOPER_MODE=1
+]
+```
+
+## Using Xdebug with PhpStorm
+
+Run in the terminal window the following commands to enable or disable xDebug 
+
+`ddev xdebug on`
+
+`ddev xdebug off`
+
+If Xdebug does not work properly with PHPStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
+
+```
+[xdebug]
+xdebug.mode=debug
+xdebug.start_with_request=trigger
+```
+
+## Accessing the Database in PhpStorm
+
+Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
+
+```
+host_db_port: 6000
+```
+
 ## Installing Compass (http://compass-style.org/)
 
 Compass is required for editing SCSS files.
 
-Edit the file `.ddev/web-build/Dockerfile.ddev-compass` and insert the following lines
+Create a new file named `.ddev/web-build/Dockerfile.ddev-compass` and insert the following lines
 
 ```
 ARG BASE_IMAGE
@@ -63,15 +71,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::="--forc
 RUN gem install compass
 ```
 
-For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container
-
-## phpMyAdmin
-
-Run in the terminal windows this command `ddev get ddev/ddev-phpmyadmin` and restart DDEV. To launch phpMyAdmin in the browser window run this command `ddev phpmyadmin`.
-
-## Mailpit
-
-To launch Mailpit in the browser window run this command `ddev launch -p`.
+For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
 
 ## Creating a custom DDEV command
 
@@ -91,7 +91,11 @@ Run the custom command in the terminal window `ddev phpstan`.
 
 ## OpenMage Custom DDEV commands
 
-If you want to install the Magento Sample Data run in the terminal window this command `ddev openmage-install`. You can use this command with flags, for example `ddev openmage-install -d -s -k -q`
+**If you want to install the `Magento Sample Data` run in the terminal window this command and follow the steps**
+
+`ddev openmage-install`
+
+You can use flags, for example `ddev openmage-install -d -s -k -q`
 
 ```
 -d (default values for the administrator account)
@@ -100,32 +104,89 @@ If you want to install the Magento Sample Data run in the terminal window this c
 -q (quiet mode)
 ```
 
-If you want to change the administrator account password run in the terminal window this command `ddev openmage-admin`.
+**By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window this command and follow the steps**
+
+`ddev openmage-admin`
 
 ## Useful DDEV Commands (https://ddev.readthedocs.io/en/latest/users/usage/commands)
 
-`ddev config`, `ddev describe`
+Run the following commands in the terminal window.
+
+**Create or modify a DDEV project's configuration in the current directory**
+
+`ddev config`
+
+**Get a detailed description of a running DDEV project**
+
+`ddev describe`
+
+**List Projects**
+
+`ddev list`
+
+**Start / Stop / Restart / Completely stop all project and containers**
+
+`ddev start`, `ddev stop`, `ddev restart`, `ddev poweroff`
+
+**Launch a browser with the current site**
+
+`ddev launch`
+
+**Execute Composer commands within a web container**
 
 `ddev composer install`, `ddev composer update`, `ddev composer require openmage/module-mage-backup`
 
-`ddev start`, `ddev stop`, `ddev restart`, `ddev poweroff`, `ddev list`
-
-`ddev launch`, `ddev launch -m`
-
-`ddev mysql`, `ddev php`, `ddev ssh`, `ddev exec`
-
-`ddev logs`, `ddev logs -f`, `ddev logs -s db`
+**Run npm inside the web container**
 
 `ddev npm install`, `ddev npm update`
 
+**Enable or disable XDebug**
+
+`ddev xdebug on`, `ddev xdebug off`, `ddev xdebug status`
+
+**Create a database snapshot for one or more projects**
+
 `ddev snapshot --name my_snapshot_name`, `ddev snapshot --list`, `ddev snapshot --cleanup`, `ddev snapshot restore`
+
+**Import or export a SQL file into the project**
 
 `ddev import-db --src=magento_sample_data.sql`, `ddev export-db --target-db=db --file=om_db.sql.gz`, `ddev import-files --src=om_media.tar.gz`
 
-`ddev xdebug on`, `ddev xdebug off`
+**Download DDEV adds-on**
 
 `ddev get --list`, `ddev get drud/ddev/cron`
 
+**Run MYSQL client in the database container / Run php inside the web container / Stars a shell session in a service container / Execute a shell command in the container**
+
+`ddev mysql`, `ddev php`, `ddev ssh`, `ddev exec`
+
+**Get the logs from your running services**
+
+`ddev logs`, `ddev logs -f`, `ddev logs -s db`
+
+**Enable or disable a service**
+
 `ddev service enable`, `ddev service disable`
 
-`ddev delete`, `ddev delete images`, `ddev clean`
+**Remove all information, including the database, from a project**
+
+`ddev delete`, `ddev delete images`
+
+**Removes items DDEV has created**
+
+`ddev clean --dry-run -all`, `ddev clean`
+
+## Installing OpenMage in the browser
+
+If you want to install OpenMage in the browser rename or delete the `/app/etc/local.xml` file.
+
+For the database connection use the following information
+
+```
+Host: db
+Database Name: db
+User Name: db
+User Password: db
+```
+
+![installation](https://github.com/ADDISON74/openmage/assets/8360474/cb6a0472-7740-4e2b-bce8-fb699ca2710c)
