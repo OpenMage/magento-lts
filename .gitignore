@@ -25,22 +25,10 @@
 
 # Add a base setup for running unit Tests with code coverage and send them to SonarCloud
 # https://github.com/OpenMage/magento-lts/pull/1836
-/dev/testfield
-/dev/tests/clover.xml
-/dev/tests/crap4j.xml
-/dev/tests/junit.xml
-
-# Add Gitpod online IDE config
-# https://github.com/OpenMage/magento-lts/pull/1836
-/dev/gitpod/docker-magento
-/dev/gitpod/.env
-
-# Add development environment setup files and README
-# https://github.com/OpenMage/magento-lts/pull/1012
-/dev/openmage/docker-magento
-/dev/openmage/.env
-/dev/tests/functional/generated
-/dev/tests/functional/vendor
+/tests/reports/*
+/tests/logging/*
+/tests/functional/generated
+/tests/functional/vendor
 
 /media/*
 !/media/.htaccess
@@ -62,7 +50,8 @@
 *.phar
 
 # PHP-CS-Fixer cache
-.php-cs-fixer.cache
+# PHPUnit results cache
+.*.cache
 
 # Ignore custom config files
 .php-cs-fixer*
