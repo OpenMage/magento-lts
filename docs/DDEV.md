@@ -1,12 +1,12 @@
 # OpenMage Environment Based on DDEV (https://ddev.com/)
 
-## phpMyAdmin
+## Using phpMyAdmin
 
 Run in the terminal window `ddev get ddev/ddev-phpmyadmin` to install the phpMyAdmin add-on then restart DDEV. 
 
 To launch phpMyAdmin in the browser run in the terminal window `ddev phpmyadmin`.
 
-## Mailpit
+## Using Mailpit
 
 To launch Mailpit in the browser run in the terminal window `ddev mailpit`.
 
