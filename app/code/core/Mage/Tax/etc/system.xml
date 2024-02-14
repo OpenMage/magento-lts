@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -261,7 +261,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </full_summary>
-                         <zero_tax translate="label">
+                        <zero_tax translate="label">
                             <label>Display Zero Tax Subtotal</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -336,7 +336,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </full_summary>
-                         <zero_tax translate="label">
+                        <zero_tax translate="label">
                             <label>Display Zero Tax Subtotal</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -349,5 +349,22 @@
                 </sales_display>
             </groups>
         </tax>
+        <reports>
+            <groups>
+                <crontab>
+                    <fields>
+                        <tax_expr translate="label comment">
+                            <label>Tax</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Order Taxes Report Grouped by Tax Rates</comment>
+                        </tax_expr>
+                    </fields>
+                </crontab>
+            </groups>
+        </reports>
     </sections>
 </config>

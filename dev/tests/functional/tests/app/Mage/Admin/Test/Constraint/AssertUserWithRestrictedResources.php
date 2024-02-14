@@ -9,6 +9,7 @@
  * @category   Tests
  * @package    Tests_Functional
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +68,7 @@ class AssertUserWithRestrictedResources extends AbstractConstraint
 
         $browser->open($_ENV['app_backend_url'] . $this->manageProductsUrl);
         \PHPUnit_Framework_Assert::assertTrue(
-            strpos($dashboard->getMainBlock()->getMainBlockText(), self::ACCESS_DENIED) !== false,
+            str_contains($dashboard->getMainBlock()->getMainBlockText(), self::ACCESS_DENIED),
             self::ACCESS_DENIED . " text is not visible on dashboard page.");
     }
 
