@@ -603,7 +603,7 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
      * @return object
