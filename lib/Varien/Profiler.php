@@ -60,7 +60,7 @@ class Varien_Profiler
             self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
         }
         self::$_timers[$timerName]['start'] = microtime(true);
-        self::$_timers[$timerName]['count'] ++;
+        self::$_timers[$timerName]['count']++;
     }
 
     public static function start($timerName)

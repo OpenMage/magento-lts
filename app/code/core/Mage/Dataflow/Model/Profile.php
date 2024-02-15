@@ -171,7 +171,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         ) {
             for ($index = 0; $index < 3; $index++) {
                 if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
-                    $uploader = new Mage_Core_Model_File_Uploader('file_' . ($index + 1));
+                    $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
                     $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
@@ -465,7 +465,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $xml .= '    <var name="method">parse</var>' . $nl;
                 $xml .= '</action>';
             }
-            //$xml = $interactiveXml.$fileXml.$parseFileXml.$mapXml.$parseDataXml.$entityXml;
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }
