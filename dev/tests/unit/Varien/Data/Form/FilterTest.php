@@ -33,7 +33,11 @@ class FilterTest extends TestCase
             '1990-05-08',
             $subject->inputFilter('1990-5-8')
         );
-
+        $this->assertEquals(
+            '1970-01-01',
+            $subject->inputFilter('1970-01-01')
+        );
+   
         try {
             $subject->inputFilter('1990-18-18');
             $this->fail('expected a ValueError'); // ValueError: bcsub(): Argument #1 ($num1) is not well-formed
