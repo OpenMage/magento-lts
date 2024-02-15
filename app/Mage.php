@@ -606,7 +606,7 @@ final class Mage
      * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
