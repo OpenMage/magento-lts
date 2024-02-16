@@ -113,7 +113,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             $this->getFilePath($basePath, $destFile)
         );
 
-        $result = $ioObject->mv(
+        $ioObject->mv(
             $this->getFilePath($baseTmpPath, $file),
             $this->getFilePath($basePath, $destFile)
         );
@@ -161,11 +161,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getFileFromPathFile($pathFile)
     {
-        $file = '';
-
-        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
-
-        return $file;
+        return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
     }
 
     /**

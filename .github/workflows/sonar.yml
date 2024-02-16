@@ -45,7 +45,7 @@ jobs:
         run: composer install --dev -n --prefer-source --ignore-platform-req=php+
 
       - name: Run Unit Tests
-        run: phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
+        run: phpunit --testsuite=Unit;
 
       - name: prepare SonarCloud Scan Data
         continue-on-error: true
@@ -53,10 +53,10 @@ jobs:
         run: |
           echo $PWD
           ls -la
-          head ./dev/tests/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/clover.xml
-          head ./dev/tests/clover.xml
+          head ./tests/reports/clover-sonar.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/logs/junit-sonar.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/reports/clover-sonar.xml
+          head ./tests/reports/clover-sonar.xml
           ls -la
 
       - name: SonarCloud Scan
@@ -65,7 +65,7 @@ jobs:
         if: ${{ matrix.php == '8.1' }} && SONAR_TOKEN
         with:
           args: >
-            -Dproject.settings=dev/sonar-project.properties
+            -Dproject.settings=tests/sonar-project.properties
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -1768,7 +1768,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $options['unsigned'] = true;
         }
         if ($columnData['NULLABLE'] === false
-            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && strlen($columnData['DEFAULT']) != 0)
+            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && !is_null($columnData['DEFAULT']) && strlen($columnData['DEFAULT']) != 0)
         ) {
             $options['nullable'] = false;
         }
@@ -1780,10 +1780,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         ) {
             $options['default'] = $this->quote($columnData['DEFAULT']);
         }
-        if (strlen($columnData['SCALE']) > 0) {
+        if (!is_null($columnData['SCALE']) && strlen($columnData['SCALE']) > 0) {
             $options['scale'] = $columnData['SCALE'];
         }
-        if (strlen($columnData['PRECISION']) > 0) {
+        if (!is_null($columnData['PRECISION']) && strlen($columnData['PRECISION']) > 0) {
             $options['precision'] = $columnData['PRECISION'];
         }
 

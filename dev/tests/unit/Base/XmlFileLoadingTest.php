@@ -7,26 +7,13 @@ use PHPUnit\Framework\TestCase;
 
 class XmlFileLoadingTest  extends TestCase
 {
-
-    public function provideXmlFiles(): array
-    {
-        $root = realpath(__DIR__ . '/../../../../') . '/';
-
-        $result = [];
-        $result[] = [
-            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
-        ];
-
-        return $result;
-    }
-
     /**
      *
      * @dataProvider provideXmlFiles
-     * @param $filepath
+     * @param string $filepath
      * @return void
      */
-    public function testFileLoading($filepath): void
+    public function testFileLoading(string $filepath): void
     {
         //$simplexml = new \SimpleXMLElement(file_get_contents($filepath));
         $simplexml = simplexml_load_file(
@@ -34,19 +21,33 @@ class XmlFileLoadingTest  extends TestCase
             null,
             LIBXML_PEDANTIC //not needed by OpenMage, but good to test more strictly
         );
-        $this->assertNotEmpty($simplexml->asXML());
+        self::assertNotEmpty($simplexml->asXML());
     }
 
     /**
      *
      * @dataProvider provideXmlFiles
-     * @param $filepath
+     * @param string $filepath
      * @return void
      */
-    public function testXmlReaderIsValid($filepath): void
+    public function testXmlReaderIsValid(string $filepath): void
     {
         $xml = \XMLReader::open($filepath);
         $xml->setParserProperty(\XMLReader::VALIDATE, true);
-        $this->assertTrue($xml->isValid());
+        self::assertTrue($xml->isValid());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function provideXmlFiles(): array
+    {
+        $root = realpath(__DIR__ . '/../../../../') . '/';
+
+        return [
+            'file from vendor directory' => [
+                $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
+            ],
+        ];
     }
 }
