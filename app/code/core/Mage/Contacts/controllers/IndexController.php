@@ -21,12 +21,12 @@
  */
 class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 {
-    public const XML_PATH_ENABLED         = 'contacts/contacts/enabled';
-    public const XML_PATH_EMAIL_SENDER    = 'contacts/email/sender_email_identity';
-    public const XML_PATH_EMAIL_RECIPIENT = 'contacts/email/recipient_email';
-    public const XML_PATH_EMAIL_TEMPLATE  = 'contacts/email/email_template';
-    public const XML_PATH_NOTIFY_CUSTOMER = 'contacts/email/customer_enabled';
-    public const XML_PATH_EMAIL_CUSTOMER  = 'contacts/email/customer_email_template';
+    public const XML_PATH_ENABLED                    = 'contacts/contacts/enabled';
+    public const XML_PATH_EMAIL_SENDER               = 'contacts/email/sender_email_identity';
+    public const XML_PATH_EMAIL_RECIPIENT            = 'contacts/email/recipient_email';
+    public const XML_PATH_EMAIL_TEMPLATE             = 'contacts/email/email_template';
+    public const XML_PATH_AUTO_REPLY_ENABLED         = 'contacts/auto_reply_to_customer/enabled';
+    public const XML_PATH_AUTO_REPLY_EMAIL_TEMPLATE  = 'contacts/auto_reply_to_customer/email_template';
 
     /**
      * @return $this
@@ -94,20 +94,19 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 
-                // send customer email
-                if (Mage::getStoreConfigFlag(self::XML_PATH_NOTIFY_CUSTOMER)) {
-                    $mailTemplateCustomer = Mage::getModel('core/email_template');
-                    /** @var Mage_Core_Model_Email_Template $mailTemplateCustomer */
-                    $mailTemplateCustomer->setDesignConfig(['area' => 'frontend'])
+                // send auto reply email to customer
+                if (Mage::getStoreConfigFlag(self::XML_PATH_AUTO_REPLY_ENABLED)) {
+                    $mailTemplate = Mage::getModel('core/email_template');
+                    /** @var Mage_Core_Model_Email_Template $mailTemplate */
+                    $mailTemplate->setDesignConfig(['area' => 'frontend'])
                         ->setReplyTo(Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT))
                         ->sendTransactional(
-                            Mage::getStoreConfig(self::XML_PATH_EMAIL_CUSTOMER),
+                            Mage::getStoreConfig(self::XML_PATH_AUTO_REPLY_EMAIL_TEMPLATE),
                             Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                             $post['email'],
                             null,
                             ['data' => $postObject]
                         );
-                    // ignore getSentSuccess
                 }
 
                 $translate->setTranslateInline(true);
