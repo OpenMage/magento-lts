@@ -29,8 +29,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_SolutionType extends Mage_
     {
         $countryCode = Mage::helper('paypal')->getConfigurationCountryCode();
         if ($countryCode === 'DE') {
-            return $this->getLayout()->createBlock('paypal/adminhtml_system_config_field_hidden')
-                ->render($element);
+            return Mage::getBlockSingleton('paypal/adminhtml_System_config_field_hidden')->render($element);
         }
 
         return parent::render($element);
