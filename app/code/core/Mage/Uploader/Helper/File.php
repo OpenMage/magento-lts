@@ -703,11 +703,16 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get max upload size
      *
-     * @return mixed
+     * @return string
      */
     public function getDataMaxSize()
     {
-        return min($this->getPostMaxSize(), $this->getUploadMaxSize());
+        $postMaxSize = $this->getPostMaxSize();
+        $uploadMaxSize = $this->getUploadMaxSize();
+        $postMaxSizeBytes = $this->convertToBytes($postMaxSize);
+        $uploadMaxSizeBytes = $this->convertToBytes($uploadMaxSize);
+
+        return min($postMaxSizeBytes, $uploadMaxSizeBytes) === $postMaxSizeBytes ? $postMaxSize : $uploadMaxSize;
     }
 
     /**
@@ -717,10 +722,18 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getDataMaxSizeInBytes()
     {
-        $iniSize = $this->getDataMaxSize();
-        $size = (int)substr($iniSize, 0, -1);
-        $parsedSize = 0;
-        switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
+        return $this->convertToBytes($this->getDataMaxSize());
+    }
+
+    protected function convertToBytes(string $input): int
+    {
+        if (is_numeric($input)) {
+            return (int)$input;
+        }
+
+        $size = (int)substr($input, 0, -1);
+        $unit = strtolower(substr($input, strlen($input) - 1));
+        switch ($unit) {
             case 't':
                 $parsedSize = $size * (1024 * 1024 * 1024 * 1024);
                 break;
