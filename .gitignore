@@ -25,10 +25,10 @@
 
 # Add a base setup for running unit Tests with code coverage and send them to SonarCloud
 # https://github.com/OpenMage/magento-lts/pull/1836
-/tests/reports/*
-/tests/logging/*
-/tests/functional/generated
-/tests/functional/vendor
+/dev/tests/reports/*
+/dev/tests/logs/*
+/dev/tests/functional/generated
+/dev/tests/functional/vendor
 
 /media/*
 !/media/.htaccess

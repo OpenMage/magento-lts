@@ -54,8 +54,8 @@ jobs:
           echo $PWD
           ls -la
           head ./tests/reports/clover-sonar.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./tests/logging/junit-sonar.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./tests/reports/clover-sonar.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/logs/junit-sonar.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/reports/clover-sonar.xml
           head ./tests/reports/clover-sonar.xml
           ls -la
 

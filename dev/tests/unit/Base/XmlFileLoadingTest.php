@@ -42,7 +42,7 @@ class XmlFileLoadingTest  extends TestCase
      */
     public function provideXmlFiles(): array
     {
-        $root = realpath(__DIR__ . '/../../../') . '/';
+        $root = realpath(__DIR__ . '/../../../../') . '/';
 
         return [
             'file from vendor directory' => [
