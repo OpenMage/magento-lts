@@ -27,6 +27,17 @@
 # https://github.com/OpenMage/magento-lts/pull/1836
 /dev/tests/reports/*
 /dev/tests/logs/*
+
+# Add Gitpod online IDE config
+# https://github.com/OpenMage/magento-lts/pull/1836
+/dev/gitpod/docker-magento
+/dev/gitpod/.env
+
+# Add development environment setup files and README
+# https://github.com/OpenMage/magento-lts/pull/1012
+/dev/openmage/docker-magento
+/dev/openmage/.env
+/dev/openmage/Caddyfile
 /dev/tests/functional/generated
 /dev/tests/functional/vendor
 

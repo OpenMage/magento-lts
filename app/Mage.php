@@ -50,7 +50,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
-require $autoloaderPath . DS . 'autoload.php';
+require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
