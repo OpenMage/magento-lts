@@ -2946,11 +2946,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
