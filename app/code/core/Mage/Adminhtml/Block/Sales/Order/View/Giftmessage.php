@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             if ($this->getParentBlock() && ($order = $this->getOrder())) {
                 $this->setEntity($order);
             }
@@ -61,13 +61,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Prepares layout of block
-     *
      * @return $this
      */
     protected function _prepareLayout()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             $this->setChild(
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -86,12 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     public function getSaveButtonHtml()
     {
-        $saveButton = $this->getChild('save_button');
-        if (!is_object($saveButton)) {
-            return '';
-        }
-
-        $saveButton->setOnclick(
+        $this->getChild('save_button')->setOnclick(
             'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
         );
 
