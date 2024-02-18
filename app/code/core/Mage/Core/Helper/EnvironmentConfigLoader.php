@@ -28,6 +28,8 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     protected const CONFIG_KEY_WEBSITES = 'WEBSITES';
     protected const CONFIG_KEY_STORES = 'STORES';
 
+    protected array $envStore = [];
+
     /**
      * Load configuration values from ENV variables into xml config object
      *
@@ -53,14 +55,20 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      */
     public function overrideEnvironment(Mage_Core_Model_Config $xmlConfig)
     {
-        $env = getenv();
+        $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
             if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
                 continue;
             }
 
-            $configKeyParts = array_filter(explode(static::ENV_KEY_SEPARATOR, str_replace(static::ENV_STARTS_WITH, '', $configKey)), 'trim');
+            $configKeyParts = array_filter(
+                explode(
+                    static::ENV_KEY_SEPARATOR,
+                    $configKey
+                ),
+                'trim'
+            );
             list($_, $scope) = $configKeyParts;
 
             switch ($scope) {
@@ -79,6 +87,22 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
+    }
+
+    /**
+     * @internal method mostly for mocking
+     */
+    public function setEnvStore(array $envStorage): void
+    {
+        $this->envStore = $envStorage;
+    }
+
+    public function getEnv(): array
+    {
+        if (empty($this->envStore)) {
+            $this->envStore = getenv();
+        }
+        return $this->envStore;
     }
 
     /**
