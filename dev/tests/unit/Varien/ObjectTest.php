@@ -158,6 +158,15 @@ class ObjectTest extends TestCase
         ];
     }
 
+    public function testToString(): void
+    {
+        $this->subject->setString1('open');
+        $this->subject->setString2('mage');
+        self::assertSame('open, mage', $this->subject->toString());
+        self::assertSame('openmage', $this->subject->toString('{{string1}}{{string2}}'));
+        self::assertSame('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
+    }
+
     public function testGetSetUnsData(): void
     {
         self::assertTrue($this->subject->isEmpty());
