@@ -78,8 +78,8 @@
                         </email_template>
                     </fields>
                 </email>
-                <auto_reply_to_customer translate="label">
-                    <label>Auto Reply to Customer</label>
+                <auto_reply translate="label">
+                    <label>Auto Reply</label>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -105,7 +105,7 @@
                             <show_in_store>1</show_in_store>
                         </email_template>
                     </fields>
-                </auto_reply_to_customer>
+                </auto_reply>
             </groups>
         </contacts>
     </sections>
