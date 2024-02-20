@@ -64,7 +64,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
         // "include" section takes precedence and can revoke directory exclusion
         foreach ($this->getConfig()->dirs->include->children() as $dir) {
-            unset($conditions['regexp'][(string) $dir], $conditions['plain'][(string) $dir]);
+            unset($conditions['reg_exp'][(string) $dir], $conditions['plain'][(string) $dir]);
         }
 
         $regExp = $conditions['reg_exp'] ? ('~' . implode('|', array_keys($conditions['reg_exp'])) . '~i') : null;
