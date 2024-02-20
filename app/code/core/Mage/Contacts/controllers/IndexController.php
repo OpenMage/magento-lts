@@ -25,8 +25,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     public const XML_PATH_EMAIL_SENDER               = 'contacts/email/sender_email_identity';
     public const XML_PATH_EMAIL_RECIPIENT            = 'contacts/email/recipient_email';
     public const XML_PATH_EMAIL_TEMPLATE             = 'contacts/email/email_template';
-    public const XML_PATH_AUTO_REPLY_ENABLED         = 'contacts/auto_reply_to_customer/enabled';
-    public const XML_PATH_AUTO_REPLY_EMAIL_TEMPLATE  = 'contacts/auto_reply_to_customer/email_template';
+    public const XML_PATH_AUTO_REPLY_ENABLED         = 'contacts/auto_reply/enabled';
+    public const XML_PATH_AUTO_REPLY_EMAIL_TEMPLATE  = 'contacts/auto_reply/email_template';
 
     /**
      * @return $this
