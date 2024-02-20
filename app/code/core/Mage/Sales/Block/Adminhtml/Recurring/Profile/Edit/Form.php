@@ -111,7 +111,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name
-         * and overriden by the form elements
+         * and overridden by the form elements
          * It is needed to maintain HTML consistency of the parent element's form
          */
         if ($this->_parentElement) {
