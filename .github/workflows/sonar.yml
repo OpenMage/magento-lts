@@ -16,7 +16,7 @@ jobs:
       max-parallel: 5
       matrix:
         os: [ubuntu-latest]
-        php: ['7.4', '8.1']
+        php: ['7.4', '8.3']
     steps:
       - uses: actions/checkout@v4
       - name: Setup PHP
@@ -49,20 +49,20 @@ jobs:
 
       - name: prepare SonarCloud Scan Data
         continue-on-error: true
-        if: ${{ matrix.php == '8.1' }}
+        if: ${{ matrix.php == '8.3' }}
         run: |
           echo $PWD
           ls -la
-          head ./tests/reports/clover-sonar.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/logs/junit-sonar.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/reports/clover-sonar.xml
-          head ./tests/reports/clover-sonar.xml
+          head ./dev/tests/reports/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/logs/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/reports/clover.xml
+          head ./dev/tests/reports/clover.xml
           ls -la
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ matrix.php == '8.1' }} && SONAR_TOKEN
+        if: ${{ matrix.php == '8.3' }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=tests/sonar-project.properties

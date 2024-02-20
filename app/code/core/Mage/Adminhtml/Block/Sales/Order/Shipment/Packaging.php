@@ -43,11 +43,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $orderId = $this->getRequest()->getParam('order_id');
         $urlParams = [];
 
-        $itemsQty       = [];
-        $itemsPrice     = [];
-        $itemsName      = [];
-        $itemsWeight    = [];
-        $itemsProductId = [];
+        $createLabelUrl     = '';
+        $itemsGridUrl       = '';
+        $itemsQty           = [];
+        $itemsPrice         = [];
+        $itemsName          = [];
+        $itemsWeight        = [];
+        $itemsProductId     = [];
+        $itemsOrderItemId   = [];
 
         if ($shipmentId) {
             $urlParams['shipment_id'] = $shipmentId;
