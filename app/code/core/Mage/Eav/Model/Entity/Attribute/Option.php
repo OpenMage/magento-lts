@@ -38,7 +38,7 @@ class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract
     /**
      * Retrieve swatch value
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Option_Swatch|bool
+     * @return string|false
      */
     public function getSwatch()
     {
