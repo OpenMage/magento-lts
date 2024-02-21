@@ -472,7 +472,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDefaultCustomerGroupId($store = null)
     {
-        return (int)Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
+        return Mage::getStoreConfigAsInt(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
     }
 
     /**
@@ -482,7 +482,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordFlowSecure()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE);
     }
 
     /**
@@ -492,7 +492,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordEmailTimes()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES);
     }
 
     /**
@@ -502,7 +502,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordIpTimes()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES);
     }
 
     /**
@@ -527,7 +527,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
-            $groupId = (int)Mage::getStoreConfig($vatClassToGroupXmlPathMap[$vatClass], $store);
+            $groupId = Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
         }
 
         return $groupId;

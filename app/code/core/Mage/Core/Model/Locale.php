@@ -518,7 +518,7 @@ class Mage_Core_Model_Locale
             $locale = $this->getLocale();
         }
 
-        if (empty($date)) {
+        if (!is_int($date) && empty($date)) {
             // $date may be false, but Zend_Date uses strict compare
             $date = null;
         }

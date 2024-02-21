@@ -124,7 +124,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 
@@ -145,7 +145,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 

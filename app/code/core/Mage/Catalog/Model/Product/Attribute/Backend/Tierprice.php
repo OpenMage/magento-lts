@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     protected function _getAdditionalUniqueFields($objectArray)
     {
         $uniqueFields = parent::_getAdditionalUniqueFields($objectArray);
-        $uniqueFields['qty'] = $objectArray['price_qty'] * 1;
+        $uniqueFields['qty'] = (float) $objectArray['price_qty'];
         return $uniqueFields;
     }
 
