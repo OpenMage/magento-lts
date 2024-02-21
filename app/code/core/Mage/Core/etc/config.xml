@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -315,6 +315,10 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <rate_limit>
+                <active>1</active>
+                <timeframe>30</timeframe>
+            </rate_limit>
             <cache>
                 <flush_cron_expr>30 2 * * *</flush_cron_expr>
             </cache>

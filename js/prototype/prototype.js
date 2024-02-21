@@ -1111,7 +1111,7 @@ function $w(string) {
   return string ? string.split(/\s+/) : [];
 }
 
-Array.from = $A;
+Array.from = Array.from || $A;
 
 
 (function() {
@@ -2173,7 +2173,9 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
   function remove(element) {
     element = $(element);
-    element.parentNode.removeChild(element);
+    if (element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
     return element;
   }
 
