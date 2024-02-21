@@ -131,7 +131,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         while (strlen($postcode) > 1) {
             $i++;
             $postcode = substr($postcode, 0, -1);
-            $bind[':wildcard_postcode_'.$i] = "{$postcode}*";
+            $bind[':wildcard_postcode_' . $i] = "{$postcode}*";
             $conditions[] = "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
             $conditions[] = "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :wildcard_postcode_{$i}";
             $conditions[] = "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
