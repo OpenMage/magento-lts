@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ function now($dayOnly = false)
  */
 function is_empty_date($date)
 {
-    return preg_replace('#[ 0:-]#', '', $date) === '';
+    return $date === null || preg_replace('#[ 0:-]#', '', $date) === '';
 }
 
 /**

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -326,6 +326,11 @@ class Mage_Cron_Model_Observer
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
         }
+
+        if ($schedule->getIsError()) {
+            $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_ERROR);
+        }
+
         $schedule->save();
 
         return $this;

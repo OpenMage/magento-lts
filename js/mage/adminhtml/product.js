@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -1001,14 +1001,18 @@ function toogleFieldEditMode(toogleIdentifier, fieldContainer) {
 }
 
 function disableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = true;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = true;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = true;
     }
 }
 
 function enableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = false;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = false;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = false;
     }
