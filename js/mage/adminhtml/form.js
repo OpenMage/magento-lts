@@ -521,8 +521,7 @@ FormElementDependenceController.prototype = {
             var closest = cnf.levels_up; // @deprecated
             if ((typeof closest == 'number') && (closest > 1)) {
                 ele = ele.up(closest);
-            }
-            else {
+            } else {
                 ele = ele.closest('tr');
             }
         }
