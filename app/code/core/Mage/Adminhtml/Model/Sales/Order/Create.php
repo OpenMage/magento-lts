@@ -264,13 +264,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         }
 
         /**
-         * Check if we edit quest order
+         * Check if we edit guest order
          */
         $session->setCurrencyId($order->getOrderCurrencyCode());
         if ($order->getCustomerId()) {
             $session->setCustomerId($order->getCustomerId());
         } else {
             $session->setCustomerId(false);
+            $session->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+            $session->setCustomerIsGuest(true);
         }
 
         $session->setStoreId($order->getStoreId());
@@ -1261,6 +1263,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $data[$code] = $customer->getData($attribute->getAttributeCode());
         }
 
+        if ($this->getQuote()->getCustomerIsGuest()) {
+            $data['customer_group_id'] = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+        }
+
         if (isset($data['customer_group_id'])) {
             $groupModel = Mage::getModel('customer/group')->load($data['customer_group_id']);
             $data['customer_tax_class_id'] = $groupModel->getTaxClassId();
@@ -1374,9 +1380,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function _prepareCustomer()
     {
         $quote = $this->getQuote();
-        if ($quote->getCustomerIsGuest()) {
-            return $this;
-        }
 
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->getSession()->getCustomer();
@@ -1479,7 +1482,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $this->_getCustomerForm()
                 ->setEntity($customer)
                 ->resetEntityData();
-        } else {
+        } elseif ($customer->getGroupId() !== Mage_Customer_Model_Group::NOT_LOGGED_IN_ID) {
             $quote->setCustomerId(true);
         }
 

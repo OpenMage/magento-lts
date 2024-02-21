@@ -49,7 +49,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
-require $autoloaderPath . $ds . 'autoload.php';
+require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
