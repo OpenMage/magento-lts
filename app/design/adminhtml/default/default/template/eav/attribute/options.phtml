@@ -65,7 +65,7 @@
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
                     <?php if ($this->isConfigurableSwatchesEnabled()): ?>
-                        <th><?php echo $this->__('Swatch'); ?></th>
+                        <th><?php echo $this->__('Swatch') ?></th>
                     <?php endif ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
