@@ -288,7 +288,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter            = $this->_getWriteAdapter();
             $optionTable        = $this->getTable('eav/attribute_option');
             $optionValueTable   = $this->getTable('eav/attribute_option_value');
-            $optionSwatchTable   = $this->getTable('eav/attribute_option_swatch');
+            $optionSwatchTable  = $this->getTable('eav/attribute_option_swatch');
 
             $stores = Mage::app()->getStores(true);
             if (isset($option['value'])) {
