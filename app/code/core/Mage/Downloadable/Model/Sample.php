@@ -27,7 +27,7 @@
  * @method $this setProductId(int $value)
  * @method string getSampleUrl()
  * @method $this setSampleUrl(string $value)
- * @method string getSampleFile()
+ * @method string|null getSampleFile()
  * @method $this setSampleFile(string $value)
  * @method string getSampleType()
  * @method $this setSampleType(string $value)

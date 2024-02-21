@@ -1191,11 +1191,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Navigation.php
 
 		-
-			message: "#^Variable \\$htmlChildren in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Navigation.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product.php
@@ -2201,11 +2196,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between 0\\|0\\.0\\|array\\|string\\|false\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/controllers/CartController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
@@ -2849,21 +2839,6 @@ parameters:
 			message: "#^Method Mage_Customer_Model_Resource_Customer\\:\\:getWebsiteId\\(\\) should return int but returns string\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method sendNewAccountEmail\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
@@ -3731,26 +3706,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
 
 		-
-			message: "#^Method Mage_Install_IndexController\\:\\:preDispatch\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Install_WizardController\\:\\:preDispatch\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
-			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
 			message: "#^Method Mage_Log_Model_Aggregation\\:\\:_date\\(\\) never returns false so it can be removed from the return type\\.$#"
 			count: 1
 			path: app/code/core/Mage/Log/Model/Aggregation.php
@@ -4172,11 +4127,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type Mage_Reports_Model_Report supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: "#^Loose comparison using \\!\\= between 0 and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
