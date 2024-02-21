@@ -140,6 +140,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         // Render destination condition
         $orWhere = '(' . implode(') OR (', $conditions) . ')';
+        $select->where($orWhere);
 
         // Render condition by condition name
         if (is_array($request->getConditionName())) {
