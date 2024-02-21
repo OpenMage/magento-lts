@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,14 +21,13 @@
  */
 class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /**
      * Tree types
      */
     public const TYPE_ATTRIBUTE = 'attribute';
     public const TYPE_PRIVILEGE = 'privilege';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Names
      */
     public const NAME_CHILDREN         = 'children';
@@ -38,7 +37,6 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     public const NAME_RESOURCE         = 'resource';
     public const NAME_RESOURCE_GROUPS  = 'resource_groups';
     public const NAME_GROUP            = 'group';
-    /**#@-*/
 
     /**
      * Separator for tree ID

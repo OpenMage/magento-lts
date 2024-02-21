@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -432,14 +432,21 @@ class Mage_Core_Model_App
     protected function _initModules()
     {
         if (!$this->_config->loadModulesCache()) {
-            $this->_config->loadModules();
-            if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
-                Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
-                Mage_Core_Model_Resource_Setup::applyAllUpdates();
-                Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
+            try {
+                $this->_config->getCacheSaveLock();
+                if (!$this->_config->loadModulesCache()) {
+                    $this->_config->loadModules();
+                    if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
+                        Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
+                        Mage_Core_Model_Resource_Setup::applyAllUpdates();
+                        Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
+                    }
+                    $this->_config->loadDb();
+                    $this->_config->saveCache();
+                }
+            } finally {
+                $this->_config->releaseCacheSaveLock();
             }
-            $this->_config->loadDb();
-            $this->_config->saveCache();
         }
         return $this;
     }
@@ -805,7 +812,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Loding part of area data
+     * Loading part of area data
      *
      * @param   string $area
      * @param   string $part

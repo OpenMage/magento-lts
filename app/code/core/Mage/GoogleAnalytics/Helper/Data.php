@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,9 +27,11 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_ACTIVE        = 'google/analytics/active';
     public const XML_PATH_TYPE          = 'google/analytics/type';
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
-    public const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
     public const XML_PATH_USERID        = 'google/analytics/user_id';
+
+    public const XML_PATH_GTM_ACTIVE    = 'google/gtm/active';
+    public const XML_PATH_GTM_CONTAINER_ID   = 'google/gtm/container_id';
 
     /**
      * @var string google analytics 4
@@ -37,18 +39,21 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public const TYPE_ANALYTICS4 = 'analytics4';
 
     /**
-     * @var string classic google analytics tracking code
-     * @deprecated
+     * @var string
      */
-    public const TYPE_ANALYTICS = 'analytics';
+    protected $_moduleName = 'Mage_GoogleAnalytics';
 
     /**
-     * @var string google analytics universal tracking code
-     * @deprecated
+     * Whether GTM is ready to use
+     *
+     * @param mixed $store
+     * @return bool
      */
-    public const TYPE_UNIVERSAL = 'universal';
-
-    protected $_moduleName = 'Mage_GoogleAnalytics';
+    public function isGoogleTagManagerAvailable($store = null)
+    {
+        $containerId = Mage::getStoreConfig(self::XML_PATH_GTM_CONTAINER_ID, $store);
+        return $containerId && Mage::getStoreConfigFlag(self::XML_PATH_GTM_ACTIVE, $store);
+    }
 
     /**
      * Whether GA is ready to use
@@ -67,10 +72,11 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
+     * @deprecated
      */
     public function isIpAnonymizationEnabled($store = null)
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_ANONYMIZATION, $store);
+        return false;
     }
 
     /**
@@ -85,6 +91,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get GTM account id
+     *
+     * @param string $store
+     * @return string
+     */
+    public function getGoogleTagManagerContainerId($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_GTM_CONTAINER_ID, $store);
+    }
+
+    /**
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
@@ -93,7 +110,18 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isUseUniversalAnalytics($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+        return false;
+    }
+
+    /**
+     * Returns true if should use Google Tag Manager
+     *
+     * @param string $store
+     * @return bool
+     */
+    public function isUseGoogleTagManager($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_GTM_ACTIVE, $store);
     }
 
     /**
@@ -138,5 +166,34 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     public function isUserIdEnabled($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_USERID, $store);
+    }
+
+    /**
+     * Returns last category name
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getLastCategoryName($product): string
+    {
+        $storeRootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+        $storeRootCategory = Mage::getModel('catalog/category')->load($storeRootCategoryId);
+        $lastCategory = Mage::getResourceModel('catalog/category_collection')
+            ->addAttributeToSelect('name')
+            ->addIdFilter($product->getCategoryIds())
+            ->addIsActiveFilter()
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . "/%"])
+            ->addOrder('level')
+            ->getFirstItem();
+        return $lastCategory->getName() ?: '';
+    }
+
+    /**
+     * @param int|float|string $price
+     * @return string
+     */
+    public function formatPrice($price): string
+    {
+        return number_format($price, 2, '.', '');
     }
 }
