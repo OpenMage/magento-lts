@@ -272,7 +272,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @return string|null $destPath
+     * @return string|false $destPath
      * @throws Mage_Core_Exception
      */
     public function createSwatchImage($value, $width, $height)
@@ -281,7 +281,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         $optionSwatch = Mage::getModel('eav/entity_attribute_option_swatch')
             ->load($filename, 'filename');
         if (!$optionSwatch->getValue()) {
-            return '';
+            return false;
         }
         // Form full path to where we want to cache resized version
         $destPathArr = [
