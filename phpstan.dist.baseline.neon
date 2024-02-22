@@ -2821,21 +2821,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
 
 		-
-			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method sendNewAccountEmail\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Batch.php
