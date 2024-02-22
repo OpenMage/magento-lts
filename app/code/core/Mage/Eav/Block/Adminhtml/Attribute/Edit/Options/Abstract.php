@@ -147,7 +147,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
                 if ($this->isConfigurableSwatchesEnabled()) {
-                    $value['swatch'] = $option->getSwatch();
+                    $value['swatch'] = $option->getSwatchValue();
                 }
                 $values[] = new Varien_Object($value);
             }
