@@ -259,8 +259,7 @@ td:has(input.swatch-disabled) {
   display: block;
   background-position: center center;
   border-radius: 2px; }
-
-.swatch-option.input-color-html5.validate-hex-color-hash.swatch-disabled {
-  opacity: 0; }
+  td:has(input.swatch-disabled) .swatch-option {
+    opacity: 0; }
 
 /*# sourceMappingURL=form.css.map */
