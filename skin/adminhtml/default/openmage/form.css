@@ -21,14 +21,12 @@ input.input-text, textarea, select {
   height: 26px;
   color: #202856;
   border: 1px solid #c8c8c8;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 .form-list td.label, .form-list td.label label {
   font-size: 12px;
   font-weight: 400;
-  color: #202856;
-}
+  color: #202856; }
 
 button, .form-button {
   background-image: none;
@@ -44,21 +42,18 @@ button, .form-button {
   line-height: 26px;
   box-sizing: border-box;
   margin: 0;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 button:focus, button:active, .form-button:focus, .form-button:active {
   background: #888;
   border: 0;
   outline: thin dotted;
-  outline-offset: -2px;
-}
+  outline-offset: -2px; }
 
 button.disabled, .form-button.disabled, button[disabled], .form-button[disabled] fieldset[disabled] button {
   cursor: default;
   pointer-events: none;
-  opacity: 0.5;
-}
+  opacity: 0.5; }
 
 button.save, button.ok_button, button.add, .form-button.ok_button {
   background-image: none;
@@ -73,250 +68,199 @@ button.save, button.ok_button, button.add, .form-button.ok_button {
   font-weight: 400;
   line-height: 26px;
   box-sizing: border-box;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 button.save:focus, button.save:active, button.ok_button:focus, button.ok_button:active, button.add:focus, button.add:active, .form-button.ok_button:focus, .form-button.ok_button:active {
   background-color: #026294;
   outline: thin dotted;
   outline-offset: -2px;
-  color: #fff;
-}
+  color: #fff; }
 
 button.save.disabled, button.ok_button.disabled, button.add.disabled, button.save[disabled], button.add[disabled], button.ok_button[disabled], fieldset[disabled] button.save, fieldset[disabled] button.add, fieldset[disabled] button.ok_button {
   cursor: default;
   pointer-events: none;
-  opacity: 0.5;
-}
+  opacity: 0.5; }
 
 .field-100 textarea, .field-100 input.input-text {
   float: none;
   border: 1px solid #c8c8c8 !important;
-  padding: 1px 3px !important;
-}
+  padding: 1px 3px !important; }
 
 input {
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 textarea {
-  margin: 0;
-}
-textarea:disabled {
-  background: #f6f6f6;
-}
-textarea.disabled {
-  background: #f6f6f6;
-}
+  margin: 0; }
+  textarea:disabled {
+    background: #f6f6f6; }
+  textarea.disabled {
+    background: #f6f6f6; }
 
 select {
   height: 26px;
   border: 1px solid #c8c8c8;
   box-sizing: border-box;
   text-transform: none;
-  margin: 0;
-}
-select.disabled {
-  background: #f6f6f6;
-}
-select:disabled {
-  background: #f6f6f6;
-}
-select optgroup {
-  font-weight: 600;
-}
+  margin: 0; }
+  select.disabled {
+    background: #f6f6f6; }
+  select:disabled {
+    background: #f6f6f6; }
+  select optgroup {
+    font-weight: 600; }
 
 input[type=text].disabled {
-  background: #f6f6f6;
-}
+  background: #f6f6f6; }
 input[type=text]:disabled {
-  background: #f6f6f6;
-}
+  background: #f6f6f6; }
 
 select[multiple] {
-  height: auto;
-}
+  height: auto; }
 
 select[size] {
-  height: auto;
-}
+  height: auto; }
 
 button {
-  text-transform: none;
-}
-button span {
-  padding: 0;
-}
-button.cancel {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.cancel span {
-  background: none;
-  padding: 0;
-}
-button.cancel:hover {
-  background: #fa4545;
-}
-button.delete {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.delete span {
-  background: none;
-  padding: 0;
-}
-button.delete:hover {
-  background: #fa4545;
-}
-button.save {
-  padding: 0 13px;
-}
-button.save span {
-  background: none;
-  padding: 0;
-}
-button.save:hover {
-  background-color: #0090FF;
-}
-button.ok_button {
-  padding: 0 13px;
-}
-button.ok_button span {
-  background: none;
-  padding: 0;
-}
-button.ok_button:hover {
-  background-color: #0090FF;
-}
-button.add {
-  padding: 0 13px;
-}
-button.add span {
-  background: none;
-  padding: 0;
-}
-button.add:hover {
-  background-color: #0090FF;
-}
-button.add.disabled span {
-  background: none;
-}
-button.back {
-  background: none;
-}
-button.back span {
-  background: none;
-  padding: 0;
-}
-button.back:before {
-  content: "«";
-  padding-right: 4px;
-}
-button:hover {
-  background: #888;
-}
-button.disabled {
-  background: #888;
-}
-button.disabled:hover {
-  background: #888;
-}
-button.disabled:active {
-  background: #888;
-}
-button.fail {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.fail:hover {
-  background: #fa4545;
-}
-button.cancel_button {
-  background: #e63a3a;
-  color: #fff;
-  padding: 0 13px;
-}
-button.cancel_button:hover {
-  background: #fa4545;
-}
-button.icon-btn {
-  width: auto !important;
-}
-button.icon-btn span {
-  text-indent: 0;
-  width: auto;
-  display: inline;
-}
-button.large {
-  font-size: 22px;
-  padding: 14px 22px 16px;
-}
-button.add-image span {
-  background: none;
-  padding: 0;
-}
-button.add-widget span {
-  background: none;
-  padding: 0;
-}
-button.go span {
-  background: none;
-  padding: 0;
-}
-button.add-variable span {
-  background: none;
-  padding: 0;
-}
+  text-transform: none; }
+  button span {
+    padding: 0; }
+  button.cancel {
+    background: #e63a3a;
+    color: #fff;
+    padding: 0 13px; }
+    button.cancel span {
+      background: none;
+      padding: 0; }
+    button.cancel:hover {
+      background: #fa4545; }
+  button.delete {
+    background: #e63a3a;
+    color: #fff;
+    padding: 0 13px; }
+    button.delete span {
+      background: none;
+      padding: 0; }
+    button.delete:hover {
+      background: #fa4545; }
+  button.save {
+    padding: 0 13px; }
+    button.save span {
+      background: none;
+      padding: 0; }
+    button.save:hover {
+      background-color: #0090FF; }
+  button.ok_button {
+    padding: 0 13px; }
+    button.ok_button span {
+      background: none;
+      padding: 0; }
+    button.ok_button:hover {
+      background-color: #0090FF; }
+  button.add {
+    padding: 0 13px; }
+    button.add span {
+      background: none;
+      padding: 0; }
+    button.add:hover {
+      background-color: #0090FF; }
+    button.add.disabled span {
+      background: none; }
+  button.back {
+    background: none; }
+    button.back span {
+      background: none;
+      padding: 0; }
+    button.back:before {
+      content: "«";
+      padding-right: 4px; }
+  button:hover {
+    background: #888; }
+  button.disabled {
+    background: #888; }
+    button.disabled:hover {
+      background: #888; }
+    button.disabled:active {
+      background: #888; }
+  button.fail {
+    background: #e63a3a;
+    color: #fff;
+    padding: 0 13px; }
+    button.fail:hover {
+      background: #fa4545; }
+  button.cancel_button {
+    background: #e63a3a;
+    color: #fff;
+    padding: 0 13px; }
+    button.cancel_button:hover {
+      background: #fa4545; }
+  button.icon-btn {
+    width: auto !important; }
+    button.icon-btn span {
+      text-indent: 0;
+      width: auto;
+      display: inline; }
+  button.large {
+    font-size: 22px;
+    padding: 14px 22px 16px; }
+  button.add-image span {
+    background: none;
+    padding: 0; }
+  button.add-widget span {
+    background: none;
+    padding: 0; }
+  button.go span {
+    background: none;
+    padding: 0; }
+  button.add-variable span {
+    background: none;
+    padding: 0; }
 
 .form-button:hover {
-  background: #888;
-}
+  background: #888; }
 .form-button.ok_button:hover {
-  background-color: #0090FF;
-}
+  background-color: #0090FF; }
 .form-button.large {
   font-size: 22px;
-  padding: 14px 22px 16px;
-}
+  padding: 14px 22px 16px; }
 
 .field-100 {
   background: none;
   border: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 .form-list td.label label {
-  padding: 0 15px 0 0;
-}
+  padding: 0 15px 0 0; }
 .form-list td.scope-label {
   color: #999;
-  font-size: 11px;
-}
+  font-size: 11px; }
 .form-list td.value {
-  padding-left: 0 !important;
-}
-.form-list td.value textarea {
-  width: 324px;
-}
-.form-list td.value select {
-  width: 330px;
-}
-.form-list td.value p.note {
-  color: #202856;
-  font-size: 11px;
-  font-weight: 400;
-}
-.form-list td.value input.input-text {
-  width: 324px;
-}
+  padding-left: 0 !important; }
+  .form-list td.value textarea {
+    width: 324px; }
+  .form-list td.value select {
+    width: 330px; }
+  .form-list td.value p.note {
+    color: #202856;
+    font-size: 11px;
+    font-weight: 400; }
+  .form-list td.value input.input-text {
+    width: 324px; }
 
 .input-text.large {
   padding: 12px 12px 14px;
-  font-size: 18px;
-}
+  font-size: 18px; }
+
+td:has(input.swatch-disabled) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46.64962' height='32.13075' viewBox='0 0 46.64962 32.13075'%3E%3Ctitle%3Eempty-swatch%3C/title%3E%3Crect x='1.69981' y='1.75287' width='42.75' height='28.5' fill='%23fff' stroke='%23ccc' stroke-miterlimit='10' stroke-width='2'/%3E%3Cline x1='0.82481' y1='30.87787' x2='45.82481' y2='1.25287' fill='none' stroke='%23ff003a' stroke-miterlimit='10' stroke-width='3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  border: 1px solid #c8c8c8;
+  width: 46px;
+  height: 30px;
+  display: block;
+  background-position: center center;
+  border-radius: 2px; }
+
+.swatch-option.input-color-html5.validate-hex-color-hash.swatch-disabled {
+  opacity: 0; }
 
 /*# sourceMappingURL=form.css.map */
