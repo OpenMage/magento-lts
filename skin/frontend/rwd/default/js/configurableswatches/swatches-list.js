@@ -26,7 +26,7 @@ var ConfigurableSwatchesList = {
         });
     },
 
-    initSwatch: function initSwatch(swatch)
+    initSwatch: function(swatch)
     {
         var that = this;
         var $swatch = swatch;
