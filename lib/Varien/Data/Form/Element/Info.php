@@ -31,6 +31,9 @@ class Varien_Data_Form_Element_Info extends Varien_Data_Form_Element_Abstract
             ->unsCanUseWebsiteValue();
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         $id = $this->getHtmlId();
