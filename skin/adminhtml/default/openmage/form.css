@@ -299,9 +299,8 @@ button.add-variable span {
 .form-list td.value {
   padding-left: 0 !important;
 }
-.form-list td.value textarea {
-  width: 324px;
-}
+.form-list td.value input.input-text,
+.form-list td.value textarea,
 .form-list td.value select {
   width: 330px;
 }
@@ -309,9 +308,6 @@ button.add-variable span {
   color: #202856;
   font-size: 11px;
   font-weight: 400;
-}
-.form-list td.value input.input-text {
-  width: 324px;
 }
 
 .input-text.large {
