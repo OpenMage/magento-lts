@@ -1049,7 +1049,7 @@ class Mage_CatalogInventory_Model_Observer
         }
 
         $massObject = new Varien_Object();
-        $massObject->setAttributesData(array('force_reindex_required' => 1));
+        $massObject->setAttributesData(['force_reindex_required' => 1]);
         $massObject->setProductIds($ids);
 
         Mage::getSingleton('index/indexer')->processEntityAction(
