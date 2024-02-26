@@ -43,8 +43,9 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Product ids to be re-indexed due to stock status change
+     * @var array
      */
-    protected $_productIdsForMassReindex = array();
+    protected $_productIdsForMassReindex = [];
 
     /**
      * Check if quantity defined for specified product type
