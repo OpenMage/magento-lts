@@ -311,12 +311,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $params = new Varien_Object();
         }
 
-        // Init and load product
-        Mage::dispatchEvent('catalog_controller_product_init_before', [
-            'controller_action' => $controller,
-            'params' => $params,
-        ]);
-
         if (!$productId) {
             return false;
         }
@@ -324,6 +318,13 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
+
+        // Init and load product
+        Mage::dispatchEvent('catalog_controller_product_init_before', [
+            'controller_action' => $controller,
+            'params' => $params,
+            'product' => $product,
+        ]);
 
         if (!$this->canShow($product)) {
             return false;
