@@ -160,7 +160,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                         $resultTime = microtime(true) - $startTime;
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
-                            . " index was rebuilt successfully in " . gmdate('H:i:s', $resultTime) . "\n";
+                            . " index was rebuilt successfully in " . gmdate('H:i:s', ceil($resultTime)) . "\n";
                     } catch (Mage_Core_Exception $e) {
                         echo $e->getMessage() . "\n";
                     } catch (Exception $e) {

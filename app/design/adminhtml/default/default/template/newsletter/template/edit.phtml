@@ -102,7 +102,7 @@
                 $('change_flag_element').value = '1';
             }
             if(this.isEditor()) {
-                tinyMCE.triggerSave();
+                tinymce.triggerSave();
             }
             templateForm.submit();
             return false;
@@ -129,7 +129,7 @@
             $('save_as_flag').value = '1';
 
             if(this.isEditor()) {
-                tinyMCE.triggerSave();
+                tinymce.triggerSave();
             }
             templateForm.submit();
             return false;
@@ -141,10 +141,10 @@
             } else {
                 $('preview_type').value = 2;
             }
-            if (this.isEditor() && tinyMCE.get(this.id)) {
-                tinyMCE.triggerSave();
+            if (this.isEditor() && tinymce.get(this.id)) {
+                tinymce.triggerSave();
                 $('preview_text').value = $(this.id).value;
-                tinyMCE.triggerSave();
+                tinymce.triggerSave();
             } else {
                 $('preview_text').value = $(this.id).value;
             }
@@ -165,11 +165,11 @@
         },
 
         isEditor: function() {
-            return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+            return (typeof tinyMceEditors != 'undefined' && tinyMceEditors[this.id] != undefined)
         },
 
         getEditor: function() {
-            return tinyMceEditors.get(this.id);
+            return tinyMceEditors[this.id];
         }
     };
 
