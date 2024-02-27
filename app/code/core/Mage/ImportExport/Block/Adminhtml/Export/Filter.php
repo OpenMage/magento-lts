@@ -445,7 +445,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Prepare collection by setting page number, sorting etc..
      *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|null
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {
