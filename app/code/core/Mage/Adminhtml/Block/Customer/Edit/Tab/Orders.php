@@ -68,6 +68,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'index'     => 'increment_id',
         ]);
 
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addColumn('store_id', [
+                'header'    => Mage::helper('customer')->__('Bought From'),
+                'index'     => 'store_id',
+                'type'      => 'store',
+                'store_view' => true
+            ]);
+        }
+
         $this->addColumn('created_at', [
             'header'    => Mage::helper('customer')->__('Purchase On'),
             'index'     => 'created_at',
@@ -98,15 +107,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'width' => '150px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ]);
-
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', [
-                'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view' => true
-            ]);
-        }
 
         if (Mage::helper('sales/reorder')->isAllow()) {
             $this->addColumn('action', [
