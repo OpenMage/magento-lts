@@ -88,6 +88,13 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($this->getStoreId() && $this->getQuoteId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->load($this->getQuoteId());
+            } elseif ($this->getStoreId() && $this->getCustomerIsGuest()) {
+                $this->_quote->setStoreId($this->getStoreId())
+                    ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID)
+                    ->setCustomerIsGuest(true)
+                    ->setIsActive(false)
+                    ->save();
+                $this->setQuoteId($this->_quote->getId());
             } elseif ($this->getStoreId() && $this->hasCustomerId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->setCustomerGroupId(Mage::getStoreConfig(self::XML_PATH_DEFAULT_CREATEACCOUNT_GROUP))
@@ -129,6 +136,9 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             }
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
+            }
+            if ($this->getCustomerIsGuest()) {
+                $this->_customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             }
         }
         return $this->_customer;
