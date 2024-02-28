@@ -30,12 +30,14 @@
         <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
             <button type="submit" class="button" title="<?php echo $this->__('Authorize') ?>" name="authorize">
-                <span><span><?php echo $this->__('Authorize') ?></span></span></button>
+                <?php echo $this->__('Authorize') ?>
+            </button>
         </form>
         <form id="oauth_authorize_reject" action="<?php echo $this->getRejectUrl() ?>" method="get">
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
             <button type="submit" class="button" title="<?php echo $this->__('Reject') ?>">
-                <span><span><?php echo $this->__('Reject') ?></span></span></button>
+                <?php echo $this->__('Reject') ?>
+            </button>
         </form>
     <?php endif ?>
 

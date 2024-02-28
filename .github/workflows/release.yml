@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.4']
+        php-versions: ['8.1']
     steps:
     - name: Checkout repository
       uses: actions/checkout@master

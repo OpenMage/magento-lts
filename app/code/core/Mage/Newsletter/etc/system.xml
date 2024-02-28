@@ -105,25 +105,6 @@
                         </un_email_template>
                     </fields>
                 </subscription>
-                <security translate="label">
-                    <label>Security</label>
-                    <sort_order>1</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <enable_form_key translate="label comment">
-                            <label>Enable Form Key Validation</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<strong style="color:red">Important!</strong> Enabling this option means that your custom templates used for newsletter subscription must contain <code>form_key</code> block output. Otherwise newsletter subscription will not work.]]></comment>
-                        </enable_form_key>
-                    </fields>
-                </security>
             </groups>
         </newsletter>
     </sections>

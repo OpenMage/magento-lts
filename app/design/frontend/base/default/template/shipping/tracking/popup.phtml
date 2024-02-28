@@ -17,7 +17,7 @@
 <?php $_results = $this->getTrackingInfo(); ?>
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Tracking Information'); ?></h1>
-    <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+    <button class="button" onclick="window.close(); window.opener.focus();"><?php echo $this->__('Close Window') ?></button>
 </div>
 <?php if(count($_results) > 0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
@@ -117,7 +117,6 @@
                 <?php endif ?>
                 </tbody>
             </table>
-            <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
             <?php if (is_object($track) && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
                 <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
@@ -146,7 +145,6 @@
                    <?php endforeach ?>
                    </tbody>
                 </table>
-                <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
             <?php endif ?>
             <div class="divider"></div>
             <?php if($counter!=$rowCount): ?>
@@ -163,5 +161,5 @@
     <p><?php echo $this->__('There is no tracking available.'); ?></p>
 <?php endif ?>
 <div class="buttons-set">
-    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close(); window.opener.focus();"><?php echo $this->__('Close Window') ?></button>
 </div>
