@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getMainFieldsetHtmlId()
  * @method $this setMainFieldsetHtmlId(string $value)
@@ -169,7 +168,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         // hidden element
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
-        } elseif (strpos($fieldType, '/') !== false) { // just an element renderer
+        } elseif (str_contains($fieldType, '/')) { // just an element renderer
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;
         }

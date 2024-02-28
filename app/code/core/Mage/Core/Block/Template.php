@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
  * @method $this setDestElementId(string $value)
@@ -61,9 +60,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Path to template file in theme.
      *
-     * @var string|null
+     * @var string
      */
-    protected $_template;
+    protected $_template = '';
 
     /**
      * Internal constructor, that is called from real constructor
@@ -157,7 +156,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
@@ -207,6 +206,28 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     }
 
     /**
+     * Retrieve block cache status
+     *
+     * @return  string
+     */
+    private function _getCacheHintStatusColor(): string
+    {
+        if (!is_null($this->getCacheLifetime())) {
+            return 'green';
+        } else {
+            $currentParentBlock = $this;
+            $i = 0;
+            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
+                if (!is_null($currentParentBlock->getCacheLifetime())) {
+                    return 'orange'; // not cached, but within cached
+                }
+                $currentParentBlock = $currentParentBlock->getParentBlock();
+            }
+        }
+        return 'red';
+    }
+
+    /**
      * Retrieve block view from file (template)
      *
      * @param   string $fileName
@@ -227,17 +248,18 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($hints) {
+            $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
-<div style="position:relative; border:1px dotted red; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
-<div style="position:absolute; left:0; top:0; padding:2px 5px; background:red; color:white; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'"
+<div style="position:relative; border:1px dotted {$cacheHintStatusColor}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:white; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
-<div style="position:absolute; right:0; top:0; padding:2px 5px; background:red; color:blue; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
 title="{$thisClass}">{$thisClass}</div>
 HTML;
             }
@@ -246,7 +268,7 @@ HTML;
         try {
             if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
-                ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
+                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getSendConfirmation()
  */
@@ -265,13 +264,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         }
 
         /**
-         * Check if we edit quest order
+         * Check if we edit guest order
          */
         $session->setCurrencyId($order->getOrderCurrencyCode());
         if ($order->getCustomerId()) {
             $session->setCustomerId($order->getCustomerId());
         } else {
             $session->setCustomerId(false);
+            $session->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+            $session->setCustomerIsGuest(true);
         }
 
         $session->setStoreId($order->getStoreId());
@@ -904,7 +905,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         foreach (explode("\n", $additionalOptions) as $_additionalOption) {
             if (strlen(trim($_additionalOption))) {
                 try {
-                    if (strpos($_additionalOption, ':') === false) {
+                    if (!str_contains($_additionalOption, ':')) {
                         Mage::throwException(
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.')
                         );
@@ -1262,6 +1263,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $data[$code] = $customer->getData($attribute->getAttributeCode());
         }
 
+        if ($this->getQuote()->getCustomerIsGuest()) {
+            $data['customer_group_id'] = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+        }
+
         if (isset($data['customer_group_id'])) {
             $groupModel = Mage::getModel('customer/group')->load($data['customer_group_id']);
             $data['customer_tax_class_id'] = $groupModel->getTaxClassId();
@@ -1375,9 +1380,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function _prepareCustomer()
     {
         $quote = $this->getQuote();
-        if ($quote->getCustomerIsGuest()) {
-            return $this;
-        }
 
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->getSession()->getCustomer();
@@ -1480,7 +1482,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $this->_getCustomerForm()
                 ->setEntity($customer)
                 ->resetEntityData();
-        } else {
+        } elseif ($customer->getGroupId() !== Mage_Customer_Model_Group::NOT_LOGGED_IN_ID) {
             $quote->setCustomerId(true);
         }
 

@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -123,6 +123,7 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
 '<div class="no-display ignore-validate pages group_container" id="pages_{{id}}">'+
     '<input type="hidden" class="container_name" name="__[container_name]" value="widget_instance[{{id}}][pages]" />'+
     '<input type="hidden" name="widget_instance[{{id}}][pages][page_id]" value="{{page_id}}" />'+
+    '<input type="hidden" class="layout_handle_pattern" name="widget_instance[{{id}}][all_pages][layout_handle]" value="default" />'+
     '<input type="hidden" class="for_all" name="widget_instance[{{id}}][pages][for]" value="all" />'+
     '<table cellspacing="0" class="option-header">'+
         '<col width="200" />'+
@@ -280,7 +281,7 @@ var WidgetInstance = {
         blockContainer = container.down('div.block_reference');
         if (blockContainer && blockContainer.innerHTML == '') {
             layoutHandle = '';
-            if (layoutHandleField = container.down('select#layout_handle')) {
+            if (layoutHandleField = container.down('input.layout_handle_pattern')) {
                 layoutHandle = layoutHandleField.value;
             }
             this.loadSelectBoxByType('block_reference', container, layoutHandle, additional);

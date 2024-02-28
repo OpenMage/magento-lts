@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
@@ -144,7 +143,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
         );
         $this->setWatermarkImageOpacity(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+            Mage::getStoreConfigAsInt("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
         );
         $this->setWatermarkPosition(
             Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
@@ -565,6 +564,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     protected function parseSize($string)
     {
+        if ($string === null) {
+            return false;
+        }
+
         $size = explode('x', strtolower($string));
         if (count($size) === 2) {
             return [
@@ -572,6 +575,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
             ];
         }
+
         return false;
     }
 

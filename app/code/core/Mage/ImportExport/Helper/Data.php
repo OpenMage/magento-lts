@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
 {
@@ -58,7 +57,7 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getBunchSize()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_BUNCH_SIZE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_BUNCH_SIZE);
     }
 
     /**
@@ -68,6 +67,6 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getImportConfigurablePageSize()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE);
     }
 }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Controller_Sales_Invoice
 {
@@ -134,7 +133,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $this->_title(sprintf("#%s", $invoice->getIncrementId()));
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order');
+                ->_setActiveMenu('sales/invoice');
 
             /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_View $block */
             $block = $this->getLayout()->getBlock('sales_invoice_view');
@@ -172,7 +171,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/invoice')
                 ->renderLayout();
         } else {
             $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);

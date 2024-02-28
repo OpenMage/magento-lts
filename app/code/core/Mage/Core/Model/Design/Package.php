@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Design_Package
 {
@@ -57,7 +56,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Package theme
      *
-     * @var string
+     * @var array
      */
     protected $_theme;
 
@@ -243,7 +242,7 @@ class Mage_Core_Model_Design_Package
     {
         switch (func_num_args()) {
             case 1:
-                foreach (['layout', 'template', 'skin', 'locale'] as $type) {
+                foreach (['layout', 'template', 'skin', 'locale', 'default'] as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
                 break;
@@ -457,7 +456,7 @@ class Mage_Core_Model_Design_Package
         Varien_Profiler::start(__METHOD__);
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (strpos($file, '..') !== false) {
+        if (str_contains($file, '..')) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
             throw new Exception('Invalid path requested.');
         }
@@ -522,7 +521,7 @@ class Mage_Core_Model_Design_Package
         Varien_Profiler::start(__METHOD__);
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (strpos((string)$file, '..') !== false) {
+        if (str_contains((string)$file, '..')) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
             throw new Exception('Invalid path requested.');
         }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
@@ -31,12 +30,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
     /**
      * Return Customer Address Collection as array
+     * Ignore addresses when the country is not allowed
      *
      * @return array
      */
     public function getAddressCollection()
     {
-        return $this->getCustomer()->getAddresses();
+        $addresses = [];
+        $countries = explode(',', Mage::getStoreConfig('general/country/allow', Mage::getSingleton('adminhtml/session_quote')->getStoreId()));
+
+        foreach ($this->getCustomer()->getAddresses() as $address) {
+            if (in_array($address->getData('country_id'), $countries)) {
+                $addresses[$address->getId()] = $address;
+            }
+        }
+
+        return $addresses;
     }
 
     /**

@@ -9,14 +9,13 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Csv parse
  *
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_File_Csv
 {
@@ -127,8 +126,8 @@ class Varien_File_Csv
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
-            if (strpos($value, $delimiter) !== false ||
-                strpos($value, $enclosure) !== false ||
+            if (str_contains($value, $delimiter) ||
+                str_contains($value, $enclosure) ||
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||
                 strpos($value, "\t") !== false ||

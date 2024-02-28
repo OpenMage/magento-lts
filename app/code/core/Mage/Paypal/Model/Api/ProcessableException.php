@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
 {
-    /**#@+
+    /**
      * Error code returned by PayPal
      */
     public const API_INTERNAL_ERROR = 10001;
@@ -34,7 +33,6 @@ class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
     public const API_COUNTRY_FILTER_DECLINE            = 10537;
     public const API_MAXIMUM_AMOUNT_FILTER_DECLINE     = 10538;
     public const API_OTHER_FILTER_DECLINE              = 10539;
-    /**#@-*/
 
     /**
      * Get error message which can be displayed to website user

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  * @todo       Needs to be reimplemented to get rid of the copypasted methods
  */
 class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
@@ -105,7 +104,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $params['_query'] = [];
         }
         foreach ($params as $k => $v) {
-            if (strpos($k, '_query_') === 0) {
+            if (str_starts_with($k, '_query_')) {
                 $params['_query'][substr($k, 7)] = $v;
                 unset($params[$k]);
             }

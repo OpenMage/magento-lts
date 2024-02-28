@@ -6,10 +6,10 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage
+ * @category   Mage
+ * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,17 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = BP . DS . 'vendor';
+    }
+}
+require_once $autoloaderPath . DS . 'autoload.php';
+/** AUTOLOADER PATCH **/
+
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
@@ -49,8 +60,6 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
 
 /**
  * Main Mage hub class
- *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 final class Mage
 {
@@ -206,9 +215,9 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '1',
+                'minor'     => '5',
                 'patch'     => '0',
-                'stability' => 'rc3', // beta,alpha,rc
+                'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
         }
@@ -216,8 +225,8 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '5',
-            'patch'     => '0',
-            'stability' => 'rc3', // beta,alpha,rc
+            'patch'     => '3',
+            'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
@@ -403,6 +412,26 @@ final class Mage
     }
 
     /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return float
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
+    }
+
+    /**
      * Retrieve config flag for store by path
      *
      * @param string $path
@@ -465,7 +494,7 @@ final class Mage
     }
 
     /**
-     * Add observer to even object
+     * Add observer to events object
      *
      * @param string $eventName
      * @param callback $callback
@@ -862,7 +891,7 @@ final class Mage
 
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
 
-        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
             return;
         }
 

@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
 {
@@ -30,6 +29,10 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
      */
     public function inputFilter($value)
     {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => $this->_dateFormat,
             'locale'        => $this->_locale
@@ -52,6 +55,10 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
      */
     public function outputFilter($value)
     {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => Varien_Date::DATETIME_INTERNAL_FORMAT,
             'locale'        => $this->_locale

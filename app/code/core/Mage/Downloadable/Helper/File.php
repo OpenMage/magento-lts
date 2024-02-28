@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Downloadable
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
@@ -125,11 +124,15 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      * Return full path to file
      *
      * @param string $path
-     * @param string $file
+     * @param string|null $file
      * @return string
      */
     public function getFilePath($path, $file)
     {
+        if ($file === null || $file === '') {
+            return $path . DS;
+        }
+
         $file = $this->_prepareFileForPath($file);
 
         if (substr($file, 0, 1) == DS) {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
@@ -205,7 +204,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         $this->joinInventoryItem();
         $manageStockExpr = $this->getConnection()->getCheckSql(
             $this->_getInventoryItemField('use_config_manage_stock') . ' = 1',
-            (int) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK, $storeId),
+            Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK, $storeId),
             $this->_getInventoryItemField('manage_stock')
         );
         $this->getSelect()->where($manageStockExpr . ' = ?', 1);
@@ -223,7 +222,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         $this->joinInventoryItem(['qty']);
         $notifyStockExpr = $this->getConnection()->getCheckSql(
             $this->_getInventoryItemField('use_config_notify_stock_qty') . ' = 1',
-            (int)Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY, $storeId),
+            Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY, $storeId),
             $this->_getInventoryItemField('notify_stock_qty')
         );
         $this->getSelect()->where('qty < ?', $notifyStockExpr);

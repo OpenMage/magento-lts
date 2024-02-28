@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
  * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
@@ -330,7 +329,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
-        $redirectCode = (int)Mage::getStoreConfig('web/url/redirect_to_base');
+        $redirectCode = Mage::getStoreConfigAsInt('web/url/redirect_to_base');
         if (!$redirectCode) {
             return;
         } elseif ($redirectCode != 301) {

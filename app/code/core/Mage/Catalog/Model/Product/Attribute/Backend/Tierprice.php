@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
 {
@@ -52,7 +51,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     protected function _getAdditionalUniqueFields($objectArray)
     {
         $uniqueFields = parent::_getAdditionalUniqueFields($objectArray);
-        $uniqueFields['qty'] = $objectArray['price_qty'] * 1;
+        $uniqueFields['qty'] = (float) $objectArray['price_qty'];
         return $uniqueFields;
     }
 

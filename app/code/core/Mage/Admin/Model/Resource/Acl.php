@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,11 +18,12 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
     public const ACL_ALL_RULES = 'all';
+
+    protected $_orphanedResources = [];
 
     /**
      * Initialize resource
@@ -132,10 +133,27 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 } elseif ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
+            } catch (Zend_Acl_Exception $e) {
+                if (!in_array($resource, $this->_orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
+                    $this->_orphanedResources[] = $resource;
+                }
             } catch (Exception $e) {
-                Mage::logException($e);
+                if (Mage::getIsDeveloperMode()) {
+                    Mage::logException($e);
+                }
             }
         }
+
+        if ($this->_orphanedResources !== []) {
+            Mage::getSingleton('adminhtml/session')->addNotice(
+                Mage::helper('adminhtml')->__(
+                    'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
+                    implode(', ', $this->_orphanedResources),
+                    Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                )
+            );
+        }
+
         return $this;
     }
 }

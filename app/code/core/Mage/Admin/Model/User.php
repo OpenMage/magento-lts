@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Admin_Model_Resource_User _getResource()
  * @method Mage_Admin_Model_Resource_User getResource()
@@ -71,7 +70,7 @@
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * Configuration paths for email templates and identities
      */
     public const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
@@ -81,7 +80,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /** Configuration paths for notifications */
     public const XML_PATH_ADDITIONAL_EMAILS             = 'general/additional_notification_emails/admin_user_create';
     public const XML_PATH_NOTIFICATION_EMAILS_TEMPLATE  = 'admin/emails/admin_notification_email_template';
-    /**#@-*/
 
     /**
      * Minimum length of admin password
@@ -786,7 +784,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function getMinAdminPasswordLength()
     {
-        $minLength = (int)Mage::getStoreConfig(self::XML_PATH_MIN_ADMIN_PASSWORD_LENGTH);
+        $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_ADMIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
     }

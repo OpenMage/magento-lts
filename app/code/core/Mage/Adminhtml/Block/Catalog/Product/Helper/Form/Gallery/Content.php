@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends Mage_Adminhtml_Block_Widget
 {
@@ -55,7 +54,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         $browseConfig = $this->getUploader()->getButtonConfig();
         $browseConfig
             ->setAttributes([
-                'accept' => $browseConfig->getMimeTypesByExtensions('gif, png, jpeg, jpg')
+                'accept' => $browseConfig->getMimeTypesByExtensions(Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)
             ]);
 
         Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);

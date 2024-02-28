@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Template
 {
@@ -48,7 +47,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
         if ($this->_isFileAccessible()) {
             return true;
         }
-        $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+        $adminSessionLifetime = Mage::getStoreConfigAsInt('admin/security/session_cookie_lifetime');
         Mage::app()->saveCache(true, self::VERIFICATION_RESULT_CACHE_KEY, [], $adminSessionLifetime);
         return false;
     }

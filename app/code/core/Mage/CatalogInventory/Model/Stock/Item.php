@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()
@@ -364,7 +363,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function getNotifyStockQty()
     {
         if ($this->getUseConfigNotifyStockQty()) {
-            return (float) Mage::getStoreConfig(self::XML_PATH_NOTIFY_STOCK_QTY);
+            return Mage::getStoreConfigAsFloat(self::XML_PATH_NOTIFY_STOCK_QTY);
         }
         return (float) $this->getData('notify_stock_qty');
     }
@@ -412,7 +411,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function getDefaultQtyIncrements()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_QTY_INCREMENTS)
-            ? (int)Mage::getStoreConfig(self::XML_PATH_QTY_INCREMENTS)
+            ? Mage::getStoreConfigAsInt(self::XML_PATH_QTY_INCREMENTS)
             : false;
     }
 
@@ -424,7 +423,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public function getBackorders()
     {
         if ($this->getUseConfigBackorders()) {
-            return (int) Mage::getStoreConfig(self::XML_PATH_BACKORDERS);
+            return Mage::getStoreConfigAsInt(self::XML_PATH_BACKORDERS);
         }
         return $this->getData('backorders');
     }

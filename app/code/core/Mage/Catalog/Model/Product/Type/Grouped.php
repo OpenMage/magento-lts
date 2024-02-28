@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product_Type_Abstract
 {
@@ -29,7 +28,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @var string
      */
-    protected $_keyAssociatedProducts   = '_cache_instance_associated_products';
+    protected $_keyAssociatedProducts = '_cache_instance_associated_products';
 
     /**
      * Cache key for Associated Product Ids
@@ -43,21 +42,46 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @var string
      */
-    protected $_keyStatusFilters        = '_cache_instance_status_filters';
+    protected $_keyStatusFilters = '_cache_instance_status_filters';
 
     /**
      * Product is composite properties
      *
      * @var bool
      */
-    protected $_isComposite             = true;
+    protected $_isComposite = true;
 
     /**
      * Product is configurable
      *
      * @var bool
      */
-    protected $_canConfigure            = true;
+    protected $_canConfigure = true;
+
+    /**
+     * Attributes used in associated products
+     *
+     * @var string|string[]
+     */
+    protected $_attributesUsedInAssociatedProducts = '*';
+
+    /**
+     * @return string|string[]
+     */
+    public function getAttributesUsedInAssociatedProducts()
+    {
+        return $this->_attributesUsedInAssociatedProducts;
+    }
+
+    /**
+     * @param string|string[] $attribute
+     * @return $this
+     */
+    public function setAttributesUsedInAssociatedProducts($attribute)
+    {
+        $this->_attributesUsedInAssociatedProducts = $attribute;
+        return $this;
+    }
 
     /**
      * Return relation info about used products
@@ -124,7 +148,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
             }
 
             $collection = $this->getAssociatedProductCollection($product)
-                ->addAttributeToSelect('*')
+                ->addAttributeToSelect($this->getAttributesUsedInAssociatedProducts())
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
                 ->addStoreFilter($this->getStoreFilter($product))

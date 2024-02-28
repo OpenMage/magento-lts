@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -473,7 +472,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDefaultCustomerGroupId($store = null)
     {
-        return (int)Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
+        return Mage::getStoreConfigAsInt(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $store);
     }
 
     /**
@@ -483,7 +482,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordFlowSecure()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_FLOW_SECURE);
     }
 
     /**
@@ -493,7 +492,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordEmailTimes()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_EMAIL_TIMES);
     }
 
     /**
@@ -503,7 +502,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCustomerForgotPasswordIpTimes()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_CUSTOMER_FORGOT_PASSWORD_IP_TIMES);
     }
 
     /**
@@ -528,7 +527,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
-            $groupId = (int)Mage::getStoreConfig($vatClassToGroupXmlPathMap[$vatClass], $store);
+            $groupId = Mage::getStoreConfigAsInt($vatClassToGroupXmlPathMap[$vatClass], $store);
         }
 
         return $groupId;

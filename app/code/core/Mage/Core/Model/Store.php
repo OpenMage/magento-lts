@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Core_Model_Resource_Store _getResource()
  * @method Mage_Core_Model_Resource_Store getResource()
@@ -50,7 +49,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public const ENTITY = 'core_store';
 
-    /**#@+
+    /**
      * Configuration pathes
      * @var string
      */
@@ -73,7 +72,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public const XML_PATH_SECURE_IN_ADMINHTML       = 'web/secure/use_in_adminhtml';
     public const XML_PATH_OFFLOADER_HEADER          = 'web/secure/offloader_header';
     public const XML_PATH_PRICE_SCOPE               = 'catalog/price/scope';
-    /**#@-*/
 
     /**
      * Price scope constants
@@ -366,7 +364,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function initConfigCache()
     {
         /**
-         * Funtionality related with config separation
+         * Functionality related with config separation
          */
         if ($this->_configCache === null) {
             $code = $this->getCode();
@@ -750,34 +748,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Check if request was secure
      *
+     * @deprecated
      * @return bool
      */
     public function isCurrentlySecure()
     {
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-            return true;
-        }
-
-        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-            return true;
-        }
-
-        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
-            return true;
-        }
-
-        if (Mage::isInstalled()) {
-            $offloaderHeader = strtoupper(trim((string) Mage::getStoreConfig(self::XML_PATH_OFFLOADER_HEADER)));
-            if ($offloaderHeader) {
-                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
-                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return Mage::app()->isCurrentlySecure();
     }
 
     /*************************************************************************************
