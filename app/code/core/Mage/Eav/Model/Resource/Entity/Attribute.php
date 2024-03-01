@@ -356,7 +356,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             'value'     => $option['swatch'][$optionId],
                             'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
                         ];
-                        $adapter->insertOnDuplicate($this->getTable('eav/attribute_option_swatch'), $data);
+                        $adapter->insertOnDuplicate($optionSwatchTable, $data);
                     }
                 }
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
