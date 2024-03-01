@@ -234,17 +234,18 @@ button {
   color: #999;
   font-size: 11px; }
 .form-list td.value {
-  padding-left: 0 !important; }
-  .form-list td.value textarea {
-    width: 324px; }
-  .form-list td.value select {
-    width: 330px; }
-  .form-list td.value p.note {
-    color: #202856;
-    font-size: 11px;
-    font-weight: 400; }
-  .form-list td.value input.input-text {
-    width: 324px; }
+  padding-left: 0 !important;
+}
+.form-list td.value input.input-text,
+.form-list td.value textarea,
+.form-list td.value select {
+  width: 330px;
+}
+.form-list td.value p.note {
+  color: #202856;
+  font-size: 11px;
+  font-weight: 400;
+}
 
 .input-text.large {
   padding: 12px 12px 14px;

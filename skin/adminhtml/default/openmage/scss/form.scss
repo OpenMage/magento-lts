@@ -369,11 +369,7 @@ button[disabled] {
   &.value {
     padding-left: 0 !important;
 
-    textarea {
-      width: 324px;
-    }
-
-    select {
+    input.input-text, textarea, select {
       width: 330px;
     }
 
@@ -381,10 +377,6 @@ button[disabled] {
       color: $color_dorado_approx;
       font-size: 11px;
       font-weight: 400;
-    }
-
-    input.input-text {
-      width: 324px;
     }
   }
 }
