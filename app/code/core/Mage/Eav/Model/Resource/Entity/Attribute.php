@@ -358,7 +358,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                                 'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
                             ];
                             $adapter->insertOnDuplicate($optionSwatchTable, $data);
-                        }else{
+                        } else {
                             $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
                     }
