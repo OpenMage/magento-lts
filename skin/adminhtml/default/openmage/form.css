@@ -234,22 +234,31 @@ button {
   color: #999;
   font-size: 11px; }
 .form-list td.value {
-  padding-left: 0 !important;
-}
-.form-list td.value input.input-text,
-.form-list td.value textarea,
-.form-list td.value select {
-  width: 330px;
-}
-.form-list td.value p.note {
-  color: #202856;
-  font-size: 11px;
-  font-weight: 400;
-}
+  padding-left: 0 !important; }
+  .form-list td.value input.input-text, .form-list td.value textarea, .form-list td.value select {
+    width: 330px; }
+  .form-list td.value p.note {
+    color: #202856;
+    font-size: 11px;
+    font-weight: 400; }
 
 .input-text.large {
   padding: 12px 12px 14px;
   font-size: 18px; }
+
+td:has(input.swatch-option) {
+  display: flex;
+  gap: 2px; }
+  td:has(input.swatch-option) .swatch-delete {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    padding: 2px;
+    font-size: 10px;
+    background: #e63a3a;
+    color: #fff; }
 
 td:has(input.swatch-disabled) {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46.64962' height='32.13075' viewBox='0 0 46.64962 32.13075'%3E%3Ctitle%3Eempty-swatch%3C/title%3E%3Crect x='1.69981' y='1.75287' width='42.75' height='28.5' fill='%23fff' stroke='%23ccc' stroke-miterlimit='10' stroke-width='1'/%3E%3Cline x1='0.82481' y1='30.87787' x2='45.82481' y2='1.25287' fill='none' stroke='%23ff003a' stroke-miterlimit='10' stroke-width='2'/%3E%3C/svg%3E");
@@ -262,5 +271,7 @@ td:has(input.swatch-disabled) {
   border-radius: 2px; }
   td:has(input.swatch-disabled) .swatch-option {
     opacity: 0; }
+  td:has(input.swatch-disabled) .swatch-delete {
+    display: none; }
 
 /*# sourceMappingURL=form.css.map */

@@ -80,9 +80,10 @@
                     </tr>
                     <tr class="no-display template" id="row-template">    
                         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
-                        <td>
+                        <td style="position:relative">
                             <input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />
-                            <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />                            
+                            <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />    
+                            <span class="swatch-delete" data-msg-delete="<?php echo $this->__('Are you sure to delete this fallback color?'); ?>">X</span>  
                         </td>
                         <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
@@ -110,9 +111,10 @@ var optionDefaultInputType = 'radio';
 var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
         <?php if ($this->isConfigurableSwatchesEnabled()): ?>
-            '<td>'+
+            '<td style="position:relative">'+
                 '<input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
                 '<input type="color" class="swatch-option input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />'+
+                '<span class="swatch-delete" data-msg-delete="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure to delete this fallback color?')); ?>">X</span>'+
             '</td>'+
         <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
@@ -155,6 +157,7 @@ var attributeOption = {
         }
         this.bindRemoveButtons();
         this.bindSwatchButtons();
+        this.bindSwatchRemoveButtons();
         this.itemCount++;
         this.totalItems++;
         this.updateItemsCountField();
@@ -207,6 +210,31 @@ var attributeOption = {
             event.target.classList.remove('swatch-disabled');
         }
     },
+    swatchremove : function(event){
+        if (!confirm(event.target.getAttribute('data-msg-delete'))) {
+            return;
+        }
+        var element = $(Event.findElement(event, 'tr')); // !!! Button already
+                                                                // have table parent in safari
+        // Safari workaround
+        element.ancestors().each(function(parentItem){
+            if (parentItem.hasClassName('option-row')) {
+                element = parentItem;
+                throw $break;
+            } else if (parentItem.hasClassName('box')) {
+                throw $break;
+            }
+        });
+    
+        if(element){
+            var elementSwatchValue = element.getElementsByClassName('swatch-value')[0];
+            elementSwatchValue.disabled = false;
+            elementSwatchValue.value = '';
+            var elementSwatchOption = element.getElementsByClassName('swatch-option')[0];
+            elementSwatchOption.value = '';
+            elementSwatchOption.classList.add('swatch-disabled');
+        }
+    },
     updateItemsCountField: function() {
         if (this.totalItems > 0) {
             $('option-count-check').value = '1';
@@ -235,6 +263,15 @@ var attributeOption = {
             if(!$(buttons[i]).binded){
                 $(buttons[i]).binded = true;
                 Event.observe(buttons[i], 'change', this.swatch.bind(this));
+            }
+        }
+    },
+    bindSwatchRemoveButtons : function(){
+        var buttons = $$('.swatch-delete');
+        for(var i=0;i<buttons.length;i++){
+            if(!$(buttons[i]).binded){
+                $(buttons[i]).binded = true;
+                Event.observe(buttons[i], 'click', this.swatchremove.bind(this));
             }
         }
     }
