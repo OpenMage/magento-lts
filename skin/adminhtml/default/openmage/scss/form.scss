@@ -413,19 +413,26 @@ td:has(input.swatch-option) {
     height: 14px;
     display: flex;
     justify-content: center;
-    padding: 2px;
     font-size: 10px;
     background: $color_cinnabar_approx;
     color: $white;
+    border-radius: 2px;
+  }
+  .swatch-option {
+    width: 26px !important;
+    height: 26px;
   }
 }
 
 td:has(input.swatch-disabled) {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46.64962' height='32.13075' viewBox='0 0 46.64962 32.13075'%3E%3Ctitle%3Eempty-swatch%3C/title%3E%3Crect x='1.69981' y='1.75287' width='42.75' height='28.5' fill='%23fff' stroke='%23ccc' stroke-miterlimit='10' stroke-width='1'/%3E%3Cline x1='0.82481' y1='30.87787' x2='45.82481' y2='1.25287' fill='none' stroke='%23ff003a' stroke-miterlimit='10' stroke-width='2'/%3E%3C/svg%3E");
+  background-image: url('data:image/svg+xml,<svg id="e5490f2e-3f54-4acd-9496-57eed667c240" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28.41093 28.29249"><title>placeholder</title><rect x="1.20546" y="1.08375" width="26" height="26" fill="%23fff" stroke="%23ccc" stroke-miterlimit="10"/><line x1="0.70546" y1="27.58375" x2="27.70546" y2="0.70875" fill="none" stroke="%23ff003a" stroke-miterlimit="10" stroke-width="2"/></svg>');
   background-repeat: no-repeat;
-  border: 1px solid #c8c8c8;
-  width: 46px;
-  height: 30px;
+  outline: 1px solid #c8c8c8;
+  border: 1px solid #fff;
+  padding: 0;
+  margin: 2px;
+  width: 24px;
+  height: 24px;
   display: block;
   background-position: center center;
   border-radius: 2px;
