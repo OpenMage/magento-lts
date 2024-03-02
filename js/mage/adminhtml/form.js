@@ -510,7 +510,7 @@ FormElementDependenceController.prototype = {
      */
     trackChange : function(e, idTo, valuesFrom)
     {
-        var ele = document.getElementById(idTo), cnf = this._config;;
+        var ele = document.getElementById(idTo), cnf = this._config;
         if (!ele) {
             idTo = 'row_' + idTo;
             ele = $(idTo);
