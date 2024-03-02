@@ -41,13 +41,12 @@ class EnvironmentConfigLoaderTest extends TestCase
      */
     public function testEnvOverrides(array $config)
     {
-        error_reporting(0);
         $xmlStruct = $this->getTestXml();
 
-        $xmlDefault = new Mage_Core_Model_Config($xmlStruct);
-        $xmlDefault = $xmlDefault->loadModulesConfiguration('config.xml', $xmlDefault);
-        $xml = new Mage_Core_Model_Config($xmlStruct);
-        $xml = $xml->loadModulesConfiguration('config.xml', $xml);
+        $xmlDefault = new \Varien_Simplexml_Config();
+        $xmlDefault->loadString($xmlStruct);
+        $xml = new \Varien_Simplexml_Config();
+        $xml->loadString($xmlStruct);
 
         $this->assertEquals('test_default', (string)$xml->getNode('default/general/store_information/name'));
         $this->assertEquals('test_website', (string)$xml->getNode('websites/base/general/store_information/name'));

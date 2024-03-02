@@ -50,10 +50,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * Override the store 'german' configuration:
      * @example OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME=store_german
      *
-     * @param Mage_Core_Model_Config $xmlConfig
+     * @param Varien_Simplexml_Config $xmlConfig
      * @return void
      */
-    public function overrideEnvironment(Mage_Core_Model_Config $xmlConfig)
+    public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
     {
         $env = $this->getEnv();
 
