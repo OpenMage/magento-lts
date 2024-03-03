@@ -9,13 +9,6 @@ use Mage_Core_Model_Config;
 
 class EnvironmentConfigLoaderTest extends TestCase
 {
-    protected const ENV_CONFIG_DEFAULT_PATH = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
-    protected const ENV_CONFIG_DEFAULT_VALUE = 'default_new_value';
-    protected const ENV_CONFIG_WEBSITE_PATH = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
-    protected const ENV_CONFIG_WEBSITE_VALUE = 'website_new_value';
-    protected const ENV_CONFIG_STORE_PATH = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME';
-    protected const ENV_CONFIG_STORE_VALUE = 'store_german_new_value';
-
     public function setup(): void
     {
         \Mage::setRoot('');
@@ -36,10 +29,10 @@ class EnvironmentConfigLoaderTest extends TestCase
     }
 
     /**
-     * @dataProvider envOverridesDataProvider
-     *
+     * @dataProvider env_overrides_correct_config_keys
+     * @test
      */
-    public function testEnvOverrides(array $config)
+    public function env_overrides_for_valid_config_keys(array $config)
     {
         $xmlStruct = $this->getTestXml();
 
@@ -66,11 +59,11 @@ class EnvironmentConfigLoaderTest extends TestCase
                 break;
             case 'STORE':
                 $defaultValue = $xmlDefault->getNode('stores/german/general/store_information/name');
-                $valueAfterOverride = $xml->getNode('general/store_information/name');
+                $valueAfterOverride = $xml->getNode('stores/german/general/store_information/name');
                 break;
             case 'WEBSITE':
-                $defaultValue = $xmlDefault->getNode('default/general/store_information/name');
-                $valueAfterOverride = $xml->getNode('website/base/store_information/name');
+                $defaultValue = $xmlDefault->getNode('websites/base/general/store_information/name');
+                $valueAfterOverride = $xml->getNode('websites/base/general/store_information/name');
                 break;
         }
 
@@ -78,28 +71,104 @@ class EnvironmentConfigLoaderTest extends TestCase
         $this->assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
     }
 
-    public function envOverridesDataProvider(): array
+    public function env_overrides_correct_config_keys(): array
     {
+        $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
+        $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
+        $storePath = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME';
         return [
             [
-                'Case DEFAULT with ' . static::ENV_CONFIG_DEFAULT_PATH . ' overrides.' => [
+                'Case DEFAULT with ' . $defaultPath . ' overrides.' => [
                     'case'  => 'DEFAULT',
-                    'path'  => static::ENV_CONFIG_DEFAULT_PATH,
-                    'value' => static::ENV_CONFIG_DEFAULT_VALUE
+                    'path'  => $defaultPath,
+                    'value' => 'default_new_value'
                 ]
             ],
             [
-                'Case STORE with ' . static::ENV_CONFIG_STORE_PATH . ' overrides.' => [
+                'Case STORE with ' . $storePath . ' overrides.' => [
                     'case'  => 'STORE',
-                    'path'  => static::ENV_CONFIG_STORE_PATH,
-                    'value' => static::ENV_CONFIG_STORE_VALUE
+                    'path'  => $storePath,
+                    'value' => 'store_new_value'
                 ]
             ],
             [
-                'Case WEBSITE with ' . static::ENV_CONFIG_WEBSITE_PATH . ' overrides.' => [
+                'Case WEBSITE with ' . $websitePath . ' overrides.' => [
                     'case'  => 'WEBSITE',
-                    'path'  => static::ENV_CONFIG_WEBSITE_PATH,
-                    'value' => static::ENV_CONFIG_WEBSITE_VALUE
+                    'path'  => $websitePath,
+                    'value' => 'website_new_value'
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider env_does_not_override_on_wrong_config_keys
+     * @test
+     */
+    public function env_does_not_override_for_valid_config_keys(array $config)
+    {
+        $xmlStruct = $this->getTestXml();
+
+        $xmlDefault = new \Varien_Simplexml_Config();
+        $xmlDefault->loadString($xmlStruct);
+        $xml = new \Varien_Simplexml_Config();
+        $xml->loadString($xmlStruct);
+
+        $defaultValue = 'test_default';
+        $this->assertEquals($defaultValue, (string)$xml->getNode('default/general/store_information/name'));
+        $defaultWebsiteValue = 'test_website';
+        $this->assertEquals($defaultWebsiteValue, (string)$xml->getNode('websites/base/general/store_information/name'));
+        $defaultStoreValue = 'test_store';
+        $this->assertEquals($defaultStoreValue, (string)$xml->getNode('stores/german/general/store_information/name'));
+
+        // act
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        $loader->setEnvStore([
+            $config['path'] => $config['value']
+        ]);
+        $loader->overrideEnvironment($xml);
+
+        switch ($config['case']) {
+            case 'DEFAULT':
+                $valueAfterCheck = $xml->getNode('default/general/store_information/name');
+                break;
+            case 'STORE':
+                $valueAfterCheck = $xml->getNode('stores/german/general/store_information/name');
+                break;
+            case 'WEBSITE':
+                $valueAfterCheck = $xml->getNode('websites/base/general/store_information/name');
+                break;
+        }
+
+        // assert
+        $this->assertTrue(!str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
+    }
+
+    public function env_does_not_override_on_wrong_config_keys(): array
+    {
+        $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__ST';
+        $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST';
+        $storePath = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__ST';
+        return [
+            [
+                'Case DEFAULT with ' . $defaultPath . ' will not override.' => [
+                    'case'  => 'DEFAULT',
+                    'path'  => $defaultPath,
+                    'value' => 'default_value_will_not_be_changed'
+                ]
+            ],
+            [
+                'Case STORE with ' . $storePath . ' will not override.' => [
+                    'case'  => 'STORE',
+                    'path'  => $storePath,
+                    'value' => 'store_value_will_not_be_changed'
+                ]
+            ],
+            [
+                'Case WEBSITE with ' . $websitePath . ' will not override.' => [
+                    'case'  => 'WEBSITE',
+                    'path'  => $websitePath,
+                    'value' => 'website_value_will_not_be_changed'
                 ]
             ]
         ];
@@ -113,13 +182,6 @@ class EnvironmentConfigLoaderTest extends TestCase
         return <<<XML
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-    <modules>
-        <Mage_Core>
-            <active>true</active>
-            <codePool>core</codePool>
-        </Mage_Core>
-    </modules>
-    
     <default>
         <general>
             <store_information>

@@ -57,7 +57,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
-            if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
+            if (!$this->isConfigKeyValid($configKey)) {
                 continue;
             }
 
@@ -86,6 +86,23 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
+    }
+
+    public function isConfigKeyValid(string $configKey): bool
+    {
+        if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
+            return false;
+        }
+
+        $sectionGroupFieldRegexp = '([A-Z_]*)';
+        $regexp = '/' . static::ENV_STARTS_WITH . static::ENV_KEY_SEPARATOR . '(WEBSITES' . static::ENV_KEY_SEPARATOR
+            . '[A-Z_]+|DEFAULT|STORES' . static::ENV_KEY_SEPARATOR . '[A-Z_]+)'
+            . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
+            . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
+            . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp . '/';
+        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z_]+|DEFAULT|STORES__[A-Z_]+)__([A-Z_]*)__([A-Z_]+)__([A-Z_]+)/
+
+        return preg_match($regexp, $configKey);
     }
 
     /**
