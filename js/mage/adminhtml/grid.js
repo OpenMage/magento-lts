@@ -852,7 +852,7 @@ serializerController.prototype = {
         this.rowInit(this.grid, row);
     },
     rowClick : function(grid, event) {
-        var drElement = Event.findElement(event, 'td');
+        var tdElement = Event.findElement(event, 'td');
         var isInput   = Event.element(event).tagName == 'INPUT';
         if(tdElement){
             var checkbox = Element.select(tdElement, 'input');
