@@ -200,8 +200,8 @@
     function categoryProductRowClick(grid, event){
         var trElement = Event.findElement(event, 'tr');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(tdElement){
-            var checkbox = Element.getElementsBySelector(tdElement, 'input');
+if(trElement){
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
