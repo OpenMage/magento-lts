@@ -198,7 +198,7 @@
         grid.reloadParams = {'selected_products[]':categoryProducts.keys()};
     }
     function categoryProductRowClick(grid, event){
-        var tdElement = Event.findElement(event, 'td');
+        var trElement = Event.findElement(event, 'tr');
         var isInput   = Event.element(event).tagName == 'INPUT';
         if(tdElement){
             var checkbox = Element.getElementsBySelector(tdElement, 'input');
