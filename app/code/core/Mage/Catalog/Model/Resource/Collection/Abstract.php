@@ -95,24 +95,50 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         $storeId = $this->getStoreId();
 
         if ($storeId) {
-            $adapter        = $this->getConnection();
-            $entityIdField  = $this->getEntity()->getEntityIdField();
-            $joinCondition  = [
-                't_s.attribute_id = t_d.attribute_id',
-                't_s.entity_id = t_d.entity_id',
-                $adapter->quoteInto('t_s.store_id = ?', $storeId)
-            ];
+            $adapter = $this->getConnection();
+            $entity  = $this->getEntity();
+
+            // see also Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue()
             $select = $adapter->select()
-                ->from(['t_d' => $table], [$entityIdField, 'attribute_id'])
-                ->joinLeft(
-                    ['t_s' => $table],
-                    implode(' AND ', $joinCondition),
-                    []
-                )
-                ->where('t_d.entity_type_id = ?', $this->getEntity()->getTypeId())
-                ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
-                ->where('t_d.attribute_id IN (?)', $attributeIds)
-                ->where('t_d.store_id = ?', 0);
+                ->from(['e' => $entity->getEntityTable()], [])
+                ->where('e.entity_id IN (?)', array_keys($this->_itemsById));
+            // attr join
+            $select->joinInner(
+                ['attr' => $table],
+                implode(' AND ', [
+                    'attr.entity_id = e.entity_id',
+                    $adapter->quoteInto('attr.attribute_id IN (?)', $attributeIds),
+                    'attr.store_id IN (' . $this->getDefaultStoreId() . ', ' . $storeId . ')',
+                    'attr.entity_type_id = ' . $entity->getTypeId(),
+                ]),
+                []
+            );
+            // t_d join
+            $select->joinLeft(
+                ['t_d' => $table],
+                implode(' AND ', [
+                    't_d.entity_id = e.entity_id',
+                    't_d.attribute_id = attr.attribute_id',
+                    't_d.store_id = ' . $this->getDefaultStoreId(),
+                ]),
+                []
+            );
+            // t_s join
+            $attributeIdExpr = $adapter->getCheckSql(
+                't_s.attribute_id IS NULL',
+                't_d.attribute_id',
+                't_s.attribute_id'
+            );
+            $select->joinLeft(
+                ['t_s' => $table],
+                implode(' AND ', [
+                    't_s.entity_id = e.entity_id',
+                    't_s.attribute_id = attr.attribute_id',
+                    't_s.store_id = ' . $storeId,
+                ]),
+                ['e.entity_id', 'attribute_id' => $attributeIdExpr]
+            );
+            $select->group('e.entity_id')->group('attr.attribute_id');
         } else {
             $select = parent::_getLoadAttributesSelect($table)
                 ->where('store_id = ?', $this->getDefaultStoreId());
