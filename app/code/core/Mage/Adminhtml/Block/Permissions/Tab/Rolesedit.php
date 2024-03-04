@@ -170,6 +170,10 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id'] = (string)$node->attributes()->aclpath;
 
+            if (Mage::getIsDeveloperMode() && Mage::getStoreConfigFlag('admin/design/copy_path')) {
+                $item['text'] .= '</a> <a href="javascript:copyText(\'' . substr($item['id'], 6) . '\');" class="copycnf">(' . substr($item['id'], 6) . ')';
+            }
+
             if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
             }

@@ -279,6 +279,11 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                 $item['id'] = self::NAME_RESOURCE . self::ID_SEPARATOR . $name;
                 $item['text'] = $this->__('%s', (string) $node->title);
             }
+
+            if (Mage::getIsDeveloperMode() && Mage::getStoreConfigFlag('admin/design/copy_path')) {
+                $item['text'] .= '</a> <a href="javascript:copyText(\'' . $name . '\');" class="copycnf">(' . $name . ')';
+            }
+
             $item['checked'] = false;
             $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
         }
