@@ -34,6 +34,10 @@
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
+    public const SCOPE_STORE                           = 0;
+    public const SCOPE_GLOBAL                          = 1;
+    public const SCOPE_WEBSITE                         = 2;
+
     /**
      * Prefix of model events names
      *
