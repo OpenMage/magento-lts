@@ -76,9 +76,11 @@ var Variables = {
             title: 'Insert Variable...',
             width: 700,
             //height:270,
-            zIndex: 1000,
+            zIndex: 9000,
             recenterAuto: false,
-            id: this.dialogWindowId,
+            hideEffect: Element.hide,
+            showEffect: Element.show,
+            id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
         variablesContent.evalScripts.bind(variablesContent).defer();
