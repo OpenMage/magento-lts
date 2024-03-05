@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Api2
  *
- * @method string _create() _create(array $filteredData) creation of an entity
+ * @method string _create() _create(array $filteredData) creation of an entity, return location header
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
  * @method array _retrieve() retrieving an entity
  * @method array _retrieveCollection() retrieving a collection
@@ -206,8 +206,9 @@ abstract class Mage_Api2_Model_Resource
                     if (empty($filteredData)) {
                         $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
                     }
-                    $newItemLocation = $this->_create($filteredData);
-                    $this->getResponse()->setHeader('Location', $newItemLocation);
+                    if ($newItemLocation = $this->_create($filteredData)) {
+                        $this->getResponse()->setHeader('Location', $newItemLocation);
+                    }
                 } else {
                     $this->_errorIfMethodNotExist('_multiCreate');
                     $filteredData = $this->getFilter()->collectionIn($requestData);
