@@ -176,25 +176,24 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
+        $stability = $info['stability'];
+        $number = $info['number'];
+
+        if ($stability || $number) {
             $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
+            if ($stability && $number) {
+                $versionString .= "{$stability}.{$number}";
             } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
+                $versionString .= $stability . $number;
             }
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+
+        return trim($versionString, '.-');
     }
 
     /**
