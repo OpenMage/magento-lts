@@ -87,7 +87,7 @@
         if (productForm.validator.validate()) {
             var template = new Template(urlTemplate, productTemplateSyntax);
             var url = template.evaluate({
-                attributes: encode_base64(attributes.join(',')).replace(new RegExp('/','g'),'%2F').replace(new RegExp('=','g'),'%3D')
+                attributes: btoa(attributes.join(',')).replace(new RegExp('/','g'),'%2F').replace(new RegExp('=','g'),'%3D')
             });
             setLocation(url);
         }
