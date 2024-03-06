@@ -181,19 +181,18 @@ final class Mage
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        $stability = $info['stability'];
-        $number = $info['number'];
 
-        if ($stability || $number) {
-            $versionString .= '-';
-            if ($stability && $number) {
-                $versionString .= "{$stability}.{$number}";
-            } else {
-                $versionString .= $stability . $number;
-            }
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
+        }
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
         }
 
-        return rtrim($versionString, '.-');
+        return $versionString;
     }
 
     /**
