@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,13 +79,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     protected $_xmlAccessRequest = null;
 
     /**
-     * Default cgi gateway url
-     *
-     * @var string
-     */
-    protected $_defaultCgiGatewayUrl = 'http://www.ups.com:80/using/services/rave/qcostcgi.cgi';
-
-    /**
      * Default urls for XML
      *
      * @var array
@@ -95,6 +88,18 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         'Track'       => 'https://onlinetools.ups.com/ups.app/xml/Track',
         'ShipConfirm' => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
         'ShipAccept'  => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
+    ];
+
+    /**
+     * Default urls for XML
+     *
+     * @var array
+     */
+    protected $_defaultRestUrls = [
+        'ShipConfirm'     => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
+        'ShipAccept'      => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
+        'AuthUrl'         => 'https://onlinetools.ups.com/security/v1/oauth/token',
+        'ShipRestConfirm' => 'https://onlinetools.ups.com/api/shipments/v1/ship',
     ];
 
     /**
@@ -307,6 +312,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         switch ($this->getConfigData('type')) {
             case 'UPS_XML':
                 return $this->_getXmlQuotes();
+            case 'UPS_REST':
+                return $this->_getRestQuotes();
         }
         return null;
     }
@@ -329,61 +336,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     }
 
     /**
-     * Get cgi rates
-     *
-     * @return Mage_Shipping_Model_Rate_Result
-     */
-    protected function _getCgiQuotes()
-    {
-        $r = $this->_rawRequest;
-
-        $params = [
-            'accept_UPS_license_agreement' => 'yes',
-            '10_action'      => $r->getAction(),
-            '13_product'     => $r->getProduct(),
-            '14_origCountry' => $r->getOrigCountry(),
-            '15_origPostal'  => $r->getOrigPostal(),
-            'origCity'       => $r->getOrigCity(),
-            '19_destPostal'  => Mage_Usa_Model_Shipping_Carrier_Abstract::USA_COUNTRY_ID == $r->getDestCountry() ?
-                substr($r->getDestPostal(), 0, 5) :
-                $r->getDestPostal(),
-            '22_destCountry' => $r->getDestCountry(),
-            '23_weight'      => $r->getWeight(),
-            '47_rate_chart'  => $r->getPickup(),
-            '48_container'   => $r->getContainer(),
-            '49_residential' => $r->getDestType(),
-            'weight_std'     => strtolower($r->getUnitMeasure()),
-        ];
-        $params['47_rate_chart'] = $params['47_rate_chart']['label'];
-
-        $responseBody = $this->_getCachedQuotes($params);
-        if ($responseBody === null) {
-            $debugData = ['request' => $params];
-            try {
-                $url = $this->getConfigData('gateway_url');
-                if (!$url) {
-                    $url = $this->_defaultCgiGatewayUrl;
-                }
-                $client = new Zend_Http_Client();
-                $client->setUri($url);
-                $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
-                $client->setParameterGet($params);
-                $response = $client->request();
-                $responseBody = $response->getBody();
-
-                $debugData['result'] = $responseBody;
-                $this->_setCachedQuotes($params, $responseBody);
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-                $responseBody = '';
-            }
-            $this->_debug($debugData);
-        }
-
-        return $this->_parseCgiResponse($responseBody);
-    }
-
-    /**
      * Get shipment by code
      *
      * @param string $code
@@ -401,71 +353,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         } else {
             return false;
         }
-    }
-
-    /**
-     * Prepare shipping rate result based on response
-     *
-     * @param mixed $response
-     * @return Mage_Shipping_Model_Rate_Result
-     */
-    protected function _parseCgiResponse($response)
-    {
-        $costArr = [];
-        $priceArr = [];
-        $errorTitle = Mage::helper('usa')->__('Unknown error');
-        if (strlen(trim($response)) > 0) {
-            $rRows = explode("\n", $response);
-            $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
-            foreach ($rRows as $rRow) {
-                $r = explode('%', $rRow);
-                switch (substr($r[0], -1)) {
-                    case 3:
-                    case 4:
-                        if (in_array($r[1], $allowedMethods)) {
-                            $responsePrice = Mage::app()->getLocale()->getNumber($r[10]);
-                            $costArr[$r[1]] = $responsePrice;
-                            $priceArr[$r[1]] = $this->getMethodPrice($responsePrice, $r[1]);
-                        }
-                        break;
-                    case 5:
-                        $errorTitle = $r[1];
-                        break;
-                    case 6:
-                        if (in_array($r[3], $allowedMethods)) {
-                            $responsePrice = Mage::app()->getLocale()->getNumber($r[10]);
-                            $costArr[$r[3]] = $responsePrice;
-                            $priceArr[$r[3]] = $this->getMethodPrice($responsePrice, $r[3]);
-                        }
-                        break;
-                }
-            }
-            asort($priceArr);
-        }
-
-        $result = Mage::getModel('shipping/rate_result');
-        $defaults = $this->getDefaults();
-        if (empty($priceArr)) {
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier('ups');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-            $result->append($error);
-        } else {
-            foreach ($priceArr as $method => $price) {
-                $rate = Mage::getModel('shipping/rate_result_method');
-                $rate->setCarrier('ups');
-                $rate->setCarrierTitle($this->getConfigData('title'));
-                $rate->setMethod($method);
-                $method_arr = $this->getCode('method', $method);
-                $rate->setMethodTitle($method_arr);
-                $rate->setCost($costArr[$method]);
-                $rate->setPrice($price);
-                $result->append($rate);
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -1800,5 +1687,344 @@ XMLAuth;
         }
 
         return self::DELIVERY_CONFIRMATION_SHIPMENT;
+    }
+
+    /**
+     * Get REST rates
+     *
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _getRestQuotes()
+    {
+        $url = $this->getConfigData('gateway_rest_url');
+        $accessToken = $this->setAPIAccessRequest();
+        $rowRequest = $this->_rawRequest;
+
+        $params = $this->setQuoteRequestData($rowRequest);
+        $serviceCode = $params['serviceCode'];
+        $serviceDescription = $params['serviceDescription'];
+
+        $shipperNumber = '';
+        if ($this->getConfigFlag('negotiated_active') && ($shipperNumber = $this->getConfigData('shipper_number'))) {
+            $shipperNumber = $this->getConfigData('shipper_number');
+        }
+
+        if ($rowRequest->getIsReturn()) {
+            $shipperCity = '';
+            $shipperPostalCode = $params['19_destPostal'];
+            $shipperCountryCode = $params['22_destCountry'];
+            $shipperStateProvince = $params['destRegionCode'];
+        } else {
+            $shipperCity = $params['origCity'];
+            $shipperPostalCode = $params['15_origPostal'];
+            $shipperCountryCode = $params['14_origCountry'];
+            $shipperStateProvince = $params['origRegionCode'];
+        }
+
+        $residentialAddressIndicator = '';
+        if ($params['49_residential'] === '01') {
+            $residentialAddressIndicator = $params['49_residential'];
+        }
+
+        $rateParams = [
+            "RateRequest" => [
+                "Request" => [
+                    "TransactionReference" => [
+                        "CustomerContext" => "Rating and Service"
+                    ]
+                ],
+                "Shipment" => [
+                    "Shipper" => [
+                        "Name" => "UPS",
+                        "ShipperNumber" => "{$shipperNumber}",
+                        "Address" => [
+                            "AddressLine" => [
+                                "{$residentialAddressIndicator}",
+                            ],
+                            "City" => "{$shipperCity}",
+                            "StateProvinceCode" => "{$shipperStateProvince}",
+                            "PostalCode" => "{$shipperPostalCode}",
+                            "CountryCode" => "{$shipperCountryCode}"
+                        ]
+                    ],
+                    "ShipTo" => [
+                        "Address" => [
+                            "AddressLine" => ["{$params['49_residential']}"],
+                            "StateProvinceCode" => "{$params['destRegionCode']}",
+                            "PostalCode" => "{$params['19_destPostal']}",
+                            "CountryCode" => "{$params['22_destCountry']}",
+                            "ResidentialAddressIndicator" => "{$residentialAddressIndicator}"
+                        ]
+                    ],
+                    "ShipFrom" => [
+                        "Address" => [
+                            "AddressLine" => [],
+                            "StateProvinceCode" => "{$params['origRegionCode']}",
+                            "PostalCode" => "{$params['15_origPostal']}",
+                            "CountryCode" => "{$params['14_origCountry']}"
+                        ]
+                    ],
+                ]
+            ]
+        ];
+
+        if ($this->getConfigFlag('negotiated_active')) {
+            $rateParams['RateRequest']['Shipment']['ShipmentRatingOptions']['TPFCNegotiatedRatesIndicator'] = "Y";
+            $rateParams['RateRequest']['Shipment']['ShipmentRatingOptions']['NegotiatedRatesIndicator'] = "Y";
+        }
+        if ($this->getConfigFlag('include_taxes')) {
+            $rateParams['RateRequest']['Shipment']['TaxInformationIndicator'] = "Y";
+        }
+
+        if ($serviceCode !== null) {
+            $rateParams['RateRequest']['Shipment']['Service']['code'] = $serviceCode;
+            $rateParams['RateRequest']['Shipment']['Service']['Description'] = $serviceDescription;
+        }
+
+        foreach ($rowRequest->getPackages() as $package) {
+            $rateParams['RateRequest']['Shipment']['Package'][] = [
+                "PackagingType" => [
+                    "Code" => "{$params['48_container']}",
+                    "Description" => "Packaging"
+                ],
+                "Dimensions" => [
+                    "UnitOfMeasurement" => [
+                        "Code" => "IN",
+                        "Description" => "Inches"
+                    ],
+                    "Length" => "5",
+                    "Width" => "5",
+                    "Height" => "5"
+                ],
+                "PackageWeight" => [
+                    "UnitOfMeasurement" => [
+                        "Code" => "{$rowRequest->getUnitMeasure()}"
+                    ],
+                    "Weight" => "{$this->_getCorrectWeight($package['weight'])}"
+                ]
+            ];
+        }
+
+        $ratePayload = json_encode($rateParams, JSON_PRETTY_PRINT);
+        /** Rest API Payload */
+        $version = "v1";
+        $requestOption = $params['10_action'];
+        $headers = [
+            "Authorization" => "Bearer " . $accessToken,
+            "Content-Type" => "application/json"
+        ];
+
+        $httpResponse = $this->asyncHttpClient->request(
+            new Request($url.$version . "/" . $requestOption, Request::METHOD_POST, $headers, $ratePayload)
+        );
+
+        $debugData['request'] = $ratePayload;
+        return $this->deferredProxyFactory->create(
+            [
+                'deferred' => new CallbackDeferred(
+                    function () use ($httpResponse, $debugData) {
+                        $responseResult = null;
+                        $jsonResponse = '';
+                        try {
+                            $responseResult = $httpResponse->get();
+                        } catch (HttpException $e) {
+                            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+                            $this->_logger->critical($e);
+                        }
+                        if ($responseResult) {
+                            $jsonResponse = $responseResult->getStatusCode() >= 400 ? '' : $responseResult->getBody();
+                        }
+                        $debugData['result'] = $jsonResponse;
+                        $this->_debug($debugData);
+
+                        return $this->_parseRestResponse($jsonResponse);
+                    }
+                )
+            ]
+        );
+    }
+
+    /**
+     * Prepare shipping rate result based on response
+     *
+     * @param mixed $rateResponse
+     * @return Result
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     */
+    protected function _parseRestResponse($rateResponse)
+    {
+        $costArr = [];
+        $priceArr = [];
+        $errorTitle = '';
+        if ($rateResponse !== null && strlen($rateResponse) > 0) {
+            $rateResponseData = json_decode($rateResponse, true);
+            if ($rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
+                $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
+                $allowedMethods = explode(",", $this->getConfigData('allowed_methods') ?? '');
+
+                $allowedCurrencies = $this->_currencyFactory->create()->getConfigAllowCurrencies();
+                foreach ($arr as $shipElement) {
+                    // Negotiated rates
+                    $negotiatedArr = $shipElement['NegotiatedRateCharges'] ?? [] ;
+                    $negotiatedActive = $this->getConfigFlag('negotiated_active')
+                        && $this->getConfigData('shipper_number')
+                        && !empty($negotiatedArr);
+
+                    $this->processShippingRestRateForItem(
+                        $shipElement,
+                        $allowedMethods,
+                        $allowedCurrencies,
+                        $costArr,
+                        $priceArr,
+                        $negotiatedActive
+                    );
+                }
+            } else {
+                $errorTitle = $rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'];
+                $error = $this->_rateErrorFactory->create();
+                $error->setCarrier('ups');
+                $error->setCarrierTitle($this->getConfigData('title'));
+                $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+            }
+        }
+
+        return $this->setRatePriceData($priceArr, $costArr, $errorTitle);
+    }
+
+    /**
+     * Set Rate Response Price Data
+     *
+     * @param array $priceArr
+     * @param array $costArr
+     * @param string $errorTitle
+     * @return Result
+     */
+    private function setRatePriceData($priceArr, $costArr, $errorTitle)
+    {
+        $result = $this->_rateFactory->create();
+
+        if (empty($priceArr)) {
+            $error = $this->_rateErrorFactory->create();
+            $error->setCarrier('ups');
+            $error->setCarrierTitle($this->getConfigData('title'));
+            if ($this->getConfigData('specificerrmsg') !== '') {
+                $errorTitle = $this->getConfigData('specificerrmsg');
+            }
+            $error->setErrorMessage($errorTitle);
+            $result->append($error);
+        } else {
+            foreach ($priceArr as $method => $price) {
+                $rate = $this->_rateMethodFactory->create();
+                $rate->setCarrier('ups');
+                $rate->setCarrierTitle($this->getConfigData('title'));
+                $rate->setMethod($method);
+                $methodArr = $this->getShipmentByCode($method);
+                $rate->setMethodTitle($methodArr);
+                $rate->setCost($costArr[$method]);
+                $rate->setPrice($price);
+                $result->append($rate);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Processing rate for ship element
+     *
+     * @param array $shipElement
+     * @param array $allowedMethods
+     * @param array $allowedCurrencies
+     * @param array $costArr
+     * @param array $priceArr
+     * @param bool $negotiatedActive
+     */
+    private function processShippingRestRateForItem(
+        array $shipElement,
+        array $allowedMethods,
+        array $allowedCurrencies,
+        array &$costArr,
+        array &$priceArr,
+        bool $negotiatedActive
+    ): void {
+        $code = $shipElement['Service']['Code'] ?? '';
+        if (in_array($code, $allowedMethods)) {
+            //The location of tax information is in a different place
+            // depending on whether we are using negotiated rates or not
+            if ($negotiatedActive) {
+                $includeTaxesArr = $shipElement['NegotiatedRateCharges']['TotalChargesWithTaxes'] ?? [];
+                $includeTaxesActive = $this->getConfigFlag('include_taxes') && !empty($includeTaxesArr);
+                if ($includeTaxesActive) {
+                    $cost = $shipElement['NegotiatedRateCharges']['TotalChargesWithTaxes']['MonetaryValue'];
+
+                    $responseCurrencyCode = $this->mapCurrencyCode(
+                        (string)$shipElement['NegotiatedRateCharges']['TotalChargesWithTaxes']['CurrencyCode']
+                    );
+                } else {
+                    $cost = $shipElement['NegotiatedRateCharges']['TotalCharge']['MonetaryValue'];
+                    $responseCurrencyCode = $this->mapCurrencyCode(
+                        (string)$shipElement['NegotiatedRateCharges']['TotalCharge']['CurrencyCode']
+                    );
+                }
+            } else {
+                $includeTaxesArr = $shipElement['TotalChargesWithTaxes'] ?? [];
+                $includeTaxesActive = $this->getConfigFlag('include_taxes') && !empty($includeTaxesArr);
+                if ($includeTaxesActive) {
+                    $cost = $shipElement['TotalChargesWithTaxes']['MonetaryValue'];
+                    $responseCurrencyCode = $this->mapCurrencyCode(
+                        (string)$shipElement['TotalChargesWithTaxes']['CurrencyCode']
+                    );
+                } else {
+                    $cost = $shipElement['TotalCharges']['MonetaryValue'];
+                    $responseCurrencyCode = $this->mapCurrencyCode(
+                        (string)$shipElement['TotalCharges']['CurrencyCode']
+                    );
+                }
+            }
+
+            //convert price with Origin country currency code to base currency code
+            $successConversion = true;
+            if ($responseCurrencyCode) {
+                if (in_array($responseCurrencyCode, $allowedCurrencies)) {
+                    $cost = (double)$cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
+                } else {
+                    $errorTitle = __(
+                        'We can\'t convert a rate from "%1-%2".',
+                        $responseCurrencyCode,
+                        $this->_request->getPackageCurrency()->getCode()
+                    );
+                    $error = $this->_rateErrorFactory->create();
+                    $error->setCarrier('ups');
+                    $error->setCarrierTitle($this->getConfigData('title'));
+                    $error->setErrorMessage($errorTitle);
+                    $successConversion = false;
+                }
+            }
+
+            if ($successConversion) {
+                $costArr[$code] = $cost;
+                $priceArr[$code] = $this->getMethodPrice((float)$cost, $code);
+            }
+        }
+    }
+
+    /**
+     * To receive access token
+     *
+     * @return mixed
+     * @throws LocalizedException
+     */
+    protected function setAPIAccessRequest()
+    {
+        $userId = $this->getConfigData('username');
+        $userIdPass = $this->getConfigData('password');
+        if ($this->getConfigData('is_account_live')) {
+            $authUrl = $this->_liveUrls['AuthUrl'];
+        } else {
+            $authUrl = $this->_defaultUrls['AuthUrl'];
+        }
+        return $this->upsAuth->getAccessToken($userId, $userIdPass, $authUrl);
     }
 }
