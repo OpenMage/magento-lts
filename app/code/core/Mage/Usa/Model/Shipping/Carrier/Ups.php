@@ -552,14 +552,22 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                     '03' => Mage::helper('usa')->__('UPS Ground'),
                     '07' => Mage::helper('usa')->__('UPS Worldwide Express'),
                     '08' => Mage::helper('usa')->__('UPS Worldwide Expedited'),
+                    '12' => Mage::helper('usa')->__('UPS Three-Day Select'),
                     '14' => Mage::helper('usa')->__('UPS Next Day Air Early A.M.'),
                     '54' => Mage::helper('usa')->__('UPS Worldwide Express Plus'),
                     '65' => Mage::helper('usa')->__('UPS Saver'),
                 ],
                 // Shipments Originating in Mexico
                 'Shipments Originating in Mexico' => [
+                    '01' => Mage::helper('usa')->__('UPS Next Day Air'),
+                    '02' => Mage::helper('usa')->__('UPS Second Day Air'),
+                    '03' => Mage::helper('usa')->__('UPS Ground'),
                     '07' => Mage::helper('usa')->__('UPS Express'),
                     '08' => Mage::helper('usa')->__('UPS Expedited'),
+                    '11' => Mage::helper('usa')->__('UPS Standard'),
+                    '12' => Mage::helper('usa')->__('UPS Three-Day Select'),
+                    '13' => Mage::helper('usa')->__('UPS Next Day Air Saver'),
+                    '14' => Mage::helper('usa')->__('UPS Next Day Air Early A.M.'),
                     '54' => Mage::helper('usa')->__('UPS Express Plus'),
                     '65' => Mage::helper('usa')->__('UPS Saver'),
                 ],
@@ -569,8 +577,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                     '08' => Mage::helper('usa')->__('UPS Worldwide Expedited'),
                     '11' => Mage::helper('usa')->__('UPS Standard'),
                     '54' => Mage::helper('usa')->__('UPS Worldwide Express Plus'),
-                    '65' => Mage::helper('usa')->__('UPS Saver')
-                ]
+                    '65' => Mage::helper('usa')->__('UPS Saver'),
+                ],
             ],
 
             'method' => [
