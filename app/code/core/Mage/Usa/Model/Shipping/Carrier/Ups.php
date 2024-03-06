@@ -1815,7 +1815,7 @@ XMLAuth;
         ];
 
         $httpResponse = $this->asyncHttpClient->request(
-            new Request($url.$version . "/" . $requestOption, Request::METHOD_POST, $headers, $ratePayload)
+            new Request($url . $version . "/" . $requestOption, Request::METHOD_POST, $headers, $ratePayload)
         );
 
         $debugData['request'] = $ratePayload;
