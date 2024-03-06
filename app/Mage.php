@@ -193,7 +193,7 @@ final class Mage
             }
         }
 
-        return trim($versionString, '.-');
+        return rtrim($versionString, '.-');
     }
 
     /**
