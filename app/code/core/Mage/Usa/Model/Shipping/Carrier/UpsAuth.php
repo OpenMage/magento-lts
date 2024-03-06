@@ -24,7 +24,7 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     /**
      * Cache key prefix for UPS API token
      */
-    const CACHE_KEY_PREFIX = 'ups_api_token_';
+    public const CACHE_KEY_PREFIX = 'ups_api_token_';
 
     /**
      * Token Generation
