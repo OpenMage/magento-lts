@@ -103,7 +103,8 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
                 'carriers_ups_mode_xml'];
             this.onlyUpsRestElements = ['carriers_ups_gateway_rest_url','carriers_ups_tracking_rest_url',
                 'carriers_ups_username','carriers_ups_password','carriers_ups_origin_shipment',
-                'carriers_ups_negotiated_active','carriers_ups_shipper_number','carriers_ups_mode_xml'];
+                'carriers_ups_negotiated_active','carriers_ups_shipper_number','carriers_ups_mode_xml',
+                'username', 'password'];
 
             this.storedOriginShipment = '<?php echo $storedOriginShipment ?>';
             this.storedFreeShipment = '<?php echo $storedFreeShipment ?>';
