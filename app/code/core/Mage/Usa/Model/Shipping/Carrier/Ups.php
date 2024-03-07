@@ -79,23 +79,27 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     protected $_xmlAccessRequest = null;
 
     /**
-     * Default urls for XML
+     * Default urls
      *
      * @var array
      */
     protected $_defaultUrls = [
-        'Rate'        => 'https://onlinetools.ups.com/ups.app/xml/Rate',
-        'Track'       => 'https://onlinetools.ups.com/ups.app/xml/Track',
-        'ShipConfirm' => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
-        'ShipAccept'  => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
+        'Rate'            => 'https://onlinetools.ups.com/ups.app/xml/Rate',
+        'Track'           => 'https://onlinetools.ups.com/ups.app/xml/Track',
+        'ShipConfirm'     => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
+        'ShipAccept'      => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
+        'AuthUrl'         => 'https://wwwcie.ups.com/security/v1/oauth/token',
+        'ShipRestConfirm' => 'https://wwwcie.ups.com/api/shipments/v1/ship',
     ];
 
     /**
-     * Default urls for XML
+     * Live urls
      *
      * @var array
      */
-    protected $_defaultRestUrls = [
+    protected $_liveUrls = [
+        'Rate'            => 'https://onlinetools.ups.com/ups.app/xml/Rate',
+        'Track'           => 'https://onlinetools.ups.com/ups.app/xml/Track',
         'ShipConfirm'     => 'https://onlinetools.ups.com/ups.app/xml/ShipConfirm',
         'ShipAccept'      => 'https://onlinetools.ups.com/ups.app/xml/ShipAccept',
         'AuthUrl'         => 'https://onlinetools.ups.com/security/v1/oauth/token',
@@ -2020,11 +2024,11 @@ XMLAuth;
     {
         $userId = $this->getConfigData('username');
         $userIdPass = $this->getConfigData('password');
-        if ($this->getConfigData('is_account_live')) {
+        if ($this->getConfigFlag('mode_xml')) {
             $authUrl = $this->_liveUrls['AuthUrl'];
         } else {
             $authUrl = $this->_defaultUrls['AuthUrl'];
         }
-        return $this->upsAuth->getAccessToken($userId, $userIdPass, $authUrl);
+        return Mage::getModel('usa/shipping_carrier_upsAuth')->getAccessToken($userId, $userIdPass, $authUrl);
     }
 }
