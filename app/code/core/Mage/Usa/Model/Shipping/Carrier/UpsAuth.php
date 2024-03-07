@@ -27,14 +27,9 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     public const CACHE_KEY_PREFIX = 'ups_api_token_';
 
     /**
-     * Token Generation
-     *
-     * @param String $clientId
-     * @param String $clientSecret
-     * @param String $clientUrl
      * @return bool|string
      */
-    public function getAccessToken($clientId, $clientSecret, $clientUrl)
+    public function getAccessToken(string $clientId, string $clientSecret, string $clientUrl)
     {
         $cacheKey = self::CACHE_KEY_PREFIX;
         $cache = Mage::app()->getCache();
@@ -44,9 +39,9 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
         }
 
         $headers = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'x-merchant-id' => 'string',
-            'Authorization' => 'Basic ' . base64_encode("$clientId:$clientSecret"),
+            "Content-Type: application/x-www-form-urlencoded",
+            "x-merchant-id: $clientId",
+            "Authorization: Basic " . base64_encode("$clientId:$clientSecret"),
         ];
         $authPayload = http_build_query([
             'grant_type' => 'client_credentials',
@@ -102,5 +97,13 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     protected function _doShipmentRequest(Varien_Object $request)
     {
         return new Varien_Object();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAllowedMethods(): array
+    {
+        return [];
     }
 }
