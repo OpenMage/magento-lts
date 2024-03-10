@@ -1941,7 +1941,7 @@ XMLAuth;
         bool $negotiatedActive
     ): void {
         $code = $shipElement['Service']['Code'] ?? '';
-        if (in_array($code, $allowedMethods)) {
+        if (in_array($code, $allowedMethods)) { // TODO HERE IS WHERE IT FAILS
             //The location of tax information is in a different place
             // depending on whether we are using negotiated rates or not
             if ($negotiatedActive) {
@@ -1986,7 +1986,7 @@ XMLAuth;
                         $responseCurrencyCode,
                         $this->_request->getPackageCurrency()->getCode()
                     );
-                    $error = $this->_rateErrorFactory->create();
+                    $error = Mage::getModel('shipping/rate_result_error');
                     $error->setCarrier('ups');
                     $error->setCarrierTitle($this->getConfigData('title'));
                     $error->setErrorMessage($errorTitle);
@@ -2074,5 +2074,15 @@ XMLAuth;
         }
         $params['serviceDescription'] = $params['serviceCode'] ? $this->getShipmentByCode($params['serviceCode']) : '';
         return $params;
+    }
+
+    private function mapCurrencyCode(string $code): string
+    {
+        $currencyMapping = [
+            'RMB' => 'CNY',
+            'CNH' => 'CNY'
+        ];
+
+        return $currencyMapping[$code] ?? $code;
     }
 }
