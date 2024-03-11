@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             if ($stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                 // This check has been performed properly in Inventory observer, so it has no sense
                 /*
-                $check = $stockItem->checkQuoteItemQty($item->getQty(), $item->getQty(), $item->getQty());
+                $check = $stockItem->checkQuoteItemQty($item->getQty(), $item->getQty(), $item->getQty(), $item);
                 $item->setMessage($check->getMessage());
                 $item->setHasError($check->getHasError());
                 */
