@@ -335,9 +335,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @param string $attributeCode
+     * @param bool $ignoreDefault
      * @return $this
      */
-    public function saveCategoryAttribute(Varien_Object $category, $attributeCode)
+    public function saveCategoryAttribute(Varien_Object $category, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_categoryAttributes[$attributeCode])) {
@@ -381,7 +382,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if (!$ignoreDefault && $attributeData['store_id'] != 0) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)
@@ -489,9 +490,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object|Mage_Catalog_Model_Product $product
      * @param string $attributeCode
+     * @param bool $ignoreDefault
      * @return $this
      */
-    public function saveProductAttribute(Varien_Object $product, $attributeCode)
+    public function saveProductAttribute(Varien_Object $product, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_productAttributes[$attributeCode])) {
@@ -535,7 +537,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if (!$ignoreDefault && $attributeData['store_id'] != 0) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)
