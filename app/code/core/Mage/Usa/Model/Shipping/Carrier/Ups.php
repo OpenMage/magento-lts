@@ -403,6 +403,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
                     '08' => Mage::helper('usa')->__('UPS Worldwide Expedited'),
                     '11' => Mage::helper('usa')->__('UPS Standard'),
                     '12' => Mage::helper('usa')->__('UPS Three-Day Select'),
+                    '13' => Mage::helper('usa')->__('UPS Next Day Air Saver'),
                     '14' => Mage::helper('usa')->__('UPS Next Day Air Early A.M.'),
                     '54' => Mage::helper('usa')->__('UPS Worldwide Express Plus'),
                     '59' => Mage::helper('usa')->__('UPS Second Day Air A.M.'),
@@ -1852,7 +1853,7 @@ XMLAuth;
 
     /**
      * Prepare shipping rate result based on response
-     * @return Result
+     * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _parseRestResponse(string $rateResponse)
     {
@@ -1861,7 +1862,7 @@ XMLAuth;
         $errorTitle = '';
         if (strlen($rateResponse) > 0) {
             $rateResponseData = json_decode($rateResponse, true);
-            if ($rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
+            if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods') ?? '');
                 $allowedCurrencies = Mage::app()->getStore()->getAvailableCurrencyCodes();
@@ -1881,7 +1882,7 @@ XMLAuth;
                     );
                 }
             } else {
-                $errorTitle = $rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'];
+                $errorTitle = $rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] ?? '';
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier('ups');
                 $error->setCarrierTitle($this->getConfigData('title'));
@@ -1905,18 +1906,20 @@ XMLAuth;
             }
             $error->setErrorMessage($errorTitle);
             $result->append($error);
-        } else {
-            foreach ($priceArr as $method => $price) {
-                $rate = Mage::getModel('shipping/rate_result_method');
-                $rate->setCarrier('ups');
-                $rate->setCarrierTitle($this->getConfigData('title'));
-                $rate->setMethod($method);
-                $methodArr = $this->getShipmentByCode($method);
-                $rate->setMethodTitle($methodArr);
-                $rate->setCost($costArr[$method]);
-                $rate->setPrice($price);
-                $result->append($rate);
-            }
+            return $result;
+        }
+
+        foreach ($priceArr as $method => $price) {
+            $rate = Mage::getModel('shipping/rate_result_method');
+            $rate->setCarrier('ups');
+            $rate->setCarrierTitle($this->getConfigData('title'));
+            $rate->setMethod($method);
+            $shipmentDescription = $this->getShipmentByCode($method);
+            if (!strlen($shipmentDescription)) continue;
+            $rate->setMethodTitle($shipmentDescription);
+            $rate->setCost($costArr[$method]);
+            $rate->setPrice($price);
+            $result->append($rate);
         }
 
         return $result;
@@ -1941,7 +1944,7 @@ XMLAuth;
         bool $negotiatedActive
     ): void {
         $code = $shipElement['Service']['Code'] ?? '';
-        if (in_array($code, $allowedMethods)) { // TODO HERE IS WHERE IT FAILS
+        if (true or in_array($code, $allowedMethods)) { // TODO CHECK FAILS
             //The location of tax information is in a different place
             // depending on whether we are using negotiated rates or not
             if ($negotiatedActive) {
