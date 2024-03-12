@@ -185,6 +185,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->_initLayoutMessages('checkout/session')
             ->_initLayoutMessages('catalog/session')
             ->getLayout()->getBlock('head')->setTitle($this->__('Shopping Cart'));
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/checkout'));
         $this->renderLayout();
         Varien_Profiler::stop(__METHOD__ . 'cart_display');
     }

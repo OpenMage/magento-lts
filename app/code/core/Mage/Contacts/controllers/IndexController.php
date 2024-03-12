@@ -44,6 +44,9 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')
+            ->setRobots(Mage::getStoreConfig('web/robots_configuration/contacts'));
+
         $this->getLayout()->getBlock('contactForm')
             ->setFormAction(Mage::getUrl('*/*/post', ['_secure' => $this->getRequest()->isSecure()]));
 
