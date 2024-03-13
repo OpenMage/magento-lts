@@ -2036,7 +2036,7 @@ XMLAuth;
     {
         if (empty($packages)) {
             $dividedWeight = $this->getTotalNumOfBoxes($totalWeight);
-            for ($i=0; $i < $this->_numBoxes; $i++) {
+            for ($i = 0; $i < $this->_numBoxes; $i++) {
                 $packages[$i]['weight'] = $this->_getCorrectWeight($dividedWeight);
             }
         }
