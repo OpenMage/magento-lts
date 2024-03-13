@@ -1910,12 +1910,15 @@ XMLAuth;
         }
 
         foreach ($priceArr as $method => $price) {
+            $shipmentDescription = $this->getShipmentByCode($method);
+            if (!strlen($shipmentDescription)) {
+                continue;
+            }
+
             $rate = Mage::getModel('shipping/rate_result_method');
             $rate->setCarrier('ups');
             $rate->setCarrierTitle($this->getConfigData('title'));
             $rate->setMethod($method);
-            $shipmentDescription = $this->getShipmentByCode($method);
-            if (!strlen($shipmentDescription)) continue;
             $rate->setMethodTitle($shipmentDescription);
             $rate->setCost($costArr[$method]);
             $rate->setPrice($price);
