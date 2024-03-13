@@ -2011,7 +2011,7 @@ XMLAuth;
      * To receive access token
      *
      * @return mixed
-     * @throws LocalizedException
+     * @throws Exception
      */
     protected function setAPIAccessRequest()
     {
