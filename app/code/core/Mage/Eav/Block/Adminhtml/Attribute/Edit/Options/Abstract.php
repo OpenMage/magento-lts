@@ -214,8 +214,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
 
     /**
      * Check if configurable swatches module is enabled and attribute is swatch type
-     *
-     * @return boolean
      */
     public function isConfigurableSwatchesEnabled(): bool
     {
