@@ -69,6 +69,8 @@ class EnvironmentConfigLoaderTest extends TestCase
     public function env_overrides_correct_config_keys(): array
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
+        $defaultPathWithDash = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME';
+        $defaultPathWithUnderscore = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO_BAR__NAME';
 
         $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
         $websiteWithDashPath = 'OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME';
@@ -85,6 +87,22 @@ class EnvironmentConfigLoaderTest extends TestCase
                     'xml_path' => 'default/general/store_information/name',
                     'env_path' => $defaultPath,
                     'value'    => 'default_new_value'
+                ]
+            ],
+            [
+                'Case DEFAULT overrides.' => [
+                    'case'     => 'DEFAULT',
+                    'xml_path' => 'default/general/foo-bar/name',
+                    'env_path' => $defaultPathWithDash,
+                    'value'    => 'baz'
+                ]
+            ],
+            [
+                'Case DEFAULT overrides.' => [
+                    'case'     => 'DEFAULT',
+                    'xml_path' => 'default/general/foo_bar/name',
+                    'env_path' => $defaultPathWithUnderscore,
+                    'value'    => 'baz'
                 ]
             ],
             [
@@ -224,6 +242,12 @@ class EnvironmentConfigLoaderTest extends TestCase
             <store_information>
                     <name>test_default</name>
             </store_information>
+            <foo-bar>
+                    <name>test_default</name>
+            </foo-bar>
+            <foo_bar>
+                    <name>test_default</name>
+            </foo_bar>
         </general>
     </default>
     
