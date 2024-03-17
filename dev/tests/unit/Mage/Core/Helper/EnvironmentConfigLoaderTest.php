@@ -28,6 +28,16 @@ class EnvironmentConfigLoaderTest extends TestCase
         $this->assertEquals('default/general/store_information/name', $nodePath);
     }
 
+    public function test_xml_has_test_strings()
+    {
+        $xmlStruct = $this->getTestXml();
+        $xml = new \Varien_Simplexml_Config();
+        $xml->loadString($xmlStruct);
+        $this->assertEquals('test_default', (string)$xml->getNode('default/general/store_information/name'));
+        $this->assertEquals('test_website', (string)$xml->getNode('websites/base/general/store_information/name'));
+        $this->assertEquals('test_store', (string)$xml->getNode('stores/german/general/store_information/name'));
+    }
+
     /**
      * @dataProvider env_overrides_correct_config_keys
      * @test
@@ -41,31 +51,16 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml = new \Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
-        $this->assertEquals('test_default', (string)$xml->getNode('default/general/store_information/name'));
-        $this->assertEquals('test_website', (string)$xml->getNode('websites/base/general/store_information/name'));
-        $this->assertEquals('test_store', (string)$xml->getNode('stores/german/general/store_information/name'));
-
         // act
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
-            $config['path'] => $config['value']
+            $config['env_path'] => $config['value']
         ]);
         $loader->overrideEnvironment($xml);
 
-        switch ($config['case']) {
-            case 'DEFAULT':
-                $defaultValue = $xmlDefault->getNode('default/general/store_information/name');
-                $valueAfterOverride = $xml->getNode('default/general/store_information/name');
-                break;
-            case 'STORE':
-                $defaultValue = $xmlDefault->getNode('stores/german/general/store_information/name');
-                $valueAfterOverride = $xml->getNode('stores/german/general/store_information/name');
-                break;
-            case 'WEBSITE':
-                $defaultValue = $xmlDefault->getNode('websites/base/general/store_information/name');
-                $valueAfterOverride = $xml->getNode('websites/base/general/store_information/name');
-                break;
-        }
+        $configPath = $config['xml_path'];
+        $defaultValue = $xmlDefault->getNode($configPath);
+        $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
         $this->assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
@@ -74,28 +69,70 @@ class EnvironmentConfigLoaderTest extends TestCase
     public function env_overrides_correct_config_keys(): array
     {
         $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
+
         $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
+        $websiteWithDashPath = 'OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME';
+        $websiteWithUnderscorePath = 'OPENMAGE_CONFIG__WEBSITES__BASE_CH__GENERAL__STORE_INFORMATION__NAME';
+
+        $storeWithDashPath = 'OPENMAGE_CONFIG__STORES__GERMAN-AT__GENERAL__STORE_INFORMATION__NAME';
+        $storeWithUnderscorePath = 'OPENMAGE_CONFIG__STORES__GERMAN_CH__GENERAL__STORE_INFORMATION__NAME';
         $storePath = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME';
+
         return [
             [
-                'Case DEFAULT with ' . $defaultPath . ' overrides.' => [
-                    'case'  => 'DEFAULT',
-                    'path'  => $defaultPath,
-                    'value' => 'default_new_value'
+                'Case DEFAULT overrides.' => [
+                    'case'     => 'DEFAULT',
+                    'xml_path' => 'default/general/store_information/name',
+                    'env_path' => $defaultPath,
+                    'value'    => 'default_new_value'
                 ]
             ],
             [
-                'Case STORE with ' . $storePath . ' overrides.' => [
-                    'case'  => 'STORE',
-                    'path'  => $storePath,
-                    'value' => 'store_new_value'
+                'Case STORE overrides.' => [
+                    'case'     => 'STORE',
+                    'xml_path' => 'stores/german/general/store_information/name',
+                    'env_path' => $storePath,
+                    'value'    => 'store_new_value'
                 ]
             ],
             [
-                'Case WEBSITE with ' . $websitePath . ' overrides.' => [
-                    'case'  => 'WEBSITE',
-                    'path'  => $websitePath,
-                    'value' => 'website_new_value'
+                'Case STORE overrides.' => [
+                    'case'     => 'STORE',
+                    'xml_path' => 'stores/german-at/general/store_information/name',
+                    'env_path' => $storeWithDashPath,
+                    'value'    => 'store_new_value'
+                ]
+            ],
+            [
+                'Case STORE overrides.' => [
+                    'case'     => 'STORE',
+                    'xml_path' => 'stores/german_ch/general/store_information/name',
+                    'env_path' => $storeWithUnderscorePath,
+                    'value'    => 'store_new_value'
+                ]
+            ],
+            [
+                'Case WEBSITE overrides.' => [
+                    'case'     => 'WEBSITE',
+                    'xml_path' => 'websites/base/general/store_information/name',
+                    'env_path' => $websitePath,
+                    'value'    => 'website_new_value'
+                ]
+            ],
+            [
+                'Case WEBSITE overrides.' => [
+                    'case'     => 'WEBSITE',
+                    'xml_path' => 'websites/base_ch/general/store_information/name',
+                    'env_path' => $websiteWithUnderscorePath,
+                    'value'    => 'website_new_value'
+                ]
+            ],
+            [
+                'Case WEBSITE overrides.' => [
+                    'case'     => 'WEBSITE',
+                    'xml_path' => 'websites/base-at/general/store_information/name',
+                    'env_path' => $websiteWithDashPath,
+                    'value'    => 'website_new_value'
                 ]
             ]
         ];
@@ -105,7 +142,7 @@ class EnvironmentConfigLoaderTest extends TestCase
      * @dataProvider env_does_not_override_on_wrong_config_keys
      * @test
      */
-    public function env_does_not_override_for_valid_config_keys(array $config)
+    public function env_does_not_override_for_invalid_config_keys(array $config)
     {
         $xmlStruct = $this->getTestXml();
 
@@ -198,6 +235,20 @@ class EnvironmentConfigLoaderTest extends TestCase
                 </store_information>
             </general>
         </base>
+        <base-at>
+            <general>
+                <store_information>
+                        <name>test_website</name>
+                </store_information>
+            </general>
+        </base-at>
+        <base_ch>
+            <general>
+                <store_information>
+                        <name>test_website</name>
+                </store_information>
+            </general>
+        </base_ch>
     </websites>
     <stores>
         <german>
@@ -207,6 +258,20 @@ class EnvironmentConfigLoaderTest extends TestCase
                 </store_information>
             </general>
         </german>
+        <german-at>
+            <general>
+                <store_information>
+                        <name>test_store</name>
+                </store_information>
+            </general>
+        </german-at>
+        <german_ch>
+            <general>
+                <store_information>
+                        <name>test_store</name>
+                </store_information>
+            </general>
+        </german_ch>
     </stores>
 </config>
 XML;

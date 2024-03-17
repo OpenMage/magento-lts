@@ -26,6 +26,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
     protected const CONFIG_KEY_WEBSITES = 'WEBSITES';
     protected const CONFIG_KEY_STORES = 'STORES';
+    /**
+     * To be used as regex condition
+     */
+    protected const ALLOWED_CHARS = ['A-Z', '-', '_'];
 
     protected array $envStore = [];
 
@@ -61,14 +65,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            $configKeyParts = array_filter(
-                explode(
-                    static::ENV_KEY_SEPARATOR,
-                    $configKey
-                ),
-                'trim'
-            );
-            list($_, $scope) = $configKeyParts;
+            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
 
             switch ($scope) {
                 case static::CONFIG_KEY_DEFAULT:
@@ -88,19 +85,33 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
     }
 
+    public function getConfigKey(string $configKey): array
+    {
+        $configKeyParts = array_filter(
+            explode(
+                static::ENV_KEY_SEPARATOR,
+                $configKey
+            ),
+            'trim'
+        );
+        list($_, $scope) = $configKeyParts;
+        return array($configKeyParts, $scope);
+    }
+
     public function isConfigKeyValid(string $configKey): bool
     {
         if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
             return false;
         }
 
-        $sectionGroupFieldRegexp = '([A-Z_]*)';
+        $sectionGroupFieldRegexp = sprintf('([%s]*)', implode('', static::ALLOWED_CHARS));
+        $allowedChars = sprintf('[%s]', implode('', static::ALLOWED_CHARS));
         $regexp = '/' . static::ENV_STARTS_WITH . static::ENV_KEY_SEPARATOR . '(WEBSITES' . static::ENV_KEY_SEPARATOR
-            . '[A-Z_]+|DEFAULT|STORES' . static::ENV_KEY_SEPARATOR . '[A-Z_]+)'
+            . $allowedChars . '+|DEFAULT|STORES' . static::ENV_KEY_SEPARATOR . $allowedChars . '+)'
             . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp
             . static::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp . '/';
-        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z_]+|DEFAULT|STORES__[A-Z_]+)__([A-Z_]*)__([A-Z_]+)__([A-Z_]+)/
+        // /OPENMAGE_CONFIG__(WEBSITES__[A-Z-_]+|DEFAULT|STORES__[A-Z-_]+)__([A-Z-_]*)__([A-Z-_]*)__([A-Z-_]*)/
 
         return preg_match($regexp, $configKey);
     }
