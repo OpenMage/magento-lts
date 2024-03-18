@@ -230,7 +230,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         //run time flag to force saving entered password
         $data->setForceNewPassword(true);
         $data->save();
-        $data->setRoleIds([1])->saveRelations();
+        $data->setRoleId(1)->saveRelations();
 
         return true;
     }
