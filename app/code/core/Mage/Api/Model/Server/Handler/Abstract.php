@@ -394,11 +394,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $methodInfo = $resources->$resourceName->methods->$methodName;
+            $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+            if (!isset($resources->$resourceName->model)) {
+                throw new Mage_Api_Exception('resource_path_not_callable');
+            }
 
             try {
-                $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
                 $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+
                 try {
                     $model = Mage::getModel($modelName);
                 } catch (Exception $e) {
