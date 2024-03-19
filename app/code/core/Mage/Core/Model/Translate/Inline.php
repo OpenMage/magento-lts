@@ -182,6 +182,7 @@ class Mage_Core_Model_Translate_Inline
      * Strip inline translations from text
      *
      * @param array|string $body
+     * @param-out string|null $body
      * @return $this
      */
     public function stripInlineTranslations(&$body)
