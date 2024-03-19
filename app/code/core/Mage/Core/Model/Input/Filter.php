@@ -204,13 +204,14 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * @param array $data
      * @param array|null $filters
      * @param bool $isFilterListSimple
+     * @param-out array $filters
      * @return array
      * @throws Exception    Exception when filter is not found or not instance of defined instances
      */
-    protected function _filter(array $data, $filters = null, $isFilterListSimple = false)
+    protected function _filter(array $data, &$filters = null, $isFilterListSimple = false)
     {
         if ($filters === null) {
-            $filters = $this->_filters;
+            $filters = &$this->_filters;
         }
         foreach ($data as $key => $value) {
             if (!$isFilterListSimple && !empty($filters[$key])) {
