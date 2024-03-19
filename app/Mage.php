@@ -50,7 +50,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
-require $autoloaderPath . DS . 'autoload.php';
+require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
@@ -215,7 +215,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '4',
+                'minor'     => '5',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -225,7 +225,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '5',
-            'patch'     => '2',
+            'patch'     => '3',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
