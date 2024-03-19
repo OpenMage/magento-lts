@@ -324,6 +324,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $conditionOperator
      * @param string $conditionValue
+     * @param-out string|array $conditionValue
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {
