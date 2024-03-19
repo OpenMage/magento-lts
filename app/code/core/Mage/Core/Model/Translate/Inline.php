@@ -201,7 +201,7 @@ class Mage_Core_Model_Translate_Inline
      * Replace translate templates to HTML fragments
      *
      * @param array|string $body
-     * @param-out string|null $body
+     * @param-out array|string|null $body
      * @return $this
      */
     public function processResponseBody(&$body)
