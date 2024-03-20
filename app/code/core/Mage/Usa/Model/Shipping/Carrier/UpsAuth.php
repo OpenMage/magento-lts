@@ -62,7 +62,8 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
 
             if (isset($responseData->access_token)) {
                 $result = $responseData->access_token;
-                $cache->save($result, $cacheKey, [], $responseData->expires_in ?: 10000);
+                $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
+                $cache->save($result, $cacheKey, [], $expiresIn);
             } else {
                 $error = Mage::getModel('shipping/rate_result_error');
                 $error->setCarrier('ups');
