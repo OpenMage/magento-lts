@@ -64,25 +64,13 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
                 $result = $responseData->access_token;
                 $expiresIn = isset($responseData->expires_in) ? $responseData->expires_in : 10000;
                 $cache->save($result, $cacheKey, [], $expiresIn);
-            } else {
-                /** @var Mage_Shipping_Model_Rate_Result_Error $error */
-                $error = Mage::getModel('shipping/rate_result_error');
-                $error->setCarrier('ups');
-                $error->setCarrierTitle($this->getConfigData('title'));
-                if ($this->getConfigData('specificerrmsg') !== '') {
-                    $errorTitle = $this->getConfigData('specificerrmsg');
-                }
-                if (!isset($errorTitle)) {
-                    $errorTitle = Mage::helper('usa')->__('Cannot retrieve shipping rates');
-                }
-                $error->setErrorMessage($errorTitle);
-                $result->append($error);
+                return $result;
             }
-
-            return $result;
         } catch (Exception $e) {
             Mage::throwException($e->getMessage());
         }
+
+        return false;
     }
 
     /**
