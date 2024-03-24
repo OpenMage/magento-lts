@@ -64,7 +64,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4 to 8.2
+- PHP 7.4 to 8.3
 - MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
