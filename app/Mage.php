@@ -587,11 +587,11 @@ final class Mage
     }
 
     /**
-     * Retrieve resource vodel object singleton
+     * Retrieve resource model object singleton
      *
-     * @param   string $modelClass
-     * @param   array $arguments
-     * @return  object
+     * @param string $modelClass
+     * @param array $arguments
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
     {
@@ -634,7 +634,7 @@ final class Mage
      * Retrieve resource helper object
      *
      * @param string $moduleName
-     * @return Mage_Core_Model_Resource_Helper_Abstract
+     * @return Mage_Core_Model_Resource_Helper_Abstract|false
      */
     public static function getResourceHelper($moduleName)
     {
