@@ -785,6 +785,8 @@
                 </row_weight>
                 <row_total>
                     <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_cm_item>*</to_cm_item>
                 </row_total>
                 <applied_rule_ids>
                     <to_quote_item>*</to_quote_item>
@@ -797,6 +799,8 @@
                 </base_tax_amount>
                 <base_row_total>
                     <to_quote_item>*</to_quote_item>
+                    <to_invoice_item>*</to_invoice_item>
+                    <to_cm_item>*</to_cm_item>
                 </base_row_total>
                 <base_price>
                     <to_invoice_item>base_price</to_invoice_item>
