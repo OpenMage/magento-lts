@@ -1947,7 +1947,7 @@ XMLAuth;
         bool $negotiatedActive
     ): void {
         $code = $shipElement['Service']['Code'] ?? '';
-        if (true or in_array($code, $allowedMethods)) { // TODO CHECK FAILS
+        if (in_array($code, $allowedMethods)) {
             //The location of tax information is in a different place
             // depending on whether we are using negotiated rates or not
             if ($negotiatedActive) {
