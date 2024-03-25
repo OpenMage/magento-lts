@@ -168,6 +168,8 @@
                 <unit_of_measure>LBS</unit_of_measure>
                 <username backend_model="adminhtml/system_config_backend_encrypted"/>
                 <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <min_package_weight>0.1</min_package_weight>
                 <max_package_weight>150</max_package_weight>

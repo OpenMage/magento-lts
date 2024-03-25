@@ -2015,8 +2015,8 @@ XMLAuth;
      */
     protected function setAPIAccessRequest()
     {
-        $userId = $this->getConfigData('username');
-        $userIdPass = $this->getConfigData('password');
+        $userId = $this->getConfigData('client_id');
+        $userIdPass = $this->getConfigData('client_secret');
         if ($this->getConfigFlag('mode_xml')) {
             $authUrl = $this->_liveUrls['AuthUrl'];
         } else {
