@@ -713,13 +713,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </free_method>
-                        <gateway_url translate="label">
-                            <label>Gateway URL</label>
-                            <sort_order>40</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </gateway_url>
                         <verify_peer translate="label">
                             <label>Enable SSL Verification</label>
                             <frontend_type>select</frontend_type>
