@@ -1151,7 +1151,6 @@ XMLAuth;
             $error->setErrorMessage($errorTitle);
             $this->_result->append($error);
         }
-        return $this->_result;
     }
 
     /**
