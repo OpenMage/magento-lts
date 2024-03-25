@@ -83,6 +83,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'category_id=' . (int) $this->getRequest()->getParam('id', 0),
                 'left'
             );
+
         $this->setCollection($collection);
 
         if ($this->getCategory()->getProductsReadonly()) {
