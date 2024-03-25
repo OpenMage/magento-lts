@@ -1133,10 +1133,8 @@ XMLAuth;
         }
 
         if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
+            $this->_result = Mage::getModel('shipping/rate_result');
         }
-
-        $defaults = $this->getDefaults();
 
         if ($resultArr) {
             $tracking = Mage::getModel('shipping/tracking_result_status');
