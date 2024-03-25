@@ -989,36 +989,6 @@ XMLAuth;
     }
 
     /**
-     * Get cgi tracking
-     *
-     * @param mixed $trackings
-     * @return false|Mage_Core_Model_Abstract|Mage_Shipping_Model_Tracking_Result
-     */
-    protected function _getCgiTracking($trackings)
-    {
-        //ups no longer support tracking for data streaming version
-        //so we can only reply the popup window to ups.
-        $result = Mage::getModel('shipping/tracking_result');
-        $defaults = $this->getDefaults();
-        foreach ($trackings as $tracking) {
-            $status = Mage::getModel('shipping/tracking_result_status');
-            $status->setCarrier('ups');
-            $status->setCarrierTitle($this->getConfigData('title'));
-            $status->setTracking($tracking);
-            $status->setPopup(1);
-            $status->setUrl(
-                "http://wwwapps.ups.com/WebTracking/processInputRequest?HTMLVersion=5.0&error_carried=true"
-                . "&tracknums_displayed=5&TypeOfInquiryNumber=T&loc=en_US&InquiryNumber1=$tracking"
-                . "&AgreeToTermsAndConditions=yes"
-            );
-            $result->append($status);
-        }
-
-        $this->_result = $result;
-        return $result;
-    }
-
-    /**
      * Get xml tracking
      *
      * @param mixed $trackings
