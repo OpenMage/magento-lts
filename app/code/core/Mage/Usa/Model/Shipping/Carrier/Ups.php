@@ -1048,7 +1048,7 @@ XMLAuth;
      *
      * @param string $trackingvalue
      * @param string $xmlResponse
-     * @return null
+     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $xmlResponse)
     {
