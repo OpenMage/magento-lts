@@ -146,11 +146,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+                if ($this->isConfigurableSwatchesEnabled()) {
+                    $value['swatch'] = $option->getSwatchValue();
+                }
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
         }
-
         return $values;
     }
 
@@ -208,5 +210,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function getAttributeObject()
     {
         return Mage::registry('entity_attribute');
+    }
+
+    /**
+     * Check if configurable swatches module is enabled and attribute is swatch type
+     */
+    public function isConfigurableSwatchesEnabled(): bool
+    {
+        return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
+            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
 }
