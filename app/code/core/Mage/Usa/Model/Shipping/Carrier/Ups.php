@@ -1471,7 +1471,326 @@ XMLAuth;
      */
     protected function _doShipmentRequestRest(Varien_Object $request): Varien_Object
     {
-        // TODO
+        $request->setShipperAddressCountryCode(
+            $this->getNormalizedCountryCode(
+                $request->getShipperAddressCountryCode(),
+                $request->getShipperAddressStateOrProvinceCode(),
+                $request->getShipperAddressPostalCode(),
+            )
+        );
+
+        $request->setRecipientAddressCountryCode(
+            $this->getNormalizedCountryCode(
+                $request->getRecipientAddressCountryCode(),
+                $request->getRecipientAddressStateOrProvinceCode(),
+                $request->getRecipientAddressPostalCode(),
+            )
+        );
+
+        $this->_prepareShipmentRequest($request);
+        $rawJsonRequest = $this->_formShipmentRestRequest($request);
+        $accessToken = $this->setAPIAccessRequest();
+        $this->_debug(['request_quote' => $rawJsonRequest]);
+        die("NEEDS WORK FOR THE NEXT PART OF THIS METHOD");
+
+
+        /*
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer '. $accessToken,
+        ];
+        $shippingRequests[] = $this->asyncHttpClient->request(
+            new Request(
+                $this->getShipConfirmUrl(),
+                Request::METHOD_POST,
+                $headers,
+                $rawJsonRequest
+            )
+        );
+
+        //Processing shipment requests
+        $results = [];
+        foreach ($shippingRequests as $shippingRequest) {
+            $httpResponse = $shippingRequest->get();
+            if ($httpResponse->getStatusCode() >= 400) {
+                throw new LocalizedException(__('Failed to send the package'));
+            }
+            try {
+                $response = $httpResponse->getBody();
+                $this->_debug(['response_shipment' => $response]);
+            } catch (Throwable $e) {
+                throw new RuntimeException($e->getMessage());
+            }
+            if (isset($response->Error)) {
+                throw new RuntimeException((string)$response->Error->ErrorDescription);
+            }
+
+            $responseShipment = json_decode($response, true);
+            $result = new DataObject();
+            $shippingLabelContent =
+                (string)$responseShipment['ShipmentResponse']['ShipmentResults']['PackageResults']['ShippingLabel']
+                ['GraphicImage'];
+            $trackingNumber =
+                (string)$responseShipment['ShipmentResponse']['ShipmentResults']['PackageResults']['TrackingNumber'];
+
+            $result->setLabelContent(base64_decode($shippingLabelContent));
+            $result->setTrackingNumber($trackingNumber);
+            $results[] = $result;
+        }
+
+        return $results;
+        */
+    }
+
+    /**
+     * Return country code according to UPS
+     *
+     * @param string $countryCode
+     * @param string $regionCode
+     * @param string $postCode
+     * @return string
+     */
+    private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
+    {
+        //for UPS, puerto rico state for US will assume as puerto rico country
+        if ($countryCode == self::USA_COUNTRY_ID && ($postCode == '00912' || $regionCode == self::PUERTORICO_COUNTRY_ID)) {
+            $countryCode = self::PUERTORICO_COUNTRY_ID;
+        }
+
+        // For UPS, Guam state of the USA will be represented by Guam country
+        if ($countryCode == self::USA_COUNTRY_ID && $regionCode == self::GUAM_REGION_CODE) {
+            $countryCode = self::GUAM_COUNTRY_ID;
+        }
+
+        // For UPS, Las Palmas and Santa Cruz de Tenerife will be represented by Canary Islands country
+        if ($countryCode === 'ES' && ($regionCode === 'Las Palmas' || $regionCode === 'Santa Cruz de Tenerife')) {
+            $countryCode = 'IC';
+        }
+
+        return $countryCode;
+    }
+
+    protected function _formShipmentRestRequest(Varien_Object $request): string
+    {
+        $packages = $request->getPackages();
+        $shipmentItems = [];
+        foreach ($packages as $package) {
+            $shipmentItems[] = $package['items'];
+        }
+        $shipmentItems = array_merge([], ...$shipmentItems);
+
+        /**  Shipment API Payload */
+        $shipParams = [
+            "ShipmentRequest" => [
+                "Request" => [
+                    "SubVersion" => "1801",
+                    "RequestOption" => "nonvalidate",
+                    "TransactionReference" => [
+                        "CustomerContext" => "Shipment Request"
+                    ]
+                ],
+                "Shipment" => [
+                    "Description" => "{$this->generateShipmentDescription($shipmentItems)}",
+                    "Shipper" => [],
+                    "ShipTo" => [],
+                    "ShipFrom" => [],
+                    "PaymentInformation" => [],
+                    "Service" => [],
+                    "Package" => [],
+                    "ShipmentServiceOptions" => []
+                ],
+                "LabelSpecification" => []
+            ]
+        ];
+        if ($request->getIsReturn()) {
+            $returnPart = &$shipParams['ShipmentRequest']['Shipment'];
+            $returnPart['ReturnService']['Code'] = '9';
+        }
+
+        /** Shipment Details */
+        if ($request->getIsReturn()) {
+            $shipperData = &$shipParams['ShipmentRequest']['Shipment']['Shipper'];
+
+            $shipperData['Name'] = $request->getRecipientContactCompanyName();
+            $shipperData['AttentionName'] = $request->getRecipientContactPersonName();
+            $shipperData['ShipperNumber'] = $this->getConfigData('shipper_number');
+            $shipperData['Phone']['Number'] = $request->getRecipientContactPhoneNumber();
+
+            $addressData = &$shipperData['Address'];
+            $addressData['AddressLine'] =
+                $request->getRecipientAddressStreet1().' '.$request->getRecipientAddressStreet2();
+            $addressData['City'] = $request->getRecipientAddressCity();
+            $addressData['CountryCode'] = $request->getRecipientAddressCountryCode();
+            $addressData['PostalCode'] = $request->getRecipientAddressPostalCode();
+
+            if ($request->getRecipientAddressStateOrProvinceCode()) {
+                $addressData['StateProvinceCode'] = $request->getRecipientAddressStateOrProvinceCode();
+            }
+        } else {
+            $shipperData = &$shipParams['ShipmentRequest']['Shipment']['Shipper'];
+
+            $shipperData['Name'] = $request->getShipperContactCompanyName();
+            $shipperData['AttentionName'] = $request->getShipperContactPersonName();
+            $shipperData['ShipperNumber'] = $this->getConfigData('shipper_number');
+            $shipperData['Phone']['Number'] = $request->getShipperContactPhoneNumber();
+
+            $addressData = &$shipperData['Address'];
+            $addressData['AddressLine'] = $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+            $addressData['City'] = $request->getShipperAddressCity();
+            $addressData['CountryCode'] = $request->getShipperAddressCountryCode();
+            $addressData['PostalCode'] = $request->getShipperAddressPostalCode();
+
+            if ($request->getShipperAddressStateOrProvinceCode()) {
+                $addressData['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
+            }
+        }
+
+        $shipToData = &$shipParams['ShipmentRequest']['Shipment']['ShipTo'];
+        $shipToData = [
+            'Name'   => $request->getRecipientContactPersonName(),
+            'AttentionName' => $request->getRecipientContactPersonName(),
+            'Phone' => ['Number' => $request->getRecipientContactPhoneNumber()],
+            'Address' => [
+                'AddressLine' => $request->getRecipientAddressStreet1().' '.$request->getRecipientAddressStreet2(),
+                'City' => $request->getRecipientAddressCity(),
+                'CountryCode' => $request->getRecipientAddressCountryCode(),
+                'PostalCode' => $request->getRecipientAddressPostalCode(),
+            ],
+        ];
+        if ($request->getRecipientAddressStateOrProvinceCode()) {
+            $shipToData['Address']['StateProvinceCode'] = $request->getRecipientAddressRegionCode();
+        }
+        if ($this->getConfigData('dest_type') == 'RES') {
+            $shipToData['Address']['ResidentialAddress'] = '';
+        }
+
+        if ($request->getIsReturn()) {
+            $shipFrom = &$shipParams['ShipmentRequest']['Shipment']['ShipFrom'];
+            $shipFrom['Name'] = $request->getShipperContactPersonName();
+            $shipFrom['AttentionName'] = $request->getShipperContactPersonName();
+            $address = &$shipFrom['Address'];
+            $address['AddressLine'] = $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+            $address['City'] = $request->getShipperAddressCity();
+            $address['CountryCode'] = $request->getShipperAddressCountryCode();
+            $address['PostalCode'] = $request->getShipperAddressPostalCode();
+            if ($request->getShipperAddressStateOrProvinceCode()) {
+                $address['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
+            }
+
+            $shipToAddress = &$shipToData['Address'];
+            $shipToAddress['AddressLine'] =
+                $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+            $shipToAddress['City'] = $request->getShipperAddressCity();
+            $shipToAddress['CountryCode'] = $request->getShipperAddressCountryCode();
+            $shipToAddress['PostalCode'] = $request->getShipperAddressPostalCode();
+            if ($request->getShipperAddressStateOrProvinceCode()) {
+                $shipToAddress['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
+            }
+            if ($this->getConfigData('dest_type') == 'RES') {
+                $shipToAddress['ResidentialAddress'] = '';
+            }
+        }
+
+        $shipParams['ShipmentRequest']['Shipment']['Service']['Code'] = $request->getShippingMethod();
+
+        $packagePart = [];
+        $customsTotal = 0;
+        $packagingTypes = [];
+        $deliveryConfirmationLevel = $this->_getDeliveryConfirmationLevel(
+            $request->getRecipientAddressCountryCode()
+        );
+        foreach ($packages as $packageId => $package) {
+            $packageRestItems = $package['items'];
+            $packageRestParams = new Varien_Object($package['params']);
+            $packagingType = $package['params']['container'];
+            $packagingTypes[] = $packagingType;
+            $height = $packageRestParams->getHeight();
+            $width = $packageRestParams->getWidth();
+            $length = $packageRestParams->getLength();
+            $weight = $packageRestParams->getWeight();
+            $weightUnits = $packageRestParams->getWeightUnits() == Zend_Measure_Weight::POUND ? 'LBS' : 'KGS';
+            $dimensionsUnits = $packageRestParams->getDimensionUnits() == Zend_Measure_Length::INCH ? 'IN' : 'CM';
+            $deliveryConfirmation = $packageRestParams->getDeliveryConfirmation();
+            $customsTotal += $packageRestParams->getCustomsValue();
+
+            $packagePart[$packageId] = &$shipParams['ShipmentRequest']['Shipment']['Package'];
+            $packagePart[$packageId]['Description'] = $this->generateShipmentDescription($packageRestItems);
+            //empirical
+            $packagePart[$packageId]['Packaging']['Code'] = $packagingType;
+            $packagePart[$packageId]['PackageWeight'] = [];
+            $packageWeight = &$packagePart[$packageId]['PackageWeight'];
+            $packageWeight['Weight'] = $weight;
+            $packageWeight['UnitOfMeasurement']['Code'] = $weightUnits;
+            // set dimensions
+            if ($length || $width || $height) {
+                $packagePart[$packageId]['Dimensions'] = [];
+                $packageDimensions = &$packagePart[$packageId]['Dimensions'];
+                $packageDimensions['UnitOfMeasurement']['Code'] = $dimensionsUnits;
+                $packageDimensions['Length'] = $length;
+                $packageDimensions['Width'] = $width;
+                $packageDimensions['Height'] = $height;
+            }
+            // ups support reference number only for domestic service
+            if ($this->_isUSCountry($request->getRecipientAddressCountryCode())
+                && $this->_isUSCountry($request->getShipperAddressCountryCode())
+            ) {
+                if ($request->getReferenceData()) {
+                    $referenceData = $request->getReferenceData() . $packageId;
+                } else {
+                    $referenceData = 'Order #' .
+                        $request->getOrderShipment()->getOrder()->getIncrementId() .
+                        ' P' .
+                        $packageId;
+                }
+                $packagePart[$packageId]['ReferenceNumber'] = [];
+                $referencePart = &$packagePart[$packageId]['ReferenceNumber'];
+                $referencePart['Code'] = '02';
+                $referencePart['Value'] = $referenceData;
+            }
+            if ($deliveryConfirmation && $deliveryConfirmationLevel === self::DELIVERY_CONFIRMATION_PACKAGE) {
+                $packagePart[$packageId]['PackageServiceOptions']['DeliveryConfirmation']['DCISType'] =
+                    $deliveryConfirmation;
+            }
+        }
+
+        if (!empty($deliveryConfirmation) && $deliveryConfirmationLevel === self::DELIVERY_CONFIRMATION_SHIPMENT) {
+            $shipParams['ShipmentRequest']['Shipment']['ShipmentServiceOptions']['DeliveryConfirmation']['DCISType']
+                = $deliveryConfirmation;
+        }
+
+        $shipParams['ShipmentRequest']['Shipment']['PaymentInformation']['ShipmentCharge']['Type'] = "01";
+        $shipParams['ShipmentRequest']['Shipment']['PaymentInformation']['ShipmentCharge']['BillShipper']
+        ['AccountNumber'] = $this->getConfigData('shipper_number');
+
+        if (!in_array($this->getCode('container', 'ULE'), $packagingTypes)
+            && $request->getShipperAddressCountryCode() == self::USA_COUNTRY_ID
+            && ($request->getRecipientAddressCountryCode() == 'CA'
+                || $request->getRecipientAddressCountryCode() == 'PR')
+        ) {
+            $invoiceLineTotalPart = &$shipParams['ShipmentRequest']['Shipment']['InvoiceLineTotal'];
+            $invoiceLineTotalPart['CurrencyCode'] = $request->getBaseCurrencyCode();
+            $invoiceLineTotalPart['MonetaryValue'] = ceil($customsTotal);
+        }
+
+        /**  Label Details */
+
+        $labelPart = &$shipParams['ShipmentRequest']['LabelSpecification'];
+        $labelPart['LabelImageFormat']['Code'] = 'GIF';
+
+        return json_encode($shipParams);
+    }
+
+    private function generateShipmentDescription(array $items): string
+    {
+        $itemsDesc = [];
+        $itemsShipment = $items;
+        foreach ($itemsShipment as $itemShipment) {
+            $item = new Varien_Object();
+            $item->setData($itemShipment);
+            $itemsDesc[] = $item->getName();
+        }
+
+        return substr(implode(' ', $itemsDesc), 0, 35);
     }
 
     /**
