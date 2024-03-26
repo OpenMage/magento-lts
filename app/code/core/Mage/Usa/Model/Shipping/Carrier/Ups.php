@@ -1618,7 +1618,7 @@ XMLAuth;
 
             $addressData = &$shipperData['Address'];
             $addressData['AddressLine'] =
-                $request->getRecipientAddressStreet1().' '.$request->getRecipientAddressStreet2();
+                $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2();
             $addressData['City'] = $request->getRecipientAddressCity();
             $addressData['CountryCode'] = $request->getRecipientAddressCountryCode();
             $addressData['PostalCode'] = $request->getRecipientAddressPostalCode();
@@ -1635,7 +1635,7 @@ XMLAuth;
             $shipperData['Phone']['Number'] = $request->getShipperContactPhoneNumber();
 
             $addressData = &$shipperData['Address'];
-            $addressData['AddressLine'] = $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+            $addressData['AddressLine'] = $request->getShipperAddressStreet1() . ' ' . $request->getShipperAddressStreet2();
             $addressData['City'] = $request->getShipperAddressCity();
             $addressData['CountryCode'] = $request->getShipperAddressCountryCode();
             $addressData['PostalCode'] = $request->getShipperAddressPostalCode();
@@ -1651,7 +1651,7 @@ XMLAuth;
             'AttentionName' => $request->getRecipientContactPersonName(),
             'Phone' => ['Number' => $request->getRecipientContactPhoneNumber()],
             'Address' => [
-                'AddressLine' => $request->getRecipientAddressStreet1().' '.$request->getRecipientAddressStreet2(),
+                'AddressLine' => $request->getRecipientAddressStreet1() . ' ' . $request->getRecipientAddressStreet2(),
                 'City' => $request->getRecipientAddressCity(),
                 'CountryCode' => $request->getRecipientAddressCountryCode(),
                 'PostalCode' => $request->getRecipientAddressPostalCode(),
@@ -1669,7 +1669,7 @@ XMLAuth;
             $shipFrom['Name'] = $request->getShipperContactPersonName();
             $shipFrom['AttentionName'] = $request->getShipperContactPersonName();
             $address = &$shipFrom['Address'];
-            $address['AddressLine'] = $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+            $address['AddressLine'] = $request->getShipperAddressStreet1() . ' ' . $request->getShipperAddressStreet2();
             $address['City'] = $request->getShipperAddressCity();
             $address['CountryCode'] = $request->getShipperAddressCountryCode();
             $address['PostalCode'] = $request->getShipperAddressPostalCode();
@@ -1679,7 +1679,7 @@ XMLAuth;
 
             $shipToAddress = &$shipToData['Address'];
             $shipToAddress['AddressLine'] =
-                $request->getShipperAddressStreet1().' '.$request->getShipperAddressStreet2();
+                $request->getShipperAddressStreet1() . ' ' . $request->getShipperAddressStreet2();
             $shipToAddress['City'] = $request->getShipperAddressCity();
             $shipToAddress['CountryCode'] = $request->getShipperAddressCountryCode();
             $shipToAddress['PostalCode'] = $request->getShipperAddressPostalCode();
