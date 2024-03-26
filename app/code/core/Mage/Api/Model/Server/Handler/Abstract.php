@@ -285,7 +285,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                $result = [];
                 if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                     $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
@@ -403,7 +402,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    $callResult = [];
                     if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                         $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {
