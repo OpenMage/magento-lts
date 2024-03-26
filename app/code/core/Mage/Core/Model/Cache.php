@@ -432,7 +432,14 @@ class Mage_Core_Model_Cache
      */
     public function flush()
     {
-        return $this->getFrontend()->clean();
+        $return = $this->getFrontend()->clean();
+        if ($return) {
+            foreach ($this->getTypes() as $typeCode => $type) {
+                $this->saveUpdatedAt($typeCode);
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -494,6 +501,12 @@ class Mage_Core_Model_Cache
     {
         $this->remove(self::OPTIONS_CACHE_ID);
         $this->_getResource()->saveAllOptions($options);
+        foreach ($options as $typeCode => $enabled) {
+            if ($enabled && !$this->_allowedCacheOptions[$typeCode]) {
+                // save the updated_at only if we're enabling a previously disabled cache
+                $this->saveUpdatedAt($typeCode);
+            }
+        }
         return $this;
     }
 
@@ -575,11 +588,12 @@ class Mage_Core_Model_Cache
         if ($config) {
             foreach ($config->children() as $type => $node) {
                 $types[$type] = new Varien_Object([
-                    'id'            => $type,
-                    'cache_type'    => Mage::helper('core')->__((string)$node->label),
-                    'description'   => Mage::helper('core')->__((string)$node->description),
-                    'tags'          => strtoupper((string) $node->tags),
-                    'status'        => (int)$this->canUse($type),
+                    'id'          => $type,
+                    'cache_type'  => Mage::helper('core')->__((string)$node->label),
+                    'description' => Mage::helper('core')->__((string)$node->description),
+                    'tags'        => strtoupper((string)$node->tags),
+                    'status'      => (int)$this->canUse($type),
+                    'updated_at'  => $this->_allowedCacheOptions[$type] ? (string)$this->load($node->tags . '_updated_at') : '',
                 ]);
             }
         }
@@ -663,11 +677,32 @@ class Mage_Core_Model_Cache
     {
         $tags = $this->getTagsByType($typeCode);
         $this->clean($tags);
+        $this->saveUpdatedAt($typeCode);
 
         $types = $this->_getInvalidatedTypes();
         unset($types[$typeCode]);
         $this->_saveInvalidatedTypes($types);
         return $this;
+    }
+
+    /**
+     * @param string $typeCode
+     * @return void
+     */
+    public function saveUpdatedAt($typeCode): void
+    {
+        if (!array_key_exists($typeCode, $this->_allowedCacheOptions)) {
+            return;
+        }
+
+        $path = self::XML_PATH_TYPES . '/' . $typeCode . '/tags';
+        $tagsConfig = Mage::getConfig()->getNode($path);
+        if (!$tagsConfig) {
+            return;
+        }
+
+        $cacheId = (string)$tagsConfig . '_updated_at';
+        $this->save(Mage::getSingleton('core/date')->gmtDate(), $cacheId);
     }
 
     /**
