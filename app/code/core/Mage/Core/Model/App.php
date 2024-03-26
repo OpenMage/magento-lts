@@ -442,6 +442,7 @@ class Mage_Core_Model_App
                         Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
                     }
                     $this->_config->loadDb();
+                    $this->_config->loadEnv();
                     $this->_config->saveCache();
                 }
             } finally {
