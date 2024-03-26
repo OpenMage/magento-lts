@@ -317,13 +317,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      */
     protected function _getQuotes()
     {
-        switch ($this->getConfigData('type')) {
-            case 'UPS_XML':
-                return $this->_getXmlQuotes();
-            case 'UPS_REST':
-                return $this->_getRestQuotes();
+        // this "if" will be removed after XML APIs will be shut down
+        if ($this->getConfigData('type') == 'UPS_XML') {
+            return $this->_getXmlQuotes();
         }
-        return null;
+
+        // REST is default
+        return $this->_getRestQuotes();
     }
 
     /**
@@ -1455,13 +1455,29 @@ XMLAuth;
         return $result;
     }
 
+    protected function _doShipmentRequest(Varien_Object $request): Varien_Object
+    {
+        // this "if" will be removed after XML APIs will be shut down
+        if ($this->getConfigData('type') == 'UPS_XML') {
+            return $this->_doShipmentRequestXML($request);
+        }
+
+        // REST is default
+        return $this->_doShipmentRequestRest($request);
+    }
+
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
-     *
-     * @param Varien_Object $request
-     * @return Varien_Object
      */
-    protected function _doShipmentRequest(Varien_Object $request)
+    protected function _doShipmentRequestRest(Varien_Object $request): Varien_Object
+    {
+        // TODO
+    }
+
+    /**
+     * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
+     */
+    protected function _doShipmentRequestXML(Varien_Object $request): Varien_Object
     {
         $this->_prepareShipmentRequest($request);
         $result = new Varien_Object();
