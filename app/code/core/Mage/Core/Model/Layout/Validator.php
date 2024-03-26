@@ -233,9 +233,9 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
             if ($path->hasChildren()) {
-                $path = stripcslashes(trim((string) $path->children(), '"'));
+                $path = stripcslashes(trim((string)$path->children(), '"'));
             }
-            if (strpos($path, '..' . DS) !== false) {
+            if (strpos((string)$path, '..' . DS) !== false) {
                 throw new Exception();
             }
         }

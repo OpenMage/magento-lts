@@ -103,7 +103,7 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        return date($format, $date);
+        return date($format, (int)$date);
     }
 
     /**

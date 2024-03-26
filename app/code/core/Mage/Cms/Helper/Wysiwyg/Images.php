@@ -210,7 +210,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
                 $path = realpath($this->convertIdToPath($node));
-                if (is_dir($path) && stripos($path, $currentPath) !== false) {
+                if ($path && is_dir($path) && stripos($path, $currentPath) !== false) {
                     $currentPath = $path;
                 }
             }
