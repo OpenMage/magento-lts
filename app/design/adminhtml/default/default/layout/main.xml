@@ -89,6 +89,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tinymce/setup.js</name><params/><if/><condition>can_load_tiny_mce</condition></action>
 
                 <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
+                <block type="adminhtml/text_list" name="before_cssjs"/>
             </block>
 
             <block type="adminhtml/page_notices" name="global_notices" as="global_notices" template="page/notices.phtml" />
