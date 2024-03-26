@@ -47,6 +47,8 @@
 "Initial Fee","Initial Fee"
 "Initial non-recurring payment amount due immediately upon profile creation.","Initial non-recurring payment amount due immediately upon profile creation."
 "Instructions","Instructions"
+"Instructions on order","Instructions on order"
+"%s will be replaced with grand total.","%s will be replaced with grand total."
 "Internal Reference ID","Internal Reference ID"
 "Invalid Credit Card Number","Invalid Credit Card Number"
 "Issue Number","Issue Number"
