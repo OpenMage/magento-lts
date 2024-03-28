@@ -223,7 +223,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert objects and arrays to array recursively
      *
-     * @param  array|object $data
+     * @param array|object $data
+     * @param-out array $data
      */
     public function toArray(&$data)
     {
@@ -323,6 +324,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $conditionOperator
      * @param string $conditionValue
+     * @param-out string|array $conditionValue
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {

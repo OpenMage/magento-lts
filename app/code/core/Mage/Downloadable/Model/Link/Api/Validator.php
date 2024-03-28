@@ -208,6 +208,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      * Validate variable, in case of fault loads default entity.
      *
      * @param int|bool $var
+     * @param-out int $var
      */
     public function validateUnlimited(&$var)
     {
