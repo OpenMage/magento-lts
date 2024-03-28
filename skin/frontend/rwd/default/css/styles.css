@@ -672,7 +672,7 @@ h6, .h6 {
 .block-title small {
   font-size: 100%;
   font-weight: normal;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 body:not(.customer-account) .block:first-child .block-title {
@@ -1739,7 +1739,7 @@ a.button:hover {
 }
 
 .price-notice {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .price-box .price {
@@ -1753,7 +1753,7 @@ a.button:hover {
 }
 
 .price-box .price-label {
-  color: #a0a0a0;
+  color: #767676;
   white-space: nowrap;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
 }
@@ -1765,7 +1765,7 @@ a.button:hover {
   /* We want this to show on its own line, otherwise the layout looks funky */
 }
 .price-box .minimal-price-link .label {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* -------------------------------------------- *
@@ -1785,7 +1785,7 @@ a.button:hover {
 }
 
 .price-box .old-price .price {
-  color: #a0a0a0;
+  color: #767676;
   text-decoration: line-through;
 }
 
@@ -2041,7 +2041,7 @@ span.weee {
 }
 
 .std .note {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 13px;
 }
 
@@ -2567,7 +2567,7 @@ span.required em {
  * Hints
  */
 .input-hint {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 12px;
 }
 
@@ -2677,11 +2677,11 @@ input[type=text].qty {
  * Placeholder
  */
 ::-webkit-input-placeholder {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 input:-moz-placeholder {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* -------------------------------------------- *
@@ -2844,7 +2844,7 @@ form .form-instructions {
   font-style: italic;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 13px;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* ============================================ *
@@ -3928,7 +3928,7 @@ a.skip-link {
 
 .mini-cart-list .has-options {
   margin-bottom: 0;
-  color: #a0a0a0;
+  color: #767676;
   font-size: 12px;
 }
 
@@ -4284,7 +4284,7 @@ p.product-name a:hover {
 }
 
 .products-grid .price-box {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 13px;
   margin: 0 0 5px;
 }
@@ -4741,7 +4741,7 @@ p.product-name a:hover {
   display: block;
 }
 .block-layered-nav dl dd ol > li > a .count {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 @media only screen and (min-width: 771px) {
@@ -6947,7 +6947,7 @@ p.product-name a:hover {
 }
 
 .opc .section.allow .step-title h2 {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .opc .section.allow .step-title:hover h2,
@@ -7185,7 +7185,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   margin-bottom: 6px;
   text-transform: uppercase;
   font-weight: normal;
-  color: #a0a0a0;
+  color: #767676;
 }
 .block-progress dt.complete {
   color: #636363;
@@ -7611,7 +7611,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 
 /* CUSTOM */
 .availability.out-of-stock span {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .product-view .product-options .swatch-attr {
@@ -7713,7 +7713,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   font-style: italic;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 13px;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .remember-me-box a.hide {
