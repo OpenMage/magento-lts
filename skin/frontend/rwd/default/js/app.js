@@ -769,10 +769,14 @@ $j(document).ready(function () {
     // rather than having duplicate markup or changing the design
     enquire.register('(max-width: ' + bp.medium + 'px)', {
         match: function () {
-            $j('.page-header-container .store-language-container').prepend($j('.form-language'));
+            $j('.page-header-container .store-language-container')
+                .prepend($j('.form-language'))
+                .prepend($j('.currency-switcher'));
         },
         unmatch: function () {
-            $j('.header-language-container .store-language-container').prepend($j('.form-language'));
+            $j('.header-language-container .store-language-container')
+                .prepend($j('.form-language'))
+                .prepend($j('.currency-switcher'));
         }
     });
 
