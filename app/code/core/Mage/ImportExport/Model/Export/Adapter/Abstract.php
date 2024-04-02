@@ -18,13 +18,24 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- *
- * @property resource $_fileHandler
- * @property string $_delimiter
- * @property string $_enclosure
  */
 abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
 {
+    /**
+     * @var resource
+     */
+    protected $_fileHandler;
+
+    /**
+     * @var string
+     */
+    protected $_delimiter;
+
+    /**
+     * @var string
+     */
+    protected $_enclosure;
+
     /**
      * Destination file path.
      *
