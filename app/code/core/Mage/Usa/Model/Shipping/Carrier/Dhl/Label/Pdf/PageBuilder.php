@@ -43,6 +43,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     protected $_page;
 
     /**
+     * @var Zend_Pdf_Resource_Font
+     */
+    protected $_fontNormal;
+
+    /**
+     * @var  Zend_Pdf_Resource_Font
+     */
+    protected $_fontBold;
+
+    /**
      * Create font instances
      */
     public function __construct()
