@@ -115,7 +115,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * @return string
      */
-    public function renderHeader(): string
+    public function renderHeader()
     {
         if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
