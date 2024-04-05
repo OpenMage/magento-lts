@@ -601,10 +601,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
