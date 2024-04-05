@@ -50,12 +50,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_configFields;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset
+     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset|false
      */
     protected $_defaultFieldsetRenderer;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Field
+     * @var Mage_Adminhtml_Block_System_Config_Form_Field|false
      */
     protected $_defaultFieldRenderer;
 
