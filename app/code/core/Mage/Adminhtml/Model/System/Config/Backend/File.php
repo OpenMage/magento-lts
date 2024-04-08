@@ -142,9 +142,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * @param string $token
      * @return string
      */
-    protected function _getUploadRoot($token)
+    protected function _getUploadRoot($token = 'media')
     {
-        return Mage::getBaseDir('media');
+        return Mage::getBaseDir($token);
     }
 
     /**
