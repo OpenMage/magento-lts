@@ -309,7 +309,7 @@ class Mage_Oauth_Model_Server
             if (self::REQUEST_TOKEN == $this->_requestType) {
                 $this->_validateVerifierParam();
 
-                if (!hash_equals($this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
+                if (!hash_equals((string)$this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
                 if (!hash_equals((string)$this->_token->getConsumerId(), (string)$this->_consumer->getId())) {
@@ -397,7 +397,7 @@ class Mage_Oauth_Model_Server
     {
         if (self::REQUEST_INITIATE == $this->_requestType) {
             if (self::CALLBACK_ESTABLISHED == $this->_protocolParams['oauth_callback']
-                && $this->_consumer->getCallBackUrl()
+                && $this->_consumer->getCallbackUrl()
             ) {
                 $callbackUrl = $this->_consumer->getCallbackUrl();
             } else {
@@ -432,7 +432,12 @@ class Mage_Oauth_Model_Server
         if (!is_string($this->_protocolParams['oauth_callback'])) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }
-        if (self::CALLBACK_ESTABLISHED != $this->_protocolParams['oauth_callback']
+        // Is the callback URL whitelisted?
+        $callbackUrl = $this->_consumer->getCallbackUrl();
+        if ($callbackUrl && strpos($this->_protocolParams['oauth_callback'], $callbackUrl) === 0) {
+            return;
+        }
+        if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
             && !Zend_Uri::check($this->_protocolParams['oauth_callback'])
         ) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);

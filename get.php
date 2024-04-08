@@ -49,13 +49,11 @@ if (!$autoloaderPath) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
-require $autoloaderPath . $ds . 'autoload.php';
+require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
-
 $configCacheFile = $varDirectory . $ds . 'resource_config.json';
-
 $mediaDirectory = null;
 $allowedResources = [];
 
@@ -70,10 +68,9 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
 }
 
 $request = new Zend_Controller_Request_Http();
-
 $pathInfo = str_replace('..', '', ltrim($request->getPathInfo(), '/'));
-
 $filePath = str_replace('/', $ds, rtrim($bp, $ds) . $ds . $pathInfo);
+$relativeFilename = '';
 
 if ($mediaDirectory) {
     if (0 !== stripos($pathInfo, $mediaDirectory . '/') || is_dir($filePath)) {
@@ -86,7 +83,6 @@ if ($mediaDirectory) {
 }
 
 $mageFilename = 'app/Mage.php';
-
 if (!file_exists($mageFilename)) {
     echo $mageFilename . ' was not found';
 }
