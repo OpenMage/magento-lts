@@ -64,7 +64,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4 to 8.2
+- PHP 7.4 to 8.3
 - MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -589,6 +589,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/leissbua"><img src="https://avatars.githubusercontent.com/u/68073221?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Michael Leiss</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.riseart.com/"><img src="https://avatars.githubusercontent.com/u/26821235?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcos Steverlynck</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ahudock"><img src="https://avatars.githubusercontent.com/u/33500977?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andy Hudock</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.vianetz.com/"><img src="https://avatars.githubusercontent.com/u/26252058?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Christoph Massmann</b></sub></a></td>
     </tr>
   </tbody>
 </table>

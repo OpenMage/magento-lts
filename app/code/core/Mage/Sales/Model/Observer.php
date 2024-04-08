@@ -275,8 +275,7 @@ class Mage_Sales_Model_Observer
         $dependencies = $block
             ->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
-            ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
-            ->addConfigOptions(['levels_up' => 2]);
+            ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1');
         $observer->getEvent()->getResult()->output .= $dependencies->toHtml();
     }
 
