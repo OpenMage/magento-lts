@@ -18,9 +18,9 @@ var added = false;
 function addProduct(closeAfter) {
     if(window.opener!=null && !added) {
         <?php if($this->isEdit()): ?>
-        window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+        window.opener.superProduct.updateProduct(<?= $this->getProductId() ?>, <?= $this->getAttributesJson() ?>);
         <?php else: ?>
-        window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+        window.opener.superProduct.addNewProduct(<?= $this->getProductId() ?>, <?= $this->getAttributesJson() ?>);
         window.opener.superProduct.showNoticeMessage();
         <?php endif ?>
         added = true;
@@ -44,5 +44,5 @@ addProduct(false);
 setTimeout(closeWindow, 3000);
 </script>
 <div class="a-center">
-<?php echo $this->getCloseButtonHtml() ?>
+<?= $this->getCloseButtonHtml() ?>
 </div>

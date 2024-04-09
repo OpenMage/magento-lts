@@ -19,19 +19,19 @@
         <tr>
             <td style="width:50%;">
                 <h3 class="icon-head head-permissions-role">
-                    <?php echo $this->getCaption() ?>
+                    <?= $this->getCaption() ?>
                 </h3>
             </td>
             <td class="form-buttons">
-            <?php echo $this->getBackButtonHtml() ?>
-            <?php echo $this->getResetButtonHtml() ?>
-            <?php echo $this->getDeleteButtonHtml() ?>
-            <?php echo $this->getSaveButtonHtml() ?>
+            <?= $this->getBackButtonHtml() ?>
+            <?= $this->getResetButtonHtml() ?>
+            <?= $this->getDeleteButtonHtml() ?>
+            <?= $this->getSaveButtonHtml() ?>
             </td>
         </tr>
     </table>
 </div>
-<form action="<?php echo $this->getUrl('*/*/save') ?>" method="post" id="role_edit_form">
+<form action="<?= $this->getUrl('*/*/save') ?>" method="post" id="role_edit_form">
     <?php echo $this->getBlockHtml('formkey')?>
 </form>
 <script type="text/javascript">

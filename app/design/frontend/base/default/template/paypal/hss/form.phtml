@@ -20,10 +20,10 @@
 <html>
 <head></head>
 <body>
-    <form id="token_form" method="POST" action="<?php echo $this->getTransactionUrl() ?>">
-        <input type="hidden" name="SECURETOKEN" value="<?php echo $this->getSecureToken(); ?>" />
-        <input type="hidden" name="SECURETOKENID" value="<?php echo $this->getSecureTokenId(); ?>" />
-        <input type="hidden" name="MODE" value="<?php echo $this->isTestMode() ? 'TEST' : 'LIVE'; ?>" />
+    <form id="token_form" method="POST" action="<?= $this->getTransactionUrl() ?>">
+        <input type="hidden" name="SECURETOKEN" value="<?= $this->getSecureToken() ?>" />
+        <input type="hidden" name="SECURETOKENID" value="<?= $this->getSecureTokenId() ?>" />
+        <input type="hidden" name="MODE" value="<?= $this->isTestMode() ? 'TEST' : 'LIVE' ?>" />
     </form>
     <script type="text/javascript">
     //<![CDATA[

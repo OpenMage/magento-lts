@@ -19,7 +19,7 @@
 ?>
 <?php foreach ($this->getTotals() as $_code => $_total): ?>
     <?php if ($_total->getBlockName()): ?>
-        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+        <?= $this->getChildHtml($_total->getBlockName(), false) ?>
     <?php else: ?>
     <tr class="<?php echo $_code?>">
         <td <?php echo $this->getLabelProperties()?>>
@@ -31,9 +31,9 @@
         </td>
         <td <?php echo $this->getValueProperties()?>>
             <?php if ($_total->getStrong()):?>
-            <strong><?php echo $this->formatValue($_total) ?></strong>
+            <strong><?= $this->formatValue($_total) ?></strong>
             <?php else: ?>
-            <?php echo $this->formatValue($_total) ?>
+            <?= $this->formatValue($_total) ?>
             <?php endif ?>
         </td>
     </tr>

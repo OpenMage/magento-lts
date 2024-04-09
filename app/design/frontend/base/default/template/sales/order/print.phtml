@@ -14,35 +14,35 @@
  */
 ?>
 <?php $_order = $this->getOrder() ?>
-<h1><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h1>
-<p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
+<h1><?= $this->__('Order #%s', $_order->getRealOrderId()) ?></h1>
+<p class="order-date"><?= $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
 <div class="col2-set">
     <?php if (!$_order->getIsVirtual()): ?>
     <div class="col-1">
-        <h2><?php echo $this->__('Shipping Address') ?></h2>
-        <address><?php echo $_order->getShippingAddress()->format('html') ?></address>
+        <h2><?= $this->__('Shipping Address') ?></h2>
+        <address><?= $_order->getShippingAddress()->format('html') ?></address>
     </div>
     <div class="col-2">
     <?php else: ?>
     <div class="col-1">
     <?php endif ?>
-        <h2><?php echo $this->__('Billing Address') ?></h2>
-        <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+        <h2><?= $this->__('Billing Address') ?></h2>
+        <address><?= $_order->getBillingAddress()->format('html') ?></address>
     </div>
 <?php if (!$_order->getIsVirtual()): ?>
 </div>
 <div class="col2-set">
     <div class="col-1">
-        <h2><?php echo $this->__('Shipping Method') ?></h2>
-         <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
+        <h2><?= $this->__('Shipping Method') ?></h2>
+         <?= $this->escapeHtml($_order->getShippingDescription()) ?>
     </div>
 <?php endif ?>
     <div class="col-2">
-        <h2><?php echo $this->__('Payment Method') ?></h2>
-        <?php echo $this->getPaymentInfoHtml() ?>
+        <h2><?= $this->__('Payment Method') ?></h2>
+        <?= $this->getPaymentInfoHtml() ?>
     </div>
 </div>
-<h2><?php echo $this->__('Items Ordered') ?></h2>
+<h2><?= $this->__('Items Ordered') ?></h2>
 <table class="data-table" id="my-orders-table">
     <col />
     <col width="1" />
@@ -51,22 +51,22 @@
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
-            <th><?php echo $this->__('SKU') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            <th><?= $this->__('Product Name') ?></th>
+            <th><?= $this->__('SKU') ?></th>
+            <th class="a-right"><?= $this->__('Price') ?></th>
+            <th class="a-center"><?= $this->__('Qty') ?></th>
+            <th class="a-right"><?= $this->__('Subtotal') ?></th>
         </tr>
     </thead>
     <tfoot>
-        <?php echo $this->getChildHtml('order_totals') ?>
+        <?= $this->getChildHtml('order_totals') ?>
     </tfoot>
     <?php $_items = $_order->getItemsCollection(); ?>
     <?php $_count = $_items->count(); ?>
     <?php foreach ($_items as $_item): ?>
     <?php if ($_item->getParentItem()) continue; ?>
     <tbody>
-        <?php echo $this->getItemHtml($_item) ?>
+        <?= $this->getItemHtml($_item) ?>
     </tbody>
         <?php endforeach ?>
 </table>

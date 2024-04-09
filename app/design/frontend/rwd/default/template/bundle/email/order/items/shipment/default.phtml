@@ -32,34 +32,34 @@
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
     <?php if ($_prevOptionId != $attributes['option_id']): ?>
     <tr>
-        <td class="bundle-item"><strong><em><?php echo $this->escapeHtml($attributes['option_label']); ?></em></strong></td>
+        <td class="bundle-item"><strong><em><?= $this->escapeHtml($attributes['option_label']) ?></em></strong></td>
         <td class="bundle-item">&nbsp;</td>
         <td class="bundle-item">&nbsp;</td>
     </tr>
     <?php $_prevOptionId = $attributes['option_id'] ?>
     <?php endif ?>
 <?php endif ?>
-<tr id="order-item-row-<?php echo $_item->getId() ?>">
+<tr id="order-item-row-<?= $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
     <td class="bundle-item-parent product-info">
-        <p class="product-name"><?php echo $this->escapeHtml($_item->getName()) ?></p>
+        <p class="product-name"><?= $this->escapeHtml($_item->getName()) ?></p>
     </td>
     <td class="bundle-item-parent align-center">
-        <?php echo $this->escapeHtml($_item->getSku()) ?>
+        <?= $this->escapeHtml($_item->getSku()) ?>
     </td>
     <td class="bundle-item-parent align-right">
     <?php else: ?>
     <td class="bundle-item bundle-details product-info"><div><?php echo $this->getValueHtml($_item)?></div></td>
     <td class="bundle-item bundle-details align-center">
-        <?php echo $this->escapeHtml($_item->getSku()) ?>
+        <?= $this->escapeHtml($_item->getSku()) ?>
     </td>
     <td class="bundle-item align-right">
     <?php endif ?>
     <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
         <?php if (isset($shipItems[$_item->getId()])): ?>
-            <?php echo $shipItems[$_item->getId()]->getQty()*1 ?>
+            <?= $shipItems[$_item->getId()]->getQty()*1 ?>
         <?php elseif ($_item->getIsVirtual()): ?>
-            <?php echo $this->__('N/A') ?>
+            <?= $this->__('N/A') ?>
         <?php else: ?>
             0
         <?php endif ?>
@@ -76,12 +76,12 @@
         <?php if ($this->getItemOptions()): ?>
         <dl style="margin:0; padding:0;">
             <?php foreach ($this->getItemOptions() as $option): ?>
-            <dt><strong><em><?php echo $option['label'] ?></em></strong>
-                        <dd style="margin:0; padding:0 0 0 9px;"><?php echo $option['value'] ?></dd>
+            <dt><strong><em><?= $option['label'] ?></em></strong>
+                        <dd style="margin:0; padding:0 0 0 9px;"><?= $option['value'] ?></dd>
             <?php endforeach ?>
         </dl>
         <?php endif ?>
-        <?php echo $this->escapeHtml($_item->getDescription()) ?>
+        <?= $this->escapeHtml($_item->getDescription()) ?>
     </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

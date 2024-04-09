@@ -14,10 +14,10 @@
  */
 ?>
 <?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty $this */ ?>
-<div id="product_composite_configure_fields_qty" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+<div id="product_composite_configure_fields_qty" class="<?= $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
     <div class="product-options">
         <dl>
-            <dt><label><?php echo Mage::helper('catalog')->__('Quantity') ?></label> <input id="product_composite_configure_input_qty" class="input-text" type="text" name="qty" value="<?php echo $this->getQtyValue() * 1 ?>"></dt>
+            <dt><label><?= Mage::helper('catalog')->__('Quantity') ?></label> <input id="product_composite_configure_input_qty" class="input-text" type="text" name="qty" value="<?= $this->getQtyValue() * 1 ?>"></dt>
         </dl>
     </div>
 </div>

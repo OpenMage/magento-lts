@@ -19,27 +19,27 @@
  */
 ?>
 <tr>
-    <th colspan="<?php echo $this->getColspan() + 1; ?>" style="<?php echo $this->getTotalStyle() ?>" class="a-right">
-        <?php echo sprintf(($this->getRenderingArea() == $this->getTotalArea()) ? '<strong>%s</strong>' : '%s', $this->escapeHtml($this->getTotalTitle())) ?>
+    <th colspan="<?= $this->getColspan() + 1 ?>" style="<?= $this->getTotalStyle() ?>" class="a-right">
+        <?= sprintf(($this->getRenderingArea() == $this->getTotalArea()) ? '<strong>%s</strong>' : '%s', $this->escapeHtml($this->getTotalTitle())) ?>
     </th>
 </tr>
 <?php foreach ($this->getTotalItems() as $i => $item): ?>
 <?php foreach ($this->getTotalItemDetails($item) as $j => $row):?>
 <tr class="summary-details <?php echo "summary-details-nominal-{$i}" . ($j == 0 ? ' summary-details-first' : '') . ($this->getItemDetailsRowIsCompounded($row) ? '' : ' summary-details-excluded')?>" style="display:none;">
-    <td colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotalStyle() ?>" class="a-right">
-        <?php echo $this->escapeHtml($this->getItemDetailsRowLabel($row)) ?>
+    <td colspan="<?= $this->getColspan() ?>" style="<?= $this->getTotalStyle() ?>" class="a-right">
+        <?= $this->escapeHtml($this->getItemDetailsRowLabel($row)) ?>
     </td>
     <td class="a-right">
-        <?php echo $this->formatPrice($this->getItemDetailsRowAmount($row)) ?>
+        <?= $this->formatPrice($this->getItemDetailsRowAmount($row)) ?>
     </td>
 </tr>
 <?php endforeach ?>
 <tr class="summary-total" onclick="expandDetails(this, '<?php echo ".summary-details-nominal-{$i}"?>')">
-    <td colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotalStyle() ?>">
-        <div class="summary-collapse"><?php echo $this->escapeHtml($this->getItemName($item)); ?></div>
+    <td colspan="<?= $this->getColspan() ?>" style="<?= $this->getTotalStyle() ?>">
+        <div class="summary-collapse"><?= $this->escapeHtml($this->getItemName($item)) ?></div>
     </td>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getItemRowTotal($item)) ?>
+        <?= $this->helper('checkout')->formatPrice($this->getItemRowTotal($item)) ?>
     </td>
 </tr>
 <?php endforeach ?>

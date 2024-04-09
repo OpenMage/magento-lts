@@ -13,10 +13,10 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
+<form id="edit_form" method="post" action="<?= $this->getSaveUrl() ?>">
     <?php echo $this->getBlockHtml('formkey')?>
     <?php $_order = $this->getInvoice()->getOrder() ?>
-    <?php echo $this->getChildHtml('order_info') ?>
+    <?= $this->getChildHtml('order_info') ?>
     <?php if (!$_order->getIsVirtual()): ?>
     <div class="box-left">
     <?php else: ?>
@@ -25,11 +25,11 @@
 
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-payment-method"><?php echo Mage::helper('sales')->__('Payment Information') ?></h4>
+                <h4 class="icon-head head-payment-method"><?= Mage::helper('sales')->__('Payment Information') ?></h4>
             </div>
             <fieldset>
-                <div><?php echo $this->getChildHtml('order_payment') ?></div>
-                <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+                <div><?= $this->getChildHtml('order_payment') ?></div>
+                <div><?= Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
             </fieldset>
         </div>
     </div>
@@ -38,12 +38,12 @@
         <!--Shipping Address-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-shipping-method"><?php echo Mage::helper('sales')->__('Shipping Information') ?></h4>
+                <h4 class="icon-head head-shipping-method"><?= Mage::helper('sales')->__('Shipping Information') ?></h4>
             </div>
             <fieldset>
                 <div>
-                    <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
-                    <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+                    <strong><?= $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                    <?= $this->helper('sales')->__('Total Shipping Charges') ?>:
 
                     <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
                         <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
@@ -52,21 +52,21 @@
                     <?php endif ?>
                     <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
-                    <?php echo $_excl; ?>
+                    <?= $_excl ?>
                     <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                     <?php endif ?>
                 </div>
                 <?php if ($this->canCreateShipment() && $this->canShipPartiallyItem()): ?>
                 <p class="nm">
-                    <label for="invoice_do_shipment" class="normal"><?php echo Mage::helper('sales')->__('Create Shipment') ?></label>
-                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" <?php echo $this->hasInvoiceShipmentTypeMismatch()?' disabled="disabled"':'' ?> />
+                    <label for="invoice_do_shipment" class="normal"><?= Mage::helper('sales')->__('Create Shipment') ?></label>
+                    <input type="checkbox" name="invoice[do_shipment]" id="invoice_do_shipment" value="1" <?= $this->hasInvoiceShipmentTypeMismatch()?' disabled="disabled"':'' ?> />
                 </p>
                 <?php if ($this->hasInvoiceShipmentTypeMismatch()): ?>
-                    <small><?php echo $this->__('Some items in this order have different invoice and shipment types. You can create shipment only after the invoice is created.') ?></small>
+                    <small><?= $this->__('Some items in this order have different invoice and shipment types. You can create shipment only after the invoice is created.') ?></small>
                     <?php endif ?>
                 <?php endif ?>
-                <div id="tracking" style="display:none;"><?php echo $this->getChildHtml('tracking',false) ?></div>
+                <div id="tracking" style="display:none;"><?= $this->getChildHtml('tracking',false) ?></div>
             </fieldset>
         </div>
     </div>
@@ -78,11 +78,11 @@
             <?php
                 $_itemsGridLabel = $this->getForcedShipmentCreate()?'Items to Invoice and Ship':'Items to Invoice';
             ?>
-            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('%s', $_itemsGridLabel) ?></h4>
+            <h4 class="icon-head head-products"><?= Mage::helper('sales')->__('%s', $_itemsGridLabel) ?></h4>
         </div>
     </div>
     <div id="invoice_item_container">
-          <?php echo $this->getChildHtml('order_items') ?>
+          <?= $this->getChildHtml('order_items') ?>
     </div>
 </form>
 <script type="text/javascript">
@@ -99,7 +99,7 @@
     }
 
     /*forced creating of shipment*/
-    var forcedShipmentCreate = <?php echo $this->getForcedShipmentCreate() ?>;
+    var forcedShipmentCreate = <?= $this->getForcedShipmentCreate() ?>;
     var shipmentElement = $('invoice_do_shipment');
     if (forcedShipmentCreate && shipmentElement) {
         shipmentElement.checked = true;

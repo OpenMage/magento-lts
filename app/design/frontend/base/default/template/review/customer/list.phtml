@@ -13,12 +13,12 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Product Reviews') ?></h1>
+    <h1><?= $this->__('My Product Reviews') ?></h1>
 </div>
 <?php if( $this->getCollection() && $this->count()): ?>
-    <?php echo $this->getToolbarHtml() ?>
+    <?= $this->getToolbarHtml() ?>
         <table class="data-table" id="my-reviews-table">
             <col width="1" />
             <col width="210" />
@@ -28,26 +28,26 @@
             <tbody>
                 <?php foreach ($this->getCollection() as $_review): ?>
                 <tr>
-                    <td><span class="nobr"><?php echo $this->dateFormat($_review->getReviewCreatedAt()); ?></span></td>
-                    <td><h2 class="product-name"><a href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h2></td>
+                    <td><span class="nobr"><?= $this->dateFormat($_review->getReviewCreatedAt()) ?></span></td>
+                    <td><h2 class="product-name"><a href="<?= $this->getProductLink() ?>id/<?= $_review->getEntityPkValue() ?>"><?= $this->escapeHtml($_review->getName()) ?></a></h2></td>
                     <td>
                     <?php if($_review->getSum()): ?>
                         <div class="rating-box">
-                            <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+                            <div class="rating" style="width:<?= ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
                         </div>
                     <?php endif ?>
                     </td>
-                    <td><?php echo $this->helper('review')->getDetailHtml($_review->getDetail()) ?></td>
-                    <td><a href="<?php echo $this->getReviewLink() ?>id/<?php echo $_review->getReviewId() ?>" class="nobr"><?php echo $this->__('View Details') ?></a></td>
+                    <td><?= $this->helper('review')->getDetailHtml($_review->getDetail()) ?></td>
+                    <td><a href="<?= $this->getReviewLink() ?>id/<?= $_review->getReviewId() ?>" class="nobr"><?= $this->__('View Details') ?></a></td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
         <script type="text/javascript">decorateTable('my-reviews-table')</script>
-    <?php echo $this->getToolbarHtml() ?>
+    <?= $this->getToolbarHtml() ?>
 <?php else: ?>
-    <p><?php echo $this->__('You have submitted no reviews.') ?></p>
+    <p><?= $this->__('You have submitted no reviews.') ?></p>
 <?php endif ?>
 <div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="<?= $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?= $this->__('Back') ?></a></p>
 </div>

@@ -15,13 +15,13 @@
 ?>
 <div class="page-sitemap">
     <div class="page-title">
-        <h1><?php echo $this->getTitle() ?></h1>
+        <h1><?= $this->getTitle() ?></h1>
     </div>
     <div id="sitemap_top_links">
-        <?php echo $this->getChildHtml('links') ?>
+        <?= $this->getChildHtml('links') ?>
     </div>
-    <?php echo $this->getChildHtml('pager_top') ?>
-    <?php echo $this->getChildHtml('sitemap') ?>
-    <?php echo $this->getChildHtml('links') ?>
-    <?php echo $this->getChildHtml('pager_bottom') ?>
+    <?= $this->getChildHtml('pager_top') ?>
+    <?= $this->getChildHtml('sitemap') ?>
+    <?= $this->getChildHtml('links') ?>
+    <?= $this->getChildHtml('pager_bottom') ?>
 </div>

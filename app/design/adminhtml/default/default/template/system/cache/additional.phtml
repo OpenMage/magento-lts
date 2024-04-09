@@ -17,7 +17,7 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3><?php echo Mage::helper('adminhtml')->__('Additional Cache Management') ?></h3></td>
+            <td><h3><?= Mage::helper('adminhtml')->__('Additional Cache Management') ?></h3></td>
             <td class="form-buttons"></td>
          </tr>
     </table>
@@ -25,7 +25,7 @@
 <table class="form-list">
     <tr>
         <td class="scope-label">
-            <button onclick="setLocation('<?php echo $this->getCleanImagesUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Catalog Images Cache') ?></span></span></span></button>
+            <button onclick="setLocation('<?= $this->getCleanImagesUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Catalog Images Cache') ?></span></span></span></button>
         </td>
         <td class="scope-label">
             <?php echo Mage::helper('adminhtml')->__('Pregenerated product images files.')?>
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td class="scope-label">
-            <button onclick="setLocation('<?php echo $this->getCleanSwatchesUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Swatch Images Cache') ?></span></span></span></button>
+            <button onclick="setLocation('<?= $this->getCleanSwatchesUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush Swatch Images Cache') ?></span></span></span></button>
         </td>
         <td class="scope-label">
             <?php echo Mage::helper('adminhtml')->__('Pregenerated configurable swatches image files.')?>
@@ -41,11 +41,11 @@
     </tr>
     <tr>
         <td class="scope-label">
-            <button onclick="setLocation('<?php echo $this->getCleanMediaUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush JavaScript/CSS Cache') ?></span></span></span></button>
+            <button onclick="setLocation('<?= $this->getCleanMediaUrl()?>')" type="button" class="scalable"><span><span><span><?php echo Mage::helper('adminhtml')->__('Flush JavaScript/CSS Cache') ?></span></span></span></button>
         </td>
         <td class="scope-label">
             <?php echo Mage::helper('adminhtml')->__('Themes JavaScript and CSS files combined to one file.')?>
         </td>
     </tr>
 </table>
-<?php echo $this->getChildHtml(); ?>
+<?= $this->getChildHtml() ?>

@@ -14,26 +14,26 @@
  */
 ?>
 <div class="page-title">
-    <h1><?php echo $this->__('Send confirmation link') ?></h1>
+    <h1><?= $this->__('Send confirmation link') ?></h1>
 </div>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <form action="" method="post" id="form-validate">
     <div class="fieldset">
-        <h2 class="legend"><?php echo $this->__('Retrieve your confirmation link here') ?></h2>
-        <p><?php echo $this->__('Please enter your email below and we\'ll send you confirmation link for it.') ?></p>
+        <h2 class="legend"><?= $this->__('Retrieve your confirmation link here') ?></h2>
+        <p><?= $this->__('Please enter your email below and we\'ll send you confirmation link for it.') ?></p>
         <ul class="form-list">
             <li>
-                <label for="email_address" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                <label for="email_address" class="required"><em>*</em><?= $this->__('Email Address') ?></label>
                 <div class="input-box">
-                    <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="email_address" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text required-entry validate-email" value="<?php echo $this->escapeHtml($this->getEmail()) ?>" />
+                    <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="email_address" title="<?= Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text required-entry validate-email" value="<?= $this->escapeHtml($this->getEmail()) ?>" />
                 </div>
             </li>
         </ul>
     </div>
     <div class="buttons-set">
-        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <p class="back-link"><a href="<?php echo $this->helper('customer')->getLoginUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Login') ?></a></p>
-        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+        <p class="required"><?= $this->__('* Required Fields') ?></p>
+        <p class="back-link"><a href="<?= $this->helper('customer')->getLoginUrl() ?>"><small>&laquo; </small><?= $this->__('Back to Login') ?></a></p>
+        <button type="submit" title="<?= Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?= $this->__('Submit') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">

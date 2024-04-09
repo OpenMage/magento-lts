@@ -15,7 +15,7 @@
 ?>
 
 <?php if (!$this->getHideTitle()): ?>
-    <p><strong><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></strong></p>
+    <p><strong><?= $this->escapeHtml($this->getMethod()->getTitle()) ?></strong></p>
 <?php endif ?>
 
 <?php
@@ -26,7 +26,7 @@
 <dl class="cards-list">
 <?php foreach ($cards as $key => $card): ?>
     <?php if ($showCount): ?>
-        <dt><?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?></dt>
+        <dt><?= sprintf($this->__('Credit Card %s'), $key + 1) ?></dt>
     <?php endif ?>
 
     <dd <?php if ($showCount):?> class="offset"<?php endif ?>>

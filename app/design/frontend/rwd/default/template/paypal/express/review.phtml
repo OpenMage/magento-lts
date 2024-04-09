@@ -15,16 +15,16 @@
 /** @var $this Mage_Paypal_Block_Express_Review */
 ?>
 <div class="page-title">
-    <h1><?php echo $this->__('Review Order') ?></h1>
+    <h1><?= $this->__('Review Order') ?></h1>
 </div>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <?php if ($this->getShippingAddress()): ?>
     <div class="info-set col2-set">
-        <h2 class="legend"><?php echo $this->__('Shipping Information') ?></h2>
+        <h2 class="legend"><?= $this->__('Shipping Information') ?></h2>
         <div class="col-1">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit') ?></a><?php endif ?></h3>
+                    <h3><?= $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?= $this->getEditUrl() ?>"><?= $this->__('Edit') ?></a><?php endif ?></h3>
                 </div>
                 <div class="box-content">
                     <address><?php echo $this->renderAddress($this->getShippingAddress())?></address>
@@ -34,20 +34,20 @@
         <div class="col-2">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Shipping Method') ?></h3>
+                    <h3><?= $this->__('Shipping Method') ?></h3>
                 </div>
                 <div class="box-content">
-                    <form method="post" id="shipping_method_form" action="<?php echo $this->escapeHtml($this->getShippingMethodSubmitUrl()) ?>">
+                    <form method="post" id="shipping_method_form" action="<?= $this->escapeHtml($this->getShippingMethodSubmitUrl()) ?>">
                         <?php if ($this->getCanEditShippingMethod() || !$this->getCurrentShippingRate()):?>
                             <?php if ($groups = $this->getShippingRateGroups()):?>
                                 <?php $currentRate = $this->getCurrentShippingRate(); ?>
                                 <fieldset>
                                     <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
                                         <?php if (!$currentRate):?>
-                                            <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
+                                            <option value=""><?= $this->__('Please select a shipping method...') ?></option>
                                         <?php endif ?>
                                         <?php foreach ($groups as $code => $rates):?>
-                                            <optgroup label="<?php echo $this->escapeHtml($this->getCarrierName($code)) ?>" style="font-style:normal;">
+                                            <optgroup label="<?= $this->escapeHtml($this->getCarrierName($code)) ?>" style="font-style:normal;">
                                                 <?php foreach ($rates as $rate):?>
                                                     <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
                                                         <?php echo $this->renderShippingRateOption($rate)?>
@@ -58,10 +58,10 @@
                                     </select>
                                 </fieldset>
                                 <p class="actions">
-                                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
+                                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?= $this->__('Update Shipping Method') ?></span></span></button>
                                 </p>
                             <?php else: ?>
-                                <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
+                                <p><strong><?= $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
                             <?php endif ?>
                         <?php else: ?>
                             <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
@@ -74,34 +74,34 @@
 <?php endif ?>
 
 <div class="info-set col2-set">
-    <h2 class="legend"><?php echo $this->__('Billing Information') ?></h2>
+    <h2 class="legend"><?= $this->__('Billing Information') ?></h2>
     <div class="col-1">
         <div class="box">
             <div class="box-title">
-                <h3><?php echo $this->__('Payment Method') ?> <span class="separator">|</span>
-                    <?php if($this->getEditUrl()):?><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit Payment Information') ?></a> <?php endif ?>
+                <h3><?= $this->__('Payment Method') ?> <span class="separator">|</span>
+                    <?php if($this->getEditUrl()):?><a href="<?= $this->getEditUrl() ?>"><?= $this->__('Edit Payment Information') ?></a> <?php endif ?>
                 </h3>
             </div>
             <div class="box-content">
-                <?php echo $this->escapeHtml($this->getPaymentMethodTitle()) ?>
+                <?= $this->escapeHtml($this->getPaymentMethodTitle()) ?>
             </div>
         </div>
     </div>
 </div>
 
 <div class="info-set">
-    <h2 class="legend"><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h2>
+    <h2 class="legend"><?= $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?= $this->getUrl('checkout/cart') ?>"><?= $this->__('Edit Shopping Cart') ?></a></h2>
     <div id="details-reload">
-        <?php echo $this->getChildHtml('details') ?>
+        <?= $this->getChildHtml('details') ?>
     </div>
 </div>
-<form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
-    <?php echo $this->getChildHtml('agreements'); ?>
+<form method="post" id="order_review_form" action="<?= $this->getPlaceOrderUrl() ?>">
+    <?= $this->getChildHtml('agreements') ?>
     <div class="buttons-set buttons-set-order" id="review-buttons-container">
-        <button type="button" id="review_button" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-        <button type="button" id="review_submit" value="<?php echo $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+        <button type="button" id="review_button" value="<?= $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?= $this->__('Place Order') ?></span></span></button>
+        <button type="button" id="review_submit" value="<?= $this->__('Place Order') ?>" class="button btn-checkout"><span><span><?= $this->__('Place Order') ?></span></span></button>
         <span class="please-wait" id="review-please-wait" style="display:none;">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->quoteEscape($this->__('Submitting order information...')) ?>" title="<?php echo $this->quoteEscape($this->__('Submitting order information...')) ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+            <img src="<?= $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?= $this->quoteEscape($this->__('Submitting order information...')) ?>" title="<?= $this->quoteEscape($this->__('Submitting order information...')) ?>" class="v-middle" /> <?= $this->__('Submitting order information...') ?>
         </span>
     </div>
 </form>
@@ -146,11 +146,11 @@
                         }
                     }
                     $('review-please-wait').hide();
-                    alert('<?php echo $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')); ?>');
+                    alert('<?= $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')) ?>');
                     return;
                 },
                 onFailure: function(){
-                    alert('<?php echo $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>');
+                    alert('<?= $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>');
                     $('review-please-wait').hide();
                 }
             });

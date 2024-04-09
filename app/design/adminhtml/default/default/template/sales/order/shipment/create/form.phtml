@@ -13,21 +13,21 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
+<form id="edit_form" method="post" action="<?= $this->getSaveUrl() ?>">
     <?php echo $this->getBlockHtml('formkey')?>
     <?php  $_order = $this->getShipment()->getOrder() ?>
-    <?php echo $this->getChildHtml('order_info') ?>
+    <?= $this->getChildHtml('order_info') ?>
 
 
     <div class="box-left">
         <!--Billing Address-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-payment-method"><?php echo Mage::helper('sales')->__('Payment Information') ?></h4>
+                <h4 class="icon-head head-payment-method"><?= Mage::helper('sales')->__('Payment Information') ?></h4>
             </div>
             <fieldset>
-                <div><?php echo $this->getPaymentHtml() ?></div>
-                <div><?php echo Mage::helper('sales')->__('The order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+                <div><?= $this->getPaymentHtml() ?></div>
+                <div><?= Mage::helper('sales')->__('The order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
             </fieldset>
         </div>
     </div>
@@ -35,12 +35,12 @@
         <!--Shipping Address-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-shipping-method"><?php echo Mage::helper('sales')->__('Shipping Information') ?></h4>
+                <h4 class="icon-head head-shipping-method"><?= Mage::helper('sales')->__('Shipping Information') ?></h4>
             </div>
             <fieldset>
                 <div>
-                    <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
-                    <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+                    <strong><?= $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                    <?= $this->helper('sales')->__('Total Shipping Charges') ?>:
 
                     <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
                         <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
@@ -49,12 +49,12 @@
                     <?php endif ?>
                     <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
-                    <?php echo $_excl; ?>
+                    <?= $_excl ?>
                     <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                     <?php endif ?>
                 </div>
-                <div><?php echo $this->getChildHtml('shipment_tracking') ?></div>
+                <div><?= $this->getChildHtml('shipment_tracking') ?></div>
             </fieldset>
         </div>
     </div>
@@ -62,14 +62,14 @@
 
     <div class="entry-edit">
         <div class="entry-edit-head">
-            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('Items to Ship') ?></h4>
+            <h4 class="icon-head head-products"><?= Mage::helper('sales')->__('Items to Ship') ?></h4>
         </div>
     </div>
     <div id="ship_items_container">
-            <?php echo $this->getItemsHtml() ?>
+            <?= $this->getItemsHtml() ?>
     </div>
 </form>
-<?php echo $this->getChildHtml('shipment_packaging') ?>
+<?= $this->getChildHtml('shipment_packaging') ?>
 <script type="text/javascript">
 //<![CDATA[
     document.observe("dom:loaded", function() {

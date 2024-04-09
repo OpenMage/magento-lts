@@ -16,22 +16,22 @@
 <?php $_formMessage=$this->getPartialAuthorizationFormMessage(); ?>
 <?php $_isPartialAuthorization=$this->isPartialAuthorization(); ?>
 <?php if ($_isPartialAuthorization || $_formMessage): ?>
-    <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>_before" style="display:none;">
+    <div class="form-list" id="payment_form_<?= $this->getMethodCode() ?>_before" style="display:none;">
         <?php if ($_formMessage): ?>
-        <?php echo $this->showNoticeMessage($_formMessage) ?>
+        <?= $this->showNoticeMessage($_formMessage) ?>
         <?php endif ?>
 
         <?php if ($_isPartialAuthorization): ?>
-                <?php echo $this->getChildHtml('cards') ?>
+                <?= $this->getChildHtml('cards') ?>
                 <div class="release-amounts">
                     <?php echo $this->getCancelButtonHtml()?>
-                    <p class="note"><?php echo $this->__('To cancel pending authorizations and release amounts that have already been processed during this payment, click Cancel.') ?></p>
+                    <p class="note"><?= $this->__('To cancel pending authorizations and release amounts that have already been processed during this payment, click Cancel.') ?></p>
                 </div>
-                <?php echo $this->showNoticeMessage($this->__('Please enter another credit card number to complete your purchase.')) ?>
+                <?= $this->showNoticeMessage($this->__('Please enter another credit card number to complete your purchase.')) ?>
                     <script type="text/javascript">
                     //<![CDATA[
                     function cancelPaymentAuthorizations(){
-                        new Ajax.Request('<?php echo $this->getAdminCancelUrl() ?>', {
+                        new Ajax.Request('<?= $this->getAdminCancelUrl() ?>', {
                             onSuccess : function(transport) {
                                 try{
                                     response = eval('(' + transport.responseText + ')');
@@ -51,7 +51,7 @@
                         });
                     }
                     <?php if ($_message = $this->getPartialAuthorizationConfirmationMessage()): ?>
-                    if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
+                    if (!confirm('<?= Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                         cancelPaymentAuthorizations();
                     }
                     <?php endif ?>
@@ -60,4 +60,4 @@
         <?php endif ?>
     </div>
 <?php endif ?>
-<?php echo $this->getChildHtml('method_form_block') ?>
+<?= $this->getChildHtml('method_form_block') ?>

@@ -22,10 +22,10 @@
     <ul class="add-to-links">
         <?php if ($_wishlistSubmitUrl) : ?>
             <li>
-                <a href="<?php echo $_wishlistSubmitUrl ?>"
+                <a href="<?= $_wishlistSubmitUrl ?>"
                    onclick="productAddToCartForm.submitLight(this, this.href); return false;"
                    class="link-wishlist">
-                    <?php echo $this->__('Add to Wishlist') ?>
+                    <?= $this->__('Add to Wishlist') ?>
                 </a>
             </li>
         <?php endif ?>
@@ -35,8 +35,8 @@
                 <?php if ($_wishlistSubmitUrl): ?><span class="separator">|</span><?php endif ?>
                 <a href="#"
                    class="link-compare"
-                   onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
-                    <?php echo $this->__('Add to Compare') ?>
+                   onclick="customFormSubmit('<?= $_compareUrl ?>', '<?= $_params ?>', 'post')">
+                    <?= $this->__('Add to Compare') ?>
                 </a>
             </li>
         <?php endif ?>

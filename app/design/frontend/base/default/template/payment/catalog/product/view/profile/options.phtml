@@ -21,10 +21,10 @@
 <?php if ($dateHtml = $this->getDateHtml()): ?>
 <dl>
     <dt>
-        <label for="<?php echo $this->getDateHtmlId() ?>"><?php echo $this->__('Recurring Profile Start Date') ?></label>
+        <label for="<?= $this->getDateHtmlId() ?>"><?= $this->__('Recurring Profile Start Date') ?></label>
     </dt>
     <dd>
-        <?php echo $dateHtml ?>
+        <?= $dateHtml ?>
     </dd>
 </dl>
 <?php endif ?>

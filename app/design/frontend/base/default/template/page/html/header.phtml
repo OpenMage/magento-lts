@@ -19,17 +19,17 @@
 <div class="header-container">
     <div class="header">
         <?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <h1 class="logo"><strong><?= $this->getLogoAlt() ?></strong><a href="<?= $this->getUrl('') ?>" title="<?= $this->getLogoAlt() ?>" class="logo"><img src="<?= $this->getLogoSrc() ?>" alt="<?= $this->getLogoAlt() ?>" /></a></h1>
         <?php else: ?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+        <a href="<?= $this->getUrl('') ?>" title="<?= $this->getLogoAlt() ?>" class="logo"><strong><?= $this->getLogoAlt() ?></strong><img src="<?= $this->getLogoSrc() ?>" alt="<?= $this->getLogoAlt() ?>" /></a>
         <?php endif ?>
         <div class="quick-access">
-            <?php echo $this->getChildHtml('topSearch') ?>
-            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            <?php echo $this->getChildHtml('topLinks') ?>
-            <?php echo $this->getChildHtml('store_language') ?>
+            <?= $this->getChildHtml('topSearch') ?>
+            <p class="welcome-msg"><?= $this->getChildHtml('welcome') ?> <?= $this->getAdditionalHtml() ?></p>
+            <?= $this->getChildHtml('topLinks') ?>
+            <?= $this->getChildHtml('store_language') ?>
         </div>
-        <?php echo $this->getChildHtml('topContainer'); ?>
+        <?= $this->getChildHtml('topContainer') ?>
     </div>
 </div>
-<?php echo $this->getChildHtml('topMenu') ?>
+<?= $this->getChildHtml('topMenu') ?>

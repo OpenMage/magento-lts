@@ -15,19 +15,19 @@
 ?>
 <div class="block block-subscribe">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
+        <strong><span><?= $this->__('Newsletter') ?></span></strong>
     </div>
-    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
-        <?php echo $this->getBlockHtml('formkey') ?>
+    <form action="<?= $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <?= $this->getBlockHtml('formkey') ?>
         <div class="block-content">
             <div class="form-subscribe-header">
-                <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>
+                <label for="newsletter"><?= $this->__('Sign Up for Our Newsletter:') ?></label>
             </div>
             <div class="input-box">
-               <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
+               <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="newsletter" title="<?= Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
             </div>
             <div class="actions">
-                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
+                <button type="submit" title="<?= Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><span><?= $this->__('Subscribe') ?></span></span></button>
             </div>
         </div>
     </form>

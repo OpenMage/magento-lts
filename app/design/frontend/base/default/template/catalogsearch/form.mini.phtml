@@ -16,16 +16,16 @@
 /* @var $catalogSearchHelper Mage_CatalogSearch_Helper_Data */
 $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
-<form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
+<form id="search_mini_form" action="<?= $catalogSearchHelper->getResultUrl() ?>" method="get">
     <div class="form-search">
-        <label for="search"><?php echo $this->__('Search:') ?></label>
-        <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" />
-        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Search')) ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+        <label for="search"><?= $this->__('Search:') ?></label>
+        <input id="search" type="text" name="<?= $catalogSearchHelper->getQueryParamName() ?>" value="<?= $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" />
+        <button type="submit" title="<?= Mage::helper('core')->quoteEscape($this->__('Search')) ?>" class="button"><span><span><?= $this->__('Search') ?></span></span></button>
         <div id="search_autocomplete" class="search-autocomplete"></div>
         <script type="text/javascript">
         //<![CDATA[
-            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Search entire store here...')) ?>');
-            searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?= Mage::helper('core')->jsQuoteEscape($this->__('Search entire store here...')) ?>');
+            searchForm.initAutocomplete('<?= $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
         //]]>
         </script>
     </div>

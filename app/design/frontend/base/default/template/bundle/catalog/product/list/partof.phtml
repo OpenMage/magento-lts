@@ -15,7 +15,7 @@
 ?>
 <?php if($this->getItemCollection()->getSize()): ?>
 <div class="box-collateral box-up-sell">
-    <h2><?php echo $this->__('This product is also part of bundle(s)') ?></h2>
+    <h2><?= $this->__('This product is also part of bundle(s)') ?></h2>
     <table class="products-grid" id="bundle-product-table">
     <?php // $this->setColumnCount(4); // uncomment this line if you want to have another number of columns ?>
     <?php $this->resetItemsIterator() ?>
@@ -24,10 +24,10 @@
         <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
             <?php if($_bundle=$this->getIterableItem()): ?>
             <td>
-                <a href="<?php echo $_bundle->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_bundle->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_bundle, 'small_image')->resize(125) ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($_bundle->getName()) ?>" /></a>
-                <h3 class="product-name"><a href="<?php echo $_bundle->getProductUrl() ?>"><?php echo $this->escapeHtml($_bundle->getName()) ?></a></h3>
-                <?php echo $this->getPriceHtml($_bundle, true) ?>
-                <?php echo $this->getReviewsSummaryHtml($_bundle) ?>
+                <a href="<?= $_bundle->getProductUrl() ?>" title="<?= $this->escapeHtml($_bundle->getName()) ?>" class="product-image"><img src="<?= $this->helper('catalog/image')->init($_bundle, 'small_image')->resize(125) ?>" width="125" height="125" alt="<?= $this->escapeHtml($_bundle->getName()) ?>" /></a>
+                <h3 class="product-name"><a href="<?= $_bundle->getProductUrl() ?>"><?= $this->escapeHtml($_bundle->getName()) ?></a></h3>
+                <?= $this->getPriceHtml($_bundle, true) ?>
+                <?= $this->getReviewsSummaryHtml($_bundle) ?>
             </td>
             <?php else: ?>
             <td class="empty">&nbsp;</td>

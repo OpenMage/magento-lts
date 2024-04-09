@@ -25,7 +25,7 @@
 <?php if (!empty($optional_zip_countries)): ?>
     <script>
         //<![CDATA[
-        optionalZipCountries = <?php echo $this->helper('core')->jsonEncode($optional_zip_countries); ?>;
+        optionalZipCountries = <?= $this->helper('core')->jsonEncode($optional_zip_countries) ?>;
         //]]>
     </script>
 <?php endif ?>

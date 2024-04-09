@@ -16,18 +16,18 @@
 <?php $_element = $this->getElement() ?>
 <div class="rule-tree">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= $_element->getLegend() ?></h4>
     </div>
-    <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(['class']) ?>>
+    <fieldset id="<?= $_element->getHtmlId() ?>" <?= $_element->serialize(['class']) ?>>
     <?php if ($_element->getComment()): ?>
-        <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
+        <p class="comment"><?= $this->escapeHtml($_element->getComment()) ?></p>
     <?php endif ?>
-    <?php echo $_element->getChildrenHtml() ?>
+    <?= $_element->getChildrenHtml() ?>
     </fieldset>
 </div>
 <script type="text/javascript">
-var <?php echo $_element->getHtmlId() ?> = new VarienRulesForm('<?php echo $_element->getHtmlId() ?>', '<?php echo $this->getNewChildUrl() ?>');
+var <?= $_element->getHtmlId() ?> = new VarienRulesForm('<?= $_element->getHtmlId() ?>', '<?= $this->getNewChildUrl() ?>');
 <?php if ($_element->getReadonly()): ?>
-    <?php echo $_element->getHtmlId() ?>.setReadonly(true);
+    <?= $_element->getHtmlId() ?>.setReadonly(true);
 <?php endif ?>
 </script>

@@ -37,18 +37,18 @@
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
         <?php if($_product->getMsrp()): ?>
             <?php $_msrpPrice = $_coreHelper->currency($_product->getMsrp(),true,true) ?>
-            <span class="old-price" ><?php echo $_msrpPrice ?></span>
+            <span class="old-price" ><?= $_msrpPrice ?></span>
         <?php endif ?>
 
         <?php if ($_catalogHelper->isShowPriceOnGesture($_product)): ?>
             <?php $priceElementId = $priceElementIdPrefix . $_id . $this->getIdSuffix(); ?>
-            <span id="<?php echo $priceElementId ?>" style="display:none"></span>
+            <span id="<?= $priceElementId ?>" style="display:none"></span>
             <?php $popupId = 'msrp-popup-' . $_id . $_coreHelper->getRandomString(20); ?>
-            <a href="#" id="<?php echo($popupId);?>"><?php echo $this->__('Click for price'); ?></a>
+            <a href="#" id="<?php echo($popupId);?>"><?= $this->__('Click for price') ?></a>
             <script type="text/javascript">
                 Event.observe(window, 'load', function() {
-                    var priceElement = $("<?php echo $priceElementId ?>"),
-                        realPrice = <?php echo $this->getRealPriceJs($_product) ?>,
+                    var priceElement = $("<?= $priceElementId ?>"),
+                        realPrice = <?= $this->getRealPriceJs($_product) ?>,
                         priceHtml = realPrice.stripScripts();
 
                     priceElement.innerHTML = priceHtml;
@@ -60,10 +60,10 @@
                             if (originalOptionPriceReload) {
                                 originalOptionPriceReload.call(this);
                             }
-                            if ($('<?php echo $popupId ?>') == Catalog.Map.active) {
+                            if ($('<?= $popupId ?>') == Catalog.Map.active) {
                                 Element.update(
                                     $('map-popup-price'),
-                                    $("<?php echo $priceElementId ?>").innerHTML
+                                    $("<?= $priceElementId ?>").innerHTML
                                 );
                             }
                         }
@@ -72,25 +72,25 @@
                 });
 
                 Catalog.Map.addHelpLink(
-                    $('<?php echo $popupId ?>'),
-                    "<?php echo $this->escapeHtml($_product->getName()) ?>",
-                    $("<?php echo $priceElementId ?>"),
-                    '<?php echo $_msrpPrice ?>',
-                    "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
+                    $('<?= $popupId ?>'),
+                    "<?= $this->escapeHtml($_product->getName()) ?>",
+                    $("<?= $priceElementId ?>"),
+                    '<?= $_msrpPrice ?>',
+                    "<?= $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
                 );
             </script>
         <?php else: ?>
             <span class="msrp-price-hide-message">
-                <?php echo $_catalogHelper->getMsrpPriceMessage($_product) ?>
+                <?= $_catalogHelper->getMsrpPriceMessage($_product) ?>
             </span>
         <?php endif ?>
 
         <?php $helpLinkId = 'msrp-help-' . $_id . $_coreHelper->getRandomString(20); ?>
-        <a href="#" id="<?php echo($helpLinkId);?>"><?php echo $this->__("What's this?"); ?></a>
+        <a href="#" id="<?php echo($helpLinkId);?>"><?= $this->__("What's this?") ?></a>
         <script type="text/javascript">
             Catalog.Map.addHelpLink(
-                $('<?php echo $helpLinkId ?>'),
-                '<?php echo Mage::helper('core')->jsQuoteEscape($this->__("What's this?")); ?>'
+                $('<?= $helpLinkId ?>'),
+                '<?= Mage::helper('core')->jsQuoteEscape($this->__("What's this?")) ?>'
             );
         </script>
     </div>

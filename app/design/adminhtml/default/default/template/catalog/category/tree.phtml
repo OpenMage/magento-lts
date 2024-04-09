@@ -15,16 +15,16 @@
 ?>
 <div class="categories-side-col">
     <div class="content-header">
-        <h3 class="icon-head head-categories"><?php echo Mage::helper('catalog')->__('Categories') ?></h3>
+        <h3 class="icon-head head-categories"><?= Mage::helper('catalog')->__('Categories') ?></h3>
         <?php if ($this->getRoot()): ?>
-            <?php echo $this->getAddRootButtonHtml() ?><br />
-            <?php echo $this->getAddSubButtonHtml() ?>
+            <?= $this->getAddRootButtonHtml() ?><br />
+            <?= $this->getAddSubButtonHtml() ?>
         <?php endif ?>
     </div>
     <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
         <?php if($this->getRoot()): ?>
-            <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
+            <a href="#" onclick="tree.collapseTree(); return false;"><?= Mage::helper('catalog')->__('Collapse All') ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?= Mage::helper('catalog')->__('Expand All') ?></a>
         <?php endif ?>
     </div>
     <?php if ($this->getRoot()): ?>
@@ -141,7 +141,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
         if (!this.collapsed) {
             this.collapsed = true;
-            this.loader.dataUrl = '<?php echo $this->getLoadTreeUrl(false) ?>';
+            this.loader.dataUrl = '<?= $this->getLoadTreeUrl(false) ?>';
             this.request(this.loader.dataUrl, false);
         }
     },
@@ -151,14 +151,14 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
         this.expandAll();
         if (this.collapsed) {
             this.collapsed = false;
-            this.loader.dataUrl = '<?php echo $this->getLoadTreeUrl(true) ?>';
+            this.loader.dataUrl = '<?= $this->getLoadTreeUrl(true) ?>';
             this.request(this.loader.dataUrl, false);
         }
     },
 
     categoryClick : function(node, e)
     {
-        var baseUrl = '<?php echo $this->getEditUrl() ?>';
+        var baseUrl = '<?= $this->getEditUrl() ?>';
         var urlExt = (this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
         var url = parseSidUrl(baseUrl, urlExt);
 
@@ -186,8 +186,8 @@ function reRenderTree(event, switcher)
             storeParam += obj.switchParams;
         }
         if (switcher.useConfirm) {
-            if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')){
-                obj.value = '<?php echo (int) $this->getStoreId() ?>';
+            if (!confirm('<?= Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')){
+                obj.value = '<?= (int) $this->getStoreId() ?>';
                 return false;
             }
         }
@@ -261,7 +261,7 @@ function _renderNewTree(config, storeParam)
 Ext.onReady(function()
 {
     categoryLoader = new Ext.tree.TreeLoader({
-       dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
+       dataUrl: '<?= $this->getLoadTreeUrl() ?>'
     });
 
     categoryLoader.createNode = function(config) {
@@ -350,24 +350,24 @@ Ext.onReady(function()
         enableDD        : true,
         containerScroll : true,
         selModel        : new Ext.tree.CheckNodeMultiSelectionModel(),
-        rootVisible     : '<?php echo $this->getRoot()->getIsVisible() ?>',
-        useAjax         : <?php echo $this->getUseAjax() ?>,
-        switchTreeUrl   : '<?php echo $this->getSwitchTreeUrl() ?>',
-        editUrl         : '<?php echo $this->getEditUrl() ?>',
-        currentNodeId   : <?php echo (int) $this->getCategoryId() ?>
+        rootVisible     : '<?= $this->getRoot()->getIsVisible() ?>',
+        useAjax         : <?= $this->getUseAjax() ?>,
+        switchTreeUrl   : '<?= $this->getSwitchTreeUrl() ?>',
+        editUrl         : '<?= $this->getEditUrl() ?>',
+        currentNodeId   : <?= (int) $this->getCategoryId() ?>
     };
 
     defaultLoadTreeParams = {
         parameters : {
-            text        : '<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
+            text        : '<?= Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
             draggable   : false,
             allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
-            id          : <?php echo (int) $this->getRoot()->getId() ?>,
-            expanded    : <?php echo (int) $this->getIsWasExpanded() ?>,
-            store_id    : <?php echo (int) $this->getStore()->getId() ?>,
-            category_id : <?php echo (int) $this->getCategoryId() ?>
+            id          : <?= (int) $this->getRoot()->getId() ?>,
+            expanded    : <?= (int) $this->getIsWasExpanded() ?>,
+            store_id    : <?= (int) $this->getStore()->getId() ?>,
+            category_id : <?= (int) $this->getCategoryId() ?>
         },
-        data : <?php echo $this->getTreeJson() ?>
+        data : <?= $this->getTreeJson() ?>
     };
 
     reRenderTree();
@@ -382,7 +382,7 @@ function addNew(url, isRoot, node)
         tree.currentNodeId = tree.root.id;
     }
     else if (!tree.currentNodeId || (tree.currentNodeId == tree.root.id)) {
-        alert("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select a parent category before adding a new one.')) ?>");
+        alert("<?= Mage::helper('core')->jsQuoteEscape($this->__('Please select a parent category before adding a new one.')) ?>");
         return;
     }
 
@@ -460,7 +460,7 @@ function categoryMove(obj)
     }
     pd.splice(pd.length-1,1);
     new Ajax.Request(
-        '<?php echo $this->getMoveUrl() ?>',
+        '<?= $this->getMoveUrl() ?>',
         {
             method:     'POST',
             parameters: pd.join(""),

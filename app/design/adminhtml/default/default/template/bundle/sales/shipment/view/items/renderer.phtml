@@ -39,19 +39,19 @@
         <?php $attributes = $this->getSelectionAttributes($_item) ?>
         <?php if ($_prevOptionId != $attributes['option_id']): ?>
         <tr>
-            <td><div class="option-label"><?php echo $this->escapeHtml($attributes['option_label']); ?></div></td>
+            <td><div class="option-label"><?= $this->escapeHtml($attributes['option_label']) ?></div></td>
             <td class="last">&nbsp;</td>
         </tr>
         <?php $_prevOptionId = $attributes['option_id'] ?>
         <?php endif ?>
     <?php endif ?>
-    <tr<?php echo (++$_index==$_count && !$_showlastRow)?' class="border"':'' ?>>
+    <tr<?= (++$_index==$_count && !$_showlastRow)?' class="border"':'' ?>>
         <?php if (!$_item->getParentItem()): ?>
         <td>
-            <h5 class="title"><?php echo $this->escapeHtml($_item->getName()) ?></h5>
+            <h5 class="title"><?= $this->escapeHtml($_item->getName()) ?></h5>
             <div>
-                <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))); ?>
+                <strong><?= $this->helper('sales')->__('SKU') ?>:</strong>
+                <?= implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))) ?>
             </div>
         </td>
         <?php else: ?>
@@ -60,9 +60,9 @@
         <td class="a-center last">
             <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
                 <?php if (isset($shipItems[$_item->getId()])): ?>
-                    <?php echo $shipItems[$_item->getId()]->getQty()*1 ?>
+                    <?= $shipItems[$_item->getId()]->getQty()*1 ?>
                 <?php elseif ($_item->getIsVirtual()): ?>
-                    <?php echo $this->__('N/A') ?>
+                    <?= $this->__('N/A') ?>
                 <?php else: ?>
                     0
                 <?php endif ?>
@@ -78,18 +78,18 @@
             <?php if ($this->getOrderOptions($_item->getOrderItem())): ?>
                 <dl class="item-options">
                 <?php foreach ($this->getOrderOptions($_item->getOrderItem()) as $option): ?>
-                    <dt><?php echo $this->escapeHtml($option['label']) ?></dt>
+                    <dt><?= $this->escapeHtml($option['label']) ?></dt>
                     <dd>
                     <?php if (isset($option['custom_view']) && $option['custom_view']): ?>
                         <?php echo $option['value'];?>
                     <?php else: ?>
                         <?php echo Mage::helper('core/string')->truncate($option['value'], 55, '', $_remainder);?>
                         <?php if ($_remainder):?>
-                            ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                            ... <span id="<?= $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
                             <script type="text/javascript">
-                            $('<?php echo $_id ?>').hide();
-                            $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
-                            $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
+                            $('<?= $_id ?>').hide();
+                            $('<?= $_id ?>').up().observe('mouseover', function(){$('<?= $_id ?>').show();});
+                            $('<?= $_id ?>').up().observe('mouseout',  function(){$('<?= $_id ?>').hide();});
                             </script>
                         <?php endif ?>
                     <?php endif ?>
@@ -97,7 +97,7 @@
                 <?php endforeach ?>
                 </dl>
             <?php endif ?>
-            <?php echo $this->escapeHtml($_item->getDescription()) ?>
+            <?= $this->escapeHtml($_item->getDescription()) ?>
         </td>
         <td class="last">&nbsp;</td>
     </tr>

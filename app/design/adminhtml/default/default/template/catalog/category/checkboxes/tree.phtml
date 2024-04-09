@@ -15,7 +15,7 @@
 ?>
 
 <?php $_divId = 'tree-div_' . time() ?>
-<div id="<?php echo $_divId ?>" class="tree"></div>
+<div id="<?= $_divId ?>" class="tree"></div>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -72,7 +72,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 Ext.onReady(function()
 {
     var categoryLoader = new Ext.tree.TreeLoader({
-       dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
+       dataUrl: '<?= $this->getLoadTreeUrl() ?>'
     });
 
     categoryLoader.createNode = function(config) {
@@ -151,37 +151,37 @@ Ext.onReady(function()
         varienWindowOnload();
     });
 
-    tree = new Ext.tree.TreePanel.Enhanced('<?php echo $_divId ?>', {
+    tree = new Ext.tree.TreePanel.Enhanced('<?= $_divId ?>', {
         animate:          false,
         loader:           categoryLoader,
         enableDD:         false,
         containerScroll:  true,
         selModel:         new Ext.tree.CheckNodeMultiSelectionModel(),
-        rootVisible:      '<?php echo $this->getRoot()->getIsVisible() ?>',
-        useAjax:          <?php echo $this->getUseAjax() ?>,
-        currentNodeId:    <?php echo (int) $this->getCategoryId() ?>,
+        rootVisible:      '<?= $this->getRoot()->getIsVisible() ?>',
+        useAjax:          <?= $this->getUseAjax() ?>,
+        currentNodeId:    <?= (int) $this->getCategoryId() ?>,
         addNodeTo:        false,
         rootUIProvider:   Ext.tree.CheckboxNodeUI
     });
 
     tree.on('check', function(node, checked) {
-        <?php echo $this->getJsFormObject() ?>.updateElement.value = this.getChecked().join(', ');
+        <?= $this->getJsFormObject() ?>.updateElement.value = this.getChecked().join(', ');
         varienElementMethods.setHasChanges(node.getUI().checkbox);
     }, tree);
 
     // set the root node
     var parameters = {
-        text:        '<?php echo htmlentities($this->getRoot()->getName()) ?>',
+        text:        '<?= htmlentities($this->getRoot()->getName()) ?>',
         draggable:   false,
-        checked:'<?php echo $this->getRoot()->getChecked() ?>',
+        checked:'<?= $this->getRoot()->getChecked() ?>',
         uiProvider: Ext.tree.CheckboxNodeUI,
         allowDrop:   <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
-        id:          <?php echo (int) $this->getRoot()->getId() ?>,
-        expanded:    <?php echo (int) $this->getIsWasExpanded() ?>,
-        category_id: <?php echo (int) $this->getCategoryId() ?>
+        id:          <?= (int) $this->getRoot()->getId() ?>,
+        expanded:    <?= (int) $this->getIsWasExpanded() ?>,
+        category_id: <?= (int) $this->getCategoryId() ?>
     };
 
-    tree.loadTree({parameters:parameters, data:<?php echo $this->getTreeJson() ?>},true);
+    tree.loadTree({parameters:parameters, data:<?= $this->getTreeJson() ?>},true);
 
 });
 //]]>

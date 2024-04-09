@@ -26,9 +26,9 @@
     <strong><?php echo $this->escapeHtml($product->getName())?></strong>
     <dl>
         <?php foreach ($options as $option) : ?>
-            <dt><?php echo $this->escapeHtml($option['label']) ?></dt>
+            <dt><?= $this->escapeHtml($option['label']) ?></dt>
             <?php $formatedOptionValue = $this->getFormattedOptionValue($option) ?>
-            <dd><?php echo $formatedOptionValue['value'] ?></dd>
+            <dd><?= $formatedOptionValue['value'] ?></dd>
         <?php endforeach ?>
     </dl>
 </div>

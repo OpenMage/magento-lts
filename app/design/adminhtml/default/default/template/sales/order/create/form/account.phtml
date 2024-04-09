@@ -15,10 +15,10 @@
  ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head fieldset-legend <?php echo $this->getHeaderCssClass() ?>"><?php echo $this->getHeaderText() ?></h4>
+        <h4 class="icon-head fieldset-legend <?= $this->getHeaderCssClass() ?>"><?= $this->getHeaderText() ?></h4>
     </div>
     <div id="customer_account_fieds">
-        <?php echo $this->getForm()->getHtml() ?>
+        <?= $this->getForm()->getHtml() ?>
     </div>
     <script type="text/javascript">order.accountFieldsBind($('customer_account_fieds'))</script>
 </div>

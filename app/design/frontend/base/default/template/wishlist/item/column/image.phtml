@@ -17,6 +17,6 @@
 $item = $this->getItem();
 $product = $item->getProduct();
 ?>
-<a class="product-image" href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>">
-    <img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(113, 113); ?>" width="113" height="113" alt="<?php echo $this->escapeHtml($product->getName()) ?>" />
+<a class="product-image" href="<?= $this->getProductUrl($item) ?>" title="<?= $this->escapeHtml($product->getName()) ?>">
+    <img src="<?= $this->helper('catalog/image')->init($product, 'small_image')->resize(113, 113) ?>" width="113" height="113" alt="<?= $this->escapeHtml($product->getName()) ?>" />
 </a>

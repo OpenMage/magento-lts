@@ -15,7 +15,7 @@
 ?>
 
 <?php if ($websites = $this->getWebsites()): ?>
-<label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
+<label for="store_switcher"><?= $this->__('Choose Store View:') ?></label>
 <select name="store_switcher" id="store_switcher">
     <?php foreach ($websites as $website): ?>
         <?php $showWebsite=false; ?>
@@ -24,13 +24,13 @@
             <?php foreach ($this->getStores($group) as $store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <optgroup label="<?php echo $this->escapeHtml($website->getName()); ?>"></optgroup>
+                    <optgroup label="<?= $this->escapeHtml($website->getName()) ?>"></optgroup>
                 <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()); ?>">
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?= $this->escapeHtml($group->getName()) ?>">
                 <?php endif ?>
-                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()); ?></option>
+                <option value="<?= $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?= $this->escapeHtml($store->getName()) ?></option>
             <?php endforeach ?>
             <?php if ($showGroup): ?>
                 </optgroup>

@@ -18,30 +18,30 @@
 <div class="content-header skip-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h4><?php echo $this->getCartHeader(); ?></h4></td>
+            <td style="width:50%;"><h4><?= $this->getCartHeader() ?></h4></td>
         </tr>
     </table>
 </div>
 <?php endif ?>
-<?php echo $this->getGridParentHtml() ?>
+<?= $this->getGridParentHtml() ?>
 <?php if ($this->canDisplayContainer()) : ?>
 <?php
     $listType = $this->getJsObjectName();
 ?>
 <script type="text/javascript">
-<?php echo $this->getJsObjectName() ?>cartControl = {
+<?= $this->getJsObjectName() ?>cartControl = {
     reload: function (params) {
         if (!params) {
             params = {};
         }
-        <?php echo $this->getJsObjectName() ?>.reloadParams = params;
-        <?php echo $this->getJsObjectName() ?>.reload();
-        <?php echo $this->getJsObjectName() ?>.reloadParams = {};
+        <?= $this->getJsObjectName() ?>.reloadParams = params;
+        <?= $this->getJsObjectName() ?>.reload();
+        <?= $this->getJsObjectName() ?>.reloadParams = {};
     },
 
     configureItem: function (itemId) {
-        productConfigure.setOnLoadIFrameCallback('<?php echo $listType ?>', this.cbOnLoadIframe.bind(this));
-        productConfigure.showItemConfiguration('<?php echo $listType ?>', itemId);
+        productConfigure.setOnLoadIFrameCallback('<?= $listType ?>', this.cbOnLoadIframe.bind(this));
+        productConfigure.showItemConfiguration('<?= $listType ?>', itemId);
         return false;
     },
 
@@ -54,10 +54,10 @@
 
     removeItem: function (itemId) {
         if (!itemId) {
-            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('No item specified.')) ?>');
+            alert('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('No item specified.')) ?>');
             return false;
         }
-        if(!confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
+        if(!confirm('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
             return false;
         }
 
@@ -74,10 +74,10 @@ $params = [
 ];
 ?>
 productConfigure.addListType(
-    '<?php echo $listType ?>',
+    '<?= $listType ?>',
     {
-        urlFetch: '<?php echo $this->getUrl('*/customer_cart_product_composite_cart/configure', $params) ?>',
-        urlConfirm: '<?php echo $this->getUrl('*/customer_cart_product_composite_cart/update', $params) ?>'
+        urlFetch: '<?= $this->getUrl('*/customer_cart_product_composite_cart/configure', $params) ?>',
+        urlConfirm: '<?= $this->getUrl('*/customer_cart_product_composite_cart/update', $params) ?>'
     }
 );
 </script>

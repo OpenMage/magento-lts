@@ -22,40 +22,40 @@
 $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
 ?>
 <div class="account-login">
-    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?= $this->getMessagesBlock()->toHtml() ?>
     <?php if (!$this->getHasException()): ?>
-        <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
-            <?php echo $this->getBlockHtml('formkey'); ?>
+        <form action="<?= $this->getPostActionUrl() ?>" method="post" id="login-form">
+            <?= $this->getBlockHtml('formkey') ?>
             <div class="col1-set">
                 <div class="col-1 registered-users">
                     <div class="content" style="margin: 0 auto; padding-bottom: 13px;">
-                        <h2><?php echo $this->__('Log in as a customer') ?></h2>
-                        <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
+                        <h2><?= $this->__('Log in as a customer') ?></h2>
+                        <p class="description"><?= $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
                         <ul class="form-list">
                             <li>
-                                <label for="email"><?php echo $this->__('Email Address') ?></label>
+                                <label for="email"><?= $this->__('Email Address') ?></label>
                                 <div class="input-box">
-                                    <input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                                    <input type="text" name="login[username]" value="<?= $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?= $this->__('Email Address') ?>" />
                                 </div>
                             </li>
                             <li>
-                                <label for="pass"><?php echo $this->__('Password') ?></label>
+                                <label for="pass"><?= $this->__('Password') ?></label>
                                 <div class="input-box">
-                                    <input type="password" name="login[password]" class="input-text required-entry validate-password min-pass-length-5" id="pass" title="<?php echo $this->__('Password') ?>" autocomplete="off" />
+                                    <input type="password" name="login[password]" class="input-text required-entry validate-password min-pass-length-5" id="pass" title="<?= $this->__('Password') ?>" autocomplete="off" />
                                 </div>
                             </li>
                         </ul>
                         <div class="buttons-set" style="margin-top: 20px; padding: 0;">
-                            <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2">
-                                <span><span><?php echo $this->__('Login') ?></span></span></button>
-                            <button type="submit" class="button" onclick="<?php echo $rejectJs; ?>"
-                                    title="<?php echo $this->__('Reject') ?>" name="send">
-                                <span><span><?php echo $this->__('Reject') ?></span></span></button>
+                            <button type="submit" class="button" title="<?= $this->__('Login') ?>" name="send" id="send2">
+                                <span><span><?= $this->__('Login') ?></span></span></button>
+                            <button type="submit" class="button" onclick="<?= $rejectJs ?>"
+                                    title="<?= $this->__('Reject') ?>" name="send">
+                                <span><span><?= $this->__('Reject') ?></span></span></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
+            <input type="hidden" name="oauth_token" value="<?= $this->escapeHtml($this->getToken()) ?>"/>
         </form>
         <script type="text/javascript">
         //<![CDATA[

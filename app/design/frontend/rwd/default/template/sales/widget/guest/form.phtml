@@ -19,48 +19,48 @@
         <div class="block block-gr-search">
             <div class="block-title">
                 <strong>
-                    <span><?php echo $this->__('Orders and Returns') ?></span>
+                    <span><?= $this->__('Orders and Returns') ?></span>
                 </strong>
             </div>
             <div class="block-content">
-               <form id="oar_widget_orders_and_returns_form" action="<?php echo $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">
+               <form id="oar_widget_orders_and_returns_form" action="<?= $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">
                    <ul class="form-alt">
                        <li>
-                           <label class="required"><?php echo Mage::helper('sales')->__('Find Order By:') ?></label>
+                           <label class="required"><?= Mage::helper('sales')->__('Find Order By:') ?></label>
                            <div class="input-box">
                                <select name="oar_type" id="quick_search_type_id" class="select" title="" onchange="showIdentifyBlock(this.value);">
-                                   <option value="email"><?php echo $this->__('Email Address'); ?></option>
-                                   <option value="zip"><?php echo $this->__('ZIP Code'); ?></option>
+                                   <option value="email"><?= $this->__('Email Address') ?></option>
+                                   <option value="zip"><?= $this->__('ZIP Code') ?></option>
                                </select>
                            </div>
                        </li>
                        <li>
-                           <label for="oar_order_id" class="required"><?php echo Mage::helper('sales')->__('Order ID') ?> <em>*</em></label>
+                           <label for="oar_order_id" class="required"><?= Mage::helper('sales')->__('Order ID') ?> <em>*</em></label>
                            <div class="input-box">
                                <input type="text" class="input-text required-entry" id="oar_order_id" name="oar_order_id"  autocomplete="off" />
                            </div>
                        </li>
                        <li>
-                           <label for="oar_billing_lastname" class="required"><?php echo Mage::helper('sales')->__('Billing Last Name') ?> <em>*</em></label>
+                           <label for="oar_billing_lastname" class="required"><?= Mage::helper('sales')->__('Billing Last Name') ?> <em>*</em></label>
                            <div class="input-box">
                                <input type="text" class="input-text required-entry" id="oar_billing_lastname" name="oar_billing_lastname" autocomplete="off" />
                            </div>
                        </li>
                        <li id="oar-email">
-                           <label for="oar_email" class="required"><?php echo Mage::helper('sales')->__('Email Address') ?> <em>*</em></label>
+                           <label for="oar_email" class="required"><?= Mage::helper('sales')->__('Email Address') ?> <em>*</em></label>
                            <div class="input-box">
                                <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="input-text validate-email required-entry" id="oar_email" name="oar_email" autocomplete="off" />
                            </div>
                        </li>
                        <li id="oar-zip" style="display:none;">
-                           <label for="oar_zip" class="required"><?php echo Mage::helper('sales')->__('Billing ZIP Code') ?> <em>*</em></label>
+                           <label for="oar_zip" class="required"><?= Mage::helper('sales')->__('Billing ZIP Code') ?> <em>*</em></label>
                            <div class="input-box">
                                <input type="text" class="input-text required-entry" id="oar_zip" name="oar_zip" />
                            </div>
                        </li>
                    </ul>
                    <div class="actions">
-                       <button type="submit" title="Continue" class="button"><span><span><?php echo Mage::helper('sales')->__('Continue') ?></span></span></button>
+                       <button type="submit" title="Continue" class="button"><span><span><?= Mage::helper('sales')->__('Continue') ?></span></span></button>
                    </div>
                </form>
             </div>

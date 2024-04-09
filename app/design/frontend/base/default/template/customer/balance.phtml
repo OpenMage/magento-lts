@@ -13,8 +13,8 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php echo $this->__('Your account balance is: %s', $customer->getStoreBalance()) ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
+<?= $this->__('Your account balance is: %s', $customer->getStoreBalance()) ?>
 <div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->getUrl('customer/account') ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="<?= $this->getUrl('customer/account') ?>"><small>&laquo; </small><?= $this->__('Back') ?></a></p>
 </div>

@@ -22,12 +22,12 @@
 <?php if($_items->getSize()): ?>
     <ul class="sitemap">
         <?php foreach ($_items as $_item): ?>
-            <li><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->escapeHtml($_item->name) ?></a></li>
+            <li><a href="<?= $this->getItemUrl($_item) ?>"><?= $this->escapeHtml($_item->name) ?></a></li>
         <?php endforeach ?>
     </ul>
 <?php else: ?>
     <p class="note-msg">
-        <?php echo $this->__('There are no %s available.', $this->getItemsTitle()); ?>
+        <?= $this->__('There are no %s available.', $this->getItemsTitle()) ?>
     </p>
     <script type="text/javascript">
     //<![CDATA[

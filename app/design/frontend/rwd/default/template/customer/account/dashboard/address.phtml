@@ -15,29 +15,29 @@
 ?>
 <div class="box-account box-info">
     <div class="box-head">
-        <h2><?php echo $this->__('Address Book') ?></h2>
-        <a href="<?php echo $this->getAddressBookUrl() ?>"><?php echo $this->__('Manage Addresses') ?></a>
+        <h2><?= $this->__('Address Book') ?></h2>
+        <a href="<?= $this->getAddressBookUrl() ?>"><?= $this->__('Manage Addresses') ?></a>
     </div>
     <div class="col2-set">
         <div class="col-1">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Default Billing Address') ?></h3>
-                    <a href="<?php echo $this->getPrimaryBillingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
+                    <h3><?= $this->__('Default Billing Address') ?></h3>
+                    <a href="<?= $this->getPrimaryBillingAddressEditUrl() ?>"><?= $this->__('Edit Address') ?></a>
                 </div>
                 <div class="box-content">
-                    <address><?php echo $this->getPrimaryBillingAddressHtml() ?></address>
+                    <address><?= $this->getPrimaryBillingAddressHtml() ?></address>
                 </div>
             </div>
         </div>
         <div class="col-2">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Default Shipping Address') ?></h3>
-                    <a href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
+                    <h3><?= $this->__('Default Shipping Address') ?></h3>
+                    <a href="<?= $this->getPrimaryShippingAddressEditUrl() ?>"><?= $this->__('Edit Address') ?></a>
                 </div>
                 <div class="box-content">
-                    <address><?php echo $this->getPrimaryShippingAddressHtml() ?></address>
+                    <address><?= $this->getPrimaryShippingAddressHtml() ?></address>
                 </div>
             </div>
         </div>

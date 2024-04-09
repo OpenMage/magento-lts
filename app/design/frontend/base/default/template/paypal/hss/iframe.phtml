@@ -15,9 +15,9 @@
 
 ?>
 <div id="iframe-warning" class="warning-message">
-    <?php echo $this->__('Please do not refresh the page until you complete payment.') ?>
+    <?= $this->__('Please do not refresh the page until you complete payment.') ?>
 </div>
-<iframe id="hss-iframe" style="display:none;" scrolling="no" frameborder="0" border="0" src="<?php echo $this->getFrameActionUrl() ?>" height="610" width="100%"></iframe>
+<iframe id="hss-iframe" style="display:none;" scrolling="no" frameborder="0" border="0" src="<?= $this->getFrameActionUrl() ?>" height="610" width="100%"></iframe>
 <script type="text/javascript">
 //<![CDATA[
 var headers = $$('#' + checkout.accordion.container.readAttribute('id') + ' .section');

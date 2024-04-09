@@ -23,22 +23,22 @@
 <?php if($this->getItemCount()): ?>
 <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>
 <div class="crosssell">
-    <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
+    <h2><?= $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
     <ul id="crosssell-products-list">
     <?php foreach ($this->getItems() as $_item): ?>
         <li class="item">
-            <a class="product-image" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+            <a class="product-image" href="<?= $_item->getProductUrl() ?>" title="<?= $this->escapeHtml($_item->getName()) ?>"><img src="<?= $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(75) ?>" width="75" height="75" alt="<?= $this->escapeHtml($_item->getName()) ?>" /></a>
             <div class="product-details">
-                <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
-                <?php echo $this->getPriceHtml($_item, true) ?>
+                <h3 class="product-name"><a href="<?= $_item->getProductUrl() ?>"><?= $this->escapeHtml($_item->getName()) ?></a></h3>
+                <?= $this->getPriceHtml($_item, true) ?>
                 <button type="button"
-                        title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                        title="<?= Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                         class="button btn-cart"
                         onclick="customFormSubmit(
-                                '<?php echo $this->getAddToCartUrlCustom($_item, [], false) ?>',
-                                '<?php echo $_params ?>',
+                                '<?= $this->getAddToCartUrlCustom($_item, [], false) ?>',
+                                '<?= $_params ?>',
                                 'post')">
-                    <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                    <span><span><?= $this->__('Add to Cart') ?></span></span>
                 </button>
                 <ul class="add-to-links">
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
@@ -46,10 +46,10 @@
                             <a href="#"
                                class="link-wishlist"
                                onclick="customFormSubmit(
-                                       '<?php echo $this->getAddToWishlistUrlCustom($_item, false) ?>',
-                                       '<?php echo $_params ?>',
+                                       '<?= $this->getAddToWishlistUrlCustom($_item, false) ?>',
+                                       '<?= $_params ?>',
                                        'post')">
-                                <?php echo $this->__('Add to Wishlist') ?>
+                                <?= $this->__('Add to Wishlist') ?>
                             </a>
                         </li>
                     <?php endif ?>
@@ -59,10 +59,10 @@
                             <a href="#"
                                class="link-compare"
                                onclick="customFormSubmit(
-                                       '<?php echo $_compareUrl ?>',
-                                       '<?php echo $_params ?>',
+                                       '<?= $_compareUrl ?>',
+                                       '<?= $_params ?>',
                                        'post')">
-                                <?php echo $this->__('Add to Compare') ?>
+                                <?= $this->__('Add to Compare') ?>
                             </a>
                         </li>
                     <?php endif ?>

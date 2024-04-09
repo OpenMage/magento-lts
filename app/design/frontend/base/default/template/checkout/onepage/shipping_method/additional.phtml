@@ -14,5 +14,5 @@
  */
 ?>
 <?php if (!$this->getQuote()->isVirtual()): ?>
-    <?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+    <?= $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
 <?php endif ?>

@@ -13,15 +13,15 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<tr class="<?php echo $this->getTotal()->getCode(); ?>">
-    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+<tr class="<?= $this->getTotal()->getCode() ?>">
+    <td style="<?= $this->getTotal()->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif ?>
-            <?php echo $this->escapeHtml($this->getTotal()->getTitle()); ?>
+            <?= $this->escapeHtml($this->getTotal()->getTitle()) ?>
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif ?>
     </td>
-    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right">
+    <td style="<?= $this->getTotal()->getStyle() ?>" class="a-right">
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif ?>
-            <?php echo $this->formatPrice($this->getTotal()->getValue()) ?>
+            <?= $this->formatPrice($this->getTotal()->getValue()) ?>
         <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif ?>
     </td>
 </tr>

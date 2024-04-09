@@ -16,14 +16,14 @@
 <div class="content-header">
 <table cellspacing="0">
     <tr>
-        <td style="width:50%;"><h3><?php echo $this->__('Users') ?></h3></td>
+        <td style="width:50%;"><h3><?= $this->__('Users') ?></h3></td>
         <td class="a-right">
-        <button class="scalable add" onclick="window.location='<?php echo $this->getAddNewUrl() ?>'"><span><span><span><?php echo $this->__('Add New User') ?></span></span></span></button>
+        <button class="scalable add" onclick="window.location='<?= $this->getAddNewUrl() ?>'"><span><span><span><?= $this->__('Add New User') ?></span></span></span></button>
         </td>
     </tr>
 </table>
 </div>
 <div>
-    <?php echo $this->getGridHtml() ?>
+    <?= $this->getGridHtml() ?>
 </div>
 

@@ -210,9 +210,9 @@ function switchDefaultValueField()
     var applyToSelect = $('apply_to');
     switch (currentValue) {
         <?php foreach (Mage::helper('catalog')->getAttributeDisabledTypes() as $type=>$disabled): ?>
-            case '<?php echo $type; ?>':
+            case '<?= $type ?>':
             <?php foreach ($disabled as $one): ?>
-                disableApplyToValue('<?php echo $one; ?>');
+                disableApplyToValue('<?= $one ?>');
             <?php endforeach ?>
             break;
         <?php endforeach ?>
@@ -234,7 +234,7 @@ function switchDefaultValueField()
         break;
 
         <?php foreach (Mage::helper('catalog')->getAttributeHiddenFields() as $type=>$fields): ?>
-            case '<?php echo $type; ?>':
+            case '<?= $type ?>':
                 <?php foreach ($fields as $one): ?>
                     <?php if ($one == '_front_fieldset'): ?>
                         $('front_fieldset').previous().hide();
@@ -247,7 +247,7 @@ function switchDefaultValueField()
                     <?php elseif ($one == '_scope'): ?>
                         scopeVisibility = false;
                     <?php else: ?>
-                        setRowVisibility('<?php echo $one; ?>', false);
+                        setRowVisibility('<?= $one ?>', false);
                     <?php endif ?>
                 <?php endforeach ?>
             break;

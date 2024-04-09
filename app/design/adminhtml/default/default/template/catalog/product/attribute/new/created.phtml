@@ -17,7 +17,7 @@
 var added = false;
 function addAttribute(closeAfter) {
     if(window.opener!=null && !added) {
-        window.opener.Product.AttributesBridge.addAttributeRow(<?php echo $this->getAttributesBlockJson() ?>);
+        window.opener.Product.AttributesBridge.addAttributeRow(<?= $this->getAttributesBlockJson() ?>);
         added = true;
     }
 
@@ -39,5 +39,5 @@ addAttribute(false);
 setTimeout(closeWindow, 3000);
 </script>
 <div class="a-center">
-<?php echo $this->getCloseButtonHtml() ?>
+<?= $this->getCloseButtonHtml() ?>
 </div>

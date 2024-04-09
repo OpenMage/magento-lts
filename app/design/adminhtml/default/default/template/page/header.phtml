@@ -16,25 +16,25 @@
 /** @var $this Mage_Adminhtml_Block_Page_Header */
 ?>
 <div class="header-top">
-    <a href="<?php echo $this->getHomeLink() ?>"><img src="<?php echo $this->getSkinUrl('images/logo.svg') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('OpenMage Logo')) ?>" class="logo"/></a>
+    <a href="<?= $this->getHomeLink() ?>"><img src="<?= $this->getSkinUrl('images/logo.svg') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('OpenMage Logo')) ?>" class="logo"/></a>
     <div class="header-right">
         <p class="super">
-            <?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
+            <?= $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><a href="<?= $this->getLogoutLink() ?>" class="link-logout"><?= $this->__('Log Out') ?></a>
         </p>
         <?php if (Mage::getStoreConfigFlag('admin/global_search/enable') && Mage::getSingleton('admin/session')->isAllowed('admin/global_search')): ?>
         <fieldset>
             <legend>Search</legend>
             <span id="global_search_indicator" class="autocomplete-indicator" style="display: none">
-                <img src="<?php echo $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading...')) ?>" class="v-middle"/>
+                <img src="<?= $this->getSkinUrl('images/ajax-loader.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('Loading...')) ?>" class="v-middle"/>
             </span>
             <?php $defSearch = $this->__('Global Record Search') ?>
-            <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?php echo Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" />
+            <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?= $query ?><?php else: ?><?= Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?= Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?= $defSearch ?>';" />
             <div id="global_search_autocomplete" class="autocomplete"></div>
             <script type="text/javascript">
                 new Ajax.Autocompleter(
                     'global_search',
                     'global_search_autocomplete',
-                    '<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>',
+                    '<?= $this->getUrl('adminhtml/index/globalSearch') ?>',
                     {
                         paramName:"query",
                         minChars:2,

@@ -27,10 +27,10 @@
     $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
 ?>
 <?php if(!$_productCollection->count()): ?>
-<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<p class="note-msg"><?= $this->__('There are no products matching the selection.') ?></p>
 <?php else: ?>
 <div class="category-products">
-    <?php echo $this->getToolbarHtml() ?>
+    <?= $this->getToolbarHtml() ?>
     <?php // List mode ?>
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
@@ -38,43 +38,43 @@
     <?php foreach ($_productCollection as $_product): ?>
         <li class="item<?php if(++$_iterator === $_productCollectionCount): ?> last<?php endif ?>">
             <?php // Product Image ?>
-            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+            <a href="<?= $_product->getProductUrl() ?>" title="<?= $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?= $this->helper('catalog/image')->init($_product, 'small_image')->resize(135) ?>" width="135" height="135" alt="<?= $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
             <?php // Product description ?>
             <div class="product-shop">
                 <div class="f-fix">
                     <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
-                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                    <h2 class="product-name"><a href="<?= $_product->getProductUrl() ?>" title="<?= $_productNameStripped ?>"><?= $_helper->productAttribute($_product, $_product->getName() , 'name') ?></a></h2>
                     <?php if($_product->getRatingSummary()): ?>
-                    <?php echo $this->getReviewsSummaryHtml($_product) ?>
+                    <?= $this->getReviewsSummaryHtml($_product) ?>
                     <?php endif ?>
-                    <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?= $this->getPriceHtml($_product, true) ?>
                     <?php if($_product->isSaleable()): ?>
                         <p class="action">
                             <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                             <button type="button"
-                                    title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
+                                    title="<?= $this->quoteEscape($this->__('Add to Cart')) ?>"
                                     class="button btn-cart"
-                                    onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
-                                <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                                    onclick="customFormSubmit('<?= $_cartUrl ?>', '<?= $_params ?>', 'post')">
+                                <span><span><?= $this->__('Add to Cart') ?></span></span>
                             </button>
                         </p>
                     <?php else: ?>
-                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                     <?php endif ?>
                     <div class="desc std">
-                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
-                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                        <?= $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                        <a href="<?= $_product->getProductUrl() ?>" title="<?= $_productNameStripped ?>" class="link-learn"><?= $this->__('Learn More') ?></a>
                     </div>
                     <ul class="add-to-links">
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                             <li>
                                 <a href="#"
-                                   data-url="<?php echo $_wishlistUrl ?>"
-                                   data-params="<?php echo $_params ?>"
+                                   data-url="<?= $_wishlistUrl ?>"
+                                   data-params="<?= $_params ?>"
                                    class="link-wishlist"
-                                   onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Wishlist') ?>
+                                   onclick="customFormSubmit('<?= $_wishlistUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
                         <?php endif ?>
@@ -83,8 +83,8 @@
                                 <span class="separator">|</span>
                                 <a href="#"
                                    class="link-compare"
-                                   onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Compare') ?>
+                                   onclick="customFormSubmit('<?= $_compareUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Compare') ?>
                                 </a>
                             </li>
                         <?php endif ?>
@@ -107,34 +107,34 @@
         <ul class="products-grid">
         <?php endif ?>
             <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
-                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
-                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                <a href="<?= $_product->getProductUrl() ?>" title="<?= $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?= $this->helper('catalog/image')->init($_product, 'small_image')->resize(135) ?>" width="135" height="135" alt="<?= $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                <h2 class="product-name"><a href="<?= $_product->getProductUrl() ?>" title="<?= $this->stripTags($_product->getName(), null, true) ?>"><?= $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
                 <?php if($_product->getRatingSummary()): ?>
-                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                <?= $this->getReviewsSummaryHtml($_product, 'short') ?>
                 <?php endif ?>
-                <?php echo $this->getPriceHtml($_product, true) ?>
+                <?= $this->getPriceHtml($_product, true) ?>
                 <div class="actions">
                     <?php if($_product->isSaleable()): ?>
                         <?php $_cartUrl = $this->getAddToCartUrlCustom($_product, [], false); ?>
                         <button type="button"
-                                title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>"
+                                title="<?= $this->quoteEscape($this->__('Add to Cart')) ?>"
                                 class="button btn-cart"
-                                onclick="customFormSubmit('<?php echo $_cartUrl ?>', '<?php echo $_params ?>', 'post')">
-                            <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                                onclick="customFormSubmit('<?= $_cartUrl ?>', '<?= $_params ?>', 'post')">
+                            <span><span><?= $this->__('Add to Cart') ?></span></span>
                         </button>
                     <?php else: ?>
-                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                     <?php endif ?>
                     <ul class="add-to-links">
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
                             <li>
                                 <a href="#"
-                                   data-url="<?php echo $_wishlistUrl ?>"
-                                   data-params="<?php echo $_params ?>"
+                                   data-url="<?= $_wishlistUrl ?>"
+                                   data-params="<?= $_params ?>"
                                    class="link-wishlist"
-                                   onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Wishlist') ?>
+                                   onclick="customFormSubmit('<?= $_wishlistUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
                         <?php endif ?>
@@ -143,8 +143,8 @@
                                 <span class="separator">|</span>
                                 <a href="#"
                                    class="link-compare"
-                                   onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Compare') ?>
+                                   onclick="customFormSubmit('<?= $_compareUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Compare') ?>
                                 </a>
                             </li>
                         <?php endif ?>
@@ -159,7 +159,7 @@
     <?php endif ?>
 
     <div class="toolbar-bottom">
-        <?php echo $this->getToolbarHtml() ?>
+        <?= $this->getToolbarHtml() ?>
     </div>
 </div>
 <?php endif ?>

@@ -15,7 +15,7 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('User Roles') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= $this->__('User Roles') ?></h4>
     </div>
     <fieldset id="user_roles">
     <?php foreach ($roles as $role): ?>
@@ -28,7 +28,7 @@
             }
         }
     ?>
-        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo ($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
+        <input type="checkbox" value="<?= $role->getRoleId() ?>" <?= ($checked ? "checked" : "") ?> name="roles[]" id="_<?= $role->getRoleId() ?>" /> <label for="_<?= $role->getRoleId() ?>" class="normal"><?= $role->getRoleName() ?></label><br />
     <?php endforeach ?>
     </fieldset>
 </div>

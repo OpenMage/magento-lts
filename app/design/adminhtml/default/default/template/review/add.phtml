@@ -16,12 +16,12 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3><?php echo $this->getHeaderText() ?></h3></td>
+            <td><h3><?= $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getBackButtonHtml() ?>
-                <?php echo $this->getResetButtonHtml() ?>
+                <?= $this->getBackButtonHtml() ?>
+                <?= $this->getResetButtonHtml() ?>
                 <span style="display:none;" id="formButtons">
-                <?php echo $this->getSaveButtonHtml() ?>
+                <?= $this->getSaveButtonHtml() ?>
                 </span>
             </td>
         </tr>
@@ -29,7 +29,7 @@
 </div>
 
 <div style="display:none;" id="formContainer">
-<?php echo $this->getFormHtml() ?>
+<?= $this->getFormHtml() ?>
 </div>
 <script type="text/javascript">
     var editForm = new varienForm('edit_form');

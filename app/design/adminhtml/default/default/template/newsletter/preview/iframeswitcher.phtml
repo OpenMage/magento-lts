@@ -17,9 +17,9 @@
 /* @var $this Mage_Core_Block_Template */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang() ?>">
+<html lang="<?= $this->getLang() ?>">
 <head>
-<?php echo $this->getChildHtml('head') ?>
+<?= $this->getChildHtml('head') ?>
 <style type="text/css">
     html,body { height:100%; }
 </style>
@@ -29,18 +29,18 @@
     <div class="toolbar">
         <?php if (!Mage::app()->isSingleStoreMode()) :?>
         <p class="switcher">
-            <?php echo $this->getChildHtml('store_switcher') ?>
-            <button class="button" onclick="preview();"><span><span><span><?php echo $this->__('Preview'); ?></span></span></span></button>
+            <?= $this->getChildHtml('store_switcher') ?>
+            <button class="button" onclick="preview();"><span><span><span><?= $this->__('Preview') ?></span></span></span></button>
         </p>
         <?php endif ?>
     </div>
     <iframe name="preview_iframe" id="preview_iframe" frameborder="0"></iframe>
-    <?php echo $this->getChildHtml('preview_form'); ?>
+    <?= $this->getChildHtml('preview_form') ?>
 </div>
 <div id="loading-mask" style="display:none">
     <div class="backdrop"></div>
     <p class="loader" id="loading_mask_loader">
-        <img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('adminhtml')->__('Loading...')) ?>"/><br/><?php echo Mage::helper('adminhtml')->__('Please wait...') ?>
+        <img src="<?= $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape(Mage::helper('adminhtml')->__('Loading...')) ?>"/><br/><?= Mage::helper('adminhtml')->__('Please wait...') ?>
     </p>
 </div>
 

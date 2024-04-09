@@ -23,15 +23,15 @@
             <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <h3><?php echo $this->escapeHtml($_website->getName()) ?></h3>
+                    <h3><?= $this->escapeHtml($_website->getName()) ?></h3>
                 <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <h4 style="margin-left:12px;"><?php echo $this->escapeHtml($_group->getName()) ?></h4>
+                    <h4 style="margin-left:12px;"><?= $this->escapeHtml($_group->getName()) ?></h4>
                 <?php endif ?>
                 <span class="field-row" style="margin-left:28px;">
-                    <input type="radio" id="store_<?php echo $_store->getId() ?>" class="radio" onclick="order.setStoreId('<?php echo $_store->getId() ?>')"/>
-                    <label for="store_<?php echo $_store->getId() ?>" class="inline"><?php echo $this->escapeHtml($_store->getName()) ?></label>
+                    <input type="radio" id="store_<?= $_store->getId() ?>" class="radio" onclick="order.setStoreId('<?= $_store->getId() ?>')"/>
+                    <label for="store_<?= $_store->getId() ?>" class="inline"><?= $this->escapeHtml($_store->getName()) ?></label>
                 </span>
             <?php endforeach ?>
             <?php if ($showGroup): ?>

@@ -15,20 +15,20 @@
 
 /** @var Mage_Oauth_Block_Customer_Token_List $this */
 ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Applications') ?></h1>
+    <h1><?= $this->__('My Applications') ?></h1>
 </div>
 <?php if ($this->getCollection() && $this->count()): ?>
-    <?php echo $this->getToolbarHtml() ?>
+    <?= $this->getToolbarHtml() ?>
         <table class="data-table" id="my-apps-table">
             <col />
             <col width="100" align="right" />
             <col width="110" align="right" />
             <thead>
                 <tr>
-                    <th><?php echo $this->__('App Name') ?></th>
-                    <th><?php echo $this->__('Status') ?></th>
+                    <th><?= $this->__('App Name') ?></th>
+                    <th><?= $this->__('Status') ?></th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -37,15 +37,15 @@
                 <?php foreach ($this->getCollection() as $item) : ?>
                 <tr>
                     <td><span class="app-name">
-                        <?php echo $this->escapeHtml($item->getName()); ?></span></td>
-                    <td><em><?php echo $this->getStatusLabel($item->getRevoked()) ?></em></td>
+                        <?= $this->escapeHtml($item->getName()) ?></span></td>
+                    <td><em><?= $this->getStatusLabel($item->getRevoked()) ?></em></td>
                     <td align="right">
                         <a href="<?php echo $this->getUpdateRevokeLink($item)?>" class="nobr"
-                            onclick="return confirm('<?php echo $this->getChangeStatusConfirmMessage($item->getRevoked()) ?>')">
-                            <?php echo $this->getChangeStatusLabel($item->getRevoked()) ?></a>
+                            onclick="return confirm('<?= $this->getChangeStatusConfirmMessage($item->getRevoked()) ?>')">
+                            <?= $this->getChangeStatusLabel($item->getRevoked()) ?></a>
                         <span class="separator">|</span> <a href="<?php echo $this->getDeleteLink($item)?>" class="nobr"
-                            onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this application?') ?>')">
-                        <?php echo $this->__('Delete') ?></a></td>
+                            onclick="return confirm('<?= $this->__('Are you sure you want to delete this application?') ?>')">
+                        <?= $this->__('Delete') ?></a></td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
@@ -55,7 +55,7 @@
             decorateTable('my-apps-table');
         //]]>
         </script>
-    <?php echo $this->getToolbarHtml() ?>
+    <?= $this->getToolbarHtml() ?>
 <?php else: ?>
-    <p><?php echo $this->__('You have no applications.'); ?></p>
+    <p><?= $this->__('You have no applications.') ?></p>
 <?php endif ?>

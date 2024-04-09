@@ -14,14 +14,14 @@
  */
 ?>
 <div class="page-title">
-    <h1><?php echo $this->__('Popular Search Terms') ?></h1>
+    <h1><?= $this->__('Popular Search Terms') ?></h1>
 </div>
 <?php if(count($this->getTerms()) > 0): ?>
     <ul class="tags-list">
         <?php foreach ($this->getTerms() as $_term): ?>
-            <li><a href="<?php echo $this->getSearchUrl($_term) ?>" style="font-size:<?php echo $_term->getRatio()*70+75 ?>%;"><?php echo $this->escapeHtml($_term->getName()) ?></a></li>
+            <li><a href="<?= $this->getSearchUrl($_term) ?>" style="font-size:<?= $_term->getRatio()*70+75 ?>%;"><?= $this->escapeHtml($_term->getName()) ?></a></li>
         <?php endforeach ?>
     </ul>
 <?php else: ?>
-    <p class="note-msg"><?php echo $this->__('There are no search terms available.'); ?></p>
+    <p class="note-msg"><?= $this->__('There are no search terms available.') ?></p>
 <?php endif ?>

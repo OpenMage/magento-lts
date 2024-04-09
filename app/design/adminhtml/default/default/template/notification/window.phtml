@@ -50,15 +50,15 @@
 <div id="message-popup-window-mask" style="display:none;"></div>
 <div id="message-popup-window" class="message-popup">
     <div class="message-popup-head">
-        <a href="#" onclick="closeMessagePopup(); return false;" title="<?php echo $this->getCloseText(); ?>"><span><?php echo $this->getCloseText(); ?></span></a>
-        <h2><?php echo $this->getHeaderText(); ?></h2>
+        <a href="#" onclick="closeMessagePopup(); return false;" title="<?= $this->getCloseText() ?>"><span><?= $this->getCloseText() ?></span></a>
+        <h2><?= $this->getHeaderText() ?></h2>
     </div>
     <div class="message-popup-content">
         <div class="message">
-            <span class="message-icon message-<?php echo $this->getSeverityText(); ?>" style="background-image:url(<?php echo $this->escapeUrl($this->getSeverityIconsUrl()); ?>);"><?php echo $this->getSeverityText(); ?></span>
-            <p class="message-text"><?php echo $this->getNoticeMessageText(); ?></p>
+            <span class="message-icon message-<?= $this->getSeverityText() ?>" style="background-image:url(<?= $this->escapeUrl($this->getSeverityIconsUrl()) ?>);"><?= $this->getSeverityText() ?></span>
+            <p class="message-text"><?= $this->getNoticeMessageText() ?></p>
         </div>
-        <p class="read-more"><a href="<?php echo $this->getNoticeMessageUrl(); ?>" onclick="this.target='_blank';"><?php echo $this->getReadDetailsText(); ?></a></p>
+        <p class="read-more"><a href="<?= $this->getNoticeMessageUrl() ?>" onclick="this.target='_blank';"><?= $this->getReadDetailsText() ?></a></p>
     </div>
 </div>
 <?php endif ?>

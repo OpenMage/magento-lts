@@ -17,16 +17,16 @@
 <ul class="messages">
     <li class="notice-msg">
         <ul>
-            <li><?php echo Mage::helper('sales')->__('Changing address information will not recalculate shipping, tax or other order amount.') ?></li>
+            <li><?= Mage::helper('sales')->__('Changing address information will not recalculate shipping, tax or other order amount.') ?></li>
         </ul>
     </li>
 </ul>
 </div>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head fieldset-legend"><?php echo $this->getHeaderText() ?></h4>
+        <h4 class="icon-head fieldset-legend"><?= $this->getHeaderText() ?></h4>
     </div>
     <div class="fieldset">
-        <?php echo $this->getForm()->toHtml() ?>
+        <?= $this->getForm()->toHtml() ?>
     </div>
 </div>

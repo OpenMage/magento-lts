@@ -30,16 +30,16 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
 <?php if ($_product->getCanShowPrice() !== false):?>
 <div class="price-box">
     <p class="price-as-configured">
-        <span class="price-label"><?php echo $this->helper('bundle')->__('Price as configured') ?>:</span>
+        <span class="price-label"><?= $this->helper('bundle')->__('Price as configured') ?>:</span>
         <?php if (!$this->getWithoutPrice()): ?>
         <span<?php if (!$isMAPTypeOnGesture && $canApplyMAP): ?> style="display:none"<?php endif ?> class="full-product-price">
         <?php if ($this->helper('tax')->displayBothPrices()): ?>
         <span class="price-tax">
             <span class="price-excluding-tax">
-                <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
-                <span class="price" id="price-excluding-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
+                <span class="label"><?= Mage::helper('tax')->__('Excl. Tax:') ?></span>
+                <span class="price" id="price-excluding-tax-<?= $_product->getId() ?><?= $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                    <?= Mage::helper('core')->currency($_finalPrice,true,false) ?>
                 <?php endif ?>
                 </span>
             </span>
@@ -52,25 +52,25 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                             <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
                         <?php endif ?>
 
-                        <?php echo $_weeeSeparator; ?>
-                        <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                        <?= $_weeeSeparator ?>
+                        <?= $_weeeTaxAttribute->getName() ?>: <?= Mage::helper('core')->currency($amount, true, true) ?>
                         <?php $_weeeSeparator = ' + '; ?>
                     <?php endforeach ?>
                 </small>)</span>
             <?php endif ?>
             <span class="price-including-tax">
-                <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
-                <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
+                <span class="label"><?= Mage::helper('tax')->__('Incl. Tax:') ?></span>
+                <span class="price" id="price-including-tax-<?= $_product->getId() ?><?= $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?>
+                    <?= Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?>
                 <?php endif ?>
                 </span>
             </span>
         </span>
         <?php else: ?>
-        <span class="price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
+        <span class="price" id="product-price-<?= $_product->getId() ?><?= $this->getIdSuffix() ?>">
             <?php if (!$canApplyMAP): ?>
-                <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                <?= Mage::helper('core')->currency($_finalPrice,true,false) ?>
             <?php endif ?>
         </span>
         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
@@ -82,8 +82,8 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                         <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
                     <?php endif ?>
 
-                    <?php echo $_weeeSeparator; ?>
-                    <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
+                    <?= $_weeeSeparator ?>
+                    <?= $_weeeTaxAttribute->getName() ?>: <?= Mage::helper('core')->currency($amount, true, true) ?>
                     <?php $_weeeSeparator = ' + '; ?>
                 <?php endforeach ?>
             </small>)</span>

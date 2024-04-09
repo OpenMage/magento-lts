@@ -17,13 +17,13 @@
 <div <?php echo $this->getGridHtmlClass() ? ' class="' . $this->getGridHtmlClass() . '"' : ''?><?php echo $this->getGridHtmlCss() ? ' style="' . $this->getGridHtmlCss() . '"' : ''?>>
 
 <?php if ($caption = $this->getGridCaption()): ?>
-<h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
+<h2 class="table-caption"><?= $this->escapeHtml($caption) ?></h2>
 <?php endif ?>
 
 <?php $gridElements = $this->getGridElements(); ?>
 <?php if ($gridElements): ?>
-    <?php echo $this->getChildHtml('pager'); ?>
-    <table id="<?php echo $this->getGridHtmlId() ?>" class="data-table linearize-table-large">
+    <?= $this->getChildHtml('pager') ?>
+    <table id="<?= $this->getGridHtmlId() ?>" class="data-table linearize-table-large">
 <?php foreach ($this->getGridColumns() as $column):?>
         <col <?php $width = $this->getObjectData($column, 'width'); echo $width ? ' width="' . $width . '"' : '' ?>/>
 <?php endforeach ?>
@@ -33,7 +33,7 @@
 $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';
 $title = $this->getObjectData($column, 'title');
 ?>
-                <th><?php echo $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
+                <th><?= $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
 <?php endforeach ?>
             </tr>
         </thead>
@@ -49,7 +49,7 @@ $linkAnchorText = $this->getObjectData($row, "{$index}_link_text");
 $linkText = $linkUrl ? ($linkAnchorText ? $linkAnchorText : $value) : '';
 $linkFormat = $linkUrl ? '<a href="%s">%s</a>' : '';
 ?>
-                <td<?php $this->getObjectData($row, 'is_amount') ? ' class="a-right"' : '' ?> data-rwd-label="<?php echo $this->getObjectData($column, 'title') ?>"><?php
+                <td<?php $this->getObjectData($row, 'is_amount') ? ' class="a-right"' : '' ?> data-rwd-label="<?= $this->getObjectData($column, 'title') ?>"><?php
 if ($linkFormat) {
     echo sprintf($nobr, sprintf($linkFormat, $this->escapeHtml($linkUrl), $this->escapeHtml($linkText)));
 } else {
@@ -61,9 +61,9 @@ if ($linkFormat) {
 <?php endforeach ?>
         </tbody>
     </table>
-    <?php echo $this->getChildHtml('pager'); ?>
-    <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
+    <?= $this->getChildHtml('pager') ?>
+    <script type="text/javascript">decorateTable('<?= $this->getGridHtmlId() ?>')</script>
 <?php else: ?>
-    <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
+    <p><?= $this->escapeHtml($this->getEmptyGridMessage()) ?></p>
 <?php endif ?>
 </div>

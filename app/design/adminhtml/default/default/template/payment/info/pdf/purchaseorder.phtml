@@ -13,6 +13,6 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo Mage::helper('payment')->__('Purchase Order Number: %s', $this->escapeHtml($this->getInfo()->getPoNumber())) ?>
+<?= Mage::helper('payment')->__('Purchase Order Number: %s', $this->escapeHtml($this->getInfo()->getPoNumber())) ?>
     {{pdf_row_separator}}
 

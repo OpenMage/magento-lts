@@ -13,17 +13,17 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<dl id="dl-<?php echo $id ?>" class="accordion">
+<dl id="dl-<?= $id ?>" class="accordion">
 <?php foreach ($sections as $sectionId=>$section): ?>
-    <dt id="dt-<?php echo $id ?>-<?php echo $sectionId ?>">
-        <strong><?php echo $section['title'] ?></strong>
+    <dt id="dt-<?= $id ?>-<?= $sectionId ?>">
+        <strong><?= $section['title'] ?></strong>
     </dt>
-    <dd id="dd-<?php echo $id ?>-<?php echo $section['id'] ?>" class="section-menu <?php echo !empty($section['active'])?'open':'' ?>">
+    <dd id="dd-<?= $id ?>-<?= $section['id'] ?>" class="section-menu <?= !empty($section['active'])?'open':'' ?>">
         <ul>
         <?php foreach ($section['children'] as $menuId=>$menuItem): ?>
-            <li id="li-<?php echo $id ?>-<?php echo $sectionId ?>-<?php echo $menuId ?>">
-                <a href="#" title="<?php echo $menuItem['title'] ?>">
-                    <span><?php echo $menuItem['label'] ?></span>
+            <li id="li-<?= $id ?>-<?= $sectionId ?>-<?= $menuId ?>">
+                <a href="#" title="<?= $menuItem['title'] ?>">
+                    <span><?= $menuItem['label'] ?></span>
                 </a>
             </li>
         <?php endforeach ?>

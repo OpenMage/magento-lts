@@ -29,24 +29,24 @@
     <?php endif ?>
     <thead>
         <tr>
-            <th rowspan="<?php echo $rowspan ?>"><?php echo $this->__('Product Name') ?></th>
-            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Price') ?></th>
-            <th rowspan="<?php echo $rowspan ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th colspan="<?php echo $colspan ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
+            <th rowspan="<?= $rowspan ?>"><?= $this->__('Product Name') ?></th>
+            <th colspan="<?= $colspan ?>" class="a-center"><?= $this->__('Price') ?></th>
+            <th rowspan="<?= $rowspan ?>" class="a-center"><?= $this->__('Qty') ?></th>
+            <th colspan="<?= $colspan ?>" class="a-center"><?= $this->__('Subtotal') ?></th>
         </tr>
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
             <tr>
-                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
-                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
-                <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
-                <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                <th class="a-right"><?= $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?= $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                <th class="a-right"><?= $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                <th><?= $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
             </tr>
         <?php endif ?>
     </thead>
-<?php echo $this->getChildHtml('totals'); ?>
+<?= $this->getChildHtml('totals') ?>
     <tbody>
         <?php foreach($this->getItems() as $_item): ?>
-            <?php echo $this->getItemHtml($_item) ?>
+            <?= $this->getItemHtml($_item) ?>
         <?php endforeach ?>
     </tbody>
 </table>

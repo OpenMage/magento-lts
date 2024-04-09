@@ -24,12 +24,12 @@
 
 <table cellspacing="0" class="form-list">
     <tr>
-        <td class="label"><?php echo $this->getSelectorLabel() ?></td>
+        <td class="label"><?= $this->getSelectorLabel() ?></td>
         <td class="value">
             <?php $url = Mage::helper('adminhtml')->getUrl('*/*/*')?>
             <select class="select" onchange="window.location = this.value;">
             <?php foreach ($this->getModes() as $mode => $label): ?>
-                <option <?php echo ($this->isMode($mode) ? 'selected="selected" ' :'' ) ?>value="<?php echo $url . $mode ?>"><?php echo $label ?></option>
+                <option <?= ($this->isMode($mode) ? 'selected="selected" ' :'' ) ?>value="<?= $url . $mode ?>"><?= $label ?></option>
             <?php endforeach ?>
             </select>
         </td>

@@ -14,17 +14,17 @@
  */
 ?>
 <?php  $_order = $this->getShipment()->getOrder() ?>
-<?php echo $this->getChildHtml('order_info') ?>
+<?= $this->getChildHtml('order_info') ?>
 
 <div class="box-left">
     <!--Billing Address-->
     <div class="entry-edit">
         <div class="entry-edit-head">
-            <h4 class="icon-head head-payment-method"><?php echo $this->helper('sales')->__('Payment Information') ?></h4>
+            <h4 class="icon-head head-payment-method"><?= $this->helper('sales')->__('Payment Information') ?></h4>
         </div>
         <fieldset>
-            <div><?php echo $this->getChildHtml('order_payment') ?></div>
-            <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+            <div><?= $this->getChildHtml('order_payment') ?></div>
+            <div><?= Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
         </fieldset>
     </div>
 </div>
@@ -32,16 +32,16 @@
     <!--Shipping Address-->
     <div class="entry-edit">
         <div class="entry-edit-head">
-            <h4 class="icon-head head-shipping-method"><?php echo $this->helper('sales')->__('Shipping and Tracking Information') ?></h4>
+            <h4 class="icon-head head-shipping-method"><?= $this->helper('sales')->__('Shipping and Tracking Information') ?></h4>
         </div>
         <fieldset>
             <div>
                 <?php if($this->getShipment()->getTracksCollection()->count()): ?>
-                <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($this->getShipment()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Track this shipment')) ?>"><?php echo $this->__('Track this shipment') ?></a>
+                <a href="#" id="linkId" onclick="popWin('<?= $this->helper('shipping')->getTrackingPopupUrlBySalesModel($this->getShipment()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?= Mage::helper('core')->quoteEscape($this->__('Track this shipment')) ?>"><?= $this->__('Track this shipment') ?></a>
                 <br/>
                 <?php endif ?>
-                <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
-                <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+                <strong><?= $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                <?= $this->helper('sales')->__('Total Shipping Charges') ?>:
 
                 <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
                     <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
@@ -50,25 +50,25 @@
                 <?php endif ?>
                 <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
-                <?php echo $_excl; ?>
+                <?= $_excl ?>
                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                 <?php endif ?>
             </div>
             <?php if ($this->canCreateShippingLabel()): ?>
             <div style="text-align: center; margin: 10px 0;">
                 <?php echo $this->getCreateLabelButton()?>
                 <?php if ($this->getShipment()->getShippingLabel()): ?>
-                    <?php echo $this->getPrintLabelButton() ?>
+                    <?= $this->getPrintLabelButton() ?>
                 <?php endif ?>
                 <?php if ($this->getShipment()->getPackages()): ?>
-                    <?php echo $this->getShowPackagesButton() ?>
+                    <?= $this->getShowPackagesButton() ?>
                 <?php endif ?>
             </div>
             <?php endif ?>
-            <div><?php echo $this->getChildHtml('shipment_tracking') ?></div>
+            <div><?= $this->getChildHtml('shipment_tracking') ?></div>
         </fieldset>
-    <?php echo $this->getChildHtml('shipment_packaging') ?>
+    <?= $this->getChildHtml('shipment_packaging') ?>
     <script type="text/javascript">
     //<![CDATA[
         document.observe("dom:loaded", function() {
@@ -92,15 +92,15 @@
 
     <div class="entry-edit">
         <div class="entry-edit-head">
-        <h4 class="icon-head head-products"><?php echo $this->helper('sales')->__('Items Shipped') ?></h4>
+        <h4 class="icon-head head-products"><?= $this->helper('sales')->__('Items Shipped') ?></h4>
         </div>
 </div>
 
-<?php echo $this->getChildHtml('shipment_items') ?>
-<?php echo $this->getChildHtml('shipment_packed') ?>
+<?= $this->getChildHtml('shipment_items') ?>
+<?= $this->getChildHtml('shipment_packed') ?>
 
 <div class="box-left entry-edit">
-    <div class="entry-edit-head"><h4><?php echo $this->__('Shipment History') ?></h4></div>
-    <fieldset><?php echo $this->getChildHtml('order_comments') ?></fieldset>
+    <div class="entry-edit-head"><h4><?= $this->__('Shipment History') ?></h4></div>
+    <fieldset><?= $this->getChildHtml('order_comments') ?></fieldset>
 </div>
 <div class="clear"></div>

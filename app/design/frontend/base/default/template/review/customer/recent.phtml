@@ -16,21 +16,21 @@
 <?php if( $this->getCollection() && $this->count()): ?>
 <div class="box-account box-reviews">
     <div class="box-head">
-        <h2><?php echo $this->__('My Recent Reviews') ?></h2>
-        <a href="<?php echo $this->getAllReviewsUrl() ?>"><?php echo $this->__('View All Reviews') ?></a>
+        <h2><?= $this->__('My Recent Reviews') ?></h2>
+        <a href="<?= $this->getAllReviewsUrl() ?>"><?= $this->__('View All Reviews') ?></a>
     </div>
     <ol id="my_recent_reviews">
     <?php $iterator = 0 ?>
     <?php foreach ($this->getCollection() as $_review): ?>
         <li class="item">
-            <span class="number"><?php echo ++$iterator ?></span>
+            <span class="number"><?= ++$iterator ?></span>
             <div class="details">
-                <h3 class="product-name"><a href="<?php echo $this->getReviewUrl($_review->getReviewId()) ?>"><?php echo $this->escapeHtml($_review->getName()) ?></a></h3>
+                <h3 class="product-name"><a href="<?= $this->getReviewUrl($_review->getReviewId()) ?>"><?= $this->escapeHtml($_review->getName()) ?></a></h3>
                 <?php if($_review->getSum()): ?>
                     <div class="ratings">
-                        <strong><?php echo $this->__('Rating:') ?></strong>
+                        <strong><?= $this->__('Rating:') ?></strong>
                         <div class="rating-box">
-                            <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+                            <div class="rating" style="width:<?= ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
                         </div>
                     </div>
                 <?php endif ?>

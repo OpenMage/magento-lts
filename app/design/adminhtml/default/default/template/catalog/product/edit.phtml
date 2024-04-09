@@ -22,29 +22,29 @@
 
 
 <div class="content-header">
-    <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
-    <p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
-    <?php echo $this->getCancelButtonHtml() ?>
+    <h3 class="icon-head head-products"><?= $this->getHeader() ?></h3>
+    <p class="content-buttons form-buttons"><?= $this->getBackButtonHtml() ?>
+    <?= $this->getCancelButtonHtml() ?>
     <?php if($this->getProductId()): ?>
-        <?php echo $this->getDeleteButtonHtml() ?>
+        <?= $this->getDeleteButtonHtml() ?>
         <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
-            <?php echo $this->getDuplicateButtonHtml() ?>
+            <?= $this->getDuplicateButtonHtml() ?>
         <?php endif ?>
     <?php endif ?>
     <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
-        <?php echo $this->getSaveButtonHtml() ?>
-        <?php echo $this->getSaveAndEditButtonHtml() ?>
+        <?= $this->getSaveButtonHtml() ?>
+        <?= $this->getSaveAndEditButtonHtml() ?>
     <?php endif ?>
     </p>
 </div>
-<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">
+<form action="<?= $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">
     <?php echo $this->getBlockHtml('formkey')?>
     <div style="display:none"></div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
     var productTemplateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
-    var productForm = new varienForm('product_edit_form', '<?php echo $this->getValidationUrl() ?>');
+    var productForm = new varienForm('product_edit_form', '<?= $this->getValidationUrl() ?>');
     productForm._processValidationResult = function(transport) {
         var response = transport.responseText.evalJSON();
         if (response.error){
@@ -102,7 +102,7 @@
     }
 
 Event.observe(window, 'load', function() {
-    var objName = '<?php echo $this->getSelectedTabId() ?>';
+    var objName = '<?= $this->getSelectedTabId() ?>';
     if (objName) {
         obj = $(objName);
         //IE fix (bubbling event model)
@@ -113,7 +113,7 @@ Event.observe(window, 'load', function() {
 });
 
 Validation.addAllThese([
-    ['validate-super-product-attributes', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please select one or more attributes.')) ?>', function(v) {
+    ['validate-super-product-attributes', '<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Please select one or more attributes.')) ?>', function(v) {
                 return (v != "no-attributes");
             }]]);
 //]]>

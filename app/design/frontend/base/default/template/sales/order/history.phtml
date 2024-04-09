@@ -13,12 +13,12 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <?php $_orders = $this->getOrders(); ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Orders') ?></h1>
+    <h1><?= $this->__('My Orders') ?></h1>
 </div>
-<?php echo $this->getPagerHtml(); ?>
+<?= $this->getPagerHtml() ?>
 <?php if($_orders->getSize()): ?>
 <table class="data-table" id="my-orders-table">
     <col width="1" />
@@ -29,27 +29,27 @@
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Order #') ?></th>
-            <th><?php echo $this->__('Date') ?></th>
-            <th><?php echo $this->__('Ship To') ?></th>
-            <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
-            <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
+            <th><?= $this->__('Order #') ?></th>
+            <th><?= $this->__('Date') ?></th>
+            <th><?= $this->__('Ship To') ?></th>
+            <th><span class="nobr"><?= $this->__('Order Total') ?></span></th>
+            <th><span class="nobr"><?= $this->__('Order Status') ?></span></th>
             <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($_orders as $_order): ?>
         <tr>
-            <td><?php echo $_order->getRealOrderId() ?></td>
-            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
-            <td><?php echo $_order->getShippingAddress() ? $this->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
-            <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
-            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+            <td><?= $_order->getRealOrderId() ?></td>
+            <td><span class="nobr"><?= $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+            <td><?= $_order->getShippingAddress() ? $this->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+            <td><?= $_order->formatPrice($_order->getGrandTotal()) ?></td>
+            <td><em><?= $_order->getStatusLabel() ?></em></td>
             <td class="a-center">
-                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a>
-                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo $this->__('Track Order') ?></a>&nbsp;*/ ?>
+                <span class="nobr"><a href="<?= $this->getViewUrl($_order) ?>"><?= $this->__('View Order') ?></a>
+                    <?php /*<span class="separator">|</span><a href="<?= $this->getTrackUrl($_order) ?>"><?= $this->__('Track Order') ?></a>&nbsp;*/ ?>
                     <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
-                    <span class="separator">|</span> <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
+                    <span class="separator">|</span> <a href="<?= $this->getReorderUrl($_order) ?>" class="link-reorder"><?= $this->__('Reorder') ?></a>
                 <?php endif ?>
                 </span>
             </td>
@@ -58,7 +58,7 @@
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table');</script>
-<?php echo $this->getPagerHtml(); ?>
+<?= $this->getPagerHtml() ?>
 <?php else: ?>
-    <p><?php echo $this->__('You have placed no orders.'); ?></p>
+    <p><?= $this->__('You have placed no orders.') ?></p>
 <?php endif ?>

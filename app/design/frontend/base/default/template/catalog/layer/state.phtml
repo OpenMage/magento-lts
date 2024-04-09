@@ -23,19 +23,19 @@
 <?php $_filters = $this->getActiveFilters() ?>
 <?php if(!empty($_filters)): ?>
 <div class="currently">
-    <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
+    <p class="block-subtitle"><?= $this->__('Currently Shopping by:') ?></p>
     <ol>
     <?php foreach ($_filters as $_filter): ?>
         <li>
-            <span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> <span class="value"><?php echo $this->stripTags($_filter->getLabel()) ?></span>
+            <span class="label"><?= $this->__($_filter->getName()) ?>:</span> <span class="value"><?= $this->stripTags($_filter->getLabel()) ?></span>
             <?php
                 $clearLinkUrl = $_filter->getClearLinkUrl();
                 if ($clearLinkUrl):
             ?>
-                <a  class="btn-previous" href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo $this->__('Previous') ?>"><?php echo $this->__('Previous') ?></a>
-                <a  class="btn-remove" title="<?php echo $this->escapeHtml($_filter->getFilter()->getClearLinkText()) ?>" href="<?php echo $clearLinkUrl ?>"><?php echo $this->escapeHtml($_filter->getFilter()->getClearLinkText()) ?></a>
+                <a  class="btn-previous" href="<?= $_filter->getRemoveUrl() ?>" title="<?= $this->__('Previous') ?>"><?= $this->__('Previous') ?></a>
+                <a  class="btn-remove" title="<?= $this->escapeHtml($_filter->getFilter()->getClearLinkText()) ?>" href="<?= $clearLinkUrl ?>"><?= $this->escapeHtml($_filter->getFilter()->getClearLinkText()) ?></a>
             <?php else: ?>
-                <a  class="btn-remove" href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"><?php echo $this->__('Remove This Item') ?></a>
+                <a  class="btn-remove" href="<?= $_filter->getRemoveUrl() ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"><?= $this->__('Remove This Item') ?></a>
             <?php endif ?>
         </li>
     <?php endforeach ?>

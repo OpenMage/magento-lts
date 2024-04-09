@@ -14,21 +14,21 @@
  */
 ?>
 <div class="entry-edit-head">
-    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('rating')->__('Assigned Options') ?></h4>
+    <h4 class="icon-head head-edit-form fieldset-legend"><?= Mage::helper('rating')->__('Assigned Options') ?></h4>
 </div>
 <fieldset id="options_form">
 <?php if( !$options ): ?>
     <?php for( $_i=1;$_i<=5;$_i++ ): ?>
         <span class="field-row">
-            <label for="option_<?php echo $_i ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
-            <input id="option_<?php echo $_i ?>" name="option[<?php echo $_i ?>][code]" value="<?php echo $_i ?>" class="input-text" type="text" />
+            <label for="option_<?= $_i ?>"><?= Mage::helper('rating')->__('Option Title:') ?></label>
+            <input id="option_<?= $_i ?>" name="option[<?= $_i ?>][code]" value="<?= $_i ?>" class="input-text" type="text" />
         </span>
     <?php endfor ?>
 <?php elseif( $options->getSize() > 0 ): ?>
     <?php foreach($options->getItems() as $_item): ?>
         <span class="field-row">
-            <label for="option_<?php echo $_item->getId() ?>"><?php echo Mage::helper('rating')->__('Option Title:') ?></label>
-            <input id="option_<?php echo $_item->getId() ?>" name="option[<?php echo $_item->getId() ?>][code]" value="<?php echo $_item->getCode() ?>" class="input-text" type="text" />
+            <label for="option_<?= $_item->getId() ?>"><?= Mage::helper('rating')->__('Option Title:') ?></label>
+            <input id="option_<?= $_item->getId() ?>" name="option[<?= $_item->getId() ?>][code]" value="<?= $_item->getCode() ?>" class="input-text" type="text" />
         </span>
     <?php endforeach ?>
 <?php endif ?>

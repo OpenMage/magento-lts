@@ -14,21 +14,21 @@
  */
 ?>
 
-<?php echo $this->getItem()->getName() ?>
-<div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getItem()->getSku()))); ?></div>
+<?= $this->getItem()->getName() ?>
+<div><strong><?= $this->helper('sales')->__('SKU') ?>:</strong> <?= implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getItem()->getSku()))) ?></div>
 <?php if ($this->getOrderOptions()): ?>
     <ul class="item-options">
     <?php foreach ($this->getOrderOptions() as $option): ?>
-        <li><strong><?php echo $this->escapeHtml($option['label']) ?>:</strong><br />
+        <li><strong><?= $this->escapeHtml($option['label']) ?>:</strong><br />
         <?php if (is_array($option['value'])): ?>
         <?php foreach ($option['value'] as $item): ?>
-            <?php echo $this->getValueHtml($item) ?><br />
+            <?= $this->getValueHtml($item) ?><br />
             <?php endforeach ?>
         <?php else: ?>
-            <?php echo $this->escapeHtml($option['value']); ?>
+            <?= $this->escapeHtml($option['value']) ?>
         <?php endif ?>
         </li>
     <?php endforeach ?>
     </ul>
 <?php endif ?>
-<?php echo $this->escapeHtml($this->getItem()->getDescription()) ?>
+<?= $this->escapeHtml($this->getItem()->getDescription()) ?>

@@ -15,10 +15,10 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Product Categories') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= Mage::helper('catalog')->__('Product Categories') ?></h4>
     </div>
     <fieldset id="grop_fields">
-        <input type="hidden" name="category_ids" id="product_categories" value="<?php echo $this->getIdsString() ?>">
+        <input type="hidden" name="category_ids" id="product_categories" value="<?= $this->getIdsString() ?>">
         <div id="product-categories" class="tree"></div>
     </fieldset>
 </div>
@@ -26,7 +26,7 @@
 <script type="text/javascript">
 Ext.EventManager.onDocumentReady(function() {
     var categoryLoader = new Ext.tree.TreeLoader({
-       dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
+       dataUrl: '<?= $this->getLoadTreeUrl() ?>'
     });
 
     categoryLoader.createNode = function(config) {
@@ -57,7 +57,7 @@ Ext.EventManager.onDocumentReady(function() {
         containerScroll: true,
         rootUIProvider: Ext.tree.CheckboxNodeUI,
         selModel: new Ext.tree.CheckNodeMultiSelectionModel(),
-        rootVisible: '<?php echo $this->getRootNode()->getIsVisible() ?>'
+        rootVisible: '<?= $this->getRootNode()->getIsVisible() ?>'
     });
 
     tree.on('check', function(node) {
@@ -71,16 +71,16 @@ Ext.EventManager.onDocumentReady(function() {
 
     // set the root node
     var root = new Ext.tree.TreeNode({
-        text: '<?php echo $this->jsQuoteEscape($this->buildNodeName($this->getRootNode())) ?>',
+        text: '<?= $this->jsQuoteEscape($this->buildNodeName($this->getRootNode())) ?>',
         draggable:false,
-        checked:'<?php echo $this->getRootNode()->getChecked() ?>',
-        id:'<?php echo $this->getRootNode()->getId() ?>',
-        disabled: <?php echo ($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
+        checked:'<?= $this->getRootNode()->getChecked() ?>',
+        id:'<?= $this->getRootNode()->getId() ?>',
+        disabled: <?= ($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
         uiProvider: Ext.tree.CheckboxNodeUI
     });
 
     tree.setRootNode(root);
-    bildCategoryTree(root, <?php echo $this->getTreeJson() ?>);
+    bildCategoryTree(root, <?= $this->getTreeJson() ?>);
     tree.addListener('click', categoryClick.createDelegate(this));
 
     // render the tree

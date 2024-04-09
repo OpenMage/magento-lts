@@ -19,28 +19,28 @@
 ?>
 <?php if ($this->displayBoth()):?>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->helper('tax')->__('Subtotal (Excl. Tax)') ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->helper('tax')->__('Subtotal (Excl. Tax)') ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueExclTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getTotal()->getValueExclTax()) ?>
     </td>
 </tr>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->helper('tax')->__('Subtotal (Incl. Tax)') ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->helper('tax')->__('Subtotal (Incl. Tax)') ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValueInclTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getTotal()->getValueInclTax()) ?>
     </td>
 </tr>
 <?php else: ?>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->getTotal()->getTitle() ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->getTotal()->getTitle() ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
     </td>
 </tr>
 <?php endif ?>

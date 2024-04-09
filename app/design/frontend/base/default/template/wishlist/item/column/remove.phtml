@@ -16,13 +16,13 @@
 ?>
 <a href="#"
    class="btn-remove btn-remove2"
-   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
+   title="<?= Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>"
    onclick="if (confirmRemoveWishlistItem()) {
                 customFormSubmit(
-                    '<?php echo $this->getItemRemoveUrlCustom($this->getItem(), false) ?>',
-                    '<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
+                    '<?= $this->getItemRemoveUrlCustom($this->getItem(), false) ?>',
+                    '<?= $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
                     'post'
                 )
             }">
-    <?php echo $this->__('Remove item') ?>
+    <?= $this->__('Remove item') ?>
 </a>

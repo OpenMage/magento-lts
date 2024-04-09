@@ -21,8 +21,8 @@ store name = $_order->getStore()->getGroup()->getName()
 <?php $_order=$this->getOrder() ?>
 <div>
 <?php $customerName = $_order->getCustomerFirstname() ? $_order->getCustomerName() : $_order->getBillingAddress()->getName(); ?>
-<?php echo $this->__('Customer Name: %s', Mage::helper('core')->quoteEscape($customerName)) ?><br />
-<?php echo $this->__('Purchased From: %s', Mage::helper('core')->quoteEscape($_order->getStore()->getGroup()->getName())) ?><br />
+<?= $this->__('Customer Name: %s', Mage::helper('core')->quoteEscape($customerName)) ?><br />
+<?= $this->__('Purchased From: %s', Mage::helper('core')->quoteEscape($_order->getStore()->getGroup()->getName())) ?><br />
 </div>
 <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #bebcb7; background:#f8f7f5;">
     <thead>
@@ -35,17 +35,17 @@ store name = $_order->getStore()->getGroup()->getName()
 
     <tbody>
 <?php $i=0; foreach ($_order->getAllItems() as $_item): $i++ ?>
-        <tr <?php echo $i%2?'bgcolor="#eeeded"':'' ?>>
-            <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong>
+        <tr <?= $i%2?'bgcolor="#eeeded"':'' ?>>
+            <td align="left" valign="top" style="padding:3px 9px"><strong><?= $this->escapeHtml($_item->getName()) ?></strong>
             <?php if($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
-            <br /><strong><?php echo $this->__('Gift Message') ?></strong>
-            <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
-            <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
-            <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+            <br /><strong><?= $this->__('Gift Message') ?></strong>
+            <br /><?= $this->__('From:') ?> <?= $this->escapeHtml($_giftMessage->getSender()) ?>
+            <br /><?= $this->__('To:') ?> <?= $this->escapeHtml($_giftMessage->getRecipient()) ?>
+            <br /><?= $this->__('Message:') ?><br /> <?= $this->escapeHtml($_giftMessage->getMessage()) ?>
             <?php endif ?>
             </td>
-            <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getQtyOrdered()*1 ?></td>
-            <td align="right" valign="top" style="padding:3px 9px"><?php echo $_order->formatPrice($_item->getRowTotal()) ?></td>
+            <td align="center" valign="top" style="padding:3px 9px"><?= $_item->getQtyOrdered()*1 ?></td>
+            <td align="right" valign="top" style="padding:3px 9px"><?= $_order->formatPrice($_item->getRowTotal()) ?></td>
         </tr>
 <?php endforeach ?>
     </tbody>
@@ -54,38 +54,38 @@ store name = $_order->getStore()->getGroup()->getName()
     <?php if($_order->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId())): ?>
         <tr>
             <td colspan="3" align="left" style="padding:3px 9px">
-            <strong><?php echo $this->__('Gift Message') ?></strong>
-            <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
-            <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
-            <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+            <strong><?= $this->__('Gift Message') ?></strong>
+            <br /><?= $this->__('From:') ?> <?= $this->escapeHtml($_giftMessage->getSender()) ?>
+            <br /><?= $this->__('To:') ?> <?= $this->escapeHtml($_giftMessage->getRecipient()) ?>
+            <br /><?= $this->__('Message:') ?><br /> <?= $this->escapeHtml($_giftMessage->getMessage()) ?>
             </td>
         </tr>
      <?php endif ?>
         <tr>
-            <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Subtotal') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getSubtotal()) ?></td>
+            <td colspan="2" align="right" style="padding:3px 9px"><?= $this->__('Subtotal') ?></td>
+            <td align="right" style="padding:3px 9px"><?= $_order->formatPrice($_order->getSubtotal()) ?></td>
         </tr>
         <?php if ($_order->getDiscountAmount() > 0): ?>
             <tr>
-                <td colspan="2" align="right" style="padding:3px 9px"><?php echo (($_order->getCouponCode())? $this->__('Discount (%s)', $this->escapeHtml($_order->getCouponCode())) : $this->__('Discount')) ?></td>
-                <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
+                <td colspan="2" align="right" style="padding:3px 9px"><?= (($_order->getCouponCode())? $this->__('Discount (%s)', $this->escapeHtml($_order->getCouponCode())) : $this->__('Discount')) ?></td>
+                <td align="right" style="padding:3px 9px"><?= $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
             </tr>
         <?php endif ?>
         <?php if ($_order->getShippingAmount() || $_order->getShippingDescription()): ?>
             <tr>
-                <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Shipping &amp; Handling') ?></td>
-                <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getShippingAmount()) ?></td>
+                <td colspan="2" align="right" style="padding:3px 9px"><?= $this->__('Shipping &amp; Handling') ?></td>
+                <td align="right" style="padding:3px 9px"><?= $_order->formatPrice($_order->getShippingAmount()) ?></td>
             </tr>
         <?php endif ?>
         <?php if ($_order->getTaxAmount() > 0): ?>
             <tr>
-                <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Tax') ?></td>
-                <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getTaxAmount()) ?></td>
+                <td colspan="2" align="right" style="padding:3px 9px"><?= $this->__('Tax') ?></td>
+                <td align="right" style="padding:3px 9px"><?= $_order->formatPrice($_order->getTaxAmount()) ?></td>
             </tr>
         <?php endif ?>
         <tr bgcolor="#DEE5E8">
-            <td colspan="2" align="right" style="padding:3px 9px"><strong><big><?php echo $this->__('Grand Total') ?></big></strong></td>
-            <td align="right" style="padding:6px 9px"><strong><big><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></big></strong></td>
+            <td colspan="2" align="right" style="padding:3px 9px"><strong><big><?= $this->__('Grand Total') ?></big></strong></td>
+            <td align="right" style="padding:6px 9px"><strong><big><?= $_order->formatPrice($_order->getGrandTotal()) ?></big></strong></td>
         </tr>
     </tfoot>
 </table>

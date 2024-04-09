@@ -15,23 +15,23 @@
 
 /** @var Mage_Adminhtml_Block_Page_Head $this */
 ?>
-<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>"/>
+<meta http-equiv="Content-Type" content="<?= $this->getContentType() ?>"/>
 <meta name="robots" content="noindex, nofollow"/>
-<title><?php echo htmlspecialchars(html_entity_decode($this->getTitle())) ?></title>
-<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
-<link rel="shortcut icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
+<title><?= htmlspecialchars(html_entity_decode($this->getTitle())) ?></title>
+<link rel="icon" href="<?= $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
+<link rel="shortcut icon" href="<?= $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
 
 <script type="text/javascript">
-    var BLANK_URL = '<?php echo $this->getJsUrl() ?>blank.html';
-    var BLANK_IMG = '<?php echo $this->getJsUrl() ?>spacer.gif';
-    var BASE_URL = '<?php echo $this->getUrl('*') ?>';
-    var SKIN_URL = '<?php echo $this->jsQuoteEscape($this->getSkinUrl()) ?>';
-    var FORM_KEY = '<?php echo $this->getFormKey() ?>';
+    var BLANK_URL = '<?= $this->getJsUrl() ?>blank.html';
+    var BLANK_IMG = '<?= $this->getJsUrl() ?>spacer.gif';
+    var BASE_URL = '<?= $this->getUrl('*') ?>';
+    var SKIN_URL = '<?= $this->jsQuoteEscape($this->getSkinUrl()) ?>';
+    var FORM_KEY = '<?= $this->getFormKey() ?>';
     <?php # BC: cast to INT in case of non-existing method getLoadingTimeout() in 3rd-party code?>
-    var LOADING_TIMEOUT = <?php echo (int)$this->getLoadingTimeout() ?>;
+    var LOADING_TIMEOUT = <?= (int)$this->getLoadingTimeout() ?>;
 </script>
 
-<?php echo $this->getCssJsHtml() ?>
+<?= $this->getCssJsHtml() ?>
 
 <?php if ($this->getCanLoadExtJs()): ?>
 <script type="text/javascript">
@@ -42,12 +42,12 @@
 <?php endif ?>
 
 <?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php?>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="<?= $this->getJsUrl() ?>tinymce/tinymce.min.js"></script>
 <?php endif ?>
 
 <script type="text/javascript">
-    Fieldset.addToPrefix(<?php echo Mage::helper('adminhtml')->getCurrentUserId() ?>);
+    Fieldset.addToPrefix(<?= Mage::helper('adminhtml')->getCurrentUserId() ?>);
 </script>
 
-<?php echo $this->helper('core/js')->getTranslatorScript() ?>
-<?php echo $this->getChildHtml(); ?>
+<?= $this->helper('core/js')->getTranslatorScript() ?>
+<?= $this->getChildHtml() ?>

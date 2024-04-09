@@ -24,15 +24,15 @@
     $_product = $this->getProduct()
 ?>
 <?php if($_additional = $this->getAdditionalData()): ?>
-    <h2><?php echo $this->__('Additional Information') ?></h2>
+    <h2><?= $this->__('Additional Information') ?></h2>
     <table class="data-table" id="product-attribute-specs-table">
         <col width="25%" />
         <col />
         <tbody>
         <?php foreach ($_additional as $_data): ?>
             <tr>
-                <th class="label"><?php echo $this->escapeHtml($this->__($_data['label'])) ?></th>
-                <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                <th class="label"><?= $this->escapeHtml($this->__($_data['label'])) ?></th>
+                <td class="data"><?= $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
             </tr>
         <?php endforeach ?>
         </tbody>

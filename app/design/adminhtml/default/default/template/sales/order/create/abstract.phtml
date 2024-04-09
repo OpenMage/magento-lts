@@ -15,10 +15,10 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <div style="float: right;"><?php echo $this->getButtonsHtml() ?></div>
-        <h4 class="fieldset-legend <?php echo ($this->getHeaderCssClass()) ? $this->getHeaderCssClass().' icon-head' : '' ?>"><?php echo $this->getHeaderText() ?></h4>
+        <div style="float: right;"><?= $this->getButtonsHtml() ?></div>
+        <h4 class="fieldset-legend <?= ($this->getHeaderCssClass()) ? $this->getHeaderCssClass().' icon-head' : '' ?>"><?= $this->getHeaderText() ?></h4>
     </div>
     <div class="fieldset">
-        <?php echo $this->getChildHtml('', true, true) ?>
+        <?= $this->getChildHtml('', true, true) ?>
     </div>
 </div>

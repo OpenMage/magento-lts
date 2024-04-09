@@ -22,14 +22,14 @@
 <div class="login-container">
     <div class="login-box">
         <div class="page-title">
-            <h1><?php echo $this->__('Rejection Of Authorization') ?></h1>
+            <h1><?= $this->__('Rejection Of Authorization') ?></h1>
         </div>
         <div class="form-box">
             <div id="messages">
-                <?php echo $this->getMessagesBlock()->toHtml() ?>
+                <?= $this->getMessagesBlock()->toHtml() ?>
             </div>
-            <button type="submit" class="button" onclick="window.close();" title="<?php echo $this->quoteEscape($this->__('Close')) ?>">
-                <span><span><?php echo $this->__('Close') ?></span></span>
+            <button type="submit" class="button" onclick="window.close();" title="<?= $this->quoteEscape($this->__('Close')) ?>">
+                <span><span><?= $this->__('Close') ?></span></span>
             </button>
         </div>
     </div>

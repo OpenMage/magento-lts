@@ -22,29 +22,29 @@
 <div class="widget widget-viewed">
     <div class="block block-products">
         <div class="block-title">
-            <strong><span><?php echo $this->__('Recently Viewed') ?></span></strong>
+            <strong><span><?= $this->__('Recently Viewed') ?></span></strong>
         </div>
         <div class="block-content">
             <?php $suffix = $this->getNameInLayout(); ?>
-            <ol class="mini-products-list" id="widget-viewed-<?php echo $suffix; ?>">
+            <ol class="mini-products-list" id="widget-viewed-<?= $suffix ?>">
             <?php foreach ($_products as $_product): ?>
                 <li class="item">
-                    <a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" /></a>
+                    <a class="product-image" href="<?= $_product->getProductUrl() ?>" title="<?= $this->stripTags($_product->getName(), null, true) ?>"><img src="<?= $this->helper('catalog/image')->init($_product, 'small_image')->resize(50) ?>" width="50" height="50" alt="<?= $this->stripTags($_product->getName(), null, true) ?>" /></a>
                     <div class="product-details">
-                        <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
+                        <p class="product-name"><a href="<?= $_product->getProductUrl() ?>" title="<?= $this->stripTags($_product->getName(), null, true) ?>"><?= $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
                         <?php /* Removing this functionality from RWD
-                        <?php echo $this->getPriceHtml($_product, true, '-widget-viewed-'.$suffix) ?>
+                        <?= $this->getPriceHtml($_product, true, '-widget-viewed-'.$suffix) ?>
                         <?php if($_product->isSaleable()): ?>
-                            <a href="<?php echo $this->getAddToCartUrl($_product) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+                            <a href="<?= $this->getAddToCartUrl($_product) ?>" class="link-cart"><?= $this->__('Add to Cart') ?></a>
                         <?php else: ?>
-                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                            <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                         <?php endif ?>
                         */ ?>
                     </div>
                 </li>
             <?php endforeach ?>
             </ol>
-            <script type="text/javascript">decorateList('widget-viewed-<?php echo $suffix; ?>', 'none-recursive')</script>
+            <script type="text/javascript">decorateList('widget-viewed-<?= $suffix ?>', 'none-recursive')</script>
         </div>
     </div>
 </div>

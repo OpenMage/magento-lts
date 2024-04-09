@@ -18,36 +18,36 @@
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>
 <?php if (($this->getProduct()->isSaleable() || $_skipSaleableCheck) && $this->hasLinks()):?>
 
-<div id="catalog_product_composite_configure_fields_downloadable" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
-    <h4><?php echo Mage::helper('catalog')->__('Downloadable Information') ?></h4>
+<div id="catalog_product_composite_configure_fields_downloadable" class="<?= $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+    <h4><?= Mage::helper('catalog')->__('Downloadable Information') ?></h4>
     <div class="product-options">
         <dl>
         <?php $_links = $this->getLinks(); ?>
         <?php $_isRequired = $this->getLinkSelectionRequired(); ?>
-            <dt><label<?php if ($_isRequired) echo ' class="required"' ?>><?php if ($_isRequired) echo '<em>*</em>' ?><?php echo $this->escapeHtml($this->getLinksTitle()); ?></label></dt>
+            <dt><label<?php if ($_isRequired) echo ' class="required"' ?>><?php if ($_isRequired) echo '<em>*</em>' ?><?= $this->escapeHtml($this->getLinksTitle()) ?></label></dt>
             <dd class="last">
                 <ul id="downloadable-links-list" class="options-list">
                 <?php foreach ($_links as $_link): ?>
                     <li>
                     <?php if ($_linksPurchasedSeparately): ?>
-                        <input type="checkbox" class="checkbox<?php if ($_isRequired):?> validate-one-required-by-name<?php endif ?> product-downloadable-link" name="links[]" id="links_<?php echo $_link->getId() ?>" value="<?php echo $_link->getId(); ?>" <?php echo $this->getLinkCheckedValue($_link); ?> price="<?php echo $this->getCurrencyPrice($_link->getPrice()); ?>"/>
+                        <input type="checkbox" class="checkbox<?php if ($_isRequired):?> validate-one-required-by-name<?php endif ?> product-downloadable-link" name="links[]" id="links_<?= $_link->getId() ?>" value="<?= $_link->getId() ?>" <?= $this->getLinkCheckedValue($_link) ?> price="<?= $this->getCurrencyPrice($_link->getPrice()) ?>"/>
                         <?php endif ?>
                         <span class="label">
-                        <label for="links_<?php echo $_link->getId() ?>">
-                        <?php echo $this->escapeHtml($_link->getTitle()) ?>
+                        <label for="links_<?= $_link->getId() ?>">
+                        <?= $this->escapeHtml($_link->getTitle()) ?>
                         </label>
                         <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
-                            &nbsp;(<a href="<?php echo $this->getLinkSamlpeUrl($_link) ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo Mage::helper('downloadable')->__('sample') ?></a>)
+                            &nbsp;(<a href="<?= $this->getLinkSamlpeUrl($_link) ?>" <?= $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':'' ?>><?= Mage::helper('downloadable')->__('sample') ?></a>)
                         <?php endif ?>
                         <?php if ($_linksPurchasedSeparately): ?>
-                        <?php echo $this->getFormattedLinkPrice($_link); ?>
+                        <?= $this->getFormattedLinkPrice($_link) ?>
                         <?php endif ?>
                     </span>
                     <?php if ($_isRequired): ?>
                         <script type="text/javascript">
                             //<![CDATA[
-                            $('links_<?php echo $_link->getId() ?>').advaiceContainer = 'links-advice-container';
-                            $('links_<?php echo $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
+                            $('links_<?= $_link->getId() ?>').advaiceContainer = 'links-advice-container';
+                            $('links_<?= $_link->getId() ?>').callbackFunction = 'validateDownloadableCallback';
                             //]]>
                         </script>
                     <?php endif ?>

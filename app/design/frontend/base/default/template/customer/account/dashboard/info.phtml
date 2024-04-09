@@ -17,14 +17,14 @@
     <div class="col-1">
         <div class="box">
             <div class="box-title">
-                <h3><?php echo $this->__('Contact Information') ?></h3>
-                <a href="<?php echo $this->getUrl('customer/account/edit') ?>"><?php echo $this->__('Edit') ?></a>
+                <h3><?= $this->__('Contact Information') ?></h3>
+                <a href="<?= $this->getUrl('customer/account/edit') ?>"><?= $this->__('Edit') ?></a>
             </div>
             <div class="box-content">
                 <p>
-                    <?php echo $this->escapeHtml($this->getCustomer()->getName()) ?><br />
-                    <?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?><br />
-                    <a href="<?php echo $this->getChangePasswordUrl() ?>"><?php echo $this->__('Change Password') ?></a>
+                    <?= $this->escapeHtml($this->getCustomer()->getName()) ?><br />
+                    <?= $this->escapeHtml($this->getCustomer()->getEmail()) ?><br />
+                    <a href="<?= $this->getChangePasswordUrl() ?>"><?= $this->__('Change Password') ?></a>
                 </p>
             </div>
         </div>
@@ -33,15 +33,15 @@
     <div class="col-2">
         <div class="box">
             <div class="box-title">
-                <h3><?php echo $this->__('Newsletters') ?></h3>
-                <a href="<?php echo $this->getUrl('newsletter/manage') ?>"><?php echo $this->__('Edit') ?></a>
+                <h3><?= $this->__('Newsletters') ?></h3>
+                <a href="<?= $this->getUrl('newsletter/manage') ?>"><?= $this->__('Edit') ?></a>
             </div>
             <div class="box-content">
                 <p>
                     <?php if( $this->getIsSubscribed() ): ?>
-                        <?php echo $this->__("You are currently subscribed to 'General Subscription'.") ?>
+                        <?= $this->__("You are currently subscribed to 'General Subscription'.") ?>
                     <?php else: ?>
-                        <?php echo $this->__('You are currently not subscribed to any newsletter.') ?>
+                        <?= $this->__('You are currently not subscribed to any newsletter.') ?>
                     <?php endif ?>
                 </p>
             </div>

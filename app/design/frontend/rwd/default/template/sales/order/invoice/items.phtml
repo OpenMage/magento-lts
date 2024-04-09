@@ -14,11 +14,11 @@
  */
 ?>
 <?php  $_order = $this->getOrder() ?>
-<p class="order-links"><a href="<?php echo $this->getPrintAllInvoicesUrl($_order) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print All Invoices') ?></a></p>
+<p class="order-links"><a href="<?= $this->getPrintAllInvoicesUrl($_order) ?>" onclick="this.target='_blank'" class="link-print"><?= $this->__('Print All Invoices') ?></a></p>
 <?php foreach ($_order->getInvoiceCollection() as $_invoice): ?>
-    <h2 class="sub-title"><?php echo $this->__('Invoice #') ?><?php echo $_invoice->getIncrementId(); ?> <span class="separator">|</span> <a href="<?php echo $this->getPrintInvoiceUrl($_invoice) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print Invoice') ?></a></h2>
-    <h3 class="table-caption"><?php echo $this->__('Items Invoiced') ?></h3>
-    <table class="data-table linearize-table" id="my-invoice-table-<?php echo $_invoice->getId(); ?>">
+    <h2 class="sub-title"><?= $this->__('Invoice #') ?><?= $_invoice->getIncrementId() ?> <span class="separator">|</span> <a href="<?= $this->getPrintInvoiceUrl($_invoice) ?>" onclick="this.target='_blank'" class="link-print"><?= $this->__('Print Invoice') ?></a></h2>
+    <h3 class="table-caption"><?= $this->__('Items Invoiced') ?></h3>
+    <table class="data-table linearize-table" id="my-invoice-table-<?= $_invoice->getId() ?>">
         <col />
         <col width="1" />
         <col width="1" />
@@ -26,11 +26,11 @@
         <col width="1" />
         <thead>
         <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
-            <th><?php echo $this->__('SKU') ?></th>
-            <th class="a-right" data-rwd-label="<?php echo $this->__('Price') ?>"><?php echo $this->__('Price') ?></th>
-            <th class="a-center" data-rwd-label="<?php echo $this->__('Qty Invoiced') ?>"><span class="nobr"><?php echo $this->__('Qty Invoiced') ?></span></th>
-            <th class="a-right" data-rwd-label="<?php echo $this->__('Subtotal') ?>"><?php echo $this->__('Subtotal') ?></th>
+            <th><?= $this->__('Product Name') ?></th>
+            <th><?= $this->__('SKU') ?></th>
+            <th class="a-right" data-rwd-label="<?= $this->__('Price') ?>"><?= $this->__('Price') ?></th>
+            <th class="a-center" data-rwd-label="<?= $this->__('Qty Invoiced') ?>"><span class="nobr"><?= $this->__('Qty Invoiced') ?></span></th>
+            <th class="a-right" data-rwd-label="<?= $this->__('Subtotal') ?>"><?= $this->__('Subtotal') ?></th>
         </tr>
         </thead>
         <tfoot>
@@ -41,10 +41,10 @@
         <?php foreach ($_items as $_item): ?>
             <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
             <tbody>
-            <?php echo $this->getItemHtml($_item) ?>
+            <?= $this->getItemHtml($_item) ?>
             </tbody>
         <?php endforeach ?>
     </table>
-    <script type="text/javascript">decorateTable('my-invoice-table-<?php echo $_invoice->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+    <script type="text/javascript">decorateTable('my-invoice-table-<?= $_invoice->getId() ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
     <?php echo $this->getInvoiceCommentsHtml($_invoice)?>
 <?php endforeach ?>

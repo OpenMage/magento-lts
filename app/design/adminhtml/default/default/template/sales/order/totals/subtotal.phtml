@@ -23,26 +23,26 @@
         <td class="label">
             <?php echo Mage::helper('tax')->__('Subtotal (Excl. Tax)')?>
         </td>
-        <td><?php echo $this->displaySubtotalExclTax() ?></td>
+        <td><?= $this->displaySubtotalExclTax() ?></td>
     </tr>
     <tr>
         <td class="label">
             <?php echo Mage::helper('tax')->__('Subtotal (Incl. Tax)')?>
         </td>
-        <td><?php echo $this->displaySubtotalInclTax() ?></td>
+        <td><?= $this->displaySubtotalInclTax() ?></td>
     </tr>
 <?php elseif ($this->helper('tax')->displaySalesSubtotalInclTax($_order->getStore())):?>
     <tr>
         <td class="label">
-            <?php echo Mage::helper('sales')->__('Subtotal') ?>
+            <?= Mage::helper('sales')->__('Subtotal') ?>
         </td>
-        <td><?php echo $this->displaySubtotalInclTax() ?></td>
+        <td><?= $this->displaySubtotalInclTax() ?></td>
     </tr>
 <?php else: ?>
     <tr>
         <td class="label">
-            <?php echo Mage::helper('sales')->__('Subtotal') ?>
+            <?= Mage::helper('sales')->__('Subtotal') ?>
         </td>
-        <td><?php echo $this->displaySubtotalExclTax() ?></td>
+        <td><?= $this->displaySubtotalExclTax() ?></td>
     </tr>
 <?php endif ?>

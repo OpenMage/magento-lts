@@ -19,32 +19,32 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js">
+<html lang="<?= $this->getLang() ?>" id="top" class="no-js">
 <head>
-<?php echo $this->getChildHtml('head') ?>
+<?= $this->getChildHtml('head') ?>
 </head>
-<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
-<?php echo $this->getChildHtml('after_body_start') ?>
+<body<?= $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?= $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
-    <?php echo $this->getChildHtml('global_notices') ?>
+    <?= $this->getChildHtml('global_notices') ?>
     <div class="page">
-        <?php echo $this->getChildHtml('header') ?>
+        <?= $this->getChildHtml('header') ?>
         <div class="main-container col1-layout">
             <div class="main">
-                <?php echo $this->getChildHtml('breadcrumbs') ?>
+                <?= $this->getChildHtml('breadcrumbs') ?>
                 <div class="col-main">
-                    <?php echo $this->getChildHtml('global_messages') ?>
-                    <?php echo $this->getChildHtml('content') ?>
+                    <?= $this->getChildHtml('global_messages') ?>
+                    <?= $this->getChildHtml('content') ?>
                 </div>
             </div>
         </div>
-        <?php echo $this->getChildHtml('footer_before') ?>
-        <?php echo $this->getChildHtml('footer') ?>
-        <?php echo $this->getChildHtml('global_cookie_notice') ?>
-        <?php echo $this->getChildHtml('before_body_end') ?>
+        <?= $this->getChildHtml('footer_before') ?>
+        <?= $this->getChildHtml('footer') ?>
+        <?= $this->getChildHtml('global_cookie_notice') ?>
+        <?= $this->getChildHtml('before_body_end') ?>
     </div>
 </div>
-<?php echo $this->getAbsoluteFooter() ?>
+<?= $this->getAbsoluteFooter() ?>
 </body>
 </html>
 

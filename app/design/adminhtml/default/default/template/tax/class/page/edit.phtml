@@ -16,17 +16,17 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3><?php echo $this->_getHeader() ?></h3></td>
+            <td style="width:50%;"><h3><?= $this->_getHeader() ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getBackButtonHtml(); ?>
-                <?php echo $this->getResetButtonHtml(); ?>
-                <?php echo $this->getDeleteButtonHtml(); ?>
-                <?php echo $this->getSaveButtonHtml(); ?>
+                <?= $this->getBackButtonHtml() ?>
+                <?= $this->getResetButtonHtml() ?>
+                <?= $this->getDeleteButtonHtml() ?>
+                <?= $this->getSaveButtonHtml() ?>
             </td>
         </tr>
     </table>
 </div>
-<?php echo $this->_getRenameFormHtml(); ?>
+<?= $this->_getRenameFormHtml() ?>
 <script type="text/javascript">
-    var renameForm = new varienForm('<?php echo $this->_getRenameFormId() ?>');
+    var renameForm = new varienForm('<?= $this->_getRenameFormId() ?>');
 </script>

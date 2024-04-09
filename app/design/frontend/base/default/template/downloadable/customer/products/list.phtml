@@ -20,10 +20,10 @@
 ?>
 <?php $_items = $this->getItems(); ?>
 <div class="page-title">
-    <h1><?php echo Mage::helper('downloadable')->__('My Downloadable Products') ?></h1>
+    <h1><?= Mage::helper('downloadable')->__('My Downloadable Products') ?></h1>
 </div>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
-<?php echo $this->getChildHtml('pager'); ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getChildHtml('pager') ?>
 <?php if(count($_items)): ?>
     <table class="data-table" id="my-downloadable-products-table">
         <col width="1" />
@@ -33,30 +33,30 @@
         <col width="1" />
         <thead>
             <tr>
-                <th><?php echo Mage::helper('downloadable')->__('Order #') ?></th>
-                <th><?php echo Mage::helper('downloadable')->__('Date') ?></th>
-                <th><?php echo Mage::helper('downloadable')->__('Title') ?></th>
-                <th><?php echo Mage::helper('downloadable')->__('Status') ?></th>
-                <th><span class="nobr"><?php echo Mage::helper('downloadable')->__('Remaining Downloads') ?></span></th>
+                <th><?= Mage::helper('downloadable')->__('Order #') ?></th>
+                <th><?= Mage::helper('downloadable')->__('Date') ?></th>
+                <th><?= Mage::helper('downloadable')->__('Title') ?></th>
+                <th><?= Mage::helper('downloadable')->__('Status') ?></th>
+                <th><span class="nobr"><?= Mage::helper('downloadable')->__('Remaining Downloads') ?></span></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($_items as $_item): ?>
                 <tr>
-                    <td><a href="<?php echo $this->getOrderViewUrl($_item->getPurchased()->getOrderId()) ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('View Order')) ?>"><?php echo $_item->getPurchased()->getOrderIncrementId() ?></a></td>
-                    <td><span class="nobr"><?php echo $this->formatDate($_item->getPurchased()->getCreatedAt()) ?></span></td>
-                    <td><?php echo $this->escapeHtml($_item->getPurchased()->getProductName()) ?> - <a href="<?php echo $this->getDownloadUrl($_item) ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('Start Download')) ?>" <?php echo $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':''; ?>><?php echo $this->escapeHtml($_item->getLinkTitle()); ?></a></td>
-                    <td><em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
-                    <td><?php echo $this->getRemainingDownloads($_item) ?></td>
+                    <td><a href="<?= $this->getOrderViewUrl($_item->getPurchased()->getOrderId()) ?>" title="<?= Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('View Order')) ?>"><?= $_item->getPurchased()->getOrderIncrementId() ?></a></td>
+                    <td><span class="nobr"><?= $this->formatDate($_item->getPurchased()->getCreatedAt()) ?></span></td>
+                    <td><?= $this->escapeHtml($_item->getPurchased()->getProductName()) ?> - <a href="<?= $this->getDownloadUrl($_item) ?>" title="<?= Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('Start Download')) ?>" <?= $this->getIsOpenInNewWindow()?'onclick="this.target=\'_blank\'"':'' ?>><?= $this->escapeHtml($_item->getLinkTitle()) ?></a></td>
+                    <td><em><?= Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
+                    <td><?= $this->getRemainingDownloads($_item) ?></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>
 <?php else: ?>
-    <p><?php echo Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.'); ?></p>
+    <p><?= Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.') ?></p>
 <?php endif ?>
-<?php echo $this->getChildHtml('pager'); ?>
+<?= $this->getChildHtml('pager') ?>
 <div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="<?= $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?= $this->__('Back') ?></a></p>
 </div>

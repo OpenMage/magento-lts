@@ -22,14 +22,14 @@
 ?>
 <?php if(count($this->getGroups())>1): ?>
 <div class="store-switcher">
-    <label for="select-store"><?php echo $this->__('Select Store:') ?></label>
-    <select id="select-store" title="<?php echo $this->__('Select Store') ?>" onchange="location.href=this.value">
+    <label for="select-store"><?= $this->__('Select Store:') ?></label>
+    <select id="select-store" title="<?= $this->__('Select Store') ?>" onchange="location.href=this.value">
     <?php /*foreach ($this->getStores() as $_store): ?>
-        <option value="<?php echo $_store->getUrl('') ?>"<?php if($_store->getId()==$this->getCurrentStoreId()): ?> selected="selected"<?php endif ?>><?php echo $_store->getName() ?></option>
+        <option value="<?= $_store->getUrl('') ?>"<?php if($_store->getId()==$this->getCurrentStoreId()): ?> selected="selected"<?php endif ?>><?= $_store->getName() ?></option>
     <?php endforeach;*/ ?>
     <?php foreach ($this->getGroups() as $_group): ?>
         <?php $_selected = ($_group->getId()==$this->getCurrentGroupId()) ? ' selected="selected"' : '' ?>
-        <option value="<?php echo $_group->getHomeUrl() ?>"<?php echo $_selected ?>><?php echo $this->escapeHtml($_group->getName()) ?></option>
+        <option value="<?= $_group->getHomeUrl() ?>"<?= $_selected ?>><?= $this->escapeHtml($_group->getName()) ?></option>
     <?php endforeach ?>
     </select>
 </div>

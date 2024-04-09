@@ -15,28 +15,28 @@
 ?>
 
 <div class="content-header">
-        <h3 class="icon-head head-categories"><?php echo $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
+        <h3 class="icon-head head-categories"><?= $this->escapeHtml($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
         <p class="content-buttons form-buttons">
-            <?php echo $this->getResetButtonHtml() ?>
+            <?= $this->getResetButtonHtml() ?>
             <?php if($this->getCategoryId()): ?>
-                    <?php echo $this->getDeleteButtonHtml() ?>
+                    <?= $this->getDeleteButtonHtml() ?>
             <?php endif ?>
-            <?php echo $this->getAdditionalButtonsHtml(); ?>
-            <?php echo $this->getSaveButtonHtml() ?>
+            <?= $this->getAdditionalButtonsHtml() ?>
+            <?= $this->getSaveButtonHtml() ?>
         </p>
 </div>
 <?php if($this->hasStoreRootCategory()): ?>
-    <?php echo $this->getTabsHtml() ?>
+    <?= $this->getTabsHtml() ?>
 <?php else: ?>
 <div class="messages warning-msg">
-    <?php echo Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
+    <?= Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
 </div>
 <?php endif ?>
-<iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
-<form target="iframeSave" id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+<iframe name="iframeSave" style="display:none; width:100%;" src="<?= $this->getJsUrl() ?>blank.html"></iframe>
+<form target="iframeSave" id="category_edit_form" action="<?= $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
     <div class="no-display">
         <input type="hidden" name="isIframe" value="1" />
-        <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
+        <input name="form_key" type="hidden" value="<?= $this->getFormKey() ?>" />
         <input type="hidden" name="category_products" id="in_category_products" value="" />
         <input type="hidden" name="active_tab_id" id="active_tab_id" value="" />
     </div>
@@ -89,7 +89,7 @@
         };
 
         new Ajax.Request(
-                '<?php echo $this->getRefreshPathUrl() ?>',
+                '<?= $this->getRefreshPathUrl() ?>',
                 {
                     method:     'POST',
                     evalScripts: true,
@@ -178,7 +178,7 @@
 
 <?php if(($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
 
-    var categoryProducts = $H(<?php echo $this->getProductsJson() ?>);
+    var categoryProducts = $H(<?= $this->getProductsJson() ?>);
     $('in_category_products').value = categoryProducts.toQueryString();
 
     function registerCategoryProduct(grid, element, checked){
@@ -204,7 +204,7 @@
             var checkbox = Element.getElementsBySelector(tdElement, 'input');
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
-                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+                <?= $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
             }
         }
     }
@@ -230,18 +230,18 @@
     }
 
 
-    <?php echo $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
-    <?php echo $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
-    <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
-    <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
+    <?= $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
+    <?= $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
+    <?= $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
+    <?= $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?= $_gridJsObject ?>, row)});
 
 <?php endif ?>
 <?php if($this->isAjax() && ($block = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject=$block->getJsObjectName())): ?>
-    <?php echo $_tabsJsObject ?>.moveTabContentInDest();
-    if (<?php echo $_tabsJsObject ?>.activeTab) {
-        $('active_tab_id').value = <?php echo $_tabsJsObject ?>.activeTab.id;
+    <?= $_tabsJsObject ?>.moveTabContentInDest();
+    if (<?= $_tabsJsObject ?>.activeTab) {
+        $('active_tab_id').value = <?= $_tabsJsObject ?>.activeTab.id;
     }
-    $('active_tab_id').tabsJsObject = <?php echo $_tabsJsObject ?>;
+    $('active_tab_id').tabsJsObject = <?= $_tabsJsObject ?>;
 <?php endif ?>
 //]]>
 </script>

@@ -24,7 +24,7 @@ $_priceValueValidation = $this->getPriceValidation('validate-zero-or-greater');
 $_showWebsite= $this->isMultiWebsites();
 ?>
 <tr>
-    <td class="label"><?php echo $this->getElement()->getLabel(); ?></td>
+    <td class="label"><?= $this->getElement()->getLabel() ?></td>
     <td colspan="10" class="grid tier">
     <table cellspacing="0" class="data border" id="group_prices_table">
         <?php if ($_showWebsite) : ?>
@@ -35,17 +35,17 @@ $_showWebsite= $this->isMultiWebsites();
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th <?php if (!$_showWebsite): ?>style="display: none;"<?php endif ?>><?php echo Mage::helper('catalog')->__('Website'); ?></th>
-                <th><?php echo Mage::helper('catalog')->__('Customer Group'); ?></th>
-                <th><?php echo $this->getPriceColumnHeader(Mage::helper('catalog')->__('Price')); ?></th>
-                <th class="last"><?php echo Mage::helper('catalog')->__('Action'); ?></th>
+                <th <?php if (!$_showWebsite): ?>style="display: none;"<?php endif ?>><?= Mage::helper('catalog')->__('Website') ?></th>
+                <th><?= Mage::helper('catalog')->__('Customer Group') ?></th>
+                <th><?= $this->getPriceColumnHeader(Mage::helper('catalog')->__('Price')) ?></th>
+                <th class="last"><?= Mage::helper('catalog')->__('Action') ?></th>
             </tr>
         </thead>
-        <tbody id="<?php echo $_htmlId; ?>_container"></tbody>
+        <tbody id="<?= $_htmlId ?>_container"></tbody>
         <tfoot>
             <tr>
                 <td <?php if (!$_showWebsite): ?>style="display: none;"<?php endif ?>></td>
-                <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml(); ?></td>
+                <td colspan="4" class="a-right"><?= $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
     </table>
@@ -54,21 +54,21 @@ $_showWebsite= $this->isMultiWebsites();
 //<![CDATA[
 var groupPriceRowTemplate = '<tr>'
     + '<td<?php if (!$_showWebsite): ?> style="display:none"<?php endif ?>>'
-    + '<select class="<?php echo $_htmlClass; ?> required-entry" name="<?php echo $_htmlName; ?>[{{index}}][website_id]" id="group_price_row_{{index}}_website">'
+    + '<select class="<?= $_htmlClass ?> required-entry" name="<?= $_htmlName ?>[{{index}}][website_id]" id="group_price_row_{{index}}_website">'
     <?php foreach ($this->getWebsites() as $_websiteId => $_info) : ?>
-    + '<option value="<?php echo $_websiteId; ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_info['name'])); ?><?php if (!empty($_info['currency'])) : ?> [<?php echo $this->escapeHtml($_info['currency']); ?>]<?php endif ?></option>'
+    + '<option value="<?= $_websiteId ?>"><?= $this->jsQuoteEscape($this->escapeHtml($_info['name'])) ?><?php if (!empty($_info['currency'])) : ?> [<?= $this->escapeHtml($_info['currency']) ?>]<?php endif ?></option>'
     <?php endforeach ?>
     + '</select></td>'
-    + '<td><select class="<?php echo $_htmlClass; ?> custgroup required-entry" name="<?php echo $_htmlName; ?>[{{index}}][cust_group]" id="group_price_row_{{index}}_cust_group">'
+    + '<td><select class="<?= $_htmlClass ?> custgroup required-entry" name="<?= $_htmlName ?>[{{index}}][cust_group]" id="group_price_row_{{index}}_cust_group">'
     <?php foreach ($this->getCustomerGroups() as $_groupId => $_groupName): ?>
-    + '<option value="<?php echo $_groupId; ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_groupName)); ?></option>'
+    + '<option value="<?= $_groupId ?>"><?= $this->jsQuoteEscape($this->escapeHtml($_groupName)) ?></option>'
     <?php endforeach ?>
     + '</select></td>'
-    + '<td><input class="<?php echo $_htmlClass; ?> required-entry <?php echo $_priceValueValidation; ?>" type="text" name="<?php echo $_htmlName; ?>[{{index}}][price]" value="{{price}}" id="group_price_row_{{index}}_price" />'
-    + '<input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][is_percent]" value="<?php if ($this->getIsPercent()) : ?>1<?php else: ?>0<?php endif ?>" id="group_price_row_{{index}}_is_percent" /></td>'
-    + '<td class="last"><input type="hidden" name="<?php echo $_htmlName; ?>[{{index}}][delete]" class="delete" value="" id="group_price_row_{{index}}_delete" />'
-    + '<button title="<?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete Group Price')); ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_price_row_{{index}}_delete_button" onclick="return groupPriceControl.deleteItem(event);">'
-    + '<span><?php echo $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete')); ?></span></button></td>'
+    + '<td><input class="<?= $_htmlClass ?> required-entry <?= $_priceValueValidation ?>" type="text" name="<?= $_htmlName ?>[{{index}}][price]" value="{{price}}" id="group_price_row_{{index}}_price" />'
+    + '<input type="hidden" name="<?= $_htmlName ?>[{{index}}][is_percent]" value="<?php if ($this->getIsPercent()) : ?>1<?php else: ?>0<?php endif ?>" id="group_price_row_{{index}}_is_percent" /></td>'
+    + '<td class="last"><input type="hidden" name="<?= $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="group_price_row_{{index}}_delete" />'
+    + '<button title="<?= $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete Group Price')) ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_price_row_{{index}}_delete_button" onclick="return groupPriceControl.deleteItem(event);">'
+    + '<span><?= $this->jsQuoteEscape(Mage::helper('catalog')->__('Delete')) ?></span></button></td>'
     + '</tr>';
 
 var groupPriceControl = {
@@ -81,8 +81,8 @@ var groupPriceControl = {
         }
         <?php endif ?>
         var data = {
-            website_id: '<?php echo $this->getDefaultWebsite(); ?>',
-            group: '<?php echo $this->getDefaultCustomerGroup(); ?>',
+            website_id: '<?= $this->getDefaultWebsite() ?>',
+            group: '<?= $this->getDefaultCustomerGroup() ?>',
             price: '',
             readOnly: false,
             index: this.itemsCount++
@@ -97,7 +97,7 @@ var groupPriceControl = {
             data.readOnly = arguments[3];
         }
 
-        Element.insert($('<?php echo $_htmlId; ?>_container'), {
+        Element.insert($('<?= $_htmlId ?>_container'), {
             bottom : this.template.evaluate(data)
         });
 
@@ -120,13 +120,13 @@ var groupPriceControl = {
         }
 
         <?php if ($_readonly): ?>
-        $('<?php echo $_htmlId; ?>_container').select('input', 'select').each(this.disableElement);
-        $('<?php echo $_htmlId; ?>_container').up('table').select('button').each(this.disableElement);
+        $('<?= $_htmlId ?>_container').select('input', 'select').each(this.disableElement);
+        $('<?= $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
         <?php else: ?>
-        $('<?php echo $_htmlId; ?>_container').select('input', 'select').each(function(element) {
+        $('<?= $_htmlId ?>_container').select('input', 'select').each(function(element) {
             Event.observe(element, 'change', element.setHasChanges.bind(element));
         });
-        $('<?php echo $_htmlId; ?>_container').select('button.delete').each(function(element) {
+        $('<?= $_htmlId ?>_container').select('button.delete').each(function(element) {
             Event.observe(element, 'click', element.setHasChanges.bind(element));
         });
         <?php endif ?>
@@ -151,10 +151,10 @@ var groupPriceControl = {
     }
 };
 <?php foreach ($this->getValues() as $_item) : ?>
-groupPriceControl.addItem('<?php echo $_item['website_id']; ?>', '<?php echo $_item['cust_group']; ?>', '<?php echo sprintf('%.2f', $_item['price']); ?>', <?php echo (int)!empty($_item['readonly']); ?>);
+groupPriceControl.addItem('<?= $_item['website_id'] ?>', '<?= $_item['cust_group'] ?>', '<?= sprintf('%.2f', $_item['price']) ?>', <?= (int)!empty($_item['readonly']) ?>);
 <?php endforeach ?>
 <?php if ($_readonly) : ?>
-$('<?php echo $_htmlId; ?>_container').up('table').select('button')
+$('<?= $_htmlId ?>_container').up('table').select('button')
     .each(groupPriceControl.disableElement);
 <?php endif ?>
 //]]>

@@ -16,108 +16,108 @@
 ?>
 <form id="co-billing-form" action="">
 <div class="fieldset">
-    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+    <p class="required"><?= $this->__('* Required Fields') ?></p>
     <ul class="form-list">
     <?php if ($this->customerHasAddresses()): ?>
         <li class="wide">
-            <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
+            <label for="billing-address-select"><?= $this->__('Select a billing address from your address book or enter a new address.') ?></label>
             <div class="input-box">
-                <?php echo $this->getAddressesHtmlSelect('billing') ?>
+                <?= $this->getAddressesHtmlSelect('billing') ?>
             </div>
         </li>
     <?php endif ?>
     <li id="billing-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif ?> class="scaffold-form">
         <div class="fieldset">
-            <input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id" />
+            <input type="hidden" name="billing[address_id]" value="<?= $this->getAddress()->getId() ?>" id="billing:address_id" />
             <ul>
-                <li class="fields"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?></li>
+                <li class="fields"><?= $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?></li>
                 <li class="fields">
                     <div class="field">
-                        <label for="billing:company"><?php echo $this->__('Company') ?></label>
+                        <label for="billing:company"><?= $this->__('Company') ?></label>
                         <div class="input-box">
-                            <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo $this->quoteEscape($this->__('Company')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
+                            <input type="text" id="billing:company" name="billing[company]" value="<?= $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?= $this->quoteEscape($this->__('Company')) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
                         </div>
                     </div>
         <?php if(!$this->isCustomerLoggedIn()): ?>
                     <div class="field">
-                        <label for="billing:email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                        <label for="billing:email" class="required"><em>*</em><?= $this->__('Email Address') ?></label>
                         <div class="input-box">
-                            <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="billing[email]" id="billing:email" value="<?php echo $this->escapeHtml($this->getAddress()->getEmail()) ?>" title="<?php echo $this->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
+                            <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="billing[email]" id="billing:email" value="<?= $this->escapeHtml($this->getAddress()->getEmail()) ?>" title="<?= $this->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
                         </div>
                     </div>
         <?php endif ?>
                 </li>
         <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
                 <li class="wide">
-                    <label for="billing:street1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
+                    <label for="billing:street1" class="required"><em>*</em><?= $this->__('Address') ?></label>
                     <div class="input-box">
-                        <input type="text" title="<?php echo $this->quoteEscape($this->__('Street Address')) ?>" name="billing[street][]" id="billing:street1" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <input type="text" title="<?= $this->quoteEscape($this->__('Street Address')) ?>" name="billing[street][]" id="billing:street1" value="<?= $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="input-text <?= $_streetValidationClass ?>" />
                     </div>
                 </li>
         <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
         <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
                 <li class="wide">
-                    <label for="billing:street<?php echo $_i ?>"><?php echo $this->__('Street Address %s', $_i) ?></label>
+                    <label for="billing:street<?= $_i ?>"><?= $this->__('Street Address %s', $_i) ?></label>
                     <div class="input-box">
-                        <input type="text" title="<?php echo $this->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="billing[street][]" id="billing:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        <input type="text" title="<?= $this->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="billing[street][]" id="billing:street<?= $_i ?>" value="<?= $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?= $_streetValidationClass ?>" />
                     </div>
                 </li>
         <?php endfor ?>
                 <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
                 <li class="wide">
-                    <label for="billing:vat_id"><?php echo $this->__('VAT Number') ?></label>
+                    <label for="billing:vat_id"><?= $this->__('VAT Number') ?></label>
                     <div class="input-box">
-                        <input type="text" id="billing:vat_id" name="billing[vat_id]" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?php echo $this->quoteEscape($this->__('VAT Number')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
+                        <input type="text" id="billing:vat_id" name="billing[vat_id]" value="<?= $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?= $this->quoteEscape($this->__('VAT Number')) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
                     </div>
                 </li>
                 <?php endif ?>
                 <li class="fields">
                     <div class="field">
-                        <label for="billing:city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
+                        <label for="billing:city" class="required"><em>*</em><?= $this->__('City') ?></label>
                         <div class="input-box">
-                            <input type="text" title="<?php echo $this->quoteEscape($this->__('City')) ?>" name="billing[city]" value="<?php echo $this->escapeHtml($this->getAddress()->getCity()) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="billing:city" />
+                            <input type="text" title="<?= $this->quoteEscape($this->__('City')) ?>" name="billing[city]" value="<?= $this->escapeHtml($this->getAddress()->getCity()) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="billing:city" />
                         </div>
                     </div>
                     <div class="field">
-                        <label for="billing:region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+                        <label for="billing:region_id" class="required"><em>*</em><?= $this->__('State/Province') ?></label>
                         <div class="input-box">
-                            <select id="billing:region_id" name="billing[region_id]" title="<?php echo $this->quoteEscape($this->__('State/Province')) ?>" class="validate-select" style="display:none;">
-                                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                            <select id="billing:region_id" name="billing[region_id]" title="<?= $this->quoteEscape($this->__('State/Province')) ?>" class="validate-select" style="display:none;">
+                                <option value=""><?= $this->__('Please select region, state or province') ?></option>
                             </select>
                             <script type="text/javascript">
                             //<![CDATA[
-                                $('billing:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                                $('billing:region_id').setAttribute('defaultValue',  "<?= $this->getAddress()->getRegionId() ?>");
                             //]]>
                             </script>
-                            <input type="text" id="billing:region" name="billing[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->quoteEscape($this->__('State/Province')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                            <input type="text" id="billing:region" name="billing[region]" value="<?= $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?= $this->quoteEscape($this->__('State/Province')) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
                         </div>
                     </div>
                 </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="billing:postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                        <label for="billing:postcode" class="required"><em>*</em><?= $this->__('Zip/Postal Code') ?></label>
                         <div class="input-box">
-                            <input type="text" title="<?php echo $this->quoteEscape($this->__('Zip/Postal Code')) ?>" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                            <input type="text" title="<?= $this->quoteEscape($this->__('Zip/Postal Code')) ?>" name="billing[postcode]" id="billing:postcode" value="<?= $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?= $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
                         </div>
                     </div>
                     <div class="field">
-                        <label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+                        <label for="billing:country_id" class="required"><em>*</em><?= $this->__('Country') ?></label>
                         <div class="input-box">
-                            <?php echo $this->getCountryHtmlSelect('billing') ?>
+                            <?= $this->getCountryHtmlSelect('billing') ?>
                         </div>
                     </div>
                 </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="billing:telephone" class="required"><em>*</em><?php echo $this->__('Telephone') ?></label>
+                        <label for="billing:telephone" class="required"><em>*</em><?= $this->__('Telephone') ?></label>
                         <div class="input-box">
-                            <input type="tel" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->quoteEscape($this->__('Telephone')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="billing:telephone" />
+                            <input type="tel" name="billing[telephone]" value="<?= $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?= $this->quoteEscape($this->__('Telephone')) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="billing:telephone" />
                         </div>
                     </div>
                     <div class="field">
-                        <label for="billing:fax"><?php echo $this->__('Fax') ?></label>
+                        <label for="billing:fax"><?= $this->__('Fax') ?></label>
                         <div class="input-box">
-                            <input type="tel" name="billing[fax]" value="<?php echo $this->escapeHtml($this->getAddress()->getFax()) ?>" title="<?php echo $this->quoteEscape($this->__('Fax')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('fax') ?>" id="billing:fax" />
+                            <input type="tel" name="billing[fax]" value="<?= $this->escapeHtml($this->getAddress()->getFax()) ?>" title="<?= $this->quoteEscape($this->__('Fax')) ?>" class="input-text <?= $this->helper('customer/address')->getAttributeValidationClass('fax') ?>" id="billing:fax" />
                         </div>
                     </div>
                 </li>
@@ -130,63 +130,63 @@
                 <li class="fields">
                 <?php if ($_dob->isEnabled()): ?>
                     <div class="field">
-                        <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                        <?= $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
                     </div>
                 <?php endif ?>
                 <?php if ($_gender->isEnabled()): ?>
                     <div class="field">
-                        <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                        <?= $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
                     </div>
                 <?php endif ?>
                 </li>
             <?php endif ?>
 
             <?php if ($this->isTaxvatEnabled()):?>
-                <li><?php echo $this->getTaxvatHtml() ?></li>
+                <li><?= $this->getTaxvatHtml() ?></li>
             <?php endif ?>
 
                 <li class="fields" id="register-customer-password">
                     <div class="field">
-                        <label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                        <label for="billing:customer_password" class="required"><em>*</em><?= $this->__('Password') ?></label>
                         <div class="input-box">
                             <?php $minPasswordLength = $this->getQuote()->getCustomer()->getMinPasswordLength(); ?>
                             <input type="password"
                                    name="billing[customer_password]"
                                    id="billing:customer_password"
-                                   title="<?php echo $this->quoteEscape($this->__('Password')) ?>"
-                                   class="input-text required-entry validate-password min-pass-length-<?php echo $minPasswordLength ?>"
+                                   title="<?= $this->quoteEscape($this->__('Password')) ?>"
+                                   class="input-text required-entry validate-password min-pass-length-<?= $minPasswordLength ?>"
                                    autocomplete="new-password" />
                             <p class="form-instructions">
-                                <?php echo Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength) ?>
+                                <?= Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength) ?>
                             </p>
                         </div>
                     </div>
                     <div class="field">
-                        <label for="billing:confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+                        <label for="billing:confirm_password" class="required"><em>*</em><?= $this->__('Confirm Password') ?></label>
                         <div class="input-box">
-                            <input type="password" name="billing[confirm_password]" title="<?php echo $this->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" autocomplete="new-password" />
+                            <input type="password" name="billing[confirm_password]" title="<?= $this->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" autocomplete="new-password" />
                         </div>
                     </div>
                 </li>
-                <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                <?= $this->getChildHtml('persistent.remember.me') ?>
                 <?php endif ?>
                 <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                     <li class="control">
-                        <input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo $this->quoteEscape($this->__('Save in address book')) ?>" id="billing:save_in_address_book" onchange="if(window.shipping) shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif ?> class="checkbox" /><label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label>
+                        <input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?= $this->quoteEscape($this->__('Save in address book')) ?>" id="billing:save_in_address_book" onchange="if(window.shipping) shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif ?> class="checkbox" /><label for="billing:save_in_address_book"><?= $this->__('Save in address book') ?></label>
                     </li>
                 <?php else: ?>
                     <li class="no-display"><input type="hidden" name="billing[save_in_address_book]" value="1" /></li>
                 <?php endif ?>
-                <?php echo $this->getChildHtml('form.additional.info'); ?>
+                <?= $this->getChildHtml('form.additional.info') ?>
             </ul>
-            <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+            <?= $this->getChildHtml('persistent.remember.me.tooltip') ?>
         </div>
      </li>
     <?php if ($this->canShip()): ?>
         <li class="control">
-            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to this address')) ?>" onclick="$('shipping:same_as_billing').checked = true;" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label></li>
+            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?= $this->quoteEscape($this->__('Ship to this address')) ?>" onclick="$('shipping:same_as_billing').checked = true;" class="radio" /><label for="billing:use_for_shipping_yes"><?=  $this->__('Ship to this address') ?></label></li>
         <li class="control">
-            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?php echo $this->quoteEscape($this->__('Ship to different address')) ?>" onclick="$('shipping:same_as_billing').checked = false;" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) {?> checked="checked"<?php }?> title="<?= $this->quoteEscape($this->__('Ship to different address')) ?>" onclick="$('shipping:same_as_billing').checked = false;" class="radio" /><label for="billing:use_for_shipping_no"><?= $this->__('Ship to different address') ?></label>
         </li>
     <?php endif ?>
     </ul>
@@ -194,23 +194,23 @@
         <input type="hidden" name="billing[use_for_shipping]" value="1" />
     <?php endif ?>
     <div class="buttons-set" id="billing-buttons-container">
-        <button type="button" title="<?php echo $this->quoteEscape($this->__('Continue')) ?>" class="button" onclick="billing.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <button type="button" title="<?= $this->quoteEscape($this->__('Continue')) ?>" class="button" onclick="billing.save()"><span><span><?= $this->__('Continue') ?></span></span></button>
         <span class="please-wait" id="billing-please-wait" style="display:none;">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo $this->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
+            <img src="<?= $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?= $this->quoteEscape($this->__('Loading next step...')) ?>" title="<?= $this->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?= $this->__('Loading next step...') ?>
         </span>
     </div>
-    <?php echo $this->getBlockHtml('formkey') ?>
+    <?= $this->getBlockHtml('formkey') ?>
 </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
-    var billing = new Billing('co-billing-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveBilling') ?>');
+    var billing = new Billing('co-billing-form', '<?= $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?= $this->getUrl('checkout/onepage/saveBilling') ?>');
     var billingForm = new VarienForm('co-billing-form');
 
-    //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->jsQuoteEscape($this->__('Select State/Province...')) ?>');
+    //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?= $this->getUrl('directory/json/childRegion') ?>', '<?= $this->jsQuoteEscape($this->__('Select State/Province...')) ?>');
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'billing:postcode');
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?= Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'billing:postcode');
     if ($('onepage-guest-register-button')) {
         Event.observe($('onepage-guest-register-button'), 'click', function(event) {
             var billingRememberMe = $('co-billing-form').select('#remember-me-box');

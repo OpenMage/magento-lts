@@ -99,13 +99,13 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
                 'carriers_ups_mode_xml'];
             this.onlyUpsElements = ['carriers_ups_gateway_url'];
 
-            this.storedOriginShipment = '<?php echo $storedOriginShipment ?>';
-            this.storedFreeShipment = '<?php echo $storedFreeShipment ?>';
-            this.storedUpsType = '<?php echo $storedUpsType ?>';
+            this.storedOriginShipment = '<?= $storedOriginShipment ?>';
+            this.storedFreeShipment = '<?= $storedFreeShipment ?>';
+            this.storedUpsType = '<?= $storedUpsType ?>';
             <?php /** @var $_coreHelper Mage_Core_Helper_Data */ $_coreHelper = Mage::helper('core'); ?>
-            this.storedAllowedMethods = <?php echo $_coreHelper->jsonEncode($storedAllowedMethods) ?>;
-            this.originShipmentObj = <?php echo $_coreHelper->jsonEncode($orShipArr) ?>;
-            this.originShipmentObj['default'] = <?php echo $_coreHelper->jsonEncode($defShipArr) ?>;
+            this.storedAllowedMethods = <?= $_coreHelper->jsonEncode($storedAllowedMethods) ?>;
+            this.originShipmentObj = <?= $_coreHelper->jsonEncode($orShipArr) ?>;
+            this.originShipmentObj['default'] = <?= $_coreHelper->jsonEncode($defShipArr) ?>;
 
             this.setFormValues();
             Event.observe($(this.carriersUpsTypeId), 'change', this.setFormValues.bind(this));

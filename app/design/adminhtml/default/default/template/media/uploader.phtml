@@ -18,27 +18,27 @@
  * @var $this Mage_Uploader_Block_Multiple|Mage_Uploader_Block_Single
  */
 ?>
-<div id="<?php echo $this->getHtmlId() ?>" class="uploader">
+<div id="<?= $this->getHtmlId() ?>" class="uploader">
     <div class="buttons a-right">
-        <?php echo $this->getBrowseButtonHtml(); ?>
-        <?php echo $this->getUploadButtonHtml(); ?>
+        <?= $this->getBrowseButtonHtml() ?>
+        <?= $this->getUploadButtonHtml() ?>
     </div>
 </div>
-<div class="no-display" id="<?php echo $this->getElementId('template') ?>">
+<div class="no-display" id="<?= $this->getElementId('template') ?>">
     <div id="{{id}}-container" class="file-row">
         <span class="file-info">{{name}} {{size}}</span>
-        <span class="delete-button"><?php echo $this->getDeleteButtonHtml() ?></span>
+        <span class="delete-button"><?= $this->getDeleteButtonHtml() ?></span>
         <span class="progress-text"></span>
         <div class="clear"></div>
     </div>
 </div>
 <script type="text/javascript">
     (function() {
-        var uploader = new Uploader(<?php echo $this->getJsonConfig(); ?>);
+        var uploader = new Uploader(<?= $this->getJsonConfig() ?>);
 
         if (varienGlobalEvents) {
             varienGlobalEvents.attachEventHandler('tabChangeBefore', uploader.onContainerHideBefore);
         }
     })();
 </script>
-<?php echo $this->getChildHtml('additional_scripts'); ?>
+<?= $this->getChildHtml('additional_scripts') ?>

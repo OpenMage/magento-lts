@@ -25,24 +25,24 @@
     <div class="login-box">
         <div class="login-form auth-confirm">
             <div class="page-title">
-                <h1><?php echo $this->__('Authorize application') ?></h1>
+                <h1><?= $this->__('Authorize application') ?></h1>
             </div>
-            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <?= $this->getMessagesBlock()->toHtml() ?>
 
             <?php if (!$this->getHasException()) : ?>
-                <h2><?php echo $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())); ?></h2>
-                <p><?php echo $this->__('After authorization application will have access to you account.'); ?></p>
-                <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
-                    <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
-                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Authorize')) ?>"><span><span><?php echo $this->__('Authorize') ?></span></span></button>
+                <h2><?= $this->__('<strong>%s</strong> requests access to your account', $this->escapeHtml($this->getConsumer()->getName())) ?></h2>
+                <p><?= $this->__('After authorization application will have access to you account.') ?></p>
+                <form id="oauth_authorize_confirm" action="<?= $this->getConfirmUrl() ?>" method="get">
+                    <input type="hidden" name="oauth_token" value="<?= $this->escapeHtml($this->getToken()) ?>">
+                    <button type="submit" class="button" title="<?= $this->quoteEscape($this->__('Authorize')) ?>"><span><span><?= $this->__('Authorize') ?></span></span></button>
                 </form>
-                <form id="oauth_authorize_reject" action="<?php echo $this->getRejectUrl() ?>" method="get">
-                    <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
-                    <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><span><span><?php echo $this->__('Reject') ?></span></span></button>
+                <form id="oauth_authorize_reject" action="<?= $this->getRejectUrl() ?>" method="get">
+                    <input type="hidden" name="oauth_token" value="<?= $this->escapeHtml($this->getToken()) ?>">
+                    <button type="submit" class="button" title="<?= $this->quoteEscape($this->__('Reject')) ?>"><span><span><?= $this->__('Reject') ?></span></span></button>
                 </form>
             <?php endif ?>
         </div>
-        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
+        <p class="legal"><?= $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
         <div class="bottom"></div>
     </div>
 </div>

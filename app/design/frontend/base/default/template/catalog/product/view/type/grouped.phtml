@@ -26,24 +26,24 @@
 <?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable() && $_hasAssociatedProducts): ?>
-        <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
+        <p class="availability in-stock"><?= $this->__('Availability:') ?> <span><?= $this->__('In stock') ?></span></p>
     <?php else: ?>
-        <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
+        <p class="availability out-of-stock"><?= $this->__('Availability:') ?> <span><?= $this->__('Out of stock') ?></span></p>
     <?php endif ?>
 <?php endif ?>
-<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?= $this->getChildHtml('product_type_data_extra') ?>
 <table class="data-table grouped-items-table" id="super-product-table">
     <col />
     <col />
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?= $this->__('Product Name') ?></th>
             <?php if ($this->getCanShowProductPrice($_product)): ?>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-right"><?= $this->__('Price') ?></th>
             <?php endif ?>
             <?php if ($_product->isSaleable()): ?>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-center"><?= $this->__('Qty') ?></th>
             <?php endif ?>
         </tr>
     </thead>
@@ -52,21 +52,21 @@
     <?php foreach ($_associatedProducts as $_item): ?>
         <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
         <tr>
-            <td><?php echo $this->escapeHtml($_item->getName()) ?></td>
+            <td><?= $this->escapeHtml($_item->getName()) ?></td>
             <?php if ($this->getCanShowProductPrice($_product)): ?>
             <td class="a-right">
                 <?php if ($this->getCanShowProductPrice($_item)): ?>
-                <?php echo $this->getPriceHtml($_item, true) ?>
-                <?php echo $this->getTierPriceHtml($_item) ?>
+                <?= $this->getPriceHtml($_item, true) ?>
+                <?= $this->getTierPriceHtml($_item) ?>
                 <?php endif ?>
             </td>
             <?php endif ?>
             <?php if ($_product->isSaleable()): ?>
             <td class="a-center">
             <?php if ($_item->isSaleable()) : ?>
-                <input type="text" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+                <input type="text" name="super_group[<?= $_item->getId() ?>]" maxlength="12" value="<?= $_item->getQty()*1 ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
             <?php else: ?>
-                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
             <?php endif ?>
             </td>
             <?php endif ?>
@@ -74,7 +74,7 @@
     <?php endforeach ?>
     <?php else: ?>
        <tr>
-           <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+           <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?= $this->__('No options of this product are available.') ?></td>
        </tr>
     <?php endif ?>
     </tbody>

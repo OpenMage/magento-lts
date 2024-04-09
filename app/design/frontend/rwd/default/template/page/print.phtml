@@ -19,23 +19,23 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js">
+<html lang="<?= $this->getLang() ?>" id="top" class="no-js">
 <head>
-<?php echo $this->getChildHtml('head') ?>
+<?= $this->getChildHtml('head') ?>
 </head>
-<body class="page-print <?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<body class="page-print <?= $this->getBodyClass()?$this->getBodyClass():'' ?>">
 <div>
     <div class="print-head">
-        <img src="<?php echo $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getChild('header')->getLogoSrc() ?>" class="logo" alt="" />
+        <img src="<?= $this->getPrintLogoUrl() ? $this->getPrintLogoUrl() : $this->getChild('header')->getLogoSrc() ?>" class="logo" alt="" />
         <?php if ($this->getPrintLogoText()):?>
-            <address><?php echo nl2br($this->escapeHtml($this->getPrintLogoText())) ?></address>
+            <address><?= nl2br($this->escapeHtml($this->getPrintLogoText())) ?></address>
         <?php endif ?>
     </div>
-    <?php echo $this->getChildHtml('content') ?>
+    <?= $this->getChildHtml('content') ?>
     <div class="buttons-set">
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+        <button type="button" title="<?= Mage::helper('core')->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?= $this->__('Close Window') ?></span></span></button>
     </div>
-    <?php echo $this->getAbsoluteFooter() ?>
+    <?= $this->getAbsoluteFooter() ?>
 </div>
 </body>
 </html>

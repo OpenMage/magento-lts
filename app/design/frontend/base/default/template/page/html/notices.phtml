@@ -23,8 +23,8 @@
         <div class="global-site-notice noscript">
             <div class="notice-inner">
                 <p>
-                    <strong><?php echo $this->__('JavaScript seems to be disabled in your browser.'); ?></strong><br />
-                    <?php echo $this->__('You must have JavaScript enabled in your browser to utilize the functionality of this website.'); ?>
+                    <strong><?= $this->__('JavaScript seems to be disabled in your browser.') ?></strong><br />
+                    <?= $this->__('You must have JavaScript enabled in your browser to utilize the functionality of this website.') ?>
                 </p>
             </div>
         </div>
@@ -32,6 +32,6 @@
 <?php endif ?>
 <?php if ($this->displayDemoNotice()): ?>
     <div class="global-site-notice demo-notice">
-        <div class="notice-inner"><p><?php echo $this->__('This is a demo store. Any orders placed through this store will not be honored or fulfilled.') ?></p></div>
+        <div class="notice-inner"><p><?= $this->__('This is a demo store. Any orders placed through this store will not be honored or fulfilled.') ?></p></div>
     </div>
 <?php endif ?>

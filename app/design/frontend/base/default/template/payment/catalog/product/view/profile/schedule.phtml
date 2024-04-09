@@ -20,7 +20,7 @@
 ?>
 <dl>
 <?php foreach($this->getScheduleInfo() as $term => $definitions): ?>
-    <dt><?php echo $this->escapeHtml($term); ?></dt>
+    <dt><?= $this->escapeHtml($term) ?></dt>
 <?php foreach ($definitions as $definition):?>
     <dd><?php echo $this->escapeHtml($definition)?></dd>
 <?php endforeach ?>

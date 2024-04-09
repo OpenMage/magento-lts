@@ -20,7 +20,7 @@
     <form action="" method="post" id="product_composite_configure_form" enctype="multipart/form-data" onsubmit="productConfigure.onConfirmBtn(); return false;" target="product_composite_configure_iframe">
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head fieldset-legend"><?php echo Mage::helper('catalog')->__('Configure Product') ?></h4>
+                <h4 class="icon-head fieldset-legend"><?= Mage::helper('catalog')->__('Configure Product') ?></h4>
             </div>
             <div id="product_composite_configure_messages" style="display: none;" >
                 <ul class="messages"><li class="error-msg"></li></ul>
@@ -29,12 +29,12 @@
             <div id="product_composite_configure_form_additional" style="display:none;"></div>
             <div id="product_composite_configure_form_confirmed" style="display:none;"></div>
             <div class="buttons-set a-right">
-                <button type="button" class="scalable" onclick="productConfigure.onCancelBtn()" id="product_composite_configure_form_cancel"><span><span><span><?php echo Mage::helper('catalog')->__('Cancel') ?></span></span></span></button>
-                <button type="submit" class="scalable"><span><span><span><?php echo Mage::helper('catalog')->__('OK') ?></span></span></span></button>
+                <button type="button" class="scalable" onclick="productConfigure.onCancelBtn()" id="product_composite_configure_form_cancel"><span><span><span><?= Mage::helper('catalog')->__('Cancel') ?></span></span></span></button>
+                <button type="submit" class="scalable"><span><span><span><?= Mage::helper('catalog')->__('OK') ?></span></span></span></button>
             </div>
         </div>
         <input type="hidden" name="as_js_varname" value="iFrameResponse" />
-        <input type="hidden" name="form_key" value="<?php echo $this->getFormKey() ?>" />
+        <input type="hidden" name="form_key" value="<?= $this->getFormKey() ?>" />
     </form>
     <div id="product_composite_configure_confirmed" style="display:none;"></div>
 

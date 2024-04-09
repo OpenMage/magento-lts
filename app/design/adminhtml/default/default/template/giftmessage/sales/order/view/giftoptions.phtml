@@ -20,13 +20,13 @@
 <tr class="border">
     <td>
         <div class="action-link-holder">
-            <strong><a class="action-link" href="#" id="gift_options_link_<?php echo $_item->getId() ?>"><?php echo Mage::helper('sales')->__('Gift Options') ?></a></strong>
+            <strong><a class="action-link" href="#" id="gift_options_link_<?= $_item->getId() ?>"><?= Mage::helper('sales')->__('Gift Options') ?></a></strong>
         </div>
         <script type="text/javascript">
-            giftOptionsTooltip.addTargetLink('gift_options_link_<?php echo $_item->getId() ?>', <?php echo $_item->getId() ?>);
+            giftOptionsTooltip.addTargetLink('gift_options_link_<?= $_item->getId() ?>', <?= $_item->getId() ?>);
         </script>
-        <div id="gift_options_data_<?php echo $_item->getId() ?>">
-            <?php echo $_childHtml ?>
+        <div id="gift_options_data_<?= $_item->getId() ?>">
+            <?= $_childHtml ?>
         </div>
     </td>
     <td></td>

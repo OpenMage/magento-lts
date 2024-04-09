@@ -22,7 +22,7 @@
     $name = $myBlock->getJsObjectName();
 ?>
     <?php if (is_object($myBlock) && $name && !$myBlock->isHidden()): ?>
-    var checkBoxes = $H(<?php echo $myBlock->getUsers(true) ?>);
+    var checkBoxes = $H(<?= $myBlock->getUsers(true) ?>);
     var warning = false;
     if (checkBoxes.size() > 0) {
         warning = true;
@@ -50,7 +50,7 @@
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (checked) {
                     checkbox[0].checked = true;
-                    if ( confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
+                    if ( confirm("<?= Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
                         checkBoxes.set(checkbox[0].value, checked);
                         varienElementMethods.setHasChanges(checkbox[0]);
                     } else {
@@ -85,7 +85,7 @@
     function myhandler(o)
     {
         if (checkBoxes.size() > 0) {
-            if (!confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?')) ?>") ) {
+            if (!confirm("<?= Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?')) ?>") ) {
                 o.checked = !o.checked;
             } else {
                 checkBoxes.each(function(el){
@@ -100,11 +100,11 @@
         //grid.reloadParams = {'in_role_user[]':checkBoxes.keys()};
     }
 
-        <?php echo $name ?>.rowClickCallback = roleUsersRowClick;
-        <?php echo $name ?>.initRowCallback = roleUsersRowInit;
-        <?php echo $name ?>.checkboxCheckCallback = registerUserRole;
-        <?php echo $name ?>.checkCheckboxes = myhandler;
-        <?php echo $name ?>.rows.each(function(row){roleUsersRowInit(<?php echo $name ?>, row)});
+        <?= $name ?>.rowClickCallback = roleUsersRowClick;
+        <?= $name ?>.initRowCallback = roleUsersRowInit;
+        <?= $name ?>.checkboxCheckCallback = registerUserRole;
+        <?= $name ?>.checkCheckboxes = myhandler;
+        <?= $name ?>.rows.each(function(row){roleUsersRowInit(<?= $name ?>, row)});
     $('in_role_users_old').value = $('in_role_users').value;
         <?php endif ?>
 //]]>

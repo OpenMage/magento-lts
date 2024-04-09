@@ -14,12 +14,12 @@
  */
 ?>
 <?php if($this->getResultCount()): ?>
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title">
     <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
-        <a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?php echo $this->__('Subscribe to Feed') ?></a>
+        <a href="<?= $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?= $this->__('Subscribe to Feed') ?></a>
     <?php endif ?>
-    <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+    <h1><?= ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
 </div>
     <?php if ($messages = $this->getNoteMessages()):?>
     <p class="note-msg">
@@ -28,13 +28,13 @@
         <?php endforeach ?>
     </p>
     <?php endif ?>
-    <?php echo $this->getProductListHtml() ?>
+    <?= $this->getProductListHtml() ?>
 <?php else: ?>
 <div class="page-title">
-    <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
+    <h1><?= ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
 </div>
 <p class="note-msg">
-    <?php echo ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
+    <?= ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
     <?php if ($messages = $this->getNoteMessages()):?>
         <?php foreach ($messages as $message):?>
         <br /><?php echo $message?>

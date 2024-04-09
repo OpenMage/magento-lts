@@ -21,7 +21,7 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('adminhtml')->__('Select Category') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= Mage::helper('adminhtml')->__('Select Category') ?></h4>
     </div>
     <fieldset>
         <input type="hidden" name="categories" id="product_categories" value="" />
@@ -72,7 +72,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 Ext.onReady(function()
 {
     categoryLoader = new Ext.tree.TreeLoader({
-       dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
+       dataUrl: '<?= $this->getLoadTreeUrl() ?>'
     });
 
     /**

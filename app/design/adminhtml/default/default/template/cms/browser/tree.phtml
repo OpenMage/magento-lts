@@ -22,9 +22,9 @@
 ?>
 <div class="categories-side-col">
     <div class="tree-actions">
-        <a href="#" id="tree_action_collapse"><?php echo $this->helper('cms')->__('Collapse All'); ?></a>
+        <a href="#" id="tree_action_collapse"><?= $this->helper('cms')->__('Collapse All') ?></a>
         <span class="separator">|</span>
-        <a href="#" id="tree_action_expand"><?php echo $this->helper('cms')->__('Expand All'); ?></a>
+        <a href="#" id="tree_action_expand"><?= $this->helper('cms')->__('Expand All') ?></a>
     </div>
 </div>
 
@@ -36,7 +36,7 @@ Ext.onReady(function(){
     var tree = new Tree.TreePanel('tree', {
         animate:true,
         loader: new Tree.TreeLoader({
-            dataUrl:'<?php echo $this->getTreeLoaderUrl() ?>'
+            dataUrl:'<?= $this->getTreeLoaderUrl() ?>'
         }),
         enableDD:false,
         containerScroll: true
@@ -44,7 +44,7 @@ Ext.onReady(function(){
 
     // set the root node
     var root = new Tree.AsyncTreeNode({
-        text: '<?php echo Mage::helper('core')->jsQuoteEscape($this->getRootNodeName()) ?>',
+        text: '<?= Mage::helper('core')->jsQuoteEscape($this->getRootNodeName()) ?>',
         draggable:false,
         id:'root'
     });
@@ -64,7 +64,7 @@ Ext.onReady(function(){
 
     MediabrowserInstance.setTree(tree);
     tree.addListener('click', MediabrowserInstance.selectFolder.bind(MediabrowserInstance));
-    tree.expandPath('<?php echo $this->getTreeCurrentPath() ?>','', function(success, node) {
+    tree.expandPath('<?= $this->getTreeCurrentPath() ?>','', function(success, node) {
         MediabrowserInstance.selectFolder(node);
     });
 });

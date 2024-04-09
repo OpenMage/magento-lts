@@ -26,6 +26,6 @@ $_product = $this->getProduct();
 <div class="price-box map-info">
 
     <?php if ($this->helper('catalog')->canApplyMsrp($_product)): ?>
-        <a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Click for price'); ?></a>
+        <a href="<?= $_product->getProductUrl() ?>"><?= $this->__('Click for price') ?></a>
     <?php endif ?>
 </div>

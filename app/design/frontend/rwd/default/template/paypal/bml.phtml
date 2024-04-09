@@ -19,7 +19,7 @@
  */
 ?>
 <div class="bml-ad large">
-<script type="text/javascript" data-pp-pubid="<?php echo $this->escapeHtml($this->getPublisherId()) ?>" data-pp-placementtype="<?php echo $this->escapeHtml($this->getSize()) ?>"> (function (d, t) {
+<script type="text/javascript" data-pp-pubid="<?= $this->escapeHtml($this->getPublisherId()) ?>" data-pp-placementtype="<?= $this->escapeHtml($this->getSize()) ?>"> (function (d, t) {
     "use strict";
     var s = d.getElementsByTagName(t)[0], n = d.createElement(t);
     n.src = "//paypal.adtag.where.com/merchant.js";
@@ -28,7 +28,7 @@
 </script>
 </div>
 <div class="bml-ad small">
-    <script type="text/javascript" data-pp-pubid="<?php echo $this->escapeHtml($this->getPublisherId()) ?>" data-pp-placementtype="300x50"> (function (d, t) {
+    <script type="text/javascript" data-pp-pubid="<?= $this->escapeHtml($this->getPublisherId()) ?>" data-pp-placementtype="300x50"> (function (d, t) {
             "use strict";
             var s = d.getElementsByTagName(t)[0], n = d.createElement(t);
             n.src = "//paypal.adtag.where.com/merchant.js";

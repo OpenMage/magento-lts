@@ -22,13 +22,13 @@
 <div class="breadcrumbs">
     <ul>
         <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
-            <li class="<?php echo $_crumbName ?>">
+            <li class="<?= $_crumbName ?>">
             <?php if($_crumbInfo['link']): ?>
-                <a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->escapeHtml($_crumbInfo['title']) ?>"><?php echo $this->escapeHtml($_crumbInfo['label']) ?></a>
+                <a href="<?= $_crumbInfo['link'] ?>" title="<?= $this->escapeHtml($_crumbInfo['title']) ?>"><?= $this->escapeHtml($_crumbInfo['label']) ?></a>
             <?php elseif($_crumbInfo['last']): ?>
-                <strong><?php echo $this->escapeHtml($_crumbInfo['label']) ?></strong>
+                <strong><?= $this->escapeHtml($_crumbInfo['label']) ?></strong>
             <?php else: ?>
-                <?php echo $this->escapeHtml($_crumbInfo['label']) ?>
+                <?= $this->escapeHtml($_crumbInfo['label']) ?>
             <?php endif ?>
             <?php if(!$_crumbInfo['last']): ?>
                 <span>/ </span>

@@ -19,15 +19,15 @@
 ?>
 <?php if($this->isMsgVisible()): ?>
     <p class="availability-only">
-        <a href="#" id="<?php echo $this->getPlaceholderId() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Only %s left', ($this->getStockQty()))) ?>"><?php echo $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></a>
+        <a href="#" id="<?= $this->getPlaceholderId() ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Only %s left', ($this->getStockQty()))) ?>"><?= $this->__('Only %s left', "<strong>{$this->getStockQty()}</strong>") ?></a>
     </p>
-    <table id="<?php echo $this->getDetailsPlaceholderId() ?>" class="availability-only-details no-display data-table">
+    <table id="<?= $this->getDetailsPlaceholderId() ?>" class="availability-only-details no-display data-table">
         <col />
         <col width="1" />
         <thead>
             <tr>
-                <th><?php echo $this->__('Product Name') ?></th>
-                <th class="a-center"><?php echo $this->__('Qty') ?></th>
+                <th><?= $this->__('Product Name') ?></th>
+                <th class="a-center"><?= $this->__('Qty') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -35,8 +35,8 @@
             <?php $childProductStockQty = $this->getProductStockQty($childProduct); ?>
             <?php if ($childProductStockQty > 0) : ?>
                 <tr>
-                    <td><?php echo $childProduct->getName() ?></td>
-                    <td class="a-center"><?php echo $childProductStockQty ?></td>
+                    <td><?= $childProduct->getName() ?></td>
+                    <td class="a-center"><?= $childProductStockQty ?></td>
                 </tr>
             <?php endif ?>
         <?php endforeach ?>
@@ -44,11 +44,11 @@
     </table>
     <script type="text/javascript">
     //<![CDATA[
-    $('<?php echo $this->getPlaceholderId() ?>').observe('click', function(event){
+    $('<?= $this->getPlaceholderId() ?>').observe('click', function(event){
         this.toggleClassName('expanded');
-        $('<?php echo $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
+        $('<?= $this->getDetailsPlaceholderId() ?>').toggleClassName('no-display');
         event.stop();
-        decorateTable('<?php echo $this->getDetailsPlaceholderId() ?>');
+        decorateTable('<?= $this->getDetailsPlaceholderId() ?>');
     });
     //]]>
     </script>

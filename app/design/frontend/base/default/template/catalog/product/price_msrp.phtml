@@ -30,27 +30,27 @@
     <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getMsrp()) ?>
         <?php if ($_product->getMsrp()): ?>
             <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
-            <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
+            <span class="old-price" id="product-price-<?= $_product->getId() ?><?= $this->getIdSuffix() ?>"><?= $_msrpPrice ?></span>
         <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
-        <a href="#" class="map-link" id="<?php echo($helpLinkId);?>"><?php echo $this->__('Click for price') ?></a>
+        <a href="#" class="map-link" id="<?php echo($helpLinkId);?>"><?= $this->__('Click for price') ?></a>
         <script type="text/javascript">
             <?php if ($this->helper('catalog')->isShowPriceOnGesture($_product)): ?>
                 var newLink = Catalog.Map.addHelpLink(
-                        $('<?php echo $helpLinkId ?>'),
-                        "<?php echo $this->escapeHtml($_product->getName()) ?>",
-                        <?php echo $this->getRealPriceJs($_product) ?>,
-                        '<?php echo $_msrpPrice ?>',
-                        "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
+                        $('<?= $helpLinkId ?>'),
+                        "<?= $this->escapeHtml($_product->getName()) ?>",
+                        <?= $this->getRealPriceJs($_product) ?>,
+                        '<?= $_msrpPrice ?>',
+                        "<?= $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, [], false) : '' ?>"
                 );
-                newLink.product_id = '<?php echo $_product->getId() ?>';
+                newLink.product_id = '<?= $_product->getId() ?>';
             <?php else: ?>
                 Catalog.Map.addHelpLink(
-                        $('<?php echo $helpLinkId ?>'),
-                        "<?php echo $this->escapeHtml($_product->getName()) ?>",
+                        $('<?= $helpLinkId ?>'),
+                        "<?= $this->escapeHtml($_product->getName()) ?>",
                         null,
                         null,
-                        "<?php echo $_product->getProductUrl() ?>"
+                        "<?= $_product->getProductUrl() ?>"
                 );
             <?php endif ?>
 

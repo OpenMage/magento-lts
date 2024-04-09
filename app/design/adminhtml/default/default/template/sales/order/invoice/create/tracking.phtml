@@ -65,15 +65,15 @@ trackingControl = {
     <col width="80" />
     <thead>
         <tr class="headings">
-            <th><?php echo Mage::helper('sales')->__('Carrier') ?></th>
-            <th><?php echo Mage::helper('sales')->__('Title') ?></th>
-            <th><?php echo Mage::helper('sales')->__('Number') ?></th>
-            <th class="last"><?php echo Mage::helper('sales')->__('Action') ?></th>
+            <th><?= Mage::helper('sales')->__('Carrier') ?></th>
+            <th><?= Mage::helper('sales')->__('Title') ?></th>
+            <th><?= Mage::helper('sales')->__('Number') ?></th>
+            <th class="last"><?= Mage::helper('sales')->__('Action') ?></th>
         </tr>
     </thead>
     <tfoot>
         <tr>
-            <td colspan="4" class="a-center last" style="padding:8px;"><?php echo $this->getChildHtml('add_button') ?></td>
+            <td colspan="4" class="a-center last" style="padding:8px;"><?= $this->getChildHtml('add_button') ?></td>
         </tr>
     </tfoot>
     <tbody id="track_row_container">
@@ -81,13 +81,13 @@ trackingControl = {
             <td>
                 <select name="tracking[__index__][carrier_code]" id="trackingC__index__" class="select carrier" style="width:110px;" disabled="disabled">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
-                    <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
+                    <option value="<?= $_code ?>"><?= $this->escapeHtml($_name) ?></option>
                     <?php endforeach ?>
                 </select>
             </td>
             <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" id="trackingT__index__" value="" disabled="disabled" /></td>
             <td><input class="input-text" type="text" name="tracking[__index__][number]" id="trackingN__index__" value="" disabled="disabled" /></td>
-            <td class="last"><a href="#" onclick="trackingControl.deleteRow(event);return false"><?php echo $this->__('Delete') ?></a></td>
+            <td class="last"><a href="#" onclick="trackingControl.deleteRow(event);return false"><?= $this->__('Delete') ?></a></td>
         </tr>
     </tbody>
 </table>

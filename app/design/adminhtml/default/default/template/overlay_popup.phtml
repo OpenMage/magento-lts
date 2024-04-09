@@ -17,28 +17,28 @@
     <div class="middle" id="anchor-content">
         <div id="page:main-container">
         <?php if($this->getChildHtml('left')): ?>
-            <div class="columns <?php echo $this->getContainerCssClass() ?>" id="page:container">
+            <div class="columns <?= $this->getContainerCssClass() ?>" id="page:container">
                 <div id="page:left" class="side-col">
-                    <?php echo $this->getChildHtml('left') ?>
+                    <?= $this->getChildHtml('left') ?>
                 </div>
                 <div class="main-col" id="content">
                     <div class="main-col-inner">
-                        <div id="messages"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
-                        <?php echo $this->getChildHtml('content') ?>
+                        <div id="messages"><?= $this->getMessagesBlock()->toHtml() ?></div>
+                        <?= $this->getChildHtml('content') ?>
                     </div>
                 </div>
             </div>
       <?php else: ?>
-          <div id="messages"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
-          <?php echo $this->getChildHtml('content') ?>
+          <div id="messages"><?= $this->getMessagesBlock()->toHtml() ?></div>
+          <?= $this->getChildHtml('content') ?>
       <?php endif ?>
          </div>
     </div>
     <?php if($this->getChildHtml('footer')): ?>
     <div class="footer">
-        <?php echo $this->getChildHtml('footer') ?>
+        <?= $this->getChildHtml('footer') ?>
     </div>
     <?php endif ?>
-    <?php echo $this->getChildHtml('js') ?>
-    <?php echo $this->getChildHtml('profiler') ?>
+    <?= $this->getChildHtml('js') ?>
+    <?= $this->getChildHtml('profiler') ?>
 </div>

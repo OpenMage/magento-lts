@@ -16,22 +16,22 @@
 <div class="col2-set">
     <div class="box">
         <div class="box-title">
-            <h3><?php echo $this->__('Address Book') ?></h3>
-            <a href="<?php echo $this->getAddressBookUrl() ?>"><?php echo $this->__('Manage Addresses') ?></a>
+            <h3><?= $this->__('Address Book') ?></h3>
+            <a href="<?= $this->getAddressBookUrl() ?>"><?= $this->__('Manage Addresses') ?></a>
         </div>
         <div class="box-content">
             <div class="col-1">
-                <h4><?php echo $this->__('Default Billing Address') ?></h4>
+                <h4><?= $this->__('Default Billing Address') ?></h4>
                 <address>
-                    <?php echo $this->getPrimaryBillingAddressHtml() ?><br />
-                    <a href="<?php echo $this->getPrimaryBillingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
+                    <?= $this->getPrimaryBillingAddressHtml() ?><br />
+                    <a href="<?= $this->getPrimaryBillingAddressEditUrl() ?>"><?= $this->__('Edit Address') ?></a>
                 </address>
             </div>
             <div class="col-2">
-                <h4><?php echo $this->__('Default Shipping Address') ?></h4>
+                <h4><?= $this->__('Default Shipping Address') ?></h4>
                 <address>
-                    <?php echo $this->getPrimaryShippingAddressHtml() ?><br />
-                    <a href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
+                    <?= $this->getPrimaryShippingAddressHtml() ?><br />
+                    <a href="<?= $this->getPrimaryShippingAddressEditUrl() ?>"><?= $this->__('Edit Address') ?></a>
                 </address>
             </div>
         </div>

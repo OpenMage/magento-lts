@@ -21,11 +21,11 @@
     <li>
         <a href="#"
            onclick="customFormSubmit(
-                   '<?php echo $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false) ?>',
-                   '<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
+                   '<?= $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false) ?>',
+                   '<?= $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
                    'post')"
            class="link-wishlist">
-            <?php echo $this->__('Add to Wishlist') ?>
+            <?= $this->__('Add to Wishlist') ?>
         </a>
     </li>
 <?php endif ?>
@@ -38,10 +38,10 @@
         <a href="#"
            class="link-compare"
            onclick="customFormSubmit(
-                   '<?php echo $_compareUrl ?>',
-                   '<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
+                   '<?= $_compareUrl ?>',
+                   '<?= $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
                    'post')">
-            <?php echo $this->__('Add to Compare') ?>
+            <?= $this->__('Add to Compare') ?>
         </a>
     </li>
 <?php endif ?>

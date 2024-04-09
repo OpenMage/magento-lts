@@ -15,10 +15,10 @@
 ?>
 <?php /* @var $this Mage_Core_Block_Template */ ?>
 <?php if ($websites = $this->getWebsites()): ?>
-<p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
+<p class="switcher"><label for="store_switcher"><?= $this->__('Choose Store View:') ?></label>
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
 <?php if ($this->hasDefaultOption()): ?>
-    <option value=""><?php echo $this->escapeHtml($this->getDefaultStoreName()); ?></option>
+    <option value=""><?= $this->escapeHtml($this->getDefaultStoreName()) ?></option>
 <?php endif ?>
     <?php foreach ($websites as $website): ?>
         <?php $showWebsite = false; ?>
@@ -27,13 +27,13 @@
             <?php foreach ($this->getStores($group) as $store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <optgroup label="<?php echo $this->escapeHtml($website->getName()) ?>"></optgroup>
+                    <optgroup label="<?= $this->escapeHtml($website->getName()) ?>"></optgroup>
                 <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()) ?>">
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?= $this->escapeHtml($group->getName()) ?>">
                 <?php endif ?>
-                <option value="<?php echo $this->escapeHtml($store->getId()) ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()) ?></option>
+                <option value="<?= $this->escapeHtml($store->getId()) ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?= $this->escapeHtml($store->getName()) ?></option>
             <?php endforeach ?>
             <?php if ($showGroup): ?>
                 </optgroup>
@@ -49,15 +49,15 @@
             storeParam += obj.switchParams;
         }
     <?php if ($this->getUseConfirm()): ?>
-        if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')) {
-            setLocation('<?php echo $this->getSwitchUrl() ?>' + storeParam);
+        if (confirm('<?= Mage::helper('core')->jsQuoteEscape($this->__('Please confirm site switching. All data that hasn\'t been saved will be lost.')) ?>')) {
+            setLocation('<?= $this->getSwitchUrl() ?>' + storeParam);
             return true;
         } else {
-            obj.value = '<?php echo $this->getStoreId() ?>';
+            obj.value = '<?= $this->getStoreId() ?>';
         }
         return false;
     <?php else: ?>
-        setLocation('<?php echo $this->getSwitchUrl() ?>' + storeParam);
+        setLocation('<?= $this->getSwitchUrl() ?>' + storeParam);
     <?php endif ?>
     }
 </script>

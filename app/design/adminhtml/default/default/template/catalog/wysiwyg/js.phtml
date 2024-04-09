@@ -25,7 +25,7 @@ var catalogWysiwygEditor = {
             new Ajax.Request(editorUrl, {
                 parameters: {
                     element_id: elementId+'_editor',
-                    store_id: '<?php echo $this->getStoreId() ?>'
+                    store_id: '<?= $this->getStoreId() ?>'
                 },
                 onSuccess: function(transport) {
                     try {

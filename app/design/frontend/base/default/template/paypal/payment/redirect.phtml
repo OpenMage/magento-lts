@@ -19,12 +19,12 @@
  * @see Mage_PayPal_Block_Standard_Form
  */
 ?>
-<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
-    <li class="form-alt"><?php echo $this->getRedirectMessage() ?></li>
+<ul class="form-list" id="payment_form_<?= $this->getMethodCode() ?>" style="display:none;">
+    <li class="form-alt"><?= $this->getRedirectMessage() ?></li>
     <?php if ($code = $this->getCreateBACode()): ?>
         <li class="form-alt">
-            <label for="<?php echo $code ?>"><input type="checkbox" id="<?php echo $code ?>" value="1" name="payment[<?php echo $code ?>]" class="checkbox" />
-            <?php echo $this->__('Sign a billing agreement to streamline further purchases with PayPal.') ?></label>
+            <label for="<?= $code ?>"><input type="checkbox" id="<?= $code ?>" value="1" name="payment[<?= $code ?>]" class="checkbox" />
+            <?= $this->__('Sign a billing agreement to streamline further purchases with PayPal.') ?></label>
         </li>
     <?php endif ?>
 </ul>

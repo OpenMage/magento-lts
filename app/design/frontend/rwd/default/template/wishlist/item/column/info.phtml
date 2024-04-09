@@ -18,14 +18,14 @@ $item = $this->getItem();
 $product = $item->getProduct();
 ?>
 <h3 class="product-name">
-    <a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a>
+    <a href="<?= $this->getProductUrl($item) ?>" title="<?= $this->escapeHtml($product->getName()) ?>"><?= $this->escapeHtml($product->getName()) ?></a>
 </h3>
 
 <div class="wishlist-sku">
-    <span><?php echo $this->__('SKU'); ?> <?php echo $this->escapeHtml($product->getSku()) ?></span>
+    <span><?= $this->__('SKU') ?> <?= $this->escapeHtml($product->getSku()) ?></span>
 </div>
 
-<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Comment')) ?>" placeholder="<?php echo $this->helper('wishlist')->defaultCommentString(); ?>"><?php echo ($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
+<textarea name="description[<?= $item->getWishlistItemId() ?>]" rows="3" cols="5" title="<?= Mage::helper('core')->quoteEscape($this->__('Comment')) ?>" placeholder="<?= $this->helper('wishlist')->defaultCommentString() ?>"><?= ($this->escapeHtml($item->getDescription() ? $item->getDescription() : '')) ?></textarea>
 
 <?php if($this->getSortedChildren()): ?>
     <div class="item-manage">

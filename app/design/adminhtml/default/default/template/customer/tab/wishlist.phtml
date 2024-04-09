@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getGridParentHtml() ?>
+<?= $this->getGridParentHtml() ?>
 <?php if($this->canDisplayContainer()): ?>
 <script type="text/javascript">
 //<!--
@@ -22,13 +22,13 @@ wishlistControl = {
         if (!urlParams) {
             urlParams = '';
         }
-        var url = <?php echo $this->getJsObjectName() ?>.url + '?ajax=true' + urlParams;
+        var url = <?= $this->getJsObjectName() ?>.url + '?ajax=true' + urlParams;
         new Ajax.Updater(
-            <?php echo $this->getJsObjectName() ?>.containerId,
+            <?= $this->getJsObjectName() ?>.containerId,
             url,
             {
                 parameters: {form_key: FORM_KEY},
-                onComplete: <?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
+                onComplete: <?= $this->getJsObjectName() ?>.initGrid.bind(<?= $this->getJsObjectName() ?>),
                 evalScripts:true
             }
         );
@@ -48,7 +48,7 @@ wishlistControl = {
     },
 
     removeItem: function (itemId) {
-        if(!confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
+        if(!confirm('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('customer')->__('Are you sure that you want to remove this item?')) ?>')) {
             return false;
         }
         this.reload('&delete=' + itemId);
@@ -59,8 +59,8 @@ wishlistControl = {
 productConfigure.addListType(
     'wishlist',
     {
-        urlFetch: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
-        urlConfirm: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/update') ?>'
+        urlFetch: '<?= $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
+        urlConfirm: '<?= $this->getUrl('*/customer_wishlist_product_composite_wishlist/update') ?>'
     }
 );
 //-->

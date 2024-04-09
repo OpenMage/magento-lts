@@ -16,13 +16,13 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3 class="icon-head head-system-email-template"><?php echo $this->getHeaderText() ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-system-email-template"><?= $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getChildHtml('add_button') ?>
+                <?= $this->getChildHtml('add_button') ?>
             </td>
         </tr>
     </table>
 </div>
 <div>
-    <?php echo $this->getChildHtml('grid') ?>
+    <?= $this->getChildHtml('grid') ?>
 </div>

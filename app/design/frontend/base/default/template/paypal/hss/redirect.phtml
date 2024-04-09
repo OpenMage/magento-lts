@@ -22,27 +22,27 @@
 <script type="text/javascript">
 //<![CDATA[
 if (window.top == window.self) {
-    window.location = "<?php echo $this->getUrl('checkout/cart') ?>";
+    window.location = "<?= $this->getUrl('checkout/cart') ?>";
 }
 <?php if ($this->getGotoSection()): ?>
     for (var s = 0; s < window.top.checkout.steps.length; s++) {
-        if (window.top.checkout.steps[s] == '<?php echo $this->getGotoSection() ?>') {
+        if (window.top.checkout.steps[s] == '<?= $this->getGotoSection() ?>') {
             break;
         }
         if (window.top.document.getElementById('opc-' + window.top.checkout.steps[s])) {
             window.top.document.getElementById('opc-' + window.top.checkout.steps[s]).addClassName('allow');
         }
     }
-    window.top.checkout.gotoSection("<?php echo $this->getGotoSection() ?>");
+    window.top.checkout.gotoSection("<?= $this->getGotoSection() ?>");
     window.top.document.getElementById('checkout-review-submit').show();
     window.top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>
-        alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->getErrorMsg()) ?>');
+        alert('<?= Mage::helper('core')->jsQuoteEscape($this->getErrorMsg()) ?>');
     <?php endif ?>
 <?php elseif ($this->getGotoSuccessPage()) : ?>
-    window.top.location="<?php echo $this->getUrl('checkout/onepage/success') ?>";
+    window.top.location="<?= $this->getUrl('checkout/onepage/success') ?>";
 <?php else: ?>
-    window.top.location="<?php echo $this->getUrl('checkout/cart') ?>";
+    window.top.location="<?= $this->getUrl('checkout/cart') ?>";
 <?php endif ?>
 //]]>
 </script>

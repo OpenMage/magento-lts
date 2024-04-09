@@ -18,37 +18,37 @@
  */
 ?>
 <div class="page-title">
-    <h1><?php echo $this->__('My Orders') ?></h1>
+    <h1><?= $this->__('My Orders') ?></h1>
 </div>
 <?php if($orders->getSize()): ?>
 <table class="data-table" id="my-orders-table" >
     <thead>
         <tr>
-            <th><?php echo $this->__('Order #') ?></th>
-            <th><?php echo $this->__('Date') ?></th>
+            <th><?= $this->__('Order #') ?></th>
+            <th><?= $this->__('Date') ?></th>
             <!--<th class="a-center">Shipped To</th>-->
-            <th><?php echo $this->__('Total') ?></th>
-            <th><?php echo $this->__('Status') ?></th>
-            <th><?php echo $this->__('Details') ?></th>
+            <th><?= $this->__('Total') ?></th>
+            <th><?= $this->__('Status') ?></th>
+            <th><?= $this->__('Details') ?></th>
         </tr>
     </thead>
     <tbody>
     <?php foreach ($orders as $order): ?>
         <tr>
-            <td><?php echo $order->getRealOrderId() ?>&nbsp;</td>
-            <td><?php echo date("D, j M, Y", strtotime($order->getCreatedAt())) ?>&nbsp;</td>
+            <td><?= $order->getRealOrderId() ?>&nbsp;</td>
+            <td><?= date("D, j M, Y", strtotime($order->getCreatedAt())) ?>&nbsp;</td>
             <!--<td class="a-center">{$page.orders[io].customer}</td>-->
-            <td><?php echo $order->getGrandTotal() ?>&nbsp;</td>
-            <td><?php echo $order->getStatus() ?>&nbsp;</td>
-            <td><a href="<?php echo $this->getUrl('customer/order/view', ['order'=>$order->getOrderId()]) ?>"><?php echo $this->__('View Order') ?></a>&nbsp;</td>
+            <td><?= $order->getGrandTotal() ?>&nbsp;</td>
+            <td><?= $order->getStatus() ?>&nbsp;</td>
+            <td><a href="<?= $this->getUrl('customer/order/view', ['order'=>$order->getOrderId()]) ?>"><?= $this->__('View Order') ?></a>&nbsp;</td>
         </tr>
     <?php endforeach ?>
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table')</script>
 <?php else: ?>
-    <p><?php echo $this->__('You have placed no orders yet.') ?></p>
+    <p><?= $this->__('You have placed no orders yet.') ?></p>
 <?php endif ?>
 <div class="buttons-set">
-    <p class="back-link"><a href="<?php echo $this->getUrl('customer/account') ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <p class="back-link"><a href="<?= $this->getUrl('customer/account') ?>"><small>&laquo; </small><?= $this->__('Back') ?></a></p>
 </div>

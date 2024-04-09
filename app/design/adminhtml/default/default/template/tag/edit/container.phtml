@@ -13,19 +13,19 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo $this->getFormInitScripts() ?>
+<?= $this->getFormInitScripts() ?>
 <div class="content-header">
-    <?php echo $this->getHeaderHtml() ?>
-    <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+    <?= $this->getHeaderHtml() ?>
+    <p class="content-buttons form-buttons"><?= $this->getButtonsHtml('header') ?></p>
 </div>
 <?php if( !$this->isSingleStoreMode() ): ?>
-    <?php echo $this->getStoreSwitcherHtml() ?>
+    <?= $this->getStoreSwitcherHtml() ?>
 <?php endif ?>
 
-<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="edit_form">
-    <?php echo $this->getFormHtml() ?>
+<form action="<?= $this->getSaveUrl() ?>" method="post" id="edit_form">
+    <?= $this->getFormHtml() ?>
 
-    <?php echo $this->getTagAssignAccordionHtml() ?>
+    <?= $this->getTagAssignAccordionHtml() ?>
 
 <script type="text/javascript">
     function saveAndContinueEdit(url) {
@@ -38,11 +38,11 @@
 
 <?php if ($this->hasFooterButtons()): ?>
     <div class="content-footer">
-        <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+        <p class="content-buttons form-buttons"><?= $this->getButtonsHtml('footer') ?></p>
     </div>
 <?php endif ?>
 <script type="text/javascript">
-    var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+    var editForm = new varienForm('edit_form', '<?= $this->getValidationUrl() ?>');
 </script>
-<?php echo $this->getFormScripts() ?>
-<?php echo $this->getAcordionsHtml() ?>
+<?= $this->getFormScripts() ?>
+<?= $this->getAcordionsHtml() ?>

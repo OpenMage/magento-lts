@@ -25,20 +25,20 @@
 <?php if($_count): ?>
 <div class="block block-layered-nav block-layered-nav--no-filters">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Browse By') ?></span></strong>
+        <strong><span><?= $this->__('Browse By') ?></span></strong>
     </div>
     <div class="block-content toggle-content open">
-        <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Filter') ?></p>
+        <p class="block-subtitle block-subtitle--filter"><?= $this->__('Filter') ?></p>
         <dl id="narrow-by-list2">
-            <dt><?php echo $this->__('Category') ?></dt>
+            <dt><?= $this->__('Category') ?></dt>
             <dd>
                 <ol>
                 <?php foreach ($_categories as $_category): ?>
                     <?php if($_category->getIsActive()): ?>
                     <li>
-                        <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
-                            <?php echo $this->escapeHtml($_category->getName()) ?>
-                            <span class="count">(<?php echo $_category->getProductCount() ?>)</span>
+                        <a href="<?= $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
+                            <?= $this->escapeHtml($_category->getName()) ?>
+                            <span class="count">(<?= $_category->getProductCount() ?>)</span>
                         </a>
                     </li>
                     <?php endif ?>

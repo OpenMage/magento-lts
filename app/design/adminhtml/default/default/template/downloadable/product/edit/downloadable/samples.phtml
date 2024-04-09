@@ -28,12 +28,12 @@
                 <td class="label"><label for="name"><?php echo Mage::helper('downloadable')->__('Title')?></label>
                 </td>
                 <td class="value">
-                    <input type="text" class="input-text" name="product[samples_title]" value="<?php echo $_product->getId()?$_product->getSamplesTitle():$this->getSamplesTitle() ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
+                    <input type="text" class="input-text" name="product[samples_title]" value="<?= $_product->getId()?$_product->getSamplesTitle():$this->getSamplesTitle() ?>" <?= ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
                 </td>
-                <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
+                <td class="scope-label"><?= !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : '' ?></td>
                 <td class="value use-default">
                 <?php if($_product->getStoreId()): ?>
-                    <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
+                    <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?= $this->getUsedDefault()?'checked="checked"':'' ?> />
                     <label class="normal" for="sample_title_default">Use Default Value</label>
                 <?php endif ?>
                 </td>
@@ -50,15 +50,15 @@
                 <col width="1" />
                 <thead>
                     <tr class="headings">
-                        <th><?php echo Mage::helper('downloadable')->__('Title') ?> <span class="required">*</span></th>
-                        <th><?php echo Mage::helper('downloadable')->__('File') ?></th>
-                        <th><span class="nobr"><?php echo Mage::helper('downloadable')->__('Sort Order') ?></span></th>
+                        <th><?= Mage::helper('downloadable')->__('Title') ?> <span class="required">*</span></th>
+                        <th><?= Mage::helper('downloadable')->__('File') ?></th>
+                        <th><span class="nobr"><?= Mage::helper('downloadable')->__('Sort Order') ?></span></th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?>&nbsp;<?php echo $this->getUploadButtonHtml() ?></td>
+                        <td colspan="4" class="a-right"><?= $this->getAddButtonHtml() ?>&nbsp;<?= $this->getUploadButtonHtml() ?></td>
                     </tr>
                 </tfoot>
                 <tbody id="sample_items_body">
@@ -75,15 +75,15 @@ var sampleTemplate = '<tr id="downloadable_sample_{{id}}">'+
                             '<input type="hidden" class="__delete__" name="downloadable[sample][{{id}}][is_delete]" value="" />'+
                             '<input type="hidden" name="downloadable[sample][{{id}}][sample_id]" value="{{sample_id}}" />'+
                             '<input type="text" class="required-entry input-text" name="downloadable[sample][{{id}}][title]" value="{{title}}" />'+
-                            '<?php echo $_product->getStoreId()?'<br /><input type="checkbox" id="downloadable_sample_{{id}}_title" name="downloadable[sample][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_sample_{{id}}_title">Use Default Value</label>':'' ?>'+
+                            '<?= $_product->getStoreId()?'<br /><input type="checkbox" id="downloadable_sample_{{id}}_title" name="downloadable[sample][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_sample_{{id}}_title">Use Default Value</label>':'' ?>'+
                         '</td>'+
                         '<td>'+
                             '<div class="files-wide">'+
                                 '<div class="row a-right">'+
                                     '<label for="downloadable_sample_{{id}}_file_type" class="a-left"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_file_type" name="downloadable[sample][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
                                     '<input type="hidden" class="validate-downloadable-file" id="downloadable_sample_{{id}}_file_save" name="downloadable[sample][{{id}}][file]" value="{{file_save}}" />'+
-                                    '<?php echo $this->getBrowseButtonHtml(); ?>'+
-                                    '<?php echo $this->getDeleteButtonHtml(); ?>'+
+                                    '<?= $this->getBrowseButtonHtml() ?>'+
+                                    '<?= $this->getDeleteButtonHtml() ?>'+
                                     '<div id="downloadable_sample_{{id}}_file" class="uploader a-left">' +
                                         '<div id="downloadable_sample_{{id}}_file-old" class="file-row-info"></div>'+
                                         '<div id="downloadable_sample_{{id}}_file-new" class="file-row-info new-file"></div>'+
@@ -148,8 +148,8 @@ var sampleItems = {
 
         sampleUrl = $('downloadable_sample_'+data.id+'_url_type');
 
-        var UploaderConfig = <?php echo $this->getConfigJson() ?>.replace(
-            new RegExp('<?php echo $this->getId(); ?>', 'g'),
+        var UploaderConfig = <?= $this->getConfigJson() ?>.replace(
+            new RegExp('<?= $this->getId() ?>', 'g'),
             'downloadable_sample_'+data.id+'_file');
 
         if (!data.file_save) {
@@ -208,7 +208,7 @@ if($('add_sample_item')){
 }
 
 <?php foreach ($this->getSampleData() as $item): ?>
-    sampleItems.add(<?php echo $item->toJson() ?>);
+    sampleItems.add(<?= $item->toJson() ?>);
 <?php endforeach ?>
 
 //]]>

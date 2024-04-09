@@ -14,7 +14,7 @@
  */
 ?>
 <?php  $_order = $this->getOrder() ?>
-<table class="data-table linearize-table-large" id="my-orders-table" summary="<?php echo $this->__('Items Ordered') ?>">
+<table class="data-table linearize-table-large" id="my-orders-table" summary="<?= $this->__('Items Ordered') ?>">
     <col />
     <col width="1" />
     <col width="1" />
@@ -22,15 +22,15 @@
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Product') ?></th>
-            <th><?php echo $this->__('SKU') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            <th><?= $this->__('Product') ?></th>
+            <th><?= $this->__('SKU') ?></th>
+            <th class="a-right"><?= $this->__('Price') ?></th>
+            <th class="a-center"><?= $this->__('Qty') ?></th>
+            <th class="a-right"><?= $this->__('Subtotal') ?></th>
         </tr>
     </thead>
     <tfoot>
-        <?php echo $this->getChildHtml('order_totals') ?>
+        <?= $this->getChildHtml('order_totals') ?>
     </tfoot>
         <?php $_items = $_order->getItemsCollection(); ?>
         <?php $_index = 0; ?>
@@ -38,16 +38,16 @@
         <?php foreach ($_items as $_item): ?>
         <?php if ($_item->getParentItem()) continue; ?>
         <tbody>
-            <?php echo $this->getItemHtml($_item) ?>
+            <?= $this->getItemHtml($_item) ?>
             <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
-            <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
+            <tr class="border<?= ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?= $_item->getId() ?>" style="display:none;">
                 <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
                 <td class="gift-message-row" colspan="7">
-                    <a href="#" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Close')) ?>" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');" class="btn-close"><?php echo $this->__('Close') ?></a>
+                    <a href="#" title="<?= Mage::helper('core')->quoteEscape($this->__('Close')) ?>" onclick="return giftMessageToogle('<?= $_item->getId() ?>');" class="btn-close"><?= $this->__('Close') ?></a>
                     <dl class="gift-message">
-                        <dt><strong><?php echo $this->__('From:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?></dt>
-                        <dt><strong><?php echo $this->__('To:') ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?></dt>
-                        <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></dd>
+                        <dt><strong><?= $this->__('From:') ?></strong> <?= $this->escapeHtml($_giftMessage->getSender()) ?></dt>
+                        <dt><strong><?= $this->__('To:') ?></strong> <?= $this->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                        <dd><?= $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></dd>
                     </dl>
                 </td>
             </tr>

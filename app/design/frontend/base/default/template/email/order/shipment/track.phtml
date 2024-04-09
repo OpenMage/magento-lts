@@ -19,15 +19,15 @@
 <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
     <thead>
         <tr>
-            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Shipped By') ?></th>
-            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Tracking Number') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?= $this->__('Shipped By') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?= $this->__('Tracking Number') ?></th>
         </tr>
     </thead>
     <tbody>
     <?php $i=0; foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
-        <tr <?php echo $i%2?'bgcolor="#F6F6F6"':'' ?>>
-            <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getTitle()) ?></td>
-            <td align="center" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getNumber()) ?></td>
+        <tr <?= $i%2?'bgcolor="#F6F6F6"':'' ?>>
+            <td align="left" valign="top" style="padding:3px 9px"><?= $this->escapeHtml($_item->getTitle()) ?></td>
+            <td align="center" valign="top" style="padding:3px 9px"><?= $this->escapeHtml($_item->getNumber()) ?></td>
         </tr>
     <?php endforeach ?>
     </tbody>

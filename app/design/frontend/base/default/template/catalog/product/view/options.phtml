@@ -33,7 +33,7 @@
 
             this.formAction = this.productForm.action;
 
-            var baseUrl = '<?php echo $this->getUrl('*/product/upload') ?>';
+            var baseUrl = '<?= $this->getUrl('*/product/upload') ?>';
             var urlExt = 'option_id/'+element.readAttribute('id').sub('option_', '');
 
             this.productForm.action = parseSidUrl(baseUrl, urlExt);
@@ -171,12 +171,12 @@
             container.addClassName('validation-passed');
         }
     }
-    var opConfig = new Product.Options(<?php echo $this->getJsonConfig() ?>);
+    var opConfig = new Product.Options(<?= $this->getJsonConfig() ?>);
     //]]>
     </script>
     <dl>
     <?php foreach($_options as $_option): ?>
-        <?php echo $this->getOptionHtml($_option) ?>
+        <?= $this->getOptionHtml($_option) ?>
     <?php endforeach ?>
     </dl>
 <?php endif ?>

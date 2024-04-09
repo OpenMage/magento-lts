@@ -22,9 +22,9 @@
 <?php if(count($_links)>0): ?>
     <?php foreach($_links as $_link): ?>
         <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
-            <?php echo $_link->toHtml() ?>
+            <?= $_link->toHtml() ?>
         <?php else: ?>
-            <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>><?php echo $_link->getLabel() ?></a>
+            <a href="<?= $_link->getUrl() ?>" title="<?= $_link->getTitle() ?>" <?= $_link->getAParams() ?>><?= $_link->getLabel() ?></a>
         <?php endif ?>
     <?php endforeach ?>
 <?php endif ?>

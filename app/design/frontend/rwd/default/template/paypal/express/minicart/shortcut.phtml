@@ -22,7 +22,7 @@
     <p class="paypal-logo">
         <?php $shortcutHtmlId = $this->getShortcutHtmlId() ?>
         <?php $bmlShortcutHtmlId = $this->getBmlShortcutHtmlId() ?>
-        <a class="paypal-button" data-action="checkout-form-submit" id="<?php echo $shortcutHtmlId ?>" href="<?php echo $this->getCheckoutUrl()?>"><img src="<?php echo $this->getImageUrl()?>" alt="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')); ?>" title="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')); ?>" /></a>
+        <a class="paypal-button" data-action="checkout-form-submit" id="<?= $shortcutHtmlId ?>" href="<?= $this->getCheckoutUrl()?>"><img src="<?php echo $this->getImageUrl()?>" alt="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')) ?>" title="<?= $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')) ?>" /></a>
 
         <span class="paypal-or"><?php echo $this->__('-OR-');?></span>
     </p>
@@ -31,7 +31,7 @@
 <li class="bml-checkout-type">
     <p class="paypal-logo">
         <span class="bml_button">
-            <a id="<?php echo $bmlShortcutHtmlId ?>" href="<?php echo $this->getBmlCheckoutUrl()?>"><img src="<?php echo $this->getBmlImageUrl()?>" alt="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal Paypal Credit')); ?>" title="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal Paypal Credit')); ?>" /></a>
+            <a id="<?= $bmlShortcutHtmlId ?>" href="<?= $this->getBmlCheckoutUrl()?>"><img src="<?php echo $this->getBmlImageUrl()?>" alt="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal Paypal Credit')) ?>" title="<?= $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal Paypal Credit')) ?>" /></a>
             <a href="<?php echo $this->getMarketMessageUrl()?>"><img src="<?php echo $this->getMarketMessage()?>" /></a>
         </span>
         <span class="paypal-or"><?php echo $this->__('-OR-');?></span>
@@ -45,10 +45,10 @@
     <?php endif ?>
     <script type="text/javascript">
         //<![CDATA[
-        $$('#<?php echo $shortcutHtmlId ?>','#<?php echo $bmlShortcutHtmlId ?>').invoke('observe', 'click', function(event) {
+        $$('#<?= $shortcutHtmlId ?>','#<?= $bmlShortcutHtmlId ?>').invoke('observe', 'click', function(event) {
             <?php if ($this->getConfirmationUrl()): ?>
             if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getConfirmationMessage())?>')) {
-                this.href = '<?php echo $this->getConfirmationUrl() ?>';
+                this.href = '<?= $this->getConfirmationUrl() ?>';
             }
             <?php endif ?>
             <?php if ($this->getIsInCatalogProduct()): ?>

@@ -14,25 +14,25 @@
  */
 /* @var $this Mage_Core_Block_Template */ ?>
 <div class="switcher">
-    <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
+    <label for="store_switcher"><?= $this->__('Current Configuration Scope:') ?></label>
     <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
     <?php foreach ($this->getStoreSelectOptions() as $_value => $_option): ?>
     <?php if (isset($_option['is_group'])): ?>
         <?php if ($_option['is_close']): ?>
             </optgroup>
         <?php else: ?>
-            <optgroup label="<?php echo $this->escapeHtml($_option['label']) ?>" style="<?php echo $_option['style'] ?>">
+            <optgroup label="<?= $this->escapeHtml($_option['label']) ?>" style="<?= $_option['style'] ?>">
         <?php endif ?>
         <?php continue ?>
     <?php endif ?>
-      <option value="<?php echo $this->escapeHtml($_value) ?>" url="<?php echo $_option['url'] ?>" <?php echo $_option['selected'] ? 'selected="selected"' : '' ?> style="<?php echo $_option['style'] ?>">
-          <?php echo $this->escapeHtml($_option['label']) ?>
+      <option value="<?= $this->escapeHtml($_value) ?>" url="<?= $_option['url'] ?>" <?= $_option['selected'] ? 'selected="selected"' : '' ?> style="<?= $_option['style'] ?>">
+          <?= $this->escapeHtml($_option['label']) ?>
       </option>
     <?php endforeach ?>
     </select>
     <?php if (Mage::getSingleton('admin/session')->isAllowed('system/store')): ?>
     <p style="margin:10px 0 0;">
-        <a href="<?php echo $this->getUrl('*/system_store') ?>"><?php echo $this->__('Manage Stores') ?></a>
+        <a href="<?= $this->getUrl('*/system_store') ?>"><?= $this->__('Manage Stores') ?></a>
     </p>
     <?php endif ?>
 </div>

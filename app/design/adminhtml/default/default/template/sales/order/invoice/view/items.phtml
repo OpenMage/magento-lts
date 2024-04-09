@@ -25,21 +25,21 @@
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th><?php echo $this->helper('sales')->__('Product') ?></th>
-                <th><?php echo $this->helper('sales')->__('Price') ?></th>
-                <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
-                <th><?php echo $this->helper('sales')->__('Subtotal') ?></th>
-                <th><span class="nobr"><?php echo $this->helper('sales')->__('Tax Amount') ?></span></th>
-                <th><span class="nobr"><?php echo $this->helper('sales')->__('Discount Amount') ?></span></th>
-                <th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Row Total') ?></span></th>
+                <th><?= $this->helper('sales')->__('Product') ?></th>
+                <th><?= $this->helper('sales')->__('Price') ?></th>
+                <th class="a-center"><?= $this->helper('sales')->__('Qty') ?></th>
+                <th><?= $this->helper('sales')->__('Subtotal') ?></th>
+                <th><span class="nobr"><?= $this->helper('sales')->__('Tax Amount') ?></span></th>
+                <th><span class="nobr"><?= $this->helper('sales')->__('Discount Amount') ?></span></th>
+                <th class="last"><span class="nobr"><?= $this->helper('sales')->__('Row Total') ?></span></th>
             </tr>
         </thead>
         <?php $_items = $this->getInvoice()->getAllItems() ?>
         <?php $i=0;foreach ($_items as $_item): ?>
             <?php if ($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
-            <tbody class="<?php echo $i%2?'even':'odd' ?>">
-                <?php echo $this->getItemHtml($_item) ?>
-                <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
+            <tbody class="<?= $i%2?'even':'odd' ?>">
+                <?= $this->getItemHtml($_item) ?>
+                <?= $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
             </tbody>
         <?php endforeach ?>
     </table>

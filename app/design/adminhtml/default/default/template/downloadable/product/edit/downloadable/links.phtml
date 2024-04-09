@@ -28,13 +28,13 @@
             <td class="label"><label for="name"><?php echo Mage::helper('downloadable')->__('Title')?></label>
             </td>
             <td class="value">
-                <input type="text" class="input-text" id="downloadable_links_title" name="product[links_title]" value="<?php echo $_product->getId() ? $this->escapeHtml($_product->getLinksTitle()) : $this->escapeHtml($this->getLinksTitle()); ?>" <?php echo ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
+                <input type="text" class="input-text" id="downloadable_links_title" name="product[links_title]" value="<?= $_product->getId() ? $this->escapeHtml($_product->getLinksTitle()) : $this->escapeHtml($this->getLinksTitle()) ?>" <?= ($_product->getStoreId() && $this->getUsedDefault())?'disabled="disabled"':'' ?> />
             </td>
-            <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : ''; ?></td>
+            <td class="scope-label"><?= !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[STORE VIEW]') : '' ?></td>
             <td class="value use-default">
             <?php if($_product->getStoreId()): ?>
-                <input id="link_title_default" type="checkbox" name="use_default[]" value="links_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
-                <label class="normal" for="link_title_default"><?php echo Mage::helper('downloadable')->__('Use Default Value'); ?></label>
+                <input id="link_title_default" type="checkbox" name="use_default[]" value="links_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?= $this->getUsedDefault()?'checked="checked"':'' ?> />
+                <label class="normal" for="link_title_default"><?= Mage::helper('downloadable')->__('Use Default Value') ?></label>
             <?php endif ?>
             </td>
         </tr>
@@ -49,7 +49,7 @@
             <td class="value">
                     <?php echo $this->getPurchasedSeparatelySelect()?>
                 </td>
-            <td class="scope-label"><?php echo !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[GLOBAL]') : ''; ?></td>
+            <td class="scope-label"><?= !Mage::app()->isSingleStoreMode() ? Mage::helper('adminhtml')->__('[GLOBAL]') : '' ?></td>
             <td><small>&nbsp;</small></td>
         </tr>
     </tbody>
@@ -82,7 +82,7 @@
     </thead>
     <tfoot>
         <tr>
-            <td colspan="8" class="a-right"><?php echo $this->getAddButtonHtml()?>&nbsp;<?php echo $this->getUploadButtonHtml() ?></td>
+            <td colspan="8" class="a-right"><?= $this->getAddButtonHtml()?>&nbsp;<?php echo $this->getUploadButtonHtml() ?></td>
         </tr>
     </tfoot>
     <tbody id="link_items_body">
@@ -100,12 +100,12 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
         '<input type="hidden" class="__delete__" name="downloadable[link][{{id}}][is_delete]" value="" />'+
         '<input type="hidden" name="downloadable[link][{{id}}][link_id]" value="{{link_id}}" />'+
         '<input type="text" class="required-entry input-text" name="downloadable[link][{{id}}][title]" value="{{title}}" />'+
-        '<?php echo $_product->getStoreId()?'<input type="checkbox" id="downloadable_link_{{id}}_title" name="downloadable[link][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_link_{{id}}_title">Use Default Value</label>':'' ?>'+
+        '<?= $_product->getStoreId()?'<input type="checkbox" id="downloadable_link_{{id}}_title" name="downloadable[link][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_link_{{id}}_title">Use Default Value</label>':'' ?>'+
     '</td>'+
     <?php if ($this->getCanReadPrice() !== false) : ?>
     '<td class="input-price">'+
         '<input type="text" id="downloadable_link_{{id}}_price_value" class="input-text validate-number link-prices<?php if ($this->getCanEditPrice() === false) : ?> disabled<?php endif ?>" name="downloadable[link][{{id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?> /> ' +
-        '<label>[<?php echo Mage::app()->getStore($_product->getStoreId())->getBaseCurrencyCode() ?>]</label>' +
+        '<label>[<?= Mage::app()->getStore($_product->getStoreId())->getBaseCurrencyCode() ?>]</label>' +
         <?php if ($_product->getStoreId() && $this->getIsPriceWebsiteScope()) : ?>
         '<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?> /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>' +
         <?php endif ?>
@@ -130,8 +130,8 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
             '<div class="row a-right">'+
                 '<label for="downloadable_link_{{id}}_sample_file_type" class="a-left"><input type="radio" class="radio" id="downloadable_link_{{id}}_sample_file_type" name="downloadable[link][{{id}}][sample][type]" value="file"{{sample_file_checked}} /> File:</label>'+
                 '<input type="hidden" id="downloadable_link_{{id}}_sample_file_save" name="downloadable[link][{{id}}][sample][file]" value="{{sample_file_save}}" />'+
-                '<?php echo $this->getBrowseButtonHtml('sample_'); ?>'+
-                '<?php echo $this->getDeleteButtonHtml('sample_'); ?>'+
+                '<?= $this->getBrowseButtonHtml('sample_') ?>'+
+                '<?= $this->getDeleteButtonHtml('sample_') ?>'+
                 '<div id="downloadable_link_{{id}}_sample_file" class="uploader a-left">'+
                     '<div id="downloadable_link_{{id}}_sample_file-old" class="file-row-info"></div>'+
                     '<div id="downloadable_link_{{id}}_sample_file-new" class="file-row-info"></div>'+
@@ -151,8 +151,8 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
             '<div class="row a-right">'+
                 '<label for="downloadable_link_{{id}}_file_type" class="a-left"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_link_{{id}}_file_type" name="downloadable[link][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
             '<input type="hidden" class="validate-downloadable-file" id="downloadable_link_{{id}}_file_save" name="downloadable[link][{{id}}][file]" value="{{file_save}}" />'+
-                '<?php echo $this->getBrowseButtonHtml(); ?>'+
-                '<?php echo $this->getDeleteButtonHtml(); ?>'+
+                '<?= $this->getBrowseButtonHtml() ?>'+
+                '<?= $this->getDeleteButtonHtml() ?>'+
                 '<div id="downloadable_link_{{id}}_file" class="uploader a-left">'+
                     '<div id="downloadable_link_{{id}}_file-old" class="file-row-info"></div>'+
                     '<div id="downloadable_link_{{id}}_file-new" class="file-row-info new-file"></div>'+
@@ -169,7 +169,7 @@ var linkTemplate = '<tr id="downloadable_link_{{id}}">'+
     '</td>'+
     '<td class="a-center"><input type="text" name="downloadable[link][{{id}}][sort_order]" value="{{sort_order}}" class="input-text sort" /></td>'+
     '<td>'+
-    '<button id="downloadable_link_{{id}}_delete_button" type="button" class="scalable delete icon-btn delete-link-item"><span><span><span><?php echo $this->jsQuoteEscape(Mage::helper('downloadable')->__('Delete')); ?></span></span></span></button>'+
+    '<button id="downloadable_link_{{id}}_delete_button" type="button" class="scalable delete icon-btn delete-link-item"><span><span><span><?= $this->jsQuoteEscape(Mage::helper('downloadable')->__('Delete')) ?></span></span></span></button>'+
     '</td>'+
 '</tr>';
 
@@ -187,7 +187,7 @@ var linkItems = {
             data.link_id  = 0;
             data.link_type = 'file';
             data.sample_type = 'none';
-            data.number_of_downloads = '<?php echo $this->getConfigMaxDownloads() ?>';
+            data.number_of_downloads = '<?= $this->getConfigMaxDownloads() ?>';
         }
 
         data.id = this.itemCount;
@@ -266,8 +266,8 @@ var linkItems = {
         if (!data.sample_file_save) {
             data.sample_file_save = [];
         }
-        var UploaderConfigLinkSamples = <?php echo $this->getConfigJson('link_samples') ?>.replace(
-            new RegExp('<?php echo $this->getId(); ?>', 'g'),
+        var UploaderConfigLinkSamples = <?= $this->getConfigJson('link_samples') ?>.replace(
+            new RegExp('<?= $this->getId() ?>', 'g'),
             'downloadable_link_'+data.id+'_sample_file');
 
         // link sample file
@@ -281,8 +281,8 @@ var linkItems = {
             UploaderConfigLinkSamples
         );
 
-        var UploaderConfigLink = <?php echo $this->getConfigJson() ?>.replace(
-            new RegExp('<?php echo $this->getId(); ?>', 'g'),
+        var UploaderConfigLink = <?= $this->getConfigJson() ?>.replace(
+            new RegExp('<?= $this->getId() ?>', 'g'),
             'downloadable_link_'+data.id+'_file');
         // link file
         new Downloadable.FileUploader(

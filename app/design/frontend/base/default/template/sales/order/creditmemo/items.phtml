@@ -14,11 +14,11 @@
  */
 ?>
 <?php $_order = $this->getOrder() ?>
-<p class="order-links"><a href="<?php echo $this->getPrintAllCreditmemosUrl($_order) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print All Refunds') ?></a></p>
+<p class="order-links"><a href="<?= $this->getPrintAllCreditmemosUrl($_order) ?>" onclick="this.target='_blank'" class="link-print"><?= $this->__('Print All Refunds') ?></a></p>
 <?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
-<h2 class="sub-title"><?php echo $this->__('Refund #') ?><?php echo $_creditmemo->getIncrementId(); ?> <span class="separator">|</span> <a href="<?php echo $this->getPrintCreditmemoUrl($_creditmemo) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print Refund') ?></a></h2>
-<h3 class="table-caption"><?php echo $this->__('Items Refunded') ?></h3>
-<table class="data-table" id="my-refund-table-<?php echo $_creditmemo->getId(); ?>">
+<h2 class="sub-title"><?= $this->__('Refund #') ?><?= $_creditmemo->getIncrementId() ?> <span class="separator">|</span> <a href="<?= $this->getPrintCreditmemoUrl($_creditmemo) ?>" onclick="this.target='_blank'" class="link-print"><?= $this->__('Print Refund') ?></a></h2>
+<h3 class="table-caption"><?= $this->__('Items Refunded') ?></h3>
+<table class="data-table" id="my-refund-table-<?= $_creditmemo->getId() ?>">
     <col />
     <col width="1" />
     <col width="1" />
@@ -28,13 +28,13 @@
     <col width="1" />
     <thead>
         <tr>
-            <th><?php echo $this->__('Product Name') ?></th>
-            <th><?php echo $this->__('SKU') ?></th>
-            <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
-            <th class="a-center wrap"><?php echo $this->__('Discount Amount') ?></th>
-            <th class="a-right wrap"><?php echo $this->__('Row Total') ?></th>
+            <th><?= $this->__('Product Name') ?></th>
+            <th><?= $this->__('SKU') ?></th>
+            <th class="a-right"><?= $this->__('Price') ?></th>
+            <th class="a-center"><?= $this->__('Qty') ?></th>
+            <th class="a-right"><?= $this->__('Subtotal') ?></th>
+            <th class="a-center wrap"><?= $this->__('Discount Amount') ?></th>
+            <th class="a-right wrap"><?= $this->__('Row Total') ?></th>
         </tr>
     </thead>
     <tfoot>
@@ -45,10 +45,10 @@
     <?php foreach ($_items as $_item): ?>
     <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
     <tbody>
-        <?php echo $this->getItemHtml($_item) ?>
+        <?= $this->getItemHtml($_item) ?>
     </tbody>
     <?php endforeach ?>
 </table>
-<script type="text/javascript">decorateTable('my-refund-table-<?php echo $_creditmemo->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<script type="text/javascript">decorateTable('my-refund-table-<?= $_creditmemo->getId() ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
 <?php echo $this->getCommentsHtml($_creditmemo)?>
 <?php endforeach ?>

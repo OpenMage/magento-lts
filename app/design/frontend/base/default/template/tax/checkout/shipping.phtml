@@ -19,37 +19,37 @@
 ?>
 <?php if ($this->displayBoth()):?>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->getExcludeTaxLabel() ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->getExcludeTaxLabel() ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
     </td>
 </tr>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->getIncludeTaxLabel() ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->getIncludeTaxLabel() ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
 <?php elseif($this->displayIncludeTax()) : ?>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->getTotal()->getTitle() ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->getTotal()->getTitle() ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getShippingIncludeTax()) ?>
     </td>
 </tr>
 <?php else: ?>
 <tr>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
-        <?php echo $this->escapeHtml($this->getTotal()->getTitle()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right" colspan="<?= $this->getColspan() ?>">
+        <?= $this->escapeHtml($this->getTotal()->getTitle()) ?>
     </td>
-    <td style="<?php echo $this->getStyle() ?>" class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
+    <td style="<?= $this->getStyle() ?>" class="a-right">
+        <?= $this->helper('checkout')->formatPrice($this->getShippingExcludeTax()) ?>
     </td>
 </tr>
 <?php endif ?>

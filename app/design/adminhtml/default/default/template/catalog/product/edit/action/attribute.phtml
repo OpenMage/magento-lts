@@ -16,20 +16,20 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3><?php echo Mage::helper('catalog')->__('Update attributes') ?></h3></td>
+            <td><h3><?= Mage::helper('catalog')->__('Update attributes') ?></h3></td>
             <td class="form-buttons">
-            <?php echo $this->getBackButtonHtml() ?>
-            <?php echo $this->getCancelButtonHtml() ?>
-            <?php echo $this->getSaveButtonHtml() ?>
+            <?= $this->getBackButtonHtml() ?>
+            <?= $this->getCancelButtonHtml() ?>
+            <?= $this->getSaveButtonHtml() ?>
             </td>
         </tr>
     </table>
 </div>
-<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="attributes_edit_form" enctype="multipart/form-data">
+<form action="<?= $this->getSaveUrl() ?>" method="post" id="attributes_edit_form" enctype="multipart/form-data">
     <?php echo $this->getBlockHtml('formkey')?>
 </form>
 <script type="text/javascript">
-var attributesForm = new varienForm('attributes_edit_form', '<?php echo $this->getValidationUrl() ?>');
+var attributesForm = new varienForm('attributes_edit_form', '<?= $this->getValidationUrl() ?>');
 attributesForm._processValidationResult = function(transport) {
     var response = transport.responseText.evalJSON();
 

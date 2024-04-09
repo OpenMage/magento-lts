@@ -15,7 +15,7 @@
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('General Information'); ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= $this->__('General Information') ?></h4>
     </div>
     <div class="log-details">
         <table cellspacing="0">
@@ -23,28 +23,28 @@
             <col />
             <tbody>
                 <tr>
-                    <th><?php echo $this->__('Reference ID'); ?></th>
-                    <td><?php echo $this->escapeHtml($this->getReferenceId()) ?></td>
+                    <th><?= $this->__('Reference ID') ?></th>
+                    <td><?= $this->escapeHtml($this->getReferenceId()) ?></td>
                 </tr>
                 <tr>
-                    <th><?php echo $this->__('Customer'); ?></th>
+                    <th><?= $this->__('Customer') ?></th>
                     <td>
-                        <a href="<?php echo $this->getCustomerUrl(); ?>">
-                            <?php echo $this->escapeHtml($this->getCustomerEmail()) ?>
+                        <a href="<?= $this->getCustomerUrl() ?>">
+                            <?= $this->escapeHtml($this->getCustomerEmail()) ?>
                         </a>
                     </td>
                 </tr>
                 <tr>
-                    <th><?php echo $this->__('Status'); ?></th>
-                    <td><?php echo $this->getStatus() ?></td>
+                    <th><?= $this->__('Status') ?></th>
+                    <td><?= $this->getStatus() ?></td>
                 </tr>
                 <tr>
-                    <th><?php echo $this->__('Created At'); ?></th>
-                    <td><?php echo $this->getCreatedAt(); ?></td>
+                    <th><?= $this->__('Created At') ?></th>
+                    <td><?= $this->getCreatedAt() ?></td>
                 </tr>
                 <tr>
-                    <th><?php echo $this->__('Updated At'); ?></th>
-                    <td><?php echo $this->getUpdatedAt(); ?></td>
+                    <th><?= $this->__('Updated At') ?></th>
+                    <td><?= $this->getUpdatedAt() ?></td>
                 </tr>
             </tbody>
         </table>

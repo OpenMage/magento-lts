@@ -19,22 +19,22 @@
             <thead>
                 <tr>
                     <th>&nbsp;</th>
-                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('1 star') ?></span></th>
-                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('2 stars') ?></span></th>
-                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('3 stars') ?></span></th>
-                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('4 stars') ?></span></th>
-                    <th><span class="nobr"><?php echo Mage::helper('rating')->__('5 stars') ?></span></th>
+                    <th><span class="nobr"><?= Mage::helper('rating')->__('1 star') ?></span></th>
+                    <th><span class="nobr"><?= Mage::helper('rating')->__('2 stars') ?></span></th>
+                    <th><span class="nobr"><?= Mage::helper('rating')->__('3 stars') ?></span></th>
+                    <th><span class="nobr"><?= Mage::helper('rating')->__('4 stars') ?></span></th>
+                    <th><span class="nobr"><?= Mage::helper('rating')->__('5 stars') ?></span></th>
                 </tr>
             </thead>
         <?php $_oddIterator = 1; ?>
             <tbody>
             <?php foreach ($this->getRating() as $_rating): ?>
                 <tr class="odd<?php if($_oddIterator == $this->getRating()->getSize()): $_oddIterator = 0; ?> last<?php endif ?>">
-                    <td class="label"><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></td>
+                    <td class="label"><?= $this->escapeHtml($_rating->getRatingCode()) ?></td>
                 <?php $_iterator = 1; ?>
                 <?php $_options = ( $_rating->getRatingOptions() ) ? $_rating->getRatingOptions() : $_rating->getOptions() ?>
                 <?php foreach ($_options as $_option): ?>
-                    <td<?php if($_iterator == 5): ?> class="last"<?php endif ?>><input type="radio" name="ratings[<?php echo ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif ?> /></td>
+                    <td<?php if($_iterator == 5): ?> class="last"<?php endif ?>><input type="radio" name="ratings[<?= ( $_rating->getVoteId() ) ? $_rating->getVoteId() : $_rating->getId() ?>]" id="<?= $this->escapeHtml($_rating->getRatingCode()) ?>_<?= $_option->getValue() ?>" value="<?= $_option->getId() ?>" <?php if( $this->isSelected($_option, $_rating)): ?>checked="checked"<?php endif ?> /></td>
                 <?php $_iterator++ ?>
                 <?php endforeach ?>
                 </tr>
@@ -48,7 +48,7 @@
 //<![CDATA[
     Validation.addAllThese(
     [
-           ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('rating')->__('Please select one of each ratings above')) ?>', function(v) {
+           ['validate-rating', '<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('rating')->__('Please select one of each ratings above')) ?>', function(v) {
                 var trs = $('product-review-table').getElementsBySelector('tr');
                 var inputs;
                 var error = 1;
@@ -79,5 +79,5 @@
 //]]>
 </script>
 <?php else: ?>
-    <?php echo Mage::helper('rating')->__("Rating isn't Available") ?>
+    <?= Mage::helper('rating')->__("Rating isn't Available") ?>
 <?php endif ?>

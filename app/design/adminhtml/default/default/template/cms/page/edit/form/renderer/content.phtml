@@ -16,6 +16,6 @@
 <?php $_element = $this->getElement() ?>
 <?php if (!$_element->getNoDisplay()): ?>
 <tr>
-    <td colspan="3" class="value"><?php echo trim($_element->getElementHtml()) ?></td>
+    <td colspan="3" class="value"><?= trim($_element->getElementHtml()) ?></td>
 </tr>
 <?php endif ?>

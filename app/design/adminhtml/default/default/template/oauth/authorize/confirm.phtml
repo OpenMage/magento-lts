@@ -22,14 +22,14 @@
 <div class="login-container">
     <div class="login-box">
         <div class="login-form">
-            <h1><?php echo $this->__('Confirmation Of Authorization') ?></h1>
-            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <h1><?= $this->__('Confirmation Of Authorization') ?></h1>
+            <?= $this->getMessagesBlock()->toHtml() ?>
             <?php if (!$this->getHasException()): ?>
-                <p><?php echo $this->__('Give the verifier code to application administrator') ?></p>
-                <p style="font-size: 14px;"><?php echo $this->__('Verifier code: %s', $this->getVerifier()) ?></p>
+                <p><?= $this->__('Give the verifier code to application administrator') ?></p>
+                <p style="font-size: 14px;"><?= $this->__('Verifier code: %s', $this->getVerifier()) ?></p>
             <?php endif ?>
         </div>
-        <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
+        <p class="legal"><?= $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
         <div class="bottom"></div>
     </div>
 </div>

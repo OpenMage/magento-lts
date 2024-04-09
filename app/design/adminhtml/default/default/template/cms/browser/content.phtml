@@ -20,19 +20,19 @@
  * @see Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content
  */
 ?>
-<?php echo $this->getChildHtml('wysiwyg_images.js') ?>
+<?= $this->getChildHtml('wysiwyg_images.js') ?>
 
 <div class="content-header skip-header" id="content_header">
     <table cellspacing="0">
         <tr>
-            <td><h3 id="content_header_text"><?php echo $this->getHeaderText() ?></h3></td>
+            <td><h3 id="content_header_text"><?= $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getButtonsHtml() ?>
+                <?= $this->getButtonsHtml() ?>
             </td>
         </tr>
     </table>
 </div>
 
-<div id="contents-uploader"><?php echo $this->getChildHtml('wysiwyg_images.uploader') ?></div>
+<div id="contents-uploader"><?= $this->getChildHtml('wysiwyg_images.uploader') ?></div>
 <div id="contents"></div>
-<div id="contents-newfolder" class="no-display"><?php echo $this->getChildHtml('wysiwyg_images.newfolder') ?></div>
+<div id="contents-newfolder" class="no-display"><?= $this->getChildHtml('wysiwyg_images.newfolder') ?></div>

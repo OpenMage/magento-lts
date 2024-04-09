@@ -74,7 +74,7 @@ originModel.prototype = {
     {
         this.reload = false;
         this.loader = new varienLoader(true);
-        this.regionsUrl = "<?php echo $this->getUrl('*/json/countryRegion') ?>";
+        this.regionsUrl = "<?= $this->getUrl('*/json/countryRegion') ?>";
 
         this.bindCountryRegionRelation();
     },
@@ -223,7 +223,7 @@ perPageModel.prototype = {
     },
     addValidate : function()
     {
-        Validation.add('validate-per-page-value-list', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a valid value, ex: 10,20,30')) ?>', function(v) {
+        Validation.add('validate-per-page-value-list', '<?= Mage::helper('core')->jsQuoteEscape($this->__('Please enter a valid value, ex: 10,20,30')) ?>', function(v) {
             var isValid = !Validation.get('IsEmpty').test(v);
             var values  = v.split(',');
             for (var i=0;i<values.length;i++) {
@@ -233,7 +233,7 @@ perPageModel.prototype = {
             }
             return isValid;
         });
-        Validation.add('validate-per-page-value', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please enter a valid value from list')) ?>', function(v, elm) {
+        Validation.add('validate-per-page-value', '<?= Mage::helper('core')->jsQuoteEscape($this->__('Please enter a valid value from list')) ?>', function(v, elm) {
             if (Validation.get('IsEmpty').test(v)) {
                 return false;
             }

@@ -20,14 +20,14 @@
  */
 ?>
 <div class="content-header">
-    <?php echo $this->getHeaderHtml() ?>
-    <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml() ?></p>
+    <?= $this->getHeaderHtml() ?>
+    <p class="content-buttons form-buttons"><?= $this->getButtonsHtml() ?></p>
 </div>
 
-<?php echo $this->getChildHtml() ?>
+<?= $this->getChildHtml() ?>
 
 <?php if ($this->getChild('form')): ?>
 <script type="text/javascript">
-    var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+    var editForm = new varienForm('edit_form', '<?= $this->getValidationUrl() ?>');
 </script>
 <?php endif ?>

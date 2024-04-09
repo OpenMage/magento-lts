@@ -22,9 +22,9 @@
     <table class="data" cellspacing="0">
         <thead>
             <tr class="headings">
-                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newWebsite') ?>"><?php echo Mage::helper('core')->__('Website Name') ?></a></span></th>
-                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newGroup') ?>"><?php echo Mage::helper('core')->__('Store Name') ?></a></span></th>
-                <th class="no-link"><span class="nobr"><a href="<?php echo $this->getUrl('*/*/newStore') ?>"><?php echo Mage::helper('core')->__('Store View Name') ?></a></span></th>
+                <th class="no-link"><span class="nobr"><a href="<?= $this->getUrl('*/*/newWebsite') ?>"><?= Mage::helper('core')->__('Website Name') ?></a></span></th>
+                <th class="no-link"><span class="nobr"><a href="<?= $this->getUrl('*/*/newGroup') ?>"><?= Mage::helper('core')->__('Store Name') ?></a></span></th>
+                <th class="no-link"><span class="nobr"><a href="<?= $this->getUrl('*/*/newStore') ?>"><?= Mage::helper('core')->__('Store View Name') ?></a></span></th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
 
                 <tr>
                     <?php if (!$printedWebsite): ?>
-                        <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                        <td class="a-left" rowspan="<?= $webSiteData['count'] ?>"><?= $this->renderWebsite($webSiteData['object']) ?></td>
                     <?php endif ?>
 
                     <td colspan="2" class="a-left last"><span class="not-available"></span></td>
@@ -50,12 +50,12 @@
                 <?php if (count($storeGroupData['stores']) == 0): ?>
                     <tr>
                         <?php if (!$printedWebsite): ?>
-                            <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                            <td class="a-left" rowspan="<?= $webSiteData['count'] ?>"><?= $this->renderWebsite($webSiteData['object']) ?></td>
                             <?php $printedWebsite = true; ?>
                         <?php endif ?>
 
                         <?php if (!$printedStoreGroup): ?>
-                        <td class="a-left" rowspan="<?php echo $storeGroupData['count'] ?>"><?php echo $this->renderStoreGroup($storeGroupData['object']) ?></td>
+                        <td class="a-left" rowspan="<?= $storeGroupData['count'] ?>"><?= $this->renderStoreGroup($storeGroupData['object']) ?></td>
                         <?php endif ?>
 
                         <td class="a-left last"><span class="not-available"></span></td>
@@ -67,16 +67,16 @@
                 <?php foreach ($storeGroupData['stores'] as $storeId => $storeData): ?>
                     <tr>
                         <?php if (!$printedWebsite): ?>
-                            <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
+                            <td class="a-left" rowspan="<?= $webSiteData['count'] ?>"><?= $this->renderWebsite($webSiteData['object']) ?></td>
                             <?php $printedWebsite = true; ?>
                         <?php endif ?>
 
                         <?php if (!$printedStoreGroup): ?>
-                        <td class="a-left" rowspan="<?php echo $storeGroupData['count'] ?>"><?php echo $this->renderStoreGroup($storeGroupData['object']) ?></td>
+                        <td class="a-left" rowspan="<?= $storeGroupData['count'] ?>"><?= $this->renderStoreGroup($storeGroupData['object']) ?></td>
                             <?php $printedStoreGroup = true; ?>
                         <?php endif ?>
 
-                        <td class="a-left last"><?php echo $this->renderStore($storeData['object']); ?></td>
+                        <td class="a-left last"><?= $this->renderStore($storeData['object']) ?></td>
                     </tr>
                 <?php endforeach ?>
                 <?php $printedStoreGroup = false; ?>

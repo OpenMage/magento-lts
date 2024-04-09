@@ -29,7 +29,7 @@
     <tr>
     <td class="label"><label><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?></label></td>
     <td<?php echo $isAmount ? ' class="a-right"' : ''?>>
-        <strong><?php echo $this->renderRowValue($row) ?></strong>
+        <strong><?= $this->renderRowValue($row) ?></strong>
     </td>
     </tr>
 <?php endforeach ?>

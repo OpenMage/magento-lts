@@ -17,10 +17,10 @@
 <?php $_order = $this->getOrder() ?>
 <div>
     <div id="order-messages">
-        <?php echo $this->getChildHtml('order_messages') ?>
+        <?= $this->getChildHtml('order_messages') ?>
     </div>
-    <?php echo $this->getChildHtml('order_info') ?>
-    <input type="hidden" name="order_id" value="<?php echo $_order->getId() ?>"/>
+    <?= $this->getChildHtml('order_info') ?>
+    <input type="hidden" name="order_id" value="<?= $_order->getId() ?>"/>
     <?php if ($_order->getIsVirtual()): ?>
     <div class="box-right">
     <?php else: ?>
@@ -29,13 +29,13 @@
         <!--Payment Method-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-payment-method"><?php echo Mage::helper('sales')->__('Payment Information') ?></h4>
+                <h4 class="icon-head head-payment-method"><?= Mage::helper('sales')->__('Payment Information') ?></h4>
             </div>
             <fieldset>
-                <?php echo $this->getPaymentHtml() ?>
-                <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+                <?= $this->getPaymentHtml() ?>
+                <div><?= Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
                 <?php if ($_order->getCouponCode()): ?>
-                    <div><?php echo Mage::helper('sales')->__('Coupon code used: %s (%s)', $this->escapeHtml($_order->getCouponCode()), $this->escapeHtml($_order->getDiscountDescription())); ?></div>
+                    <div><?= Mage::helper('sales')->__('Coupon code used: %s (%s)', $this->escapeHtml($_order->getCouponCode()), $this->escapeHtml($_order->getDiscountDescription())) ?></div>
                 <?php endif; ?>
             </fieldset>
         </div>
@@ -45,15 +45,15 @@
         <!--Shipping Method-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-shipping-method"><?php echo Mage::helper('sales')->__('Shipping &amp; Handling Information') ?></h4>
+                <h4 class="icon-head head-shipping-method"><?= Mage::helper('sales')->__('Shipping &amp; Handling Information') ?></h4>
             </div>
             <fieldset>
                 <?php  if ($_order->getTracksCollection()->count()) : ?>
-                <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->quoteEscape($this->__('Track Order')) ?>"><?php echo $this->__('Track Order') ?></a>
+                <a href="#" id="linkId" onclick="popWin('<?= $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?= $this->quoteEscape($this->__('Track Order')) ?>"><?= $this->__('Track Order') ?></a>
                 <br/>
                 <?php endif ?>
                 <?php if ($_order->getShippingDescription()): ?>
-                    <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                    <strong><?= $this->escapeHtml($_order->getShippingDescription()) ?></strong>
 
                     <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
                         <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
@@ -62,39 +62,39 @@
                     <?php endif ?>
                     <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
-                    <?php echo $_excl; ?>
+                    <?= $_excl ?>
                     <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                     <?php endif ?>
                 <?php else: ?>
-                    <?php echo $this->helper('sales')->__('No shipping information available'); ?>
+                    <?= $this->helper('sales')->__('No shipping information available') ?>
                 <?php endif ?>
             </fieldset>
         </div>
     </div>
     <?php endif ?>
     <div class="clear"></div>
-    <?php echo $this->getGiftOptionsHtml() ?>
+    <?= $this->getGiftOptionsHtml() ?>
     <div class="clear"></div>
     <div class="entry-edit">
         <div class="entry-edit-head">
-            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('Items Ordered') ?></h4>
+            <h4 class="icon-head head-products"><?= Mage::helper('sales')->__('Items Ordered') ?></h4>
         </div>
     </div>
-    <?php echo $this->getItemsHtml() ?>
+    <?= $this->getItemsHtml() ?>
     <div class="clear"></div>
 
     <div class="box-left">
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4><?php echo Mage::helper('sales')->__('Comments History') ?></h4>
+                <h4><?= Mage::helper('sales')->__('Comments History') ?></h4>
             </div>
-            <fieldset><?php echo $this->getChildHtml('order_history') ?></fieldset>
+            <fieldset><?= $this->getChildHtml('order_history') ?></fieldset>
         </div>
     </div>
     <div class="box-right entry-edit">
-        <div class="entry-edit-head"><h4><?php echo Mage::helper('sales')->__('Order Totals') ?></h4></div>
-        <div class="order-totals"><?php echo $this->getChildHtml('order_totals') ?></div>
+        <div class="entry-edit-head"><h4><?= Mage::helper('sales')->__('Order Totals') ?></h4></div>
+        <div class="order-totals"><?= $this->getChildHtml('order_totals') ?></div>
     </div>
     <div class="clear"></div>
 </div>

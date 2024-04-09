@@ -20,18 +20,18 @@
  */
 ?>
 <div class="page-head">
-    <h3><?php echo $this->__("You're All Set") ?>!</h3>
+    <h3><?= $this->__("You're All Set") ?>!</h3>
 </div>
 <?php if ($this->getIframeSourceUrl()): ?>
-    <iframe id="iframe_box" src="<?php echo $this->getIframeSourceUrl() ?>" frameborder="0" width="650" height="600"></iframe>
+    <iframe id="iframe_box" src="<?= $this->getIframeSourceUrl() ?>" frameborder="0" width="650" height="600"></iframe>
 <?php endif ?>
-<p><?php echo $this->__('Get ready to experience Open-Source eCommerce Evolved.') ?></p>
+<p><?= $this->__('Get ready to experience Open-Source eCommerce Evolved.') ?></p>
 <?php if($this->getEncryptionKey()): ?>
-<p><?php echo $this->__('Before you continue to your store, please make a note of your encryption key (OpenMage uses it to encrypt passwords, credit cards and more).') ?></p>
-<p><strong><big><?php echo $this->getEncryptionKey() ?></big></strong></p>
-<p><?php echo $this->__('(Make sure you keep it in a safe place.)') ?></p>
+<p><?= $this->__('Before you continue to your store, please make a note of your encryption key (OpenMage uses it to encrypt passwords, credit cards and more).') ?></p>
+<p><strong><big><?= $this->getEncryptionKey() ?></big></strong></p>
+<p><?= $this->__('(Make sure you keep it in a safe place.)') ?></p>
 <?php endif ?>
 <div class="button-set">
-    <button class="form-button" onclick="window.open('<?php echo $this->getUrl('') ?>')" type="button"><?php echo $this->__('Go to Frontend') ?></button>&nbsp;&nbsp;
-    <button class="form-button" onclick="window.open('<?php echo $this->getUrl('adminhtml') ?>')" type="button"><?php echo $this->__('Go to Backend') ?></button>
+    <button class="form-button" onclick="window.open('<?= $this->getUrl('') ?>')" type="button"><?= $this->__('Go to Frontend') ?></button>&nbsp;&nbsp;
+    <button class="form-button" onclick="window.open('<?= $this->getUrl('adminhtml') ?>')" type="button"><?= $this->__('Go to Backend') ?></button>
 </div>

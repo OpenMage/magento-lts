@@ -15,23 +15,23 @@
 ?>
 
 <?php if ($_item = $this->getItem()): ?>
-    <h5 class="title"><?php echo $_item->getName() ?></h5>
-    <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getSku()))); ?></div>
+    <h5 class="title"><?= $_item->getName() ?></h5>
+    <div><strong><?= $this->helper('sales')->__('SKU') ?>:</strong> <?= implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getSku()))) ?></div>
     <?php if ($this->getOrderOptions()): ?>
         <dl class="item-options">
         <?php foreach ($this->getOrderOptions() as $_option): ?>
-            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+            <dt><?= $this->escapeHtml($_option['label']) ?></dt>
             <dd>
             <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
                 <?php echo $_option['value'];?>
             <?php else: ?>
                 <?php echo Mage::helper('core/string')->truncate($_option['value'], 55, '', $_remainder);?>
                 <?php if ($_remainder):?>
-                    ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                    ... <span id="<?= $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
                     <script type="text/javascript">
-                    $('<?php echo $_id ?>').hide();
-                    $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
-                    $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
+                    $('<?= $_id ?>').hide();
+                    $('<?= $_id ?>').up().observe('mouseover', function(){$('<?= $_id ?>').show();});
+                    $('<?= $_id ?>').up().observe('mouseout',  function(){$('<?= $_id ?>').hide();});
                     </script>
                 <?php endif ?>
             <?php endif ?>
@@ -41,11 +41,11 @@
     <?php endif ?>
     <?php if ($this->getLinks()): ?>
         <dl class="item-options">
-            <dt><?php echo $this->escapeHtml($this->getLinksTitle()); ?></dt>
+            <dt><?= $this->escapeHtml($this->getLinksTitle()) ?></dt>
             <?php foreach ($this->getLinks()->getPurchasedItems() as $_link): ?>
-                <dd><?php echo $this->escapeHtml($_link->getLinkTitle()); ?> (<?php echo $_link->getNumberOfDownloadsBought()?$_link->getNumberOfDownloadsBought():Mage::helper('downloadable')->__('Unlimited') ?>)</dd>
+                <dd><?= $this->escapeHtml($_link->getLinkTitle()) ?> (<?= $_link->getNumberOfDownloadsBought()?$_link->getNumberOfDownloadsBought():Mage::helper('downloadable')->__('Unlimited') ?>)</dd>
             <?php endforeach ?>
         </dl>
     <?php endif ?>
-    <?php echo $this->escapeHtml($_item->getDescription()) ?>
+    <?= $this->escapeHtml($_item->getDescription()) ?>
 <?php endif ?>

@@ -25,8 +25,8 @@ $_helper = $this->helper('googleanalytics');
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            <?php echo $this->_getPageTrackingCode($_gaAccountId) ?>
-            <?php echo $this->_getEnhancedEcommerceDataForAnalytics4() ?>
+            <?= $this->_getPageTrackingCode($_gaAccountId) ?>
+            <?= $this->_getEnhancedEcommerceDataForAnalytics4() ?>
         </script>
         <!-- END GOOGLE ANALYTICS 4 CODE -->
     <?php endif ?>

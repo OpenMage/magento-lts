@@ -22,30 +22,30 @@
 <div class="content-container">
     <div class="login-box">
         <div class="page-title">
-            <h1><?php echo $this->__('Log In') ?></h1>
+            <h1><?= $this->__('Log In') ?></h1>
         </div>
         <div class="form-box">
-            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <?= $this->getMessagesBlock()->toHtml() ?>
             <?php if (!$this->getHasException()) : ?>
-            <form method="post" action="<?php echo $this->getPostActionUrl() ?>" id="loginForm">
-                <?php echo $this->getBlockHtml('formkey'); ?>
+            <form method="post" action="<?= $this->getPostActionUrl() ?>" id="loginForm">
+                <?= $this->getBlockHtml('formkey') ?>
                 <fieldset class="fieldset">
-                    <h2 class="legend"><?php echo $this->getFormTitle() ?></h2>
-                    <p class="description"><?php echo $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
+                    <h2 class="legend"><?= $this->getFormTitle() ?></h2>
+                    <p class="description"><?= $this->__('Log in to use <strong>%s</strong>', $this->getConsumer()->getName()) ?></p>
                     <div class="login-form simple">
-                            <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>"/>
-                            <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>"/>
+                            <input name="form_key" type="hidden" value="<?= $this->getFormKey() ?>"/>
+                            <input type="hidden" name="oauth_token" value="<?= $this->escapeHtml($this->getToken()) ?>"/>
 
                             <div class="input-box input-left">
                                 <label for="username">
-                                    <em class="required">*</em>&nbsp;<?php echo $this->getIdentityLabel(); ?>
+                                    <em class="required">*</em>&nbsp;<?= $this->getIdentityLabel() ?>
                                 </label>
                                 <input type="text" id="username" name="login[username]" value="" class="required-entry input-text"/>
                             </div>
                             <div class="clear"></div>
                             <div class="input-box input-right">
                                 <label for="login">
-                                    <em class="required">*</em>&nbsp;<?php echo $this->__('Password') ?>
+                                    <em class="required">*</em>&nbsp;<?= $this->__('Password') ?>
                                 </label>
                                 <!-- This is a dummy hidden field to trick firefox from auto filling the password -->
                                 <input type="password" class="input-text no-display" name="dummy" id="dummy" />
@@ -54,10 +54,10 @@
                             <div class="clear"></div>
                             <div class="form-buttons">
                                 <button type="submit" class="form-button"
-                                       title="<?php echo $this->quoteEscape($this->__('Login')) ?>"/><?php echo $this->__('Login') ?></button>
-                                <button type="button" onclick="document.location.href='<?php echo $this->getRejectUrl(); ?>';"
-                                        title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><?php echo $this->__('Reject') ?></button>
-                                <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                                       title="<?= $this->quoteEscape($this->__('Login')) ?>"/><?= $this->__('Login') ?></button>
+                                <button type="button" onclick="document.location.href='<?= $this->getRejectUrl() ?>';"
+                                        title="<?= $this->quoteEscape($this->__('Reject')) ?>"><?= $this->__('Reject') ?></button>
+                                <p class="required"><?= $this->__('* Required Fields') ?></p>
                             </div>
                         </div>
                     </fieldset>

@@ -30,13 +30,13 @@
         echo $_helper->productAttribute($_product, $_img, 'image');
     ?>
 </p>
-<p class="zoom-notice" id="track_hint"><?php echo $this->__('Double click on above image to view full picture') ?></p>
+<p class="zoom-notice" id="track_hint"><?= $this->__('Double click on above image to view full picture') ?></p>
 <div class="zoom">
-    <img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Zoom Out')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Zoom Out')) ?>" class="btn-zoom-out" />
+    <img id="zoom_out" src="<?= $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('Zoom Out')) ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Zoom Out')) ?>" class="btn-zoom-out" />
     <div id="track">
         <div id="handle"></div>
     </div>
-    <img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Zoom In')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Zoom In')) ?>" class="btn-zoom-in" />
+    <img id="zoom_in" src="<?= $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('Zoom In')) ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Zoom In')) ?>" class="btn-zoom-in" />
 </div>
 <script type="text/javascript">
 //<![CDATA[
@@ -55,11 +55,11 @@
 <?php endif ?>
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
-    <h2><?php echo $this->__('More Views') ?></h2>
+    <h2><?= $this->__('More Views') ?></h2>
     <ul>
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
-            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" /></a>
+            <a href="#" onclick="popWin('<?= $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?= $this->escapeHtml($_image->getLabel()) ?>"><img src="<?= $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56) ?>" width="56" height="56" alt="<?= $this->escapeHtml($_image->getLabel()) ?>" /></a>
         </li>
     <?php endforeach ?>
     </ul>

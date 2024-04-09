@@ -20,25 +20,25 @@
  */
 ?>
 
-<?php echo $this->getChildHtml(); ?>
+<?= $this->getChildHtml() ?>
 
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Roles Resources') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= $this->__('Roles Resources') ?></h4>
     </div>
     <input type="hidden" name="resource" id="role_resources" value="" />
     <fieldset id="role_resources">
 
         <span class="field-row">
-            <label for="all"><?php echo $this->__('Resource Access') ?></label>
+            <label for="all"><?= $this->__('Resource Access') ?></label>
             <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
-                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected'); ?>><?php echo $this->__('Custom') ?></option>
-                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected':''); ?>><?php echo $this->__('All') ?></option>
+                <option value="0" <?= ($this->getEverythingAllowed()?'':'selected') ?>><?= $this->__('Custom') ?></option>
+                <option value="1" <?= ($this->getEverythingAllowed()?'selected':'') ?>><?= $this->__('All') ?></option>
             </select>
         </span>
 
         <span class="field-row" id="resources_container">
-            <label><?php echo $this->__('Resources') ?></label>
+            <label><?= $this->__('Resources') ?></label>
             <div class="f-left">
                 <div class="tree x-tree" id="resource-tree"></div>
             </div>
@@ -74,7 +74,7 @@ Ext.EventManager.onDocumentReady(function() {
     });
 
     tree.setRootNode(root);
-    bildResourcesTree(root, <?php echo $this->getResTreeJson() ?>);
+    bildResourcesTree(root, <?= $this->getResTreeJson() ?>);
     tree.addListener('click', resourceClick.createDelegate(this));
 
     // render the tree

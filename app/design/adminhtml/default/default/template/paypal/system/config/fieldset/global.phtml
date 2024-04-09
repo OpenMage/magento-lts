@@ -24,8 +24,8 @@
     <col width="25%" />
     <thead>
         <tr>
-            <th><?php echo $this->escapeHtml($this->getFieldsetLabel()) ?></th>
-            <th class="paypal-selection-info"><a href="<?php echo $this->escapeHtml($this->getFieldsetHelpUrl()) ?>"><?php echo Mage::helper('paypal')->__('Help')?></a></th>
+            <th><?= $this->escapeHtml($this->getFieldsetLabel()) ?></th>
+            <th class="paypal-selection-info"><a href="<?= $this->escapeHtml($this->getFieldsetHelpUrl()) ?>"><?php echo Mage::helper('paypal')->__('Help')?></a></th>
         </tr>
     </thead>
     <tbody>
@@ -34,23 +34,23 @@
         <?php if ($this->getIsElementSimplified($element)):?>
             <td colspan="2" class="paypal-selection-simplified">
                 <?php if ($this->hasInheritElement($element)): ?>
-                    <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
+                    <div><?= $this->getInheritElementHtml($element) ?><?= $this->getInheritElementLabelHtml($element) ?></div>
                 <?php endif ?>
-                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
+                <label for="<?= $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
             </td>
         <?php else: ?>
             <td>
                 <?php if ($this->hasInheritElement($element)): ?>
-                    <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
+                    <div><?= $this->getInheritElementHtml($element) ?><?= $this->getInheritElementLabelHtml($element) ?></div>
                 <?php endif ?>
-                <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->getElementComment($element)?></label>
+                <label for="<?= $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->getElementComment($element)?></label>
             </td>
             <td class="paypal-selection-info">
                 <?php if ($url = $this->getElementOriginalData($element, 'demo_url')):?>
-                    <a id="<?php echo $element->getHtmlId()?>_demo_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('View Demo')?></a> |
+                    <a id="<?= $element->getHtmlId()?>_demo_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('View Demo')?></a> |
                 <?php endif ?>
                 <?php if ($url = $this->getElementOriginalData($element, 'more_url')):?>
-                    <a id="<?php echo $element->getHtmlId()?>_more_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('Learn More')?></a>
+                    <a id="<?= $element->getHtmlId()?>_more_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('Learn More')?></a>
                 <?php endif ?>
             </td>
         <?php endif ?>

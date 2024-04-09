@@ -19,41 +19,41 @@
 ?>
 <?php $_item = $this->getItem() ?>
 <tr>
-    <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?php echo $this->__('Remove Item')?></a></td>
-    <td><a href="<?php echo $this->getItemUrl($_item) ?>" title="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getItemProductForThumbnail($_item), 'thumbnail')->resize(75); ?>" width="75" alt="<?php echo $this->escapeHtml($this->getItemName($_item)) ?>" /></a></td>
+    <td class="a-center"><a href="<?= $this->getItemDeleteUrl($_item) ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?php echo $this->__('Remove Item')?></a></td>
+    <td><a href="<?= $this->getItemUrl($_item) ?>" title="<?= $this->escapeHtml($this->getItemName($_item)) ?>" class="product-image"><img src="<?= $this->helper('catalog/image')->init($this->getItemProductForThumbnail($_item), 'thumbnail')->resize(75) ?>" width="75" alt="<?= $this->escapeHtml($this->getItemName($_item)) ?>" /></a></td>
     <td>
-        <h3 class="product-name"><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->getItemName($_item) ?></a></h3>
-        <?php echo $this->getItemDescription($_item) ?>
+        <h3 class="product-name"><a href="<?= $this->getItemUrl($_item) ?>"><?= $this->getItemName($_item) ?></a></h3>
+        <?= $this->getItemDescription($_item) ?>
         <?php if($_item->getMessage()): ?>
-            <p class="item-msg <?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif ?>">* <?php echo $_item->getMessage() ?></p>
+            <p class="item-msg <?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif ?>">* <?= $_item->getMessage() ?></p>
         <?php endif ?>
     </td>
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
-        <a href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>" class="link-wishlist"><?php echo $this->__('Move'); ?></a>
+        <a href="<?= $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()) ?>" class="link-wishlist"><?= $this->__('Move') ?></a>
     </td>
     <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
+        <?= $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
     </td>
     <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)); ?>
+        <?= $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)) ?>
     </td>
     <?php endif ?>
     <td class="a-center">
-        <input name="cart[<?php echo $_item->getId() ?>][qty]" data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>" value="<?php echo $this->getItemQty($_item) ?>" size="4" class="input-text qty" maxlength="12" />
+        <input name="cart[<?= $_item->getId() ?>][qty]" data-cart-item-id="<?= $this->jsQuoteEscape($_item->getSku()) ?>" value="<?= $this->getItemQty($_item) ?>" size="4" class="input-text qty" maxlength="12" />
     </td>
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
+        <?= $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
     </td>
     <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)); ?>
+        <?= $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)) ?>
     </td>
     <?php endif ?>
 </tr>

@@ -17,12 +17,12 @@
 <?php $_items = $this->getReviewsCollection()->getItems();?>
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):?>
-        <h2><?php echo $this->__('Customer Reviews') ?></h2>
-        <?php echo $this->getChildHtml('toolbar') ?>
+        <h2><?= $this->__('Customer Reviews') ?></h2>
+        <?= $this->getChildHtml('toolbar') ?>
         <dl>
         <?php foreach ($_items as $_review):?>
             <dt>
-                <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>"><?php echo $this->escapeHtml($_review->getTitle()) ?></a> <?php echo $this->__('Review by <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?>
+                <a href="<?= $this->getReviewUrl($_review->getId()) ?>"><?= $this->escapeHtml($_review->getTitle()) ?></a> <?= $this->__('Review by <span>%s</span>', $this->escapeHtml($_review->getNickname())) ?>
             </dt>
             <dd>
                 <?php $_votes = $_review->getRatingVotes(); ?>
@@ -33,10 +33,10 @@
                     <tbody>
                         <?php foreach ($_votes as $_vote): ?>
                         <tr>
-                            <th><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></th>
+                            <th><?= $this->escapeHtml($_vote->getRatingCode()) ?></th>
                             <td>
                                 <div class="rating-box">
-                                    <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                                    <div class="rating" style="width:<?= $_vote->getPercent() ?>%;"></div>
                                 </div>
                             </td>
                         </tr>
@@ -44,12 +44,12 @@
                     </tbody>
                 </table>
                 <?php endif ?>
-                <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
-                <small class="date"><?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
+                <?= nl2br($this->escapeHtml($_review->getDetail())) ?>
+                <small class="date"><?= $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
             </dd>
         <?php endforeach ?>
         </dl>
-        <?php echo $this->getChildHtml('toolbar') ?>
+        <?= $this->getChildHtml('toolbar') ?>
     <?php endif ?>
-    <?php echo $this->getChildHtml('review_form') ?>
+    <?= $this->getChildHtml('review_form') ?>
 </div>

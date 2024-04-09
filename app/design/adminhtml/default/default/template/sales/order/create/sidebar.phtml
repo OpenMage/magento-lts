@@ -13,30 +13,30 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="entry-edit"><div class="entry-edit-head"><h4><?php echo $this->helper('sales')->__('Customer\'s Current Activities') ?></h4></div></div>
+<div class="entry-edit"><div class="entry-edit-head"><h4><?= $this->helper('sales')->__('Customer\'s Current Activities') ?></h4></div></div>
 <div class="create-order-sidebar-container">
-<?php echo $this->getChildHtml('top_button'); ?>
+<?= $this->getChildHtml('top_button') ?>
 <?php foreach ($this->getChild() as $_child): ?>
     <?php $_alias = $_child->getBlockAlias(); ?>
     <?php if ($_alias != 'top_button' && $_alias != 'bottom_button'): ?>
-        <div id="order-sidebar_<?php echo $_alias ?>">
+        <div id="order-sidebar_<?= $_alias ?>">
             <?php if($this->canDisplay($_child)): ?>
-                <?php echo $this->getChildHtml($_alias) ?>
+                <?= $this->getChildHtml($_alias) ?>
             <?php endif ?>
         </div>
     <?php endif ?>
 <?php endforeach ?>
-<?php echo $this->getChildHtml('bottom_button'); ?>
+<?= $this->getChildHtml('bottom_button') ?>
 </div>
 <script>
 function addSidebarCompositeListType() {
     productConfigure.addListType('sidebar', {
-        urlFetch: '<?php echo $this->getUrl('*/sales_order_create/configureProductToAdd') ?>',
-        urlConfirm: '<?php echo $this->getUrl('*/sales_order_create/addConfigured') ?>'
+        urlFetch: '<?= $this->getUrl('*/sales_order_create/configureProductToAdd') ?>',
+        urlConfirm: '<?= $this->getUrl('*/sales_order_create/addConfigured') ?>'
     });
     productConfigure.addListType('sidebar_wishlist', {
-        urlFetch: '<?php echo $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
-        urlConfirm: '<?php echo $this->getUrl('*/sales_order_create/addConfigured') ?>'
+        urlFetch: '<?= $this->getUrl('*/customer_wishlist_product_composite_wishlist/configure') ?>',
+        urlConfirm: '<?= $this->getUrl('*/sales_order_create/addConfigured') ?>'
     });
 }
 

@@ -16,8 +16,8 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3 class="icon-head head-online-visitors"><?php echo Mage::helper('customer')->__('Online Customers') ?></h3></td>
+            <td><h3 class="icon-head head-online-visitors"><?= Mage::helper('customer')->__('Online Customers') ?></h3></td>
         </tr>
     </table>
 </div>
-<?php echo $this->getChildHtml('grid') ?>
+<?= $this->getChildHtml('grid') ?>

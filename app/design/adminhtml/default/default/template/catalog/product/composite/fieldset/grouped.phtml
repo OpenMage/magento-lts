@@ -15,15 +15,15 @@
  ?>
 <?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped $this */ ?>
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>
-<div id="catalog_product_composite_configure_fields_grouped" class="grid <?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
-    <h4><?php echo Mage::helper('catalog')->__('Associated Products') ?></h4>
+<div id="catalog_product_composite_configure_fields_grouped" class="grid <?= $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+    <h4><?= Mage::helper('catalog')->__('Associated Products') ?></h4>
     <div class="product-options">
         <?php $_product = $this->getProduct(); ?>
         <?php $this->setPreconfiguredValue(); ?>
         <?php $_associatedProducts = $this->getAssociatedProducts(); ?>
         <?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
         <?php if ((!$_product->isAvailable() && !$_skipSaleableCheck) || !$_hasAssociatedProducts): ?>
-            <p class="availability out-of-stock"><?php echo Mage::helper('catalog')->__('Availability:') ?> <span><?php echo Mage::helper('catalog')->__('Out of stock') ?></span></p>
+            <p class="availability out-of-stock"><?= Mage::helper('catalog')->__('Availability:') ?> <span><?= Mage::helper('catalog')->__('Out of stock') ?></span></p>
         <?php endif ?>
         <table class="data-table grouped-items-table" id="super-product-table">
             <col />
@@ -33,14 +33,14 @@
             <col width="1" />
             <thead>
                 <tr "class="headings">
-                    <th><?php echo Mage::helper('catalog')->__('ID') ?></th>
-                    <th><?php echo Mage::helper('catalog')->__('SKU') ?></th>
-                    <th><?php echo Mage::helper('catalog')->__('Product Name') ?></th>
+                    <th><?= Mage::helper('catalog')->__('ID') ?></th>
+                    <th><?= Mage::helper('catalog')->__('SKU') ?></th>
+                    <th><?= Mage::helper('catalog')->__('Product Name') ?></th>
                     <?php if ($this->getCanShowProductPrice($_product)): ?>
-                    <th class="a-right"><?php echo Mage::helper('catalog')->__('Price') ?></th>
+                    <th class="a-right"><?= Mage::helper('catalog')->__('Price') ?></th>
                     <?php endif ?>
                     <?php if ($_product->isSaleable() || $_skipSaleableCheck): ?>
-                    <th class="a-center"><?php echo Mage::helper('catalog')->__('Qty') ?></th>
+                    <th class="a-center"><?= Mage::helper('catalog')->__('Qty') ?></th>
                     <?php endif ?>
                 </tr>
             </thead>
@@ -49,24 +49,24 @@
                 <?php $i = 0 ?>
             <?php foreach ($_associatedProducts as $_item): ?>
                 <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
-                <tr class="<?php echo (++$i % 2) ? 'even' : 'odd' ?>">
-                    <td><?php echo $_item->getId() ?></td>
-                    <td><?php echo $this->escapeHtml($_item->getSku()) ?></td>
-                    <td><?php echo $this->escapeHtml($_item->getName()) ?></td>
+                <tr class="<?= (++$i % 2) ? 'even' : 'odd' ?>">
+                    <td><?= $_item->getId() ?></td>
+                    <td><?= $this->escapeHtml($_item->getSku()) ?></td>
+                    <td><?= $this->escapeHtml($_item->getName()) ?></td>
                     <?php if ($this->getCanShowProductPrice($_product)): ?>
                     <td class="a-right">
                         <?php if ($this->getCanShowProductPrice($_item)): ?>
-                        <?php echo $this->getPriceHtml($_item, true) ?>
+                        <?= $this->getPriceHtml($_item, true) ?>
                         <?php endif ?>
                     </td>
                     <?php endif ?>
                     <?php if ($_product->isSaleable() || $_skipSaleableCheck): ?>
                     <td class="a-center">
                     <?php if ($_item->isSaleable() || $_skipSaleableCheck) : ?>
-                        <input type="text" name="super_group[<?php echo $_item->getId() ?>]" id="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('catalog')->__('Qty')) ?>" class="input-text qty" />
-                        <input type="hidden" value="1" price="<?php echo $this->getCurrencyPrice($_item->getPrice()) ?>" qtyId="super_group[<?php echo $_item->getId() ?>]" />
+                        <input type="text" name="super_group[<?= $_item->getId() ?>]" id="super_group[<?= $_item->getId() ?>]" maxlength="12" value="<?= $_item->getQty()*1 ?>" title="<?= Mage::helper('core')->quoteEscape(Mage::helper('catalog')->__('Qty')) ?>" class="input-text qty" />
+                        <input type="hidden" value="1" price="<?= $this->getCurrencyPrice($_item->getPrice()) ?>" qtyId="super_group[<?= $_item->getId() ?>]" />
                     <?php else: ?>
-                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                     <?php endif ?>
                     </td>
                     <?php endif ?>
@@ -74,7 +74,7 @@
             <?php endforeach ?>
             <?php else: ?>
                <tr>
-                   <td colspan="<?php if ($_product->isSaleable() || $_skipSaleableCheck): ?>4<?php else: ?>3<?php endif ?>"><?php echo Mage::helper('catalog')->__('No options of this product are available.') ?></td>
+                   <td colspan="<?php if ($_product->isSaleable() || $_skipSaleableCheck): ?>4<?php else: ?>3<?php endif ?>"><?= Mage::helper('catalog')->__('No options of this product are available.') ?></td>
                </tr>
             <?php endif ?>
             </tbody>

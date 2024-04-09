@@ -18,14 +18,14 @@
     <div class="my-wishlist">
         <div class="page-title title-buttons">
             <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
-                <a href="<?php echo $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
+                <a href="<?= $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()) ?>" class="link-rss"><?= $this->__('RSS Feed') ?></a>
             <?php endif ?>
-            <h1><?php echo $this->getTitle(); ?></h1>
+            <h1><?= $this->getTitle() ?></h1>
         </div>
-        <?php echo $this->getMessagesBlock()->toHtml() ?>
+        <?= $this->getMessagesBlock()->toHtml() ?>
 
-        <form id="wishlist-view-form" action="<?php echo $this->getUrl('*/*/update', ['wishlist_id' => $this->getWishlistInstance()->getId()]) ?>" method="post">
-            <?php echo $this->getChildHtml('top'); ?>
+        <form id="wishlist-view-form" action="<?= $this->getUrl('*/*/update', ['wishlist_id' => $this->getWishlistInstance()->getId()]) ?>" method="post">
+            <?= $this->getChildHtml('top') ?>
             <fieldset>
                 <?php if ($this->hasWishlistItems()): ?>
                         <?php echo $this->getBlockHtml('formkey');?>
@@ -33,7 +33,7 @@
                         <?php echo $this->getChildHtml('items');?>
                         <script type="text/javascript">decorateTable('wishlist-table')</script>
                 <?php else: ?>
-                    <p class="wishlist-empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
+                    <p class="wishlist-empty"><?= $this->__('You have no items in your wishlist.') ?></p>
                 <?php endif ?>
                 <div class="buttons-set buttons-set2">
                     <?php echo $this->getChild('control_buttons')->toHtml();?>
@@ -41,10 +41,10 @@
             </fieldset>
         </form>
 
-        <form id="wishlist-allcart-form" action="<?php echo $this->getUrl('*/*/allcart') ?>" method="post">
-            <?php echo $this->getBlockHtml('formkey') ?>
+        <form id="wishlist-allcart-form" action="<?= $this->getUrl('*/*/allcart') ?>" method="post">
+            <?= $this->getBlockHtml('formkey') ?>
             <div class="no-display">
-                <input type="hidden" name="wishlist_id" id="wishlist_id" value="<?php echo $this->getWishlistInstance()->getId() ?>" />
+                <input type="hidden" name="wishlist_id" id="wishlist_id" value="<?= $this->getWishlistInstance()->getId() ?>" />
                 <input type="hidden" name="qty" id="qty" value="" />
             </div>
         </form>
@@ -74,8 +74,8 @@
         //]]>
         </script>
     </div>
-    <?php echo $this->getChildHtml('bottom'); ?>
+    <?= $this->getChildHtml('bottom') ?>
     <div class="buttons-set">
-        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <p class="back-link"><a href="<?= $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?= $this->__('Back') ?></a></p>
     </div>
 <?php endif ?>

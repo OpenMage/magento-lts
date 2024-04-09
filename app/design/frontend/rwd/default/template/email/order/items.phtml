@@ -26,29 +26,29 @@
                     <tr>
                         <th class="cell-name">
                             <?php if($_itemCount > 1): ?>
-                                <?php echo $this->__('Items in your order'); ?>
+                                <?= $this->__('Items in your order') ?>
                             <?php else: ?>
-                                <?php echo $this->__('Item in your order'); ?>
+                                <?= $this->__('Item in your order') ?>
                             <?php endif ?>
                         </th>
                         <th class="cell-name align-center">
-                            <?php echo $this->__('Qty'); ?>
+                            <?= $this->__('Qty') ?>
                         </th>
                         <th class="cell-name align-right">
-                            <?php echo $this->__('Price'); ?>
+                            <?= $this->__('Price') ?>
                         </th>
                     </tr>
                 </thead>
             <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
             <?php if($_item->getParentItem()) continue; else $i++; ?>
-                <?php echo $this->getItemHtml($_item) ?>
+                <?= $this->getItemHtml($_item) ?>
             <?php endforeach ?>
             </table>
         </td>
     </tr>
     <tr>
         <td>
-            <?php echo $this->getChildHtml('order_totals') ?>
+            <?= $this->getChildHtml('order_totals') ?>
         </td>
     </tr>
     <?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
@@ -58,7 +58,7 @@
             <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
                 <thead>
                     <tr>
-                        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
+                        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?= $this->__('Gift Message for this Order') ?></strong></th>
                     </tr>
                 </thead>
 
@@ -66,9 +66,9 @@
 
                     <tr>
                         <td colspan="4" align="left" style="padding:3px 9px">
-                        <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
-                        <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
-                        <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+                        <strong><?= $this->__('From:') ?></strong> <?= $this->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?= $this->__('To:') ?></strong> <?= $this->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?= $this->__('Message:') ?></strong><br /> <?= $this->escapeHtml($_giftMessage->getMessage()) ?>
                         </td>
                     </tr>
                 </tbody>

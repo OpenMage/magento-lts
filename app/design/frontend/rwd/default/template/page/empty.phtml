@@ -19,17 +19,17 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js">
+<html lang="<?= $this->getLang() ?>" id="top" class="no-js">
 <head>
-    <?php echo $this->getChildHtml('head') ?>
+    <?= $this->getChildHtml('head') ?>
 </head>
-<body class="page-empty <?php echo $this->getBodyClass()?$this->getBodyClass():'' ?>">
+<body class="page-empty <?= $this->getBodyClass()?$this->getBodyClass():'' ?>">
     <div>
-        <?php echo $this->getChildHtml('after_body_start') ?>
-        <?php echo $this->getChildHtml('global_messages') ?>
-        <?php echo $this->getChildHtml('content') ?>
-        <?php echo $this->getChildHtml('before_body_end') ?>
-        <?php echo $this->getAbsoluteFooter() ?>
+        <?= $this->getChildHtml('after_body_start') ?>
+        <?= $this->getChildHtml('global_messages') ?>
+        <?= $this->getChildHtml('content') ?>
+        <?= $this->getChildHtml('before_body_end') ?>
+        <?= $this->getAbsoluteFooter() ?>
     </div>
 </body>
 </html>

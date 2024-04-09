@@ -16,10 +16,10 @@
 <?php if ($this->getChildHtml()): ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
-        <h4><?php echo Mage::helper('sales')->__('Gift Options') ?></h4>
+        <h4><?= Mage::helper('sales')->__('Gift Options') ?></h4>
     </div>
     <fieldset>
-        <?php echo $this->getChildHtml() ?>
+        <?= $this->getChildHtml() ?>
     </fieldset>
 </div>
 <?php endif ?>

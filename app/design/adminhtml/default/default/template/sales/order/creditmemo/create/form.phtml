@@ -13,10 +13,10 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
+<form id="edit_form" method="post" action="<?= $this->getSaveUrl() ?>">
     <?php echo $this->getBlockHtml('formkey')?>
     <?php  $_order = $this->getCreditmemo()->getOrder() ?>
-    <?php echo $this->getChildHtml('order_info') ?>
+    <?= $this->getChildHtml('order_info') ?>
 
     <?php if (!$_order->getIsVirtual()): ?>
     <div class="box-left">
@@ -26,14 +26,14 @@
         <!--Billing Address-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-payment-method"><?php echo Mage::helper('sales')->__('Payment Information') ?></h4>
+                <h4 class="icon-head head-payment-method"><?= Mage::helper('sales')->__('Payment Information') ?></h4>
             </div>
             <fieldset>
-                <div><?php echo $this->getChildHtml('order_payment') ?></div>
-                <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+                <div><?= $this->getChildHtml('order_payment') ?></div>
+                <div><?= Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
                 <?php /*if ($this->getCreditmemo()->canRefund()): ?>
                 <input type="checkbox" name="creditmemo[do_refund]" id="creditmemo_do_refund" value="1" checked/>
-                <label for="creditmemo_do_refund" class="normal"><?php echo Mage::helper('sales')->__('Refund Amount') ?></label>
+                <label for="creditmemo_do_refund" class="normal"><?= Mage::helper('sales')->__('Refund Amount') ?></label>
                 <?php endif*/ ?>
             </fieldset>
         </div>
@@ -43,11 +43,11 @@
         <!--Shipping Address-->
         <div class="entry-edit">
             <div class="entry-edit-head">
-                <h4 class="icon-head head-shipping-method"><?php echo Mage::helper('sales')->__('Shipping Information') ?></h4>
+                <h4 class="icon-head head-shipping-method"><?= Mage::helper('sales')->__('Shipping Information') ?></h4>
             </div>
             <fieldset>
-                <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
-                <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+                <strong><?= $this->escapeHtml($_order->getShippingDescription()) ?></strong>
+                <?= $this->helper('sales')->__('Total Shipping Charges') ?>:
 
                 <?php if ($this->helper('tax')->displaySalesPriceInclTax($this->getSource()->getStoreId())): ?>
                     <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
@@ -56,9 +56,9 @@
                 <?php endif ?>
                 <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
-                <?php echo $_excl; ?>
+                <?= $_excl ?>
                 <?php if ($this->helper('tax')->displaySalesBothPrices($this->getSource()->getStoreId()) && $_incl != $_excl): ?>
-                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                 <?php endif ?>
             </fieldset>
         </div>
@@ -68,10 +68,10 @@
 
     <div class="entry-edit">
       <div class="entry-edit-head">
-          <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('Items to Refund') ?></h4>
+          <h4 class="icon-head head-products"><?= Mage::helper('sales')->__('Items to Refund') ?></h4>
       </div>
     </div>
     <div id="creditmemo_item_container">
-      <?php echo $this->getChildHtml('order_items') ?>
+      <?= $this->getChildHtml('order_items') ?>
     </div>
 </form>

@@ -18,27 +18,27 @@
         <ul class="note-list">
         <?php foreach ($this->getFullHistory() as $_item): ?>
             <li>
-                <strong><?php echo $this->getItemCreatedAt($_item) ?></strong>
-                <?php echo $this->getItemCreatedAt($_item, 'time') ?><span class="separator">|</span>
+                <strong><?= $this->getItemCreatedAt($_item) ?></strong>
+                <?= $this->getItemCreatedAt($_item, 'time') ?><span class="separator">|</span>
                 <?php if ($this->getItemTitle($_item)): ?>
-                <strong><?php echo $this->getItemTitle($_item) ?></strong>
+                <strong><?= $this->getItemTitle($_item) ?></strong>
                 <span class="separator">|</span>
                 <?php endif ?>
                 <small>
-                    <?php echo $this->helper('sales')->__('Customer') ?>
+                    <?= $this->helper('sales')->__('Customer') ?>
                     <strong class="subdue">
                     <?php if ($this->isCustomerNotificationNotApplicable($_item)): ?>
-                        <?php echo $this->helper('sales')->__('Notification Not Applicable') ?>
+                        <?= $this->helper('sales')->__('Notification Not Applicable') ?>
                     <?php elseif ($this->isItemNotified($_item)): ?>
-                        <?php echo $this->helper('sales')->__('Notified') ?>
-                        <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16px" height="16px" alt="" />
+                        <?= $this->helper('sales')->__('Notified') ?>
+                        <img src="<?= $this->getSkinUrl('images/ico_success.gif') ?>" width="16px" height="16px" alt="" />
                     <?php else: ?>
-                        <?php echo $this->helper('sales')->__('Not Notified') ?>
+                        <?= $this->helper('sales')->__('Not Notified') ?>
                     <?php endif ?>
                     </strong>
                 </small>
                 <?php if ($_comment = $this->getItemComment($_item)): ?>
-                    <br/><?php echo $_comment ?>
+                    <br/><?= $_comment ?>
                 <?php endif ?>
             </li>
         <?php endforeach ?>

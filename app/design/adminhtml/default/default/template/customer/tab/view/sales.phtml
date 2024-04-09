@@ -14,23 +14,23 @@
  */
 ?>
 <div class="entry-edit">
-    <div class="entry-edit-head"><h4 class="icon-head head-customer-sales-statistics"><?php echo Mage::helper('customer')->__('Sales Statistics') ?></h4></div>
+    <div class="entry-edit-head"><h4 class="icon-head head-customer-sales-statistics"><?= Mage::helper('customer')->__('Sales Statistics') ?></h4></div>
     <div class="grid">
         <table cellspacing="0" class="data">
             <thead>
                 <tr class="headings">
-                    <th><?php echo Mage::helper('customer')->__('Website') ?></th>
-                    <th><?php echo Mage::helper('customer')->__('Store') ?></th>
-                    <th><?php echo Mage::helper('customer')->__('Store View') ?></th>
-                    <th><?php echo Mage::helper('customer')->__('Lifetime Sales') ?></th>
-                    <th><?php echo Mage::helper('customer')->__('Average Sale') ?></th>
+                    <th><?= Mage::helper('customer')->__('Website') ?></th>
+                    <th><?= Mage::helper('customer')->__('Store') ?></th>
+                    <th><?= Mage::helper('customer')->__('Store View') ?></th>
+                    <th><?= Mage::helper('customer')->__('Lifetime Sales') ?></th>
+                    <th><?= Mage::helper('customer')->__('Average Sale') ?></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="label"><strong><big><?php echo Mage::helper('customer')->__('All Store Views') ?></big></strong></td>
-                    <td class="emph"><strong><big><?php echo $this->formatCurrency($this->getTotals()->getBaseLifetime()) ?></big></strong></td>
-                    <td class="emph"><strong><big><?php echo $this->formatCurrency($this->getTotals()->getAvgsale()) ?></big></strong></td>
+                    <td colspan="3" class="label"><strong><big><?= Mage::helper('customer')->__('All Store Views') ?></big></strong></td>
+                    <td class="emph"><strong><big><?= $this->formatCurrency($this->getTotals()->getBaseLifetime()) ?></big></strong></td>
+                    <td class="emph"><strong><big><?= $this->formatCurrency($this->getTotals()->getAvgsale()) ?></big></strong></td>
                 </tr>
             </tfoot>
             <?php if ($this->getRows()): ?>
@@ -42,21 +42,21 @@
                         <?php $_groupRow = false; ?>
                         <?php foreach ($_stores as $_row): ?>
                         <?php if ($_row->getStoreId() == 0): ?>
-                        <td colspan="3" class="label"><?php echo $this->escapeHtml($_row->getStoreName()); ?></td>
+                        <td colspan="3" class="label"><?= $this->escapeHtml($_row->getStoreName()) ?></td>
                         <?php else: ?>
-                <tr<?php echo ($_i++ % 2 ? ' class="even"' : '') ?>>
+                <tr<?= ($_i++ % 2 ? ' class="even"' : '') ?>>
                         <?php if (!$_websiteRow): ?>
-                    <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $this->escapeHtml($_row->getWebsiteName()); ?></td>
+                    <td rowspan="<?= $this->getWebsiteCount($_websiteId) ?>"><?= $this->escapeHtml($_row->getWebsiteName()) ?></td>
                             <?php $_websiteRow = true; ?>
                         <?php endif ?>
                         <?php if (!$_groupRow): ?>
-                    <td rowspan="<?php echo count($_stores) ?>"><?php echo $this->escapeHtml($_row->getGroupName()); ?></td>
+                    <td rowspan="<?= count($_stores) ?>"><?= $this->escapeHtml($_row->getGroupName()) ?></td>
                             <?php $_groupRow = true; ?>
                         <?php endif ?>
-                    <td class="label"><?php echo $this->escapeHtml($_row->getStoreName()); ?></td>
+                    <td class="label"><?= $this->escapeHtml($_row->getStoreName()) ?></td>
                         <?php endif ?>
-                    <td><?php echo $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
-                    <td><?php echo $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
+                    <td><?= $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
+                    <td><?= $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
                 </tr>
                         <?php endforeach ?>
                     <?php endforeach ?>

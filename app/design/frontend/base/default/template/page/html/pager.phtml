@@ -29,9 +29,9 @@
     <?php if($this->getShowAmounts()): ?>
     <p class="amount">
         <?php if($this->getLastPageNum()>1): ?>
-            <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+            <?= $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
         <?php else: ?>
-            <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
+            <strong><?= $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
         <?php endif ?>
     </p>
     <?php endif ?>
@@ -39,64 +39,64 @@
     <?php $availableLimits = $this->getAvailableLimit() ?>
     <?php if (count($availableLimits) > 1): ?>
         <div class="limiter">
-            <label><?php echo $this->__('Show') ?></label>
+            <label><?= $this->__('Show') ?></label>
             <select onchange="setLocation(this.value)">
             <?php foreach ($availableLimits as $_key => $_limit): ?>
-                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-                    <?php echo $_limit ?>
+                <option value="<?= $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                    <?= $_limit ?>
                 </option>
             <?php endforeach ?>
-            </select> <?php echo $this->__('per page') ?>
+            </select> <?= $this->__('per page') ?>
         </div>
     <?php endif ?>
 
     <?php if($this->getLastPageNum()>1): ?>
     <div class="pages">
-        <strong><?php echo $this->__('Page:') ?></strong>
+        <strong><?= $this->__('Page:') ?></strong>
         <ol>
         <?php if (!$this->isFirstPage()): ?>
             <li>
-                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif ?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous')) ?>">
+                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif ?>" href="<?= $this->getPreviousPageUrl() ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Previous')) ?>">
                     <?php if(!$this->getAnchorTextForPrevious()): ?>
-                        <img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous')) ?>" class="v-middle" />
+                        <img src="<?= $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('Previous')) ?>" class="v-middle" />
                     <?php else: ?>
-                        <?php echo $this->getAnchorTextForPrevious() ?>
+                        <?= $this->getAnchorTextForPrevious() ?>
                     <?php endif ?>
                 </a>
             </li>
         <?php endif ?>
 
         <?php if ($this->canShowFirst()): ?>
-            <li><a class="first" href="<?php echo $this->getFirstPageUrl() ?>">1</a></li>
+            <li><a class="first" href="<?= $this->getFirstPageUrl() ?>">1</a></li>
         <?php endif ?>
 
         <?php if ($this->canShowPreviousJump()): ?>
-            <li><a class="previous_jump" title="" href="<?php echo $this->getPreviousJumpUrl() ?>">...</a></li>
+            <li><a class="previous_jump" title="" href="<?= $this->getPreviousJumpUrl() ?>">...</a></li>
         <?php endif ?>
 
         <?php foreach ($this->getFramePages() as $_page): ?>
             <?php if ($this->isPageCurrent($_page)): ?>
-                <li class="current"><?php echo $_page ?></li>
+                <li class="current"><?= $_page ?></li>
             <?php else: ?>
-                <li><a href="<?php echo $this->getPageUrl($_page) ?>"><?php echo $_page ?></a></li>
+                <li><a href="<?= $this->getPageUrl($_page) ?>"><?= $_page ?></a></li>
             <?php endif ?>
         <?php endforeach ?>
 
         <?php if ($this->canShowNextJump()): ?>
-            <li><a class="next_jump" title="" href="<?php echo $this->getNextJumpUrl() ?>">...</a></li>
+            <li><a class="next_jump" title="" href="<?= $this->getNextJumpUrl() ?>">...</a></li>
         <?php endif ?>
 
         <?php if ($this->canShowLast()): ?>
-          <li><a class="last" href="<?php echo $this->getLastPageUrl() ?>"><?php echo $this->getLastPageNum() ?></a></li>
+          <li><a class="last" href="<?= $this->getLastPageUrl() ?>"><?= $this->getLastPageNum() ?></a></li>
         <?php endif ?>
 
         <?php if (!$this->isLastPage()): ?>
             <li>
-                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
+                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif ?>" href="<?= $this->getNextPageUrl() ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
                     <?php if(!$this->getAnchorTextForNext()): ?>
-                        <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>" class="v-middle" />
+                        <img src="<?= $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?= Mage::helper('core')->quoteEscape($this->__('Next')) ?>" class="v-middle" />
                     <?php else: ?>
-                        <?php echo $this->getAnchorTextForNext() ?>
+                        <?= $this->getAnchorTextForNext() ?>
                     <?php endif ?>
                 </a>
             </li>

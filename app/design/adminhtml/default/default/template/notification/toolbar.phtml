@@ -53,7 +53,7 @@
 
     <span class="f-right">
         <?php $goToBoxMessage = (!empty($latestNoticeUrl)) ? $this->__('Go to messages inbox') : $this->__('Go to notifications') ?>
-        <?php echo $this->__('You have %s unread message(s).', $msgStats) ?> <a href="<?php echo $this->getNoticesInboxUrl() ?>"><?php echo $goToBoxMessage ?></a>
+        <?= $this->__('You have %s unread message(s).', $msgStats) ?> <a href="<?= $this->getNoticesInboxUrl() ?>"><?= $goToBoxMessage ?></a>
     </span>
 <?php /* ********** temporary commented
     <span class="f-right"><?php echo $this->__('You have %s, %s and %s unread messages. <a href="%s">Go to messages inbox</a>.', '<span class="critical"><strong>'.$this->getCriticalCount().'</strong> '.$this->__('critical').'</span>', '<strong>'.$this->getMajorCount().'</strong> '.$this->__('major'), '<strong>'.$this->getMinorCount().'</strong> '.$this->__('minor'), $this->getNoticesInboxUrl());?></span>
@@ -64,9 +64,9 @@
         <strong class="label">
     <?php endif ?>
 
-    <?php echo $this->__('Latest Message:') ?></strong> <?php echo $this->escapeHtml($this->getLatestNotice()); ?>
+    <?= $this->__('Latest Message:') ?></strong> <?= $this->escapeHtml($this->getLatestNotice()) ?>
     <?php if (!empty($latestNoticeUrl)): ?>
-        <a href="<?php echo $latestNoticeUrl ?>" onclick="this.target='_blank';"><?php echo $this->__('Read details') ?></a>
+        <a href="<?= $latestNoticeUrl ?>" onclick="this.target='_blank';"><?= $this->__('Read details') ?></a>
     <?php endif ?>
 </div>
 <?php endif ?>

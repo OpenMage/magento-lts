@@ -32,8 +32,8 @@ if(empty($_cartQty)) {
 <div class="minicart-wrapper">
 
     <p class="block-subtitle">
-        <?php echo $this->__('Recently added item(s)') ?>
-        <a class="close skip-link-close" href="#" title="<?php echo $this->quoteEscape($this->__('Close')); ?>">&times;</a>
+        <?= $this->__('Recently added item(s)') ?>
+        <a class="close skip-link-close" href="#" title="<?= $this->quoteEscape($this->__('Close')) ?>">&times;</a>
     </p>
 
     <?php $_items = $this->getRecentItems() ?>
@@ -42,7 +42,7 @@ if(empty($_cartQty)) {
         <div>
             <ul id="cart-sidebar" class="mini-products-list">
                 <?php foreach($_items as $_item): ?>
-                    <?php echo $this->getItemHtml($_item) ?>
+                    <?= $this->getItemHtml($_item) ?>
                 <?php endforeach ?>
             </ul>
         </div>
@@ -59,16 +59,16 @@ if(empty($_cartQty)) {
         </script>
 
         <div id="minicart-widgets">
-            <?php echo $this->getChildHtml('cart_promotion') ?>
+            <?= $this->getChildHtml('cart_promotion') ?>
         </div>
         <div class="block-content">
             <p class="subtotal">
                 <?php if ($this->canApplyMsrp()): ?>
-                    <span class="map-cart-sidebar-total"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></span>
+                    <span class="map-cart-sidebar-total"><?= $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER') ?></span>
                 <?php else: ?>
-                    <span class="label"><?php echo $this->__('Cart Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+                    <span class="label"><?= $this->__('Cart Subtotal:') ?></span> <?= Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
                     <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
-                        <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
+                        <br />(<?= Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?= Mage::helper('tax')->getIncExcText(true) ?>)
                     <?php endif ?>
                 <?php endif ?>
             </p>
@@ -78,21 +78,21 @@ if(empty($_cartQty)) {
         <div class="minicart-actions">
             <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
                 <ul class="checkout-types minicart">
-                    <?php echo $this->getChildHtml('extra_actions') ?>
+                    <?= $this->getChildHtml('extra_actions') ?>
                     <li>
-                        <a title="<?php echo $this->quoteEscape($this->__('Checkout')) ?>" class="button checkout-button" href="<?php echo $this->getCheckoutUrl() ?>">
-                            <?php echo $this->__('Checkout') ?>
+                        <a title="<?= $this->quoteEscape($this->__('Checkout')) ?>" class="button checkout-button" href="<?= $this->getCheckoutUrl() ?>">
+                            <?= $this->__('Checkout') ?>
                         </a>
                     </li>
                 </ul>
             <?php endif ?>
-            <a class="cart-link" href="<?php echo $this->getUrl('checkout/cart'); ?>">
-                <?php echo $this->__('View Shopping Cart'); ?>
+            <a class="cart-link" href="<?= $this->getUrl('checkout/cart') ?>">
+                <?= $this->__('View Shopping Cart') ?>
             </a>
         </div>
 
     <?php else: ?>
-        <p class="empty"><?php echo $this->__('You have no items in your shopping cart.') ?></p>
+        <p class="empty"><?= $this->__('You have no items in your shopping cart.') ?></p>
 
     <?php endif ?>
 </div>

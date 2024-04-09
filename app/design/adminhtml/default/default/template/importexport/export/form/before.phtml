@@ -23,7 +23,7 @@
     varienForm.prototype.getFilter = function()
     {
         if ($('entity') && $F('entity')) {
-            var url = "<?php echo $this->getUrl('*/*/getFilter') ?>";
+            var url = "<?= $this->getUrl('*/*/getFilter') ?>";
             url += ((url.slice(-1) != '/') ? '/' : '') + 'entity/' + $F('entity');
 
             new Ajax.Request(url, {
@@ -55,7 +55,7 @@
             form.submit();
             form.action   = oldAction;
         } else {
-            alert('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Invalid data')) ?>');
+            alert('<?= Mage::helper('core')->jsQuoteEscape($this->__('Invalid data')) ?>');
         }
     }
 //]]>

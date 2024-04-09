@@ -16,31 +16,31 @@
 <?php if($this->getItems()->getSize()): ?>
 <div class="block block-related">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Related Products') ?></span></strong>
+        <strong><span><?= $this->__('Related Products') ?></span></strong>
     </div>
     <div class="block-content">
-        <p class="block-subtitle"><?php echo $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?php echo $this->__('select all') ?></a></p>
+        <p class="block-subtitle"><?= $this->__('Check items to add to the cart or') ?>&nbsp;<a href="#" onclick="selectAllRelated(this); return false;"><?= $this->__('select all') ?></a></p>
         <ol class="mini-products-list" id="block-related">
         <?php foreach($this->getItems() as $_item): ?>
             <li class="item">
                 <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
                     <?php if (!$_item->getRequiredOptions()): ?>
-                        <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
+                        <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?= $_item->getId() ?>" name="related_products[]" value="<?= $_item->getId() ?>" />
                     <?php endif ?>
                 <?php endif ?>
                 <div class="product">
-                    <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+                    <a href="<?= $_item->getProductUrl() ?>" title="<?= $this->escapeHtml($_item->getName()) ?>" class="product-image"><img src="<?= $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?= $this->escapeHtml($_item->getName()) ?>" /></a>
                     <div class="product-details">
-                        <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
-                        <?php echo $this->getPriceHtml($_item, true, '-related') ?>
+                        <p class="product-name"><a href="<?= $_item->getProductUrl() ?>"><?= $this->escapeHtml($_item->getName()) ?></a></p>
+                        <?= $this->getPriceHtml($_item, true, '-related') ?>
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <a href="#"
                                class="link-wishlist"
                                onclick="customFormSubmit(
-                                       '<?php echo $this->getAddToWishlistUrlCustom($_item, false) ?>',
-                                       '<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
+                                       '<?= $this->getAddToWishlistUrlCustom($_item, false) ?>',
+                                       '<?= $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>',
                                        'post')">
-                                <?php echo $this->__('Add to Wishlist') ?>
+                                <?= $this->__('Add to Wishlist') ?>
                             </a>
                         <?php endif ?>
                     </div>
@@ -63,13 +63,13 @@
                 elem.checked = true;
             });
             relatedProductsCheckFlag = true;
-            txt.innerHTML="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('unselect all')) ?>";
+            txt.innerHTML="<?= Mage::helper('core')->jsQuoteEscape($this->__('unselect all')) ?>";
         } else {
             $$('.related-checkbox').each(function(elem){
                 elem.checked = false;
             });
             relatedProductsCheckFlag = false;
-            txt.innerHTML="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('select all')) ?>";
+            txt.innerHTML="<?= Mage::helper('core')->jsQuoteEscape($this->__('select all')) ?>";
         }
         addRelatedToProduct();
     }

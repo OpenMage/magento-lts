@@ -19,31 +19,31 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang(); ?>">
+<html lang="<?= $this->getLang() ?>">
 <head>
-<?php echo $this->getChildHtml('head') ?>
+<?= $this->getChildHtml('head') ?>
 </head>
-<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
-<?php echo $this->getChildHtml('after_body_start') ?>
+<body<?= $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?= $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
-    <?php echo $this->getChildHtml('global_notices') ?>
+    <?= $this->getChildHtml('global_notices') ?>
     <div class="page">
-        <?php echo $this->getChildHtml('header') ?>
+        <?= $this->getChildHtml('header') ?>
         <div class="main-container col2-left-layout">
             <div class="main">
-                <?php echo $this->getChildHtml('breadcrumbs') ?>
+                <?= $this->getChildHtml('breadcrumbs') ?>
                 <div class="col-main">
-                    <?php echo $this->getChildHtml('global_messages') ?>
-                    <?php echo $this->getChildHtml('content') ?>
+                    <?= $this->getChildHtml('global_messages') ?>
+                    <?= $this->getChildHtml('content') ?>
                 </div>
-                <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
+                <div class="col-left sidebar"><?= $this->getChildHtml('left') ?></div>
             </div>
         </div>
-        <?php echo $this->getChildHtml('footer') ?>
-        <?php echo $this->getChildHtml('global_cookie_notice') ?>
-        <?php echo $this->getChildHtml('before_body_end') ?>
+        <?= $this->getChildHtml('footer') ?>
+        <?= $this->getChildHtml('global_cookie_notice') ?>
+        <?= $this->getChildHtml('before_body_end') ?>
     </div>
 </div>
-<?php echo $this->getAbsoluteFooter() ?>
+<?= $this->getAbsoluteFooter() ?>
 </body>
 </html>

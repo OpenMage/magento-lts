@@ -23,10 +23,10 @@
             <?php if (!$_option->getSelections()): ?>
                 <?php continue; ?>
             <?php endif ?>
-            <?php echo $this->getOptionHtml($_option) ?>
+            <?= $this->getOptionHtml($_option) ?>
         <?php endforeach ?>
         </dl>
     <?php else: ?>
-        <p><?php echo $this->__('No options of this product are available.') ?></p>
+        <p><?= $this->__('No options of this product are available.') ?></p>
     <?php endif ?>
 <?php endif ?>

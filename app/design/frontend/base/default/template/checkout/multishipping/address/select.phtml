@@ -15,26 +15,26 @@
 ?>
 <div class="multiple-checkout">
     <div class="page-title title-buttons">
-        <h1><?php echo $this->__('Change Billing Address') ?></h1>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
+        <h1><?= $this->__('Change Billing Address') ?></h1>
+        <button type="button" title="<?= Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?= $this->getAddNewUrl() ?>')"><span><span><?= $this->__('Add New Address') ?></span></span></button>
     </div>
-    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?= $this->getMessagesBlock()->toHtml() ?>
     <?php $_index=0 ?>
     <?php foreach ($this->getAddressCollection() as $_address): ?>
         <?php if($_index%3==0): ?><div class="col3-set"><?php endif ?>
-        <div class="col-<?php echo ($_index%3+1) ?>">
+        <div class="col-<?= ($_index%3+1) ?>">
                 <p class="actions">
-                    <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span>
-                    <a href="<?php echo $this->getSetAddressUrl($_address) ?>"><strong><?php echo $this->__('Select Address') ?></strong></a>
+                    <a href="<?= $this->getEditAddressUrl($_address) ?>"><?= $this->__('Edit Address') ?></a> <span class="separator">|</span>
+                    <a href="<?= $this->getSetAddressUrl($_address) ?>"><strong><?= $this->__('Select Address') ?></strong></a>
                 </p>
                 <address>
-                    <?php echo $_address->format('html') ?>
+                    <?= $_address->format('html') ?>
                 </address>
                 <?php if($this->isAddressDefaultBilling($_address)): ?>
-                   <strong><?php echo $this->__('Default Billing') ?></strong>
+                   <strong><?= $this->__('Default Billing') ?></strong>
                 <?php endif ?>
                 <?php if($this->isAddressDefaultShipping($_address)): ?>
-                    <br /><strong><?php echo $this->__('Default Shipping') ?></strong>
+                    <br /><strong><?= $this->__('Default Shipping') ?></strong>
                 <?php endif ?>
         </div>
         <?php $_index++ ?>
@@ -42,6 +42,6 @@
     <?php endforeach ?>
     <?php if(!$_index || $_index%3!=0): ?></div><?php endif ?>
     <div class="buttons-set">
-        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Information') ?></a></p>
+        <p class="back-link"><a href="<?= $this->getBackUrl() ?>"><small>&laquo; </small><?= $this->__('Back to Billing Information') ?></a></p>
     </div>
 </div>

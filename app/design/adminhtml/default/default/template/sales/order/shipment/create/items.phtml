@@ -24,21 +24,21 @@
         <?php endif ?>
         <thead>
             <tr class="headings">
-                <th><?php echo $this->helper('sales')->__('Product') ?></th>
-                <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
-                <th<?php if ($this->isShipmentRegular()): ?> class="last"<?php endif ?>><span class="nobr"><?php echo $this->helper('sales')->__('Qty to Ship') ?></span></th>
+                <th><?= $this->helper('sales')->__('Product') ?></th>
+                <th class="a-center"><?= $this->helper('sales')->__('Qty') ?></th>
+                <th<?php if ($this->isShipmentRegular()): ?> class="last"<?php endif ?>><span class="nobr"><?= $this->helper('sales')->__('Qty to Ship') ?></span></th>
 
                 <?php if (!$this->canShipPartiallyItem()): ?>
-                <th class="a-center last"><span class="nobr"><?php echo $this->helper('sales')->__('Ship') ?></span></th>
+                <th class="a-center last"><span class="nobr"><?= $this->helper('sales')->__('Ship') ?></span></th>
                 <?php endif ?>
 
             </tr>
         </thead>
         <?php $_items = $this->getShipment()->getAllItems() ?>
         <?php $_i=0;foreach ($_items as $_item): if ($_item->getOrderItem()->getIsVirtual() || $_item->getOrderItem()->getParentItem()): continue; endif; $_i++ ?>
-        <tbody class="<?php echo $_i%2?'odd':'even' ?>">
-            <?php echo $this->getItemHtml($_item) ?>
-            <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
+        <tbody class="<?= $_i%2?'odd':'even' ?>">
+            <?= $this->getItemHtml($_item) ?>
+            <?= $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
         </tbody>
         <?php endforeach ?>
     </table>
@@ -46,12 +46,12 @@
 </div>
 <br />
 <div class="box-left entry-edit">
-    <div class="entry-edit-head"><h4><?php echo $this->__('Shipment Comments') ?></h4></div>
+    <div class="entry-edit-head"><h4><?= $this->__('Shipment Comments') ?></h4></div>
     <fieldset>
         <div id="order-history_form">
             <span class="field-row">
-                <label class="normal" for="shipment_comment_text"><?php echo Mage::helper('sales')->__('Shipment Comments') ?></label>
-                <textarea id="shipment_comment_text" name="shipment[comment_text]" rows="3" cols="5" style="height:6em; width:99%;"><?php echo $this->getShipment()->getCommentText(); ?></textarea>
+                <label class="normal" for="shipment_comment_text"><?= Mage::helper('sales')->__('Shipment Comments') ?></label>
+                <textarea id="shipment_comment_text" name="shipment[comment_text]" rows="3" cols="5" style="height:6em; width:99%;"><?= $this->getShipment()->getCommentText() ?></textarea>
             </span>
             <div class="clear"></div>
         </div>
@@ -63,22 +63,22 @@
         <div class="order-totals-bottom">
           <?php if ($this->canCreateShippingLabel()): ?>
           <p>
-              <label class="normal" for="create_shipping_label"><?php echo Mage::helper('sales')->__('Create Shipping Label') ?></label>
+              <label class="normal" for="create_shipping_label"><?= Mage::helper('sales')->__('Create Shipping Label') ?></label>
               <input id="create_shipping_label" name="shipment[create_shipping_label]" value="1" type="checkbox"  onclick="toggleCreateLabelCheckbox();" />
           </p>
           <?php endif ?>
           <p>
-              <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
+              <label class="normal" for="notify_customer"><?= Mage::helper('sales')->__('Append Comments') ?></label>
               <input id="notify_customer" name="shipment[comment_customer_notify]" value="1" type="checkbox" />
           </p>
           <?php if ($this->canSendShipmentEmail()): ?>
           <p>
-              <label class="normal" for="send_email"><?php echo Mage::helper('sales')->__('Email Copy of Shipment') ?></label>
+              <label class="normal" for="send_email"><?= Mage::helper('sales')->__('Email Copy of Shipment') ?></label>
               <input id="send_email" name="shipment[send_email]" value="1" type="checkbox" />
           </p>
           <?php endif ?>
           <div class="a-right">
-          <?php echo $this->getChildHtml('submit_button') ?>
+          <?= $this->getChildHtml('submit_button') ?>
           </div>
         </div>
     </div>
@@ -128,7 +128,7 @@ function submitShipment(btn) {
 
 function validQtyItems() {
     var valid = true;
-    var errorMessage = '<?php echo Mage::helper('core')->jsQuoteEscape($this->helper('sales')->__('Invalid value(s) for Qty to Ship')) ?>';
+    var errorMessage = '<?= Mage::helper('core')->jsQuoteEscape($this->helper('sales')->__('Invalid value(s) for Qty to Ship')) ?>';
     $$('.qty-item').each(function(item) {
         var val = parseFloat(item.value);
         if (isNaN(val) || val < 0) {

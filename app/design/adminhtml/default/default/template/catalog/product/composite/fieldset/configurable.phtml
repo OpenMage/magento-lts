@@ -18,16 +18,16 @@
 <?php $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes()); ?>
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>
 <?php if (($_product->isSaleable() || $_skipSaleableCheck) && count($_attributes)):?>
-<div id="catalog_product_composite_configure_fields_configurable" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
-    <h4><?php echo Mage::helper('catalog')->__('Associated Products') ?></h4>
+<div id="catalog_product_composite_configure_fields_configurable" class="<?= $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+    <h4><?= Mage::helper('catalog')->__('Associated Products') ?></h4>
     <div class="product-options">
         <dl>
         <?php foreach($_attributes as $_attribute): ?>
-            <dt><label class="required"><em>*</em><?php echo $this->escapeHtml($_attribute->getLabel()) ?></label></dt>
+            <dt><label class="required"><em>*</em><?= $this->escapeHtml($_attribute->getLabel()) ?></label></dt>
             <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
                 <div class="input-box">
-                    <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
-                        <option><?php echo Mage::helper('catalog')->__('Choose an Option...') ?></option>
+                    <select name="super_attribute[<?= $_attribute->getAttributeId() ?>]" id="attribute<?= $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                        <option><?= Mage::helper('catalog')->__('Choose an Option...') ?></option>
                     </select>
                 </div>
             </dd>
@@ -36,7 +36,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var config = <?php echo $this->getJsonConfig() ?>;
+    var config = <?= $this->getJsonConfig() ?>;
     if (window.productConfigure) {
         config.containerId = window.productConfigure.blockFormFields.id;
         if (window.productConfigure.restorePhase) {

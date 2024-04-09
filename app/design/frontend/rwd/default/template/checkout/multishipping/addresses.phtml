@@ -20,16 +20,16 @@
  * @see Mage_Checkout_Block_Multishipping_Addresses
  */
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<form id="checkout_multishipping_form" action="<?php echo $this->getPostActionUrl() ?>" method="post">
+<?= $this->getMessagesBlock()->getGroupedHtml() ?>
+<form id="checkout_multishipping_form" action="<?= $this->getPostActionUrl() ?>" method="post">
     <div class="multiple-checkout">
         <div class="page-title title-buttons">
-            <h1><?php echo $this->__('Ship to Multiple Addresses') ?></h1>
-            <button data-action="add-new-customer-address" type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Enter a New Address')) ?>" class="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><span><?php echo $this->__('Enter a New Address') ?></span></span></button>
+            <h1><?= $this->__('Ship to Multiple Addresses') ?></h1>
+            <button data-action="add-new-customer-address" type="button" title="<?= Mage::helper('core')->quoteEscape($this->__('Enter a New Address')) ?>" class="button" onclick="$('add_new_address_flag').value=1; $('checkout_multishipping_form').submit();"><span><span><?= $this->__('Enter a New Address') ?></span></span></button>
         </div>
         <input type="hidden" name="continue" value="0" id="can_continue_flag" />
         <input type="hidden" name="new_address" value="0" id="add_new_address_flag" />
-        <h2><?php echo $this->__('Please select shipping address for applicable items') ?></h2>
+        <h2><?= $this->__('Please select shipping address for applicable items') ?></h2>
         <table class="data-table linearize-table" id="multiship-addresses-table">
             <col />
             <col width="1" />
@@ -37,19 +37,19 @@
             <col width="1" />
             <thead>
             <tr>
-                <th><?php echo $this->__('Product') ?></th>
-                <th class="a-center"><?php echo $this->__('Qty') ?></th>
-                <th><?php echo $this->__('Send To') ?></th>
+                <th><?= $this->__('Product') ?></th>
+                <th class="a-center"><?= $this->__('Qty') ?></th>
+                <th><?= $this->__('Send To') ?></th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <td colspan="100" class="a-right">
-                    <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Update Qty &amp; Addresses')) ?>"
+                    <button type="submit" title="<?= Mage::helper('core')->quoteEscape($this->__('Update Qty &amp; Addresses')) ?>"
                             class="button" onclick="$('can_continue_flag').value=0"
                             data-multiship-item-update>
-                        <span><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></span>
+                        <span><span><?= $this->__('Update Qty &amp; Addresses') ?></span></span>
                     </button>
                 </td>
             </tr>
@@ -59,9 +59,9 @@
                 <?php if ($_item->getQuoteItem()) :?>
                     <tr>
                         <td><?php echo $this->getItemHtml($_item->getQuoteItem())?></td>
-                        <td><input type="text" data-multiship-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>" name="ship[<?php echo $_index ?>][<?php echo $_item->getQuoteItemId() ?>][qty]" value="<?php echo $this->escapeHtml($_item->getQty()) ?>" size="2" class="input-text qty" /></td>
+                        <td><input type="text" data-multiship-item-id="<?= $this->jsQuoteEscape($_item->getSku()) ?>" name="ship[<?= $_index ?>][<?= $_item->getQuoteItemId() ?>][qty]" value="<?= $this->escapeHtml($_item->getQty()) ?>" size="2" class="input-text qty" /></td>
                         <td data-rwd-label="Send To"><?php if ($_item->getProduct()->getIsVirtual()): echo $this->__('Shipping selection is not applicable.'); else: echo $this->getAddressesHtmlSelect($_item, $_index); endif; ?></td>
-                        <td class="a-center"><a href="<?php echo $this->getItemDeleteUrl($_item) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?php echo $this->__('Remove Item') ?></a></td>
+                        <td class="a-center"><a href="<?= $this->getItemDeleteUrl($_item) ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Remove Item')) ?>" class="btn-remove2"><?= $this->__('Remove Item') ?></a></td>
                     </tr>
                 <?php endif ?>
             <?php endforeach ?>
@@ -69,9 +69,9 @@
         </table>
         <script type="text/javascript">decorateTable('multiship-addresses-table')</script>
         <div class="buttons-set">
-            <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Shopping Cart') ?></a></p>
-            <button type="submit" data-action="checkout-continue-shipping" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue to Shipping Information')) ?>" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Continue to Shipping Information') ?></span></span></button>
+            <p class="back-link"><a href="<?= $this->getBackUrl() ?>"><small>&laquo; </small><?= $this->__('Back to Shopping Cart') ?></a></p>
+            <button type="submit" data-action="checkout-continue-shipping" title="<?= Mage::helper('core')->quoteEscape($this->__('Continue to Shipping Information')) ?>" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif ?>><span><span><?= $this->__('Continue to Shipping Information') ?></span></span></button>
         </div>
     </div>
-    <?php echo $this->getBlockHtml('formkey') ?>
+    <?= $this->getBlockHtml('formkey') ?>
 </form>

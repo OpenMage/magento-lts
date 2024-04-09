@@ -19,7 +19,7 @@
 <?php if( is_object($myBlock) && $myBlock->getJsObjectName() ): ?>
     var checkBoxes = $H({});
     var warning = false;
-    var inRoleUsers = $H(<?php echo $myBlock->_getUsers(true) ?>);
+    var inRoleUsers = $H(<?= $myBlock->_getUsers(true) ?>);
     if (inRoleUsers.size() > 0) warning = true;
     $('in_role_user').value = inRoleUsers.toQueryString();
 
@@ -41,7 +41,7 @@
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 if (warning && checkBoxes.size() > 0) {
-                    if ( !confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
+                    if ( !confirm("<?= Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove this user from already assigned role\r\nAre you sure?')) ?>") ) {
                         checkbox[0].checked = false;
                         checkBoxes.each(function(elem) {
                             if (elem.value.status == 1) {
@@ -52,7 +52,7 @@
                     }
                     warning = false;
                 }
-                <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(checkbox[0], checked);
+                <?= $myBlock->getJsObjectName() ?>.setCheckboxChecked(checkbox[0], checked);
             }
         }
     }
@@ -67,7 +67,7 @@
     function myhandler(obj)
     {
         if (checkBoxes.size() > 0) {
-            if ( !confirm("<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?')) ?>") ) {
+            if ( !confirm("<?= Mage::helper('core')->jsQuoteEscape($this->__('Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?')) ?>") ) {
                 obj.checked = false;
                 checkBoxes.each(function(elem) {
                     if (elem.value.status == 1) {
@@ -79,15 +79,15 @@
             warning = false;
         }
         checkBoxes.each(function(elem) {
-            <?php echo $myBlock->getJsObjectName() ?>.setCheckboxChecked(elem.value.object, obj.checked);
+            <?= $myBlock->getJsObjectName() ?>.setCheckboxChecked(elem.value.object, obj.checked);
         });
     }
 
-<?php echo $myBlock->getJsObjectName() ?>.rowClickCallback = roleUsersRowClick;
-<?php echo $myBlock->getJsObjectName() ?>.initRowCallback = roleUsersRowInit;
-<?php echo $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
-<?php echo $myBlock->getJsObjectName() ?>.checkCheckboxes = myhandler;
-<?php echo $myBlock->getJsObjectName() ?>.rows.each(function(row){roleUsersRowInit(<?php echo $myBlock->getJsObjectName() ?>, row)});
+<?= $myBlock->getJsObjectName() ?>.rowClickCallback = roleUsersRowClick;
+<?= $myBlock->getJsObjectName() ?>.initRowCallback = roleUsersRowInit;
+<?= $myBlock->getJsObjectName() ?>.checkboxCheckCallback = registerUserRole;
+<?= $myBlock->getJsObjectName() ?>.checkCheckboxes = myhandler;
+<?= $myBlock->getJsObjectName() ?>.rows.each(function(row){roleUsersRowInit(<?= $myBlock->getJsObjectName() ?>, row)});
     $('in_role_user_old').value = $('in_role_user').value;
 <?php endif ?>
 //-->

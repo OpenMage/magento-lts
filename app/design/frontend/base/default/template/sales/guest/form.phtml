@@ -14,18 +14,18 @@
  */
 ?>
 <div class="page-title">
-   <h1><?php echo Mage::helper('sales')->__('Orders and Returns') ?></h1>
+   <h1><?= Mage::helper('sales')->__('Orders and Returns') ?></h1>
 </div>
 
 
-<form id="oar_widget_orders_and_returns_form" action="<?php echo $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">
+<form id="oar_widget_orders_and_returns_form" action="<?= $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">
     <div class="fieldset">
-        <h2 class="legend"><?php echo Mage::helper('sales')->__('Order Information') ?></h2>
+        <h2 class="legend"><?= Mage::helper('sales')->__('Order Information') ?></h2>
 
         <ul class="form-list">
            <li>
                <div class="input-box">
-                   <label for="oar_order_id" class="required"><?php echo Mage::helper('sales')->__('Order ID') ?> <em>*</em></label>
+                   <label for="oar_order_id" class="required"><?= Mage::helper('sales')->__('Order ID') ?> <em>*</em></label>
                </div>
                <div class="input-box">
                    <input type="text" class="input-text required-entry" id="oar_order_id" name="oar_order_id" style="width:300px;"/>
@@ -33,12 +33,12 @@
            </li>
            <li class="wide">
                <div class="input-box">
-                   <?php echo Mage::helper('sales')->__('Enter the billing last name and email/ZIP as in the order billing address') ?>.
+                   <?= Mage::helper('sales')->__('Enter the billing last name and email/ZIP as in the order billing address') ?>.
                 </div>
            </li>
            <li>
                <div class="input-box">
-                   <label for="oar_billing_lastname" class="required"><?php echo Mage::helper('sales')->__('Billing Last Name') ?> <em>*</em></label>
+                   <label for="oar_billing_lastname" class="required"><?= Mage::helper('sales')->__('Billing Last Name') ?> <em>*</em></label>
                </div>
                <div class="input-box">
                    <input type="text" class="input-text required-entry" id="oar_billing_lastname" name="oar_billing_lastname"  style="width:300px;"/>
@@ -46,18 +46,18 @@
            </li>
            <li>
                <div class="input-box">
-                   <label class="required"><?php echo Mage::helper('sales')->__('Find Order By:') ?></label>
+                   <label class="required"><?= Mage::helper('sales')->__('Find Order By:') ?></label>
                </div>
                <div class="input-box">
                    <select name="oar_type" id="quick_search_type_id" class="select guest-select" title="" onchange="showIdentifyBlock(this.value);">
-                       <option value="email"><?php echo Mage::helper('sales')->__('Email Address') ?></option>
-                       <option value="zip"><?php echo Mage::helper('sales')->__('ZIP Code') ?></option>
+                       <option value="email"><?= Mage::helper('sales')->__('Email Address') ?></option>
+                       <option value="zip"><?= Mage::helper('sales')->__('ZIP Code') ?></option>
                    </select>
                </div>
            </li>
            <li id="oar-email">
                <div class="input-box">
-                   <label for="oar_email" class="required"><?php echo Mage::helper('sales')->__('Email Address') ?> <em>*</em></label>
+                   <label for="oar_email" class="required"><?= Mage::helper('sales')->__('Email Address') ?> <em>*</em></label>
                </div>
                <div class="input-box">
                    <input type="text" class="input-text validate-email required-entry" id="oar_email" name="oar_email"  style="width:300px;"/>
@@ -65,7 +65,7 @@
            </li>
            <li id="oar-zip" style="display:none;">
                <div class="input-box">
-                   <label for="oar_zip" class="required"><?php echo Mage::helper('sales')->__('Billing ZIP Code') ?> <em>*</em></label>
+                   <label for="oar_zip" class="required"><?= Mage::helper('sales')->__('Billing ZIP Code') ?> <em>*</em></label>
                </div>
                <div class="input-box">
                    <input type="text" class="input-text required-entry" id="oar_zip" name="oar_zip" style="width:300px;"/>
@@ -74,8 +74,8 @@
        </ul>
     </div>
     <div class="buttons-set">
-        <p class="required"><?php echo Mage::helper('sales')->__('* Required Fields') ?></p>
-        <button type="submit" title="<?php echo Mage::helper('sales')->__('Continue') ?>" class="button"><span><span><?php echo Mage::helper('sales')->__('Continue') ?></span></span></button>
+        <p class="required"><?= Mage::helper('sales')->__('* Required Fields') ?></p>
+        <button type="submit" title="<?= Mage::helper('sales')->__('Continue') ?>" class="button"><span><span><?= Mage::helper('sales')->__('Continue') ?></span></span></button>
     </div>
 </form>
 

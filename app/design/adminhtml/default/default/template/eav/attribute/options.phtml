@@ -25,7 +25,7 @@
 <ul class="messages">
     <li class="notice-msg">
         <ul>
-            <li><?php echo $this->__('If you do not specify an option value for a specific store view then the default (Admin) value will be used.') ?></li>
+            <li><?= $this->__('If you do not specify an option value for a specific store view then the default (Admin) value will be used.') ?></li>
         </ul>
     </li>
 </ul>
@@ -33,21 +33,21 @@
 
 <div class="entity-edit">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Manage Titles (Size, Color, etc.)') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?= $this->__('Manage Titles (Size, Color, etc.)') ?></h4>
     </div>
     <div class="box">
             <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0" id="attribute-labels-table">
                 <tr>
                 <?php foreach ($this->getStores() as $_store): ?>
-                    <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
+                    <th><?= $this->escapeHtml($_store->getName()) ?></th>
                 <?php endforeach ?>
                 </tr>
                 <tr>
                     <?php $_labels = $this->getLabelValues() ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                     <td>
-                        <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->escapeHtml($_labels[$_store->getId()]); ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/>
+                        <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" name="frontend_label[<?= $_store->getId() ?>]" value="<?= $this->escapeHtml($_labels[$_store->getId()]) ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/>
                     </td>
                     <?php endforeach ?>
                 </tr>
@@ -58,33 +58,33 @@
 <br/>
 <div class="entity-edit" id="matage-options-panel">
     <div class="entry-edit-head">
-    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Manage Options (values of your attribute)') ?></h4>
+    <h4 class="icon-head head-edit-form fieldset-legend"><?= $this->__('Manage Options (values of your attribute)') ?></h4>
     </div>
     <div class="box">
         <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
                     <?php foreach ($this->getStores() as $_store): ?>
-                        <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
+                        <th><?= $this->escapeHtml($_store->getName()) ?></th>
                     <?php endforeach ?>
-                        <th><?php echo $this->__('Position') ?></th>
-                        <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>
+                        <th><?= $this->__('Position') ?></th>
+                        <th class="nobr a-center"><?= $this->__('Is Default') ?></th>
                         <th>
                             <?php if (!$this->getReadOnly()):?>
-                                <?php echo $this->getAddNewButtonHtml() ?>
+                                <?= $this->getAddNewButtonHtml() ?>
                             <?php endif ?>
                         </th>
                     </tr>
                     <tr class="no-display template" id="row-template">
                         <?php foreach ($this->getStores() as $_store): ?>
-                        <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
+                        <td><input name="option[value][{{id}}][<?= $_store->getId() ?>]" value="{{store<?= $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <?php endforeach ?>
                         <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <td class="a-left">
                             <input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />
                             <?php if (!$this->getReadOnly()):?>
-                                <?php echo $this->getDeleteButtonHtml() ?>
+                                <?= $this->getDeleteButtonHtml() ?>
                             <?php endif ?>
                         </td>
                     </tr>
@@ -101,14 +101,14 @@ var optionDefaultInputType = 'radio';
 var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
 <?php foreach ($this->getStores() as $_store): ?>
-            '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
+            '<td><input name="option[value][{{id}}][<?= $_store->getId() ?>]" value="{{store<?= $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
 <?php endforeach ?>
             '<td><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
             '<td class="a-center"><input class="input-radio" type="{{intype}}" name="default[]" value="{{id}}" {{checked}} <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
             '<td class="a-left" id="delete_button_container_{{id}}">'+
                 '<input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />'+
                 <?php if (!$this->getReadOnly()):?>
-                    '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>'+
+                    '<?= Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>'+
                 <?php endif ?>
             '<\/td>'+
         '<\/tr>';
@@ -119,7 +119,7 @@ var attributeOption = {
     templateText : templateText,
     itemCount : 0,
     totalItems : 0,
-    isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
+    isReadOnly: <?= (int)$this->getReadOnly() ?>,
     add : function(data) {
         this.template = new Template(this.templateText, this.templateSyntax);
         var isNewOption = false;
@@ -199,15 +199,15 @@ if($('add_new_option_button')){
     Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
 }
 Validation.addAllThese([
-    ['required-option', '<?php echo $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {
+    ['required-option', '<?= $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {
         return !Validation.get('IsEmpty').test(v);
 }]]);
 Validation.addAllThese([
-    ['required-options-count', '<?php echo $this->jsQuoteEscape($this->__('Options is required')) ?>', function(v) {
+    ['required-options-count', '<?= $this->jsQuoteEscape($this->__('Options is required')) ?>', function(v) {
         return !Validation.get('IsEmpty').test(v);
 }]]);
 <?php foreach ($this->getOptionValues() as $_value): ?>
-    attributeOption.add(<?php echo $_value->toJson() ?>);
+    attributeOption.add(<?= $_value->toJson() ?>);
 <?php endforeach ?>
 //]]>
 </script>

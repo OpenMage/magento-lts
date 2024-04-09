@@ -18,10 +18,10 @@
 
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
-        <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
+        <p class="availability in-stock"><?= $this->__('Availability:') ?> <span><?= $this->__('In stock') ?></span></p>
     <?php else: ?>
-        <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
+        <p class="availability out-of-stock"><?= $this->__('Availability:') ?> <span><?= $this->__('Out of stock') ?></span></p>
     <?php endif ?>
 <?php endif ?>
-<?php echo $this->getChildHtml('product_type_data_extra') ?>
-<?php echo $this->getPriceHtml($_product) ?>
+<?= $this->getChildHtml('product_type_data_extra') ?>
+<?= $this->getPriceHtml($_product) ?>

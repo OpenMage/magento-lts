@@ -20,15 +20,15 @@
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th><?php echo $this->helper('sales')->__('Product') ?></th>
-                <th class="a-center last"><span class="nobr"><?php echo $this->helper('sales')->__('Qty Shipped') ?></span></th>
+                <th><?= $this->helper('sales')->__('Product') ?></th>
+                <th class="a-center last"><span class="nobr"><?= $this->helper('sales')->__('Qty Shipped') ?></span></th>
             </tr>
         </thead>
         <?php $_items = $this->getShipment()->getAllItems() ?>
         <?php $_i=0;foreach ($_items as $_item): if ($_item->getOrderItem()->getIsVirtual() || $_item->getOrderItem()->getParentItem()): continue; endif; $_i++ ?>
-            <tbody class="<?php echo $_i%2?'odd':'even' ?>">
-                <?php echo $this->getItemHtml($_item) ?>
-                <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
+            <tbody class="<?= $_i%2?'odd':'even' ?>">
+                <?= $this->getItemHtml($_item) ?>
+                <?= $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
             </tbody>
         <?php endforeach ?>
     </table>

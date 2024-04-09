@@ -21,9 +21,9 @@
 <div class="content-header">
 <table cellspacing="0">
     <tr>
-        <td style="width:50%;"><h3 class="icon-head head-products"><?php echo Mage::helper('catalog')->__('Manage Products') ?></h3></td>
+        <td style="width:50%;"><h3 class="icon-head head-products"><?= Mage::helper('catalog')->__('Manage Products') ?></h3></td>
         <td class="a-right">
-            <?php echo $this->getButtonsHtml() ?>
+            <?= $this->getButtonsHtml() ?>
         </td>
     </tr>
 </table>
@@ -32,5 +32,5 @@
 <?php echo $this->getChildHtml('store_switcher');?>
 <?php endif ?>
 <div>
-    <?php echo $this->getGridHtml() ?>
+    <?= $this->getGridHtml() ?>
 </div>

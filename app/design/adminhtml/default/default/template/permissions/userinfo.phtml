@@ -20,20 +20,20 @@
                 <h3>
                   <?php if($this->getUser()->getUserId()): ?>
                   <?php $_userName = $this->getUser()->getFirstname() . ' ' . $this->getUser()->getLastname() ?>
-                  <?php echo $this->__("Edit User '%s'", $_userName) ?>
+                  <?= $this->__("Edit User '%s'", $_userName) ?>
                   <?php else: ?>
-                  <?php echo $this->__('Add New User') ?>
+                  <?= $this->__('Add New User') ?>
                   <?php endif ?>
                 </h3>
             </td>
             <td class="form-buttons">
-            <?php echo $this->getBackButtonHtml() ?>
-            <?php echo $this->getResetButtonHtml() ?>
-            <?php echo $this->getDeleteButtonHtml() ?>
-            <?php echo $this->getSaveButtonHtml() ?>
+            <?= $this->getBackButtonHtml() ?>
+            <?= $this->getResetButtonHtml() ?>
+            <?= $this->getDeleteButtonHtml() ?>
+            <?= $this->getSaveButtonHtml() ?>
    </table>
 </div>
-<form action="<?php echo $this->getUrl('*/*/saveuser') ?>" method="post" id="user_edit_form">
+<form action="<?= $this->getUrl('*/*/saveuser') ?>" method="post" id="user_edit_form">
     <?php echo $this->getBlockHtml('formkey')?>
 </form>
 <script type="text/javascript">

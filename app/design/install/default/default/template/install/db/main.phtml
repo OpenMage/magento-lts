@@ -34,17 +34,17 @@ function showContent(select)
 </script>
 
 <fieldset class="group-select">
- <legend><?php echo $this->__('Connection') ?></legend>
-    <h4 class="legend"><?php echo $this->__('Database Connection') ?></h4>
+ <legend><?= $this->__('Connection') ?></legend>
+    <h4 class="legend"><?= $this->__('Database Connection') ?></h4>
     <ul>
         <?php $dbTypeOptions = $this->getDatabaseBlocks(); ?>
         <?php if (count($dbTypeOptions) > 0): ?>
         <li>
             <div class="input-box">
-                <label for="prefix"><?php echo $this->__('Database Type') ?></label><br />
+                <label for="prefix"><?= $this->__('Database Type') ?></label><br />
                 <select name="config[db_model]" onchange="showContent(this)">
                     <?php foreach($dbTypeOptions as $block): ?>
-                        <option value="<?php echo $block->getIdPrefix()?>" <?php if($this->getFormData()->getDbModel() == $block->getIdPrefix()):?>selected="selected"<?php endif ?>><?php echo $block->getTitle()?></option>
+                        <option value="<?= $block->getIdPrefix()?>" <?php if($this->getFormData()->getDbModel() == $block->getIdPrefix()):?>selected="selected"<?php endif ?>><?php echo $block->getTitle()?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -54,14 +54,14 @@ function showContent(select)
         <?php foreach ($dbTypeOptions as $block): ?>
             <script type="text/javascript">
             //<![CDATA[
-                dbTypeIds[dbTypeIds.length] = "<?php echo $block->getIdPrefix(); ?>";
+                dbTypeIds[dbTypeIds.length] = "<?= $block->getIdPrefix() ?>";
             //]]>
             </script>
             <?php $block = $this->getDatabaseBlock($block->getIdPrefix()) ?>
 
-            <div id="<?php echo $block->getIdPrefix() ?>_conn_form" <?php if($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif ?>>
+            <div id="<?= $block->getIdPrefix() ?>_conn_form" <?php if($this->getFormData()->getDbModel() != $block->getIdPrefix()):?>style="display:none;"<?php endif ?>>
                 <ul>
-                    <?php echo $block->toHtml(); ?>
+                    <?= $block->toHtml() ?>
                 </ul>
             </div>
         <?php endforeach ?>

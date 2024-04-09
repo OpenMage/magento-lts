@@ -14,7 +14,7 @@
  */
 ?>
 <?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
-<h2 class="subtitle products"><?php echo $this->__('New Products') ?></h2>
+<h2 class="subtitle products"><?= $this->__('New Products') ?></h2>
 <?php $_columnCount = $this->getColumnCount(); ?>
     <table class="products-grid">
     <?php $i=0; foreach ($_products->getItems() as $_product): ?>
@@ -23,12 +23,12 @@
         <?php endif ?>
             <td>
                 <div class="product-wrapper">
-                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image">
+                    <a href="<?= $_product->getProductUrl() ?>" title="<?= $this->escapeHtml($_product->getName()) ?>" class="product-image">
                         <?php $_imgSize = 260; ?>
-                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <img src="<?= $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize) ?>" alt="<?= $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     </a>
-                    <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h3>
-                    <?php echo $this->getPriceHtml($_product, true, '-new') ?>
+                    <h3 class="product-name"><a href="<?= $_product->getProductUrl() ?>" title="<?= $this->escapeHtml($_product->getName()) ?>"><?= $this->escapeHtml($_product->getName()) ?></a></h3>
+                    <?= $this->getPriceHtml($_product, true, '-new') ?>
                 </div>
             </td>
         <?php if ($i%$_columnCount==0 || $i==count($_products)): ?>

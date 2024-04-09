@@ -23,36 +23,36 @@
 <?php if($this->getItemCount()): ?>
 <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
 <div class="crosssell">
-    <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
+    <h2><?= $this->__('Based on your selection, you may be interested in the following items:') ?></h2>
     <ul id="crosssell-products-list" class="products-grid products-grid--max-3-col">
     <?php foreach ($this->getItems() as $_item): ?>
         <li class="item">
             <div class="product-info">
-                <a class="product-image" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>">
-                    <img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(210); ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" />
+                <a class="product-image" href="<?= $_item->getProductUrl() ?>" title="<?= $this->escapeHtml($_item->getName()) ?>">
+                    <img src="<?= $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(210) ?>" alt="<?= $this->escapeHtml($_item->getName()) ?>" />
                 </a>
-                <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
-                <?php echo $this->getPriceHtml($_item, true) ?>
+                <h3 class="product-name"><a href="<?= $_item->getProductUrl() ?>"><?= $this->escapeHtml($_item->getName()) ?></a></h3>
+                <?= $this->getPriceHtml($_item, true) ?>
                 <div class="actions">
                     <button type="button"
-                            title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                            title="<?= Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                             class="button btn-cart"
                             onclick="customFormSubmit(
-                                    '<?php echo $this->getAddToCartUrlCustom($_item, [], false) ?>',
-                                    '<?php echo $_params ?>',
+                                    '<?= $this->getAddToCartUrlCustom($_item, [], false) ?>',
+                                    '<?= $_params ?>',
                                     'post')">
-                        <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                        <span><span><?= $this->__('Add to Cart') ?></span></span>
                     </button>
                     <ul class="add-to-links">
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <?php $_wishlistUrl = $this->getAddToWishlistUrlCustom($_item, false); ?>
                             <li>
                                 <a href="#"
-                                   data-url="<?php echo $_wishlistUrl ?>"
-                                   data-params="<?php echo $_params ?>"
+                                   data-url="<?= $_wishlistUrl ?>"
+                                   data-params="<?= $_params ?>"
                                    class="link-wishlist"
-                                   onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Wishlist') ?>
+                                   onclick="customFormSubmit('<?= $_wishlistUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
                         <?php endif ?>
@@ -61,8 +61,8 @@
                                 <span class="separator">|</span>
                                 <a href="#"
                                    class="link-compare"
-                                   onclick="customFormSubmit('<?php echo $_compareUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Compare') ?>
+                                   onclick="customFormSubmit('<?= $_compareUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Compare') ?>
                                 </a>
                             </li>
                         <?php endif ?>

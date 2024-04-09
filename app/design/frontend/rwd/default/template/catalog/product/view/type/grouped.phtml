@@ -24,7 +24,7 @@
 <?php $_product = $this->getProduct(); ?>
 <?php $_associatedProducts = $this->getAssociatedProducts(); ?>
 <?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
-<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?= $this->getChildHtml('product_type_data_extra') ?>
 <div class="grouped-items-table-wrapper">
     <table class="data-table grouped-items-table" id="super-product-table">
         <col />
@@ -37,23 +37,23 @@
             <tr>
                 <td class='image'>
                     <img class="thumbnail"
-                         src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->constrainOnly(true)->resize(105, 80); ?>"
-                         alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
-                         title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
+                         src="<?= $this->helper('catalog/image')->init($_item, 'thumbnail')->constrainOnly(true)->resize(105, 80) ?>"
+                         alt="<?= $this->escapeHtml($this->getImageLabel()) ?>"
+                         title="<?= $this->escapeHtml($this->getImageLabel()) ?>" />
                 </td>
                 <td class="name">
                     <p class="name-wrapper">
-                        <?php echo $this->escapeHtml($_item->getName()) ?>
+                        <?= $this->escapeHtml($_item->getName()) ?>
                     </p>
                     <?php if ($_product->isSaleable()): ?>
                     <div class="qty-wrapper">
                         <?php if ($_item->isSaleable()) : ?>
-                            <input id="super_group_<?php echo $_item->getId() ?>" type="text" pattern="\d*(\.\d+)?" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
-                            <label for="super_group_<?php echo $_item->getId() ?>" class="qty-label">
-                                <?php echo $this->__('Quantity'); ?>
+                            <input id="super_group_<?= $_item->getId() ?>" type="text" pattern="\d*(\.\d+)?" name="super_group[<?= $_item->getId() ?>]" maxlength="12" value="<?= $_item->getQty() * 1 ?>" title="<?= Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+                            <label for="super_group_<?= $_item->getId() ?>" class="qty-label">
+                                <?= $this->__('Quantity') ?>
                             </label>
                         <?php else: ?>
-                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                            <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                         <?php endif ?>
                     </div>
                     <?php endif ?>
@@ -61,8 +61,8 @@
                 <?php if ($this->getCanShowProductPrice($_product)): ?>
                 <td class="a-right">
                     <?php if ($this->getCanShowProductPrice($_item)): ?>
-                    <?php echo $this->getPriceHtml($_item, true) ?>
-                    <?php echo $this->getTierPriceHtml($_item) ?>
+                    <?= $this->getPriceHtml($_item, true) ?>
+                    <?= $this->getTierPriceHtml($_item) ?>
                     <?php endif ?>
                 </td>
                 <?php endif ?>
@@ -70,7 +70,7 @@
         <?php endforeach ?>
         <?php else: ?>
            <tr>
-               <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+               <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?= $this->__('No options of this product are available.') ?></td>
            </tr>
         <?php endif ?>
         </tbody>

@@ -15,7 +15,7 @@
 ?>
 <?php if ($this->getCanDisplayTotalRefunded()): ?>
 <tr>
-    <td class="label"><strong><?php echo Mage::helper('sales')->__('Total Refunded') ?></strong></td>
-    <td class="emph"><?php echo $this->displayPriceAttribute('total_refunded', true) ?></td>
+    <td class="label"><strong><?= Mage::helper('sales')->__('Total Refunded') ?></strong></td>
+    <td class="emph"><?= $this->displayPriceAttribute('total_refunded', true) ?></td>
 </tr>
 <?php endif ?>

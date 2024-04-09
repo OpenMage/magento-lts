@@ -15,24 +15,24 @@
 ?>
 <div class="box-account box-tags">
     <div class="box-head">
-        <h2><?php echo $this->__('My Recent Tags') ?></h2>
-        <a href="<?php echo $this->getAllTagsUrl() ?>"><?php echo $this->__('View All Tags') ?></a>
+        <h2><?= $this->__('My Recent Tags') ?></h2>
+        <a href="<?= $this->getAllTagsUrl() ?>"><?= $this->__('View All Tags') ?></a>
     </div>
     <ol id="my_recent_tags">
         <?php $iterator = 0; ?>
         <?php foreach( $this->getCollection()->getItems() as $_item ): ?>
             <li class="item">
-                <span class="number"><?php echo ++$iterator ?></span>
+                <span class="number"><?= ++$iterator ?></span>
                 <div class="details">
-                    <h3 class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
+                    <h3 class="product-name"><a href="<?= $_item->getProductUrl() ?>"><?= $this->escapeHtml($_item->getName()) ?></a></h3>
                     <div class="tags">
-                        <strong><?php echo $this->__('Tags:') ?></strong>
+                        <strong><?= $this->__('Tags:') ?></strong>
                         <?php $_i = 0; ?>
                         <ul>
                         <?php $_itemProductTags = $_item->getProductTags(); ?>
                         <?php $_itemProductTagCount = count($_itemProductTags->getItems()); ?>
                         <?php foreach($_itemProductTags as $_tag): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i !== $_itemProductTagCount): ?>,<?php endif ?></li>
+                            <li><a href="<?= $_tag->getViewTagUrl() ?>"><?= $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i !== $_itemProductTagCount): ?>,<?php endif ?></li>
                         <?php endforeach ?>
                         </ul>
                     </div>

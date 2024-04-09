@@ -15,8 +15,8 @@
 /* @var $this Mage_Catalog_Block_Product_Compare_List */
 ?>
 <div class="page-title title-buttons">
-    <h1><?php echo $this->__('Compare Products') ?></h1>
-    <a href="#" onclick="window.print(); return false;" class="link-print"><?php echo $this->__('Print This Page') ?></a>
+    <h1><?= $this->__('Compare Products') ?></h1>
+    <a href="#" onclick="window.print(); return false;" class="link-print"><?= $this->__('Print This Page') ?></a>
 </div>
 <?php $_total=$this->getItems()->count() ?>
 <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
@@ -27,7 +27,7 @@
             <?php if($_i++%10==0): ?>
                 <col width="1" />
             <?php endif ?>
-            <col width="<?php echo floor(100/$_total); ?>%" />
+            <col width="<?= floor(100/$_total) ?>%" />
         <?php endforeach ?>
         <?php if ($_total>2): ?>
             <thead>
@@ -37,7 +37,7 @@
                     <?php if($_i++%10==0): ?>
                         <th>&nbsp;</th>
                     <?php endif ?>
-                    <td class="a-right"><a href="#" class="btn-remove" onclick="removeItem('<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');" title="<?php echo $this->quoteEscape($this->__('Remove This Item')) ?>"><?php echo $this->__('Remove This Item') ?></a></td>
+                    <td class="a-right"><a href="#" class="btn-remove" onclick="removeItem('<?= $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');" title="<?= $this->quoteEscape($this->__('Remove This Item')) ?>"><?= $this->__('Remove This Item') ?></a></td>
                 <?php endforeach ?>
             </tr>
             </thead>
@@ -50,10 +50,10 @@
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
-                    <a class="product-image" href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->stripTags($_item->getName(), null, true) ?>" /></a>
-                    <h2 class="product-name"><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->stripTags($_item->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
-                    <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
-                    <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
+                    <a class="product-image" href="#" onclick="setPLocation('<?= $this->getProductUrl($_item) ?>', true)" title="<?= $this->stripTags($_item->getName(), null, true) ?>"><img src="<?= $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125) ?>" width="125" height="125" alt="<?= $this->stripTags($_item->getName(), null, true) ?>" /></a>
+                    <h2 class="product-name"><a href="#" onclick="setPLocation('<?= $this->getProductUrl($_item) ?>', true)" title="<?= $this->stripTags($_item->getName(), null, true) ?>"><?= $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></h2>
+                    <?= $this->getReviewsSummaryHtml($_item, 'short') ?>
+                    <?= $this->getPriceHtml($_item, true, '-compare-list-top') ?>
                 </td>
             <?php endforeach ?>
         </tr>
@@ -66,27 +66,27 @@
                 <td>
                     <?php if($_item->isSaleable()): ?>
                         <button type="button"
-                                title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                                title="<?= Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                 class="button btn-cart"
                                 onclick="customFormSubmitToParent(
-                                        '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
-                                        '<?php echo $_params ?>',
+                                        '<?= $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
+                                        '<?= $_params ?>',
                                         'post')">
-                            <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                            <span><span><?= $this->__('Add to Cart') ?></span></span>
                         </button>
                     <?php else: ?>
-                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                     <?php endif ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <?php $_wishlistUrl = $this->getAddToWishlistUrlCustom($_item, false); ?>
                         <ul class="add-to-links">
                             <li>
                                 <a href="#"
-                                   data-url="<?php echo $_wishlistUrl ?>"
-                                   data-params="<?php echo $_params ?>"
+                                   data-url="<?= $_wishlistUrl ?>"
+                                   data-params="<?= $_params ?>"
                                    class="link-wishlist"
-                                   onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Wishlist') ?>
+                                   onclick="customFormSubmit('<?= $_wishlistUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
                         </ul>
@@ -101,22 +101,22 @@
                 <?php $_i=0 ?>
                 <?php foreach($this->getItems() as $_item): ?>
                     <?php if($_i++%10==0): ?>
-                        <th><span class="nobr"><?php echo $_attribute->getStoreLabel() ?></span></th>
+                        <th><span class="nobr"><?= $_attribute->getStoreLabel() ?></span></th>
                     <?php endif ?>
                     <td>
                         <?php switch ($_attribute->getAttributeCode()) {
                             case "price": ?>
-                                <?php echo $this->getPriceHtml($_item, true, '-compare-list-' . $_attribute->getCode()) ?>
+                                <?= $this->getPriceHtml($_item, true, '-compare-list-' . $_attribute->getCode()) ?>
                                 <?php break;
                             case "small_image": ?>
-                                <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" />
+                                <img src="<?= $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125) ?>" width="125" height="125" alt="<?= $this->escapeHtml($_item->getName()) ?>" title="<?= $this->escapeHtml($_item->getName()) ?>" />
                                 <?php break;
                             case "date":
                                 echo substr($this->getProductAttributeValue($_item, $_attribute),0,10);
                                 break;
                             default: ?>
                                 <div class="std">
-                                    <?php echo $this->helper('catalog/output')->productAttribute($_item, $this->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
+                                    <?= $this->helper('catalog/output')->productAttribute($_item, $this->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()) ?>
                                 </div>
                             <?php break;
                         } ?>
@@ -133,32 +133,32 @@
                     <th>&nbsp;</th>
                 <?php endif ?>
                 <td>
-                    <?php echo $this->getPriceHtml($_item, true, '-compare-list-bottom') ?>
+                    <?= $this->getPriceHtml($_item, true, '-compare-list-bottom') ?>
                     <?php if($_item->isSaleable()): ?>
                         <p>
                             <button type="button"
-                                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
+                                   title="<?= Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                    class="button btn-cart"
                                    onclick="customFormSubmitToParent(
-                                           '<?php echo $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
-                                           '<?php echo $_params ?>',
+                                           '<?= $this->helper('catalog/product_compare')->getAddToCartUrlCustom($_item, false) ?>',
+                                           '<?= $_params ?>',
                                            'post')">
-                                <span><span><?php echo $this->__('Add to Cart') ?></span></span>
+                                <span><span><?= $this->__('Add to Cart') ?></span></span>
                             </button>
                         </p>
                     <?php else: ?>
-                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <p class="availability out-of-stock"><span><?= $this->__('Out of stock') ?></span></p>
                     <?php endif ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <?php $_wishlistUrl = $this->getAddToWishlistUrlCustom($_item, false); ?>
                         <ul class="add-to-links">
                             <li>
                                 <a href="#"
-                                   data-url="<?php echo $_wishlistUrl ?>"
-                                   data-params="<?php echo $_params ?>"
+                                   data-url="<?= $_wishlistUrl ?>"
+                                   data-params="<?= $_params ?>"
                                    class="link-wishlist"
-                                   onclick="customFormSubmit('<?php echo $_wishlistUrl ?>', '<?php echo $_params ?>', 'post')">
-                                    <?php echo $this->__('Add to Wishlist') ?>
+                                   onclick="customFormSubmit('<?= $_wishlistUrl ?>', '<?= $_params ?>', 'post')">
+                                    <?= $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
                         </ul>
@@ -169,9 +169,9 @@
         </tbody>
     </table>
     <div class="buttons-set">
-        <button type="button" title="<?php echo $this->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+        <button type="button" title="<?= $this->quoteEscape($this->__('Close Window')) ?>" class="button" onclick="window.close();"><span><span><?= $this->__('Close Window') ?></span></span></button>
         <span class="please-wait" id="compare-list-please-wait" style="display:none;">
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->quoteEscape($this->__('Please wait...')) ?>" title="<?php echo $this->quoteEscape($this->__('Please wait...')) ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>
+            <img src="<?= $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?= $this->quoteEscape($this->__('Please wait...')) ?>" title="<?= $this->quoteEscape($this->__('Please wait...')) ?>" class="v-middle" /> <?= $this->__('Please wait...') ?>
         </span>
     </div>
     <script type="text/javascript">

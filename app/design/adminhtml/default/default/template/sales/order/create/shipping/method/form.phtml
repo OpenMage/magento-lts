@@ -19,7 +19,7 @@
     <div id="order-shipping-method-choose" style="display:none">
     <dl class="shipment-methods">
     <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-        <dt><strong><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></strong></dt>
+        <dt><strong><?= $this->escapeHtml($this->getCarrierName($code)) ?></strong></dt>
         <dd>
             <ul>
             <?php foreach ($_rates as $_rate): ?>
@@ -28,20 +28,20 @@
                 <li>
                    <?php if ($_rate->getErrorMessage()): ?>
                         <ul class="messages">
-                            <li class="error-msg"><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li>
+                            <li class="error-msg"><?= $this->escapeHtml($_rate->getErrorMessage()) ?></li>
                         </ul>
                    <?php else: ?>
                         <?php $_checked = $this->isMethodActive($_code) ? 'checked="checked"' : '' ?>
-                        <input <?php echo $_radioProperty ?> value="<?php echo $_code ?>" id="s_method_<?php echo $_code ?>" <?php echo $_checked ?>/>
-                        <label class="normal" for="s_method_<?php echo $_code ?>">
-                            <?php echo $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+                        <input <?= $_radioProperty ?> value="<?= $_code ?>" id="s_method_<?= $_code ?>" <?= $_checked ?>/>
+                        <label class="normal" for="s_method_<?= $_code ?>">
+                            <?= $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
                             <strong>
                                 <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                 <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
 
-                                <?php echo $_excl; ?>
+                                <?= $_excl ?>
                                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                    (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                                 <?php endif ?>
                             </strong>
                         </label>
@@ -55,37 +55,37 @@
     </div>
     <?php if ($_rate = $this->getActiveMethodRate()): ?>
         <div id="order-shipping-method-info">
-            <strong><?php echo $this->escapeHtml($this->getCarrierName($_rate->getCarrier())) ?></strong><br/>
-            <?php echo $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
+            <strong><?= $this->escapeHtml($this->getCarrierName($_rate->getCarrier())) ?></strong><br/>
+            <?= $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
             <strong>
                 <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                 <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
 
-                <?php echo $_excl; ?>
+                <?= $_excl ?>
                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
-                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    (<?= $this->__('Incl. Tax') ?> <?= $_incl ?>)
                 <?php endif ?>
             </strong>
             <!--input type="text" class="input-text" style="width:70px"/-->
             <br/>
             <a href="#" onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false">
-                <?php echo Mage::helper('sales')->__('Click to change shipping method') ?>
+                <?= Mage::helper('sales')->__('Click to change shipping method') ?>
             </a>
         </div>
     <?php else: ?>
         <script type="text/javascript">$('order-shipping-method-choose').show();</script>
     <?php endif ?>
 <?php elseif($this->getIsRateRequest()): ?>
-    <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+    <strong><?= Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
 <?php else: ?>
     <div id="order-shipping-method-summary">
         <a href="#" onclick="order.loadShippingRates();return false">
-            <?php echo Mage::helper('sales')->__('Get shipping methods and rates') ?>
+            <?= Mage::helper('sales')->__('Get shipping methods and rates') ?>
         </a>
         <input type="hidden" name="order[has_shipping]" value="" class="required-entry" />
     </div>
 <?php endif ?>
-<div style="display:none;" id="shipping-method-overlay" class="overlay"><span><?php echo $this->__('Shipping method selection is not applicable') ?></span></div>
+<div style="display:none;" id="shipping-method-overlay" class="overlay"><span><?= $this->__('Shipping method selection is not applicable') ?></span></div>
 <script type="text/javascript">
 order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);
 order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);

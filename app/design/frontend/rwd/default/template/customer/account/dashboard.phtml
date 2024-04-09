@@ -15,20 +15,20 @@
 ?>
 <div class="dashboard">
     <div class="page-title">
-        <h1><?php echo $this->__('My Dashboard') ?></h1>
+        <h1><?= $this->__('My Dashboard') ?></h1>
     </div>
-    <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php echo $this->getChildHtml('hello') ?>
-    <?php echo $this->getChildHtml('top') ?>
+    <?= $this->getMessagesBlock()->toHtml() ?>
+    <?= $this->getChildHtml('hello') ?>
+    <?= $this->getChildHtml('top') ?>
     <div class="box-account box-info">
         <div class="box-head">
-            <h2><?php echo $this->__('Account Information') ?></h2>
+            <h2><?= $this->__('Account Information') ?></h2>
         </div>
         <?php /* Extensions placeholder */ ?>
-        <?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
-        <?php echo $this->getChildHtml('info') ?>
+        <?= $this->getChildHtml('customer.account.dashboard.extra') ?>
+        <?= $this->getChildHtml('info') ?>
     </div>
-    <?php echo $this->getChildHtml('address') ?>
-    <?php echo $this->getChildHtml('info1') ?>
-    <?php echo $this->getChildHtml('info2') ?>
+    <?= $this->getChildHtml('address') ?>
+    <?= $this->getChildHtml('info1') ?>
+    <?= $this->getChildHtml('info2') ?>
 </div>

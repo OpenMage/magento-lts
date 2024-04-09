@@ -16,19 +16,19 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3 class="icon-head head-tax"><?php echo $header ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-tax"><?= $header ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getBackButtonHtml(); ?>
-                <?php echo $this->getResetButtonHtml(); ?>
-                <?php echo $this->getDeleteButtonHtml(); ?>
-                <?php echo $this->getSaveButtonHtml(); ?>
+                <?= $this->getBackButtonHtml() ?>
+                <?= $this->getResetButtonHtml() ?>
+                <?= $this->getDeleteButtonHtml() ?>
+                <?= $this->getSaveButtonHtml() ?>
             </td>
         </tr>
     </table>
 </div>
 <?php if( $form ): ?>
-<?php echo $form->toHtml(); ?>
+<?= $form->toHtml() ?>
 <script type="text/javascript">
-    var wigetForm = new varienForm('<?php echo $form->getForm()->getId() ?>');
+    var wigetForm = new varienForm('<?= $form->getForm()->getId() ?>');
 </script>
 <?php endif ?>

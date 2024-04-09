@@ -14,8 +14,8 @@
  */
 ?>
 <div class="entry-edit-head">
-    <h4><?php echo Mage::helper('widget')->__('Layout Updates') ?></h4>
-    <div class="right"><?php echo $this->getAddLayoutButtonHtml() ?></div>
+    <h4><?= Mage::helper('widget')->__('Layout Updates') ?></h4>
+    <div class="right"><?= $this->getAddLayoutButtonHtml() ?></div>
 </div>
 <div class="fieldset">
     <div class="hor-scroll">
@@ -28,15 +28,15 @@
 var pageGroupTemplate = '<div class="options-box page_group_container" id="page_group_container_{{id}}">'+
     '<div class="option-box">'+
         '<div class="option-title">'+
-            '<?php echo $this->getRemoveLayoutButtonHtml() ?>'+
+            '<?= $this->getRemoveLayoutButtonHtml() ?>'+
             '<label for="widget_instance[{{id}}][page_group]">Display On <span class="required">*</span></label>'+
-            '<?php echo $this->getDisplayOnSelectHtml(); ?>'+
+            '<?= $this->getDisplayOnSelectHtml() ?>'+
         '</div>'+
 <?php foreach ($this->getDisplayOnContainers() as $container): ?>
-    '<div class="no-display <?php echo $container['code'] ?> group_container" id="<?php echo $container['name'] ?>_{{id}}">'+
-        '<input type="hidden" class="container_name" name="__[container_name]" value="widget_instance[{{id}}][<?php echo $container['name'] ?>]" />'+
-        '<input type="hidden" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][page_id]" value="{{page_id}}" />'+
-        '<input type="hidden" class="layout_handle_pattern" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][layout_handle]" value="<?php echo $container['layout_handle'] ?>" />'+
+    '<div class="no-display <?= $container['code'] ?> group_container" id="<?= $container['name'] ?>_{{id}}">'+
+        '<input type="hidden" class="container_name" name="__[container_name]" value="widget_instance[{{id}}][<?= $container['name'] ?>]" />'+
+        '<input type="hidden" name="widget_instance[{{id}}][<?= $container['name'] ?>][page_id]" value="{{page_id}}" />'+
+        '<input type="hidden" class="layout_handle_pattern" name="widget_instance[{{id}}][<?= $container['name'] ?>][layout_handle]" value="<?= $container['layout_handle'] ?>" />'+
         '<table cellspacing="0" class="option-header">'+
             '<col width="200" />'+
             '<col width="220" />'+
@@ -44,19 +44,19 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
             '<col />'+
             '<thead>'+
                 '<tr>'+
-                    '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('%s', $container['label'])) ?></label></th>'+
-                    '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
-                    '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
+                    '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('%s', $container['label'])) ?></label></th>'+
+                    '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
+                    '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
                     '<th>&nbsp;</th>'+
                 '</tr>'+
             '</thead>'+
             '<tbody>'+
                 '<tr>'+
                     '<td>'+
-                        '<input type="radio" class="radio for_all" id="all_<?php echo $container['name'] ?>_{{id}}" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][for]" value="all" onclick="WidgetInstance.togglePageGroupChooser(this)" checked="checked" />&nbsp;'+
-                        '<label for="all_<?php echo $container['name'] ?>_{{id}}"><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All')) ?></label>&nbsp;&nbsp;&nbsp;'+
-                        '<input type="radio" class="radio for_specific" id="specific_<?php echo $container['name'] ?>_{{id}}" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][for]" value="specific" onclick="WidgetInstance.togglePageGroupChooser(this)" />&nbsp;'+
-                        '<label for="specific_<?php echo $container['name'] ?>_{{id}}"><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specific %s', $container['label'])) ?></label>'+
+                        '<input type="radio" class="radio for_all" id="all_<?= $container['name'] ?>_{{id}}" name="widget_instance[{{id}}][<?= $container['name'] ?>][for]" value="all" onclick="WidgetInstance.togglePageGroupChooser(this)" checked="checked" />&nbsp;'+
+                        '<label for="all_<?= $container['name'] ?>_{{id}}"><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All')) ?></label>&nbsp;&nbsp;&nbsp;'+
+                        '<input type="radio" class="radio for_specific" id="specific_<?= $container['name'] ?>_{{id}}" name="widget_instance[{{id}}][<?= $container['name'] ?>][for]" value="specific" onclick="WidgetInstance.togglePageGroupChooser(this)" />&nbsp;'+
+                        '<label for="specific_<?= $container['name'] ?>_{{id}}"><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specific %s', $container['label'])) ?></label>'+
                     '</td>'+
                     '<td>'+
                         '<div class="block_reference_container">'+
@@ -71,16 +71,16 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
                 '</tr>'+
             '</tbody>'+
         '</table>'+
-        '<div class="no-display chooser_container" id="<?php echo $container['name'] ?>_ids_{{id}}">'+
-            '<input type="hidden" class="is_anchor_only" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][is_anchor_only]" value="<?php echo $container['is_anchor_only'] ?>" />'+
-            '<input type="hidden" class="product_type_id" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][product_type_id]" value="<?php echo $container['product_type_id'] ?>" />'+
+        '<div class="no-display chooser_container" id="<?= $container['name'] ?>_ids_{{id}}">'+
+            '<input type="hidden" class="is_anchor_only" name="widget_instance[{{id}}][<?= $container['name'] ?>][is_anchor_only]" value="<?= $container['is_anchor_only'] ?>" />'+
+            '<input type="hidden" class="product_type_id" name="widget_instance[{{id}}][<?= $container['name'] ?>][product_type_id]" value="<?= $container['product_type_id'] ?>" />'+
             '<p>' +
-                '<input type="text" class="input-text entities" name="widget_instance[{{id}}][<?php echo $container['name'] ?>][entities]" value="{{<?php echo $container['name'] ?>_entities}}" readonly="readonly" />&nbsp;' +
-                '<a class="widget-option-chooser" href="javascript:void(0)" onclick="WidgetInstance.displayEntityChooser(\'<?php echo $container['code'] ?>\', \'<?php echo $container['name'] ?>_ids_{{id}}\')"  title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')) ?>">' +
-                    '<img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_chooser_trigger.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')); ?>" />' +
+                '<input type="text" class="input-text entities" name="widget_instance[{{id}}][<?= $container['name'] ?>][entities]" value="{{<?= $container['name'] ?>_entities}}" readonly="readonly" />&nbsp;' +
+                '<a class="widget-option-chooser" href="javascript:void(0)" onclick="WidgetInstance.displayEntityChooser(\'<?= $container['code'] ?>\', \'<?= $container['name'] ?>_ids_{{id}}\')"  title="<?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')) ?>">' +
+                    '<img src="<?= Mage::getDesign()->getSkinUrl('images/rule_chooser_trigger.gif') ?>" class="v-middle" alt="<?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Open Chooser')) ?>" />' +
                 '</a>&nbsp;' +
-                '<a href="javascript:void(0)" onclick="WidgetInstance.hideEntityChooser(\'<?php echo $container['name'] ?>_ids_{{id}}\')" title="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>">' +
-                    '<img src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_apply.gif') ?>" class="v-middle" alt="<?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')); ?>" />' +
+                '<a href="javascript:void(0)" onclick="WidgetInstance.hideEntityChooser(\'<?= $container['name'] ?>_ids_{{id}}\')" title="<?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')) ?>">' +
+                    '<img src="<?= Mage::getDesign()->getSkinUrl('images/rule_component_apply.gif') ?>" class="v-middle" alt="<?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Apply')) ?>" />' +
                 '</a>' +
             '</p>'+
             '<div class="chooser"></div>'+
@@ -98,8 +98,8 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
         '<col />'+
         '<thead>'+
             '<tr>'+
-                '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
-                '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
+                '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
+                '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
                 '<th>&nbsp;</th>'+
             '</tr>'+
         '</thead>'+
@@ -132,15 +132,15 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
         '<col />'+
         '<thead>'+
             '<tr>'+
-                '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Page')) ?> <span class="required">*</span></label></th>'+
-                '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
-                '<th><label><?php echo $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
+                '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Page')) ?> <span class="required">*</span></label></th>'+
+                '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Block Reference')) ?> <span class="required">*</span></label></th>'+
+                '<th><label><?= $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Template')) ?></label></th>'+
                 '<th>&nbsp;</th>'+
             '</tr>'+
         '</thead>'+
         '<tbody>'+
             '<tr>'+
-                '<td><?php echo $this->getLayoutsChooser() ?></td>'+
+                '<td><?= $this->getLayoutsChooser() ?></td>'+
                 '<td>'+
                     '<div class="block_reference_container">'+
                         '<div class="block_reference"></div>'+
@@ -293,10 +293,10 @@ var WidgetInstance = {
             additional = {};
         }
         if (type == 'categories') {
-            additional.url = '<?php echo $this->getCategoriesChooserUrl() ?>';
+            additional.url = '<?= $this->getCategoriesChooserUrl() ?>';
             additional.post_parameters = $H({'is_anchor_only':$(chooser).down('input.is_anchor_only').value});
         } else if (type == 'products') {
-            additional.url = '<?php echo $this->getProductsChooserUrl() ?>';
+            additional.url = '<?= $this->getProductsChooserUrl() ?>';
             additional.post_parameters = $H({'product_type_id':$(chooser).down('input.product_type_id').value});
         }
         if (chooser && additional) {
@@ -336,7 +336,7 @@ var WidgetInstance = {
                                 chooser.show();
                             }
                         } catch (e) {
-                            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
+                            alert('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                         }
                     }
                 });
@@ -400,13 +400,13 @@ var WidgetInstance = {
             selected = '';
             parameters = {};
             if (type == 'block_reference') {
-                url = '<?php echo $this->getBlockChooserUrl() ?>';
+                url = '<?= $this->getBlockChooserUrl() ?>';
                 if (additional.selectedBlock) {
                     selected = additional.selectedBlock;
                 }
                 parameters.layout = value;
             } else if (type == 'block_template') {
-                url = '<?php echo $this->getTemplateChooserUrl() ?>';
+                url = '<?= $this->getTemplateChooserUrl() ?>';
                 if (additional.selectedTemplate) {
                     selected = additional.selectedTemplate;
                 }
@@ -429,7 +429,7 @@ var WidgetInstance = {
                                 }
                             }
                         } catch (e) {
-                            alert('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
+                            alert('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Error occurs during loading chooser.')) ?>');
                         }
                     }
                 });
@@ -440,7 +440,7 @@ var WidgetInstance = {
 
 Ext.onReady(function(){
     <?php foreach ($this->getPageGroups() as $pageGroup): ?>
-        WidgetInstance.addPageGroup(<?php echo Zend_Json::encode($pageGroup) ?>);
+        WidgetInstance.addPageGroup(<?= Zend_Json::encode($pageGroup) ?>);
     <?php endforeach ?>
     Event.observe(document, 'product:changed', function(event){
         WidgetInstance.checkProduct(event);

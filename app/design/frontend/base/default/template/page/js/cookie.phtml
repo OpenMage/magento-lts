@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-Mage.Cookies.path     = '<?php echo Mage::helper('core')->jsQuoteEscape($this->getPath()) ?>';
-Mage.Cookies.domain   = '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDomain()) ?>';
+Mage.Cookies.path     = '<?= Mage::helper('core')->jsQuoteEscape($this->getPath()) ?>';
+Mage.Cookies.domain   = '<?= Mage::helper('core')->jsQuoteEscape($this->getDomain()) ?>';
 //]]>
 </script>

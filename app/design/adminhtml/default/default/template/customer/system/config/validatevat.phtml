@@ -21,21 +21,21 @@
 <script type="text/javascript">
 //<![CDATA[
     function validateVat() {
-        var elem = $('<?php echo $this->getHtmlId() ?>');
+        var elem = $('<?= $this->getHtmlId() ?>');
 
         params = {
             country: $('general_store_information_merchant_country').value,
             vat: $('general_store_information_merchant_vat_number').value
         };
 
-        new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
+        new Ajax.Request('<?= $this->getAjaxUrl() ?>', {
             parameters: params,
             onSuccess: function(response) {
-                result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
+                result = '<?= Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Invalid')) ?>';
                 try {
                     response = response.responseText;
                     if (response == 1) {
-                        result = '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
+                        result = '<?= Mage::helper('core')->jsQuoteEscape($this->__('VAT Number is Valid')) ?>';
                         elem.removeClassName('fail').addClassName('success')
                     } else {
                         elem.removeClassName('success').addClassName('fail')
@@ -49,6 +49,6 @@
     }
 //]]>
 </script>
-<button onclick="javascript:validateVat(); return false;" class="scalable" type="button" id="<?php echo $this->getHtmlId() ?>">
-    <span id="validation_result"><?php echo $this->escapeHtml($this->getButtonLabel()) ?></span>
+<button onclick="javascript:validateVat(); return false;" class="scalable" type="button" id="<?= $this->getHtmlId() ?>">
+    <span id="validation_result"><?= $this->escapeHtml($this->getButtonLabel()) ?></span>
 </button>

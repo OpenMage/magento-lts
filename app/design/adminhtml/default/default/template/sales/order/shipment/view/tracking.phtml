@@ -22,10 +22,10 @@
     <col width="80" />
     <thead>
         <tr class="headings">
-            <th><?php echo Mage::helper('sales')->__('Carrier') ?></th>
-            <th><?php echo Mage::helper('sales')->__('Title') ?></th>
-            <th><?php echo Mage::helper('sales')->__('Number') ?></th>
-            <th class="last"><?php echo Mage::helper('sales')->__('Action') ?></th>
+            <th><?= Mage::helper('sales')->__('Carrier') ?></th>
+            <th><?= Mage::helper('sales')->__('Title') ?></th>
+            <th><?= Mage::helper('sales')->__('Number') ?></th>
+            <th class="last"><?= Mage::helper('sales')->__('Action') ?></th>
         </tr>
     </thead>
     <tfoot>
@@ -33,30 +33,30 @@
             <td>
                 <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
-                    <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
+                    <option value="<?= $_code ?>"><?= $this->escapeHtml($_name) ?></option>
                     <?php endforeach ?>
                 </select>
             </td>
             <td><input class="input-text" type="text" id="tracking_title" name="title" value="" /></td>
             <td><input class="input-text" type="text" id="tracking_number" name="number" value="" /></td>
-            <td class="last"><?php echo $this->getSaveButtonHtml() ?></td>
+            <td class="last"><?= $this->getSaveButtonHtml() ?></td>
         </tr>
     </tfoot>
 <?php if($_tracks = $this->getShipment()->getAllTracks()): ?>
     <tbody>
     <?php $i=0;foreach ($_tracks as $_track):$i++ ?>
-        <tr class="<?php echo ($i%2==0)?'even':'odd' ?>">
-            <td><?php echo $this->escapeHtml($this->getCarrierTitle($_track->getCarrierCode())) ?></td>
-            <td><?php echo $this->escapeHtml($_track->getTitle()) ?></td>
+        <tr class="<?= ($i%2==0)?'even':'odd' ?>">
+            <td><?= $this->escapeHtml($this->getCarrierTitle($_track->getCarrierCode())) ?></td>
+            <td><?= $this->escapeHtml($_track->getTitle()) ?></td>
             <td>
                 <?php if ($_track->isCustom()): ?>
-                <?php echo $this->escapeHtml($_track->getNumber()) ?>
+                <?= $this->escapeHtml($_track->getNumber()) ?>
                 <?php else: ?>
-                <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_track) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a>
-                <div id="shipment_tracking_info_response_<?php echo $_track->getId() ?>"></div>
+                <a href="#" onclick="popWin('<?= $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_track) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?= $this->escapeHtml($_track->getNumber()) ?></a>
+                <div id="shipment_tracking_info_response_<?= $_track->getId() ?>"></div>
                 <?php endif ?>
             </td>
-            <td class="last"><a href="#" onclick="deleteTrackingNumber('<?php echo $this->getRemoveUrl($_track) ?>'); return false;"><?php echo Mage::helper('sales')->__('Delete') ?></a></td>
+            <td class="last"><a href="#" onclick="deleteTrackingNumber('<?= $this->getRemoveUrl($_track) ?>'); return false;"><?= Mage::helper('sales')->__('Delete') ?></a></td>
         </tr>
     <?php endforeach ?>
     </tbody>
@@ -71,7 +71,7 @@ function selectCarrier(elem) {
 }
 
 function deleteTrackingNumber(url) {
-    if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('sales')->__('Are you sure?')) ?>')) {
+    if (confirm('<?= Mage::helper('core')->jsQuoteEscape(Mage::helper('sales')->__('Are you sure?')) ?>')) {
         submitAndReloadArea($('shipment_tracking_info').parentNode, url)
     }
 }

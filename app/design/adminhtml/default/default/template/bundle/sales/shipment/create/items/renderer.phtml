@@ -38,19 +38,19 @@
         <?php $attributes = $this->getSelectionAttributes($_item) ?>
         <?php if ($_prevOptionId != $attributes['option_id']): ?>
         <tr>
-            <td><div class="option-label"><?php echo $this->escapeHtml($attributes['option_label']); ?></div></td>
+            <td><div class="option-label"><?= $this->escapeHtml($attributes['option_label']) ?></div></td>
             <td>&nbsp;</td>
             <td class="last">&nbsp;</td>
         </tr>
         <?php $_prevOptionId = $attributes['option_id'] ?>
         <?php endif ?>
     <?php endif ?>
-    <tr class="<?php echo (++$_index==$_count && !$_showlastRow)?'border':'' ?>">
+    <tr class="<?= (++$_index==$_count && !$_showlastRow)?'border':'' ?>">
         <?php if (!$_item->getOrderItem()->getParentItem()): ?>
-        <td><h5 class="title"><?php echo $this->escapeHtml($_item->getName()) ?></h5>
+        <td><h5 class="title"><?= $this->escapeHtml($_item->getName()) ?></h5>
             <div>
-                <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
-                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))); ?>
+                <strong><?= $this->helper('sales')->__('SKU') ?>:</strong>
+                <?= implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))) ?>
             </div>
         </td>
         <?php else: ?>
@@ -58,14 +58,14 @@
         <?php endif ?>
         <td>
             <?php if ($this->isShipmentSeparately($_item)): ?>
-                <?php echo $this->getColumnHtml($_item, 'qty') ?>
+                <?= $this->getColumnHtml($_item, 'qty') ?>
             <?php else: ?>
                 &nbsp;
             <?php endif ?>
         </td>
         <td class="last">
             <?php if ($this->isShipmentSeparately($_item)): ?>
-                <input type="text" class="input-text" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
+                <input type="text" class="input-text" name="shipment[items][<?= $_item->getOrderItemId() ?>]" value="<?= $_item->getQty()*1 ?>" />
             <?php else: ?>
                 &nbsp;
             <?php endif ?>
@@ -78,18 +78,18 @@
             <?php if ($this->getOrderOptions($_item->getOrderItem())): ?>
                 <dl class="item-options">
                 <?php foreach ($this->getOrderOptions($_item->getOrderItem()) as $option): ?>
-                    <dt><?php echo $this->escapeHtml($option['label']) ?></dt>
+                    <dt><?= $this->escapeHtml($option['label']) ?></dt>
                     <dd>
                     <?php if (isset($option['custom_view']) && $option['custom_view']): ?>
                         <?php echo $option['value'];?>
                     <?php else: ?>
                         <?php echo Mage::helper('core/string')->truncate($option['value'], 55, '', $_remainder);?>
                         <?php if ($_remainder):?>
-                            ... <span id="<?php echo $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
+                            ... <span id="<?= $_id = 'id' . uniqid()?>"><?php echo $_remainder ?></span>
                             <script type="text/javascript">
-                            $('<?php echo $_id ?>').hide();
-                            $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
-                            $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
+                            $('<?= $_id ?>').hide();
+                            $('<?= $_id ?>').up().observe('mouseover', function(){$('<?= $_id ?>').show();});
+                            $('<?= $_id ?>').up().observe('mouseout',  function(){$('<?= $_id ?>').hide();});
                             </script>
                         <?php endif ?>
                     <?php endif ?>
@@ -99,7 +99,7 @@
                         <?php else: ?>
                 &nbsp;
                         <?php endif ?>
-            <?php echo $this->escapeHtml($_item->getDescription()) ?>
+            <?= $this->escapeHtml($_item->getDescription()) ?>
         </td>
         <td>&nbsp;</td>
         <td class="last">&nbsp;</td>

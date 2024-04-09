@@ -38,7 +38,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
  * @see Mage_Customer_Block_Widget_Dob
  */
 ?>
-<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
+<label for="<?= $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?= $this->__('Date of Birth') ?></label>
 <div class="input-box customer-dob">
 <?php
     $this->setDateInput('d',
@@ -62,7 +62,7 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
          </div>'
     );
 ?>
-    <?php echo $this->getSortedDateInputs() ?>
+    <?= $this->getSortedDateInputs() ?>
     <div class="dob-full" style="display:none;">
         <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />
     </div>
@@ -71,6 +71,6 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
+    var customer_dob = new Varien.DOB('.customer-dob', <?= $this->isRequired() ? 'true' : 'false' ?>, '<?= $this->getDateFormat() ?>');
 //]]>
 </script>

@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-    Validation.add('required-synchronize', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Synchronization is required.')) ?>', function(){
+    Validation.add('required-synchronize', '<?= Mage::helper('core')->jsQuoteEscape($this->__('Synchronization is required.')) ?>', function(){
         storage = getConnectionName(
             $('system_media_storage_configuration_media_storage').value,
             $('system_media_storage_configuration_media_database').value
@@ -38,7 +38,7 @@
     );
 
     <?php $syncStorageParams = $this->getSyncStorageParams() ?>
-    addAllowedStorage(<?php echo $syncStorageParams['storage_type'] ?>, '<?php echo $syncStorageParams['connection_name'] ?>');
+    addAllowedStorage(<?= $syncStorageParams['storage_type'] ?>, '<?= $syncStorageParams['connection_name'] ?>');
 
     function getConnectionName(storageType, connection)
     {
@@ -109,7 +109,7 @@
     $('system_media_storage_configuration_media_database').observe('change', checkButtonState);
 
     function checkStatus() {
-        var u = new Ajax.PeriodicalUpdater('', '<?php echo $this->getAjaxStatusUpdateUrl() ?>', {
+        var u = new Ajax.PeriodicalUpdater('', '<?= $this->getAjaxStatusUpdateUrl() ?>', {
             method:     'get',
             frequency:  5,
             loaderArea: false,
@@ -119,7 +119,7 @@
 
                 try {
                     response = transport.responseJSON || transport.responseText.evalJSON(true) || {};
-                    if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ?>'
+                    if (response.state == '<?= Mage_Core_Model_File_Storage_Flag::STATE_RUNNING ?>'
                         && response.message
                     ) {
                         if ($('sync_span').hasClassName('no-display')) {
@@ -131,7 +131,7 @@
                         enableStorageSelection();
                         $('sync_span').addClassName('no-display');
 
-                        if (response.state == '<?php echo Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED ?>') {
+                        if (response.state == '<?= Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED ?>') {
                             if (response.html && response.html != '') {
                                 $$('div.notification-global').each(function(e) {
                                     if (!e.hasClassName('notification-global-notice')) {
@@ -169,7 +169,7 @@
             connection: $('system_media_storage_configuration_media_database').value
         }
 
-        new Ajax.Request('<?php echo $this->getAjaxSyncUrl() ?>', {
+        new Ajax.Request('<?= $this->getAjaxSyncUrl() ?>', {
             parameters:     params,
             loaderArea:     false,
             asynchronous:   true
@@ -183,5 +183,5 @@
 //]]>
 </script>
 
-<?php echo $this->getButtonHtml() ?><span class="sync-indicator no-display" id="sync_span"><img alt="Synchronize" style="margin:0 5px" src="<?php echo $this->getSkinUrl('images/process_spinner.gif') ?>"/><span id="sync_message_span"></span></span>
+<?= $this->getButtonHtml() ?><span class="sync-indicator no-display" id="sync_span"><img alt="Synchronize" style="margin:0 5px" src="<?= $this->getSkinUrl('images/process_spinner.gif') ?>"/><span id="sync_message_span"></span></span>
 <input type="hidden" id="synchronize-validation-input" class="required-synchronize no-display"/>

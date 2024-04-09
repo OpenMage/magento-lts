@@ -15,20 +15,20 @@
 ?>
 <tr>
 <td colspan="2">
-<label for="gallery"><?php echo $this->__('Images') ?></label>
+<label for="gallery"><?= $this->__('Images') ?></label>
 <table id="gallery" class="gallery" border="0" cellspacing="3" cellpadding="0">
 <thead id="gallery_thead" class="gallery">
     <tr class="gallery">
-        <td class="gallery" valign="middle" align="center"><?php echo $this->__('Big Image') ?></td>
-        <td class="gallery" valign="middle" align="center"><?php echo $this->__('Thumbnail') ?></td>
-        <td class="gallery" valign="middle" align="center"><?php echo $this->__('Sort Order') ?></td>
-        <td class="gallery" valign="middle" align="center"><?php echo $this->__('Delete') ?></td>
+        <td class="gallery" valign="middle" align="center"><?= $this->__('Big Image') ?></td>
+        <td class="gallery" valign="middle" align="center"><?= $this->__('Thumbnail') ?></td>
+        <td class="gallery" valign="middle" align="center"><?= $this->__('Sort Order') ?></td>
+        <td class="gallery" valign="middle" align="center"><?= $this->__('Delete') ?></td>
     </tr>
 </thead>
 
 <tfoot class="gallery">
 <tr class="gallery">
-<td class="gallery v-middle a-left"colspan="5"><?php echo $this->getAddButtonHtml() ?></td>
+<td class="gallery v-middle a-left"colspan="5"><?= $this->getAddButtonHtml() ?></td>
 </tr>
 </tfoot>
 
@@ -36,15 +36,15 @@
 
 <?php $i = 0; if (!is_null($this->getValues())): ?>
     <?php foreach ($this->getValues() as $image): $i++; ?>
-        <tr id="<?php echo $this->getElement()->getHtmlId() ?>_tr_<?php echo $image->getValueId() ?>" class="gallery">
+        <tr id="<?= $this->getElement()->getHtmlId() ?>_tr_<?= $image->getValueId() ?>" class="gallery">
         <?php foreach ($this->getValues()->getAttributeBackend()->getImageTypes() as $type): ?>
             <td class="gallery" align="center" style="vertical-align:bottom;">
-            <a href="<?php echo $image->setType($type)->getSourceUrl() ?>" target="_blank" onclick="imagePreview('<?php echo $this->getElement()->getHtmlId() ?>_image_<?php echo $type ?>_<?php echo $image->getValueId() ?>');return false;">
-            <img id="<?php echo $this->getElement()->getHtmlId() ?>_image_<?php echo $type ?>_<?php echo $image->getValueId() ?>" src="<?php echo $image->setType($type)->getSourceUrl() ?>?<?php echo time() ?>" alt="<?php echo $image->getValue() ?>" height="25" class="small-image-preview v-middle"/></a><br/>
-            <input type="file" name="<?php echo $this->getElement()->getName() ?>_<?php echo $type ?>[<?php echo $image->getValueId() ?>]" size="1"></td>
+            <a href="<?= $image->setType($type)->getSourceUrl() ?>" target="_blank" onclick="imagePreview('<?= $this->getElement()->getHtmlId() ?>_image_<?= $type ?>_<?= $image->getValueId() ?>');return false;">
+            <img id="<?= $this->getElement()->getHtmlId() ?>_image_<?= $type ?>_<?= $image->getValueId() ?>" src="<?= $image->setType($type)->getSourceUrl() ?>?<?= time() ?>" alt="<?= $image->getValue() ?>" height="25" class="small-image-preview v-middle"/></a><br/>
+            <input type="file" name="<?= $this->getElement()->getName() ?>_<?= $type ?>[<?= $image->getValueId() ?>]" size="1"></td>
         <?php endforeach ?>
-        <td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="<?php echo $this->getElement()->getParentName() ?>[position][<?php echo $image->getValueId() ?>]" value="<?php echo $image->getPosition() ?>" id="<?php echo $this->getElement()->getHtmlId() ?>_position_<?php echo $image->getValueId() ?>" size="3"/></td>
-        <td class="gallery" align="center" style="vertical-align:bottom;"><?php echo $this->getDeleteButtonHtml($image->getValueId()) ?><input type="hidden" name="<?php echo $this->getElement()->getParentName() ?>[delete][<?php echo $image->getValueId() ?>]" id="<?php echo $this->getElement()->getHtmlId() ?>_delete_<?php echo $image->getValueId() ?>"/></td>
+        <td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="<?= $this->getElement()->getParentName() ?>[position][<?= $image->getValueId() ?>]" value="<?= $image->getPosition() ?>" id="<?= $this->getElement()->getHtmlId() ?>_position_<?= $image->getValueId() ?>" size="3"/></td>
+        <td class="gallery" align="center" style="vertical-align:bottom;"><?= $this->getDeleteButtonHtml($image->getValueId()) ?><input type="hidden" name="<?= $this->getElement()->getParentName() ?>[delete][<?= $image->getValueId() ?>]" id="<?= $this->getElement()->getHtmlId() ?>_delete_<?= $image->getValueId() ?>"/></td>
         </tr>
     <?php endforeach ?>
 <?php endif ?>
@@ -58,7 +58,7 @@
 <script type="text/javascript">
 //<![CDATA[
 id = 0;
-num_of_images = <?php echo $i ?>;
+num_of_images = <?= $i ?>;
 
 function addNewImage()
 {
@@ -67,17 +67,17 @@ function addNewImage()
 
     id--;
     num_of_images++;
-    new_file_input = '<input type="file" name="<?php echo $this->getElement()->getName() ?>_%j%[%id%]" size="1">';
+    new_file_input = '<input type="file" name="<?= $this->getElement()->getName() ?>_%j%[%id%]" size="1">';
 
     // Sort order input
     var new_row_input = document.createElement( 'input' );
     new_row_input.type = 'text';
-    new_row_input.name = '<?php echo $this->getElement()->getParentName() ?>[position]['+id+']';
+    new_row_input.name = '<?= $this->getElement()->getParentName() ?>[position]['+id+']';
     new_row_input.size = '3';
     new_row_input.value = '0';
 
     // Delete button
-    new_row_button = '<?php echo $this->getDeleteButtonHtml("this") ?>';
+    new_row_button = '<?= $this->getDeleteButtonHtml("this") ?>';
 
     table = document.getElementById( "gallery" );
 
@@ -118,8 +118,8 @@ function deleteImage(image)
         document.getElementById("gallery_thead").style.visibility="hidden";
     }
     if (image>0) {
-        document.getElementById('<?php echo $this->getElement()->getName() ?>_delete_'+image).value=image;
-        document.getElementById('<?php echo $this->getElement()->getName() ?>_tr_'+image).style.display='none';
+        document.getElementById('<?= $this->getElement()->getName() ?>_delete_'+image).value=image;
+        document.getElementById('<?= $this->getElement()->getName() ?>_tr_'+image).style.display='none';
     }
     else {
         image.parentNode.parentNode.parentNode.removeChild( image.parentNode.parentNode );

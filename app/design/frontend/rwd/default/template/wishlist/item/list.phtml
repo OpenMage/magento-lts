@@ -27,7 +27,7 @@
                 foreach ($columns as $column):
                     $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
             ?>
-                <th class="<?php echo $_blockName; ?>"><?php echo $column->getTitle();?></th>
+                <th class="<?= $_blockName ?>"><?php echo $column->getTitle();?></th>
             <?php endforeach ?>
         </tr>
     </thead>
@@ -46,7 +46,7 @@
                                 $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
                             }
                     ?>
-                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <td class="<?= 'wishlist-cell'.$key ?> <?= $_blockName ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?= $_rwdLabel ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
                     <?php endforeach ?>
                 </tr>
             <?php endforeach ?>

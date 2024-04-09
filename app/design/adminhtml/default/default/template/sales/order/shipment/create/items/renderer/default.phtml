@@ -15,20 +15,20 @@
 ?>
 <?php $_item = $this->getItem() ?>
 <tr class="border">
-    <td><?php echo $this->getColumnHtml($_item, 'name') ?></td>
-    <td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
+    <td><?= $this->getColumnHtml($_item, 'name') ?></td>
+    <td><?= $this->getColumnHtml($_item, 'qty') ?></td>
 
     <td class="<?php if ($this->isShipmentRegular()): ?>last<?php endif ?> a-center">
         <?php if ($this->canShipPartiallyItem()): ?>
-            <input type="text" class="input-text qty-item" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
+            <input type="text" class="input-text qty-item" name="shipment[items][<?= $_item->getOrderItemId() ?>]" value="<?= $_item->getQty()*1 ?>" />
         <?php else: ?>
-            <?php echo $_item->getQty()*1 ?>
+            <?= $_item->getQty()*1 ?>
         <?php endif ?>
     </td>
     <?php if (!$this->canShipPartiallyItem()): ?>
     <td class="a-center last">
-        <input type="hidden" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="0" />
-        <input type="checkbox" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" checked />
+        <input type="hidden" name="shipment[items][<?= $_item->getOrderItemId() ?>]" value="0" />
+        <input type="checkbox" name="shipment[items][<?= $_item->getOrderItemId() ?>]" value="<?= $_item->getQty()*1 ?>" checked />
     </td>
     <?php endif ?>
 </tr>

@@ -21,17 +21,17 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3 class="icon-head head-system-currency"><?php echo $this->getHeader() ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-system-currency"><?= $this->getHeader() ?></h3></td>
             <td class="form-buttons">
-                <form action="<?php echo $this->getImportFormAction() ?>" method="post">
+                <form action="<?= $this->getImportFormAction() ?>" method="post">
                     <?php echo $this->getBlockHtml('formkey')?>
-                    <?php echo $this->getServicesHtml() ?>
-                    <?php echo $this->getImportButtonHtml() ?>
+                    <?= $this->getServicesHtml() ?>
+                    <?= $this->getImportButtonHtml() ?>
                 </form>
-                <?php echo $this->getResetButtonHtml() ?>
-                <?php echo $this->getSaveButtonHtml() ?>
+                <?= $this->getResetButtonHtml() ?>
+                <?= $this->getSaveButtonHtml() ?>
             </td>
         </tr>
     </table>
 </div>
-<?php echo $this->getRatesMatrixHtml() ?>
+<?= $this->getRatesMatrixHtml() ?>

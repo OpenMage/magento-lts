@@ -18,10 +18,10 @@
  */
 ?>
 <?php if ($this->getInstructions()): ?>
-    <ul class="form-list checkout-agreements" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <ul class="form-list checkout-agreements" id="payment_form_<?= $this->getMethodCode() ?>" style="display:none;">
         <li>
-            <div class="<?php echo $this->getMethodCode() ?>-instructions-content agreement-content">
-                <?php echo nl2br($this->getInstructions()) ?>
+            <div class="<?= $this->getMethodCode() ?>-instructions-content agreement-content">
+                <?= nl2br($this->getInstructions()) ?>
             </div>
         </li>
     </ul>

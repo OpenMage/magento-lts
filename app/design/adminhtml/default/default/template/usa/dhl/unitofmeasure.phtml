@@ -22,15 +22,15 @@
     //<![CDATA[
     function changeDimensions()
     {
-        var dimensionUnit = '(<?php echo $this->getInch(); ?>)';
-        var dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteLbp(); ?>';
+        var dimensionUnit = '(<?= $this->getInch() ?>)';
+        var dhlintUnitOfMeasureNote = '<?= $this->getDivideOrderWeightNoteLbp() ?>';
         if ($("carriers_dhlint_unit_of_measure").value == "K") {
-            dimensionUnit = '(<?php echo $this->getCm(); ?>)';
-            dhlintUnitOfMeasureNote = '<?php echo $this->getDivideOrderWeightNoteKg(); ?>';
+            dimensionUnit = '(<?= $this->getCm() ?>)';
+            dhlintUnitOfMeasureNote = '<?= $this->getDivideOrderWeightNoteKg() ?>';
         }
-        $$('[for="carriers_dhlint_height"]')[0].innerHTML = '<?php echo $this->getHeight(); ?> ' + dimensionUnit;
-        $$('[for="carriers_dhlint_depth"]')[0].innerHTML = '<?php echo $this->getDepth(); ?> ' + dimensionUnit;
-        $$('[for="carriers_dhlint_width"]')[0].innerHTML = '<?php echo $this->getWidth(); ?> ' + dimensionUnit;
+        $$('[for="carriers_dhlint_height"]')[0].innerHTML = '<?= $this->getHeight() ?> ' + dimensionUnit;
+        $$('[for="carriers_dhlint_depth"]')[0].innerHTML = '<?= $this->getDepth() ?> ' + dimensionUnit;
+        $$('[for="carriers_dhlint_width"]')[0].innerHTML = '<?= $this->getWidth() ?> ' + dimensionUnit;
 
         $('carriers_dhlint_divide_order_weight').next().down().innerHTML = dhlintUnitOfMeasureNote;
     }

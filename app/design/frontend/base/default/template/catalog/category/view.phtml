@@ -31,30 +31,30 @@
 ?>
 <div class="page-title category-title">
     <?php if($this->isRssCatalogEnable() && $this->isTopCategory()): ?>
-        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+        <a href="<?= $this->getRssLink() ?>" class="link-rss"><?= $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif ?>
-    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+    <h1><?= $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 
-<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?= $this->getMessagesBlock()->toHtml() ?>
 
 <?php if($_imgUrl): ?>
-    <?php echo $_imgHtml ?>
+    <?= $_imgHtml ?>
 <?php endif ?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
-        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+        <?= $_helper->categoryAttribute($_category, $_description, 'description') ?>
     </div>
     <?php endif ?>
 
 <?php if($this->isContentMode()): ?>
-    <?php echo $this->getCmsBlockHtml() ?>
+    <?= $this->getCmsBlockHtml() ?>
 
 <?php elseif($this->isMixedMode()): ?>
-    <?php echo $this->getCmsBlockHtml() ?>
-    <?php echo $this->getProductListHtml() ?>
+    <?= $this->getCmsBlockHtml() ?>
+    <?= $this->getProductListHtml() ?>
 
 <?php else: ?>
-    <?php echo $this->getProductListHtml() ?>
+    <?= $this->getProductListHtml() ?>
 <?php endif ?>

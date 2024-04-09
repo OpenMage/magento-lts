@@ -23,39 +23,39 @@
 ?>
 <?php $isRegistrationAllowed = $this->helper('customer')->isRegistrationAllowed() ?>
 <?php $isAllowedGuestCheckout = $this->getQuote()->isAllowedGuestCheckout() ?>
-<?php echo $this->getChildHtml('login_before') ?>
+<?= $this->getChildHtml('login_before') ?>
 <div class="col2-set<?php if (!$isRegistrationAllowed && !$isAllowedGuestCheckout) echo ' login-only' ?>">
     <div class="col-1">
         <h3>
             <?php if ($isAllowedGuestCheckout && $isRegistrationAllowed): ?>
-                <?php echo $this->__('Checkout as a Guest or Register') ?>
+                <?= $this->__('Checkout as a Guest or Register') ?>
             <?php elseif ($isAllowedGuestCheckout && !$isRegistrationAllowed): ?>
-                <?php echo $this->__('Checkout as a Guest') ?>
+                <?= $this->__('Checkout as a Guest') ?>
             <?php else: ?>
-                <?php echo $this->__('Register to Create an Account') ?>
+                <?= $this->__('Register to Create an Account') ?>
             <?php endif ?>
         </h3>
         <?php if (!$isAllowedGuestCheckout && $isRegistrationAllowed): ?>
-            <p class="description"><?php echo $this->__('Register and save time!') ?></strong><br />
-                <?php echo $this->__('Register with us for future convenience:') ?></p>
+            <p class="description"><?= $this->__('Register and save time!') ?></strong><br />
+                <?= $this->__('Register with us for future convenience:') ?></p>
             <ul>
-                <li><?php echo $this->__('Fast and easy check out') ?></li>
-                <li><?php echo $this->__('Easy access to your order history and status') ?></li>
+                <li><?= $this->__('Fast and easy check out') ?></li>
+                <li><?= $this->__('Easy access to your order history and status') ?></li>
             </ul>
         <?php elseif ($isAllowedGuestCheckout && $isRegistrationAllowed): ?>
-            <p class="description"><?php echo $this->__('Register with us for future convenience:') ?></p>
+            <p class="description"><?= $this->__('Register with us for future convenience:') ?></p>
         <?php endif ?>
         <?php if ($isAllowedGuestCheckout): ?>
             <ul class="form-list">
                 <?php if ($isAllowedGuestCheckout): ?>
                 <li class="control">
-                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()!=Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
+                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()!=Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER): ?> checked="checked"<?php endif ?> class="radio" /><label for="login:guest"><?= $this->__('Checkout as Guest') ?></label>
                 </li>
                 <?php endif ?>
                 <?php if ($isRegistrationAllowed): ?>
                 <li class="control">
                     <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$isAllowedGuestCheckout): ?> checked="checked"<?php endif ?> class="radio" />
-                    <label for="login:register"><?php echo $this->__('Register and Checkout') ?></label>
+                    <label for="login:register"><?= $this->__('Register and Checkout') ?></label>
                 </li>
                 <?php endif ?>
             </ul>
@@ -65,49 +65,49 @@
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
             <?php if ($isAllowedGuestCheckout): ?>
-                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="checkout.setMethod();"><span><span><?= $this->__('Continue') ?></span></span></button>
             <?php elseif ($this->helper('checkout')->isCustomerMustBeLogged()): ?>
-                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?php echo $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
+                <button id="onepage-guest-register-button" type="button" class="button" onclick="window.location='<?= $this->helper('checkout/url')->getRegistrationUrl();?>'"><span><span><?php echo $this->__('Register') ?></span></span></button>
             <?php else: ?>
-                <form action="<?php echo $this->getUrl('persistent/index/saveMethod'); ?>">
-                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
+                <form action="<?= $this->getUrl('persistent/index/saveMethod') ?>">
+                    <button id="onepage-guest-register-button" type="submit" class="button"><span><span><?= $this->__('Register') ?></span></span></button>
                 </form>
             <?php endif ?>
         </div>
     </div>
     <div class="col-2">
-        <h3><?php echo $this->__('Returning Customers') ?></h3>
-        <?php echo $this->getMessagesBlock()->toHtml() ?>
-        <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
+        <h3><?= $this->__('Returning Customers') ?></h3>
+        <?= $this->getMessagesBlock()->toHtml() ?>
+        <form id="login-form" action="<?= $this->getPostAction() ?>" method="post">
         <div class="fieldset">
-            <?php echo $this->getBlockHtml('formkey'); ?>
-            <p class="description"><?php echo $this->__('Sign in to speed up your checkout process') ?></p>
-            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            <?= $this->getBlockHtml('formkey') ?>
+            <p class="description"><?= $this->__('Sign in to speed up your checkout process') ?></p>
+            <p class="required"><?= $this->__('* Required Fields') ?></p>
             <ul class="form-list">
                 <li>
-                    <label for="login-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                    <label for="login-email" class="required"><em>*</em><?= $this->__('Email Address') ?></label>
                     <div class="input-box">
-                        <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
+                        <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?= $this->escapeHtml($this->getUsername()) ?>" />
                     </div>
                 </li>
                 <li>
-                    <label for="login-password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                    <label for="login-password" class="required"><em>*</em><?= $this->__('Password') ?></label>
                     <div class="input-box">
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" autocomplete="off" />
                     </div>
                 </li>
                 <li>
-                    <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
+                    <a href="<?= $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?= $this->__('Forgot your password?') ?></a>
                 </li>
-                <?php echo $this->getChildHtml('form.additional.info'); ?>
-                <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                <?= $this->getChildHtml('form.additional.info') ?>
+                <?= $this->getChildHtml('persistent.remember.me') ?>
             </ul>
-            <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+            <?= $this->getChildHtml('persistent.remember.me.tooltip') ?>
             <input name="context" type="hidden" value="checkout" />
         </div>
         </form>
         <div class="buttons-set">
-            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?= $this->__('Login') ?></span></span></button>
         </div>
     </div>
 </div>

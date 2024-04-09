@@ -30,8 +30,8 @@ function registerTaxRecalcs()
     Event.observe($('tax_class_id'), 'change', recalculateTax);
 }
 
-var priceFormat = <?php echo $this->helper('tax')->getPriceFormat($this->getStore()); ?>;
-var taxRates = <?php echo $this->helper('tax')->getAllRatesByProductClass($this->getStore()); ?>;
+var priceFormat = <?= $this->helper('tax')->getPriceFormat($this->getStore()) ?>;
+var taxRates = <?= $this->helper('tax')->getAllRatesByProductClass($this->getStore()) ?>;
 
 function recalculateTax()
 {
@@ -75,8 +75,8 @@ varienGlobalEvents.attachEventHandler('showTab', bindActiveProductTab);
 
 // bind active tab
 <?php if($tabsBlock = $this->getLayout()->getBlock('product_tabs')): ?>
-if(<?php echo $tabsBlock->getJsObjectName() ?> && <?php echo $tabsBlock->getJsObjectName() ?>.activeTab && $('store_switcher')){
-    $('store_switcher').switchParams = 'active_tab/'+<?php echo $tabsBlock->getJsObjectName() ?>.activeTab.name+'/';
+if(<?= $tabsBlock->getJsObjectName() ?> && <?= $tabsBlock->getJsObjectName() ?>.activeTab && $('store_switcher')){
+    $('store_switcher').switchParams = 'active_tab/'+<?= $tabsBlock->getJsObjectName() ?>.activeTab.name+'/';
 }
 <?php endif ?>
 //]]>

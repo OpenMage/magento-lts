@@ -14,14 +14,14 @@
  */
 ?>
 <?php $_code=$this->getMethodCode() ?>
-<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+<ul class="form-list" id="payment_form_<?= $_code ?>" style="display:none;">
     <li>
-        <label for="<?php echo $_code ?>_ba_agreement_id" class="required"><em>*</em><?php echo $this->__('Billing Agreement') ?></label>
+        <label for="<?= $_code ?>_ba_agreement_id" class="required"><em>*</em><?= $this->__('Billing Agreement') ?></label>
         <div class="input-box">
-            <select id="<?php echo $_code ?>_ba_agreement_id" name="payment[<?php echo $this->getTransportBAId(); ?>]" class="required-entry">
-                <option value="">--<?php echo $this->__('Please Select') ?>--</option>
+            <select id="<?= $_code ?>_ba_agreement_id" name="payment[<?= $this->getTransportBAId() ?>]" class="required-entry">
+                <option value="">--<?= $this->__('Please Select') ?>--</option>
             <?php foreach ($this->getBillingAgreements() as $id => $referenceId): ?>
-                <option value="<?php echo $id ?>"><?php echo $this->escapeHtml($referenceId) ?></option>
+                <option value="<?= $id ?>"><?= $this->escapeHtml($referenceId) ?></option>
             <?php endforeach ?>
             </select>
         </div>

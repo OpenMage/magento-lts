@@ -14,18 +14,18 @@
  */
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->getLang() ?>">
+<html lang="<?= $this->getLang() ?>">
 <head>
 <?php $this->getChild('head')->unsetChildren(); ?>
-<?php echo $this->getChildHtml('head'); ?>
+<?= $this->getChildHtml('head') ?>
 </head>
 <body class="page-popup<?php echo $this->getBodyClass()?$this->getBodyClass() : ''?>">
 <div>
-    <?php echo $this->getChildHtml('after_body_start') ?>
-    <?php echo $this->getChildHtml('global_notices') ?>
-    <?php echo $this->getChildHtml('content') ?>
-    <?php echo $this->getChildHtml('before_body_end') ?>
+    <?= $this->getChildHtml('after_body_start') ?>
+    <?= $this->getChildHtml('global_notices') ?>
+    <?= $this->getChildHtml('content') ?>
+    <?= $this->getChildHtml('before_body_end') ?>
 </div>
-<?php echo $this->getAbsoluteFooter() ?>
+<?= $this->getAbsoluteFooter() ?>
 </body>
 </html>

@@ -40,19 +40,19 @@ $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Help
         ?>
         <li<?php if ($_hasImage){ echo ' style="line-height: ' . $_lineHeight . 'px;"'; } ?>>
             <?php if ($_hasItems): ?>
-                <a href="<?php echo $this->escapeUrl($_item->getUrl()) ?>" class="<?php echo $_linkClass ?>">
+                <a href="<?= $this->escapeUrl($_item->getUrl()) ?>" class="<?= $_linkClass ?>">
             <?php else: ?>
-                <span class="<?php echo $_linkClass ?>">
+                <span class="<?= $_linkClass ?>">
             <?php endif ?>
                 <span class="swatch-label"<?php if ($_hasImage){ echo ' style="' . $_linkCss . '"'; } ?>>
                     <?php if ($_hasImage): ?>
-                        <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_label; ?>" title="<?php echo $_label ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
+                        <img src="<?= $_swatchUrl ?>" alt="<?= $_label ?>" title="<?= $_label ?>" width="<?= $_swatchInnerWidth ?>" height="<?= $_swatchInnerHeight ?>" />
                     <?php else: ?>
-                        <?php echo $_label; ?>
+                        <?= $_label ?>
                     <?php endif ?>
                 </span>
                 <?php if ($this->shouldDisplayProductCount()): ?>
-                    <span class="count">(<?php echo $_item->getCount() ?>)</span>
+                    <span class="count">(<?= $_item->getCount() ?>)</span>
                 <?php endif ?>
             <?php if ($_hasItems): ?>
                 </a>

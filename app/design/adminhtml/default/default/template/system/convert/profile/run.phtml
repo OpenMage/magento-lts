@@ -17,7 +17,7 @@
 <script type="text/javascript">
 function runProfile(popup)
 {
-    var url = "<?php echo $this->getUrl('*/*/run', ['id' => $this->getProfileId()]) ?>";
+    var url = "<?= $this->getUrl('*/*/run', ['id' => $this->getProfileId()]) ?>";
     if ($('profile_direction') != undefined
         && $('profile_data_transfer') != undefined
         && getDirection() == 'import' && getTransferType() == 'interactive') {
@@ -56,7 +56,7 @@ function getTransferType()
 <ul class="messages">
     <li class="notice-msg">
         <ul>
-            <li><?php echo $this->__('Please make sure that your changes were saved before running the profile.') ?></li>
+            <li><?= $this->__('Please make sure that your changes were saved before running the profile.') ?></li>
         </ul>
     </li>
 </ul>
@@ -65,12 +65,12 @@ function getTransferType()
         <option value="">Select a file</option>
         <?php if ($files = $this->getImportedFiles()): ?>
             <?php foreach ($files as $file): ?>
-                <option value=<?php echo $file ?>><?php echo $file ?></option>
+                <option value=<?= $file ?>><?= $file ?></option>
             <?php endforeach ?>
         <?php endif ?>
     </select>
     <br />&nbsp;
 </div>
 
-<?php echo $this->getRunButtonHtml() ?><br />
-<iframe id="run_iframe" src="<?php echo $this->getJsUrl() ?>blank.html" frameborder="0" style="display:none; width:100%; height:400px;"></iframe>
+<?= $this->getRunButtonHtml() ?><br />
+<iframe id="run_iframe" src="<?= $this->getJsUrl() ?>blank.html" frameborder="0" style="display:none; width:100%; height:400px;"></iframe>

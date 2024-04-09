@@ -17,14 +17,14 @@
 <?php $options = Mage::helper('core')->decorateArray($this->getOptions()); ?>
 <?php if (count($options)): ?>
 
-<?php echo $this->getChildHtml('options_js') ?>
+<?= $this->getChildHtml('options_js') ?>
 
-<div id="product_composite_configure_fields_options" class="<?php echo $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
-    <h4><?php echo Mage::helper('catalog')->__('Custom Options') ?></h4>
+<div id="product_composite_configure_fields_options" class="<?= $this->getIsLastFieldset() ? 'last-fieldset' : '' ?>">
+    <h4><?= Mage::helper('catalog')->__('Custom Options') ?></h4>
     <div class="product-options">
         <dl>
             <?php foreach($options as $option): ?>
-                <?php echo $this->getOptionHtml($option); ?>
+                <?= $this->getOptionHtml($option) ?>
             <?php endforeach ?>
         </dl>
     </div>

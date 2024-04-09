@@ -13,11 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<ul id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none">
+<ul id="payment_form_<?= $this->getMethodCode() ?>" style="display:none">
     <li>
         <div class="input-box">
-            <label for="po_number"><?php echo Mage::helper('payment')->__('Purchase Order Number') ?> <span class="required">*</span></label><br/>
-            <input type="text" id="po_number" name="payment[po_number]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Purchase Order Number')) ?>" class="required-entry input-text" value="<?php echo $this->getInfoData('po_number') ?>"/>
+            <label for="po_number"><?= Mage::helper('payment')->__('Purchase Order Number') ?> <span class="required">*</span></label><br/>
+            <input type="text" id="po_number" name="payment[po_number]" title="<?= Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Purchase Order Number')) ?>" class="required-entry input-text" value="<?= $this->getInfoData('po_number') ?>"/>
         </div>
     </li>
 </ul>

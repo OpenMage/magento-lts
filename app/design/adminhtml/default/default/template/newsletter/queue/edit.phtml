@@ -17,32 +17,32 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td><h3><?php echo $this->getHeaderText() ?></h3></td>
+            <td><h3><?= $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
-                <?php echo $this->getBackButtonHtml() ?>
-                <?php echo $this->getPreviewButtonHtml(); ?>
+                <?= $this->getBackButtonHtml() ?>
+                <?= $this->getPreviewButtonHtml() ?>
                 <?php if(!$this->getIsPreview()): ?>
-                    <?php echo $this->getResetButtonHtml() ?>
-                    <?php echo $this->getSaveButtonHtml() ?>
+                    <?= $this->getResetButtonHtml() ?>
+                    <?= $this->getSaveButtonHtml() ?>
                 <?php endif ?>
                 <?php if($this->getCanResume()): ?>
-                    <?php echo $this->getResumeButtonHtml() ?>
+                    <?= $this->getResumeButtonHtml() ?>
                 <?php endif ?>
             </td>
         </tr>
     </table>
 </div>
-<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="queue_edit_form">
+<form action="<?= $this->getSaveUrl() ?>" method="post" id="queue_edit_form">
     <?php echo $this->getBlockHtml('formkey')?>
     <div class="no-display">
         <input type="hidden" name="_resume" id="_resume_flag" value="" />
     </div>
-    <?php echo $this->getChildHtml('form') ?>
+    <?= $this->getChildHtml('form') ?>
 </form>
-<form action="<?php echo $this->getPreviewUrl() ?>" method="post" id="newsletter_queue_preview_form" target="_blank">
+<form action="<?= $this->getPreviewUrl() ?>" method="post" id="newsletter_queue_preview_form" target="_blank">
     <?php echo $this->getBlockHtml('formkey')?>
     <div class="no-display">
-        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->getIsTextType()?1:2 ?>" />
+        <input type="hidden" id="preview_type" name="type" value="<?= $this->getIsTextType()?1:2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
         <input type="hidden" id="preview_styles" name="styles" value="" />
         <input type="hidden" id="preview_id" name="id" value="" />

@@ -20,11 +20,11 @@
     <script type="text/javascript">
         //<![CDATA[
         var skipTierPricePercentUpdate = true;
-        var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
-        var taxCalcMethod = "<?php echo Mage::helper('tax')->getConfig()->getAlgorithm($_product->getStore()) ?>";
-        var CACL_UNIT_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_UNIT_BASE ?>";
-        var CACL_ROW_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_ROW_BASE ?>";
-        var CACL_TOTAL_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
+        var bundle = new Product.Bundle(<?= $this->getJsonConfig() ?>);
+        var taxCalcMethod = "<?= Mage::helper('tax')->getConfig()->getAlgorithm($_product->getStore()) ?>";
+        var CACL_UNIT_BASE = "<?= Mage_Tax_Model_Calculation::CALC_UNIT_BASE ?>";
+        var CACL_ROW_BASE = "<?= Mage_Tax_Model_Calculation::CALC_ROW_BASE ?>";
+        var CACL_TOTAL_BASE = "<?= Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
         //]]>
     </script>
 <?php endif ?>
