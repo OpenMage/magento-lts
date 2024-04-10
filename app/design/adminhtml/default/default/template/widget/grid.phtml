@@ -114,7 +114,7 @@ $numColumns = count($this->getColumns());
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
                     <?php foreach ($this->getColumns() as $key => $_column): ?>
-                        <th data-entity="<?php echo $key; ?>" <?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
+                        <th data-entity="<?php echo $key; ?>" data-column-id="<?php echo $_column->getId() ?>" <?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getHeaderHtml() ?></th>
                     <?php endforeach ?>
                     </tr>
                 <?php endif ?>
