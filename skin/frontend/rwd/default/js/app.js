@@ -770,13 +770,13 @@ $j(document).ready(function () {
     enquire.register('(max-width: ' + bp.medium + 'px)', {
         match: function () {
             $j('.page-header-container .store-language-container')
-                .prepend($j('.form-language'))
-                .prepend($j('.currency-switcher'));
+                .prepend($j('.currency-switcher'))
+                .prepend($j('.form-language'));
         },
         unmatch: function () {
             $j('.header-language-container .store-language-container')
-                .prepend($j('.form-language'))
-                .prepend($j('.currency-switcher'));
+                .prepend($j('.currency-switcher'))
+                .prepend($j('.form-language'));
         }
     });
 
