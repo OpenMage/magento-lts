@@ -507,7 +507,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             $csv .= implode(',', $data) . "\n";
         }
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.csv', $fileName), $csv, 'text/csv'] : $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
@@ -579,7 +579,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-'.$count.'-'.Mage::getModel('core/date')->date('Ymd-His').'.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**
