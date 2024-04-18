@@ -196,7 +196,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     /**
      * Import address object, if set, to the request
      *
-     * @param array $request
+     * @param array|Varien_Object $request
      */
     protected function _importAddress(&$request)
     {

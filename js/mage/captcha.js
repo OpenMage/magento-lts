@@ -8,60 +8,71 @@
  * @category    Mage
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var Captcha = Class.create();
-Captcha.prototype = {
-    initialize: function(url, formId){
+class Captcha {
+    constructor(url, formId) {
         this.url = url;
         this.formId = formId;
-    },
-    refresh: function(elem) {
-        formId = this.formId;
-        if (elem) Element.addClassName(elem, 'refreshing');
-        new Ajax.Request(this.url, {
-            onSuccess: function (response) {
-                if (response.responseText.isJSON()) {
-                    var json = response.responseText.evalJSON();
-                    if (!json.error && json.imgSrc) {
-                        $(formId).writeAttribute('src', json.imgSrc);
-                        if (elem) Element.removeClassName(elem, 'refreshing');
-                    } else {
-                        if (elem) Element.removeClassName(elem, 'refreshing');
+    }
+
+    refresh(elem) {
+        const formId = this.formId;
+        if (elem) {
+            elem.classList.add('refreshing');
+        }
+
+        let formData = new FormData();
+        formData.append('formId', this.formId);
+
+        fetch(this.url, {
+            method: 'post',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (!json.error && json.imgSrc) {
+                    document.getElementById(formId).setAttribute('src', json.imgSrc);
+                    if (elem) {
+                        elem.classList.remove('refreshing');
+                    }
+                } else {
+                    if (elem) {
+                        elem.classList.remove('refreshing');
                     }
                 }
-            },
-            method: 'post',
-            parameters: {
-                'formId'   : this.formId
-            }
-        });
+            })
+            .catch(error => console.error('Error:', error));
     }
-};
+}
 
-document.observe('billing-request:completed', function(event) {
-    if (typeof window.checkout != 'undefined') {
-        if (window.checkout.method == 'guest' && $('guest_checkout')){
-            $('guest_checkout').captcha.refresh();
+document.addEventListener('billing-request:completed', function(event) {
+    if (typeof window.checkout !== 'undefined') {
+        if (window.checkout.method === 'guest' && document.getElementById('guest_checkout')) {
+            document.getElementById('guest_checkout').captcha.refresh();
         }
-        if (window.checkout.method == 'register' && $('register_during_checkout')){
-            $('register_during_checkout').captcha.refresh();
+        if (window.checkout.method === 'register' && document.getElementById('register_during_checkout')) {
+            document.getElementById('register_during_checkout').captcha.refresh();
         }
     }
 });
 
+document.addEventListener('login:setMethod', function(event) {
+    const switchCaptchaElement = function(shown, hidden) {
+        const inputPrefix = 'captcha-input-box-', imagePrefix = 'captcha-image-box-';
+        const hiddenInput = document.getElementById(inputPrefix + hidden);
+        const shownInput = document.getElementById(inputPrefix + shown);
+        const hiddenImage = document.getElementById(imagePrefix + hidden);
+        const shownImage = document.getElementById(imagePrefix + shown);
 
-document.observe('login:setMethod', function(event) {
-    var switchCaptchaElement = function(shown, hidden) {
-        var inputPrefix = 'captcha-input-box-', imagePrefix = 'captcha-image-box-';
-        if ($(inputPrefix + hidden)) {
-            $(inputPrefix + hidden).hide();
-            $(imagePrefix + hidden).hide();
+        if (hiddenInput) {
+            hiddenInput.style.display = 'none';
+            hiddenImage.style.display = 'none';
         }
-        if ($(inputPrefix + shown)) {
-            $(inputPrefix + shown).show();
-            $(imagePrefix + shown).show();
+        if (shownInput) {
+            shownInput.style.display = 'block';
+            shownImage.style.display = 'block';
         }
     };
 

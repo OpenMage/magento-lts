@@ -20,10 +20,14 @@
  * @package    Mage_Directory
  *
  * @property string $_url
- * @property array $_messages
  */
 abstract class Mage_Directory_Model_Currency_Import_Abstract
 {
+    /**
+     * @var array
+     */
+    protected $_messages;
+
     /**
      * Retrieve currency codes
      *
