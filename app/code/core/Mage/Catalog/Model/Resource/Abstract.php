@@ -580,6 +580,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         $returnArray = false;
+        $entityId = (int)$entityId;
 
         if (!is_array($attribute)) {
             $attribute = [$attribute];
@@ -587,12 +588,12 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             $returnArray = true;
         }
 
-        $attributesData     = [];
-        $staticAttributes   = [];
-        $typedAttributes    = [];
-        $staticTable        = null;
-        $adapter            = $this->_getReadAdapter();
-        $getPerStore        = false;
+        $attributesData   = [];
+        $staticAttributes = [];
+        $typedAttributes  = [];
+        $staticTable      = null;
+        $adapter          = $this->_getReadAdapter();
+        $getPerStore      = false;
 
         foreach ($attribute as $_attribute) {
             /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
@@ -638,46 +639,69 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
 
             $store = (int)$store;
 
-            foreach ($typedAttributes as $table => $_attributes) {
-                $select = $adapter->select()
-                    ->from(['default_value' => $table], ['attribute_id'])
-                    ->where('default_value.attribute_id IN (?)', array_keys($_attributes))
-                    ->where('default_value.entity_type_id = :entity_type_id')
-                    ->where('default_value.entity_id = :entity_id')
-                    ->where('default_value.store_id = ?', 0);
-                $bind = [
-                    'entity_type_id' => $this->getTypeId(),
-                    'entity_id'      => $entityId,
-                ];
-
+            foreach ($typedAttributes as $table => $attributes) {
+                // see also Mage_Catalog_Model_Resource_Collection_Abstract::_getLoadAttributesSelect()
                 if ($getPerStore && $store != $this->getDefaultStoreId()) {
+                    $select = $adapter->select()
+                        ->from(['e' => $this->getEntityTable()], [])
+                        ->where('e.entity_id = ?', $entityId);
+                    // attr join
+                    $select->joinInner(
+                        ['attr' => $table],
+                        implode(' AND ', [
+                            'attr.entity_id = e.entity_id',
+                            $adapter->quoteInto('attr.attribute_id IN (?)', array_keys($attributes)),
+                            'attr.store_id IN (' . $this->getDefaultStoreId() . ', ' . $store . ')',
+                            'attr.entity_type_id = ' . $this->getTypeId(),
+                        ]),
+                        []
+                    );
+                    // default_value join
+                    $select->joinLeft(
+                        ['default_value' => $table],
+                        implode(' AND ', [
+                            'default_value.entity_id = e.entity_id',
+                            'default_value.attribute_id = attr.attribute_id',
+                            'default_value.store_id = ' . $this->getDefaultStoreId(),
+                        ]),
+                        []
+                    );
+                    // store_value join
                     $valueExpr = $adapter->getCheckSql(
-                        'store_value.value IS NULL',
+                        'store_value.attribute_id IS NULL',
                         'default_value.value',
                         'store_value.value'
                     );
-                    $joinCondition = [
-                        'store_value.attribute_id = default_value.attribute_id',
-                        'store_value.entity_type_id = :entity_type_id',
-                        'store_value.entity_id = :entity_id',
-                        'store_value.store_id = :store_id',
-                    ];
-
+                    $attributeIdExpr = $adapter->getCheckSql(
+                        'store_value.attribute_id IS NULL',
+                        'default_value.attribute_id',
+                        'store_value.attribute_id'
+                    );
                     $select->joinLeft(
                         ['store_value' => $table],
-                        implode(' AND ', $joinCondition),
-                        ['attr_value' => $valueExpr]
+                        implode(' AND ', [
+                            'store_value.entity_id = e.entity_id',
+                            'store_value.attribute_id = attr.attribute_id',
+                            'store_value.store_id = ' . $store,
+                        ]),
+                        ['attribute_id' => $attributeIdExpr, 'attr_value' => $valueExpr]
                     );
-
-                    $bind['store_id'] = $store;
+                    $select->group('attr.attribute_id');
                 } else {
-                    $select->columns(['attr_value' => 'value'], 'default_value');
+                    $select = $adapter->select()
+                        ->from(['default_value' => $table], ['attribute_id', 'attr_value' => 'value'])
+                        ->where('default_value.entity_id = ?', $entityId)
+                        ->where('default_value.attribute_id IN (?)', array_keys($attributes))
+                        ->where('default_value.store_id = ?', $this->getDefaultStoreId())
+                        ->where('default_value.entity_type_id = ?', $this->getTypeId());
                 }
 
-                $result = $adapter->fetchPairs($select, $bind);
+                $result = $adapter->fetchPairs($select);
                 foreach ($result as $attrId => $value) {
-                    $attrCode = $typedAttributes[$table][$attrId];
-                    $attributesData[$attrCode] = $value;
+                    if (!empty($attrId)) {
+                        $attrCode = $typedAttributes[$table][$attrId];
+                        $attributesData[$attrCode] = $value;
+                    }
                 }
             }
         }

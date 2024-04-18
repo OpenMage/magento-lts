@@ -355,7 +355,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select option:disabled,
-    select:disabled option { color:#c9c9c9!important;color:#cacaca!important; text-shadow:2px 2px 2px #000; }
+    select:disabled option { color:#cacaca!important; }
 }
 
 /* Form List */ /* Table for default form data */
@@ -369,7 +369,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
 .form-list td.use-default label { display:inline-block; vertical-align:middle; padding:0 3px; }
-.form-list td.label label       { display:block; width:185px; padding-right:15px; padding-top:1px; }
+.form-list td.label label       { display:block; padding-right:15px; padding-top:1px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
 .form-list td.value textarea    { height:15em; }

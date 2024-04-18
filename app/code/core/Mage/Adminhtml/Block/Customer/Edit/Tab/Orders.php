@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             ->addFieldToSelect('created_at')
             ->addFieldToSelect('grand_total')
             ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('status')
             ->addFieldToSelect('store_id')
             ->addFieldToSelect('billing_name')
             ->addFieldToSelect('shipping_name')
@@ -66,6 +67,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'width'     => '100',
             'index'     => 'increment_id',
         ]);
+
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addColumn('store_id', [
+                'header'    => Mage::helper('customer')->__('Bought From'),
+                'index'     => 'store_id',
+                'type'      => 'store',
+                'store_view' => true
+            ]);
+        }
 
         $this->addColumn('created_at', [
             'header'    => Mage::helper('customer')->__('Purchase On'),
@@ -90,14 +100,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'currency'  => 'order_currency_code',
         ]);
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', [
-                'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view' => true
-            ]);
-        }
+        $this->addColumn('status', [
+            'header' => Mage::helper('customer')->__('Status'),
+            'index' => 'status',
+            'type'  => 'options',
+            'width' => '150px',
+            'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
+        ]);
 
         if (Mage::helper('sales/reorder')->isAllow()) {
             $this->addColumn('action', [

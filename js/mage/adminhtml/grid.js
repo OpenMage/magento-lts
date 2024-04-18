@@ -273,7 +273,7 @@ varienGrid.prototype = {
         }
         if (!this.doFilterCallback || (this.doFilterCallback && this.doFilterCallback())) {
             this.addVarToUrl(this.pageVar, 1);
-            this.reload(this.addVarToUrl(this.filterVar, encode_base64(Form.serializeElements(elements))));
+            this.reload(this.addVarToUrl(this.filterVar, btoa(Form.serializeElements(elements))));
         }
     },
     resetFilter : function(){
@@ -852,10 +852,10 @@ serializerController.prototype = {
         this.rowInit(this.grid, row);
     },
     rowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
+        var tdElement = Event.findElement(event, 'td');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.select(trElement, 'input');
+        if(tdElement){
+            var checkbox = Element.select(tdElement, 'input');
             if(checkbox[0] && !checkbox[0].disabled){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 this.grid.setCheckboxChecked(checkbox[0], checked);
@@ -903,7 +903,7 @@ serializerController.prototype = {
         if(this.multidimensionalMode){
             var clone = this.gridData.clone();
             clone.each(function(pair) {
-                clone.set(pair.key, encode_base64(Object.toQueryString(pair.value)));
+                clone.set(pair.key, btoa(Object.toQueryString(pair.value)));
             });
             return clone.toQueryString();
         }

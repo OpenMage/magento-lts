@@ -86,7 +86,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         if (is_null($this->_lifeTime)) {
             $configNode = Mage::app()->getStore()->isAdmin() ?
                     'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
-            $this->_lifeTime = (int) Mage::getStoreConfig($configNode);
+            $this->_lifeTime = Mage::getStoreConfigAsInt($configNode);
 
             if ($this->_lifeTime < 60) {
                 $this->_lifeTime = ini_get('session.gc_maxlifetime');

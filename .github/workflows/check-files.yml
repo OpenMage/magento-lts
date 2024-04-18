@@ -6,6 +6,9 @@ on:
       composer:
         description: "Count changed Composer files"
         value: ${{ jobs.check.outputs.composer }}
+      js:
+        description: "Count changed JS files"
+        value: ${{ jobs.check.outputs.js }}
       php:
         description: "Count changed PHP files"
         value: ${{ jobs.check.outputs.php }}
@@ -42,6 +45,7 @@ jobs:
     runs-on: [ubuntu-latest]
     outputs:
       composer: ${{ steps.changes-composer.outputs.composer }}
+      js: ${{ steps.changes-js.outputs.js }}
       php: ${{ steps.changes-php.outputs.php }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
@@ -63,7 +67,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -71,13 +75,14 @@ jobs:
 
       - name: Get changed files
         id: changed-files-specific
-        uses: tj-actions/changed-files@v39
+        uses: tj-actions/changed-files@v44
         with:
           files: |
             composer.*
             *.php
             **/*.php
             **/*.xml
+            **/*.js
             .github/workflows/**
             **phpcs**
             **php-cs-fixer**
@@ -95,6 +100,14 @@ jobs:
           count="$(grep -oE "composer.*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count Composer file(s) changed"
           echo "composer=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if JS files changed
+        id: changes-js
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "*.js" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count JS file(s) changed"
+          echo "js=$count" >> $GITHUB_OUTPUT
 
       - name: Check if PHP files changed
         id: changes-php
@@ -128,7 +141,7 @@ jobs:
           echo "$count PHPCS file(s) changed"
           echo "phpcs=$count" >> $GITHUB_OUTPUT
 
-      - name: Check if PHP-CS-Fixer files changed 
+      - name: Check if PHP-CS-Fixer files changed
         id: changes-php-cs-fixer
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |

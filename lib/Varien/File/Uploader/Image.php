@@ -17,12 +17,14 @@
  * This class is invalid. Avoid using it
  *
  * @deprecated after 1.4.0.0-rc1
- * @file       Image.php
- *
- * @property mixed $uploader
  */
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
+    /**
+     * @var mixed
+     */
+    protected $uploader;
+
     public function __construct()
     {
         register_shutdown_function([$this, 'destruct']);
