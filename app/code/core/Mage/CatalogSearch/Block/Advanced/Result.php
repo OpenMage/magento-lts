@@ -43,8 +43,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
             ]);
         }
 
-        $this->getLayout()->getBlock('head')
-            ->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
 
         return parent::_prepareLayout();
     }
