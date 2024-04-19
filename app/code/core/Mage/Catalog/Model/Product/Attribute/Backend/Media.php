@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } elseif (!isset($image['value_id'])) {
-                    $newFile                   = $this->_moveImageFromTmp($image['file']);
+                    $newFile = $this->_moveImageFromTmp($image['file']);
                     $image['new_file'] = $newFile;
                     $newImages[$image['file']] = $image;
                     $this->_renamedImages[$image['file']] = $newFile;
@@ -149,8 +149,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 ];
                 $duplicate[$image['value_id']] = $newFile;
             }
-
-            $value['duplicate'] = $duplicate;
         }
 
         foreach ($object->getMediaAttributes() as $mediaAttribute) {
@@ -175,6 +173,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $object->setData($mediaAttrCode . '_label', ($existImages[$attrData]['label'] === null || $existImages[$attrData]['label_use_default']) ? $existImages[$attrData]['label_default'] : $existImages[$attrData]['label']);
             }
         }
+
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
         $object->setData($attrCode, $value);
         return $this;
