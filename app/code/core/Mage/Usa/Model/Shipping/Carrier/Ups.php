@@ -1455,6 +1455,59 @@ XMLAuth;
         return $result;
     }
 
+    protected function _sendShipmentAcceptRequestRest(stdClass $shipmentConfirmResponse): Varien_Object
+    {
+        // TODO
+        die("TODO");
+        $xmlRequest = new SimpleXMLElement('<?xml version = "1.0" ?><ShipmentAcceptRequest/>');
+        $request = $xmlRequest->addChild('Request');
+        $request->addChild('RequestAction', 'ShipAccept');
+        $xmlRequest->addChild('ShipmentDigest', $shipmentConfirmResponse->ShipmentDigest);
+
+        $debugData = ['request' => $xmlRequest->asXML()];
+        try {
+            $url = $this->getConfigData('shipaccept_xml_url');
+            if (!$url) {
+                $url = $this->_defaultUrls['ShipAccept'];
+            }
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->_xmlAccessRequest . $xmlRequest->asXML());
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+            $xmlResponse = curl_exec($ch);
+
+            $debugData['result'] = $xmlResponse;
+            $this->_setCachedQuotes($xmlRequest, $xmlResponse);
+        } catch (Exception $e) {
+            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            $xmlResponse = '';
+        }
+
+        try {
+            $response = new SimpleXMLElement($xmlResponse);
+        } catch (Exception $e) {
+            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+        }
+
+        $result = new Varien_Object();
+        if (isset($response->Error)) {
+            $result->setErrors((string)$response->Error->ErrorDescription);
+        } else {
+            $shippingLabelContent = (string)$response->ShipmentResults->PackageResults->LabelImage->GraphicImage;
+            $trackingNumber       = (string)$response->ShipmentResults->PackageResults->TrackingNumber;
+
+            $result->setShippingLabelContent(base64_decode($shippingLabelContent));
+            $result->setTrackingNumber($trackingNumber);
+        }
+
+        $this->_debug($debugData);
+        return $result;
+    }
+
     protected function _doShipmentRequest(Varien_Object $request): Varien_Object
     {
         // this "if" will be removed after XML APIs will be shut down
@@ -1487,6 +1540,7 @@ XMLAuth;
             )
         );
 
+        $result = new Varien_Object();
         $this->_prepareShipmentRequest($request);
         $rawJsonRequest = $this->_formShipmentRestRequest($request);
         $accessToken = $this->setAPIAccessRequest();
@@ -1528,46 +1582,24 @@ XMLAuth;
             $responseData = '';
         }
 
-        $this->_debug($debugData);
-
-        die("NEEDS WORK FOR THE NEXT PART OF THIS METHOD");
-
-
-        /*
-
-
-        //Processing shipment requests
-        $results = [];
-        foreach ($shippingRequests as $shippingRequest) {
-            $httpResponse = $shippingRequest->get();
-            if ($httpResponse->getStatusCode() >= 400) {
-                throw new LocalizedException(__('Failed to send the package'));
-            }
-            try {
-                $response = $httpResponse->getBody();
-                $this->_debug(['response_shipment' => $response]);
-            } catch (Throwable $e) {
-                throw new RuntimeException($e->getMessage());
-            }
-            if (isset($response->Error)) {
-                throw new RuntimeException((string)$response->Error->ErrorDescription);
-            }
-
-            $responseShipment = json_decode($response, true);
-            $result = new DataObject();
-            $shippingLabelContent =
-                (string)$responseShipment['ShipmentResponse']['ShipmentResults']['PackageResults']['ShippingLabel']
-                ['GraphicImage'];
-            $trackingNumber =
-                (string)$responseShipment['ShipmentResponse']['ShipmentResults']['PackageResults']['TrackingNumber'];
-
-            $result->setLabelContent(base64_decode($shippingLabelContent));
-            $result->setTrackingNumber($trackingNumber);
-            $results[] = $result;
+        try {
+            $responseData = json_decode($responseData);
+        } catch (Exception $e) {
+            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            $result->setErrors($e->getMessage());
         }
 
-        return $results;
-        */
+        if (isset($responseData->response->errors)) {
+            $result->setErrors((string)$responseData->response->errors[0]->message);
+        }
+
+        $this->_debug($debugData);
+
+        if ($result->hasErrors() || empty($responseData)) {
+            return $result;
+        }
+
+        return $this->_sendShipmentAcceptRequestRest($responseData);
     }
 
     /**
