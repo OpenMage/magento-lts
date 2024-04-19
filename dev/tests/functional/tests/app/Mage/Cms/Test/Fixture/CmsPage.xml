@@ -24,7 +24,7 @@
         <field name="title" is_required="0" group="page_information"/>
         <field name="root_template" is_required="0"/>
         <field name="meta_keywords" is_required="0"/>
-        <field name="meta_robot" is_required="0"/>
+        <field name="meta_robots" is_required="0"/>
         <field name="meta_description" is_required="0"/>
         <field name="identifier" is_required="0" group="page_information"/>
         <field name="content_heading" is_required="0" group="content"/>
