@@ -70,7 +70,7 @@
                     <element name="meta_title" type="xsd:string" minOccurs="0"/>
                     <element name="meta_keyword" type="xsd:string" minOccurs="0"/>
                     <element name="meta_description" type="xsd:string" minOccurs="0"/>
-                    <element name="meta_robot" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_robots" type="xsd:string" minOccurs="0"/>
                     <element name="custom_design" type="xsd:string" minOccurs="0"/>
                     <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
                     <element name="options_container" type="xsd:string" minOccurs="0"/>
