@@ -1491,22 +1491,50 @@ XMLAuth;
         $rawJsonRequest = $this->_formShipmentRestRequest($request);
         $accessToken = $this->setAPIAccessRequest();
         $this->_debug(['request_quote' => $rawJsonRequest]);
+
+        if ($this->getConfigFlag('mode_xml')) {
+            $shipConfirmUrl = $this->_liveUrls['ShipRestConfirm'];
+        } else {
+            $shipConfirmUrl = $this->_defaultUrls['ShipRestConfirm'];
+        }
+
+        /** Rest API Payload */
+        $headers = [
+            "Authorization: Bearer {$accessToken}",
+            "Content-Type: application/json"
+        ];
+        $debugData = [
+            'request' => $rawJsonRequest
+        ];
+
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $shipConfirmUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $rawJsonRequest);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+            $responseData = curl_exec($ch);
+            curl_close($ch);
+        } catch (Exception $e) {
+            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+            Mage::logException($e);
+        }
+
+        if (!isset($responseData)) {
+            $responseData = '';
+        }
+
+        $this->_debug($debugData);
+
         die("NEEDS WORK FOR THE NEXT PART OF THIS METHOD");
 
 
         /*
-        $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer '. $accessToken,
-        ];
-        $shippingRequests[] = $this->asyncHttpClient->request(
-            new Request(
-                $this->getShipConfirmUrl(),
-                Request::METHOD_POST,
-                $headers,
-                $rawJsonRequest
-            )
-        );
+
 
         //Processing shipment requests
         $results = [];
