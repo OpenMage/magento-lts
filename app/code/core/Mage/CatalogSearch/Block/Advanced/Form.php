@@ -38,8 +38,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
                 'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search')
             ]);
         }
-        $this->getLayout()->getBlock('head')
-            ->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
 
         return parent::_prepareLayout();
     }
