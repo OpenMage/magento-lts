@@ -1581,15 +1581,10 @@ XMLAuth;
         if (!isset($responseData)) {
             $responseData = '';
         }
-
-        try {
-            $responseData = json_decode($responseData, JSON_THROW_ON_ERROR);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            $result->setErrors($e->getMessage());
-        }
-
-        if (isset($responseData->response->errors)) {
+        $responseData = json_decode($responseData, JSON_THROW_ON_ERROR);
+        if (!$responseData) {
+            $result->setErrors(Mage::helper('usa')->__('Empty response'));
+        } elseif (isset($responseData->response->errors)) {
             $result->setErrors((string)$responseData->response->errors[0]->message);
         }
 
