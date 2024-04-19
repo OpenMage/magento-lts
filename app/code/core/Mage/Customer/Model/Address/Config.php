@@ -101,7 +101,7 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $type = new Varien_Object();
                 $htmlEscape = strtolower((string)$typeConfig->htmlEscape);
                 $htmlEscape = !($htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
-                    || !strlen($htmlEscape);
+                    || !strlen($htmlEscape));
                 $type->setCode($typeCode)
                     ->setTitle((string)$typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))
