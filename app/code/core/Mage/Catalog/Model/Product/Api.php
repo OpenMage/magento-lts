@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         'meta_title',
         'meta_keyword',
         'meta_description',
-        'meta_robot',
+        'meta_robots',
         'custom_design',
         'custom_layout_update',
         'options_container',
