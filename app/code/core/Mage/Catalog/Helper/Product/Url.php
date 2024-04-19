@@ -63,18 +63,20 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      */
     public function format($string, $locale = null, $lower = true)
     {
-        if ($string === null) return '';
+        if ($string === null) {
+            return '';
+        }
       
         $string = strtr($string, $this->getConvertTable());
 
         if (!empty($locale)) {
             $opts = transliterator_list_ids();
-            $code = str_replace('_', '-', strtolower($locale)).'_Latn/BGN';
+            $code = str_replace('_', '-', strtolower($locale)) . '_Latn/BGN';
             if (in_array($code, $opts)) {
-                return transliterator_transliterate($code.'; Any-Latin; Latin-ASCII; [^\u001F-\u007f] remove'.($lower ? '; Lower()' : ''), $string);
+                return transliterator_transliterate($code . '; Any-Latin; Latin-ASCII; [^\u001F-\u007f] remove' . ($lower ? '; Lower()' : ''), $string);
             }
         }
 
-        return transliterator_transliterate('Any-Latin; Latin-ASCII; [^\u001F-\u007f] remove'.($lower ? '; Lower()' : ''), $string);
+        return transliterator_transliterate('Any-Latin; Latin-ASCII; [^\u001F-\u007f] remove' . ($lower ? '; Lower()' : ''), $string);
     }
 }
