@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist_Grid_Renderer_Description 
 {
     public function render(Varien_Object $row)
     {
-        return nl2br(htmlspecialchars($row->getData($this->getColumn()->getIndex())));
+        $value = $row->getData($this->getColumn()->getIndex());
+        return $value !== null ? nl2br(htmlspecialchars($value)) : '';
     }
 }

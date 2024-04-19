@@ -124,8 +124,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
             }
-            $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir
-                   . '" class="' . $className . '"><span class="sort-title">'
+            $out = '<a href="#" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
         } else {
             $out = $this->escapeHtml($this->getColumn()->getHeader());

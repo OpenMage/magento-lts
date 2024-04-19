@@ -69,7 +69,7 @@
 
     <catalogsearch_advanced_index translate="label">
         <label>Advanced Search Form</label>
-        <!-- Mage_Catalogsearch -->
+        <!-- Mage_CatalogSearch -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
@@ -92,7 +92,7 @@ Advanced search results
     <catalogsearch_advanced_result translate="label">
         <label>Advanced Search Result</label>
         <update handle="page_two_columns_right" />
-        <!-- Mage_Catalogsearch -->
+        <!-- Mage_CatalogSearch -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>

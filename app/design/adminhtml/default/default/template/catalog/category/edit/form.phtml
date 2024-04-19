@@ -198,10 +198,10 @@
         grid.reloadParams = {'selected_products[]':categoryProducts.keys()};
     }
     function categoryProductRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
+        var tdElement = Event.findElement(event, 'td');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+        if(tdElement){
+            var checkbox = Element.getElementsBySelector(tdElement, 'input');
             if(checkbox[0]){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
