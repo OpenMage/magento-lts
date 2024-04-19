@@ -47,6 +47,6 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
      */
     public function getLoadingTimeout()
     {
-        return (int)Mage::getStoreConfig('admin/design/loading_timeout');
+        return Mage::getStoreConfigAsInt('admin/design/loading_timeout');
     }
 }

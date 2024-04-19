@@ -2171,7 +2171,7 @@ Ext.EventManager = function(){
         E.on(el, ename, h);
         if(ename == "mousewheel" && el.addEventListener){ // workaround for jQuery
             el.addEventListener("DOMMouseScroll", h, false);
-            E.on(window, 'unload', function(){
+            E.on(window, 'beforeunload', function(){
                 el.removeEventListener("DOMMouseScroll", h, false);
             });
         }
@@ -5721,7 +5721,7 @@ if(Ext.isIE || Ext.isGecko){
 }
 
 
-Ext.EventManager.on(window, 'unload', function(){
+Ext.EventManager.on(window, 'beforeunload', function(){
     delete El.cache;
     delete El._flyweights;
 });
@@ -9188,7 +9188,7 @@ Ext.dd.DragDropMgr = function() {
 
             Event.on(document, "mouseup",   this.handleMouseUp, this, true);
             Event.on(document, "mousemove", this.handleMouseMove, this, true);
-            Event.on(window,   "unload",    this._onUnload, this, true);
+            Event.on(window,   "beforeunload",    this._onUnload, this, true);
             Event.on(window,   "resize",    this._onResize, this, true);
             // Event.on(window,   "mouseout",    this._test);
 

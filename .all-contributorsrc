@@ -1418,6 +1418,42 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "leissbua",
+      "name": "Michael Leiss",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68073221?v=4",
+      "profile": "https://github.com/leissbua",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "massa-man",
+      "name": "Marcos Steverlynck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26821235?v=4",
+      "profile": "https://www.riseart.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ahudock",
+      "name": "Andy Hudock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33500977?v=4",
+      "profile": "https://github.com/ahudock",
+      "contributions": [
+        "code"
+      ]
+  },
+  {
+      "login": "ma4nn",
+      "name": "Christoph Massmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26252058?v=4",
+      "profile": "https://www.vianetz.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

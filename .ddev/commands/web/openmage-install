@@ -40,6 +40,9 @@ while :; do
      shift
  done
 
+echo "Enable maintenance mode..."
+touch maintenance.flag
+
 LOCALXML="${ROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
   if [[ "${QUIET_INSTALL_FLAG}" ]]; then
@@ -67,7 +70,7 @@ fi
 
 if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
-  SAMPLE_DATA_DIRECTORY="${ROOT}/.sampleData"
+  SAMPLE_DATA_DIRECTORY="${ROOT}/.ddev/.sampleData"
   SAMPLE_DATA_FILE=sample_data.tgz
 
   if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
@@ -85,15 +88,19 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   tar xf "${SAMPLE_DATA_FILE}"
 
   echo "Copying Sample Data into the OpenMage directory..."
-  cp -r magento-sample-data-1.9.2.4/* "${ROOT}/"
+  cp -r magento-sample-data-1.9.2.4/media/* "${ROOT}/media/"
+  cp -r magento-sample-data-1.9.2.4/skin/* "${ROOT}/skin/"
+
+  echo "Clearing var/cache..."
+  rm -rf "${ROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
   mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
 
   # remove sample data
   if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
-    rm -rf $(
-      find . -maxdepth 1 -type f -name "*" ! -name "${SAMPLE_DATA_FILE}")
+    # shellcheck disable=SC2046
+    rm -rf magento-sample-data-1.9.2.4/
   else
     cd "${ROOT}" || exit
     rm -rf "${SAMPLE_DATA_DIRECTORY}"
@@ -108,7 +115,11 @@ if [[ "${USE_DEFAULT_FLAG}" ]]; then
   ADMIN_LASTNAME='Administrator'
   ADMIN_EMAIL='admin@example.com'
   ADMIN_PASSWORD='veryl0ngpassw0rd'
-  TABLE_PREFIX='om_'
+  if [[ "${SAMPLE_DATA_FLAG}" ]]; then
+    TABLE_PREFIX=''
+  else
+    TABLE_PREFIX='om_'
+  fi
 else
   read -r -p "Admin User [admin]: " ADMIN_USER
   ADMIN_USER=${ADMIN_USER:-admin}
@@ -152,3 +163,6 @@ php -f install.php -- \
   --default_currency 'USD' \
   --enable_charts 'yes' \
   --skip_url_validation 'yes'
+
+echo "Disable maintenance mode..."
+rm maintenance.flag

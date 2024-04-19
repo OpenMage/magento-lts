@@ -23,6 +23,8 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
     public const ACL_ALL_RULES = 'all';
 
+    protected $_orphanedResources = [];
+
     /**
      * Initialize resource
      *
@@ -131,12 +133,27 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 } elseif ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
+            } catch (Zend_Acl_Exception $e) {
+                if (!in_array($resource, $this->_orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
+                    $this->_orphanedResources[] = $resource;
+                }
             } catch (Exception $e) {
                 if (Mage::getIsDeveloperMode()) {
                     Mage::logException($e);
                 }
             }
         }
+
+        if ($this->_orphanedResources !== []) {
+            Mage::getSingleton('adminhtml/session')->addNotice(
+                Mage::helper('adminhtml')->__(
+                    'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
+                    implode(', ', $this->_orphanedResources),
+                    Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                )
+            );
+        }
+
         return $this;
     }
 }

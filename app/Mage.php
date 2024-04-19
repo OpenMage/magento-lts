@@ -50,7 +50,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
-require $autoloaderPath . DS . 'autoload.php';
+require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
@@ -176,67 +176,44 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
-            $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
-            } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
-            }
+
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
+        }
+
+        return $versionString;
     }
 
     /**
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return array
      */
     public static function getOpenMageVersionInfo(): array
     {
-        /**
-         * This code construct is to make merging for forward porting of changes easier.
-         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
-         * also as releases are usually done together, this could in theory be done at once.
-         * The major Version then needs to be only changed once per branch.
-         */
-        if (self::getOpenMageMajorVersion() === 20) {
-            return [
-                'major'     => '20',
-                'minor'     => '3',
-                'patch'     => '0',
-                'stability' => '', // beta,alpha,rc
-                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-            ];
-        }
-
         return [
-            'major'     => '19',
-            'minor'     => '5',
-            'patch'     => '2',
-            'stability' => '', // beta,alpha,rc
+            'major'     => '21',
+            'minor'     => '0',
+            'patch'     => '0',
+            'stability' => 'beta1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
 
-    /**
-     * @return int<19,20>
-     */
     public static function getOpenMageMajorVersion(): int
     {
-        return 20;
+        return 21;
     }
 
     /**
@@ -412,6 +389,26 @@ final class Mage
     }
 
     /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return float
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
+    }
+
+    /**
      * Retrieve config flag for store by path
      *
      * @param string $path
@@ -583,10 +580,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {

@@ -334,6 +334,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_stockItem;
 
     /**
+     * @var Mage_Review_Model_Review_Summary[]
+     */
+    protected $_reviewSummary = [];
+
+    /**
      * Initialize resources
      */
     protected function _construct()
@@ -1669,11 +1674,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Formats URL key
      *
      * @param string $str
+     * @param null|string $locale
      * @return string
      */
-    public function formatUrlKey($str)
+    public function formatUrlKey($str, $locale = null)
     {
-        return $this->getUrlModel()->formatUrlKey($str);
+        return $this->getUrlModel()->formatUrlKey($str, $locale);
     }
 
     /**
@@ -2334,7 +2340,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     *  Checks event attribute for initialization as an event object
+     * Checks event attribute for initialization as an event object
      *
      * @return bool
      */
@@ -2346,5 +2352,20 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $event;
+    }
+
+    /**
+     * @param int $storeId
+     * @return Mage_Review_Model_Review_Summary
+     */
+    public function getReviewSummary($storeId = null)
+    {
+        $storeId = $storeId ?? Mage::app()->getStore()->getId();
+        if (empty($this->_reviewSummary[$storeId])) {
+            $this->_reviewSummary[$storeId] = Mage::getModel('review/review_summary')
+                ->setStoreId($storeId)
+                ->load($this->getId());
+        }
+        return $this->_reviewSummary[$storeId];
     }
 }

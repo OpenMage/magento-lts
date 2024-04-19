@@ -357,6 +357,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * @param string $path
      * @param null|bool $inherit
      * @param null|array $configData
+     * @param-out bool $inherit
      * @return Varien_Simplexml_Element
      */
     public function getConfigDataValue($path, &$inherit = null, $configData = null)
