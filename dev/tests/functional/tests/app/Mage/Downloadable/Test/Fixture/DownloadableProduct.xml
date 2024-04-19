@@ -50,7 +50,7 @@
         <field name="links_purchased_separately" is_required="1"/>
         <field name="links_title" is_required="1"/>
         <field name="media_gallery" is_required="0"/>
-        <field name="meta_robot" is_required="0"/>
+        <field name="meta_robots" is_required="0"/>
         <field name="meta_description" is_required="0"/>
         <field name="meta_keyword" is_required="0"/>
         <field name="meta_title" is_required="0"/>
