@@ -1583,7 +1583,7 @@ XMLAuth;
         }
 
         try {
-            $responseData = json_decode($responseData);
+            $responseData = json_decode($responseData, JSON_THROW_ON_ERROR);
         } catch (Exception $e) {
             $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $result->setErrors($e->getMessage());
