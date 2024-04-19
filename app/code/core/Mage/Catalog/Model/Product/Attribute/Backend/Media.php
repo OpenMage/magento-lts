@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     $image['new_file'] = $newFile;
                     $newImages[$image['file']] = $image;
                     $this->_renamedImages[$image['file']] = $newFile;
-                    $image['file']             = $newFile;
+                    $image['file'] = $newFile;
                 } else {
                     $existImages[$image['file']] = $image;
                 }
@@ -166,6 +166,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         foreach ($value['values'] as $mediaAttrCode => $attrData) {
             if (array_key_exists($attrData, $newImages)) {
+                $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
                 $object->setData($mediaAttrCode . '_label', ($newImages[$attrData]['label'] === null || $newImages[$attrData]['label_use_default']) ? $newImages[$attrData]['label_default'] : $newImages[$attrData]['label']);
             }
 
