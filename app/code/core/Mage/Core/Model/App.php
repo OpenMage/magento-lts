@@ -812,7 +812,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Loding part of area data
+     * Loading part of area data
      *
      * @param   string $area
      * @param   string $part

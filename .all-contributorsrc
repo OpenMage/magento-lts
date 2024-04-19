@@ -1436,6 +1436,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ahudock",
+      "name": "Andy Hudock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33500977?v=4",
+      "profile": "https://github.com/ahudock",
+      "contributions": [
+        "code"
+      ]
+  },
+  {
+      "login": "ma4nn",
+      "name": "Christoph Massmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26252058?v=4",
+      "profile": "https://www.vianetz.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

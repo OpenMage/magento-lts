@@ -220,18 +220,19 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     /**
      * Validate data
      *
-     * @return array|bool
+     * @return bool
      * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
      */
     public function validate()
     {
-        /** @var Mage_Core_Model_Url_Validator $validatorUrl */
-        $validatorUrl = Mage::getSingleton('core/url_validator');
-        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED != $this->getCallbackUrl()
-            && !$validatorUrl->isValid($this->getCallbackUrl())
-        ) {
-            $messages = $validatorUrl->getMessages();
-            Mage::throwException(array_shift($messages));
+        if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
+            $callbackUrl = $this->getConsumer()->getCallbackUrl();
+            $isWhitelisted = $callbackUrl && strpos($this->getCallbackUrl(), $callbackUrl) === 0;
+            $validatorUrl = Mage::getSingleton('core/url_validator');
+            if (!$isWhitelisted && !$validatorUrl->isValid($this->getCallbackUrl())) {
+                $messages = $validatorUrl->getMessages();
+                Mage::throwException(array_shift($messages));
+            }
         }
 
         /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
