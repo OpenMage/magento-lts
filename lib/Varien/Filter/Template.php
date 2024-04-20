@@ -118,6 +118,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function filter($value)
     {
+        if ($value === null) {
+            return '';
+        }
+
         // "depend" and "if" operands should be first
         $directives = [
             self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
