@@ -131,7 +131,7 @@ var templateText =
         '<\/tr>';
 
 var attributeOption = {
-    table : $('attribute-options-table'),
+    table : document.getElementById('attribute-options-table'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : templateText,
     itemCount : 0,
@@ -139,19 +139,19 @@ var attributeOption = {
     isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
     add : function(data) {
         this.template = new Template(this.templateText, this.templateSyntax);
-        var isNewOption = false;
-        if(!data.id){
-            data = {};
-            data.id  = 'option_'+this.itemCount;
+        let isNewOption = false;
+        if (!data.id) {
+            data.id = 'option_' + this.itemCount;
             isNewOption = true;
         }
-        if (!data.intype)
+        if (!data.intype) {
             data.intype = optionDefaultInputType;
-
-        if (!data.swatch)
+        }
+        if (!data.swatch) {
             data.swatch_class = 'swatch-disabled';
-        
-        Element.insert(this.table, {after: this.template.evaluate(data)});
+        }
+        let newHTML = this.template.evaluate(data);
+        this.table.insertAdjacentHTML('afterend', newHTML);
         if (isNewOption && !this.isReadOnly) {
             this.enableNewOptionDeleteButton(data.id);
         }
@@ -163,50 +163,27 @@ var attributeOption = {
         this.updateItemsCountField();
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr')); // !!! Button already
-                                                               // have table parent in safari
-        // Safari workaround
-        element.ancestors().each(function(parentItem){
-           if (parentItem.hasClassName('option-row')) {
-               element = parentItem;
-               throw $break;
-           } else if (parentItem.hasClassName('box')) {
-               throw $break;
-           }
-        });
-
-
-        if(element){
-            var elementFlags = element.getElementsByClassName('delete-flag');
-            if(elementFlags[0]){
-                elementFlags[0].value=1;
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementFlags = element.querySelectorAll('.delete-flag');
+            if (elementFlags.length > 0) {
+                elementFlags[0].value = 1;
             }
 
-            element.addClassName('no-display');
-            element.addClassName('template');
-            element.hide();
+            element.classList.add('no-display', 'template');
             this.totalItems--;
             this.updateItemsCountField();
         }
     },
     swatch : function(event){
-        var element = $(Event.findElement(event, 'tr')); // !!! Button already
-                                                               // have table parent in safari
-        // Safari workaround
-        element.ancestors().each(function(parentItem){
-           if (parentItem.hasClassName('option-row')) {
-               element = parentItem;
-               throw $break;
-           } else if (parentItem.hasClassName('box')) {
-               throw $break;
-           }
-        });
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementSwatchValue = element.querySelector('.swatch-value');
+            if (elementSwatchValue) {
+                elementSwatchValue.disabled = false;
+                elementSwatchValue.value = event.target.value;
+            }
 
-
-        if(element){
-            var elementSwatchValue = element.getElementsByClassName('swatch-value')[0];
-            elementSwatchValue.disabled = false;
-            elementSwatchValue.value = event.target.value;
             event.target.classList.remove('swatch-disabled');
         }
     },
@@ -214,76 +191,67 @@ var attributeOption = {
         if (!confirm(event.target.getAttribute('data-msg-delete'))) {
             return;
         }
-        var element = $(Event.findElement(event, 'tr')); // !!! Button already
-                                                                // have table parent in safari
-        // Safari workaround
-        element.ancestors().each(function(parentItem){
-            if (parentItem.hasClassName('option-row')) {
-                element = parentItem;
-                throw $break;
-            } else if (parentItem.hasClassName('box')) {
-                throw $break;
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementSwatchValue = element.querySelector('.swatch-value');
+            if (elementSwatchValue) {
+                elementSwatchValue.disabled = false;
+                elementSwatchValue.value = '';
             }
-        });
-    
-        if(element){
-            var elementSwatchValue = element.getElementsByClassName('swatch-value')[0];
-            elementSwatchValue.disabled = false;
-            elementSwatchValue.value = '';
-            var elementSwatchOption = element.getElementsByClassName('swatch-option')[0];
-            elementSwatchOption.value = '';
-            elementSwatchOption.classList.add('swatch-disabled');
+
+            let elementSwatchOption = element.querySelector('.swatch-option');
+            if (elementSwatchOption) {
+                elementSwatchOption.value = '';
+                elementSwatchOption.classList.add('swatch-disabled');
+            }
         }
     },
     updateItemsCountField: function() {
-        if (this.totalItems > 0) {
-            $('option-count-check').value = '1';
-        } else {
-            $('option-count-check').value = '';
-        }
+        let optionCountCheck = document.getElementById('option-count-check');
+        optionCountCheck.value = this.totalItems > 0 ? '1' : '';
     },
     enableNewOptionDeleteButton: function(id) {
-        $$('#delete_button_container_' + id + ' button').each(function(button) {
-            button.enable();
-            button.removeClassName('disabled');
+        document.querySelectorAll('#delete_button_container_' + id + ' button').forEach(function(button) {
+            button.disabled = false;
+            button.classList.remove('disabled');
         });
     },
-    bindRemoveButtons : function(){
-        var buttons = $$('.delete-option');
-        for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+    bindRemoveButtons: function() {
+        let buttons = document.querySelectorAll('.delete-option');
+        buttons.forEach(function(button) {
+            if (!button.binded) {
+                button.binded = true;
+                button.addEventListener('click', attributeOption.remove.bind(attributeOption));
             }
-        }
+        });
     },
-    bindSwatchButtons : function(){
-        var buttons = $$('.swatch-option');
-        for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'change', this.swatch.bind(this));
+    bindSwatchButtons: function() {
+        let buttons = document.querySelectorAll('.swatch-option');
+        buttons.forEach(function(button) {
+            if (!button.dataset.binded) {
+                button.dataset.binded = true;
+                button.addEventListener('change', attributeOption.swatch.bind(attributeOption));
             }
-        }
+        });
     },
-    bindSwatchRemoveButtons : function(){
-        var buttons = $$('.swatch-delete');
-        for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.swatchremove.bind(this));
+    bindSwatchRemoveButtons: function() {
+        let buttons = document.querySelectorAll('.swatch-delete');
+        buttons.forEach(function(button) {
+            if (!button.binded) {
+                button.binded = true;
+                button.addEventListener('click', attributeOption.swatchremove.bind(attributeOption));
             }
-        }
+        });
     }
-
 }
-if($('row-template')){
-    $('row-template').remove();
+let rowTemplate = document.getElementById('row-template');
+if (rowTemplate) {
+    rowTemplate.remove();
 }
 attributeOption.bindRemoveButtons();
-
-if($('add_new_option_button')){
-    Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
+let addNewOptionButton = document.getElementById('add_new_option_button');
+if (addNewOptionButton) {
+    addNewOptionButton.addEventListener('click', attributeOption.add.bind(attributeOption));
 }
 Validation.addAllThese([
     ['required-option', '<?php echo $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {
