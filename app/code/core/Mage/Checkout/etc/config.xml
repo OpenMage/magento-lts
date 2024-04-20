@@ -119,7 +119,6 @@
             </checkout>
             <checkout_resource>
                 <class>Mage_Checkout_Model_Resource</class>
-                <deprecatedNode>checkout_mysql4</deprecatedNode>
                 <entities>
                     <agreement>
                         <table>checkout_agreement</table>

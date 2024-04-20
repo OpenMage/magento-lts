@@ -28,7 +28,6 @@
             </install>
             <install_resource>
                 <class>Mage_Install_Model_Resource</class>
-                <deprecatedNode>install_mysql4</deprecatedNode>
             </install_resource>
         </models>
         <blocks>
@@ -140,6 +139,6 @@
                 </install>
             </updates>
         </layout>
-        <eula_file>LICENSE.html</eula_file>
+        <eula_file>LICENSE.txt</eula_file>
     </install>
 </config>

@@ -767,47 +767,42 @@ $j(document).ready(function () {
 
     // In order to display the language switcher next to the logo, we are moving the content at different viewports,
     // rather than having duplicate markup or changing the design
-    enquire.register('(max-width: ' + bp.medium + 'px)', {
-        match: function () {
+    let repositionLanguageSwitcher = function (mq) {
+        if (mq.matches) {
             $j('.page-header-container .store-language-container').prepend($j('.form-language'));
-        },
-        unmatch: function () {
+        } else {
             $j('.header-language-container .store-language-container').prepend($j('.form-language'));
         }
-    });
+    }
+
+    let maxWidthLargeMediaQuery = window.matchMedia('(max-width: ' + bp.large + 'px)');
+    let maxWidthMediumMediaQuery = window.matchMedia('(max-width: ' + bp.medium + 'px)');
+    maxWidthMediumMediaQuery.addEventListener('change', repositionLanguageSwitcher);
+    repositionLanguageSwitcher(maxWidthMediumMediaQuery);
 
     // ==============================================
-    // Enquire JS
+    // Menu State
     // ==============================================
 
-    enquire.register('screen and (min-width: ' + (bp.medium + 1) + 'px)', {
-        match: function () {
-            $j('.menu-active').removeClass('menu-active');
-            $j('.sub-menu-active').removeClass('sub-menu-active');
-            $j('.skip-active').removeClass('skip-active');
-        },
-        unmatch: function () {
-            $j('.menu-active').removeClass('menu-active');
-            $j('.sub-menu-active').removeClass('sub-menu-active');
-            $j('.skip-active').removeClass('skip-active');
-        }
-    });
+    let resetMenuState = function (mq) {
+        $j('.menu-active').removeClass('menu-active');
+        $j('.sub-menu-active').removeClass('sub-menu-active');
+        $j('.skip-active').removeClass('skip-active');
+    }
+    maxWidthMediumMediaQuery.addEventListener('change', resetMenuState);
+    resetMenuState(maxWidthMediumMediaQuery);
 
     // ==============================================
     // UI Pattern - Media Switcher
     // ==============================================
 
     // Used to swap primary product photo from thumbnails.
-
     var mediaListLinks = $j('.media-list').find('a');
     var mediaPrimaryImage = $j('.primary-image').find('img');
-
     if (mediaListLinks.length) {
         mediaListLinks.on('click', function (e) {
             e.preventDefault();
-
             var self = $j(this);
-
             mediaPrimaryImage.attr('src', self.attr('href'));
         });
     }
@@ -949,15 +944,15 @@ $j(document).ready(function () {
     // (since other blocks can be inserted into left_first), it creates simpler code to move the entire
     // .col-left-first block, so that is the approach we're taking
     if ($j('.col-left-first > .block').length && $j('div.category-products').length) {
-        enquire.register('screen and (max-width: ' + bp.medium + 'px)', {
-            match: function () {
+        let repositionLayered = function (mq) {
+            if (mq.matches) {
                 $j('.col-left-first').insertBefore($j('div.category-products'));
-            },
-            unmatch: function () {
-                // Move layered nav back to left column
+            } else {
                 $j('.col-left-first').insertBefore($j('.col-main'));
             }
-        });
+        }
+        maxWidthMediumMediaQuery.addEventListener('change', repositionLayered);
+        repositionLayered(maxWidthMediumMediaQuery);
     }
 
     // ==============================================
@@ -966,60 +961,59 @@ $j(document).ready(function () {
 
     // On viewports smaller than 1000px, move the right column into the left column
     if ($j('.main-container.col3-layout').length > 0) {
-        enquire.register('screen and (max-width: 1000px)', {
-            match: function () {
+        let reposition3rdColumn = function (mq) {
+            if (mq.matches) {
                 var rightColumn = $j('.col-right');
                 var colWrapper = $j('.col-wrapper');
-
                 rightColumn.appendTo(colWrapper);
-            },
-            unmatch: function () {
+            } else {
                 var rightColumn = $j('.col-right');
                 var main = $j('.main');
-
                 rightColumn.appendTo(main);
             }
-        });
+        }
+        let maxWidth1000MediaQuery = window.matchMedia('(max-width: 1000px)');
+        maxWidth1000MediaQuery.addEventListener('change', reposition3rdColumn);
+        reposition3rdColumn(maxWidth1000MediaQuery);
     }
-
 
     // ==============================================
     // Block collapsing (on smaller viewports)
     // ==============================================
 
-    enquire.register('(max-width: ' + bp.medium + 'px)', {
-        setup: function () {
-            this.toggleElements = $j(
-                // This selects the menu on the My Account and CMS pages
+    let toggleElementsForMediumSize = function (mq) {
+        if (mq.matches) {
+            $j(
                 '.col-left-first .block:not(.block-layered-nav) .block-title, ' +
-                    '.col-left-first .block-layered-nav .block-subtitle--filter, ' +
-                    '.sidebar:not(.col-left-first) .block .block-title'
-            );
-        },
-        match: function () {
-            this.toggleElements.toggleSingle();
-        },
-        unmatch: function () {
-            this.toggleElements.toggleSingle({destruct: true});
+                '.col-left-first .block-layered-nav .block-subtitle--filter, ' +
+                '.sidebar:not(.col-left-first) .block .block-title'
+            ).toggleSingle();
+        } else {
+            $j(
+                '.col-left-first .block:not(.block-layered-nav) .block-title, ' +
+                '.col-left-first .block-layered-nav .block-subtitle--filter, ' +
+                '.sidebar:not(.col-left-first) .block .block-title'
+            ).toggleSingle({destruct: true});
         }
-    });
-
+    }
+    maxWidthMediumMediaQuery.addEventListener('change', toggleElementsForMediumSize);
+    toggleElementsForMediumSize(maxWidthMediumMediaQuery);
 
     // ==============================================
     // OPC - Progress Block
     // ==============================================
 
     if ($j('body.checkout-onepage-index').length) {
-        enquire.register('(max-width: ' + bp.large + 'px)', {
-            match: function () {
+        let repositionCheckoutProgress = function (mq) {
+            if (mq.matches) {
                 $j('#checkout-step-review').prepend($j('#checkout-progress-wrapper'));
-            },
-            unmatch: function () {
+            } else {
                 $j('.col-right').prepend($j('#checkout-progress-wrapper'));
             }
-        });
+        }
+        maxWidthLargeMediaQuery.addEventListener('change', repositionCheckoutProgress);
+        repositionCheckoutProgress(maxWidthLargeMediaQuery);
     }
-
 
     // ==============================================
     // Checkout Cart - events
@@ -1031,26 +1025,25 @@ $j(document).ready(function () {
         });
     }
 
-
     // ==============================================
     // Gift Registry Styles
     // ==============================================
 
     if ($j('.a-left').length) {
-        enquire.register('(max-width: ' + bp.large + 'px)', {
-            match: function () {
+        repositionGiftRegistry = function (mq) {
+            if (mq.matches) {
                 $j('.gift-info').each(function() {
-                  $j(this).next('td').children('textarea').appendTo(this).children();
+                    $j(this).next('td').children('textarea').appendTo(this).children();
                 });
-            },
-            unmatch: function () {
+            } else {
                 $j('.left-note').each(function() {
                     $j(this).prev('td').children('textarea').appendTo(this).children();
                 });
             }
-        });
+        }
+        maxWidthLargeMediaQuery.addEventListener(repositionGiftRegistry);
+        repositionGiftRegistry(maxWidthLargeMediaQuery);
     }
-
 
     // ==============================================
     // Product Listing - Align action buttons/links

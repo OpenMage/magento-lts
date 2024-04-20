@@ -33,7 +33,6 @@
             </newsletter>
             <newsletter_resource>
                 <class>Mage_Newsletter_Model_Resource</class>
-                <deprecatedNode>newsletter_mysql4</deprecatedNode>
                 <entities>
                     <subscriber>
                         <table>newsletter_subscriber</table>
@@ -185,9 +184,6 @@
             <sending>
                 <set_return_path>0</set_return_path>
             </sending>
-            <security>
-                <enable_form_key>0</enable_form_key>
-            </security>
         </newsletter>
     </default>
     <crontab>

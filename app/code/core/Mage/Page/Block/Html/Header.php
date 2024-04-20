@@ -64,6 +64,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 
     /**
      * @return string
+     * @deprecated Use SVG or srcset
      */
     public function getLogoSrcSmall()
     {

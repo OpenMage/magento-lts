@@ -210,7 +210,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
             }
 
-            $maxQty = (int)Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
+            $maxQty = Mage::getStoreConfigAsInt('shipping/option/checkout_multiple_maximum_qty');
             if ($allQty > $maxQty) {
                 Mage::throwException(Mage::helper('checkout')->__('Maximum qty allowed for Shipping to multiple addresses is %s', $maxQty));
             }

@@ -94,7 +94,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $cookie = $this->getCookie();
         if (Mage::app()->getStore()->isAdmin()) {
             $sessionMaxLifetime = Mage_Core_Model_Resource_Session::SEESION_MAX_COOKIE_LIFETIME;
-            $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+            $adminSessionLifetime = Mage::getStoreConfigAsInt('admin/security/session_cookie_lifetime');
             if ($adminSessionLifetime > $sessionMaxLifetime) {
                 $adminSessionLifetime = $sessionMaxLifetime;
             }

@@ -13,6 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Checkout_Block_Onepage_Success $this
+ */
+?>
 <div class="page-title">
     <h1><?php echo $this->__('Your order has been received.') ?></h1>
 </div>
@@ -49,5 +54,5 @@
 <?php endif ?>
 
 <div class="buttons-set">
-    <button type="button" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+    <button type="button" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><?php echo $this->__('Continue Shopping') ?></button>
 </div>

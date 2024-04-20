@@ -60,10 +60,10 @@ var queueControl = {
         queueForm.submit();
     },
     preview: function() {
-        if (this.isEditor() && tinyMCE.get(this.id)) {
-            tinyMCE.triggerSave();
+        if (this.isEditor() && tinymce.get(this.id)) {
+            tinymce.triggerSave();
             $('preview_text').value = $(this.id).value;
-            tinyMCE.triggerSave();
+            tinymce.triggerSave();
         } else {
             $('preview_text').value = $(this.id).value;
         }
@@ -77,7 +77,7 @@ var queueControl = {
         return false;
     },
     isEditor: function() {
-        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors[this.id] != undefined)
     },
     resume: function() {
         $('_resume_flag').value = '1';

@@ -16,7 +16,7 @@
 /**
  * Customer login form template
  *
- * @var $this Mage_Oauth_Block_Authorize
+ * @var Mage_Oauth_Block_Authorize $this
  */
 
 $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
@@ -47,10 +47,10 @@ $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
                         </ul>
                         <div class="buttons-set" style="margin-top: 20px; padding: 0;">
                             <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2">
-                                <span><span><?php echo $this->__('Login') ?></span></span></button>
+                                <?php echo $this->__('Login') ?></button>
                             <button type="submit" class="button" onclick="<?php echo $rejectJs; ?>"
                                     title="<?php echo $this->__('Reject') ?>" name="send">
-                                <span><span><?php echo $this->__('Reject') ?></span></span></button>
+                                <?php echo $this->__('Reject') ?></button>
                         </div>
                     </div>
                 </div>

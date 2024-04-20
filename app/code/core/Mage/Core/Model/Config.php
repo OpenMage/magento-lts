@@ -313,16 +313,19 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->setOptions($options);
         $this->loadBase();
 
-        $cacheLoad = $this->loadModulesCache();
-        if ($cacheLoad) {
-            return $this;
+        if (!$this->loadModulesCache()) {
+            try {
+                $this->getCacheSaveLock();
+                if (!$this->loadModulesCache()) {
+                    $this->_useCache = false;
+                    $this->loadModules();
+                    $this->loadDb();
+                    $this->saveCache();
+                }
+            } finally {
+                $this->releaseCacheSaveLock();
+            }
         }
-
-        $this->_useCache = false;
-
-        $this->loadModules();
-        $this->loadDb();
-        $this->saveCache();
         return $this;
     }
 
@@ -354,15 +357,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function loadModulesCache()
     {
-        if (Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()])) {
-            if ($this->_canUseCacheForInit()) {
-                Varien_Profiler::start('mage::app::init::config::load_cache');
-                $loaded = $this->loadCache();
-                Varien_Profiler::stop('mage::app::init::config::load_cache');
-                if ($loaded) {
-                    $this->_useCache = true;
-                    return true;
-                }
+        if ($this->_canUseCacheForInit()) {
+            Varien_Profiler::start('mage::app::init::config::load_cache');
+            $loaded = $this->loadCache();
+            Varien_Profiler::stop('mage::app::init::config::load_cache');
+            if ($loaded) {
+                $this->_useCache = true;
+                return true;
             }
         }
         return false;
@@ -474,20 +475,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _canUseCacheForInit()
     {
-        if (Mage::app()->useCache('config') && $this->_allowCacheForInit) {
-            $retries = 10;
-            do {
-                if ($this->_loadCache($this->_getCacheLockId())) {
-                    if ($retries) {
-                        usleep(500000); // 0.5 seconds
-                    }
-                } else {
-                    return true;
-                }
-            } while ($retries--);
-        }
-
-        return false;
+        return $this->_allowCacheForInit
+            && Mage::isInstalled(['etc_dir' => $this->getOptions()->getEtcDir()])
+            && Mage::app()->useCache('config');
     }
 
     /**
@@ -501,13 +491,47 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Get lock flag cache identifier
+     * Call before building and saving cache to ensure only one process can save the cache
      *
-     * @return string
+     * If failed to get cache lock:
+     *   - CLI: throws exception
+     *   - Other: 503 error
+     *
+     * @return void
+     * @throws Exception
      */
-    protected function _getCacheLockId()
+    public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
-        return $this->getCacheId() . '.lock';
+        if (!Mage::app()->useCache('config')) {
+            return;
+        }
+        $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
+            if ($ignoreFailure) {
+                return;
+            } elseif (PHP_SAPI === 'cli') {
+                throw new Exception('Could not get lock on cache save operation.');
+            } else {
+                Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Zend_Log::NOTICE);
+                require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                die();
+            }
+        }
+    }
+
+    /**
+     * Release the cache saving lock after it is saved or no longer needed
+     *
+     * @return void
+     */
+    public function releaseCacheSaveLock()
+    {
+        if (!Mage::app()->useCache('config')) {
+            return;
+        }
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $connection->fetchOne("SELECT RELEASE_LOCK('core_config_cache_save_lock')");
     }
 
     /**
@@ -524,12 +548,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!in_array(self::CACHE_TAG, $tags)) {
             $tags[] = self::CACHE_TAG;
         }
-        $cacheLockId = $this->_getCacheLockId();
-        if ($this->_loadCache($cacheLockId)) {
-            return $this;
-        }
-
-        $this->_saveCache(time(), $cacheLockId, [], 60);
 
         if (!empty($this->_cacheSections)) {
             $xml = clone $this->_xml;
@@ -540,7 +558,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_cachePartsForSave[$this->getCacheId()] = $xml->asNiceXml('', false);
         } else {
             parent::saveCache($tags);
-            $this->_removeCache($cacheLockId);
             return $this;
         }
 
@@ -548,7 +565,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_saveCache($cacheData, $cacheId, $tags, $this->getCacheLifetime());
         }
         unset($this->_cachePartsForSave);
-        $this->_removeCache($cacheLockId);
 
         return $this;
     }
@@ -914,16 +930,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _sortModuleDepends($modules)
     {
         foreach ($modules as $moduleName => $moduleProps) {
-            $depends = $moduleProps['depends'];
-            foreach ($moduleProps['depends'] as $depend => $true) {
-                if ($moduleProps['active'] && ((!isset($modules[$depend])) || empty($modules[$depend]['active']))) {
-                    Mage::throwException(
-                        Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend)
-                    );
+            if ($moduleProps['active']) {
+                $depends = $moduleProps['depends'];
+                foreach ($moduleProps['depends'] as $depend => $true) {
+                    if (!isset($modules[$depend]) || empty($modules[$depend]['active'])) {
+                        Mage::throwException(
+                            Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend)
+                        );
+                    }
+                    $depends = array_merge($depends, $modules[$depend]['depends']);
                 }
-                $depends = array_merge($depends, $modules[$depend]['depends']);
+                $modules[$moduleName]['depends'] = $depends;
             }
-            $modules[$moduleName]['depends'] = $depends;
         }
         $modules = array_values($modules);
 
@@ -940,14 +958,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $definedModules = [];
         foreach ($modules as $moduleProp) {
-            foreach ($moduleProp['depends'] as $dependModule => $true) {
-                if (!isset($definedModules[$dependModule])) {
-                    Mage::throwException(
-                        Mage::helper('core')->__('Module "%1$s" cannot depend on "%2$s".', $moduleProp['module'], $dependModule)
-                    );
+            if ($moduleProp['active']) {
+                foreach ($moduleProp['depends'] as $dependModule => $true) {
+                    if (!isset($definedModules[$dependModule])) {
+                        Mage::throwException(
+                            Mage::helper('core')->__('Module "%1$s" cannot depend on "%2$s".', $moduleProp['module'], $dependModule)
+                        );
+                    }
                 }
+                $definedModules[$moduleProp['module']] = true;
             }
-            $definedModules[$moduleProp['module']] = true;
         }
 
         return $modules;
@@ -1319,19 +1339,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
-        } else {
-            /**
-             * Backwards compatibility for pre-MMDB extensions.
-             * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-             * to keep name of previously used nodes, that still may be used by non-updated extensions.
-             */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
-            }
         }
 
         $className = trim($className);

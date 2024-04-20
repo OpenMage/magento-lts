@@ -16,7 +16,7 @@
 /**
  * Authorize confirmation simple template
  *
- * @var $this Mage_Oauth_Block_AuthorizeBaseAbstract
+ * @var Mage_Oauth_Block_AuthorizeBaseAbstract $this
  */
 ?>
 <div class="login-container">
@@ -34,7 +34,7 @@
             <button type="submit" class="button"
                     onclick="window.close();"
                     title="<?php echo $this->__('Close') ?>">
-                <span><span><?php echo $this->__('Close') ?></span></span>
+                <?php echo $this->__('Close') ?>
             </button>
         </div>
     </div>

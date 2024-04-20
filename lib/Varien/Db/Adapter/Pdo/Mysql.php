@@ -511,6 +511,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * with named binds.
      *
      * @param Zend_Db_Select|string $sql
+     * @param-out string $sql
      * @param mixed $bind
      * @return $this
      */

@@ -55,9 +55,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Null Scope
      */
     public const SCOPE_NULL    = -1;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Permanent column names.
      *
      * Names that begins with underscore is not an attribute. This name convention is for
@@ -89,9 +88,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Col Sku
      */
     public const COL_SKU      = 'sku';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Error codes.
      */
     public const ERROR_INVALID_SCOPE                = 'invalidScope';
@@ -220,7 +218,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Error - invalid product sku
      */
     public const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
-    /**#@-*/
 
     /**
      * Pairs of attribute set ID-to-name.
@@ -2104,7 +2101,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_validate($rowData, $rowNum, $sku);
 
         if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
-            $this->_processedEntitiesCount ++;
+            $this->_processedEntitiesCount++;
 
             $sku = $rowData[self::COL_SKU];
 

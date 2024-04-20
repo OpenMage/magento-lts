@@ -58,7 +58,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
     public function getThresholdQty()
     {
         if (!$this->hasData('threshold_qty')) {
-            $qty = (float) Mage::getStoreConfig(self::XML_PATH_STOCK_THRESHOLD_QTY);
+            $qty = Mage::getStoreConfigAsFloat(self::XML_PATH_STOCK_THRESHOLD_QTY);
             $this->setData('threshold_qty', $qty);
         }
         return $this->getData('threshold_qty');

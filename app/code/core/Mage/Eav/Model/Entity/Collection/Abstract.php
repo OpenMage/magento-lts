@@ -26,14 +26,14 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @var array
      */
-    protected $_itemsById                  = [];
+    protected $_itemsById = [];
 
     /**
      * Entity static fields
      *
      * @var array
      */
-    protected $_staticFields               = [];
+    protected $_staticFields = [];
 
     /**
      * Entity object to define collection's attributes
@@ -47,42 +47,42 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @var array
      */
-    protected $_selectEntityTypes         = [];
+    protected $_selectEntityTypes = [];
 
     /**
      * Attributes to be fetched for objects in collection
      *
      * @var array
      */
-    protected $_selectAttributes          = [];
+    protected $_selectAttributes = [];
 
     /**
      * Attributes to be filtered order sorted by
      *
      * @var array
      */
-    protected $_filterAttributes          = [];
+    protected $_filterAttributes = [];
 
     /**
      * Joined entities
      *
      * @var array
      */
-    protected $_joinEntities              = [];
+    protected $_joinEntities = [];
 
     /**
      * Joined attributes
      *
      * @var array
      */
-    protected $_joinAttributes            = [];
+    protected $_joinAttributes = [];
 
     /**
      * Joined fields data
      *
      * @var array
      */
-    protected $_joinFields                = [];
+    protected $_joinFields = [];
 
     /**
      * Use analytic function flag
@@ -90,7 +90,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @var bool
      */
-    protected $_useAnalyticFunction         = false;
+    protected $_useAnalyticFunction = false;
 
     /**
      * Cast map for attribute order
@@ -1181,7 +1181,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize entity ubject property value
+     * Initialize entity object property value
      *
      * $valueInfo is _getLoadAttributesSelect fetch result row
      *
@@ -1268,7 +1268,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Add attribute value table to the join if it wasn't added previously
      *
      * @param   string $attributeCode
-     * @param   string $joinType inner|left
+     * @param   bool|string $joinType inner|left
      * @throws  Mage_Eav_Exception
      * @return  $this
      */
@@ -1332,7 +1332,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        $joinMethod = $joinType === 'left' ? 'joinLeft' : 'join';
+        $joinMethod = ($joinType === true || $joinType === 'left') ? 'joinLeft' : 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 

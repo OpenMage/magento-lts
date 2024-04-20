@@ -27,7 +27,7 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
-    /**#@+
+    /**
      * Current massactions
      * @var string
      */
@@ -56,7 +56,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public const UNHOLD_ORDER              = 'unhold_order';
     public const UNSUBSCRIBE               = 'unsubscribe';
     public const UPDATE_STATUS             = 'update_status';
-    /**#@-*/
 
     /**
      * @var string[]

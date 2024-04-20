@@ -44,7 +44,6 @@ class Unserialize_Reader_Str
      */
     public function read($char, $prevChar)
     {
-
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_status = self::READING_LENGTH;
         }
@@ -66,6 +65,10 @@ class Unserialize_Reader_Str
         }
 
         if ($this->_status == self::READING_VALUE) {
+            if (is_null($this->_value)) {
+                $this->_value = '';
+            }
+
             if (strlen($this->_value) < $this->_length) {
                 $this->_value .= $char;
                 return null;

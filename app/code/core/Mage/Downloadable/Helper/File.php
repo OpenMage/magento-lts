@@ -124,11 +124,15 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      * Return full path to file
      *
      * @param string $path
-     * @param string $file
+     * @param string|null $file
      * @return string
      */
     public function getFilePath($path, $file)
     {
+        if ($file === null || $file === '') {
+            return $path . DS;
+        }
+
         $file = $this->_prepareFileForPath($file);
 
         if (substr($file, 0, 1) == DS) {

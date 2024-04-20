@@ -43,6 +43,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     protected $_page;
 
     /**
+     * @var Zend_Pdf_Resource_Font
+     */
+    protected $_fontNormal;
+
+    /**
+     * @var  Zend_Pdf_Resource_Font
+     */
+    protected $_fontBold;
+
+    /**
      * Create font instances
      */
     public function __construct()
@@ -258,7 +268,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
         $phoneNumber = implode(' ', array_filter([(string)$sender->Contact->PhoneNumber,
             (string)$sender->Contact->PhoneExtension]));
-        $phoneNumber = $phoneNumber ? "Phone: " . $phoneNumber : null;
+        $phoneNumber = $phoneNumber ? "Phone: " . $phoneNumber : '';
         $pageY = $this->_drawSenderAddress($sender->AddressLine, $phoneNumber);
 
         $divisionCode = (string)(strlen($sender->DivisionCode) ? $sender->DivisionCode . ' ' : null);

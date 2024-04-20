@@ -17,7 +17,7 @@
 /**
  * Shopping cart template
  *
- * @var $this Mage_Checkout_Block_Cart
+ * @var Mage_Checkout_Block_Cart $this
  */
 ?>
 <?php $_priceDisplay = ($this->helper('tax')->displayCartBothPrices()) ? 'display-both-prices' : 'display-single-price'; ?>
@@ -108,7 +108,6 @@
             <?php endforeach ?>
             </tbody>
         </table>
-        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
     </form>
 
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>

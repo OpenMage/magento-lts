@@ -162,7 +162,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (is_int($date)) {
             $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
-            if ($time = strtotime($date)) {
+            if (($time = strtotime($date)) !== false) {
                 $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
             } else {
                 return '';
@@ -999,6 +999,14 @@ XML;
             }
         }
         return $data;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFormKeyEnabled(): bool
+    {
+        return Mage::getStoreConfigFlag(Mage_Core_Controller_Front_Action::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 
     /**

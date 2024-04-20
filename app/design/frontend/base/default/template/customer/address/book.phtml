@@ -21,7 +21,7 @@
 ?>
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Address Book') ?></h1>
-    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
+    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><?php echo $this->__('Add New Address') ?></button>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="col2-set addresses-list">
