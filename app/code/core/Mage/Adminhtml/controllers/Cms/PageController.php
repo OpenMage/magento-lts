@@ -161,6 +161,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 );
             }
 
+            if (empty($data['identifier'])) {
+                $data['identifier'] = $model->getIdentifier();
+            }
+
             $this->_getSession()->setFormData($data);
             $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
             return;

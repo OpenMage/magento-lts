@@ -62,7 +62,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'name'      => 'identifier',
             'label'     => Mage::helper('cms')->__('URL Key'),
             'title'     => Mage::helper('cms')->__('URL Key'),
-            'required'  => true,
             'class'     => 'validate-identifier',
             'note'      => Mage::helper('cms')->__('Relative to Website Base URL'),
             'disabled'  => $isElementDisabled

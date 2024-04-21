@@ -5201,16 +5201,6 @@ parameters:
 			path: lib/Mage/Cache/Backend/File.php
 
 		-
-			message: "#^Function mysqli_connect_errno invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: lib/Mage/DB/Mysqli.php
-
-		-
-			message: "#^Function mysqli_connect_error invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: lib/Mage/DB/Mysqli.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
