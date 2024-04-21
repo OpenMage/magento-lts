@@ -598,6 +598,8 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
     margin-left:1.3em;
     }
 
+#global_search_indicator { position:absolute; margin-left:-20px; }
+
 /* Search autocomplete */
 div.autocomplete {
     z-index:10000;

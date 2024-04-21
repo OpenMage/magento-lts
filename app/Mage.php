@@ -199,42 +199,21 @@ final class Mage
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return array
      */
     public static function getOpenMageVersionInfo(): array
     {
-        /**
-         * This code construct is to make merging for forward porting of changes easier.
-         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
-         * also as releases are usually done together, this could in theory be done at once.
-         * The major Version then needs to be only changed once per branch.
-         */
-        if (self::getOpenMageMajorVersion() === 20) {
-            return [
-                'major'     => '20',
-                'minor'     => '6',
-                'patch'     => '0',
-                'stability' => '', // beta,alpha,rc
-                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-            ];
-        }
-
         return [
-            'major'     => '19',
-            'minor'     => '5',
-            'patch'     => '3',
-            'stability' => '', // beta,alpha,rc
+            'major'     => '21',
+            'minor'     => '0',
+            'patch'     => '0',
+            'stability' => 'beta1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
 
-    /**
-     * @return int<19,20>
-     */
     public static function getOpenMageMajorVersion(): int
     {
-        return 20;
+        return 21;
     }
 
     /**

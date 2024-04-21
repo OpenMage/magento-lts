@@ -81,14 +81,14 @@
     <div class="col-1">
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
+            <button type="button" class="button" onclick="checkout.setMethod();"><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></button>
         </div>
     </div>
     <div class="col-2">
         <div class="buttons-set">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
-            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+            <button type="submit" class="button" onclick="onepageLogin(this)"><?php echo $this->__('Login') ?></button>
         </div>
     </div>
 </div>

@@ -1674,11 +1674,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Formats URL key
      *
      * @param string $str
+     * @param null|string $locale
      * @return string
      */
-    public function formatUrlKey($str)
+    public function formatUrlKey($str, $locale = null)
     {
-        return $this->getUrlModel()->formatUrlKey($str);
+        return $this->getUrlModel()->formatUrlKey($str, $locale);
     }
 
     /**

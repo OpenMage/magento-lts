@@ -17,7 +17,7 @@
 <div class="page-title title-buttons">
     <h1><?php echo $this->__('Billing Agreement # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to do this?')) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you want to do this?')) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><?php echo $this->__('Cancel') ?></button>
     <?php endif ?>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
@@ -91,7 +91,6 @@
             <?php endforeach ?>
         </tbody>
     </table>
-    <script type="text/javascript">decorateTable('related-orders-table');</script>
     <?php endif ?>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Agreements') ?></a></p>

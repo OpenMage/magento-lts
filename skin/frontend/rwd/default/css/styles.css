@@ -3230,12 +3230,6 @@ body {
 .logo img {
   max-width: 100%;
 }
-.logo .small {
-  display: block;
-}
-.logo .large {
-  display: none;
-}
 
 .logo:hover {
   opacity: 0.8;
@@ -3245,12 +3239,6 @@ body {
   .logo {
     max-width: 300px;
     min-height: 90px;
-  }
-  .logo .small {
-    display: none;
-  }
-  .logo .large {
-    display: block;
   }
 }
 /* ============================================ *
