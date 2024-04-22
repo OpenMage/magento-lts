@@ -31,5 +31,7 @@ window.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.validate-length').forEach((elm) => {
         prepareForCountdown(elm);
         elm.addEventListener('keyup', countdown);
+        elm.addEventListener('paste', countdown);
+        elm.addEventListener('propertychange', countdown);
     });
 });
