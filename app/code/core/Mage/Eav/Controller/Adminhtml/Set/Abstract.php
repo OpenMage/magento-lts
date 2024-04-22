@@ -74,7 +74,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
         Mage::register('current_attribute_set', $attributeSet);
 
         $this->_initAction()
-             ->_title($attributeSet->getId() ? $attributeSet->getAttributeSetName() : $this->__('New Set'))
+             ->_title($attributeSet->getAttributeSetName())
              ->_addContent($this->getLayout()->createBlock('eav/adminhtml_attribute_set_main'));
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
