@@ -169,7 +169,10 @@ $attributes = [
 foreach ($attributes as $attributeCode => $data) {
     /** @var Mage_Customer_Model_Attribute $attribute */
     $attribute = $eavConfig->getAttribute('customer', $attributeCode);
-    $attribute->setWebsite($store->getWebsite());
+    $website = $store->getWebsite();
+    if ($website !== false) {
+        $attribute->setWebsite($website);
+    }
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -326,7 +329,10 @@ $attributes = [
 
 foreach ($attributes as $attributeCode => $data) {
     $attribute = $eavConfig->getAttribute('customer_address', $attributeCode);
-    $attribute->setWebsite($store->getWebsite());
+    $website = $store->getWebsite();
+    if ($website !== false) {
+        $attribute->setWebsite($website);
+    }
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
