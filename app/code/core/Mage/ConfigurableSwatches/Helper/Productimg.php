@@ -283,6 +283,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         if (!$optionSwatch->getValue()) {
             return false;
         }
+
         // Form full path to where we want to cache resized version
         $destPathArr = [
             self::SWATCH_CACHE_DIR,
@@ -296,6 +297,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             $io = new Varien_Io_File();
             $io->mkdir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath), 0777, true);
         }
+
         $newImage = imagecreatetruecolor($width, $height);
         list($r, $g, $b) = sscanf($optionSwatch->getValue(), "#%02x%02x%02x");
         $backgroundColor = imagecolorallocate($newImage, (int)$r, (int)$g, (int)$b);
@@ -303,6 +305,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
         imagedestroy($newImage);
         Mage::helper('core/file_storage_database')->saveFile($destPath);
+
         return $destPath;
     }
 
