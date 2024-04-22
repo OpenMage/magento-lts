@@ -61,7 +61,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
                 'label'     => Mage::helper('eav')->__('Delete Selected Group'),
                 'onclick'   => 'editSet.submit();',
                 'class'     => 'delete'
-        ))
+            ))
         );
 
         $this->setChild(
@@ -70,16 +70,16 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
                 'label'     => Mage::helper('eav')->__('Add New'),
                 'onclick'   => 'editSet.addGroup();',
                 'class'     => 'add'
-        ))
+            ))
         );
 
         $this->setChild(
             'back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                 'label'     => Mage::helper('eav')->__('Back'),
-                'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
+                'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
                 'class'     => 'back'
-        ))
+            ))
         );
 
         $this->setChild(
@@ -87,7 +87,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                 'label'     => Mage::helper('eav')->__('Reset'),
                 'onclick'   => 'window.location.reload()'
-        ))
+            ))
         );
 
         $this->setChild(
@@ -96,7 +96,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
                 'label'     => Mage::helper('eav')->__('Save Attribute Set'),
                 'onclick'   => 'editSet.save();',
                 'class'     => 'save'
-        ))
+            ))
         );
 
         if ($entity_type = Mage::registry('entity_type')) {
@@ -113,7 +113,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
                 'label'     => Mage::helper('eav')->__('Delete Attribute Set'),
                 'onclick'   => 'deleteConfirm(\'' . $deleteConfirmMessage . '\', \'' . $deleteUrl . '\')',
                 'class'     => 'delete'
-        ))
+            ))
         );
 
         $this->setChild(
@@ -121,7 +121,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
                 'label'     => Mage::helper('eav')->__('New Set Name'),
                 'onclick'   => 'editSet.rename()'
-        ))
+            ))
         );
 
         return parent::_prepareLayout();

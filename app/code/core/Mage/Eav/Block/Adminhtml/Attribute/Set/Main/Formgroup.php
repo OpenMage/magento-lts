@@ -35,7 +35,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminht
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('set_fieldset', array('legend'=>Mage::helper('eav')->__('Add New Group')));
+        $fieldset = $form->addFieldset('set_fieldset', array('legend' => Mage::helper('eav')->__('Add New Group')));
 
         $fieldset->addField(
             'attribute_group_name',

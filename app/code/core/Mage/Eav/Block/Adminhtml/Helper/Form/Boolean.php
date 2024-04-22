@@ -27,7 +27,7 @@
  */
 class Mage_Eav_Block_Adminhtml_Helper_Form_Boolean extends Varien_Data_Form_Element_Select
 {
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
         $this->setValues(array(

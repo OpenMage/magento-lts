@@ -292,7 +292,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
                 Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
                 $session->setAttributeData(false);
                 if ($redirectBack) {
-                    $this->_redirect('*/*/edit', array('attribute_id' => $model->getId(),'_current'=>true));
+                    $this->_redirect('*/*/edit', array('attribute_id' => $model->getId(),'_current' => true));
                 } else {
                     $this->_redirect('*/*/', array());
                 }
