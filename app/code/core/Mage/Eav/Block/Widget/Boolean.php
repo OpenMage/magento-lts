@@ -27,27 +27,19 @@
  */
 class Mage_Eav_Block_Widget_Boolean extends Mage_Eav_Block_Widget_Abstract
 {
-    /**
-     * Initialize block
-     */
     public function _construct()
     {
         parent::_construct();
         $this->setTemplate('eav/widget/boolean.phtml');
     }
 
-    /**
-     * Get select options
-     *
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
-        $options = array(
-            array('value' => '',  'label' => Mage::helper('eav')->__('')),
-            array('value' => '1', 'label' => Mage::helper('eav')->__('Yes')),
-            array('value' => '0', 'label' => Mage::helper('eav')->__('No'))
-        );
+        $options = [
+            ['value' => '',  'label' => Mage::helper('eav')->__('')],
+            ['value' => '1', 'label' => Mage::helper('eav')->__('Yes')],
+            ['value' => '0', 'label' => Mage::helper('eav')->__('No')]
+        ];
 
         return $options;
     }

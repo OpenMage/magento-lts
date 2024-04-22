@@ -50,11 +50,11 @@ class Mage_Eav_Block_Adminhtml_Attribute_Grid extends Mage_Eav_Block_Adminhtml_A
             'sortable' => true,
             'index' => 'is_global',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 Mage_Eav_Model_Entity_Attribute::SCOPE_STORE => Mage::helper('eav')->__('Store View'),
                 Mage_Eav_Model_Entity_Attribute::SCOPE_WEBSITE => Mage::helper('eav')->__('Website'),
                 Mage_Eav_Model_Entity_Attribute::SCOPE_GLOBAL => Mage::helper('eav')->__('Global'),
-            ),
+            ],
             'align' => 'center',
         ]);
 

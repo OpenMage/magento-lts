@@ -27,18 +27,18 @@
  */
 class Mage_Eav_Block_Adminhtml_Helper_Form_Boolean extends Varien_Data_Form_Element_Select
 {
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->setValues(array(
-            array(
+        $this->setValues([
+            [
                 'label' => Mage::helper('eav')->__('No'),
                 'value' => 0,
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('eav')->__('Yes'),
                 'value' => 1,
-            ),
-        ));
+            ],
+        ]);
     }
 }
