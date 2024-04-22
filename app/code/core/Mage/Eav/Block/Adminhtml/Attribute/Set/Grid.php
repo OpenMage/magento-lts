@@ -59,6 +59,6 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_W
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getAttributeSetId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getAttributeSetId()]);
     }
 }
