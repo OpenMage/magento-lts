@@ -27,9 +27,6 @@
  */
 class Mage_Eav_Block_Widget_Textarea extends Mage_Eav_Block_Widget_Abstract
 {
-    /**
-     * Initialize block
-     */
     public function _construct()
     {
         parent::_construct();

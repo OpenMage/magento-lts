@@ -27,21 +27,13 @@
  */
 class Mage_Eav_Block_Widget_Select extends Mage_Eav_Block_Widget_Abstract
 {
-    /**
-     * Initialize block
-     */
     public function _construct()
     {
         parent::_construct();
         $this->setTemplate('eav/widget/select.phtml');
     }
 
-    /**
-     * Get select options
-     *
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->getAttribute()->getSource()->getAllOptions();
     }

@@ -27,9 +27,6 @@
  */
 class Mage_Eav_Block_Widget_Multiselect extends Mage_Eav_Block_Widget_Abstract
 {
-    /**
-     * Initialize block
-     */
     public function _construct()
     {
         parent::_construct();
@@ -46,12 +43,7 @@ class Mage_Eav_Block_Widget_Multiselect extends Mage_Eav_Block_Widget_Abstract
         return 'multiple';
     }
 
-    /**
-     * Get select options
-     *
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->getAttribute()->getSource()->getAllOptions(false);
     }
