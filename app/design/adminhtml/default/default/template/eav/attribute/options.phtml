@@ -65,13 +65,13 @@
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
                     <?php if ($this->isConfigurableSwatchesEnabled()): ?>
-                        <th><?php echo $this->__('Swatch') ?></th>
+                        <th><?php echo $this->escapeHtml($this->__('Swatch')) ?></th>
                     <?php endif ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                     <?php endforeach ?>
                         <th><?php echo $this->__('Position') ?></th>
-                        <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>
+                        <th class="nobr a-center"><?php echo $this->escapeHtml($this->__('Is Default')) ?></th>
                         <th>
                             <?php if (!$this->getReadOnly()):?>
                                 <?php echo $this->getAddNewButtonHtml() ?>
@@ -83,7 +83,7 @@
                         <td style="position:relative">
                             <input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />
                             <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />    
-                            <span class="swatch-delete" data-msg-delete="<?php echo $this->__('Are you sure to delete this fallback color?'); ?>">X</span>  
+                            <span class="swatch-delete" data-msg-delete="<?php echo $this->escapeHtml($this->__('Are you sure to delete this fallback color?')) ?>">X</span>
                         </td>
                         <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
