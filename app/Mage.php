@@ -965,12 +965,17 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
-            print '<pre>';
+            if (class_exists('\Spatie\Ignition\Ignition')) {
+                \Spatie\Ignition\Ignition::make()
+                    ->applicationPath(Mage::getBaseDir())
+                    ->handleException($e);
+                die();
+            }
 
+            print '<pre>';
             if (!empty($extra)) {
                 print $extra . "\n\n";
             }
-
             print $e->getMessage() . "\n\n";
             print $e->getTraceAsString();
             print '</pre>';
