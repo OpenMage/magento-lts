@@ -29,6 +29,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      */
     protected function _initCategory()
     {
+        Mage::throwException("pipo");
         Mage::dispatchEvent('catalog_controller_category_init_before', ['controller_action' => $this]);
         $categoryId = (int) $this->getRequest()->getParam('id', false);
         if (!$categoryId) {
