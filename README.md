@@ -211,7 +211,6 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - Mage_Catalog_Model_Resource_Abstract::getAttributeRawValue() now returns `'0'` instead of `false` if the value stored in the database is `0` ([#572](https://github.com/OpenMage/magento-lts/pull/572))
 - PHP extension `intl` is required
 - Deprecation errors are not suppressed anymore
-- you can ignore minimum quantity for associated products of bundles when adding to cart [#2731](https://github.com/OpenMage/magento-lts/pull/2731)
 - removed modules:
   - `Mage_Backup` ([#2811](https://github.com/OpenMage/magento-lts/pull/2811))
   - `Mage_Compiler`
