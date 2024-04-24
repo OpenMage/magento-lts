@@ -964,14 +964,8 @@ final class Mage
      */
     public static function printException(Throwable $e, $extra = '')
     {
+        self::dispatchEvent('mage_print_exception_before', ['exception' => $e, 'extra' => $extra]);
         if (self::$_isDeveloperMode) {
-            if (class_exists('\Spatie\Ignition\Ignition')) {
-                \Spatie\Ignition\Ignition::make()
-                    ->applicationPath(Mage::getBaseDir())
-                    ->handleException($e);
-                die();
-            }
-
             print '<pre>';
             if (!empty($extra)) {
                 print $extra . "\n\n";
@@ -1002,6 +996,7 @@ final class Mage
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
         }
+        self::dispatchEvent('mage_print_exception_after', ['exception' => $e, 'extra' => $extra]);
 
         die();
     }
