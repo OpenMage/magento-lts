@@ -25,6 +25,8 @@ function addProduct(closeAfter) {
             window.opener.superProduct.showNoticeMessage();
             <?php endif ?>
             added = true;
+        } else if (window.opener.catalog_category_productsJsObject) {
+            window.opener.catalog_category_productsJsObject.reload(null);
         }
     }
 
