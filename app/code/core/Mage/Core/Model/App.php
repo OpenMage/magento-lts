@@ -386,7 +386,7 @@ class Mage_Core_Model_App
     {
         $this->setErrorHandler(self::DEFAULT_ERROR_HANDLER);
         date_default_timezone_set(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
-Mage::dispatchEvent('core_app_init_environment_after', ['app' => $this]);
+        Mage::dispatchEvent('core_app_init_environment_after', ['app' => $this]);
 
         return $this;
     }
