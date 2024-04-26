@@ -741,11 +741,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$model\\.$#"
-			count: 2
-			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
-
-		-
 			message: "#^Result of method SoapServer\\:\\:handle\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php
@@ -1561,16 +1556,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api/V2.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$customer_group_id\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$website\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
@@ -2033,11 +2018,6 @@ parameters:
 		-
 			message: "#^Variable \\$temp might not be defined\\.$#"
 			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Term.php
-
-		-
-			message: "#^Variable \\$termKeys might not be defined\\.$#"
-			count: 2
 			path: app/code/core/Mage/CatalogSearch/Block/Term.php
 
 		-
