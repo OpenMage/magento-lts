@@ -515,12 +515,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
-     *
-     * @param string $fileName the Workbook sheet name
-     * @param int $limit
+     * 
      * @throws Exception
      */
-    public function getExcel($fileName = '', $limit = 0): string
+    public function getExcel(string $fileName = '', int $limit = 0): string
     {
         $this->_prepareGrid();
 
