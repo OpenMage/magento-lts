@@ -78,13 +78,15 @@ class Mage_GoogleAnalytics_Model_Observer
 
         if ($addedQty || $removedQty) {
             $product = $item->getProduct();
+            $attribute = $product->getResource()->getAttribute('manufacturer');
+            $manufacturer = $attribute ? $attribute->getFrontend()->getValue($product) : '';
             $dataForAnalytics = [
                 'id' => $product->getId(),
                 'sku' => $product->getSku(),
                 'name' => $product->getName(),
                 'qty' => $addedQty ?: $removedQty,
                 'price' => $product->getFinalPrice(),
-                'manufacturer' => $product->getAttributeText('manufacturer') ?: '',
+                'manufacturer' => $manufacturer,
                 'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
             ];
 

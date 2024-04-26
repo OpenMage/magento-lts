@@ -250,6 +250,9 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function stripTags($data, $allowableTags = null, $escape = false)
     {
+        if ($data === null) {
+            return '';
+        }
         $result = strip_tags($data, $allowableTags);
         return $escape ? $this->escapeHtml($result, $allowableTags) : $result;
     }
