@@ -193,6 +193,7 @@
 | controller_front_send_response_before | 1.9.4.5 |
 | controller_response_redirect | 1.9.4.5 |
 | core_app_run_after | 20.1.0 |
+| core_app_init_environment_after | 21.0.0 |
 | core_block_abstract_prepare_layout_after | 1.9.4.5 |
 | core_block_abstract_prepare_layout_before | 1.9.4.5 |
 | core_block_abstract_to_html_after | 1.9.4.5 |
@@ -236,6 +237,8 @@
 | log_log_clean_before | 1.9.4.5 |
 | log_visitor_collection_load_before | 1.9.4.5 |
 | mage_run_exception | 1.9.4.5 |
+| mage_print_exception_before | 21.0.0 |
+| mage_print_exception_after | 21.0.0 |
 | model_config_data_save_before | 1.9.4.5 |
 | model_delete_after | 1.9.4.5 |
 | model_delete_before | 1.9.4.5 |
