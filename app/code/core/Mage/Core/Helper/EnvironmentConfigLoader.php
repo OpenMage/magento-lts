@@ -84,7 +84,23 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
     }
 
-    public function getConfigKey(string $configKey): array
+    /**
+     * @internal method mostly for mocking
+     */
+    public function setEnvStore(array $envStorage): void
+    {
+        $this->envStore = $envStorage;
+    }
+
+    public function getEnv(): array
+    {
+        if (empty($this->envStore)) {
+            $this->envStore = getenv();
+        }
+        return $this->envStore;
+    }
+
+    protected function getConfigKey(string $configKey): array
     {
         $configKeyParts = array_filter(
             explode(
@@ -97,7 +113,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         return array($configKeyParts, $scope);
     }
 
-    public function isConfigKeyValid(string $configKey): bool
+    protected function isConfigKeyValid(string $configKey): bool
     {
         if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
             return false;
@@ -116,22 +132,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @internal method mostly for mocking
-     */
-    public function setEnvStore(array $envStorage): void
-    {
-        $this->envStore = $envStorage;
-    }
-
-    public function getEnv(): array
-    {
-        if (empty($this->envStore)) {
-            $this->envStore = getenv();
-        }
-        return $this->envStore;
-    }
-
-    /**
      * Build configuration path.
      *
      * @param string $section
@@ -139,7 +139,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * @param string $field
      * @return string
      */
-    public function buildPath($section, $group, $field): string
+    protected function buildPath(string $section, string $group, string $field): string
     {
         return strtolower(implode('/', [$section, $group, $field]));
     }
@@ -151,7 +151,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * @param string $path
      * @return string
      */
-    public function buildNodePath($scope, $path): string
+    protected function buildNodePath(string $scope, string $path): string
     {
         return strtolower($scope) . '/' . $path;
     }
