@@ -7,6 +7,18 @@ use PHPUnit\Framework\TestCase;
 use Mage_Core_Helper_EnvironmentConfigLoader;
 use Mage_Core_Model_Config;
 
+class TestEnvLoaderHelper extends Mage_Core_Helper_EnvironmentConfigLoader {
+    public function exposedBuildPath(string $section, string $group, string $field): string
+    {
+        return $this->buildPath($section, $group, $field);
+    }
+
+    public function exposedBuildNodePath(string $scope, string $path): string
+    {
+        return $this->buildNodePath($scope, $path);
+    }
+}
+
 class EnvironmentConfigLoaderTest extends TestCase
 {
     public function setup(): void
@@ -16,15 +28,15 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     public function testBuildPath()
     {
-        $environmentConfigLoaderHelper = new Mage_Core_Helper_EnvironmentConfigLoader();
-        $path = $environmentConfigLoaderHelper->buildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
+        $environmentConfigLoaderHelper = new TestEnvLoaderHelper();
+        $path = $environmentConfigLoaderHelper->exposedBuildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
         $this->assertEquals('general/store_information/name', $path);
     }
 
     public function testBuildNodePath()
     {
-        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
-        $nodePath = $loader->buildNodePath('DEFAULT', 'general/store_information/name');
+        $environmentConfigLoaderHelper = new TestEnvLoaderHelper();
+        $nodePath = $environmentConfigLoaderHelper->exposedBuildNodePath('DEFAULT', 'general/store_information/name');
         $this->assertEquals('default/general/store_information/name', $nodePath);
     }
 
