@@ -515,7 +515,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
-     * 
+     *
      * @throws Exception
      */
     public function getExcel(string $fileName = '', int $limit = 0): string
