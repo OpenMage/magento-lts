@@ -501,11 +501,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -744,11 +739,6 @@ parameters:
 			message: "#^Return type \\(Varien_Object\\) of method Mage_Api_Model_Server_Adapter_Soap\\:\\:getController\\(\\) should be compatible with return type \\(Mage_Api_Controller_Action\\) of method Mage_Api_Model_Server_Adapter_Interface\\:\\:getController\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$model\\.$#"
-			count: 2
-			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
 
 		-
 			message: "#^Result of method SoapServer\\:\\:handle\\(\\) \\(void\\) is used\\.$#"
@@ -1211,11 +1201,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
 
 		-
-			message: "#^Method Mage_Catalog_Block_Product_List\\:\\:_getProductCollection\\(\\) should return Mage_Catalog_Model_Resource_Product_Collection but returns Mage_Eav_Model_Entity_Collection_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List.php
-
-		-
 			message: "#^Property Mage_Catalog_Block_Product_List_Crosssell\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
@@ -1569,16 +1554,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api_V2\\:\\:_prepareImageData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Catalog_Model_Product_Attribute_Media_Api\\:\\:_prepareImageData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api/V2.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$customer_group_id\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$website\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Tierprice/Api/V2.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -2043,11 +2018,6 @@ parameters:
 		-
 			message: "#^Variable \\$temp might not be defined\\.$#"
 			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Term.php
-
-		-
-			message: "#^Variable \\$termKeys might not be defined\\.$#"
-			count: 2
 			path: app/code/core/Mage/CatalogSearch/Block/Term.php
 
 		-
@@ -2924,16 +2894,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$profile$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
-			message: "#^Comparison operation \"\\<\" between int\\<0, max\\> and 0 is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
 			message: "#^Right side of && is always true\\.$#"
@@ -4491,11 +4451,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\)\\) of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
@@ -4689,11 +4644,6 @@ parameters:
 			message: "#^Method Mage_Shipping_Model_Carrier_Tablerate\\:\\:getRate\\(\\) should return Mage_Core_Model_Abstract but returns array\\|bool\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
@@ -5191,11 +5141,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
-
-		-
 			message: "#^PHPDoc type Mage_Weee_Helper_Data of property Mage_Weee_Model_Total_Quote_Weee\\:\\:\\$_helper is not covariant with PHPDoc type Mage_Tax_Helper_Data of overridden property Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:\\$_helper\\.$#"
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
@@ -5239,11 +5184,6 @@ parameters:
 			message: "#^Variable \\$params might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
 			message: "#^Method Mage_Wishlist_Model_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Wishlist_Model_Item_Option\\) but should not return anything\\.$#"
@@ -5394,11 +5334,6 @@ parameters:
 			message: "#^Property Varien_Data_Collection_Db\\:\\:\\$_select \\(Varien_Db_Select\\) does not accept Zend_Db_Select\\.$#"
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
-
-		-
-			message: "#^Empty array passed to foreach\\.$#"
-			count: 1
-			path: lib/Varien/Data/Collection/Filesystem.php
 
 		-
 			message: "#^Property Varien_Data_Form_Abstract\\:\\:\\$_elements \\(Varien_Data_Form_Element_Collection\\) in empty\\(\\) is not falsy\\.$#"

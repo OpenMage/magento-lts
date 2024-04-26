@@ -86,7 +86,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     {
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
-        if (strlen($actionsXML) < 0 &&
+        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
+        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
             @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__("Actions XML is not valid."));
