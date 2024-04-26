@@ -144,7 +144,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $targetPath = $this->getStorage()->getSession()->getCurrentPath();
             $result = $this->getStorage()->uploadFile($targetPath, $this->getRequest()->getParam('type'));
         } catch (Exception $e) {
-            $result = ['error' => true, 'message' => $e->getMessage()];
+            $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
