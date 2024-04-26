@@ -446,10 +446,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @param string $fileName
      * @param int $limit
-     * @return string
      * @throws Exception
      */
-    public function getCsv($fileName = '', $limit = 0)
+    public function getCsv($fileName = '', $limit = 0): string
     {
         $csv = '';
         $count = 0;
@@ -519,10 +518,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @param string $fileName the Workbook sheet name
      * @param int $limit
-     * @return string
      * @throws Exception
      */
-    public function getExcel($fileName = '', $limit = 0)
+    public function getExcel($fileName = '', $limit = 0): string
     {
         $this->_prepareGrid();
 

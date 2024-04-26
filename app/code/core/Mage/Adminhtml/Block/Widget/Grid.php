@@ -213,10 +213,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected $defaultColumnSettings = [
         'date' => [
-            'width' => 140,
+            'width' => 140
         ],
         'datetime' => [
-            'width' => 160,
+            'width' => 160
         ],
     ];
 
@@ -1148,17 +1148,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsvFile($fileName), 'text/csv');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsvFile($fileName, -1));
      *
-     * @param string $fileName
-     * @param int $limit
-     * @return array
      * @throws Exception
      */
-    public function getCsvFile($fileName = '', $limit = 0)
+    public function getCsvFile(string $fileName = '', int $limit = 0): array
     {
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        $count = $this->getCountTotals();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1204,12 +1201,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
      *
-     * @param string $fileName
-     * @param int $limit
-     * @return string
      * @throws Exception
      */
-    public function getCsv($fileName = '', $limit = 0)
+    public function getCsv(string $fileName = '', int $limit = 0): string
     {
         $csv = '';
         $this->_isExport = true;
@@ -1220,7 +1214,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->load();
         $this->_afterLoadCollection();
 
-        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        $count = $this->getCountTotals();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1330,17 +1324,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName), 'text/csv');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcelFile($fileName, -1));
      *
-     * @param string $sheetName
-     * @param int $limit
-     * @return array
      * @throws Exception
      */
-    public function getExcelFile($sheetName = '', $limit = 0)
+    public function getExcelFile(string $sheetName = '', int $limit = 0): array
     {
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        $count = $this->getCountTotals();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1386,13 +1377,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
      *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
      *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
-     *
-     * @param string $fileName the Workbook sheet name
-     * @param int $limit
-     * @return string
+     * 
      * @throws Exception
      */
-    public function getExcel($fileName = '', $limit = 0)
+    public function getExcel(string $fileName = '', int $limit = 0): string
     {
         $this->_isExport = true;
         $this->_prepareGrid();
@@ -1402,7 +1390,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->load();
         $this->_afterLoadCollection();
 
-        $count = method_exists($this, 'getCountTotals') ? $this->getCountTotals() : $this->getCollection()->getSize();
+        $count = $this->getCountTotals();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
