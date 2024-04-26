@@ -193,7 +193,7 @@
 | controller_front_send_response_before | 1.9.4.5 |
 | controller_response_redirect | 1.9.4.5 |
 | core_app_run_after | 20.1.0 |
-| core_app_init_environment_after | 21.0.0 |
+| core_app_init_environment_after | 20.7.0 |
 | core_block_abstract_prepare_layout_after | 1.9.4.5 |
 | core_block_abstract_prepare_layout_before | 1.9.4.5 |
 | core_block_abstract_to_html_after | 1.9.4.5 |
