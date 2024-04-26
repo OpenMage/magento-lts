@@ -20,7 +20,6 @@
  */
 class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
-    protected $_moduleName = 'Mage_Core';
     protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
     protected const ENV_KEY_SEPARATOR = '__';
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
@@ -30,7 +29,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * To be used as regex condition
      */
     protected const ALLOWED_CHARS = ['A-Z', '-', '_'];
-
+    protected $_moduleName = 'Mage_Core';
     protected array $envStore = [];
 
     /**
