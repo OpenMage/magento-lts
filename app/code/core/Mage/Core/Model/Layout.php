@@ -170,7 +170,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             continue;
                         }
                         if (!isset($block->attributes()->ignore)) {
-                            $block->addAttribute('ignore', 'true');
+                            $block->addAttribute('ignore', '1');
                         }
                     }
                 }
