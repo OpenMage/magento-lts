@@ -1155,7 +1155,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $count = $this->getCountTotals();
+        $count = $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1214,7 +1214,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->load();
         $this->_afterLoadCollection();
 
-        $count = $this->getCountTotals();
+        $count = $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1331,7 +1331,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $count = $this->getCountTotals();
+        $count = $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
@@ -1390,7 +1390,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->load();
         $this->_afterLoadCollection();
 
-        $count = $this->getCountTotals();
+        $count = $this->getCollection()->getSize();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
