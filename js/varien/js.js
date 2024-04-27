@@ -703,3 +703,14 @@ function buttonDisabler() {
         button.disabled = true;
     });
 }
+
+/**
+ * Copies the text from the data-text attribute of the clicked element to the clipboard.
+ *
+ * @param {Event} event - The event object triggered by the click event.
+ * @return {Promise<void>} A promise that resolves when the text is successfully copied to the clipboard.
+ */
+function copyText(event) {
+    let copyText = event.currentTarget.getAttribute('data-text');
+    navigator.clipboard.writeText(copyText);
+}
