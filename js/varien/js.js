@@ -709,36 +709,34 @@ function buttonDisabler() {
  */
 function addCopyIcons() {
     const copyTexts = document.querySelectorAll('.copy-text');
-  
     copyTexts.forEach(copyText => {
-      const iconStyle = JSON.parse(copyText.getAttribute('data-copy-icon'));
-      const svg = createSVGElement(iconStyle);
-      copyText.parentNode.appendChild(svg);
+        const iconStyle = JSON.parse(copyText.getAttribute('data-copy-icon'));
+        const svg = createSVGElement(iconStyle);
+        copyText.parentNode.appendChild(svg);
     });
-  }
-  
-  /**
-   * Creates an SVG element with the specified iconStyle.
-   *
-   * @param {Object} iconStyle - An object containing the style properties for the SVG icon.
-   * @return {SVGElement} The created SVG element.
-   */
-  function createSVGElement(iconStyle) {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("onclick", "copyText(event)");
-    svg.setAttribute("version", "1.1");
-    svg.setAttribute("viewBox", "0 0 111.07 122.88");
-    svg.setAttribute("xml:space", "preserve");
-    svg.setAttribute("height", iconStyle.height);
-    svg.setAttribute("width", iconStyle.width);
-    svg.setAttribute("style", iconStyle.style);
-  
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", "M97.67,20.81L97.67,20.81l0.01,0.02c3.7,0.01,7.04,1.51,9.46,3.93c2.4,2.41,3.9,5.74,3.9,9.42h0.02v0.02v75.28v0.01h-0.02c-0.01,3.68-1.51,7.03-3.93,9.46c-2.41,2.4-5.74,3.9-9.42,3.9v0.02h-0.02H38.48h-0.01v-0.02c-3.69-0.01-7.04-1.5-9.46-3.93c-2.4-2.41-3.9-5.74-3.91-9.42H25.1c0-25.96,0-49.34,0-75.3v-0.01h0.02c0.01-3.69,1.52-7.04,3.94-9.46c2.41-2.4,5.73-3.9,9.42-3.91v-0.02h0.02C58.22,20.81,77.95,20.81,97.67,20.81L97.67,20.81zM0.02,75.38L0,13.39v-0.01h0.02c0.01-3.69,1.52-7.04,3.93-9.46c2.41-2.4,5.74-3.9,9.42-3.91V0h0.02h59.19c7.69,0,8.9,9.96,0.01,10.16H13.4h-0.02v-0.02c-0.88,0-1.68,0.37-2.27,0.97c-0.59,0.58-0.96,1.4-0.96,2.27h0.02v0.01v3.17c0,19.61,0,39.21,0,58.81C10.17,83.63,0.02,84.09,0.02,75.38L0.02,75.38zM100.91,109.49V34.2v-0.02h0.02c0-0.87-0.37-1.68-0.97-2.27c-0.59-0.58-1.4-0.96-2.28-0.96v0.02h-0.01H38.48h-0.02v-0.02c-0.88,0-1.68,0.38-2.27,0.97c-0.59,0.58-0.96,1.4-0.96,2.27h0.02v0.01v75.28v0.02h-0.02c0,0.88,0.38,1.68,0.97,2.27c0.59,0.59,1.4,0.96,2.27,0.96v-0.02h0.01h59.19h0.02v0.02c0.87,0,1.68-0.38,2.27-0.97c0.59-0.58,0.96-1.4,0.96-2.27L100.91,109.49L100.91,109.49L100.91,109.49L100.91,109.49z");
-  
-    svg.appendChild(path);
-    return svg;
-  }
+}
+
+/**
+ * Creates an SVG element with the specified iconStyle.
+ *
+ * @param {Object} iconStyles - An object containing the style properties for the SVG icon.
+ * @param {string} [iconStyles.cursor='pointer'] - The cursor style for the SVG element.
+ * @param {string} iconStyles.height - The height of the SVG element.
+ * @param {string} iconStyles.width - The width of the SVG element.
+ * @param {string} [iconStyles.margin='0'] - The margin of the SVG element.
+ * @return {HTMLElement} The created SVG element.
+ */
+function createSVGElement(iconStyles) {
+    const copyIcon = document.createElement('span');
+    copyIcon.classList.add('icon-copy');
+    copyIcon.setAttribute('onclick', 'copyText(event)');
+    copyIcon.style.cursor = iconStyles.cursor || 'pointer';
+    copyIcon.style.height = iconStyles.height;
+    copyIcon.style.width = iconStyles.width;
+        copyIcon.style.margin = iconStyles.margin || '0';
+
+    return copyIcon;
+}
 /**
  * Copies the text from the data-text attribute of the clicked element to the clipboard.
  *
