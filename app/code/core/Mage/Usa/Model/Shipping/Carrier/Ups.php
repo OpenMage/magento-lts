@@ -2194,10 +2194,11 @@ XMLAuth;
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
             $responseData = curl_exec($ch);
-            curl_close($ch);
         } catch (Exception $e) {
             $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             Mage::logException($e);
+        } finally {
+            curl_close($ch);
         }
 
         if (!isset($responseData)) {
