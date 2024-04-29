@@ -1581,7 +1581,7 @@ XMLAuth;
         if (!isset($responseData)) {
             $responseData = '';
         }
-        $responseData = json_decode($responseData, JSON_THROW_ON_ERROR);
+        $responseData = json_decode($responseData);
         if (!$responseData) {
             $result->setErrors(Mage::helper('usa')->__('Empty response'));
         } elseif (isset($responseData->response->errors)) {
