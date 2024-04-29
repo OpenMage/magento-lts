@@ -1561,24 +1561,19 @@ XMLAuth;
             'request' => $rawJsonRequest
         ];
 
-        try {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $shipConfirmUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $rawJsonRequest);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-            $responseData = curl_exec($ch);
-            curl_close($ch);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            Mage::logException($e);
-        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $shipConfirmUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $rawJsonRequest);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($ch);
+        curl_close($ch);
 
-        if (!isset($responseData)) {
+        if (!isset($responseData) or $responseData === false) {
             $responseData = '';
         }
         $responseData = json_decode($responseData);
@@ -2183,23 +2178,17 @@ XMLAuth;
             'request' => $ratePayload
         ];
 
-        try {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url . $version . "/" . $requestOption);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $ratePayload);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
-            $responseData = curl_exec($ch);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            Mage::logException($e);
-        } finally {
-            curl_close($ch);
-        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url . $version . "/" . $requestOption);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $ratePayload);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
+        $responseData = curl_exec($ch);
+        curl_close($ch);
 
         if (!isset($responseData) || $responseData === false) {
             $responseData = '';
