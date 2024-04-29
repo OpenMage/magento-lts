@@ -733,7 +733,7 @@ function createSVGElement(iconStyles) {
     copyIcon.style.cursor = iconStyles.cursor || 'pointer';
     copyIcon.style.height = iconStyles.height;
     copyIcon.style.width = iconStyles.width;
-        copyIcon.style.margin = iconStyles.margin || '0';
+    copyIcon.style.margin = iconStyles.margin || '0';
 
     return copyIcon;
 }
@@ -741,9 +741,8 @@ function createSVGElement(iconStyles) {
  * Copies the text from the data-text attribute of the clicked element to the clipboard.
  *
  * @param {Event} event - The event object triggered by the click event.
- * @return {Promise<void>} A promise that resolves when the text is successfully copied to the clipboard.
  */
 function copyText(event) {
-    let copyText = event.currentTarget.previousElementSibling.getAttribute('data-text');
+    const copyText = event.currentTarget.previousElementSibling.getAttribute('data-text');
     navigator.clipboard.writeText(copyText);
 }
