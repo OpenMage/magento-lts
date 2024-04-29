@@ -1573,7 +1573,7 @@ XMLAuth;
         $responseData = curl_exec($ch);
         curl_close($ch);
 
-        if (!isset($responseData) or $responseData === false) {
+        if ($responseData === false) {
             $responseData = '';
         }
         $responseData = json_decode($responseData);
@@ -2190,7 +2190,7 @@ XMLAuth;
         $responseData = curl_exec($ch);
         curl_close($ch);
 
-        if (!isset($responseData) || $responseData === false) {
+        if ($responseData === false) {
             $responseData = '';
         }
 
