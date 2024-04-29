@@ -2201,7 +2201,7 @@ XMLAuth;
             curl_close($ch);
         }
 
-        if (!isset($responseData)) {
+        if (!isset($responseData) || $responseData === false) {
             $responseData = '';
         }
 
