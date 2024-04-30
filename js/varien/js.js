@@ -712,33 +712,24 @@ function addCopyIcons() {
         return;
     }
 
-    const copyTexts = document.querySelectorAll('.copy-text');
+    const copyTexts = document.querySelectorAll('[data-copy-text]');
     copyTexts.forEach(copyText => {
-        const iconStyle = JSON.parse(copyText.getAttribute('data-copy-icon'));
-        const svg = createCopyIconElement(iconStyle);
-        copyText.parentNode.appendChild(svg);
+        const iconElement = createCopyIconElement();
+        copyText.parentNode.appendChild(iconElement);
     });
 }
 
+
 /**
- * Creates an SVG element with the specified iconStyle.
+ * Creates a copy icon element.
  *
- * @param {Object} iconStyles - An object containing the style properties for the SVG icon.
- * @param {string} [iconStyles.cursor='pointer'] - The cursor style for the SVG element.
- * @param {string} iconStyles.height - The height of the SVG element.
- * @param {string} iconStyles.width - The width of the SVG element.
- * @param {string} [iconStyles.margin='0'] - The margin of the SVG element.
- * @return {HTMLElement} The created SVG element.
+ * @return {HTMLElement} The created copy icon element.
  */
-function createCopyIconElement(iconStyles) {
+function createCopyIconElement() {
     const copyIcon = document.createElement('span');
     copyIcon.classList.add('icon-copy');
     copyIcon.setAttribute('onclick', 'copyText(event)');
     copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
-    copyIcon.style.cursor = iconStyles.cursor || 'pointer';
-    copyIcon.style.height = iconStyles.height;
-    copyIcon.style.width = iconStyles.width;
-    copyIcon.style.margin = iconStyles.margin || '0';
 
     return copyIcon;
 }
@@ -749,7 +740,7 @@ function createCopyIconElement(iconStyles) {
  */
 function copyText(event) {
     const copyIcon = event.currentTarget;
-    const copyText = copyIcon.previousElementSibling.getAttribute('data-text');
+    const copyText = copyIcon.previousElementSibling.getAttribute('data-copy-text');
     navigator.clipboard.writeText(copyText);
     copyIcon.classList.add('icon-copy-copied');
     setTimeout(() => {
