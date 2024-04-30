@@ -159,10 +159,9 @@ table.actions td                { vertical-align:top; }
 
 /* Grid - Headings */
 .grid tr.headings { background:url(images/sort_row_bg.gif) 0 50% repeat-x; }
-.grid tr.headings th { border-width:1px; border-color:#f9f9f9 #d1cfcf #f9f9f9 #f9f9f9; border-style:solid; padding-top:1px; padding-bottom:0; font-size:.9em; }
+.grid tr.headings th { border-width:1px; border-color:#f9f9f9 #d1cfcf #f9f9f9 #f9f9f9; border-style:solid; padding-top:1px; padding-bottom:0; font-size:.9em; white-space:nowrap;}
 .grid tr.headings th.last { border-right:0; }
 .grid tr.headings th.no-link { /* Grid th with no sorting functionality */ padding-top:2px; padding-bottom:1px; color:#67767e; }
-.grid tr.headings th span.nobr { display:block; /* FF3 fix */ }
 .grid tr.headings th a { display:block; padding:2px 4px 1px 0; color:#2d444f; text-decoration:none; }
 .grid tr.headings th a:hover { color:#d85909; text-decoration:none; }
 .grid tr.headings th a.sort-arrow-desc,
@@ -370,7 +369,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
 .form-list td.use-default label { display:inline-block; vertical-align:middle; padding:0 3px; }
-.form-list td.label label       { display:block; width:185px; padding-right:15px; padding-top:1px; }
+.form-list td.label label       { display:block; padding-right:15px; padding-top:1px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
 .form-list td.value textarea    { height:15em; }

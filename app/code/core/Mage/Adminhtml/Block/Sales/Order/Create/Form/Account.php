@@ -68,6 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
             }
         }
 
+        // if quote is guest, unset customer_group_id
         if ($this->getQuote()->getCustomerIsGuest()) {
             unset($attributes['group_id']);
         }

@@ -44,7 +44,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Product Collection
      *
-     * @var Mage_Eav_Model_Entity_Collection_Abstract|null
+     * @var Mage_Catalog_Model_Resource_Product_Collection|null
      */
     protected $_productCollection;
 

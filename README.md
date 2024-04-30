@@ -1,12 +1,8 @@
-<p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-156-orange.svg" alt="All Contributors"></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/github/all-contributors/openmage/magento-lts?color=ee8449)](#contributors)
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
 <a href="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml"><img src="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg" alt="CI workflow Badge" /></a>
-</p>
 
 # Magento - Long Term Support
 
@@ -68,8 +64,8 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
-- MySQL 5.6+ (8.0+ recommended) or MariaDB
+- PHP 7.4 to 8.3
+- MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
 
@@ -590,6 +586,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://juhoholsa.com/"><img src="https://avatars.githubusercontent.com/u/15036353?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Juho Hölsä</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/seifer7"><img src="https://avatars.githubusercontent.com/u/13601073?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kane</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Sdfendor"><img src="https://avatars.githubusercontent.com/u/2728018?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kevin Jakob</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/leissbua"><img src="https://avatars.githubusercontent.com/u/68073221?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Michael Leiss</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.riseart.com/"><img src="https://avatars.githubusercontent.com/u/26821235?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcos Steverlynck</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ahudock"><img src="https://avatars.githubusercontent.com/u/33500977?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andy Hudock</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.vianetz.com/"><img src="https://avatars.githubusercontent.com/u/26252058?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Christoph Massmann</b></sub></a></td>
     </tr>
   </tbody>
 </table>
