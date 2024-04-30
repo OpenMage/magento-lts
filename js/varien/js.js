@@ -705,7 +705,7 @@ function buttonDisabler() {
 }
 
 /**
- * Adds copy icons to elements with the class 'copy-text'.
+ * Adds copy icons to elements that have the class 'copy-text'
  */
 function addCopyIcons() {
     if (navigator.clipboard === undefined) {
@@ -719,11 +719,8 @@ function addCopyIcons() {
     });
 }
 
-
 /**
- * Creates a copy icon element.
- *
- * @return {HTMLElement} The created copy icon element.
+ * @return {HTMLElement} The created copy icon element
  */
 function createCopyIconElement() {
     const copyIcon = document.createElement('span');
@@ -733,10 +730,11 @@ function createCopyIconElement() {
 
     return copyIcon;
 }
+
 /**
- * Copies the text from the data-text attribute of the clicked element to the clipboard.
+ * Copies the text from the data-text attribute of the clicked element to the clipboard
  *
- * @param {Event} event - The event object triggered by the click event.
+ * @param {Event} event - The event object triggered by the click event
  */
 function copyText(event) {
     const copyIcon = event.currentTarget;
