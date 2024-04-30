@@ -715,7 +715,7 @@ function addCopyIcons() {
     const copyTexts = document.querySelectorAll('.copy-text');
     copyTexts.forEach(copyText => {
         const iconStyle = JSON.parse(copyText.getAttribute('data-copy-icon'));
-        const svg = createSVGElement(iconStyle);
+        const svg = createCopyIconElement(iconStyle);
         copyText.parentNode.appendChild(svg);
     });
 }
@@ -730,10 +730,11 @@ function addCopyIcons() {
  * @param {string} [iconStyles.margin='0'] - The margin of the SVG element.
  * @return {HTMLElement} The created SVG element.
  */
-function createSVGElement(iconStyles) {
+function createCopyIconElement(iconStyles) {
     const copyIcon = document.createElement('span');
     copyIcon.classList.add('icon-copy');
     copyIcon.setAttribute('onclick', 'copyText(event)');
+    copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
     copyIcon.style.cursor = iconStyles.cursor || 'pointer';
     copyIcon.style.height = iconStyles.height;
     copyIcon.style.width = iconStyles.width;
