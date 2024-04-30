@@ -38,7 +38,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * @param string $args[username] Remote username
      * @param string $args[password] Connection password
      * @param int $args[timeout] Connection timeout [=10]
-     *
+     * @throws Exception
      */
     public function open(array $args = [])
     {
@@ -53,7 +53,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         }
         $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
-            throw new Exception(sprintf(__("Unable to open SFTP connection as %s@%s", $args['username'], $args['host'])));
+            throw new Exception(sprintf('Unable to open SFTP connection as %s@%s', $args['username'], $args['host']));
         }
     }
 
