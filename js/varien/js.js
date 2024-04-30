@@ -708,6 +708,10 @@ function buttonDisabler() {
  * Adds copy icons to elements with the class 'copy-text'.
  */
 function addCopyIcons() {
+    if (navigator.clipboard === undefined) {
+        return;
+    }
+
     const copyTexts = document.querySelectorAll('.copy-text');
     copyTexts.forEach(copyText => {
         const iconStyle = JSON.parse(copyText.getAttribute('data-copy-icon'));
