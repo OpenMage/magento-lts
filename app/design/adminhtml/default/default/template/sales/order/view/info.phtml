@@ -28,7 +28,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
         endif; ?>
         <div class="entry-edit-head">
         <?php if ($this->getNoUseOrderLink()): ?>
-            <h4 class="icon-head head-account copy-text" data-text="<?= $_order->getRealOrderId() ?>" data-copy-icon='{"cursor":"pointer","margin":"8px 0 0 5px","height":"16px","width":"16px"}'><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?> (<?php echo $_email ?>)</h4>
+            <h4 class="icon-head head-account copy-text" data-text="<?php echo $_order->getRealOrderId() ?>" data-copy-icon='{"cursor":"pointer","margin":"8px 0 0 5px","height":"16px","width":"16px"}'><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?> (<?php echo $_email ?>)</h4>
         <?php else: ?>
             <a href="<?php echo $this->getViewUrl($_order->getId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></a>
             <strong>(<?php echo $_email ?>)</strong>
@@ -114,7 +114,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 </tr>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
-                    <td class="value"><a href="mailto:<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>" class="copy-text" data-text="<?= $_order->getCustomerEmail()?>" data-copy-icon='{"cursor":"pointer","margin":"2px 0 0 2px","height":"10px","width":"10px"}'><strong><?php echo $this->escapeHtml($_order->getCustomerEmail()) ?></strong></a></td>
+                    <td class="value"><a href="mailto:<?php echo $this->escapeHtml($_order->getCustomerEmail()) ?>" class="copy-text" data-text="<?php echo $_order->getCustomerEmail()?>" data-copy-icon='{"cursor":"pointer","margin":"2px 0 0 2px","height":"10px","width":"10px"}'><strong><?php echo $this->escapeHtml($_order->getCustomerEmail()) ?></strong></a></td>
                 </tr>
                 <?php if ($_groupName = $this->getCustomerGroupName()) : ?>
                 <tr>
