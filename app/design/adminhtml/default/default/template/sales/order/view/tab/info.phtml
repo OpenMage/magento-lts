@@ -54,8 +54,8 @@
                     <?php foreach ($_order->getTracksCollection() as $_track): ?>
                         <div>
                             <?php $trackNumber = $_track->getNumber();?>
-                            <strong><?= $_track->getTitle() ?></strong>
-                            <span class="copy-text" data-text="<?= $trackNumber ?>" data-copy-icon='{"cursor":"pointer","height":"12px","width":"12px"}'><?= $trackNumber ?></span>
+                            <strong><?php echo $_track->getTitle() ?></strong>
+                            <span class="copy-text" data-text="<?php echo $trackNumber ?>" data-copy-icon='{"cursor":"pointer","height":"12px","width":"12px"}'><?php echo $trackNumber ?></span>
                         </div> 
                     <?php endforeach; ?>
                 <?php endif ?>
