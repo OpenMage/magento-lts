@@ -769,9 +769,13 @@ $j(document).ready(function () {
     // rather than having duplicate markup or changing the design
     let repositionLanguageSwitcher = function (mq) {
         if (mq.matches) {
-            $j('.page-header-container .store-language-container').prepend($j('.form-language'));
+            $j('.page-header-container .store-language-container')
+              .prepend($j('.currency-switcher'))
+              .prepend($j('.form-language'));
         } else {
-            $j('.header-language-container .store-language-container').prepend($j('.form-language'));
+            $j('.header-language-container .store-language-container')
+              .prepend($j('.currency-switcher'))
+              .prepend($j('.form-language'));
         }
     }
 
