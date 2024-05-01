@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -355,7 +354,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $afterId = array_pop(explode(',', $parentChildren));
         }
 
-        if (strpos($parent_category->getPath(), $category->getPath()) === 0) {
+        if (str_starts_with($parent_category->getPath(), $category->getPath())) {
             $this->_fault('not_moved', "Operation do not allow to move a parent category to any of children category");
         }
 

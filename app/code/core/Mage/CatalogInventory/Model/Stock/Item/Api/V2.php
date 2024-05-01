@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogInventory
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventory_Model_Stock_Item_Api
 {
@@ -36,14 +35,15 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
         $idBySku = $product->getIdBySku($productId);
         $productId = $idBySku ? $idBySku : $productId;
 
-        $product->setStoreId($this->_getStoreId())
-            ->load($productId);
+        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+        $stockItem = Mage::getModel('cataloginventory/stock_item')
+            ->setStoreId($this->_getStoreId())
+            ->loadByProduct($productId);
 
-        if (!$product->getId()) {
+        if (!$stockItem->getId()) {
             $this->_fault('not_exists');
         }
 
-        $stockItem = $product->getStockItem();
         $stockData = array_replace($stockItem->getData(), (array)$data);
         $stockItem->setData($stockData);
 

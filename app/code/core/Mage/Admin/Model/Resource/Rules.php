@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Admin
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -80,5 +79,46 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->rollBack();
             Mage::logException($e);
         }
+    }
+
+    /**
+     * Set resource ID as ID field name
+     * @see Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid::_prepareCollection()
+     *
+     * @return $this
+     */
+    public function setResourceIdAsIdFieldName()
+    {
+        $this->_idFieldName = 'resource_id';
+        return $this;
+    }
+
+    /**
+     * Delete orphaned resources
+     *
+     * @param array $orphanedIds
+     * @return int
+     * @throws Mage_Core_Exception
+     */
+    public function deleteOrphanedResources(array $orphanedIds): int
+    {
+        if ($orphanedIds === []) {
+            return 0;
+        }
+
+        $resourceIds = Mage::getModel('admin/roles')->getResourcesList2D();
+        // Validate orphaned IDs are not in the list of valid resource IDs.
+        $validIds = array_intersect($orphanedIds, $resourceIds);
+        if ($validIds !== []) {
+            throw new Mage_Core_Exception(
+                Mage::helper('adminhtml')->__(
+                    'The following role resource(s) are not orphaned: %s',
+                    implode(', ', $validIds)
+                )
+            );
+        }
+
+        return $this->_getWriteAdapter()
+            ->delete($this->getMainTable(), ['resource_id IN (?)' => $orphanedIds]);
     }
 }

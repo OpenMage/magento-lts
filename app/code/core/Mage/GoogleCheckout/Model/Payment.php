@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_GoogleCheckout
- * @author     Magento Core Team <core@magentocommerce.com>
  * @deprecated after 1.13.1.0
  */
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract

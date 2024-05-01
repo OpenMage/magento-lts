@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Controller_Sales_Shipment
 {
@@ -128,7 +127,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $block = $this->getLayout()->getBlock('sales_shipment_view');
             $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
 
-            $this->_setActiveMenu('sales/order')
+            $this->_setActiveMenu('sales/shipment')
                 ->renderLayout();
         } else {
             $this->_redirect('*/*/');
@@ -160,7 +159,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             }
 
             $this->loadLayout()
-                ->_setActiveMenu('sales/order')
+                ->_setActiveMenu('sales/shipment')
                 ->renderLayout();
         } else {
             $this->_redirect('*/sales_order/view', ['order_id' => $this->getRequest()->getParam('order_id')]);

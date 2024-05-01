@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool getCollectRatesFlag()
  * @method $this setCollectRatesFlag(bool $value)
@@ -211,7 +210,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
             }
 
-            $maxQty = (int)Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
+            $maxQty = Mage::getStoreConfigAsInt('shipping/option/checkout_multiple_maximum_qty');
             if ($allQty > $maxQty) {
                 Mage::throwException(Mage::helper('checkout')->__('Maximum qty allowed for Shipping to multiple addresses is %s', $maxQty));
             }

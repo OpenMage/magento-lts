@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rating
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -278,6 +277,16 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
             }
         }
 
+        if (empty($result[0])) {
+            // when you unapprove the latest comment and save
+            //  store_id = 0 is missing and not updated in review_entity_summary
+            $clone = clone $object;
+            $clone->setCount(0);
+            $clone->setSum(0);
+            $clone->setStoreId(0);
+            $result[0] = $clone;
+        }
+
         return array_values($result);
     }
 
@@ -289,10 +298,9 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      */
     protected function _getEntitySummaryData($object)
     {
-        $adapter    = $this->_getReadAdapter();
-
-        $sumColumn      = new Zend_Db_Expr("SUM(rating_vote.{$adapter->quoteIdentifier('percent')})");
-        $countColumn    = new Zend_Db_Expr("COUNT(*)");
+        $adapter     = $this->_getReadAdapter();
+        $sumColumn   = new Zend_Db_Expr("SUM(rating_vote.{$adapter->quoteIdentifier('percent')})");
+        $countColumn = new Zend_Db_Expr("COUNT(*)");
 
         $select = $adapter->select()
             ->from(
@@ -300,7 +308,8 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                 [
                     'entity_pk_value' => 'rating_vote.entity_pk_value',
                     'sum'             => $sumColumn,
-                'count'           => $countColumn]
+                    'count'           => $countColumn
+                ]
             )
             ->join(
                 ['review' => $this->getTable('review/review')],

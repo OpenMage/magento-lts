@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
@@ -31,30 +30,27 @@
  */
 abstract class Mage_Api2_Model_Resource
 {
-    /**#@+
+    /**
      *  Action types
      */
     public const ACTION_TYPE_ENTITY = 'entity';
     public const ACTION_TYPE_COLLECTION  = 'collection';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Operations. Resource method names
      */
     public const OPERATION_CREATE   = 'create';
     public const OPERATION_RETRIEVE = 'retrieve';
     public const OPERATION_UPDATE   = 'update';
     public const OPERATION_DELETE   = 'delete';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Common operations for attributes
      */
     public const OPERATION_ATTRIBUTE_READ  = 'read';
     public const OPERATION_ATTRIBUTE_WRITE = 'write';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default error messages
      */
     public const RESOURCE_NOT_FOUND = 'Resource not found.';
@@ -65,9 +61,8 @@ abstract class Mage_Api2_Model_Resource
     public const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
     public const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
     public const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default collection resources error messages
      */
     public const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
@@ -75,20 +70,17 @@ abstract class Mage_Api2_Model_Resource
     public const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
     public const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
     public const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default success messages
      */
     public const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Collection page sizes
      */
     public const PAGE_SIZE_DEFAULT = 10;
     public const PAGE_SIZE_MAX     = 100;
-    /**#@-*/
 
     /**
      * Request

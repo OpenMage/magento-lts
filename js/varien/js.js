@@ -8,7 +8,7 @@
  * @category    Varien
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -33,6 +33,7 @@ function setPLocation(url, setFocus){
  *
  * @param elements - array of elements to be decorated
  * [@param decorateParams] - array of classes to be set. If omitted, all available will be used
+ * @deprecated
  */
 function decorateGeneric(elements, decorateParams)
 {
@@ -81,6 +82,7 @@ function decorateGeneric(elements, decorateParams)
 /**
  * Decorate table rows and cells, tbody etc
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateTable(table, options) {
     var table = $(table);
@@ -126,6 +128,7 @@ function decorateTable(table, options) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateList(list, nonRecursive) {
     if ($(list)) {
@@ -142,6 +145,7 @@ function decorateList(list, nonRecursive) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateDataList(list) {
     list = $(list);
@@ -698,4 +702,46 @@ function buttonDisabler() {
     buttons.forEach(function(button) {
         button.disabled = true;
     });
+}
+
+/**
+ * Adds copy icons to elements that have the class 'copy-text'
+ */
+function addCopyIcons() {
+    if (navigator.clipboard === undefined) {
+        return;
+    }
+
+    const copyTexts = document.querySelectorAll('[data-copy-text]');
+    copyTexts.forEach(copyText => {
+        const iconElement = createCopyIconElement();
+        copyText.parentNode.appendChild(iconElement);
+    });
+}
+
+/**
+ * @return {HTMLElement} The created copy icon element
+ */
+function createCopyIconElement() {
+    const copyIcon = document.createElement('span');
+    copyIcon.classList.add('icon-copy');
+    copyIcon.setAttribute('onclick', 'copyText(event)');
+    copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
+
+    return copyIcon;
+}
+
+/**
+ * Copies the text from the data-text attribute of the clicked element to the clipboard
+ *
+ * @param {Event} event - The event object triggered by the click event
+ */
+function copyText(event) {
+    const copyIcon = event.currentTarget;
+    const copyText = copyIcon.previousElementSibling.getAttribute('data-copy-text');
+    navigator.clipboard.writeText(copyText);
+    copyIcon.classList.add('icon-copy-copied');
+    setTimeout(() => {
+        copyIcon.classList.remove('icon-copy-copied');
+    }, 1000);
 }

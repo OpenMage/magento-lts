@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_Action
 {
@@ -35,10 +34,11 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
     {
         // save extra params for widgets insertion form
         $skipped = $this->getRequest()->getParam('skip_widgets');
-        $skipped = Mage::getSingleton('widget/widget_config')->decodeWidgetsFromQuery($skipped);
+        if (is_string($skipped)) {
+            $skipped = Mage::getSingleton('widget/widget_config')->decodeWidgetsFromQuery($skipped);
+        }
 
-        Mage::register('skip_widgets', $skipped);
-
+        Mage::register('skip_widgets', is_array($skipped) ? $skipped : []);
         $this->loadLayout('empty')->renderLayout();
     }
 

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasLimit()
  * @method int getLimit()
@@ -53,12 +52,10 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
                 ['attribute' => 'billing_firstname',  'like' => $query . '%'],
                 ['attribute' => 'billing_lastname',   'like' => $query . '%'],
                 ['attribute' => 'billing_telephone',  'like' => $query . '%'],
-                ['attribute' => 'billing_postcode',   'like' => $query . '%'],
 
                 ['attribute' => 'shipping_firstname', 'like' => $query . '%'],
                 ['attribute' => 'shipping_lastname',  'like' => $query . '%'],
                 ['attribute' => 'shipping_telephone', 'like' => $query . '%'],
-                ['attribute' => 'shipping_postcode',  'like' => $query . '%'],
             ])
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())

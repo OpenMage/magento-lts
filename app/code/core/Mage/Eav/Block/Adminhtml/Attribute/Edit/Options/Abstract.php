@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -147,11 +146,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+                if ($this->isConfigurableSwatchesEnabled()) {
+                    $value['swatch'] = $option->getSwatchValue();
+                }
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
         }
-
         return $values;
     }
 
@@ -209,5 +210,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function getAttributeObject()
     {
         return Mage::registry('entity_attribute');
+    }
+
+    /**
+     * Check if configurable swatches module is enabled and attribute is swatch type
+     */
+    public function isConfigurableSwatchesEnabled(): bool
+    {
+        return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
+            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
 }

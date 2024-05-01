@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Install
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
 {
@@ -56,6 +55,6 @@ class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
      */
     public function getLicenseHtml()
     {
-        return file_get_contents(BP . DS . (string)Mage::getConfig()->getNode('install/eula_file'));
+        return nl2br(file_get_contents(BP . DS . (string)Mage::getConfig()->getNode('install/eula_file')));
     }
 }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogRule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setAttributeOption(array $value)
  * @method $this setOperatorOption(array $value)
@@ -42,10 +41,10 @@ class Mage_CatalogRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
-            'to_fixed' => Mage::helper('cataloginventory')->__('To Fixed Value'),
-            'to_percent' => Mage::helper('cataloginventory')->__('To Percentage'),
-            'by_fixed' => Mage::helper('cataloginventory')->__('By Fixed value'),
-            'by_percent' => Mage::helper('cataloginventory')->__('By Percentage'),
+            'to_fixed'   => static::$translate ? Mage::helper('cataloginventory')->__('To Fixed Value') : 'To Fixed Value',
+            'to_percent' => static::$translate ? Mage::helper('cataloginventory')->__('To Percentage') : 'To Percentage',
+            'by_fixed'   => static::$translate ? Mage::helper('cataloginventory')->__('By Fixed value') : 'By Fixed value',
+            'by_percent' => static::$translate ? Mage::helper('cataloginventory')->__('By Percentage') : 'By Percentage',
         ]);
         return $this;
     }

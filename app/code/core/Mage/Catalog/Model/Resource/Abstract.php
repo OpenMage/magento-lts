@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method int getStoreId()
  * @method bool getUseDataSharing()
@@ -118,6 +117,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             ->from(['attr_table' => $table], [])
             ->where("attr_table.{$this->getEntityIdField()} = ?", $object->getId())
             ->where('attr_table.store_id IN (?)', $storeIds);
+        if (count($storeIds) > 1) {
+            $select->order('attr_table.store_id ASC');
+        }
         if ($setId) {
             $select->join(
                 ['set_table' => $this->getTable('eav/entity_attribute')],

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Product getResource()
@@ -128,7 +127,6 @@
  * @method $this setLinksExist(bool $value)
  * @method bool getLinksPurchasedSeparately()
  * @method $this setLinksPurchasedSeparately(bool $value)
- * @method string getLinksTitle()
  * @method array getListSwatchAttrValues()
  *
  * @method array getMatchedRules()
@@ -262,9 +260,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    public const ENTITY                 = 'catalog_product';
-
-    public const CACHE_TAG              = 'catalog_product';
+    public const ENTITY          = 'catalog_product';
+    public const CACHE_TAG       = 'catalog_product';
     protected $_cacheTag         = 'catalog_product';
     protected $_eventPrefix      = 'catalog_product';
     protected $_eventObject      = 'product';
@@ -273,7 +270,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product type instance
      *
-     * @var Mage_Catalog_Model_Product_Type_Abstract
+     * @var Mage_Catalog_Model_Product_Type_Abstract|null|false
      */
     protected $_typeInstance            = null;
 
@@ -285,7 +282,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product link instance
      *
-     * @var Mage_Catalog_Model_Product_Link
+     * @var Mage_Catalog_Model_Product_Link|null
      */
     protected $_linkInstance;
 
@@ -299,7 +296,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Product Url Instance
      *
-     * @var Mage_Catalog_Model_Product_Url
+     * @var Mage_Catalog_Model_Product_Url|null
      */
     protected $_urlModel = null;
 
@@ -332,9 +329,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
-     * @var Mage_CatalogInventory_Model_Stock_Item
+     * @var Mage_CatalogInventory_Model_Stock_Item|null
      */
     protected $_stockItem;
+
+    /**
+     * @var Mage_Review_Model_Review_Summary[]
+     */
+    protected $_reviewSummary = [];
 
     /**
      * Initialize resources
@@ -677,6 +679,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
+     * @return string
+     */
+    public function getLinksTitle()
+    {
+        return (string)$this->_getData('links_title');
+    }
+
+    /**
      * @return Mage_CatalogInventory_Model_Stock_Item
      */
     public function getStockItem()
@@ -693,7 +703,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem
      * @return $this
      */
     public function setStockItem($stockItem)
@@ -2250,14 +2260,23 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         $this->setData([]);
         $this->setOrigData();
-        $this->_customOptions       = [];
-        $this->_optionInstance      = null;
-        $this->_options             = [];
-        $this->_canAffectOptions    = false;
-        $this->_errors              = [];
-        $this->_defaultValues       = [];
-        $this->_storeValuesFlags    = [];
-        $this->_lockedAttributes    = [];
+        $this->_customOptions         = [];
+        $this->_optionInstance        = null;
+        $this->_options               = [];
+        $this->_canAffectOptions      = false;
+        $this->_errors                = [];
+        $this->_defaultValues         = [];
+        $this->_storeValuesFlags      = [];
+        $this->_lockedAttributes      = [];
+        $this->_typeInstance          = null;
+        $this->_typeInstanceSingleton = null;
+        $this->_linkInstance          = null;
+        $this->_reservedAttributes    = null;
+        $this->_isDuplicable          = true;
+        $this->_calculatePrice        = true;
+        $this->_stockItem             = null;
+        $this->_isDeleteable          = true;
+        $this->_isReadonly            = false;
 
         return $this;
     }
@@ -2320,7 +2339,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     *  Checks event attribute for initialization as an event object
+     * Checks event attribute for initialization as an event object
      *
      * @return bool
      */
@@ -2332,5 +2351,20 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $event;
+    }
+
+    /**
+     * @param int $storeId
+     * @return Mage_Review_Model_Review_Summary
+     */
+    public function getReviewSummary($storeId = null)
+    {
+        $storeId = $storeId ?? Mage::app()->getStore()->getId();
+        if (empty($this->_reviewSummary[$storeId])) {
+            $this->_reviewSummary[$storeId] = Mage::getModel('review/review_summary')
+                ->setStoreId($storeId)
+                ->load($this->getId());
+        }
+        return $this->_reviewSummary[$storeId];
     }
 }

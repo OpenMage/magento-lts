@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
@@ -79,7 +78,6 @@
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
  * @method int getPasswordCreatedAt()
- * @method $this setPasswordCreatedAt(int $value)
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
@@ -109,8 +107,8 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    /**#@+
-     * Configuration pathes for email templates and identities
+    /**
+     * Configuration paths for email templates and identities
      */
     public const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
     public const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -124,9 +122,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Codes of exceptions related to customer model
      */
     public const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
@@ -134,14 +131,12 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const EXCEPTION_EMAIL_EXISTS              = 3;
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID = 5;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Subscriptions
      */
     public const SUBSCRIBED_YES = 'yes';
     public const SUBSCRIBED_NO  = 'no';
-    /**#@-*/
 
     public const CACHE_TAG = 'customer';
 
@@ -324,6 +319,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function changePassword($newPassword)
     {
         $this->_getResource()->changePassword($this, $newPassword);
+        return $this;
+    }
+
+    /**
+     * Set time when password was changed to invalidate other sessions
+     *
+     * @param int $time
+     * @return $this
+     */
+    public function setPasswordCreatedAt($time)
+    {
+        $this->setData('password_created_at', $time);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+        }
         return $this;
     }
 
@@ -1624,7 +1634,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getMinPasswordLength()
     {
-        $minLength = (int)Mage::getStoreConfig(self::XML_PATH_MIN_PASSWORD_LENGTH);
+        $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
     }

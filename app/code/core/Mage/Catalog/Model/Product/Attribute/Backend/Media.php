@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -44,7 +43,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($this->_getResource()->loadGallery($object, $this) as $image) {
             foreach ($localAttributes as $localAttribute) {
                 if (is_null($image[$localAttribute])) {
+                    $image[$localAttribute . '_use_default'] = true;
                     $image[$localAttribute] = $this->_getDefaultValue($localAttribute, $image);
+                } else {
+                    $image[$localAttribute . '_use_default'] = false;
                 }
             }
             $value['images'][] = $image;
@@ -108,6 +110,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
+        if (!is_array($value['values']) && strlen($value['values']) > 0) {
+            $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
+        }
+
         if (!is_array($value['images'])) {
             $value['images'] = [];
         }
@@ -120,11 +126,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } elseif (!isset($image['value_id'])) {
-                    $newFile                   = $this->_moveImageFromTmp($image['file']);
+                    $newFile = $this->_moveImageFromTmp($image['file']);
                     $image['new_file'] = $newFile;
                     $newImages[$image['file']] = $image;
                     $this->_renamedImages[$image['file']] = $newFile;
-                    $image['file']             = $newFile;
+                    $image['file'] = $newFile;
                 } else {
                     $existImages[$image['file']] = $image;
                 }
@@ -143,8 +149,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 ];
                 $duplicate[$image['value_id']] = $newFile;
             }
-
-            $value['duplicate'] = $duplicate;
         }
 
         foreach ($object->getMediaAttributes() as $mediaAttribute) {
@@ -158,21 +162,21 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             if (in_array($attrData, $clearImages)) {
                 $object->setData($mediaAttrCode, 'no_selection');
             }
+        }
 
+        foreach ($value['values'] as $mediaAttrCode => $attrData) {
             if (array_key_exists($attrData, $newImages)) {
                 $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode . '_label', $newImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', ($newImages[$attrData]['label'] === null || $newImages[$attrData]['label_use_default']) ? $newImages[$attrData]['label_default'] : $newImages[$attrData]['label']);
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', $existImages[$attrData]['label']);
+                $object->setData($mediaAttrCode . '_label', ($existImages[$attrData]['label'] === null || $existImages[$attrData]['label_use_default']) ? $existImages[$attrData]['label_default'] : $existImages[$attrData]['label']);
             }
         }
 
         Mage::dispatchEvent('catalog_product_media_save_before', ['product' => $object, 'images' => $value]);
-
         $object->setData($attrCode, $value);
-
         return $this;
     }
 
@@ -205,7 +209,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $storeId = $object->getStoreId();
-
         $storeIds = $object->getStoreIds();
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
 
@@ -244,8 +247,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             // Add per store labels, position, disabled
             $data = [];
             $data['value_id'] = $image['value_id'];
-            $data['label']    = $image['label'];
-            $data['position'] = (int) $image['position'];
+            $data['label']    = ($image['label'] === null || $image["label_use_default"]) ? null : $image['label'];
+            $data['position'] = ($image['position'] === null || $image["position_use_default"]) ? null : (int) $image['position'];
             $data['disabled'] = (int) $image['disabled'];
             $data['store_id'] = (int) $object->getStoreId();
 
@@ -274,7 +277,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $move = false,
         $exclude = true
     ) {
-        if (strpos($file, chr(0)) !== false
+        if (str_contains($file, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $file)
         ) {
             throw new Exception('Detected malicious path or filename input.');
@@ -289,8 +292,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         Mage::dispatchEvent('catalog_product_media_add_image', ['product' => $product, 'image' => $file]);
 
         $pathinfo = pathinfo($file);
-        $imgExtensions = ['jpg','jpeg','gif','png'];
-        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), $imgExtensions)) {
+        if (!isset($pathinfo['extension']) || !in_array(strtolower($pathinfo['extension']), Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid image file type.'));
         }
 

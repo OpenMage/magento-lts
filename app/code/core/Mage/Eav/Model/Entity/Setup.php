@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getDefaultEntities()
  */
@@ -1240,6 +1239,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
+     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
+     * @see app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php
+     * @see app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php
+     *
      * Create entity tables
      *
      * @param string $baseTableName

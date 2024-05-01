@@ -8,6 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -16,7 +17,6 @@
  * 
  * @category    Mage
  * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 GiftOptionsTooltip = Class.create();
 GiftOptionsTooltip.prototype = {

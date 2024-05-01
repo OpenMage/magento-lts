@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,6 +17,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = ["gd"];
     private static $_callbacks = [
+        IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
         IMAGETYPE_JPEG => ['output' => 'imagejpeg', 'create' => 'imagecreatefromjpeg'],
         IMAGETYPE_PNG  => ['output' => 'imagepng',  'create' => 'imagecreatefrompng'],
@@ -150,6 +151,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
 
+        // convert palette based image to true color
+        if ($this->_fileType == IMAGETYPE_WEBP) {
+            imagepalettetotruecolor($this->_imageHandler);
+        }
+
         if (!$this->_resized) {
             // keep alpha transparency
             $isAlpha     = false;
@@ -257,7 +263,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
                     }
                     if (false === $transparentColor) {
                         throw new Exception('Failed to allocate transparent color for image.');
@@ -273,7 +279,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
         list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, $r, $g, $b);
+        $color = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
             throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
         }
@@ -296,19 +302,19 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     {
         $isAlpha     = false;
         $isTrueColor = false;
-        // assume that transparency is supported by gif/png only
-        if ((IMAGETYPE_GIF === $fileType) || (IMAGETYPE_PNG === $fileType)) {
+        // assume that transparency is supported by gif/png/webp only
+        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
                 return $transparentIndex;
-            } elseif (IMAGETYPE_PNG === $fileType) { // assume that truecolor PNG has transparency
-                $isAlpha     = $this->checkAlpha($this->_fileName);
+            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+                $isAlpha = $this->checkAlpha($this->_fileName);
                 $isTrueColor = true;
                 return $transparentIndex; // -1
             }
         }
-        if (IMAGETYPE_JPEG === $fileType) {
+        if ($fileType === IMAGETYPE_JPEG) {
             $isTrueColor = true;
         }
         return false;

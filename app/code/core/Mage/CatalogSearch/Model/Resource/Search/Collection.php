@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -115,7 +114,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
 
         /** @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
-        $likeOptions = ['position' => 'any'];
+        $likeOptions = ['position' => 'start'];
 
         /**
          * Collect tables and attribute ids of attributes with string values

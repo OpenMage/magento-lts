@@ -17,7 +17,7 @@
 <config>
     <modules>
         <Mage_Api>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_Api>
     </modules>
     <global>
@@ -111,6 +111,18 @@
             </modules>
         </translate>
     </adminhtml>
+    <crontab>
+        <jobs>
+            <api_session_cleanup>
+                <schedule>
+                    <cron_expr>0 35 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>api/cron::cleanOldSessions</model>
+                </run>
+            </api_session_cleanup>
+        </jobs>
+    </crontab>
     <default>
         <api>
             <config>

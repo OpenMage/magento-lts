@@ -10,6 +10,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -23,6 +24,7 @@ Default layout, loads most of the pages
     <default>
         <!-- Mage_GoogleAnalytics -->
         <reference name="head" before="-">
+            <block type="googleanalytics/gtm" name="google_tag_manager" as="google_tag_manager" template="googleanalytics/gtm.phtml" />
             <block type="googleanalytics/ga" name="google_analytics" as="google_analytics" template="googleanalytics/ga.phtml" />
         </reference>
     </default>

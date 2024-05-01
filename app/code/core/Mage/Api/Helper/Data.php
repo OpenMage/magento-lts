@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -224,7 +223,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert objects and arrays to array recursively
      *
-     * @param  array|object $data
+     * @param array|object $data
+     * @param-out array $data
      */
     public function toArray(&$data)
     {
@@ -324,6 +324,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $conditionOperator
      * @param string $conditionValue
+     * @param-out string|array $conditionValue
      */
     public function formatFilterConditionValue($conditionOperator, &$conditionValue)
     {

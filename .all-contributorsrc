@@ -1382,6 +1382,78 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gorbunovav",
+      "name": "Andrey Gorbunov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2665015?v=4",
+      "profile": "https://github.com/gorbunovav",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Tomasz-Silpion",
+      "name": "Tomasz Gregorczyk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5328659?v=4",
+      "profile": "https://github.com/Tomasz-Silpion",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Judx",
+      "name": "Juho Hölsä",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15036353?v=4",
+      "profile": "https://juhoholsa.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "seifer7",
+      "name": "Kane",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13601073?v=4",
+      "profile": "https://github.com/seifer7",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "leissbua",
+      "name": "Michael Leiss",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68073221?v=4",
+      "profile": "https://github.com/leissbua",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "massa-man",
+      "name": "Marcos Steverlynck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26821235?v=4",
+      "profile": "https://www.riseart.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ahudock",
+      "name": "Andy Hudock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33500977?v=4",
+      "profile": "https://github.com/ahudock",
+      "contributions": [
+        "code"
+      ]
+  },
+  {
+      "login": "ma4nn",
+      "name": "Christoph Massmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26252058?v=4",
+      "profile": "https://www.vianetz.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
@@ -693,7 +692,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (strpos($table, '/') !== false) {
+        if (str_contains($table, '/')) {
             $table = Mage::getSingleton('core/resource')->getTableName($table);
         }
         $tableAlias = $this->_getAttributeTableAlias($alias);
@@ -760,7 +759,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (is_string($tableName) && strpos($tableName, '/') !== false) {
+        if (is_string($tableName) && str_contains($tableName, '/')) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
         if (empty($tableAlias)) {
@@ -1269,7 +1268,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Add attribute value table to the join if it wasn't added previously
      *
      * @param   string $attributeCode
-     * @param   string $joinType inner|left
+     * @param   bool|string $joinType inner|left
      * @throws  Mage_Eav_Exception
      * @return  $this
      */
@@ -1333,7 +1332,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        $joinMethod = $joinType === 'left' ? 'joinLeft' : 'join';
+        $joinMethod = ($joinType === true || $joinType === 'left') ? 'joinLeft' : 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 

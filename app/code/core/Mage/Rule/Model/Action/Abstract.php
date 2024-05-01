@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getAttributeOption()
  * @method $this setAttributeOption(array $value)
@@ -36,8 +35,20 @@
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {
+    /**
+     * Flag to enable translation for loadOperatorOptions/loadValueOptions/loadAggregatorOptions/getDefaultOperatorOptions
+     * It's useless to translate these data on frontend
+     *
+     * @var bool
+     */
+    protected static $translate;
+
     public function __construct()
     {
+        if (!is_bool(static::$translate)) {
+            static::$translate = Mage::app()->getStore()->isAdmin();
+        }
+
         parent::__construct();
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
@@ -137,8 +148,8 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function loadOperatorOptions()
     {
         $this->setOperatorOption([
-            '=' => Mage::helper('rule')->__('to'),
-            '+=' => Mage::helper('rule')->__('by'),
+            '='  => static::$translate ? Mage::helper('rule')->__('to') : 'to',
+            '+=' => static::$translate ? Mage::helper('rule')->__('by') : 'by',
         ]);
         return $this;
     }

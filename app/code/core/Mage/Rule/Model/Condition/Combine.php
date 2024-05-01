@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Rule
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setActions(array $value)
  * @method string getAggregator()
@@ -109,8 +108,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function loadAggregatorOptions()
     {
         $this->setAggregatorOption([
-            'all' => Mage::helper('rule')->__('ALL'),
-            'any' => Mage::helper('rule')->__('ANY'),
+            'all' => static::$translate ? Mage::helper('rule')->__('ALL') : 'ALL',
+            'any' => static::$translate ? Mage::helper('rule')->__('ANY') : 'ANY',
         ]);
         return $this;
     }
@@ -161,8 +160,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     public function loadValueOptions()
     {
         $this->setValueOption([
-            1 => Mage::helper('rule')->__('TRUE'),
-            0 => Mage::helper('rule')->__('FALSE'),
+            1 => static::$translate ? Mage::helper('rule')->__('TRUE') : 'TRUE',
+            0 => static::$translate ? Mage::helper('rule')->__('FALSE') : 'FALSE',
         ]);
         return $this;
     }

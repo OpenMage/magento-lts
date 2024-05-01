@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_Model_Import_Entity_Abstract
 {
@@ -596,7 +595,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $rowScope = $this->getRowScope($rowData);
 
         if (self::SCOPE_DEFAULT == $rowScope) {
-            $this->_processedEntitiesCount ++;
+            $this->_processedEntitiesCount++;
         }
 
         $email        = $rowData[self::COL_EMAIL];

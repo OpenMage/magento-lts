@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,18 +18,15 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     public function load()
     {
         if (!$_FILES) {
-            ?>
-<form method="POST" enctype="multipart/form-data">
-File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
-</form>
-            <?php
+            echo '<form method="POST" enctype="multipart/form-data">';
+            echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
+            echo '</form>';
             exit;
         }
         if (!empty($_FILES['io_file']['tmp_name'])) {
@@ -53,15 +50,13 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
     public function loadFile()
     {
         if (!$_FILES) {
-            ?>
-<form method="POST" enctype="multipart/form-data">
-File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
-</form>
-            <?php
+            echo '<form method="POST" enctype="multipart/form-data">';
+            echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
+            echo '</form>';
             exit;
         }
         if (!empty($_FILES['io_file']['tmp_name'])) {
-            $uploader = new Mage_Core_Model_File_Uploader('io_file');
+            $uploader = Mage::getModel('core/file_uploader', 'io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
             $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
             $uploader->save($path);

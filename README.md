@@ -1,12 +1,8 @@
-<p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-152-orange.svg" alt="All Contributors"></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/github/all-contributors/openmage/magento-lts?color=ee8449)](#contributors)
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
 <a href="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml"><img src="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg" alt="CI workflow Badge" /></a>
-</p>
 
 # Magento - Long Term Support
 
@@ -20,6 +16,8 @@ level of backwards compatibility to the official releases.
 
 ## Table of contents
 
+- [Releases and Versioning](#releases-and-versioning)
+  - [Currently Maintained Versions](#currently-maintained-versions)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [Manual Install](#manual-install)
@@ -28,26 +26,46 @@ level of backwards compatibility to the official releases.
 - [Secure your installation](#secure-your-installation)
   - [Apache .htaccess](#apache-htaccess)
   - [Nginx](#nginx)
+- [Magento 1 Compatibility](#magento-1-compatibility)
 - [Changes](#changes)
   - [Between Magento 1.9.4.5 and OpenMage 19.x](#between-magento-1945-and-openmage-19x)
-  - [Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17](#between-openmage-19418--20016-and-19419--20017)
   - [Since OpenMage 19.5.0 / 20.1.0](#since-openmage-1950--2010)
   - [New Config Options](#new-config-options)
   - [New Events](#new-events)
   - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
 - [Development Environment with ddev](#development-environment-with-ddev)
-- [Development with PHP 8.1+](#development-with-php-81)
 - [PhpStorm Factory Helper](#phpstorm-factory-helper)
-- [Versioning](#versioning)
 - [Public Communication](#public-communication)
 - [Maintainers](#maintainers)
 - [License](#license)
 - [Contributors](#contributors-)
 
+## Releases and Versioning
+
+This project more strictly adheres to [Semantic Versioning](http://semver.org/) compared to the original Magento version numbering system where the "1"
+was essentially a fixed number. See the [Terminology](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md#terminology)
+section of [RFC 0002 - Release Schedule](https://github.com/OpenMage/rfcs/blob/main/accepted/0002-release-schedule.md) for more information on how the terms MAJOR, MINOR and PATCH are defined and applied.
+
+The OpenMage team and community maintains OpenMage LTS versions as follows:
+
+- The latest MAJOR.MINOR version always receives PATCH updates.
+- The latest MAJOR version always receives MINOR updates.
+- The latest MAJOR.MINOR branch for each MAJOR version receives PATCH updates for at least 2 years from the time of inception of the initial MAJOR version release.
+
+In a nutshell:
+
+- If you want to stay on the cutting edge with the latest improvements use the latest MAJOR version.
+- If you want maximum backwards compatibility and minimal upgrade hassle use the next-latest MAJOR version so that you can still receive important security/stability/regression fixes.
+
+### Currently Maintained Versions
+
+- 20.x is the latest MAJOR version and will receive PATCH updates until 2 years after the date that 21.x is released.
+- 19.4.x will receive PATCH updates until April 4, 2025.
+
 ## Requirements
 
-- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
-- MySQL 5.6+ (8.0+ recommended) or MariaDB
+- PHP 7.4 to 8.3
+- MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
 
@@ -93,27 +111,23 @@ composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
 
 <small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
 
-Step 4: Require `magento-lts`:
+Step 4: Require the appropriate version of `magento-lts`:
 
 ```bash
-# OpenMage v19
+# Latest tagged v20 series release
+composer require "openmage/magento-lts":"^20.0.0"
+
+# Legacy v19 tagged release (Magento 1.9.4.x drop-in replacement supported until April 4, 2025)
 composer require "openmage/magento-lts":"^19.4.0"
 
-# OpenMage v20
-composer require "openmage/magento-lts":"^20.0.0"
+# Latest on "main" development branch
+composer require "openmage/magento-lts":"dev-main"
+
+# Latest on "next" development branch
+composer require "openmage/magento-lts":"dev-next"
 ```
 
 <small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
-
-To install the latest development version (may be unstable):
-
-```bash
-# OpenMage v19
-composer require "openmage/magento-lts":"1.9.4.x-dev"
-
-# OpenMage v20
-composer require "openmage/magento-lts":"20.0.x-dev"
-```
 
 When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
 
@@ -130,7 +144,7 @@ git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
 git pull origin main
 git remote add upstream https://github.com/OpenMage/magento-lts
-git pull upstream 1.9.4.x
+git pull upstream main
 git add -A && git commit
 ```
 
@@ -166,6 +180,14 @@ RewriteRule ^api/rest api.php?type=rest [QSA,L]
 rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
 ```
 
+## Magento 1 Compatibility
+
+OpenMage LTS 19.4.0 is the first tagged version using the OpenMage LTS version naming system and all 19.x versions are mostly backward-compatible
+with Magento 1.9.4.x.
+
+OpenMage LTS 20.x and later have more changes that may not be 100% backward-compatible, but minimizing migration and upgrade hassle for users is always
+considered an important goal and factors heavily into the changes that are accepted even when accepting changes for "MAJOR" releases, described in [Releases and Versioning](#releases-and-versioning) above.
+
 ## Changes
 
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
@@ -186,12 +208,14 @@ Most important changes will be listed here, all other changes since `19.4.0` can
   - `Mage_Compiler`
   - `Mage_GoogleBase`
   - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
+  - `Mage_Poll`  ([#3098](https://github.com/OpenMage/magento-lts/pull/3098))
   - `Mage_Xmlconnect`
   - `Phoenix_Moneybookers`
 
 _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
+- `Mage_Poll`: `composer require openmage/module-mage-poll`
 - `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.x and 20.x
@@ -207,7 +231,6 @@ Do not use 20.x.x if you need IE support.
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
 - made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 - rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
-- removed module Mage_Poll ([3098](https://github.com/OpenMage/magento-lts/pull/3098), you can install it with `composer require openmage/module-mage-poll`)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -237,6 +260,18 @@ We also decided to remove our Zend_DB patches (that were stored in `app/code/cor
 not compatible with the new implementations made by ZF1-Future, which is much more advanced and feature rich.
 This may generate a problem with `Zend_Db_Select' statements that do not use 'Zend_Db_Expr' to quote expressions.
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
+
+UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
+
+### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+
+- PHP 8.1 as minimum required version
+- Removed scriptaculous/dragdrop.js (#3215)
+- RWD theme: updated jQuery to 3.7.0 (#3204)
+- Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
+- Removed double span element from HTML buttons (#3123)
+- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
+- Removed "admin routing compatibility mode" (#1551)
 
 ### New Config Options
 
@@ -319,11 +354,6 @@ n98-magerun.phar dev:ide:phpstorm:meta
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
-
-## Versioning
-
-Though Magento does __not__ follow [Semantic Versioning](http://semver.org/) we aim to provide a workable system for
-dependency definition.
 
 ## Public Communication
 
@@ -548,7 +578,18 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AGelzer"><img src="https://avatars.githubusercontent.com/u/34437931?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Gelzer</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gorbunovav"><img src="https://avatars.githubusercontent.com/u/2665015?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andrey Gorbunov</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Tomasz-Silpion"><img src="https://avatars.githubusercontent.com/u/5328659?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomasz Gregorczyk</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://juhoholsa.com/"><img src="https://avatars.githubusercontent.com/u/15036353?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Juho Hölsä</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/seifer7"><img src="https://avatars.githubusercontent.com/u/13601073?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kane</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Sdfendor"><img src="https://avatars.githubusercontent.com/u/2728018?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kevin Jakob</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/leissbua"><img src="https://avatars.githubusercontent.com/u/68073221?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Michael Leiss</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.riseart.com/"><img src="https://avatars.githubusercontent.com/u/26821235?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcos Steverlynck</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ahudock"><img src="https://avatars.githubusercontent.com/u/33500977?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andy Hudock</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.vianetz.com/"><img src="https://avatars.githubusercontent.com/u/26252058?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Christoph Massmann</b></sub></a></td>
     </tr>
   </tbody>
 </table>

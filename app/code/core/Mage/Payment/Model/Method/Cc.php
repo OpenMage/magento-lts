@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
@@ -235,7 +234,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $numSum = 0;
 
         for ($i = 0; $i < strlen($cardNumber); $i++) {
-            $currentNum = substr($cardNumber, $i, 1);
+            $currentNum = (int)substr($cardNumber, $i, 1);
 
             /**
              * Double every second digit

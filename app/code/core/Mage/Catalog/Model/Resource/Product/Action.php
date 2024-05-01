@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Resource_Abstract
 {
@@ -74,6 +73,8 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                 }
                 $this->_processAttributeValues();
             }
+
+            $this->_updateUpdatedAt($entityIds);
             $this->_getWriteAdapter()->commit();
         } catch (Exception $e) {
             $this->_getWriteAdapter()->rollBack();
@@ -81,5 +82,26 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
         }
 
         return $this;
+    }
+
+    /**
+     * Update the "updated_at" field for all entity_ids passed
+     *
+     * @param array $entityIds
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _updateUpdatedAt(array $entityIds): void
+    {
+        $updatedAt = Varien_Date::now();
+        $catalogProductTable = $this->getTable('catalog/product');
+        $adapter = $this->_getWriteAdapter();
+
+        $entityIdsChunks = array_chunk($entityIds, 1000);
+        foreach ($entityIdsChunks as $entityIdsChunk) {
+            $adapter->update($catalogProductTable, [
+                'updated_at' => $updatedAt
+            ], $adapter->quoteInto('entity_id IN (?)', $entityIdsChunk));
+        }
     }
 }

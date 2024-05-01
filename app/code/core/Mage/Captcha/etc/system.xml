@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -77,9 +77,21 @@
                             </depends>
                             <frontend_class>required-entry validate-digits</frontend_class>
                         </failed_attempts_login>
+                        <failed_attempts_ip translate="label">
+                            <label>Number of Unsuccessful Attempts to Login per IP Address</label>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <mode>after_fail</mode>
+                                <enable>1</enable>
+                            </depends>
+                            <frontend_class>required-entry validate-digits</frontend_class>
+                        </failed_attempts_ip>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -89,7 +101,7 @@
                         <length translate="label comment">
                             <label>Number of Symbols</label>
                             <comment>Please specify 8 symbols at the most. Range allowed (e.g. 3-5)</comment>
-                            <sort_order>7</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -99,7 +111,7 @@
                         <symbols translate="label comment">
                             <label>Symbols Used in CAPTCHA</label>
                             <comment><![CDATA[Please use only letters (a-z or A-Z) or numbers (0-9) in this field. No spaces or other characters are allowed.<br />Similar looking characters (e.g. "i", "l", "1") decrease chance of correct recognition by customer.]]></comment>
-                            <sort_order>8</sort_order>
+                            <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -110,7 +122,7 @@
                             <label>Case Sensitive</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>9</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>

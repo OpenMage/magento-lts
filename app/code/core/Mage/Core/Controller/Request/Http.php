@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
@@ -143,7 +142,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
+            } elseif ($baseUrl !== null && !$pathInfo) {
                 $pathInfo = '';
             } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
@@ -308,7 +307,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->getServer('HTTPS') == 'on'
           || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
-          || (Mage::isInstalled() && Mage::app()->getStore()->isCurrentlySecure()) ?
+          || (Mage::isInstalled() && Mage::app()->isCurrentlySecure()) ?
             self::SCHEME_HTTPS :
             self::SCHEME_HTTP;
     }
@@ -330,7 +329,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             $host =  $hostParts[0];
         }
 
-        if (strpos($host, ',') !== false || strpos($host, ';') !== false) {
+        if (str_contains($host, ',') || str_contains($host, ';')) {
             $response = new Zend_Controller_Response_Http();
             $response->setHttpResponseCode(400)->sendHeaders();
             exit();

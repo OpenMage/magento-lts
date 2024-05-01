@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienGrid = new Class.create();
@@ -56,6 +56,7 @@ varienGrid.prototype = {
 
                 Event.observe(this.rows[row],'mouseover',this.trOnMouseOver);
                 Event.observe(this.rows[row],'mouseout',this.trOnMouseOut);
+                Event.observe(this.rows[row],'mousedown',this.trOnClick);
                 Event.observe(this.rows[row],'click',this.trOnClick);
                 Event.observe(this.rows[row],'dblclick',this.trOnDblClick);
             }
@@ -119,6 +120,12 @@ varienGrid.prototype = {
         Element.removeClassName(element, 'on-mouse');
     },
     rowMouseClick : function(event){
+        if (event.button != 1 && event.type == "mousedown") {
+            return; // Ignore mousedown for any button except middle
+        }
+        if (event.button == 2) {
+            return; // Ignore right click
+        }
         if(this.rowClickCallback){
             try{
                 this.rowClickCallback(this, event);
@@ -304,14 +311,23 @@ varienGrid.prototype = {
     }
 };
 
-function openGridRow(grid, event){
-    var element = Event.findElement(event, 'tr');
-    if(['a', 'input', 'select', 'option'].indexOf(Event.element(event).tagName.toLowerCase())!=-1) {
+function shouldOpenGridRowNewTab(evt){
+    return evt.ctrlKey // Windows ctrl + click
+        || evt.metaKey // macOS command + click
+        || evt.button == 1 // Middle mouse click
+}
+
+function openGridRow(grid, evt){
+    var trElement = Event.findElement(evt, 'tr');
+    if(['a', 'input', 'select', 'option'].indexOf(Event.element(evt).tagName.toLowerCase())!=-1) {
         return;
     }
-
-    if(element.title){
-        setLocation(element.title);
+    if(trElement.title){
+        if (shouldOpenGridRowNewTab(evt)) {
+            window.open(trElement.title, '_blank');
+        } else {
+            setLocation(trElement.title);
+        }
     }
 }
 
@@ -439,7 +455,11 @@ varienGridMassaction.prototype = {
                 return;
             }
             if (trElement.title) {
-                setLocation(trElement.title);
+                if (shouldOpenGridRowNewTab(evt)) {
+                    window.open(trElement.title, '_blank');
+                } else {
+                    setLocation(trElement.title);
+                }
             }
             else{
                 var checkbox = Element.select(trElement, 'input');
@@ -832,10 +852,10 @@ serializerController.prototype = {
         this.rowInit(this.grid, row);
     },
     rowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
+        var tdElement = Event.findElement(event, 'td');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.select(trElement, 'input');
+        if(tdElement){
+            var checkbox = Element.select(tdElement, 'input');
             if(checkbox[0] && !checkbox[0].disabled){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 this.grid.setCheckboxChecked(checkbox[0], checked);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_ImportExport
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasOperation()
  */
@@ -446,7 +445,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Prepare collection by setting page number, sorting etc..
      *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|null
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {

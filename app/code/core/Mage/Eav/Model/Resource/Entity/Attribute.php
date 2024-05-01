@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -289,6 +288,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter            = $this->_getWriteAdapter();
             $optionTable        = $this->getTable('eav/attribute_option');
             $optionValueTable   = $this->getTable('eav/attribute_option_value');
+            $optionSwatchTable  = $this->getTable('eav/attribute_option_swatch');
 
             $stores = Mage::app()->getStores(true);
             if (isset($option['value'])) {
@@ -302,6 +302,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     if (!empty($option['delete'][$optionId])) {
                         if ($intOptionId) {
                             $adapter->delete($optionTable, ['option_id = ?' => $intOptionId]);
+                            $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
                         continue;
                     }
@@ -347,10 +348,27 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $adapter->insert($optionValueTable, $data);
                         }
                     }
+
+                    // Swatch Value
+                    if (isset($option['swatch'][$optionId])) {
+                        if ($option['swatch'][$optionId]) {
+                            $data = [
+                                'option_id' => $intOptionId,
+                                'value'     => $option['swatch'][$optionId],
+                                'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
+                            ];
+                            $adapter->insertOnDuplicate($optionSwatchTable, $data);
+                        } else {
+                            $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
+                        }
+                    }
                 }
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
+            }
+            if (isset($option['swatch'])) {
+                Mage::helper('configurableswatches/productimg')->clearSwatchesCache();
             }
         }
 

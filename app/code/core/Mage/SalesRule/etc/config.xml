@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -203,7 +203,7 @@
         <jobs>
             <aggregate_sales_report_coupons_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/coupons_expr</config_path>
                 </schedule>
                 <run>
                     <model>salesrule/observer::aggregateSalesReportCouponsData</model>
@@ -218,5 +218,10 @@
                 <format>1</format>
             </auto_generated_coupon_codes>
         </promo>
+        <reports>
+            <crontab>
+                <coupons_expr>0 0 * * *</coupons_expr>
+            </crontab>
+        </reports>
     </default>
 </config>

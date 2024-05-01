@@ -9,6 +9,7 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -47,13 +48,13 @@
                 <span class="label"><?php echo $this->__('Menu'); ?></span>
             </a>
 
-            <a href="#header-search" class="skip-link skip-search">
+            <a href="#header-search" class="skip-link skip-search" title="<?php echo $this->__('Search'); ?>">
                 <span class="icon"></span>
                 <span class="label"><?php echo $this->__('Search'); ?></span>
             </a>
 
             <div class="account-cart-wrapper">
-                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account" title="<?php echo $this->__('Account'); ?>">
                     <span class="icon"></span>
                     <span class="label"><?php echo $this->__('Account'); ?></span>
                 </a>

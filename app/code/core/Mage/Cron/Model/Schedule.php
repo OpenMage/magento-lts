@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,11 +18,11 @@
  *
  * @category   Mage
  * @package    Mage_Cron
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
  * @method string getStatus()
@@ -52,6 +52,14 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function _construct()
     {
         $this->_init('cron/schedule');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsError(): bool
+    {
+        return !empty($this->getData('is_error'));
     }
 
     /**
@@ -121,7 +129,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle multiple options
-        if (strpos($expr, ',') !== false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -131,7 +139,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr, '/') !== false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
@@ -149,7 +157,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if ($expr === '*') {
             $from = 0;
             $to = 60;
-        } elseif (strpos($expr, '-') !== false) { // handle range
+        } elseif (str_contains($expr, '-')) { // handle range
             $e = explode('-', $expr);
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  * @see Mage_Core_Model_Input_FilterTest See this class for manual
  */
 class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
@@ -205,6 +204,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * @param array $data
      * @param array|null $filters
      * @param bool $isFilterListSimple
+     * @param-out array $filters
      * @return array
      * @throws Exception    Exception when filter is not found or not instance of defined instances
      */

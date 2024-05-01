@@ -8,6 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -245,8 +246,8 @@ VarienRulesForm.prototype = {
                 elem.value = str;
                 if (str=='') {
                     str = '...';
-                } else if (str.length>30) {
-                    str = str.substr(0, 30)+'...';
+                } else if (str.length>100) {
+                    str = str.substr(0, 100)+'...';
                 }
                 label.innerHTML = str.escapeHTML();
             }

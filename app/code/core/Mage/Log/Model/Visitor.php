@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Log
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
@@ -102,16 +101,21 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('log/visitor');
-        $userAgent = $this->_httpHelper->getHttpUserAgent();
+        if ($this->_logCondition->isLogDisabled()) {
+            $this->_skipRequestLogging = true;
+            return;
+        }
+
         $ignoreAgents = $this->_config->getNode('global/ignore_user_agents');
         if ($ignoreAgents) {
             $ignoreAgents = $ignoreAgents->asArray();
-            if (in_array($userAgent, $ignoreAgents)) {
-                $this->_skipRequestLogging = true;
+            $userAgent = $this->_httpHelper->getHttpUserAgent();
+            foreach ($ignoreAgents as $ignoreAgent) {
+                if (stripos($userAgent, $ignoreAgent) !== false) {
+                    $this->_skipRequestLogging = true;
+                    break;
+                }
             }
-        }
-        if ($this->_logCondition->isLogDisabled()) {
-            $this->_skipRequestLogging = true;
         }
     }
 
@@ -254,6 +258,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
+            $this->initServerData();
             $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
