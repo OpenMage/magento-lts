@@ -236,6 +236,7 @@
 | log_log_clean_after | 1.9.4.5 |
 | log_log_clean_before | 1.9.4.5 |
 | log_visitor_collection_load_before | 1.9.4.5 |
+| mage_run_installed_exception | 20.7.0 |
 | mage_run_exception | 1.9.4.5 |
 | mage_print_exception_before | 20.7.0 |
 | mage_print_exception_after | 20.7.0 |
