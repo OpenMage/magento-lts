@@ -17,7 +17,7 @@
 <config>
     <modules>
         <Mage_Eav>
-            <version>1.6.0.1</version>
+            <version>1.6.0.2</version>
         </Mage_Eav>
     </modules>
     <global>
@@ -59,6 +59,9 @@
                     <attribute_option_value>
                         <table>eav_attribute_option_value</table>
                     </attribute_option_value>
+                    <attribute_option_swatch>
+                        <table>eav_attribute_option_swatch</table>
+                    </attribute_option_swatch>
                     <attribute_label>
                         <table>eav_attribute_label</table>
                     </attribute_label>
