@@ -50,7 +50,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
-require $autoloaderPath . DS . 'autoload.php';
+require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
@@ -176,25 +176,23 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
-            $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
-            } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
-            }
+
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
+        }
+
+        return $versionString;
     }
 
     /**
@@ -215,7 +213,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '3',
+                'minor'     => '6',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -225,7 +223,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '5',
-            'patch'     => '2',
+            'patch'     => '3',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
@@ -603,10 +601,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
@@ -747,7 +745,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -771,6 +769,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }

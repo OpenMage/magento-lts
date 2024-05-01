@@ -320,6 +320,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $this->_useCache = false;
                     $this->loadModules();
                     $this->loadDb();
+                    $this->loadEnv();
                     $this->saveCache();
                 }
             } finally {
@@ -418,6 +419,23 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $dbConf = $this->getResourceModel();
             $dbConf->loadToXml($this);
             Varien_Profiler::stop('config/load-db');
+        }
+        return $this;
+    }
+
+    /**
+     * Load environment variables and override config
+     *
+     * @return self
+     */
+    public function loadEnv(): Mage_Core_Model_Config
+    {
+        if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
+            Varien_Profiler::start('config/load-env');
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $environmentConfigLoaderHelper->overrideEnvironment($this);
+            Varien_Profiler::stop('config/load-env');
         }
         return $this;
     }
@@ -930,16 +948,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _sortModuleDepends($modules)
     {
         foreach ($modules as $moduleName => $moduleProps) {
-            $depends = $moduleProps['depends'];
-            foreach ($moduleProps['depends'] as $depend => $true) {
-                if ($moduleProps['active'] && ((!isset($modules[$depend])) || empty($modules[$depend]['active']))) {
-                    Mage::throwException(
-                        Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend)
-                    );
+            if ($moduleProps['active']) {
+                $depends = $moduleProps['depends'];
+                foreach ($moduleProps['depends'] as $depend => $true) {
+                    if (!isset($modules[$depend]) || empty($modules[$depend]['active'])) {
+                        Mage::throwException(
+                            Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend)
+                        );
+                    }
+                    $depends = array_merge($depends, $modules[$depend]['depends']);
                 }
-                $depends = array_merge($depends, $modules[$depend]['depends']);
+                $modules[$moduleName]['depends'] = $depends;
             }
-            $modules[$moduleName]['depends'] = $depends;
         }
         $modules = array_values($modules);
 
@@ -956,14 +976,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $definedModules = [];
         foreach ($modules as $moduleProp) {
-            foreach ($moduleProp['depends'] as $dependModule => $true) {
-                if (!isset($definedModules[$dependModule])) {
-                    Mage::throwException(
-                        Mage::helper('core')->__('Module "%1$s" cannot depend on "%2$s".', $moduleProp['module'], $dependModule)
-                    );
+            if ($moduleProp['active']) {
+                foreach ($moduleProp['depends'] as $dependModule => $true) {
+                    if (!isset($definedModules[$dependModule])) {
+                        Mage::throwException(
+                            Mage::helper('core')->__('Module "%1$s" cannot depend on "%2$s".', $moduleProp['module'], $dependModule)
+                        );
+                    }
                 }
+                $definedModules[$moduleProp['module']] = true;
             }
-            $definedModules[$moduleProp['module']] = true;
         }
 
         return $modules;

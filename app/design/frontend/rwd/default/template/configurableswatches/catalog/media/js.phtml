@@ -18,11 +18,20 @@
 ?>
 
 <script type="text/javascript">
-    $j(document).on('product-media-loaded', function() {
+    if(!(typeof $j == 'function' && $j === jQuery)) {
         ConfigurableMediaImages.init('<?php echo $this->getImageType(); ?>');
         <?php foreach ($this->getProductImageFallbacks() as $imageFallback): ?>
-        ConfigurableMediaImages.setImageFallback(<?php echo $imageFallback['product']->getId(); ?>, $j.parseJSON('<?php echo $imageFallback['image_fallback']; ?>'));
+        ConfigurableMediaImages.setImageFallback(<?php echo $imageFallback['product']->getId(); ?>, JSON.parse('<?php echo $imageFallback['image_fallback']; ?>'));
         <?php endforeach ?>
-        $j(document).trigger('configurable-media-images-init', ConfigurableMediaImages);
-    });
+        document.dispatchEvent(new Event('configurable-media-images-init'));
+    } else {
+        // compatibility with rwd theme ProductMediaManager in app.js
+        $j(document).on('product-media-loaded', function() {
+            ConfigurableMediaImages.init('<?php echo $this->getImageType(); ?>');
+            <?php foreach ($this->getProductImageFallbacks() as $imageFallback): ?>
+            ConfigurableMediaImages.setImageFallback(<?php echo $imageFallback['product']->getId(); ?>, $j.parseJSON('<?php echo $imageFallback['image_fallback']; ?>'));
+            <?php endforeach ?>
+            $j(document).trigger('configurable-media-images-init', ConfigurableMediaImages);
+        });
+    }
 </script>

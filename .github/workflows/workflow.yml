@@ -63,7 +63,7 @@ jobs:
     uses: ./.github/workflows/codeql-analysis.yml
 
   phpcs:
-    name: PHPCS
+    name: PHP CS
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
@@ -73,7 +73,7 @@ jobs:
     uses: ./.github/workflows/phpcs.yml
 
   php-cs-fixer:
-    name: PHP-CS-Fixer
+    name: PHP CS Fixer
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
@@ -95,13 +95,13 @@ jobs:
   # DOES NOT run by default
   # runs on schedule or when worklfow changed
   syntax_php:
-    name: Syntax
+    name: PHP Syntax
     needs: [check, phpcs, php-cs-fixer]
     if: needs.check.outputs.workflow > 0
     uses: ./.github/workflows/syntax-php.yml
 
   syntax_xml:
-    name: Syntax
+    name: XML Syntax
     needs: [check]
     if: needs.check.outputs.xml > 0
     uses: ./.github/workflows/syntax-xml.yml
@@ -109,7 +109,7 @@ jobs:
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
   sonar:
-    name: Sonar Unit Tests
+    name: Unit Tests (Sonar)
     needs: [check, phpcs, php-cs-fixer]
     if: |
       needs.check.outputs.phpunit-test > 0 ||
@@ -121,7 +121,7 @@ jobs:
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
   unit_tests:
-    name: OpenMage LTS - Unit Tests
+    name: Unit Tests (OpenMage)
     needs: [check, sonar]
     if: |
       needs.check.outputs.phpunit-test > 0 ||
