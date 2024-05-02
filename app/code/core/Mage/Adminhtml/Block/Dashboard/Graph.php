@@ -203,7 +203,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             switch ($this->getDataHelper()->getParam('period')) {
                 case '24h':
                     $d = $dateStart->format('Y-m-d H:00');
-                    $dateStart->add(new DateInterval('P1H'));
+                    $dateStart->add(new DateInterval('PT1H'));
                     break;
                 case '7d':
                 case '1m':
