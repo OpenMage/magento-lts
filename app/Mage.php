@@ -745,7 +745,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -769,6 +769,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
