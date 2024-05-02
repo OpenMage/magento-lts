@@ -2021,11 +2021,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
 
 		-
-			message: "#^Cannot call method setMethod\\(\\) on object\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Centinel/Helper/Data.php
-
-		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
