@@ -25,6 +25,7 @@
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
+        "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",

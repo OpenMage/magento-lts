@@ -26,7 +26,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      *
      * @var array
      */
-    protected $_expressions = [
+    protected array $_expressions = [
         //comments, must be first
         '/(\/\*.*\*\/)/Us',
         //tabs
@@ -60,10 +60,10 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         }
 
         do {
-            $value = preg_replace($this->_expressions, '', $value, -1, $count);
+            $value = preg_replace($this->_expressions, '', $value ?? '', -1, $count);
         } while ($count !== 0);
 
-        return $value;
+        return Mage::helper('core/purifier')->purify($value);
     }
 
     /**

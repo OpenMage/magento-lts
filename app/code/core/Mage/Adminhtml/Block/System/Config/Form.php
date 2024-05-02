@@ -50,12 +50,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_configFields;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset
+     * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset|false
      */
     protected $_defaultFieldsetRenderer;
 
     /**
-     * @var Mage_Adminhtml_Block_System_Config_Form_Field
+     * @var Mage_Adminhtml_Block_System_Config_Form_Field|false
      */
     protected $_defaultFieldRenderer;
 
@@ -147,12 +147,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _initGroup($form, $group, $section, $parentElement = null)
     {
-        if ($group->frontend_model) {
-            $fieldsetRenderer = Mage::getBlockSingleton((string)$group->frontend_model);
-        } else {
-            $fieldsetRenderer = $this->_defaultFieldsetRenderer;
-        }
-
+        /** @var Mage_Adminhtml_Block_System_Config_Form_Fieldset $fieldsetRenderer */
+        $fieldsetRenderer = $group->frontend_model
+            ? Mage::getBlockSingleton((string)$group->frontend_model)
+            : $this->_defaultFieldsetRenderer;
         $fieldsetRenderer->setForm($this)
             ->setConfigData($this->_configData);
 
@@ -276,11 +274,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 }
 
                 $data = $this->_configDataObject->getConfigDataValue($path, $inherit, $this->_configData);
-                if ($element->frontend_model) {
-                    $fieldRenderer = Mage::getBlockSingleton((string)$element->frontend_model);
-                } else {
-                    $fieldRenderer = $this->_defaultFieldRenderer;
-                }
+                /** @var Mage_Adminhtml_Block_System_Config_Form_Field $fieldRenderer */
+                $fieldRenderer = $element->frontend_model
+                    ? Mage::getBlockSingleton((string)$element->frontend_model)
+                    : $this->_defaultFieldRenderer;
 
                 $fieldRenderer->setForm($this);
                 $fieldRenderer->setConfigData($this->_configData);
