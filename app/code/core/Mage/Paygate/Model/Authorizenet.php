@@ -1237,11 +1237,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 break;
         }
 
-        if ($this->getIsCentinelValidationEnabled()) {
-            $params  = $this->getCentinelValidator()->exportCmpiData([]);
-            $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
-        }
-
         if (!empty($order)) {
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {

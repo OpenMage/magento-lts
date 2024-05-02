@@ -158,11 +158,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             Mage::throwException($errorMsg);
         }
 
-        //This must be after all validation conditions
-        if ($this->getIsCentinelValidationEnabled()) {
-            $this->getCentinelValidator()->validate($this->getCentinelValidationData());
-        }
-
         return $this;
     }
 
@@ -282,53 +277,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
             && parent::isAvailable($quote);
-    }
-
-    /**
-     * Whether centinel service is enabled
-     *
-     * @return bool
-     */
-    public function getIsCentinelValidationEnabled()
-    {
-        return Mage::getConfig()->getNode('modules/Mage_Centinel') !== false && $this->getConfigData('centinel') == 1;
-    }
-
-    /**
-     * Instantiate centinel validator model
-     *
-     * @return Mage_Centinel_Model_Service
-     */
-    public function getCentinelValidator()
-    {
-        $validator = Mage::getSingleton('centinel/service');
-        $validator
-            ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))
-            ->setCustomApiEndpointUrl($this->getConfigData('centinel_api_url'))
-            ->setStore($this->getStore())
-            ->setIsPlaceOrder($this->_isPlaceOrder());
-        return $validator;
-    }
-
-    /**
-     * Return data for Centinel validation
-     *
-     * @return Varien_Object
-     */
-    public function getCentinelValidationData()
-    {
-        $info = $this->getInfoInstance();
-        $params = new Varien_Object();
-        $params
-            ->setPaymentMethodCode($this->getCode())
-            ->setCardType($info->getCcType())
-            ->setCardNumber($info->getCcNumber())
-            ->setCardExpMonth($info->getCcExpMonth())
-            ->setCardExpYear($info->getCcExpYear())
-            ->setAmount($this->_getAmount())
-            ->setCurrencyCode($this->_getCurrencyCode())
-            ->setOrderNumber($this->_getOrderId());
-        return $params;
     }
 
     /**
