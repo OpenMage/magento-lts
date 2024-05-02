@@ -278,20 +278,4 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
             && parent::isAvailable($quote);
     }
-
-    /**
-     * Whether current operation is order placement
-     *
-     * @return bool
-     */
-    private function _isPlaceOrder()
-    {
-        $info = $this->getInfoInstance();
-        if ($info instanceof Mage_Sales_Model_Quote_Payment) {
-            return false;
-        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
-            return true;
-        }
-        return false;
-    }
 }
