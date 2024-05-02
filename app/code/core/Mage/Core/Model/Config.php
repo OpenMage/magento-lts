@@ -75,7 +75,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'Mage_Authorizenet' => 50,
         'Mage_Bundle' => 51,
         'Mage_Captcha' => 52,
-        'Mage_Centinel' => 53,
         'Mage_ConfigurableSwatches' => 54,
         'Mage_Newsletter' => 55,
         'Mage_Downloadable' => 56,
