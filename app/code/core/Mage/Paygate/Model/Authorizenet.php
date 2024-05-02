@@ -1308,7 +1308,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             //'ssltransport' => 'tcp',
         ]);
         foreach ($request->getData() as $key => $value) {
-            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value));
+            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value ?? ''));
         }
         $request->setXDelimChar(self::RESPONSE_DELIM_CHAR);
 
