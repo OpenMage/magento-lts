@@ -138,15 +138,13 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * Format Key for URL
      *
      * @param string $str
+     * @param null|string $locale
      * @return string
      */
-    public function formatUrlKey($str)
+    public function formatUrlKey($str, $locale = null)
     {
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str, $locale));
+        return trim($urlKey, '-');
     }
 
     /**

@@ -176,67 +176,44 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
-            $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
-            } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
-            }
+
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
+        }
+
+        return $versionString;
     }
 
     /**
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return array
      */
     public static function getOpenMageVersionInfo(): array
     {
-        /**
-         * This code construct is to make merging for forward porting of changes easier.
-         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
-         * also as releases are usually done together, this could in theory be done at once.
-         * The major Version then needs to be only changed once per branch.
-         */
-        if (self::getOpenMageMajorVersion() === 20) {
-            return [
-                'major'     => '20',
-                'minor'     => '5',
-                'patch'     => '0',
-                'stability' => '', // beta,alpha,rc
-                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-            ];
-        }
-
         return [
-            'major'     => '19',
-            'minor'     => '5',
-            'patch'     => '3',
-            'stability' => '', // beta,alpha,rc
+            'major'     => '21',
+            'minor'     => '0',
+            'patch'     => '0',
+            'stability' => 'beta1', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
 
-    /**
-     * @return int<19,20>
-     */
     public static function getOpenMageMajorVersion(): int
     {
-        return 20;
+        return 21;
     }
 
     /**
@@ -603,10 +580,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
@@ -747,7 +724,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -771,6 +748,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
@@ -988,12 +966,17 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
-            print '<pre>';
+            if (class_exists('\Spatie\Ignition\Ignition')) {
+                \Spatie\Ignition\Ignition::make()
+                    ->applicationPath(Mage::getBaseDir())
+                    ->handleException($e);
+                die();
+            }
 
+            print '<pre>';
             if (!empty($extra)) {
                 print $extra . "\n\n";
             }
-
             print $e->getMessage() . "\n\n";
             print $e->getTraceAsString();
             print '</pre>';

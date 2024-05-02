@@ -320,6 +320,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $this->_useCache = false;
                     $this->loadModules();
                     $this->loadDb();
+                    $this->loadEnv();
                     $this->saveCache();
                 }
             } finally {
@@ -418,6 +419,23 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $dbConf = $this->getResourceModel();
             $dbConf->loadToXml($this);
             Varien_Profiler::stop('config/load-db');
+        }
+        return $this;
+    }
+
+    /**
+     * Load environment variables and override config
+     *
+     * @return self
+     */
+    public function loadEnv(): Mage_Core_Model_Config
+    {
+        if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
+            Varien_Profiler::start('config/load-env');
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $environmentConfigLoaderHelper->overrideEnvironment($this);
+            Varien_Profiler::stop('config/load-env');
         }
         return $this;
     }
@@ -1339,19 +1357,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
-        } else {
-            /**
-             * Backwards compatibility for pre-MMDB extensions.
-             * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-             * to keep name of previously used nodes, that still may be used by non-updated extensions.
-             */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
-            }
         }
 
         $className = trim($className);

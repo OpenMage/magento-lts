@@ -123,7 +123,6 @@
                         <?php endforeach ?>
                         </tbody>
                     </table>
-                    <script type="text/javascript">decorateTable('overview-table-<?php echo $_address->getId() ?>')</script>
                 </div>
             <?php if($this->getShippingAddressCount()!=$_index+1): ?>
                 <div class="divider"></div>
@@ -174,7 +173,6 @@
                     <?php endforeach ?>
                     </tbody>
                     </table>
-                    <script type="text/javascript">decorateTable('virtual-overview-table')</script>
                 </div>
         </div>
         <?php endif ?>
