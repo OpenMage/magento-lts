@@ -5036,16 +5036,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_setFreeMethodRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:setXMLAccessRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_baseCurrencyRate \\(float\\) does not accept string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
