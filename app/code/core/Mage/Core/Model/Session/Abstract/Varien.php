@@ -87,7 +87,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 // no break
             default:
                 session_save_path($this->getSessionSavePath());
-                session_module_name((string)$moduleName);
+                session_module_name($moduleName);
                 break;
         }
 
