@@ -207,9 +207,7 @@ abstract class Mage_Api2_Model_Resource
                         $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
                     }
                     $newItemLocation = $this->_create($filteredData);
-                    if ($this->getResponse()->getHttpResponseCode() !== Mage_Api2_Model_Server::HTTP_OK) {
-                        $this->getResponse()->setHeader('Location', $newItemLocation);
-                    }
+                    $this->getResponse()->setHeader('Location', $newItemLocation);
                 } else {
                     $this->_errorIfMethodNotExist('_multiCreate');
                     $filteredData = $this->getFilter()->collectionIn($requestData);
