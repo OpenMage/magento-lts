@@ -64,7 +64,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4 to 8.2
+- PHP 8.2+ for OM v21, PHP 7.4+ for OpenMage v19/v20
 - MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -265,7 +265,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 
 ### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
-- PHP 8.1 as minimum required version
+- PHP 8.2 as minimum required version
 - Removed scriptaculous/dragdrop.js (#3215)
 - RWD theme: updated jQuery to 3.7.0 (#3204)
 - Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)

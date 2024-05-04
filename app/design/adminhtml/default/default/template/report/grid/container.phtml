@@ -40,7 +40,7 @@
         }
         var validator  = new Validation('filter_form');
         if (validator.validate()) {
-            setLocation('<?php echo $this->getFilterUrl(); ?>filter/'+encode_base64(Form.serializeElements(elements))+'/');
+            setLocation('<?php echo $this->getFilterUrl(); ?>filter/'+btoa(Form.serializeElements(elements))+'/');
         }
     }
 //]]>

@@ -60,10 +60,12 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 $temp[$term->getName()] = $term;
                 $termKeys[] = $term->getName();
             }
-            natcasesort($termKeys);
 
-            foreach ($termKeys as $termKey) {
-                $this->_terms[$termKey] = $temp[$termKey];
+            if (isset($termKeys)) {
+                natcasesort($termKeys);
+                foreach ($termKeys as $termKey) {
+                    $this->_terms[$termKey] = $temp[$termKey];
+                }
             }
         }
         return $this;

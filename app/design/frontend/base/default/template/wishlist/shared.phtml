@@ -50,7 +50,7 @@
                     <td class="a-center">
                     <?php if ($product->isSaleable()): ?>
                         <?php if ($isVisibleProduct): ?>
-                            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><?php echo $this->__('Add to Cart') ?></button>
                         <?php endif ?>
                     <?php endif ?>
                         <p>
@@ -68,12 +68,11 @@
             <?php endforeach ?>
             </tbody>
             </table>
-            <script type="text/javascript">decorateTable('wishlist-table');</script>
         </fieldset>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
             <?php if($this->isSaleable()):?>
-                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', ['_current'=>true]) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
+                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', ['_current'=>true]) ?>')" class="button"><?php echo $this->__('Add All to Cart') ?></button>
             <?php endif ?>
         </div>
     </form>

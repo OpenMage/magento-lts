@@ -32,8 +32,7 @@
 <header id="header" class="page-header">
     <div class="page-header-container">
         <a class="logo" href="<?php echo $this->getUrl('') ?>">
-            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
-            <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" />
         </a>
 
         <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
@@ -41,48 +40,41 @@
         <div class="store-language-container"></div>
 
         <!-- Skip Links -->
-
         <div class="skip-links">
             <a href="#header-nav" class="skip-link skip-nav">
                 <span class="icon"></span>
                 <span class="label"><?php echo $this->__('Menu'); ?></span>
             </a>
 
-            <a href="#header-search" class="skip-link skip-search">
+            <a href="#header-search" class="skip-link skip-search" title="<?php echo $this->__('Search'); ?>">
                 <span class="icon"></span>
                 <span class="label"><?php echo $this->__('Search'); ?></span>
             </a>
 
             <div class="account-cart-wrapper">
-                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account" title="<?php echo $this->__('Account'); ?>">
                     <span class="icon"></span>
                     <span class="label"><?php echo $this->__('Account'); ?></span>
                 </a>
 
                 <!-- Cart -->
-
                 <div class="header-minicart">
                     <?php echo $this->getChildHtml('minicart_head'); ?>
                 </div>
             </div>
-
-
         </div>
 
         <!-- Navigation -->
-
         <div id="header-nav" class="skip-content">
             <?php echo $this->getChildHtml('topMenu') ?>
         </div>
 
         <!-- Search -->
-
         <div id="header-search" class="skip-content">
             <?php echo $this->getChildHtml('topSearch') ?>
         </div>
 
         <!-- Account -->
-
         <div id="header-account" class="skip-content">
             <?php echo $this->getChildHtml('topLinks') ?>
         </div>

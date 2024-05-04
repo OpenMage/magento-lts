@@ -64,6 +64,21 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $object->setData($field, $this->formatDate($value));
         }
 
+        if (empty($object->getData('identifier'))) {
+            $storeId = null;
+            if (is_array($object->getData('stores'))) {
+                foreach ($object->getData('stores') as $store) {
+                    if (!empty($store)) {
+                        $storeId = $store;
+                        break;
+                    }
+                }
+            }
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $storeId);
+            $urlkey = Mage::getModel('catalog/product_url')->formatUrlKey($object->getData('title'), $locale);
+            $object->setData('identifier', $urlkey);
+        }
+
         if (!$this->getIsUniquePageToStores($object)) {
             Mage::throwException(Mage::helper('cms')->__('A page URL key for specified store already exists.'));
         }

@@ -25,11 +25,9 @@
             <action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/builder.js</name></action>
-            <action method="removeItem"><type>js</type><name>scriptaculous/dragdrop.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/slider.js</name></action>
             <action method="removeItem"><type>js</type><name>varien/js.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/menu.js</name></action>
         </reference>
         <remove name="top.links"/>
         <remove name="top.search"/>

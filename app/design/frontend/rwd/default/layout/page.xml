@@ -25,13 +25,12 @@
 
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>prototype/prototype.js</script></action>
-                <action method="addJs"><script>lib/jquery/jquery-1.12.4.min.js</script></action>
+                <action method="addJs"><script>lib/jquery/jquery-3.7.1.min.js</script></action>
                 <action method="addJs"><script>lib/jquery/noconflict.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>
                 <action method="addJs"><script>scriptaculous/builder.js</script></action>
                 <action method="addJs"><script>scriptaculous/effects.js</script></action>
-                <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
                 <action method="addJs"><script>scriptaculous/controls.js</script></action>
                 <action method="addJs"><script>scriptaculous/slider.js</script></action>
                 <action method="addJs"><script>varien/js.js</script></action>
@@ -43,7 +42,6 @@
 
                 <!-- Add vendor dependencies -->
                 <action method="addItem"><type>skin_js</type><name>js/lib/modernizr.custom.min.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/lib/enquire.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>

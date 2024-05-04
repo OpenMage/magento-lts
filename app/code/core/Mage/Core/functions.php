@@ -29,17 +29,6 @@ function destruct($object)
 }
 
 /**
- * Translator function
- *
- * @return string
- * @deprecated 1.3
- */
-function __()
-{
-    return Mage::app()->getTranslator()->translate(func_get_args());
-}
-
-/**
  * Tiny function to enhance functionality of ucwords
  *
  * Will capitalize first letters and convert separators if needed
