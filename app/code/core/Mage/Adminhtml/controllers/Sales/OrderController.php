@@ -684,7 +684,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function exportCsvAction()
     {
         $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse(...$grid->getCsvFile('orders.csv', 1000));
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('orders.csv', -1));
     }
 
     /**
