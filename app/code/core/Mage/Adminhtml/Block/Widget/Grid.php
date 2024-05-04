@@ -1155,7 +1155,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_isExport = true;
         $this->_prepareGrid();
 
-        $count = $this->getCollection()->getSize();
+        $collection = $this->getCollection();
+        $collection->load(); // Needed for reports, where $collection->getSize() would fail
+        $count = $collection->getSize();
         if (($limit > 0) && ($count > $limit)) {
             @http_response_code(500);
             echo "Too many results\n";
