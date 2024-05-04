@@ -206,7 +206,8 @@ abstract class Mage_Api2_Model_Resource
                     if (empty($filteredData)) {
                         $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
                     }
-                    if ($newItemLocation = $this->_create($filteredData)) {
+                    $newItemLocation = $this->_create($filteredData);
+                    if ($this->getResponse()->getHttpResponseCode() !== Mage_Api2_Model_Server::HTTP_OK) {
                         $this->getResponse()->setHeader('Location', $newItemLocation);
                     }
                 } else {
