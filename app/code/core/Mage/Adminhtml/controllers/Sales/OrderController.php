@@ -693,7 +693,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function exportExcelAction()
     {
         $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse(...$grid->getExcelFile('orders.xml', 1000));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('orders.xml', -1));
     }
 
     /**
