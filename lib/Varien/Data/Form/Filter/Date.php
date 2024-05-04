@@ -58,6 +58,10 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
      */
     public function inputFilter($value)
     {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => $this->_dateFormat,
             'locale'        => $this->_locale
@@ -80,6 +84,10 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
      */
     public function outputFilter($value)
     {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
             'locale'        => $this->_locale

@@ -140,6 +140,6 @@
                 </install>
             </updates>
         </layout>
-        <eula_file>LICENSE.html</eula_file>
+        <eula_file>LICENSE.txt</eula_file>
     </install>
 </config>

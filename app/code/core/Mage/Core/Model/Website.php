@@ -230,7 +230,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
-            $this->_groupsCount ++;
+            $this->_groupsCount++;
         }
     }
 
@@ -251,7 +251,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
-            $this->_groupsCount ++;
+            $this->_groupsCount++;
         }
         return $this;
     }
@@ -339,7 +339,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 
@@ -360,7 +360,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 

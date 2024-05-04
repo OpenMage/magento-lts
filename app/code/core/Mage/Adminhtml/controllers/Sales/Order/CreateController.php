@@ -88,6 +88,14 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
         /**
+         * Identify guest
+         */
+        if ($customerIsGuest = $this->getRequest()->getParam('customer_is_guest')) {
+            $this->_getSession()->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+            $this->_getSession()->setCustomerIsGuest(true);
+        }
+
+        /**
          * Identify store
          */
         if ($storeId = $this->getRequest()->getParam('store_id')) {

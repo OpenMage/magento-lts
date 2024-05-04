@@ -71,7 +71,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultLength()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
     }
 
     /**
@@ -111,7 +111,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultDashInterval()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
     }
 
     /**

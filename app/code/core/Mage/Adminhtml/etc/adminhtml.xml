@@ -91,6 +91,10 @@
                             <title>Blocks</title>
                             <action>adminhtml/permissions_block</action>
                         </blocks>
+                        <orphaned_resources translate="title">
+                            <title>Orphaned Role Resources</title>
+                            <action>adminhtml/permissions_orphanedResource</action>
+                        </orphaned_resources>
                     </children>
                 </acl>
                 <cache translate="title">
@@ -145,6 +149,9 @@
                                     <blocks translate="title">
                                         <title>Blocks</title>
                                     </blocks>
+                                    <orphaned_resources translate="title">
+                                        <title>Orphaned Role Resources</title>
+                                    </orphaned_resources>
                                 </children>
                             </acl>
                             <store translate="title">

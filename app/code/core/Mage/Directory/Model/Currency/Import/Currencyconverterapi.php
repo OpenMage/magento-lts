@@ -117,7 +117,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
                 $this->_url
             );
 
-            $timeLimitCalculated = 2 * (int) Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)
+            $timeLimitCalculated = 2 * Mage::getStoreConfigAsInt(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)
                 + (int) ini_get('max_execution_time');
 
             @set_time_limit($timeLimitCalculated);

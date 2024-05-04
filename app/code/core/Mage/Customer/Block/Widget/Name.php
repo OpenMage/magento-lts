@@ -74,7 +74,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         $helper = $this->helper('customer');
         $prefixOptions = $helper->getNamePrefixOptions();
         if ($this->getObject() && !empty($prefixOptions)) {
-            $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix()));
+            $oldPrefix = $this->escapeHtml(trim($this->getObject()->getPrefix() ?? ''));
             $prefixOptions[$oldPrefix] = $oldPrefix;
         }
         return $prefixOptions;
@@ -131,7 +131,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         $helper = $this->helper('customer');
         $suffixOptions = $helper->getNameSuffixOptions();
         if ($this->getObject() && !empty($suffixOptions)) {
-            $oldSuffix = $this->escapeHtml(trim($this->getObject()->getSuffix()));
+            $oldSuffix = $this->escapeHtml(trim($this->getObject()->getSuffix() ?? ''));
             $suffixOptions[$oldSuffix] = $oldSuffix;
         }
         return $suffixOptions;

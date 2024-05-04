@@ -270,11 +270,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         $methodInfo = $resources->$resourceName->methods->$methodName;
+        $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+        if (!isset($resources->$resourceName->model)) {
+            throw new Mage_Api_Exception('resource_path_not_callable');
+        }
 
         try {
-            $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
-            $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+            $modelName = $this->_prepareResourceModelName((string)$resources->$resourceName->model);
             try {
                 $model = Mage::getModel($modelName);
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
@@ -285,7 +288,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                $result = [];
                 if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                     $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
@@ -391,11 +393,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $methodInfo = $resources->$resourceName->methods->$methodName;
+            $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+            if (!isset($resources->$resourceName->model)) {
+                throw new Mage_Api_Exception('resource_path_not_callable');
+            }
 
             try {
-                $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
                 $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+
                 try {
                     $model = Mage::getModel($modelName);
                 } catch (Exception $e) {
@@ -403,7 +409,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    $callResult = [];
                     if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                         $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {

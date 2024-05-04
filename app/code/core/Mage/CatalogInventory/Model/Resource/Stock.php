@@ -220,7 +220,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ];
 
             foreach ($configMap as $field => $const) {
-                $this->$field = (int)Mage::getStoreConfig($const);
+                $this->$field = Mage::getStoreConfigAsInt($const);
             }
 
             $this->_isConfig = true;

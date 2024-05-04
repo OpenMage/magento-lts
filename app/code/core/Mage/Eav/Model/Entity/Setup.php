@@ -1239,6 +1239,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
+     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
+     * @see app/code/core/Mage/Catalog/sql/catalog_setup/install-1.6.0.0.php
+     * @see app/code/core/Mage/Customer/sql/customer_setup/install-1.6.0.0.php
+     *
      * Create entity tables
      *
      * @param string $baseTableName

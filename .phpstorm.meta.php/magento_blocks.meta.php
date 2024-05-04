@@ -294,6 +294,7 @@ namespace PHPSTORM_META {
             'adminhtml/permissions_role' => \Mage_Adminhtml_Block_Permissions_Role::class,
             'adminhtml/permissions_role_grid_user' => \Mage_Adminhtml_Block_Permissions_Role_Grid_User::class,
             'adminhtml/permissions_roles' => \Mage_Adminhtml_Block_Permissions_Roles::class,
+            'adminhtml/permissions_orphanedResource' => \Mage_Adminhtml_Block_Permissions_OrphanedResource::class,
             'adminhtml/permissions_tab_roleinfo' => \Mage_Adminhtml_Block_Permissions_Tab_Roleinfo::class,
             'adminhtml/permissions_tab_rolesedit' => \Mage_Adminhtml_Block_Permissions_Tab_Rolesedit::class,
             'adminhtml/permissions_tab_rolesusers' => \Mage_Adminhtml_Block_Permissions_Tab_Rolesusers::class,

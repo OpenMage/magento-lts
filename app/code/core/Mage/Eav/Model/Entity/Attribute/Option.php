@@ -34,4 +34,19 @@ class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract
     {
         $this->_init('eav/entity_attribute_option');
     }
+
+    /**
+     * Retrieve swatch hex value
+     *
+     * @return string|false
+     */
+    public function getSwatchValue()
+    {
+        $swatch = Mage::getModel('eav/entity_attribute_option_swatch')
+            ->load($this->getId(), 'option_id');
+        if (!$swatch->getId()) {
+            return false;
+        }
+        return $swatch->getValue();
+    }
 }

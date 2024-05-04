@@ -47,7 +47,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
      */
     public function getDimension($area, $dimension, $outer = false)
     {
-        $dimension = (int) Mage::getStoreConfig(
+        $dimension = Mage::getStoreConfigAsInt(
             Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_BASE . '/' . $area . '/' . $dimension
         );
         if ($outer) {

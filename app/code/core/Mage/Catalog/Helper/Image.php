@@ -143,7 +143,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
         );
         $this->setWatermarkImageOpacity(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+            Mage::getStoreConfigAsInt("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
         );
         $this->setWatermarkPosition(
             Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")

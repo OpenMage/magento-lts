@@ -323,7 +323,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     {
         $this->_errors[$errorCode][] = $errorRowNum + 1; // one added for human readability
         $this->_invalidRows[$errorRowNum] = true;
-        $this->_errorsCount ++;
+        $this->_errorsCount++;
 
         return $this;
     }

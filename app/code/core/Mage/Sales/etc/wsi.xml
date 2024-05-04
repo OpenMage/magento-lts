@@ -276,6 +276,11 @@
                     <xsd:element name="middlename" type="xsd:string" minOccurs="0" />
                     <xsd:element name="lastname" type="xsd:string" minOccurs="0" />
                     <xsd:element name="company" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="vat_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="vat_is_valid" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="vat_request_id" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="vat_request_date" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="vat_request_success" type="xsd:string" minOccurs="0" />
                     <xsd:element name="street" type="xsd:string" minOccurs="0" />
                     <xsd:element name="city" type="xsd:string" minOccurs="0" />
                     <xsd:element name="region" type="xsd:string" minOccurs="0" />

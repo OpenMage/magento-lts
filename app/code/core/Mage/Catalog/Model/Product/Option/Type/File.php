@@ -545,7 +545,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     public function getPrintableOptionValue($optionValue)
     {
-        return strip_tags($this->getFormattedOptionValue($optionValue));
+        $value = $this->getFormattedOptionValue($optionValue);
+        return $value === null ? '' : strip_tags($value);
     }
 
     /**

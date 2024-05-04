@@ -25,7 +25,7 @@
  * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
  * @method bool getHasException()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
- * @method bool getVerifier()
+ * @method null|string getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  * @method bool getIsLogged()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)

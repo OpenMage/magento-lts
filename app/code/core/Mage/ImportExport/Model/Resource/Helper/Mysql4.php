@@ -28,6 +28,13 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     public const DB_MAX_PACKET_COEFFICIENT = 0.85; // The coefficient of useful data from maximum packet length
 
     /**
+     * Semaphore to disable schema stats only once
+     *
+     * @var bool
+     */
+    private static $instantInformationSchemaStatsExpiry = false;
+
+    /**
      * Returns maximum size of packet, that we can send to DB
      *
      * @return float
@@ -49,11 +56,25 @@ class Mage_ImportExport_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Res
     public function getNextAutoincrement($tableName)
     {
         $adapter = $this->_getReadAdapter();
+        $this->setInformationSchemaStatsExpiry();
         $entityStatus = $adapter->showTableStatus($tableName);
-
         if (empty($entityStatus['Auto_increment'])) {
             Mage::throwException(Mage::helper('importexport')->__('Cannot get autoincrement value'));
         }
         return $entityStatus['Auto_increment'];
+    }
+
+    /**
+     * Set information_schema_stats_expiry to 0 if not already set.
+     */
+    public function setInformationSchemaStatsExpiry(): void
+    {
+        if (!self::$instantInformationSchemaStatsExpiry) {
+            try {
+                $this->_getReadAdapter()->query('SET information_schema_stats_expiry = 0;');
+            } catch (Exception $e) {
+            }
+            self::$instantInformationSchemaStatsExpiry = true;
+        }
     }
 }

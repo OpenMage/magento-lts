@@ -82,7 +82,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'product_id=entity_id',
                 'category_id=' . (int) $this->getRequest()->getParam('id', 0),
                 'left'
-            );
+            )
+            ->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner')
+            ->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         $this->setCollection($collection);
 
         if ($this->getCategory()->getProductsReadonly()) {
@@ -112,35 +114,100 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 'index'     => 'entity_id'
             ]);
         }
+
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60',
             'index'     => 'entity_id'
         ]);
+
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name'
         ]);
+
+        $this->addColumn('type', [
+            'header'    => Mage::helper('catalog')->__('Type'),
+            'width'     => 100,
+            'index'     => 'type_id',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+        ]);
+
+        $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
+            ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
+            ->load()
+            ->toOptionHash();
+
+        $this->addColumn('set_name', [
+            'header'    => Mage::helper('catalog')->__('Attrib. Set Name'),
+            'width'     => 130,
+            'index'     => 'attribute_set_id',
+            'type'      => 'options',
+            'options'   => $sets,
+        ]);
+
+        $this->addColumn('status', [
+            'header'    => Mage::helper('catalog')->__('Status'),
+            'width'     => 90,
+            'index'     => 'status',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
+        ]);
+
+        $this->addColumn('visibility', [
+            'header'    => Mage::helper('catalog')->__('Visibility'),
+            'width'     => 90,
+            'index'     => 'visibility',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('catalog/product_visibility')->getOptionArray(),
+        ]);
+
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => '80',
             'index'     => 'sku'
         ]);
+
         $this->addColumn('price', [
             'header'    => Mage::helper('catalog')->__('Price'),
             'type'  => 'currency',
-            'width'     => '1',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
         ]);
+
         $this->addColumn('position', [
             'header'    => Mage::helper('catalog')->__('Position'),
             'width'     => '1',
             'type'      => 'number',
             'index'     => 'position',
             'editable'  => !$this->getCategory()->getProductsReadonly()
-            //'renderer'  => 'adminhtml/widget_grid_column_renderer_input'
+        ]);
+
+        $this->addColumn('action', [
+            'header'    => Mage::helper('catalog')->__('Action'),
+            'width'     => '50px',
+            'type'      => 'action',
+            'getter'    => 'getId',
+            'actions'   => [
+                [
+                    'caption' => Mage::helper('catalog')->__('Edit'),
+                    'id'      => 'editlink',
+                    'field'   => 'id',
+                    'onclick' => "popWin(this.href,'win','width=1000,height=700,resizable=1,scrollbars=1');return false;",
+                    'url'     => [
+                        'base'   => 'adminhtml/catalog_product/edit',
+                        'params' => [
+                            'store' => $this->getRequest()->getParam('store'),
+                            'popup' => 1
+                        ],
+                    ],
+                ],
+            ],
+            'filter' => false,
+            'sortable' => false,
+            'index' => 'stores',
         ]);
 
         return parent::_prepareColumns();

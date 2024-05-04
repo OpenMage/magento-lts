@@ -51,6 +51,13 @@
                 <?php  if ($_order->getTracksCollection()->count()) : ?>
                 <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->quoteEscape($this->__('Track Order')) ?>"><?php echo $this->__('Track Order') ?></a>
                 <br/>
+                    <?php foreach ($_order->getTracksCollection() as $_track): ?>
+                        <div>
+                            <?php $trackNumber = $_track->getNumber();?>
+                            <strong><?php echo $_track->getTitle() ?></strong>
+                            <span data-copy-text="<?php echo $trackNumber ?>"><?php echo $trackNumber ?></span>
+                        </div> 
+                    <?php endforeach; ?>
                 <?php endif ?>
                 <?php if ($_order->getShippingDescription()): ?>
                     <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>

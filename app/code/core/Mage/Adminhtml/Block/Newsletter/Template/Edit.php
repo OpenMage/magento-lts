@@ -261,13 +261,15 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     }
 
     /**
-     * Return return template name for JS
-     *
      * @return string
      */
     public function getJsTemplateName()
     {
-        return addcslashes($this->escapeHtml($this->getModel()->getTemplateCode()), "\"\r\n\\");
+        $templateCode = $this->getModel()->getTemplateCode();
+        if ($templateCode === null) {
+            return '';
+        }
+        return addcslashes($this->escapeHtml($templateCode), "\"\r\n\\");
     }
 
     /**

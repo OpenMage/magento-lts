@@ -579,9 +579,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_filterStockData($productData['stock_data']);
         }
 
-        /**
-         * Websites
-         */
         if (!isset($productData['website_ids'])) {
             $productData['website_ids'] = [];
         }

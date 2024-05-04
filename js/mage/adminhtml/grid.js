@@ -852,10 +852,10 @@ serializerController.prototype = {
         this.rowInit(this.grid, row);
     },
     rowClick : function(grid, event) {
-        var trElement = Event.findElement(event, 'tr');
+        var tdElement = Event.findElement(event, 'td');
         var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.select(trElement, 'input');
+        if(tdElement){
+            var checkbox = Element.select(tdElement, 'input');
             if(checkbox[0] && !checkbox[0].disabled){
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 this.grid.setCheckboxChecked(checkbox[0], checked);

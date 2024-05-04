@@ -57,7 +57,7 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getBunchSize()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_BUNCH_SIZE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_BUNCH_SIZE);
     }
 
     /**
@@ -67,6 +67,6 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getImportConfigurablePageSize()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_IMPORT_CONFIGURABLE_PAGE_SIZE);
     }
 }

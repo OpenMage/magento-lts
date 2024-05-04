@@ -29,7 +29,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             return;
         }
         $this->setFlag('', self::FLAG_NO_CHECK_INSTALLATION, true);
-        return parent::preDispatch();
+        parent::preDispatch();
     }
 
     /**

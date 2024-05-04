@@ -17,10 +17,6 @@ parameters:
         - lib/Varien
         - shell
     excludePaths:
-        # removed and fixed modules (OM-2811, OM-2813)
-        - app/code/core/Mage/Backup/*
-        - app/code/core/Mage/PageCache/*
-
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
