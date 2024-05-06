@@ -215,6 +215,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _findTableInCond($table, $cond)
     {
+        $cond  = (string)$cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
         if (strpos($cond, $quote . $table . $quote . '.') !== false) {
@@ -226,7 +227,6 @@ class Varien_Db_Select extends Zend_Db_Select
         $needle   = [];
         while (is_integer($result)) {
             $result = strpos($cond, $table . '.', $position);
-
             if (is_integer($result)) {
                 $needle[] = $result;
                 $position = ($result + strlen($table) + 1);

@@ -1782,7 +1782,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $newEventName = strtolower($oldName);
                     if (!isset($events->$newEventName)) {
                         /** @var Mage_Core_Model_Config_Element $newNode */
-                        $newNode = $events->addChild($newEventName, $event);
+                        $newNode = $events->addChild($newEventName, (string)$event);
                         $newNode->extend($event);
                     }
                     unset($events->$oldName);
