@@ -21,9 +21,6 @@
         </Mage_Authorizenet>
     </modules>
     <global>
-        <blocks>
-            <directpost><class>Mage_Authorizenet_Block_Directpost</class></directpost>
-        </blocks>
         <models>
             <authorizenet>
                 <class>Mage_Authorizenet_Model</class>
@@ -53,16 +50,6 @@
                 </authorizenet>
             </updates>
         </layout>
-        <events>
-            <checkout_submit_all_after>
-                <observers>
-                    <directpost_update_all_edit_increments>
-                        <class>authorizenet/directpost_observer</class>
-                        <method>updateAllEditIncrements</method>
-                    </directpost_update_all_edit_increments>
-                </observers>
-            </checkout_submit_all_after>
-        </events>
     </adminhtml>
 
     <frontend>
@@ -91,24 +78,6 @@
                 </authorizenet>
             </updates>
         </layout>
-        <events>
-            <checkout_submit_all_after>
-                <observers>
-                    <directpost_save_order_after_submit>
-                        <class>authorizenet/directpost_observer</class>
-                        <method>saveOrderAfterSubmit</method>
-                    </directpost_save_order_after_submit>
-                </observers>
-            </checkout_submit_all_after>
-            <controller_action_postdispatch_checkout_onepage_saveOrder>
-                <observers>
-                    <directpost_save_order_onepage>
-                        <class>authorizenet/directpost_observer</class>
-                        <method>addAdditionalFieldsToResponseFrontend</method>
-                    </directpost_save_order_onepage>
-                </observers>
-            </controller_action_postdispatch_checkout_onepage_saveOrder>
-        </events>
     </frontend>
 
     <admin>
@@ -122,29 +91,4 @@
             </adminhtml>
         </routers>
     </admin>
-
-    <default>
-        <payment>
-            <authorizenet_directpost>
-                <active>0</active>
-                <cctypes>AE,VI,MC,DI</cctypes>
-                <cgi_url>https://secure.authorize.net/gateway/transact.dll</cgi_url>
-                <debug>0</debug>
-                <email_customer>0</email_customer>
-                <login backend_model="adminhtml/system_config_backend_encrypted"/>
-                <merchant_email></merchant_email>
-                <model>authorizenet/directpost</model>
-                <order_status>processing</order_status>
-                <payment_action>authorize</payment_action>
-                <test>1</test>
-                <title>Credit Card Direct Post (Authorize.net)</title>
-                <trans_key backend_model="adminhtml/system_config_backend_encrypted"/>
-                <signature_key backend_model="adminhtml/system_config_backend_encrypted"/>
-                <trans_md5 backend_model="adminhtml/system_config_backend_encrypted"/>
-                <allowspecific>0</allowspecific>
-                <currency>USD</currency>
-                <create_order_before>1</create_order_before>
-            </authorizenet_directpost>
-        </payment>
-    </default>
 </config>

@@ -926,46 +926,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: "#^Call to an undefined method Varien_Object\\:\\:decrypt\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Call to an undefined method Varien_Object\\:\\:encrypt\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Return type \\(bool\\) of method Mage_Authorizenet_Model_Directpost\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Authorizenet_Model_Directpost\\:\\:authorize\\(\\) should be compatible with return type \\(\\$this\\(Mage_Paygate_Model_Authorizenet\\)\\) of method Mage_Paygate_Model_Authorizenet\\:\\:authorize\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php
-
-		-
-			message: "#^Method Mage_Authorizenet_Directpost_PaymentController\\:\\:_getIframeBlock\\(\\) should return Mage_Authorizenet_Block_Directpost_Iframe but returns Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
-			message: "#^Variable \\$params might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
 			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
