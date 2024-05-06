@@ -193,11 +193,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportCsvAction()
     {
-        $fileName   = 'rates.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/tax_rate_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('rates.csv', -1));
     }
 
     /**
@@ -205,11 +202,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportXmlAction()
     {
-        $fileName   = 'rates.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getExcelFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/tax_rate_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('rates.xml', -1));
     }
 
     /**
@@ -228,7 +222,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Import and export Page
-     *
      */
     public function importExportAction()
     {
@@ -245,8 +238,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * import action from import/export tax
-     *
+     * Import action from import/export tax
      */
     public function importPostAction()
     {
