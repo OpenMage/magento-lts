@@ -245,17 +245,13 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         }
 
         $r->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
-
         $r->setDestRegionCode($request->getDestRegionCode());
-
         if ($request->getDestPostcode()) {
             $r->setDestPostal($request->getDestPostcode());
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-
         $weight = $this->_getCorrectWeight($weight);
-
         $r->setWeight($weight);
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
@@ -270,11 +266,15 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
             $unit = $this->getConfigData('unit_of_measure');
         }
         $r->setUnitMeasure($unit);
-
+        if ($r->getUnitMeasure() == 'LBS') {
+            $r->setUnitDimensions('IN');
+            $r->setUnitDimensionsDescription('Inches');
+        } else {
+            $r->setUnitDimensions('CM');
+            $r->setUnitDimensionsDescription('Centimeters');
+        }
         $r->setIsReturn($request->getIsReturn());
-
         $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
-
         $this->_rawRequest = $r;
 
         return $this;
@@ -754,9 +754,9 @@ XMLRequest;
 XMLRequest;
 
         $xmlRequest .= (
-            $params['49_residential'] === '01'
-                  ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>"
-                  : ''
+        $params['49_residential'] === '01'
+            ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>"
+            : ''
         );
 
         $xmlRequest .= <<< XMLRequest
@@ -1492,9 +1492,9 @@ XMLAuth;
                 $referenceData = $request->getReferenceData() . $request->getPackageId();
             } else {
                 $referenceData = 'Order #'
-                                 . $request->getOrderShipment()->getOrder()->getIncrementId()
-                                 . ' P'
-                                 . $request->getPackageId();
+                    . $request->getOrderShipment()->getOrder()->getIncrementId()
+                    . ' P'
+                    . $request->getPackageId();
             }
             $referencePart = $packagePart->addChild('ReferenceNumber');
             $referencePart->addChild('Code', '02');
@@ -1539,9 +1539,9 @@ XMLAuth;
 
         $labelPart = $xmlRequest->addChild('LabelSpecification');
         $labelPart->addChild('LabelPrintMethod')
-                ->addChild('Code', 'GIF');
+            ->addChild('Code', 'GIF');
         $labelPart->addChild('LabelImageFormat')
-                ->addChild('Code', 'GIF');
+            ->addChild('Code', 'GIF');
 
         $this->setXMLAccessRequest();
         $xmlRequest = $this->_xmlAccessRequest . $xmlRequest->asXML();
@@ -2048,11 +2048,11 @@ XMLAuth;
         $countryRecipient   = $params->getCountryRecipient();
 
         if (($countryShipper == self::USA_COUNTRY_ID
-            && $countryRecipient == self::CANADA_COUNTRY_ID)
+                && $countryRecipient == self::CANADA_COUNTRY_ID)
             || ($countryShipper == self::CANADA_COUNTRY_ID
-            && $countryRecipient == self::USA_COUNTRY_ID)
+                && $countryRecipient == self::USA_COUNTRY_ID)
             || ($countryShipper == self::MEXICO_COUNTRY_ID
-            && $countryRecipient == self::USA_COUNTRY_ID)
+                && $countryRecipient == self::USA_COUNTRY_ID)
             && $method == '11' // UPS Standard
         ) {
             $containerTypes = [];
@@ -2074,14 +2074,14 @@ XMLAuth;
                     '2a'    => Mage::helper('usa')->__('Small Express Box'),
                     '2b'    => Mage::helper('usa')->__('Medium Express Box'),
                     '2c'    => Mage::helper('usa')->__('Large Express Box'),
-                    ];
+                ];
             }
             return ['00' => Mage::helper('usa')->__('Customer Packaging')] + $containerTypes;
         } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
             && (
                 $method == '03' // UPS Ground
-            || $method == '02' // UPS Second Day Air
-            || $method == '01' // UPS Next Day Air
+                || $method == '02' // UPS Second Day Air
+                || $method == '01' // UPS Next Day Air
             )
         ) {
             // Container types should be the same as for domestic
@@ -2292,8 +2292,8 @@ XMLAuth;
             ],
             "Dimensions" => [
                 "UnitOfMeasurement" => [
-                    "Code" => "IN",
-                    "Description" => "Inches"
+                    "Code" => $rowRequest->getUnitDimensions(),
+                    "Description" => $rowRequest->getUnitDimensionsDescription()
                 ],
                 "Length" => "5",
                 "Width" => "5",
