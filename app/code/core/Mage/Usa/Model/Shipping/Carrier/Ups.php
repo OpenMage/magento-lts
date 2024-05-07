@@ -1205,7 +1205,7 @@ XMLAuth;
         if ($jsonResponse) {
             $responseData = json_decode($jsonResponse, true);
 
-            if (isset($responseData['trackResponse']['shipment'][0]['package'][0]['activity'])) {
+            if (isset($responseData['trackResponse']['shipment'])) {
                 $activityTags = $responseData['trackResponse']['shipment'][0]['package'][0]['activity'] ?? [];
                 $index = 1;
                 foreach ($activityTags as $activityTag) {
@@ -1257,9 +1257,7 @@ XMLAuth;
                     $index++;
                 }
                 $resultArr['progressdetail'] = $packageProgress;
-            } elseif (isset($responseData['trackResponse']['shipment'][0]['warnings'][0]['message'])) {
-                $errorTitle = $responseData['trackResponse']['shipment'][0]['warnings'][0]['message'];
-            } else {
+            } elseif (isset($responseData['response']['errors'][0]['message'])) {
                 $errorTitle = $responseData['response']['errors'][0]['message'];
             }
         }
