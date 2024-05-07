@@ -754,9 +754,9 @@ XMLRequest;
 XMLRequest;
 
         $xmlRequest .= (
-        $params['49_residential'] === '01'
-            ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>"
-            : ''
+            $params['49_residential'] === '01'
+                ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>"
+                : ''
         );
 
         $xmlRequest .= <<< XMLRequest
@@ -2047,12 +2047,9 @@ XMLAuth;
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
 
-        if (($countryShipper == self::USA_COUNTRY_ID
-                && $countryRecipient == self::CANADA_COUNTRY_ID)
-            || ($countryShipper == self::CANADA_COUNTRY_ID
-                && $countryRecipient == self::USA_COUNTRY_ID)
-            || ($countryShipper == self::MEXICO_COUNTRY_ID
-                && $countryRecipient == self::USA_COUNTRY_ID)
+        if (($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID)
+            || ($countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
+            || ($countryShipper == self::MEXICO_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
             && $method == '11' // UPS Standard
         ) {
             $containerTypes = [];
