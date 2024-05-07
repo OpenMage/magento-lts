@@ -4971,33 +4971,8 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_parseXmlTrackingResponse\\(\\) should return null but returns Mage_Shipping_Model_Rate_Result\\|Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_setFreeMethodRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:setXMLAccessRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_baseCurrencyRate \\(float\\) does not accept string\\.$#"
 			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
