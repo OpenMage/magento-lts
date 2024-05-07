@@ -1205,60 +1205,60 @@ XMLAuth;
         if ($jsonResponse) {
             $responseData = json_decode($jsonResponse, true);
 
-            if (isset($responseData['trackResponse']['shipment'])) {
+            if (isset($responseData['trackResponse']['shipment'][0]['package'][0]['activity'])) {
                 $activityTags = $responseData['trackResponse']['shipment'][0]['package'][0]['activity'] ?? [];
-                if ($activityTags) {
-                    $index = 1;
-                    foreach ($activityTags as $activityTag) {
-                        $addressArr = [];
-                        if (isset($activityTag['location']['address']['city'])) {
-                            $addressArr[] = (string)$activityTag['location']['address']['city'];
-                        }
-                        if (isset($activityTag['location']['address']['stateProvince'])) {
-                            $addressArr[] = (string)$activityTag['location']['address']['stateProvince'];
-                        }
-                        if (isset($activityTag['location']['address']['countryCode'])) {
-                            $addressArr[] = (string)$activityTag['location']['address']['countryCode'];
-                        }
-                        $dateArr = [];
-                        $date = (string)$activityTag['date'];
-                        //YYYYMMDD
-                        $dateArr[] = substr($date, 0, 4);
-                        $dateArr[] = substr($date, 4, 2);
-                        $dateArr[] = substr($date, -2, 2);
-
-                        $timeArr = [];
-                        $time = (string)$activityTag['time'];
-                        //HHMMSS
-                        $timeArr[] = substr($time, 0, 2);
-                        $timeArr[] = substr($time, 2, 2);
-                        $timeArr[] = substr($time, -2, 2);
-
-                        if ($index === 1) {
-                            $resultArr['status'] = (string)$activityTag['status']['description'];
-                            $resultArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $resultArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
-                            if ($addressArr) {
-                                $resultArr['deliveryto'] = implode(', ', $addressArr);
-                            }
-                        } else {
-                            $tempArr = [];
-                            $tempArr['activity'] = (string)$activityTag['status']['description'];
-                            $tempArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $tempArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
-                            if ($addressArr) {
-                                $tempArr['deliverylocation'] = implode(', ', $addressArr);
-                            }
-                            $packageProgress[] = $tempArr;
-                        }
-                        $index++;
+                $index = 1;
+                foreach ($activityTags as $activityTag) {
+                    $addressArr = [];
+                    if (isset($activityTag['location']['address']['city'])) {
+                        $addressArr[] = (string)$activityTag['location']['address']['city'];
                     }
-                    $resultArr['progressdetail'] = $packageProgress;
+                    if (isset($activityTag['location']['address']['stateProvince'])) {
+                        $addressArr[] = (string)$activityTag['location']['address']['stateProvince'];
+                    }
+                    if (isset($activityTag['location']['address']['countryCode'])) {
+                        $addressArr[] = (string)$activityTag['location']['address']['countryCode'];
+                    }
+                    $dateArr = [];
+                    $date = (string)$activityTag['date'];
+                    //YYYYMMDD
+                    $dateArr[] = substr($date, 0, 4);
+                    $dateArr[] = substr($date, 4, 2);
+                    $dateArr[] = substr($date, -2, 2);
+
+                    $timeArr = [];
+                    $time = (string)$activityTag['time'];
+                    //HHMMSS
+                    $timeArr[] = substr($time, 0, 2);
+                    $timeArr[] = substr($time, 2, 2);
+                    $timeArr[] = substr($time, -2, 2);
+
+                    if ($index === 1) {
+                        $resultArr['status'] = (string)$activityTag['status']['description'];
+                        $resultArr['deliverydate'] = implode('-', $dateArr);
+                        //YYYY-MM-DD
+                        $resultArr['deliverytime'] = implode(':', $timeArr);
+                        //HH:MM:SS
+                        if ($addressArr) {
+                            $resultArr['deliveryto'] = implode(', ', $addressArr);
+                        }
+                    } else {
+                        $tempArr = [];
+                        $tempArr['activity'] = (string)$activityTag['status']['description'];
+                        $tempArr['deliverydate'] = implode('-', $dateArr);
+                        //YYYY-MM-DD
+                        $tempArr['deliverytime'] = implode(':', $timeArr);
+                        //HH:MM:SS
+                        if ($addressArr) {
+                            $tempArr['deliverylocation'] = implode(', ', $addressArr);
+                        }
+                        $packageProgress[] = $tempArr;
+                    }
+                    $index++;
                 }
+                $resultArr['progressdetail'] = $packageProgress;
+            } elseif (isset($responseData['trackResponse']['shipment'][0]['warnings'][0]['message'])) {
+                $errorTitle = $responseData['trackResponse']['shipment'][0]['warnings'][0]['message'];
             } else {
                 $errorTitle = $responseData['response']['errors'][0]['message'];
             }
