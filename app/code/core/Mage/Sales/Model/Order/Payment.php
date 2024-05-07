@@ -86,8 +86,6 @@
  * @method $this setCcNumberEnc(string $value)
  * @method string getCcOwner()
  * @method $this setCcOwner(string $value)
- * @method string getCcSecureVerify()
- * @method $this setCcSecureVerify(string $value)
  * @method string getCcSsIssue()
  * @method $this setCcSsIssue(string $value)
  * @method string getCcSsStartMonth()

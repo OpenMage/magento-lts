@@ -2521,11 +2521,6 @@ form .legend {
   clear: both;
 }
 
-li.centinel-logos div.input-box img {
-  display: inline;
-  vertical-align: middle;
-}
-
 /* For adjacent select inputs. */
 /* Example: credit card expiration month and year. */
 .input-box .v-fix {
@@ -7299,13 +7294,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   #checkout-review-table thead > tr > th:first-child {
     display: block;
   }
-}
-#checkout-step-review .centinel > p {
-  margin-bottom: 10px;
-}
-#checkout-step-review .centinel iframe {
-  width: 100%;
-  min-height: 400px;
 }
 
 /* Gift options */

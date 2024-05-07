@@ -255,20 +255,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Set fallback API URL if not defined in configuration
-     *
-     * @return Mage_Centinel_Model_Service
-     */
-    public function getCentinelValidator()
-    {
-        $validator = parent::getCentinelValidator();
-        if (!$validator->getCustomApiEndpointUrl()) {
-            $validator->setCustomApiEndpointUrl($this->_pro->getConfig()->centinelDefaultApiUrl);
-        }
-        return $validator;
-    }
-
-    /**
      * Fetch transaction details info
      *
      * @param Mage_Payment_Model_Info $payment
@@ -311,9 +297,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             $api->setMaestroSoloIssueDate(
                 $this->_getFormattedCcExpirationDate($payment->getCcSsStartMonth(), $year)
             );
-        }
-        if ($this->getIsCentinelValidationEnabled()) {
-            $this->getCentinelValidator()->exportCmpiData($api);
         }
 
         // add shipping and billing addresses
