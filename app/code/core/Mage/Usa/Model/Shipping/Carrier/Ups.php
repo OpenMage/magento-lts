@@ -1150,11 +1150,15 @@ XMLAuth;
         $version = "v1";
         $query = http_build_query([
             'locale' => 'en_US',
-            'returnSignature' => 'false'
+            'returnSignature' => 'false',
+            'returnMilestones' => 'false',
+            'returnPOD' => 'false'
         ]);
         $headers = [
             "Authorization: Bearer $accessToken",
-            'Content-Type: application/json'
+            'Content-Type: application/json',
+            'transId: track' . uniqid(),
+            'transactionSrc: OpenMage'
         ];
 
         $ch = curl_init();
