@@ -72,37 +72,6 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve redirect iframe url
-     * @param array $params
-     * @return string
-     */
-    public function getRedirectIframeUrl($params)
-    {
-        return $this->_getUrl('authorizenet/directpost_payment/redirect', $params);
-    }
-
-    /**
-     * Retrieve place order url on front
-     *
-     * @return  string
-     */
-    public function getPlaceOrderFrontUrl()
-    {
-        $params = [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()];
-        return $this->_getUrl('authorizenet/directpost_payment/place', $params);
-    }
-
-    /**
-     * Retrieve place order url in admin
-     *
-     * @return  string
-     */
-    public function getPlaceOrderAdminUrl()
-    {
-        return $this->getAdminUrl('*/authorizenet_directpost_payment/place', []);
-    }
-
-    /**
      * Retrieve place order url
      *
      * @param array $params
