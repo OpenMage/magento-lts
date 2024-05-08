@@ -1222,34 +1222,28 @@ XMLAuth;
                         }
                         $dateArr = [];
                         $date = (string)$activityTag['date'];
-                        //YYYYMMDD
                         $dateArr[] = substr($date, 0, 4);
                         $dateArr[] = substr($date, 4, 2);
                         $dateArr[] = substr($date, -2, 2);
 
                         $timeArr = [];
                         $time = (string)$activityTag['time'];
-                        //HHMMSS
                         $timeArr[] = substr($time, 0, 2);
                         $timeArr[] = substr($time, 2, 2);
                         $timeArr[] = substr($time, -2, 2);
 
                         if ($index === 1) {
                             $resultArr['status'] = (string)$activityTag['status']['description'];
-                            $resultArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $resultArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
+                            $resultArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
+                            $resultArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
                             if ($addressArr) {
                                 $resultArr['deliveryto'] = implode(', ', $addressArr);
                             }
                         } else {
                             $tempArr = [];
                             $tempArr['activity'] = (string)$activityTag['status']['description'];
-                            $tempArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $tempArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
+                            $tempArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
+                            $tempArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
                             if ($addressArr) {
                                 $tempArr['deliverylocation'] = implode(', ', $addressArr);
                             }
