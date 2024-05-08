@@ -7109,9 +7109,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 .sp-methods input.cvv {
   width: 4em !important;
 }
-.sp-methods #advice-validate-cc-exp-ccsave_expiration {
-  max-width: 130px;
-}
 .sp-methods .checkmo-list li {
   margin: 0 0 5px;
   content: '';
