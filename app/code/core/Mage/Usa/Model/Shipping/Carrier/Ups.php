@@ -1232,20 +1232,16 @@ XMLAuth;
 
                         if ($index === 1) {
                             $resultArr['status'] = (string)$activityTag['status']['description'];
-                            $resultArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $resultArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
+                            $resultArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
+                            $resultArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
                             if ($addressArr) {
                                 $resultArr['deliveryto'] = implode(', ', $addressArr);
                             }
                         } else {
                             $tempArr = [];
                             $tempArr['activity'] = (string)$activityTag['status']['description'];
-                            $tempArr['deliverydate'] = implode('-', $dateArr);
-                            //YYYY-MM-DD
-                            $tempArr['deliverytime'] = implode(':', $timeArr);
-                            //HH:MM:SS
+                            $tempArr['deliverydate'] = implode('-', $dateArr); //YYYY-MM-DD
+                            $tempArr['deliverytime'] = implode(':', $timeArr); //HH:MM:SS
                             if ($addressArr) {
                                 $tempArr['deliverylocation'] = implode(', ', $addressArr);
                             }
