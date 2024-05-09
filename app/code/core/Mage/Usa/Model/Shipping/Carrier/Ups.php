@@ -2470,7 +2470,7 @@ XMLAuth;
                 if (in_array($responseCurrencyCode, $allowedCurrencies)) {
                     $cost = (float)$cost * $this->_getBaseCurrencyRate($responseCurrencyCode);
                 } else {
-                    $errorTitle = __(
+                    $errorTitle = Mage::helper('usa')->__(
                         'We can\'t convert a rate from "%1-%2".',
                         $responseCurrencyCode,
                         $this->_request->getPackageCurrency()->getCode()
