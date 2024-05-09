@@ -443,13 +443,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
         $request->setExpdate(sprintf('%02d', $payment->getCcExpMonth()) . substr($payment->getCcExpYear(), -2, 2));
         $request->setCvv2($payment->getCcCid());
 
-        if ($this->getIsCentinelValidationEnabled()) {
-            $params = [];
-            $params = $this->getCentinelValidator()->exportCmpiData($params);
-            /** @var Varien_Object $request */
-            $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
-        }
-
         $order = $payment->getOrder();
         if (!empty($order)) {
             $orderIncrementId = $order->getIncrementId();

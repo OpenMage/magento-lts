@@ -206,7 +206,7 @@ final class Mage
             'major'     => '21',
             'minor'     => '0',
             'patch'     => '0',
-            'stability' => 'beta1', // beta,alpha,rc
+            'stability' => 'beta2', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
@@ -824,7 +824,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime($date)) {
+                if (($date = $localConfig->global->install->date) && strtotime((string)$date)) {
                     self::$_isInstalled = true;
                 }
             }
