@@ -141,15 +141,15 @@ varienGrid.prototype = {
 
     },
     doSort : function(event){
-        event.preventDefault();
-        const element = event.target.closest('a');
-        const parentElement = element.parentNode;
+        var element = Event.findElement(event, 'a');
 
-        if (element && parentElement && parentElement.dataset.columnId && element.title) {
-            this.addVarToUrl(this.sortVar, parentElement.dataset.columnId);
+        if(element.name && element.title){
+            this.addVarToUrl(this.sortVar, element.name);
             this.addVarToUrl(this.dirVar, element.title);
             this.reload(this.url);
         }
+        Event.stop(event);
+        return false;
     },
     loadByElement : function(element){
         if(element && element.name){
