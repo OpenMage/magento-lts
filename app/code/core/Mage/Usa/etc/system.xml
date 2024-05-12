@@ -832,7 +832,7 @@
                         </origin_shipment>
                         <client_id translate="label comment">
                             <label>Client ID</label>
-                            <comment><![CDATA[To obtain your Client ID/Secret you have to:<br />- Register to <a href='https://developer.ups.com' target=_blank>https://developer.ups.com</a><br />- Go to My Apps -> Add Apps and fill all data<br />- Add Rating/Authorization/Shipping/TimeInTransit products to the app]]></comment>
+                            <comment><![CDATA[To obtain your Client ID/Secret you have to:<br />- Register to <a href='https://developer.ups.com' target=_blank>https://developer.ups.com</a><br />- Go to My Apps -> Add Apps and fill all data<br />- Add Rating, Authorization, Shipping, TimeInTransit, Tracking products to the app]]></comment>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>35</sort_order>
