@@ -4,7 +4,6 @@
     name="OpenMage" targetNamespace="urn:OpenMage">
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
-            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
             <complexType name="customerCustomerEntityToCreate">
                 <all>
                     <element name="customer_id" type="xsd:int" minOccurs="0" />
