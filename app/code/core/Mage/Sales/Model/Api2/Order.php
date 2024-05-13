@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
 {
-    /**#@+
+    /**
      * Parameters' names in config with special ACL meaning
      */
     public const PARAM_GIFT_MESSAGE   = '_gift_message';
@@ -30,7 +29,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     public const PARAM_PAYMENT_METHOD = '_payment_method';
     public const PARAM_TAX_NAME       = '_tax_name';
     public const PARAM_TAX_RATE       = '_tax_rate';
-    /**#@-*/
 
     /**
      * Add gift message info to select

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller_Action
 {
@@ -49,11 +48,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportCustomerCsvAction()
     {
-        $fileName   = 'shopcart_customer.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('shopcart_customer.csv', -1));
     }
 
     /**
@@ -61,11 +57,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportCustomerExcelAction()
     {
-        $fileName   = 'shopcart_customer.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('shopcart_customer.xml', -1));
     }
 
     public function productAction()
@@ -86,11 +79,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportProductCsvAction()
     {
-        $fileName   = 'shopcart_product.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('shopcart_product.csv', -1));
     }
 
     /**
@@ -98,11 +88,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportProductExcelAction()
     {
-        $fileName   = 'shopcart_product.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('shopcart_product.xml', -1));
     }
 
     public function abandonedAction()
@@ -123,11 +110,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportAbandonedCsvAction()
     {
-        $fileName   = 'shopcart_abandoned.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('shopcart_abandoned.csv', -1));
     }
 
     /**
@@ -135,11 +119,8 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
      */
     public function exportAbandonedExcelAction()
     {
-        $fileName   = 'shopcart_abandoned.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('shopcart_abandoned.xml', -1));
     }
 
     /**

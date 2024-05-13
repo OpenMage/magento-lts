@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 {
@@ -409,11 +408,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function exportCsvAction()
     {
-        $fileName   = 'customers.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('customers.csv', -1));
     }
 
     /**
@@ -421,11 +417,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function exportXmlAction()
     {
-        $fileName   = 'customers.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getExcelFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/customer_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('customers.xml', -1));
     }
 
     /**
@@ -808,6 +801,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     break;
                 case 'jpg':
                     $contentType = 'image/jpeg';
+                    break;
+                case 'webp':
+                    $contentType = 'image/webp';
                     break;
                 case 'png':
                     $contentType = 'image/png';

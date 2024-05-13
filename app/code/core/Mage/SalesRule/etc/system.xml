@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -75,5 +75,22 @@
                 </auto_generated_coupon_codes>
             </groups>
         </promo>
+        <reports>
+            <groups>
+                <crontab>
+                    <fields>
+                        <coupons_expr translate="label comment">
+                            <label>Coupons</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Promotion Coupons Usage Report</comment>
+                        </coupons_expr>
+                    </fields>
+                </crontab>
+            </groups>
+        </reports>
     </sections>
 </config>

@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Paygate
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
@@ -1238,11 +1237,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 break;
         }
 
-        if ($this->getIsCentinelValidationEnabled()) {
-            $params  = $this->getCentinelValidator()->exportCmpiData([]);
-            $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
-        }
-
         if (!empty($order)) {
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {
@@ -1314,7 +1308,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             //'ssltransport' => 'tcp',
         ]);
         foreach ($request->getData() as $key => $value) {
-            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value));
+            $request->setData($key, str_replace(self::RESPONSE_DELIM_CHAR, '', $value ?? ''));
         }
         $request->setXDelimChar(self::RESPONSE_DELIM_CHAR);
 

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 {
@@ -45,7 +44,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function truncate($string, $length = 80, $etc = '...', &$remainder = '', $breakWords = true)
     {
         $remainder = '';
-        if ($length == 0) {
+        if (is_null($string) || $length == 0) {
             return '';
         }
 
@@ -76,7 +75,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function strlen($string)
     {
-        return iconv_strlen($string, self::ICONV_CHARSET);
+        return is_null($string) ? 0 : iconv_strlen($string, self::ICONV_CHARSET);
     }
 
     /**
@@ -89,6 +88,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function substr($string, $offset, $length = null)
     {
+        if (is_null($string)) {
+            return '';
+        }
         $string = $this->cleanString($string);
         if (is_null($length)) {
             $length = $this->strlen($string) - $offset;
@@ -247,6 +249,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
+        if (is_null($str)) {
+            return [];
+        }
         $result = [];
         $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($split as $word) {
@@ -270,8 +275,12 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function cleanString($string)
     {
-        return '"libiconv"' == ICONV_IMPL ?
-            iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string) : $string;
+        if (is_null($string)) {
+            return '';
+        }
+        return '"libiconv"' == ICONV_IMPL
+            ? iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string)
+            : $string;
     }
 
     /**
@@ -280,11 +289,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param string $haystack
      * @param string $needle
      * @param int $offset
-     * @return int
+     * @return int|false
      */
-    public function strpos($haystack, $needle, $offset = null)
+    public function strpos($haystack, $needle, $offset = 0)
     {
-        return iconv_strpos($haystack, $needle, $offset, self::ICONV_CHARSET);
+        return iconv_strpos((string) $haystack, (string) $needle, $offset, self::ICONV_CHARSET);
     }
 
     /**
@@ -316,6 +325,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function parseQueryStr($str)
     {
+        if (is_null($str)) {
+            return [];
+        }
         $argSeparator = '&';
         $result = [];
         $partsQueryStr = explode($argSeparator, $str);
@@ -338,7 +350,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     protected function _validateQueryStr($str)
     {
-        if (!$str || (strpos($str, '=') === false)) {
+        if (!$str || !str_contains($str, '=')) {
             return false;
         }
         return true;
@@ -511,6 +523,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function unserialize($str)
     {
+        if (is_null($str)) {
+            return null;
+        }
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
         for ($i = 0; $i < strlen($str); $i++) {

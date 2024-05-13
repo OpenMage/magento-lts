@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Payment
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
@@ -159,11 +158,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             Mage::throwException($errorMsg);
         }
 
-        //This must be after all validation conditions
-        if ($this->getIsCentinelValidationEnabled()) {
-            $this->getCentinelValidator()->validate($this->getCentinelValidationData());
-        }
-
         return $this;
     }
 
@@ -235,7 +229,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $numSum = 0;
 
         for ($i = 0; $i < strlen($cardNumber); $i++) {
-            $currentNum = substr($cardNumber, $i, 1);
+            $currentNum = (int)substr($cardNumber, $i, 1);
 
             /**
              * Double every second digit
@@ -283,118 +277,5 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     {
         return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
             && parent::isAvailable($quote);
-    }
-
-    /**
-     * Whether centinel service is enabled
-     *
-     * @return bool
-     */
-    public function getIsCentinelValidationEnabled()
-    {
-        return Mage::getConfig()->getNode('modules/Mage_Centinel') !== false && $this->getConfigData('centinel') == 1;
-    }
-
-    /**
-     * Instantiate centinel validator model
-     *
-     * @return Mage_Centinel_Model_Service
-     */
-    public function getCentinelValidator()
-    {
-        $validator = Mage::getSingleton('centinel/service');
-        $validator
-            ->setIsModeStrict($this->getConfigData('centinel_is_mode_strict'))
-            ->setCustomApiEndpointUrl($this->getConfigData('centinel_api_url'))
-            ->setStore($this->getStore())
-            ->setIsPlaceOrder($this->_isPlaceOrder());
-        return $validator;
-    }
-
-    /**
-     * Return data for Centinel validation
-     *
-     * @return Varien_Object
-     */
-    public function getCentinelValidationData()
-    {
-        $info = $this->getInfoInstance();
-        $params = new Varien_Object();
-        $params
-            ->setPaymentMethodCode($this->getCode())
-            ->setCardType($info->getCcType())
-            ->setCardNumber($info->getCcNumber())
-            ->setCardExpMonth($info->getCcExpMonth())
-            ->setCardExpYear($info->getCcExpYear())
-            ->setAmount($this->_getAmount())
-            ->setCurrencyCode($this->_getCurrencyCode())
-            ->setOrderNumber($this->_getOrderId());
-        return $params;
-    }
-
-    /**
-     * Order increment ID getter (either real from order or a reserved from quote)
-     *
-     * @return string
-     */
-    private function _getOrderId()
-    {
-        $info = $this->getInfoInstance();
-
-        if ($this->_isPlaceOrder()) {
-            return $info->getOrder()->getIncrementId();
-        } else {
-            if (!$info->getQuote()->getReservedOrderId()) {
-                $info->getQuote()->reserveOrderId();
-            }
-            return $info->getQuote()->getReservedOrderId();
-        }
-    }
-
-    /**
-     * Grand total getter
-     *
-     * @return float
-     */
-    private function _getAmount()
-    {
-        $info = $this->getInfoInstance();
-        if ($this->_isPlaceOrder()) {
-            return (float)$info->getOrder()->getQuoteBaseGrandTotal();
-        } else {
-            return (float)$info->getQuote()->getBaseGrandTotal();
-        }
-    }
-
-    /**
-     * Currency code getter
-     *
-     * @return string
-     */
-    private function _getCurrencyCode()
-    {
-        $info = $this->getInfoInstance();
-
-        if ($this->_isPlaceOrder()) {
-            return $info->getOrder()->getBaseCurrencyCode();
-        } else {
-            return $info->getQuote()->getBaseCurrencyCode();
-        }
-    }
-
-    /**
-     * Whether current operation is order placement
-     *
-     * @return bool
-     */
-    private function _isPlaceOrder()
-    {
-        $info = $this->getInfoInstance();
-        if ($info instanceof Mage_Sales_Model_Quote_Payment) {
-            return false;
-        } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
-            return true;
-        }
-        return false;
     }
 }

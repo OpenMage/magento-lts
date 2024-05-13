@@ -9,6 +9,7 @@
  * @category   Tests
  * @package    Tests_Functional
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +80,7 @@ class AssertSitemapContent extends AbstractConstraint
     protected function checkContent($content, $urls)
     {
         foreach ($urls as $url) {
-            if (strpos($content, $url) === false) {
+            if (!str_contains($content, $url)) {
                 return false;
             }
         }

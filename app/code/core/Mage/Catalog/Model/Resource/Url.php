@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -336,9 +335,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @param string $attributeCode
+     * @param bool $ignoreDefault
      * @return $this
      */
-    public function saveCategoryAttribute(Varien_Object $category, $attributeCode)
+    public function saveCategoryAttribute(Varien_Object $category, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_categoryAttributes[$attributeCode])) {
@@ -382,7 +382,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if (!$ignoreDefault && $attributeData['store_id'] != 0) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)
@@ -490,9 +490,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Varien_Object|Mage_Catalog_Model_Product $product
      * @param string $attributeCode
+     * @param bool $ignoreDefault
      * @return $this
      */
-    public function saveProductAttribute(Varien_Object $product, $attributeCode)
+    public function saveProductAttribute(Varien_Object $product, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_productAttributes[$attributeCode])) {
@@ -536,7 +537,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if (!$ignoreDefault && $attributeData['store_id'] != 0) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)

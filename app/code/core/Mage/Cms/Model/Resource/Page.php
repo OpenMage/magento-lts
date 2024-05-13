@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -63,6 +62,21 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
+        }
+
+        if (empty($object->getData('identifier'))) {
+            $storeId = null;
+            if (is_array($object->getData('stores'))) {
+                foreach ($object->getData('stores') as $store) {
+                    if (!empty($store)) {
+                        $storeId = $store;
+                        break;
+                    }
+                }
+            }
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $storeId);
+            $urlkey = Mage::getModel('catalog/product_url')->formatUrlKey($object->getData('title'), $locale);
+            $object->setData('identifier', $urlkey);
         }
 
         if (!$this->getIsUniquePageToStores($object)) {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_Action
 {
@@ -246,22 +245,19 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Export shipping table rates in csv format
-     *
      */
     public function exportTableratesAction()
     {
-        $fileName   = 'tablerates.csv';
-        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $gridBlock */
-        $gridBlock  = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
-        $website    = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
+        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $grid */
+        $grid    = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
+        $website = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
         if ($this->getRequest()->getParam('conditionName')) {
             $conditionName = $this->getRequest()->getParam('conditionName');
         } else {
             $conditionName = $website->getConfig('carriers/tablerate/condition_name');
         }
-        $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
-        $content    = $gridBlock->getCsvFile();
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid->setWebsiteId($website->getId())->setConditionName($conditionName);
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tablerates.csv', -1));
     }
 
     /**

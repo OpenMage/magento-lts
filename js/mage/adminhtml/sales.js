@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017-2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var AdminOrder = new Class.create();
@@ -17,6 +17,7 @@ AdminOrder.prototype = {
         if(!data) data = {};
         this.loadBaseUrl    = false;
         this.customerId     = data.customer_id ? data.customer_id : false;
+        this.isGuest        = data.is_guest ? true : false;
         this.storeId        = data.store_id ? data.store_id : false;
         this.currencyId     = false;
         this.currencySymbol = data.currency_symbol ? data.currency_symbol : '';
@@ -92,6 +93,11 @@ AdminOrder.prototype = {
 
     setAddresses : function(addresses){
         this.addresses = addresses;
+    },
+
+    setCustomerIsGuest : function(){
+        this.isGuest = true;
+        this.setCustomerId(false);
     },
 
     setCustomerId : function(id){
@@ -1032,6 +1038,9 @@ AdminOrder.prototype = {
         }
         if (!params.customer_id) {
             params.customer_id = this.customerId;
+        }
+        if (!params.customer_is_guest) {
+            params.customer_is_guest = this.isGuest ? 1 : 0;
         }
         if (!params.store_id) {
             params.store_id = this.storeId;

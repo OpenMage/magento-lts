@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Catalog_Block_Product_Compare_Sidebar */
@@ -38,10 +38,9 @@ $_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
             </li>
         <?php endforeach ?>
         </ol>
-        <script type="text/javascript">decorateList('compare-items')</script>
         <div class="actions">
             <a href="<?php echo $_helper->getClearListUrl() ?>" onclick="return confirm('<?php echo Mage::helper('core')->quoteEscape($this->__('Are you sure you would like to remove all products from your comparison?')) ?>');"><?php echo $this->__('Clear All') ?></a>
-            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Compare')) ?>" class="button" onclick="popWin('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><span><span><?php echo $this->__('Compare') ?></span></span></button>
+            <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Compare')) ?>" class="button" onclick="popWin('<?php echo $_helper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->__('Compare') ?></button>
         </div>
     <?php else: ?>
         <p class="empty"><?php echo $this->__('You have no items to compare.') ?></p>

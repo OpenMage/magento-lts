@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,10 +18,14 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCanViewProfiles(bool $value)
  * @method $this setRecurringProfiles(Mage_Sales_Model_Recurring_Profile[] $value)
+ * @method string getOrderId()
+ * @method string getPrintUrl()
+ * @method bool getCanPrintOrder()
+ * @method bool getCanViewOrder()
+ * @method Mage_Sales_Model_Order getOrder()
  */
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {
@@ -29,17 +33,6 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      * @deprecated after 1.4.0.1
      */
     private $_order;
-
-    /**
-     * Retrieve identifier of created order
-     *
-     * @return string
-     * @deprecated after 1.4.0.1
-     */
-    public function getOrderId()
-    {
-        return $this->_getData('order_id');
-    }
 
     /**
      * Check order print availability
@@ -53,21 +46,9 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
     }
 
     /**
-     * Get url for order detale print
-     *
-     * @return string
-     * @deprecated after 1.4.0.1
-     */
-    public function getPrintUrl()
-    {
-        return $this->_getData('print_url');
-    }
-
-    /**
      * Get url for view order details
      *
      * @return string
-     * @deprecated after 1.4.0.1
      */
     public function getViewOrderUrl()
     {

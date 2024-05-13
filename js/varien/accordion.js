@@ -8,48 +8,48 @@
  * @category    Varien
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-Accordion = Class.create();
-Accordion.prototype = {
-    initialize: function(elem, clickableEntity, checkAllow) {
-        this.container = $(elem);
+class Accordion {
+    constructor(elem, clickableEntity, checkAllow) {
+        this.container = document.getElementById(elem);
         this.checkAllow = checkAllow || false;
         this.disallowAccessToNextSections = false;
-        this.sections = $$('#' + elem + ' .section');
+        this.sections = Array.from(document.querySelectorAll('#' + elem + ' .section'));
         this.currentSection = false;
-        var headers = $$('#' + elem + ' .section ' + clickableEntity);
-        headers.each(function(header) {
-            Event.observe(header,'click',this.sectionClicked.bindAsEventListener(this));
+        var headers = Array.from(document.querySelectorAll('#' + elem + ' .section ' + clickableEntity));
+        headers.forEach(function(header) {
+            header.addEventListener('click', this.sectionClicked.bind(this));
         }.bind(this));
-    },
+    }
 
-    sectionClicked: function(event) {
-        this.openSection($(Event.element(event)).up('.section'));
-        Event.stop(event);
-    },
+    sectionClicked(event) {
+        this.openSection(event.target.closest('.section'));
+        event.stopPropagation();
+    }
 
-    openSection: function(section) {
-        var section = $(section);
+    openSection(section) {
+        if (typeof section == 'string') {
+            section = document.getElementById(section);
+        }
 
-        // Check allow
-        if (this.checkAllow && !Element.hasClassName(section, 'allow')){
+        if (this.checkAllow && section && !section.classList.contains('allow')){
             return;
         }
 
         if(section.id != this.currentSection) {
             this.closeExistingSection();
             this.currentSection = section.id;
-            $(this.currentSection).addClassName('active');
-            var contents = Element.select(section, '.a-item');
-            contents[0].show();
-            //Effect.SlideDown(contents[0], {duration:.2});
+            section.classList.add('active');
+            var contents = section.querySelector('.a-item');
+            contents.style.display = 'block';
 
             if (this.disallowAccessToNextSections) {
                 var pastCurrentSection = false;
                 for (var i=0; i<this.sections.length; i++) {
                     if (pastCurrentSection) {
-                        Element.removeClassName(this.sections[i], 'allow');
+                        this.sections[i].classList.remove('allow');
                     }
                     if (this.sections[i].id==section.id) {
                         pastCurrentSection = true;
@@ -57,44 +57,43 @@ Accordion.prototype = {
                 }
             }
         }
-    },
+    }
 
-    closeSection: function(section) {
-        $(section).removeClassName('active');
-        var contents = Element.select(section, '.a-item');
-        contents[0].hide();
-        //Effect.SlideUp(contents[0]);
-    },
+    closeSection(section) {
+        section.classList.remove('active');
+        var contents = section.querySelector('.a-item');
+        contents.style.display = 'none';
+    }
 
-    openNextSection: function(setAllow){
-        for (section in this.sections) {
-            var nextIndex = parseInt(section)+1;
-            if (this.sections[section].id == this.currentSection && this.sections[nextIndex]){
+    openNextSection(setAllow){
+        for (let i = 0; i < this.sections.length; i++) {
+            let nextIndex = i + 1;
+            if (this.sections[i].id == this.currentSection && this.sections[nextIndex]){
                 if (setAllow) {
-                    Element.addClassName(this.sections[nextIndex], 'allow');
+                    this.sections[nextIndex].classList.add('allow');
                 }
                 this.openSection(this.sections[nextIndex]);
                 return;
             }
         }
-    },
+    }
 
-    openPrevSection: function(setAllow){
-        for (section in this.sections) {
-            var prevIndex = parseInt(section)-1;
-            if (this.sections[section].id == this.currentSection && this.sections[prevIndex]){
+    openPrevSection(setAllow){
+        for (let i = 0; i < this.sections.length; i++) {
+            let prevIndex = i - 1;
+            if (this.sections[i].id == this.currentSection && this.sections[prevIndex]){
                 if (setAllow) {
-                    Element.addClassName(this.sections[prevIndex], 'allow');
+                    this.sections[prevIndex].classList.add('allow');
                 }
                 this.openSection(this.sections[prevIndex]);
                 return;
             }
         }
-    },
+    }
 
-    closeExistingSection: function() {
+    closeExistingSection() {
         if(this.currentSection) {
-            this.closeSection(this.currentSection);
+            this.closeSection(document.getElementById(this.currentSection));
         }
     }
-};
+}

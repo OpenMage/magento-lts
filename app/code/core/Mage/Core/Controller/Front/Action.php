@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
 {
@@ -178,16 +177,18 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      */
     protected function _isFormKeyEnabled()
     {
-        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
+        return Mage::helper('core')->isFormKeyEnabled();
     }
 
     /**
      * Check if form_key validation enabled on checkout process
      *
+     * @deprecated
+     * @see _isFormKeyEnabled
      * @return bool
      */
     protected function isFormkeyValidationOnCheckoutEnabled()
     {
-        return Mage::getStoreConfigFlag('admin/security/validate_formkey_checkout');
+        return $this->_isFormKeyEnabled();
     }
 }

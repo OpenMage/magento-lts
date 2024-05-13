@@ -91,7 +91,6 @@
             </downloadable>
             <downloadable_resource>
                 <class>Mage_Downloadable_Model_Resource</class>
-                <deprecatedNode>downloadable_mysql4</deprecatedNode>
                 <entities>
                     <link>
                         <table>downloadable_link</table>
@@ -132,7 +131,7 @@
             <downloadable_setup>
                 <setup>
                     <module>Mage_Downloadable</module>
-                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
                 </setup>
             </downloadable_setup>
         </resources>

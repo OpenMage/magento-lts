@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -102,22 +101,28 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Clean old session
      *
-     * @param Mage_Api_Model_User $user
+     * @param Mage_Api_Model_User|null $user
      * @return $this
      */
-    public function cleanOldSessions(Mage_Api_Model_User $user)
+    public function cleanOldSessions(?Mage_Api_Model_User $user)
     {
         $readAdapter    = $this->_getReadAdapter();
         $writeAdapter   = $this->_getWriteAdapter();
         $timeout        = Mage::getStoreConfig('api/config/session_timeout');
-        $timeSubtract     = $readAdapter->getDateAddSql(
+        $timeSubtract   = $readAdapter->getDateAddSql(
             'logdate',
             $timeout,
             Varien_Db_Adapter_Interface::INTERVAL_SECOND
         );
+        $where = [
+            $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract
+        ];
+        if ($user) {
+            $where['user_id = ?'] = $user->getId();
+        }
         $writeAdapter->delete(
             $this->getTable('api/session'),
-            ['user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract]
+            $where
         );
         return $this;
     }

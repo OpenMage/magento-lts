@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -28,7 +28,6 @@
             </tax>
             <tax_resource>
                 <class>Mage_Tax_Model_Resource</class>
-                <deprecatedNode>tax_mysql4</deprecatedNode>
                 <entities>
                     <tax_class>
                         <table>tax_class</table>
@@ -291,12 +290,17 @@
                 <url>https://web.archive.org/web/20150315064836/https://www.magentocommerce.com/knowledge-base/entry/magento-ce-18-ee-113-tax-calc</url>
             </notification>
         </tax>
+        <reports>
+            <crontab>
+                <tax_expr>0 0 * * *</tax_expr>
+            </crontab>
+        </reports>
     </default>
     <crontab>
         <jobs>
             <aggregate_sales_report_tax_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/tax_expr</config_path>
                 </schedule>
                 <run>
                     <model>tax/observer::aggregateSalesReportTaxData</model>

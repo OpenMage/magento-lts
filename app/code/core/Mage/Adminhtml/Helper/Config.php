@@ -20,7 +20,6 @@ declare(strict_types=1);
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
 {

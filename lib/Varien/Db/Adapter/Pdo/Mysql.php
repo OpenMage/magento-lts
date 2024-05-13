@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -305,7 +305,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $hostInfo = new Varien_Object();
         $matches = [];
-        if (strpos($hostName, '/') !== false) {
+        if (str_contains($hostName, '/')) {
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
         } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
@@ -319,7 +319,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
-        } elseif (strpos($hostName, ':') !== false) {
+        } elseif (str_contains($hostName, ':')) {
             list($hostAddress, $hostPort) = explode(':', $hostName);
             $hostInfo->setAddressType(
                 filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
@@ -511,12 +511,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * with named binds.
      *
      * @param Zend_Db_Select|string $sql
+     * @param-out string $sql
      * @param mixed $bind
      * @return $this
      */
     protected function _prepareQuery(&$sql, &$bind = [])
     {
-        $sql = (string) $sql;
+        $sql = (string)$sql;
         if (!is_array($bind)) {
             $bind = [$bind];
         }
@@ -3071,7 +3072,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $value = is_string($value) ? str_replace("\0", '', $value) : $value;
         $sql = $this->quoteInto($text, $value);
-        return str_replace('{{fieldName}}', $fieldName, $sql);
+        return str_replace('{{fieldName}}', (string)$fieldName, $sql);
     }
 
     /**
@@ -3085,7 +3086,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _transformStringSqlCondition($conditionKey, $value)
     {
-        $value = str_replace("\0", '', (string) $value);
+        $value = str_replace("\0", '', (string)$value);
         if ($value == '') {
             return ($conditionKey == 'seq') ? 'null' : 'notnull';
         } else {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setSortable(bool $value)
  * @method $this setUseAjax(bool $value)
@@ -86,7 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @var string|null
      */
-    protected $_emptyTextCss    = 'a-center';
+    protected $_emptyTextCss = 'a-center';
 
     /**
      * Pager visibility
@@ -1142,15 +1141,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve a file container array by grid data as CSV
      *
-     * Return array with keys type and value
+     * Return array with keys type and value [the original way]
+     * Return array with keys file name, type and value, file mime type [the new way]
      *
-     * @return array
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsvFile($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsvFile($fileName), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsvFile($fileName, -1));
+     *
      * @throws Exception
      */
-    public function getCsvFile()
+    public function getCsvFile(string $fileName = '', int $limit = 0): array
     {
         $this->_isExport = true;
         $this->_prepareGrid();
+
+        $collection = $this->getCollection();
+        $collection->load(); // Needed for reports, where $collection->getSize() would fail
+        $count = $collection->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
+        }
 
         $io = new Varien_Io_File();
 
@@ -1175,20 +1187,25 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $io->streamUnlock();
         $io->streamClose();
 
-        return [
+        $data = [
             'type'  => 'filename',
             'value' => $file,
-            'rm'    => true // can delete file after use
+            'rm'    => true, // can delete file after use
         ];
+
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $data, 'text/csv'] : $data;
     }
 
     /**
      * Retrieve Grid data as CSV
      *
-     * @return string
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsv());
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
+     *
      * @throws Exception
      */
-    public function getCsv()
+    public function getCsv(string $fileName = '', int $limit = 0): string
     {
         $csv = '';
         $this->_isExport = true;
@@ -1198,6 +1215,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
+
+        $count = $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
+        }
 
         $data = [];
         foreach ($this->_columns as $column) {
@@ -1235,7 +1259,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $csv .= implode(',', $data) . "\n";
         }
 
-        return $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
@@ -1295,16 +1319,26 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve a file container array by grid data as MS Excel 2003 XML Document
      *
-     * Return array with keys type and value
+     * Return array with keys type and value [the original way]
+     * Return array with keys file name, type and value, file mime type [the new way]
      *
-     * @param string $sheetName
-     * @return array
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcelFile($fileName, -1));
+     *
      * @throws Exception
      */
-    public function getExcelFile($sheetName = '')
+    public function getExcelFile(string $sheetName = '', int $limit = 0): array
     {
         $this->_isExport = true;
         $this->_prepareGrid();
+
+        $count = $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
+        }
 
         $parser = new Varien_Convert_Parser_Xml_Excel();
         $io     = new Varien_Io_File();
@@ -1330,21 +1364,25 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $io->streamUnlock();
         $io->streamClose();
 
-        return [
+        $data = [
             'type'  => 'filename',
             'value' => $file,
-            'rm'    => true // can delete file after use
+            'rm'    => true, // can delete file after use
         ];
+
+        return (!empty($sheetName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $sheetName), $data, 'application/vnd.ms-excel'] : $data;
     }
 
     /**
      * Retrieve grid data as MS Excel 2003 XML Document
      *
-     * @param string $filename the Workbook sheet name
-     * @return string
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
+     *
      * @throws Exception
      */
-    public function getExcel($filename = '')
+    public function getExcel(string $fileName = '', int $limit = 0): string
     {
         $this->_isExport = true;
         $this->_prepareGrid();
@@ -1353,6 +1391,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_beforeLoadCollection();
         $this->getCollection()->load();
         $this->_afterLoadCollection();
+
+        $count = $this->getCollection()->getSize();
+        if (($limit > 0) && ($count > $limit)) {
+            @http_response_code(500);
+            echo "Too many results\n";
+            exit(-1);
+        }
+
         $headers = [];
         $data = [];
         foreach ($this->_columns as $column) {
@@ -1383,11 +1429,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         }
 
         $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
+        $xmlObj->setVar('single_sheet', $fileName);
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**

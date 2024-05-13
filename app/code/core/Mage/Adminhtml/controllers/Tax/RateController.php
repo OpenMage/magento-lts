@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 {
@@ -194,11 +193,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportCsvAction()
     {
-        $fileName   = 'rates.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/tax_rate_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('rates.csv', -1));
     }
 
     /**
@@ -206,11 +202,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportXmlAction()
     {
-        $fileName   = 'rates.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getExcelFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/tax_rate_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('rates.xml', -1));
     }
 
     /**
@@ -229,7 +222,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Import and export Page
-     *
      */
     public function importExportAction()
     {
@@ -246,8 +238,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * import action from import/export tax
-     *
+     * Import action from import/export tax
      */
     public function importPostAction()
     {

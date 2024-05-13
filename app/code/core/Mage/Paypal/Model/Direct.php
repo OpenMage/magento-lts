@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 {
@@ -256,20 +255,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Set fallback API URL if not defined in configuration
-     *
-     * @return Mage_Centinel_Model_Service
-     */
-    public function getCentinelValidator()
-    {
-        $validator = parent::getCentinelValidator();
-        if (!$validator->getCustomApiEndpointUrl()) {
-            $validator->setCustomApiEndpointUrl($this->_pro->getConfig()->centinelDefaultApiUrl);
-        }
-        return $validator;
-    }
-
-    /**
      * Fetch transaction details info
      *
      * @param Mage_Payment_Model_Info $payment
@@ -312,9 +297,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             $api->setMaestroSoloIssueDate(
                 $this->_getFormattedCcExpirationDate($payment->getCcSsStartMonth(), $year)
             );
-        }
-        if ($this->getIsCentinelValidationEnabled()) {
-            $this->getCentinelValidator()->exportCmpiData($api);
         }
 
         // add shipping and billing addresses

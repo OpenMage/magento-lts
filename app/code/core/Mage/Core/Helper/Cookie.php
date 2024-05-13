@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
 {
@@ -124,7 +123,7 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     protected function _getAcceptedSaveCookiesWebsites()
     {
         $serializedList = $this->_cookieModel->get(self::IS_USER_ALLOWED_SAVE_COOKIE);
-        $unSerializedList = json_decode($serializedList, true);
+        $unSerializedList = $serializedList ? json_decode($serializedList, true) : null;
         return is_array($unSerializedList) ? $unSerializedList : [];
     }
 

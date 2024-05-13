@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 {
@@ -171,7 +170,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             continue;
                         }
                         if (!isset($block->attributes()->ignore)) {
-                            $block->addAttribute('ignore', true);
+                            $block->addAttribute('ignore', '1');
                         }
                     }
                 }
@@ -501,7 +500,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected function _getBlockInstance($block, array $attributes = [])
     {
         if (is_string($block)) {
-            if (strpos($block, '/') !== false) {
+            if (str_contains($block, '/')) {
                 if (!$block = Mage::getConfig()->getBlockClassName($block)) {
                     Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
                 }

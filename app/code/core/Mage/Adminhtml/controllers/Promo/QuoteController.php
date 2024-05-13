@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Action
 {
@@ -333,11 +332,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->_initRule();
         $rule = Mage::registry('current_promo_quote_rule');
         if ($rule->getId()) {
-            $fileName = 'coupon_codes.xml';
-            $content = $this->getLayout()
-                ->createBlock('adminhtml/promo_quote_edit_tab_coupons_grid')
-                ->getExcelFile($fileName);
-            $this->_prepareDownloadResponse($fileName, $content);
+            $grid = $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_coupons_grid');
+            $this->_prepareDownloadResponse(...$grid->getExcelFile('coupon_codes.xml', -1));
         } else {
             $this->_redirect('*/*/detail', ['_current' => true]);
             return;
@@ -352,11 +348,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->_initRule();
         $rule = Mage::registry('current_promo_quote_rule');
         if ($rule->getId()) {
-            $fileName = 'coupon_codes.csv';
-            $content = $this->getLayout()
-                ->createBlock('adminhtml/promo_quote_edit_tab_coupons_grid')
-                ->getCsvFile();
-            $this->_prepareDownloadResponse($fileName, $content);
+            $grid = $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_coupons_grid');
+            $this->_prepareDownloadResponse(...$grid->getCsvFile('coupon_codes.csv', -1));
         } else {
             $this->_redirect('*/*/detail', ['_current' => true]);
             return;

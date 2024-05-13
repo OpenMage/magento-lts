@@ -9,13 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
  * "Grant Access" button
  *
- * @var $this Mage_Oauth_Block_Authorize_Button
+ * @var Mage_Oauth_Block_Authorize_Button $this
  */
 ?>
 <div>
@@ -30,12 +30,14 @@
         <form id="oauth_authorize_confirm" action="<?php echo $this->getConfirmUrl() ?>" method="get">
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
             <button type="submit" class="button" title="<?php echo $this->__('Authorize') ?>" name="authorize">
-                <span><span><?php echo $this->__('Authorize') ?></span></span></button>
+                <?php echo $this->__('Authorize') ?>
+            </button>
         </form>
         <form id="oauth_authorize_reject" action="<?php echo $this->getRejectUrl() ?>" method="get">
             <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
             <button type="submit" class="button" title="<?php echo $this->__('Reject') ?>">
-                <span><span><?php echo $this->__('Reject') ?></span></span></button>
+                <?php echo $this->__('Reject') ?>
+            </button>
         </form>
     <?php endif ?>
 

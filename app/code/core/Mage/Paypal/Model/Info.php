@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +22,6 @@
  *
  * @category   Mage
  * @package    Mage_Paypal
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Info
 {
@@ -506,12 +505,6 @@ class Mage_Paypal_Model_Info
             case 'paypal_cvv2_match':
                 $label = $this->_getCvv2Label($value);
                 break;
-            case self::CENTINEL_VPAS:
-                $label = $this->_getCentinelVpasLabel($value);
-                break;
-            case self::CENTINEL_ECI:
-                $label = $this->_getCentinelEciLabel($value);
-                break;
             case self::BUYER_TAX_ID_TYPE:
                 $value = $this->_getBuyerIdTypeValue($value);
                 // no break
@@ -619,62 +612,6 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('N/A. Merchant has indicated that CVV2 is not present on card');
             case '4':
                 return Mage::helper('paypal')->__('N/A. Service not available');
-            default:
-                return $value;
-        }
-    }
-
-    /**
-     * Attempt to convert centinel VPAS result into label
-     *
-     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
-     * @param string $value
-     * @return string
-     */
-    private function _getCentinelVpasLabel($value)
-    {
-        switch ($value) {
-            case '2':
-            case 'D':
-                return Mage::helper('paypal')->__('Authenticated, Good Result');
-            case '1':
-                return Mage::helper('paypal')->__('Authenticated, Bad Result');
-            case '3':
-            case '6':
-            case '8':
-            case 'A':
-            case 'C':
-                return Mage::helper('paypal')->__('Attempted Authentication, Good Result');
-            case '4':
-            case '7':
-            case '9':
-                return Mage::helper('paypal')->__('Attempted Authentication, Bad Result');
-            case '':
-            case '0':
-            case 'B':
-                return Mage::helper('paypal')->__('No Liability Shift');
-            default:
-                return $value;
-        }
-    }
-
-    /**
-     * Attempt to convert centinel ECI result into label
-     *
-     * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
-     * @param string $value
-     * @return string
-     */
-    private function _getCentinelEciLabel($value)
-    {
-        switch ($value) {
-            case '01':
-            case '07':
-                return Mage::helper('paypal')->__('Merchant Liability');
-            case '02':
-            case '05':
-            case '06':
-                return Mage::helper('paypal')->__('Issuer Liability');
             default:
                 return $value;
         }

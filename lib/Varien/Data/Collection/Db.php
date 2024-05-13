@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Data_Collection_Db extends Varien_Data_Collection
 {
@@ -240,7 +239,44 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
         } else {
             $countSelect->columns('COUNT(*)');
+
+            // Simple optimization - remove all joins if:
+            // - there are no where clauses using joined tables
+            // - all joins are left joins
+            // - there are no join conditions using bind params (for simplicity)
+            $leftJoins = array_filter($countSelect->getPart(Zend_Db_Select::FROM), function ($table) {
+                return ($table['joinType'] == Zend_Db_Select::LEFT_JOIN || $table['joinType'] == Zend_Db_Select::FROM);
+            });
+            if (count($leftJoins) == count($countSelect->getPart(Zend_Db_Select::FROM))) {
+                $mainTable = array_filter($leftJoins, function ($table) {
+                    return $table['joinType'] == Zend_Db_Select::FROM;
+                });
+                $mainTable = key($mainTable);
+                $mainTable = preg_quote($mainTable, '/');
+                $pattern = "/^$mainTable\\.\\w+/";
+                $whereUsingJoin = array_filter($countSelect->getPart(Zend_Db_Select::WHERE), function ($clause) use ($pattern) {
+                    $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
+                    return array_filter($clauses, function ($clause) use ($pattern) {
+                        $clause = preg_replace('/[()`\s]+/', '', $clause);
+                        return !preg_match($pattern, $clause);
+                    });
+                });
+                if ($this->_bindParams) {
+                    $bindParams = array_map(function ($token) {
+                        return ltrim($token, ':');
+                    }, array_keys($this->_bindParams));
+                    $bindPattern = '/:(' . implode('|', $bindParams) . ')/';
+                    $joinUsingBind = array_filter($leftJoins, function ($table) use ($bindPattern) {
+                        return !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']);
+                    });
+                }
+                if (empty($whereUsingJoin) && empty($joinUsingBind)) {
+                    $from = array_slice($leftJoins, 0, 1);
+                    $countSelect->setPart(Zend_Db_Select::FROM, $from);
+                }
+            }
         }
+
         return $countSelect;
     }
 

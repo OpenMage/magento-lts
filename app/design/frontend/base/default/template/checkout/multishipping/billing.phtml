@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -78,7 +78,7 @@
         </div>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Shipping Information') ?></a></p>
-            <button id="payment-continue" type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue to Review Your Order')) ?>" class="button"><span><span><?php echo $this->__('Continue to Review Your Order') ?></span></span></button>
+            <button id="payment-continue" type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue to Review Your Order')) ?>" class="button"><?php echo $this->__('Continue to Review Your Order') ?></button>
         </div>
         <?php echo $this->getBlockHtml('formkey') ?>
     </form>

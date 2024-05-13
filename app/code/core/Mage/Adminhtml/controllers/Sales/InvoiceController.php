@@ -9,6 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Sales_InvoiceController extends Mage_Adminhtml_Controller_Sales_Invoice
 {
@@ -26,18 +26,16 @@ class Mage_Adminhtml_Sales_InvoiceController extends Mage_Adminhtml_Controller_S
      */
     public function exportCsvAction()
     {
-        $fileName   = 'invoices.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_invoice_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_invoice_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('invoices.csv', -1));
     }
 
     /**
-     *  Export invoice grid to Excel XML format
+     * Export invoice grid to Excel XML format
      */
     public function exportExcelAction()
     {
-        $fileName   = 'invoices.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_invoice_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_invoice_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('invoices.xml', -1));
     }
 }

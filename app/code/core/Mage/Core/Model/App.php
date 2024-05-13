@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +20,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_App
 {
@@ -36,12 +35,6 @@ class Mage_Core_Model_App
     public const DEFAULT_ERROR_HANDLER = 'mageCoreErrorHandler';
 
     public const DISTRO_LOCALE_CODE = 'en_US';
-
-    /**
-     * Cache tag for all cache data exclude config cache
-     *
-     */
-    public const CACHE_TAG = 'MAGE';
 
     /**
      * Default store Id (for install)
@@ -439,14 +432,22 @@ class Mage_Core_Model_App
     protected function _initModules()
     {
         if (!$this->_config->loadModulesCache()) {
-            $this->_config->loadModules();
-            if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
-                Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
-                Mage_Core_Model_Resource_Setup::applyAllUpdates();
-                Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
+            try {
+                $this->_config->getCacheSaveLock();
+                if (!$this->_config->loadModulesCache()) {
+                    $this->_config->loadModules();
+                    if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
+                        Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
+                        Mage_Core_Model_Resource_Setup::applyAllUpdates();
+                        Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
+                    }
+                    $this->_config->loadDb();
+                    $this->_config->loadEnv();
+                    $this->_config->saveCache();
+                }
+            } finally {
+                $this->_config->releaseCacheSaveLock();
             }
-            $this->_config->loadDb();
-            $this->_config->saveCache();
         }
         return $this;
     }
@@ -812,7 +813,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Loding part of area data
+     * Loading part of area data
      *
      * @param   string $area
      * @param   string $part
@@ -1294,6 +1295,37 @@ class Mage_Core_Model_App
     {
         $this->_request = $request;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentlySecure()
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            return true;
+        }
+
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
+            return true;
+        }
+
+        if (Mage::isInstalled()) {
+            $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
+            if ($offloaderHeader) {
+                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
+                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

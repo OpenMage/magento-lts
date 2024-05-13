@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
@@ -87,7 +86,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     {
         parent::_beforeSave();
         $actionsXML = $this->getData('actions_xml');
-        if (strlen($actionsXML) < 0 &&
+        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
+        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
             @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
             Mage::throwException(Mage::helper('dataflow')->__("Actions XML is not valid."));
@@ -160,7 +160,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             ->setActionCode($this->getOrigData('profile_id') ? 'update' : 'create')
             ->save();
         $csvParser = new Varien_File_Csv();
-        $delimiter = trim($this->getData('gui_data/parse/delimiter'));
+        $delimiter = trim($this->getData('gui_data/parse/delimiter') ?? '');
         if ($delimiter) {
             $csvParser->setDelimiter($delimiter);
         }
@@ -172,7 +172,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         ) {
             for ($index = 0; $index < 3; $index++) {
                 if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
-                    $uploader = new Mage_Core_Model_File_Uploader('file_' . ($index + 1));
+                    $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
                     $uploader->setAllowedExtensions(['csv','xml']);
                     $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
                     $uploader->save($path);
@@ -466,7 +466,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 $xml .= '    <var name="method">parse</var>' . $nl;
                 $xml .= '</action>';
             }
-        //$xml = $interactiveXml.$fileXml.$parseFileXml.$mapXml.$parseDataXml.$entityXml;
         } else {
             $xml = $entityXml . $parseDataXml . $mapXml . $parseFileXml . $fileXml . $interactiveXml;
         }

@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -16,21 +16,21 @@ var Product = {};
 
 Product.Gallery = Class.create();
 Product.Gallery.prototype = {
-    images : [],
-    file2id : {
-        'no_selection' :0
+    images: [],
+    file2id: {
+        'no_selection': 0
     },
-    idIncrement :1,
-    containerId :'',
-    container :null,
-    imageTypes : {},
-    initialize : function(containerId, imageTypes) {
+    idIncrement: 1,
+    containerId: '',
+    container: null,
+    imageTypes: {},
+    initialize: function (containerId, imageTypes) {
         this.containerId = containerId, this.container = $(this.containerId);
         this.imageTypes = imageTypes;
 
-        document.on('uploader:fileSuccess', function(event) {
+        document.on('uploader:fileSuccess', function (event) {
             var memo = event.memo;
-            if(memo && this._checkCurrentContainer(memo.containerId)) {
+            if (memo && this._checkCurrentContainer(memo.containerId)) {
                 this.handleUploadComplete([{response: memo.response}]);
             }
         }.bind(this));
@@ -38,19 +38,19 @@ Product.Gallery.prototype = {
         this.images = this.getElement('save').value.evalJSON();
         this.imagesValues = this.getElement('save_image').value.evalJSON();
         this.template = new Template('<tr id="__id__" class="preview">' + this
-                .getElement('template').innerHTML + '</tr>', new RegExp(
-                '(^|.|\\r|\\n)(__([a-zA-Z0-9_]+)__)', ''));
+            .getElement('template').innerHTML + '</tr>', new RegExp(
+            '(^|.|\\r|\\n)(__([a-zA-Z0-9_]+)__)', ''));
         this.fixParentTable();
         this.updateImages();
         varienGlobalEvents.attachEventHandler('moveTab', this.onImageTabMove
-                .bind(this));
+            .bind(this));
     },
-    _checkCurrentContainer: function(child) {
+    _checkCurrentContainer: function (child) {
         return $(this.containerId).down('#' + child);
     },
-    onImageTabMove : function(event) {
+    onImageTabMove: function (event) {
         var imagesTab = false;
-        this.container.ancestors().each( function(parentItem) {
+        this.container.ancestors().each(function (parentItem) {
             if (parentItem.tabObject) {
                 imagesTab = parentItem.tabObject;
                 throw $break;
@@ -58,15 +58,15 @@ Product.Gallery.prototype = {
         }.bind(this));
 
         if (imagesTab && event.tab && event.tab.name && imagesTab.name == event.tab.name) {
-            this.container.select('input[type="radio"]').each(function(radio) {
+            this.container.select('input[type="radio"]').each(function (radio) {
                 radio.observe('change', this.onChangeRadio);
             }.bind(this));
             this.updateImages();
         }
 
     },
-    fixParentTable : function() {
-        this.container.ancestors().each( function(parentItem) {
+    fixParentTable: function () {
+        this.container.ancestors().each(function (parentItem) {
             if (parentItem.tagName.toLowerCase() == 'td') {
                 parentItem.style.width = '100%';
             }
@@ -76,15 +76,15 @@ Product.Gallery.prototype = {
             }
         });
     },
-    getElement : function(name) {
+    getElement: function (name) {
         return $(this.containerId + '_' + name);
     },
-    showUploader : function() {
+    showUploader: function () {
         this.getElement('add_images_button').hide();
         this.getElement('uploader').show();
     },
-    handleUploadComplete : function(files) {
-        files.each( function(item) {
+    handleUploadComplete: function (files) {
+        files.each(function (item) {
             if (!item.response.isJSON()) {
                 try {
                     console.log(item.response);
@@ -109,14 +109,12 @@ Product.Gallery.prototype = {
         this.container.setHasChanges();
         this.updateImages();
     },
-    updateImages : function() {
+    updateImages: function () {
         this.getElement('save').value = Object.toJSON(this.images);
-        $H(this.imageTypes).each(
-                function(pair) {
-                    this.getFileElement('no_selection',
-                            'cell-' + pair.key + ' input').checked = true;
-                }.bind(this));
-        this.images.each( function(row) {
+        $H(this.imageTypes).each(function (pair) {
+            this.getFileElement('no_selection', 'cell-' + pair.key + ' input').checked = true;
+        }.bind(this));
+        this.images.each(function (row) {
             if (!$(this.prepareId(row.file))) {
                 this.createImageRow(row);
             }
@@ -128,92 +126,111 @@ Product.Gallery.prototype = {
         var element = Event.element(evt);
         element.setHasChanges();
     },
-    createImageRow : function(image) {
+    createImageRow: function (image) {
         var vars = Object.clone(image);
         vars.id = this.prepareId(image.file);
         var html = this.template.evaluate(vars);
         Element.insert(this.getElement('list'), {
-            bottom :html
+            bottom: html
         });
 
-        $(vars.id).select('input[type="radio"]').each(function(radio) {
+        $(vars.id).select('input[type="radio"]').each(function (radio) {
             radio.observe('change', this.onChangeRadio);
         }.bind(this));
     },
-    prepareId : function(file) {
+    prepareId: function (file) {
         if (typeof this.file2id[file] == 'undefined') {
             this.file2id[file] = this.idIncrement++;
         }
         return this.containerId + '-image-' + this.file2id[file];
     },
-    getNextPosition : function() {
+    getNextPosition: function () {
         var maxPosition = 0;
-        this.images.each( function(item) {
+        this.images.each(function (item) {
             if (parseInt(item.position) > maxPosition) {
                 maxPosition = parseInt(item.position);
             }
         });
         return maxPosition + 1;
     },
-    updateImage : function(file) {
+    updateImage: function (file) {
         var index = this.getIndexByFile(file);
-        this.images[index].label = this
-                .getFileElement(file, 'cell-label input').value;
-        this.images[index].position = this.getFileElement(file,
-                'cell-position input').value;
-        this.images[index].removed = (this.getFileElement(file,
-                'cell-remove input').checked ? 1 : 0);
-        this.images[index].disabled = (this.getFileElement(file,
-                'cell-disable input').checked ? 1 : 0);
+
+        var use_default_label = document.getElementById("use_default_label");
+        if (use_default_label && use_default_label.checked) {
+            this.images[index].label = null;
+            this.images[index].label_use_default = true;
+        } else {
+            this.images[index].label = this.getFileElement(file, 'cell-label input').value;
+            this.images[index].label_use_default = false;
+        }
+
+        var use_default_position = document.getElementById("use_default_position");
+        if (use_default_position && use_default_position.checked) {
+            this.images[index].position = null;
+            this.images[index].position_use_default = true;
+        } else {
+            this.images[index].position = this.getFileElement(file, 'cell-position input').value;
+            this.images[index].position_use_default = false;
+        }
+
+        this.images[index].removed = (this.getFileElement(file, 'cell-remove input').checked ? 1 : 0);
+        this.images[index].disabled = (this.getFileElement(file, 'cell-disable input').checked ? 1 : 0);
         this.getElement('save').value = Object.toJSON(this.images);
         this.updateState(file);
         this.container.setHasChanges();
     },
-    loadImage : function(file) {
+    loadImage: function (file) {
         var image = this.getImageByFile(file);
         this.getFileElement(file, 'cell-image img').src = image.url;
         this.getFileElement(file, 'cell-image img').show();
         this.getFileElement(file, 'cell-image .place-holder').hide();
     },
-    setProductImages : function(file) {
+    setProductImages: function (file) {
         $H(this.imageTypes)
-                .each(
-                        function(pair) {
-                            if (this.getFileElement(file,
-                                    'cell-' + pair.key + ' input').checked) {
-                                this.imagesValues[pair.key] = (file == 'no_selection' ? null
-                                        : file);
-                            }
-                        }.bind(this));
+            .each(
+                function (pair) {
+                    if (this.getFileElement(file,
+                        'cell-' + pair.key + ' input').checked) {
+                        this.imagesValues[pair.key] = (file == 'no_selection' ? null
+                            : file);
+                    }
+                }.bind(this));
 
         this.getElement('save_image').value = Object.toJSON($H(this.imagesValues));
     },
-    updateVisualisation : function(file) {
+    updateVisualisation: function (file) {
         var image = this.getImageByFile(file);
-        this.getFileElement(file, 'cell-label input').value = image.label;
-        this.getFileElement(file, 'cell-position input').value = image.position;
+
+        var use_default_label = document.getElementById("use_default_label");
+        if(use_default_label && use_default_label.checked) {
+            this.getFileElement(file, 'cell-label input').value = image.label_default;
+        } else {
+            this.getFileElement(file, 'cell-label input').value = image.label;
+        }
+
+        var use_default_position = document.getElementById("use_default_position");
+        if(use_default_position && use_default_position.checked) {
+            this.getFileElement(file, 'cell-position input').value = image.position_default;
+        } else {
+            this.getFileElement(file, 'cell-position input').value = image.position;
+        }
+
         this.getFileElement(file, 'cell-remove input').checked = (image.removed == 1);
         this.getFileElement(file, 'cell-disable input').checked = (image.disabled == 1);
-        $H(this.imageTypes)
-                .each(
-                        function(pair) {
-                            if (this.imagesValues[pair.key] == file) {
-                                this.getFileElement(file,
-                                        'cell-' + pair.key + ' input').checked = true;
-                            }
-                        }.bind(this));
+        $H(this.imageTypes).each(function (pair) {
+            if (this.imagesValues[pair.key] == file) {
+                this.getFileElement(file, 'cell-' + pair.key + ' input').checked = true;
+            }
+        }.bind(this));
         this.updateState(file);
     },
-    updateState : function(file) {
-        if (this.getFileElement(file, 'cell-disable input').checked) {
-            this.getFileElement(file, 'cell-position input').disabled = true;
-        } else {
-            this.getFileElement(file, 'cell-position input').disabled = false;
-        }
+    updateState: function (file) {
+        // deprecated
     },
-    getFileElement : function(file, element) {
+    getFileElement: function (file, element) {
         var selector = '#' + this.prepareId(file) + ' .' + element;
-        var elems = $$(selector);
+        var elems = document.querySelectorAll(selector);
         if (!elems[0]) {
             try {
                 console.log(selector);
@@ -222,65 +239,68 @@ Product.Gallery.prototype = {
             }
         }
 
-        return $$('#' + this.prepareId(file) + ' .' + element)[0];
+        return elems[0];
     },
-    getImageByFile : function(file) {
+    getImageByFile: function (file) {
         if (this.getIndexByFile(file) === null) {
             return false;
         }
 
         return this.images[this.getIndexByFile(file)];
     },
-    getIndexByFile : function(file) {
+    getIndexByFile: function (file) {
         var index;
-        this.images.each( function(item, i) {
+        this.images.each(function (item, i) {
             if (item.file == file) {
                 index = i;
             }
         });
         return index;
     },
-    updateUseDefault : function() {
-        if (this.getElement('default')) {
-            this.getElement('default').select('input').each(
-                    function(input) {
-                        $(this.containerId).select(
-                                '.cell-' + input.value + ' input').each(
-                                function(radio) {
-                                    radio.disabled = input.checked;
-                                });
-                    }.bind(this));
+    updateUseDefault: function (el) {
+        var inputs = document.querySelectorAll('#' + this.containerId + '_default td input');
+        for (var i=0; i<inputs.length; i++) {
+            var input = inputs[i];
+            var radios = document.querySelectorAll('#' + this.containerId + '_list .preview .cell-' + input.value + ' input');
+            for (var j=0; j<radios.length; j++) {
+                var radio = radios[j];
+                radio.disabled = input.checked;
+            }
+        }
+
+        if (typeof el == "object" && el.id) {
+            this.images.each(function (row) {
+                this.updateImage(row.file);
+            }.bind(this));
         }
 
         if (arguments.length == 0) {
             this.container.setHasChanges();
         }
     },
-    handleUploadProgress : function(file) {
-
+    handleUploadProgress: function (file) {
     },
-    handleUploadError : function(fileId) {
-
+    handleUploadError: function (fileId) {
     }
 };
 
 Product.AttributesBridge = {
-    tabsObject :false,
-    bindTabs2Attributes : {},
-    bind : function(tabId, attributesObject) {
+    tabsObject: false,
+    bindTabs2Attributes: {},
+    bind: function (tabId, attributesObject) {
         this.bindTabs2Attributes[tabId] = attributesObject;
     },
-    getAttributes : function(tabId) {
+    getAttributes: function (tabId) {
         return this.bindTabs2Attributes[tabId];
     },
-    setTabsObject : function(tabs) {
+    setTabsObject: function (tabs) {
         this.tabsObject = tabs;
     },
-    getTabsObject : function() {
+    getTabsObject: function () {
         return this.tabsObject;
     },
-    addAttributeRow : function(data) {
-        $H(data).each( function(item) {
+    addAttributeRow: function (data) {
+        $H(data).each(function (item) {
             if (this.getTabsObject().activeTab.name != item.key) {
                 this.getTabsObject().showTabContent($(item.key));
             }
@@ -291,79 +311,75 @@ Product.AttributesBridge = {
 
 Product.Attributes = Class.create();
 Product.Attributes.prototype = {
-    config : {},
-    containerId :null,
-    initialize : function(containerId) {
+    config: {},
+    containerId: null,
+    initialize: function (containerId) {
         this.containerId = containerId;
     },
-    setConfig : function(config) {
+    setConfig: function (config) {
         this.config = config;
         Product.AttributesBridge.bind(this.getConfig().tab_id, this);
     },
-    getConfig : function() {
+    getConfig: function () {
         return this.config;
     },
-    create : function() {
+    create: function () {
         var win = window.open(this.getConfig().url, 'new_attribute',
-                'width=900,height=600,resizable=1,scrollbars=1');
+            'width=900,height=600,resizable=1,scrollbars=1');
         win.focus();
     },
-    addRow : function(html) {
+    addRow: function (html) {
         var attributesContainer = $$('#group_fields' + this.getConfig().group_id + ' .form-list tbody')[0];
         Element.insert(attributesContainer, {
-            bottom :html
+            bottom: html
         });
 
         var childs = attributesContainer.childElements();
         var element = childs[childs.size() - 1].select('input', 'select',
-                'textarea')[0];
+            'textarea')[0];
         if (element) {
             window.scrollTo(0, Position.cumulativeOffset(element)[1]
-                    + element.offsetHeight);
+                + element.offsetHeight);
         }
     }
 };
 
 Product.Configurable = Class.create();
 Product.Configurable.prototype = {
-    initialize : function(attributes, links, idPrefix, grid, readonly) {
-        this.templatesSyntax = new RegExp(
-                '(^|.|\\r|\\n)(\'{{\\s*(\\w+)\\s*}}\')', "");
+    initialize: function (attributes, links, idPrefix, grid, readonly) {
+        this.templatesSyntax = new RegExp('(^|.|\\r|\\n)(\'{{\\s*(\\w+)\\s*}}\')', "");
         this.attributes = attributes; // Attributes
         this.idPrefix = idPrefix; // Container id prefix
         this.links = $H(links); // Associated products
         this.newProducts = []; // For product that's created through Create
-                                // Empty and Copy from Configurable
+        // Empty and Copy from Configurable
         this.readonly = readonly;
 
         /* Generation templates */
         this.addAttributeTemplate = new Template(
-                $(idPrefix + 'attribute_template').innerHTML.replace(/__id__/g,
-                        "'{{html_id}}'").replace(/ template no-display/g, ''),
-                this.templatesSyntax);
+            $(idPrefix + 'attribute_template').innerHTML.replace(/__id__/g,
+            "'{{html_id}}'").replace(/ template no-display/g, ''),
+            this.templatesSyntax);
         this.addValueTemplate = new Template(
-                $(idPrefix + 'value_template').innerHTML.replace(/__id__/g,
-                        "'{{html_id}}'").replace(/ template no-display/g, ''),
-                this.templatesSyntax);
-        this.pricingValueTemplate = new Template(
-                $(idPrefix + 'simple_pricing').innerHTML, this.templatesSyntax);
-        this.pricingValueViewTemplate = new Template(
-                $(idPrefix + 'simple_pricing_view').innerHTML,
-                this.templatesSyntax);
+            $(idPrefix + 'value_template').innerHTML.replace(/__id__/g,
+            "'{{html_id}}'").replace(/ template no-display/g, ''),
+            this.templatesSyntax);
+        this.pricingValueTemplate = new Template($(idPrefix + 'simple_pricing').innerHTML, this.templatesSyntax);
+        this.pricingValueViewTemplate = new Template($(idPrefix + 'simple_pricing_view').innerHTML, this.templatesSyntax);
 
         this.container = $(idPrefix + 'attributes');
 
         /* Listeners */
         this.onLabelUpdate = this.updateLabel.bindAsEventListener(this); // Update
-                                                                            // attribute
-                                                                            // label
+        // attribute
+        // label
         this.onValuePriceUpdate = this.updateValuePrice
-                .bindAsEventListener(this); // Update pricing value
+            .bindAsEventListener(this); // Update pricing value
         this.onValueTypeUpdate = this.updateValueType.bindAsEventListener(this); // Update
-                                                                                    // pricing
-                                                                                    // type
+        // pricing
+        // type
         this.onValueDefaultUpdate = this.updateValueUseDefault
-                .bindAsEventListener(this);
+            .bindAsEventListener(this);
 
         /* Grid initialization and attributes initialization */
         this.createAttributes(); // Creation of default attributes
@@ -372,67 +388,60 @@ Product.Configurable.prototype = {
         this.grid.rowClickCallback = this.rowClick.bind(this);
         this.grid.initRowCallback = this.rowInit.bind(this);
         this.grid.checkboxCheckCallback = this.registerProduct.bind(this); // Associate/Unassociate
-                                                                            // simple
-                                                                            // product
+        // simple
+        // product
 
-        this.grid.rows.each( function(row) {
+        this.grid.rows.each(function (row) {
             this.rowInit(this.grid, row);
         }.bind(this));
     },
-    createAttributes : function() {
-        this.attributes.each( function(attribute, index) {
-            // var li = Builder.node('li', {className:'attribute'});
-                var li = $(document.createElement('LI'));
-                li.className = 'attribute';
+    createAttributes: function () {
+        this.attributes.each(function (attribute, index) {
+            var li = $(document.createElement('LI'));
+            li.className = 'attribute';
+            li.id = this.idPrefix + '_attribute_' + index;
+            attribute.html_id = li.id;
+            if (attribute && attribute.label && attribute.label.blank()) {
+                attribute.label = '&nbsp;';
+            }
+            var label_readonly = '';
+            var use_default_checked = '';
+            if (attribute.use_default == '1' || attribute.id == null) {
+                use_default_checked = ' checked="checked"';
+                label_readonly = ' readonly="readonly"';
+            }
 
-                li.id = this.idPrefix + '_attribute_' + index;
-                attribute.html_id = li.id;
-                if (attribute && attribute.label && attribute.label.blank()) {
-                    attribute.label = '&nbsp;';
-                }
-                var label_readonly = '';
-                var use_default_checked = '';
-                if (attribute.use_default == '1' || attribute.id == null) {
-                    use_default_checked = ' checked="checked"';
-                    label_readonly = ' readonly="readonly"';
-                }
+            var template = this.addAttributeTemplate.evaluate(attribute);
+            template = template.replace(new RegExp(' readonly="label"', 'ig'), label_readonly);
+            template = template.replace(new RegExp(' checked="use_default"', 'ig'), use_default_checked);
+            li.update(template);
+            li.attributeObject = attribute;
 
-                var template = this.addAttributeTemplate.evaluate(attribute);
-                template = template.replace(
-                        new RegExp(' readonly="label"', 'ig'), label_readonly);
-                template = template.replace(new RegExp(
-                        ' checked="use_default"', 'ig'), use_default_checked);
-                li.update(template);
-                li.attributeObject = attribute;
+            this.container.appendChild(li);
+            li.attributeValues = li.down('.attribute-values');
 
-                this.container.appendChild(li);
-                li.attributeValues = li.down('.attribute-values');
+            if (attribute.values) {
+                attribute.values.each(function (value) {
+                    this.createValueRow(li, value); // Add pricing values
+                }.bind(this));
+            }
 
-                if (attribute.values) {
-                    attribute.values.each( function(value) {
-                        this.createValueRow(li, value); // Add pricing values
-                        }.bind(this));
-                }
-
-                /* Observe label change */
-                Event.observe(li.down('.attribute-label'), 'change',
-                        this.onLabelUpdate);
-                Event.observe(li.down('.attribute-label'), 'keyup',
-                        this.onLabelUpdate);
-                Event.observe(li.down('.attribute-use-default-label'),
-                        'change', this.onLabelUpdate);
-            }.bind(this));
+            /* Observe label change */
+            Event.observe(li.down('.attribute-label'), 'change', this.onLabelUpdate);
+            Event.observe(li.down('.attribute-label'), 'keyup', this.onLabelUpdate);
+            Event.observe(li.down('.attribute-use-default-label'), 'change', this.onLabelUpdate);
+        }.bind(this));
         if (!this.readonly) {
             // Creation of sortable for attributes sorting
             Sortable.create(this.container, {
-                handle :'attribute-name-container',
-                onUpdate :this.updatePositions.bind(this)
+                handle: 'attribute-name-container',
+                onUpdate: this.updatePositions.bind(this)
             });
         }
         this.updateSaveInput();
     },
 
-    updateLabel : function(event) {
+    updateLabel: function (event) {
         var li = Event.findElement(event, 'LI');
         var labelEl = li.down('.attribute-label');
         var defEl = li.down('.attribute-use-default-label');
@@ -448,13 +457,13 @@ Product.Configurable.prototype = {
 
         this.updateSaveInput();
     },
-    updatePositions : function(param) {
-        this.container.childElements().each( function(row, index) {
+    updatePositions: function (param) {
+        this.container.childElements().each(function (row, index) {
             row.attributeObject.position = index;
         });
         this.updateSaveInput();
     },
-    addNewProduct : function(productId, attributes) {
+    addNewProduct: function (productId, attributes) {
         if (this.checkAttributes(attributes)) {
             this.links.set(productId, this.cloneAttributes(attributes));
         } else {
@@ -465,22 +474,22 @@ Product.Configurable.prototype = {
         this.updateValues();
         this.grid.reload(null);
     },
-    createEmptyProduct : function() {
+    createEmptyProduct: function () {
         this.createPopup(this.createEmptyUrl);
     },
-    createNewProduct : function() {
+    createNewProduct: function () {
         this.createPopup(this.createNormalUrl);
     },
-    createPopup : function(url) {
+    createPopup: function (url) {
         if (this.win && !this.win.closed) {
             this.win.close();
         }
 
         this.win = window.open(url, '',
-                'width=1000,height=700,resizable=1,scrollbars=1');
+            'width=1000,height=700,resizable=1,scrollbars=1');
         this.win.focus();
     },
-    registerProduct : function(grid, element, checked) {
+    registerProduct: function (grid, element, checked) {
         if (checked) {
             if (element.linkAttributes) {
                 this.links.set(element.value, element.linkAttributes);
@@ -489,12 +498,12 @@ Product.Configurable.prototype = {
             this.links.unset(element.value);
         }
         this.updateGrid();
-        this.grid.rows.each( function(row) {
+        this.grid.rows.each(function (row) {
             this.revalidateRow(this.grid, row);
         }.bind(this));
         this.updateValues();
     },
-    updateProduct : function(productId, attributes) {
+    updateProduct: function (productId, attributes) {
         var isAssociated = false;
 
         if (typeof this.links.get(productId) != 'undefined') {
@@ -512,14 +521,14 @@ Product.Configurable.prototype = {
         this.updateValues();
         this.grid.reload(null);
     },
-    cloneAttributes : function(attributes) {
+    cloneAttributes: function (attributes) {
         var newObj = [];
-        for ( var i = 0, length = attributes.length; i < length; i++) {
+        for (var i = 0, length = attributes.length; i < length; i++) {
             newObj[i] = Object.clone(attributes[i]);
         }
         return newObj;
     },
-    rowClick : function(grid, event) {
+    rowClick: function (grid, event) {
         var trElement = Event.findElement(event, 'tr');
         var isInput = Event.element(event).tagName.toUpperCase() == 'INPUT';
 
@@ -535,7 +544,7 @@ Product.Configurable.prototype = {
             }
         }
     },
-    rowInit : function(grid, row) {
+    rowInit: function (grid, row) {
         var checkbox = $(row).down('.checkbox');
         var input = $(row).down('.value-json');
         if (checkbox && input) {
@@ -551,7 +560,7 @@ Product.Configurable.prototype = {
             }
         }
     },
-    revalidateRow : function(grid, row) {
+    revalidateRow: function (grid, row) {
         var checkbox = $(row).down('.checkbox');
         if (checkbox) {
             if (!checkbox.checked) {
@@ -565,98 +574,98 @@ Product.Configurable.prototype = {
             }
         }
     },
-    checkAttributes : function(attributes) {
+    checkAttributes: function (attributes) {
         var result = true;
         this.links
-                .each( function(pair) {
-                    var fail = false;
-                    for ( var i = 0; i < pair.value.length && !fail; i++) {
-                        for ( var j = 0; j < attributes.length && !fail; j++) {
-                            if (pair.value[i].attribute_id == attributes[j].attribute_id
-                                    && pair.value[i].value_index != attributes[j].value_index) {
-                                fail = true;
-                            }
+            .each(function (pair) {
+                var fail = false;
+                for (var i = 0; i < pair.value.length && !fail; i++) {
+                    for (var j = 0; j < attributes.length && !fail; j++) {
+                        if (pair.value[i].attribute_id == attributes[j].attribute_id
+                            && pair.value[i].value_index != attributes[j].value_index) {
+                            fail = true;
                         }
                     }
-                    if (!fail) {
-                        result = false;
-                    }
-                });
+                }
+                if (!fail) {
+                    result = false;
+                }
+            });
         return result;
     },
-    updateGrid : function() {
+    updateGrid: function () {
         this.grid.reloadParams = {
-            'products[]' :this.links.keys().size() ? this.links.keys() : [ 0 ],
-            'new_products[]' :this.newProducts
+            'products[]': this.links.keys().size() ? this.links.keys() : [0],
+            'new_products[]': this.newProducts
         };
     },
-    updateValues : function() {
-        var uniqueAttributeValues = $H( {});
+    updateValues: function () {
+        var uniqueAttributeValues = $H({});
         /* Collect unique attributes */
-        this.links.each( function(pair) {
-            for ( var i = 0, length = pair.value.length; i < length; i++) {
+        this.links.each(function (pair) {
+            for (var i = 0, length = pair.value.length; i < length; i++) {
                 var attribute = pair.value[i];
                 if (uniqueAttributeValues.keys()
-                        .indexOf(attribute.attribute_id) == -1) {
-                    uniqueAttributeValues.set(attribute.attribute_id, $H( {}));
+                    .indexOf(attribute.attribute_id) == -1) {
+                    uniqueAttributeValues.set(attribute.attribute_id, $H({}));
                 }
                 uniqueAttributeValues.get(attribute.attribute_id).set(
-                        attribute.value_index, attribute);
+                    attribute.value_index, attribute);
             }
         });
         /* Updating attributes value container */
         this.container
-                .childElements()
-                .each(
-                        function(row) {
-                            var attribute = row.attributeObject;
-                            for ( var i = 0, length = attribute.values.length; i < length; i++) {
-                                if (uniqueAttributeValues.keys().indexOf(
-                                        attribute.attribute_id) == -1
-                                        || uniqueAttributeValues
-                                                .get(attribute.attribute_id)
-                                                .keys()
-                                                .indexOf(
-                                                        attribute.values[i].value_index) == -1) {
-                                    row.attributeValues
-                                            .childElements()
-                                            .each(
-                                                    function(elem) {
-                                                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
-                                                            elem.remove();
-                                                        }
-                                                    });
-                                    attribute.values[i] = undefined;
+            .childElements()
+            .each(
+                function (row) {
+                    var attribute = row.attributeObject;
+                    for (var i = 0, length = attribute.values.length; i < length; i++) {
+                        if (uniqueAttributeValues.keys().indexOf(
+                                attribute.attribute_id) == -1
+                            || uniqueAttributeValues
+                                .get(attribute.attribute_id)
+                                .keys()
+                                .indexOf(
+                                    attribute.values[i].value_index) == -1) {
+                            row.attributeValues
+                                .childElements()
+                                .each(
+                                    function (elem) {
+                                        if (elem.valueObject.value_index == attribute.values[i].value_index) {
+                                            elem.remove();
+                                        }
+                                    });
+                            attribute.values[i] = undefined;
 
-                                } else {
-                                    uniqueAttributeValues.get(
-                                            attribute.attribute_id).unset(
-                                            attribute.values[i].value_index);
-                                }
-                            }
-                            attribute.values = attribute.values.compact();
-                            if (uniqueAttributeValues
-                                    .get(attribute.attribute_id)) {
-                                uniqueAttributeValues.get(
-                                        attribute.attribute_id).each(
-                                        function(pair) {
-                                            attribute.values.push(pair.value);
-                                            this
-                                                    .createValueRow(row,
-                                                            pair.value);
-                                        }.bind(this));
-                            }
-                        }.bind(this));
+                        } else {
+                            uniqueAttributeValues.get(
+                                attribute.attribute_id).unset(
+                                attribute.values[i].value_index);
+                        }
+                    }
+                    attribute.values = attribute.values.compact();
+                    if (uniqueAttributeValues
+                        .get(attribute.attribute_id)) {
+                        uniqueAttributeValues.get(
+                            attribute.attribute_id).each(
+                            function (pair) {
+                                attribute.values.push(pair.value);
+                                this
+                                    .createValueRow(row,
+                                        pair.value);
+                            }.bind(this));
+                    }
+                }.bind(this));
         this.updateSaveInput();
         this.updateSimpleForm();
     },
-    createValueRow : function(container, value) {
-        var templateVariables = $H( {});
+    createValueRow: function (container, value) {
+        var templateVariables = $H({});
         if (!this.valueAutoIndex) {
             this.valueAutoIndex = 1;
         }
         templateVariables.set('html_id', container.id + '_'
-                + this.valueAutoIndex);
+            + this.valueAutoIndex);
         templateVariables.update(value);
         var pricingValue = parseFloat(templateVariables.get('pricing_value'));
         if (!isNaN(pricingValue)) {
@@ -705,27 +714,27 @@ Product.Configurable.prototype = {
             Event.observe(useDefaultEl, 'change', this.onValueDefaultUpdate);
         }
     },
-    updateValuePrice : function(event) {
+    updateValuePrice: function (event) {
         var li = Event.findElement(event, 'LI');
         li.valueObject.pricing_value = (Event.element(event).value.blank() ? null
-                : Event.element(event).value);
+            : Event.element(event).value);
         this.updateSimpleForm();
         this.updateSaveInput();
     },
-    updateValueType : function(event) {
+    updateValueType: function (event) {
         var li = Event.findElement(event, 'LI');
         li.valueObject.is_percent = (Event.element(event).value.blank() ? null
-                : Event.element(event).value);
+            : Event.element(event).value);
         this.updateSimpleForm();
         this.updateSaveInput();
     },
-    updateValueUseDefault : function(event) {
+    updateValueUseDefault: function (event) {
         var li = Event.findElement(event, 'LI');
         var useDefaultEl = Event.element(event);
         li.valueObject.use_default_value = useDefaultEl.checked;
         this.updateUseDefaultRow(useDefaultEl, li);
     },
-    updateUseDefaultRow : function(useDefaultEl, li) {
+    updateUseDefaultRow: function (useDefaultEl, li) {
         var priceField = li.down('.attribute-price');
         var priceTypeField = li.down('.attribute-price-type');
         if (useDefaultEl.checked) {
@@ -738,7 +747,7 @@ Product.Configurable.prototype = {
         this.updateSimpleForm();
         this.updateSaveInput();
     },
-    updateSaveInput : function() {
+    updateSaveInput: function () {
         var oldSaveAttributesValue = $(this.idPrefix + 'save_attributes').value;
         var oldSaveLinksValue = $(this.idPrefix + 'save_links').value;
         var newSaveAttributesValue = Object.toJSON(this.attributes);
@@ -751,28 +760,27 @@ Product.Configurable.prototype = {
             } catch (e) {}
         }
     },
-    initializeAdvicesForSimpleForm : function() {
+    initializeAdvicesForSimpleForm: function () {
         if ($(this.idPrefix + 'simple_form').advicesInited) {
             return;
         }
 
-        $(this.idPrefix + 'simple_form').select('td.value').each( function(td) {
+        $(this.idPrefix + 'simple_form').select('td.value').each(function (td) {
             var adviceContainer = $(Builder.node('div'));
             td.appendChild(adviceContainer);
-            td.select('input', 'select').each( function(element) {
+            td.select('input', 'select').each(function (element) {
                 element.advaiceContainer = adviceContainer;
             });
         });
         $(this.idPrefix + 'simple_form').advicesInited = true;
     },
-    quickCreateNewProduct : function() {
+    quickCreateNewProduct: function () {
         this.initializeAdvicesForSimpleForm();
         $(this.idPrefix + 'simple_form').removeClassName('ignore-validate');
-        var validationResult = $(this.idPrefix + 'simple_form').select('input',
-                'select', 'textarea').collect( function(elm) {
+        var validationResult = $(this.idPrefix + 'simple_form').select('input', 'select', 'textarea').collect(function (elm) {
             return Validation.validate(elm, {
-                useTitle :false,
-                onElementValidate : function() {
+                useTitle: false,
+                onElementValidate: function () {
                 }
             });
         }).all();
@@ -782,38 +790,33 @@ Product.Configurable.prototype = {
             return;
         }
 
-        var params = Form.serializeElements($(this.idPrefix + 'simple_form')
-                .select('input', 'select', 'textarea'), true);
+        var params = Form.serializeElements($(this.idPrefix + 'simple_form').select('input', 'select', 'textarea'), true);
         params.form_key = FORM_KEY;
         $('messages').update();
         new Ajax.Request(this.createQuickUrl, {
-            parameters :params,
-            method :'post',
-            area :$(this.idPrefix + 'simple_form'),
-            onComplete :this.quickCreateNewProductComplete.bind(this)
+            parameters: params,
+            method: 'post',
+            area: $(this.idPrefix + 'simple_form'),
+            onComplete: this.quickCreateNewProductComplete.bind(this)
         });
     },
-    quickCreateNewProductComplete : function(transport) {
+    quickCreateNewProductComplete: function (transport) {
         var result = transport.responseText.evalJSON();
 
         if (result.error) {
             if (result.error.fields) {
                 $(this.idPrefix + 'simple_form').removeClassName(
-                        'ignore-validate');
+                    'ignore-validate');
                 $H(result.error.fields)
-                        .each(
-                                function(pair) {
-                                    $('simple_product_' + pair.key).value = pair.value;
-                                    $('simple_product_' + pair.key + '_autogenerate').checked = false;
-                                    toggleValueElements(
-                                            $('simple_product_' + pair.key + '_autogenerate'),
-                                            $('simple_product_' + pair.key + '_autogenerate').parentNode);
-                                    Validation.ajaxError(
-                                            $('simple_product_' + pair.key),
-                                            result.error.message);
-                                });
-                $(this.idPrefix + 'simple_form')
-                        .addClassName('ignore-validate');
+                    .each(function (pair) {
+                        $('simple_product_' + pair.key).value = pair.value;
+                        $('simple_product_' + pair.key + '_autogenerate').checked = false;
+                        toggleValueElements(
+                            $('simple_product_' + pair.key + '_autogenerate'),
+                            $('simple_product_' + pair.key + '_autogenerate').parentNode);
+                        Validation.ajaxError($('simple_product_' + pair.key), result.error.message);
+                    });
+                $(this.idPrefix + 'simple_form').addClassName('ignore-validate');
             } else {
                 if (result.error.message) {
                     alert(result.error.message);
@@ -827,19 +830,19 @@ Product.Configurable.prototype = {
         }
 
         result.attributes
-                .each( function(attribute) {
-                    var attr = this.getAttributeById(attribute.attribute_id);
-                    if (!this.getValueByIndex(attr, attribute.value_index)
-                            && result.pricing
-                            && result.pricing[attr.attribute_code]) {
+            .each(function (attribute) {
+                var attr = this.getAttributeById(attribute.attribute_id);
+                if (!this.getValueByIndex(attr, attribute.value_index)
+                    && result.pricing
+                    && result.pricing[attr.attribute_code]) {
 
-                        attribute.is_percent = result.pricing[attr.attribute_code].is_percent;
-                        attribute.pricing_value = (result.pricing[attr.attribute_code].value == null ? ''
-                                : result.pricing[attr.attribute_code].value);
-                    }
-                }.bind(this));
+                    attribute.is_percent = result.pricing[attr.attribute_code].is_percent;
+                    attribute.pricing_value = (result.pricing[attr.attribute_code].value == null ? ''
+                        : result.pricing[attr.attribute_code].value);
+                }
+            }.bind(this));
 
-        this.attributes.each( function(attribute) {
+        this.attributes.each(function (attribute) {
             if ($('simple_product_' + attribute.attribute_code)) {
                 $('simple_product_' + attribute.attribute_code).value = '';
             }
@@ -850,22 +853,21 @@ Product.Configurable.prototype = {
         this.updateValues();
         this.grid.reload();
     },
-    checkCreationUniqueAttributes : function() {
+    checkCreationUniqueAttributes: function () {
         var attributes = [];
         this.attributes
-                .each( function(attribute) {
-                    attributes
-                            .push( {
-                                attribute_id :attribute.attribute_id,
-                                value_index :$('simple_product_' + attribute.attribute_code).value
-                            });
-                }.bind(this));
+            .each(function (attribute) {
+                attributes.push({
+                    attribute_id: attribute.attribute_id,
+                    value_index: $('simple_product_' + attribute.attribute_code).value
+                });
+            }.bind(this));
 
         return this.checkAttributes(attributes);
     },
-    getAttributeByCode : function(attributeCode) {
+    getAttributeByCode: function (attributeCode) {
         var attribute = null;
-        this.attributes.each( function(item) {
+        this.attributes.each(function (item) {
             if (item.attribute_code == attributeCode) {
                 attribute = item;
                 throw $break;
@@ -873,9 +875,9 @@ Product.Configurable.prototype = {
         });
         return attribute;
     },
-    getAttributeById : function(attributeId) {
+    getAttributeById: function (attributeId) {
         var attribute = null;
-        this.attributes.each( function(item) {
+        this.attributes.each(function (item) {
             if (item.attribute_id == attributeId) {
                 attribute = item;
                 throw $break;
@@ -883,9 +885,9 @@ Product.Configurable.prototype = {
         });
         return attribute;
     },
-    getValueByIndex : function(attribute, valueIndex) {
+    getValueByIndex: function (attribute, valueIndex) {
         var result = null;
-        attribute.values.each( function(value) {
+        attribute.values.each(function (value) {
             if (value.value_index == valueIndex) {
                 result = value;
                 throw $break;
@@ -893,21 +895,17 @@ Product.Configurable.prototype = {
         });
         return result;
     },
-    showPricing : function(select, attributeCode) {
+    showPricing: function (select, attributeCode) {
         var attribute = this.getAttributeByCode(attributeCode);
         if (!attribute) {
             return;
         }
 
         select = $(select);
-        if (select.value
-                && !$('simple_product_' + attributeCode + '_pricing_container')) {
-            Element
-                    .insert(
-                            select,
-                            {
-                                after :'<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>'
-                            });
+        if (select.value && !$('simple_product_' + attributeCode + '_pricing_container')) {
+            Element.insert(select, {
+                after: '<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>'
+            });
             var newContainer = select.next('div');
             select.parentNode.removeChild(select);
             newContainer.appendChild(select);
@@ -926,8 +924,7 @@ Product.Configurable.prototype = {
                     }
                     container.update(this.pricingValueTemplate.evaluate(value));
                     var priceValueField = container.down('.attribute-price');
-                    var priceTypeField = container
-                            .down('.attribute-price-type');
+                    var priceTypeField = container.down('.attribute-price-type');
 
                     priceValueField.attributeCode = attributeCode;
                     priceValueField.priceField = priceValueField;
@@ -937,21 +934,18 @@ Product.Configurable.prototype = {
                     priceTypeField.priceField = priceValueField;
                     priceTypeField.typeField = priceTypeField;
 
-                    Event.observe(priceValueField, 'change',
-                            this.updateSimplePricing.bindAsEventListener(this));
-                    Event.observe(priceValueField, 'keyup',
-                            this.updateSimplePricing.bindAsEventListener(this));
-                    Event.observe(priceTypeField, 'change',
-                            this.updateSimplePricing.bindAsEventListener(this));
+                    Event.observe(priceValueField, 'change', this.updateSimplePricing.bindAsEventListener(this));
+                    Event.observe(priceValueField, 'keyup', this.updateSimplePricing.bindAsEventListener(this));
+                    Event.observe(priceTypeField, 'change', this.updateSimplePricing.bindAsEventListener(this));
 
                     $('simple_product_' + attributeCode + '_pricing_value').value = null;
                     $('simple_product_' + attributeCode + '_pricing_type').value = null;
                 }
             } else if (!isNaN(parseFloat(value.pricing_value))) {
-                container.update(this.pricingValueViewTemplate.evaluate( {
-                    'value' :(parseFloat(value.pricing_value) > 0 ? '+' : '')
-                            + parseFloat(value.pricing_value)
-                            + (parseInt(value.is_percent) > 0 ? '%' : '')
+                container.update(this.pricingValueViewTemplate.evaluate({
+                    'value': (parseFloat(value.pricing_value) > 0 ? '+' : '')
+                        + parseFloat(value.pricing_value)
+                        + (parseInt(value.is_percent) > 0 ? '%' : '')
                 }));
                 $('simple_product_' + attributeCode + '_pricing_value').value = value.pricing_value;
                 $('simple_product_' + attributeCode + '_pricing_type').value = value.is_percent;
@@ -966,7 +960,7 @@ Product.Configurable.prototype = {
             $('simple_product_' + attributeCode + '_pricing_type').value = null;
         }
     },
-    updateSimplePricing : function(evt) {
+    updateSimplePricing: function (evt) {
         var element = Event.element(evt);
         if (!element.priceField.value.blank()) {
             $('simple_product_' + element.attributeCode + '_pricing_value').value = element.priceField.value;
@@ -976,16 +970,16 @@ Product.Configurable.prototype = {
             $('simple_product_' + element.attributeCode + '_pricing_type').value = null;
         }
     },
-    updateSimpleForm : function() {
-        this.attributes.each( function(attribute) {
+    updateSimpleForm: function () {
+        this.attributes.each(function (attribute) {
             if ($('simple_product_' + attribute.attribute_code)) {
                 this.showPricing(
-                        $('simple_product_' + attribute.attribute_code),
-                        attribute.attribute_code);
+                    $('simple_product_' + attribute.attribute_code),
+                    attribute.attribute_code);
             }
         }.bind(this));
     },
-    showNoticeMessage : function() {
+    showNoticeMessage: function () {
         $('assign_product_warrning').show();
     }
 };
@@ -1001,14 +995,18 @@ function toogleFieldEditMode(toogleIdentifier, fieldContainer) {
 }
 
 function disableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = true;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = true;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = true;
     }
 }
 
 function enableFieldEditMode(fieldContainer) {
-    $(fieldContainer).disabled = false;
+    if ($(fieldContainer)) {
+        $(fieldContainer).disabled = false;
+    }
     if ($(fieldContainer + '_hidden')) {
         $(fieldContainer + '_hidden').disabled = false;
     }
@@ -1019,7 +1017,7 @@ function initDisableFields(fieldContainer) {
 }
 
 function onCompleteDisableInited() {
-    onInitDisableFieldsList.each( function(item) {
+    onInitDisableFieldsList.each(function (item) {
         disableFieldEditMode(item);
     });
 }
@@ -1035,12 +1033,12 @@ function onUrlkeyChanged(urlKey) {
 
 function onCustomUseParentChanged(element) {
     var useParent = (element.value == 1) ? true : false;
-    element.up(2).select('input', 'select', 'textarea').each(function(el){
+    element.up(2).select('input', 'select', 'textarea').each(function (el) {
         if (element.id != el.id) {
             el.disabled = useParent;
         }
     });
-    element.up(2).select('img').each(function(el){
+    element.up(2).select('img').each(function (el) {
         if (useParent) {
             el.hide();
         } else {

@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -24,7 +24,7 @@
     <?php if ($this->isPartialAuthorization()): ?>
         <?php echo $this->getChildHtml('cards') ?>
         <div class="release-amounts">
-            <button class="button" type="button" id="payment-button-cancel"><span><span>Cancel</span></span></button>
+            <button class="button" type="button" id="payment-button-cancel">Cancel</button>
             <span><?php echo $this->__('To cancel pending authorizations and release amounts that have already been processed during this payment, click Cancel.') ?></span>
         </div>
         <?php echo $this->showNoticeMessage($this->__('Please enter another credit card number to complete your purchase.')) ?>

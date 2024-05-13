@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -20,6 +20,18 @@
             <version>1.6.0.0</version>
         </Mage_Index>
     </modules>
+    <crontab>
+        <jobs>
+            <index_clean_events>
+                <schedule>
+                    <cron_expr>30 */4 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>index/observer::cleanOutdatedEvents</model>
+                </run>
+            </index_clean_events>
+        </jobs>
+    </crontab>
     <global>
         <helpers>
             <index>
@@ -33,7 +45,6 @@
             </index>
             <index_resource>
                 <class>Mage_Index_Model_Resource</class>
-                <deprecatedNode>index_mysql4</deprecatedNode>
                 <entities>
                     <event>
                         <table>index_event</table>

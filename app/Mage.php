@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,6 +42,17 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+$autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
+if (!$autoloaderPath) {
+    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    if (!is_dir($autoloaderPath)) {
+        $autoloaderPath = BP . DS . 'vendor';
+    }
+}
+require_once $autoloaderPath . DS . 'autoload.php';
+/** AUTOLOADER PATCH **/
+
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
@@ -49,8 +60,6 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
 
 /**
  * Main Mage hub class
- *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 final class Mage
 {
@@ -167,67 +176,44 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
-            $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
-            } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
-            }
+
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
+        }
+
+        return $versionString;
     }
 
     /**
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return array
      */
     public static function getOpenMageVersionInfo(): array
     {
-        /**
-         * This code construct is to make merging for forward porting of changes easier.
-         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
-         * also as releases are usually done together, this could in theory be done at once.
-         * The major Version then needs to be only changed once per branch.
-         */
-        if (self::getOpenMageMajorVersion() === 20) {
-            return [
-                'major'     => '20',
-                'minor'     => '1',
-                'patch'     => '0',
-                'stability' => 'rc4', // beta,alpha,rc
-                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-            ];
-        }
-
         return [
-            'major'     => '19',
-            'minor'     => '5',
+            'major'     => '21',
+            'minor'     => '0',
             'patch'     => '0',
-            'stability' => 'rc4', // beta,alpha,rc
+            'stability' => 'beta2', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
     }
 
-    /**
-     * @return int<19,20>
-     */
     public static function getOpenMageMajorVersion(): int
     {
-        return 20;
+        return 21;
     }
 
     /**
@@ -403,6 +389,26 @@ final class Mage
     }
 
     /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return float
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return int
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
+    }
+
+    /**
      * Retrieve config flag for store by path
      *
      * @param string $path
@@ -465,7 +471,7 @@ final class Mage
     }
 
     /**
-     * Add observer to even object
+     * Add observer to events object
      *
      * @param string $eventName
      * @param callback $callback
@@ -574,10 +580,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
@@ -718,7 +724,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -742,6 +748,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
@@ -817,7 +824,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime($date)) {
+                if (($date = $localConfig->global->install->date) && strtotime((string)$date)) {
                     self::$_isInstalled = true;
                 }
             }
@@ -862,7 +869,7 @@ final class Mage
 
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
 
-        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel && !$forceLog) {
             return;
         }
 

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 {
@@ -47,11 +46,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
      */
     public function exportSearchCsvAction()
     {
-        $fileName   = 'search.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_search_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('search.csv', -1));
     }
 
     /**
@@ -59,11 +55,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
      */
     public function exportSearchExcelAction()
     {
-        $fileName   = 'search.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_search_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('search.xml', -1));
     }
 
     /**

@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Data
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method string getTitle()
  * @method string getForceLoad()
@@ -74,14 +73,6 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             </script>';
 
         if ($this->isEnabled()) {
-            // add Firebug notice translations
-            $warn = 'Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.';
-            $this->getConfig()->addData([
-                'firebug_warning_title'  => $this->translate('Warning'),
-                'firebug_warning_text'   => $this->translate($warn),
-                'firebug_warning_anchor' => $this->translate('Hide'),
-            ]);
-
             $translatedString = [
                 'Insert Image...' => $this->translate('Insert Image...'),
                 'Insert Media...' => $this->translate('Insert Media...'),

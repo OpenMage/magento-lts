@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <8.3",
+        "php": ">=8.2 <8.4",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -23,16 +23,14 @@
         "ext-soap": "*",
         "ext-zlib": "*",
         "colinmollenhour/cache-backend-redis": "^1.14",
-        "colinmollenhour/magento-redis-session": "^3.1",
+        "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
+        "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
-        "shardj/zf1-future": "^1.22",
-        "symfony/polyfill-php74": "^1.27",
-        "symfony/polyfill-php80": "^1.27",
-        "symfony/polyfill-php81": "^1.27"
+        "shardj/zf1-future": "1.24.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
@@ -78,15 +76,18 @@
             "role": "Maintainer"
         }
     ],
+    "funding": [
+        {
+            "type": "open_collective",
+            "url": "https://opencollective.com/openmage"
+        }
+    ],
     "autoload-dev": {
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
         }
     },
     "extra": {
-        "branch-alias": {
-            "dev-main": "1.9.4.x-dev"
-        },
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
@@ -101,7 +102,6 @@
                 "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.0.patch",
                 "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.7.patch",
-                "MAG-1.9.3.9": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.9.patch",
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-918.patch",
                 "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-1081.patch",
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
@@ -116,7 +116,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.2"
         },
         "sort-packages": true
     }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,9 +18,8 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Interface
+class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 {
     /**
      * Session maximum cookie lifetime
@@ -72,10 +71,6 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
         $this->_write        = $resource->getConnection('core_write');
     }
 
-    /**
-     * Destrucor
-     *
-     */
     public function __destruct()
     {
         session_write_close();
@@ -91,7 +86,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
         if (is_null($this->_lifeTime)) {
             $configNode = Mage::app()->getStore()->isAdmin() ?
                     'admin/security/session_cookie_lifetime' : 'web/cookie/cookie_lifetime';
-            $this->_lifeTime = (int) Mage::getStoreConfig($configNode);
+            $this->_lifeTime = Mage::getStoreConfigAsInt($configNode);
 
             if ($this->_lifeTime < 60) {
                 $this->_lifeTime = ini_get('session.gc_maxlifetime');
@@ -163,7 +158,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessName ignored
      * @return bool
      */
-    public function open($savePath, $sessName)
+    public function open($savePath, $sessName): bool
     {
         return true;
     }
@@ -173,7 +168,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      *
      * @return bool
      */
-    public function close()
+    public function close(): bool
     {
         $this->gc($this->getLifeTime());
 
@@ -186,20 +181,18 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return string
      */
-    public function read($sessId)
+    public function read($sessId): string|false
     {
         $select = $this->_read->select()
-                ->from($this->_sessionTable, ['session_data'])
-                ->where('session_id = :session_id')
-                ->where('session_expires > :session_expires');
+            ->from($this->_sessionTable, ['session_data'])
+            ->where('session_id = :session_id')
+            ->where('session_expires > :session_expires');
         $bind = [
             'session_id'      => $sessId,
             'session_expires' => Varien_Date::toTimestamp(true)
         ];
 
-        $data = $this->_read->fetchOne($select, $bind);
-
-        return (string)$data;
+        return $this->_read->fetchOne($select, $bind);
     }
 
     /**
@@ -209,14 +202,14 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessData
      * @return bool
      */
-    public function write($sessId, $sessData)
+    public function write($sessId, $sessData): bool
     {
         $bindValues = [
             'session_id'      => $sessId
         ];
         $select = $this->_write->select()
-                ->from($this->_sessionTable)
-                ->where('session_id = :session_id');
+            ->from($this->_sessionTable)
+            ->where('session_id = :session_id');
         $exists = $this->_read->fetchOne($select, $bindValues);
 
         $bind = [
@@ -242,7 +235,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * @param string $sessId
      * @return bool
      */
-    public function destroy($sessId)
+    public function destroy($sessId): bool
     {
         $where = ['session_id = ?' => $sessId];
         $this->_write->delete($this->_sessionTable, $where);
@@ -253,18 +246,16 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      * Garbage collection
      *
      * @param int $sessMaxLifeTime ignored
-     * @return bool
+     * @return int|false
      */
-    public function gc($sessMaxLifeTime)
+    public function gc($sessMaxLifeTime): int|false
     {
         if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor) == 1
-            ) {
+            if ($this->_automaticCleaningFactor == 1 || rand(1, $this->_automaticCleaningFactor) == 1) {
                 $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
-                $this->_write->delete($this->_sessionTable, $where);
+                return $this->_write->delete($this->_sessionTable, $where);
             }
         }
-        return true;
+        return 0;
     }
 }

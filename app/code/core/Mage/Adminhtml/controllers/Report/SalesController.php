@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Report_Abstract
 {
@@ -81,10 +80,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportBestsellersCsvAction()
     {
-        $fileName   = 'bestsellers.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('bestsellers.csv', -1));
     }
 
     /**
@@ -92,10 +90,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportBestsellersExcelAction()
     {
-        $fileName   = 'bestsellers.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_bestsellers_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('bestsellers.xml', -1));
     }
 
     /**
@@ -136,10 +133,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportSalesCsvAction()
     {
-        $fileName   = 'sales.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('sales.csv', -1));
     }
 
     /**
@@ -147,10 +143,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportSalesExcelAction()
     {
-        $fileName   = 'sales.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('sales.xml', -1));
     }
 
     public function taxAction()
@@ -179,10 +174,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportTaxCsvAction()
     {
-        $fileName   = 'tax.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('tax.csv', -1));
     }
 
     /**
@@ -190,10 +184,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportTaxExcelAction()
     {
-        $fileName   = 'tax.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('tax.xml', -1));
     }
 
     public function shippingAction()
@@ -222,10 +215,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportShippingCsvAction()
     {
-        $fileName   = 'shipping.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('shipping.csv', -1));
     }
 
     /**
@@ -233,10 +225,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportShippingExcelAction()
     {
-        $fileName   = 'shipping.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('shipping.xml', -1));
     }
 
     public function invoicedAction()
@@ -265,10 +256,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportInvoicedCsvAction()
     {
-        $fileName   = 'invoiced.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('invoiced.csv', -1));
     }
 
     /**
@@ -276,10 +266,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportInvoicedExcelAction()
     {
-        $fileName   = 'invoiced.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('invoiced.xml', -1));
     }
 
     public function refundedAction()
@@ -308,10 +297,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportRefundedCsvAction()
     {
-        $fileName   = 'refunded.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('refunded.csv', -1));
     }
 
     /**
@@ -319,10 +307,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportRefundedExcelAction()
     {
-        $fileName   = 'refunded.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('refunded.xml', -1));
     }
 
     public function couponsAction()
@@ -351,10 +338,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportCouponsCsvAction()
     {
-        $fileName   = 'coupons.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('coupons.csv', -1));
     }
 
     /**
@@ -362,10 +348,9 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     public function exportCouponsExcelAction()
     {
-        $fileName   = 'coupons.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid');
+        $grid = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid');
         $this->_initReportAction($grid);
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('coupons.xml', -1));
     }
 
     /**

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method array getGroups()
  * @method $this setGroups(array $value)
@@ -358,6 +357,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * @param string $path
      * @param null|bool $inherit
      * @param null|array $configData
+     * @param-out bool $inherit
      * @return Varien_Simplexml_Element
      */
     public function getConfigDataValue($path, &$inherit = null, $configData = null)

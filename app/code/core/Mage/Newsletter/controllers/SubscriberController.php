@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,15 +18,9 @@
  *
  * @category   Mage
  * @package    Mage_Newsletter
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Action
 {
-    /**
-     * Use CSRF validation flag from newsletter config
-     */
-    public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
-
     /**
       * New subscription action
       */
@@ -127,15 +121,5 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             }
         }
         $this->_redirectReferer();
-    }
-
-    /**
-     * Check if form key validation is enabled in newsletter config.
-     *
-     * @return bool
-     */
-    protected function _isFormKeyEnabled()
-    {
-        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }

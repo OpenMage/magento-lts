@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Action
 {
@@ -684,24 +683,21 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function exportCsvAction()
     {
-        $fileName   = 'orders.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('orders.csv', -1));
     }
 
     /**
-     *  Export order grid to Excel XML format
+     * Export order grid to Excel XML format
      */
     public function exportExcelAction()
     {
-        $fileName   = 'orders.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('orders.xml', -1));
     }
 
     /**
      * Order transactions grid ajax action
-     *
      */
     public function transactionsAction()
     {

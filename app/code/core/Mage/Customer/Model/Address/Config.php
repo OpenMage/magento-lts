@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
 {
@@ -100,9 +99,9 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
             foreach ($this->getNode('formats')->children() as $typeCode => $typeConfig) {
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
-                $htmlEscape = strtolower($typeConfig->htmlEscape);
+                $htmlEscape = strtolower((string)$typeConfig->htmlEscape);
                 $htmlEscape = !($htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
-                    || !strlen($typeConfig->htmlEscape));
+                    || !strlen($htmlEscape));
                 $type->setCode($typeCode)
                     ->setTitle((string)$typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))

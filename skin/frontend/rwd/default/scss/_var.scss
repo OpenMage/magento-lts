@@ -8,6 +8,7 @@
 // @category    design
 // @package     rwd_default
 // @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
 // @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 //
 
@@ -74,11 +75,11 @@ $max-std-formatted-width: 50em;
 // Usually not used directly in Sass partials.
 // Only used to define context-based color vars in this file.
 
-$c-blue: #3399CC;
-$c-green: #11B400;
+$c-blue: #0472ad;
+$c-green: #0f8900;
 $c-pink: #D85378;
 $c-orange: #F3793B;
-$c-red: #CF5050;
+$c-red: #cd4848;
 $c-yellow: #FFDD15;
 $c-black: #000000;
 $c-gray: #333333;
@@ -90,7 +91,7 @@ $c-gray: #333333;
 // Text
 
 $c-text: #636363;
-$c-text-gray: #A0A0A0;
+$c-text-gray: #767676;
 $c-text-white: #E6E6E6;
 // Primary font color for headings and other non-link text
 $c-text-primary: $c-blue;
@@ -100,7 +101,7 @@ $c-text-primary: $c-blue;
 
 $c-action: $c-blue;
 $c-stimulus: darken($c-blue, 15%);
-$c-subtle: #A0A0A0;
+$c-subtle: #767676;
 
 // Notifications
 

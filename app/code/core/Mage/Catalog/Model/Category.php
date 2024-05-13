@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
@@ -500,9 +499,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getCategoryIdUrl()
     {
         Varien_Profiler::start('REGULAR: ' . __METHOD__);
-        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->formatUrlKey($this->getName());
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $this->getStoreId());
+        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->formatUrlKey($this->getName(), $locale);
         $url = $this->getUrlInstance()->getUrl('catalog/category/view', [
-            's' => $urlKey,
+            's'  => $urlKey,
             'id' => $this->getId(),
         ]);
         Varien_Profiler::stop('REGULAR: ' . __METHOD__);
@@ -510,18 +510,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Format URL key from name or defined key
+     * Format Key for URL
      *
      * @param string $str
+     * @param null|string $locale
      * @return string
      */
-    public function formatUrlKey($str)
+    public function formatUrlKey($str, $locale = null)
     {
-        $str = Mage::helper('catalog/product_url')->format($str);
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-        return $urlKey;
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str, $locale));
+        return trim($urlKey, '-');
     }
 
     /**

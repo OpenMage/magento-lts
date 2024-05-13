@@ -1,6 +1,5 @@
 includes:
     - vendor/macopedia/phpstan-magento1/extension.neon
-    - phpstan.dist.issues.neon
     - phpstan.dist.baseline.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
@@ -18,10 +17,6 @@ parameters:
         - lib/Varien
         - shell
     excludePaths:
-        # removed and fixed modules (OM-2811, OM-2813)
-        - app/code/core/Mage/Backup/*
-        - app/code/core/Mage/PageCache/*
-
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
@@ -71,9 +66,6 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    stubFiles:
-        - dev/phpstan/stubs/Zend_Captcha_Word.stub
-        - dev/phpstan/stubs/Zend_Validate_InArray.stub
     level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true

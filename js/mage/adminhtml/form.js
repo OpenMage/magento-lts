@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienForm = new Class.create();
@@ -480,9 +480,7 @@ FormElementDependenceController.prototype = {
      * Misc. config options
      * Keys are underscored intentionally
      */
-    _config : {
-        levels_up : 1 // how many levels up to travel when toggling element
-    },
+    _config : {},
 
     getSelectValues : function(select) {
         var result = [];
@@ -496,7 +494,12 @@ FormElementDependenceController.prototype = {
         }
         return result;
     },
-
+    hideElem : function(ele) {
+        ele.hide();
+    },
+    showElem : function(ele) {
+        ele.show();
+    },
     /**
      * Define whether target element should be toggled and show/hide its row
      *
@@ -507,8 +510,20 @@ FormElementDependenceController.prototype = {
      */
     trackChange : function(e, idTo, valuesFrom)
     {
-        if (!$(idTo)) {
-            return;
+        var ele = document.getElementById(idTo), cnf = this._config;
+        if (!ele) {
+            idTo = 'row_' + idTo;
+            ele = $(idTo);
+            if (!ele) {
+                return;
+            }
+        } else {
+            var closest = cnf.levels_up; // @deprecated
+            if ((typeof closest == 'number') && (closest > 1)) {
+                ele = ele.up(closest);
+            } else {
+                ele = ele.closest('tr');
+            }
         }
 
         // define whether the target should show up
@@ -535,23 +550,22 @@ FormElementDependenceController.prototype = {
 
         // toggle target row
         if (shouldShowUp) {
-            var currentConfig = this._config;
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
+            ele.select('input', 'select', 'td').each(function (item) {
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
-                    && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
+                    && !(cnf.can_edit_price != undefined && !cnf.can_edit_price)) {
                     item.disabled = false;
                 }
             });
-            $(idTo).up(this._config.levels_up).show();
+            this.showElem(ele);
         } else {
-            $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
+            ele.select('input', 'select', 'td', 'div').each(function (item){
                 // don't touch hidden inputs (and Use Default inputs too), bc they may have custom logic
                 if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
                     item.disabled = true;
                 }
             });
-            $(idTo).up(this._config.levels_up).hide();
+            this.hideElem(ele);
         }
     }
 };

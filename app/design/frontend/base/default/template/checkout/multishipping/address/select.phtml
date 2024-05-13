@@ -9,14 +9,14 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="multiple-checkout">
     <div class="page-title title-buttons">
         <h1><?php echo $this->__('Change Billing Address') ?></h1>
-        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
+        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><?php echo $this->__('Add New Address') ?></button>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php $_index=0 ?>

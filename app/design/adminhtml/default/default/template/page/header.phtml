@@ -29,23 +29,44 @@
             </span>
             <?php $defSearch = $this->__('Global Record Search') ?>
             <input id="global_search" name="query" type="text" class="input-text" value="<?php if(!empty($query)): ?><?php echo $query ?><?php else: ?><?php echo Mage::helper('core')->quoteEscape($defSearch) ?><?php endif ?>" onfocus="if(this.value=='<?php echo Mage::helper('core')->quoteEscape($defSearch, true) ?>')this.value=''; " onblur="if(this.value=='')this.value='<?php echo $defSearch ?>';" />
-            <div id="global_search_autocomplete" class="autocomplete"></div>
+            <div id="global_search_autocomplete" class="autocomplete" style="display:none"></div>
             <script type="text/javascript">
-                new Ajax.Autocompleter(
-                    'global_search',
-                    'global_search_autocomplete',
-                    '<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>',
-                    {
-                        paramName:"query",
-                        minChars:2,
-                        indicator:"global_search_indicator",
-                        updateElement:getSelectionId,
-                        evalJSON:'force'
+                document.getElementById('global_search').addEventListener('input', function() {
+                    let query = this.value;
+                    if (query.length < 2) {
+                        document.getElementById('global_search_autocomplete').style.display = 'none';
+                        return;
                     }
-                );
-                function getSelectionId(li) {
-                    location.href = li.getAttribute('url');
-                }
+
+                    document.getElementById('global_search_indicator').style.display = 'inline-block';
+                    fetch('<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>?isAjax=true', {
+                        method: 'POST',
+                        headers:{
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'query': query,
+                            'form_key': FORM_KEY
+                        })
+                    })
+                    .then(response => {
+                        return response.text();
+                    })
+                    .then(htmlString => {
+                        let autocomplete = document.getElementById('global_search_autocomplete');
+                        autocomplete.style.display = 'block';
+                        autocomplete.innerHTML = htmlString;
+                        Array.from(document.querySelectorAll('#global_search_autocomplete li')).forEach(li => {
+                            li.addEventListener('click', function() {
+                                location.href = this.getAttribute('url');
+                            });
+                        });
+                        document.getElementById('global_search_indicator').style.display = 'none';
+                    })
+                    .catch(error => {
+                        alert(error);
+                    });
+                });
             </script>
         </fieldset>
         <?php endif ?>

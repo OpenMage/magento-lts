@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /** @var $this Mage_Paypal_Block_Express_Review */
@@ -58,7 +58,7 @@
                                     </select>
                                 </fieldset>
                                 <p class="actions">
-                                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
+                                    <button id="update_shipping_method_submit" type="submit" class="button"><?php echo $this->__('Update Shipping Method') ?></button>
                                 </p>
                             <?php else: ?>
                                 <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
@@ -98,8 +98,8 @@
 <form method="post" id="order_review_form" action="<?php echo $this->getPlaceOrderUrl() ?>">
     <?php echo $this->getChildHtml('agreements'); ?>
     <div class="buttons-set buttons-set-order" id="review-buttons-container">
-        <button type="button" id="review_button" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
-        <button type="button" id="review_submit" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
+        <button type="button" id="review_button" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><?php echo $this->__('Place Order') ?></button>
+        <button type="button" id="review_submit" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Place Order')) ?>" class="button btn-checkout"><?php echo $this->__('Place Order') ?></button>
         <span class="please-wait" id="review-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
         </span>

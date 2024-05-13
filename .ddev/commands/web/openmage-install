@@ -1,0 +1,168 @@
+#!/bin/bash
+
+## ProjectTypes: magento
+## Description: Install OpenMage
+## Usage: openmage-install [-d|--default] [-s|--sampledata] [-k|--keep] [-q|--quiet]
+## Example: ddev openmage-install -d -s -k
+## Flags: [{"Name":"default","Shorthand":"d","Usage":"use default values"},{"Name":"sampledata","Shorthand":"s","Usage":"install sample data"},{"Name":"keep","Shorthand":"k","Usage":"keep sample data package"},{"Name":"quiet","Shorthand":"q","Usage":"silent install with sample data"}]
+
+ROOT="${PWD}"
+
+QUIET_INSTALL_FLAG=''
+SAMPLE_DATA_FLAG=''
+SAMPLE_DATA_KEEP_FLAG=''
+USE_DEFAULT_FLAG=''
+
+while :; do
+     case ${1:-} in
+         -d|--default)
+            USE_DEFAULT_FLAG='true' ;;
+         -s|--sampledata)
+            SAMPLE_DATA_FLAG='true' ;;
+         -k|--keep)
+            SAMPLE_DATA_KEEP_FLAG='true' ;;
+         -q|--quiet)
+            QUIET_INSTALL_FLAG='true'
+            USE_DEFAULT_FLAG='true'
+            SAMPLE_DATA_FLAG='true'
+            ;;
+         --)              # End of all options.
+             shift
+             break
+             ;;
+         -?*)
+             printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+             ;;
+         *)               # Default case: No more options, so break out of the loop.
+             break
+     esac
+
+     shift
+ done
+
+echo "Enable maintenance mode..."
+touch maintenance.flag
+
+LOCALXML="${ROOT}/app/etc/local.xml"
+if [ -f "${LOCALXML}" ]; then
+  if [[ "${QUIET_INSTALL_FLAG}" ]]; then
+    DELETE='y'
+  else
+    read -r -p "OpenMage is already installed. Delete local.xml and drop the database? [y/N] " DELETE
+    DELETE=${DELETE,,} # to lower
+  fi
+
+  if [[ "${DELETE}" =~ ^(yes|y) ]]; then
+    mysql -u db -h db -e "DROP SCHEMA IF EXISTS db; CREATE SCHEMA db;";
+    rm "${LOCALXML}"
+  else
+    exit 1
+  fi
+fi
+
+# install sample data
+if [[ "${SAMPLE_DATA_FLAG}" ]]; then
+  INSTALL_SAMPLE_DATA='y'
+else
+  read -r -p "Install Sample Data? [y/N] " INSTALL_SAMPLE_DATA
+  INSTALL_SAMPLE_DATA=${INSTALL_SAMPLE_DATA,,} # to lower
+fi
+
+if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
+  SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
+  SAMPLE_DATA_DIRECTORY="${ROOT}/.ddev/.sampleData"
+  SAMPLE_DATA_FILE=sample_data.tgz
+
+  if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
+    echo "Creating Sample Data directory..."
+    mkdir -p "${SAMPLE_DATA_DIRECTORY}"
+  fi
+
+  cd "${SAMPLE_DATA_DIRECTORY}" || exit
+  if [[ ! -f "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_FILE}" ]]; then
+    echo "Downloading Sample Data..."
+    wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_FILE}"
+  fi
+
+  echo "Uncompressing Sample Data..."
+  tar xf "${SAMPLE_DATA_FILE}"
+
+  echo "Copying Sample Data into the OpenMage directory..."
+  cp -r magento-sample-data-1.9.2.4/media/* "${ROOT}/media/"
+  cp -r magento-sample-data-1.9.2.4/skin/* "${ROOT}/skin/"
+
+  echo "Clearing var/cache..."
+  rm -rf "${ROOT}/var/cache/"*
+
+  echo "Importing Sample Data into the database..."
+  mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
+
+  # remove sample data
+  if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
+    # shellcheck disable=SC2046
+    rm -rf magento-sample-data-1.9.2.4/
+  else
+    cd "${ROOT}" || exit
+    rm -rf "${SAMPLE_DATA_DIRECTORY}"
+  fi
+fi
+
+cd "${ROOT}" || exit
+
+if [[ "${USE_DEFAULT_FLAG}" ]]; then
+  ADMIN_USER='admin'
+  ADMIN_FIRSTNAME='OpenMage'
+  ADMIN_LASTNAME='Administrator'
+  ADMIN_EMAIL='admin@example.com'
+  ADMIN_PASSWORD='veryl0ngpassw0rd'
+  if [[ "${SAMPLE_DATA_FLAG}" ]]; then
+    TABLE_PREFIX=''
+  else
+    TABLE_PREFIX='om_'
+  fi
+else
+  read -r -p "Admin User [admin]: " ADMIN_USER
+  ADMIN_USER=${ADMIN_USER:-admin}
+  read -r -p "Admin Firstname [OpenMage]: " ADMIN_FIRSTNAME
+  ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
+  read -r -p "Admin Lastname [Administrator]: " ADMIN_LASTNAME
+  ADMIN_LASTNAME=${ADMIN_LASTNAME:-Administrator}
+  read -r -p "Admin Email [admin@example.com]: " ADMIN_EMAIL
+  ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+  read -r -p "Admin Password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
+  ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+  if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
+    TABLE_PREFIX=''
+  else
+    read -r -e -i 'om_' -p "Table Prefix [om_]: " TABLE_PREFIX
+  fi
+fi
+
+php -f install.php -- \
+  --license_agreement_accepted 'yes' \
+  --locale 'en_US' \
+  --timezone 'America/New_York' \
+  --db_host 'db' \
+  --db_name 'db' \
+  --db_user 'db' \
+  --db_pass 'db' \
+  --db_prefix "${TABLE_PREFIX}" \
+  --url "${DDEV_PRIMARY_URL}" \
+  --use_rewrites 'yes' \
+  --use_secure 'yes' \
+  --secure_base_url "${DDEV_PRIMARY_URL}" \
+  --use_secure_admin 'yes' \
+  --admin_username "${ADMIN_USER}" \
+  --admin_lastname "${ADMIN_LASTNAME}" \
+  --admin_firstname "${ADMIN_FIRSTNAME}" \
+  --admin_email "${ADMIN_EMAIL}" \
+  --admin_password "${ADMIN_PASSWORD}" \
+  --session_save 'files' \
+  --admin_frontname 'admin' \
+  --backend_frontname 'admin' \
+  --default_currency 'USD' \
+  --enable_charts 'yes' \
+  --skip_url_validation 'yes'
+
+echo "Disable maintenance mode..."
+rm maintenance.flag

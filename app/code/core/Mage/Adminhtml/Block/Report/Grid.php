@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
@@ -413,7 +412,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * recalc totals if we have average
          */
         foreach ($this->getColumns() as $key => $_column) {
-            if (strpos($_column->getTotal(), '/') !== false) {
+            if (str_contains($_column->getTotal(), '/')) {
                 list($t1, $t2) = explode('/', $_column->getTotal());
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
@@ -441,11 +440,18 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as CSV
      *
-     * @return string
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getCsv());
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getCsv(), 'text/csv');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getCsv($fileName, -1));
+     *
+     * @param string $fileName
+     * @param int $limit
+     * @throws Exception
      */
-    public function getCsv()
+    public function getCsv($fileName = '', $limit = 0): string
     {
         $csv = '';
+        $count = 0;
         $this->_prepareGrid();
 
         $data = ['"' . $this->__('Period') . '"'];
@@ -470,6 +476,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     }
                 }
                 $csv .= implode(',', $data) . "\n";
+                $count++;
+                if (($limit > 0) && ($count > $limit)) {
+                    exit('Too many results');
+                }
             }
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
                 $data = ['"' . $_index . '"'];
@@ -496,18 +506,23 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             $csv .= implode(',', $data) . "\n";
         }
 
-        return $csv;
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.csv', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.csv', $fileName), $csv, 'text/csv'] : $csv;
     }
 
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return mixed
+     *  the original way (still working): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName));
+     *      or (with right content type): $this->_prepareDownloadResponse($fileName, $grid->getExcel($fileName), 'application/vnd.ms-excel');
+     *                       the new way: $this->_prepareDownloadResponse(...$grid->getExcel($fileName, -1));
+     *
+     * @throws Exception
      */
-    public function getExcel($filename = '')
+    public function getExcel(string $fileName = '', int $limit = 0): string
     {
         $this->_prepareGrid();
 
+        $count = 0;
         $data = [];
         $row = [$this->__('Period')];
         foreach ($this->_columns as $column) {
@@ -527,6 +542,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     }
                 }
                 $data[] = $row;
+                $count++;
+                if (($limit > 0) && ($count > $limit)) {
+                    exit('Too many results');
+                }
             }
             if ($this->getCountTotals() && $this->getSubtotalVisibility()) {
                 $row = [$_index];
@@ -552,11 +571,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
 
         $xmlObj = new Varien_Convert_Parser_Xml_Excel();
-        $xmlObj->setVar('single_sheet', $filename);
+        $xmlObj->setVar('single_sheet', $fileName);
         $xmlObj->setData($data);
         $xmlObj->unparse();
 
-        return $xmlObj->getData();
+        return (!empty($fileName) && ($limit != 0)) ? [str_replace('.xml', '-' . $count . '-' . Mage::getModel('core/date')->date('Ymd-His') . '.xml', $fileName), $xmlObj->getData(), 'application/vnd.ms-excel'] : $xmlObj->getData();
     }
 
     /**

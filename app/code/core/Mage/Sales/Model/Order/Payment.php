@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
@@ -87,8 +86,6 @@
  * @method $this setCcNumberEnc(string $value)
  * @method string getCcOwner()
  * @method $this setCcOwner(string $value)
- * @method string getCcSecureVerify()
- * @method $this setCcSecureVerify(string $value)
  * @method string getCcSsIssue()
  * @method $this setCcSsIssue(string $value)
  * @method string getCcSsStartMonth()
@@ -806,7 +803,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $amount = $amountRefundLeft;
         }
 
-        if ($amount != $baseGrandTotal) {
+        if (Mage::helper('core')->getExactDivision($amount, $baseGrandTotal) != 0) {
             $transaction = new Varien_Object(['txn_id' => $this->getTransactionId()]);
             Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $transaction, 'payment' => $this]);
             $transactionId = $transaction->getHtmlTxnId() ? $transaction->getHtmlTxnId() : $transaction->getTxnId();

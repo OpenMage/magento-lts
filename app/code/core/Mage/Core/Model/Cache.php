@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,7 +19,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Cache
 {
@@ -382,12 +381,6 @@ class Mage_Core_Model_Cache
             return true;
         }
 
-        /**
-         * Add global magento cache tag to all cached data exclude config cache
-         */
-        if (!in_array(Mage_Core_Model_Config::CACHE_TAG, $tags)) {
-            $tags[] = Mage_Core_Model_App::CACHE_TAG;
-        }
         return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
     }
 
@@ -426,12 +419,10 @@ class Mage_Core_Model_Cache
             if (!is_array($tags)) {
                 $tags = [$tags];
             }
-            $res = $this->getFrontend()->clean($mode, $this->_tags($tags));
-        } else {
-            $res = $this->getFrontend()->clean($mode, [Mage_Core_Model_App::CACHE_TAG]);
-            $res = $res && $this->getFrontend()->clean($mode, [Mage_Core_Model_Config::CACHE_TAG]);
+            return $this->getFrontend()->clean($mode, $this->_tags($tags));
         }
-        return $res;
+
+        return $this->flush();
     }
 
     /**
@@ -538,6 +529,18 @@ class Mage_Core_Model_Cache
     public function banUse($typeCode)
     {
         $this->_allowedCacheOptions[$typeCode] = false;
+        return $this;
+    }
+
+    /**
+     * Enable cache usage for specific data type
+     *
+     * @param string $typeCode
+     * @return $this
+     */
+    public function unbanUse($typeCode)
+    {
+        $this->_allowedCacheOptions[$typeCode] = true;
         return $this;
     }
 

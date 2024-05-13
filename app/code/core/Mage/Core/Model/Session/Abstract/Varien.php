@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method bool|null getSkipEmptySessionCheck()
  * @method $this setSkipEmptySessionCheck(bool $flag)
@@ -95,7 +94,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         $cookie = $this->getCookie();
         if (Mage::app()->getStore()->isAdmin()) {
             $sessionMaxLifetime = Mage_Core_Model_Resource_Session::SEESION_MAX_COOKIE_LIFETIME;
-            $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+            $adminSessionLifetime = Mage::getStoreConfigAsInt('admin/security/session_cookie_lifetime');
             if ($adminSessionLifetime > $sessionMaxLifetime) {
                 $adminSessionLifetime = $sessionMaxLifetime;
             }
@@ -106,7 +105,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // session cookie params
         $cookieParams = [
-            'lifetime' => $cookie->getLifetime(),
+            'lifetime' => (int)$cookie->getLifetime(),
             'path'     => $cookie->getPath(),
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
@@ -440,7 +439,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
-     * Use password creation timestamp in validator key
+     * Password creation timestamp must not be newer than last session renewal
      *
      * @return bool
      */
@@ -482,13 +481,25 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             }
 
             // Refresh expire timestamp
-            if ($this->useValidateSessionExpire()) {
-                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = time();
+            if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
+                $this->setValidatorSessionRenewTimestamp(time());
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Update the session's last legitimate renewal time (call when customer password is updated to avoid
+     * being logged out)
+     *
+     * @param int $timestamp
+     * @return void
+     */
+    public function setValidatorSessionRenewTimestamp($timestamp)
+    {
+        $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = $timestamp;
     }
 
     /**
@@ -580,6 +591,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
         }
 
+        // get time when password was last changed
         if (isset($this->_data['visitor_data']['customer_id'])) {
             $parts[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
                 Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);

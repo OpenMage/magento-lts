@@ -9,14 +9,14 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
  * Customer login form template
  *
- * @var $this Mage_Oauth_Block_Authorize
+ * @var Mage_Oauth_Block_Authorize $this
  */
 
 $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
@@ -47,10 +47,10 @@ $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
                         </ul>
                         <div class="buttons-set" style="margin-top: 20px; padding: 0;">
                             <button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2">
-                                <span><span><?php echo $this->__('Login') ?></span></span></button>
+                                <?php echo $this->__('Login') ?></button>
                             <button type="submit" class="button" onclick="<?php echo $rejectJs; ?>"
                                     title="<?php echo $this->__('Reject') ?>" name="send">
-                                <span><span><?php echo $this->__('Reject') ?></span></span></button>
+                                <?php echo $this->__('Reject') ?></button>
                         </div>
                     </div>
                 </div>

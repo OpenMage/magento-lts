@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
 {
@@ -27,7 +26,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public const REQUEST_CHARSET = 'utf-8';
 
-    /**#@+
+    /**
      * Name of query ($_GET) parameters to use in navigation and so on
      */
     public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
@@ -36,7 +35,6 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public const QUERY_PARAM_ORDER_FIELD = 'order';
     public const QUERY_PARAM_ORDER_DIR   = 'dir';
     public const QUERY_PARAM_FILTER      = 'filter';
-    /**#@- */
 
     /**
      * Interpreter adapter

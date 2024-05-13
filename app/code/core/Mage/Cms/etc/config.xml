@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -102,12 +102,14 @@
                         <jpeg>1</jpeg>
                         <png>1</png>
                         <gif>1</gif>
+                        <webp>1</webp>
                     </allowed>
                     <image_allowed>
                         <jpg>1</jpg>
                         <jpeg>1</jpeg>
                         <png>1</png>
                         <gif>1</gif>
+                        <webp>1</webp>
                     </image_allowed>
                     <media_allowed>
                         <flv>1</flv>
@@ -133,7 +135,6 @@
             </cms>
             <cms_resource>
                 <class>Mage_Cms_Model_Resource</class>
-                <deprecatedNode>cms_mysql4</deprecatedNode>
                 <entities>
                     <page>
                         <table>cms_page</table>
@@ -199,6 +200,7 @@
         <cms>
             <wysiwyg>
                 <enabled>enabled</enabled>
+                <skin>oxide</skin>
             </wysiwyg>
         </cms>
         <system>

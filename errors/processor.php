@@ -9,14 +9,13 @@
  * @category   Mage
  * @package    Errors
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
  /**
  * Error processor
  *
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Error_Processor
 {
@@ -112,8 +111,8 @@ class Error_Processor
         $this->_root  = is_dir($this->_indexDir.'app');
 
         $this->_prepareConfig();
-        if (isset($_GET['skin'])) {
-            $this->_setSkin($_GET['skin']);
+        if (isset($_SERVER['MAGE_ERRORS_SKIN']) || isset($_GET['skin'])) {
+            $this->_setSkin($_SERVER['MAGE_ERRORS_SKIN'] ?? $_GET['skin']);
         }
     }
 
@@ -209,7 +208,7 @@ class Error_Processor
      */
     protected function _getClientIp(): string
     {
-        return $_SERVER['REMOTE_ADDR'] ?? 'undefined';
+        return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'undefined';
     }
 
     protected function _getIndexDir(): string

@@ -8,6 +8,7 @@
 // @category    design
 // @package     rwd_default
 // @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
 // @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 //
 
@@ -73,7 +74,7 @@
         display: none;
     }
     select {
-        max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -117,13 +118,6 @@
     img {
         max-width: 100%;
     }
-
-    .small {
-        display: block;
-    }
-    .large {
-        display: none;
-    }
 }
 
 .logo:hover {
@@ -137,13 +131,6 @@
     .logo {
         max-width: 300px;
         min-height: 90px;
-
-        .small {
-            display: none;
-        }
-        .large {
-            display: block;
-        }
     }
 
 }

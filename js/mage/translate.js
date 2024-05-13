@@ -8,31 +8,29 @@
  * @category    Mage
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-var Translate = Class.create();
-Translate.prototype = {
-    initialize: function(data){
-        this.data = $H(data);
-    },
+class Translate {
+    constructor(data) {
+        this.data = new Map(Object.entries(data));
+    }
 
-    translate : function(){
-        var args = arguments;
-        var text = arguments[0];
-
-        if(this.data.get(text)){
+    translate(text) {
+        if(this.data.has(text)) {
             return this.data.get(text);
         }
         return text;
-    },
-    add : function() {
+    }
+
+    add(keyOrObject, value) {
         if (arguments.length > 1) {
-            this.data.set(arguments[0], arguments[1]);
-        } else if (typeof arguments[0] =='object') {
-            $H(arguments[0]).each(function (pair){
-                this.data.set(pair.key, pair.value);
-            }.bind(this));
+            this.data.set(keyOrObject, value);
+        } else if (typeof keyOrObject == 'object') {
+            Object.entries(keyOrObject).forEach(([key, value]) => {
+                this.data.set(key, value);
+            });
         }
     }
-};
+}

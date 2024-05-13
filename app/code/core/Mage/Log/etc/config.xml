@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -29,9 +29,28 @@
             </entities>
         </ignoredModules>
         <ignore_user_agents>
-            <google1>Googlebot/1.0 (googlebot@googlebot.com http://googlebot.com/)</google1>
-            <google2>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</google2>
-            <google3>Googlebot/2.1 (+http://www.googlebot.com/bot.html)</google3>
+            <adsbot>AdsBot</adsbot>
+            <alphabot>AlphaBot</alphabot>
+            <amazonbot>Amazonbot</amazonbot>
+            <bingbot>bingbot</bingbot>
+            <blexbot>BLEXBot</blexbot>
+            <dotbot>DotBot</dotbot>
+            <facebookexternalhit>facebookexternalhit</facebookexternalhit>
+            <google>Googlebot</google>
+            <google-site-verification>Google-Site-Verification</google-site-verification>
+            <hrefsbot>AhrefsBot</hrefsbot>
+            <istellabot>istellabot</istellabot>
+            <mauibot>MauiBot</mauibot>
+            <mj12bot>MJ12bot</mj12bot>
+            <mod_pagespeed>mod_pagespeed</mod_pagespeed>
+            <opensiteexplorer>spbot</opensiteexplorer>
+            <pinterestbot>Pinterestbot</pinterestbot>
+            <semrushbot>SemrushBot</semrushbot>
+            <seotester>SEOTesterBot</seotester>
+            <yandexbot>YandexBot</yandexbot>
+            <yandeximage>YandexImages</yandeximage>
+            <yandexmobilebot>YandexMobileBot</yandexmobilebot>
+            <zoominfobot>ZoominfoBot</zoominfobot>
         </ignore_user_agents>
         <helpers>
             <log>
@@ -45,7 +64,6 @@
             </log>
             <log_resource>
                 <class>Mage_Log_Model_Resource</class>
-                <deprecatedNode>log_mysql4</deprecatedNode>
                 <entities>
                     <customer>
                         <table>log_customer</table>

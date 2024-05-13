@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 {
@@ -200,8 +199,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     private function _isPunycode($host)
     {
-        if (strpos($host, 'xn--') === 0 || strpos($host, '.xn--') !== false
-            || strpos($host, 'XN--') === 0 || strpos($host, '.XN--') !== false
+        if (str_starts_with($host, 'xn--') || str_contains($host, '.xn--')
+            || str_starts_with($host, 'XN--') || str_contains($host, '.XN--')
         ) {
             return true;
         }

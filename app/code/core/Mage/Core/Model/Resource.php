@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Resource
 {
@@ -195,7 +194,7 @@ class Mage_Core_Model_Resource
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
-        if (strpos($requiredConnectionName, 'read') !== false) {
+        if (str_contains($requiredConnectionName, 'read')) {
             return $this->getConnection(self::DEFAULT_READ_RESOURCE);
         }
         return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
@@ -228,22 +227,7 @@ class Mage_Core_Model_Resource
      */
     public function getEntity($model, $entity)
     {
-        $modelsNode = Mage::getConfig()->getNode()->global->models;
-        $entityConfig = $modelsNode->$model->entities->{$entity};
-
-        /**
-         * Backwards compatibility for pre-MMDB extensions.
-         * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-         * to keep name of previously used nodes, that still may be used by non-updated extensions.
-         */
-        if (isset($modelsNode->$model->deprecatedNode)) {
-            $deprecatedNode = $modelsNode->$model->deprecatedNode;
-            if (isset($modelsNode->$deprecatedNode->entities->$entity)) {
-                $entityConfig = $modelsNode->$deprecatedNode->entities->$entity;
-            }
-        }
-
-        return $entityConfig;
+        return Mage::getConfig()->getNode()->global->models->$model->entities->{$entity};
     }
 
     /**

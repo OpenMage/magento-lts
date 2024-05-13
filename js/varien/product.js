@@ -8,7 +8,7 @@
  * @category    Varien
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2017 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
@@ -18,11 +18,6 @@ if(typeof Product=='undefined') {
 /********************* IMAGE ZOOMER ***********************/
 
 Product.Zoom = Class.create();
-/**
- * Image zoom control
- *
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 Product.Zoom.prototype = {
     initialize: function(imageEl, trackEl, handleEl, zoomInEl, zoomOutEl, hintEl){
         this.containerEl = $(imageEl).parentNode;

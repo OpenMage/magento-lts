@@ -8,7 +8,7 @@
  * @category    Varien
  * @package     js
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -384,13 +384,13 @@ ZipUpdater.prototype = {
 
     _setPostcodeOptional: function(){
         this.zipElement = $(this.zipElement);
-        if (this.zipElement == undefined) {
+        if (this.zipElement === undefined) {
             return false;
         }
 
         // find label
         var label = $$('label[for="' + this.zipElement.id + '"]')[0];
-        if (label != undefined) {
+        if (label !== undefined) {
             var wildCard = label.down('em') || label.down('span.required');
             if (!wildCard) {
                 label.insert(' <span class="required">*</span>');
@@ -400,21 +400,21 @@ ZipUpdater.prototype = {
 
         // Make Zip and its label required/optional
         if (optionalZipCountries.indexOf(this.country) != -1) {
-            if (label.hasClassName('required')) {
+            if (label !== undefined && label.hasClassName('required')) {
                 label.removeClassName('required');
             }
             while (this.zipElement.hasClassName('required-entry')) {
                 this.zipElement.removeClassName('required-entry');
             }
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.hide();
             }
         } else {
-            if (!label.hasClassName('required')) {
+            if (label !== undefined && !label.hasClassName('required')) {
                 label.addClassName('required');
             }
             this.zipElement.addClassName('required-entry');
-            if (wildCard != undefined) {
+            if (wildCard !== undefined) {
                 wildCard.show();
             }
         }

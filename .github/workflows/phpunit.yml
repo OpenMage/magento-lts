@@ -13,7 +13,7 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: OpenMage/Testfield
           path: ./
@@ -26,7 +26,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -36,19 +36,19 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-reqs
 
       - name: Checkout OpenMage repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: openmage
 
       - name: Install OpenMage dependencies
         working-directory: ./openmage
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
 
       - name: run phpUnit
         run: bash ./run_unit_tests.sh
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.40
+        uses: EnricoMi/publish-unit-test-result-action@v2.7
         if: always()
         continue-on-error: true
         with:
