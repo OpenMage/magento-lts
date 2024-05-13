@@ -121,6 +121,7 @@
         "platform": {
             "php": "7.4"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "prepend-autoloader": false
     }
 }
