@@ -946,7 +946,7 @@ class Mage_Core_Model_Design_Package
         $importMap = [];
         $cacheKey = [];
         $fileHashKey = []; // No timestamps in hash key in production mode
-        $useCache = Mage::app()->useCache('import_map');
+        $useCache = !$inline && Mage::app()->useCache('import_map');
         foreach ($allItems as $item) {
             if (!preg_match('#^(static|skin)_import(_map)?$#', $item['type']) || !isset($itemUrls[$item['type']][$item['name']])) {
                 continue;
