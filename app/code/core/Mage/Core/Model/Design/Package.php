@@ -961,10 +961,13 @@ class Mage_Core_Model_Design_Package
                         $filePath = Mage::getBaseDir() . DS . 'js' . DS . $fileOrUrl;
                     }
                     $fileHashKey [] = $item['name'];
+                    if (!($fileData = file_get_contents($filePath)) {
+                        throw new Exception('Could not read importmap file or file is empty: ' . $filePath);
+                    }
                     if ($useCache) {
                         $cacheKey[] = Mage::getIsDeveloperMode() ? $filePath . '-' . filemtime($filePath) : $filePath;
                     }
-                    $importData = json_decode($filePath, true, 3, JSON_THROW_ON_ERROR);
+                    $importData = json_decode($fileData, true, 3, JSON_THROW_ON_ERROR);
                     if (isset($importData['imports'])) {
                         $importMap['imports'] = array_merge($importMap['imports'] ?? [], $importData['imports']);
                     }
