@@ -654,5 +654,4 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('core/design_package')->renderImportMap($this->_data['items'], $this->_data['imports'] ?? [], $inline);
     }
-
 }

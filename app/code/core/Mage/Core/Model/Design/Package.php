@@ -964,7 +964,7 @@ class Mage_Core_Model_Design_Package
                     if ($useCache) {
                         $cacheKey[] = Mage::getIsDeveloperMode() ? $filePath . '-' . filemtime($filePath) : $filePath;
                     }
-                    $importData = json_decode($filePath, TRUE, 3, JSON_THROW_ON_ERROR);
+                    $importData = json_decode($filePath, true, 3, JSON_THROW_ON_ERROR);
                     if (isset($importData['imports'])) {
                         $importMap['imports'] = array_merge($importMap['imports'] ?? [], $importData['imports']);
                     }
@@ -986,7 +986,7 @@ class Mage_Core_Model_Design_Package
                     break;
             }
         }
-        if ( ! $importMap) {
+        if (!$importMap) {
             return '';
         }
 
@@ -1000,7 +1000,7 @@ class Mage_Core_Model_Design_Package
 
         // Allow devs to bypass cache in browser
         if ($useCache && Mage::getIsDeveloperMode() && isset($_SERVER['HTTP_CACHE_CONTROL'])
-            && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'no-cache') !== FALSE
+            && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'no-cache') !== false
         ) {
             $html = null;
         }
