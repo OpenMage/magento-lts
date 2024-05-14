@@ -961,7 +961,7 @@ class Mage_Core_Model_Design_Package
                         $filePath = Mage::getBaseDir() . DS . 'js' . DS . $fileOrUrl;
                     }
                     $fileHashKey [] = $item['name'];
-                    if (!($fileData = file_get_contents($filePath)) {
+                    if (!($fileData = file_get_contents($filePath))) {
                         throw new Exception('Could not read importmap file or file is empty: ' . $filePath);
                     }
                     if ($useCache) {
