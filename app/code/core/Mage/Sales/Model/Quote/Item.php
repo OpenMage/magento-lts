@@ -451,6 +451,13 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             if ($this->getParentItem() !== $stickWithinParent) {
                 return false;
             }
+
+            /**
+             * Bypass custom options checks for bundled child items
+             * This prevents cases of adding an additional child item to the quote
+             * when an existing child product is modified while the bundled item is in a cart
+             */
+            return true;
         }
 
         // Check options
