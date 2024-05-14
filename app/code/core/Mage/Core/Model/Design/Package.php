@@ -994,7 +994,7 @@ class Mage_Core_Model_Design_Package
         if ($useCache) {
             $cacheKey = md5('LAYOUT_' . $this->getArea() . '_STORE' . $this->getStore()->getId() . '_'
             . $this->getPackageName() . '_' . $this->getTheme('layout') . '_'
-            . Mage::app()->getRequest()->isSecure() ? 's' : 'u' . '_' . implode('|', $cacheKey));
+            . (Mage::app()->getRequest()->isSecure() ? 's' : 'u') . '_' . implode('|', $cacheKey));
             $html = Mage::app()->loadCache($cacheKey);
         }
 
