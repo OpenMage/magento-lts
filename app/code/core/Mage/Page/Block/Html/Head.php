@@ -208,7 +208,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $shouldMergeCss = Mage::getStoreConfigFlag('dev/css/merge_css_files');
         $externalImportMap = Mage::getStoreConfigFlag('dev/import_map/external'); // "External import maps are not yet supported."
         $html   = '';
-        $html   .= $this->_prepareImportMap(!$externalImportMap)."\n";
+        $html   .= $this->_prepareImportMap(!$externalImportMap) . "\n";
         foreach ($lines as $if => $items) {
             if (empty($items)) {
                 continue;
