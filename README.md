@@ -265,13 +265,13 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 
 ### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
-- PHP 8.1 as minimum required version
-- Removed scriptaculous/dragdrop.js (#3215)
-- RWD theme: updated jQuery to 3.7.0 (#3204)
-- Unified CSRF configuration (#3147) and added form key validation to Contacts form (#3146)
-- Removed double span element from HTML buttons (#3123)
-- Removed all deprecated Mysql4_ classes (#2730). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
-- Removed "admin routing compatibility mode" (#1551)
+- PHP 8.2 as minimum required version
+- Removed scriptaculous/dragdrop.js ([#3215](https://github.com/OpenMage/magento-lts/pull/3215))
+- RWD theme: updated jQuery to 3.7.1 ([#3922](https://github.com/OpenMage/magento-lts/pull/3922))
+- Unified CSRF configuration ([#3147](https://github.com/OpenMage/magento-lts/pull/3147)) and added form key validation to Contacts form ([#3146](https://github.com/OpenMage/magento-lts/pull/3144))
+- Removed double span element from HTML buttons ([#3123](https://github.com/OpenMage/magento-lts/pull/3123))
+- Removed all deprecated Mysql4_ classes ([#2730](https://github.com/OpenMage/magento-lts/pull/2730)). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
+- Removed "admin routing compatibility mode" ([#1551](https://github.com/OpenMage/magento-lts/pull/1551))
 
 ### New Config Options
 
@@ -293,6 +293,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `adminhtml_sales_order_create_save_before`
 - `checkout_cart_product_add_before`
 - `core_app_run_after`
+- `mage_run_installed_exception`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
@@ -607,6 +608,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://www.riseart.com/"><img src="https://avatars.githubusercontent.com/u/26821235?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcos Steverlynck</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ahudock"><img src="https://avatars.githubusercontent.com/u/33500977?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andy Hudock</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.vianetz.com/"><img src="https://avatars.githubusercontent.com/u/26252058?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Christoph Massmann</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ragnese"><img src="https://avatars.githubusercontent.com/u/7927565?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rob Agnese</b></sub></a></td>
     </tr>
   </tbody>
 </table>
