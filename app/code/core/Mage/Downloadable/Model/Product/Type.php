@@ -138,8 +138,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      */
     public function save($product = null)
     {
-        parent::save($product);
-
         $product = $this->getProduct($product);
         if ($data = $product->getDownloadableData()) {
             if (isset($data['sample'])) {
