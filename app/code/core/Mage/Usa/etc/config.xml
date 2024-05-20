@@ -155,11 +155,11 @@
                 <dest_type>RES</dest_type>
                 <free_method>GND</free_method>
                 <gateway_xml_url>https://onlinetools.ups.com/ups.app/xml/Rate</gateway_xml_url>
-                <gateway_rest_url>https://wwwcie.ups.com/api/rating/</gateway_rest_url>
+                <gateway_rest_url>https://onlinetools.ups.com/api/rating/</gateway_rest_url>
                 <tracking_xml_url>https://onlinetools.ups.com/ups.app/xml/Track</tracking_xml_url>
-                <tracking_rest_url>https://wwwcie.ups.com/api/track/</tracking_rest_url>
+                <tracking_rest_url>https://onlinetools.ups.com/api/track/</tracking_rest_url>
                 <shipconfirm_xml_url>https://onlinetools.ups.com/ups.app/xml/ShipConfirm</shipconfirm_xml_url>
-                <shipconfirm_rest_url>https://wwwcie.ups.com/api/shipments/v2403/ship</shipconfirm_rest_url>
+                <shipconfirm_rest_url>https://onlinetools.ups.com/api/shipments/v2403/ship</shipconfirm_rest_url>
                 <shipaccept_xml_url>https://onlinetools.ups.com/ups.app/xml/ShipAccept</shipaccept_xml_url>
                 <verify_peer>0</verify_peer>
                 <handling>0</handling>
