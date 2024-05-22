@@ -684,7 +684,14 @@ class Mage_Core_Model_Design_Package
      */
     public function getMergedJsUrl($files)
     {
-        $targetFilename = md5(implode(',', $files)) . '.js';
+        $olderTimestamp = '';
+        foreach ($files as $file) {
+            if ($olderTimestamp < filemtime($file)) {
+                $olderTimestamp = filemtime($file);
+            }
+        }
+
+        $targetFilename = md5(implode(',', $files) . "|{$olderTimestamp}") . '.js';
         $targetDir = $this->_initMergerDir('js');
         if (!$targetDir) {
             return '';
@@ -720,7 +727,14 @@ class Mage_Core_Model_Design_Package
         }
 
         // merge into target file
-        $targetFilename = md5(implode(',', $files) . "|{$hostname}|{$port}") . '.css';
+        $olderTimestamp = '';
+        foreach ($files as $file) {
+            if ($olderTimestamp < filemtime($file)) {
+                $olderTimestamp = filemtime($file);
+            }
+        }
+
+        $targetFilename = md5(implode(',', $files) . "|{$hostname}|{$port}|{$olderTimestamp}") . '.css';
         $mergeFilesResult = $this->_mergeFiles(
             $files,
             $targetDir . DS . $targetFilename,
