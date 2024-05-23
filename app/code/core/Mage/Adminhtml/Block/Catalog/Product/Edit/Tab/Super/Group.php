@@ -173,6 +173,31 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'edit_only' => !$this->_getProduct()->getId(),
             'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
         ]);
+        
+        $this->addColumn('action', [
+            'header'    => Mage::helper('catalog')->__('Action'),
+            'width'     => '50px',
+            'type'      => 'action',
+            'getter'    => 'getId',
+            'actions'   => [
+                [
+                    'caption' => Mage::helper('catalog')->__('Edit'),
+                    'id'      => 'editlink',
+                    'field'   => 'id',
+                    'onclick' => "popWin(this.href,'win','width=1000,height=700,resizable=1,scrollbars=1');return false;",
+                    'url'     => [
+                        'base'   => 'adminhtml/catalog_product/edit',
+                        'params' => [
+                            'store' => $this->getRequest()->getParam('store'),
+                            'popup' => 1
+                        ],
+                    ],
+                ],
+            ],
+            'filter' => false,
+            'sortable' => false,
+            'index' => 'stores',
+        ]);
 
         return parent::_prepareColumns();
     }
