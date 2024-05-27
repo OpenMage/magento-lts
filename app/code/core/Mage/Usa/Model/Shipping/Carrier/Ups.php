@@ -1341,7 +1341,7 @@ XMLAuth;
         $methods = [];
         foreach ($availableByTypeMethods as $methodCode => $methodData) {
             if (in_array($methodCode, $allowedMethods)) {
-                $methods[$methodCode] = $methodData->getText();
+                $methods[$methodCode] = $methodData;
             }
         }
 
