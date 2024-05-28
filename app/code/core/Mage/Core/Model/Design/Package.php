@@ -728,7 +728,7 @@ class Mage_Core_Model_Design_Package
         }
 
         // merge into target file
-        $newestTimestamp = '';
+        $newestTimestamp = 0;
         foreach ($files as $file) {
             $filemtime = filemtime($file);
             if ($filemtime > $newestTimestamp) {
