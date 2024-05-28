@@ -684,14 +684,15 @@ class Mage_Core_Model_Design_Package
      */
     public function getMergedJsUrl($files)
     {
-        $olderTimestamp = '';
+        $newestTimestamp = '';
         foreach ($files as $file) {
-            if ($olderTimestamp < filemtime($file)) {
-                $olderTimestamp = filemtime($file);
+            $filemtime = filemtime($file);
+            if ($filemtime > $newestTimestamp) {
+                $newestTimestamp = $filemtime;
             }
         }
 
-        $targetFilename = md5(implode(',', $files) . "|{$olderTimestamp}") . '.js';
+        $targetFilename = md5(implode(',', $files) . "|{$newestTimestamp}") . '.js';
         $targetDir = $this->_initMergerDir('js');
         if (!$targetDir) {
             return '';
@@ -727,14 +728,15 @@ class Mage_Core_Model_Design_Package
         }
 
         // merge into target file
-        $olderTimestamp = '';
+        $newestTimestamp = '';
         foreach ($files as $file) {
-            if ($olderTimestamp < filemtime($file)) {
-                $olderTimestamp = filemtime($file);
+            $filemtime = filemtime($file);
+            if ($filemtime > $newestTimestamp) {
+                $newestTimestamp = $filemtime;
             }
         }
 
-        $targetFilename = md5(implode(',', $files) . "|{$hostname}|{$port}|{$olderTimestamp}") . '.css';
+        $targetFilename = md5(implode(',', $files) . "|{$hostname}|{$port}|{$newestTimestamp}") . '.css';
         $mergeFilesResult = $this->_mergeFiles(
             $files,
             $targetDir . DS . $targetFilename,
