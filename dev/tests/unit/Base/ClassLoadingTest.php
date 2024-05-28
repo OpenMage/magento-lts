@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
@@ -19,7 +20,7 @@ class ClassLoadingTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int, bool|string>>
      */
     public function provideClassExistsData(): array
     {

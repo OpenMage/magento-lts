@@ -21,6 +21,7 @@
         "ext-pdo": "*",
         "ext-simplexml": "*",
         "ext-soap": "*",
+        "ext-xmlreader": "*",
         "ext-zlib": "*",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",

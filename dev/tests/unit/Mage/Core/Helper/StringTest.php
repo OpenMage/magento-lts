@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
@@ -9,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class StringTest extends TestCase
 {
-    const TEST_STRING = '1234567890';
+    public const TEST_STRING = '1234567890';
 
     /**
      * @var Mage_Core_Helper_String

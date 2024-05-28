@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
@@ -34,7 +35,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int, string|null>>
      */
     public function provideGetFilePathData(): array
     {

@@ -1,11 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
 use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
+use XMLReader;
 
-class XmlFileLoadingTest  extends TestCase
+class XmlFileLoadingTest extends TestCase
 {
     /**
      *
@@ -15,10 +18,10 @@ class XmlFileLoadingTest  extends TestCase
      */
     public function testFileLoading(string $filepath): void
     {
-        //$simplexml = new \SimpleXMLElement(file_get_contents($filepath));
+        /** @var SimpleXMLElement $simplexml */
         $simplexml = simplexml_load_file(
             $filepath,
-            null,
+            SimpleXMLElement::class,
             LIBXML_PEDANTIC //not needed by OpenMage, but good to test more strictly
         );
         self::assertNotEmpty($simplexml->asXML());
@@ -32,8 +35,9 @@ class XmlFileLoadingTest  extends TestCase
      */
     public function testXmlReaderIsValid(string $filepath): void
     {
-        $xml = \XMLReader::open($filepath);
-        $xml->setParserProperty(\XMLReader::VALIDATE, true);
+        /** @var XMLReader $xml */
+        $xml = XMLReader::open($filepath);
+        $xml->setParserProperty(XMLReader::VALIDATE, true);
         self::assertTrue($xml->isValid());
     }
 

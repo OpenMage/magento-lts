@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
@@ -23,8 +24,8 @@ class FileTest extends TestCase
 
     /**
      * @dataProvider provideGetMimeTypeFromExtensionListData
-     * @param array $expectedResult
-     * @param string|array $extensionsList
+     * @param array<int, string> $expectedResult
+     * @param string|array<int, string> $extensionsList
      * @return void
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
@@ -33,7 +34,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int, array<int, string>|string>>
      */
     public function provideGetMimeTypeFromExtensionListData(): array
     {
@@ -103,7 +104,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int, int|string>>
      */
     public function provideGetDataMaxSizeInBytesData(): array
     {

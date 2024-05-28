@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace unit\Varien;
 
-use StdClass;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 use Varien_Exception;
 use Varien_Object;
-use PHPUnit\Framework\TestCase;
 
 class ObjectTest extends TestCase
 {
@@ -23,9 +24,9 @@ class ObjectTest extends TestCase
     /**
      * @dataProvider provideGetDataData
      * @param mixed $expectedResult
-     * @param string|array $setKey
+     * @param string $setKey
      * @param mixed $setValue
-     * @param string|array $key
+     * @param string $key
      * @param string|int|null $index
      * @return void
      */
@@ -36,7 +37,7 @@ class ObjectTest extends TestCase
     }
 
     /**
-     * @return string[][]
+     * @return array<string, array<int, array<int|string, array<int|string, int|string>|int|string>|int|stdClass|string|Varien_Object|null>>
      */
     public function provideGetDataData(): array
     {
@@ -109,7 +110,7 @@ class ObjectTest extends TestCase
              'array_index_string_std_class' => [
                 null,
                 'array_index_string_std_class',
-                new StdClass(),
+                new stdClass(),
                 'array_index_string_std_class',
                 'not-exists',
             ],
@@ -146,7 +147,7 @@ class ObjectTest extends TestCase
             'array_nested_std_class' => [
                 null,
                 'array_nested_std_class',
-                new StdClass(),
+                new stdClass(),
                 'array_nested_std_class/nested',
             ],
             'array_nested_key_not_exists' => [
@@ -213,12 +214,12 @@ class ObjectTest extends TestCase
         self::assertTrue($this->subject->isEmpty());
 
         try {
+            /** @phpstan-ignore-next-line */
             $this->subject->notData();
             self::fail('Invalid __call');
         } catch (Varien_Exception $exception) {
             self::assertStringStartsWith('Invalid method', $exception->getMessage());
         }
-
     }
 
     public function testOffset(): void
