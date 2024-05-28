@@ -684,7 +684,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getMergedJsUrl($files)
     {
-        $newestTimestamp = '';
+        $newestTimestamp = 0;
         foreach ($files as $file) {
             $filemtime = filemtime($file);
             if ($filemtime > $newestTimestamp) {
