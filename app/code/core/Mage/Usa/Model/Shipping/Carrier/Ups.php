@@ -2348,7 +2348,7 @@ XMLAuth;
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods') ?? '');
-                $allowedCurrencies = Mage::app()->getStore()->getAvailableCurrencyCodes();
+                $allowedCurrencies = Mage::getModel('directory/currency')->getConfigAllowCurrencies();
                 foreach ($arr as $shipElement) {
                     $negotiatedArr = $shipElement['NegotiatedRateCharges'] ?? [] ;
                     $negotiatedActive = $this->getConfigFlag('negotiated_active')
