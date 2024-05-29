@@ -79,7 +79,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _construct()
     {
         $this->_profile = Mage::getSingleton('sales/recurring_profile');
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

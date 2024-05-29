@@ -54,7 +54,7 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
             ->setMethodTitle('') // Output PayPal mark, omit title
             ->setMethodLabelAfterHtml($mark->toHtml())
         ;
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

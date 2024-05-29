@@ -131,6 +131,8 @@ class Varien_Object implements ArrayAccess
 
     /**
      * Internal constructor not depended on params. Can be used for object initialization
+     *
+     * @return void
      */
     protected function _construct()
     {
