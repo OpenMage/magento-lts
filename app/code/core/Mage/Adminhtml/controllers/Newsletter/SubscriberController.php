@@ -63,11 +63,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      */
     public function exportCsvAction()
     {
-        $fileName   = 'subscribers.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('subscribers.csv', -1));
     }
 
     /**
@@ -75,11 +72,8 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
      */
     public function exportXmlAction()
     {
-        $fileName   = 'subscribers.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')
-            ->getExcelFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('subscribers.xml', -1));
     }
 
     /**

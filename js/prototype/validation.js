@@ -916,6 +916,25 @@ function parseNumber(v)
     return parseFloat(v);
 }
 
+function validateCreditCard(input) {
+    const number = input.toString();
+    const digits = number.replace(/\D/g, '').split('').map(Number);
+    let sum = 0;
+    let isSecond = false;
+    for (let i = digits.length - 1; i >= 0; i--) {
+        let digit = digits[i];
+        if (isSecond) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+        sum += digit;
+        isSecond = !isSecond;
+    }
+    return sum % 10 === 0;
+}
+
 /**
  * Hash with credit card types which can be simply extended in payment modules
  * 0 - regexp for card number
@@ -924,7 +943,6 @@ function parseNumber(v)
  *     function validateCreditCard which you can find above in this file
  */
 Validation.creditCartTypes = $H({
-//    'SS': [new RegExp('^((6759[0-9]{12})|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})|(6333[0-9]{12})|(6334[0-4]\d{11})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'SO': [new RegExp('^(6334[5-9]([0-9]{11}|[0-9]{13,14}))|(6767([0-9]{12}|[0-9]{14,15}))$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'VI': [new RegExp('^4[0-9]{12}([0-9]{3})?$'), new RegExp('^[0-9]{3}$'), true],
     'MC': [new RegExp('^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$'), new RegExp('^[0-9]{3}$'), true],

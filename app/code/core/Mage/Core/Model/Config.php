@@ -75,7 +75,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'Mage_Authorizenet' => 50,
         'Mage_Bundle' => 51,
         'Mage_Captcha' => 52,
-        'Mage_Centinel' => 53,
         'Mage_ConfigurableSwatches' => 54,
         'Mage_Newsletter' => 55,
         'Mage_Downloadable' => 56,
@@ -320,6 +319,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $this->_useCache = false;
                     $this->loadModules();
                     $this->loadDb();
+                    $this->loadEnv();
                     $this->saveCache();
                 }
             } finally {
@@ -418,6 +418,23 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $dbConf = $this->getResourceModel();
             $dbConf->loadToXml($this);
             Varien_Profiler::stop('config/load-db');
+        }
+        return $this;
+    }
+
+    /**
+     * Load environment variables and override config
+     *
+     * @return self
+     */
+    public function loadEnv(): Mage_Core_Model_Config
+    {
+        if ($this->_isLocalConfigLoaded && Mage::isInstalled()) {
+            Varien_Profiler::start('config/load-env');
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $environmentConfigLoaderHelper->overrideEnvironment($this);
+            Varien_Profiler::stop('config/load-env');
         }
         return $this;
     }
@@ -1764,7 +1781,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $newEventName = strtolower($oldName);
                     if (!isset($events->$newEventName)) {
                         /** @var Mage_Core_Model_Config_Element $newNode */
-                        $newNode = $events->addChild($newEventName, $event);
+                        $newNode = $events->addChild($newEventName, (string)$event);
                         $newNode->extend($event);
                     }
                     unset($events->$oldName);

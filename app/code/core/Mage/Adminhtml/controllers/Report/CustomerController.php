@@ -53,11 +53,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportAccountsCsvAction()
     {
-        $fileName   = 'new_accounts.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getCsv();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsv('new_accounts.csv', -1));
     }
 
     /**
@@ -65,11 +62,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportAccountsExcelAction()
     {
-        $fileName   = 'accounts.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getExcel($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcel('accounts.xml', -1));
     }
 
     public function ordersAction()
@@ -93,11 +87,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportOrdersCsvAction()
     {
-        $fileName   = 'customers_orders.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getCsv();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsv('customers_orders.csv', -1));
     }
 
     /**
@@ -105,11 +96,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportOrdersExcelAction()
     {
-        $fileName   = 'customers_orders.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getExcel($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcel('customers_orders.xml', -1));
     }
 
     public function totalsAction()
@@ -133,11 +121,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportTotalsCsvAction()
     {
-        $fileName   = 'cuatomer_totals.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getCsv();
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsv('cuatomer_totals.csv', -1));
     }
 
     /**
@@ -145,11 +130,8 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
      */
     public function exportTotalsExcelAction()
     {
-        $fileName   = 'customer_totals.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getExcel($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $grid = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcel('customer_totals.xml', -1));
     }
 
     /**

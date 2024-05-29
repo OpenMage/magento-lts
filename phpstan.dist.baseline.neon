@@ -926,46 +926,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: "#^Call to an undefined method Varien_Object\\:\\:decrypt\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Call to an undefined method Varien_Object\\:\\:encrypt\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Return type \\(bool\\) of method Mage_Authorizenet_Model_Directpost\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Authorizenet_Model_Directpost\\:\\:authorize\\(\\) should be compatible with return type \\(\\$this\\(Mage_Paygate_Model_Authorizenet\\)\\) of method Mage_Paygate_Model_Authorizenet\\:\\:authorize\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php
-
-		-
-			message: "#^Method Mage_Authorizenet_Directpost_PaymentController\\:\\:_getIframeBlock\\(\\) should return Mage_Authorizenet_Block_Directpost_Iframe but returns Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
-			message: "#^Variable \\$params might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
 			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
@@ -2019,11 +1979,6 @@ parameters:
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Search/Collection.php
-
-		-
-			message: "#^Cannot call method setMethod\\(\\) on object\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
@@ -5016,33 +4971,8 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_parseXmlTrackingResponse\\(\\) should return null but returns Mage_Shipping_Model_Rate_Result\\|Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:_setFreeMethodRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:setXMLAccessRequest\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_baseCurrencyRate \\(float\\) does not accept string\\.$#"
 			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Ups\\:\\:\\$_result \\(Mage_Shipping_Model_Rate_Result\\|null\\) does not accept Mage_Shipping_Model_Tracking_Result\\.$#"
-			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-

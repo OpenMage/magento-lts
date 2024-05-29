@@ -683,24 +683,21 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function exportCsvAction()
     {
-        $fileName   = 'orders.csv';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
+        $this->_prepareDownloadResponse(...$grid->getCsvFile('orders.csv', -1));
     }
 
     /**
-     *  Export order grid to Excel XML format
+     * Export order grid to Excel XML format
      */
     public function exportExcelAction()
     {
-        $fileName   = 'orders.xml';
-        $grid       = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
-        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+        $grid = $this->getLayout()->createBlock('adminhtml/sales_order_grid');
+        $this->_prepareDownloadResponse(...$grid->getExcelFile('orders.xml', -1));
     }
 
     /**
      * Order transactions grid ajax action
-     *
      */
     public function transactionsAction()
     {

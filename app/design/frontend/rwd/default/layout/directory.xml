@@ -24,9 +24,5 @@
         <reference name="header">
             <block type="directory/currency" name="currency" as="currency_switcher" template="directory/currency.phtml"/>
         </reference>
-
-        <reference name="footer">
-            <block type="directory/currency" name="footer_currency" after="footer_store_language" template="directory/currency.phtml"/>
-        </reference>
     </default>
 </layout>

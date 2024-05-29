@@ -322,11 +322,13 @@ class Varien_Simplexml_Config
         }
 
         $xmlString = $this->_loadCache($this->getCacheId());
-        $xml = simplexml_load_string($xmlString, $this->_elementClass);
-        if ($xml) {
-            $this->_xml = $xml;
-            $this->setCacheSaved(true);
-            return true;
+        if ($xmlString) {
+            $xml = simplexml_load_string($xmlString, $this->_elementClass);
+            if ($xml) {
+                $this->_xml = $xml;
+                $this->setCacheSaved(true);
+                return true;
+            }
         }
 
         return false;
