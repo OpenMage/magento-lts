@@ -644,6 +644,8 @@ function createCopyIconElement() {
  * @param {Event} event - The event object triggered by the click event
  */
 function copyText(event) {
+    event.stopPropagation();
+    event.preventDefault();
     const copyIcon = event.currentTarget;
     const copyText = copyIcon.previousElementSibling.getAttribute('data-copy-text');
     navigator.clipboard.writeText(copyText);

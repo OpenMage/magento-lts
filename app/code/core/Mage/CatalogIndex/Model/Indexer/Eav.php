@@ -34,7 +34,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_eav');
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

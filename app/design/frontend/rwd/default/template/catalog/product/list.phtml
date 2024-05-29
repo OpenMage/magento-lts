@@ -47,7 +47,7 @@
                         This $_imgSize value could even be decreased further, based on the page layout
                         (one column, two column, three column) and number of product columns. */ ?>
                 <?php $_imgSize = 300; ?>
-                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                <img id="product-collection-image-<?php echo $_product->getId(); ?>" width="<?php echo $_imgSize ?>" height="<?php echo $_imgSize ?>"
                      src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepFrame(false)->resize($_imgSize); ?>"
                      alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
             </a>
@@ -140,7 +140,7 @@
             <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php $_imgSize = 210; ?>
-                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                    <img id="product-collection-image-<?php echo $_product->getId(); ?>" width="<?php echo $_imgSize ?>" height="<?php echo $_imgSize ?>"
                          src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
                          alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                 </a>

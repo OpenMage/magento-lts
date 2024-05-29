@@ -140,7 +140,13 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                 ]
             );
         }
-        $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
+
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss') &&
+            Mage::helper('rss')->isRssEnabled() &&
+            Mage::getStoreConfigFlag('rss/order/new')
+        ) {
+            $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
+        }
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));

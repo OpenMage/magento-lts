@@ -130,6 +130,9 @@ abstract class Mage_Core_Controller_Varien_Action
         $this->_construct();
     }
 
+    /**
+     * @return void
+     */
     protected function _construct()
     {
     }

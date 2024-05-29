@@ -67,6 +67,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Internal constructor, that is called from real constructor
      *
+     * @return void
      */
     protected function _construct()
     {
