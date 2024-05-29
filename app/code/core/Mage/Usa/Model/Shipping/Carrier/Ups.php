@@ -1330,18 +1330,12 @@ XMLAuth;
     public function getAllowedMethods()
     {
         $allowedMethods = explode(',', (string)$this->getConfigData('allowed_methods'));
-        $isUpsXml = $this->getConfigData('type') === 'UPS_XML';
-        $isUpsRest = $this->getConfigData('type') === 'UPS_REST';
-        $origin = $this->getConfigData('origin_shipment');
-
-        $availableByTypeMethods = ($isUpsXml || $isUpsRest)
-            ? $this->getCode('originShipment', $origin)
-            : $this->getCode('method');
+        $availableByTypeMethods = $this->getCode('originShipment', $this->getConfigData('origin_shipment'));
 
         $methods = [];
         foreach ($availableByTypeMethods as $methodCode => $methodData) {
             if (in_array($methodCode, $allowedMethods)) {
-                $methods[$methodCode] = $methodData->getText();
+                $methods[$methodCode] = $methodData;
             }
         }
 
@@ -2348,7 +2342,7 @@ XMLAuth;
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods') ?? '');
-                $allowedCurrencies = Mage::app()->getStore()->getAvailableCurrencyCodes();
+                $allowedCurrencies = Mage::getModel('directory/currency')->getConfigAllowCurrencies();
                 foreach ($arr as $shipElement) {
                     $negotiatedArr = $shipElement['NegotiatedRateCharges'] ?? [] ;
                     $negotiatedActive = $this->getConfigFlag('negotiated_active')
