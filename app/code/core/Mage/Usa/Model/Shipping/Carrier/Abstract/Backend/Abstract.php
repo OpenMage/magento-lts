@@ -68,17 +68,13 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
         if (!method_exists($sourceModel, 'toOptionArray')) {
             Mage::throwException(Mage::helper('usa')->__('Method toOptionArray not found in source model.'));
         }
-        $hasCorrectValue = false;
         $value = $this->getValue();
         foreach ($sourceModel->toOptionArray() as $allowedValue) {
             if (isset($allowedValue['value']) && $allowedValue['value'] == $value) {
-                $hasCorrectValue = true;
-                break;
+                return $this;
             }
         }
-        if (!$hasCorrectValue) {
-            Mage::throwException(Mage::helper('usa')->__('Field "%s" has wrong value.', $this->_nameErrorField));
-        }
-        return $this;
+
+        Mage::throwException(Mage::helper('usa')->__('Field "%s" has wrong value.', $this->_nameErrorField));
     }
 }
