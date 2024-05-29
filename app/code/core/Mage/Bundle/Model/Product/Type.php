@@ -263,7 +263,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function save($product = null)
     {
-        parent::save($product); // @phpstan-ignore staticMethod.resultUnused
+        parent::save($product);
 
         $product = $this->getProduct($product);
         /** @var Mage_Bundle_Model_Resource_Bundle $resource */
