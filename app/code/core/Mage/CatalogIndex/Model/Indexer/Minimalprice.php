@@ -54,7 +54,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         $this->_currencyModel = Mage::getModel('directory/currency');
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
 
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**
