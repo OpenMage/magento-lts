@@ -92,10 +92,6 @@ class Mage_Api2_Model_Server
                 ->_allow($request, $apiUser)
                 ->_dispatch($request, $response, $apiUser);
 
-            if ($response->getHttpResponseCode() == self::HTTP_CREATED) {
-                // TODO: Re-factor this after _renderException refactoring
-                throw new Mage_Api2_Exception('Resource was partially created', self::HTTP_CREATED);
-            }
             //NOTE: At this moment Renderer already could have some content rendered, so we should replace it
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
