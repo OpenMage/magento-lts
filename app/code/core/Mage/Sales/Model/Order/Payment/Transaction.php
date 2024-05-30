@@ -130,7 +130,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected function _construct()
     {
         $this->_init('sales/order_payment_transaction');
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

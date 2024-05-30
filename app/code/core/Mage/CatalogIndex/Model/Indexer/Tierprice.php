@@ -60,7 +60,7 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         $this->_currencyModel = Mage::getModel('directory/currency');
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
 
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

@@ -11,47 +11,39 @@
  * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-var paymentForm = Class.create();
-paymentForm.prototype = {
-    initialize: function(formId){
+class paymentForm {
+    constructor(formId) {
         this.formId = formId;
         this.validator = new Validation(this.formId);
-        var elements = Form.getElements(formId);
+        const elements = document.querySelectorAll(`#${this.formId} *`);
 
-        var method = null;
-        for (var i=0; i<elements.length; i++) {
-            if (elements[i].name=='payment[method]' || elements[i].name=='form_key') {
-                if (elements[i].checked) {
-                    method = elements[i].value;
+        let method = null;
+        for (const element of elements) {
+            if (element.name === 'payment[method]' || element.name === 'form_key') {
+                if (element.checked) {
+                    method = element.value;
                 }
-            } else {
-                if((elements[i].type) && ('submit' != elements[i].type.toLowerCase())) {
-                    elements[i].disabled = true;
-                }
+            } else if (element.type && element.type.toLowerCase() !== 'submit') {
+                element.disabled = true;
             }
-            elements[i].setAttribute('autocomplete','off');
+            element.setAttribute('autocomplete', 'off');
         }
+
         if (method) this.switchMethod(method);
-    },
+    }
 
-    switchMethod: function(method){
-        if (this.currentMethod && $('payment_form_'+this.currentMethod)) {
-            var form = $('payment_form_'+this.currentMethod);
-            form.style.display = 'none';
-            var elements = form.getElementsByTagName('input');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = true;
-            var elements = form.getElementsByTagName('select');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = true;
-
+    switchMethod(method) {
+        const previousForm = document.getElementById(`payment_form_${this.currentMethod}`);
+        if (previousForm) {
+            previousForm.style.display = 'none';
+            Array.from(previousForm.querySelectorAll('input, select'), element => element.disabled = true);
         }
-        if ($('payment_form_'+method)){
-            var form = $('payment_form_'+method);
-            form.style.display = '';
-            var elements = form.getElementsByTagName('input');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = false;
-            var elements = form.getElementsByTagName('select');
-            for (var i=0; i<elements.length; i++) elements[i].disabled = false;
+
+        const newForm = document.getElementById(`payment_form_${method}`);
+        if (newForm) {
+            newForm.style.display = '';
+            Array.from(newForm.querySelectorAll('input, select'), element => element.disabled = false);
             this.currentMethod = method;
         }
     }
-};
+}

@@ -22,7 +22,6 @@
             </action>
         </reference>
         <reference name="head">
-            <action method="removeItem"><type>js</type><name>lib/ccard.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/builder.js</name></action>
             <action method="removeItem"><type>js</type><name>scriptaculous/controls.js</name></action>
