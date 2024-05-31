@@ -137,7 +137,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), ['title', 'sort_order', 'children', 'disabled'])) {
+            if (!empty($resource->children()) && $resource->getName() !== 'children') {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
