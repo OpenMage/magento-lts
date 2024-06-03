@@ -2,6 +2,7 @@
 namespace PHPSTORM_META {
     override( \Mage::getResourceModel(0),
         map( [
+            'core/session' => \Cm_RedisSession_Model_Session::class,
             'adminnotification/inbox' => \Mage_AdminNotification_Model_Resource_Inbox::class,
             'adminnotification/inbox_collection' => \Mage_AdminNotification_Model_Resource_Inbox_Collection::class,
             'admin/acl' => \Mage_Admin_Model_Resource_Acl::class,
@@ -191,7 +192,6 @@ namespace PHPSTORM_META {
             'core/language_collection' => \Mage_Core_Model_Resource_Language_Collection::class,
             'core/layout' => \Mage_Core_Model_Resource_Layout::class,
             'core/resource' => \Mage_Core_Model_Resource_Resource::class,
-            'core/session' => \Mage_Core_Model_Resource_Session::class,
             'core/setup' => \Mage_Core_Model_Resource_Setup::class,
             'core/setup_query_modifier' => \Mage_Core_Model_Resource_Setup_Query_Modifier::class,
             'core/store' => \Mage_Core_Model_Resource_Store::class,
@@ -581,6 +581,7 @@ namespace PHPSTORM_META {
     );
     override( \Mage::getResourceSingleton(0),
         map( [
+            'core/session' => \Cm_RedisSession_Model_Session::class,
             'adminnotification/inbox' => \Mage_AdminNotification_Model_Resource_Inbox::class,
             'adminnotification/inbox_collection' => \Mage_AdminNotification_Model_Resource_Inbox_Collection::class,
             'admin/acl' => \Mage_Admin_Model_Resource_Acl::class,
@@ -770,7 +771,6 @@ namespace PHPSTORM_META {
             'core/language_collection' => \Mage_Core_Model_Resource_Language_Collection::class,
             'core/layout' => \Mage_Core_Model_Resource_Layout::class,
             'core/resource' => \Mage_Core_Model_Resource_Resource::class,
-            'core/session' => \Mage_Core_Model_Resource_Session::class,
             'core/setup' => \Mage_Core_Model_Resource_Setup::class,
             'core/setup_query_modifier' => \Mage_Core_Model_Resource_Setup_Query_Modifier::class,
             'core/store' => \Mage_Core_Model_Resource_Store::class,
