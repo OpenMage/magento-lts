@@ -523,9 +523,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * @param mixed $qty quantity of this item (item qty x parent item qty)
      * @param mixed $summaryQty quantity of this product
      * @param mixed $origQty original qty of item (not multiplied on parent item qty)
+     * @param mixed $quoteItem quote item
      * @return Varien_Object
      */
-    public function checkQuoteItemQty($qty, $summaryQty, $origQty = 0)
+    public function checkQuoteItemQty($qty, $summaryQty, $origQty = 0, $quoteItem = null)
     {
         $result = new Varien_Object();
         $result->setHasError(false);
@@ -566,8 +567,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $qty = (int) $qty;
 
             /**
-              * Adding stock data to quote item
-              */
+             * Adding stock data to quote item
+             */
             $result->setItemQty($qty);
 
             if (!is_numeric($qty)) {
@@ -577,15 +578,29 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $result->setOrigQty($origQty);
         }
 
-        if ($this->getMinSaleQty() && $qty < $this->getMinSaleQty()) {
-            $result->setHasError(true)
-                ->setMessage(
-                    Mage::helper('cataloginventory')->__('The minimum quantity allowed for purchase is %s.', $this->getMinSaleQty() * 1)
-                )
-                ->setErrorCode('qty_min')
-                ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
-                ->setQuoteMessageIndex('qty');
-            return $result;
+        $minSaleQty = $this->getMinSaleQty();
+        if ($minSaleQty && $qty < $minSaleQty) {
+            if (empty($quoteItem)) {
+                $ignoreMinQty = false;
+            } else {
+                if (!empty($quoteItem->getParentItem()) && ($quoteItem->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE)) {
+                    $ignoreMinQty = Mage::getStoreConfigFlag('cataloginventory/item_options/ignore_min_qty');
+                } elseif ($quoteItem->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+                    $ignoreMinQty = Mage::getStoreConfigFlag('cataloginventory/item_options/ignore_min_qty');
+                } else {
+                    $ignoreMinQty = false;
+                }
+            }
+            if (!$ignoreMinQty) {
+                $result->setHasError(true)
+                    ->setMessage(
+                        Mage::helper('cataloginventory')->__('The minimum quantity allowed for purchase is %s.', $minSaleQty * 1)
+                    )
+                    ->setErrorCode('qty_min')
+                    ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
+                    ->setQuoteMessageIndex('qty');
+                return $result;
+            }
         }
 
         if ($this->getMaxSaleQty() && $qty > $this->getMaxSaleQty()) {
