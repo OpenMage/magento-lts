@@ -703,3 +703,47 @@ function buttonDisabler() {
         button.disabled = true;
     });
 }
+
+/**
+ * Adds copy icons to elements that have the class 'copy-text'
+ */
+function addCopyIcons() {
+    if (navigator.clipboard === undefined) {
+        return;
+    }
+
+    const copyTexts = document.querySelectorAll('[data-copy-text]');
+    copyTexts.forEach(copyText => {
+        const iconElement = createCopyIconElement();
+        copyText.parentNode.appendChild(iconElement);
+    });
+}
+
+/**
+ * @return {HTMLElement} The created copy icon element
+ */
+function createCopyIconElement() {
+    const copyIcon = document.createElement('span');
+    copyIcon.classList.add('icon-copy');
+    copyIcon.setAttribute('onclick', 'copyText(event)');
+    copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
+
+    return copyIcon;
+}
+
+/**
+ * Copies the text from the data-text attribute of the clicked element to the clipboard
+ *
+ * @param {Event} event - The event object triggered by the click event
+ */
+function copyText(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const copyIcon = event.currentTarget;
+    const copyText = copyIcon.previousElementSibling.getAttribute('data-copy-text');
+    navigator.clipboard.writeText(copyText);
+    copyIcon.classList.add('icon-copy-copied');
+    setTimeout(() => {
+        copyIcon.classList.remove('icon-copy-copied');
+    }, 1000);
+}

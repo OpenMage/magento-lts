@@ -232,10 +232,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     {
         /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
-            if ($path->hasChildren()) {
-                $path = stripcslashes(trim((string) $path->children(), '"'));
-            }
-            if (strpos($path, '..' . DS) !== false) {
+            $path = $path->hasChildren()
+                ? stripcslashes(trim((string)$path->children(), '"'))
+                : (string)$path;
+            if (str_contains($path, '..' . DS)) {
                 throw new Exception();
             }
         }

@@ -517,7 +517,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _prepareQuery(&$sql, &$bind = [])
     {
-        $sql = (string) $sql;
+        $sql = (string)$sql;
         if (!is_array($bind)) {
             $bind = [$bind];
         }
@@ -3072,7 +3072,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $value = is_string($value) ? str_replace("\0", '', $value) : $value;
         $sql = $this->quoteInto($text, $value);
-        return str_replace('{{fieldName}}', $fieldName, $sql);
+        return str_replace('{{fieldName}}', (string)$fieldName, $sql);
     }
 
     /**
@@ -3086,7 +3086,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _transformStringSqlCondition($conditionKey, $value)
     {
-        $value = str_replace("\0", '', (string) $value);
+        $value = str_replace("\0", '', (string)$value);
         if ($value == '') {
             return ($conditionKey == 'seq') ? 'null' : 'notnull';
         } else {
