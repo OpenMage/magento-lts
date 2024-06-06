@@ -116,7 +116,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $select = $this->_getReadAdapter()->select()
             ->from(['attr_table' => $table], [])
             ->where("attr_table.{$this->getEntityIdField()} = ?", $object->getId())
-            ->where('attr_table.store_id IN (?)', $storeIds);
+            ->where('attr_table.store_id IN (?)', $storeIds)
+            ->order('attr_table.store_id ASC');
         if (count($storeIds) > 1) {
             $select->order('attr_table.store_id ASC');
         }
