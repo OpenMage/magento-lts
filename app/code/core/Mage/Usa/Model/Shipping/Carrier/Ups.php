@@ -1692,14 +1692,14 @@ XMLAuth;
 
         // PackageResults is always an array for API version v2403, but could be an object for other versions.
         // The UPS API docs don't mark it required and don't say if it is always set, so let's be cautious.
-        if (!isset($responseData->ShipmentResults->PackageResults)) {
+        if (!isset($responseData->ShipmentResponse->ShipmentResults->PackageResults)) {
             $package = null;
-        } elseif (is_array($responseData->ShipmentResults->PackageResults)) {
+        } elseif (is_array($responseData->ShipmentResponse->ShipmentResults->PackageResults)) {
             /** @var null|object{TrackingNumber: string, ShippingLabel: object{GraphicImage: string}} $package */
-            $package = $responseData->ShipmentResults->PackageResults[0] ?? null;
-        } elseif (is_object($responseData->ShipmentResults->PackageResults)) {
+            $package = $responseData->ShipmentResponse->ShipmentResults->PackageResults[0] ?? null;
+        } elseif (is_object($responseData->ShipmentResponse->ShipmentResults->PackageResults)) {
             /** @var object{TrackingNumber: string, ShippingLabel: object{GraphicImage: string}} $package */
-            $package = $responseData->ShipmentResults->PackageResults;
+            $package = $responseData->ShipmentResponse->ShipmentResults->PackageResults;
         } else {
             Mage::log(
                 'Unexpected response shape from UPS REST API /shipments endpoint for .ShipmentResults.PackageResults',
