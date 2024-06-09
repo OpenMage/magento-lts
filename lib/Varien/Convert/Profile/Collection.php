@@ -64,7 +64,7 @@ class Varien_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Varien_Convert_Profile_Abstract $profile = null)
+    public function addProfile($name, ?Varien_Convert_Profile_Abstract $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();

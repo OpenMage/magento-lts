@@ -89,7 +89,7 @@ class Mage_Paypal_Model_Ipn
      * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
      * @throws Mage_Core_Exception
      */
-    public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
+    public function processIpnRequest(array $request, ?Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
         $this->_request   = $request;
         $this->_debugData = ['ipn' => $request];
