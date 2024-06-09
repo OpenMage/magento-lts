@@ -4,5 +4,7 @@
 ## Usage: rector
 ## Example: ddev rector <path-to-files>
 
-cp -n vendor/sreichel/openmage-rector/rector.php rector.php
+if [ -f vendor/sreichel/openmage-rector/rector.php ]; then
+  cp -n vendor/sreichel/openmage-rector/rector.php rector.php
+fi
 php vendor/bin/rector process "$@"
