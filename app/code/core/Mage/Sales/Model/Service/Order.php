@@ -111,13 +111,40 @@ class Mage_Sales_Model_Service_Order
         $this->updateLocaleNumbers($qtys);
         $invoice = $this->_convertor->toInvoice($this->_order);
         $totalQty = 0;
+
         foreach ($this->_order->getAllItems() as $orderItem) {
             if (!$this->_canInvoiceItem($orderItem, [])) {
                 continue;
             }
+
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
+
             if ($orderItem->isDummy()) {
-                $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyOrdered() - $orderItem->getQtyInvoiced() - $orderItem->getQtyCanceled();
+
+                $parentItem = $orderItem->getParentItem();
+                if (isset($qtys[$orderItem->getParentItemId()])) {
+                    $parentQty = $qtys[$orderItem->getParentItemId()];
+                } else {
+                    $parentQty = $parentItem->getQtyOrdered() - $parentItem->getQtyInvoiced() - $parentItem->getQtyCanceled();
+                }
+
+                if (!empty($parentQty)) {
+                    $productOptions = $orderItem->getProductOptions();
+                    if (isset($productOptions['bundle_selection_attributes'])) {
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes'], ['allowed_classes' => false]);
+                        if ($bundleSelectionAttributes) {
+                            $qty = $bundleSelectionAttributes['qty'] * $parentQty;
+                            $qty = min($qty, $orderItem->getQtyOrdered() - $orderItem->getQtyInvoiced() - $orderItem->getQtyCanceled());
+                            $item->setQty($qty);
+                            $invoice->addItem($item);
+                            continue;
+                        }
+                    } elseif ($parentItem->getData('product_type') == 'configurable') {
+                        $qty = $parentQty;
+                    }
+                }
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
@@ -149,8 +176,9 @@ class Mage_Sales_Model_Service_Order
     public function prepareShipment($qtys = [])
     {
         $this->updateLocaleNumbers($qtys);
-        $totalQty = 0;
         $shipment = $this->_convertor->toShipment($this->_order);
+        $totalQty = 0;
+
         foreach ($this->_order->getAllItems() as $orderItem) {
             if (!$this->_canShipItem($orderItem, $qtys)) {
                 continue;
@@ -159,25 +187,27 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToShipmentItem($orderItem);
 
             if ($orderItem->isDummy(true)) {
+                // default value, but can be wrong for bundle items
                 $qty = 0;
+
                 if (isset($qtys[$orderItem->getParentItemId()])) {
+                    $parentQty = $qtys[$orderItem->getParentItemId()];
+                } else {
+                    $parentQty = $orderItem->getParentItem()->getSimpleQtyToShip();
+                }
+
+                if (!empty($parentQty)) {
                     $productOptions = $orderItem->getProductOptions();
                     if (isset($productOptions['bundle_selection_attributes'])) {
                         $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes'], ['allowed_classes' => false]);
-
                         if ($bundleSelectionAttributes) {
-                            $qty = $bundleSelectionAttributes['qty'] * $qtys[$orderItem->getParentItemId()];
+                            $qty = $bundleSelectionAttributes['qty'] * $parentQty;
                             $qty = min($qty, $orderItem->getSimpleQtyToShip());
-
                             $item->setQty($qty);
                             $shipment->addItem($item);
                             continue;
-                        } else {
-                            $qty = 1;
                         }
                     }
-                } else {
-                    $qty = 1;
                 }
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
@@ -188,6 +218,7 @@ class Mage_Sales_Model_Service_Order
                     continue;
                 }
             }
+
             $totalQty += $qty;
             $item->setQty($qty);
             $shipment->addItem($item);
@@ -217,8 +248,30 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = 1;
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyToRefund();
                 $orderItem->setLockedDoShip(true);
+
+                if (isset($qtys[$orderItem->getParentItemId()])) {
+                    $parentQty = $qtys[$orderItem->getParentItemId()];
+                } else {
+                    $parentQty = $orderItem->getParentItem()->getQtyToRefund();
+                }
+
+                if (!empty($parentQty)) {
+                    $productOptions = $orderItem->getProductOptions();
+                    if (isset($productOptions['bundle_selection_attributes'])) {
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes'], ['allowed_classes' => false]);
+                        if ($bundleSelectionAttributes) {
+                            $qty = $bundleSelectionAttributes['qty'] * $parentQty;
+                            $item->setQty($qty);
+                            $creditmemo->addItem($item);
+                            continue;
+                        }
+                    } elseif ($orderItem->getParentItem()->getData('product_type') == 'configurable') {
+                        $qty = $parentQty;
+                    }
+                }
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
@@ -228,15 +281,16 @@ class Mage_Sales_Model_Service_Order
                     continue;
                 }
             }
+
             $totalQty += $qty;
             $item->setQty($qty);
             $creditmemo->addItem($item);
         }
+
         $creditmemo->setTotalQty($totalQty);
-
         $this->_initCreditmemoData($creditmemo, $data);
-
         $creditmemo->collectTotals();
+
         return $creditmemo;
     }
 
@@ -291,7 +345,32 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = 1;
+                // default value, but can be wrong for bundle items
+                $qty = $orderItem->getQtyToRefund();
+
+                if (isset($qtys[$orderItem->getParentItemId()])) {
+                    $parentQty = $qtys[$orderItem->getParentItemId()];
+                } else {
+                    $parentQty = $orderItem->getParentItem()->getQtyToRefund();
+                }
+
+                if (!empty($parentQty)) {
+                    $productOptions = $orderItem->getProductOptions();
+                    if (isset($productOptions['bundle_selection_attributes'])) {
+                        $bundleSelectionAttributes = unserialize($productOptions['bundle_selection_attributes'], ['allowed_classes' => false]);
+                        if ($bundleSelectionAttributes) {
+                            $qty = $bundleSelectionAttributes['qty'] * $parentQty;
+                            if (isset($invoiceQtysRefundLimits[$orderItem->getId()])) {
+                                $qty = min($qty, $invoiceQtysRefundLimits[$orderItem->getId()]);
+                            }
+                            $item->setQty($qty);
+                            $creditmemo->addItem($item);
+                            continue;
+                        }
+                    } elseif ($orderItem->getParentItem()->getData('product_type') == 'configurable') {
+                        $qty = $parentQty;
+                    }
+                }
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
