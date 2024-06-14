@@ -56,6 +56,7 @@
  *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
+ * @method int getMetaRobots()
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
  *
@@ -93,6 +94,16 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
     public const CACHE_TAG             = 'catalog_category';
 
+    /**
+     * Category robots
+     */
+    public const META_ROBOTS_INDEX_FOLLOW               = 1;
+    public const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    public const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    public const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    public const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    public const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
     /**
      * Prefix of model events names
      *

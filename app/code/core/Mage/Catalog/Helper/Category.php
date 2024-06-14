@@ -24,6 +24,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     public const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
     public const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
     public const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
+    public const XML_PATH_CHANGE_CATEGORY_PAGES_ROBOTS = 'catalog/seo/category_pages_robots';
 
     protected $_moduleName = 'Mage_Catalog';
 
@@ -172,5 +173,33 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     public function canUseCanonicalTag($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
+    }
+
+    /**
+     * Check if Robots NOINDEX,FOLLOW can be used for category pages
+     *
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return bool
+     */
+    public function canUseNoindexFollow($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_CHANGE_CATEGORY_PAGES_ROBOTS, $store);
+    }
+
+
+    /**
+     * Check if current category is first page
+     *
+     * @return boolean
+     */
+    public function isNotFirstCategoryPage()
+    {
+        $url = Mage::helper('core/url')->getCurrentUrl();
+        $parsedUrl = parse_url($url);
+        if (isset($parsedUrl['query']) && (preg_match("/p=/i", $parsedUrl['query'])) && (!preg_match("/p=1/i", $parsedUrl['query']))) {
+            return true;
+        }
+
+        return false;
     }
 }

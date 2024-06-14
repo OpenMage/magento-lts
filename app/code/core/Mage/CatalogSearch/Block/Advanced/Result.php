@@ -42,6 +42,9 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
                 'label' => Mage::helper('catalogsearch')->__('Results')
             ]);
         }
+
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/search'));
+
         return parent::_prepareLayout();
     }
 

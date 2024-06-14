@@ -57,6 +57,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_W
             'disabled'  => $isElementDisabled
         ]);
 
+        $fieldset->addField('meta_robots', 'select', array(
+            'name' => 'meta_robots',
+            'label' => Mage::helper('cms')->__('Robots'),
+            'title' => Mage::helper('cms')->__('Meta Robots'),
+            'options'   => $model->getAvailableRobots(),
+            'disabled'  => $isElementDisabled
+        ));
+
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);
 
         $form->setValues($model->getData());

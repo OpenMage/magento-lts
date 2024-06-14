@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
         } else {
             $systemAttributesForNonAdmin = [
                 'sku', 'name', 'short_description', 'description', 'tier_price', 'meta_title', 'meta_description',
-                'meta_keyword',
+                'meta_keyword', 'meta_robots'
             ];
             if ($attribute->getIsUserDefined()) {
                 $isAttributeVisible = $attribute->getIsVisibleOnFront();

@@ -337,10 +337,10 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         $regExps = ['last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/'];
         $colReg  = [
             'sku' => 'last', 'name' => 'last', 'description' => 'last', 'short_description' => 'last',
-            'url_key' => 'middle', 'meta_title' => 'last', 'meta_keyword' => 'last', 'meta_description' => 'last',
-            '_links_related_sku' => 'last', '_links_crosssell_sku' => 'last', '_links_upsell_sku' => 'last',
-            '_custom_option_sku' => 'middle', '_custom_option_row_sku' => 'middle', '_super_products_sku' => 'last',
-            '_associated_sku' => 'last'
+            'url_key' => 'middle', 'meta_title' => 'last', 'meta_keyword' => 'last', 'meta_robots' => 'last',
+            'meta_description' => 'last', '_links_related_sku' => 'last', '_links_crosssell_sku' => 'last',
+            '_links_upsell_sku' => 'last', '_custom_option_sku' => 'middle', '_custom_option_row_sku' => 'middle',
+            '_super_products_sku' => 'last', '_associated_sku' => 'last'
         ];
         $size = self::DEFAULT_SIZE;
 

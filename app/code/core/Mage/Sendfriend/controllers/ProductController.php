@@ -126,6 +126,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
             }
         }
 
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/sendfriend'));
         $this->renderLayout();
     }
 

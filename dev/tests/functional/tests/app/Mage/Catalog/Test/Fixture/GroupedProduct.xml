@@ -44,6 +44,7 @@
         <field name="image" is_required="0"/>
         <field name="image_label" is_required="0"/>
         <field name="media_gallery" is_required="0"/>
+        <field name="meta_robots" is_required="0"/>
         <field name="meta_description" is_required="0"/>
         <field name="meta_keyword" is_required="0"/>
         <field name="meta_title" is_required="0"/>

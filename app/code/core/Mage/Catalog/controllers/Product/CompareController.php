@@ -53,6 +53,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
         }
 
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/compare'));
         $this->renderLayout();
     }
 
