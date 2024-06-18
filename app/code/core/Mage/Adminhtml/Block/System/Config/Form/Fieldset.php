@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         if ($this->getRequest()->getParam('website') || $this->getRequest()->getParam('store')) {
             $html .= '<colgroup class="use-default" />';
         }
-        $html .= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
+        $html .= '<colgroup class="scope-label" /><colgroup class="config-path" /><colgroup class="config-hint" /><tbody>';
 
         return $html;
     }

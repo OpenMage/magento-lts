@@ -379,6 +379,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.value2,
 .form-list td.note,
 .form-list td.scope-label,
+.form-list td.config-path,
 .form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px !important; background:0 !important; }
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
@@ -390,7 +391,8 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.value select      { width:280px; }
 .form-list td.value select.select-date { width:87px; }
 .form-list td.note              { background:url(images/note_cell_bg.gif) 6px 10px no-repeat !important; padding-left:18px; }
-.form-list td.scope-label       { padding-left:5px; color:#6f8992; font-size:.9em; }
+.form-list td.scope-label,
+.form-list td.config-path       { padding-left:5px; color:#6f8992; font-size:.9em; }
 .form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
 .form-list td.value p.note      { width:268px; }
 
@@ -1281,6 +1283,8 @@ ul.config-tabs dt {
     }
 ul.config-tabs dl           { margin-bottom:16px; }
 ul.config-tabs a.last span  { background-image:none; }
+
+.copycnf { font-style:italic; opacity:0.7; }
 
 .inline-table { border:0 !important; }
 .inline-table td { border:0 !important; padding:0 5px 5px !important; }

@@ -117,10 +117,16 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         }
         $html .= '</td>';
 
-        $html .= '<td class="">';
+        $html .= '<td class="config-path">';
+        if ($element->getPath() && Mage::getStoreConfigFlag('admin/design/copy_path') && (Mage::getIsDeveloperMode() || Mage::helper('admin/variable')->isPathAllowed($element->getPath()))) {
+            $html .= '<a href="javascript:copyText(\'' . $element->getPath() . '\');" class="copycnf">[config]</a>';
+        }
+        $html .= '</td>';
+
+        $html .= '<td class="config-hint">';
         if ($element->getHint()) {
-            $html .= '<div class="hint" >';
-            $html .= '<div style="display: none;">' . $element->getHint() . '</div>';
+            $html .= '<div class="hint">';
+            $html .= '<div style="display:none;">' . $element->getHint() . '</div>';
             $html .= '</div>';
         }
         $html .= '</td>';

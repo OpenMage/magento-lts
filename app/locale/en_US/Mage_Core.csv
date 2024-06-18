@@ -446,4 +446,5 @@
 "Frontend","Frontend"
 "The store view #%d is disabled.","The store view #%d is disabled."
 "Loading Indicator Timeout","Loading Indicator Timeout"
+"Enable resource path hints","Enable resource path hints"
 "Number of milliseconds to delay showing the loading indicator. The default value is ""200"". An empty value disables the delay.","Number of milliseconds to delay showing the loading indicator. The default value is ""200"". An empty value disables the delay."

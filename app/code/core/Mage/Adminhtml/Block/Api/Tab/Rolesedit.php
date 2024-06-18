@@ -77,6 +77,10 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
             $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id']  = (string)$node->attributes()->aclpath;
 
+            if (Mage::getIsDeveloperMode() && Mage::getStoreConfigFlag('admin/design/copy_path')) {
+                $item['text'] .= '</a> <a href="javascript:copyText(\'' . $item['id'] . '\');" class="copycnf">(' . $item['id'] . ')';
+            }
+
             if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
             }

@@ -46,7 +46,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue()->unsPath();
         return parent::render($element);
     }
 

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue()->unsPath();
         return parent::render($element);
     }
 
