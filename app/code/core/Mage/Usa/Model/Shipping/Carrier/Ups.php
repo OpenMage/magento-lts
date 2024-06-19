@@ -1859,19 +1859,6 @@ XMLAuth;
             if ($request->getShipperAddressStateOrProvinceCode()) {
                 $address['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
             }
-
-            $shipToAddress = &$shipToData['Address'];
-            $shipToAddress['AddressLine'] =
-                $request->getShipperAddressStreet1() . ' ' . $request->getShipperAddressStreet2();
-            $shipToAddress['City'] = $request->getShipperAddressCity();
-            $shipToAddress['CountryCode'] = $request->getShipperAddressCountryCode();
-            $shipToAddress['PostalCode'] = $request->getShipperAddressPostalCode();
-            if ($request->getShipperAddressStateOrProvinceCode()) {
-                $shipToAddress['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
-            }
-            if ($this->getConfigData('dest_type') == 'RES') {
-                $shipToAddress['ResidentialAddress'] = '';
-            }
         }
 
         $shipParams['ShipmentRequest']['Shipment']['Service']['Code'] = $request->getShippingMethod();
