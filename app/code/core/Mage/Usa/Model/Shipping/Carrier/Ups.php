@@ -2341,6 +2341,10 @@ XMLAuth;
             $rateResponseData = json_decode($rateResponse, true);
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
+                if (isset($arr['Service'])) {
+                    // Handling cases where a single service is returned by UPS
+                    $arr = [$arr];
+                }
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods') ?? '');
                 $allowedCurrencies = Mage::getModel('directory/currency')->getConfigAllowCurrencies();
                 foreach ($arr as $shipElement) {
