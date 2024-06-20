@@ -21,12 +21,14 @@
  */
 class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method_Abstract
 {
+    public const PAYMENT_METHOD_CASHONDELIVERY_CODE = 'cashondelivery';
+
     /**
      * Payment method code
      *
      * @var string
      */
-    protected $_code  = 'cashondelivery';
+    protected $_code = self::PAYMENT_METHOD_CASHONDELIVERY_CODE;
 
     /**
      * Cash On Delivery payment block paths
@@ -34,7 +36,7 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
      * @var string
      */
     protected $_formBlockType = 'payment/form_cashondelivery';
-    protected $_infoBlockType = 'payment/info';
+    protected $_infoBlockType = 'payment/info_cashondelivery';
 
     /**
      * Get instructions text from config
@@ -43,6 +45,12 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
      */
     public function getInstructions()
     {
+        $paymentInfo = $this->getInfoInstance();
+        if (($paymentInfo instanceof Mage_Sales_Model_Order_Payment) && !empty($text = $this->getConfigData('instructions_order'))) {
+            $order  = $paymentInfo->getOrder();
+            $amount = $order->formatPriceTxt($order->getData('grand_total'));
+            return trim(str_replace('%s', $amount, $text));
+        }
         return trim($this->getConfigData('instructions'));
     }
 

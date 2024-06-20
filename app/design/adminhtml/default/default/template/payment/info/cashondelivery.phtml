@@ -1,0 +1,29 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @see Mage_Payment_Block_Info
+ */
+?>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
+<?php if ($this->getInstructions()): ?>
+<table>
+    <tbody>
+        <tr>
+            <td><?php echo nl2br($this->getInstructions()) ?></td>
+        </tr>
+    </tbody>
+</table>
+<?php endif ?>
