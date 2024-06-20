@@ -109,4 +109,19 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
         }
         return $data;
     }
+
+    /**
+     * Update specific fields of a single row.
+     *
+     * @param int $itemId Item id of the row being updated
+     * @param mixed[] $data Array structure of fields being updated
+     *
+     * @return $this
+     */
+    public function updateRecord(int $itemId, array $data)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $adapter->update($this->getMainTable(), $data, ['item_id = ?' => $itemId]);
+        return $this;
+    }
 }

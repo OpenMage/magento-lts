@@ -784,6 +784,40 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Update Stock Status and low stock date as if $this->save() has been
+     * called, keeping the update query very light, by only touching those
+     * fields of interest
+     *
+     * @return $this
+     * @throws Exception
+     */
+    public function updateStockStatus()
+    {
+        if (!$this->_hasModelChanged()) {
+            return $this;
+        }
+        $this->_getResource()->beginTransaction();
+        try {
+            $this->_beforeSave();
+            $this->getResource()->updateRecord($this->getId(), [
+                'is_in_stock' => $this->getIsInStock(),
+                'stock_status_changed_auto' => $this->getStockStatusChangedAutomatically(),
+                'low_stock_date' => $this->getLowStockDate()
+            ]);
+            $this->_afterSave();
+            $this->_getResource()
+                ->addCommitCallback([$this, 'afterCommitCallback'])
+                ->commit();
+            $this->_hasDataChanges = false;
+        } catch (Exception $e) {
+            $this->_getResource()->rollBack();
+            $this->_hasDataChanges = true;
+            throw $e;
+        }
+        return $this;
+    }
+
+    /**
      * Chceck if item should be in stock or out of stock based on $qty param of existing item qty
      *
      * @param float|null $qty
