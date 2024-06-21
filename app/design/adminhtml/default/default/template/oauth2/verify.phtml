@@ -1,0 +1,9 @@
+<div class="content-header">
+    <h3><?php echo $this->__('Verify Tokens') ?></h3>
+</div>
+<form action="<?php echo $this->getFormActionUrl(); ?>" method="post">
+    <?php echo $this->getBlockHtml('formkey') ?>
+    <label for="user_code">User Code:</label>
+    <input type="text" id="user_code" name="user_code" value="<?php echo $this->getUserCode(); ?>" required>
+    <button type="submit">Authorize</button>
+</form>

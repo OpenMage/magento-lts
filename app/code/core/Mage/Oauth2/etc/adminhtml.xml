@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <api>
+                    <children>
+                        <oauth2_clients translate="title" module="oauth2">
+                            <title>REST - OAuth2 Clients</title>
+                            <sort_order>100</sort_order>
+                            <action>adminhtml/oauth2_client/index</action>
+                        </oauth2_clients>
+                        <oauth2_verify module="oauth2">
+                            <title>REST - OAuth2 Device Tokens</title>
+                            <sort_order>120</sort_order>
+                            <action>adminhtml/oauth2_device/index</action>
+                        </oauth2_verify>
+                    </children>
+                </api>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <oauth2_clients translate="title" module="oauth2">
+                        <title>OAuth2 Clients</title>
+                        <sort_order>10</sort_order>
+                    </oauth2_clients>
+                    <oauth2_verify translate="title" module="oauth2">
+                        <title>OAuth2 Verify</title>
+                        <sort_order>30</sort_order>
+                    </oauth2_verify>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
