@@ -27,7 +27,7 @@ CREATE TABLE `{$installer->getTable('catalog/product_relation')}` (
   KEY `IDX_CHILD` (`child_id`),
   CONSTRAINT `FK_CATALOG_PRODUCT_RELATION_CHILD` FOREIGN KEY (`child_id`) REFERENCES `{$installer->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CATALOG_PRODUCT_RELATION_PARENT` FOREIGN KEY (`parent_id`) REFERENCES `{$installer->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=INNODB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=INNODB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 INSERT IGNORE INTO `{$installer->getTable('catalog/product_relation')}`
 SELECT
