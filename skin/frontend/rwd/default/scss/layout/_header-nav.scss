@@ -202,7 +202,8 @@ $nav-primary-height: 30px;
         }
 
         a:hover,
-        li:hover > a {
+        li:hover,
+        li.active > a {
             color: $c-action;
         }
 
