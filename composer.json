@@ -34,9 +34,7 @@
         "symfony/polyfill-php74": "^1.29",
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
-        "symfony/polyfill-php82": "^1.29",
-        "symfony/polyfill-php83": "^1.29",
-        "symfony/polyfill-php84": "^1.29"
+        "symfony/polyfill-php82": "^1.29"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
@@ -48,7 +46,6 @@
         "phpmd/phpmd": "^2.13",
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^1.1",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
