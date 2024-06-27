@@ -284,7 +284,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @return bool
      * @deprecated since 1.4.0.1
      **/
-    public function send($subscriber, array $variables = [], $name = null, Mage_Newsletter_Model_Queue $queue = null)
+    public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
             return false;

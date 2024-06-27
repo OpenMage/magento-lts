@@ -131,7 +131,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @param null|Zend_Db_Select $select
      * @return $this
      */
-    protected function _applyStoresFilterToSelect(Zend_Db_Select $select = null)
+    protected function _applyStoresFilterToSelect(?Zend_Db_Select $select = null)
     {
         $adapter = $this->getConnection();
         $storesIds = $this->_storesIds;

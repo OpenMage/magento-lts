@@ -29,7 +29,7 @@ abstract class Varien_Convert_Profile_Abstract
     protected $_actionDefaultClass = 'Varien_Convert_Action';
     protected $_containerCollectionDefaultClass = 'Varien_Convert_Container_Collection';
 
-    public function addAction(Varien_Convert_Action_Interface $action = null)
+    public function addAction(?Varien_Convert_Action_Interface $action = null)
     {
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
