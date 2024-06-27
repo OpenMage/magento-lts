@@ -1176,7 +1176,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         return [
             self::DHL_CONTENT_TYPE_DOC      => Mage::helper('usa')->__('Documents'),

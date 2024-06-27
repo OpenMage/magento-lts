@@ -302,7 +302,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function setNearestStartDatetime(Zend_Date $minAllowed = null)
+    public function setNearestStartDatetime(?Zend_Date $minAllowed = null)
     {
         // TODO: implement proper logic with invoking payment method instance
         $date = $minAllowed;

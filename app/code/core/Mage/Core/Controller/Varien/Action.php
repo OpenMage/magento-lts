@@ -613,7 +613,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param string|null $module
      * @param array|null $params
      */
-    protected function _forward($action, $controller = null, $module = null, array $params = null)
+    protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
         $request = $this->getRequest();
 
