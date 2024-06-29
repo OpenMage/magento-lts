@@ -33,7 +33,7 @@
  * @method bool getIsConfigurable()
  * @method bool getIsFilterable()
  * @method bool getIsFilterableInSearch()
- * @method bool setIsGlobal()
+ * @method $this setIsGlobal(int $value)
  * @method bool getIsRequired()
  * @method bool getIsSearchable()
  * @method bool getIsUnique()
