@@ -267,11 +267,12 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Assign user to role
      *
+     * @deprecated Use {@see saveRelations} instead.
      * @return $this
      */
     public function add()
     {
-        $this->_getResource()->add($this);
+        $this->saveRelations();
         return $this;
     }
 

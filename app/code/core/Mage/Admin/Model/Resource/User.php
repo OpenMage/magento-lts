@@ -204,46 +204,47 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     }
 
     /**
-     * TODO: unify _saveRelations() and add() methods, they make same things
+     * Save admin user role
      *
      * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
-     * @return $this|Mage_Core_Model_Abstract
+     * @return $this
      */
     public function _saveRelations(Mage_Core_Model_Abstract $user)
     {
-        $rolesIds = $user->getRoleIds();
-        if (!is_array($rolesIds) || count($rolesIds) == 0) {
-            return $user;
+        $roleId = $user->getRoleId();
+        if (!$roleId) {
+            return $this;
         }
 
         $adapter = $this->_getWriteAdapter();
         $adapter->beginTransaction();
 
         try {
-            $conditions = [
-                'user_id = ?' => (int) $user->getId(),
-            ];
+            $role = Mage::getModel('admin/role')->load($roleId);
 
-            $adapter->delete($this->getTable('admin/role'), $conditions);
-            foreach ($rolesIds as $rid) {
-                $rid = (int) $rid;
-                if ($rid > 0) {
-                    $role = Mage::getModel('admin/role')->load($rid);
-                } else {
-                    $role = new Varien_Object(['tree_level' => 0]);
-                }
+            $data = new Varien_Object([
+                'parent_id'  => $roleId,
+                'tree_level' => (int)$role->getTreeLevel() + 1,
+                'sort_order' => 0,
+                'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
+                'user_id'    => $user->getId(),
+                'role_name'  => $user->getFirstname()
+            ]);
 
-                $data = new Varien_Object([
-                    'parent_id'  => $rid,
-                    'tree_level' => $role->getTreeLevel() + 1,
-                    'sort_order' => 0,
-                    'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
-                    'user_id'    => $user->getId(),
-                    'role_name'  => $user->getFirstname()
-                ]);
+            $select = $adapter->select()
+                ->from($this->getTable('admin/role'))
+                ->where('user_id = ?', $user->getId());
 
-                $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
-                $adapter->insert($this->getTable('admin/role'), $insertData);
+            $preparedData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
+
+            if ($adapter->fetchOne($select) === false) {
+                $adapter->insert($this->getTable('admin/role'), $preparedData);
+            } else {
+                $adapter->update(
+                    $this->getTable('admin/role'),
+                    $preparedData,
+                    ['user_id = ?' => $user->getId()]
+                );
             }
 
             if ($user->getId() > 0) {
@@ -251,9 +252,6 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 $this->saveReloadAclFlag($user, 1);
             }
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
-            $adapter->rollBack();
-            throw $e;
         } catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
@@ -301,45 +299,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Save user roles
      *
+     * @deprecated Use {@see _saveRelations} instead.
      * @param Mage_Core_Model_Abstract|Mage_Admin_Model_User $user
      * @return $this
      */
     public function add(Mage_Core_Model_Abstract $user)
     {
-        $dbh = $this->_getWriteAdapter();
-        $aRoles = $this->hasAssigned2Role($user);
-        if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
-                $dbh->delete(
-                    $this->getTable('admin/role'),
-                    ['role_id = ?' => $data['role_id']]
-                );
-            }
-        }
-
-        if ($user->getId() > 0) {
-            $role = Mage::getModel('admin/role')->load($user->getRoleId());
-        } else {
-            $role = new Varien_Object(['tree_level' => 0]);
-        }
-
-        $data = new Varien_Object([
-            'parent_id'  => $user->getRoleId(),
-            'tree_level' => $role->getTreeLevel() + 1,
-            'sort_order' => 0,
-            'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
-            'user_id'    => $user->getUserId(),
-            'role_name'  => $user->getFirstname()
-        ]);
-
-        $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
-        $dbh->insert($this->getTable('admin/role'), $insertData);
-
-        if ($user->getId() > 0) {
-            // reload acl on next user http request
-            $this->saveReloadAclFlag($user, 1);
-        }
-
+        $this->_saveRelations($user);
         return $this;
     }
 
