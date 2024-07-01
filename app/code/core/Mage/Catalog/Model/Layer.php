@@ -212,6 +212,9 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             foreach ($setAttributeIds as $attributeId) {
                 if (!isset($attributes[$attributeId])) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
+                    if (!$this->_filterFilterableAttributes($attribute)) {
+                        continue;
+                    }
                     if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
@@ -247,6 +250,17 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     {
         $collection->addIsFilterableFilter();
         return $collection;
+    }
+
+    /**
+     * Filter which attributes are included in getFilterableAttributes
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return  bool
+     */
+    protected function _filterFilterableAttributes($attribute)
+    {
+        return $attribute->getIsFilterable() > 0;
     }
 
     /**
