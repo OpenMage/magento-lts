@@ -163,4 +163,13 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     {
         return $this->getColumn()->getCssClass();
     }
+
+    /**
+     * @param Varien_Object $row
+     * @return string|null
+     */
+    public function getCopyableText(Varien_Object $row)
+    {
+        return $this->_getValue($row);
+    }
 }

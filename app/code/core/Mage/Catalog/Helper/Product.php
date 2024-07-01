@@ -348,6 +348,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $category = Mage::getModel('catalog/category')->load($categoryId);
             $product->setCategory($category);
             Mage::register('current_category', $category);
+            Mage::register('current_entity_key', $category->getPath());
         }
 
         // Register current data and dispatch final events
