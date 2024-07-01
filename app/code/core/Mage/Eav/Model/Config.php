@@ -599,6 +599,27 @@ class Mage_Eav_Model_Config
     }
 
     /**
+     * Return first attribute sorting information found for a given list of attribute sets
+     * @param int $attributeId
+     * @param int|int[] $attributeSetIds
+     * @return false|array
+     */
+    public function getAttributeSetGroupInfo($attributeId, $attributeSetIds)
+    {
+        if (!is_array($attributeSetIds)) {
+            $attributeSetIds = [$attributeSetIds];
+        }
+
+        foreach ($attributeSetIds as $attributeSetId) {
+            if (isset($this->_attributeSetInfo[$attributeId][$attributeSetId])) {
+                return $this->_attributeSetInfo[$attributeId][$attributeSetId];
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param mixed $entityType
      * @param string $attribute
      * @return  Mage_Eav_Model_Entity_Attribute_Abstract|null
