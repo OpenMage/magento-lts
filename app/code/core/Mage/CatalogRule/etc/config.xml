@@ -212,15 +212,5 @@
                 </run>
             </catalogrule_apply_all>
         </jobs>
-        <events>
-            <catalog_product_get_final_price>
-                <observers>
-                    <catalogrule>
-                        <class>catalogrule/observer</class>
-                        <method>processAdminFinalPrice</method>
-                    </catalogrule>
-                </observers>
-            </catalog_product_get_final_price>
-        </events>
     </crontab>
 </config>
