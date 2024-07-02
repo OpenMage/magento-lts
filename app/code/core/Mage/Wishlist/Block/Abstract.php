@@ -232,7 +232,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function hasDescription($item)
     {
-        return ($item->getDescription() ?? '') != '';
+        return trim($item->getDescription() ?? '') != '';
     }
 
     /**
