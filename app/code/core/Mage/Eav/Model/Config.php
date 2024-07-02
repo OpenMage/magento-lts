@@ -571,7 +571,9 @@ class Mage_Eav_Model_Config
             }
             return $attributeCodes;
         } else {
-            return array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()]);
+            return isset($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+                ? array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+                : [];
         }
     }
 
