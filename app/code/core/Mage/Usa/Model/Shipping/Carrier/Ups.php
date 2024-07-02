@@ -1859,19 +1859,6 @@ XMLAuth;
             if ($request->getShipperAddressStateOrProvinceCode()) {
                 $address['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
             }
-
-            $shipToAddress = &$shipToData['Address'];
-            $shipToAddress['AddressLine'] =
-                $request->getShipperAddressStreet1() . ' ' . $request->getShipperAddressStreet2();
-            $shipToAddress['City'] = $request->getShipperAddressCity();
-            $shipToAddress['CountryCode'] = $request->getShipperAddressCountryCode();
-            $shipToAddress['PostalCode'] = $request->getShipperAddressPostalCode();
-            if ($request->getShipperAddressStateOrProvinceCode()) {
-                $shipToAddress['StateProvinceCode'] = $request->getShipperAddressStateOrProvinceCode();
-            }
-            if ($this->getConfigData('dest_type') == 'RES') {
-                $shipToAddress['ResidentialAddress'] = '';
-            }
         }
 
         $shipParams['ShipmentRequest']['Shipment']['Service']['Code'] = $request->getShippingMethod();
@@ -2028,7 +2015,7 @@ XMLAuth;
      * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
             return $this->_getAllowedContainers($params);
@@ -2112,7 +2099,7 @@ XMLAuth;
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
         $deliveryConfirmationTypes  = [];

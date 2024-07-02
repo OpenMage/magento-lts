@@ -123,7 +123,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      * @return Varien_Simplexml_Element|false|array
      */
     protected function _buildResourcesArray(
-        Varien_Simplexml_Element $resource = null,
+        ?Varien_Simplexml_Element $resource = null,
         $parentName = null,
         $level = 0,
         $represent2Darray = null,
