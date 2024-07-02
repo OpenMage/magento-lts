@@ -53,10 +53,21 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         } else {
             // convert to UTC
             $zendDate = Mage::app()->getLocale()->utcDate(null, $date, true, $this->_getFormat($date));
-            $object->setData($attributeCode, $zendDate->getIso());
+            $date = $this->removeTimezone($zendDate->getIso());
+            $object->setData($attributeCode, $date);
         }
 
         return $this;
+    }
+    
+    /**
+     * @param $date
+     *
+     * @return string
+     */
+    public function removeTimezone($date): string
+    {
+        return strtr($date, ["+00:00" => "", "T" => " "]);
     }
 
     /**
