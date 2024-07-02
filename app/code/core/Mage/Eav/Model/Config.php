@@ -571,7 +571,9 @@ class Mage_Eav_Model_Config
             }
             return $attributeCodes;
         } else {
-            return array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()]);
+            return isset($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+                ? array_keys($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])
+                : [];
         }
     }
 
@@ -596,6 +598,27 @@ class Mage_Eav_Model_Config
         }
 
         return array_keys($attributes);
+    }
+
+    /**
+     * Return first attribute sorting information found for a given list of attribute sets
+     * @param int $attributeId
+     * @param int|int[] $attributeSetIds
+     * @return false|array
+     */
+    public function getAttributeSetGroupInfo($attributeId, $attributeSetIds)
+    {
+        if (!is_array($attributeSetIds)) {
+            $attributeSetIds = [$attributeSetIds];
+        }
+
+        foreach ($attributeSetIds as $attributeSetId) {
+            if (isset($this->_attributeSetInfo[$attributeId][$attributeSetId])) {
+                return $this->_attributeSetInfo[$attributeId][$attributeSetId];
+            }
+        }
+
+        return false;
     }
 
     /**
