@@ -987,21 +987,61 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
-            print '<pre>';
-
+            if (PHP_SAPI != 'cli') {
+                print '<pre style="white-space:pre-wrap;">';
+            }
             if (!empty($extra)) {
                 print $extra . "\n\n";
             }
-
-            print $e->getMessage() . "\n\n";
-            print $e->getTraceAsString();
-            print '</pre>';
+            print get_class($e) . ': ' . $e->getMessage() . "\n\n";
+            if (PHP_SAPI != 'cli') {
+                $file = $e->getFile();
+                $line = $e->getLine();
+                if (!empty($_SERVER['MAGE_VSCODE_LINKS']) || !empty($_ENV['MAGE_VSCODE_LINKS'])) {
+                    // https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                        return
+                            $data[1] .
+                            '<a href="vscode://file/' . $data[2] . ':' . $data[3] . '">' . $data[2] . '</a>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <a href="vscode://file/' . $file . ':' . $line . '"><b>' . $file . '</b></a>';
+                } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
+                    // phpstorm doc
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                        return
+                            $data[1] .
+                            '<a href="phpstorm://open?url=file:/' . $data[2] . '&line=' . $data[3] . '">' . $data[2] . '</a>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <a href="phpstorm://open?url=file:/' . $file . '&line=' . $line . '"><b>' . $file . '</b></a>';
+                } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
+                    // https://github.com/luigifab/webext-openfileeditor
+                    print preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                        return
+                            $data[1] .
+                            '<span class="openfileeditor" data-line="' . $data[3] . '">' . $data[2] . '</span>' .
+                            '(' . $data[3] . '): ';
+                    }, $e->getTraceAsString()) . "\n";
+                    print '  thrown in <span class="openfileeditor" data-line="' . $line . '"><b>' . $file . '</b></span>';
+                } else {
+                    print $e->getTraceAsString() . "\n";
+                    print '  thrown in <b>' . $file . '</b>';
+                }
+                print ' on line <b>' . $line . '</b>' . "\n";
+            } else {
+                print $e->getTraceAsString() . "\n";
+                print '  thrown in ' . $e->getFile() . ' on line ' . $e->getLine() . "\n";
+            }
+            if (PHP_SAPI != 'cli') {
+                print '</pre>';
+            }
         } else {
             $reportData = [
-                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
-                $e->getTraceAsString()
+                (!empty($extra) ? $extra . "\n\n" : '') . get_class($e) . ': ' . $e->getMessage(),
+                $e->getTraceAsString() . "\n" .
+                    '  thrown in ' . $e->getFile() . ' on line ' . $e->getLine()
             ];
-
             // retrieve server data
             if (isset($_SERVER['REQUEST_URI'])) {
                 $reportData['url'] = $_SERVER['REQUEST_URI'];
@@ -1009,7 +1049,6 @@ final class Mage
             if (isset($_SERVER['SCRIPT_NAME'])) {
                 $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
             }
-
             // attempt to specify store as a skin
             try {
                 $storeCode = self::app()->getStore()->getCode();

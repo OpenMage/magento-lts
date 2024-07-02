@@ -150,11 +150,47 @@ class Error_Processor
         $this->reportAction = $this->_config->action;
         $this->_setReportUrl();
 
-        if($this->reportAction === 'email') {
+        if ($this->reportAction === 'email') {
             $this->showSendForm = true;
             $this->sendReport();
         }
+
+        if (!empty($_SERVER['MAGE_SHOW_ERROR_REPORT']) || !empty($_ENV['MAGE_SHOW_ERROR_REPORT'])) {
+            $this->reportAction = 'print';
+        }
+
         $this->_renderPage('report.phtml');
+    }
+
+    public function formatTrace($text): string
+    {
+        $text = htmlspecialchars($text);
+        if (!empty($_SERVER['MAGE_VSCODE_LINKS']) || !empty($_ENV['MAGE_VSCODE_LINKS'])) {
+            // https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls
+            $text = preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                return $data[1] . '<a href="vscode://file/' . $data[2] . ':' . $data[3] . '">' . $data[2] . '</a>(' . $data[3].'): ';
+            }, $text);
+            $text = preg_replace_callback('#  thrown in (.+) on line (\d+)#', static function ($data) {
+                return '  thrown in <a href="vscode://file/' . $data[1] . ':' . $data[2] . '">' . $data[1] . '</a> on line ' . $data[2];
+            }, $text);
+        } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
+            // phpstorm doc
+            $text = preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                return $data[1] . '<a href="phpstorm://open?url=file:/' . $data[2] . '&line=' . $data[3] . '">' . $data[2] . '</a>(' . $data[3].'): ';
+            }, $text);
+            $text = preg_replace_callback('#  thrown in (.+) on line (\d+)#', static function ($data) {
+                return '  thrown in <a href="phpstorm://open?url=file:/' . $data[1] . '&line=' . $data[2] . '">' . $data[1] . '</a> on line ' . $data[2];
+            }, $text);
+        } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
+            // https://github.com/luigifab/webext-openfileeditor
+            $text = preg_replace_callback('#(\#\d+ )([^(]+)\((\d+)\): #', static function ($data) {
+                return $data[1] . '<span class="openfileeditor" data-line="' . $data[3] . '">' . $data[2] . '</span>(' . $data[3].'): ';
+            }, $text);
+            $text = preg_replace_callback('#  thrown in (.+) on line (\d+)#', static function ($data) {
+                return '  thrown in <span class="openfileeditor" data-line="' . $data[2] . '">' . $data[1] . '</span> on line ' . $data[2];
+            }, $text);
+        }
+        return $text;
     }
 
     public function getSkinUrl(): string
