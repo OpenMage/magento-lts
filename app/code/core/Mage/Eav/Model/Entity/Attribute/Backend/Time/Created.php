@@ -61,8 +61,9 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
     }
     
     /**
-     * @param $date
+     * Remove the timezone format
      *
+     * @param string $date
      * @return string
      */
     public function removeTimezone($date): string
