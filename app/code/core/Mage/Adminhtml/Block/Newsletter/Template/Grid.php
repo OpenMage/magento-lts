@@ -21,6 +21,16 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setId('templateGrid');
+        $this->setDefaultSort('template_code');
+        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
+        $this->setUseAjax(true);
+    }
+
     protected function _construct()
     {
         $this->setEmptyText(Mage::helper('newsletter')->__('No Templates Found'));
