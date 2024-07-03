@@ -59,7 +59,6 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
 
         return $this;
     }
-    
     /**
      * Remove the timezone format
      *
