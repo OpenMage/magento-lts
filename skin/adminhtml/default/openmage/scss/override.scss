@@ -186,6 +186,13 @@ small {
     a {
       @extend %extend_10;
     }
+
+    .icon-copy {
+      width: 16px;
+      height: 16px;
+      margin: 8px 0 0 5px;
+      filter: revert;
+    }
   }
 
   fieldset {
