@@ -128,7 +128,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         $i = 0;
         $postcode = (string)$request->getDestPostcode();
-        while (strlen($postcod) > 1) {
+        while (strlen($postcode) > 1) {
             $i++;
             $postcode = substr($postcode, 0, -1);
             $bind[':wildcard_postcode_' . $i] = "{$postcode}*";
