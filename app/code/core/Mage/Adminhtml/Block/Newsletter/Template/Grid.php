@@ -24,7 +24,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
     public function __construct()
     {
         parent::__construct();
-        $this->setId('templateGrid');
+        $this->setId('newsletterTemplateGrid');
         $this->setDefaultSort('template_code');
         $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
