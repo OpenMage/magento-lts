@@ -85,10 +85,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
         $qtysString = $this->getRequest()->getParam('qty');
         if (isset($qtysString)) {
-            $qtys = array_filter(json_decode($qtysString), fn($tmpString) => strlen($tmpString ?? ''));
-            // $qtys = array_filter(json_decode($qtysString), function ($tmpString) { return strlen($tmpString ?? ''); });
-            // $qtys = array_filter(json_decode($qtysString), function ($tmpString) { return $tmpString !== NULL && strlen($tmpString); }); => From Drupal Community
-            // $qtys = @array_filter(json_decode($qtysString), '\strlen');
+            $qtys = array_filter(json_decode($qtysString), fn ($tmpString) => strlen($tmpString ?? ''));
         }
 
         /** @var Mage_Wishlist_Model_Item $item */
