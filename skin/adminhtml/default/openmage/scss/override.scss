@@ -1160,3 +1160,8 @@ img[src$='grid-cal.gif'] {
 .emph, .accent {
   color: $color_action !important;
 }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select option:disabled,
+  select:disabled option { color:#cacaca!important; }
+}
