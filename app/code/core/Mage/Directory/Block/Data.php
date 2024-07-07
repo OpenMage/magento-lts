@@ -18,6 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Directory
+ * @phpstan-type Option array{label: string, value: non-falsy-string}
  *
  * @method int getRegionId()
  */
@@ -65,6 +66,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
             $options = $this->getCountryCollection()->toOptionArray();
+            $options = $this->sortCountryOptions($options);
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
@@ -168,5 +170,30 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         }
         Varien_Profiler::stop('TEST: ' . __METHOD__);
         return $regionsJs;
+    }
+
+    /**
+     * @template T of Option[]
+     * @param T $countryOptions
+     * @return array{0: array{label: string, value: Option[]}, 1: array{label: string, value: Option[]}}|T
+     */
+    private function sortCountryOptions(array $countryOptions): array
+    {
+        $topCountryCodes = $this->helper('directory')->getTopCountryCodes();
+        $headOptions = $tailOptions = [];
+
+        foreach ($countryOptions as $countryOption) {
+            if (in_array($countryOption['value'], $topCountryCodes)) {
+                $headOptions[] = $countryOption;
+            } else {
+                $tailOptions[] = $countryOption;
+            }
+        }
+
+        if (empty($headOptions)) {
+            return $countryOptions;
+        }
+
+        return [['label' => $this->__('Popular'), 'value' => $headOptions], ['label' => $this->__('Others'), 'value' => $tailOptions]];
     }
 }

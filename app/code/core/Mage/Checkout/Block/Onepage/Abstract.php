@@ -18,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @phpstan-type Option array{label: string, value: non-falsy-string}
  *
  * @method \Mage_Sales_Model_Quote_Address getAddress()
  */
@@ -161,22 +160,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
      */
     public function getCountryHtmlSelect($type)
     {
-        $countryId = $this->getAddress()->getCountryId();
-        if (is_null($countryId)) {
-            $countryId = Mage::helper('core')->getDefaultCountry();
-        }
-        $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type . '[country_id]')
-            ->setId($type . ':country_id')
-            ->setTitle(Mage::helper('checkout')->__('Country'))
-            ->setClass('validate-select')
-            ->setValue($countryId)
-            ->setOptions($this->getCountryOptions());
-        if ($type === 'shipping') {
-            $select->setExtraParams('onchange="if(window.shipping)shipping.setSameAsBilling(false);"');
-        }
-
-        return $select->getHtml();
+        return Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect(
+            $this->getAddress()->getCountryId(),
+            $type . '[country_id]',
+            $type . ':country_id',
+            $this->helper('checkout')->__('Country'),
+        );
     }
 
     /**
@@ -197,32 +186,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @return bool|mixed
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getCountryOptions()
-    {
-        $options    = false;
-        $useCache   = Mage::app()->useCache('config');
-        if ($useCache) {
-            $cacheId    = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
-            $cacheTags  = ['config'];
-            if ($optionsCache = Mage::app()->loadCache($cacheId)) {
-                $options = unserialize($optionsCache, ['allowed_classes' => false]);
-            }
-        }
-
-        if ($options == false) {
-            $options = $this->getCountryCollection()->toOptionArray();
-            $options = $this->sortCountryOptions($options);
-            if ($useCache) {
-                Mage::app()->saveCache(serialize($options), $cacheId, $cacheTags);
-            }
-        }
-        return $options;
-    }
-
-    /**
      * Get checkout steps codes
      *
      * @return array
@@ -240,30 +203,5 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function isShow()
     {
         return true;
-    }
-
-    /**
-     * @template T of Option[]
-     * @param T $countryOptions
-     * @return array{0: array{label: string, value: Option[]}, 1: array{label: string, value: Option[]}}|T
-     */
-    private function sortCountryOptions(array $countryOptions): array
-    {
-        $topCountryCodes = $this->helper('directory')->getTopCountryCodes();
-        $headOptions = $tailOptions = [];
-
-        foreach ($countryOptions as $countryOption) {
-            if (in_array($countryOption['value'], $topCountryCodes)) {
-                $headOptions[] = $countryOption;
-            } else {
-                $tailOptions[] = $countryOption;
-            }
-        }
-
-        if (empty($headOptions)) {
-            return $countryOptions;
-        }
-
-        return [['label' => $this->__('Popular'), 'value' => $headOptions], ['label' => $this->__('Others'), 'value' => $tailOptions]];
     }
 }
