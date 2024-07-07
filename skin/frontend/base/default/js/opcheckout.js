@@ -408,7 +408,7 @@ Shipping.prototype = {
         this.form = form;
         if ($(this.form)) {
             $(this.form).observe('submit', function(event){this.save();Event.stop(event);}.bind(this));
-            $(this.form).select('#shipping\\:country_id').first().addEventListener('change', () => { if (window.shipping) shipping.setSameAsBilling(false) });
+            $(this.form).select('#shipping\\:country_id').first()?.addEventListener('change', () => { if (window.shipping) shipping.setSameAsBilling(false) });
         }
         this.addressUrl = addressUrl;
         this.saveUrl = saveUrl;
