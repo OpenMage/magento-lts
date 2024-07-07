@@ -369,7 +369,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select option:disabled,
-    select:disabled option { color:#202856!important; }
+    select:disabled option { color:#999!important; }
 }
 
 /* Form List */ /* Table for default form data */
