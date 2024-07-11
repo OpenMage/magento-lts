@@ -66,7 +66,6 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
             $options = $this->getCountryCollection()->toOptionArray();
-            $options = $this->sortCountryOptions($options);
             if (Mage::app()->useCache('config')) {
                 Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
@@ -77,7 +76,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
             ->setTitle(Mage::helper('directory')->__($title))
             ->setClass('validate-select')
             ->setValue($defValue)
-            ->setOptions($options)
+            ->setOptions($this->sortCountryOptions($options))
             ->getHtml();
 
         Varien_Profiler::stop('TEST: ' . __METHOD__);
