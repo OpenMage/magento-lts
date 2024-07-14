@@ -1,5 +1,5 @@
 RUN \
     curl -sS -o n98-magerun.phar https://files.magerun.net/n98-magerun.phar &&  \
-    curl -sS -o n98-magerun.phar.sha256 https://files.magerun.net/sha256.php?file=n98-mager>    shasum -a 256 -c n98-magerun.phar.sha256 && \
+    curl -sS -o n98-magerun.phar.sha256 https://files.magerun.net/sha256.php?file=n98-mager > shasum -a 256 -c n98-magerun.phar.sha256 && \
     chmod +x n98-magerun.phar && \
     mv n98-magerun.phar /usr/local/bin/n98-magerun.phar
