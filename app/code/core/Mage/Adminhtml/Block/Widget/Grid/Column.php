@@ -27,6 +27,8 @@
  * @method $this setFormat(string $value)
  * @method string getIndex()
  * @method bool getNoLink()
+ * @method bool getCopyable()
+ * @method $this setCopyable(bool $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -160,6 +162,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
+        }
+
+        if ($this->getCopyable() && $text = $this->getRenderer()->getCopyableText($row)) {
+            $renderedValue = '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
         }
 
         return $renderedValue;

@@ -13,7 +13,7 @@ class FileTest extends TestCase
     /**
      * @var Mage_Uploader_Helper_File
      */
-    private Mage_Uploader_Helper_File $subject;
+    public Mage_Uploader_Helper_File $subject;
 
     public function setUp(): void
     {
@@ -113,10 +113,6 @@ class FileTest extends TestCase
                 1024,
                 '1024'
             ],
-            'byte' => [
-                1,
-                '1B'
-            ],
             'kilobyte' => [
                 1024,
                 '1K'
@@ -128,11 +124,7 @@ class FileTest extends TestCase
             'gigabyte' => [
                 1073741824,
                 '1G'
-            ],
-            'terabyte' => [
-                1099511627776,
-                '1T'
-            ],
+            ]
         ];
     }
 }

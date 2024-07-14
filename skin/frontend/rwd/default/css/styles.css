@@ -3554,7 +3554,8 @@ a.skip-link {
     border-bottom: none;
   }
   .nav-primary a:hover,
-  .nav-primary li:hover > a {
+  .nav-primary li:hover,
+  .nav-primary li.active > a {
     color: #0472ad;
   }
   .nav-primary .menu-active {

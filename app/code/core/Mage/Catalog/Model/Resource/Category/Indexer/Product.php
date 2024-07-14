@@ -311,7 +311,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */
-    protected function _refreshNotAnchorRootCategories(array $categoryIds = null)
+    protected function _refreshNotAnchorRootCategories(?array $categoryIds = null)
     {
         if (empty($categoryIds)) {
             return $this;

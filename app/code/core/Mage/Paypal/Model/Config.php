@@ -1178,7 +1178,7 @@ class Mage_Paypal_Model_Config
      * @param Mage_Core_Model_Locale|null $locale
      * @return string
      */
-    public function getPaymentMarkWhatIsPaypalUrl(Mage_Core_Model_Locale $locale = null)
+    public function getPaymentMarkWhatIsPaypalUrl(?Mage_Core_Model_Locale $locale = null)
     {
         $countryCode = 'US';
         if ($locale !== null) {

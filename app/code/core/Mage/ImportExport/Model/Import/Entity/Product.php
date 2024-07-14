@@ -1972,7 +1972,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _filterRowData(&$rowData)
     {
-        $rowData = array_filter($rowData, '\strlen');
+        $rowData = array_filter($rowData, fn ($tmpString) => strlen($tmpString ?? ''));
         // Exceptions - for sku - put them back in
         if (!isset($rowData[self::COL_SKU])) {
             $rowData[self::COL_SKU] = null;

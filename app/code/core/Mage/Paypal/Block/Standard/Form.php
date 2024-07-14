@@ -36,6 +36,8 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
 
     /**
      * Set template and redirect message
+     *
+     * @return void
      */
     protected function _construct()
     {

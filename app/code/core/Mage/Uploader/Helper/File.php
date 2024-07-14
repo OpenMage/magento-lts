@@ -709,8 +709,8 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     {
         $postMaxSize = $this->getPostMaxSize();
         $uploadMaxSize = $this->getUploadMaxSize();
-        $postMaxSizeBytes = $this->convertToBytes($postMaxSize);
-        $uploadMaxSizeBytes = $this->convertToBytes($uploadMaxSize);
+        $postMaxSizeBytes = ini_parse_quantity($postMaxSize);
+        $uploadMaxSizeBytes = ini_parse_quantity($uploadMaxSize);
 
         return min($postMaxSizeBytes, $uploadMaxSizeBytes) === $postMaxSizeBytes ? $postMaxSize : $uploadMaxSize;
     }
@@ -722,35 +722,6 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getDataMaxSizeInBytes()
     {
-        return $this->convertToBytes($this->getDataMaxSize());
-    }
-
-    protected function convertToBytes(string $input): int
-    {
-        if (is_numeric($input)) {
-            return (int)$input;
-        }
-
-        $size = (int)substr($input, 0, -1);
-        $unit = strtolower(substr($input, strlen($input) - 1));
-        switch ($unit) {
-            case 't':
-                $parsedSize = $size * (1024 * 1024 * 1024 * 1024);
-                break;
-            case 'g':
-                $parsedSize = $size * (1024 * 1024 * 1024);
-                break;
-            case 'm':
-                $parsedSize = $size * (1024 * 1024);
-                break;
-            case 'k':
-                $parsedSize = $size * 1024;
-                break;
-            case 'b':
-            default:
-                $parsedSize = $size;
-                break;
-        }
-        return (int)$parsedSize;
+        return ini_parse_quantity($this->getDataMaxSize());
     }
 }

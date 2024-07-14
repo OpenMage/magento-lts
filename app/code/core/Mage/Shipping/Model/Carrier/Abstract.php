@@ -170,7 +170,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         return [];
     }
@@ -181,7 +181,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param Varien_Object|null $params
      * @return array|bool
      */
-    protected function _getAllowedContainers(Varien_Object $params = null)
+    protected function _getAllowedContainers(?Varien_Object $params = null)
     {
         $containersAll = $this->getContainerTypesAll();
         if (empty($containersAll)) {
@@ -244,7 +244,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return [];
     }

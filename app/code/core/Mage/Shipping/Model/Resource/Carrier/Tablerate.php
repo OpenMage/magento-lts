@@ -127,7 +127,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = '*'";
 
         $i = 0;
-        $postcode = $request->getDestPostcode();
+        $postcode = (string)$request->getDestPostcode();
         while (strlen($postcode) > 1) {
             $i++;
             $postcode = substr($postcode, 0, -1);

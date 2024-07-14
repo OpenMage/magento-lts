@@ -339,7 +339,7 @@ class Varien_Db_Ddl_Table
                         $precision  = $size[0];
                         $scale      = $size[1];
                     }
-                } elseif ($size && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
+                } elseif ($size !== null && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
