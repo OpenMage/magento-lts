@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Execute n98-magerun
+## Usage: magerun
+## Example: "ddev magerun"
+
+php -d error_reporting="E_ALL ^E_DEPRECATED" /usr/local/bin/n98-magerun.phar "$@"
