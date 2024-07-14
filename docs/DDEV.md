@@ -4,7 +4,9 @@
 
 You can use the swiss army knife for Magento developers, sysadmins and devops. The tool provides a huge set of well tested command line commands which save hours of work time. 
 
-Run n98-magerun command in the terminal window, for example `ddev magerun sys:info`.
+Run any n98-magerun command in the terminal window adding **ddev** in front of it. For example `ddev magerun sys:info` prints infos about the current OpenMage system. 
+
+For more information about the available commands please visit https://n98-magerun.readthedocs.io/en/latest/commands/sys.html#sys-info.
 
 ## Using phpMyAdmin
 
