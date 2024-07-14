@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <8.5",
+        "php": ">=8.1 <8.5",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -32,17 +32,15 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.24.0",
-        "symfony/polyfill-php74": "^1.29",
-        "symfony/polyfill-php80": "^1.29",
-        "symfony/polyfill-php81": "^1.29",
-        "symfony/polyfill-php82": "^1.29"
+        "symfony/polyfill-php82": "^1.30",
+        "symfony/polyfill-php83": "^1.30",
+        "symfony/polyfill-php84": "^1.30"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
         "magento-ecg/coding-standard": "^4.5",
-        "n98/magerun": "dev-develop",
         "openmage/dev-meta-package": "^1.0",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",
@@ -122,7 +120,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "sort-packages": true
     }
