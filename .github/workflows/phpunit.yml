@@ -37,9 +37,9 @@ jobs:
         run: vendor/bin/phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.7
+        uses: EnricoMi/publish-unit-test-result-action@v2.17
         if: always()
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: output/*.xml
+          files: dev/tests/*.xml
