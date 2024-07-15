@@ -1068,4 +1068,9 @@ img[src$="grid-cal.gif"] {
   color: #0090FF !important;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select option:disabled,
+  select:disabled option { color:#202856!important; }
+}
+
 /*# sourceMappingURL=override.css.map */
