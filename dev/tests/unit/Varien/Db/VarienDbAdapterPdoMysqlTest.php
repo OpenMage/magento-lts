@@ -97,4 +97,56 @@ class VarienDbAdapterPdoMysqlTest extends TestCase
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
+
+    public function testGetHostInfoWithIpv6Address(): void
+    {
+        $method = new \ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
+        $method->setAccessible(true);
+
+        $hostInfo = $method->invoke($this->adapter, '[2001:db8::1]:3306');
+
+        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertEquals('2001:db8::1', $hostInfo->getHostName());
+        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertNull($hostInfo->getUnixSocket());
+    }
+
+    public function testGetHostInfoWithIpv6AddressWithoutPort(): void
+    {
+        $method = new \ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
+        $method->setAccessible(true);
+
+        $hostInfo = $method->invoke($this->adapter, '2001:db8::1');
+
+        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertEquals('2001:db8::1', $hostInfo->getHostName());
+        $this->assertNull($hostInfo->getPort());
+        $this->assertNull($hostInfo->getUnixSocket());
+    }
+
+    public function testGetHostInfoWithIpv6AddressWithZoneId(): void
+    {
+        $method = new \ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
+        $method->setAccessible(true);
+
+        $hostInfo = $method->invoke($this->adapter, '[fe80::1%eth0]:3306');
+
+        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertEquals('fe80::1%eth0', $hostInfo->getHostName());
+        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertNull($hostInfo->getUnixSocket());
+    }
+
+    public function testGetHostInfoWithIpv6AddressWithZoneIdWithoutPort(): void
+    {
+        $method = new \ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
+        $method->setAccessible(true);
+
+        $hostInfo = $method->invoke($this->adapter, 'fe80::1%eth0');
+
+        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertEquals('fe80::1%eth0', $hostInfo->getHostName());
+        $this->assertNull($hostInfo->getPort());
+        $this->assertNull($hostInfo->getUnixSocket());
+    }
 }
