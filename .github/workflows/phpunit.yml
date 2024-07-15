@@ -42,4 +42,4 @@ jobs:
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: dev/tests/*.xml
+          files: dev/tests/junit.xml
