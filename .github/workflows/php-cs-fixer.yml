@@ -2,7 +2,6 @@ name: PHP-CS-Fixer
 
 on:
   workflow_call:
-  # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:

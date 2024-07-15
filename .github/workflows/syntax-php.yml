@@ -1,11 +1,9 @@
 name: PHP Syntax
 
 on:
-  # Run automatically every Monday on midnight.
   schedule:
     - cron: '0 0 * * 1'
   workflow_call:
-  # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:

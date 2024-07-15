@@ -92,6 +92,17 @@ jobs:
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpstan.yml
 
+  phpunit:
+    name: PHPUnit
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpunit > 0 ||
+      needs.check.outputs.phpunit-test > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpunit.yml
+
   # DOES NOT run by default
   # runs on schedule or when worklfow changed
   syntax_php:
@@ -105,26 +116,3 @@ jobs:
     needs: [check]
     if: needs.check.outputs.xml > 0
     uses: ./.github/workflows/syntax-xml.yml
-
-  # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
-  sonar:
-    name: Unit Tests (Sonar)
-    needs: [check, phpcs, php-cs-fixer]
-    if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.sonar > 0 ||
-      needs.check.outputs.workflow > 0
-    uses: ./.github/workflows/sonar.yml
-
-  # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
-  unit_tests:
-    name: Unit Tests (OpenMage)
-    needs: [check, sonar]
-    if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.workflow > 0
-    uses: ./.github/workflows/phpunit.yml

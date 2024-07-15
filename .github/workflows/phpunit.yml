@@ -1,25 +1,23 @@
 name: PHPUnit
 
 on:
-  # Run automatically every Monday on midnight.
-  schedule:
-    - cron: '0 0 * * 1'
   workflow_call:
-  # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
-  unit-tests:
+  phpunit:
     runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        php-versions: ['7.4', '8.3']
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          repository: OpenMage/Testfield
-          path: ./
+          php-version: ${{ matrix.php-versions }}
 
-      - name: Validate composer
-        run: composer validate
+      - uses: actions/checkout@v4
 
       - name: Get composer cache directory
         id: composer-cache
@@ -33,19 +31,10 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
-      - name: Checkout OpenMage repo
-        uses: actions/checkout@v4
-        with:
-          path: openmage
-
-      - name: Install OpenMage dependencies
-        working-directory: ./openmage
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
-
-      - name: run phpUnit
-        run: bash ./run_unit_tests.sh
+      - name: run PHPUnit
+        run: vendor/bin/phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2.7
