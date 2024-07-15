@@ -39,10 +39,6 @@
             <file>../app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
             <file>../app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
         </exclude>
-        <report>
-            <clover outputFile="./tests/clover.xml"/>
-            <crap4j outputFile="./tests/crap4j.xml"/>
-        </report>
     </coverage>
     <logging>
         <junit outputFile="./tests/junit.xml"/>
