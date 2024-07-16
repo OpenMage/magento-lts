@@ -192,27 +192,28 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         list($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
             ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
 
-        $dateStart->setTimezone($timezoneLocal);
-        $dateEnd->setTimezone($timezoneLocal);
+
+        $dateStart = new DateTime((string)$dateStart, new DateTimeZone($timezoneLocal));
+        $dateEnd = new DateTime((string)$dateEnd, new DateTimeZone($timezoneLocal));
 
         $dates = [];
         $datas = [];
 
-        while ($dateStart->compare($dateEnd) < 0) {
+        while ($dateStart < $dateEnd) {
             switch ($this->getDataHelper()->getParam('period')) {
                 case '24h':
-                    $d = $dateStart->toString('yyyy-MM-dd HH:00');
-                    $dateStart->addHour(1);
+                    $d = $dateStart->format('Y-m-d H:00');
+                    $dateStart->add(new DateInterval('PT1H'));
                     break;
                 case '7d':
                 case '1m':
-                    $d = $dateStart->toString('yyyy-MM-dd');
-                    $dateStart->addDay(1);
+                    $d = $dateStart->format('Y-m-d');
+                    $dateStart->add(new DateInterval('P1D'));
                     break;
                 case '1y':
                 case '2y':
-                    $d = $dateStart->toString('yyyy-MM');
-                    $dateStart->addMonth(1);
+                    $d = $dateStart->format('Y-m');
+                    $dateStart->add(new DateInterval('P1M'));
                     break;
             }
             foreach ($this->getAllSeries() as $index => $serie) {
