@@ -130,7 +130,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
             $fullSaveItems = [];
             foreach ($stockInfo as $itemInfo) {
-                $item->setData($itemInfo);
+                $item->setData($itemInfo)->setOrigData();
                 if (!$item->checkQty($qtys[$item->getProductId()])) {
                     Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
                 }
