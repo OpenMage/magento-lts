@@ -48,7 +48,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $attributes
      * @return $this
      */
-    protected function _updateAttributes($data, $object, $type, array $attributes = null)
+    protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
     {
         foreach ($data as $attribute => $value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {
@@ -67,7 +67,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $attributes
      * @return array
      */
-    protected function _getAttributes($object, $type, array $attributes = null)
+    protected function _getAttributes($object, $type, ?array $attributes = null)
     {
         $result = [];
 
@@ -104,7 +104,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $attributes
      * @return bool
      */
-    protected function _isAllowedAttribute($attributeCode, $type, array $attributes = null)
+    protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)
     {
         if (!empty($attributes)
             && !(in_array($attributeCode, $attributes))

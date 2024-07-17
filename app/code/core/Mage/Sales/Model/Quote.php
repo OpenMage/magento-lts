@@ -458,8 +458,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
-        Mage_Sales_Model_Quote_Address  $billingAddress = null,
-        Mage_Sales_Model_Quote_Address  $shippingAddress = null
+        ?Mage_Sales_Model_Quote_Address  $billingAddress = null,
+        ?Mage_Sales_Model_Quote_Address  $shippingAddress = null
     ) {
         if ($customer->getId()) {
             $this->setCustomer($customer);

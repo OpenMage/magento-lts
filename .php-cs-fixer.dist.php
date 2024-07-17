@@ -63,6 +63,8 @@ return $config
         'no_trailing_whitespace_in_comment' => true,
         // Remove trailing whitespace at the end of blank lines.
         'no_whitespace_in_blank_line' => true,
+        // Adds or removes ? before single type declarations or |null at the end of union types when parameters have a default null value.
+        'nullable_type_declaration_for_default_null_value' => true,
         // Orders the elements of classes/interfaces/traits.
         'ordered_class_elements' => false,
         // Ordering `use` statements.
