@@ -2,8 +2,8 @@
 
 class Mage_Oauth2_Model_AccessToken extends Mage_Core_Model_Abstract
 {
-    const USER_TYPE_ADMIN = 'admin';
-    const USER_TYPE_CUSTOMER = 'customer';
+    public const USER_TYPE_ADMIN = 'admin';
+    public const USER_TYPE_CUSTOMER = 'customer';
 
     protected function _construct()
     {
@@ -13,7 +13,7 @@ class Mage_Oauth2_Model_AccessToken extends Mage_Core_Model_Abstract
     /**
      * Get user type associated with the token
      *
-     * @return string
+     * @return string|null
      * @throws Mage_Core_Exception
      */
     public function getUserType()

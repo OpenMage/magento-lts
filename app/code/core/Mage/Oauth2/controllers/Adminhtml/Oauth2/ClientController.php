@@ -72,13 +72,13 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
     {
         $model = $this->_initClientModel();
         $formData = $this->_getFormData();
-        
+
         if ($formData) {
             $model->addData($formData);
         } else {
             $model->setSecret(Mage::helper('oauth2')->generateClientSecret());
         }
-        
+
         $this->_setFormData($formData ?: $model->getData());
         Mage::register('current_oauth2_client', $model);
 
@@ -198,11 +198,11 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
         foreach ($fieldsToRemove as $field) {
             unset($data[$field]);
         }
-        
+
         if (isset($data['grant_types'])) {
             $data['grant_types'] = implode(',', $data['grant_types']);
         }
-        
+
         return $data;
     }
 
@@ -230,7 +230,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
             $this->_redirect('*/*/index');
             return false;
         }
-        
+
         $model->load($id);
 
         if (!$model->getId()) {
@@ -257,7 +257,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
         $message = $e instanceof Mage_Core_Exception ? Mage::helper('core')->escapeHtml($e->getMessage()) : $this->__('An error occurred on saving client data.');
         $this->_getSession()->addError($message);
         $this->getRequest()->setParam('back', 'edit');
-        
+
         if ($e instanceof Exception && !($e instanceof Mage_Core_Exception)) {
             Mage::logException($e);
         }

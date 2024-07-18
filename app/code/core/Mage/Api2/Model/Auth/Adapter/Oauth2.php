@@ -52,7 +52,7 @@ class Mage_Api2_Model_Auth_Adapter_Oauth2 extends Mage_Api2_Model_Auth_Adapter_A
      * Validate the OAuth2 token
      *
      * @param Mage_Api2_Model_Request $request
-     * @return Mage_Oauth2_Model_Token
+     * @return Mage_Oauth2_Model_AccessToken
      * @throws Exception
      */
     protected function _validateToken(Mage_Api2_Model_Request $request)

@@ -26,41 +26,57 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     }
 
     /**
-     * Verify action - Display verification form
-     */
-    public function verifyAction()
-    {
-        $userCode = $this->getRequest()->getParam('user_code');
-        $deviceCodeModel = $this->_loadDeviceCode($userCode, 'user_code');
-
-        if (!$this->_isValidDeviceCode($deviceCodeModel)) {
-            $this->_sendResponse(400, 'Invalid or expired user code');
-            return;
-        }
-
-        $this->_renderVerificationForm($userCode);
-    }
-
-    /**
      * Authorize action - Process device authorization
      */
     public function authorizeAction()
     {
-        if (!$this->_isCustomerLoggedIn()) {
-            $this->_redirect('customer/account/login');
+        $userCode = $this->getRequest()->getParam('user_code');
+        $clientSecret = $this->getRequest()->getParam('client_secret');
+        $clientId = $this->getRequest()->getParam('client_id');
+        $userType = $this->getRequest()->getParam('user_type');
+        $id = $this->getRequest()->getParam('id');
+        $email = $this->getRequest()->getParam('email');
+        $client = $this->_loadClient($clientId);
+
+        if (!$client->getId() || $client->getSecret() !== $clientSecret) {
+            $this->_sendResponse(400, 'Invalid client');
             return;
         }
 
-        $userCode = $this->getRequest()->getParam('user_code');
+        if ($id && $email && $userType) {
+            $admin = $customer = null;
+            if ($userType === 'admin') {
+                $admin = Mage::getModel('admin/user')->load($id);
+                if (!$admin->getId() || $admin->getEmail() !== $email || !$admin->getIsActive()) {
+                    $this->_sendResponse(400, 'Invalid admin');
+                    return;
+                }
+            } elseif ($userType === 'customer') {
+                $customer = Mage::getModel('customer/customer')->load($id);
+                if (!$customer->getId() || $customer->getEmail() !== $email) {
+                    $this->_sendResponse(400, 'Invalid customer');
+                    return;
+                }
+            }
+        } else {
+            $this->_sendResponse(400, 'Invalid parameters');
+            return;
+        }
         $deviceCodeModel = $this->_loadDeviceCode($userCode, 'user_code');
 
         try {
-            $this->_authorizeDevice($deviceCodeModel);
-            Mage::getSingleton('core/session')->addSuccess('Authorization approved');
-            $this->_redirect('/');
+            $deviceCodeModel->setAuthorized(true);
+            if ($admin) {
+                $deviceCodeModel->setAdminId($admin->getId());
+            } elseif ($customer) {
+                $deviceCodeModel->setCustomerId($customer->getId());
+            }
+            $deviceCodeModel->save();
+
+            $this->_sendResponse(200, 'Success');
         } catch (Exception $e) {
-            Mage::getSingleton('core/session')->addError($e->getMessage());
-            $this->_redirect('oauth2/device/verify');
+            $this->_sendResponse(500, 'Failed to authorize device, contact administrator');
+            Mage::logException($e);
         }
     }
 
@@ -70,6 +86,8 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     public function pollAction()
     {
         $deviceCode = $this->getRequest()->getParam('device_code');
+        $userType = $this->getRequest()->getParam('user_type');
+        $id = $this->getRequest()->getParam('id');
         $deviceCodeModel = $this->_loadDeviceCode($deviceCode, 'device_code');
 
         if (!$this->_isValidDeviceCode($deviceCodeModel)) {
@@ -77,9 +95,31 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
             return;
         }
 
+        if (!$id || !$userType) {
+            $this->_sendResponse(400, 'Invalid parameters');
+            return;
+        }
+        if ($userType === 'admin') {
+            if (!$deviceCodeModel->getAdminId() || $deviceCodeModel->getAdminId() !== $id) {
+                $this->_sendResponse(400, 'Invalid admin');
+                return;
+            }
+        } elseif ($userType === 'customer') {
+            if (!$deviceCodeModel->getCustomerId() || $deviceCodeModel->getCustomerId() !== $id) {
+                $this->_sendResponse(400, 'Invalid customer');
+                return;
+            }
+        }
+
         if ($deviceCodeModel->getAuthorized()) {
-            $accessToken = $this->_generateAccessToken($deviceCodeModel->getClientId(), $deviceCodeModel->getCustomerId());
-            $this->_sendResponse(200, 'Success', ['access_token' => $accessToken]);
+            $model = $this->_generateAccessToken($deviceCodeModel->getClientId(), $deviceCodeModel->getAdminId(), $deviceCodeModel->getCustomerId());
+            $this->_sendResponse(200, 'Success', [
+                'access_token' => $model->getAccessToken(),
+                'token_type' => 'Bearer',
+                'expires_in' => $model->getExpiresIn(),
+                'refresh_token' => $model->getRefreshToken(),
+            ]);
+            $deviceCodeModel->delete();
         } else {
             $this->_sendResponse(202, 'Authorization pending');
         }
@@ -146,7 +186,6 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
         $this->_sendResponse(200, 'Success', [
             'device_code' => $deviceCode,
             'user_code' => $userCode,
-            'verification_uri' => Mage::getUrl('oauth2/device/verify')
         ]);
     }
 
@@ -190,50 +229,29 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     }
 
     /**
-     * Check if customer is logged in
-     *
-     * @return bool
-     */
-    protected function _isCustomerLoggedIn()
-    {
-        return Mage::getSingleton('customer/session')->isLoggedIn();
-    }
-
-    /**
-     * Authorize device
-     *
-     * @param Mage_Oauth2_Model_DeviceCode $deviceCodeModel
-     */
-    protected function _authorizeDevice($deviceCodeModel)
-    {
-        $deviceCodeModel->setAuthorized(true)
-            ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
-            ->save();
-    }
-
-    /**
      * Generate access token
      *
      * @param string $clientId
      * @param int $customerId
-     * @return string
+     * @return Mage_Oauth2_Model_AccessToken
      */
-    protected function _generateAccessToken($clientId, $customerId)
+    protected function _generateAccessToken($clientId, $adminId, $customerId)
     {
         $model = Mage::getModel('oauth2/accessToken')->load($clientId, 'client_id');
 
         if ($model->getId() && $model->getExpiresIn() > time()) {
-            return $model->getAccessToken();
+            return $model;
         }
 
         $helper = Mage::helper('oauth2');
-        $model->setAccessToken($helper->generateToken($clientId))
+        $model->setAccessToken($helper->generateToken())
             ->setClientId($clientId)
+            ->setAdminId($adminId)
             ->setCustomerId($customerId)
-            ->setRefreshToken($helper->generateToken($clientId))
+            ->setRefreshToken($helper->generateToken())
             ->setExpiresIn(time() + 3600)
             ->save();
 
-        return $model->getAccessToken();
+        return $model;
     }
 }

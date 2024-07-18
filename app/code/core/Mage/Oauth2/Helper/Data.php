@@ -17,16 +17,14 @@ class Mage_Oauth2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate a token
      *
-     * @param string $clientId The client ID
      * @param int $length The length of the token (default: 40)
      * @return string The generated token
      * @throws Exception if unable to generate random bytes
      */
-    public function generateToken($clientId, $length = 40)
+    public function generateToken($length = 40)
     {
-        $randomPart = $this->generateRandomString($length - 8);
-        $clientPart = substr(hash('crc32b', $clientId), 0, 8);
-        return $randomPart . $clientPart;
+        return $this->generateRandomString($length);
+        ;
     }
 
     /**

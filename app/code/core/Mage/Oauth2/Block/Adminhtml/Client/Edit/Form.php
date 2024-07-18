@@ -65,7 +65,7 @@ class Mage_Oauth2_Block_Adminhtml_Client_Edit_Form extends Mage_Adminhtml_Block_
             'required' => true
         ]);
 
-        $form->setAction($this->getUrl('*/*/save'));
+        $form->setAction($this->getUrl('*/*/save', ['id' => $this->getModel()->getId()]));
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();

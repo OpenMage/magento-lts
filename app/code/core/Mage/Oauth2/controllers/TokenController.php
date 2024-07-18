@@ -3,7 +3,6 @@
 class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
 {
     protected $helper;
-    protected $tokenService;
 
     /**
      * Main action for handling OAuth2 token requests
@@ -11,7 +10,6 @@ class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
     public function indexAction()
     {
         $this->helper = Mage::helper('oauth2');
-        $this->tokenService = Mage::getSingleton('oauth2/tokenService');
 
         try {
             $grantType = $this->getRequest()->getParam('grant_type');
@@ -48,7 +46,7 @@ class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
     protected function validateClient($clientId, $clientSecret, $grantType)
     {
         $client = Mage::getModel('oauth2/client')->load($clientId, 'entity_id');
-        if (!$client->getId() || $client->getSecret() !== $clientSecret || !in_array($grantType, $client->getGrantTypes())) {
+        if (!$client->getId() || $client->getSecret() !== $clientSecret || !in_array($grantType, explode(',', $client->getGrantTypes()))) {
             throw new Exception('Invalid client.', 401);
         }
     }
@@ -67,7 +65,14 @@ class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
 
         $authCode = $this->validateAuthorizationCode($code, $clientId, $redirectUri);
 
-        $token = $this->tokenService->getOrCreateToken($clientId, $authCode);
+        $token = Mage::getModel('oauth2/accessToken');
+        $token->setAccessToken($this->helper->generateToken())
+            ->setRefreshToken($this->helper->generateToken())
+            ->setCustomerId($authCode->getCustomerId())
+            ->setClientId($clientId)
+            ->setExpiresIn(time() + 3600)
+            ->save();
+
         $authCode->setUsed(true)->save();
 
         return $this->formatTokenResponse($token);
@@ -85,11 +90,7 @@ class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
     protected function validateAuthorizationCode($code, $clientId, $redirectUri)
     {
         $authCode = Mage::getModel('oauth2/authCode')->load($code, 'authorization_code');
-        if (!$authCode->getId() || 
-            $authCode->getClientId() != $clientId || 
-            $authCode->getRedirectUri() != $redirectUri || 
-            $authCode->getExpiresIn() < time() || 
-            $authCode->getUsed()) {
+        if (!$authCode->getId() || $authCode->getClientId() != $clientId || $authCode->getRedirectUri() != $redirectUri || $authCode->getExpiresIn() < time() || $authCode->getUsed()) {
             throw new Exception('Invalid authorization code, try to authorize again', 400);
         }
         return $authCode;
@@ -107,11 +108,16 @@ class Mage_Oauth2_TokenController extends Mage_Oauth2_Controller_BaseController
         $clientId = $this->getRequest()->getParam('client_id');
 
         $token = $this->validateRefreshToken($refreshToken, $clientId);
-
-        $newToken = $this->tokenService->refreshToken($token);
+        $newtoken = Mage::getModel('oauth2/accessToken');
+        $newtoken->setAccessToken($this->helper->generateToken())
+            ->setRefreshToken($this->helper->generateToken())
+            ->setCustomerId($token->getCustomerId())
+            ->setAdminId($token->getAdminId())
+            ->setClientId($clientId)
+            ->setExpiresIn(time() + 3600)
+            ->save();
         $token->delete();
-
-        return $this->formatTokenResponse($newToken);
+        return $this->formatTokenResponse($newtoken);
     }
 
     /**

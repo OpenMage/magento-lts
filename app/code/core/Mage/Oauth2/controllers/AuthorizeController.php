@@ -138,7 +138,7 @@ class Mage_Oauth2_AuthorizeController extends Mage_Oauth2_Controller_BaseControl
      */
     protected function _authorizeClient($client, $customerId, $redirectUri)
     {
-        $authorizationCode = $this->_getOauth2Helper()->generateToken($client->getId());
+        $authorizationCode = $this->_getOauth2Helper()->generateToken();
         $model = Mage::getModel('oauth2/authCode');
         $model->setAuthorizationCode($authorizationCode)
             ->setClientId($client->getId())
