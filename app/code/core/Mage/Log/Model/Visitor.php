@@ -258,6 +258,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
+            $this->initServerData();
             $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());

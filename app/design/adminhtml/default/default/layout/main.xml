@@ -86,7 +86,7 @@ Default layout, loads most of the pages
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>
 
-                <action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name><params/><if/><condition>can_load_tiny_mce</condition></action>
+                <action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tinymce/setup.js</name><params/><if/><condition>can_load_tiny_mce</condition></action>
 
                 <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
             </block>

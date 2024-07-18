@@ -186,6 +186,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     Mage::helper('adminhtml')->__('The profile has been saved.')
                 );
             } catch (Exception $e) {
+                Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setConvertProfileData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['id' => $profile->getId()]));

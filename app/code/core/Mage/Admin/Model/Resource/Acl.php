@@ -112,6 +112,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
     {
+        $orphanedResources = [];
         foreach ($rulesArr as $rule) {
             $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
@@ -131,10 +132,27 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 } elseif ($rule['permission'] == 'deny') {
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
+            } catch (Zend_Acl_Exception $e) {
+                if (!in_array($resource, $orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
+                    $orphanedResources[] = $resource;
+                }
             } catch (Exception $e) {
-                Mage::logException($e);
+                if (Mage::getIsDeveloperMode()) {
+                    Mage::logException($e);
+                }
             }
         }
+
+        if ($orphanedResources !== [] && $acl->isAllowed(Mage::getSingleton('admin/session')->getUser()->getAclRole(), 'admin/system/acl/orphaned_resources')) {
+            Mage::getSingleton('adminhtml/session')->addNotice(
+                Mage::helper('adminhtml')->__(
+                    'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
+                    implode(', ', $orphanedResources),
+                    Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                )
+            );
+        }
+
         return $this;
     }
 }

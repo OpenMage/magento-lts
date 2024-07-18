@@ -130,7 +130,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected function _construct()
     {
         $this->_init('sales/order_payment_transaction');
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**
@@ -675,13 +675,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 $child->setOrderPaymentObject($payment);
             }
             $this->_children[$child->getId()] = $child;
-            if ($this->_identifiedChildren !== false) {
-                $childTxnId = $child->getTxnId();
-                if (!$childTxnId || $childTxnId == '0') {
-                    $this->_identifiedChildren = false;
-                } else {
-                    $this->_identifiedChildren[$child->getTxnId()] = $child;
-                }
+            $childTxnId = $child->getTxnId();
+            if (!$childTxnId || $childTxnId == '0') {
+                $this->_identifiedChildren = false;
+            } else {
+                $this->_identifiedChildren[$child->getTxnId()] = $child;
             }
         }
         if ($this->_identifiedChildren === false) {

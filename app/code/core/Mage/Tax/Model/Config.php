@@ -21,21 +21,20 @@
  */
 class Mage_Tax_Model_Config
 {
-    /**#@+
+    /**
      * Paths to tax notification configs
      */
     public const XML_PATH_TAX_NOTIFICATION_DISCOUNT = 'tax/ignore_notification/discount';
     public const XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY = 'tax/ignore_notification/price_display';
     public const XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION = 'tax/ignore_notification/fpt_configuration';
     public const XML_PATH_TAX_NOTIFICATION_URL = 'tax/notification/url';
-    /**#@-*/
 
     /**
      * Tax classes
      */
     public const CONFIG_XML_PATH_SHIPPING_TAX_CLASS = 'tax/classes/shipping_tax_class';
 
-    /**#@+
+    /**
      * Paths to tax calculation configs
      */
     public const CONFIG_XML_PATH_PRICE_INCLUDES_TAX = 'tax/calculation/price_includes_tax';
@@ -46,24 +45,21 @@ class Mage_Tax_Model_Config
     public const CONFIG_XML_PATH_DISCOUNT_TAX = 'tax/calculation/discount_tax';
     public const XML_PATH_ALGORITHM = 'tax/calculation/algorithm';
     public const CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED = 'tax/calculation/cross_border_trade_enabled';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Paths to tax defaults configs
      */
     public const CONFIG_XML_PATH_DEFAULT_COUNTRY = 'tax/defaults/country';
     public const CONFIG_XML_PATH_DEFAULT_REGION = 'tax/defaults/region';
     public const CONFIG_XML_PATH_DEFAULT_POSTCODE = 'tax/defaults/postcode';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Prices display settings
      */
     public const CONFIG_XML_PATH_PRICE_DISPLAY_TYPE = 'tax/display/type';
     public const CONFIG_XML_PATH_DISPLAY_SHIPPING = 'tax/display/shipping';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Shopping cart display settings
      */
     public const XML_PATH_DISPLAY_CART_PRICE = 'tax/cart_display/price';
@@ -73,9 +69,8 @@ class Mage_Tax_Model_Config
     public const XML_PATH_DISPLAY_CART_GRANDTOTAL = 'tax/cart_display/grandtotal';
     public const XML_PATH_DISPLAY_CART_FULL_SUMMARY = 'tax/cart_display/full_summary';
     public const XML_PATH_DISPLAY_CART_ZERO_TAX = 'tax/cart_display/zero_tax';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Shopping cart display settings
      */
     public const XML_PATH_DISPLAY_SALES_PRICE = 'tax/sales_display/price';
@@ -85,38 +80,50 @@ class Mage_Tax_Model_Config
     public const XML_PATH_DISPLAY_SALES_GRANDTOTAL = 'tax/sales_display/grandtotal';
     public const XML_PATH_DISPLAY_SALES_FULL_SUMMARY = 'tax/sales_display/full_summary';
     public const XML_PATH_DISPLAY_SALES_ZERO_TAX = 'tax/sales_display/zero_tax';
-    /**#@-*/
 
     /**
      * String separator
      */
     public const CALCULATION_STRING_SEPARATOR = '|';
 
-    /**#@+
+    /**
      * Indexes for tax display types
      */
     public const DISPLAY_TYPE_EXCLUDING_TAX = 1;
     public const DISPLAY_TYPE_INCLUDING_TAX = 2;
     public const DISPLAY_TYPE_BOTH = 3;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Indexes for FPT Configuration Types
      */
     public const FPT_NOT_TAXED = 0;
     public const FPT_TAXED = 1;
     public const FPT_LOADED_DISPLAY_WITH_TAX = 2;
-    /**#@-*/
 
-    /**#@+
+    /**
      * @deprecated
      */
     public const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DEFAULT_PRODUCT_TAX_GROUP = 'catalog/product/default_tax_group';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN = 'tax/display/column_in_summary';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY = 'tax/display/full_summary';
+
+    /**
+     * @deprecated
+     */
     public const CONFIG_XML_PATH_DISPLAY_ZERO_TAX = 'tax/display/zero_tax';
-    /**#@-*/
 
     /**
      * Flag which notify what we need use prices exclude tax for calculations

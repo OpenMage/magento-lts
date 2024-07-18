@@ -26,7 +26,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public const REQUEST_CHARSET = 'utf-8';
 
-    /**#@+
+    /**
      * Name of query ($_GET) parameters to use in navigation and so on
      */
     public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
@@ -35,7 +35,6 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public const QUERY_PARAM_ORDER_FIELD = 'order';
     public const QUERY_PARAM_ORDER_DIR   = 'dir';
     public const QUERY_PARAM_FILTER      = 'filter';
-    /**#@- */
 
     /**
      * Interpreter adapter

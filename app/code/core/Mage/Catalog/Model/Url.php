@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Refresh category and childs rewrites
+     * Refresh category and children rewrites
      * Called when reindexing all rewrites and as a reaction on category change that affects rewrites
      *
      * @param int $categoryId
@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Url
             $storeRootCategoryId = $store->getRootCategoryId();
 
             // List of categories the product is assigned to, filtered by being within the store's categories root
-            $categories = $this->getResource()->getCategories($product->getCategoryIds(), $storeId);
+            $categories = $this->getResource()->getCategories($product->getCategoryIds(), $storeId) ?: [];
             $this->_rewrites = $this->getResource()->prepareRewrites($storeId, '', $productId);
 
             // Add rewrites for all needed categories
@@ -535,7 +535,8 @@ class Mage_Catalog_Model_Url
             }
 
             if ($loadCategories) {
-                foreach ($this->getResource()->getCategories($loadCategories, $storeId) as $category) {
+                $categories = $this->getResource()->getCategories($loadCategories, $storeId) ?: [];
+                foreach ($categories as $category) {
                     $this->_categories[$category->getId()] = $category;
                 }
             }

@@ -240,8 +240,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @return int
      * @deprecated
-     * @return float|int|string
      */
     protected function _getMemoryLimit()
     {
@@ -251,18 +251,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $memoryLimit = "128M";
         }
 
-        $value = (int)substr($memoryLimit, 0, -1);
-
-        if (substr($memoryLimit, -1) == 'K') {
-            return $value * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'M') {
-            return $value * 1024 * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'G') {
-            return $value * 1024 * 1024 * 1024;
-        }
-        return $memoryLimit;
+        return ini_parse_quantity($memoryLimit);
     }
 
     /**

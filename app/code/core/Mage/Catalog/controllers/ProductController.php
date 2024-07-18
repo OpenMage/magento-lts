@@ -126,6 +126,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
                 } elseif (!$this->getResponse()->isRedirect()) {
                     $this->_forward('noRoute');
                 }
+            } elseif (Mage::getIsDeveloperMode()) {
+                Mage::printException($e);
             } else {
                 Mage::logException($e);
                 $this->_forward('noRoute');

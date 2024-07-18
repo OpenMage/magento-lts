@@ -39,11 +39,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
 
         $this->_formScripts[] = "
             function toggleEditor() {
-                if (tinyMCE.getInstanceById('block_content') == null) {
-                    tinyMCE.execCommand('mceAddControl', false, 'block_content');
-                } else {
-                    tinyMCE.execCommand('mceRemoveControl', false, 'block_content');
-                }
+                tinymce.execCommand('mceToggleEditor', false, wysiwygblock_content);
             }
 
             function saveAndContinueEdit(){

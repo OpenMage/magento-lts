@@ -50,7 +50,7 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
      */
     public function getLogCleanTime()
     {
-        return (int)Mage::getStoreConfig(self::XML_LOG_CLEAN_DAYS) * 60 * 60 * 24;
+        return Mage::getStoreConfigAsInt(self::XML_LOG_CLEAN_DAYS) * 60 * 60 * 24;
     }
 
     /**

@@ -13,8 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
  ?>
-
-<?php /* @var $this Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable */ ?>
+<?php /** @var Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable $this */ ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes()); ?>
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>

@@ -108,24 +108,38 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('website_id = :website_id')
-            ->order(['dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'])
+            ->order(['dest_country_id DESC', 'dest_region_id DESC', 'LENGTH(dest_zip) DESC', 'dest_zip DESC', 'condition_value DESC'])
             ->limit(1);
 
-        // Render destination condition
-        $orWhere = '(' . implode(') OR (', [
+        $conditions = [
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
+            "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :postcode",
+            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :postcode",
+            "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = :postcode",
+            "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = ''"
+        ];
 
-            // Handle asterix in dest_zip field
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
+        // Handle asterix in dest_zip field
+        $conditions[] = "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = '*'";
 
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            ]) . ')';
+        $i = 0;
+        $postcode = (string)$request->getDestPostcode();
+        while (strlen($postcode) > 1) {
+            $i++;
+            $postcode = substr($postcode, 0, -1);
+            $bind[':wildcard_postcode_' . $i] = "{$postcode}*";
+            $conditions[] = "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = :wildcard_postcode_{$i}";
+        }
+
+        // Render destination condition
+        $orWhere = '(' . implode(') OR (', $conditions) . ')';
         $select->where($orWhere);
 
         // Render condition by condition name

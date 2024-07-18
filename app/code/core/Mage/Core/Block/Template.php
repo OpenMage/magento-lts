@@ -60,13 +60,14 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * Path to template file in theme.
      *
-     * @var string|null
+     * @var string
      */
-    protected $_template;
+    protected $_template = '';
 
     /**
      * Internal constructor, that is called from real constructor
      *
+     * @return void
      */
     protected function _construct()
     {
@@ -206,6 +207,28 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     }
 
     /**
+     * Retrieve block cache status
+     *
+     * @return  string
+     */
+    private function _getCacheHintStatusColor(): string
+    {
+        if (!is_null($this->getCacheLifetime())) {
+            return 'green';
+        } else {
+            $currentParentBlock = $this;
+            $i = 0;
+            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
+                if (!is_null($currentParentBlock->getCacheLifetime())) {
+                    return 'orange'; // not cached, but within cached
+                }
+                $currentParentBlock = $currentParentBlock->getParentBlock();
+            }
+        }
+        return 'red';
+    }
+
+    /**
      * Retrieve block view from file (template)
      *
      * @param   string $fileName
@@ -226,17 +249,18 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
             ob_start();
         }
         if ($hints) {
+            $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
-<div style="position:relative; border:1px dotted red; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
-<div style="position:absolute; left:0; top:0; padding:2px 5px; background:red; color:white; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'"
+<div style="position:relative; border:1px dotted {$cacheHintStatusColor}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:white; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
-<div style="position:absolute; right:0; top:0; padding:2px 5px; background:red; color:blue; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
 title="{$thisClass}">{$thisClass}</div>
 HTML;
             }

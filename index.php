@@ -36,16 +36,12 @@ $mageRunType = $_SERVER['MAGE_RUN_TYPE'] ?? 'store';
 if (file_exists($maintenanceFile)) {
     $maintenanceBypass = false;
 
-    if (file_exists($maintenanceIpFile)) {
-        /* if maintenanceFile and maintenanceIpFile are set use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
+    if (is_readable($maintenanceIpFile)) {
+        /* Use Mage to get remote IP (in order to respect remote_addr_headers xml config) */
         Mage::init($mageRunCode, $mageRunType);
         $currentIp = Mage::helper('core/http')->getRemoteAddr();
-        $allowedIps = explode(',', trim(file_get_contents($maintenanceIpFile)));
-
-        if (in_array($currentIp, $allowedIps)) {
-            /* IP address matches, bypass maintenanceMode */
-            $maintenanceBypass = true;
-        }
+        $allowedIps = preg_split('/[\ \n\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
+        $maintenanceBypass = in_array($currentIp, $allowedIps, true);
     }
     if (!$maintenanceBypass) {
         include_once __DIR__ . '/errors/503.php';

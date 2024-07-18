@@ -525,6 +525,9 @@ class Mage_Core_Model_Translate
             return false;
         }
         $data = Mage::app()->loadCache($this->getCacheId());
+        if (!$data) {
+            return false;
+        }
         $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }

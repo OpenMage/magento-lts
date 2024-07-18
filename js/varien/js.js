@@ -33,6 +33,7 @@ function setPLocation(url, setFocus){
  *
  * @param elements - array of elements to be decorated
  * [@param decorateParams] - array of classes to be set. If omitted, all available will be used
+ * @deprecated
  */
 function decorateGeneric(elements, decorateParams)
 {
@@ -81,6 +82,7 @@ function decorateGeneric(elements, decorateParams)
 /**
  * Decorate table rows and cells, tbody etc
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateTable(table, options) {
     var table = $(table);
@@ -126,6 +128,7 @@ function decorateTable(table, options) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateList(list, nonRecursive) {
     if ($(list)) {
@@ -142,6 +145,7 @@ function decorateList(list, nonRecursive) {
 /**
  * Set "odd", "even" and "last" CSS classes for list items
  * @see decorateGeneric()
+ * @deprecated
  */
 function decorateDataList(list) {
     list = $(list);
