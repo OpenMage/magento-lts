@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach ($parentArr as $key => $value) {
+        foreach (array_keys($parentArr) as $key) {
             $last = $key;
         }
         if (isset($last)) {

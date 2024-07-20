@@ -46,7 +46,7 @@ $entityTypeId = $connection->fetchOne("
 ");
 
 /* get order_payment attribute codes*/
-foreach ($attributesIds as $attributeCode => $attributeId) {
+foreach (array_keys($attributesIds) as $attributeCode) {
     $attributesIds[$attributeCode] = $connection->fetchOne("
         SELECT attribute_id
         FROM {$this->getTable('eav_attribute')}

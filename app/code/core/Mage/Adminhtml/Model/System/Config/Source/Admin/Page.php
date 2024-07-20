@@ -109,7 +109,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach ($parentArr as $key => $value) {
+        foreach (array_keys($parentArr) as $key) {
             $last = $key;
         }
         if (isset($last)) {

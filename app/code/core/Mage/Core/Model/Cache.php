@@ -625,7 +625,7 @@ class Mage_Core_Model_Cache
         $types = $this->_getInvalidatedTypes();
         if ($types) {
             $allTypes = $this->getTypes();
-            foreach ($types as $type => $flag) {
+            foreach (array_keys($types) as $type) {
                 if (isset($allTypes[$type]) && $this->canUse($type)) {
                     $invalidatedTypes[$type] = $allTypes[$type];
                 }
