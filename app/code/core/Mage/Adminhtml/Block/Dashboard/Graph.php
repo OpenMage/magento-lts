@@ -215,7 +215,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
-            foreach ($this->getAllSeries() as $index => $serie) {
+            foreach (array_keys($this->getAllSeries()) as $index) {
                 if (in_array($d, $this->_axisLabels['x'])) {
                     $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
                 } else {
@@ -328,7 +328,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         if (count($this->_axisLabels)) {
             $params['chxt'] = implode(',', array_keys($this->_axisLabels));
             $indexid = 0;
-            foreach ($this->_axisLabels as $idx => $labels) {
+            foreach (array_keys($this->_axisLabels) as $idx) {
                 if ($idx === 'x') {
                     /**
                      * Format date

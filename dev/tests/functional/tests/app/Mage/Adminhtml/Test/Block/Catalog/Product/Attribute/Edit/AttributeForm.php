@@ -45,7 +45,7 @@ class AttributeForm extends FormTabs
     {
         $data = [];
         if ($fixture === null) {
-            foreach ($this->tabs as $tabName => $tab) {
+            foreach (array_keys($this->tabs) as $tabName) {
                 $this->openTab($tabName);
                 $tabData = $this->getTabElement($tabName)->getDataFormTab();
                 $data = array_merge($data, $tabData);

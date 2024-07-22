@@ -135,7 +135,7 @@ class FormTabs extends Form
      */
     protected function fillMissedFields()
     {
-        foreach ($this->tabs as $tabName => $tabData) {
+        foreach (array_keys($this->tabs) as $tabName) {
             $tabElement = $this->getTabElement($tabName);
             if ($this->openTab($tabName)) {
                 $mapping = $tabElement->dataMapping($this->unassignedFields);
@@ -174,7 +174,7 @@ class FormTabs extends Form
         $data = [];
 
         if (null === $fixture) {
-            foreach ($this->tabs as $tabName => $tab) {
+            foreach (array_keys($this->tabs) as $tabName) {
                 $this->openTab($tabName);
                 $tabData = $this->getTabElement($tabName)->getDataFormTab();
                 $data = array_merge($data, $tabData);
