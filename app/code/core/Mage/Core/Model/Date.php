@@ -250,7 +250,7 @@ class Mage_Core_Model_Date
             'm/d/y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
         ];
 
-        foreach (array_keys($formats) as $supportedFormat) {
+        foreach ($formats as $supportedFormat => $regRule) {
             if (strpos($dateTimeFormat, $supportedFormat, 0) !== false) {
                 $isSupportedFormatFound = true;
                 break;

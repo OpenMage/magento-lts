@@ -97,7 +97,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
                 $this->_fieldList[$fieldName] = $fieldName;
             }
         }
-        unset($fieldName, $value, $row);
+        unset($fieldName, $row);
     }
 
     /**
