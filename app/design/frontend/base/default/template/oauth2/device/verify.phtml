@@ -1,6 +1,6 @@
 <form action="<?php echo $this->getFormActionUrl(); ?>" method="post">
     <?php echo $this->getBlockHtml('formkey') ?>
-    <label for="user_code">User Code:</label>
+    <label for="user_code"><?php echo $this->__('User Code'); ?></label>
     <input type="text" id="user_code" name="user_code" value="<?php echo $this->getUserCode(); ?>" required>
-    <button type="submit">Authorize</button>
+    <button type="submit"><?php echo $this->__('Authorize'); ?></button>
 </form>
