@@ -100,7 +100,7 @@ class Mage_Payment_Model_Observer
     }
 
     /**
-     * Sets current instructions for bank transfer account
+     * Sets current instructions for bank transfer account and cash on delivery
      *
      * @param Varien_Event_Observer $observer
      */
@@ -108,7 +108,7 @@ class Mage_Payment_Model_Observer
     {
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $observer->getEvent()->getPayment();
-        if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
+        if (in_array($payment->getMethod(), [Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE, Mage_Payment_Model_Method_Cashondelivery::PAYMENT_METHOD_CASHONDELIVERY_CODE])) {
             $payment->setAdditionalInformation(
                 'instructions',
                 $payment->getMethodInstance()->setStore($payment->getOrder()->getStoreId())->getInstructions()

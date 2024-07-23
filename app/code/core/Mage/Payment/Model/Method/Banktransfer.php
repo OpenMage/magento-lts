@@ -45,6 +45,12 @@ class Mage_Payment_Model_Method_Banktransfer extends Mage_Payment_Model_Method_A
      */
     public function getInstructions()
     {
+        $paymentInfo = $this->getInfoInstance();
+        if (($paymentInfo instanceof Mage_Sales_Model_Order_Payment) && !empty($text = $this->getConfigData('instructions_order'))) {
+            $order  = $paymentInfo->getOrder();
+            $amount = $order->formatPriceTxt($order->getData('grand_total'));
+            return trim(str_replace('%s', $amount, $text));
+        }
         return trim($this->getConfigData('instructions'));
     }
 }

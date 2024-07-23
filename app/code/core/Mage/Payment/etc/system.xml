@@ -343,6 +343,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </instructions>
+                        <instructions_order translate="label comment">
+                            <label>Instructions on order</label>
+                            <comment>%s will be replaced with grand total.</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </instructions_order>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <sort_order>98</sort_order>
@@ -425,6 +434,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </instructions>
+                        <instructions_order translate="label comment">
+                            <label>Instructions on order</label>
+                            <comment>%s will be replaced with grand total.</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </instructions_order>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <sort_order>98</sort_order>
