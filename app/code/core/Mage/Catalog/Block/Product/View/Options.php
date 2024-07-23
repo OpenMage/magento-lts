@@ -61,7 +61,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
-    public function setProduct(Mage_Catalog_Model_Product $product = null)
+    public function setProduct(?Mage_Catalog_Model_Product $product = null)
     {
         $this->_product = $product;
         return $this;
