@@ -47,7 +47,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
                     $fields = $line;
                     continue;
                 } else {
-                    foreach (array_keys($line) as $j) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column' . ($j + 1);
                     }
                 }

@@ -155,7 +155,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         /**
          * Set args values
          */
-        foreach (array_keys($this->_getOptions()) as $name) {
+        foreach ($this->_getOptions() as $name => $option) {
             $this->_args[$name] = $args[$name] ?? '';
         }
 

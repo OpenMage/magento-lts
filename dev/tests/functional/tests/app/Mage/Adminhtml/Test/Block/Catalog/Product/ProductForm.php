@@ -341,7 +341,7 @@ class ProductForm extends FormTabs
     {
         $data = [];
         $tabs = $this->getFieldsByTabs($product);
-        foreach (array_keys($tabs) as $tabName) {
+        foreach ($tabs as $tabName => $fields) {
             $tab = $this->getTabElement($tabName);
             $this->openTab($tabName);
             $errors = $tab->getRequireNoticeMessages();
