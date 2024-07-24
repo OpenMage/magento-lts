@@ -64,18 +64,11 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             'header_css_class' => 'a-center',
             'header'    => Mage::helper('adminhtml')->__('Assigned'),
             'type'      => 'radio',
-            'html_name' => 'roles[]',
+            'html_name' => 'role',
             'values'    => $this->_getSelectedRoles(),
             'align'     => 'center',
             'index'     => 'role_id'
         ]);
-
-        /*$this->addColumn('role_id', array(
-            'header'    =>Mage::helper('adminhtml')->__('Role ID'),
-            'index'     =>'role_id',
-            'align'     => 'right',
-            'width'    => '50px'
-        ));*/
 
         $this->addColumn('role_name', [
             'header'    => Mage::helper('adminhtml')->__('Role Name'),
