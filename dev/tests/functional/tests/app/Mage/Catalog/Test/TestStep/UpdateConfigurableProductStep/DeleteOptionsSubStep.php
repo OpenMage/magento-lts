@@ -86,7 +86,7 @@ class DeleteOptionsSubStep extends AbstractSubStep
     {
         $keys = [];
         $originalProductAssignedProducts = $this->getOriginalProductAssignedProducts();
-        foreach (array_keys($originalProductAssignedProducts) as $key) {
+        foreach ($originalProductAssignedProducts as $key => $product) {
             if (strpos($key, 'option_key_' . $optionIndex) !== false) {
                 $keys[] = $key;
             }

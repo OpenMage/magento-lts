@@ -92,7 +92,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      */
     public function parseFieldList($row)
     {
-        foreach (array_keys($row) as $fieldName) {
+        foreach ($row as $fieldName => $value) {
             if (!in_array($fieldName, $this->_fieldList)) {
                 $this->_fieldList[$fieldName] = $fieldName;
             }
