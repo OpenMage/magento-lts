@@ -35,6 +35,7 @@
 "Products will still be shown by direct product URLs.","Products will still be shown by direct product URLs."
 "Qty","Qty"
 "Qty Increments","Qty Increments"
+"Ignore minimum quantity for associated products of bundles","Ignore minimum quantity for associated products of bundles"
 "Qty for Item's Status to Become Out of Stock","Qty for Item's Status to Become Out of Stock"
 "Retrieve stock data","Retrieve stock data"
 "Retrieve stock data by product ids","Retrieve stock data by product ids"
