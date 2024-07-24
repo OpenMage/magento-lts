@@ -37,7 +37,7 @@
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
         "symfony/polyfill-php82": "^1.29",
-        "tinymce/tinymce": "^7.2"
+        "tinymce/tinymce": "^6.8"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
