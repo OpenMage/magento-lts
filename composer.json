@@ -27,14 +27,17 @@
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+        "mklkj/tinymce-i18n": "^24.7",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.24.0",
+        "sreichel/composer-plugin-file-copy": "dev-develop",
         "symfony/polyfill-php74": "^1.29",
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
-        "symfony/polyfill-php82": "^1.29"
+        "symfony/polyfill-php82": "^1.29",
+        "tinymce/tinymce": "^7.2"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
@@ -111,13 +114,21 @@
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
                 "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
             }
-        }
+        },
+        "file-copy" : [{
+            "source": "tinymce/tinymce",
+            "target": "js/tinymce"
+        }, {
+            "source": "mklkj/tinymce-i18n/langs7",
+            "target": "js/tinymce/langs"
+        }]
     },
     "config": {
         "allow-plugins": {
             "magento-hackathon/magento-composer-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "cweagans/composer-patches": true
+            "cweagans/composer-patches": true,
+            "sreichel/composer-plugin-file-copy": true
         },
         "platform": {
             "php": "7.4"
