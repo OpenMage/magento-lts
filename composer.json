@@ -119,7 +119,7 @@
             "source": "tinymce/tinymce",
             "target": "js/tinymce"
         }, {
-            "source": "mklkj/tinymce-i18n/langs7",
+            "source": "mklkj/tinymce-i18n/langs6",
             "target": "js/tinymce/langs"
         }]
     },
