@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -6,7 +7,6 @@ declare(strict_types=1);
  */
 class Mage_Core_Model_Security_HtmlEscapedString implements Stringable
 {
-
     protected $originalValue;
     protected $allowedTags;
 
