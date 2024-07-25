@@ -53,6 +53,7 @@
         "zf1s/zend-log": "^1.15",
         "zf1s/zend-mail": "^1.15",
         "zf1s/zend-measure": "^1.15",
+        "zf1s/zend-mime": "^1.15",
         "zf1s/zend-oauth": "^1.15",
         "zf1s/zend-pdf": "^1.15",
         "zf1s/zend-session": "^1.15",
@@ -120,8 +121,11 @@
     },
     "extra": {
         "patches": {
+            "zf1s/zend-mime": {
+                "MAG-1.1.1": "patches/zf1s-zend-mime-library-zend-mime-php-MAG-1.1.1.patch"
+            },
             "zf1s/zend-validate": {
-                "MAG-1.9.3.0": "patches/zf1s-zend-validate-library-zend-validate-hostname-php-mag-1.9.3.0.patch"
+                "MAG-1.9.3.0": "patches/zf1s-zend-validate-library-zend-validate-hostname-php-MAG-1.9.3.0.patch"
             },
             "zf1s/zend-db": [
                 "patches/zf1s-zend-db-library-zend-db-adapter-abstract-php-return-type.patch",
