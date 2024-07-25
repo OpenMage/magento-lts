@@ -119,6 +119,9 @@
     },
     "extra": {
         "patches": {
+            "zf1s/zend-db": [
+                "patches/zf1s-zend-db-library-zend-db-select-php.patch"
+            ],
             "zf1s/zend-controller": [
                 "patches/zf1s-zend-controller-library-zend-controller-response-abstract-php.patch",
                 "patches/zf1s-zend-controller-library-zend-controller-request-http-php.patch",
