@@ -5351,11 +5351,6 @@ parameters:
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-
-			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
 			message: "#^Property Varien_Db_Adapter_Pdo_Mysql\\:\\:\\$_cacheAdapter \\(Zend_Cache_Core\\) does not accept Zend_Cache_Backend_Interface\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php

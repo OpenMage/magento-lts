@@ -1,0 +1,11 @@
+--- /dev/null
++++ ../library/Zend/Db/Adapter/Abstract.php
+@@ -821,7 +821,7 @@
+      *
+      * @param string|Zend_Db_Select $sql An SQL SELECT statement.
+      * @param mixed $bind Data to bind into SELECT placeholders.
+-     * @return string
++     * @return string|false|null
+      */
+     public function fetchOne($sql, $bind = array())
+     {

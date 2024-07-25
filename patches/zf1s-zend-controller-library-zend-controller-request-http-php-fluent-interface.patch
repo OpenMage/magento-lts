@@ -1,0 +1,92 @@
+--- /dev/null
++++ ../library/Zend/Controller/Request/Http.php
+@@ -244,7 +244,7 @@
+      *
+      * @param  string|array $spec
+      * @param  null|mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setQuery($spec, $value = null)
+     {
+@@ -286,7 +286,7 @@
+      *
+      * @param  string|array $spec
+      * @param  null|mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setPost($spec, $value = null)
+     {
+@@ -385,7 +385,7 @@
+      * $_SERVER['HTTP_X_REWRITE_URL'], or $_SERVER['ORIG_PATH_INFO'] + $_SERVER['QUERY_STRING'].
+      *
+      * @param string $requestUri
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setRequestUri($requestUri = null)
+     {
+@@ -468,7 +468,7 @@
+      * ORIG_SCRIPT_NAME in its determination.
+      *
+      * @param mixed $baseUrl
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setBaseUrl($baseUrl = null)
+     {
+@@ -562,7 +562,7 @@
+      * Set the base path for the URL
+      *
+      * @param string|null $basePath
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setBasePath($basePath = null)
+     {
+@@ -611,7 +611,7 @@
+      * Set the PATH_INFO string
+      *
+      * @param string|null $pathInfo
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setPathInfo($pathInfo = null)
+     {
+@@ -671,7 +671,7 @@
+      * Can be empty array, or contain one or more of '_GET' or '_POST'.
+      *
+      * @param  array $paramSoures
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParamSources(array $paramSources = array())
+     {
+@@ -697,7 +697,7 @@
+      *
+      * @param mixed $key
+      * @param mixed $value
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParam($key, $value)
+     {
+@@ -770,7 +770,7 @@
+      * using the keys specified in the array.
+      *
+      * @param array $params
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setParams(array $params)
+     {
+@@ -788,7 +788,7 @@
+      *
+      * @param string $name
+      * @param string $target
+-     * @return Zend_Controller_Request_Http
++     * @return $this
+      */
+     public function setAlias($name, $target)
+     {

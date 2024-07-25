@@ -1,0 +1,92 @@
+--- /dev/null
++++ ../library/Zend/Controller/Request/Abstract.php
+@@ -93,7 +93,7 @@
+      * Set the module name to use
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setModuleName($value)
+     {
+@@ -119,7 +119,7 @@
+      * Set the controller name to use
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setControllerName($value)
+     {
+@@ -145,7 +145,7 @@
+      * Set the action name
+      *
+      * @param string $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setActionName($value)
+     {
+@@ -173,7 +173,7 @@
+      * Set the module key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setModuleKey($key)
+     {
+@@ -195,7 +195,7 @@
+      * Set the controller key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setControllerKey($key)
+     {
+@@ -217,7 +217,7 @@
+      * Set the action key
+      *
+      * @param string $key
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setActionKey($key)
+     {
+@@ -275,7 +275,7 @@
+      *
+      * @param string $key
+      * @param mixed $value
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setParam($key, $value)
+     {
+@@ -306,7 +306,7 @@
+      * Null values will unset the associated key.
+      *
+      * @param array $array
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setParams(array $array)
+     {
+@@ -324,7 +324,7 @@
+     /**
+      * Unset all user parameters
+      *
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function clearParams()
+     {
+@@ -336,7 +336,7 @@
+      * Set flag indicating whether or not request has been dispatched
+      *
+      * @param boolean $flag
+-     * @return Zend_Controller_Request_Abstract
++     * @return $this
+      */
+     public function setDispatched($flag = true)
+     {
