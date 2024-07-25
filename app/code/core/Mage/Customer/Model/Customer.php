@@ -909,7 +909,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             $template,
             self::XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY,
-            array('customer' => $this),
+            ['customer' => $this],
             $storeId
         );
 
