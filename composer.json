@@ -122,6 +122,9 @@
     },
     "extra": {
         "patches": {
+            "zf1s/zend-date": {
+                "OM-2050 - Prevent checking known date codes": "patches/zf1s-zend-date-library-zend-date-php-OM-2050.patch"
+            },
             "zf1s/zend-form": {
                 "MAG-1.9.3.7 - SUPEE-10415": "patches/zf1s-zend-form-library-zend-form-decorator-form-php-MAG-1.9.3.7.patch"
             },
@@ -143,8 +146,7 @@
             "shardj/zf1-future": {
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-918.patch",
                 "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-1081.patch",
-                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
-                "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
+                "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch"
             }
         },
         "magento-root-dir": ".",
