@@ -67,7 +67,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     public function getStoreMethods($store = null, $quote = null)
     {
         $res = [];
-        foreach (array_keys($this->getPaymentMethods($store)) as $code) {
+        foreach ($this->getPaymentMethods($store) as $code => $methodConfig) {
             $prefix = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/';
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
                 continue;
@@ -166,7 +166,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     public function getRecurringProfileMethods($store = null)
     {
         $result = [];
-        foreach (array_keys($this->getPaymentMethods($store)) as $code) {
+        foreach ($this->getPaymentMethods($store) as $code => $data) {
             $paymentMethodModelClassName = $this->getMethodModelClassName($code);
             if (!$paymentMethodModelClassName) {
                 continue;
@@ -244,7 +244,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         }
         if ($asLabelValue) {
             $labelValues = [];
-            foreach (array_keys($methods) as $code) {
+            foreach ($methods as $code => $title) {
                 $labelValues[$code] = [];
             }
             foreach ($methods as $code => $title) {
