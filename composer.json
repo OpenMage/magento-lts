@@ -129,7 +129,6 @@
                 "patches/zf1s-zend-controller-library-zend-controller-request-abstract-php-fluent-interface.patch"
             ],
             "shardj/zf1-future": {
-                "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.0.patch",
                 "MAG-1.9.3.7 - SUPEE-10415": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.7.patch",
                 "OM-918 - Add runtime cache to Zend_Locale_Data": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-918.patch",
