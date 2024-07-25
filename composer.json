@@ -120,6 +120,7 @@
     "extra": {
         "patches": {
             "zf1s/zend-controller": [
+                "patches/zf1s-zend-controller-library-zend-controller-response-abstract-php.patch",
                 "patches/zf1s-zend-controller-library-zend-controller-request-http-php.patch",
                 "patches/zf1s-zend-controller-library-zend-controller-request-abstract-php.patch"
             ],
