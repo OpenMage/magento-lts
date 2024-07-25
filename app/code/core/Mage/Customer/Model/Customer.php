@@ -888,7 +888,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @bool $isNew Send welcome email?
      * @return $this
      */
-    public function sendPasswordLinkEmail($isNew = false)
+    public function sendPasswordLinkEmail(bool $isNew = false)
     {
         $storeId = Mage::app()->getStore()->getId();
         if (!$storeId) {
