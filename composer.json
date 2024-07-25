@@ -30,11 +30,33 @@
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
-        "shardj/zf1-future": "1.24.0",
         "symfony/polyfill-php74": "^1.29",
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
-        "symfony/polyfill-php82": "^1.29"
+        "symfony/polyfill-php82": "^1.29",
+        "zf1s/zend-acl": "^1.15",
+        "zf1s/zend-cache": "^1.15",
+        "zf1s/zend-captcha": "^1.15",
+        "zf1s/zend-config": "^1.15",
+        "zf1s/zend-controller": "^1.15",
+        "zf1s/zend-currency": "^1.15",
+        "zf1s/zend-date": "^1.15",
+        "zf1s/zend-db": "^1.15",
+        "zf1s/zend-exception": "^1.15",
+        "zf1s/zend-feed": "^1.15",
+        "zf1s/zend-filter": "^1.15",
+        "zf1s/zend-http": "^1.15",
+        "zf1s/zend-json": "^1.15",
+        "zf1s/zend-locale": "^1.15",
+        "zf1s/zend-log": "^1.15",
+        "zf1s/zend-mail": "^1.15",
+        "zf1s/zend-measure": "^1.15",
+        "zf1s/zend-oauth": "^1.15",
+        "zf1s/zend-pdf": "^1.15",
+        "zf1s/zend-soap": "^1.15",
+        "zf1s/zend-uri": "^1.15",
+        "zf1s/zend-validate": "^1.15",
+        "zf1s/zend-xmlrpc": "^1.15"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
@@ -122,6 +144,7 @@
         "platform": {
             "php": "7.4"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "prepend-autoloader": false
     }
 }
