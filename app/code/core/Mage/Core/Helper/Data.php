@@ -603,7 +603,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 <$rootName></$rootName>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
-        foreach (array_keys($array) as $key) {
+        foreach ($array as $key => $value) {
             if (is_numeric($key)) {
                 throw new Exception('Array root keys must not be numeric.');
             }

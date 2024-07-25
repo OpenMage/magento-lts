@@ -292,7 +292,7 @@ class Varien_Object implements ArrayAccess
     public function unsetOldData($key = null)
     {
         if (is_null($key)) {
-            foreach (array_keys($this->_oldFieldsMap) as $key) {
+            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
                 unset($this->_data[$key]);
             }
         } else {
