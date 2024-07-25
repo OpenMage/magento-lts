@@ -44,6 +44,7 @@
         "zf1s/zend-db": "^1.15",
         "zf1s/zend-exception": "^1.15",
         "zf1s/zend-feed": "^1.15",
+        "zf1s/zend-file-transfer": "^1.15",
         "zf1s/zend-filter": "^1.15",
         "zf1s/zend-http": "^1.15",
         "zf1s/zend-json": "^1.15",
@@ -53,9 +54,12 @@
         "zf1s/zend-measure": "^1.15",
         "zf1s/zend-oauth": "^1.15",
         "zf1s/zend-pdf": "^1.15",
+        "zf1s/zend-session": "^1.15",
         "zf1s/zend-soap": "^1.15",
+        "zf1s/zend-translate": "^1.15",
         "zf1s/zend-uri": "^1.15",
         "zf1s/zend-validate": "^1.15",
+        "zf1s/zend-wildfire": "^1.15",
         "zf1s/zend-xmlrpc": "^1.15"
     },
     "require-dev": {
