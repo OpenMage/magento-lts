@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         $html = '<select name="' . $this->_getHtmlName() . '" id="' . $this->_getHtmlId() . '" class="no-changes">';
         $value = $this->getValue();
         foreach ($this->_getOptions() as $option) {
-            if (isset($option['value']) is_array($option['value'])) {
+            if (isset($option['value']) && is_array($option['value'])) {
                 $html .= '<optgroup label="' . $this->escapeHtml($option['label']) . '">';
                 foreach ($option['value'] as $subOption) {
                     $html .= $this->_renderOption($subOption, $value);
