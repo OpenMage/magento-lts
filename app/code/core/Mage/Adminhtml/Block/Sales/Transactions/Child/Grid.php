@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
     {
         $result = parent::_prepareColumns();
 
-        foreach (array_keys($this->_columns) as $key) {
+        foreach ($this->_columns as $key => $value) {
             if (in_array($key, $this->_columnsToRemove)) {
                 unset($this->_columns[$key]);
             } else {
