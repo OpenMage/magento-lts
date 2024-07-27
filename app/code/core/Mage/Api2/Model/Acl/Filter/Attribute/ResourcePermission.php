@@ -103,7 +103,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                             $resourceModel->setResourceType($resource)
                                 ->setUserType($this->_userType);
 
-                            foreach (array_keys($operations) as $operation) {
+                            foreach ($operations as $operation => $operationLabel) {
                                 if (!$this->_hasEntityOnlyAttributes
                                     && $config->getResourceEntityOnlyAttributes($resource, $this->_userType, $operation)
                                 ) {
