@@ -1195,6 +1195,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Escape html entities
+     *
+     * @param string $data
+     * @param array|null $allowedTags
+     * @return Mage_Core_Model_Security_HtmlEscapedString
+     */
+    public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
+    }
+
+    /**
      * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data

@@ -447,20 +447,6 @@ final class Mage
         }
     }
 
-
-    /**
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @param array|null $allowedTags
-     * @return Mage_Core_Model_Security_HtmlEscapedString
-     */
-    public static function getStoreConfigObject(string $path, $store = null, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
-    {
-        $config = (string) self::getStoreConfig($path, $store);
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        return new Mage_Core_Model_Security_HtmlEscapedString($config, $allowedTags);
-    }
-
     /**
      * Get base URL path by type
      *
