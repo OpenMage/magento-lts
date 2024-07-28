@@ -64,7 +64,7 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4 to 8.3
+- PHP 8.0 to 8.4
 - MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
@@ -262,6 +262,10 @@ This may generate a problem with `Zend_Db_Select' statements that do not use 'Ze
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
 
 UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
+
+### Since OpenMage 20.11.0
+
+PHP 8.0 is now the minimum required version.
 
 ### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
