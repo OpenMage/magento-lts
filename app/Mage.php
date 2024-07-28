@@ -433,7 +433,7 @@ final class Mage
      * Retrieve config flag for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -445,6 +445,20 @@ final class Mage
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param array|null $allowedTags
+     * @return Mage_Core_Model_Security_HtmlEscapedString
+     */
+    public static function getStoreConfigObject(string $path, $store = null, ?array $allowedTags = []): Mage_Core_Model_Security_HtmlEscapedString
+    {
+        $config = (string) self::getStoreConfig($path, $store);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        return new Mage_Core_Model_Security_HtmlEscapedString($config, $allowedTags);
     }
 
     /**
