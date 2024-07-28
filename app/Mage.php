@@ -454,7 +454,7 @@ final class Mage
      * @param array|null $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString
      */
-    public static function getStoreConfigObject(string $path, $store = null, ?array $allowedTags = []): Mage_Core_Model_Security_HtmlEscapedString
+    public static function getStoreConfigObject(string $path, $store = null, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
     {
         $config = (string) self::getStoreConfig($path, $store);
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
