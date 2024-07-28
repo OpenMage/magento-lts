@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.4']
+        php-versions: ['8.0']
     steps:
     - name: Checkout repository
       uses: actions/checkout@master
@@ -37,6 +37,10 @@ jobs:
     - name: Require Mage_PageCache on v19
       if: startsWith(github.event.release.tag_name, 'v19')
       run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/module-mage-pagecache
+
+    - name: Require Mage_Poll on v19
+      if: startsWith(github.event.release.tag_name, 'v19')
+      run: composer require --no-install --prefer-dist --no-progress --ignore-platform-req=ext-* openmage/module-mage-poll
 
     - name: Composer install
       run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-* --no-dev
