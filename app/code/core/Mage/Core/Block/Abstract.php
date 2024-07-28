@@ -165,6 +165,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * @var Varien_Object
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_transportObject;
 
     /**
@@ -524,6 +525,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result == call_user_func_array([&$child, $callback], $params)) {
                 $this->unsetChild($alias);
             }
@@ -863,7 +865,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param string $alias
      * @param string $key
-     * @return mixed
+     * @return mixed|void
      */
     public function getChildData($alias, $key = '')
     {
@@ -1165,6 +1167,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function __()
     {
         $args = func_get_args();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
         array_unshift($args, $expr);
         return $this->_getApp()->getTranslator()->translate($args);
