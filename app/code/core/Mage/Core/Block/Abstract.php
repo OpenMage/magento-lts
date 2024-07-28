@@ -1221,8 +1221,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $result = [];
         foreach ($data as $kay => $string) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            $result[$kay] = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
+            $result[$kay] = $this->escapeHtmlAsObject($string, $allowedTags);
         }
 
         return $result;
