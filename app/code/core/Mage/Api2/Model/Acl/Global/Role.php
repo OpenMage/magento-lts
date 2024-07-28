@@ -1,62 +1,49 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Global ACL Role model
  *
- * @category    Mage
- * @package     Mage_Api2
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api2
+ *
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
  * @method string getCreatedAt()
- * @method Mage_Api2_Model_Acl_Global_Role setCreatedAt() setCreatedAt(string $createdAt)
+ * @method $this setCreatedAt() setCreatedAt(string $createdAt)
  * @method string getUpdatedAt()
- * @method Mage_Api2_Model_Acl_Global_Role setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
  * @method string getRoleName()
- * @method Mage_Api2_Model_Acl_Global_Role setRoleName() setRoleName(string $roleName)
+ * @method $this setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * System roles identifiers
      */
-    const ROLE_GUEST_ID = 1;
-    const ROLE_CUSTOMER_ID = 2;
-    /**#@-*/
+    public const ROLE_GUEST_ID = 1;
+    public const ROLE_CUSTOMER_ID = 2;
 
-    /**#@+
+    /**
      * Config node identifiers
      */
-    const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
-    const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
-    const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
-    /**#@-*/
+    public const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
+    public const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
+    public const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
 
     /**
      * Permissions model
@@ -65,11 +52,6 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
-    /**
-     * Initialize resource model
-     *
-     * @return void
-     */
     protected function _construct()
     {
         $this->_init('api2/acl_global_role');
@@ -82,16 +64,15 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         } else {
             $this->setUpdatedAt(Varien_Date::now());
         }
 
         //check and protect guest role
-        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
-            && $this->getRoleName() != $this->getOrigData('role_name')) {
 
+        if (self::isSystemRole($this) && $this->getRoleName() != $this->getOrigData('role_name')) {
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
@@ -111,7 +92,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeDelete()
     {
-        if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)) {
+        if (self::isSystemRole($this)) {
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
@@ -131,7 +112,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getPermissionModel()
     {
-        if (null == $this->_permissionModel) {
+        if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_global_rule_resourcePermission');
         }
         return $this->_permissionModel;
@@ -144,10 +125,10 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public static function getSystemRoles()
     {
-        return array(
+        return [
             self::ROLE_GUEST_ID,
             self::ROLE_CUSTOMER_ID
-        );
+        ];
     }
 
     /**

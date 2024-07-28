@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /*! normalize.css v2.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================
@@ -496,7 +485,7 @@ textarea {
 }
 
 a {
-  color: #3399cc;
+  color: #0472ad;
   text-decoration: none;
 }
 
@@ -523,7 +512,7 @@ ul {
 h1, .h1 {
   margin: 0;
   margin-bottom: 0.7em;
-  color: #3399cc;
+  color: #0472ad;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
   font-size: 28px;
   font-weight: 400;
@@ -616,7 +605,7 @@ h6, .h6 {
 }
 
 .availability.in-stock {
-  color: #11b400;
+  color: #0f8900;
 }
 
 .availability.available-soon,
@@ -640,7 +629,6 @@ h6, .h6 {
   font-size: 24px;
   font-weight: 600;
   color: #636363;
-  border-bottom: 1px solid #ededed;
   padding-bottom: 3px;
   margin-bottom: 15px;
   text-transform: uppercase;
@@ -662,7 +650,6 @@ h6, .h6 {
   position: relative;
   padding: 10px 0 0;
   margin-bottom: 5px;
-  border-top: 1px solid #cccccc;
 }
 .block-title h2,
 .block-title h3,
@@ -677,7 +664,7 @@ h6, .h6 {
   line-height: 1.4;
   text-rendering: optimizeSpeed;
   text-transform: uppercase;
-  color: #3399cc;
+  color: #0472ad;
   margin-bottom: 0;
   text-transform: uppercase;
   font-weight: 600;
@@ -685,7 +672,7 @@ h6, .h6 {
 .block-title small {
   font-size: 100%;
   font-weight: normal;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 body:not(.customer-account) .block:first-child .block-title {
@@ -783,7 +770,7 @@ body:not(.customer-account) .block:first-child .block-title {
     display: block;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
-    border-left: 4px solid #3399cc;
+    border-left: 4px solid #0472ad;
     border-right: none;
     left: 10px;
     top: 50%;
@@ -825,7 +812,7 @@ body:not(.customer-account) .block:first-child .block-title {
     display: block;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
-    border-top: 4px solid #3399cc;
+    border-top: 4px solid #0472ad;
     border-bottom: none;
     left: 10px;
     top: 50%;
@@ -862,7 +849,7 @@ body:not(.customer-account) .block:first-child .block-title {
 .block-account li strong,
 .block-cms-menu li strong {
   font-weight: 400;
-  color: #3399cc;
+  color: #0472ad;
 }
 .block-account li a,
 .block-cms-menu li a {
@@ -870,7 +857,7 @@ body:not(.customer-account) .block:first-child .block-title {
 }
 .block-account li a:hover,
 .block-cms-menu li a:hover {
-  color: #3399cc;
+  color: #0472ad;
 }
 
 /* ============================================ *
@@ -917,7 +904,7 @@ body:not(.customer-account) .block:first-child .block-title {
 .cart-table .product-cart-actions .button,
 #co-shipping-method-form .buttons-set .button,
 .footer .button {
-  background: #3399cc;
+  background: #0472ad;
   display: inline-block;
   padding: 7px 15px;
   border: 0;
@@ -995,7 +982,7 @@ a.button:hover {
   text-decoration: underline;
   text-transform: uppercase;
   display: inline-block;
-  color: #3399cc;
+  color: #0472ad;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
 }
 .button2 span:hover,
@@ -1153,7 +1140,7 @@ a.button:hover {
 }
 
 .breadcrumbs a:hover {
-  color: #3399cc;
+  color: #0472ad;
 }
 
 .breadcrumbs strong {
@@ -1189,13 +1176,13 @@ a.button:hover {
 }
 .btn-remove:hover,
 .btn-previous:hover {
-  background-color: #3399cc;
-  border-color: #3399cc;
+  background-color: #0472ad;
+  border-color: #0472ad;
 }
 
 .btn-remove:after {
   content: 'X';
-  color: #3399cc;
+  color: #0472ad;
   height: 20px;
   line-height: 20px;
   width: 100%;
@@ -1218,7 +1205,6 @@ a.button:hover {
 }
 .btn-remove2:hover {
   background-color: transparent;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
@@ -1230,7 +1216,7 @@ a.button:hover {
   display: block;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-right: 4px solid #3399cc;
+  border-right: 4px solid #0472ad;
   border-left: none;
   position: absolute;
   top: 50%;
@@ -1509,7 +1495,6 @@ a.button:hover {
   font-size: 11px;
 }
 .global-site-notice .notice-inner {
-  padding-left: 120px;
   width: 100%;
   max-width: 1200px;
   margin-left: auto;
@@ -1518,9 +1503,7 @@ a.button:hover {
   min-height: 40px;
   padding-top: 14.5px;
   padding-bottom: 14.5px;
-  background-image: url("../images/demo-logo.png");
-  background-position: left;
-  background-repeat: no-repeat;
+  text-align: center;
 }
 .global-site-notice p {
   margin-bottom: 0;
@@ -1530,7 +1513,7 @@ a.button:hover {
  * Promotional Message Banner
  */
 .promo-msg {
-  color: #3399cc;
+  color: #0472ad;
   text-align: center;
   margin: 10px;
   text-transform: uppercase;
@@ -1550,7 +1533,7 @@ a.button:hover {
  * Messages
  */
 .success {
-  color: #11b400;
+  color: #0f8900;
 }
 
 .error {
@@ -1622,7 +1605,7 @@ a.button:hover {
 
 .messages .success-msg li {
   color: black;
-  border-left: 5px solid #11b400;
+  border-left: 5px solid #0f8900;
   background-color: #eff5ea;
 }
 
@@ -1634,7 +1617,7 @@ a.button:hover {
   display: block;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 6px solid #11b400;
+  border-left: 6px solid #0f8900;
   border-right: none;
 }
 
@@ -1756,11 +1739,11 @@ a.button:hover {
 }
 
 .price-notice {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .price-box .price {
-  color: #3399cc;
+  color: #0472ad;
   font-size: 16px;
 }
 
@@ -1770,19 +1753,19 @@ a.button:hover {
 }
 
 .price-box .price-label {
-  color: #a0a0a0;
+  color: #767676;
   white-space: nowrap;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
 }
 
 .price-box .minimal-price-link {
   padding-left: 1em;
-  color: #3399cc;
+  color: #0472ad;
   display: block;
   /* We want this to show on its own line, otherwise the layout looks funky */
 }
 .price-box .minimal-price-link .label {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* -------------------------------------------- *
@@ -1802,12 +1785,12 @@ a.button:hover {
 }
 
 .price-box .old-price .price {
-  color: #a0a0a0;
+  color: #767676;
   text-decoration: line-through;
 }
 
 .price-box .special-price {
-  color: #3399cc;
+  color: #0472ad;
   padding-left: 1em;
 }
 .price-box .special-price .price-label {
@@ -1907,7 +1890,7 @@ span.weee {
   z-index: 300;
   width: 200px;
   padding: 8px;
-  border: 1px solid #3399cc;
+  border: 1px solid #0472ad;
   background-color: #F6F6F6;
   top: 21px;
   left: -100px;
@@ -1920,7 +1903,7 @@ span.weee {
   display: block;
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #3399cc;
+  border-bottom: 7px solid #0472ad;
   border-top: none;
   left: 97px;
   top: -7px;
@@ -1998,7 +1981,7 @@ span.weee {
   }
 }
 .no-touch .product-image:hover {
-  border-color: #3399cc;
+  border-color: #0472ad;
 }
 
 /* -------------------------------------------- *
@@ -2058,7 +2041,7 @@ span.weee {
 }
 
 .std .note {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 13px;
 }
 
@@ -2225,7 +2208,7 @@ span.weee {
   width: 25px;
   height: 30px;
   padding: 0;
-  color: #3399cc;
+  color: #0472ad;
   font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
 }
 
@@ -2248,7 +2231,7 @@ span.weee {
 }
 .pages .next:hover,
 .pages .previous:hover {
-  border: 1px solid #3399cc;
+  border: 1px solid #0472ad;
 }
 
 .pages .next:before {
@@ -2259,7 +2242,7 @@ span.weee {
   display: block;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-left: 4px solid #3399cc;
+  border-left: 4px solid #0472ad;
   border-right: none;
   top: 50%;
   margin-top: -3px;
@@ -2286,7 +2269,7 @@ span.weee {
   display: block;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-right: 4px solid #3399cc;
+  border-right: 4px solid #0472ad;
   border-left: none;
   top: 50%;
   margin-top: -3px;
@@ -2386,7 +2369,7 @@ body.customer-account .data-table .summary-collapse:before {
   display: block;
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
-  border-top: 7px solid #3399cc;
+  border-top: 7px solid #0472ad;
   border-bottom: none;
   position: static;
   display: inline-block;
@@ -2418,7 +2401,7 @@ body.customer-account .data-table .show-details .summary-collapse:before {
   display: block;
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #3399cc;
+  border-bottom: 7px solid #0472ad;
   border-top: none;
   position: static;
   display: inline-block;
@@ -2584,7 +2567,7 @@ span.required em {
  * Hints
  */
 .input-hint {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 12px;
 }
 
@@ -2635,7 +2618,7 @@ textarea {
   font-size: 15px;
 }
 .input-text:focus {
-  border: 1px solid #3399cc;
+  border: 1px solid #0472ad;
 }
 
 .input-text.validation-failed {
@@ -2679,9 +2662,6 @@ input[type=text] {
     /* Prevent from zooming on focus */
   }
 }
-.ie8 .input-text {
-  max-width: none;
-}
 
 /* -------------------------------------------- *
  * Inputs - Quantity
@@ -2697,11 +2677,11 @@ input[type=text].qty {
  * Placeholder
  */
 ::-webkit-input-placeholder {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 input:-moz-placeholder {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* -------------------------------------------- *
@@ -2864,7 +2844,7 @@ form .form-instructions {
   font-style: italic;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 13px;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 /* ============================================ *
@@ -3183,7 +3163,7 @@ body {
  * ============================================ */
 .header-language-background {
   padding: 10px;
-  background-color: #3399cc;
+  background-color: #0472ad;
   text-transform: uppercase;
 }
 .header-language-background .header-language-container {
@@ -3549,7 +3529,7 @@ a.skip-link {
   }
   .nav-primary li.menu-active > a,
   .nav-primary li.sub-menu-active > a {
-    color: #3399cc;
+    color: #0472ad;
   }
 }
 /* ============================================ *
@@ -3574,8 +3554,9 @@ a.skip-link {
     border-bottom: none;
   }
   .nav-primary a:hover,
-  .nav-primary li:hover > a {
-    color: #3399cc;
+  .nav-primary li:hover,
+  .nav-primary li.active > a {
+    color: #0472ad;
   }
   .nav-primary .menu-active {
     z-index: 200;
@@ -3758,7 +3739,7 @@ a.skip-link {
   }
 
   #header-account a:hover {
-    color: #3399cc;
+    color: #0472ad;
   }
 }
 /* -------------------------------------------- *
@@ -3777,7 +3758,7 @@ a.skip-link {
 }
 
 #header-account a:hover {
-  color: #3399cc;
+  color: #0472ad;
 }
 
 /* ============================================ *
@@ -3849,7 +3830,7 @@ a.skip-link {
 }
 @media only screen and (min-width: 771px) {
   .skip-cart {
-    color: #3399cc;
+    color: #0472ad;
     text-transform: uppercase;
   }
   .skip-cart:hover {
@@ -3876,7 +3857,7 @@ a.skip-link {
 
   .skip-cart .count,
   .skip-link.skip-active .count {
-    color: #3399cc;
+    color: #0472ad;
   }
 }
 .skip-cart .count.empty {
@@ -3948,7 +3929,7 @@ a.skip-link {
 
 .mini-cart-list .has-options {
   margin-bottom: 0;
-  color: #a0a0a0;
+  color: #767676;
   font-size: 12px;
 }
 
@@ -3993,7 +3974,7 @@ a.skip-link {
 }
 .footer .block-title,
 .footer address {
-  color: #3399cc;
+  color: #0472ad;
 }
 .footer .links {
   float: left;
@@ -4010,7 +3991,7 @@ a.skip-link {
   color: #636363;
 }
 .footer .links a:hover {
-  color: #3399cc;
+  color: #0472ad;
 }
 .footer .block-subscribe {
   float: right;
@@ -4223,7 +4204,7 @@ h3.product-name a:hover,
 h4.product-name a:hover,
 h5.product-name a:hover,
 p.product-name a:hover {
-  color: #3399cc;
+  color: #0472ad;
   text-decoration: none;
 }
 
@@ -4304,7 +4285,7 @@ p.product-name a:hover {
 }
 
 .products-grid .price-box {
-  color: #a0a0a0;
+  color: #767676;
   font-size: 13px;
   margin: 0 0 5px;
 }
@@ -4685,7 +4666,7 @@ p.product-name a:hover {
   display: block;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  border-top: 4px solid #3399cc;
+  border-top: 4px solid #0472ad;
   border-bottom: none;
   left: 10px;
   top: 50%;
@@ -4732,7 +4713,7 @@ p.product-name a:hover {
   display: block;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  border-top: 4px solid #3399cc;
+  border-top: 4px solid #0472ad;
   border-bottom: none;
   left: 10px;
   top: 50%;
@@ -4761,7 +4742,7 @@ p.product-name a:hover {
   display: block;
 }
 .block-layered-nav dl dd ol > li > a .count {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 @media only screen and (min-width: 771px) {
@@ -4790,7 +4771,7 @@ p.product-name a:hover {
     border-bottom-width: 0;
   }
   .block-layered-nav .block-content > dl > dt:hover {
-    color: #3399cc;
+    color: #0472ad;
   }
   .block-layered-nav .block-content > dl > dt:after {
     content: '';
@@ -4800,7 +4781,7 @@ p.product-name a:hover {
     display: block;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
-    border-left: 4px solid #3399cc;
+    border-left: 4px solid #0472ad;
     border-right: none;
   }
   .block-layered-nav .block-content > dl > dt.last {
@@ -4820,7 +4801,7 @@ p.product-name a:hover {
     display: block;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
-    border-top: 4px solid #3399cc;
+    border-top: 4px solid #0472ad;
     border-bottom: none;
     left: 6px;
     top: 50%;
@@ -4831,7 +4812,7 @@ p.product-name a:hover {
   }
 
   .block-layered-nav .block-subtitle--filter {
-    background-color: #3399cc;
+    background-color: #0472ad;
     border: 0;
     margin-bottom: 0;
     display: block;
@@ -4950,7 +4931,7 @@ p.product-name a:hover {
 }
 .product-view .product-shop .product-name .h1,
 .product-view .product-img-box .product-name h1 {
-  color: #3399cc;
+  color: #0472ad;
   margin-bottom: 10px;
   border: 0;
 }
@@ -5004,7 +4985,7 @@ p.product-name a:hover {
 .product-view .product-shop .price-box .regular-price .price,
 .product-view .product-shop .price-box .special-price .price,
 .product-view .product-shop .price-box .full-product-price .price {
-  color: #3399cc;
+  color: #0472ad;
   font-size: 24px;
 }
 .product-view .product-shop .price-box .special-price .price-label {
@@ -5397,7 +5378,7 @@ p.product-name a:hover {
   }
   .product-collateral .toggle-tabs li.current span,
   .product-collateral .toggle-tabs li:hover span {
-    color: #3399cc;
+    color: #0472ad;
   }
   .product-collateral .toggle-tabs li:first-child {
     border-left: none;
@@ -5462,7 +5443,7 @@ p.product-name a:hover {
     display: block;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
-    border-top: 4px solid #3399cc;
+    border-top: 4px solid #0472ad;
     border-bottom: none;
     left: 10px;
     top: 50%;
@@ -5486,7 +5467,7 @@ p.product-name a:hover {
     border-bottom-width: 0;
   }
   .product-collateral > dl > dt:hover {
-    color: #3399cc;
+    color: #0472ad;
   }
   .product-collateral > dl > dt:after {
     content: '';
@@ -5496,7 +5477,7 @@ p.product-name a:hover {
     display: block;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
-    border-left: 4px solid #3399cc;
+    border-left: 4px solid #0472ad;
     border-right: none;
   }
   .product-collateral > dl > dt.last {
@@ -5516,7 +5497,7 @@ p.product-name a:hover {
     display: block;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
-    border-top: 4px solid #3399cc;
+    border-top: 4px solid #0472ad;
     border-bottom: none;
     left: 6px;
     top: 50%;
@@ -5590,7 +5571,7 @@ p.product-name a:hover {
 }
 
 .grouped-items-table .name-wrapper {
-  color: #3399cc;
+  color: #0472ad;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
 }
 .grouped-items-table .qty-wrapper {
@@ -6212,7 +6193,6 @@ p.product-name a:hover {
  * ============================================ */
 .cart .page-title {
   margin-bottom: 15px;
-  border-bottom: 1px solid #ededed;
 }
 .cart .page-title:after {
   content: '';
@@ -6390,7 +6370,7 @@ p.product-name a:hover {
   display: block;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 6px solid #3399cc;
+  border-right: 6px solid #0472ad;
   border-left: none;
   position: absolute;
   top: 3px;
@@ -6404,7 +6384,7 @@ p.product-name a:hover {
   display: block;
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
-  border-top: 6px solid #3399cc;
+  border-top: 6px solid #0472ad;
   border-bottom: none;
   right: -15px;
   top: 6px;
@@ -6823,7 +6803,7 @@ p.product-name a:hover {
  * Checkout - Cart Cross sell
  * ============================================ */
 .crosssell h2 {
-  color: #3399cc;
+  color: #0472ad;
 }
 .crosssell .item a.product-image {
   width: auto;
@@ -6955,7 +6935,7 @@ p.product-name a:hover {
   text-align: center;
   color: #FFFFFF;
   line-height: 26px;
-  background-color: #3399cc;
+  background-color: #0472ad;
   display: block;
   position: absolute;
   top: 50%;
@@ -6968,12 +6948,12 @@ p.product-name a:hover {
 }
 
 .opc .section.allow .step-title h2 {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .opc .section.allow .step-title:hover h2,
 .opc .section.active .step-title h2 {
-  color: #3399cc;
+  color: #0472ad;
 }
 
 .opc .section .step-title h2 {
@@ -7206,7 +7186,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   margin-bottom: 6px;
   text-transform: uppercase;
   font-weight: normal;
-  color: #a0a0a0;
+  color: #767676;
 }
 .block-progress dt.complete {
   color: #636363;
@@ -7531,7 +7511,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 }
 .configurable-swatch-list .not-available .swatch-link.has-image img {
   opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 .configurable-swatch-list .not-available .swatch-label {
   color: #aaa;
@@ -7558,7 +7537,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   line-height: inherit;
 }
 #narrow-by-list dd .swatch-link:hover .swatch-label {
-  border-color: #3399cc;
+  border-color: #0472ad;
 }
 #narrow-by-list dd .swatch-label {
   background: #f4f4f4;
@@ -7611,7 +7590,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 .configurable-swatch-list .hover .swatch-link,
 .configurable-swatch-list .selected .swatch-link,
 .swatch-link:hover {
-  border-color: #3399cc;
+  border-color: #0472ad;
 }
 
 .configurable-swatch-box {
@@ -7633,7 +7612,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 
 /* CUSTOM */
 .availability.out-of-stock span {
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .product-view .product-options .swatch-attr {
@@ -7653,7 +7632,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 .product-view .product-options .swatch-attr .select-label {
   display: inline;
   font-weight: normal;
-  color: #3399cc;
+  color: #0472ad;
   padding-left: 5px;
 }
 .product-view .product-options dd .input-box {
@@ -7735,7 +7714,7 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
   font-style: italic;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 13px;
-  color: #a0a0a0;
+  color: #767676;
 }
 
 .remember-me-box a.hide {
@@ -8534,7 +8513,7 @@ div.paypal-logo span > img {
   display: none;
 }
 #customer-reviews h2 {
-  color: #3399cc;
+  color: #0472ad;
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -8548,7 +8527,7 @@ div.paypal-logo span > img {
   text-transform: uppercase;
 }
 #customer-reviews h3 span {
-  color: #3399cc;
+  color: #0472ad;
 }
 #customer-reviews .fieldset {
   padding-top: 25px;
@@ -8631,7 +8610,7 @@ div.paypal-logo span > img {
   margin: 15px 0;
 }
 #customer-reviews dl dd .review-meta {
-  color: #3399cc;
+  color: #0472ad;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
   font-size: 10px;
   font-weight: normal;
@@ -8911,7 +8890,6 @@ div.paypal-logo span > img {
 }
 .slideshow-prev.disabled,
 .slideshow-next.disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
   cursor: default;
 }
@@ -8993,7 +8971,7 @@ div.paypal-logo span > img {
   text-transform: uppercase;
 }
 #wishlist-table .product-name a {
-  color: #3399cc;
+  color: #0472ad;
 }
 #wishlist-table .wishlist-sku {
   font-size: 11px;
@@ -9020,7 +8998,7 @@ div.paypal-logo span > img {
   text-transform: uppercase;
 }
 #wishlist-table textarea:focus {
-  border: 1px solid #3399cc;
+  border: 1px solid #0472ad;
 }
 #wishlist-table .item-manage {
   text-align: right;
@@ -9087,12 +9065,12 @@ div.paypal-logo span > img {
 }
 #wishlist-table .giftregisty-add li {
   cursor: pointer;
-  color: #3399cc;
+  color: #0472ad;
   margin-bottom: 3px;
 }
 #wishlist-table .truncated .details {
   background: none;
-  color: #3399cc;
+  color: #0472ad;
 }
 #wishlist-table td[data-rwd-label]:before {
   font-weight: 600;
@@ -9349,7 +9327,7 @@ div.paypal-logo span > img {
   font-weight: bold;
 }
 .header-minicart .product-details .product-name a {
-  color: #3399cc;
+  color: #0472ad;
 }
 .header-minicart .info-wrapper {
   margin-bottom: 0.5em;
@@ -9359,7 +9337,7 @@ div.paypal-logo span > img {
   padding-right: 10px;
 }
 .header-minicart .info-wrapper td {
-  color: #3399cc;
+  color: #0472ad;
   clear: right;
 }
 .header-minicart .info-wrapper .qty-wrapper td {
@@ -9401,7 +9379,7 @@ div.paypal-logo span > img {
   text-transform: uppercase;
 }
 .header-minicart .subtotal .price {
-  color: #3399cc;
+  color: #0472ad;
 }
 .header-minicart .minicart-actions {
   padding: 10px;
@@ -9535,7 +9513,7 @@ div.paypal-logo span > img {
   -o-border-radius: 2px;
   border-radius: 2px;
   background-color: #FFFFFF;
-  border: 1px solid #3399cc;
+  border: 1px solid #0472ad;
   left: 0;
   padding-left: 0;
   position: absolute;
@@ -9544,7 +9522,7 @@ div.paypal-logo span > img {
 }
 .search-autocomplete ul li {
   border-bottom: 1px solid #f4f4f4;
-  color: #3399cc;
+  color: #0472ad;
   cursor: pointer;
   font-size: 12px;
   padding: 4px 6px;
@@ -9554,7 +9532,7 @@ div.paypal-logo span > img {
   color: #2e8ab8;
 }
 .search-autocomplete ul li.selected {
-  background-color: #3399cc;
+  background-color: #0472ad;
   color: white;
 }
 .search-autocomplete ul li .amount {
@@ -9572,7 +9550,7 @@ div.paypal-logo span > img {
   display: block;
   border-right: 7px solid transparent;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #3399cc;
+  border-bottom: 7px solid #0472ad;
   border-top: none;
   left: 50%;
   top: -7px;
@@ -9612,7 +9590,7 @@ div.paypal-logo span > img {
 }
 .product-review .product-details h2 {
   border-bottom: 1px solid #cccccc;
-  color: #3399CC;
+  color: #0472ad;
   font-size: 16px;
   font-weight: 600;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
@@ -9688,11 +9666,11 @@ div.paypal-logo span > img {
 }
 .cms-page-view .std h1,
 .cms-no-route .std h1 {
-  color: #3399cc;
+  color: #0472ad;
 }
 .cms-page-view .std h2,
 .cms-no-route .std h2 {
-  color: #3399cc;
+  color: #0472ad;
 }
 .cms-page-view .std li,
 .cms-no-route .std li {
@@ -9769,7 +9747,7 @@ div.paypal-logo span > img {
   display: block;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
-  border-top: 4px solid #3399cc;
+  border-top: 4px solid #0472ad;
   border-bottom: none;
   left: 10px;
   top: 50%;
@@ -9841,7 +9819,7 @@ div.paypal-logo span > img {
  * Pricing Conditions
  * ============================================ */
 .price-box .minimal-price-link .label {
-  color: #cf5050;
+  color: #cd4848;
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
   font-size: 12px;
   text-transform: uppercase;

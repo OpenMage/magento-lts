@@ -1,79 +1,67 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Index data retreiver factory
+ * Index data retriever factory
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  *
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
  * @method int getEntityTypeId()
- * @method Mage_CatalogIndex_Model_Retreiver setEntityTypeId(int $value)
+ * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()
- * @method Mage_CatalogIndex_Model_Retreiver setAttributeSetId(int $value)
+ * @method $this setAttributeSetId(int $value)
  * @method string getTypeId()
- * @method Mage_CatalogIndex_Model_Retreiver setTypeId(string $value)
+ * @method $this setTypeId(string $value)
  * @method string getSku()
- * @method Mage_CatalogIndex_Model_Retreiver setSku(string $value)
+ * @method $this setSku(string $value)
  * @method int getHasOptions()
- * @method Mage_CatalogIndex_Model_Retreiver setHasOptions(int $value)
+ * @method $this setHasOptions(int $value)
  * @method int getRequiredOptions()
- * @method Mage_CatalogIndex_Model_Retreiver setRequiredOptions(int $value)
+ * @method $this setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method Mage_CatalogIndex_Model_Retreiver setCreatedAt(string $value)
+ * @method $this setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method Mage_CatalogIndex_Model_Retreiver setUpdatedAt(string $value)
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
-    const CHILDREN_FOR_TIERS = 1;
-    const CHILDREN_FOR_PRICES = 2;
-    const CHILDREN_FOR_ATTRIBUTES = 3;
+    public const CHILDREN_FOR_TIERS = 1;
+    public const CHILDREN_FOR_PRICES = 2;
+    public const CHILDREN_FOR_ATTRIBUTES = 3;
 
-    protected $_attributeIdCache = array();
+    protected $_attributeIdCache = [];
 
     /**
      * Customer group cache
      *
-     * @var Mage_Customer_Model_Resource_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection|null
      */
     protected $_customerGroups;
 
     /**
-     * Retreiver model names cache
+     * Retriever model names cache
      *
      * @var array
      */
-    protected $_retreivers = array();
+    protected $_retreivers = [];
 
     /**
-     * Retreiver factory init, load retreiver settings
+     * Retriever factory init, load retriever settings
      *
      */
     protected function _construct()
@@ -89,10 +77,11 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Returns data retreiver model by specified product type
+     * Returns data retriever model by specified product type
      *
      * @param string $type
-     * @return Mage_CatalogIndex_Model_Data_Abstract
+     * @return Mage_CatalogIndex_Model_Data_Abstract|false
+     * @throws Mage_Core_Exception
      */
     public function getRetreiver($type)
     {
@@ -125,7 +114,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     public function assignProductTypes($products)
     {
         $flat = $this->_getResource()->getProductTypes($products);
-        $result = array();
+        $result = [];
         foreach ($flat as $one) {
             $result[$one['type']][] = $one['id'];
         }

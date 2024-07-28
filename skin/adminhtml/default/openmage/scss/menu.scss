@@ -6,8 +6,8 @@
 @import "base";
 
 .nav-bar {
-  background: $color_dorado_approx;
-  padding: 0 70px;
+  background: $openmage_base_blue;
+  padding: 0 350px 0 70px;
 
   &:after {
     content: ".";
@@ -21,14 +21,14 @@
 }
 
 #nav {
-  padding-left:0px;
+  padding-left:0;
   li {
     position: relative;
     text-align: left;
     float: left;
 
     &.over {
-      z-index: 99;
+      z-index: 999;
 
       a {
         color: $color_geyser_approx;
@@ -61,7 +61,6 @@
     }
 
     &.active {
-      z-index: 100;
       margin-left: -1px;
       color: $white;
       font-weight: bold;
@@ -196,7 +195,6 @@
 
       a {
         background: $white;
-        color: $color_dorado_approx;
         padding: $menu_padding_v $menu_padding_h;
         color: $color_dorado_approx;
         font-size: 12px;
@@ -309,7 +307,7 @@
         display: block;
       }
       span {
-        border-bottom: 1px dotted var(--color-main-m);
+        border-bottom: 1px dotted $color-main-m;
         display: block;
         line-height: 31px;
         padding: 0 10px;
@@ -321,7 +319,7 @@
       a {
         color: $header_background;
         text-decoration: none;
-        background: var(--color-main-xs);
+        background: $color-main-xs;
         display: block;
       }
     }

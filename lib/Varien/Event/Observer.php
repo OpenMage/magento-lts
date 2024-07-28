@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Event
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Event
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Varien
  * @package    Varien_Event
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Event_Observer extends Varien_Object
 {
@@ -41,7 +29,7 @@ class Varien_Event_Observer extends Varien_Object
      */
     public function isValidFor(Varien_Event $event)
     {
-        return $this->getEventName()===$event->getName();
+        return $this->getEventName() === $event->getName();
     }
 
     /**
@@ -59,7 +47,7 @@ class Varien_Event_Observer extends Varien_Object
         $callback = $this->getCallback();
         $this->setEvent($event);
 
-        $_profilerKey = 'OBSERVER: '.(is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]).' -> '.$callback[1];
+        $_profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]) . ' -> ' . $callback[1];
         Varien_Profiler::start($_profilerKey);
         call_user_func($callback, $this);
         Varien_Profiler::stop($_profilerKey);
@@ -102,7 +90,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getCallback()
     {

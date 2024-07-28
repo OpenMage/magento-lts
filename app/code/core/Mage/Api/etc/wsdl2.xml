@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<definitions xmlns:typens="urn:OpenMage" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
     xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
-    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    name="OpenMage" targetNamespace="urn:OpenMage">
     <types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+       <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
             <complexType name="associativeEntity">
                 <all>
@@ -152,7 +152,7 @@
             <output message="typens:endSessionResponse" />
         </operation>
         <operation name="login">
-            <documentation>Login user and retrive session id</documentation>
+            <documentation>Login user and retrieve session id</documentation>
             <input message="typens:login" />
             <output message="typens:loginResponse" />
         </operation>
@@ -182,59 +182,59 @@
         <operation name="endSession">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
         <operation name="login">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
         <operation name="startSession">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
         <operation name="resources">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
         <operation name="globalFaults">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
         <operation name="resourceFaults">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body namespace="urn:OpenMage" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
             </output>
         </operation>
     </binding>
-    <service name="{{var wsdl.name}}Service">
+    <service name="OpenMageService">
         <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
             <soap:address location="{{var wsdl.url}}" />
         </port>

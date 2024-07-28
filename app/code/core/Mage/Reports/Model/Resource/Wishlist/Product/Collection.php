@@ -1,51 +1,32 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist Report collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection
 {
-    /**
-     * Resource initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
     }
 
     /**
-     * Add wishlist count
-     *
      * @return $this
      */
     public function addWishlistCount()
@@ -53,9 +34,9 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
         $wishlistItemTable = $this->getTable('wishlist/item');
         $this->getSelect()
             ->join(
-                array('wi' => $wishlistItemTable),
+                ['wi' => $wishlistItemTable],
                 'wi.product_id = e.entity_id',
-                array('wishlists' => new Zend_Db_Expr('COUNT(wi.wishlist_item_id)'))
+                ['wishlists' => new Zend_Db_Expr('COUNT(wi.wishlist_item_id)')]
             )
             ->where('wi.product_id = e.entity_id')
             ->group('wi.product_id');
@@ -79,11 +60,11 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
 
         $this->getSelect()
             ->from(
-                array('wishlist' => $this->getTable('wishlist/wishlist')),
-                array(
+                ['wishlist' => $this->getTable('wishlist/wishlist')],
+                [
                     'wishlist_cnt' => new Zend_Db_Expr('COUNT(wishlist.wishlist_id)'),
                     'wishlist.customer_id'
-                )
+                ]
             )
             ->group('wishlist.customer_id');
         return $this;
@@ -92,7 +73,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

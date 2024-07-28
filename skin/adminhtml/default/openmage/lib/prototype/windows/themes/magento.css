@@ -1,5 +1,5 @@
 .dialog .bot { display:none !important; }
-.overlay_magento { background-color:#000; filter:alpha(opacity=60); -moz-opacity:.6; opacity:.6; -webkit-opacity:.6; }
+.overlay_magento { background-color:#000; -moz-opacity:.6; opacity:.6; -webkit-opacity:.6; }
 .top.table_window { border-bottom:1px solid #e6e6e6; background:#6a838b url(magento/top_bg.gif) 0 100% repeat-x; }
 
 .magento_nw { width:6px; height:28px; }
@@ -19,7 +19,7 @@
 .magento_sizer { background:#deebf0; width:5px; height:3px; }
 .magento_sizer { cursor:se-resize; }
 
-.magento_close { width:16px; height:16px; background:url(magento/window_close.png) no-repeat 0 0; position:absolute; top:12px; right:7px; cursor:pointer; z-index:1000; }
+.magento_close { width:16px; height:16px; background:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMDAwMDAiIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zOnY9Imh0dHBzOi8vdmVjdGEuaW8vbmFubyI+PHBhdGggZD0iTTE2IDBDNy4xNjQgMCAwIDcuMTYzIDAgMTZzNy4xNjMgMTYgMTYgMTYgMTYtNy4xNjMgMTYtMTZTMjQuODM3IDAgMTYgMHptMCAzMC4wMzJDOC4yOCAzMC4wMzIgMiAyMy43MiAyIDE2QTE0LjAyIDE0LjAyIDAgMCAxIDE2IDJhMTQuMDIgMTQuMDIgMCAwIDEgMTQgMTRjMCA3LjcyLTYuMjggMTQuMDMyLTE0IDE0LjAzMnptNS42NTctMTkuNjg4YTEgMSAwIDAgMC0xLjQxNCAwbC00LjI0MiA0LjI0Mi00LjI0Mi00LjI0MmExIDEgMCAxIDAtMS40MTUgMS40MTRMMTQuNTg2IDE2bC00LjI0MiA0LjI0MmExIDEgMCAxIDAgMS40MTUgMS40MTRsNC4yNDItNC4yNDIgNC4yNDIgNC4yNDJhMSAxIDAgMCAwIDEuNDE0LTEuNDE0TDE3LjQxNSAxNmw0LjI0Mi00LjI0MmExIDEgMCAwIDAgMC0xLjQxNHoiLz48L3N2Zz4=") no-repeat 0 0; position:absolute; top:12px; right:7px; cursor:pointer; z-index:1000; background-size: contain}
 .magento_minimize { width:16px; height:16px; background:url(magento/window_minimize.png) 0 0 no-repeat; position:absolute; top:5px; right:28px; cursor:pointer; z-index:1000; }
 .magento_maximize { width:16px; height:16px; background:url(magento/window_maximize.png)0 0 no-repeat; position:absolute; top:5px; right:49px; cursor:pointer; z-index:1000; }
 
@@ -30,8 +30,3 @@
 
 .magento_button.magento_content { padding:10px; text-align:right; }
 .magento_buttons input.button { border-width:1px; border-style:solid; border-color:#ed6502 #a04300 #a04300 #ed6502;  background:#ffac47 url(magento/btn_bg.gif) 0 100% repeat-x; padding:0 7px 1px 7px; font:bold 12px/18px Arial, Helvetica, sans-serif; color:#fff; cursor:pointer; text-align:center; white-space:nowrap; }
-
-/* FOR IE */
-* html .magento_close { background-image:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/window_maximize.png", sizingMethod="crop"); }
-* html .magento_minimize { background-image:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/window_close.png", sizingMethod="crop");}
-* html .magento_maximize { background-image:none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../themes/magento/window_minimize.png", sizingMethod="crop"); }

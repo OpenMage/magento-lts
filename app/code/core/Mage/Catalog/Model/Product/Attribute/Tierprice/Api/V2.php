@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog_Model_Product_Attribute_Tierprice_Api
 {
@@ -38,7 +26,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
      *
      *  @param      Mage_Catalog_Model_Product $product
      *  @param      array $tierPrices
-     *  @return     array
+     *  @return     array|null
      */
     public function prepareTierPrices($product, $tierPrices = null)
     {
@@ -46,17 +34,18 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             return null;
         }
 
-        $updateValue = array();
+        $updateValue = [];
 
         foreach ($tierPrices as $tierPrice) {
             if (!is_object($tierPrice)
                 || !isset($tierPrice->qty)
-                || !isset($tierPrice->price)) {
+                || !isset($tierPrice->price)
+            ) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
             }
 
             if (!isset($tierPrice->website) || $tierPrice->website == 'all') {
-                $tierPrice->website = 0;
+                $tierPrice->website = 0; // @phpstan-ignore-line
             } else {
                 try {
                     $tierPrice->website = Mage::app()->getWebsite($tierPrice->website)->getId();
@@ -65,24 +54,24 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
                 }
             }
 
-            if (intval($tierPrice->website) > 0 && !in_array($tierPrice->website, $product->getWebsiteIds())) {
+            if ((int) $tierPrice->website > 0 && !in_array($tierPrice->website, $product->getWebsiteIds())) {
                 $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid tier prices. The product is not associated to the requested website.'));
             }
 
             if (!isset($tierPrice->customer_group_id)) {
-                $tierPrice->customer_group_id = 'all';
+                $tierPrice->customer_group_id = 'all'; // @phpstan-ignore-line
             }
 
             if ($tierPrice->customer_group_id == 'all') {
                 $tierPrice->customer_group_id = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }
 
-            $updateValue[] = array(
+            $updateValue[] = [
                 'website_id' => $tierPrice->website,
                 'cust_group' => $tierPrice->customer_group_id,
                 'price_qty'  => $tierPrice->qty,
                 'price'      => $tierPrice->price
-            );
+            ];
         }
 
         return $updateValue;

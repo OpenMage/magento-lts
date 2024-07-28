@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Shipping_Block_Tracking_Popup
+ *
+ * @category   Mage
+ * @package    Mage_Shipping
  *
  * @method string getProtectCode()
  */
@@ -98,12 +90,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $this->_getData('track_id');
     }
 
-     /**
-      * @deprecated after 1.4.0.0-alpha3
-      * Initialize order model instance
-      *
-      * @return Mage_Sales_Model_Order|false
-      */
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order|false
+     */
     protected function _initOrder()
     {
         $order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -132,7 +124,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $ship;
     }
 
-
     /**
      * Retrieve array of tracking info
      *
@@ -140,7 +131,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfo()
     {
-        /* @var Mage_Shipping_Model_Info $info */
+        /** @var Mage_Shipping_Model_Info $info */
         $info = Mage::registry('current_shipping_info');
 
         return $info->getTrackingInfo();
@@ -154,7 +145,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfoByOrder()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         if ($order = $this->_initOrder()) {
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
@@ -162,7 +153,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
+                $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -180,12 +171,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfoByShip()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         if ($shipment = $this->_initShipment()) {
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
+            $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
@@ -204,9 +195,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
         if ($this->getProtectCode() == $track->getProtectCode()) {
-            return array(array($track->getNumberDetail()));
+            return [[$track->getNumberDetail()]];
         }
-        return array(array());
+        return [[]];
     }
 
     /**
@@ -229,7 +220,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function formatDeliveryDate($date)
     {
-        /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
         return $locale->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
@@ -248,10 +238,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         if (!empty($date)) {
             $time = $date . ' ' . $time;
         }
-        
-        /* @var Mage_Core_Model_Locale $locale */
+
         $locale = Mage::app()->getLocale();
-        
+
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         return $locale->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
             ->toString($format);
@@ -260,11 +249,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     /**
      * Is 'contact us' option enabled?
      *
-     * @return boolean
+     * @return bool
      */
     public function getContactUsEnabled()
     {
-        return (bool) Mage::getStoreConfig('contacts/contacts/enabled');
+        return Mage::getStoreConfigFlag('contacts/contacts/enabled');
     }
 
     /**

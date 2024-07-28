@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstract
 {
     /**
@@ -39,13 +26,13 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      *
      * @var array
      */
-    protected $_tracks = array();
+    protected $_tracks = [];
 
-     /**
-     * Order shipments collection
-     *
-     * @var array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
-     */
+    /**
+    * Order shipments collection
+    *
+    * @var array|Mage_Sales_Model_Resource_Order_Shipment_Collection
+    */
     protected $_shipmentsCollection;
 
     /**
@@ -64,7 +51,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
 
         $shipment = Mage::registry('current_shipment');
         if ($shipment) {
-            $this->_shipmentsCollection = array($shipment);
+            $this->_shipmentsCollection = [$shipment];
         } else {
             $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
         }
@@ -73,17 +60,24 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
+
+        return parent::_prepareLayout();
     }
 
     /**
@@ -137,11 +131,11 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         return parent::_prepareItem($renderer);
     }
 
-     /**
-     * Retrieve order shipments collection
-     *
-     * @return array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
-     */
+    /**
+    * Retrieve order shipments collection
+    *
+    * @return array|Mage_Sales_Model_Resource_Order_Shipment_Collection
+    */
     public function getShipmentsCollection()
     {
         return $this->_shipmentsCollection;
@@ -155,7 +149,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentTracks($shipment)
     {
-        $tracks = array();
+        $tracks = [];
         if (!empty($this->_tracks[$shipment->getId()])) {
             $tracks = $this->_tracks[$shipment->getId()];
         }
@@ -200,7 +194,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentItems($shipment)
     {
-        $res = array();
+        $res = [];
         foreach ($shipment->getItemsCollection() as $item) {
             if (!$item->getOrderItem()->getParentItem()) {
                 $res[] = $item;

@@ -65,7 +65,7 @@ Ext.extend(Ext.tree.CheckboxNodeUI, Ext.tree.TreeNodeUI, {
     render : function(bulkRender){
         var n = this.node;
         var targetNode = n.parentNode ?
-            n.parentNode.ui.getContainer() : n.ownerTree.container.dom; /* in later svn builds this changes to n.ownerTree.innerCt.dom */
+            n.parentNode.ui.getContainer() : n.ownerTree.innerCt.dom; /* in previous svn builds this was n.ownerTree.container.dom */
         if(!this.rendered){
             this.rendered = true;
             var a = n.attributes;

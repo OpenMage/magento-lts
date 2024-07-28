@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,19 +18,24 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Customer_Edit_Tab_Orders constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('customer_orders_grid');
-        $this->setDefaultSort('created_at', 'desc');
+        $this->setDefaultSort('created_at');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
@@ -51,6 +45,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             ->addFieldToSelect('created_at')
             ->addFieldToSelect('grand_total')
             ->addFieldToSelect('order_currency_code')
+            ->addFieldToSelect('status')
             ->addFieldToSelect('store_id')
             ->addFieldToSelect('billing_name')
             ->addFieldToSelect('shipping_name')
@@ -61,76 +56,85 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header'    => Mage::helper('customer')->__('Order #'),
             'width'     => '100',
             'index'     => 'increment_id',
-        ));
-
-        $this->addColumn('created_at', array(
-            'header'    => Mage::helper('customer')->__('Purchase On'),
-            'index'     => 'created_at',
-            'type'      => 'datetime',
-        ));
-
-        /*$this->addColumn('shipping_firstname', array(
-            'header'    => Mage::helper('customer')->__('Shipped to First Name'),
-            'index'     => 'shipping_firstname',
-        ));
-
-        $this->addColumn('shipping_lastname', array(
-            'header'    => Mage::helper('customer')->__('Shipped to Last Name'),
-            'index'     => 'shipping_lastname',
-        ));*/
-        $this->addColumn('billing_name', array(
-            'header'    => Mage::helper('customer')->__('Bill to Name'),
-            'index'     => 'billing_name',
-        ));
-
-        $this->addColumn('shipping_name', array(
-            'header'    => Mage::helper('customer')->__('Shipped to Name'),
-            'index'     => 'shipping_name',
-        ));
-
-        $this->addColumn('grand_total', array(
-            'header'    => Mage::helper('customer')->__('Order Total'),
-            'index'     => 'grand_total',
-            'type'      => 'currency',
-            'currency'  => 'order_currency_code',
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'    => Mage::helper('customer')->__('Bought From'),
                 'index'     => 'store_id',
                 'type'      => 'store',
                 'store_view' => true
-            ));
+            ]);
         }
 
+        $this->addColumn('created_at', [
+            'header'    => Mage::helper('customer')->__('Purchase On'),
+            'index'     => 'created_at',
+            'type'      => 'datetime',
+        ]);
+
+        $this->addColumn('billing_name', [
+            'header'    => Mage::helper('customer')->__('Bill to Name'),
+            'index'     => 'billing_name',
+        ]);
+
+        $this->addColumn('shipping_name', [
+            'header'    => Mage::helper('customer')->__('Shipped to Name'),
+            'index'     => 'shipping_name',
+        ]);
+
+        $this->addColumn('grand_total', [
+            'header'    => Mage::helper('customer')->__('Order Total'),
+            'index'     => 'grand_total',
+            'type'      => 'currency',
+            'currency'  => 'order_currency_code',
+        ]);
+
+        $this->addColumn('status', [
+            'header' => Mage::helper('customer')->__('Status'),
+            'index' => 'status',
+            'type'  => 'options',
+            'width' => '150px',
+            'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
+        ]);
+
         if (Mage::helper('sales/reorder')->isAllow()) {
-            $this->addColumn('action', array(
+            $this->addColumn('action', [
                 'header'    => ' ',
                 'filter'    => false,
                 'sortable'  => false,
                 'width'     => '100px',
                 'renderer'  => 'adminhtml/sales_reorder_renderer_action'
-            ));
+            ]);
         }
 
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/orders', array('_current' => true));
+        return $this->getUrl('*/*/orders', ['_current' => true]);
     }
-
 }

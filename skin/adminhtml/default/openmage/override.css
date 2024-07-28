@@ -2,8 +2,17 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass override.scss ../override.css
  */
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 .popup-window .content-header, body {
-  color: #68666f;
+  color: #2f2f2f;
   font: 400 12px/1.33 "Open Sans", sans-serif;
   background: #f6f6f6;
 }
@@ -17,14 +26,14 @@
 
 .content-header h3, .content-header {
   border: 0;
-  color: #68666f;
+  color: #2f2f2f;
   font-size: 24px;
   font-weight: 400;
 }
 
 dl.accordion dt, .entry-edit .entry-edit-head {
   background: #fefefe;
-  color: #68666f;
+  color: #2f2f2f;
   padding: 4px 16px;
   border: 1px solid lightgrey;
 }
@@ -56,12 +65,12 @@ dl.accordion dt, .entry-edit .entry-edit-head {
 
 ul.tabs a:hover, ul.tabs a.active {
   background: #f4f4f4;
-  color: #68666f;
+  color: #2f2f2f;
   transition: background 0.3s ease-in-out;
 }
 
 dl.accordion dt.open a, dl.accordion dt a:hover, dl.accordion dt a, div.collapseable a.open, div.collapseable a:hover, div.collapseable a, .entry-edit .entry-edit-head a, .entry-edit .entry-edit-head strong {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 300;
   font-size: 18px;
   line-height: 32px;
@@ -109,7 +118,6 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
 
 .grid-severity-minor span, .grid-severity-major span, .grid-severity-critical span, .grid-severity-notice span {
   font: 400 12px/1.33 "Open Sans", sans-serif;
-  font-weight: 400;
   padding: 2px 10px;
 }
 
@@ -127,72 +135,60 @@ dl.accordion dt.open a:after, div.collapseable a.open:after {
 
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-SemiBold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-SemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 600;
   font-style: normal;
 }
 h1 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h2 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h3 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h4 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h5 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 h6 {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
 label {
-  color: #68666f;
+  color: #2f2f2f;
   font-weight: 400;
 }
 
@@ -230,7 +226,7 @@ b {
 
 small {
   font-size: 12px;
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .wrapper {
@@ -250,7 +246,7 @@ small {
 
 .content-header-floating {
   opacity: 0.9;
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px #c8c8c8;
 }
 .content-header-floating h3 {
   font-size: 18px;
@@ -263,8 +259,8 @@ small {
 }
 
 .content-header {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .content-header h3 {
   margin: 0 0.3em 0.3em;
@@ -281,8 +277,7 @@ small {
 
 .switcher {
   background: none;
-  padding: 0px;
-  padding-bottom: 10px;
+  padding: 0 0 10px;
   border: none;
 }
 
@@ -290,7 +285,7 @@ small {
   margin-top: 10px;
 }
 .entry-edit .entry-edit-head h4 {
-  color: #68666f;
+  color: #2f2f2f;
   line-height: 32px;
   font-size: 16px;
   font-weight: 300;
@@ -300,6 +295,12 @@ small {
 }
 .entry-edit .entry-edit-head .tools a:hover {
   text-decoration: none;
+}
+.entry-edit .entry-edit-head .icon-copy {
+  width: 16px;
+  height: 16px;
+  margin: 8px 0 0 5px;
+  filter: revert;
 }
 .grid table {
   border: 1px solid lightgrey;
@@ -342,13 +343,25 @@ small {
   border: 1px solid lightgrey;
   border-top: 0;
 }
+.grid tr.filter th.sorted {
+  background: #f7f7f7 !important;
+}
 .grid tr.filter .range .range-line {
-  width: 110px;
+  width: 125px;
 }
 .grid tr.filter .range .label {
-  font-weight: 600;
+  font-weight: 400;
   width: 40px;
   padding: 4px;
+}
+.grid tr.filter .range div.date {
+  min-width: 140px;
+}
+.grid tr.filter .range input, .grid tr.filter .range select {
+  width: 75px !important;
+}
+.grid tr.filter .range select {
+  float: none;
 }
 .grid tr.filter .date img {
   padding-left: 17px;
@@ -366,7 +379,6 @@ small {
   padding: 4px;
   font-size: 12px;
   vertical-align: middle;
-  border: 1px solid #71798e;
   color: #fff;
   font-weight: 400;
 }
@@ -407,12 +419,22 @@ small {
 .grid tbody.odd tr td {
   background: #f6f6f6 !important;
 }
+.grid tbody tr.even td.sorted {
+  background: #e6e6e6 !important;
+}
+.grid tbody tr.odd td.sorted {
+  background: #f7f7f7 !important;
+}
+.grid tbody tr.selected td.sorted {
+  background: #e1f3ff !important;
+}
 .grid td input.input-text {
   min-width: 80px;
 }
 
 .header {
-  background: #000537;
+  background: #3A499D;
+  position: relative;
 }
 
 .header-top {
@@ -421,7 +443,6 @@ small {
 }
 .header-top .logo {
   position: absolute;
-  background: #000537;
   display: block;
   top: 8px;
   left: 0;
@@ -450,7 +471,7 @@ small {
 }
 .header-right fieldset input.input-text {
   width: 250px;
-  border: 0 solid #FF666E73;
+  border: 0 solid rgba(255, 102, 110, 0.4509803922);
   margin-top: -4px;
   background-color: #fff;
   padding-left: 10px;
@@ -465,7 +486,7 @@ small {
   background: #eee;
   padding: 15px;
   margin-top: 30px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #c8c8c8;
   font-size: 12px;
 }
 
@@ -480,7 +501,7 @@ ul.tabs-horiz li {
 }
 ul.tabs-horiz li a {
   background: #eee;
-  color: #68666f !important;
+  color: #2f2f2f !important;
   font-size: 16px;
   font-weight: 300;
   padding: 9px 15px;
@@ -493,31 +514,26 @@ ul.tabs-horiz li a.active {
 }
 ul.tabs {
   background: none;
-  color: #68666f;
+  color: #2f2f2f;
   border-top: 0;
 }
 ul.tabs dl {
-  background: #68666f;
+  background: #fff;
   border: 1px solid lightgrey;
 }
 ul.tabs a {
   background: #fff;
-  color: #68666f;
+  color: #2f2f2f;
   padding: 8px 18px;
   border-bottom: 1px solid #eee;
 }
 ul.tabs a.active {
   border-left: 3px solid #71798e;
   padding: 8px 18px;
-  background: #eee;
-  box-shadow: 0 1px 2px #ccc inset;
   border-bottom: 1px solid #eee;
 }
 ul.tabs a.active span {
-  background: none;
   padding: 0;
-  background: none;
-  font-weight: 400;
   background: none;
   font-weight: 400;
 }
@@ -531,19 +547,14 @@ ul.tabs a:hover.active span {
 ul.tabs span {
   background: none;
   padding: 0;
-  background: none;
   font-weight: 400;
 }
 ul.config-tabs dt {
   border: 0;
   font-weight: 300;
   text-transform: none;
-  padding-left: 10px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-right: 7px;
+  padding: 7px 7px 7px 10px;
   font-size: 18px;
-  border-top: 0;
   background: #71798e;
   color: #fff;
 }
@@ -554,7 +565,7 @@ ul.config-tabs dt {
 }
 
 .nav-bar {
-  background: #68666f;
+  background: #3A499D;
   border: 0;
 }
 
@@ -573,7 +584,7 @@ div.autocomplete {
   box-shadow: 0 3px 3px rgba(50, 50, 50, 0.15);
 }
 div.autocomplete ul li {
-  color: #68666f;
+  color: #2f2f2f;
 }
 div.autocomplete ul li.selected {
   background: #eee;
@@ -587,7 +598,7 @@ div.autocomplete ul li.selected {
 }
 .section-config .section-config > .entry-edit-head > a {
   background: none;
-  color: #68666f;
+  color: #2f2f2f;
   font-size: 14px;
   font-weight: 400;
   border: 0;
@@ -626,7 +637,10 @@ div.autocomplete ul li.selected {
 }
 .massaction td {
   border-top: 0;
-  padding: 10px;
+  padding: 10px 0;
+}
+.massaction .entry-edit fieldset span.form_row, .massaction .entry-edit fieldset span.field-row {
+  padding: 0;
 }
 .massaction .entry-edit .field-row label {
   vertical-align: middle;
@@ -644,11 +658,11 @@ div.autocomplete ul li.selected {
   font-size: 12px;
 }
 .x-tree-node a span {
-  color: #68666f;
+  color: #2f2f2f;
 }
 .x-tree-node .x-tree-selected a span {
   background: lightgrey;
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .categories-side-col .tree-holder {
@@ -659,17 +673,23 @@ div.autocomplete ul li.selected {
 }
 
 #loading-mask {
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  color: #68666f;
   opacity: 1;
+}
+#loading-mask .backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: #2f2f2f;
 }
 #loading-mask .loader {
   width: 160px;
   height: 100px;
   border: 0;
   opacity: 0.95;
-  color: #68666f;
+  color: #2f2f2f;
   background: #fff;
   font-size: 18px;
   font-weight: 400;
@@ -719,7 +739,7 @@ div.autocomplete ul li.selected {
   background-color: #f9f5ec !important;
   background-position: 8px center !important;
   border: 1px solid #dfc97a !important;
-  color: #68666f !important;
+  color: #2f2f2f !important;
 }
 
 .error-msg {
@@ -749,7 +769,7 @@ div.autocomplete ul li.selected {
   background-color: #fffbf0 !important;
   background-position: 8px center !important;
   border: 1px solid #d87e34 !important;
-  color: #68666f !important;
+  color: #2f2f2f !important;
 }
 
 .links-feed {
@@ -767,7 +787,7 @@ div.autocomplete ul li.selected {
   border: 0;
 }
 .options-box .option-title {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #c8c8c8;
 }
 .options-box .option-box {
   background: #fff;
@@ -780,7 +800,7 @@ div.autocomplete ul li.selected {
 
 .login-box {
   border: 1px solid #cacaca;
-  box-shadow: 2px 2px 4px #8080806b;
+  box-shadow: 2px 2px 4px rgba(128, 128, 128, 0.4196078431);
 }
 .login-box .login-form {
   background: white;
@@ -870,6 +890,10 @@ div.autocomplete ul li.selected {
   margin: 4px 0;
 }
 
+.side-col .switcher .link-store-scope {
+  margin: 9px -19px 0 3px;
+}
+
 dl.accordion dt {
   margin-top: 10px;
 }
@@ -893,7 +917,7 @@ table.actions td {
   font-size: 12px;
 }
 .x-dd-drag-ghost a span {
-  color: #68666f;
+  color: #2f2f2f;
 }
 
 .no-active-category a span {
@@ -1048,6 +1072,11 @@ img[src$="grid-cal.gif"] {
 
 .emph, .accent {
   color: #0090FF !important;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select option:disabled,
+  select:disabled option { color:#202856!important; }
 }
 
 /*# sourceMappingURL=override.css.map */

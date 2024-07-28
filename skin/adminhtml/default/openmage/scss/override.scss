@@ -11,37 +11,37 @@ body {
 }
 
 h1 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 h2 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 h3 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 h4 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 h5 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 h6 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
 label {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 400;
 }
 
@@ -84,7 +84,7 @@ b {
 
 small {
   font-size: 12px;
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
 }
 
 .wrapper {
@@ -135,8 +135,8 @@ small {
 
 .content-header {
   @extend %extend_3;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   h3 {
     @extend %extend_3;
     margin: 0 0.3em 0.3em;
@@ -154,10 +154,8 @@ small {
 
 .switcher {
   background: none;
-  padding: 0px;
-  padding-bottom:10px;
+  padding: 0 0 10px;
   border: none;
-
 }
 
 .entry-edit {
@@ -167,7 +165,7 @@ small {
     @extend %extend_4;
 
     h4 {
-      color: $color_dolphin_approx;
+      color: $color_dark_grey;
       line-height: 32px;
       font-size: 16px;
       font-weight: 300;
@@ -187,6 +185,13 @@ small {
 
     a {
       @extend %extend_10;
+    }
+
+    .icon-copy {
+      width: 16px;
+      height: 16px;
+      margin: 8px 0 0 5px;
+      filter: revert;
     }
   }
 
@@ -257,17 +262,33 @@ small {
       th {
         border: 1px solid $color_alto_approx;
         border-top: 0;
+
+        &.sorted {
+          background: darken($white, 3%) !important;
+        }
       }
 
       .range {
         .range-line {
-          width: 110px;
+          width: 125px;
         }
 
         .label {
-          font-weight: 600;
+          font-weight: 400;
           width: 40px;
           padding: 4px;
+        }
+
+        div.date {
+          min-width: 140px;
+        }
+
+        input, select {
+          width: 75px !important;
+        }
+
+        select {
+          float: none;
         }
       }
 
@@ -285,7 +306,6 @@ small {
         padding: 4px;
         font-size: 12px;
         vertical-align: middle;
-        border: 1px solid $color_boulder_approx;
         color: $white;
         font-weight: 400;
 
@@ -352,6 +372,18 @@ small {
     &.odd tr td {
       background: $color_wild_sand_approx !important;
     }
+
+    tr.even td.sorted {
+      background: darken($color_gallery_approx, 3%) !important;
+    }
+
+    tr.odd td.sorted {
+      background: darken($white, 3%) !important;
+    }
+
+    tr.selected td.sorted {
+      background: darken($color_alice_blue_approx, 3%) !important;
+    }
   }
 
   td input.input-text {
@@ -360,7 +392,8 @@ small {
 }
 
 .header {
-  background: $header_background;
+  background: $openmage_base_blue;
+  position: relative;
 }
 
 .header-top {
@@ -368,7 +401,6 @@ small {
   height: 10px;
   .logo {
     position: absolute;
-    background: $header_background;
     display: block;
     top: 8px;
     left: 0;
@@ -437,7 +469,7 @@ ul {
 
       a {
         background: $color_gallery_approx;
-        color: $color_dolphin_approx !important;
+        color: $color_dark_grey !important;
         font-size: 16px;
         font-weight: 300;
         padding: 9px 15px;
@@ -454,17 +486,17 @@ ul {
 
   &.tabs {
     background: none;
-    color: $color_dolphin_approx;
+    color: $color_dark_grey;
     border-top: 0;
 
     dl {
-      background: $color_dolphin_approx;
+      background: $white;
       border: 1px solid $color_alto_approx;
     }
 
     a {
       background: $white;
-      color: $color_dolphin_approx;
+      color: $color_dark_grey;
       padding: 8px 18px;
       border-bottom: 1px solid $color_gallery_approx;
 
@@ -472,16 +504,10 @@ ul {
         @extend %extend_9;
         border-left: 3px solid $color_boulder_approx;
         padding: 8px 18px;
-        background: $color_gallery_approx;
-        //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-        box-shadow: 0 1px 2px $color_silver_approx inset;
         border-bottom: 1px solid $color_gallery_approx;
 
         span {
-          background: none;
           padding: 0;
-          background: none;
-          font-weight: 400;
           background: none;
           font-weight: 400;
         }
@@ -504,7 +530,6 @@ ul {
     span {
       background: none;
       padding: 0;
-      background: none;
       font-weight: 400;
     }
   }
@@ -513,12 +538,8 @@ ul {
     border: 0;
     font-weight: 300;
     text-transform: none;
-    padding-left: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-right: 7px;
+    padding: 7px 7px 7px 10px;
     font-size: 18px;
-    border-top: 0;
     background: $color_boulder_approx;
     color: $white;
   }
@@ -530,7 +551,7 @@ ul {
 }
 
 .nav-bar {
-  background: $color_dolphin_approx;
+  background: $openmage_base_blue;
   border: 0;
 }
 
@@ -568,7 +589,7 @@ div {
     box-shadow: 0 3px 3px $mine_shaft_15;
 
     ul li {
-      color: $color_dolphin_approx;
+      color: $color_dark_grey;
 
       &.selected {
         background: $color_gallery_approx;
@@ -589,7 +610,7 @@ div {
 
         > a {
           background: none;
-          color: $color_dolphin_approx;
+          color: $color_dark_grey;
           font-size: 14px;
           font-weight: 400;
           border: 0;
@@ -649,7 +670,11 @@ div {
 
   td {
     border-top: 0;
-    padding: 10px;
+    padding: 10px 0;
+  }
+
+  .entry-edit fieldset span.form_row, .entry-edit fieldset span.field-row {
+    padding: 0;
   }
 
   .entry-edit .field-row label {
@@ -670,13 +695,13 @@ div {
     font-size: 12px;
 
     span {
-      color: $color_dolphin_approx;
+      color: $color_dark_grey;
     }
   }
 
   .x-tree-selected a span {
     background: $color_alto_approx;
-    color: $color_dolphin_approx;
+    color: $color_dark_grey;
   }
 }
 
@@ -691,17 +716,22 @@ div {
 }
 
 #loading-mask {
-  background: $black_40;
-  z-index: 999;
-  color: $color_dolphin_approx;
   opacity: 1;
-
+  .backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $black_40;
+    color: $color_dark_grey;
+  }
   .loader {
     width: 160px;
     height: 100px;
     border: 0;
     opacity: 0.95;
-    color: $color_dolphin_approx;
+    color: $color_dark_grey;
     background: $white;
     font-size: 18px;
     font-weight: 400;
@@ -756,7 +786,7 @@ div {
   background-color: $color_merino_approx !important;
   background-position: 8px center !important;
   border: 1px solid $color_chenin_approx !important;
-  color: $color_dolphin_approx !important;
+  color: $color_dark_grey !important;
 }
 
 .error-msg {
@@ -789,7 +819,7 @@ div {
   background-color: $color_island_spice_approx !important;
   background-position: 8px center !important;
   border: 1px solid $color_brandy_punch_approx !important;
-  color: $color_dolphin_approx !important;
+  color: $color_dark_grey !important;
 }
 
 .links-feed {
@@ -952,6 +982,10 @@ div {
   margin: 4px 0;
 }
 
+.side-col .switcher .link-store-scope {
+  margin: 9px -19px 0 3px;
+}
+
 dl.accordion dt {
   @extend %extend_4;
   margin-top: 10px;
@@ -994,7 +1028,7 @@ table.actions {
   font-size: 12px;
 
   span {
-    color: $color_dolphin_approx;
+    color: $color_dark_grey;
   }
 }
 
@@ -1132,4 +1166,9 @@ img[src$='grid-cal.gif'] {
 
 .emph, .accent {
   color: $color_action !important;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select option:disabled,
+  select:disabled option { color:#cacaca!important; }
 }

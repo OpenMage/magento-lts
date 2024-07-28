@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,15 +18,14 @@
  *
  * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 {
-    const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
-    const STEP_SHIPPING         = 'multishipping_shipping';
-    const STEP_BILLING          = 'multishipping_billing';
-    const STEP_OVERVIEW         = 'multishipping_overview';
-    const STEP_SUCCESS          = 'multishipping_success';
+    public const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
+    public const STEP_SHIPPING         = 'multishipping_shipping';
+    public const STEP_BILLING          = 'multishipping_billing';
+    public const STEP_OVERVIEW         = 'multishipping_overview';
+    public const STEP_SUCCESS          = 'multishipping_success';
 
     /**
      * Allow steps array
@@ -60,23 +48,23 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     public function __construct()
     {
         parent::__construct();
-        $this->_steps = array(
-            self::STEP_SELECT_ADDRESSES => new Varien_Object(array(
+        $this->_steps = [
+            self::STEP_SELECT_ADDRESSES => new Varien_Object([
                 'label' => Mage::helper('checkout')->__('Select Addresses')
-            )),
-            self::STEP_SHIPPING => new Varien_Object(array(
+            ]),
+            self::STEP_SHIPPING => new Varien_Object([
                 'label' => Mage::helper('checkout')->__('Shipping Information')
-            )),
-            self::STEP_BILLING => new Varien_Object(array(
+            ]),
+            self::STEP_BILLING => new Varien_Object([
                 'label' => Mage::helper('checkout')->__('Billing Information')
-            )),
-            self::STEP_OVERVIEW => new Varien_Object(array(
+            ]),
+            self::STEP_OVERVIEW => new Varien_Object([
                 'label' => Mage::helper('checkout')->__('Place Order')
-            )),
-            self::STEP_SUCCESS => new Varien_Object(array(
+            ]),
+            self::STEP_SUCCESS => new Varien_Object([
                 'label' => Mage::helper('checkout')->__('Order Success')
-            )),
-        );
+            ]),
+        ];
 
         foreach ($this->_steps as $step) {
             $step->setIsComplete(false);

@@ -1,35 +1,30 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const CONFIG_PATH_BASE = 'configswatches';
-    const CONFIG_PATH_ENABLED = 'configswatches/general/enabled';
-    const CONFIG_PATH_SWATCH_ATTRIBUTES = 'configswatches/general/swatch_attributes';
-    const CONFIG_PATH_LIST_SWATCH_ATTRIBUTE = 'configswatches/general/product_list_attribute';
+    public const CONFIG_PATH_BASE = 'configswatches';
+    public const CONFIG_PATH_ENABLED = 'configswatches/general/enabled';
+    public const CONFIG_PATH_SWATCH_ATTRIBUTES = 'configswatches/general/swatch_attributes';
+    public const CONFIG_PATH_LIST_SWATCH_ATTRIBUTE = 'configswatches/general/product_list_attribute';
 
+    protected $_moduleName = 'Mage_ConfigurableSwatches';
 
     protected $_enabled = null;
     protected $_configAttributeIds = null;
@@ -43,8 +38,8 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_enabled)) {
             $this->_enabled = (
-                (bool) Mage::getStoreConfig(self::CONFIG_PATH_ENABLED)
-                && Mage::helper('configurableswatches/productlist')->getSwatchAttribute()
+                Mage::getStoreConfigFlag(self::CONFIG_PATH_ENABLED)
+                && Mage::helper('configurableswatches/productlist')->getSwatchAttributeId()
             );
         }
         return $this->_enabled;
@@ -79,6 +74,9 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public static function normalizeKey($key)
     {
+        if ($key === null || $key === '') {
+            return '';
+        }
         if (function_exists('mb_strtolower')) {
             return trim(mb_strtolower($key, 'UTF-8'));
         }
@@ -93,7 +91,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSwatchAttributeIds()
     {
         if (is_null($this->_configAttributeIds)) {
-            $this->_configAttributeIds = array();
+            $this->_configAttributeIds = [];
             if (Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES)) {
                 $this->_configAttributeIds = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES));
             }
@@ -119,17 +117,17 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get swatches product javascript
      *
-     * @return string | null
+     * @return string|null
      */
     public function getSwatchesProductJs()
     {
-        /**
-         * @var Mage_Catalog_Model_Product $product
-         */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::registry('current_product');
         if ($this->isEnabled() && $product) {
             $configAttrs = $this->getSwatchAttributeIds();
-            $configurableAttributes = $product->getTypeInstance(true)->getConfigurableAttributesAsArray($product);
+            /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+            $productType = $product->getTypeInstance(true);
+            $configurableAttributes = $productType->getConfigurableAttributesAsArray($product);
             foreach ($configurableAttributes as $configurableAttribute) {
                 if (in_array($configurableAttribute['attribute_id'], $configAttrs)) {
                     return 'js/configurableswatches/swatches-product.js';

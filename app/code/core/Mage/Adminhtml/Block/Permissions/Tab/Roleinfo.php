@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * implementing now
- *
+ * @category   Mage
+ * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     public function getTabLabel()
     {
@@ -51,7 +39,8 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
         return false;
     }
 
-    public function _beforeToHtml() {
+    public function _beforeToHtml()
+    {
         $this->_initForm();
 
         return parent::_beforeToHtml();
@@ -63,42 +52,50 @@ class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block
 
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Role Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('adminhtml')->__('Role Information')]);
 
-        $fieldset->addField('role_name', 'text',
-            array(
+        $fieldset->addField(
+            'role_name',
+            'text',
+            [
                 'name'  => 'rolename',
                 'label' => Mage::helper('adminhtml')->__('Role Name'),
                 'id'    => 'role_name',
                 'class' => 'required-entry',
                 'required' => true,
-            )
+            ]
         );
 
-        $fieldset->addField('current_password', 'obscure',
-            array(
+        $fieldset->addField(
+            'current_password',
+            'obscure',
+            [
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'required' => true
-            )
+            ]
         );
 
-        $fieldset->addField('role_id', 'hidden',
-            array(
+        $fieldset->addField(
+            'role_id',
+            'hidden',
+            [
                 'name'  => 'role_id',
                 'id'    => 'role_id',
-            )
+            ]
         );
 
-        $fieldset->addField('in_role_user', 'hidden',
-            array(
+        $fieldset->addField(
+            'in_role_user',
+            'hidden',
+            [
                 'name'  => 'in_role_user',
                 'id'    => 'in_role_userz',
-            )
+            ]
         );
 
-        $fieldset->addField('in_role_user_old', 'hidden', array('name' => 'in_role_user_old'));
+        $fieldset->addField('in_role_user_old', 'hidden', ['name' => 'in_role_user_old']);
 
         $form->setValues($this->getRole()->getData());
         $this->setForm($form);

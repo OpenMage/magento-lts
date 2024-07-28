@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
  ?>
 <?php
@@ -61,7 +50,7 @@ document.observe("dom:loaded", function() {
                             <th><?php echo Mage::helper('sales')->__('Size') ?></th>
                             <th><?php echo Mage::helper('sales')->__('Girth') ?></th>
                             <th>&nbsp;</th>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <th <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?>>
                             <?php echo Mage::helper('sales')->__('Customs Value') ?>
                         </th>
@@ -72,7 +61,7 @@ document.observe("dom:loaded", function() {
                         <th>&nbsp;</th>
                         <?php if ($this->getDeliveryConfirmationTypes()): ?>
                             <th><?php echo Mage::helper('sales')->__('Signature Confirmation') ?></th>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </thead>
@@ -82,12 +71,12 @@ document.observe("dom:loaded", function() {
                             <select name="package_container" onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);"<?php if (empty($containers)):?>
                                 title="<?php echo Mage::helper('sales')->__('Package types are disregarded for USPS domestic shipments.') ?>"
                                 disabled="" class="disabled"
-                            <?php endif; ?>>
+                            <?php endif ?>>
                                 <?php foreach ($this->getContainers() as $key => $value): ?>
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
                         <?php if ($girthEnabled == 1): ?>
@@ -97,7 +86,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $sizeSource[$key]['value'] ?>">
                                         <?php echo $sizeSource[$key]['label'] ?>
                                     </option>
-                                    <?php endforeach; ?>
+                                    <?php endforeach ?>
                                 </select>
                             </td>
                             <td><input type="text" class="input-text validate-greater-than-zero" name="container_girth" /></td>
@@ -107,7 +96,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo Zend_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
                                 </select>
                             </td>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php
                             if ($this->displayCustomsValue()) {
                                 $customsValueDisplay = '';
@@ -150,10 +139,10 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <td>
                             <button type="button" class="scalable AddItemsBtn" onclick="packaging.getItemsForPack(this);">
                                 <span><span><span><?php echo Mage::helper('sales')->__('Add Products') ?></span></span></span>
@@ -184,7 +173,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
                         <td>
@@ -192,7 +181,7 @@ document.observe("dom:loaded", function() {
                         </td>
                     </tbody>
                 </table>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <div class="package-add-products">
                     <div class="package_prapare" style="display:none">

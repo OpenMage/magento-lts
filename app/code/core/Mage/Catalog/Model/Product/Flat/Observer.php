@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Flat observer
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Flat_Observer
 {
@@ -67,7 +54,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
 
         $enableBefore   = ($attribute->getOrigData('backend_type') == 'static')
             || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0)
@@ -176,7 +163,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         $this->_getIndexer()->rebuild($store->getId());
 
         return $this;
@@ -195,7 +182,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         if ($store->dataHasChangedFor('group_id')) {
             $this->_getIndexer()->rebuild($store->getId());
         }
@@ -216,7 +203,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
 
         $this->_getIndexer()->deleteStore($store->getId());
 
@@ -236,11 +223,11 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $group = $observer->getEvent()->getGroup();
-        /* @var Mage_Core_Model_Store_Group $group */
+        /** @var Mage_Core_Model_Store_Group $group */
 
         if ($group->dataHasChangedFor('website_id')) {
             foreach ($group->getStores() as $store) {
-                /* @var Mage_Core_Model_Store $store */
+                /** @var Mage_Core_Model_Store $store */
                 $this->_getIndexer()->rebuild($store->getId());
             }
         }
@@ -278,9 +265,10 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $customerGroup = $observer->getEvent()->getObject();
-        /* @var Mage_Customer_Model_Group $customerGroup */
+        /** @var Mage_Customer_Model_Group $customerGroup */
         if ($customerGroup->dataHasChangedFor($customerGroup->getIdFieldName())
-            || $customerGroup->dataHasChangedFor('tax_class_id')) {
+            || $customerGroup->dataHasChangedFor('tax_class_id')
+        ) {
             $this->_getIndexer()->updateEventAttributes();
         }
         return $this;

@@ -1,33 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payment method abstract model
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Payment
  *
  * @method string getCheckoutRedirectUrl()
  * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
@@ -43,29 +33,29 @@
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
-    const ACTION_ORDER             = 'order';
-    const ACTION_AUTHORIZE         = 'authorize';
-    const ACTION_AUTHORIZE_CAPTURE = 'authorize_capture';
+    public const ACTION_ORDER             = 'order';
+    public const ACTION_AUTHORIZE         = 'authorize';
+    public const ACTION_AUTHORIZE_CAPTURE = 'authorize_capture';
 
-    const STATUS_UNKNOWN    = 'UNKNOWN';
-    const STATUS_APPROVED   = 'APPROVED';
-    const STATUS_ERROR      = 'ERROR';
-    const STATUS_DECLINED   = 'DECLINED';
-    const STATUS_VOID       = 'VOID';
-    const STATUS_SUCCESS    = 'SUCCESS';
+    public const STATUS_UNKNOWN    = 'UNKNOWN';
+    public const STATUS_APPROVED   = 'APPROVED';
+    public const STATUS_ERROR      = 'ERROR';
+    public const STATUS_DECLINED   = 'DECLINED';
+    public const STATUS_VOID       = 'VOID';
+    public const STATUS_SUCCESS    = 'SUCCESS';
 
     /**
      * Bit masks to specify different payment method checks.
      * @see Mage_Payment_Model_Method_Abstract::isApplicableToQuote
      */
-    const CHECK_USE_FOR_COUNTRY       = 1;
-    const CHECK_USE_FOR_CURRENCY      = 2;
-    const CHECK_USE_CHECKOUT          = 4;
-    const CHECK_USE_FOR_MULTISHIPPING = 8;
-    const CHECK_USE_INTERNAL          = 16;
-    const CHECK_ORDER_TOTAL_MIN_MAX   = 32;
-    const CHECK_RECURRING_PROFILES    = 64;
-    const CHECK_ZERO_TOTAL            = 128;
+    public const CHECK_USE_FOR_COUNTRY       = 1;
+    public const CHECK_USE_FOR_CURRENCY      = 2;
+    public const CHECK_USE_CHECKOUT          = 4;
+    public const CHECK_USE_FOR_MULTISHIPPING = 8;
+    public const CHECK_USE_INTERNAL          = 16;
+    public const CHECK_ORDER_TOTAL_MIN_MAX   = 32;
+    public const CHECK_RECURRING_PROFILES    = 64;
+    public const CHECK_ZERO_TOTAL            = 128;
 
     protected $_code;
     protected $_formBlockType = 'payment/form';
@@ -104,7 +94,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     public function __construct()
     {
@@ -261,7 +251,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -295,7 +285,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         /*
         for specific country, the flag will set up as 1
         */
-        if ($this->getConfigData('allowspecific')==1) {
+        if ($this->getConfigData('allowspecific') == 1) {
             $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             if (!in_array($country, $availableCountries)) {
                 return false;
@@ -308,7 +298,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Check method for processing with base currency
      *
      * @param string $currencyCode
-     * @return boolean
+     * @return bool
      */
     public function canUseForCurrency($currencyCode)
     {
@@ -380,7 +370,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve payment iformation model object
+     * Retrieve payment information model object
      *
      * @return Mage_Payment_Model_Info
      */
@@ -400,10 +390,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
+        // Validate that payment method is allowed for billing country
+        $paymentInfo = $this->getInfoInstance();
         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
         } else {
@@ -412,7 +400,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->canUseForCountry($billingCountry)) {
             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
         }
-         return $this;
+        return $this;
     }
 
     /**
@@ -501,11 +489,9 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function refund(Varien_Object $payment, $amount)
     {
-
         if (!$this->canRefund()) {
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
-
 
         return $this;
     }
@@ -625,10 +611,10 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function getConfigData($field, $storeId = null)
     {
-        if (null === $storeId) {
+        if ($storeId === null) {
             $storeId = $this->getStore();
         }
-        $path = 'payment/'.$this->getCode().'/'.$field;
+        $path = 'payment/' . $this->getCode() . '/' . $field;
         return Mage::getStoreConfig($path, $storeId);
     }
 
@@ -648,11 +634,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-   /**
-     * Prepare info instance for save
-     *
-     * @return $this
-     */
+    /**
+      * Prepare info instance for save
+      *
+      * @return $this
+      */
     public function prepareSave()
     {
         return $this;
@@ -669,15 +655,15 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function isAvailable($quote = null)
     {
-        $checkResult = new stdClass;
+        $checkResult = new stdClass();
         $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
-        Mage::dispatchEvent('payment_method_is_active', array(
+        Mage::dispatchEvent('payment_method_is_active', [
             'result'          => $checkResult,
             'method_instance' => $this,
             'quote'           => $quote,
-        ));
+        ]);
 
         if ($checkResult->isAvailable && $quote) {
             $checkResult->isAvailable = $this->isApplicableToQuote($quote, self::CHECK_RECURRING_PROFILES);

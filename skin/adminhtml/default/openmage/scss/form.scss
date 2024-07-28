@@ -29,7 +29,6 @@ textarea {
 select {
   @extend %extend_18;
   height: 26px;
-  margin: 0 0 8px;
   border: 1px solid $color_silver_approx;
   box-sizing: border-box;
   text-transform: none;
@@ -357,7 +356,7 @@ button[disabled] {
     @extend %extend_19;
 
     label {
-      padding: 5px 15px 0 0;
+      padding: 0 15px 0 0;
       @extend %extend_19;
     }
   }
@@ -370,11 +369,7 @@ button[disabled] {
   &.value {
     padding-left: 0 !important;
 
-    textarea {
-      width: 324px;
-    }
-
-    select {
+    input.input-text, textarea, select {
       width: 330px;
     }
 
@@ -382,10 +377,6 @@ button[disabled] {
       color: $color_dorado_approx;
       font-size: 11px;
       font-weight: 400;
-    }
-
-    input.input-text {
-      width: 324px;
     }
   }
 }
@@ -411,4 +402,45 @@ fieldset[disabled] button {
 .input-text.large {
   padding: 12px 12px 14px;
   font-size: 18px;
+}
+
+td:has(input.swatch-option) {
+  display: flex;
+  gap: 2px;
+  .swatch-delete {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    font-size: 10px;
+    background: $color_cinnabar_approx;
+    color: $white;
+    border-radius: 2px;
+  }
+  .swatch-option {
+    width: 26px !important;
+    height: 26px;
+  }
+}
+
+td:has(input.swatch-disabled) {
+  background-image: url('data:image/svg+xml,<svg id="e5490f2e-3f54-4acd-9496-57eed667c240" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28.41093 28.29249"><title>placeholder</title><rect x="1.20546" y="1.08375" width="26" height="26" fill="%23fff" stroke="%23ccc" stroke-miterlimit="10"/><line x1="0.70546" y1="27.58375" x2="27.70546" y2="0.70875" fill="none" stroke="%23ff003a" stroke-miterlimit="10" stroke-width="2"/></svg>');
+  background-repeat: no-repeat;
+  outline: 1px solid #c8c8c8;
+  border: 1px solid #fff;
+  padding: 0;
+  margin: 2px;
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-position: center center;
+  border-radius: 2px;
+  
+  .swatch-option {
+    opacity: 0;
+  }
+  .swatch-delete {
+    display: none;
+  }
 }

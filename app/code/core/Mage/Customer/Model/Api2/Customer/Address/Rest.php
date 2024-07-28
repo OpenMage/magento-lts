@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Customer
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Customer_Model_Api2_Customer_Address
 {
@@ -42,7 +30,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
         $validator = $this->_getValidator();
 
@@ -58,7 +45,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $data['region'] = $this->_getRegionIdByNameOrCode($data['region'], $data['country_id']);
         }
 
-        /* @var Mage_Customer_Model_Address $address */
+        /** @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address');
         $address->setData($data);
         $address->setCustomer($customer);
@@ -68,6 +55,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
         return $this->_getLocation($address);
@@ -81,7 +69,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieve()
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $addressData = $address->getData();
         $addressData['street'] = $address->getStreet();
@@ -95,8 +82,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieveCollection()
     {
-        $data = array();
-        /* @var Mage_Customer_Model_Address $address */
+        $data = [];
+        /** @var Mage_Customer_Model_Address $address */
         foreach ($this->_getCollectionForRetrieve() as $address) {
             $addressData           = $address->getData();
             $addressData['street'] = $address->getStreet();
@@ -112,10 +99,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
 
-        /* @var Mage_Customer_Model_Resource_Address_Collection $collection */
+        /** @var Mage_Customer_Model_Resource_Address_Collection $collection */
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
@@ -130,10 +116,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
-        return array(
+        return [
             'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
             'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
-        );
+        ];
     }
 
     /**
@@ -144,13 +130,13 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _update(array $data)
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $validator = $this->_getValidator();
 
         $data = $validator->filter($data);
         if (!$validator->isValidData($data, true)
-            || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)) {
+            || !$validator->isValidDataForChangeAssociationWithCountry($address, $data)
+        ) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
@@ -159,7 +145,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
-                isset($data['country_id']) ? $data['country_id'] : $address->getCountryId()
+                $data['country_id'] ?? $address->getCountryId()
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
@@ -170,6 +156,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -179,7 +166,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _delete()
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
 
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {
@@ -193,6 +179,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

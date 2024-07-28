@@ -1,0 +1,56 @@
+name: PHPUnit
+
+on:
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: OpenMage/Testfield
+          path: ./
+
+      - name: Validate composer
+        run: composer validate
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+
+      - name: Checkout OpenMage repo
+        uses: actions/checkout@v4
+        with:
+          path: openmage
+
+      - name: Install OpenMage dependencies
+        working-directory: ./openmage
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
+
+      - name: run phpUnit
+        run: bash ./run_unit_tests.sh
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.7
+        if: always()
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: output/*.xml

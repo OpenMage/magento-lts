@@ -1,39 +1,28 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ProductAlert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ProductAlert
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * ProductAlert data helper
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 {
+    protected $_moduleName = 'Mage_ProductAlert';
+
     /**
      * Current product instance (override registry one)
      *
@@ -89,30 +78,30 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
      */
     public function getSaveUrl($type)
     {
-        return $this->_getUrl('productalert/add/' . $type, array(
+        return $this->_getUrl('productalert/add/' . $type, [
             'product_id'    => $this->getProduct()->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        ));
+        ]);
     }
 
     /**
      * @param string $block
-     * @return string
+     * @return Mage_ProductAlert_Block_Email_Price|Mage_ProductAlert_Block_Email_Stock
      * @throws Mage_Core_Exception
      */
     public function createBlock($block)
     {
         $error = Mage::helper('core')->__('Invalid block type: %s', $block);
         if (is_string($block)) {
-            if (strpos($block, '/') !== false) {
+            if (str_contains($block, '/')) {
                 if (!$block = Mage::getConfig()->getBlockClassName($block)) {
                     Mage::throwException($error);
                 }
             }
             $fileName = mageFindClassFile($block);
-            if ($fileName!==false) {
+            if ($fileName !== false) {
                 include_once($fileName);
-                $block = new $block(array());
+                $block = new $block([]);
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {

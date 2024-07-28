@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Resource
 {
@@ -40,9 +28,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      */
     protected $_entityTypeId;
 
-    /**
-     * Constructor. Initializes default values.
-     */
     public function __construct()
     {
         $this->_storeIdSessionField = 'product_store_id';
@@ -63,12 +48,13 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $attributes = Mage::getModel('catalog/product')->getResource()
                 ->loadAllAttributes()
                 ->getSortedAttributes($setId);
-        $result = array();
+        $result = [];
 
         foreach ($attributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ((!$attribute->getId() || $attribute->isInSet($setId))
-                    && $this->_isAllowedAttribute($attribute)) {
+                    && $this->_isAllowedAttribute($attribute)
+            ) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -77,13 +63,13 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                     $scope = 'store';
                 }
 
-                $result[] = array(
+                $result[] = [
                     'attribute_id' => $attribute->getId(),
                     'code' => $attribute->getAttributeCode(),
                     'type' => $attribute->getFrontendInput(),
                     'required' => $attribute->getIsRequired(),
                     'scope' => $scope
-                );
+                ];
             }
         }
 
@@ -105,20 +91,21 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                 ->getResource()
                 ->getAttribute($attributeId);
 
-        /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
         if (!$attribute) {
             $this->_fault('not_exists');
         }
-        $options = array();
+        $options = [];
         if ($attribute->usesSource()) {
+            $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $options[] = $optionValue;
                 } else {
-                    $options[] = array(
+                    $options[] = [
                         'value' => $optionId,
                         'label' => $optionValue
-                    );
+                    ];
                 }
             }
         }
@@ -140,7 +127,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Create new product attribute
      *
      * @param array $data input data
-     * @return integer
+     * @return int
      */
     public function create($data)
     {
@@ -159,7 +146,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
 
         //validate frontend_input
-        $allowedTypes = array();
+        $allowedTypes = [];
         foreach ($this->types() as $type) {
             $allowedTypes[] = $type['value'];
         }
@@ -169,7 +156,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         $data['source_model'] = $helper->getAttributeSourceModelByInputType($data['frontend_input']);
         $data['backend_model'] = $helper->getAttributeBackendModelByInputType($data['frontend_input']);
-        if (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0) {
+        if (!$model->getBackendType() && (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0)) {
             $data['backend_type'] = $model->getBackendTypeByInput($data['frontend_input']);
         }
 
@@ -182,7 +169,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         try {
             $model->save();
             // clear translation cache because attribute labels are stored in translation
-            Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
+            Mage::app()->cleanCache([Mage_Core_Model_Translate::CACHE_TAG]);
         } catch (Exception $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
@@ -193,9 +180,9 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Update product attribute
      *
-     * @param string|integer $attribute attribute code or ID
+     * @param string|int $attribute attribute code or ID
      * @param array $data
-     * @return boolean
+     * @return bool
      */
     public function update($attribute, $data)
     {
@@ -215,24 +202,28 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         try {
             $model->save();
             // clear translation cache because attribute labels are stored in translation
-            Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
-            return true;
+            Mage::app()->cleanCache([Mage_Core_Model_Translate::CACHE_TAG]);
         } catch (Exception $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
+        return true;
     }
 
     /**
      * Remove attribute
      *
-     * @param integer|string $attribute attribute ID or code
-     * @return boolean
+     * @param int|string $attribute attribute ID or code
+     * @return true|void
      */
     public function remove($attribute)
     {
         $model = $this->_getAttribute($attribute);
 
         if ($model->getEntityTypeId() != $this->_entityTypeId) {
+            $this->_fault('can_not_delete');
+        }
+
+        if (!$model->getIsUserDefined()) {
             $this->_fault('can_not_delete');
         }
 
@@ -247,7 +238,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Get full information about attribute with list of options
      *
-     * @param integer|string $attribute attribute ID or code
+     * @param int|string $attribute attribute ID or code
      * @return array
      */
     public function info($attribute)
@@ -262,20 +253,20 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $scope = 'store';
         }
 
-        $frontendLabels = array(
-            array(
+        $frontendLabels = [
+            [
                 'store_id' => 0,
                 'label' => $model->getFrontendLabel()
-            )
-        );
+            ]
+        ];
         foreach ($model->getStoreLabels() as $store_id => $label) {
-            $frontendLabels[] = array(
+            $frontendLabels[] = [
                 'store_id' => $store_id,
                 'label' => $label
-            );
+            ];
         }
 
-        $result = array(
+        $result = [
             'attribute_id' => $model->getId(),
             'attribute_code' => $model->getAttributeCode(),
             'frontend_input' => $model->getFrontendInput(),
@@ -291,7 +282,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             'is_visible_on_front' => $model->getIsVisibleOnFront(),
             'used_in_product_listing' => $model->getUsedInProductListing(),
             'frontend_label' => $frontendLabels
-        );
+        ];
         if ($model->getFrontendInput() != 'price') {
             $result['scope'] = $scope;
         }
@@ -299,42 +290,42 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         // set additional fields to different types
         switch ($model->getFrontendInput()) {
             case 'text':
-                    $result['additional_fields'] = array(
-                        'frontend_class' => $model->getFrontendClass(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
+                $result['additional_fields'] = [
+                    'frontend_class' => $model->getFrontendClass(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             case 'textarea':
-                    $result['additional_fields'] = array(
-                        'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                        'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    );
+                $result['additional_fields'] = [
+                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                ];
                 break;
             case 'date':
             case 'boolean':
-                    $result['additional_fields'] = array(
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
+                $result['additional_fields'] = [
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             case 'multiselect':
-                    $result['additional_fields'] = array(
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition()
-                    );
+                $result['additional_fields'] = [
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition()
+                ];
                 break;
             case 'select':
             case 'price':
-                    $result['additional_fields'] = array(
-                        'is_filterable' => $model->getIsFilterable(),
-                        'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                        'position' => $model->getPosition(),
-                        'used_for_sort_by' => $model->getUsedForSortBy()
-                    );
+                $result['additional_fields'] = [
+                    'is_filterable' => $model->getIsFilterable(),
+                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                    'position' => $model->getPosition(),
+                    'used_for_sort_by' => $model->getUsedForSortBy()
+                ];
                 break;
             default:
-                    $result['additional_fields'] = array();
+                $result['additional_fields'] = [];
                 break;
         }
 
@@ -355,7 +346,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Add option to select or multiselect attribute
      *
-     * @param  integer|string $attribute attribute ID or code
+     * @param  int|string $attribute attribute ID or code
      * @param  array $data
      * @return bool
      */
@@ -370,7 +361,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         /** @var Mage_Catalog_Helper_Data $helperCatalog */
         $helperCatalog = Mage::helper('catalog');
 
-        $optionLabels = array();
+        $optionLabels = [];
         foreach ($data['label'] as $label) {
             $storeId = $label['store_id'];
             $labelText = $helperCatalog->stripTags($label['value']);
@@ -385,16 +376,16 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         // data in the following format is accepted by the model
         // it simulates parameters of the request made to
         // Mage_Adminhtml_Catalog_Product_AttributeController::saveAction()
-        $modelData = array(
-            'option' => array(
-                'value' => array(
+        $modelData = [
+            'option' => [
+                'value' => [
                     'option_1' => $optionLabels
-                ),
-                'order' => array(
+                ],
+                'order' => [
                     'option_1' => (int) $data['order']
-                )
-            )
-        );
+                ]
+            ]
+        ];
         if ($data['is_default']) {
             $modelData['default'][] = 'option_1';
         }
@@ -412,8 +403,8 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Remove option from select or multiselect attribute
      *
-     * @param  integer|string $attribute attribute ID or code
-     * @param  integer $optionId option to remove ID
+     * @param  int|string $attribute attribute ID or code
+     * @param  int $optionId option to remove ID
      * @return bool
      */
     public function removeOption($attribute, $optionId)
@@ -427,16 +418,16 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         // data in the following format is accepted by the model
         // it simulates parameters of the request made to
         // Mage_Adminhtml_Catalog_Product_AttributeController::saveAction()
-        $modelData = array(
-            'option' => array(
-                'value' => array(
-                    $optionId => array()
-                ),
-                'delete' => array(
+        $modelData = [
+            'option' => [
+                'value' => [
+                    $optionId => []
+                ],
+                'delete' => [
                     $optionId => '1'
-                )
-            )
-        );
+                ]
+            ]
+        ];
         $model->addData($modelData);
         try {
             $model->save();
@@ -451,7 +442,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Prepare request input data for saving
      *
      * @param array $data input data
-     * @return void
      */
     protected function _prepareDataForSave(&$data)
     {
@@ -475,11 +465,11 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $data['is_filterable_in_search'] = 0;
         }
         if (!isset($data['apply_to'])) {
-            $data['apply_to'] = array();
+            $data['apply_to'] = [];
         }
         // set frontend labels array with store_id as keys
         if (isset($data['frontend_label']) && is_array($data['frontend_label'])) {
-            $labels = array();
+            $labels = [];
             foreach ($data['frontend_label'] as $label) {
                 $storeId = $label['store_id'];
                 $labelText = $helperCatalog->stripTags($label['label']);
@@ -501,7 +491,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
     /**
      * Load model by attribute ID or code
      *
-     * @param integer|string $attribute
+     * @param int|string $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected function _getAttribute($attribute)
@@ -510,7 +500,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             ->setEntityTypeId($this->_entityTypeId);
 
         if (is_numeric($attribute)) {
-            $model->load(intval($attribute));
+            $model->load((int) $attribute);
         } else {
             $model->load($attribute, 'attribute_code');
         }
@@ -521,4 +511,4 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         return $model;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Api End
+}

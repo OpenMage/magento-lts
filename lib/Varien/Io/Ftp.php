@@ -1,46 +1,33 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Io
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * FTP client
  *
  * @category   Varien
  * @package    Varien_Io
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
-    const ERROR_EMPTY_HOST = 1;
-    const ERROR_INVALID_CONNECTION = 2;
-    const ERROR_INVALID_LOGIN = 3;
-    const ERROR_INVALID_PATH = 4;
-    const ERROR_INVALID_MODE = 5;
-    const ERROR_INVALID_DESTINATION = 6;
-    const ERROR_INVALID_SOURCE = 7;
+    public const ERROR_EMPTY_HOST = 1;
+    public const ERROR_INVALID_CONNECTION = 2;
+    public const ERROR_INVALID_LOGIN = 3;
+    public const ERROR_INVALID_PATH = 4;
+    public const ERROR_INVALID_MODE = 5;
+    public const ERROR_INVALID_DESTINATION = 6;
+    public const ERROR_INVALID_SOURCE = 7;
 
     /**
      * Connection config
@@ -81,8 +68,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param array $args
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function open(array $args=array())
+    public function open(array $args = [])
     {
         if (empty($args['host'])) {
             $this->_error = self::ERROR_EMPTY_HOST;
@@ -151,6 +140,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Close a connection
      *
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function close()
     {
@@ -165,8 +156,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param int $mode
      * @param boolean $recursive
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function mkdir($dir, $mode=0777, $recursive=true)
+    public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         return @ftp_mkdir($this->_conn, $dir);
     }
@@ -176,8 +169,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function rmdir($dir, $recursive=false)
+    public function rmdir($dir, $recursive = false)
     {
         return @ftp_rmdir($this->_conn, $dir);
     }
@@ -186,6 +181,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Get current working directory
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function pwd()
     {
@@ -197,6 +194,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function cd($dir)
     {
@@ -208,9 +207,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource|null $dest destination file name, stream, or if null will return file contents
-     * @return string
+     * @return bool|string
      */
-    public function read($filename, $dest=null)
+    public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
             $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
@@ -242,8 +241,10 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
      * @return int|boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function write($filename, $src, $mode=null)
+    public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
@@ -272,6 +273,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function rm($filename)
     {
@@ -284,6 +287,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $src
      * @param string $dest
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mv($src, $dest)
     {
@@ -296,31 +301,36 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @param string $filename
      * @param int $mode
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function chmod($filename, $mode)
     {
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
-    public function ls($grep=null)
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
+    public function ls($grep = null)
     {
         $ls = @ftp_nlist($this->_conn, '.');
 
-        $list = array();
+        $list = [];
         foreach ($ls as $file) {
-            $list[] = array(
-                'text'=>$file,
-                'id'=>$this->pwd().'/'.$file,
-            );
+            $list[] = [
+                'text' => $file,
+                'id' => $this->pwd() . '/' . $file,
+            ];
         }
 
         return $list;
     }
 
-    protected function _tmpFilename($new=false)
+    protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam( md5(uniqid(rand(), TRUE)), '' );
+            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
         }
         return $this->_tmpFilename;
     }

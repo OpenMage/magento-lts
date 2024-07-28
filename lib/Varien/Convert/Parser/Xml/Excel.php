@@ -1,43 +1,30 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Convert
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Convert
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Convert excel xml parser
  *
  * @category   Varien
  * @package    Varien_Convert
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 {
     /**
      * XML instance for a cell data
      *
-     * @var SimpleXMLElement
+     * @var SimpleXMLElement|null
      */
     protected $_xmlElement;
 
@@ -54,20 +41,20 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
-            $fieldNames = array();
-            $wsData = array();
+            $fieldNames = [];
+            $wsData = [];
             foreach ($rows as $row) {
                 $index = 1;
                 $cells = $row->getElementsByTagName('Cell');
-                $rowData = array();
+                $rowData = [];
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
-                    if (!is_null($ind) && $ind>0) {
+                    if (!is_null($ind) && $ind > 0) {
                         $index = $ind;
                     }
                     if ($firstRow && !$this->getVar('fieldnames')) {
-                        $fieldNames[$index] = 'column'.$index;
+                        $fieldNames[$index] = 'column' . $index;
                     }
                     if ($firstRow && $this->getVar('fieldnames')) {
                         $fieldNames[$index] = $value;
@@ -82,7 +69,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 }
             }
             $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "'.$wsName.'" with '.sizeof($wsData).' row(s)');
+            $this->addException('Found worksheet "' . $wsName . '" with ' . count($wsData) . ' row(s)');
         }
         if ($wsName = $this->getVar('single_sheet')) {
             if (isset($data[$wsName])) {
@@ -99,34 +86,34 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     public function unparse()
     {
         if ($wsName = $this->getVar('single_sheet')) {
-            $data = array($wsName => $this->getData());
+            $data = [$wsName => $this->getData()];
         } else {
             $data = $this->getData();
         }
 
         $this->validateDataGrid();
 
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'.'>
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?' . '>
 <Workbook xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">';
 
         if (is_array($data)) {
-            foreach ($data as $wsName=>$wsData) {
+            foreach ($data as $wsName => $wsData) {
                 if (!is_array($wsData)) {
                     continue;
                 }
                 $fields = $this->getGridFields($wsData);
 
-                $xml .= '<Worksheet ss:Name="'.$wsName.'"><ss:Table>';
+                $xml .= '<Worksheet ss:Name="' . $wsName . '"><ss:Table>';
                 if ($this->getVar('fieldnames')) {
                     $xml .= '<ss:Row>';
                     foreach ($fields as $fieldName) {
-                        $xml .= '<ss:Cell><Data ss:Type="String">'.$fieldName.'</Data></ss:Cell>';
+                        $xml .= '<ss:Cell><Data ss:Type="String">' . $fieldName . '</Data></ss:Cell>';
                     }
                     $xml .= '</ss:Row>';
                 }
-                foreach ($wsData as $i=>$row) {
+                foreach ($wsData as $i => $row) {
                     if (!is_array($row)) {
                         continue;
                     }
@@ -161,7 +148,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $sheetName = 'Sheet 1';
         }
         $sheetName = htmlspecialchars($sheetName);
-        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
             . '><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -198,7 +185,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
      */
     public function getRowXml(array $row)
     {
-        $xmlHeader = '<'.'?xml version="1.0"?'.'>' . "\n";
+        $xmlHeader = '<' . '?xml version="1.0"?' . '>' . "\n";
         $xmlRegexp = '/^<cell><row>(.*)?<\/row><\/cell>\s?$/ms';
 
         if (is_null($this->_xmlElement)) {
@@ -206,7 +193,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $this->_xmlElement = new SimpleXMLElement($xmlString, LIBXML_NOBLANKS);
         }
 
-        $xmlData = array();
+        $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($row as $value) {
             $this->_xmlElement->row = htmlspecialchars($value);
@@ -222,10 +209,10 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $value = str_replace("\r", '&#10;', $value);
             $value = str_replace("\n", '&#10;', $value);
 
-            $xmlData[] = '<Cell><Data ss:Type="'.$dataType.'">'.$value.'</Data></Cell>';
+            $xmlData[] = '<Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></Cell>';
         }
         $xmlData[] = '</Row>';
 
-        return join('', $xmlData);
+        return implode('', $xmlData);
     }
 }

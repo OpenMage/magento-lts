@@ -1,31 +1,21 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Class Mage_Checkout_Model_Session
+ * @category   Mage
+ * @package    Mage_Checkout
  *
  * @method $this setAdditionalMessages(array $value)
  *
@@ -61,8 +51,8 @@
  * @method int getLastQuoteId()
  * @method $this setLastQuoteId(int $value)
  * @method $this unsLastQuoteId()
- * @method int getLastRealOrderId()
- * @method $this setLastRealOrderId(int $value)
+ * @method string getLastRealOrderId()
+ * @method $this setLastRealOrderId(string $value)
  * @method $this unsLastRealOrderId()
  * @method int getLastRecurringProfileIds()
  * @method $this setLastRecurringProfileIds(array $value)
@@ -104,7 +94,7 @@
  */
 class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-    const CHECKOUT_STATE_BEGIN = 'begin';
+    public const CHECKOUT_STATE_BEGIN = 'begin';
 
     /**
      * Quote instance
@@ -149,6 +139,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         parent::unsetAll();
         $this->_quote = null;
+        return $this;
     }
 
     /**
@@ -192,7 +183,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function getQuote()
     {
-        Mage::dispatchEvent('custom_quote_process', array('checkout_session' => $this));
+        Mage::dispatchEvent('custom_quote_process', ['checkout_session' => $this]);
 
         if ($this->_quote === null) {
             /** @var Mage_Sales_Model_Quote $quote */
@@ -233,7 +224,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                     $this->setQuoteId($quote->getId());
                 } else {
                     $quote->setIsCheckoutCart(true);
-                    Mage::dispatchEvent('checkout_quote_init', array('quote'=>$quote));
+                    Mage::dispatchEvent('checkout_quote_init', ['quote' => $quote]);
                 }
             }
 
@@ -292,7 +283,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             return $this;
         }
 
-        Mage::dispatchEvent('load_customer_quote_before', array('checkout_session' => $this));
+        Mage::dispatchEvent('load_customer_quote_before', ['checkout_session' => $this]);
 
         $customerQuote = Mage::getModel('sales/quote')
             ->setStoreId(Mage::app()->getStore()->getId())
@@ -323,9 +314,13 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param array $step
-     * @param array $data
-     * @param string $value
+     * Set step data for given checkout step (e.g. "billing").
+     * By providing the two parameters data and value, the data will be added to existing step data.
+     * By providing an associative array [data => value, ...] the existing step data will be replaced.
+     *
+     * @param string $step
+     * @param array|string $data
+     * @param mixed|null $value
      * @return $this
      */
     public function setStepData($step, $data, $value = null)
@@ -337,7 +332,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             }
         } else {
             if (!isset($steps[$step])) {
-                $steps[$step] = array();
+                $steps[$step] = [];
             }
             if (is_string($data)) {
                 $steps[$step][$data] = $value;
@@ -349,9 +344,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param array $step
-     * @param array $data
-     * @return array|false
+     * Returns existing step data for all steps ($step = null) or the provided checkout step.
+     * By providing $data only this data of the given step will be returned, or false if not set.
+     *
+     * @param string|null $step
+     * @param string|null $data
+     * @return array|mixed|false
      */
     public function getStepData($step = null, $data = null)
     {
@@ -384,7 +382,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $additionalMessages = $this->getData('additional_messages');
         if (!$additionalMessages) {
-            return array();
+            return [];
         }
         if ($clear) {
             $this->setData('additional_messages', null);
@@ -467,7 +465,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function clear()
     {
-        Mage::dispatchEvent('checkout_quote_destroy', array('quote'=>$this->getQuote()));
+        Mage::dispatchEvent('checkout_quote_destroy', ['quote' => $this->getQuote()]);
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);

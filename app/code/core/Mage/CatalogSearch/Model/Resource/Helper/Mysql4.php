@@ -1,40 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CatalogSearch Mysql resource helper model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
  */
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
 {
-
     /**
      * Join information for usin full text search
      *
@@ -45,8 +31,8 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      */
     public function chooseFulltext($table, $alias, $select)
     {
-        $field = new Zend_Db_Expr('MATCH ('.$alias.'.data_index) AGAINST (:query IN BOOLEAN MODE)');
-        $select->columns(array('relevance' => $field));
+        $field = new Zend_Db_Expr('MATCH (' . $alias . '.data_index) AGAINST (:query IN BOOLEAN MODE)');
+        $select->columns(['relevance' => $field]);
         return $field;
     }
 
@@ -55,11 +41,11 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      *
      * @param string $str The source string
      * @param int $maxWordLength
-     * @return array(0=>words, 1=>terms)
+     * @return array (0=>words, 1=>terms)
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
-        $boolWords = array(
+        $boolWords = [
             '+' => '+',
             '-' => '-',
             '|' => '|',
@@ -67,13 +53,13 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             '>' => '>',
             '~' => '~',
             '*' => '*',
-        );
-        $brackets = array(
+        ];
+        $brackets = [
             '('       => '(',
             ')'       => ')'
-        );
-        $words = array(0=>"");
-        $terms = array();
+        ];
+        $words = [0 => ""];
+        $terms = [];
         preg_match_all('/([\(\)]|[\"\'][^"\']*[\"\']|[^\s\"\(\)]*)/uis', $str, $matches);
         $isOpenBracket = 0;
         foreach ($matches[1] as $word) {
@@ -84,10 +70,10 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                 $isBracket = in_array($word, $brackets);
                 if (!$isBool && !$isBracket) {
                     $terms[$word] = $word;
-                    $word = '"'.$word.'"';
+                    $word = '"' . $word . '"';
                     $words[] = $word;
                 } elseif ($isBracket) {
-                    if ($word == '(') {
+                    if ($word === '(') {
                         $isOpenBracket++;
                     } else {
                         $isOpenBracket--;
@@ -99,15 +85,14 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             }
         }
         if ($isOpenBracket > 0) {
-            $words[] = sprintf("%')".$isOpenBracket."s", '');
+            $words[] = sprintf("%')" . $isOpenBracket . "s", '');
         } elseif ($isOpenBracket < 0) {
-            $words[0] = sprintf("%'(".$isOpenBracket."s", '');
+            $words[0] = sprintf("%'(" . $isOpenBracket . "s", '');
         }
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
-        $result = array($words, $terms);
-        return $result;
+        return [$words, $terms];
     }
 
     /**
@@ -118,7 +103,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array())
+    public function insertOnDuplicate($table, array $data, array $fields = [])
     {
         return $this->_getWriteAdapter()->insertOnDuplicate($table, $data, $fields);
     }

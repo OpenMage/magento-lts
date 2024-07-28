@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product reports admin controller
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_Report_Abstract
 {
@@ -78,7 +65,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Sold Products Report Action
-     *
      */
     public function soldAction()
     {
@@ -95,7 +81,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to CSV format action
-     *
      */
     public function exportSoldCsvAction()
     {
@@ -109,7 +94,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export Sold Products report to XML format action
-     *
      */
     public function exportSoldExcelAction()
     {
@@ -123,7 +107,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Most viewed products
-     *
      */
     public function viewedAction()
     {
@@ -138,17 +121,16 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $gridBlock = $this->getLayout()->getBlock('report_product_viewed.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
 
     /**
      * Export products most viewed report to CSV format
-     *
      */
     public function exportViewedCsvAction()
     {
@@ -160,7 +142,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products most viewed report to XML format
-     *
      */
     public function exportViewedExcelAction()
     {
@@ -172,7 +153,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Low stock action
-     *
      */
     public function lowstockAction()
     {
@@ -189,7 +169,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to CSV format
-     *
      */
     public function exportLowstockCsvAction()
     {
@@ -203,7 +182,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export low stock products report to XML format
-     *
      */
     public function exportLowstockExcelAction()
     {
@@ -217,7 +195,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Downloads action
-     *
      */
     public function downloadsAction()
     {
@@ -234,7 +211,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to CSV format
-     *
      */
     public function exportDownloadsCsvAction()
     {
@@ -248,7 +224,6 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
     /**
      * Export products downloads report to XLS format
-     *
      */
     public function exportDownloadsExcelAction()
     {
@@ -261,9 +236,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     }
 
     /**
-     * Check is allowed for report
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -271,16 +244,12 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         switch ($action) {
             case 'viewed':
                 return Mage::getSingleton('admin/session')->isAllowed('report/products/viewed');
-                break;
             case 'sold':
                 return Mage::getSingleton('admin/session')->isAllowed('report/products/sold');
-                break;
             case 'lowstock':
                 return Mage::getSingleton('admin/session')->isAllowed('report/products/lowstock');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('report/products');
-                break;
         }
     }
 }

@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Standard checkout request API
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 {
@@ -33,7 +25,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * Global interface map and export filters
      * @var array
      */
-    protected $_globalMap = array(
+    protected $_globalMap = [
         // commands
         'business'      => 'business_account',
         'notify_url'    => 'notify_url',
@@ -56,59 +48,58 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'cpp_headerback_color'   => 'hdrbackcolor',
         'cpp_headerborder_color' => 'hdrbordercolor',
         'cpp_payflow_color'      => 'payflowcolor',
-//        'cs' => '', // TODO
         'lc'                     => 'locale',
-    );
-    protected $_exportToRequestFilters = array(
+    ];
+    protected $_exportToRequestFilters = [
         'amount'   => '_filterAmount',
         'shipping' => '_filterAmount',
         'tax'      => '_filterAmount',
         'discount_amount' => '_filterAmount',
-    );
+    ];
 
     /**
      * Interface for common and "aggregated order" specific fields
      * @var array
      */
-    protected $_commonRequestFields = array(
+    protected $_commonRequestFields = [
         'business', 'invoice', 'currency_code', 'paymentaction', 'return', 'cancel_return', 'notify_url', 'bn',
         'page_style', 'cpp_header_image', 'cpp_headerback_color', 'cpp_headerborder_color', 'cpp_payflow_color',
         'amount', 'shipping', 'tax', 'discount_amount', 'item_name', 'lc',
-    );
+    ];
 
-   /**
-     * Fields that should be replaced in debug with '***'
-     *
-     * @var array
-     */
-    protected $_debugReplacePrivateDataKeys = array('business');
+    /**
+      * Fields that should be replaced in debug with '***'
+      *
+      * @var array
+      */
+    protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**
      * Line items export mapping settings
      * @var array
      */
-    protected $_lineItemTotalExportMap = array(
+    protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'amount',
         Mage_Paypal_Model_Cart::TOTAL_DISCOUNT => 'discount_amount',
         Mage_Paypal_Model_Cart::TOTAL_TAX      => 'tax',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'shipping',
-    );
-    protected $_lineItemExportItemsFormat = array(
+    ];
+    protected $_lineItemExportItemsFormat = [
         'id'     => 'item_number_%d',
         'name'   => 'item_name_%d',
         'qty'    => 'quantity_%d',
         'amount' => 'amount_%d',
-    );
+    ];
 
-    protected $_lineItemExportItemsFilters = array(
+    protected $_lineItemExportItemsFilters = [
          'qty'      => '_filterQty'
-    );
+    ];
 
     /**
      * Address export to request map
      * @var array
      */
-    protected $_addressMap = array(
+    protected $_addressMap = [
         'city'       => 'city',
         'country'    => 'country_id',
         'email'      => 'email',
@@ -118,7 +109,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'state'      => 'region',
         'address1'   => 'street',
         'address2'   => 'street2',
-    );
+    ];
 
     /**
      * Generate PayPal Standard checkout request fields
@@ -132,10 +123,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
 
         $isLineItems = $this->_exportLineItems($request);
         if ($isLineItems) {
-            $request = array_merge($request, array(
+            $request = array_merge($request, [
                 'cmd'    => '_cart',
                 'upload' => 1,
-            ));
+            ]);
             if (isset($request['tax'])) {
                 $request['tax_cart'] = $request['tax'];
             }
@@ -143,10 +134,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
                 $request['discount_amount_cart'] = $request['discount_amount'];
             }
         } else {
-            $request = array_merge($request, array(
+            $request = array_merge($request, [
                 'cmd'           => '_ext-enter',
                 'redirect_cmd'  => '_xclick',
-            ));
+            ]);
         }
 
         // payer address
@@ -180,7 +171,6 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      */
     public function debugRequest($request)
     {
-        return;
     }
 
     /**
@@ -190,12 +180,12 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      *
      * @param array $request
      * @param int $i
-     * @return true|null
+     * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 1)
     {
         if (!$this->_cart) {
-            return;
+            return false;
         }
         if ($this->getIsLineItemsEnabled()) {
             $this->_cart->isShippingAsItem(true);
@@ -206,7 +196,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     /**
      * Import address object, if set, to the request
      *
-     * @param array $request
+     * @param array|Varien_Object $request
      */
     protected function _importAddress(&$request)
     {

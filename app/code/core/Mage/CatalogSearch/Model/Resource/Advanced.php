@@ -1,43 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Advanced Catalog Search resource model
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogSearch
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize connection and define catalog product table as main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
@@ -54,15 +37,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     {
         // prepare response object for event
         $response = new Varien_Object();
-        $response->setAdditionalCalculations(array());
+        $response->setAdditionalCalculations([]);
 
         // prepare event arguments
-        $eventArgs = array(
+        $eventArgs = [
             'select'          => $select,
             'table'           => 'price_index',
             'store_id'        => Mage::app()->getStore()->getId(),
             'response_object' => $response
-        );
+        ];
 
         Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
 
@@ -75,7 +58,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param string|array $value
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @return mixed
+     * @return array|false|string|string[]
      */
     public function prepareCondition($attribute, $value, $collection)
     {
@@ -84,15 +67,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         if (is_array($value)) {
             if (!empty($value['from']) || !empty($value['to'])) { // range
                 $condition = $value;
-            } elseif (in_array($attribute->getBackendType(), array('varchar', 'text'))) { // multiselect
-                $condition = array('in_set' => $value);
+            } elseif (in_array($attribute->getBackendType(), ['varchar', 'text'])) { // multiselect
+                $condition = ['in_set' => $value];
             } elseif (!isset($value['from']) && !isset($value['to'])) { // select
-                $condition = array('in' => $value);
+                $condition = ['in' => $value];
             }
         } else {
             if (strlen($value) > 0) {
-                if (in_array($attribute->getBackendType(), array('varchar', 'text', 'static'))) {
-                    $condition = array('like' => '%' . $value . '%'); // text search
+                if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
+                    $condition = ['like' => '%' . $value . '%']; // text search
                 } else {
                     $condition = $value;
                 }
@@ -115,7 +98,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
     {
         $adapter = $this->_getReadAdapter();
 
-        $conditions = array();
+        $conditions = [];
         if (strlen($value['from']) > 0) {
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s >= ?',
@@ -137,8 +120,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         $collection->addPriceData();
         $select     = $collection->getSelect();
-        $response   = $this->_dispatchPreparePriceEvent($select);
-        $additional = join('', $response->getAdditionalCalculations());
+        $response = $this->_dispatchPreparePriceEvent($select);
+        $additional = implode('', $response->getAdditionalCalculations());
 
         foreach ($conditions as $condition) {
             $select->where(sprintf($condition, $additional, $rate));
@@ -177,11 +160,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         $select->distinct(true);
         $select->join(
-            array($tableAlias => $table),
+            [$tableAlias => $table],
             "e.entity_id={$tableAlias}.entity_id "
                 . " AND {$tableAlias}.attribute_id={$attribute->getAttributeId()}"
                 . " AND {$tableAlias}.store_id={$storeId}",
-            array()
+            []
         );
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))) {

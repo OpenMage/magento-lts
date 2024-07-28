@@ -1,35 +1,28 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag model
  *
+ * @category   Mage
+ * @package    Mage_Tag
+ *
  * @method Mage_Tag_Model_Resource_Tag _getResource()
  * @method Mage_Tag_Model_Resource_Tag getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  *
  * @method bool hasBasePopularity()
  * @method int getBasePopularity()
@@ -49,29 +42,24 @@
  * @method $this setStoreId(int $value)
  * @method array getVisibleInStoreIds()
  * @method $this setVisibleInStoreIds(array $value)
- *
- * @category    Mage
- * @package     Mage_Tag
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
-    const STATUS_DISABLED = -1;
-    const STATUS_PENDING = 0;
-    const STATUS_APPROVED = 1;
+    public const STATUS_DISABLED = -1;
+    public const STATUS_PENDING = 0;
+    public const STATUS_APPROVED = 1;
 
     // statuses for tag relation add
-    const ADD_STATUS_SUCCESS = 'success';
-    const ADD_STATUS_NEW = 'new';
-    const ADD_STATUS_EXIST = 'exist';
-    const ADD_STATUS_REJECTED = 'rejected';
+    public const ADD_STATUS_SUCCESS = 'success';
+    public const ADD_STATUS_NEW = 'new';
+    public const ADD_STATUS_EXIST = 'exist';
+    public const ADD_STATUS_REJECTED = 'rejected';
 
     /**
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY = 'tag';
+    public const ENTITY = 'tag';
 
     /**
      * Event prefix for observer
@@ -134,15 +122,15 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Product event tags collection getter
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
     {
         return $this->getResourceCollection()
-                        ->joinRel()
-                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
-                        ->addTagGroup()
-                        ->load();
+            ->joinRel()
+            ->addProductFilter($observer->getEvent()->getProduct()->getId())
+            ->addTagGroup()
+            ->load();
     }
 
     /**
@@ -287,7 +275,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getTaggedProductsUrl()
     {
-        return Mage::getUrl('tag/product/list', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/product/list', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -295,7 +283,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getViewTagUrl()
     {
-        return Mage::getUrl('tag/customer/view', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/view', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -303,7 +291,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getEditTagUrl()
     {
-        return Mage::getUrl('tag/customer/edit', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/edit', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -311,7 +299,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getRemoveTagUrl()
     {
-        return Mage::getUrl('tag/customer/remove', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/remove', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -431,7 +419,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Check whether product is already marked in store with tag
      *
      * @param Mage_Tag_Model_Tag_Relation $relationModel
-     * @return boolean
+     * @return bool
      */
     protected function _checkLinkBetweenTagProduct($relationModel)
     {

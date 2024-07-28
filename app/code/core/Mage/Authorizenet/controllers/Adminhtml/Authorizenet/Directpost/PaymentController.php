@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Authorizenet
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
@@ -29,11 +18,9 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
  * Admihtml DirtectPost Payment Controller
  *
  * @category   Mage
- * @package    Mage_DirtectPost
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Authorizenet
  */
-class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
-    extends Mage_Adminhtml_Sales_Order_CreateController
+class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**
      * Get session model
@@ -82,12 +69,11 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
         if ($orderData) {
             $sendConfirmationFlag = (!empty($orderData['send_confirmation'])) ? 1 : 0;
         } else {
-            $orderData = array();
+            $orderData = [];
         }
 
         if (isset($paymentParam['method'])) {
-
-            $result = array();
+            $result = [];
 
             //create order partially
             $this->_getOrderCreateModel()->setPaymentData($paymentParam);
@@ -121,23 +107,21 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
                     $adminUrl = Mage::getSingleton('adminhtml/url');
                     if ($adminUrl->useSecretKey()) {
                         $requestToPaygate->setKey(
-                            $adminUrl->getSecretKey('authorizenet_directpost_payment','redirect')
+                            $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect')
                         );
                     }
-                    $result['directpost'] = array('fields' => $requestToPaygate->getData());
+                    $result['directpost'] = ['fields' => $requestToPaygate->getData()];
                 }
 
                 $result['success'] = 1;
                 $isError = false;
-            }
-            catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception $e) {
                 $message = $e->getMessage();
-                if( !empty($message) ) {
+                if (!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
                 $isError = true;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
                 $isError = true;
             }
@@ -149,11 +133,10 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             }
 
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-        }
-        else {
-            $result = array(
+        } else {
+            $result = [
                 'error_messages' => $this->__('Please, choose payment method')
-            );
+            ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -165,7 +148,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
     public function redirectAction()
     {
         $redirectParams = $this->getRequest()->getParams();
-        $params = array();
+        $params = [];
         if (!empty($redirectParams['success'])
             && isset($redirectParams['x_invoice_num'])
             && isset($redirectParams['controller_action_name'])
@@ -175,7 +158,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             //cancel old order
             $oldOrder = $this->_getOrderCreateModel()->getSession()->getOrder();
             if ($oldOrder->getId()) {
-                /* @var $order Mage_Sales_Model_Order */
+                /** @var Mage_Sales_Model_Order $order */
                 $order = Mage::getModel('sales/order')->loadByIncrementId($redirectParams['x_invoice_num']);
                 if ($order->getId()) {
                     $oldOrder->cancel()
@@ -209,7 +192,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
     public function returnQuoteAction()
     {
         $this->_returnQuote();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('success' => 1)));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
     }
 
     /**
@@ -225,7 +208,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
-            /* @var $order Mage_Sales_Model_Order */
+            /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
             if ($order->getId()) {
                 $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($order->getIncrementId());

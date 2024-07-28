@@ -1,35 +1,28 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cron
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cron
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Crontab schedule model
  *
+ * @category   Mage
+ * @package    Mage_Cron
+ *
  * @method Mage_Cron_Model_Resource_Schedule _getResource()
  * @method Mage_Cron_Model_Resource_Schedule getResource()
  * @method Mage_Cron_Model_Resource_Schedule_Collection getCollection()
+ * @method $this setIsError(bool $value)
  * @method string getJobCode()
  * @method $this setJobCode(string $value)
  * @method string getStatus()
@@ -47,22 +40,26 @@
  * @method $this unsScheduleId()
  * @method array[]|false|string[] getCronExprArr()
  * @method $this setCronExprArr(array[]|false|string[] $value)
- *
- * @category    Mage
- * @package     Mage_Cron
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
-    const STATUS_PENDING = 'pending';
-    const STATUS_RUNNING = 'running';
-    const STATUS_SUCCESS = 'success';
-    const STATUS_MISSED = 'missed';
-    const STATUS_ERROR = 'error';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_SUCCESS = 'success';
+    public const STATUS_MISSED = 'missed';
+    public const STATUS_ERROR = 'error';
 
     public function _construct()
     {
         $this->_init('cron/schedule');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsError(): bool
+    {
+        return !empty($this->getData('is_error'));
     }
 
     /**
@@ -72,9 +69,9 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function setCronExpr($expr)
     {
-        $e = preg_split('#\s+#', $expr, null, PREG_SPLIT_NO_EMPTY);
+        $e = preg_split('#\s+#', $expr, -1, PREG_SPLIT_NO_EMPTY);
         if (count($e) < 5 || count($e) > 6) {
-            throw Mage::exception('Mage_Cron', 'Invalid cron expression: '.$expr);
+            throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
         $this->setCronExprArr($e);
@@ -87,7 +84,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
      * @param string|int $time
-     * @return boolean
+     * @return bool
      */
     public function trySchedule($time)
     {
@@ -112,8 +109,8 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             && $this->matchCronExpression($e[4], $d['wday']);
 
         if ($match) {
-            $this->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-            $this->setScheduledAt(strftime('%Y-%m-%d %H:%M', (int)$time));
+            $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
+            $this->setScheduledAt(date('Y-m-d H:i:00', (int)$time));
         }
         return $match;
     }
@@ -127,12 +124,12 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
     public function matchCronExpression($expr, $num)
     {
         // handle ALL match
-        if ($expr==='*') {
+        if ($expr === '*') {
             return true;
         }
 
         // handle multiple options
-        if (strpos($expr, ',')!==false) {
+        if (str_contains($expr, ',')) {
             foreach (explode(',', $expr) as $e) {
                 if ($this->matchCronExpression($e, $num)) {
                     return true;
@@ -142,13 +139,13 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle modulus
-        if (strpos($expr, '/')!==false) {
+        if (str_contains($expr, '/')) {
             $e = explode('/', $expr);
-            if (count($e)!==2) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': ".$expr);
+            if (count($e) !== 2) {
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
             }
             if (!is_numeric($e[1])) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting numeric modulus: ".$expr);
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting numeric modulus: " . $expr);
             }
             $expr = $e[0];
             $mod = $e[1];
@@ -157,29 +154,27 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         // handle all match by modulus
-        if ($expr==='*') {
+        if ($expr === '*') {
             $from = 0;
             $to = 60;
-        } // handle range
-        elseif (strpos($expr, '-')!==false) {
+        } elseif (str_contains($expr, '-')) { // handle range
             $e = explode('-', $expr);
-            if (count($e)!==2) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: ".$expr);
+            if (count($e) !== 2) {
+                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'from-to' structure: " . $expr);
             }
 
             $from = $this->getNumeric($e[0]);
             $to = $this->getNumeric($e[1]);
-        } // handle regular token
-        else {
+        } else { // handle regular token
             $from = $this->getNumeric($expr);
             $to = $from;
         }
 
-        if ($from===false || $to===false) {
-            throw Mage::exception('Mage_Cron', "Invalid cron expression: ".$expr);
+        if ($from === false || $to === false) {
+            throw Mage::exception('Mage_Cron', "Invalid cron expression: " . $expr);
         }
 
-        return ($num>=$from) && ($num<=$to) && ($num%$mod===0);
+        return ($num >= $from) && ($num <= $to) && ($num % $mod === 0);
     }
 
     /**
@@ -188,28 +183,28 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function getNumeric($value)
     {
-        static $data = array(
-            'jan'=>1,
-            'feb'=>2,
-            'mar'=>3,
-            'apr'=>4,
-            'may'=>5,
-            'jun'=>6,
-            'jul'=>7,
-            'aug'=>8,
-            'sep'=>9,
-            'oct'=>10,
-            'nov'=>11,
-            'dec'=>12,
+        static $data = [
+            'jan' => 1,
+            'feb' => 2,
+            'mar' => 3,
+            'apr' => 4,
+            'may' => 5,
+            'jun' => 6,
+            'jul' => 7,
+            'aug' => 8,
+            'sep' => 9,
+            'oct' => 10,
+            'nov' => 11,
+            'dec' => 12,
 
-            'sun'=>0,
-            'mon'=>1,
-            'tue'=>2,
-            'wed'=>3,
-            'thu'=>4,
-            'fri'=>5,
-            'sat'=>6,
-        );
+            'sun' => 0,
+            'mon' => 1,
+            'tue' => 2,
+            'wed' => 3,
+            'thu' => 4,
+            'fri' => 5,
+            'sat' => 6,
+        ];
 
         if (is_numeric($value)) {
             return $value;
@@ -232,7 +227,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      * @param string $oldStatus
      * This is used to implement locking for cron jobs.
      *
-     * @return boolean
+     * @return bool
      */
     public function tryLockJob($oldStatus = self::STATUS_PENDING)
     {

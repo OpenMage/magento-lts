@@ -1,43 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Index
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Index Process Resource Model
  *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Index
  */
 class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Initialize  table and table pk
-     *
-     */
     protected function _construct()
     {
         $this->_init('index/process', 'process_id');
@@ -54,11 +37,11 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     public function updateEventStatus($processId, $eventId, $status)
     {
         $adapter = $this->_getWriteAdapter();
-        $condition = array(
+        $condition = [
             'process_id = ?' => $processId,
             'event_id = ?'   => $eventId
-        );
-        $adapter->update($this->getTable('index/process_event'), array('status' => $status), $condition);
+        ];
+        $adapter->update($this->getTable('index/process_event'), ['status' => $status], $condition);
         return $this;
     }
 
@@ -70,10 +53,10 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function endProcess(Mage_Index_Model_Process $process)
     {
-        $data = array(
+        $data = [
             'status'    => Mage_Index_Model_Process::STATUS_PENDING,
             'ended_at'  => $this->formatDate(time()),
-        );
+        ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
     }
@@ -86,10 +69,10 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function startProcess(Mage_Index_Model_Process $process)
     {
-        $data = array(
+        $data = [
             'status'        => Mage_Index_Model_Process::STATUS_RUNNING,
             'started_at'    => $this->formatDate(time()),
-        );
+        ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
     }
@@ -102,10 +85,10 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function failProcess(Mage_Index_Model_Process $process)
     {
-        $data = array(
+        $data = [
             'status'   => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
             'ended_at' => $this->formatDate(time()),
-        );
+        ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
     }
@@ -120,7 +103,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateStatus($process, $status)
     {
-        $data = array('status' => $status);
+        $data = ['status' => $status];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
     }
@@ -133,7 +116,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     protected function _updateProcessData($processId, $data)
     {
-        $bind = array('process_id=?' => $processId);
+        $bind = ['process_id=?' => $processId];
         $this->_getWriteAdapter()->update($this->getMainTable(), $data, $bind);
 
         return $this;
@@ -147,7 +130,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessStartDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), array('started_at' => $this->formatDate(time())));
+        $this->_updateProcessData($process->getId(), ['started_at' => $this->formatDate(time())]);
         return $this;
     }
 
@@ -159,7 +142,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessEndDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), array('ended_at' => $this->formatDate(time())));
+        $this->_updateProcessData($process->getId(), ['ended_at' => $this->formatDate(time())]);
         return $this;
     }
 

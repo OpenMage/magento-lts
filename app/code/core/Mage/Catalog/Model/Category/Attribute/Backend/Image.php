@@ -1,77 +1,72 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog category image attribute backend model
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
+    /**
+     * @return array
+     */
+    public function getAllowedExtensions(): array
+    {
+        return Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS;
+    }
 
     /**
-     * Save uploaded file and set its name to category
-     *
+     * Save uploaded file and set its name to category attribute
      * @param Varien_Object $object
+     * @return $this
      */
     public function afterSave($object)
     {
-        $value = $object->getData($this->getAttribute()->getName());
+        $name  = $this->getAttribute()->getName();
+        $value = $object->getData($name);
 
         if (is_array($value) && !empty($value['delete'])) {
-            $object->setData($this->getAttribute()->getName(), '');
-            $this->getAttribute()->getEntity()
-                ->saveAttribute($object, $this->getAttribute()->getName());
-            return;
+            $object->setData($name, '');
+            $this->getAttribute()->getEntity()->saveAttribute($object, $name);
+            return $this;
         }
 
-        $path = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS;
+        if (!empty($_FILES[$name])) {
+            try {
+                $validator = Mage::getModel('core/file_validator_image');
+                $uploader  = Mage::getModel('core/file_uploader', $name);
+                $uploader->setAllowedExtensions($this->getAllowedExtensions());
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(false);
+                $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
+                $uploader->save(Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category');
 
-        try {
-            $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
-            $uploader->setAllowRenameFiles(true);
-            $uploader->addValidateCallback(
-                Mage_Core_Model_File_Validator_Image::NAME,
-                new Mage_Core_Model_File_Validator_Image(),
-                "validate"
-            );
-            $result = $uploader->save($path);
-
-            $object->setData($this->getAttribute()->getName(), $result['file']);
-            $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-        } catch (Exception $e) {
-            if ($e->getCode() != Mage_Core_Model_File_Uploader::TMP_NAME_EMPTY) {
-                Mage::logException($e);
+                $fileName = $uploader->getUploadedFileName();
+                if ($fileName) {
+                    $object->setData($name, $fileName);
+                    $this->getAttribute()->getEntity()->saveAttribute($object, $name);
+                }
+            } catch (Exception $e) {
+                if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
+                    Mage::logException($e);
+                }
             }
-            /** @TODO ??? */
-            return;
         }
+
+        return $this;
     }
 }

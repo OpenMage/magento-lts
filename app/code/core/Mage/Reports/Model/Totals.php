@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Totals
 {
@@ -43,12 +31,12 @@ class Mage_Reports_Model_Totals
      */
     public function countTotals($grid, $from, $to)
     {
-        $columns = array();
+        $columns = [];
         foreach ($grid->getColumns() as $col) {
             if ($col->getTotal() === null) {
                 continue;
             }
-            $columns[$col->getIndex()] = array("total" => $col->getTotal(), "value" => 0);
+            $columns[$col->getIndex()] = ["total" => $col->getTotal(), "value" => 0];
         }
 
         $count = 0;
@@ -61,17 +49,17 @@ class Mage_Reports_Model_Totals
 
             foreach ($columns as $field => $a) {
                 if ($field !== '') {
-                    $columns[$field]['value'] = $columns[$field]['value'] + (isset($data[$field]) ? $data[$field] : 0);
+                    $columns[$field]['value'] += $data[$field] ?? 0;
                 }
             }
             $count++;
         }
-        $data = array();
+        $data = [];
         foreach ($columns as $field => $a) {
             if ($a['total'] == 'avg') {
                 if ($field !== '') {
                     if ($count != 0) {
-                        $data[$field] = $a['value']/$count;
+                        $data[$field] = $a['value'] / $count;
                     } else {
                         $data[$field] = 0;
                     }

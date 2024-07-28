@@ -1,27 +1,21 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Configattribute
 {
@@ -31,7 +25,6 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
      * @var null|array
      */
     protected $_attributes = null;
-
 
     /**
      * Retrieve attributes as array
@@ -49,13 +42,13 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
                 ->addFieldToFilter('main_table.is_user_defined', 1)
                 ->setOrder('frontend_label', Varien_Data_Collection::SORT_ORDER_ASC);
 
-            $this->_attributes = array();
+            $this->_attributes = [];
             /** @var Mage_Eav_Model_Attribute $attribute */
             foreach ($attrCollection as $attribute) {
-                $this->_attributes[] = array(
+                $this->_attributes[] = [
                     'label' => $attribute->getFrontendLabel(),
                     'value' => $attribute->getId(),
-                );
+                ];
             }
         }
         return $this->_attributes;

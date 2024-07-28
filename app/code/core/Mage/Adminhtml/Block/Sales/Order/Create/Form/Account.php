@@ -1,33 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Create order account form
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
 {
@@ -58,37 +48,38 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
      */
     protected function _prepareForm()
     {
-        /* @var $customerModel Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customerModel */
         $customerModel = Mage::getModel('customer/customer');
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm   = Mage::getModel('customer/form');
         $customerForm->setFormCode('adminhtml_checkout')
             ->setStore($this->getStore())
             ->setEntity($customerModel);
 
         // prepare customer attributes to show
-        $attributes     = array();
+        $attributes     = [];
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             if ($attribute->getIsRequired()) {
                 $attributes[$attribute->getAttributeCode()] = $attribute;
             }
         }
 
+        // if quote is guest, unset customer_group_id
         if ($this->getQuote()->getCustomerIsGuest()) {
             unset($attributes['group_id']);
         }
 
         // add user defined attributes
         foreach ($customerForm->getUserAttributes() as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attributes[$attribute->getAttributeCode()] = $attribute;
         }
 
-        $fieldset = $this->_form->addFieldset('main', array());
+        $fieldset = $this->_form->addFieldset('main', []);
 
         $this->_addAttributesToForm($attributes, $fieldset);
 
@@ -102,7 +93,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
      * Add additional data to form element
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @return $this
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
@@ -135,7 +126,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     {
         $data = $this->getCustomer()->getData();
         foreach ($this->getQuote()->getData() as $key => $value) {
-            if (strpos($key, 'customer_') === 0) {
+            if (str_starts_with($key, 'customer_')) {
                 $data[substr($key, 9)] = $value;
             }
         }

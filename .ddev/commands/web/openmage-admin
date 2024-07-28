@@ -1,0 +1,45 @@
+#!/bin/bash
+
+## ProjectTypes: magento
+## Description: Create/Update OpenMage Administrator Account
+## Usage: openmage-admin
+## Example: ddev openmage-admin
+
+read -r -p "Choose your action for the administrator account [Create/Update]: " ACTION
+ACTION=${ACTION,,} # to lower
+
+if [[ "${ACTION}" =~ ^(update|u) || "${ACTION}" =~ ^(create|c) ]]; then
+  read -r -p "Admin User [admin]: " ADMIN_USER
+  ADMIN_USER=${ADMIN_USER:-admin}
+  read -r -p "Admin Firstname [OpenMage]: " ADMIN_FIRSTNAME
+  ADMIN_FIRSTNAME=${ADMIN_FIRSTNAME:-OpenMage}
+  read -r -p "Admin Lastname [Administrator]: " ADMIN_LASTNAME
+  ADMIN_LASTNAME=${ADMIN_LASTNAME:-Administrator}
+  read -r -p "Admin Email [admin@example.com]: " ADMIN_EMAIL
+  ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+  read -r -p "Admin Password [veryl0ngpassw0rd]: " ADMIN_PASSWORD
+  ADMIN_PASSWORD=${ADMIN_PASSWORD:-veryl0ngpassw0rd}
+  read -r -p "Table Prefix []: " TABLE_PREFIX
+  TABLE_PREFIX=${TABLE_PREFIX:-}
+else
+  echo "Please run again and choose an action."
+  exit 1
+fi
+
+RANDOM_STRING=$({ tr -dc A-Za-z0-9 </dev/urandom | head -c 32 ; })
+
+if [[ "${ACTION}" =~ ^(update|u) ]]; then
+  if mysql -u db -h db db -e "UPDATE "${TABLE_PREFIX}"admin_user SET password=CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'),':"${RANDOM_STRING}"') WHERE username='"${ADMIN_USER}"'"; then
+    echo "If the account "${ADMIN_USER}" exists it has been updated."
+  else
+    exit 1
+  fi
+elif [[ "${ACTION}" =~ ^(create|c) ]]; then
+  if mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_user (firstname, lastname, email, username, password) VALUES ('"${ADMIN_FIRSTNAME}"', '"${ADMIN_LASTNAME}"', '"${ADMIN_EMAIL}"', '"${ADMIN_USER}"', CONCAT(MD5('"${RANDOM_STRING}""${ADMIN_PASSWORD}"'), ':"${RANDOM_STRING}"'))"; then
+    mysql -u db -h db db -e "INSERT INTO "${TABLE_PREFIX}"admin_role(parent_id, tree_level, sort_order, role_type, user_id, role_name)
+    VALUES (1, 2, 0, 'U',(SELECT user_id FROM "${TABLE_PREFIX}"admin_user WHERE username = '"${ADMIN_USER}"'),'"${ADMIN_FIRSTNAME}"')"
+    echo "The account "$ADMIN_USER" has been created."
+  else
+    exit 1
+  fi
+fi

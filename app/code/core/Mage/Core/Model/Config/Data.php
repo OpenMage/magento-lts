@@ -1,53 +1,54 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Config data model
  *
+ * @category   Mage
+ * @package    Mage_Core
+ *
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()
+ * @method Mage_Core_Model_Resource_Config_Data_Collection getCollection()
+ * @method $this setConfigId(string $value)
+ * @method $this unsConfigId()
+ * @method string getField()
+ * @method $this setField(string $value)
+ * @method false|SimpleXMLElement|Varien_Simplexml_Element getFieldConfig()
+ * @method $this setFieldConfig(false|SimpleXMLElement|Varien_Simplexml_Element $value)
+ * @method $this setFieldsetData(array $value)
+ * @method int|string getGroupId()
+ * @method $this setGroupId(int|string $value)
+ * @method $this setGroups(array $value)
+ * @method string getPath()
+ * @method $this setPath(string $value)
  * @method string getScope()
  * @method $this setScope(string $value)
  * @method int getScopeId()
  * @method $this setScopeId(int $value)
- * @method string getPath()
- * @method $this setPath(string $value)
+ * @method string getStoreCode()
+ * @method $this setStoreCode(string $value)
  * @method string getValue()
  * @method $this setValue(string $value)
- * @method string getStoreCode()
+ * @method $this unsValue()
  * @method string getWebsiteCode()
- *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method $this setWebsiteCode(string $value)
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
-    const ENTITY = 'core_config_data';
+    public const ENTITY = 'core_config_data';
     /**
      * Prefix of model events names
      *
@@ -74,10 +75,12 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 
     /**
      * Add availability call after load as public
+     * @return $this
      */
     public function afterLoad()
     {
         $this->_afterLoad();
+        return $this;
     }
 
     /**
@@ -109,7 +112,6 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         }
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
-
 
     /**
      * Get value by key for new user data from <section>/groups/<group>/fields/<field>

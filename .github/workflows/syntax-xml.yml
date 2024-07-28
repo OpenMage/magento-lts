@@ -1,0 +1,27 @@
+name: XML Syntax
+
+on:
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  syntax_xml:
+    name: XML Validation
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Update APT repositories
+        run: "sudo apt update"
+
+      - name: Install xmllint
+        run: "sudo apt-get -y install libxml2-utils"
+
+      - name: Validate XMLs
+        run: "find . -type f -iname '*.xml' | xargs -I '{}' xmllint --noout '{}'"

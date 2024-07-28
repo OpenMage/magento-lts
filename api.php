@@ -1,33 +1,17 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-if (version_compare(phpversion(), '5.2.0', '<')) {
-    echo 'It looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer';
-    exit;
-}
 
 $magentoRootDir = getcwd();
 $bootstrapFilename = $magentoRootDir . '/app/bootstrap.php';
@@ -49,12 +33,6 @@ if (!Mage::isInstalled()) {
     exit;
 }
 
-if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
-    Mage::setIsDeveloperMode(true);
-}
-
-#ini_set('display_errors', 1);
-
 Mage::$headersSentThrowsException = false;
 Mage::init('admin');
 Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
@@ -67,7 +45,7 @@ $apiAlias = Mage::app()->getRequest()->getParam('type');
 if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
     // emulate index.php entry point for correct URLs generation in API
     Mage::register('custom_entry_point', true);
-    /** @var $server Mage_Api2_Model_Server */
+    /** @var Mage_Api2_Model_Server $server */
     $server = Mage::getSingleton('api2/server');
 
     $server->run();

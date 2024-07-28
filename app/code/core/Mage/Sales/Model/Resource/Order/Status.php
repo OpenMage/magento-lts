@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status resource model
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -70,9 +58,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     {
         if ($field == 'default_state') {
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable(), array('label'))
+                ->from($this->getMainTable(), ['label'])
                 ->join(
-                    array('state_table' => $this->_stateTable),
+                    ['state_table' => $this->_stateTable],
                     $this->getMainTable() . '.status = state_table.status',
                     'status'
                 )
@@ -94,7 +82,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     public function getStoreLabels(Mage_Core_Model_Abstract $status)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_labelsTable, array('store_id', 'label'))
+            ->from($this->_labelsTable, ['store_id', 'label'])
             ->where('status = ?', $status->getStatus());
         return $this->_getReadAdapter()->fetchPairs($select);
     }
@@ -111,18 +99,18 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             $labels = $object->getStoreLabels();
             $this->_getWriteAdapter()->delete(
                 $this->_labelsTable,
-                array('status = ?' => $object->getStatus())
+                ['status = ?' => $object->getStatus()]
             );
-            $data = array();
+            $data = [];
             foreach ($labels as $storeId => $label) {
                 if (empty($label)) {
                     continue;
                 }
-                $data[] = array(
+                $data[] = [
                     'status'    => $object->getStatus(),
                     'store_id'  => $storeId,
                     'label'     => $label
-                );
+                ];
             }
             if (!empty($data)) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
@@ -144,17 +132,17 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         if ($isDefault) {
             $this->_getWriteAdapter()->update(
                 $this->_stateTable,
-                array('is_default' => 0),
-                array('state = ?' => $state)
+                ['is_default' => 0],
+                ['state = ?' => $state]
             );
         }
         $this->_getWriteAdapter()->insertOnDuplicate(
             $this->_stateTable,
-            array(
+            [
                 'status'     => $status,
                 'state'      => $state,
                 'is_default' => (int) $isDefault
-            )
+            ]
         );
         return $this;
     }
@@ -169,7 +157,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     public function unassignState($status, $state)
     {
         $select = $this->_getWriteAdapter()->select()
-            ->from($this->_stateTable, array('qty' => new Zend_Db_Expr('COUNT(*)')))
+            ->from($this->_stateTable, ['qty' => new Zend_Db_Expr('COUNT(*)')])
             ->where('state = ?', $state);
 
         if ($this->_getWriteAdapter()->fetchOne($select) == 1) {
@@ -185,10 +173,10 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         $isDefault = $this->_getWriteAdapter()->fetchOne($select);
         $this->_getWriteAdapter()->delete(
             $this->_stateTable,
-            array(
+            [
                 'state = ?' => $state,
                 'status = ?' => $status
-            )
+            ]
         );
 
         if ($isDefault) {
@@ -200,11 +188,11 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             if ($defaultStatus) {
                 $this->_getWriteAdapter()->update(
                     $this->_stateTable,
-                    array('is_default' => 1),
-                    array(
+                    ['is_default' => 1],
+                    [
                         'state = ?' => $state,
                         'status = ?' => $defaultStatus
-                    )
+                    ]
                 );
             }
         }

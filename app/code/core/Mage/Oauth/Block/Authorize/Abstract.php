@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,17 +18,17 @@
  *
  * @category   Mage
  * @package    Mage_Oauth
- * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method string getToken()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken() setToken(string $token)
- * @method boolean getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple() setIsSimple(boolean $flag)
- * @method boolean getHasException()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsException() setHasException(boolean $flag)
- * @method boolean getVerifier()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier() setVerifier(string $verifier)
- * @method boolean getIsLogged()
- * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged() setIsLogged(boolean $flag)
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
+ * @method bool getIsSimple()
+ * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
+ * @method bool getHasException()
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
+ * @method null|string getVerifier()
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
+ * @method bool getIsLogged()
+ * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template
 {
@@ -57,9 +46,6 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     protected $_consumer;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -73,7 +59,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     public function getConsumer()
     {
-        if (null === $this->_consumer) {
+        if ($this->_consumer === null) {
             /** @var Mage_Oauth_Model_Token $token */
             $token = Mage::getModel('oauth/token');
             $token->load($this->getToken(), 'token');
@@ -96,11 +82,11 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
         }
 
         //load base template from admin area
-        $params = array(
+        $params = [
             '_relative' => true,
             '_area'     => 'adminhtml',
             '_package'  => 'default'
-        );
+        ];
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 }

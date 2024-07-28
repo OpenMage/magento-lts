@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +18,9 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -50,20 +37,20 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('eav')->__('Delete'),
                     'class' => 'delete delete-option'
-                ))
+                ])
         );
 
         $this->setChild(
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option_button'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }
@@ -91,7 +78,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     /**
      * Retrieve stores collection with default store
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     public function getStores()
     {
@@ -115,10 +102,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
-        if ($attributeType == 'select' || $attributeType == 'multiselect') {
-            $defaultValues = explode(',', $defaultValues);
+        if ($attributeType === 'select' || $attributeType === 'multiselect') {
+            $defaultValues = explode(',', (string)$defaultValues);
         } else {
-            $defaultValues = array();
+            $defaultValues = [];
         }
 
         switch ($attributeType) {
@@ -135,7 +122,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
 
         $values = $this->getData('option_values');
         if (is_null($values)) {
-            $values = array();
+            $values = [];
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setPositionOrder('desc', true)
@@ -144,7 +131,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $helper = Mage::helper('core');
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
-                $value = array();
+                $value = [];
                 if (in_array($option->getId(), $defaultValues)) {
                     $value['checked'] = 'checked="checked"';
                 } else {
@@ -159,11 +146,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+                if ($this->isConfigurableSwatchesEnabled()) {
+                    $value['swatch'] = $option->getSwatchValue();
+                }
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
         }
-
         return $values;
     }
 
@@ -174,7 +163,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getLabelValues()
     {
-        $values = array();
+        $values = [];
         $frontendLabel = $this->getAttributeObject()->getFrontend()->getLabel();
         if (is_array($frontendLabel)) {
             return $frontendLabel;
@@ -183,7 +172,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
             if ($store->getId() != 0) {
-                $values[$store->getId()] = isset($storeLabels[$store->getId()]) ? $storeLabels[$store->getId()] : '';
+                $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
         return $values;
@@ -192,14 +181,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     /**
      * Retrieve attribute option values for given store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return array
      */
     public function getStoreOptionValues($storeId)
     {
-        $values = $this->getData('store_option_values_'.$storeId);
+        $values = $this->getData('store_option_values_' . $storeId);
         if (is_null($values)) {
-            $values = array();
+            $values = [];
             $valuesCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setStoreFilter($storeId, false)
@@ -208,7 +197,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
-            $this->setData('store_option_values_'.$storeId, $values);
+            $this->setData('store_option_values_' . $storeId, $values);
         }
         return $values;
     }
@@ -221,5 +210,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function getAttributeObject()
     {
         return Mage::registry('entity_attribute');
+    }
+
+    /**
+     * Check if configurable swatches module is enabled and attribute is swatch type
+     */
+    public function isConfigurableSwatchesEnabled(): bool
+    {
+        return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
+            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
 }

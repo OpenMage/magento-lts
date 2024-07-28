@@ -1,0 +1,33 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/** @var Mage_GoogleAnalytics_Block_Gtm $this */
+$_helper = $this->helper('googleanalytics');
+?>
+<?php if (!$this->helper('core/cookie')->isUserNotAllowSaveCookie()): ?>
+    <?php if ($_helper->isUseGoogleTagManager()): ?>
+        <?php $_gtmAccountId = $_helper->getGoogleTagManagerContainerId() ?>
+        <!-- BEGIN GOOGLE TAG MANAGER CODE -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','<?= $_gtmAccountId ?>');</script>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $_gtmAccountId ?>"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- END GOOGLE TAG MANAGER CODE -->
+    <?php endif ?>
+<?php endif ?>

@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /***************** WIDGETS ******************
@@ -80,13 +69,16 @@
 #loading-mask {
     background:url(images/blank.gif) repeat;
     position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
     color:#d85909;
     font-size:1.1em;
     font-weight:bold;
     text-align:center;
     opacity:0.80;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /* IE8 */
-    z-index:500;
+    z-index:1000;
     }
 #loading-mask .loader {
     position:fixed;
@@ -103,8 +95,8 @@
     z-index:1000;
     }
 
-#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:980; background-color:#efefef; opacity:.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";/*IE8*/ }
-.message-popup { position:absolute; z-index:990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
+#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:1980; background-color:#efefef; opacity:.5; }
+.message-popup { position:absolute; z-index:1990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
 .message-popup.show { top:280px; }
 .message-popup .message-popup-head { padding:1px 0; }
 .message-popup .message-popup-head h2 { padding:0 10px; margin:0; font:bold 12px/19px Arial, Helvetica, sans-serif; color:#644f3b; }
@@ -167,10 +159,9 @@ table.actions td                { vertical-align:top; }
 
 /* Grid - Headings */
 .grid tr.headings { background:url(images/sort_row_bg.gif) 0 50% repeat-x; }
-.grid tr.headings th { border-width:1px; border-color:#f9f9f9 #d1cfcf #f9f9f9 #f9f9f9; border-style:solid; padding-top:1px; padding-bottom:0; font-size:.9em; }
+.grid tr.headings th { border-width:1px; border-color:#f9f9f9 #d1cfcf #f9f9f9 #f9f9f9; border-style:solid; padding-top:1px; padding-bottom:0; font-size:.9em; white-space:nowrap;}
 .grid tr.headings th.last { border-right:0; }
 .grid tr.headings th.no-link { /* Grid th with no sorting functionality */ padding-top:2px; padding-bottom:1px; color:#67767e; }
-.grid tr.headings th span.nobr { display:block; /* FF3 fix */ }
 .grid tr.headings th a { display:block; padding:2px 4px 1px 0; color:#2d444f; text-decoration:none; }
 .grid tr.headings th a:hover { color:#d85909; text-decoration:none; }
 .grid tr.headings th a.sort-arrow-desc,
@@ -184,7 +175,7 @@ table.actions td                { vertical-align:top; }
 
 /* Grid - Mass Action */
 .massaction { width:100%; height:26px; border:1px solid #d1cfcf; border-bottom:none; background:url(images/massaction_bg.gif) repeat-x 0 100% #ebebeb; font-size:.9em; }
-.massaction td                              { width:50%; border-top:1px solid #fff; padding:1px 8px; vertical-align:middle; }
+.massaction td                              { width:auto; border-top:1px solid #fff; padding:1px 8px; vertical-align:middle; }
 .massaction .entry-edit fieldset .select    { width:auto; /*width:120px;*/ display:inline; }
 .massaction .entry-edit fieldset select.validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important }
 .massaction .entry-edit fieldset            { margin:0; padding:0; background:none; border:none; }
@@ -206,10 +197,10 @@ table.actions td                { vertical-align:top; }
 .grid tr.filter select           { width:100%; }
 .grid tr.filter .range .range-line { margin-bottom:3px; width:100px; }
 .grid tr.filter .range div.date  { min-width:121px; }
-.grid tr.filter .range input     { float:right; width:50px !important; margin-top:0; }
-.grid tr.filter .range select    { float:right; width:56px !important; margin-top:0; }
-.grid tr.filter .range .label    { display:block; width:36px; float:left; padding-left:2px; }
-.grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; }
+.grid tr.filter .range input     { width:60px !important; margin-top:0; }
+.grid tr.filter .range select    { float:right; width:65px !important; margin-top:0; }
+.grid tr.filter .range .label    { display:block; width:30px; float:left; padding-right:3px; text-align:right; }
+.grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; padding-left:3px; }
 .grid .head-massaction select    { width:auto !important; max-width:90px; }
 .grid select.select-export-filter,
 .grid select.multiselect-export-filter { width:278px; }
@@ -223,13 +214,27 @@ table.actions td                { vertical-align:top; }
 /* Dynamic Grid */ /* Used in pages like Catalog -> Attributes */
 .dynamic-grid th                { padding:2px;width:100px; }
 .dynamic-grid td                { padding:2px; }
-.dynamic-grid td input          { width:94px; }
 tr.dynamic-grid td,
 tr.dynamic-grid th { padding:2px 10px 2px 0; width:auto; }
 tr.dynamic-grid input.input-text { width:154px; }
 .available { color:#080; font-weight:bold; }
 .not-available { color:#800; }
 
+/* Grid - Copyable Cells */
+.icon-copy {
+    display: inline-block;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.07 122.88"><path d="M97.67 20.81h0l.01.02a13.38 13.38 0 0 1 9.46 3.93 13.32 13.32 0 0 1 3.9 9.42h.02v.02 75.28.01h-.02c-.01 3.68-1.51 7.03-3.93 9.46a13.32 13.32 0 0 1-9.42 3.9v.02h-.02-59.19-.01v-.02c-3.69-.01-7.04-1.5-9.46-3.93a13.37 13.37 0 0 1-3.91-9.42h0V34.2v-.01h.02c.01-3.69 1.52-7.04 3.94-9.46 2.41-2.4 5.73-3.9 9.42-3.91v-.02h.02l59.17.01h0zM.02 75.38L0 13.39v-.01h.02a13.44 13.44 0 0 1 3.93-9.46A13.37 13.37 0 0 1 13.37.01V0h.02 59.19c7.69 0 8.9 9.96.01 10.16H13.4h-.02v-.02c-.88 0-1.68.37-2.27.97-.59.58-.96 1.4-.96 2.27h.02v.01 3.17 58.81c0 8.26-10.15 8.72-10.15.01h0zm100.89 34.11V34.2v-.02h.02c0-.87-.37-1.68-.97-2.27-.59-.58-1.4-.96-2.28-.96v.02h-.01-59.19-.02v-.02c-.88 0-1.68.38-2.27.97-.59.58-.96 1.4-.96 2.27h.02v.01 75.28.02h-.02c0 .88.38 1.68.97 2.27s1.4.96 2.27.96v-.02h.01 59.19.02v.02c.87 0 1.68-.38 2.27-.97.59-.58.96-1.4.96-2.27h-.01 0 0 0z" fill-rule="evenodd"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    margin: 2px 0 0 2px;
+}
+
+.entry-edit-head .icon-copy { width: 11px; height: 11px; margin: 0 0 0 5px; filter: hue-rotate(0) brightness(0) contrast(1) saturate(0) invert(1); }
+
+.icon-copy-copied { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 30 30"><path d="M26.98 5.99a1 1 0 0 0-.687.303L11 21.586l-6.293-6.293a1 1 0 1 0-1.414 1.414l7 7a1 1 0 0 0 1.414 0l16-16a1 1 0 0 0-.727-1.717z"/></svg>'); }
 
 /* ACCORDION
 *******************************************************************************/
@@ -345,9 +350,11 @@ label.inline                            { float:none !important; width:auto !imp
 #coupon_container .entry-edit { min-width:310px; }
 
 /* Form Elements */
-input.input-text,textarea,select { border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; background:#fff; font:12px arial, helvetica, sans-serif; }
+input.input-text,input.input-color,textarea,select { border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; background:#fff; font:12px arial, helvetica, sans-serif; }
 select { min-height:17px; /* to set the height for empty selects */ }
 input.input-text,textarea       { padding:2px; }
+input.input-color               { padding:2px; width:222px !important; }
+input.input-color-html5         { width:48px !important; }
 input.qty                       { width:40px !important; }
 input.item-qty                  { width:22px !important; }
 input.price                     { width:50px !important; text-align:right; }
@@ -362,7 +369,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select option:disabled,
-    select:disabled option { color:#c9c9c9!important;color:#cacaca!important; text-shadow:2px 2px 2px #000; }
+    select:disabled option { color:#999!important; }
 }
 
 /* Form List */ /* Table for default form data */
@@ -376,7 +383,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
 .form-list td.label             { width:200px; }
 .form-list td.use-default label { display:inline-block; vertical-align:middle; padding:0 3px; }
-.form-list td.label label       { display:block; width:185px; padding-right:15px; padding-top:1px; }
+.form-list td.label label       { display:block; padding-right:15px; padding-top:1px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
 .form-list td.value textarea    { height:15em; }
@@ -397,6 +404,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 
 .fieldset-wide .form-list { width:100% !important; }
 .fieldset-wide .form-list td.value { width:auto !important; }
+.fieldset-wide .form-list td.value p.note,
 .fieldset-wide .form-list td.value input.input-text,
 .fieldset-wide .form-list td.value textarea { width:98% !important; }
 /*.fieldset-wide .form-list td.value select { display:block; }*/
@@ -473,7 +481,7 @@ button.success:active { background:url(images/btn_gr_on.gif) repeat-x 0 0 #3fa05
 
 button.disabled,
 button.disabled:hover,
-button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; }
+button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; }
 button.add.disabled span { background-image:url(images/add_btn_icon-disabled.gif); }
 
 button.loading > span { padding-left:20px; background-image: url(images/btn_loading-icon.gif) !important;}
@@ -549,7 +557,7 @@ td.divider              { font-size:1px; line-height:0; }
 .scrollContent              { position:absolute; left:0; top:0; }
 
 /* Horizontal scroll */
-.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; } /* IE has personal style, see iestyles.css */
+.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; }
 
 
 /**/
@@ -589,7 +597,7 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
 /* HEADER & FOOTER
 *******************************************************************************/
 
-.logo                                   { float:left; margin:5px 20px 5px 27px; height:43px; }
+.logo                                   { float:left; margin:7px 20px 5px 32px; height:30px; }
 .header-top                             { border-bottom:1px solid #5F767F; }
 
 /* Header right */
@@ -656,7 +664,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .left-col-block { width:200px; }
 
 /* Floating Content Header */ /* Used to make action buttons always within reach */
-.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"/* IE8 */; opacity:.85; }
+.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; opacity:.85; }
 .content-header-floating .content-header { padding:6px 8px 4px 8px; margin-bottom:0; border:0; }
 .content-header-floating td     { padding-right:20px; }
 .content-header-floating button { margin-top:3px; }
@@ -673,42 +681,64 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 
 
 /* Icon Head */ /* Headings with icon preceding text*/
-.icon-head                      { min-height:18px; background-repeat:no-repeat; background-position:0 0; padding-left:22px; }
-.head-customer-address-list     { background-image:url(images/fam_house.gif); }
-.head-edit-form                 { background-image:url(images/fam_page_white.gif); }
+.icon-head                      { min-height:18px; background-repeat:no-repeat; background-position:0 0; }
+.head-customer-address-list     { background-image:url(images/fam_house.gif); padding-left:22px; }
+.head-edit-form                 { background-image:url(images/fam_page_white.gif); padding-left:22px; }
 .head-customer-view             { background-image:url(images/fam_status_online.gif); padding-left:18px; }
 .head-customer,
-.head-customer-groups           { background-image:url(images/fam_group.gif); }
-.head-user                      { background-image:url(images/fam_user.gif); }
-.head-user-edit                 { background-image:url(images/fam_user_edit.gif); }
-.head-user-comment              { background-image:url(images/fam_user_comment.gif); }
-.head-comment                   { background-image:url(images/fam_comment.gif); }
-.head-cart                      { background-image:url(images/fam_cart.gif); }
-.head-account                   { background-image:url(images/fam_account.gif); }
-.head-online-visitors           { background-image:url(images/fam_monitor.gif); }
-.head-products                  { background-image:url(images/fam_package.gif); }
-.head-catalog-product           { background-image:url(images/fam_package.gif); }
-.head-newsletter-queue          { background-image:url(images/fam_newspaper_go.gif); }
-.head-newsletter-list           { background-image:url(images/fam_newspaper.gif); }
-.head-newsletter-report         { background-image:url(images/fam_newspaper_error.gif); }
-.head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); }
+.head-customer-groups,
+.head-online-visitors           { background-image:url(images/fam_group.gif); padding-left:22px; }
+.head-user                      { background-image:url(images/fam_user.gif); padding-left:22px; }
+.head-user-edit                 { background-image:url(images/fam_user_edit.gif); padding-left:22px; }
+.head-poll,
+.head-user-comment,
+.head-review,
+.head-rating,
+.head-comment                   { background-image:url(images/fam_comment.gif); padding-left:22px; }
+.head-catalog-search            { background-image:url(images/fam_magnifier.png); padding-left:22px; }
+.head-urlrewrite                { background-image:url(images/fam_link.gif); padding-left:22px; }
+.head-cart                      { background-image:url(images/fam_cart.gif); padding-left:22px; }
+.head-system-account,
+.head-account                   { background-image:url(images/fam_account.gif); padding-left:22px; }
+.head-products,
+.head-catalog-product,
+.head-sitemap                   { background-image:url(images/fam_package.gif); padding-left:22px; }
+.head-newsletter                { background-image:url(images/fam_newspaper.gif); padding-left:22px; }
+.head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); padding-left:22px; }
 .head-sales-order,
-.head-sales-invoice             { background-image:url(images/fam_folder_table.gif); }
+.head-sales-invoice,
+.head-sales-shipment,
+.head-sales-creditmemo,
+.head-sales-transactions,
+.head-sales-order-shipment,
+.head-sales-order-invoice,
+.head-sales-order-creditmemo,
+.head-adminhtml-recurring-profile,
+.head-adminhtml-billing-agreement,
+.head-checkout-agreement        { background-image:url(images/fam_folder_table.gif); padding-left:22px; }
+.head-tax,
+.head-tax-rule,
+.head-tax-rate-importExport,
+.head-tax-class,
+.head-system-currency,
+.head-promo-quote,
+.head-promo-catalog             { background-image:url(images/fam_money.gif); padding-left:22px; }
 .head-categories                { background-image:url(images/fam_folder_database.gif); padding-left:20px; color:#253033 !important; }
 .head-catalog-product-attribute { background-image:url(images/fam_rainbow.gif); padding-left:24px; }
 .head-product-attribute-sets    { background-image:url(images/fam_folder_palette.gif); padding-left:23px; }
-.head-tax                       { background-image:url(images/fam_money_add.gif); }
-.head-cms-page, .head-cms-block { background-image:url(images/application_view_tile.gif); }
-.head-backups-control           { background-image:url(images/fam_server_database.gif); }
-.head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); }
+.head-cms-page, .head-cms-block,
+.head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); padding-left:22px; }
+.head-report,
+.head-backups-control           { background-image:url(images/fam_server_database.gif); padding-left:22px; }
+.head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); padding-left:22px; }
 .head-shipping-address,
-.head-billing-address           { background-image:url(images/fam_house.gif); }
-.head-shipping-method           { background-image:url(images/fam_lorry.gif); }
-.head-payment-method            { background-image:url(images/fam_creditcards.gif); }
-.head-order-date                { background-image:url(images/fam_calendar.gif); }
-.head-customer-sales-statistics { background-image:url(images/fam_money.gif); }
-.head-notification              { background-image:url(images/fam_folder_table.gif); }
-.head-compilation               { background-image:url(images/fam_package_go.gif); }
+.head-billing-address           { background-image:url(images/fam_house.gif); padding-left:22px; }
+.head-shipping-method           { background-image:url(images/fam_lorry.gif); padding-left:22px; }
+.head-payment-method            { background-image:url(images/fam_creditcards.gif); padding-left:22px; }
+.head-order-date                { background-image:url(images/fam_calendar.gif); padding-left:22px; }
+.head-customer-sales-statistics { background-image:url(images/fam_money.gif); padding-left:22px; }
+.head-notification              { background-image:url(images/fam_folder_table.gif); padding-left:22px; }
+.head-compilation               { background-image:url(images/fam_package_go.gif); padding-left:22px; }
 
 
 
@@ -720,7 +750,8 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 /* LOGIN
 *******************************************************************************/
 #page-login                             { background:#f8f8f8; text-align:center; }
-.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.png) no-repeat; }
+.login-container                        { position: relative; width:581px; margin:170px auto; padding-left:32px; }
+.login-container::before                { content: "";position: absolute;width: 150px;height: 35px;top: 60px;left: -55px;background: url(images/logo_gray.svg) 0 0 no-repeat;background-size: contain;transform: rotate(-90deg); }
 .login-form                             { padding:27px 57px 35px 57px; background:url(images/login_box_bg.jpg) no-repeat; text-align:left; }
 .login-form .input-left                 { float:left; }
 .login-form .input-right                { float:right; }

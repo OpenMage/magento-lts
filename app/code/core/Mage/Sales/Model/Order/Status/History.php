@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order status history comments
+ *
+ * @category   Mage
+ * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
@@ -39,17 +31,12 @@
  * @method $this setParentId(int $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
- * @method $this setStoreId(int $value)
  * @method int getIsVisibleOnFront()
  * @method $this setIsVisibleOnFront(int $value)
- *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
-    const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
+    public const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
 
     /**
      * Order instance
@@ -68,16 +55,13 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     protected $_eventPrefix = 'sales_order_status_history';
     protected $_eventObject = 'status_history';
 
-    /**
-     * Initialize resource model
-     */
     protected function _construct()
     {
         $this->_init('sales/order_status_history');
     }
 
     /**
-     * Set order object and grab some metadata from it
+     * Set order object
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  $this
@@ -85,8 +69,17 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $this->setStoreId($order->getStoreId());
         return $this;
+    }
+
+    /**
+     * Get store id
+     *
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getStoreId(): int
+    {
+        return $this->getStore()->getStoreId();
     }
 
     /**
@@ -107,7 +100,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Customer Notification Applicable check method
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustomerNotificationNotApplicable()
     {

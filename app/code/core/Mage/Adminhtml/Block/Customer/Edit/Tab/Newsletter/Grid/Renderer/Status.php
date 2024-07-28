@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,22 +18,20 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-
     protected static $_statuses;
 
     public function __construct()
     {
-        self::$_statuses = array(
-                Mage_Newsletter_Model_Queue::STATUS_SENT 	=> Mage::helper('customer')->__('Sent'),
-                Mage_Newsletter_Model_Queue::STATUS_CANCEL	=> Mage::helper('customer')->__('Cancel'),
-                Mage_Newsletter_Model_Queue::STATUS_NEVER 	=> Mage::helper('customer')->__('Not Sent'),
+        self::$_statuses = [
+                Mage_Newsletter_Model_Queue::STATUS_SENT    => Mage::helper('customer')->__('Sent'),
+                Mage_Newsletter_Model_Queue::STATUS_CANCEL  => Mage::helper('customer')->__('Cancel'),
+                Mage_Newsletter_Model_Queue::STATUS_NEVER   => Mage::helper('customer')->__('Not Sent'),
                 Mage_Newsletter_Model_Queue::STATUS_SENDING => Mage::helper('customer')->__('Sending'),
-                Mage_Newsletter_Model_Queue::STATUS_PAUSE 	=> Mage::helper('customer')->__('Paused'),
-            );
+                Mage_Newsletter_Model_Queue::STATUS_PAUSE   => Mage::helper('customer')->__('Paused'),
+        ];
         parent::__construct();
     }
 
@@ -53,13 +40,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status ext
         return Mage::helper('customer')->__(self::getStatus($row->getQueueStatus()));
     }
 
-    public static function  getStatus($status)
+    public static function getStatus($status)
     {
-        if(isset(self::$_statuses[$status])) {
-            return self::$_statuses[$status];
-        }
-
-        return Mage::helper('customer')->__('Unknown');
+        return self::$_statuses[$status] ?? Mage::helper('customer')->__('Unknown');
     }
-
 }

@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,11 +18,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
-    const XML_PATH_IMAGE_TYPES = 'global/catalog/product/media/image_types';
+    public const XML_PATH_IMAGE_TYPES = 'global/catalog/product/media/image_types';
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -48,31 +36,31 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
              */
             $field = new Varien_Data_Form_Element_Text();
             $field->setName("groups[watermark][fields][{$key}_size][value]")
-                ->setForm( $this->getForm() )
+                ->setForm($this->getForm())
                 ->setLabel(Mage::helper('adminhtml')->__('Size for %s', $attribute['title']))
                 ->setRenderer($renderer);
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
 
             /**
              * Watermark upload field
              */
             $field = new Varien_Data_Form_Element_Imagefile();
             $field->setName("groups[watermark][fields][{$key}_image][value]")
-                ->setForm( $this->getForm() )
+                ->setForm($this->getForm())
                 ->setLabel(Mage::helper('adminhtml')->__('Watermark File for %s', $attribute['title']))
                 ->setRenderer($renderer);
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
 
             /**
              * Watermark position field
              */
             $field = new Varien_Data_Form_Element_Select();
             $field->setName("groups[watermark][fields][{$key}_position][value]")
-                ->setForm( $this->getForm() )
+                ->setForm($this->getForm())
                 ->setLabel(Mage::helper('adminhtml')->__('Position of Watermark for %s', $attribute['title']))
                 ->setRenderer($renderer)
                 ->setValues(Mage::getSingleton('adminhtml/system_config_source_watermark_position')->toOptionArray());
-            $html.= $field->toHtml();
+            $html .= $field->toHtml();
         }
 
         $html .= $this->_getFooterHtml($element);
@@ -85,23 +73,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         $id = $element->getHtmlId();
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
-        $html = '<h4 class="icon-head head-edit-form">'.$element->getLegend().'</h4>';
-        $html.= '<fieldset class="config" id="'.$element->getHtmlId().'">';
-        $html.= '<legend>'.$element->getLegend().'</legend>';
+        $html = '<h4 class="icon-head head-edit-form">' . $element->getLegend() . '</h4>';
+        $html .= '<fieldset class="config" id="' . $element->getHtmlId() . '">';
+        $html .= '<legend>' . $element->getLegend() . '</legend>';
 
         // field label column
-        $html.= '<table cellspacing="0"><colgroup class="label" /><colgroup class="value" />';
+        $html .= '<table cellspacing="0"><colgroup class="label" /><colgroup class="value" />';
         if (!$default) {
-            $html.= '<colgroup class="use-default" />';
+            $html .= '<colgroup class="use-default" />';
         }
-        $html.= '<tbody>';
+        $html .= '<tbody>';
 
         return $html;
     }
 
     protected function _getFooterHtml($element)
     {
-        $html = '</tbody></table></fieldset>';
-        return $html;
+        return '</tbody></table></fieldset>';
     }
 }

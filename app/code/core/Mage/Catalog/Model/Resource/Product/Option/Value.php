@@ -1,43 +1,26 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product custom option resource model
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Define main table and initialize connection
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product_option_type_value', 'option_type_id');
@@ -80,24 +63,24 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
             if ($optionTypeId) {
                 if ($object->getStoreId() == '0') {
-                    $bind  = array(
+                    $bind  = [
                         'price'         => $price,
                         'price_type'    => $priceType
-                    );
-                    $where = array(
+                    ];
+                    $where = [
                         'option_type_id = ?'    => $optionTypeId,
                         'store_id = ?'          => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
-                    );
+                    ];
 
                     $this->_getWriteAdapter()->update($priceTable, $bind, $where);
                 }
             } else {
-                $bind  = array(
+                $bind  = [
                     'option_type_id'    => (int)$object->getId(),
                     'store_id'          => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
                     'price'             => $price,
                     'price_type'        => $priceType
-                );
+                ];
                 $this->_getWriteAdapter()->insert($priceTable, $bind);
             }
         }
@@ -105,7 +88,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
         $scope = (int)Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
 
         if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
-            && !$object->getData('scope', 'price')) {
+            && !$object->getData('scope', 'price')
+        ) {
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
             $storeIds = Mage::app()->getStore($object->getStoreId())
@@ -131,33 +115,33 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                     $optionTypeId = $this->_getReadAdapter()->fetchOne($select);
 
                     if ($optionTypeId) {
-                        $bind  = array(
+                        $bind  = [
                             'price'         => $newPrice,
                             'price_type'    => $priceType
-                        );
-                        $where = array(
+                        ];
+                        $where = [
                             'option_type_id = ?'    => (int)$optionTypeId,
                             'store_id = ?'          => (int)$storeId
-                        );
+                        ];
 
                         $this->_getWriteAdapter()->update($priceTable, $bind, $where);
                     } else {
-                        $bind  = array(
+                        $bind  = [
                             'option_type_id'    => (int)$object->getId(),
                             'store_id'          => (int)$storeId,
                             'price'             => $newPrice,
                             'price_type'        => $priceType
-                        );
+                        ];
 
                         $this->_getWriteAdapter()->insert($priceTable, $bind);
                     }
                 }// end of foreach()
             }
         } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
-            $where = array(
+            $where = [
                 'option_type_id = ?'    => (int)$object->getId(),
                 'store_id = ?'          => (int)$object->getStoreId(),
-            );
+            ];
             $this->_getWriteAdapter()->delete($priceTable, $where);
         }
     }
@@ -173,61 +157,61 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
         if (!$object->getData('scope', 'title')) {
             $select = $this->_getReadAdapter()->select()
-                ->from($titleTable, array('option_type_id'))
+                ->from($titleTable, ['option_type_id'])
                 ->where('option_type_id = ?', (int)$object->getId())
                 ->where('store_id = ?', 0);
             $optionTypeId = $this->_getReadAdapter()->fetchOne($select);
 
             if ($optionTypeId) {
                 if ($object->getStoreId() == '0') {
-                    $where = array(
+                    $where = [
                         'option_type_id = ?'    => (int)$optionTypeId,
                         'store_id = ?'          => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
-                    );
-                    $bind  = array(
+                    ];
+                    $bind  = [
                         'title' => $object->getTitle()
-                    );
+                    ];
                     $this->_getWriteAdapter()->update($titleTable, $bind, $where);
                 }
             } else {
-                $bind  = array(
+                $bind  = [
                     'option_type_id'    => (int)$object->getId(),
                     'store_id'          => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
                     'title'             => $object->getTitle()
-                );
+                ];
                 $this->_getWriteAdapter()->insert($titleTable, $bind);
             }
         }
 
         if ($object->getStoreId() != '0' && !$object->getData('scope', 'title')) {
             $select = $this->_getReadAdapter()->select()
-                ->from($titleTable, array('option_type_id'))
+                ->from($titleTable, ['option_type_id'])
                 ->where('option_type_id = ?', (int)$object->getId())
                 ->where('store_id = ?', (int)$object->getStoreId());
             $optionTypeId = $this->_getReadAdapter()->fetchOne($select);
 
             if ($optionTypeId) {
-                $bind  = array(
+                $bind  = [
                     'title' => $object->getTitle()
-                );
-                $where = array(
+                ];
+                $where = [
                     'option_type_id = ?'    => (int)$optionTypeId,
                     'store_id = ?'          => (int)$object->getStoreId()
-                );
+                ];
                 $this->_getWriteAdapter()->update($titleTable, $bind, $where);
             } else {
-                $bind  = array(
+                $bind  = [
                     'option_type_id'    => (int)$object->getId(),
                     'store_id'          => (int)$object->getStoreId(),
                     'title'             => $object->getTitle()
-                );
+                ];
                 $this->_getWriteAdapter()->insert($titleTable, $bind);
             }
         } elseif ($object->getData('scope', 'title')) {
-            $where = array(
+            $where = [
                 'option_type_id = ?'    => (int)$object->getId(),
                 'store_id = ?'          => (int)$object->getStoreId()
-            );
+            ];
             $this->_getWriteAdapter()->delete($titleTable, $where);
         }
     }
@@ -252,9 +236,9 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            array(
+            [
                 'option_id = ?' => $optionId,
-            )
+            ]
         );
 
         return $this;
@@ -267,9 +251,9 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
      */
     public function deleteValues($optionTypeId)
     {
-        $condition = array(
+        $condition = [
             'option_type_id = ?' => $optionTypeId
-        );
+        ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('catalog/product_option_type_price'),
@@ -299,7 +283,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
             ->where('option_id = ?', $oldOptionId);
         $valueData = $readAdapter->fetchAll($select);
 
-        $valueCond = array();
+        $valueCond = [];
 
         foreach ($valueData as $data) {
             $optionTypeId = $data[$this->getIdFieldName()];
@@ -315,37 +299,37 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
         foreach ($valueCond as $oldTypeId => $newTypeId) {
             // price
             $priceTable = $this->getTable('catalog/product_option_type_price');
-            $columns = array(
+            $columns = [
                 new Zend_Db_Expr($newTypeId),
                 'store_id', 'price', 'price_type'
-            );
+            ];
 
             $select = $readAdapter->select()
-                ->from($priceTable, array())
+                ->from($priceTable, [])
                 ->where('option_type_id = ?', $oldTypeId)
                 ->columns($columns);
             $insertSelect = $writeAdapter->insertFromSelect(
                 $select,
                 $priceTable,
-                array('option_type_id', 'store_id', 'price', 'price_type')
+                ['option_type_id', 'store_id', 'price', 'price_type']
             );
             $writeAdapter->query($insertSelect);
 
             // title
             $titleTable = $this->getTable('catalog/product_option_type_title');
-            $columns = array(
+            $columns = [
                 new Zend_Db_Expr($newTypeId),
                 'store_id', 'title'
-            );
+            ];
 
             $select = $this->_getReadAdapter()->select()
-                ->from($titleTable, array())
+                ->from($titleTable, [])
                 ->where('option_type_id = ?', $oldTypeId)
                 ->columns($columns);
             $insertSelect = $writeAdapter->insertFromSelect(
                 $select,
                 $titleTable,
-                array('option_type_id', 'store_id', 'title')
+                ['option_type_id', 'store_id', 'title']
             );
             $writeAdapter->query($insertSelect);
         }

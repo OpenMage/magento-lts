@@ -1,44 +1,31 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_File
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * This class is invalid. Avoid using it
  *
  * @deprecated after 1.4.0.0-rc1
- * @file        Image.php
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @file       Image.php
+ *
+ * @property mixed $uploader
  */
-
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
-
-    function __construct($file=null)
+    public function __construct()
     {
-        register_shutdown_function(array($this, 'destruct'));
-        $this->newUploader($file);
+        register_shutdown_function([$this, 'destruct']);
     }
 
     /**
@@ -53,12 +40,12 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Resizes an image
      * Set parameters to the wanted (or maximum/minimum) width for the processed image, in pixels
      */
-    public function resize($width=null, $height=null)
+    public function resize($width = null, $height = null)
     {
         $this->uploader->image_resize = true;
 
-        $this->uploader->image_ratio_x = ( $width == null ) ? true : false;
-        $this->uploader->image_ratio_y = ( $height == null ) ? true : false;
+        $this->uploader->image_ratio_x = ($width == null) ? true : false;
+        $this->uploader->image_ratio_y = ($height == null) ? true : false;
 
         $this->uploader->image_x = $width;
         $this->uploader->image_y = $height;
@@ -72,9 +59,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is NULL (no rotation)
      *
      */
-    public function rotate($degrees=null)
+    public function rotate($degrees = null)
     {
-        $this->uploader->image_rotate = intval($degrees);
+        $this->uploader->image_rotate = (int) $degrees;
     }
 
     /**
@@ -85,9 +72,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is h (flip horizontally)
      *
      * @access public
-     * @var string;
+     * @param string $type
      */
-    public function flip($type="h")
+    public function flip($type = "h")
     {
         $this->uploader->image_flip = $type;
     }
@@ -115,7 +102,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Default value is NULL (no cropping)
      */
-    public function crop($crop=0)
+    public function crop($crop = 0)
     {
         $this->uploader->image_crop = $crop;
     }
@@ -128,7 +115,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is 'jpeg'
      *
      */
-    public function convert($format="jpeg")
+    public function convert($format = "jpeg")
     {
         $this->uploader->image_convert = $format;
     }
@@ -160,9 +147,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * If a negative value is used, it will represent the distance between the right of the image and the watermark
      *
      */
-    public function addWatermark($fileName=null, $position="BL", $absoluteX=null, $absoluteY=null)
+    public function addWatermark($fileName = null, $position = "BL", $absoluteX = null, $absoluteY = null)
     {
-        if( !isset($fileName) ) {
+        if (!isset($fileName)) {
             return;
         }
 
@@ -191,9 +178,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Value is an integer between 0 (no opacity) and 100 (full opacity).
      *
      */
-    public function addReflection($height="10%", $space=0, $color="#FFFFFF", $opacity=60)
+    public function addReflection($height = "10%", $space = 0, $color = "#FFFFFF", $opacity = 60)
     {
-        if( intval($height) == 0 ) {
+        if ((int) $height == 0) {
             return;
         }
 
@@ -208,9 +195,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Value is a string, any text. Text will not word-wrap, although you can use breaklines in your text "\n"
      */
-    public function addText($string="")
+    public function addText($string = "")
     {
-        if( trim($string) == "" ) {
+        if (trim($string) == "") {
             return;
         }
 
@@ -229,7 +216,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
 
     public function setTextVisibilityPercent($percent)
     {
-        $this->uploader->image_text_percent = $visibilityPercent;
+        $this->uploader->image_text_percent = $percent;
     }
 
     public function setTextBackgroundColor($color)
@@ -247,7 +234,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
         $this->uploader->image_text_font = $font;
     }
 
-    public function setTextPosition($position="TR")
+    public function setTextPosition($position = "TR")
     {
         $this->uploader->image_text_position = $position;
     }
@@ -312,7 +299,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * $percent value is a percentage, as an integer between 0 and 100
      *
      */
-    public function colorOverlay($color="#FFFFFF", $percent=50)
+    public function colorOverlay($color = "#FFFFFF", $percent = 50)
     {
         $this->uploader->image_overlay_color = $color;
         $this->uploader->image_overlay_percent = $percent;
@@ -324,7 +311,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Value can range between -127 and 127
      *
      */
-    public function setContrast($value=0)
+    public function setContrast($value = 0)
     {
         $this->uploader->image_contrast = $value;
     }
@@ -335,7 +322,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Value can range between -127 and 127
      *
      */
-    public function setBrightness($value=0)
+    public function setBrightness($value = 0)
     {
         $this->uploader->image_brightness = $value;
     }
@@ -346,7 +333,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is 85
      *
      */
-    public function setJpegQuality($value=85)
+    public function setJpegQuality($value = 85)
     {
         $this->uploader->jpeg_quality = $value;
         #
@@ -358,13 +345,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Is generally used when cropping an image with negative margins
      *
      */
-    public function setBgColor($color="#000000")
+    public function setBgColor($color = "#000000")
     {
         $this->uploader->image_background_color = $color;
     }
 }
-
-// ft:php
-// fileformat:unix
-// tabstop:4
-?>

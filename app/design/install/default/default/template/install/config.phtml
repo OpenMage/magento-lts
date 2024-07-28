@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -57,21 +46,21 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[enable_charts]" id="enable_charts" value="1" <?php if($this->getFormData()->getEnableCharts()): ?>checked="checked"<?php endif; ?> />
+            <input type="checkbox" name="config[enable_charts]" id="enable_charts" value="1" <?php if($this->getFormData()->getEnableCharts()): ?>checked="checked"<?php endif ?> />
             <label for="enable_charts"><?php echo $this->__('Enable Charts') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Enable this option if you want the charts to be displayed on Dashboard.') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif; ?> />
+            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif ?> />
             <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL Validation Before the Next Step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate the Base URL.') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif; ?> />
+            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif ?> />
             <label for="use_rewrites"><?php echo $this->__('Use Web Server (Apache) Rewrites') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small>
@@ -97,11 +86,11 @@
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif; ?> />
+            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif ?> />
             <label for="use_secure_admin"><?php echo $this->__('Run admin interface with SSL') ?></label><br />
         </li>
         <li>
-            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if($this->getSkipUrlValidation()): ?>checked="checked"<?php endif; ?> />
+            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if($this->getSkipUrlValidation()): ?>checked="checked"<?php endif ?> />
             <label for="skip_url_validation"><?php echo $this->__('Skip Secure URL validation before next step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate Secure URL, for example if HTTP authentication is required.') ?></small>
@@ -134,6 +123,6 @@
 <?php else: ?>
     <div><?php echo $this->__('Please set all required settings before clicking Continue') ?></div>
     <div class="button-set">
-        <button class="form-button" type="button" onclick="setLocation('<?php echo $this->getUrl('*/*/*', array('_current'=>true)) ?>')"><span><?php echo $this->__('Continue') ?></span></button>
+        <button class="form-button" type="button" onclick="setLocation('<?php echo $this->getUrl('*/*/*', ['_current'=>true]) ?>')"><span><?php echo $this->__('Continue') ?></span></button>
     </div>
-<?php endif; ?>
+<?php endif ?>

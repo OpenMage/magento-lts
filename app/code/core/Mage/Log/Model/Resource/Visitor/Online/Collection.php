@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Log Online visitors collection
  *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Log
  */
 class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -39,7 +26,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      *
      * @var array
      */
-    protected $_fields   = array();
+    protected $_fields   = [];
 
     /**
      * Initialize collection model
@@ -59,39 +46,39 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     {
         $customer   = Mage::getModel('customer/customer');
         // alias => attribute_code
-        $attributes = array(
+        $attributes = [
             'customer_lastname'   => 'lastname',
             'customer_middlename' => 'middlename',
             'customer_firstname'  => 'firstname',
             'customer_email'      => 'email'
-        );
+        ];
 
         foreach ($attributes as $alias => $attributeCode) {
             $attribute = $customer->getAttribute($attributeCode);
-            /* @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
 
             if ($attribute->getBackendType() == 'static') {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
+                    [$tableAlias => $attribute->getBackend()->getTable()],
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
-                    array($alias => $attribute->getAttributeCode())
+                    [$alias => $attribute->getAttributeCode()]
                 );
 
                 $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
             } else {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
-                $joinConds  = array(
+                $joinConds  = [
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
                     $this->getConnection()->quoteInto($tableAlias . '.attribute_id=?', $attribute->getAttributeId())
-                );
+                ];
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
-                    join(' AND ', $joinConds),
-                    array($alias => 'value')
+                    [$tableAlias => $attribute->getBackend()->getTable()],
+                    implode(' AND ', $joinConds),
+                    [$alias => 'value']
                 );
 
                 $this->_fields[$alias] = sprintf('%s.value', $tableAlias);

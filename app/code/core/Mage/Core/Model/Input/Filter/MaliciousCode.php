@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interface
 {
@@ -38,7 +26,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      *
      * @var array
      */
-    protected $_expressions = array(
+    protected array $_expressions = [
         //comments, must be first
         '/(\/\*.*\*\/)/Us',
         //tabs
@@ -53,27 +41,29 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         '/(ondblclick|onclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onload|onunload|onerror|onanimationstart|onfocus|onloadstart|ontoggle)\s*=[^>]*(?=\>)/Uis',
         //tags
         '/<\/?(script|meta|link|frame|iframe|object).*>/Uis',
+        //scripts
+        '/<\?\s*?(php|=).*>/Uis',
         //base64 usage
         '/src\s*=[^<]*base64[^<]*(?=\>)/Uis',
         //data attribute
         '/(data(\\\\x3a|:|%3A)(.+?(?=")|.+?(?=\')))/is',
-    );
+    ];
 
     /**
-     * Filter value
-     *
-     * @param string|array $value
-     * @return string|array         Filtered value
+     * @param string|array|null $value
+     * @return string|array
      */
     public function filter($value)
     {
-        $result = false;
+        if ($value === null) {
+            return '';
+        }
+
         do {
-            $subject = $result ? $result : $value;
-            $result = preg_replace($this->_expressions, '', $subject, -1, $count);
+            $value = preg_replace($this->_expressions, '', $value ?? '', -1, $count);
         } while ($count !== 0);
 
-        return $result;
+        return Mage::helper('core/purifier')->purify($value);
     }
 
     /**
@@ -122,10 +112,10 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
             Mage::throwException(Mage::helper('core')->__('HTML filtration has failed.'));
         }
 
-        $relAttributeDefaultItems = array('noopener', 'noreferrer');
+        $relAttributeDefaultItems = ['noopener', 'noreferrer'];
         /** @var DOMElement $linkItem */
         foreach ($dom->getElementsByTagName('a') as $linkItem) {
-            $relAttributeItems = array();
+            $relAttributeItems = [];
             $relAttributeCurrentValue = $linkItem->getAttribute('rel');
             if (!empty($relAttributeCurrentValue)) {
                 $relAttributeItems = explode(' ', $relAttributeCurrentValue);

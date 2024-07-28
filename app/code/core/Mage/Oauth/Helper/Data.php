@@ -1,84 +1,71 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * OAuth Helper
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
  */
 class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**#@+
+    /**
      * Endpoint types with appropriate routes
      */
-    const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
-    const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
-    const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
-    const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
-    const ENDPOINT_INITIATE                  = 'oauth/initiate';
-    const ENDPOINT_TOKEN                     = 'oauth/token';
-    /**#@-*/
+    public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
+    public const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
+    public const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
+    public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
+    public const ENDPOINT_INITIATE                  = 'oauth/initiate';
+    public const ENDPOINT_TOKEN                     = 'oauth/token';
 
-    /**#@+
+    /**
      * Cleanup xpath config settings
      */
-    const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
-    const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
-    /**#@-*/
+    public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
+    public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
 
-    /**#@+ Email template */
-    const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
-    const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
-    /**#@-*/
+    /** Email template */
+    public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
+    public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
 
     /**
      * Cleanup expiration period in minutes
      */
-    const CLEANUP_EXPIRATION_PERIOD_DEFAULT = 120;
+    public const CLEANUP_EXPIRATION_PERIOD_DEFAULT = 120;
 
     /**
      * Query parameter as a sign that user rejects
      */
-    const QUERY_PARAM_REJECTED = 'rejected';
+    public const QUERY_PARAM_REJECTED = 'rejected';
+
+    protected $_moduleName = 'Mage_Oauth';
 
     /**
      * Available endpoints list
      *
      * @var array
      */
-    protected $_endpoints = array(
+    protected $_endpoints = [
         self::ENDPOINT_AUTHORIZE_CUSTOMER,
         self::ENDPOINT_AUTHORIZE_ADMIN,
         self::ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE,
         self::ENDPOINT_AUTHORIZE_ADMIN_SIMPLE,
         self::ENDPOINT_INITIATE,
         self::ENDPOINT_TOKEN
-    );
+    ];
 
     /**
      * Generate random string for token or secret or verifier
@@ -90,7 +77,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (function_exists('openssl_random_pseudo_bytes')) {
             // use openssl lib if it is install. It provides a better randomness
-            $bytes = openssl_random_pseudo_bytes(ceil($length/2), $strong);
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $strong);
             $hex = bin2hex($bytes); // hex() doubles the length of the string
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {
@@ -180,7 +167,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (false === strpos($callbackUrl, '?') ? '?' : '&');
+        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
         $callbackUrl .= $rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier();
 
@@ -210,8 +197,8 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public function isCleanupProbability()
     {
         // Safe get cleanup probability value from system configuration
-        $configValue = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_PROBABILITY);
-        return $configValue > 0 ? 1 == mt_rand(1, $configValue) : false;
+        $configValue = Mage::getStoreConfigAsInt(self::XML_PATH_CLEANUP_PROBABILITY);
+        return $configValue > 0 ? mt_rand(1, $configValue) == 1 : false;
     }
 
     /**
@@ -221,7 +208,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCleanupExpirationPeriod()
     {
-        $minutes = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_EXPIRATION_PERIOD);
+        $minutes = Mage::getStoreConfigAsInt(self::XML_PATH_CLEANUP_EXPIRATION_PERIOD);
         return $minutes > 0 ? $minutes : self::CLEANUP_EXPIRATION_PERIOD_DEFAULT;
     }
 
@@ -235,7 +222,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function sendNotificationOnTokenStatusChange($userEmail, $userName, $applicationName, $status)
     {
-        /* @var Mage_Core_Model_Email_Template $mailTemplate */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $mailTemplate->sendTransactional(
@@ -243,20 +230,20 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY),
             $userEmail,
             $userName,
-            array(
+            [
                 'name'              => $userName,
                 'email'             => $userEmail,
                 'applicationName'   => $applicationName,
                 'status'            => $status,
 
-            )
+            ]
         );
     }
 
     /**
      * Is current authorize page is simple
      *
-     * @return boolean
+     * @return bool
      */
     protected function _getIsSimple()
     {
@@ -296,7 +283,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Exception('Invalid user type.');
         }
 
-        return $this->_getUrl($route, array('_query' => array('oauth_token' => $this->getOauthToken())));
+        return $this->_getUrl($route, ['_query' => ['oauth_token' => $this->getOauthToken()]]);
     }
 
     /**

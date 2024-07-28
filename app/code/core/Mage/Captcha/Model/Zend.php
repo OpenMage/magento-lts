@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,24 +18,23 @@
  *
  * @category   Mage
  * @package    Mage_Captcha
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
 {
     /**
      * Key in session for captcha code
      */
-    const SESSION_WORD = 'word';
+    public const SESSION_WORD = 'word';
 
     /**
      * Min captcha lengths default value
      */
-    const DEFAULT_WORD_LENGTH_FROM = 3;
+    public const DEFAULT_WORD_LENGTH_FROM = 3;
 
     /**
      * Max captcha lengths default value
      */
-    const DEFAULT_WORD_LENGTH_TO   = 5;
+    public const DEFAULT_WORD_LENGTH_TO   = 5;
 
     /**
      * Helper Instance
@@ -72,6 +60,13 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * @var string
      */
     protected $_formId;
+
+    /**
+     * Generated word
+     *
+     * @var string
+     */
+    protected $_word;
 
     /**
      * Zend captcha constructor
@@ -116,7 +111,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isRequired($login = null)
     {
-        $nonAuthForms = array('wishlist_sharing', 'sendfriend_send');
+        $nonAuthForms = ['wishlist_sharing', 'sendfriend_send'];
 
         if ((!in_array($this->_formId, $nonAuthForms) && $this->_isUserAuth())
             || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())
@@ -287,11 +282,11 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         return Mage::getSingleton('customer/session');
     }
 
-     /**
-     * Return full URL to captcha image
-     *
-     * @return string
-     */
+    /**
+    * Return full URL to captcha image
+    *
+    * @return string
+    */
     public function getImgSrc()
     {
         return $this->getImgUrl() . $this->getId() . $this->getSuffix();
@@ -453,11 +448,14 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Get captcha word
      *
-     * @return string
+     * @return string|null
      */
     public function getWord()
     {
         $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
+        if (!is_array($sessionData)) {
+            return null;
+        }
         return time() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
@@ -471,7 +469,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            array('data' => $word, 'expires' => time() + $this->getTimeout())
+            ['data' => $word, 'expires' => time() + $this->getTimeout()]
         );
         $this->_word = $word;
         return $this;
@@ -485,7 +483,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     protected function _clearWord()
     {
         $this->getSession()->unsetData($this->_getFormIdKey(self::SESSION_WORD));
-        $this->_word = null;
+        $this->_word = '';
         return $this;
     }
 

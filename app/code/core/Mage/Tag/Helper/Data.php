@@ -1,44 +1,36 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Tag data helper
+ * @category   Mage
+ * @package    Mage_Tag
  */
 class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Tag';
+
     /**
      * @return array
      */
     public function getStatusesArray()
     {
-        return array(
+        return [
             Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
             Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
             Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved')
-        );
+        ];
     }
 
     /**
@@ -46,20 +38,20 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getStatusesOptionsArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Mage::helper('tag')->__('Disabled'),
                 'value' => Mage_Tag_Model_Tag::STATUS_DISABLED
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('tag')->__('Pending'),
                 'value' => Mage_Tag_Model_Tag::STATUS_PENDING
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('tag')->__('Approved'),
                 'value' => Mage_Tag_Model_Tag::STATUS_APPROVED
-            )
-        );
+            ]
+        ];
     }
 
     /**

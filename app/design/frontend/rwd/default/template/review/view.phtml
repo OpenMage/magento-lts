@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php if($this->getProductData()->getId()): ?>
@@ -38,7 +27,7 @@
         <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
              <p class="label"><?php echo $this->__('Average Customer Rating') ?>:</p>
              <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <div class="product-details">
         <h2 class="product-name"><?php echo $this->escapeHtml($this->getProductData()->getName()) ?></h2>
@@ -55,11 +44,11 @@
                             </div>
                         </td>
                     </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
+                <?php endif ?>
+            <?php endforeach ?>
             </table>
             </dl>
-        <?php endif; ?>
+        <?php endif ?>
         <dl>
             <dt>
                 <?php echo $this->__('Product Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
@@ -73,4 +62,4 @@
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Product Reviews') ?></a></p>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,26 +18,26 @@
  *
  * @category   Mage
  * @package    Mage_Api2
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Request interpret adapters
      */
-    const XML_PATH_API2_REQUEST_INTERPRETERS = 'global/api2/request/interpreters';
+    public const XML_PATH_API2_REQUEST_INTERPRETERS = 'global/api2/request/interpreters';
 
     /**
      * Response render adapters
      */
-    const XML_PATH_API2_RESPONSE_RENDERS     = 'global/api2/response/renders';
+    public const XML_PATH_API2_RESPONSE_RENDERS     = 'global/api2/response/renders';
 
-    /**#@+
+    /**
      * Config paths
      */
-    const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
-    const XML_PATH_USER_TYPES    = 'global/api2/user_types';
-    /**#@- */
+    public const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
+    public const XML_PATH_USER_TYPES    = 'global/api2/user_types';
+
+    protected $_moduleName = 'Mage_Api2';
 
     /**
      * Compare order to be used in adapters list sort
@@ -76,7 +65,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         $adapters = Mage::getConfig()->getNode(self::XML_PATH_AUTH_ADAPTERS);
 
         if (!$adapters) {
-            return array();
+            return [];
         }
         $adapters = $adapters->asArray();
 
@@ -88,7 +77,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $adapters = (array) $adapters;
         }
-        uasort($adapters, array('Mage_Api2_Helper_Data', '_compareOrder'));
+        uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
 
         return $adapters;
     }
@@ -100,7 +89,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUserTypes()
     {
-        $userModels = array();
+        $userModels = [];
         $types = Mage::getConfig()->getNode(self::XML_PATH_USER_TYPES);
 
         if ($types) {
@@ -159,7 +148,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 
         $attributes = $resource->getAllowedAttributes($userType, $resourceId, $operation);
 
-        return ($attributes === false || $attributes === null ? array() : explode(',', $attributes));
+        return ($attributes === false || $attributes === null ? [] : explode(',', $attributes));
     }
 
     /**

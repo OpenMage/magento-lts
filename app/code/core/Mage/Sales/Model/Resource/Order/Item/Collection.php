@@ -1,49 +1,34 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order payment collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ *
+ * @method Mage_Sales_Model_Order_Item getItemById(int $value)
  */
 class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix    = 'sales_order_item_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject    = 'order_item_collection';
@@ -55,10 +40,6 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     protected $_orderField     = 'order_id';
 
-    /**
-     * Model initialization
-     *
-     */
     protected function _construct()
     {
         $this->_init('sales/order_item');
@@ -103,7 +84,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addIdFilter($item)
     {
         if (is_array($item)) {
-            $this->addFieldToFilter('item_id', array('in'=>$item));
+            $this->addFieldToFilter('item_id', ['in' => $item]);
         } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
             $this->addFieldToFilter('item_id', $item->getId());
         } else {
@@ -120,7 +101,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     public function filterByTypes($typeIds)
     {
-        $this->addFieldToFilter('product_type', array('in' => $typeIds));
+        $this->addFieldToFilter('product_type', ['in' => $typeIds]);
         return $this;
     }
 
@@ -133,7 +114,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function filterByParent($parentId = null)
     {
         if (empty($parentId)) {
-            $this->addFieldToFilter('parent_item_id', array('null' => true));
+            $this->addFieldToFilter('parent_item_id', ['null' => true]);
         } else {
             $this->addFieldToFilter('parent_item_id', $parentId);
         }
@@ -148,7 +129,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addAvailableFilter()
     {
         $fieldExpression = '(qty_shipped - qty_returned)';
-        $resultCondition = $this->_getConditionSql($fieldExpression, array("gt" => 0));
+        $resultCondition = $this->_getConditionSql($fieldExpression, ["gt" => 0]);
         $this->getSelect()->where($resultCondition);
         return $this;
     }
@@ -162,9 +143,9 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addFilterByCustomerId($customerId)
     {
         $this->getSelect()->joinInner(
-            array('order' => $this->getTable('sales/order')),
+            ['order' => $this->getTable('sales/order')],
             'main_table.order_id = order.entity_id',
-            array()
+            []
         )
             ->where('order.customer_id IN(?)', $customerId);
 

@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php /* @var $this Mage_Sales_Block_Recurring_Profile_View */ ?>
@@ -33,16 +22,16 @@
     <h1><?php echo $this->__('Recurring Profile # %s', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanSuspend()): ?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanActivate()): ?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(),true) ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanUpdate()):?>
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo Mage::helper('core')->quoteEscape($this->getConfirmationMessage(), true) ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
-    <?php endif;?>
+    <?php endif ?>
 </div>
 
 <?php echo $this->getMessagesBlock()->toHtml() ?>
@@ -58,8 +47,8 @@
                 <li class="current"><strong><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></strong></li>
             <?php else: ?>
                 <li><a href="<?php echo $this->escapeHtml($this->getObjectData($block, 'view_url')) ?>"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></a></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </ul>
     </dd>
 </dl>
@@ -83,12 +72,12 @@
             </div>
         </div>
     </div>
-<?php endif; ?>
-            <?php endforeach;?>
-        <?php endfor;?>
+<?php endif ?>
+            <?php endforeach ?>
+        <?php endfor ?>
 </div>
-    <?php endif; ?>
-<?php endfor;?>
+    <?php endif ?>
+<?php endfor ?>
 
 <!-- table data block -->
 <?php $table = $this->getChild('table') ?>
@@ -97,7 +86,7 @@
     <h2 class="table-caption"><?php echo $this->escapeHtml($this->getObjectData($table, 'view_label')) ?></h2>
     <?php echo $this->getChildHtml('table') ?>
 </div>
-<?php endif;?>
+<?php endif ?>
 
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Recurring Profiles') ?></a></p>

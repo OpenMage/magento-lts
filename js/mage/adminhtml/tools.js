@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function setLocation(url){
     window.location.href = encodeURI(url);
@@ -263,7 +252,6 @@ var toolbarToggle = {
     headerOffset: null, // Normal toolbar offset - calculated once
     headerCopy: null, // Floating toolbar
     eventsAdded: false, // We're listening to scroll/resize
-    compatible: !navigator.appVersion.match('MSIE 6.'), // Whether object is compatible with browser (do not support old browsers, legacy code)
 
     // Inits object and pushes it into work. Can be used to init/reset(update) object by current DOM.
     reset: function () {
@@ -277,10 +265,6 @@ var toolbarToggle = {
 
     // Creates toolbar and inits all needed properties
     createToolbar: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         // Extract header that we will use as toolbar
         var headers = $$('.content-header');
         for (var i = headers.length - 1; i >= 0; i--) {
@@ -324,7 +308,7 @@ var toolbarToggle = {
     // Checks whether object properties are ready and valid
     ready: function () {
         // Return definitely boolean value
-        return (this.compatible && this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
+        return (this.header && this.headerCopy && this.headerCopy.parentNode) ? true : false;
     },
 
     // Updates toolbars for current scroll - shows/hides normal and floating toolbar
@@ -415,10 +399,6 @@ var toolbarToggle = {
 
     // Starts object on window load
     startOnLoad: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         if (!this.funcOnWindowLoad) {
             this.funcOnWindowLoad = this.start.bind(this);
         }
@@ -435,10 +415,6 @@ var toolbarToggle = {
 
     // Starts object by creating toolbar and enabling scroll/resize events
     start: function () {
-        if (!this.compatible) {
-            return;
-        }
-
         this.reset();
         this.startListening();
     },
@@ -754,4 +730,48 @@ var Base64 = {
 function sortNumeric(val1, val2)
 {
     return val1 - val2;
+}
+
+/**
+ * Adds copy icons to elements that have the class 'copy-text'
+ */
+function addCopyIcons() {
+    if (navigator.clipboard === undefined) {
+        return;
+    }
+
+    const copyTexts = document.querySelectorAll('[data-copy-text]');
+    copyTexts.forEach(copyText => {
+        const iconElement = createCopyIconElement();
+        copyText.parentNode.appendChild(iconElement);
+    });
+}
+
+/**
+ * @return {HTMLElement} The created copy icon element
+ */
+function createCopyIconElement() {
+    const copyIcon = document.createElement('span');
+    copyIcon.classList.add('icon-copy');
+    copyIcon.setAttribute('onclick', 'copyText(event)');
+    copyIcon.setAttribute('title', Translator.translate('Copy text to clipboard'));
+
+    return copyIcon;
+}
+
+/**
+ * Copies the text from the data-text attribute of the clicked element to the clipboard
+ *
+ * @param {Event} event - The event object triggered by the click event
+ */
+function copyText(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const copyIcon = event.currentTarget;
+    const copyText = copyIcon.previousElementSibling.getAttribute('data-copy-text');
+    navigator.clipboard.writeText(copyText);
+    copyIcon.classList.add('icon-copy-copied');
+    setTimeout(() => {
+        copyIcon.classList.remove('icon-copy-copied');
+    }, 1000);
 }

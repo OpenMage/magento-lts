@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php switch ($element->getType()){
@@ -32,7 +21,7 @@
         <legend><?php echo $element->getLegend() ?></legend>
         <?php foreach ($element->getElements() as $_element): ?>
             <?php echo $formBlock->drawElement($_element) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </fieldset>
       <?php break;
     case 'column': ?>
@@ -42,11 +31,11 @@
       <?php break;
     case 'select': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif; ?>
+        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
         <select name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" class="select<?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>">
         <?php foreach ($element->getValues() as $_value): ?>
-            <option <?php echo $_value->serialize() ?><?php if($_value->getValue() == $element->getValue()): ?> selected="selected"<?php endif; ?>><?php echo $_value->getLabel() ?></option>
-        <?php endforeach; ?>
+            <option <?php echo $_value->serialize() ?><?php if($_value->getValue() == $element->getValue()): ?> selected="selected"<?php endif ?>><?php echo $_value->getLabel() ?></option>
+        <?php endforeach ?>
         </select>
     </span>
       <?php break;
@@ -54,13 +43,13 @@
     case 'button':
     case 'password': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif; ?>
+        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
         <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>" <?php echo ( $element->getOnClick() ? 'onClick="'.$element->getOnClick().'"' : '' ) ?>/>
     </span>
       <?php break;
     case 'radio': ?>
     <span class="form_row">
-        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif; ?>
+        <?php if($element->getLabel()): ?><label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label><?php endif ?>
         <input type="<?php echo $element->getType() ?>" name="<?php echo $element->getName() ?>" id="<?php echo $element->getHtmlId() ?>" value="<?php echo $element->getValue() ?>" class="input-text <?php echo $element->getClass() ?>" title="<?php echo $element->getTitle() ?>"/>
     </span>
       <?php break;
@@ -72,13 +61,13 @@
         <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
     <?php foreach($element->getRadios() as $_radio): ?>
     <input type="radio" name="<?php echo $_radio->getName() ?>" id="<?php echo $_radio->getHtmlId() ?>" value="<?php echo $_radio->getValue() ?>" class="input-radio <?php echo $_radio->getClass() ?>" title="<?php echo $_radio->getTitle() ?>" <?php echo ( $_radio->getValue() == $element->getChecked() ) ? 'checked="true"' : '' ?> >&nbsp;<?php echo $_radio->getLabel() ?>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </span>
       <?php break;
     case 'wysiwyg': ?>
     <span class="form_row">
       <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
-        <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>tinymce/tinymce.min.js"></script>
         <script type="text/javascript">
         //<![CDATA[
         tinyMCE.init({
@@ -99,7 +88,7 @@
             apply_source_formatting : 'true',
             convert_urls : 'false',
             force_br_newlines : 'true',
-            doctype : '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
+            doctype : '<!DOCTYPE html>'
 
         });
         //]]>
@@ -124,4 +113,4 @@
 <script type="text/javascript">
     <?php echo $element->getScript() ?>
 </script>
-<?php endif; ?>
+<?php endif ?>

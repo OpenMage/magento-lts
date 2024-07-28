@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 ProductConfigure = Class.create();
@@ -54,7 +43,9 @@ ProductConfigure.prototype = {
      * Initialize object
      */
     initialize: function() {
-        this._initWindowElements();
+        if ($("product_composite_configure")) {
+            this._initWindowElements();
+        }
     },
 
     /**
@@ -413,7 +404,6 @@ ProductConfigure.prototype = {
      * Show configuration window
      */
     _showWindow: function() {
-        this._toggleSelectsExceptBlock(false);
         this.blockMask.setStyle({'height':this.windowHeight+'px'}).show();
         this.blockWindow.setStyle({'marginTop':-this.blockWindow.getHeight()/2 + "px", 'display':'block'});
         if (Object.isFunction(this.showWindowCallback[this.current.listType])) {
@@ -422,31 +412,9 @@ ProductConfigure.prototype = {
     },
 
     /**
-     * toggles Selects states (for IE) except those to be shown in popup
-     */
-    _toggleSelectsExceptBlock: function(flag) {
-        if(Prototype.Browser.IE){
-            if (this.blockForm) {
-                var states = new Array;
-                var selects = this.blockForm.getElementsByTagName("select");
-                for(var i=0; i<selects.length; i++){
-                    states[i] = selects[i].style.visibility;
-                }
-            }
-            toggleSelectsUnderBlock(this.blockMask, flag);
-            if (this.blockForm) {
-                for(i=0; i<selects.length; i++){
-                    selects[i].style.visibility = states[i];
-                }
-            }
-        }
-    },
-
-    /**
      * Close configuration window
      */
     _closeWindow: function() {
-        toggleSelectsUnderBlock(this.blockMask, true);
         this.blockMask.style.display = 'none';
         this.blockWindow.style.display = 'none';
         this.clean('window');

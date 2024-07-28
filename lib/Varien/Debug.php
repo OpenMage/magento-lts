@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Varien
- * @package     Varien_Debug
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Varien
+ * @package    Varien_Debug
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Debug methods
  *
- * @category    Varien
- * @package     Varien_Debug
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Varien
+ * @package    Varien_Debug
  */
 class Varien_Debug
 {
@@ -37,7 +25,7 @@ class Varien_Debug
     /**
      * Magento Root path
      *
-     * @var string
+     * @var string|null
      */
     protected static $_filePath;
 
@@ -52,7 +40,7 @@ class Varien_Debug
             if (defined('BP')) {
                 self::$_filePath = BP;
             } else {
-                self::$_filePath = dirname(dirname(__FILE__));
+                self::$_filePath = dirname(__DIR__);
             }
         }
         return self::$_filePath;
@@ -95,7 +83,7 @@ class Varien_Debug
             }
 
             // prepare method argments
-            $args = array();
+            $args = [];
             if (isset($data['args']) && $withArgs) {
                 foreach ($data['args'] as $arg) {
                     $args[] = self::_formatCalledArgument($arg);
@@ -103,6 +91,7 @@ class Varien_Debug
             }
 
             // prepare method's name
+            $methodName = '';
             if (isset($data['class']) && isset($data['function'])) {
                 if (isset($data['object']) && get_class($data['object']) != $data['class']) {
                     $className = get_class($data['object']) . '[' . $data['class'] . ']';
@@ -113,14 +102,15 @@ class Varien_Debug
                     $className .= sprintf('#%s#', spl_object_hash($data['object']));
                 }
 
-                $methodName = sprintf('%s%s%s(%s)',
+                $methodName = sprintf(
+                    '%s%s%s(%s)',
                     $className,
                     isset($data['type']) ? $data['type'] : '->',
                     $data['function'],
-                    join(', ', $args)
+                    implode(', ', $args)
                 );
-            } else if (isset($data['function'])) {
-                $methodName = sprintf('%s(%s)', $data['function'], join(', ', $args));
+            } elseif (isset($data['function'])) {
+                $methodName = sprintf('%s(%s)', $data['function'], implode(', ', $args));
             }
 
             if (isset($data['file'])) {
@@ -164,12 +154,11 @@ class Varien_Debug
         $out = '';
         if (is_object($arg)) {
             $out .= sprintf("&%s#%s#", get_class($arg), spl_object_hash($arg));
-
-        } else if (is_resource($arg)) {
+        } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
-        } else if (is_array($arg)) {
+        } elseif (is_array($arg)) {
             $isAssociative = false;
-            $args = array();
+            $args = [];
             foreach ($arg as $k => $v) {
                 if (!is_numeric($k)) {
                     $isAssociative = true;
@@ -177,25 +166,25 @@ class Varien_Debug
                 $args[$k] = self::_formatCalledArgument($v);
             }
             if ($isAssociative) {
-                $arr = array();
+                $arr = [];
                 foreach ($args as $k => $v) {
                     $arr[] = self::_formatCalledArgument($k) . ' => ' . $v;
                 }
-                $out .= 'array(' . join(', ', $arr) . ')';
+                $out .= 'array(' . implode(', ', $arr) . ')';
             } else {
-                $out .= 'array(' . join(', ', $args) . ')';
+                $out .= 'array(' . implode(', ', $args) . ')';
             }
-        } else if (is_null($arg)) {
+        } elseif (is_null($arg)) {
             $out .= 'NULL';
-        } else if (is_numeric($arg) || is_float($arg)) {
+        } elseif (is_numeric($arg)) {
             $out .= $arg;
-        } else if (is_string($arg)) {
+        } elseif (is_string($arg)) {
             if (strlen($arg) > self::$argLength) {
                 $arg = substr($arg, 0, self::$argLength) . "...";
             }
-            $arg = strtr($arg, array("\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\''));
+            $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
-        } else if (is_bool($arg)) {
+        } elseif (is_bool($arg)) {
             $out .= $arg === true ? 'true' : 'false';
         }
 

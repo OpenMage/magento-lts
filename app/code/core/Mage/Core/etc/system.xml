@@ -1,28 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -45,14 +34,13 @@
             <groups>
                 <csrf translate="label" module="core">
                     <label>CSRF protection</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
                         <use_form_key translate="label">
-                            <label>Add Secret Key To Url</label>
+                            <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -62,58 +50,62 @@
                         </use_form_key>
                     </fields>
                 </csrf>
+                <rate_limit translate="label comment" module="core">
+                    <label>Rate limit</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>This functionality limits the number of requests a user (identified by IP address) can perform within a specific time frame, preventing excessive resources usage and maintaining system performance, stability and security.</comment>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <timeframe translate="label comment">
+                            <label>Timeframe</label>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Number of seconds between each allowed request.</comment>
+                        </timeframe>
+                    </fields>
+                </rate_limit>
+                <cache translate="label" module="core">
+                    <label>Advanced Cache Settings</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <flush_cron_expr translate="label comment">
+                            <label>Cron Expression for Cache Flushing</label>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>The default value is "30 2 * * *". An empty value disables automatic cache flushing.</comment>
+                        </flush_cron_expr>
+                    </fields>
+                </cache>
             </groups>
         </system>
-        <!--<web_track translate="label" module="core">
-            <label>Web Tracking</label>
-            <frontend_type>text</frontend_type>
-            <sort_order>180</sort_order>
-            <show_in_default>1</show_in_default>
-            <show_in_website>1</show_in_website>
-            <show_in_store>1</show_in_store>
-        </web_track>-->
         <advanced translate="label" module="core">
             <label>Advanced</label>
             <tab>advanced</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>910</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <!--datashare translate="label">
-                    <label>Datasharing</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>1</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
-                    <fields>
-                        <default translate="label">
-                            <label>Default</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_datashare</backend_model>
-                            <source_model>adminhtml/system_config_source_store</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default>
-                        <default translate="label">
-                            <label>Default</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_datashare</backend_model>
-                            <source_model>adminhtml/system_config_source_store</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default>
-                    </fields>
-                </datashare-->
                 <modules_disable_output translate="label">
                     <label>Disable Modules Output</label>
-                    <frontend_type>text</frontend_type>
                     <frontend_model>adminhtml/system_config_form_fieldset_modules_disableOutput</frontend_model>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
@@ -127,7 +119,6 @@
             <class>separator-top</class>
             <label>Store Email Addresses</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>90</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -135,7 +126,6 @@
             <groups>
                 <ident_custom1 translate="label">
                     <label>Custom Email 1</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -143,7 +133,6 @@
                     <fields>
                         <email translate="label">
                             <label>Sender Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
@@ -153,7 +142,6 @@
                         </email>
                         <name translate="label">
                             <label>Sender Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
@@ -165,7 +153,6 @@
                 </ident_custom1>
                 <ident_custom2 translate="label">
                     <label>Custom Email 2</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -173,7 +160,6 @@
                     <fields>
                         <email translate="label">
                             <label>Sender Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
@@ -183,7 +169,6 @@
                         </email>
                         <name translate="label">
                             <label>Sender Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
@@ -195,7 +180,6 @@
                 </ident_custom2>
                 <ident_general translate="label">
                     <label>General Contact</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -203,7 +187,6 @@
                     <fields>
                         <email translate="label">
                             <label>Sender Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
@@ -213,7 +196,6 @@
                         </email>
                         <name translate="label">
                             <label>Sender Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
@@ -225,7 +207,6 @@
                 </ident_general>
                 <ident_sales translate="label">
                     <label>Sales Representative</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -233,7 +214,6 @@
                     <fields>
                         <email translate="label">
                             <label>Sender Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
@@ -243,7 +223,6 @@
                         </email>
                         <name translate="label">
                             <label>Sender Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
@@ -255,7 +234,6 @@
                 </ident_sales>
                 <ident_support translate="label">
                     <label>Customer Support</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -263,7 +241,6 @@
                     <fields>
                         <email translate="label">
                             <label>Sender Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>2</sort_order>
@@ -273,7 +250,6 @@
                         </email>
                         <name translate="label">
                             <label>Sender Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
                             <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
@@ -289,7 +265,6 @@
         <design translate="label" module="core">
             <label>Design</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>30</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -297,7 +272,6 @@
             <groups>
                 <package translate="label">
                     <label>Package</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -305,7 +279,6 @@
                     <fields>
                         <name translate="label">
                             <label>Current Package Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_design_package</backend_model>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
@@ -326,7 +299,6 @@
                 </package>
                 <theme translate="label">
                     <label>Themes</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -334,7 +306,6 @@
                     <fields>
                         <locale translate="label">
                             <label>Translations</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -342,7 +313,6 @@
                         </locale>
                         <template translate="label">
                             <label>Templates</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -360,7 +330,6 @@
                         </template_ua_regexp>
                         <skin translate="label">
                             <label>Skin (Images / CSS)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -377,7 +346,6 @@
                         </skin_ua_regexp>
                         <layout translate="label">
                             <label>Layout</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -394,7 +362,6 @@
                         </layout_ua_regexp>
                         <default translate="label">
                             <label>Default</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -413,7 +380,6 @@
                 </theme>
                 <pagination translate="label">
                     <label>Pagination</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>500</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -422,7 +388,6 @@
                         <pagination_frame translate="label comment">
                             <label>Pagination Frame</label>
                             <comment>How many links to display at once.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -431,7 +396,6 @@
                         <pagination_frame_skip translate="label comment">
                             <label>Pagination Frame Skip</label>
                             <comment>If the current frame position does not cover utmost pages, will render link to current position plus/minus this value.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -440,7 +404,6 @@
                         <anchor_text_for_previous translate="label comment">
                             <label>Anchor Text for Previous</label>
                             <comment>Alternative text for previous link in pagination menu. If empty, default arrow image will used.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -449,7 +412,6 @@
                         <anchor_text_for_next translate="label comment">
                             <label>Anchor Text for Next</label>
                             <comment>Alternative text for next link in pagination menu. If empty, default arrow image will used.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -459,7 +421,6 @@
                 </pagination>
                 <email translate="label">
                     <label>Transactional Emails</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>510</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -478,7 +439,6 @@
                         </logo>
                         <logo_alt translate="label">
                             <label>Logo Image Alt</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -487,7 +447,6 @@
                         <logo_width>
                             <label>Logo Width</label>
                             <comment>Only necessary if image has been uploaded above. Enter number of pixels, without appending "px".</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -496,7 +455,6 @@
                         <logo_height>
                             <label>Logo Height</label>
                             <comment>Only necessary if image has been uploaded above. Enter number of pixels, without appending "px".</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>27</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -523,7 +481,6 @@
                         <css_non_inline>
                             <label>Non-inline CSS File(s)</label>
                             <comment><![CDATA[Comma-delimited list of files that will be included inside &lt;style&gt; tag for all templates that include use the '{{var non_inline_styles}}' variable. File path is relative to skin/frontend/PACKAGE/THEME/css/]]></comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -536,7 +493,6 @@
         <dev translate="label" module="core">
             <label>Developer</label>
             <tab>advanced</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>920</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -544,7 +500,6 @@
             <groups>
                 <restrict translate="label">
                     <label>Developer Client Restrictions</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -552,7 +507,6 @@
                     <fields>
                         <allow_ips translate="label comment">
                             <label>Allowed IPs (comma separated)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -563,7 +517,6 @@
                 </restrict>
                 <debug translate="label">
                     <label>Debug</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -578,12 +531,46 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </profiler>
+                        <head_admin>
+                            <label>Admin</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </head_admin>
+                        <template_hints_admin translate="label">
+                            <label>Template Path Hints</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template_hints_admin>
+                        <template_hints_blocks_admin translate="label">
+                            <label>Add Block Names to Hints</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </template_hints_blocks_admin>
+                        <head_front>
+                            <label>Frontend</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </head_front>
                         <template_hints translate="label">
                             <label>Template Path Hints</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>0</show_in_default>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </template_hints>
@@ -591,8 +578,8 @@
                             <label>Add Block Names to Hints</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>21</sort_order>
-                            <show_in_default>0</show_in_default>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </template_hints_blocks>
@@ -600,7 +587,6 @@
                 </debug>
                 <template translate="label">
                     <label>Template Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>25</sort_order>
                     <show_in_default>0</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -621,7 +607,6 @@
                 </template>
                 <translate_inline translate="label">
                     <label>Translate Inline</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -652,7 +637,6 @@
                 </translate_inline>
                 <log translate="label">
                     <label>Log Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>40</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -667,11 +651,20 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </active>
+                        <max_level translate="label comment">
+                            <label>Maximum Log Level</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_log_level</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Messages with a priority lower than the selected one will not be logged. Log Levels are ordered from highest to lowest priority.</comment>
+                        </max_level>
                         <file translate="label comment">
                             <label>System Log File Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_filename</backend_model>
-                            <sort_order>2</sort_order>
+                            <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -679,9 +672,8 @@
                         </file>
                         <exception_file translate="label comment">
                             <label>Exceptions Log File Name</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_filename</backend_model>
-                            <sort_order>3</sort_order>
+                            <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -691,7 +683,6 @@
                 </log>
                 <js translate="label">
                     <label>JavaScript Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -710,7 +701,6 @@
                 </js>
                 <css translate="label">
                     <label>CSS Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -732,7 +722,6 @@
         <general translate="label" module="core">
             <label>General</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -740,7 +729,6 @@
             <groups>
                 <country translate="label">
                     <label>Countries Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -778,7 +766,6 @@
                 </country>
                 <locale translate="label">
                     <label>Locale Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>8</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -826,7 +813,6 @@
                 </locale>
                 <file>
                     <label>File Settings</label>
-                    <frontend_type>text</frontend_type>
                     <show_in_default>0</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
@@ -841,7 +827,6 @@
                 </file>
                 <store_information translate="label">
                     <label>Store Information</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -849,7 +834,6 @@
                     <fields>
                         <name translate="label">
                             <label>Store Name</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -858,7 +842,6 @@
                         <phone translate="label">
                             <label>Store Contact Telephone</label>
                             <comment>If present, this will be included in all Transactional Emails</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -867,7 +850,6 @@
                         <hours translate="label">
                             <label>Store Hours of Operation</label>
                             <comment>If present, this will be included in all Transactional Emails</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -885,7 +867,6 @@
                         </merchant_country>
                         <merchant_vat_number translate="label">
                             <label>VAT Number</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>27</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -908,7 +889,6 @@
             <class>separator-top</class>
             <label>System</label>
             <tab>advanced</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>900</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -916,7 +896,6 @@
             <groups>
                 <smtp translate="label">
                     <label>Mail Sending Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -933,7 +912,6 @@
                         </disable>
                         <host translate="label">
                             <label>Host</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -942,7 +920,6 @@
                         </host>
                         <port translate="label">
                             <label>Port (25)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -961,7 +938,6 @@
                         </auth>
                         <username translate="label">
                             <label>Username</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -969,7 +945,6 @@
                         </username>
                         <password translate="label">
                             <label>Password</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -987,7 +962,6 @@
                         </set_return_path>
                         <return_path_email translate="label">
                             <label>Return-Path Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <backend_model>adminhtml/system_config_backend_email_address</backend_model>
                             <sort_order>80</sort_order>
@@ -1000,7 +974,6 @@
                 </smtp>
                 <media_storage_configuration translate="label" module="core">
                     <label>Storage Configuration for Media</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>900</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1039,7 +1012,6 @@
                         </synchronize>
                         <configuration_update_time translate="label">
                             <label>Environment Update Time</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>400</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -1052,7 +1024,6 @@
         <admin translate="label" module="core">
             <label>Admin</label>
             <tab>advanced</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>20</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>0</show_in_website>
@@ -1060,7 +1031,6 @@
             <groups>
                 <design translate="label">
                     <label>Admin Theme</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -1076,12 +1046,39 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_legacy_theme>
+                        <loading_timeout translate="label comment">
+                            <label>Loading Indicator Timeout</label>
+                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "200". An empty value disables the delay.</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loading_timeout>
                     </fields>
                 </design>
 
+                <global_search>
+                    <label>Global Search</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>6</sort_order>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable global search</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                    </fields>
+                </global_search>
+
                 <emails translate="label">
                     <label>Admin User Emails</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -1108,7 +1105,6 @@
                         <password_reset_link_expiration_period translate="label comment">
                             <label>Recovery Link Expiration Period (hours)</label>
                             <comment>Please enter a number 1 or greater in this field.</comment>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-digits validate-digits-range digits-range-1-</validate>
                             <backend_model>adminhtml/system_config_backend_admin_password_link_expirationperiod</backend_model>
                             <sort_order>30</sort_order>
@@ -1129,7 +1125,6 @@
                 </emails>
                 <startup translate="label">
                     <label>Startup Page</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -1148,7 +1143,6 @@
                 </startup>
                 <url translate="label">
                     <label>Admin Base URL</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -1166,7 +1160,6 @@
                         </use_custom>
                         <custom translate="label comment">
                             <label>Custom Admin URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_admin_custom</backend_model>
                             <depends><use_custom>1</use_custom></depends>
                             <sort_order>2</sort_order>
@@ -1187,7 +1180,6 @@
                         </use_custom_path>
                         <custom_path translate="label comment">
                             <label>Custom Admin Path</label>
-                            <frontend_type>text</frontend_type>
                             <validate>required-entry validate-alphanum</validate>
                             <backend_model>adminhtml/system_config_backend_admin_custompath</backend_model>
                             <depends><use_custom_path>1</use_custom_path></depends>
@@ -1201,7 +1193,6 @@
                 </url>
                 <security translate="label">
                     <label>Security</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>35</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -1275,6 +1266,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </crate_admin_user_notification>
+                        <reprocess_image_quality translate="label comment">
+                            <label>Image Reprocess Quality</label>
+                            <comment>The recommended value is 85, a higher value will increase the file size. You can set the value to 0 to disable image processing, but it may cause security risks.</comment>
+                            <validate>validate-digits validate-digits-range digits-range-0-100</validate>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reprocess_image_quality>
                     </fields>
                 </security>
                 <dashboard translate="label">
@@ -1300,7 +1300,6 @@
         <web translate="label" module="core">
             <label>Web</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>20</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -1308,7 +1307,6 @@
             <groups>
                 <url translate="label">
                     <label>Url Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1339,7 +1337,6 @@
                 </url>
                 <seo translate="label">
                     <label>Search Engines Optimization</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1358,7 +1355,6 @@
                 </seo>
                 <unsecure translate="label">
                     <label>Unsecure</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1366,55 +1362,54 @@
                     <fields>
                         <base_url translate="label">
                             <label>Base URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label">
                             <label>Base Link URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                     </fields>
                 </unsecure>
                 <secure translate="label">
                     <label>Secure</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1422,51 +1417,51 @@
                     <fields>
                         <base_url translate="label comment">
                             <label>Base URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_url>
                         <base_link_url translate="label comment">
                             <label>Base Link URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Make sure that base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
+                            <validate>required-entry</validate>
                         </base_link_url>
                         <base_skin_url translate="label">
                             <label>Base Skin URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_skin_url>
                         <base_media_url translate="label">
                             <label>Base Media URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
                         </base_media_url>
                         <base_js_url translate="label comment">
                             <label>Base JavaScript URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> When using CDN, in some cases JavaScript may not run properly if CDN is not in your subdomain]]></comment>
+                            <validate>required-entry</validate>
                         </base_js_url>
                         <use_in_frontend translate="label">
                             <label>Use Secure URLs in Frontend</label>
@@ -1490,18 +1485,20 @@
                         </use_in_adminhtml>
                         <offloader_header translate="label">
                             <label>Offloader header</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_web_secure_offloaderheader</backend_model>
                             <sort_order>75</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment><![CDATA[
+                                Provide the name of the request header set by the upstream proxy to indicate a secure connection.
+                                The header <code>X-Forwarded-Proto: https</code> is already checked by default regardless of this configuration option.
+                            ]]></comment>
                         </offloader_header>
                     </fields>
                 </secure>
                 <default translate="label">
                     <label>Default Pages</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1509,7 +1506,6 @@
                     <fields>
                         <front translate="label">
                             <label>Default Web URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1517,7 +1513,6 @@
                         </front>
                         <no_route translate="label">
                             <label>Default No-route URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1527,7 +1522,6 @@
                 </default>
                 <polls translate="label">
                     <label>Polls</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>40</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1535,7 +1529,6 @@
                 </polls>
                 <cookie translate="label">
                     <label>Session Cookie Management</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1543,7 +1536,6 @@
                     <fields>
                         <cookie_lifetime translate="label">
                             <label>Cookie Lifetime</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1551,7 +1543,6 @@
                         </cookie_lifetime>
                         <cookie_path translate="label">
                             <label>Cookie Path</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1559,7 +1550,6 @@
                         </cookie_path>
                         <cookie_domain translate="label">
                             <label>Cookie Domain</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1574,6 +1564,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_httponly>
+                        <cookie_samesite translate="label">
+                            <label>Same-Site</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cookie_samesite</source_model>
+                            <comment><![CDATA[<a target="_blank" href="https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00"/>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00</a>]]></comment>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookie_samesite>
                         <cookie_restriction translate="label">
                             <label>Cookie Restriction Mode</label>
                             <frontend_type>select</frontend_type>
@@ -1588,7 +1588,6 @@
                 </cookie>
                 <session translate="label">
                     <label>Session Validation Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>60</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1644,7 +1643,6 @@
                 </session>
                 <browser_capabilities translate="label">
                     <label>Browser Capabilities Detection</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>200</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

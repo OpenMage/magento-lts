@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +18,9 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
+ * @method $this setDestElementId(string $value)
  * @method $this setFormAction(string $value)
  * @method $this setIdSuffix(string $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
@@ -39,9 +28,11 @@
  */
 class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 {
-    const XML_PATH_DEBUG_TEMPLATE_HINTS         = 'dev/debug/template_hints';
-    const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS  = 'dev/debug/template_hints_blocks';
-    const XML_PATH_TEMPLATE_ALLOW_SYMLINK       = 'dev/template/allow_symlink';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN        = 'dev/debug/template_hints_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN = 'dev/debug/template_hints_blocks_admin';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS              = 'dev/debug/template_hints';
+    public const XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS       = 'dev/debug/template_hints_blocks';
+    public const XML_PATH_TEMPLATE_ALLOW_SYMLINK            = 'dev/template/allow_symlink';
 
     /**
      * View scripts directory
@@ -55,12 +46,14 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @var array
      */
-    protected $_viewVars = array();
+    protected $_viewVars = [];
 
     protected $_baseUrl;
 
     protected $_jsUrl;
 
+    protected static $_showTemplateHintsAdmin;
+    protected static $_showTemplateHintsBlocksAdmin;
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
@@ -69,11 +62,12 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @var string
      */
-    protected $_template;
+    protected $_template = '';
 
     /**
      * Internal constructor, that is called from real constructor
      *
+     * @return void
      */
     protected function _construct()
     {
@@ -119,13 +113,12 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = array('_relative'=>true);
+        $params = ['_relative' => true];
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
         }
-        $templateName = Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
-        return $templateName;
+        return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
     /**
@@ -142,7 +135,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @param   string|array $key
      * @param   mixed $value
-     * @return  Mage_Core_Block_Template
+     * @return  $this
      */
     public function assign($key, $value = null)
     {
@@ -164,10 +157,10 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === FALSE && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (!str_contains($dir, '..') && ($dir === Mage::getBaseDir('design') || str_starts_with(realpath($dir), realpath(Mage::getBaseDir('design'))))) {
             $this->_viewDir = $dir;
         } else {
-            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
+            Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, true);
         }
         return $this;
     }
@@ -188,6 +181,20 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     /**
      * @return bool
      */
+    public function getShowTemplateHintsAdmin()
+    {
+        if (is_null(self::$_showTemplateHintsAdmin)) {
+            self::$_showTemplateHintsAdmin = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_ADMIN)
+                && Mage::helper('core')->isDevAllowed();
+            self::$_showTemplateHintsBlocksAdmin = Mage::getStoreConfig(self::XML_PATH_DEBUG_TEMPLATE_HINTS_BLOCKS_ADMIN)
+                && Mage::helper('core')->isDevAllowed();
+        }
+        return self::$_showTemplateHintsAdmin;
+    }
+
+    /**
+     * @return bool
+     */
     public function getShowTemplateHints()
     {
         if (is_null(self::$_showTemplateHints)) {
@@ -197,6 +204,28 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
                 && Mage::helper('core')->isDevAllowed();
         }
         return self::$_showTemplateHints;
+    }
+
+    /**
+     * Retrieve block cache status
+     *
+     * @return  string
+     */
+    private function _getCacheHintStatusColor(): string
+    {
+        if (!is_null($this->getCacheLifetime())) {
+            return 'green';
+        } else {
+            $currentParentBlock = $this;
+            $i = 0;
+            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
+                if (!is_null($currentParentBlock->getCacheLifetime())) {
+                    return 'orange'; // not cached, but within cached
+                }
+                $currentParentBlock = $currentParentBlock->getParentBlock();
+            }
+        }
+        return 'red';
     }
 
     /**
@@ -214,43 +243,51 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         extract($this->_viewVars, EXTR_SKIP);
         $do = $this->getDirectOutput();
 
+        $hints = Mage::app()->getStore()->isAdmin() ? $this->getShowTemplateHintsAdmin() : $this->getShowTemplateHints();
+
         if (!$do) {
             ob_start();
         }
-        if ($this->getShowTemplateHints()) {
+        if ($hints) {
+            $cacheHintStatusColor = $this->_getCacheHintStatusColor();
             echo <<<HTML
-<div style="position:relative; border:1px dotted red; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
-<div style="position:absolute; left:0; top:0; padding:2px 5px; background:red; color:white; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'"
+<div style="position:relative; border:1px dotted {$cacheHintStatusColor}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
+<div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:white; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
-            if (self::$_showTemplateHintsBlocks) {
+            if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
-<div style="position:absolute; right:0; top:0; padding:2px 5px; background:red; color:blue; font:normal 11px Arial;
-text-align:left !important; z-index:998;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
+<div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
+text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
 title="{$thisClass}">{$thisClass}</div>
 HTML;
             }
         }
 
         try {
-            if (
-                strpos($this->_viewDir . DS . $fileName, '..') === FALSE
+            if (strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
-                ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
+                ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
                 $thisClass = get_class($this);
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Exception $e) {
-            ob_get_clean();
-            throw $e;
+        } catch (Throwable $e) {
+            if (!$do) {
+                ob_get_clean();
+                $do = true;
+            }
+            if (Mage::getIsDeveloperMode()) {
+                throw $e;
+            }
+            Mage::logException($e);
         }
 
-        if ($this->getShowTemplateHints()) {
+        if ($hints) {
             echo '</div>';
         }
 
@@ -271,8 +308,7 @@ HTML;
     public function renderView()
     {
         $this->setScriptPath(Mage::getBaseDir('design'));
-        $html = $this->fetchView($this->getTemplateFile());
-        return $html;
+        return $this->fetchView($this->getTemplateFile());
     }
 
     /**
@@ -285,8 +321,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
-        $html = $this->renderView();
-        return $html;
+        return $this->renderView();
     }
 
     /**
@@ -315,7 +350,7 @@ HTML;
         if (!$this->_jsUrl) {
             $this->_jsUrl = Mage::getBaseUrl('js');
         }
-        return $this->_jsUrl.$fileName;
+        return $this->_jsUrl . $fileName;
     }
 
     /**
@@ -335,12 +370,12 @@ HTML;
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'BLOCK_TPL',
             Mage::app()->getStore()->getCode(),
             $this->getTemplateFile(),
             'template' => $this->getTemplate()
-        );
+        ];
     }
 
     /**
@@ -351,6 +386,6 @@ HTML;
      */
     protected function _getAllowSymlinks()
     {
-        return FALSE;
+        return false;
     }
 }

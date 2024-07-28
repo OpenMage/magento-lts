@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Widget
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,10 +18,15 @@
  *
  * @category   Mage
  * @package    Mage_Widget
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'cms/widget_instance';
+
     /**
      * Session getter
      *
@@ -66,7 +60,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     /**
      * Init widget instance object and set it to registry
      *
-     * @return Mage_Widget_Model_Widget_Instance|boolean
+     * @return Mage_Widget_Model_Widget_Instance|bool
+     * @throws Mage_Core_Exception
      */
     protected function _initWidgetInstance()
     {
@@ -97,7 +92,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Widget Instances Grid
-     *
      */
     public function indexAction()
     {
@@ -109,7 +103,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * New widget instance action (forward to edit action)
-     *
      */
     public function newAction()
     {
@@ -118,7 +111,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Edit widget instance action
-     *
      */
     public function editAction()
     {
@@ -147,7 +139,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Validate action
-     *
      */
     public function validateAction()
     {
@@ -166,7 +157,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Save action
-     *
      */
     public function saveAction()
     {
@@ -176,7 +166,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             return;
         }
         $widgetInstance->setTitle($this->getRequest()->getPost('title'))
-            ->setStoreIds($this->getRequest()->getPost('store_ids', array(0)))
+            ->setStoreIds($this->getRequest()->getPost('store_ids', [0]))
             ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
             ->setPageGroups($this->getRequest()->getPost('widget_instance'))
             ->setWidgetParameters($this->_prepareParameters());
@@ -186,10 +176,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 Mage::helper('widget')->__('The widget instance has been saved.')
             );
             if ($this->getRequest()->getParam('back', false)) {
-                $this->_redirect('*/*/edit', array(
+                $this->_redirect('*/*/edit', [
                     'instance_id' => $widgetInstance->getId(),
                     '_current' => true
-                ));
+                ]);
             } else {
                 $this->_redirect('*/*/');
             }
@@ -200,12 +190,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
-        $this->_redirect('*/*/edit', array('_current' => true));
+        $this->_redirect('*/*/edit', ['_current' => true]);
     }
 
     /**
      * Delete Action
-     *
+     * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
     {
@@ -221,7 +211,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             }
         }
         $this->_redirect('*/*/');
-        return;
     }
 
     /**
@@ -243,7 +232,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Products chooser Action (Ajax request)
-     *
      */
     public function productsAction()
     {
@@ -255,19 +243,18 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
             ->setSelectedProducts(explode(',', $selected));
-        /* @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
-        $this->setBody($chooser->toHtml().$serializer->toHtml());
+        $this->setBody($chooser->toHtml() . $serializer->toHtml());
     }
 
     /**
      * Blocks Action (Ajax request)
-     *
      */
     public function blocksAction()
     {
-        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -284,11 +271,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Templates Chooser Action (Ajax request)
-     *
      */
     public function templateAction()
     {
-        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -300,7 +286,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -311,23 +297,13 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     }
 
     /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
-    }
-
-    /**
      * Prepare widget parameters
      *
      * @return array
      */
     protected function _prepareParameters()
     {
-        $result = array();
+        $result = [];
         $parameters = $this->getRequest()->getPost('parameters');
         if (is_array($parameters) && count($parameters)) {
             foreach ($parameters as $key => $value) {

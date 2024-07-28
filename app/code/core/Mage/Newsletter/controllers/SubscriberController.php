@@ -1,43 +1,41 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Newsletter subscribe controller
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Newsletter
  */
 class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Use CSRF validation flag from newsletter config
+     */
+    public const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
+
     /**
       * New subscription action
       */
     public function newAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_redirectReferer();
+            return;
+        }
+
         if ($this->getRequest()->isPost() && $this->getRequest()->getPost('email')) {
             $session            = Mage::getSingleton('core/session');
             $customerSession    = Mage::getSingleton('customer/session');
@@ -49,7 +47,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 }
 
                 if (Mage::getStoreConfig(Mage_Newsletter_Model_Subscriber::XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG) != 1 &&
-                    !$customerSession->isLoggedIn()) {
+                    !$customerSession->isLoggedIn()
+                ) {
                     Mage::throwException($this->__('Sorry, but administrator denied subscription for guests. Please <a href="%s">register</a>.', Mage::helper('customer')->getRegisterUrl()));
                 }
 
@@ -88,8 +87,11 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $subscriber = Mage::getModel('newsletter/subscriber')->load($id);
             $session = Mage::getSingleton('core/session');
 
-            if ($subscriber->getId() && $subscriber->getCode()) {
+            if ($subscriber->getStatus() == $subscriber::STATUS_SUBSCRIBED) {
+                $session->addNotice($this->__('This email address is already confirmed.'));
+            } elseif ($subscriber->getId() && $subscriber->getCode()) {
                 if ($subscriber->confirm($code)) {
+                    $subscriber->sendConfirmationSuccessEmail();
                     $session->addSuccess($this->__('Your subscription has been confirmed.'));
                 } else {
                     $session->addError($this->__('Invalid subscription confirmation code.'));
@@ -124,5 +126,15 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             }
         }
         $this->_redirectReferer();
+    }
+
+    /**
+     * Check if form key validation is enabled in newsletter config.
+     *
+     * @return bool
+     */
+    protected function _isFormKeyEnabled()
+    {
+        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }

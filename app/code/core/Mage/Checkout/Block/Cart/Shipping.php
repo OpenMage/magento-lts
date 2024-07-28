@@ -1,30 +1,22 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Checkout
+ */
 class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
@@ -37,14 +29,14 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      * Estimate Rates
      * @var array
      */
-    protected $_rates = array();
+    protected $_rates = [];
 
     /**
      * Address Model
      *
      * @var array
      */
-    protected $_address = array();
+    protected $_address = [];
 
     /**
      * Get Estimate Rates
@@ -81,7 +73,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarrierName($carrierCode)
     {
-        if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
+        if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
         return $carrierCode;
@@ -154,8 +146,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCityActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return Mage::getStoreConfigFlag('carriers/dhl/active')
+            || Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
@@ -165,9 +157,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getStateActive()
     {
-        return (bool)Mage::getStoreConfig('carriers/dhl/active')
-            || (bool)Mage::getStoreConfig('carriers/tablerate/active')
-            || (bool)Mage::getStoreConfig('carriers/dhlint/active');
+        return Mage::getStoreConfigFlag('carriers/dhl/active')
+            || Mage::getStoreConfigFlag('carriers/tablerate/active')
+            || Mage::getStoreConfigFlag('carriers/dhlint/active');
     }
 
     /**
@@ -190,7 +182,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getShippingPrice($price, $flag)
     {
-        return $this->formatPrice($this->helper('tax')->getShippingPrice(
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->helper('tax');
+        return $this->formatPrice($helper->getShippingPrice(
             $price,
             $flag,
             $this->getAddress(),
@@ -205,8 +199,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarriers()
     {
-        if (null === $this->_carriers) {
-            $this->_carriers = array();
+        if ($this->_carriers === null) {
+            $this->_carriers = [];
             $this->getEstimateRates();
             foreach ($this->_rates as $rateGroup) {
                 if (!empty($rateGroup)) {
@@ -271,7 +265,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/estimatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/estimatePost', ['_secure' => $this->_isSecure()]);
     }
 
     /**
@@ -281,6 +275,6 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getUpdateFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/estimateUpdatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/estimateUpdatePost', ['_secure' => $this->_isSecure()]);
     }
 }

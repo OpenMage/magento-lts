@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Custom Variable Edit Form
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -50,63 +38,64 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
             'method' => 'post'
-        ));
+        ]);
 
-        $fieldset = $form->addFieldset('base', array(
-            'legend'=>Mage::helper('adminhtml')->__('Variable'),
-            'class'=>'fieldset-wide'
-        ));
+        $fieldset = $form->addFieldset('base', [
+            'legend' => Mage::helper('adminhtml')->__('Variable'),
+            'class' => 'fieldset-wide'
+        ]);
 
-        $fieldset->addField('code', 'text', array(
+        $fieldset->addField('code', 'text', [
             'name'     => 'code',
             'label'    => Mage::helper('adminhtml')->__('Variable Code'),
             'title'    => Mage::helper('adminhtml')->__('Variable Code'),
             'required' => true,
             'class'    => 'validate-xml-identifier'
-        ));
+        ]);
 
-        $fieldset->addField('name', 'text', array(
+        $fieldset->addField('name', 'text', [
             'name'     => 'name',
             'label'    => Mage::helper('adminhtml')->__('Variable Name'),
             'title'    => Mage::helper('adminhtml')->__('Variable Name'),
             'required' => true
-        ));
+        ]);
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
-            $useDefault = !((bool)$this->getVariable()->getStoreHtmlValue()
+            $useDefault = !(
+                (bool)$this->getVariable()->getStoreHtmlValue()
                 || (bool)$this->getVariable()->getStorePlainValue()
             );
             $this->getVariable()->setUseDefaultValue((int)$useDefault);
-            $fieldset->addField('use_default_value', 'select', array(
+            $fieldset->addField('use_default_value', 'select', [
                 'name'   => 'use_default_value',
                 'label'  => Mage::helper('adminhtml')->__('Use Default Variable Values'),
                 'title'  => Mage::helper('adminhtml')->__('Use Default Variable Values'),
                 'onchange' => 'toggleValueElement(this);',
-                'values' => array(
+                'values' => [
                     0 => Mage::helper('adminhtml')->__('No'),
                     1 => Mage::helper('adminhtml')->__('Yes')
-                )
-            ));
+                ]
+            ]);
         }
 
-        $fieldset->addField('html_value', 'textarea', array(
+        $fieldset->addField('html_value', 'textarea', [
             'name'     => 'html_value',
             'label'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
             'title'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
             'disabled' => $useDefault
-        ));
+        ]);
 
-        $fieldset->addField('plain_value', 'textarea', array(
+        $fieldset->addField('plain_value', 'textarea', [
             'name'     => 'plain_value',
             'label'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
             'title'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
             'disabled' => $useDefault
-        ));
+        ]);
 
         $form->setValues($this->getVariable()->getData())
             ->addFieldNameSuffix('variable')
@@ -115,5 +104,4 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 }

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run PHPMD
+## Usage: phpmd
+## Example: ddev phpmd <path-to-files>
+
+php vendor/bin/phpmd "$@" text .phpmd.dist.xml

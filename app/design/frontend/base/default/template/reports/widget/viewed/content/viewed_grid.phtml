@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -30,7 +19,7 @@
  */
 ?>
 <?php if ($_products = $this->getRecentlyViewedProducts()): ?>
-<?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))) ?>
+<?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>
 <div class="widget widget-viewed">
     <div class="widget-title">
         <h2><?php echo $this->__('Recently Viewed') ?></h2>
@@ -40,8 +29,8 @@
         <?php $i=0; foreach ($_products as $_product): ?>
         <?php if ($i++%$_columnCount==0): ?>
             <ul class="products-grid">
-        <?php endif; ?>
-                <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+        <?php endif ?>
+                <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(85) ?>" width="85" height="85" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" /></a>
                     <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></h3>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
@@ -52,14 +41,14 @@
                                     title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                     class="button btn-cart"
                                     onclick="customFormSubmit(
-                                            '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
+                                            '<?php echo $this->getAddToCartUrlCustom($_product, [], false) ?>',
                                             '<?php echo $_params ?>',
                                             'post')">
                                 <span><span><?php echo $this->__('Add to Cart') ?></span></span>
                             </button>
                         <?php else: ?>
                                 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
                                 <li>
@@ -72,7 +61,7 @@
                                         <?php echo $this->__('Add to Wishlist') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                             <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                                 <li>
                                     <span class="separator">|</span>
@@ -85,14 +74,14 @@
                                         <?php echo $this->__('Add to Compare') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </ul>
                     </div>
                 </li>
         <?php if ($i%$_columnCount==0 || $i==count($_products)): ?>
             </ul>
-        <?php endif; ?>
-        <?php endforeach; ?>
+        <?php endif ?>
+        <?php endforeach ?>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

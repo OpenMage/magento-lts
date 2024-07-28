@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if (!window.Catalog) {
     window.Catalog = {};
@@ -116,8 +105,7 @@ Catalog.Map = {
     },
 
     showHelp: function(event) {
-        var helpBox = $('map-popup'),
-            isIE6 = typeof document.body.style.maxHeight === "undefined";
+        var helpBox = $('map-popup');
         if (!helpBox) {
             return;
         }
@@ -189,7 +177,7 @@ Catalog.Map = {
                     }
                     cartButton.stopObserving('click');
                     cartButton.href = this.cartLink;
-                    Event.observe(cartButton, 'click', function(event) {
+                    Event.observe(cartButton, 'click', function () {
                         productAddToCartForm.action = this.href;
                         productAddToCartForm.submit(this);
                     });
@@ -224,9 +212,6 @@ Catalog.Map = {
             }
 
             $(helpBox).show();
-            if (isIE6) {
-                Catalog.Map.hideSelects();
-            }
             var closeButton = $('map-popup-close');
             if (closeButton) {
                 $(closeButton).stopObserving('click');
@@ -235,9 +220,6 @@ Catalog.Map = {
             }
         } else {
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
 
@@ -247,11 +229,7 @@ Catalog.Map = {
     hideHelp: function(){
         var helpBox = $('map-popup');
         if (helpBox) {
-            var isIE6 = typeof document.body.style.maxHeight === "undefined";
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
     },
@@ -282,7 +260,7 @@ Catalog.Map = {
                 var parentButton = button;
                 new Ajax.Request(this.form.action, {
                     parameters: {isAjax: 1, method: 'GET'},
-                    onSuccess: function(transport) {
+                    onSuccess: function () {
                         window.opener.focus();
                         if (parentButton && parentButton.href) {
                             setPLocation(parentButton.href, true);

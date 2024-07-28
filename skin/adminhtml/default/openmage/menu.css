@@ -2,7 +2,16 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass menu.scss ../menu.css
  */
-#nav ul li.active, #nav ul li {
+/*
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
+#nav ul li, #nav ul li.active {
   float: none;
   height: auto;
   background: none;
@@ -17,8 +26,8 @@
 }
 
 .nav-bar {
-  background: #202856;
-  padding: 0 70px;
+  background: #3A499D;
+  padding: 0 350px 0 70px;
 }
 .nav-bar:after {
   content: ".";
@@ -31,7 +40,7 @@
 }
 
 #nav {
-  padding-left: 0px;
+  padding-left: 0;
 }
 #nav li {
   position: relative;
@@ -39,7 +48,7 @@
   float: left;
 }
 #nav li.over {
-  z-index: 99;
+  z-index: 999;
 }
 #nav li.over a {
   color: #d6e2e5;
@@ -64,7 +73,6 @@
   left: 100px;
 }
 #nav li.active {
-  z-index: 100;
   margin-left: -1px;
   color: #fff;
   font-weight: bold;
@@ -100,7 +108,7 @@
   height: 0;
   border-style: solid;
   border-width: 5px 0 5px 6px;
-  border-color: transparent transparent transparent #ccc;
+  border-color: transparent transparent transparent #c8c8c8;
 }
 #nav li.level0.over > a {
   background: #293470;
@@ -149,7 +157,7 @@
   width: 189px;
   top: 38px;
   left: -10000px;
-  box-shadow: rgba(0, 0, 0, 0.180392) 1px 3px 4px;
+  box-shadow: rgba(0, 0, 0, 0.18039) 1px 3px 4px;
 }
 #nav ul li {
   padding: 0;
@@ -160,7 +168,6 @@
 }
 #nav ul li a {
   background: #fff;
-  color: #202856;
   padding: 9px 12px;
   color: #202856;
   font-size: 12px;
@@ -230,7 +237,7 @@
   top: 40px;
   right: -10000px;
   display: none;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.20784), 0 0 5px rgba(0, 0, 0, 0.20784);
   background: #fff;
 }
 #usermenu ul li a:hover {
@@ -244,7 +251,7 @@
   display: block;
 }
 #usermenu li ul span {
-  border-bottom: 1px dotted var(--color-main-m);
+  border-bottom: 1px dotted #a6c4d9;
   display: block;
   line-height: 31px;
   padding: 0 10px;
@@ -256,7 +263,7 @@
 #usermenu li.over ul a {
   color: #000537;
   text-decoration: none;
-  background: var(--color-main-xs);
+  background: #ecf3f9;
   display: block;
 }
 #usermenu > li > a {

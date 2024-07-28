@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template model
+ *
+ * @category   Mage
+ * @package    Mage_Newsletter
  *
  * @method Mage_Newsletter_Model_Resource_Template _getResource()
  * @method Mage_Newsletter_Model_Resource_Template getResource()
@@ -53,10 +45,6 @@
  * @method $this setModifiedAt(string $value)
  * @method bool getIsSystem()
  * @method $this setInlineCssFile(bool|string $value)
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abstract
 {
@@ -70,7 +58,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Mail object
      *
-     * @var Zend_Mail
+     * @var Zend_Mail|null
      */
     protected $_mail;
 
@@ -90,20 +78,20 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = array(
-            'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
+        $validators = [
+            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
             'template_type'         => 'Int',
             'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
-        );
-        $data = array();
+            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false]
+        ];
+        $data = [];
         foreach (array_keys($validators) as $validateField) {
             $data[$validateField] = $this->getDataUsingMethod($validateField);
         }
 
-        $validateInput = new Zend_Filter_Input(array(), $validators, $data);
+        $validateInput = new Zend_Filter_Input([], $validators, $data);
         if (!$validateInput->isValid()) {
-            $errorMessages = array();
+            $errorMessages = [];
             foreach ($validateInput->getMessages() as $messages) {
                 if (is_array($messages)) {
                     foreach ($messages as $message) {
@@ -114,7 +102,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 }
             }
 
-            Mage::throwException(join("\n", $errorMessages));
+            Mage::throwException(implode("\n", $errorMessages));
         }
     }
 
@@ -144,7 +132,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Return true if this template can be used for sending queue as main template
      *
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      */
     public function isValidForSend()
@@ -178,7 +166,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Check Template Text Preprocessed
      *
-     * @return bool
+     * @return string
      */
     public function getTemplateTextPreprocessed()
     {
@@ -196,9 +184,9 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param bool $usePreprocess
      * @return string
      */
-    public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
+    public function getProcessedTemplate(array $variables = [], $usePreprocess = false)
     {
-        /* @var Mage_Newsletter_Model_Template_Filter $processor */
+        /** @var Mage_Newsletter_Model_Template_Filter $processor */
         $processor = Mage::helper('newsletter')->getTemplateProcessor();
 
         if (!$this->_preprocessFlag) {
@@ -215,8 +203,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
-            ->setIncludeProcessor(array($this, 'getInclude'))
+            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
+            ->setIncludeProcessor([$this, 'getInclude'])
             ->setVariables($variables);
 
         // Filter the template text so that all HTML content will be present
@@ -286,7 +274,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         return $this->_mail;
     }
 
-
     /**
      * Send mail to subscriber
      *
@@ -294,10 +281,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array                                     $variables    template variables
      * @param   string|null                               $name         receiver name (if subscriber model not specified)
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
-     * @return boolean
+     * @return bool
      * @deprecated since 1.4.0.1
      **/
-    public function send($subscriber, array $variables = array(), $name = null, Mage_Newsletter_Model_Queue $queue = null)
+    public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
             return false;
@@ -334,7 +321,28 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         $mail->setFrom($this->getTemplateSenderEmail(), $this->getTemplateSenderName());
 
         try {
-            $mail->send();
+            $transport = new Varien_Object();
+
+            Mage::dispatchEvent('newsletter_send_before', [
+                'mail'       => $mail,
+                'transport'  => $transport,
+                'template'   => $this,
+                'subscriber' => $subscriber
+            ]);
+
+            if ($transport->getTransport()) {
+                $mail->send($transport->getTransport());
+            } else {
+                $mail->send();
+            }
+
+            Mage::dispatchEvent('newsletter_send_after', [
+                'to'         => $email,
+                'html'       => !$this->isPlain(),
+                'queue'      => $queue,
+                'subject'    => $mail->getSubject(),
+                'email_body' => $text
+            ]);
             $this->_mail = null;
             if (!is_null($queue)) {
                 $subscriber->received($queue);

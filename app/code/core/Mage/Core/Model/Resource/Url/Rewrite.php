@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Url rewrite resource model class
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -41,10 +28,6 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      */
     protected $_tagTable;
 
-    /**
-     * Define main table
-     *
-     */
     protected function _construct()
     {
         $this->_init('core/url_rewrite', 'url_rewrite_id');
@@ -58,16 +41,16 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(
-            array(
-                'field' => array('id_path','store_id','is_system'),
+        $this->_uniqueFields = [
+            [
+                'field' => ['id_path','store_id','is_system'],
                 'title' => Mage::helper('core')->__('ID Path for Specified Store')
-            ),
-            array(
-                 'field' => array('request_path','store_id'),
+            ],
+            [
+                 'field' => ['request_path','store_id'],
                  'title' => Mage::helper('core')->__('Request Path for Specified Store'),
-            )
-        );
+            ]
+        ];
         return $this;
     }
 
@@ -81,7 +64,6 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        /** @var Varien_Db_Select $select */
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if (!is_null($object->getStoreId())) {
@@ -109,16 +91,15 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         }
 
         $select = $this->_getReadAdapter()->select();
-        /** @var Varien_Db_Select $select */
-        $select->from(array('main_table' => $this->getMainTable()), 'request_path')
+        $select->from(['main_table' => $this->getMainTable()], 'request_path')
             ->where('main_table.store_id = :store_id')
             ->where('main_table.id_path = :id_path')
             ->limit(1);
 
-        $bind = array(
+        $bind = [
             'store_id' => $storeId,
             'id_path'  => $idPath
-        );
+        ];
 
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
@@ -134,10 +115,10 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     public function loadByRequestPath(Mage_Core_Model_Url_Rewrite $object, $path)
     {
         if (!is_array($path)) {
-            $path = array(strtolower($path));
+            $path = [strtolower($path)];
         }
 
-        $pathBind = array();
+        $pathBind = [];
         foreach ($path as $key => $url) {
             $pathBind['path' . $key] = strtolower($url);
         }
@@ -146,7 +127,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         $select  = $adapter->select()
             ->from($this->getMainTable())
             ->where('request_path IN (:' . implode(', :', array_flip($pathBind)) . ')')
-            ->where('store_id IN(?)', array(Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId()));
+            ->where('store_id IN(?)', [Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId()]);
 
         $items = $adapter->fetchAll($select, $pathBind);
 

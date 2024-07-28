@@ -1,26 +1,15 @@
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
  * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * It is also available at https://opensource.org/license/afl-3-0-php
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 var widgetTools = {
@@ -55,7 +44,7 @@ var widgetTools = {
             top:50,
             width:950,
             //height:450,
-            zIndex:1000,
+            zIndex:9000,
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,
@@ -69,8 +58,6 @@ var widgetTools = {
             window = this.dialogWindow;
         }
         if (window) {
-            // IE fix - hidden form select fields after closing dialog
-            WindowUtilities._showSelect();
             window.close();
         }
     }
@@ -367,7 +354,7 @@ WysiwygWidget.chooser.prototype = {
             top:50,
             width:950,
             height:500,
-            zIndex:1000,
+            zIndex:9000,
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,

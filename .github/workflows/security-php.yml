@@ -1,0 +1,27 @@
+name: PHP Security Check
+
+on:
+  # Run automatically every Monday on midnight.
+  schedule:
+    - cron: '0 0 * * 1'
+  # Run on pull requests only when composer.lock has changed.
+  pull_request:
+    paths:
+      - 'composer.lock'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache-db
+        with:
+          path: ~/.symfony/cache
+          key: db
+
+      - uses: symfonycorp/security-checker-action@v5

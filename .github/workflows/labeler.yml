@@ -7,14 +7,15 @@
 
 name: Labeler
 on:
-  schedule:
-    - cron: "0 * * * *"
+  pull_request_target:
 
 jobs:
-  execute:
-    runs-on: ubuntu-latest
+  triage:
+    name: Add labels
+    runs-on: [ubuntu-latest]
     steps:
-      - uses: jpmcb/prow-github-actions@v1.0.0
+      - uses: actions/labeler@main
         with:
-          jobs: 'pr-labeler'
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          sync-labels: true
+        continue-on-error: true

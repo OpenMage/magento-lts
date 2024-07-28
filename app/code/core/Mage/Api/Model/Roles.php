@@ -1,31 +1,21 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Api
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Api
  *
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
@@ -42,12 +32,8 @@
  * @method string getRoleName()
  * @method $this setRoleName(string $value)
  * @method string getName()
- * @method Mage_Api_Model_Role setName() setName(string $name)
+ * @method $this setName(string $name)
  * @method int getPid()
- *
- * @category    Mage
- * @package     Mage_Api
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -57,7 +43,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_filters;
-
 
     protected function _construct()
     {
@@ -123,7 +108,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      * @return array|false|Varien_Simplexml_Element
      */
     protected function _buildResourcesArray(
-        Varien_Simplexml_Element $resource = null,
+        ?Varien_Simplexml_Element $resource = null,
         $parentName = null,
         $level = 0,
         $represent2Darray = null,
@@ -138,10 +123,10 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if ($resource->getName()!='title' && $resource->getName()!='sort_order'
+            if ($resource->getName() != 'title' && $resource->getName() != 'sort_order'
                 && $resource->getName() != 'children'
             ) {
-                $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+                $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
                 if ($resource->getAttribute('module')) {
@@ -172,7 +157,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             }
         }
         foreach ($children as $child) {
-            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes, $module);
+            $this->_buildResourcesArray($child, $resourceName, $level + 1, $represent2Darray, $rawNodes, $module);
         }
         if ($rawNodes) {
             return $resource;

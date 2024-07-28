@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Report Customers Review collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
@@ -57,7 +44,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         /** @var Mage_Eav_Model_Entity_Attribute $lastnameAttr */
         $lastnameAttr       = $customer->getAttribute('lastname');
 
-        $firstnameCondition = array('table_customer_firstname.entity_id = detail.customer_id');
+        $firstnameCondition = ['table_customer_firstname.entity_id = detail.customer_id'];
 
         if ($firstnameAttr->getBackend()->isStatic()) {
             $firstnameField = 'firstname';
@@ -70,12 +57,12 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         $this->getSelect()->joinInner(
-            array('table_customer_firstname' => $firstnameAttr->getBackend()->getTable()),
+            ['table_customer_firstname' => $firstnameAttr->getBackend()->getTable()],
             implode(' AND ', $firstnameCondition),
-            array()
+            []
         );
 
-        $middlenameCondition = array('table_customer_middlename.entity_id = detail.customer_id');
+        $middlenameCondition = ['table_customer_middlename.entity_id = detail.customer_id'];
 
         if ($middlenameAttr->getBackend()->isStatic()) {
             $middlenameField = 'middlename';
@@ -88,12 +75,12 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         $this->getSelect()->joinInner(
-            array('table_customer_middlename' => $middlenameAttr->getBackend()->getTable()),
+            ['table_customer_middlename' => $middlenameAttr->getBackend()->getTable()],
             implode(' AND ', $middlenameCondition),
-            array()
+            []
         );
 
-        $lastnameCondition  = array('table_customer_lastname.entity_id = detail.customer_id');
+        $lastnameCondition  = ['table_customer_lastname.entity_id = detail.customer_id'];
         if ($lastnameAttr->getBackend()->isStatic()) {
             $lastnameField = 'lastname';
         } else {
@@ -105,21 +92,21 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         //Prepare fullname field result
-        $customerFullname = $adapter->getConcatSql(array(
+        $customerFullname = $adapter->getConcatSql([
             "table_customer_firstname.{$firstnameField}",
             "table_customer_middlename.{$middlenameField}",
             "table_customer_lastname.{$lastnameField}"
-        ), ' ');
+        ], ' ');
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS)
             ->joinInner(
-                array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()),
+                ['table_customer_lastname' => $lastnameAttr->getBackend()->getTable()],
                 implode(' AND ', $lastnameCondition),
-                array()
+                []
             )
-            ->columns(array(
+            ->columns([
                 'customer_id' => 'detail.customer_id',
                 'customer_name' => $customerFullname,
-                'review_cnt'    => 'COUNT(main_table.review_id)'))
+                'review_cnt'    => 'COUNT(main_table.review_id)'])
             ->group('detail.customer_id');
 
         return $this;
@@ -128,7 +115,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
     /**
      * Get select count sql
      *
-     * @return string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {

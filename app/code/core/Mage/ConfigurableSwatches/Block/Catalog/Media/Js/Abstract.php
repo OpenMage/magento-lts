@@ -1,31 +1,21 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  */
 abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends Mage_Core_Block_Template
 {
@@ -36,7 +26,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      *
      * @var array
      */
-    protected $_productListBlocks = array('product_list', 'search_result_list');
+    protected $_productListBlocks = ['product_list', 'search_result_list'];
 
     /**
      * Get target product IDs
@@ -53,7 +43,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      */
     protected function _getJsImageFallbackString(array $imageFallback)
     {
-        /* @var Mage_Core_Helper_Data $coreHelper */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         return $coreHelper->jsonEncode($imageFallback);
@@ -70,15 +60,15 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
-     * @param null $keepFrame
+     * @param bool|null $keepFrame
      * @return array
      */
     public function getProductImageFallbacks($keepFrame = null)
     {
-        /* @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
+        /** @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
         $helper = Mage::helper('configurableswatches/mediafallback');
 
-        $fallbacks = array();
+        $fallbacks = [];
 
         $products = $this->getProducts();
 
@@ -86,14 +76,14 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
             $keepFrame = $this->isKeepFrame();
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $imageFallback = $helper->getConfigurableImagesFallbackArray($product, $this->_getImageSizes(), $keepFrame);
 
-            $fallbacks[$product->getId()] = array(
+            $fallbacks[$product->getId()] = [
                 'product' => $product,
                 'image_fallback' => $this->_getJsImageFallbackString($imageFallback)
-            );
+            ];
         }
 
         return $fallbacks;

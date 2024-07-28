@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +18,6 @@
  *
  * @category   Mage
  * @package    Mage_Directory
- * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
  * @method $this unsRate()
@@ -39,15 +27,15 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * CONFIG path constant: ALLOW
     */
-    const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
+    public const XML_PATH_CURRENCY_ALLOW   = 'currency/options/allow';
     /**
      * CONFIG path constant: DEFAULT
      */
-    const XML_PATH_CURRENCY_DEFAULT = 'currency/options/default';
+    public const XML_PATH_CURRENCY_DEFAULT = 'currency/options/default';
     /**
      * CONFIG path constant: BASE
      */
-    const XML_PATH_CURRENCY_BASE    = 'currency/options/base';
+    public const XML_PATH_CURRENCY_BASE    = 'currency/options/base';
 
     /**
      * @var Mage_Directory_Model_Currency_Filter - currency filter
@@ -60,7 +48,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_rates;
-
 
     /**
      * Class constructor
@@ -130,14 +117,14 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * Get currency rate (only base=>allowed)
      *
      * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return string
+     * @return float|int
      * @throws Mage_Core_Exception
      */
     public function getRate($toCurrency)
     {
         if (is_string($toCurrency)) {
             $code = $toCurrency;
-        } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
+        } elseif ($toCurrency instanceof self) {
             $code = $toCurrency->getCurrencyCode();
         } else {
             throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency.'));
@@ -223,7 +210,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param bool $addBrackets
      * @return string
      */
-    public function format($price, $options = array(), $includeContainer = true, $addBrackets = false)
+    public function format($price, $options = [], $includeContainer = true, $addBrackets = false)
     {
         return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
     }
@@ -241,7 +228,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function formatPrecision(
         $price,
         $precision,
-        $options = array(),
+        $options = [],
         $includeContainer = true,
         $addBrackets = false
     ) {
@@ -262,7 +249,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param null|array $options
      * @return string
      */
-    public function formatTxt($price, $options = array())
+    public function formatTxt($price, $options = [])
     {
         if (!is_numeric($price)) {
             $price = Mage::app()->getLocale()->getNumber($price);
@@ -288,7 +275,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function getOutputFormat()
     {
         $formated = $this->formatTxt(0);
-        $number = $this->formatTxt(0, array('display' => Zend_Currency::NO_SYMBOL));
+        $number = $this->formatTxt(0, ['display' => Zend_Currency::NO_SYMBOL]);
         return str_replace($number, '%s', $formated);
     }
 
@@ -321,10 +308,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigDefaultCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
     }
-
 
     /**
      * Retrieve base currencies according to config
@@ -333,8 +318,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigBaseCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
     }
 
     /**
@@ -349,8 +333,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
-        $data = $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
-        return $data;
+        return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
     }
 
     /**

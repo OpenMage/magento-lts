@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,9 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_Template
 {
     protected $_voteCollection = false;
@@ -39,18 +26,18 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
     {
         parent::__construct();
         $this->setTemplate('rating/detailed.phtml');
-        if( Mage::registry('review_data') ) {
+        if (Mage::registry('review_data')) {
             $this->setReviewId(Mage::registry('review_data')->getReviewId());
         }
     }
 
     public function getRating()
     {
-        if( !$this->getRatingCollection() ) {
-            if( Mage::registry('review_data') ) {
+        if (!$this->getRatingCollection()) {
+            if (Mage::registry('review_data')) {
                 $stores = Mage::registry('review_data')->getStores();
 
-                $stores = array_diff($stores, array(0));
+                $stores = array_diff($stores, [0]);
 
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
@@ -66,7 +53,6 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                     ->addOptionInfo()
                     ->load()
                     ->addRatingOptions();
-
             } elseif (!$this->getIsIndependentMode()) {
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()
@@ -87,16 +73,16 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                     ->setPositionOrder()
                     ->load()
                     ->addOptionToItems();
-                if(intval($this->getRequest()->getParam('id'))){
+                if ((int) $this->getRequest()->getParam('id')) {
                     $this->_voteCollection = Mage::getModel('rating/rating_option_vote')
                         ->getResourceCollection()
-                        ->setReviewFilter(intval($this->getRequest()->getParam('id')))
+                        ->setReviewFilter((int) $this->getRequest()->getParam('id'))
                         ->addOptionInfo()
                         ->load()
                         ->addRatingOptions();
                 }
             }
-            $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
+            $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
         return $this->getRatingCollection();
     }
@@ -109,19 +95,19 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
 
     public function isSelected($option, $rating)
     {
-        if($this->getIsIndependentMode()) {
+        if ($this->getIsIndependentMode()) {
             $ratings = $this->getRequest()->getParam('ratings');
 
-            if(isset($ratings[$option->getRatingId()])) {
+            if (isset($ratings[$option->getRatingId()])) {
                 return $option->getId() == $ratings[$option->getRatingId()];
-            }elseif(!$this->_voteCollection) {
+            } elseif (!$this->_voteCollection) {
                 return false;
             }
         }
 
-        if($this->_voteCollection) {
-            foreach($this->_voteCollection as $vote) {
-                if($option->getId() == $vote->getOptionId()) {
+        if ($this->_voteCollection) {
+            foreach ($this->_voteCollection as $vote) {
+                if ($option->getId() == $vote->getOptionId()) {
                     return true;
                 }
             }

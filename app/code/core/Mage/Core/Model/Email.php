@@ -1,27 +1,16 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,6 +22,9 @@
  * - body
  * - template (file name)
  * - module (for template)
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
  *
  * @method getFromEmail()
  * @method $this setFromEmail(string $string)
@@ -49,7 +41,7 @@
  */
 class Mage_Core_Model_Email extends Varien_Object
 {
-    protected $_tplVars = array();
+    protected $_tplVars = [];
 
     /**
      * @var Mage_Core_Block_Template
@@ -132,7 +124,8 @@ class Mage_Core_Model_Email extends Varien_Object
             return $this;
         }
 
-        $mail = new Zend_Mail();
+        $mail = new Zend_Mail('utf-8');
+        $transport = new Varien_Object();
 
         if (strtolower($this->getType()) == 'html') {
             $mail->setBodyHtml($this->getBody());
@@ -143,7 +136,25 @@ class Mage_Core_Model_Email extends Varien_Object
         $mail->setFrom($this->getFromEmail(), $this->getFromName())
             ->addTo($this->getToEmail(), $this->getToName())
             ->setSubject($this->getSubject());
-        $mail->send();
+
+        Mage::dispatchEvent('email_send_before', [
+            'mail'      => $mail,
+            'template'  => $this->getTemplate(),
+            'transport' => $transport,
+            'variables' => $this->getTemplateVars()
+        ]);
+
+        if ($transport->getTransport()) {
+            $mail->send($transport->getTransport());
+        } else {
+            $mail->send();
+        }
+
+        Mage::dispatchEvent('email_send_after', [
+            'to'         => $this->getToEmail(),
+            'subject'    => $this->getSubject(),
+            'email_body' => $this->getBody()
+        ]);
 
         return $this;
     }

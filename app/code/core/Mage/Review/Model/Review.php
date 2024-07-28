@@ -1,31 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Review model
+ *
+ * @category   Mage
+ * @package    Mage_Review
  *
  * @method Mage_Review_Model_Resource_Review _getResource()
  * @method Mage_Review_Model_Resource_Review getResource()
@@ -49,10 +41,6 @@
  * @method array getStores()
  * @method $this setStores(array $value)
  * @method string getTitle()
- *
- * @category    Mage
- * @package     Mage_Review
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
@@ -67,19 +55,19 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      * @deprecated after 1.3.2.4
      *
      */
-    const ENTITY_PRODUCT = 1;
+    public const ENTITY_PRODUCT = 1;
 
     /**
      * Review entity codes
      *
      */
-    const ENTITY_PRODUCT_CODE   = 'product';
-    const ENTITY_CUSTOMER_CODE  = 'customer';
-    const ENTITY_CATEGORY_CODE  = 'category';
+    public const ENTITY_PRODUCT_CODE   = 'product';
+    public const ENTITY_CUSTOMER_CODE  = 'customer';
+    public const ENTITY_CATEGORY_CODE  = 'category';
 
-    const STATUS_APPROVED       = 1;
-    const STATUS_PENDING        = 2;
-    const STATUS_NOT_APPROVED   = 3;
+    public const STATUS_APPROVED       = 1;
+    public const STATUS_PENDING        = 2;
+    public const STATUS_NOT_APPROVED   = 3;
 
     protected function _construct()
     {
@@ -128,12 +116,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function getEntitySummary($product, $storeId = 0)
     {
-        $summaryData = Mage::getModel('review/review_summary')
-            ->setStoreId($storeId)
-            ->load($product->getId());
-        $summary = new Varien_Object();
-        $summary->setData($summaryData->getData());
-        $product->setRatingSummary($summary);
+        $product->setRatingSummary($product->getReviewSummary($storeId));
     }
 
     /**
@@ -149,7 +132,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function getReviewUrl()
     {
-        return Mage::getUrl('review/product/view', array('id' => $this->getReviewId()));
+        return Mage::getUrl('review/product/view', ['id' => $this->getReviewId()]);
     }
 
     /**
@@ -158,7 +141,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
             $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
@@ -197,7 +180,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function appendSummary($collection)
     {
-        $entityIds = array();
+        $entityIds = [];
         foreach ($collection->getItems() as $_itemId => $_item) {
             $entityIds[] = $_item->getId();
         }

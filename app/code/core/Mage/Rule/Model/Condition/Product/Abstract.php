@@ -1,35 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule product condition data model
  *
- * @category Mage
- * @package Mage_Rule
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rule
  *
  * @method $this setAttributeOption(array $value)
  * @method string getJsFormObject()
@@ -75,12 +63,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getDefaultOperatorInputByType()
     {
-        if (null === $this->_defaultOperatorInputByType) {
+        if ($this->_defaultOperatorInputByType === null) {
             parent::getDefaultOperatorInputByType();
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='
              */
-            $this->_defaultOperatorInputByType['category'] = array('==', '!=', '{}', '!{}', '()', '!()');
+            $this->_defaultOperatorInputByType['category'] = ['==', '!=', '{}', '!{}', '()', '!()'];
             $this->_arrayInputTypes[] = 'category';
         }
         return $this->_defaultOperatorInputByType;
@@ -121,7 +109,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value     = $this->bindArrayOfIds($value);
         }
 
-        /** @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleResource */
         $ruleResource = $this->getRuleResourceHelper();
 
         return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);
@@ -190,9 +177,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             ->loadAllAttributes()
             ->getAttributesByCode();
 
-        $attributes = array();
+        $attributes = [];
         foreach ($productAttributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!$attribute->isAllowedForRuleCondition()
                 || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
             ) {
@@ -254,7 +241,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 $this->setData('value_select_options', $selectOptions);
             }
             if (!$hashedReady) {
-                $hashedOptions = array();
+                $hashedOptions = [];
                 foreach ($selectOptions as $o) {
                     if (is_array($o['value'])) {
                         continue; // We cannot use array as index
@@ -277,7 +264,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueOption($option = null)
     {
         $this->_prepareValueOptions();
-        return $this->getData('value_option'.(!is_null($option) ? '/'.$option : ''));
+        return $this->getData('value_option' . (!is_null($option) ? '/' . $option : ''));
     }
 
     /**
@@ -338,7 +325,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function collectValidatedAttributes($productCollection)
     {
         $attribute = $this->getAttribute();
-        if ('category_ids' != $attribute) {
+        if ($attribute != 'category_ids') {
             if ($this->getAttributeObject()->isScopeGlobal()) {
                 $attributes = $this->getRule()->getCollectedAttributes();
                 $attributes[$attribute] = true;
@@ -359,7 +346,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getInputType()
     {
-        if ($this->getAttribute()==='attribute_set_id') {
+        if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
         if (!is_object($this->getAttributeObject())) {
@@ -393,7 +380,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getValueElementType()
     {
-        if ($this->getAttribute()==='attribute_set_id') {
+        if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
         if (!is_object($this->getAttributeObject())) {
@@ -445,14 +432,14 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         switch ($this->getAttribute()) {
             case 'sku':
             case 'category_ids':
-                    $url = 'adminhtml/promo_widget/chooser'
-                    .'/attribute/'.$this->getAttribute();
+                $url = 'adminhtml/promo_widget/chooser'
+                . '/attribute/' . $this->getAttribute();
                 if ($this->getJsFormObject()) {
-                    $url .= '/form/'.$this->getJsFormObject();
+                    $url .= '/form/' . $this->getJsFormObject();
                 }
                 break;
         }
-        return $url!==false ? Mage::helper('adminhtml')->getUrl($url) : '';
+        return $url !== false ? Mage::helper('adminhtml')->getUrl($url) : '';
     }
 
     /**
@@ -483,16 +470,17 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function loadArray($arr)
     {
-        $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
+        $this->setAttribute($arr['attribute'] ?? false);
         $attribute = $this->getAttributeObject();
 
-        $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], array('{}', '!{}'));
+        $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], ['{}', '!{}']);
         if ($attribute && $attribute->getBackendType() == 'decimal' && !$isContainsOperator) {
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
-                    && in_array($arr['operator'], array('!()', '()'))
-                    && false !== strpos($arr['value'], ',')) {
-                    $tmp = array();
+                    && in_array($arr['operator'], ['!()', '()'])
+                    && strpos($arr['value'], ',') !== false
+                ) {
+                    $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
                     }
@@ -511,7 +499,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     }
 
     /**
-     * Validate product attrbute value for condition
+     * Validate product attribute value for condition
      *
      * @param Varien_Object $object
      * @return bool
@@ -523,9 +511,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $object = Mage::getModel('catalog/product')->load($object->getId());
         }
 
-        if ('category_ids' == $attrCode) {
+        if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
-        } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
+        } elseif (!isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {
                 return false;
             }
@@ -539,7 +527,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
             if ($attr && $attr->getFrontendInput() == 'multiselect') {
                 $value = $object->getData($attrCode);
-                $value = strlen($value) ? explode(',', $value) : array();
+                $value = strlen($value) ? explode(',', $value) : [];
                 return $this->validateAttribute($value);
             }
 
@@ -554,7 +542,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 if ($attr && $attr->getBackendType() == 'datetime') {
                     $value = strtotime($value);
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
-                    $value = strlen($value) ? explode(',', $value) : array();
+                    $value = strlen($value) ? explode(',', $value) : [];
                 }
 
                 $object->setData($attrCode, $value);

@@ -1,36 +1,23 @@
 <?php
 /**
- * Magento
- *
- * NOTICE OF LICENSE
+ * OpenMage
  *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle option renderer
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
  *
  * @method Mage_Catalog_Model_Product getFormatProduct()
  * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
@@ -41,14 +28,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Store preconfigured options
      *
-     * @var int|array|string
+     * @var int|array|string|null
      */
     protected $_selectedOptions = null;
 
     /**
      * Show if option has a single selection
      *
-     * @var bool
+     * @var bool|null
      */
     protected $_showSingle = null;
 
@@ -63,7 +50,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             $_option        = $this->getOption();
             $_selections    = $_option->getSelections();
 
-            $this->_showSingle = (count($_selections) == 1 && $_option->getRequired());
+            $this->_showSingle = (count($_selections) === 1 && $_option->getRequired());
         }
 
         return $this->_showSingle;
@@ -104,18 +91,18 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
         }
 
-        return array($_defaultQty, $_canChangeQty);
+        return [$_defaultQty, $_canChangeQty];
     }
 
     /**
      * Collect selected options
      *
-     * @return void
+     * @return int|array|string
      */
     protected function _getSelectedOptions()
     {
         if (is_null($this->_selectedOptions)) {
-            $this->_selectedOptions = array();
+            $this->_selectedOptions = [];
             $option = $this->getOption();
 
             if ($this->getProduct()->hasPreconfiguredValues()) {
@@ -145,7 +132,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             return ($selection->getSelectionId() == $this->_getSelectedOptions());
         } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
             return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
-        } elseif ($selectedOptions == 'None') {
+        } elseif ($selectedOptions === 'None') {
             return false;
         } else {
             return ($selection->getIsDefault() && $selection->isSaleable());
@@ -189,8 +176,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      * Returns the formatted string for the quantity chosen for the given selection
      *
      * @param Mage_Catalog_Model_Product $_selection
-     * @param bool                       $includeContainer
+     * @param bool $includeContainer
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSelectionQtyTitlePrice($_selection, $includeContainer = true)
     {
@@ -218,7 +206,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         if ($_selection) {
             $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
             if (is_numeric($price)) {
-                $price = $this->helper('core')->currencyByStore($price, $store, false);
+                /** @var Mage_Core_Helper_Data $helper */
+                $helper = $this->helper('core');
+                $price = $helper::currencyByStore($price, $store, false);
             }
         }
         return is_numeric($price) ? $price : 0;
@@ -230,6 +220,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      * @param Mage_Catalog_Model_Product $_selection
      * @param bool $includeContainer
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getSelectionTitlePrice($_selection, $includeContainer = true)
     {
@@ -263,13 +254,15 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      * @param float $price
      * @param bool $includeContainer
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function formatPriceString($price, $includeContainer = true)
     {
         $taxHelper  = Mage::helper('tax');
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = $this->helper('core');
         $currentProduct = $this->getProduct();
-        if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
+        if ($currentProduct->getPriceType() === Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC
                 && $this->getFormatProduct()
         ) {
             $product = $this->getFormatProduct();
