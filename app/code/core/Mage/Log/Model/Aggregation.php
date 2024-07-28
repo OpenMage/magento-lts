@@ -185,6 +185,6 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
      */
     private function _round($in)
     {
-        return date("Y-m-d H:00:00", $this->_timestamp($in));
+        return date('Y-m-d H:00:00', $this->_timestamp($in));
     }
 }

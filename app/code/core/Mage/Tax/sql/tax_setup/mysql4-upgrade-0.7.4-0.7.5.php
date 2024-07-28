@@ -27,7 +27,7 @@ if (count($customerTaxClassIds) > 0) {
     $installer->run(
         "UPDATE {$installer->getTable('customer_group')}
             SET tax_class_id = {$customerTaxClassIds[0]}
-            WHERE tax_class_id NOT IN (" . implode(',', $customerTaxClassIds) . ")"
+            WHERE tax_class_id NOT IN (" . implode(',', $customerTaxClassIds) . ')'
     );
 }
 

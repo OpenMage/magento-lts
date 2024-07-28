@@ -260,7 +260,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $bunchSize       = Mage::helper('importexport')->getBunchSize();
 
         /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper("core");
+        $coreHelper = Mage::helper('core');
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -655,7 +655,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_dataValidated) {
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
-                file_put_contents($this->_getSource()->getSource(), "");
+                file_put_contents($this->_getSource()->getSource(), '');
                 Mage::throwException(
                     Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
                 );

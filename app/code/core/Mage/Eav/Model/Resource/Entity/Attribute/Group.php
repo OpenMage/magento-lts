@@ -90,7 +90,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
         $adapter = $this->_getReadAdapter();
         $bind    = [':attribute_set_id' => $object->getAttributeSetId()];
         $select  = $adapter->select()
-            ->from($this->getMainTable(), new Zend_Db_Expr("MAX(sort_order)"))
+            ->from($this->getMainTable(), new Zend_Db_Expr('MAX(sort_order)'))
             ->where('attribute_set_id = :attribute_set_id');
 
         return $adapter->fetchOne($select, $bind);

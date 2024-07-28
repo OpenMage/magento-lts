@@ -107,7 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 ':attribute_group_id' => $object->getAttributeGroupId()
             ];
             $select = $adapter->select()
-                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr("MAX(sort_order)"))
+                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr('MAX(sort_order)'))
                 ->where('attribute_set_id = :attribute_set_id')
                 ->where('attribute_group_id = :attribute_group_id');
 
@@ -338,7 +338,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     foreach ($stores as $store) {
                         if (isset($values[$store->getId()])
                             && (!empty($values[$store->getId()])
-                            || $values[$store->getId()] == "0")
+                            || $values[$store->getId()] == '0')
                         ) {
                             $data = [
                                 'option_id' => $intOptionId,
@@ -429,10 +429,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $storeId)
     {
         $adapter = $this->_getReadAdapter();
-        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
-            . " AND %s.attribute_id = " . $attribute->getId()
-            . " AND %s.store_id = %d";
+        $joinConditionTemplate = '%s.entity_id = %s.entity_id'
+            . ' AND %s.entity_type_id = ' . $attribute->getEntityTypeId()
+            . ' AND %s.attribute_id = ' . $attribute->getId()
+            . ' AND %s.store_id = %d';
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',
@@ -460,7 +460,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 [$attribute->getAttributeCode() => $valueExpr]
             );
         if ($attribute->getFlatAddChildData()) {
-            $select->where("e.is_child = ?", 0);
+            $select->where('e.is_child = ?', 0);
         }
 
         return $select;

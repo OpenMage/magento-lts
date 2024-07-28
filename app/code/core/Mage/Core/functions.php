@@ -133,46 +133,46 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     switch ($errno) {
         case E_ERROR:
-            $errorMessage .= "Error";
+            $errorMessage .= 'Error';
             break;
         case E_WARNING:
-            $errorMessage .= "Warning";
+            $errorMessage .= 'Warning';
             break;
         case E_PARSE:
-            $errorMessage .= "Parse Error";
+            $errorMessage .= 'Parse Error';
             break;
         case E_NOTICE:
-            $errorMessage .= "Notice";
+            $errorMessage .= 'Notice';
             break;
         case E_CORE_ERROR:
-            $errorMessage .= "Core Error";
+            $errorMessage .= 'Core Error';
             break;
         case E_CORE_WARNING:
-            $errorMessage .= "Core Warning";
+            $errorMessage .= 'Core Warning';
             break;
         case E_COMPILE_ERROR:
-            $errorMessage .= "Compile Error";
+            $errorMessage .= 'Compile Error';
             break;
         case E_COMPILE_WARNING:
-            $errorMessage .= "Compile Warning";
+            $errorMessage .= 'Compile Warning';
             break;
         case E_USER_ERROR:
-            $errorMessage .= "User Error";
+            $errorMessage .= 'User Error';
             break;
         case E_USER_WARNING:
-            $errorMessage .= "User Warning";
+            $errorMessage .= 'User Warning';
             break;
         case E_USER_NOTICE:
-            $errorMessage .= "User Notice";
+            $errorMessage .= 'User Notice';
             break;
         case E_STRICT:
-            $errorMessage .= "Strict Notice";
+            $errorMessage .= 'Strict Notice';
             break;
         case E_RECOVERABLE_ERROR:
-            $errorMessage .= "Recoverable Error";
+            $errorMessage .= 'Recoverable Error';
             break;
         case E_DEPRECATED:
-            $errorMessage .= "Deprecated functionality";
+            $errorMessage .= 'Deprecated functionality';
             break;
         default:
             $errorMessage .= "Unknown error ($errno)";
@@ -200,7 +200,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     $d = debug_backtrace();
     $out = '';
     if ($html) {
-        $out .= "<pre>";
+        $out .= '<pre>';
     }
     foreach ($d as $i => $r) {
         if (!$showFirst && $i == 0) {
@@ -210,7 +210,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
     if ($html) {
-        $out .= "</pre>";
+        $out .= '</pre>';
     }
     if ($return) {
         return $out;
@@ -256,7 +256,7 @@ function mageDelTree($path)
  * @param string $escape
  * @return array
  */
-function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\')
+function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
