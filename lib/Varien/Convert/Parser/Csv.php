@@ -44,7 +44,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     $fields = $line;
                     continue;
                 } else {
-                    foreach (array_keys($line) as $j) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column' . ($j + 1);
                     }
                 }
@@ -87,7 +87,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     $fields = $line;
                     continue;
                 } else {
-                    foreach (array_keys($line) as $j) {
+                    foreach ($line as $j => $f) {
                         $fields[$j] = 'column' . ($j + 1);
                     }
                 }
