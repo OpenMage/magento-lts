@@ -796,6 +796,11 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
 		-
+			message: "#^Return type \\(array\\) of method Mage_Api_Model_Wsdl_Config_Element\\:\\:getChildren\\(\\) should be compatible with return type \\(RecursiveIterator\\|null\\) of method RecursiveIterator\\<string,static\\(SimpleXMLElement\\)\\>\\:\\:getChildren\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
+
+		-
 			message: "#^Property Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource\\:\\:\\$_treeModel \\(Mage_Api2_Model_Acl_Global_Rule_Tree\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Tab/Resource.php
@@ -3411,11 +3416,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string and 50\\|int\\<100, max\\> results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: "#^Property Mage_ImportExport_Model_Import\\:\\:\\$_entityAdapter \\(Mage_ImportExport_Model_Import_Entity_Abstract\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import.php
@@ -3679,6 +3679,16 @@ parameters:
 			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
+
+		-
+			message: "#^Method Mage_Media_Model_File_Image\\:\\:getImage\\(\\) should return bool\\|resource but returns GdImage\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Method Mage_Media_Model_File_Image\\:\\:getTmpImage\\(\\) should return resource but returns \\(GdImage\\|false\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
@@ -5052,12 +5062,12 @@ parameters:
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:_parseXmlResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Usps\\:\\:_parseXmlTrackingResponse\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php
 
 		-
@@ -5201,11 +5211,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
@@ -5336,6 +5341,11 @@ parameters:
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with non\\-empty\\-string will always evaluate to false\\.$#"
+			count: 2
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
 			message: "#^Cannot access offset 'Engine' on bool\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
@@ -5352,6 +5362,16 @@ parameters:
 
 		-
 			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\: string, 3\\: non\\-empty\\-string, 4\\: string, 5\\: non\\-empty\\-string, 6\\?\\: non\\-empty\\-string, 7\\?\\: non\\-empty\\-string, \\.\\.\\.\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\: string, 3\\: non\\-empty\\-string, 4\\: string, 5\\: non\\-empty\\-string, 6\\?\\: non\\-empty\\-string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
@@ -5399,21 +5419,6 @@ parameters:
 			message: "#^Left side of \\|\\| is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
-
-		-
-			message: "#^Method Varien_Http_Adapter_Curl\\:\\:_getResource\\(\\) has invalid return type CurlHandle\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource has unknown class CurlHandle as its type\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
