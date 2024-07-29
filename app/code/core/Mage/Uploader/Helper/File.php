@@ -703,7 +703,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get max upload size
      *
-     * @return mixed
+     * @return string
      */
     public function getDataMaxSize()
     {
