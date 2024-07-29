@@ -1,0 +1,11 @@
+version: "1"
+
+rules:
+  - base: next
+    upstream: OpenMage:master
+    mergeMethod: merge
+  - base: v19
+    upstream: OpenMage:master
+    mergeMethod: merge
+
+conflictLabel: "merge-conflict"
