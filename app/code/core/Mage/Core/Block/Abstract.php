@@ -1220,8 +1220,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function escapeHtmlArrayAsObject(array $data, ?array $allowedTags = null): array
     {
         $result = [];
-        foreach ($data as $kay => $string) {
-            $result[$kay] = $this->escapeHtmlAsObject($string, $allowedTags);
+        foreach ($data as $key => $string) {
+            $result[$key] = $this->escapeHtmlAsObject($string, $allowedTags);
         }
 
         return $result;
