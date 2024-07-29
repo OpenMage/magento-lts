@@ -424,6 +424,7 @@
         <admin>
             <design>
                 <loading_timeout>200</loading_timeout>
+                <copy_path>1</copy_path>
             </design>
             <startup>
                 <page>dashboard</page>

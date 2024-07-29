@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue()->unsPath();
         return parent::render($element);
     }
 

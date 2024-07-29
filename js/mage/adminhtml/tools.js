@@ -11,6 +11,11 @@
  * @copyright   Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+function copyText(txt) {
+	navigator.clipboard.writeText(txt);
+}
+
 function setLocation(url){
     window.location.href = encodeURI(url);
 }
