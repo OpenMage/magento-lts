@@ -44,7 +44,9 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
             if (Mage::isInstalled() && $this->_getSession()->isLoggedIn()) {
                 $this->_data['welcome'] = $this->__('Welcome, %s!', $this->escapeHtml($this->_getSession()->getCustomer()->getName()));
             } else {
-                $this->_data['welcome'] = Mage::getStoreConfig('design/header/welcome');
+                $this->_data['welcome'] = new Mage_Core_Model_Security_HtmlEscapedString(
+                    (string) Mage::getStoreConfig('design/header/welcome')
+                );
             }
         }
 
