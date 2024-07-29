@@ -254,15 +254,50 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 <div style="position:relative; border:1px dotted {$cacheHintStatusColor}; margin:6px 2px; padding:18px 2px 2px 2px; zoom:1;">
 <div style="position:absolute; left:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:white; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'"
-onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
+onmouseout="this.style.zIndex='998'" title="{$fileName}">
 HTML;
+            if (!empty($_SERVER['MAGE_VSCODE_LINKS']) || !empty($_ENV['MAGE_VSCODE_LINKS'])) {
+                // https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls
+                echo '<a href="vscode://file/' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</a></div>';
+            } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
+                // phpstorm doc
+                echo '<a href="phpstorm://open?url=file:/' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</a></div>';
+            } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
+                // https://github.com/luigifab/webext-openfileeditor
+                echo '<span class="openfileeditor" data-file="' . $this->_viewDir . DS . $fileName . '">' . $fileName . '</span></div>';
+            } else {
+                echo $fileName . '</div>';
+            }
+
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
                 $thisClass = get_class($this);
                 echo <<<HTML
 <div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
-title="{$thisClass}">{$thisClass}</div>
+title="{$thisClass}">
 HTML;
+                try {
+                    if (!empty($_SERVER['MAGE_VSCODE_LINKS']) || !empty($_ENV['MAGE_VSCODE_LINKS'])) {
+                        $reflector = new ReflectionClass($thisClass);
+                        $fileClass = $reflector->getFileName();
+                        // https://code.visualstudio.com/docs/editor/command-line#_opening-vs-code-with-urls
+                        echo '<a href="vscode://file/' . $fileClass . '">' . $thisClass . '</a></div>';
+                    } elseif (!empty($_SERVER['MAGE_PHPSTORM_LINKS']) || !empty($_ENV['MAGE_PHPSTORM_LINKS'])) {
+                        $reflector = new ReflectionClass($thisClass);
+                        $fileClass = $reflector->getFileName();
+                        // phpstorm doc
+                        echo '<a href="phpstorm://open?url=file:/' . $fileClass . '">' . $thisClass . '</a></div>';
+                    } elseif (!empty($_SERVER['MAGE_OPENFILEEDITOR_LINKS']) || !empty($_ENV['MAGE_OPENFILEEDITOR_LINKS'])) {
+                        $reflector = new ReflectionClass($thisClass);
+                        $fileClass = $reflector->getFileName();
+                        // https://github.com/luigifab/webext-openfileeditor
+                        echo '<span class="openfileeditor" data-file="' . $fileClass . '">' . $thisClass . '</span></div>';
+                    } else {
+                        echo $thisClass . '</div>';
+                    }
+                } catch (Exception $t) {
+                    echo $thisClass . '</div>';
+                }
             }
         }
 
