@@ -16,7 +16,7 @@
 -->
 <widgets>
     <newsletter_subscribe type="newsletter/widget_subscribe" translate="name description" module="newsletter">
-        <name>Newsletter Subscribe Form</name>
+        <name>Newsletter Subscription Form</name>
         <description>Newsletter Subscribe Form</description>
         <is_email_compatible>0</is_email_compatible>
         <parameters>
@@ -28,7 +28,7 @@
                 <values>
                     <default translate="label">
                         <value>newsletter/subscribe.phtml</value>
-                        <label>Newsletter Form Default Template</label>
+                        <label>Default Template</label>
                     </default>
                 </values>
                 <sort_order>10</sort_order>
