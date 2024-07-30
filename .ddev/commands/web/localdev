@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Description: create local development directory
+## Usage: localdev
+## Example: ddev localdev <git-url>
+
+if [ ! -d "localdev/" ]
+then
+     mkdir "localdev/"
+     echo "Directory created."
+     php vendor/bin/composer config repositories.local '{"type": "path", "url": "./localdev/*", "cannocial": "false"}'
+fi
+
+cd "localdev/"
+git clone "$@"
