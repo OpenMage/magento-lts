@@ -8,7 +8,7 @@ if [ ! -d "localdev/" ]
 then
      mkdir "localdev/"
      echo "Directory created."
-     php vendor/bin/composer config repositories.local '{"type": "path", "url": "./localdev/*", "cannocial": "false"}'
+     php vendor/bin/composer config repositories.local '{"type": "path", "url": "./localdev/*", "canonical": "false"}'
 fi
 
 cd "localdev/"
