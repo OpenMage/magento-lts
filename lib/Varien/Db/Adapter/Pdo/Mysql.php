@@ -309,14 +309,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
         } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
-            $hostName = $matches[1] ?? null;
-            !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName)
                 ->setPort($matches[8] ?? null);
         } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
-            $hostName = $matches[1] ?? null;
-            !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
         } elseif (str_contains($hostName, ':')) {
@@ -517,7 +517,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _prepareQuery(&$sql, &$bind = [])
     {
-        $sql = (string) $sql;
+        $sql = (string)$sql;
         if (!is_array($bind)) {
             $bind = [$bind];
         }
@@ -1769,7 +1769,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $options['unsigned'] = true;
         }
         if ($columnData['NULLABLE'] === false
-            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && strlen($columnData['DEFAULT']) != 0)
+            && !($type == Varien_Db_Ddl_Table::TYPE_TEXT && isset($columnData['DEFAULT']) && strlen($columnData['DEFAULT']) != 0)
         ) {
             $options['nullable'] = false;
         }
@@ -1781,10 +1781,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         ) {
             $options['default'] = $this->quote($columnData['DEFAULT']);
         }
-        if (strlen($columnData['SCALE']) > 0) {
+        if (isset($columnData['SCALE']) && strlen($columnData['SCALE']) > 0) {
             $options['scale'] = $columnData['SCALE'];
         }
-        if (strlen($columnData['PRECISION']) > 0) {
+        if (isset($columnData['PRECISION']) && strlen($columnData['PRECISION']) > 0) {
             $options['precision'] = $columnData['PRECISION'];
         }
 
@@ -3072,7 +3072,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $value = is_string($value) ? str_replace("\0", '', $value) : $value;
         $sql = $this->quoteInto($text, $value);
-        return str_replace('{{fieldName}}', $fieldName, $sql);
+        return str_replace('{{fieldName}}', (string)$fieldName, $sql);
     }
 
     /**
@@ -3086,7 +3086,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _transformStringSqlCondition($conditionKey, $value)
     {
-        $value = str_replace("\0", '', (string) $value);
+        $value = str_replace("\0", '', (string)$value);
         if ($value == '') {
             return ($conditionKey == 'seq') ? 'null' : 'notnull';
         } else {

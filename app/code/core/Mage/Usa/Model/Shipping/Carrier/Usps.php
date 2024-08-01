@@ -85,10 +85,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected $_rawRequest = null;
 
+
+    /**
+     * Raw rate tracking request data
+     *
+     * @var Varien_Object|null
+     */
+    protected $_rawTrackRequest = null;
+
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
      */
     protected $_result = null;
 
@@ -425,7 +433,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
      * @param string $response
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|void
      */
     protected function _parseXmlResponse($response)
     {
@@ -512,6 +520,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
         }
     }
+
     /**
      * Get configuration data of carrier
      *
@@ -901,7 +910,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set tracking request
      *
-     * @return null
+     * @return void
      */
     protected function setTrackingRequest()
     {
@@ -960,7 +969,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param array $trackingValue
      * @param string $response
-     * @return null
+     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingValue, $response)
     {
@@ -1804,7 +1813,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         if (is_null($params)) {
             return $this->_getAllowedContainers();
@@ -1838,7 +1847,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
             return [];

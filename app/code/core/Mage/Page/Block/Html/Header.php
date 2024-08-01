@@ -57,7 +57,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrc()
     {
         if (empty($this->_data['logo_src'])) {
-            $this->_data['logo_src'] = Mage::getStoreConfig('design/header/logo_src');
+            $this->_data['logo_src'] =  new Mage_Core_Model_Security_HtmlEscapedString(
+                (string) Mage::getStoreConfig('design/header/logo_src')
+            );
         }
         return $this->getSkinUrl($this->_data['logo_src']);
     }
@@ -68,7 +70,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
-            $this->_data['logo_src_small'] = Mage::getStoreConfig('design/header/logo_src_small');
+            $this->_data['logo_src_small'] =  new Mage_Core_Model_Security_HtmlEscapedString(
+                (string) Mage::getStoreConfig('design/header/logo_src_small')
+            );
         }
         return $this->getSkinUrl($this->_data['logo_src_small']);
     }
@@ -79,7 +83,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoAlt()
     {
         if (empty($this->_data['logo_alt'])) {
-            $this->_data['logo_alt'] = Mage::getStoreConfig('design/header/logo_alt');
+            $this->_data['logo_alt'] = new Mage_Core_Model_Security_HtmlEscapedString(
+                (string) Mage::getStoreConfig('design/header/logo_alt')
+            );
         }
         return $this->_data['logo_alt'];
     }
@@ -97,7 +103,9 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
             if (Mage::isInstalled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $this->_data['welcome'] = $this->__('Welcome, %s!', $this->escapeHtml(Mage::getSingleton('customer/session')->getCustomer()->getName()));
             } else {
-                $this->_data['welcome'] = Mage::getStoreConfig('design/header/welcome');
+                $this->_data['welcome'] = new Mage_Core_Model_Security_HtmlEscapedString(
+                    (string) Mage::getStoreConfig('design/header/welcome')
+                );
             }
         }
 

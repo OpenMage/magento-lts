@@ -124,7 +124,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
             }
-            $out = '<a href="#" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
+            $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
         } else {
             $out = $this->escapeHtml($this->getColumn()->getHeader());
@@ -142,7 +142,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
 
         if ($this->getColumn()->hasData('width')) {
             $customWidth = $this->getColumn()->getData('width');
-            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
+            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', (string)$customWidth))) {
                 $width = $customWidth;
             } elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
                 $width = (int)$matches[1];
@@ -162,5 +162,14 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     public function renderCss()
     {
         return $this->getColumn()->getCssClass();
+    }
+
+    /**
+     * @param Varien_Object $row
+     * @return string|null
+     */
+    public function getCopyableText(Varien_Object $row)
+    {
+        return $this->_getValue($row);
     }
 }

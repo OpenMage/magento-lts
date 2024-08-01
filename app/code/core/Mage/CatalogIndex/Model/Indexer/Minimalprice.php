@@ -54,7 +54,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         $this->_currencyModel = Mage::getModel('directory/currency');
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
 
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**
@@ -90,7 +90,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
      * @return array|bool
      */
-    public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
+    public function createIndexData(Mage_Catalog_Model_Product $object, ?Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $searchEntityId = $object->getId();
         $priceAttributeId = $this->getTierPriceAttribute()->getId();

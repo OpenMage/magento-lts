@@ -986,6 +986,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setSuffix($quote->getCustomerSuffix());
         $customer->setPassword($customer->decryptPassword($quote->getPasswordHash()));
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
+        $customer->setPasswordCreatedAt(time());
         $customer->save();
         $quote->setCustomer($customer);
         $quote->setPasswordHash('');

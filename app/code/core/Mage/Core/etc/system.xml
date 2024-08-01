@@ -1520,13 +1520,6 @@
                         </no_route>
                     </fields>
                 </default>
-                <polls translate="label">
-                    <label>Polls</label>
-                    <sort_order>40</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </polls>
                 <cookie translate="label">
                     <label>Session Cookie Management</label>
                     <sort_order>50</sort_order>
