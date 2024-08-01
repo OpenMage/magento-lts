@@ -733,17 +733,21 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * You can declare additional emails in Mage_Core general/additional_notification_emails/admin_user_create node.
      *
      * @param Mage_Admin_Model_User $user
+     * @param string|false $receiverEmail An optional receiver email address for the notification. Overrides default and additional emails.
      * @return $this
      */
-    public function sendAdminNotification($user)
+    public function sendAdminNotification($user, $receiverEmail = false)
     {
         // define general contact Name and Email
         $generalContactName = Mage::getStoreConfig('trans_email/ident_general/name');
         $generalContactEmail = Mage::getStoreConfig('trans_email/ident_general/email');
 
-        // collect general and additional emails
-        $emails = $this->getUserCreateAdditionalEmail();
-        $emails[] = $generalContactEmail;
+        // collect general and additional emails unless overridden
+        if ($receiverEmail && filter_var($receiverEmail, FILTER_VALIDATE_EMAIL)) {
+            $emails = [$receiverEmail];
+        } else {
+            $emails = array_merge($this->getUserCreateAdditionalEmail(), [$generalContactEmail]);
+        }
 
         /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
         $mailer    = Mage::getModel('core/email_template_mailer');
