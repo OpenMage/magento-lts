@@ -147,10 +147,13 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED;
                     // no break
                 case Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED:
-                    $block = Mage::getSingleton('core/layout')
-                        ->createBlock('adminhtml/notification_toolbar')
-                        ->setTemplate('notification/toolbar.phtml');
-                    $result['html'] = $block->toHtml();
+                    $result['html'] = '';
+                    if (Mage::helper('core')->isModuleOutputEnabled('Mage_AdminNotification')) {
+                        $block = Mage::getSingleton('core/layout')
+                            ->createBlock('adminhtml/notification_toolbar')
+                            ->setTemplate('notification/toolbar.phtml');
+                        $result['html'] = $block->toHtml();
+                    }
 
                     $flagData = $flag->getFlagData();
                     if (is_array($flagData)) {
