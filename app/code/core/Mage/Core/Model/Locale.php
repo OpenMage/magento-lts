@@ -247,7 +247,7 @@ class Mage_Core_Model_Locale
             }
         }
 
-        foreach (array_keys($locales) as $code) {
+        foreach ($locales as $code => $active) {
             if (strstr($code, '_')) {
                 if (!in_array($code, $allowed)) {
                     continue;
