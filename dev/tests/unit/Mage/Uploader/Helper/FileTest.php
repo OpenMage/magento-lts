@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
 use Mage;
+use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,10 @@ class FileTest extends TestCase
     public function setUp(): void
     {
         Mage::app();
-        Mage::getConfig()->setNode('global/mime/types/test-new-node', 'application/octet-stream');
+
+        /** @var Mage_Core_Model_Config $config */
+        $config = Mage::getConfig();
+        $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
         $this->subject = Mage::helper('uploader/file');
     }
 
