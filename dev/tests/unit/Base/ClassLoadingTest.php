@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
@@ -7,15 +8,35 @@ use PHPUnit\Framework\TestCase;
 
 class ClassLoadingTest extends TestCase
 {
-
-    public function testClassExists()
+    /**
+     * @dataProvider provideClassExistsData
+     * @param bool $expectedResult
+     * @param string $class
+     * @return void
+     */
+    public function testClassExists(bool $expectedResult, string $class): void
     {
-        $this->assertTrue(class_exists('Mage'));
-        $this->assertTrue(class_exists('Mage_Eav_Model_Entity_Increment_Numeric'));
+        $this->assertSame($expectedResult, class_exists($class));
     }
 
-    public function testClassDoesNotExists()
+    /**
+     * @return array<string, array<int, bool|string>>
+     */
+    public function provideClassExistsData(): array
     {
-        $this->assertFalse(class_exists('Mage_Non_Existent'));
+        return [
+            'class exists #1' => [
+                true,
+                'Mage'
+            ],
+            'class exists #2' => [
+                true,
+                'Mage_Eav_Model_Entity_Increment_Numeric'
+            ],
+            'class not exists' => [
+                false,
+                'Mage_Non_Existent'
+            ],
+        ];
     }
 }
