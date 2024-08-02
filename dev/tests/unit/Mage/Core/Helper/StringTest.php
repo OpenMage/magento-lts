@@ -1,50 +1,42 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Mage;
 use Mage_Core_Helper_String;
 use PHPUnit\Framework\TestCase;
 
 class StringTest extends TestCase
 {
-    const TEST_STRING_1 = 'Test 12345 a lot more Text';
+    public const TEST_STRING = '1234567890';
 
-    public function testSubstr()
+    /**
+     * @var Mage_Core_Helper_String
+     */
+    public Mage_Core_Helper_String $subject;
+
+    public function setUp(): void
     {
-        $subject = new Mage_Core_Helper_String();
-        $resultString = $subject->substr(
-            self::TEST_STRING_1,
-            5,
-            5
-        );
-        $this->assertEquals(
-            '12345',
-            $resultString
-        );
+        Mage::app();
+        $this->subject = Mage::helper('core/string');
     }
 
-    public function testTruncate()
+    public function testSubstr(): void
     {
-        $subject = new Mage_Core_Helper_String();
-        $resultString = $subject->truncate(
-            self::TEST_STRING_1,
-            13,
-            '###'
-        );
-        $this->assertEquals(
-            'Test 12345###',
-            $resultString
-        );
-
+        $resultString = $this->subject->substr(self::TEST_STRING, 2, 2);
+        $this->assertEquals('34', $resultString);
     }
 
-    public function testStrlen()
+    public function testTruncate(): void
     {
-        $subject = new Mage_Core_Helper_String();
-        $this->assertEquals(
-            26,
-            $subject->strlen(self::TEST_STRING_1)
-        );
+        $resultString = $this->subject->truncate(self::TEST_STRING, 5, '...');
+        $this->assertEquals('12...', $resultString);
+    }
+
+    public function testStrlen(): void
+    {
+        $this->assertEquals(10, $this->subject->strlen(self::TEST_STRING));
     }
 }
