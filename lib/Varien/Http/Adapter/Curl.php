@@ -75,7 +75,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
 
-        foreach (array_keys($this->_config) as $param) {
+        foreach ($this->_config as $param => $curlOption) {
             if (array_key_exists($param, $this->_allowedParams)) {
                 curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
             }
