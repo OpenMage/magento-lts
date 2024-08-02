@@ -10,16 +10,36 @@ on:
 
 jobs:
   unit-tests:
-    runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.4', '8.3']
+        mysql_version: ["8.0", "5.7"]
+
+    services:
+      mysql:
+        image: mysql:${{ matrix.mysql_version }}
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: OpenMage/Testfield
-          path: ./
+      - name: Validate mysql service
+        run: |
+          echo "Checking mysql service"
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -proot -e "SHOW DATABASES"
 
-      - name: Validate composer
-        run: composer validate
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - uses: actions/checkout@v4
 
       - name: Get composer cache directory
         id: composer-cache
@@ -33,22 +53,41 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
-      - name: Checkout OpenMage repo
-        uses: actions/checkout@v4
-        with:
-          path: openmage
+      - name: Install OpenMage
+        run: |
+          php -f install.php -- \
+          --license_agreement_accepted 'yes' \
+          --locale 'en_US' \
+          --timezone 'America/New_York' \
+          --db_host '127.0.0.1' \
+          --db_name 'db' \
+          --db_user 'root' \
+          --db_pass 'root' \
+          --db_prefix '' \
+          --url 'http://openmage.local' \
+          --use_rewrites 'yes' \
+          --use_secure 'yes' \
+          --secure_base_url 'http://openmage.local' \
+          --use_secure_admin 'yes' \
+          --admin_username 'admin' \
+          --admin_lastname 'Administrator' \
+          --admin_firstname 'OpenMage' \
+          --admin_email 'admin@example.com' \
+          --admin_password 'veryl0ngpassw0rd' \
+          --session_save 'files' \
+          --admin_frontname 'admin' \
+          --backend_frontname 'admin' \
+          --default_currency 'USD' \
+          --enable_charts 'yes' \
+          --skip_url_validation 'yes'
 
-      - name: Install OpenMage dependencies
-        working-directory: ./openmage
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs --no-dev
-
-      - name: run phpUnit
-        run: bash ./run_unit_tests.sh
+      - name: Run phpUnit
+        run: php -f vendor/bin/phpunit
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.7
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         continue-on-error: true
         with:
