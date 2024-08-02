@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Varien;
+namespace OpenMage\Tests\Unit\Varien;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
