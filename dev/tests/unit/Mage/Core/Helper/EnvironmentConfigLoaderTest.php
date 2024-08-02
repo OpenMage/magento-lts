@@ -77,7 +77,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        self::assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
+        $this->assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
     }
 
     /**
@@ -214,7 +214,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         }
 
         // assert
-        self::assertTrue(!str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
+        $this->assertTrue(!str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
     }
 
     /**
