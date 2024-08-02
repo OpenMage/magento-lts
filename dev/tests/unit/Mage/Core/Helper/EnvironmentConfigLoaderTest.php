@@ -12,13 +12,13 @@ use Varien_Simplexml_Config;
 
 class EnvironmentConfigLoaderTest extends TestCase
 {
-    private const XML_PATH_GENERAL = 'general/store_information/name';
+    public const XML_PATH_GENERAL = 'general/store_information/name';
 
-    private const XML_PATH_DEFAULT = 'default/general/store_information/name';
+    public const XML_PATH_DEFAULT = 'default/general/store_information/name';
 
-    private const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
+    public const XML_PATH_WEBSITE = 'websites/base/general/store_information/name';
 
-    private const XML_PATH_STORE = 'stores/german/general/store_information/name';
+    public const XML_PATH_STORE = 'stores/german/general/store_information/name';
 
     /**
      * @throws Mage_Core_Exception
@@ -65,7 +65,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
-        // act
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
             $config['env_path'] => $config['value']
@@ -193,7 +193,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $defaultStoreValue = 'test_store';
         $this->assertEquals($defaultStoreValue, (string)$xml->getNode(self::XML_PATH_STORE));
 
-        // act
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
             $config['path'] => $config['value']

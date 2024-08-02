@@ -31,7 +31,9 @@ class SecurityTest extends TestCase
      */
     public function validateAgainstBlockMethodBlacklistDataProvider(): array
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
 
         return [
@@ -70,7 +72,9 @@ class SecurityTest extends TestCase
      */
     public function forbiddenBlockMethodsDataProvider(): array
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
 
         return [
