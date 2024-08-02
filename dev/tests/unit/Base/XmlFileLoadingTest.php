@@ -1,37 +1,27 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
 use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
+use XMLReader;
 
-class XmlFileLoadingTest  extends TestCase
+class XmlFileLoadingTest extends TestCase
 {
-
-    public function provideXmlFiles(): array
-    {
-        $root = realpath(__DIR__ . '/../../../../') . '/';
-
-        $result = [];
-        $result[] = [
-            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
-        ];
-
-        return $result;
-    }
-
     /**
      *
      * @dataProvider provideXmlFiles
-     * @param $filepath
+     * @param string $filepath
      * @return void
      */
-    public function testFileLoading($filepath): void
+    public function testFileLoading(string $filepath): void
     {
-        //$simplexml = new \SimpleXMLElement(file_get_contents($filepath));
+        /** @var SimpleXMLElement $simplexml */
         $simplexml = simplexml_load_file(
             $filepath,
-            null,
+            SimpleXMLElement::class,
             LIBXML_PEDANTIC //not needed by OpenMage, but good to test more strictly
         );
         $this->assertNotEmpty($simplexml->asXML());
@@ -40,13 +30,28 @@ class XmlFileLoadingTest  extends TestCase
     /**
      *
      * @dataProvider provideXmlFiles
-     * @param $filepath
+     * @param string $filepath
      * @return void
      */
-    public function testXmlReaderIsValid($filepath): void
+    public function testXmlReaderIsValid(string $filepath): void
     {
-        $xml = \XMLReader::open($filepath);
-        $xml->setParserProperty(\XMLReader::VALIDATE, true);
+        /** @var XMLReader $xml */
+        $xml = XMLReader::open($filepath);
+        $xml->setParserProperty(XMLReader::VALIDATE, true);
         $this->assertTrue($xml->isValid());
+    }
+
+    /**
+     * @return string[][]
+     */
+    public function provideXmlFiles(): array
+    {
+        $root = realpath(__DIR__ . '/../../../../') . '/';
+
+        return [
+            'file from vendor directory' => [
+                $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
+            ],
+        ];
     }
 }
