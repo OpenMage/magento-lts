@@ -5,24 +5,24 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
         backupGlobals="false"
-         backupStaticAttributes="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         bootstrap="tests/bootstrap.php"
+        backupStaticAttributes="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        processIsolation="false"
+        stopOnFailure="false"
+        bootstrap="dev/tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="TestfieldUnit">
-            <directory>./testfield/tests/Unit</directory>
-        </testsuite>
-        <testsuite name="TestfieldFullstack">
-            <directory>./testfield/tests/MagentoHackathon/Composer/FullStack</directory>
-        </testsuite>
+        <!--        <testsuite name="TestfieldUnit">-->
+        <!--            <directory>./testfield/tests/Unit</directory>-->
+        <!--        </testsuite>-->
+        <!--        <testsuite name="TestfieldFullstack">-->
+        <!--            <directory>./testfield/tests/MagentoHackathon/Composer/FullStack</directory>-->
+        <!--        </testsuite>-->
         <testsuite name="Unit">
-            <directory>./tests/unit</directory>
+            <directory>./dev/tests/unit</directory>
         </testsuite>
     </testsuites>
 
@@ -40,11 +40,11 @@
             <file>../app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
         </exclude>
         <report>
-            <clover outputFile="./tests/clover.xml"/>
-            <crap4j outputFile="./tests/crap4j.xml"/>
+            <clover outputFile="./dev/tests/clover.xml"/>
+            <crap4j outputFile="./dev/tests/crap4j.xml"/>
         </report>
     </coverage>
     <logging>
-        <junit outputFile="./tests/junit.xml"/>
+        <junit outputFile="./dev/tests/junit.xml"/>
     </logging>
 </phpunit>

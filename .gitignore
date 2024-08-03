@@ -75,6 +75,10 @@
 phpstan*.neon
 !phpstan.dist.*.neon
 
+.phpunit.result.cache
+phpunit.xml
+!phpunit.xml.dist
+
 # dev scripts loaded via composer
 /shell/update-copyright.php
 /shell/translations.php
