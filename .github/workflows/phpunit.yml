@@ -99,7 +99,7 @@ jobs:
 
       - name: prepare SonarCloud Scan Data
         continue-on-error: true
-        if: ${{ matrix.php-versions == '8.1' }}
+        if: ${{ matrix.php-versions == '8.3' }}
         run: |
           echo $PWD
           ls -la
@@ -112,7 +112,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ matrix.php-versions == '8.1' }} && SONAR_TOKEN
+        if: ${{ matrix.php-versions == '8.3' }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=dev/sonar-project.properties
