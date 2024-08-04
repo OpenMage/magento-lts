@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
         backupGlobals="false"
@@ -15,33 +14,27 @@
         bootstrap="dev/tests/bootstrap.php"
 >
     <testsuites>
-        <!--        <testsuite name="TestfieldUnit">-->
-        <!--            <directory>./testfield/tests/Unit</directory>-->
-        <!--        </testsuite>-->
-        <!--        <testsuite name="TestfieldFullstack">-->
-        <!--            <directory>./testfield/tests/MagentoHackathon/Composer/FullStack</directory>-->
-        <!--        </testsuite>-->
         <testsuite name="Unit">
             <directory>./dev/tests/unit</directory>
         </testsuite>
     </testsuites>
 
     <coverage
-            includeUncoveredFiles="true"
-            processUncoveredFiles="false"
+        includeUncoveredFiles="true"
+        processUncoveredFiles="false"
     >
         <include>
-            <directory suffix=".php">../app/code</directory>
-            <directory suffix=".php">../lib</directory>
+            <directory suffix=".php">app/code</directory>
+            <directory suffix=".php">lib</directory>
         </include>
         <exclude>
-            <file>../app/bootstrap.php</file>
-            <file>../app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
-            <file>../app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
+            <file>app/bootstrap.php</file>
+            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
+            <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
         </exclude>
         <report>
-            <clover outputFile="./dev/tests/clover.xml"/>
-            <crap4j outputFile="./dev/tests/crap4j.xml"/>
+            <clover outputFile="dev/tests/clover.xml"/>
+            <crap4j outputFile="dev/tests/crap4j.xml"/>
         </report>
     </coverage>
     <logging>

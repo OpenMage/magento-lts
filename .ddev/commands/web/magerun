@@ -1,17 +1,17 @@
 #!/bin/bash
 
-## Description: Execute n98-magerun-tmp
-## Usage: magerun-tmp
-## Example: "ddev magerun-tmp"
+## Description: Execute n98-magerun
+## Usage: magerun
+## Example: "ddev magerun"
 
-if [ ! -f vendor/bin/n98-magerun-tmp ]; then
+if [ ! -f vendor/bin/n98-magerun ]; then
   read -r -p "n98-magerun is not installed. Do you want to install it? [y/N] " INSTALL_MAGE
   INSTALL_MAGERUN=${INSTALL_MAGERUN,,} # to lower
   if [[ "${INSTALL_MAGERUN}" =~ ^(yes|y) ]]; then
-    composer require --dev n98/magerun-tmp:dev-develop
+    composer require --dev n98/magerun:dev-develop
   else
     exit 1
   fi
 fi
 
-php -d error_reporting="E_ALL ^E_DEPRECATED" vendor/bin/n98-magerun-tmp "$@"
+php -d error_reporting="E_ALL ^E_DEPRECATED" vendor/bin/n98-magerun "$@"
