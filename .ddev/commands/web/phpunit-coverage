@@ -4,4 +4,6 @@
 ## Usage: phpunit-coverage
 ## Example: ddev phpunit-coverage
 
+enable_xdebug
 XDEBUG_MODE=coverage php vendor/bin/phpunit "$@"
+disable_xdebug
