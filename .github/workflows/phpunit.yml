@@ -15,11 +15,11 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-versions: ['7.4', '8.3']
-        mysql_version: ["8.0", "5.7"]
+        mysql-version: ["8.0", "5.7"]
 
     services:
       mysql:
-        image: mysql:${{ matrix.mysql_version }}
+        image: mysql:${{ matrix.mysql-version }}
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: db
@@ -99,20 +99,17 @@ jobs:
 
       - name: prepare SonarCloud Scan Data
         continue-on-error: true
-        if: ${{ matrix.php-versions == '7.4' }}
+        if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }}
         run: |
-          echo $PWD
-          ls -la
+          head dev/tests/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/clover.xml
           head ./dev/tests/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/clover.xml
-          head ./dev/tests/clover.xml
-          ls -la
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ matrix.php-versions == '7.4' }} && SONAR_TOKEN
+        if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=dev/sonar-project.properties
