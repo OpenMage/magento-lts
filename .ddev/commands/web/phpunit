@@ -4,4 +4,4 @@
 ## Usage: phpunit
 ## Example: ddev phpunit
 
-php vendor/bin/phpunit "$@"
+php vendor/bin/phpunit --no-coverage "$@"

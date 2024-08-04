@@ -1,7 +1,7 @@
 #!/bin/bash
 
-## Description: run PHPUnit
-## Usage: phpunit
-## Example: ddev phpunit
+## Description: run PHPUnit with coverage
+## Usage: phpunit-coverage
+## Example: ddev phpunit-coverage
 
 XDEBUG_MODE=coverage php vendor/bin/phpunit "$@"
