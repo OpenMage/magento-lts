@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlEscapedStringTest extends TestCase
 {
-    public const TEST_STRING = 'This is a bold <b>string></b>';
+    public const TEST_STRING = 'This is a bold <b>string</b>';
 
     /**
      * @var Mage_Core_Model_Security_HtmlEscapedString
@@ -27,7 +27,7 @@ class HtmlEscapedStringTest extends TestCase
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
-        $this->assertSame($expectedResult, (string) $this->subject);
+        $this->assertSame($expectedResult, $this->subject->__toString());
     }
 
     /**
@@ -51,15 +51,15 @@ class HtmlEscapedStringTest extends TestCase
     {
         return [
             'tags_null' => [
-                'This is a bold &lt;b&gt;string&gt;&lt;/b&gt;',
-                'This is a bold <b>string></b>',
+                'This is a bold &lt;b&gt;string&lt;/b&gt;',
+                self::TEST_STRING,
                 null
             ],
-//            'tags_array' => [
-//                'This is a bold <b>string></b>',
-//                'This is a bold <b>string></b>',
-//                ['b']
-//            ],
+            'tags_array' => [
+                self::TEST_STRING,
+                self::TEST_STRING,
+                ['b']
+            ],
         ];
     }
 
