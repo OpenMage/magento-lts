@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
 use Mage;
+use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,10 @@ class FileTest extends TestCase
     public function setUp(): void
     {
         Mage::app();
-        Mage::getConfig()->setNode('global/mime/types/test-new-node', 'application/octet-stream');
+
+        /** @var Mage_Core_Model_Config $config */
+        $config = Mage::getConfig();
+        $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
         $this->subject = Mage::helper('uploader/file');
     }
 
@@ -30,7 +34,7 @@ class FileTest extends TestCase
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        self::assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
+        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
@@ -68,12 +72,12 @@ class FileTest extends TestCase
 
     public function testGetPostMaxSize(): void
     {
-        self::assertIsString($this->subject->getPostMaxSize());
+        $this->assertIsString($this->subject->getPostMaxSize());
     }
 
     public function testGetUploadMaxSize(): void
     {
-        self::assertIsString($this->subject->getUploadMaxSize());
+        $this->assertIsString($this->subject->getUploadMaxSize());
     }
 
     public function testGetDataMaxSize(): void
@@ -84,7 +88,7 @@ class FileTest extends TestCase
 
         $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
         $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        self::assertSame('1M', $mock->getDataMaxSize());
+        $this->assertSame('1M', $mock->getDataMaxSize());
     }
 
     /**
@@ -100,7 +104,7 @@ class FileTest extends TestCase
             ->getMock();
 
         $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        self::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 
     /**

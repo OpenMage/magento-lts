@@ -24,7 +24,7 @@ class XmlFileLoadingTest extends TestCase
             SimpleXMLElement::class,
             LIBXML_PEDANTIC //not needed by OpenMage, but good to test more strictly
         );
-        self::assertNotEmpty($simplexml->asXML());
+        $this->assertNotEmpty($simplexml->asXML());
     }
 
     /**
@@ -38,7 +38,7 @@ class XmlFileLoadingTest extends TestCase
         /** @var XMLReader $xml */
         $xml = XMLReader::open($filepath);
         $xml->setParserProperty(XMLReader::VALIDATE, true);
-        self::assertTrue($xml->isValid());
+        $this->assertTrue($xml->isValid());
     }
 
     /**
@@ -46,6 +46,7 @@ class XmlFileLoadingTest extends TestCase
      */
     public function provideXmlFiles(): array
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $root = realpath(__DIR__ . '/../../../../') . '/';
 
         return [

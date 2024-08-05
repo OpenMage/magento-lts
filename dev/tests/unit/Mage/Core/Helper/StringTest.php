@@ -15,7 +15,7 @@ class StringTest extends TestCase
     /**
      * @var Mage_Core_Helper_String
      */
-    private Mage_Core_Helper_String $subject;
+    public Mage_Core_Helper_String $subject;
 
     public function setUp(): void
     {
@@ -26,17 +26,17 @@ class StringTest extends TestCase
     public function testSubstr(): void
     {
         $resultString = $this->subject->substr(self::TEST_STRING, 2, 2);
-        self::assertEquals('34', $resultString);
+        $this->assertEquals('34', $resultString);
     }
 
     public function testTruncate(): void
     {
         $resultString = $this->subject->truncate(self::TEST_STRING, 5, '...');
-        self::assertEquals('12...', $resultString);
+        $this->assertEquals('12...', $resultString);
     }
 
     public function testStrlen(): void
     {
-        self::assertEquals(10, $this->subject->strlen(self::TEST_STRING));
+        $this->assertEquals(10, $this->subject->strlen(self::TEST_STRING));
     }
 }

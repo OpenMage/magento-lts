@@ -13,7 +13,7 @@ class FileTest extends TestCase
     /**
      * @var Mage_Downloadable_Helper_File
      */
-    private Mage_Downloadable_Helper_File $subject;
+    public Mage_Downloadable_Helper_File $subject;
 
     public function setUp(): void
     {
@@ -31,7 +31,7 @@ class FileTest extends TestCase
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);
-        self::assertSame($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**

@@ -18,7 +18,7 @@ class SecurityTest extends TestCase
     /**
      * @var Mage_Core_Helper_Security
      */
-    private Mage_Core_Helper_Security $subject;
+    public Mage_Core_Helper_Security $subject;
 
     public function setUp(): void
     {
@@ -31,7 +31,9 @@ class SecurityTest extends TestCase
      */
     public function validateAgainstBlockMethodBlacklistDataProvider(): array
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
 
         return [
@@ -70,7 +72,9 @@ class SecurityTest extends TestCase
      */
     public function forbiddenBlockMethodsDataProvider(): array
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
 
         return [
@@ -125,7 +129,7 @@ class SecurityTest extends TestCase
         string $method,
         array $args
     ): void {
-        self::expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
+        $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
         $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }
