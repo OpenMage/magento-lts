@@ -20,7 +20,7 @@ class HtmlEscapedStringTest extends TestCase
      * @dataProvider provideHtmlEscapedStringAsStringData
      * @param string $expectedResult
      * @param string $string
-     * @param string|array<int, string> $allowedTags
+     * @param array<int, string> $allowedTags
      * @return void
      */
     public function test__toSting(string $expectedResult, string $string, ?array $allowedTags): void
@@ -34,7 +34,7 @@ class HtmlEscapedStringTest extends TestCase
      * @dataProvider provideHtmlEscapedStringGetUnescapedValueData
      * @param string $expectedResult
      * @param string $string
-     * @param string|array<int, string> $allowedTags
+     * @param array<int, string> $allowedTags
      * @return void
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
@@ -45,7 +45,7 @@ class HtmlEscapedStringTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, int|string>>
+     * @return array<string, array<int, array<int, string>|string|null>>
      */
     public function provideHtmlEscapedStringAsStringData(): array
     {
@@ -64,7 +64,7 @@ class HtmlEscapedStringTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, int|string>>
+     * @return array<string, array<int, array<int, string>|string|null>>
      */
     public function provideHtmlEscapedStringGetUnescapedValueData(): array
     {
