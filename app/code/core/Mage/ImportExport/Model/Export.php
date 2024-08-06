@@ -65,7 +65,9 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 
             if (isset($validTypes[$this->getEntity()])) {
                 try {
-                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    /** @var Mage_ImportExport_Model_Export_Entity_Abstract $_entityAdapter */
+                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    $this->_entityAdapter = $_entityAdapter;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
@@ -104,7 +106,9 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 
             if (isset($validWriters[$this->getFileFormat()])) {
                 try {
-                    $this->_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
+                    /** @var Mage_ImportExport_Model_Export_Adapter_Abstract $_writer */
+                    $_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
+                    $this->_writer = $_writer;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
@@ -185,8 +189,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     Mage::throwException(
                         Mage::helper('importexport')->__('There is no data for export')
                     );
-                }
-                if ($result['rows']) {
+                } else {
                     $this->addLogComment([
                         Mage::helper('importexport')->__('Exported %s rows.', $result['rows']),
                         Mage::helper('importexport')->__('Export has been done.')
