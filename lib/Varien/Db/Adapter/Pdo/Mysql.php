@@ -309,14 +309,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
         } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
-            $hostName = $matches[1] ?? null;
-            !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName)
                 ->setPort($matches[8] ?? null);
         } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
-            $hostName = $matches[1] ?? null;
-            !is_null($hostName) && isset($matches[6]) && ($hostName .= $matches[6]);
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
         } elseif (str_contains($hostName, ':')) {
