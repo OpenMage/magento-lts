@@ -5061,11 +5061,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
@@ -5259,21 +5254,6 @@ parameters:
 			message: "#^Left side of \\|\\| is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
-
-		-
-			message: "#^Method Varien_Http_Adapter_Curl\\:\\:_getResource\\(\\) has invalid return type CurlHandle\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource has unknown class CurlHandle as its type\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
