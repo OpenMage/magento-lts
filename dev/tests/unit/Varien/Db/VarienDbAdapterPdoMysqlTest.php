@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Core\Helper;
 
 use PHPUnit\Framework\TestCase;
-use \Varien_Db_Adapter_Pdo_Mysql;
+use Varien_Db_Adapter_Pdo_Mysql;
 
 class VarienDbAdapterPdoMysqlTest extends TestCase
 {
