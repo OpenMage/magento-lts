@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
                         if (array_key_exists('value', $v) && is_array($v['value']) && in_array($k, $v['value'])) {
                             $defTextArr[] = $v['label'];
                         }
-                    } elseif (array_key_exists('value', $v)) {
+                    } elseif (is_array($v) && array_key_exists('value', $v)) {
                         if ($v['value'] == $defText) {
                             $defTextArr[] = $v['label'];
                             break;
