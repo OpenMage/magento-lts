@@ -196,6 +196,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getAllowedExtensions()
     {
+        /** @var Varien_Simplexml_Element $fieldConfig */
+        $fieldConfig = $this->getFieldConfig();
+        $el = $fieldConfig->descend('upload_dir');
+        if (!empty($el['allowed_extensions'])) {
+            $allowedExtensions = (string)$el['allowed_extensions'];
+            return explode(',', $allowedExtensions);
+        }
         return [];
     }
 

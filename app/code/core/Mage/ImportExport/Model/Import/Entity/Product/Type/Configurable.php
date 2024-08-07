@@ -356,6 +356,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
         $newSku          = $this->_entityModel->getNewSku();
         $oldSku          = $this->_entityModel->getOldSku();
         $productSuperData = [];
+        $productSuperAttrId = null;
+        $productId       = null;
         $productData     = null;
         /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
         $helper          = Mage::getResourceHelper('importexport');
