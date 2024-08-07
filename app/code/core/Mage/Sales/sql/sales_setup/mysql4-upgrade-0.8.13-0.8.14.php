@@ -183,7 +183,7 @@ $select = new Zend_Db_Select($installer->getConnection());
 $select->from(['e' => $this->getTable('sales_order_entity')]);
 
 $attributeIds = [];
-foreach ($attributes as $code => $params) {
+foreach (array_keys($attributes) as $code) {
     $attributes[$code] = $installer->getAttribute($orderEntityTypeId, $code);
     if ($attributes[$code]['backend_type'] != 'static') {
         $select->joinLeft(

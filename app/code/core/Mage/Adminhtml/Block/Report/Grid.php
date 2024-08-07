@@ -207,7 +207,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _setFilterValues($data)
     {
-        foreach ($data as $name => $value) {
+        foreach (array_keys($data) as $name) {
             $this->setFilter($name, $data[$name]);
         }
         return $this;

@@ -55,7 +55,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
 
-            foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
+            foreach (array_keys($this->getAllowedAttributes($address)) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
                     $row[$attributeCode] = $data[$attributeCode];
                 }
@@ -89,7 +89,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
         $address = Mage::getModel('customer/address');
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($address)) as $attributeCode) {
             if (isset($addressData[$attributeCode])) {
                 $address->setData($attributeCode, $addressData[$attributeCode]);
             }
@@ -141,7 +141,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeAlias] = $address->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($address)) as $attributeCode) {
             $result[$attributeCode] = $address->getData($attributeCode);
         }
 
@@ -169,7 +169,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($address) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($address)) as $attributeCode) {
             if (isset($addressData[$attributeCode])) {
                 $address->setData($attributeCode, $addressData[$attributeCode]);
             }

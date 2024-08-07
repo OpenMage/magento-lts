@@ -306,7 +306,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
-            foreach ($queryParams as $key => $value) {
+            foreach (array_keys($queryParams) as $key) {
                 if (substr($key, 0, 3) === '___') {
                     unset($queryParams[$key]);
                     $hasChanges = true;

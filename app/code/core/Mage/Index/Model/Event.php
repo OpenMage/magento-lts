@@ -157,7 +157,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             return $previous;
         }
 
-        foreach ($previous as $key => $value) {
+        foreach (array_keys($previous) as $key) {
             if (array_key_exists($key, $current) && !is_null($current[$key]) && is_array($previous[$key])) {
                 if (!is_string($key) || is_array($current[$key])) {
                     $current[$key] = $this->_mergeNewDataRecursive($previous[$key], $current[$key]);

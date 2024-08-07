@@ -346,7 +346,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             ->getSortedAttributes();
 
         if ($noDesignAttributes) {
-            foreach ($result as $k => $a) {
+            foreach (array_keys($result) as $k) {
                 if (in_array($k, $this->_designAttributes)) {
                     unset($result[$k]);
                 }

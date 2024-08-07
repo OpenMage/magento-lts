@@ -242,7 +242,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             }
         } else {
             $position = 0;
-            foreach ($this->_links as $k => $v) {
+            foreach (array_keys($this->_links) as $k) {
                 $position = $k;
             }
             $position += 10;

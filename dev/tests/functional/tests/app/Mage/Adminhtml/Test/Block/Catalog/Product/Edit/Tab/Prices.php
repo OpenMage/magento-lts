@@ -54,7 +54,7 @@ class Prices extends Tab
     public function fillFormTab(array $fields, Element $element = null)
     {
         $context = $element ? $element : $this->_rootElement;
-        foreach ($this->childrenForm as $key => $value) {
+        foreach (array_keys($this->childrenForm) as $key) {
             if (isset($fields[$key])) {
                 $this->fillOptionsPrices([$key => $fields[$key]], $context);
                 unset($fields[$key]);
@@ -91,7 +91,7 @@ class Prices extends Tab
     {
         $result = [];
         $context = $element ? $element : $this->_rootElement;
-        foreach ($this->childrenForm as $key => $value) {
+        foreach (array_keys($this->childrenForm) as $key) {
             if (isset($fields[$key])) {
                 $result[$key] = $this->getOptionsPrices([$key => $fields[$key]], $context);
                 unset($fields[$key]);

@@ -95,7 +95,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         $this->loadAggregatorOptions();
         if ($options = $this->getAggregatorOptions()) {
-            foreach ($options as $aggregator => $dummy) {
+            foreach (array_keys($options) as $aggregator) {
                 $this->setAggregator($aggregator);
                 break;
             }

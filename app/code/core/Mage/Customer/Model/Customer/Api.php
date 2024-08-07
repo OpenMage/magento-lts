@@ -87,7 +87,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($customer, $attributes)) as $attributeCode) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
@@ -121,7 +121,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
-            foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
+            foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
                     $row[$attributeCode] = $data[$attributeCode];
                 }
@@ -149,7 +149,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }

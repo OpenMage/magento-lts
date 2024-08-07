@@ -146,7 +146,7 @@ class Curl extends \Mage\Catalog\Test\Handler\CatalogProductSimple\Curl implemen
      */
     protected function prepareItemSelectionData(array $selections, array $products)
     {
-        foreach ($selections as $key => $selection) {
+        foreach (array_keys($selections) as $key) {
             $selections[$key]['product_id'] = $products[$key]->getId();
             unset($selections[$key]['sku']);
             $selections[$key]['delete'] = '';
@@ -163,7 +163,7 @@ class Curl extends \Mage\Catalog\Test\Handler\CatalogProductSimple\Curl implemen
      */
     protected function prepareBundleOptions(array $bundleData)
     {
-        foreach ($bundleData as $key => $option) {
+        foreach (array_keys($bundleData) as $key) {
             $bundleData[$key] = array_intersect_key($bundleData[$key], array_flip($this->optionsFields));
             $bundleData[$key]['delete'] = '';
         }

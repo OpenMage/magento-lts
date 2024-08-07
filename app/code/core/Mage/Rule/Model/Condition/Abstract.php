@@ -92,13 +92,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
         if ($options = $this->getAttributeOptions()) {
-            foreach ($options as $attr => $dummy) {
+            foreach (array_keys($options) as $attr) {
                 $this->setAttribute($attr);
                 break;
             }
         }
         if ($options = $this->getOperatorOptions()) {
-            foreach ($options as $operator => $dummy) {
+            foreach (array_keys($options) as $operator) {
                 $this->setOperator($operator);
                 break;
             }
@@ -503,7 +503,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getAttributeElement()
     {
         if (is_null($this->getAttribute())) {
-            foreach ($this->getAttributeOption() as $k => $v) {
+            foreach (array_keys($this->getAttributeOption()) as $k) {
                 $this->setAttribute($k);
                 break;
             }

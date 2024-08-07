@@ -145,7 +145,7 @@ class AssertFptApplied extends AbstractAssertForm
     protected function getPrices()
     {
         $actualPrices = [];
-        foreach ($this->expectedPrices as $priceType => $prices) {
+        foreach (array_keys($this->expectedPrices) as $priceType) {
             $actualPrices[$priceType] = $this->{'get' . ucfirst($priceType) . 'Price'}();
         }
 

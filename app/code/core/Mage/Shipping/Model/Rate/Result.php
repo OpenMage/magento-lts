@@ -180,7 +180,7 @@ class Mage_Shipping_Model_Rate_Result
 
         natsort($tmp);
 
-        foreach ($tmp as $i => $price) {
+        foreach (array_keys($tmp) as $i) {
             $result[] = $this->_rates[$i];
         }
 
