@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 
 /**
- * Wrapper to escape value und keep the original value
+ * Wrapper to escape a string value with a method to get the original string value
  *
  * @category   Mage
  * @package    Mage_Core
