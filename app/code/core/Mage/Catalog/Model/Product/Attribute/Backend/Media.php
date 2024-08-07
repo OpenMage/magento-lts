@@ -110,6 +110,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
+        if (!isset($value['values'])) {
+            $value['values'] = [];
+        }
+
         if (!is_array($value['values']) && strlen($value['values']) > 0) {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
