@@ -103,7 +103,7 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param int $errline
- * @return bool|void
+ * @return bool|null
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -184,6 +184,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         throw new Exception($errorMessage);
     } else {
         Mage::log($errorMessage, Zend_Log::ERR);
+        return null;
     }
 }
 
@@ -191,7 +192,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string|void
+ * @return string|null
  *
  * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
@@ -216,6 +217,7 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
         return $out;
     } else {
         echo $out;
+        return null;
     }
 }
 

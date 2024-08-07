@@ -128,7 +128,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Do we need to make it xpath look-a-like?
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
-     * @param   string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
+     * @param   array|string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
      * @return  Varien_Simplexml_Element|false
      */
     public function descend($path)

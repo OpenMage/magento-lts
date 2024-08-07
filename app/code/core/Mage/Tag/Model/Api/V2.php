@@ -59,13 +59,13 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      *
      * @param int $tagId
      * @param string|int $store
-     * @return object
+     * @return array
      */
     public function info($tagId, $store)
     {
         $result = parent::info($tagId, $store);
         $result = Mage::helper('api')->wsiArrayPacker($result);
-        foreach ($result->products as $key => $value) {
+        foreach ($result->produarraycts as $key => $value) {
             $result->products[$key] = ['key' => $key, 'value' => $value];
         }
         return $result;
@@ -74,7 +74,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before add
      *
-     * @param object $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareDataForAdd($data)
@@ -86,7 +86,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before update
      *
-     * @param object $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareDataForUpdate($data)

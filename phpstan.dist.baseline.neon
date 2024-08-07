@@ -481,16 +481,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Config_Data\\:\\:getConfigRoot\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
-			message: "#^Property Mage_Adminhtml_Model_Config_Data\\:\\:\\$_configRoot \\(Mage_Core_Model_Config_Element\\|null\\) does not accept Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:load\\(\\) invoked with 1 parameter, 2\\-3 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
@@ -564,11 +554,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController\\:\\:\\$_wishlistItem \\(Mage_Wishlist_Model_Wishlist\\) does not accept Mage_Wishlist_Model_Item\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
-
-		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/IndexController.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -2171,11 +2156,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Method Mage_Cms_Model_Wysiwyg_Images_Storage\\:\\:getConfig\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
@@ -2184,11 +2164,6 @@ parameters:
 			message: "#^Variable \\$query might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
-
-		-
-			message: "#^Method Mage_Core_Block_Abstract\\:\\:_getUrlModel\\(\\) should return Mage_Core_Model_Url but returns Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:getHelper\\(\\) should return \\$this\\(Mage_Core_Block_Abstract\\) but returns Mage_Core_Block_Abstract\\.$#"
@@ -2209,11 +2184,6 @@ parameters:
 			message: "#^Call to an undefined method Zend_Controller_Router_Interface\\:\\:addRoute\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:is\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
 		-
 			message: "#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \\$invokeArgs\\.$#"
@@ -2286,11 +2256,6 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
 		-
-			message: "#^Property Mage_Core_Helper_String\\:\\:\\$_arrayHelper \\(Mage_Core_Helper_Array\\) does not accept Mage_Core_Helper_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/String.php
-
-		-
 			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_cacheTag \\(string\\|true\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Abstract.php
@@ -2331,27 +2296,12 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
-			message: "#^Call to an undefined method SimpleXMLElement\\:\\:getClassName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:is\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: "#^Method Mage_Core_Model_Config\\:\\:cleanCache\\(\\) should return \\$this\\(Mage_Core_Model_Config\\) but returns Mage_Core_Model_Config\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config\\:\\:getNodeClassInstance\\(\\) should return bool but returns object\\.$#"
+			message: "#^Method Mage_Core_Model_Config\\:\\:getNode\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
@@ -2576,17 +2526,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Iterator.php
 
 		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
 			message: "#^Property Mage_Core_Model_Resource_Setup\\:\\:\\$_conn \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
-			message: "#^Property Mage_Core_Model_Resource_Setup\\:\\:\\$_moduleConfig \\(Mage_Core_Model_Config_Element\\) does not accept SimpleXMLElement\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
@@ -2622,11 +2562,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Core_Model_Store\\:\\:_getSession\\(\\) should return Mage_Core_Model_Session but returns Mage_Core_Model_Session_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: "#^Method Mage_Core_Model_Store\\:\\:formatPrice\\(\\) should return string but returns float\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Store.php
 
@@ -2674,16 +2609,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: "#^Function mageCoreErrorHandler\\(\\) never returns void so it can be removed from the return type\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
-
-		-
-			message: "#^Function mageDebugBacktrace\\(\\) never returns void so it can be removed from the return type\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
 
 		-
 			message: "#^Variable \\$arguments might not be defined\\.$#"
@@ -4196,11 +4121,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
-			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Collector.php
-
-		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Quote_Address_Total_Discount\\)\\) of method Mage_Sales_Model_Quote_Address_Total_Discount\\:\\:fetch\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Abstract\\:\\:fetch\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Discount.php
@@ -4486,54 +4406,9 @@ parameters:
 			path: app/code/core/Mage/Sitemap/Model/Resource/Catalog/Abstract.php
 
 		-
-			message: "#^Method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addPopularity\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Customer/Tags.php
-
-		-
-			message: "#^Method Mage_Tag_Block_Product_List\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Tag_Block_Product_List\\) but returns false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Product/List.php
-
-		-
-			message: "#^Property Mage_Tag_Block_Product_Result\\:\\:\\$_productCollection \\(Mage_Tag_Model_Resource_Tag_Collection\\|null\\) does not accept Mage_Tag_Model_Resource_Product_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Block/Product/Result.php
-
-		-
-			message: "#^Variable \\$result might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Api.php
-
-		-
-			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Tag_Model_Api_V2\\:\\:_prepareDataForAdd\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Tag_Model_Api\\:\\:_prepareDataForAdd\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Api/V2.php
-
-		-
-			message: "#^Parameter \\#1 \\$data \\(object\\) of method Mage_Tag_Model_Api_V2\\:\\:_prepareDataForUpdate\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Tag_Model_Api\\:\\:_prepareDataForUpdate\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Api/V2.php
-
-		-
-			message: "#^Return type \\(object\\) of method Mage_Tag_Model_Api_V2\\:\\:info\\(\\) should be compatible with return type \\(array\\) of method Mage_Tag_Model_Api\\:\\:info\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Api/V2.php
-
-		-
 			message: "#^Access to an undefined property Mage_Tag_Model_Entity_Customer_Collection\\:\\:\\$_read\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Entity/Customer/Collection.php
-
-		-
-			message: "#^Variable \\$productsSku might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Resource/Customer/Collection.php
-
-		-
-			message: "#^Variable \\$result might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tag/Model/Tag.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Sales_Order_Tax\\:\\:addTotal\\(\\)\\.$#"
