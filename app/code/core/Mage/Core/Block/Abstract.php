@@ -1204,7 +1204,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param string[]|null $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString
      */
-    public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
+    public function getCoreModelSecurityHtmlEscapedString(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
@@ -1217,11 +1217,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param string[]|null $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString[]
      */
-    public function escapeHtmlArrayAsObject(array $data, ?array $allowedTags = null): array
+    public function getCoreModelSecurityHtmlArrayEscapedString(array $data, ?array $allowedTags = null): array
     {
         $result = [];
         foreach ($data as $key => $string) {
-            $result[$key] = $this->escapeHtmlAsObject($string, $allowedTags);
+            $result[$key] = $this->getCoreModelSecurityHtmlEscapedString($string, $allowedTags);
         }
 
         return $result;
