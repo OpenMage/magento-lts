@@ -369,6 +369,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $entityRowsIn = [];
             $entityRowsUp = [];
             $attributes   = [];
+            $entityId     = null;
 
             $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
 

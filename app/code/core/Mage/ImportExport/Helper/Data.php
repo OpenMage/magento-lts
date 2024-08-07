@@ -37,7 +37,9 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getMaxUploadSize()
     {
-        return min(ini_get('post_max_size'), ini_get('upload_max_filesize'));
+        $postMaxSizeBytes = ini_parse_quantity(ini_get('post_max_size'));
+        $uploadMaxSizeBytes = ini_parse_quantity(ini_get('upload_max_filesize'));
+        return min($postMaxSizeBytes, $uploadMaxSizeBytes);
     }
 
     /**
