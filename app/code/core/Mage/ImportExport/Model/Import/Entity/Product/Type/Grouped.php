@@ -65,6 +65,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
         $newSku        = $this->_entityModel->getNewSku();
         $oldSku        = $this->_entityModel->getOldSku();
         $attributes    = [];
+        $productData   = [];
 
         // pre-load attributes parameters
         $select = $connection->select()
@@ -101,6 +102,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 } else {
                     continue;
                 }
+
                 $scope = $this->_entityModel->getRowScope($rowData);
                 if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $scope) {
                     $productData = $newSku[$rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_SKU]];

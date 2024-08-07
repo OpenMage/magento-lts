@@ -368,7 +368,6 @@ for more information.
 * [Lee Saferite](https://github.com/LeeSaferite)
 * [Mohamed Elidrissi](https://github.com/elidrissidev)
 * [Ng Kiat Siong](https://github.com/kiatng)
-* [Sven Reichel](https://github.com/sreichel)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 
 ## License
