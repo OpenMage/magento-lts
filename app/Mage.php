@@ -433,7 +433,7 @@ final class Mage
      * Retrieve config flag for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
