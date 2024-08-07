@@ -359,7 +359,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             )
             ->where($mainTableAlias . '.store_id = ?', (int)$query->getStoreId());
 
-        $where = "";
+        $where = '';
         if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
             || $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE
         ) {

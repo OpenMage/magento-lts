@@ -403,7 +403,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                     }
                     $i++;
                 }
-                $this->addException(Mage::helper('customer')->__("Saved %d record(s)", $i));
+                $this->addException(Mage::helper('customer')->__('Saved %d record(s)', $i));
             } catch (Exception $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(

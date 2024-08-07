@@ -320,7 +320,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
              * Proceed with $_POST['use_config']
              * set into category model for proccessing through validation
              */
-            $category->setData("use_post_data_config", $this->getRequest()->getPost('use_config'));
+            $category->setData('use_post_data_config', $this->getRequest()->getPost('use_config'));
 
             try {
                 $validate = $category->validate();
@@ -375,7 +375,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $category->setData('save_rewrites_history', Mage::helper('catalog')->shouldSaveUrlRewritesHistory());
         try {
             $category->move($parentNodeId, $prevNodeId);
-            $this->getResponse()->setBody("SUCCESS");
+            $this->getResponse()->setBody('SUCCESS');
         } catch (Mage_Core_Exception $e) {
             $this->getResponse()->setBody($e->getMessage());
         } catch (Exception $e) {

@@ -109,7 +109,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             ->join(
                 ['dl' => $dlType->getBackend()->getTable()],
                 "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
-                    . " AND dl.store_id = 0",
+                    . ' AND dl.store_id = 0',
                 []
             )
             ->join(

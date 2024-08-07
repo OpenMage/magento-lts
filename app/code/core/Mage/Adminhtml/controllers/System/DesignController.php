@@ -130,7 +130,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                     ->addError($e->getMessage());
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
-                    ->addException($e, $this->__("Cannot delete the design change."));
+                    ->addException($e, $this->__('Cannot delete the design change.'));
             }
         }
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));

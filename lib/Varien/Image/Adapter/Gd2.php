@@ -15,7 +15,7 @@
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
-    protected $_requiredExtensions = ["gd"];
+    protected $_requiredExtensions = ['gd'];
     private static $_callbacks = [
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
@@ -129,13 +129,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $fileName = (!isset($destination)) ? $this->_fileName : $destination;
 
         if (isset($destination) && isset($newName)) {
-            $fileName = $destination . "/" . $newName;
+            $fileName = $destination . '/' . $newName;
         } elseif (isset($destination) && !isset($newName)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
         } elseif (!isset($destination) && isset($newName)) {
-            $fileName = $this->_fileSrcPath . "/" . $newName;
+            $fileName = $this->_fileSrcPath . '/' . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
@@ -209,7 +209,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function display()
     {
-        header("Content-type: " . $this->getMimeTypeWithOutFileType());
+        header('Content-type: ' . $this->getMimeTypeWithOutFileType());
         call_user_func($this->_getCallback('output'), $this->_imageHandler);
     }
 

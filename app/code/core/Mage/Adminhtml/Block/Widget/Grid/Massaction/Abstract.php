@@ -252,7 +252,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getApplyButtonHtml()
     {
-        return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . ".apply()");
+        return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . '.apply()');
     }
 
     /**
@@ -282,7 +282,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if (!empty($gridIds)) {
-            return implode(",", $gridIds);
+            return implode(',', $gridIds);
         }
         return '';
     }

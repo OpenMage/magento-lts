@@ -190,8 +190,8 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         /**
          * Check qty availability
          */
-        $qtyToInvoice = sprintf("%F", $this->getOrderItem()->getQtyToInvoice());
-        $qty = sprintf("%F", $qty);
+        $qtyToInvoice = sprintf('%F', $this->getOrderItem()->getQtyToInvoice());
+        $qty = sprintf('%F', $qty);
         if ($qty <= $qtyToInvoice || $this->getOrderItem()->isDummy()) {
             $this->setData('qty', $qty);
         } else {

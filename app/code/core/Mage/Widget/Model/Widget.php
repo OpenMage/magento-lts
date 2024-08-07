@@ -195,7 +195,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     'description'   => $helper->__((string)$widget->description)
                 ];
             }
-            usort($result, [$this, "_sortWidgets"]);
+            usort($result, [$this, '_sortWidgets']);
             $this->setData('widgets_array', $result);
         }
         return $this->_getData('widgets_array');

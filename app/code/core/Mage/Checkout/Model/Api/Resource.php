@@ -103,7 +103,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getQuote($quoteId, $store = null)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        $quote = Mage::getModel("sales/quote");
+        $quote = Mage::getModel('sales/quote');
 
         if (!(is_string($store) || is_int($store))) {
             $quote->loadByIdWithoutStore($quoteId);

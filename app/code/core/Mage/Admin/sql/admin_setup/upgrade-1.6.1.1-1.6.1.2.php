@@ -28,7 +28,7 @@ $table = $installer->getConnection()
     ->addColumn('variable_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
         'primary'   => true,
         'nullable'  => false,
-        'default'   => "",
+        'default'   => '',
     ], 'Config Path')
     ->addColumn('is_allowed', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, [
         'nullable'  => false,
@@ -73,7 +73,7 @@ $table = $installer->getConnection()
     ], 'Block ID')
     ->addColumn('block_name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
         'nullable'  => false,
-        'default'   => "",
+        'default'   => '',
     ], 'Block Name')
     ->addColumn('is_allowed', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, [
         'nullable'  => false,

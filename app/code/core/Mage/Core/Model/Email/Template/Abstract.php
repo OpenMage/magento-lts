@@ -155,12 +155,12 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         }
 
         $defaultValuesMap = [
-            "logo_width" => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
-            "logo_height" => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
-            "phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-            "store_phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-            "store_hours" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
-            "store_email" => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
+            'logo_width' => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
+            'logo_height' => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
+            'phone' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            'store_phone' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            'store_hours' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
+            'store_email' => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
         ];
 
         foreach ($defaultValuesMap as $variableName => $configValue) {
@@ -252,7 +252,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             if (!$filesToLoad) {
                 return '';
             }
-            $files = array_map('trim', explode(",", $filesToLoad));
+            $files = array_map('trim', explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {

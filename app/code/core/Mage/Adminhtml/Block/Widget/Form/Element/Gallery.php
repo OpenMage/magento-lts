@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete'),
-                    'onclick'   => "deleteImage(#image#)",
+                    'onclick'   => 'deleteImage(#image#)',
                     'class' => 'delete'
             ])
         );

@@ -17,7 +17,7 @@
 $this->startSetup();
 
 $table = $this->getTable('catalog/category');
-$tableTmp = $table . "_tmp";
+$tableTmp = $table . '_tmp';
 $this->run("DROP TABLE IF EXISTS `{$tableTmp}`");
 
 $this->run("CREATE TABLE `{$tableTmp}` (

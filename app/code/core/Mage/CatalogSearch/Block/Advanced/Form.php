@@ -224,7 +224,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->setName($name)
             ->setId($attribute->getAttributeCode())
             ->setTitle($this->getAttributeLabel($attribute))
-            ->setExtraParams("")
+            ->setExtraParams('')
             ->setValue($this->getAttributeValue($attribute))
             ->setOptions($options)
             ->getHtml();

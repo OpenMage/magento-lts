@@ -260,7 +260,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
          * %f - the argument is treated as a float, and presented as a floating-point number (locale aware).
          * %F - the argument is treated as a float, and presented as a floating-point number (non-locale aware).
          */
-        $price = sprintf("%F", $price);
+        $price = sprintf('%F', $price);
         if ($price == -0) {
             $price = 0;
         }

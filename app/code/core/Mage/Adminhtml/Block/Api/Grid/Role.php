@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
 
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel("api/roles")->getCollection();
+        $collection =  Mage::getModel('api/roles')->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

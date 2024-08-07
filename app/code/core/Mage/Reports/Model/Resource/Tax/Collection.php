@@ -96,7 +96,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("COUNT(DISTINCT e.entity_id)");
+        $countSelect->columns('COUNT(DISTINCT e.entity_id)');
         return $countSelect;
     }
 }

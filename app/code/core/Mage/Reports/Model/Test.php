@@ -83,11 +83,11 @@ class Mage_Reports_Model_Test extends Varien_Object
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)];
+            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)];
             $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
+        $allData[] = ['time' => date('Y-m-d H:i', $startPoint + (90 * 60))];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -106,11 +106,11 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time' => date("Y-m-d H:i", $startPoint), 'value' => rand(1, 100)]
+            ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)]
         ];
 
         $startPoint += 30 * 60;
-        $newData[]  = ['time' => date("Y-m-d H:i", $startPoint + (90 * 60))];
+        $newData[]  = ['time' => date('Y-m-d H:i', $startPoint + (90 * 60))];
 
         $session->setData('startPoint', $startPoint);
 
@@ -126,10 +126,10 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
-        $dom -> loadXML("<" . "?xml version=\"1.0\" encoding=\"UTF-8\"?" . ">\n<dataSource></dataSource>");
+        $dom -> loadXML('<' . '?xml version="1.0" encoding="UTF-8"?' . ">\n<dataSource></dataSource>");
         $root = $dom ->documentElement;
         if ($reset) {
-            $resetItem = $dom -> createElement("reset");
+            $resetItem = $dom -> createElement('reset');
             $resetItem -> nodeValue = $reset;
             $root->appendChild($resetItem);
         }

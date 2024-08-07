@@ -130,7 +130,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     {
         $invoice = $this->_initInvoice();
         if ($invoice) {
-            $this->_title(sprintf("#%s", $invoice->getIncrementId()));
+            $this->_title(sprintf('#%s', $invoice->getIncrementId()));
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/invoice');

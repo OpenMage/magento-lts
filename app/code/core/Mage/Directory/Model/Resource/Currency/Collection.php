@@ -90,9 +90,9 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     public function addCodeFilter($code)
     {
         if (is_array($code)) {
-            $this->addFieldToFilter("main_table.currency_code", ['in' => $code]);
+            $this->addFieldToFilter('main_table.currency_code', ['in' => $code]);
         } else {
-            $this->addFieldToFilter("main_table.currency_code", $code);
+            $this->addFieldToFilter('main_table.currency_code', $code);
         }
 
         return $this;

@@ -147,7 +147,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
         $detailId = $adapter->fetchOne($select, [':review_id' => $object->getId()]);
 
         if ($detailId) {
-            $condition = ["detail_id = ?" => $detailId];
+            $condition = ['detail_id = ?' => $detailId];
             $adapter->update($this->_reviewDetailTable, $detail, $condition);
         } else {
             $detail['store_id']   = $object->getStoreId();
@@ -242,8 +242,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                     'review_count' => new Zend_Db_Expr('COUNT(*)')
                 ]
             )
-            ->where("entity_id = ?", $object->getEntityId())
-            ->where("entity_pk_value = ?", $object->getEntityPkValue());
+            ->where('entity_id = ?', $object->getEntityId())
+            ->where('entity_pk_value = ?', $object->getEntityPkValue());
         $total_reviews = $read_adapter->fetchOne($select);
         if ($total_reviews == 0) {
             $this->_getWriteAdapter()->delete($this->_aggregateTable, [

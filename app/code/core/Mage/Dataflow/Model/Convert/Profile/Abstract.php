@@ -108,7 +108,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Data
     public function run()
     {
         if (!$this->_actions) {
-            $e = new Mage_Dataflow_Model_Convert_Exception("Could not find any actions for this profile");
+            $e = new Mage_Dataflow_Model_Convert_Exception('Could not find any actions for this profile');
             $e->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
             $this->addException($e);
             return;

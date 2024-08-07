@@ -772,7 +772,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("COUNT(DISTINCT main_table.entity_id)");
+        $countSelect->columns('COUNT(DISTINCT main_table.entity_id)');
 
         return $countSelect;
     }

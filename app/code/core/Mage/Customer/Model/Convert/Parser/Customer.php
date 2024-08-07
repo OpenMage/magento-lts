@@ -258,7 +258,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 if ($attribute->usesSource()) {
                     $option = $attribute->getSource()->getOptionText($value);
                     if ($value && empty($option)) {
-                        $message = Mage::helper('catalog')->__("An invalid option ID is specified for %s (%s), skipping the record.", $field, $value);
+                        $message = Mage::helper('catalog')->__('An invalid option ID is specified for %s (%s), skipping the record.', $field, $value);
                         $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
                         continue;
                     }
@@ -329,7 +329,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 $groupCode = $this->_getCustomerGroupCode($customer);
                 if (is_null($groupCode)) {
                     $this->addException(
-                        Mage::helper('catalog')->__("An invalid group ID is specified, skipping the record."),
+                        Mage::helper('catalog')->__('An invalid group ID is specified, skipping the record.'),
                         Mage_Dataflow_Model_Convert_Exception::ERROR
                     );
                     continue;
@@ -467,7 +467,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 // get attribute_set_id, if not throw error
                 $row['attribute_set_id'] = $this->getAttributeSetId($entityTypeId, $row['attribute_set']);
                 if (!$row['attribute_set_id']) {
-                    $this->addException(Mage::helper('customer')->__("Invalid attribute set specified, skipping the record."), Varien_Convert_Exception::ERROR);
+                    $this->addException(Mage::helper('customer')->__('Invalid attribute set specified, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
 
@@ -488,7 +488,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 // get store ids
                 $storeIds = $this->getStoreIds($row['store'] ?? $this->getVar('store'));
                 if (!$storeIds) {
-                    $this->addException(Mage::helper('customer')->__("Invalid store specified, skipping the record."), Varien_Convert_Exception::ERROR);
+                    $this->addException(Mage::helper('customer')->__('Invalid store specified, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
 
@@ -517,7 +517,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                                 $rowError = true;
                                 $this->addException(
                                     Mage::helper('customer')->__(
-                                        "Invalid attribute option specified for attribute %s (%s), skipping the record.",
+                                        'Invalid attribute option specified for attribute %s (%s), skipping the record.',
                                         $field,
                                         $value
                                     ),

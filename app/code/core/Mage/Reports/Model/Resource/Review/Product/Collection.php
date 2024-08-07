@@ -111,7 +111,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
 
         $countSelect = clone $select;
         $countSelect->reset();
-        $countSelect->from($select, "COUNT(*)");
+        $countSelect->from($select, 'COUNT(*)');
 
         return $countSelect;
     }

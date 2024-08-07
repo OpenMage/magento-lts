@@ -51,8 +51,8 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
             /**
              * Workaround for prototype 1.7 methods "isJSON", "evalJSON" on Windows OS
              */
-            $result['tmp_name'] = str_replace(DS, "/", $result['tmp_name']);
-            $result['path'] = str_replace(DS, "/", $result['path']);
+            $result['tmp_name'] = str_replace(DS, '/', $result['tmp_name']);
+            $result['path'] = str_replace(DS, '/', $result['path']);
 
             if (isset($result['file'])) {
                 $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);

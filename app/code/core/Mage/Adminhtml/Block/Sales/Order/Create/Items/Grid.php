@@ -458,7 +458,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function getCustomerWishlists()
     {
-        return Mage::getModel("wishlist/wishlist")->getCollection()
+        return Mage::getModel('wishlist/wishlist')->getCollection()
             ->filterByCustomerId($this->getCustomerId());
     }
 }

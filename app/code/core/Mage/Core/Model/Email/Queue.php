@@ -193,7 +193,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             if ($message->getId()) {
                 $parameters = new Varien_Object($message->getMessageParameters());
                 if ($parameters->getReturnPathEmail() !== null) {
-                    $mailTransport = new Zend_Mail_Transport_Sendmail("-f" . $parameters->getReturnPathEmail());
+                    $mailTransport = new Zend_Mail_Transport_Sendmail('-f' . $parameters->getReturnPathEmail());
                     Zend_Mail::setDefaultTransport($mailTransport);
                 }
 

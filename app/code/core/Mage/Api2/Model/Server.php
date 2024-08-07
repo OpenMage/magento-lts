@@ -161,8 +161,8 @@ class Mage_Api2_Model_Server
     protected function _getAuthUser()
     {
         if (!$this->_authUser) {
-            throw new Exception("Mage_Api2_Model_Server::internalCall() seems to be executed "
-                . "before Mage_Api2_Model_Server::run()");
+            throw new Exception('Mage_Api2_Model_Server::internalCall() seems to be executed '
+                . 'before Mage_Api2_Model_Server::run()');
         }
         return $this->_authUser;
     }

@@ -8,6 +8,8 @@
 name: Labeler
 on:
   pull_request_target:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   triage:

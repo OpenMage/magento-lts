@@ -203,7 +203,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                     '1',
                     '0'
                 )
-            ) . " > 0 AND " .
+            ) . ' > 0 AND ' .
             $write->getCheckSql(
                 $specialTo . ' IS NULL',
                 '1',
@@ -224,7 +224,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             '0'
         );
 
-        $tierExpr       = new Zend_Db_Expr("tp.min_price");
+        $tierExpr       = new Zend_Db_Expr('tp.min_price');
 
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
             $finalPrice = $write->getCheckSql(
@@ -248,7 +248,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 $finalPrice
             );
         } else {
-            $finalPrice     = new Zend_Db_Expr("0");
+            $finalPrice     = new Zend_Db_Expr('0');
             $tierPrice      = $write->getCheckSql($tierExpr . ' IS NOT NULL', '0', 'NULL');
             $groupPrice     = $write->getCheckSql($groupPriceExpr . ' > 0', $groupPriceExpr, 'NULL');
         }
@@ -329,7 +329,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             'MIN(io.alt_price)',
             'SUM(io.min_price)'
         ) . ' + i.price');
-        $maxPrice  = new Zend_Db_Expr("SUM(io.max_price) + i.price");
+        $maxPrice  = new Zend_Db_Expr('SUM(io.max_price) + i.price');
         $tierPrice = $write->getCheckSql(
             'MIN(i.tier_percent) IS NOT NULL',
             $write->getCheckSql(

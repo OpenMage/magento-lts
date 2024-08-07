@@ -114,7 +114,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
         }
 
         if (is_null($item)) {
-            $item = Mage::getModel("sales/quote_item");
+            $item = Mage::getModel('sales/quote_item');
         }
 
         return $item;

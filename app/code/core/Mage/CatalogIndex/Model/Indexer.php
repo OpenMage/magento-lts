@@ -714,14 +714,14 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                             $values[$code]['from'] = $_date;
                                         }
 
-                                        $filter[$code]->where("value >= ?", $values[$code]['from']);
+                                        $filter[$code]->where('value >= ?', $values[$code]['from']);
                                     }
 
                                     if ($values[$code]['to']) {
                                         if (!is_numeric($values[$code]['to'])) {
                                             $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
                                         }
-                                        $filter[$code]->where("value <= ?", $values[$code]['to']);
+                                        $filter[$code]->where('value <= ?', $values[$code]['to']);
                                     }
                                 } else {
                                     $filter[$code]->where('value in (?)', $values[$code]);

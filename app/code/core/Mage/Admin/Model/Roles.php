@@ -146,8 +146,8 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                 }
 
                 if ($rawNodes) {
-                    $resource->addAttribute("aclpath", $resourceName);
-                    $resource->addAttribute("module_c", $module);
+                    $resource->addAttribute('aclpath', $resourceName);
+                    $resource->addAttribute('module_c', $module);
                 }
 
                 if (is_null($represent2Darray)) {

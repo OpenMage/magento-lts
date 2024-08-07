@@ -177,10 +177,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                     break;
             }
             $exceptions[] = [
-                    "style"     => $liStyle,
-                    "src"       => Mage::getDesign()->getSkinUrl('images/' . $img),
-                    "message"   => $e->getMessage(),
-                    "position" => $e->getPosition()
+                    'style'     => $liStyle,
+                    'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
+                    'message'   => $e->getMessage(),
+                    'position'  => $e->getPosition()
                 ];
         }
         parent::setExceptions($exceptions);

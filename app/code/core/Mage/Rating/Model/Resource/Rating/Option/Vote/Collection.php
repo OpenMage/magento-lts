@@ -41,7 +41,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     public function setReviewFilter($reviewId)
     {
         $this->getSelect()
-            ->where("main_table.review_id = ?", $reviewId);
+            ->where('main_table.review_id = ?', $reviewId);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     public function setEntityPkFilter($entityId)
     {
         $this->getSelect()
-            ->where("entity_pk_value = ?", $entityId);
+            ->where('entity_pk_value = ?', $entityId);
         return $this;
     }
 

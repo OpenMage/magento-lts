@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
             $storeId = Mage::app()->getAnyStoreView()->getId();
         }
 
-        Varien_Profiler::start("newsletter_queue_proccessing");
+        Varien_Profiler::start('newsletter_queue_proccessing');
         $vars = [];
 
         $vars['subscriber'] = Mage::getModel('newsletter/subscriber');
@@ -59,13 +59,13 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
         $template->revertDesign();
 
         if ($template->isPlain()) {
-            $templateProcessed = "<pre>" . htmlspecialchars($templateProcessed) . "</pre>";
+            $templateProcessed = '<pre>' . htmlspecialchars($templateProcessed) . '</pre>';
         }
 
         $templateProcessed = Mage::getSingleton('core/input_filter_maliciousCode')
             ->linkFilter($templateProcessed);
 
-        Varien_Profiler::stop("newsletter_queue_proccessing");
+        Varien_Profiler::stop('newsletter_queue_proccessing');
 
         return $templateProcessed;
     }

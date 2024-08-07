@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     public function getHeaderText()
     {
         return Mage::helper('sales')->__(
-            "Transaction # %s | %s",
+            'Transaction # %s | %s',
             $this->_txn->getTxnId(),
             $this->formatDate(
                 $this->_txn->getCreatedAt(),

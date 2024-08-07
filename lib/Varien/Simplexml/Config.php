@@ -72,7 +72,7 @@ class Varien_Simplexml_Config
      *
      * @example <allResources extends="/config/modules//resource"/>
      */
-    protected $_xpathExtends = "//*[@extends]";
+    protected $_xpathExtends = '//*[@extends]';
 
     /**
      * Constructor

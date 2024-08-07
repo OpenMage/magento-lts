@@ -33,7 +33,7 @@ class Mage_Admin_Model_Resource_Roles_Collection extends Mage_Core_Model_Resourc
     {
         parent::_initSelect();
 
-        $this->getSelect()->where("main_table.role_type = ?", 'G');
+        $this->getSelect()->where('main_table.role_type = ?', 'G');
 
         return $this;
     }

@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
 
     protected function _getSelectedRoles($json = false)
     {
-        if ($this->getRequest()->getParam('user_roles') != "") {
+        if ($this->getRequest()->getParam('user_roles') != '') {
             return $this->getRequest()->getParam('user_roles');
         }
         /** @var Mage_Admin_Model_User $user */

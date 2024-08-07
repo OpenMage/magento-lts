@@ -119,7 +119,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     {
         $shipment = $this->_initShipment();
         if ($shipment) {
-            $this->_title(sprintf("#%s", $shipment->getIncrementId()));
+            $this->_title(sprintf('#%s', $shipment->getIncrementId()));
 
             $this->loadLayout();
 

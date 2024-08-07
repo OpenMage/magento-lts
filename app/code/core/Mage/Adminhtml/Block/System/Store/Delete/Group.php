@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Store'),
-                    'onclick'   => "deleteForm.submit()",
+                    'onclick'   => 'deleteForm.submit()',
                     'class'     => 'cancel'
                 ])
         );

@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesusers extends Mage_Adminhtml_Block_Widge
 
         $roleId = $this->getRequest()->getParam('rid', false);
 
-        $users = Mage::getModel("api/user")->getCollection()->load();
+        $users = Mage::getModel('api/user')->getCollection()->load();
         $this->setTemplate('api/rolesusers.phtml')
             ->assign('users', $users->getItems())
             ->assign('roleId', $roleId);

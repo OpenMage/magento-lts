@@ -540,12 +540,12 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     'earliest_end_date'     => 'earliest_end_date',
                 ]
             )
-            ->where(new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . " >= from_time"))
+            ->where(new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' >= from_time'))
             ->where(
                 $this->_connection->getCheckSql(
                     new Zend_Db_Expr('to_time = 0'),
                     new Zend_Db_Expr(1),
-                    new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . " <= to_time")
+                    new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' <= to_time')
                 )
             )
             ->group(['customer_group_id', 'product_id', 'dates.rule_date', 'website_id']);

@@ -78,7 +78,7 @@ class Varien_File_Transfer_Adapter_Http
         } elseif (is_array($options)) {
             $filepath = $options['filepath'];
         } else {
-            throw new Exception("Filename is not set.");
+            throw new Exception('Filename is not set.');
         }
 
         if (!is_file($filepath) || !is_readable($filepath)) {

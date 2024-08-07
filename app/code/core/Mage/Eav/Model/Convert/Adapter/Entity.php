@@ -302,7 +302,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
              */
             $entityIds = $collection->getAllIds();
 
-            $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));
+            $message = Mage::helper('eav')->__('Loaded %d records', count($entityIds));
             $this->addException($message);
         } catch (Varien_Convert_Exception $e) {
             throw $e;
@@ -351,7 +351,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 $model->save();
                 $i++;
             }
-            $this->addException(Mage::helper('eav')->__("Saved %d record(s).", $i));
+            $this->addException(Mage::helper('eav')->__('Saved %d record(s).', $i));
         } catch (Varien_Convert_Exception $e) {
             throw $e;
         } catch (Exception $e) {

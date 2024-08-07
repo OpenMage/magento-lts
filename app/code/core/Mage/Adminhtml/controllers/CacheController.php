@@ -54,7 +54,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     {
         Mage::app()->getCacheInstance()->flush();
         Mage::dispatchEvent('adminhtml_cache_flush_all');
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The cache storage has been flushed."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The cache storage has been flushed.'));
         $this->_redirect('*/*');
     }
 
@@ -76,7 +76,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             Mage::getConfig()->releaseCacheSaveLock();
         }
         Mage::dispatchEvent('adminhtml_cache_flush_system');
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The OpenMage cache has been flushed and updates applied."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The OpenMage cache has been flushed and updates applied.'));
         $this->_redirect('*/*');
     }
 
@@ -97,7 +97,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         }
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) enabled.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) enabled.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }
@@ -120,7 +120,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         }
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) disabled.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) disabled.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             }
         }
         if ($updatedTypes > 0) {
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) refreshed.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) refreshed.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }

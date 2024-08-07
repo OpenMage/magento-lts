@@ -194,7 +194,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         if ($this->getConfig('add_widgets')) {
             $buttonsHtml .= $this->_getButtonHtml([
                 'title'     => $this->translate('Insert Widget...'),
-                'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . "widget_target_id/"
+                'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . 'widget_target_id/'
                                . $this->getHtmlId() . "')",
                 'class'     => 'add-widget plugin',
                 'style'     => $visible ? '' : 'display:none',
@@ -207,7 +207,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 'title'     => $this->translate('Insert Image...'),
                 'onclick'   => "MediabrowserUtility.openDialog('" .
                                    $this->getConfig('files_browser_window_url') .
-                                   "target_element_id/" . $this->getHtmlId() . "/" .
+                                   'target_element_id/' . $this->getHtmlId() . '/' .
                                    ((null !== $this->getConfig('store_id'))
                                        ? ('store/' . $this->getConfig('store_id') . '/')
                                        : '') .

@@ -272,7 +272,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
 
         try {
             /** @var Mage_Api2_Model_Acl_Global_Role $model */
-            $model = Mage::getModel("api2/acl_global_role");
+            $model = Mage::getModel('api2/acl_global_role');
             $model->load($id)->delete();
             $this->_getSession()->addSuccess($this->__('Role has been deleted.'));
         } catch (Mage_Core_Exception $e) {
@@ -281,7 +281,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             $this->_getSession()->addException($e, $this->__('An error occurred while deleting the role.'));
         }
 
-        $this->_redirect("*/*/");
+        $this->_redirect('*/*/');
     }
 
     /**
@@ -316,7 +316,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      */
     protected function _getUsers($id)
     {
-        if ($this->getRequest()->getParam('in_role_users') != "") {
+        if ($this->getRequest()->getParam('in_role_users') != '') {
             return $this->getRequest()->getParam('in_role_users');
         }
 

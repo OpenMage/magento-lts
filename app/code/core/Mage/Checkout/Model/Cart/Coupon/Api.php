@@ -80,7 +80,7 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
                 ->collectTotals()
                 ->save();
         } catch (Exception $e) {
-            $this->_fault("cannot_apply_coupon_code", $e->getMessage());
+            $this->_fault('cannot_apply_coupon_code', $e->getMessage());
         }
 
         if ($couponCode) {

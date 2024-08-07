@@ -97,7 +97,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     public function filterAllByCategory()
     {
         $this->getSelect()
-            ->where('id_path LIKE ?', "category/%");
+            ->where('id_path LIKE ?', 'category/%');
         return $this;
     }
 }

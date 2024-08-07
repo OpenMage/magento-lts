@@ -54,16 +54,16 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
             $this->maliciousCodeFilter($template->getTemplateText())
         );
 
-        Varien_Profiler::start("email_template_proccessing");
+        Varien_Profiler::start('email_template_proccessing');
         $vars = [];
 
         $templateProcessed = $template->getProcessedTemplate($vars, true);
 
         if ($template->isPlain()) {
-            $templateProcessed = "<pre>" . htmlspecialchars($templateProcessed) . "</pre>";
+            $templateProcessed = '<pre>' . htmlspecialchars($templateProcessed) . '</pre>';
         }
 
-        Varien_Profiler::stop("email_template_proccessing");
+        Varien_Profiler::stop('email_template_proccessing');
 
         // Stop store emulation process
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);

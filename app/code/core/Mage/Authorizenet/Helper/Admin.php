@@ -53,7 +53,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
     {
         $route = parent::getSaveOrderUrlParams($controller);
 
-        if ($controller === "sales_order_create" || $controller === "sales_order_edit") {
+        if ($controller === 'sales_order_create' || $controller === 'sales_order_edit') {
             $route['action'] = 'save';
             $route['controller'] = 'sales_order_create';
             $route['module'] = 'admin';

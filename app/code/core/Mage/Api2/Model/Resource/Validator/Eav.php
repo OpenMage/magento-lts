@@ -96,7 +96,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         }
         $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
         if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
-            throw new Exception("Entity is not model.");
+            throw new Exception('Entity is not model.');
         }
 
         $this->_eavForm = Mage::getModel($this->_formPath);

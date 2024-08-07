@@ -21,8 +21,8 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
-    protected const CHECKOUT_MODULE_NAME = "checkout";
-    protected const CHECKOUT_CONTROLLER_NAME = "onepage";
+    protected const CHECKOUT_MODULE_NAME = 'checkout';
+    protected const CHECKOUT_CONTROLLER_NAME = 'onepage';
 
     /**
      * Render regular page tracking javascript code
@@ -368,7 +368,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         }
 
         foreach ($result as $k => $ga4Event) {
-            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ");";
+            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ');';
         }
         return implode("\n", $result);
     }

@@ -18,7 +18,7 @@ $installer = $this;
 
 $mediaAttributeId = (int) $installer->getAttributeId('catalog_product', 'media_gallery');
 
-$imagesAttributesIds = implode(",", [
+$imagesAttributesIds = implode(',', [
     (int) $installer->getAttributeId('catalog_product', 'small_image'),
     (int) $installer->getAttributeId('catalog_product', 'image'),
     (int) $installer->getAttributeId('catalog_product', 'thumbnail')

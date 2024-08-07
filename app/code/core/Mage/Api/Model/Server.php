@@ -25,7 +25,7 @@ class Mage_Api_Model_Server
      * Api Name by Adapter
      * @var string
      */
-    protected $_api = "";
+    protected $_api = '';
 
     /**
      * Web service adapter

@@ -20,7 +20,7 @@ $installer->startSetup();
 $table = $installer->getTable('eav/attribute');
 $installer->getConnection()->addColumn(
     $table,
-    "is_filterable_in_search",
+    'is_filterable_in_search',
     "TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '1'"
 );
 $installer->run("

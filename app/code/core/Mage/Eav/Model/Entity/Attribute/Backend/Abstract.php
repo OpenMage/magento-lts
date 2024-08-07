@@ -210,7 +210,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             if ($this->getAttribute()->getDefaultValue()) {
                 $this->_defaultValue = $this->getAttribute()->getDefaultValue();
             } else {
-                $this->_defaultValue = "";
+                $this->_defaultValue = '';
             }
         }
 

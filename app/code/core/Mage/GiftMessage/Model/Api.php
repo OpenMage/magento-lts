@@ -81,7 +81,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         $giftMessage['type'] = 'quote';
         $giftMessages = [$quoteId => $giftMessage];
         $request = new Mage_Core_Controller_Request_Http();
-        $request->setParam("giftmessage", $giftMessages);
+        $request->setParam('giftmessage', $giftMessages);
 
         return $this->_setGiftMessage($quote->getId(), $request, $quote);
     }
@@ -123,9 +123,9 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 }
 
                 if (isset($product['product_id'])) {
-                    $productByItem = $this->_getProduct($product['product_id'], $store, "id");
+                    $productByItem = $this->_getProduct($product['product_id'], $store, 'id');
                 } elseif (isset($product['sku'])) {
-                    $productByItem = $this->_getProduct($product['sku'], $store, "sku");
+                    $productByItem = $this->_getProduct($product['sku'], $store, 'sku');
                 } else {
                     continue;
                 }
@@ -152,7 +152,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         $quoteItem = Mage::getModel('sales/quote_item')->load($quoteItemId);
         if (is_null($quoteItem->getId())) {
-            $this->_fault("quote_item_not_exists");
+            $this->_fault('quote_item_not_exists');
         }
 
         $quote = $this->_getQuote($quoteItem->getQuoteId(), $store);
@@ -163,7 +163,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         $giftMessages = [$quoteItem->getId() => $giftMessage];
 
         $request = new Mage_Core_Controller_Request_Http();
-        $request->setParam("giftmessage", $giftMessages);
+        $request->setParam('giftmessage', $giftMessages);
 
         return $this->_setGiftMessage($quoteItemId, $request, $quote);
     }

@@ -434,7 +434,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $mail = $this->getMail();
 
         if ($returnPathEmail !== null) {
-            $mailTransport = new Zend_Mail_Transport_Sendmail("-f" . $returnPathEmail);
+            $mailTransport = new Zend_Mail_Transport_Sendmail('-f' . $returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
         }
 

@@ -110,7 +110,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
             $this->_initAction();
 
-            $this->_title(sprintf("#%s", $order->getRealOrderId()));
+            $this->_title(sprintf('#%s', $order->getRealOrderId()));
 
             $this->renderLayout();
         }

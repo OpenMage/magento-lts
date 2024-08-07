@@ -175,7 +175,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('page_id')) {
-            $title = "";
+            $title = '';
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/page');

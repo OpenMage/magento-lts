@@ -138,7 +138,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
             $classModel->delete();
 
             $session->addSuccess(Mage::helper('tax')->__('The tax class has been deleted.'));
-            $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+            $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return ;
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());

@@ -145,7 +145,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
             }
             if (!is_numeric($e[1])) {
-                throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting numeric modulus: " . $expr);
+                throw Mage::exception('Mage_Cron', 'Invalid cron expression, expecting numeric modulus: ' . $expr);
             }
             $expr = $e[0];
             $mod = $e[1];
@@ -171,7 +171,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         if ($from === false || $to === false) {
-            throw Mage::exception('Mage_Cron', "Invalid cron expression: " . $expr);
+            throw Mage::exception('Mage_Cron', 'Invalid cron expression: ' . $expr);
         }
 
         return ($num >= $from) && ($num <= $to) && ($num % $mod === 0);

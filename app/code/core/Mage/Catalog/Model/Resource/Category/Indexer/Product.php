@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->from(['ce' => $this->_categoryTable], ['entity_id'])
             ->joinInner(
                 ['dca' => $anchorInfo['table']],
-                "dca.entity_id=ce.entity_id AND dca.attribute_id=:attribute_id AND dca.store_id=:store_id",
+                'dca.entity_id=ce.entity_id AND dca.attribute_id=:attribute_id AND dca.store_id=:store_id',
                 []
             )
              ->where('dca.value=:e_value')
@@ -385,7 +385,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 ->joinLeft(
                     ['sv' => $visibilityInfo['table']],
                     "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']}"
-                        . " AND sv.store_id = " . (int)$storeId,
+                        . ' AND sv.store_id = ' . (int)$storeId,
                     []
                 )
                 ->join(
@@ -396,7 +396,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 ->joinLeft(
                     ['ss' => $statusInfo['table']],
                     "ss.entity_id = pw.product_id AND ss.attribute_id = {$statusInfo['id']}"
-                        . " AND ss.store_id = " . (int)$storeId,
+                        . ' AND ss.store_id = ' . (int)$storeId,
                     []
                 )
                 ->where('i.product_id IS NULL')
@@ -463,7 +463,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinLeft(
                 ['dv' => $visibilityInfo['table']],
                 $adapter->quoteInto(
-                    "dv.entity_id=cp.product_id AND dv.attribute_id=? AND dv.store_id=0",
+                    'dv.entity_id=cp.product_id AND dv.attribute_id=? AND dv.store_id=0',
                     $visibilityInfo['id']
                 ),
                 []
@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinLeft(
                 ['sv' => $visibilityInfo['table']],
                 $adapter->quoteInto(
-                    "sv.entity_id=cp.product_id AND sv.attribute_id=? AND sv.store_id=s.store_id",
+                    'sv.entity_id=cp.product_id AND sv.attribute_id=? AND sv.store_id=s.store_id',
                     $visibilityInfo['id']
                 ),
                 ['visibility' => $adapter->getCheckSql(
@@ -713,7 +713,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinLeft(
                 ['sv' => $visibilityInfo['table']],
                 "sv.entity_id = pw.product_id AND sv.attribute_id = {$visibilityInfo['id']}"
-                    . " AND sv.store_id = s.store_id",
+                    . ' AND sv.store_id = s.store_id',
                 []
             )
             ->join(
@@ -1121,14 +1121,14 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             ->joinLeft(
                 ['cad' => $anchorTable],
                 $adapter->quoteInto(
-                    "cad.entity_id=ce.entity_id AND cad.attribute_id=? AND cad.store_id=0",
+                    'cad.entity_id=ce.entity_id AND cad.attribute_id=? AND cad.store_id=0',
                     $anchorAttributeId
                 ),
                 []
             )
             ->joinLeft(
                 ['cas' => $anchorTable],
-                $adapter->quoteInto("cas.entity_id=ce.entity_id AND cas.attribute_id=? AND ", $anchorAttributeId)
+                $adapter->quoteInto('cas.entity_id=ce.entity_id AND cas.attribute_id=? AND ', $anchorAttributeId)
                     . $adapter->quoteInto('cas.store_id=?', $storeId),
                 []
             )

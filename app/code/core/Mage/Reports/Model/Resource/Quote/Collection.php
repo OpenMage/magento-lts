@@ -288,9 +288,9 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $countSelect->resetJoinLeft();
 
         if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {
-            $countSelect->columns("COUNT(DISTINCT e.entity_id)");
+            $countSelect->columns('COUNT(DISTINCT e.entity_id)');
         } else {
-            $countSelect->columns("COUNT(DISTINCT main_table.entity_id)");
+            $countSelect->columns('COUNT(DISTINCT main_table.entity_id)');
         }
 
         return $countSelect;

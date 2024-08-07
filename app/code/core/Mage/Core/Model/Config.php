@@ -1785,7 +1785,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
-        $events = $mergeModel->getNode($area . "/" . Mage_Core_Model_App_Area::PART_EVENTS);
+        $events = $mergeModel->getNode($area . '/' . Mage_Core_Model_App_Area::PART_EVENTS);
         if ($events !== false) {
             $children = clone $events->children();
             /** @var Mage_Core_Model_Config_Element $event */

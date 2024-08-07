@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareCollection()
     {
-        $collection =  Mage::getModel("permissions/users")->getCollection();
+        $collection =  Mage::getModel('permissions/users')->getCollection();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

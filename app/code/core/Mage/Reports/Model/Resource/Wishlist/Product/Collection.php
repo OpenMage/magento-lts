@@ -83,7 +83,7 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->columns("COUNT(*)");
+        $countSelect->columns('COUNT(*)');
 
         return $countSelect;
     }

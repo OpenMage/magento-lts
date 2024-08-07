@@ -138,7 +138,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             if (!empty($messages)) {
                 foreach ($messages as $message) {
                     $messageText = (string)$message;
-                    $module = $message->getParent()->getAttribute("module");
+                    $module = $message->getParent()->getAttribute('module');
                     $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module)->__($messageText);
                 }
             }
