@@ -24,7 +24,7 @@
 class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * @var Mage_Tag_Model_Resource_Tag_Collection|null
+     * @var Mage_Tag_Model_Resource_Product_Collection|null
      */
     protected $_productCollection;
 
@@ -81,7 +81,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * @return Mage_Tag_Model_Resource_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Product_Collection
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getProductCollection()

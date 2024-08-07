@@ -83,7 +83,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
-            return false;
+            return $this;
         }
 
         return parent::_beforeToHtml();

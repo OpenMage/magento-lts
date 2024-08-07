@@ -95,6 +95,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function add($data)
     {
+        $result = [];
         $data = $this->_prepareDataForAdd($data);
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($data['product_id']);
