@@ -65,7 +65,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     {
         $result = parent::info($tagId, $store);
         $result = Mage::helper('api')->wsiArrayPacker($result);
-        foreach ($result->produarraycts as $key => $value) {
+        foreach ($result->products as $key => $value) {
             $result->products[$key] = ['key' => $key, 'value' => $value];
         }
         return $result;
