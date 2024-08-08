@@ -73,7 +73,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function cleanTags(array $tagNamesArr)
     {
-        foreach (array_keys($tagNamesArr) as $key) {
+        foreach ($tagNamesArr as $key => $tagName) {
             $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {

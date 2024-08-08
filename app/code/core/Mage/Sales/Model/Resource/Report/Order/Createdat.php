@@ -230,7 +230,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
 
             // setup all columns to select SUM() except period, store_id and order_status
-            foreach (array_keys($columns) as $k) {
+            foreach ($columns as $k => $v) {
                 $columns[$k] = new Zend_Db_Expr('SUM(' . $k . ')');
             }
             $columns['period']         = 'period';
