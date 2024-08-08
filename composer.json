@@ -53,7 +53,7 @@
         "n98/n98_layouthelper": "*"
     },
     "minimum-stability": "dev",
-    "prefer-stable" : true,
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Lee Saferite",
@@ -92,16 +92,10 @@
         }
     },
     "extra": {
-        "magento-root-dir": ".",
-        "magento-deploystrategy": "copy",
-        "magento-deploystrategy-dev": "symlink",
-        "magento-deploystrategy-overwrite": {
-            "openmage/dev-copyright": "copy",
-            "openmage/dev-translations": "copy",
-            "openmage/legacy-frontend-themes": "copy"
-        },
-        "magento-force": true,
         "patches": {
+            "magento-ecg/coding-standard": {
+                "PR-72 - Fix LoopSniff": "https://patch-diff.githubusercontent.com/raw/magento-ecg/coding-standard/pull/72.patch"
+            },
             "shardj/zf1-future": {
                 "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.0.patch",
@@ -111,7 +105,16 @@
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
                 "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
             }
-        }
+        },
+        "magento-root-dir": ".",
+        "magento-deploystrategy": "copy",
+        "magento-deploystrategy-dev": "symlink",
+        "magento-deploystrategy-overwrite": {
+            "openmage/dev-copyright": "copy",
+            "openmage/dev-translations": "copy",
+            "openmage/legacy-frontend-themes": "copy"
+        },
+        "magento-force": true
     },
     "config": {
         "allow-plugins": {
