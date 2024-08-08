@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                 /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
 
-                foreach (array_keys($rows) as $key) {
+                foreach ($rows as $key => $row) {
                     /*
                      * Converting dates
                      */

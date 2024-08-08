@@ -256,7 +256,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         asort($this->_tabPositions);
 
         $ordered = [];
-        foreach (array_keys($this->_tabPositions) as $tabId) {
+        foreach ($this->_tabPositions as $tabId => $position) {
             if (isset($this->_tabs[$tabId])) {
                 $tab = $this->_tabs[$tabId];
                 $ordered[$tabId] = $tab;

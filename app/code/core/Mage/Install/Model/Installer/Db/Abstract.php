@@ -136,7 +136,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     {
         $extensions = [];
         $configExt = (array)Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
-        foreach (array_keys($configExt) as $name) {
+        foreach ($configExt as $name => $value) {
             $extensions[] = $name;
         }
         return $extensions;
