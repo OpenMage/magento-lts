@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
     {
         if (!array_key_exists('value', $option)) {
             if (!array_key_exists('label', $option)) {
-                return "";
+                return '';
             }
 
             $lbl =  $this->escapeHtml($option['label']); // or just empty as well?
