@@ -108,21 +108,9 @@ jobs:
 
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
-  sonar:
-    name: Unit Tests (Sonar)
-    needs: [check, phpcs, php-cs-fixer]
-    if: |
-      needs.check.outputs.phpunit-test > 0 ||
-      needs.check.outputs.phpunit > 0 ||
-      needs.check.outputs.sonar > 0 ||
-      needs.check.outputs.workflow > 0
-    uses: ./.github/workflows/sonar.yml
-
-  # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
   unit_tests:
     name: Unit Tests (OpenMage)
-    needs: [check, sonar]
+    needs: [check, phpcs, php-cs-fixer]
     if: |
       needs.check.outputs.phpunit-test > 0 ||
       needs.check.outputs.phpunit > 0 ||
