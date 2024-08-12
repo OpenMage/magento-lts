@@ -45,7 +45,8 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _isAllowedAttribute($attribute, ?array $filter = null)
     {
         if (!is_null($filter)
-            && (!in_array($attribute->getAttributeCode(), $filter) && !in_array($attribute->getAttributeId(), $filter))
+            && !(in_array($attribute->getAttributeCode(), $filter)
+                  || in_array($attribute->getAttributeId(), $filter))
         ) {
             return false;
         }

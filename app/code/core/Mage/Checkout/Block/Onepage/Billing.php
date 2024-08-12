@@ -57,7 +57,8 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      */
     public function isUseBillingAddressForShipping()
     {
-        return !$this->getQuote()->getIsVirtual() && $this->getQuote()->getShippingAddress()->getSameAsBilling();
+        return !(($this->getQuote()->getIsVirtual())
+            || !$this->getQuote()->getShippingAddress()->getSameAsBilling());
     }
 
     /**

@@ -63,7 +63,8 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         }
 
         if (is_array($attributes)
-            && (!in_array($attribute->getAttributeCode(), $attributes) && !in_array($attribute->getAttributeId(), $attributes))
+            && !(in_array($attribute->getAttributeCode(), $attributes)
+                  || in_array($attribute->getAttributeId(), $attributes))
         ) {
             return false;
         }

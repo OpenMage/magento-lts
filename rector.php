@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\BooleanNot\SimplifyDeMorganBinaryRector;
 use Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector;
 use Rector\Config\RectorConfig;
 
@@ -17,6 +16,5 @@ return RectorConfig::configure()
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withRules([
-        SimplifyDeMorganBinaryRector::class,
         SimplifyIfReturnBoolRector::class
     ]);

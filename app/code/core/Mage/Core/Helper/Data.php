@@ -455,8 +455,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
-        if (!is_array($source) && !$source instanceof Varien_Object
-            || !is_array($target) && !$target instanceof Varien_Object
+        if (!(is_array($source) || $source instanceof Varien_Object)
+            || !(is_array($target) || $target instanceof Varien_Object)
         ) {
             return false;
         }
@@ -525,7 +525,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function decorateArray($array, $prefix = 'decorated_', $forceSetAll = false)
     {
         // check if array or an object to be iterated given
-        if (!is_array($array) && !is_object($array)) {
+        if (!(is_array($array) || is_object($array))) {
             return $array;
         }
 

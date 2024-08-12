@@ -677,7 +677,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canVoidOrder()
     {
-        return !$this->canUnhold() && !$this->isPaymentReview();
+        return !($this->canUnhold() || $this->isPaymentReview());
     }
 
     /**

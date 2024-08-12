@@ -582,6 +582,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
     public function isShipmentRegular()
     {
-        return $this->canShipPartiallyItem() && $this->canShipPartially();
+        return !(!$this->canShipPartiallyItem() || !$this->canShipPartially());
     }
 }

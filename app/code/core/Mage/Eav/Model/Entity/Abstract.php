@@ -660,7 +660,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
-        return is_object($instance) && method_exists($instance, $method);
+        return !(!is_object($instance) || !method_exists($instance, $method));
     }
 
     /**
