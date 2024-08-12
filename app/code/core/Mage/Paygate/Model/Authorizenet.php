@@ -1475,7 +1475,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $payment->setTransactionAdditionalInfo($key, $value);
         }
         $transaction = $payment->addTransaction($transactionType, null, false, $message);
-        foreach (array_keys($transactionDetails) as $key) {
+        foreach ($transactionDetails as $key => $value) {
             $payment->unsetData($key);
         }
         $payment->unsLastTransId();
