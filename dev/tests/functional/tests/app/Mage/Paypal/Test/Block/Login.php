@@ -120,10 +120,6 @@ class Login extends Form
      */
     public function isBlockActive()
     {
-        if ($this->browser->find($this->mapping['password']['selector'])->isVisible()) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->browser->find($this->mapping['password']['selector'])->isVisible();
     }
 }

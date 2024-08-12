@@ -1222,10 +1222,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
         $storeDomains = array_unique($storeDomains);
-        if (in_array($referer, $storeDomains)) {
-            return true;
-        }
-        return false;
+        return in_array($referer, $storeDomains);
     }
 
     /**

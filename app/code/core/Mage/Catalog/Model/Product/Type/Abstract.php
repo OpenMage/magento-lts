@@ -778,10 +778,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getHasOptions()) {
             return true;
         }
-        if ($this->getProduct($product)->isRecurring()) {
-            return true;
-        }
-        return false;
+        return $this->getProduct($product)->isRecurring();
     }
 
     /**
@@ -809,10 +806,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      */
     public function hasRequiredOptions($product = null)
     {
-        if ($this->getProduct($product)->getRequiredOptions()) {
-            return true;
-        }
-        return false;
+        return $this->getProduct($product)->getRequiredOptions();
     }
 
     /**

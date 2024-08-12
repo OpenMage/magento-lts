@@ -173,10 +173,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function isAvailable($quote = null)
     {
-        if (parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable()) {
-            return true;
-        }
-        return false;
+        return parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable();
     }
 
     /**

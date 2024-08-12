@@ -237,10 +237,6 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      */
     public function hasSpecialImage(Mage_Media_Model_Image $object)
     {
-        if (file_exists($object->getFilePath(true))) {
-            return true;
-        }
-
-        return false;
+        return file_exists($object->getFilePath(true));
     }
 }

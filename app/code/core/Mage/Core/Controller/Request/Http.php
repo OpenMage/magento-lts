@@ -562,10 +562,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if ($this->isXmlHttpRequest()) {
             return true;
         }
-        if ($this->getParam('ajax') || $this->getParam('isAjax')) {
-            return true;
-        }
-        return false;
+        return $this->getParam('ajax') || $this->getParam('isAjax');
     }
 
     /**

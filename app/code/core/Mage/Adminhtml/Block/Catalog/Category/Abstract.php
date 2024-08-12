@@ -55,10 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     public function hasStoreRootCategory()
     {
         $root = $this->getRoot();
-        if ($root && $root->getId()) {
-            return true;
-        }
-        return false;
+        return $root && $root->getId();
     }
 
     public function getStore()

@@ -112,10 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
 
     public function isNew()
     {
-        if ($this->getProduct()->getId()) {
-            return false;
-        }
-        return true;
+        return !$this->getProduct()->getId();
     }
 
     public function getFieldSuffix()

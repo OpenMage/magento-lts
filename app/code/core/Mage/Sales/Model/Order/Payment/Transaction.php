@@ -357,10 +357,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $authTransaction = $this->closeAuthorization('', true);
-            if ($authTransaction->hasChildTransaction() || $this->_children) {
-                return false;
-            }
-            return true;
+            return !($authTransaction->hasChildTransaction() || $this->_children);
         } catch (Mage_Core_Exception $e) {
             // jam all logical exceptions, fallback to false
         }

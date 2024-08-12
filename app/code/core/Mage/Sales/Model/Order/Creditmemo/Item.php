@@ -298,12 +298,8 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function isLast()
     {
         $orderItem = $this->getOrderItem();
-        if ((string)(float)$this->getQty() == (string)(float)$orderItem->getQtyToRefund()
-                && !$orderItem->getQtyToInvoice()
-        ) {
-            return true;
-        }
-        return false;
+        return (string)(float)$this->getQty() == (string)(float)$orderItem->getQtyToRefund()
+                && !$orderItem->getQtyToInvoice();
     }
 
     /**

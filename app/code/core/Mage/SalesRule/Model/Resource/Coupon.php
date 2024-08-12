@@ -96,11 +96,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         $select = $read->select();
         $select->from($this->getMainTable(), 'code');
         $select->where('code = :code');
-
-        if ($read->fetchOne($select, ['code' => $code]) === false) {
-            return false;
-        }
-        return true;
+        return $read->fetchOne($select, ['code' => $code]) !== false;
     }
 
     /**

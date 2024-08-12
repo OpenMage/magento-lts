@@ -763,11 +763,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->from($this->getTable('core/store_group'), ['group_id'])
             ->where('root_category_id = :root_category_id');
         $result = $this->_getReadAdapter()->fetchOne($select, ['root_category_id' => $categoryId]);
-
-        if ($result) {
-            return true;
-        }
-        return false;
+        return (bool) $result;
     }
 
     /**

@@ -41,10 +41,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
     protected function _canViewOrder($order)
     {
         $currentOrder = Mage::registry('current_order');
-        if ($order->getId() && ($order->getId() === $currentOrder->getId())) {
-            return true;
-        }
-        return false;
+        return $order->getId() && ($order->getId() === $currentOrder->getId());
     }
 
     protected function _viewAction()

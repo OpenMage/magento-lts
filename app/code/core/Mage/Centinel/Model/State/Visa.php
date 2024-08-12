@@ -124,14 +124,10 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
     protected function _isLookupStrictSuccessful()
     {
         //Test cases 1-5, 11
-        if ($this->getLookupEnrolled() == 'Y' &&
+        return $this->getLookupEnrolled() == 'Y' &&
             $this->getLookupAcsUrl() != '' &&
             $this->getLookupPayload() != '' &&
-            $this->getLookupErrorNo() == '0'
-        ) {
-            return true;
-        }
-        return false;
+            $this->getLookupErrorNo() == '0';
     }
 
     /**
@@ -155,12 +151,7 @@ class Mage_Centinel_Model_State_Visa extends Mage_Centinel_Model_StateAbstract
         if ($enrolled == '' && $acsUrl == '' && $payload == '' && $errorNo == 'Timeout number') {
             return true;
         }
-
         //Test cases 9,10
-        if ($enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001') {
-            return true;
-        }
-
-        return false;
+        return $enrolled == 'U' && $acsUrl == '' && $payload == '' && $errorNo == '1001';
     }
 }

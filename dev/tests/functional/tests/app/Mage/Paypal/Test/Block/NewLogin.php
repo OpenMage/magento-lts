@@ -82,11 +82,7 @@ class NewLogin extends Login
      */
     public function isBlockActive()
     {
-        if (!$this->browser->find($this->mapping['password']['selector'])->isVisible()) {
-            return true;
-        }
-
-        return false;
+        return !$this->browser->find($this->mapping['password']['selector'])->isVisible();
     }
 
     /**

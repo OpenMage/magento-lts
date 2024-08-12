@@ -191,10 +191,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function canUseForCurrency($currencyCode)
     {
-        if (!in_array($currencyCode, $this->getAcceptedCurrencyCodes())) {
-            return false;
-        }
-        return true;
+        return in_array($currencyCode, $this->getAcceptedCurrencyCodes());
     }
 
     /**

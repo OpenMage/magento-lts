@@ -239,11 +239,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     public function isSubscribed()
     {
-        if ($this->getId() && $this->getStatus() == self::STATUS_SUBSCRIBED) {
-            return true;
-        }
-
-        return false;
+        return $this->getId() && $this->getStatus() == self::STATUS_SUBSCRIBED;
     }
 
     /**

@@ -242,9 +242,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->getAllowedBlocks()) {
             return true;
         }
-        if (in_array((string)$block->getAttribute('name'), $this->getAllowedBlocks())) {
-            return true;
-        }
-        return false;
+        return in_array((string)$block->getAttribute('name'), $this->getAllowedBlocks());
     }
 }

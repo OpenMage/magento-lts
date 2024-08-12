@@ -498,10 +498,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if (!$this->_compareOptions($requestArray, $selfOptions)) {
             return false;
         }
-        if (!$this->_compareOptions($selfOptions, $requestArray)) {
-            return false;
-        }
-        return true;
+        return $this->_compareOptions($selfOptions, $requestArray);
     }
 
     /**
@@ -523,10 +520,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         if (!$this->compareOptions($itemOptions, $productOptions)) {
             return false;
         }
-        if (!$this->compareOptions($productOptions, $itemOptions)) {
-            return false;
-        }
-        return true;
+        return $this->compareOptions($productOptions, $itemOptions);
     }
 
     /**

@@ -270,10 +270,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      */
     public function areChildrenIndexable($type)
     {
-        if (!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]) {
-            return false;
-        }
-        return true;
+        return !(!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]);
     }
 
     /**

@@ -532,9 +532,6 @@ abstract class Mage_Eav_Model_Form
      */
     protected function _isAttributeOmitted($attribute)
     {
-        if ($this->_ignoreInvisible && !$attribute->getIsVisible()) {
-            return true;
-        }
-        return false;
+        return $this->_ignoreInvisible && !$attribute->getIsVisible();
     }
 }

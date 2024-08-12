@@ -162,10 +162,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      */
     public function isAvailable($quote = null)
     {
-        if (parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable()) {
-            return true;
-        }
-        return false;
+        return parent::isAvailable($quote) && $this->_pro->getConfig()->isMethodAvailable();
     }
 
     /**
@@ -718,11 +715,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
         $transactionClosingDate->modify('+' . $period . ' days');
 
         $currentTime = new DateTime(null, new DateTimeZone('US/Pacific'));
-
-        if ($currentTime > $transactionClosingDate) {
-            return true;
-        }
-
-        return false;
+        return $currentTime > $transactionClosingDate;
     }
 }

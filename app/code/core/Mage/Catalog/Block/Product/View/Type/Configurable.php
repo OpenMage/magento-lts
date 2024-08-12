@@ -288,11 +288,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeValue($attributeId, &$value, &$options)
     {
-        if (isset($options[$attributeId][$value['value_index']])) {
-            return true;
-        }
-
-        return false;
+        return isset($options[$attributeId][$value['value_index']]);
     }
 
     /**
@@ -303,10 +299,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
      */
     protected function _validateAttributeInfo(&$info)
     {
-        if (count($info['options']) > 0) {
-            return true;
-        }
-        return false;
+        return count($info['options']) > 0;
     }
 
     /**

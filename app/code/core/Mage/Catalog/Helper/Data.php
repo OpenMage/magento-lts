@@ -121,10 +121,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->getProduct()) {
             return true;
         }
-        if ($categoryId != $this->getCategory()->getId()) {
-            return true;
-        }
-        return false;
+        return $categoryId != $this->getCategory()->getId();
     }
 
     /**

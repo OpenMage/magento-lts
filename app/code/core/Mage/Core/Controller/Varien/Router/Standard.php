@@ -83,10 +83,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _beforeModuleMatch()
     {
-        if (Mage::app()->getStore()->isAdmin()) {
-            return false;
-        }
-        return true;
+        return !Mage::app()->getStore()->isAdmin();
     }
 
     /**
@@ -431,10 +428,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
-            return true;
-        }
-        return false;
+        return $fileName && is_readable($fileName) && !str_contains($fileName, '//');
     }
 
     /**

@@ -309,10 +309,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isShowWebsiteColumn()
     {
-        if ($this->isScopeGlobal() || Mage::app()->isSingleStoreMode()) {
-            return false;
-        }
-        return true;
+        return !($this->isScopeGlobal() || Mage::app()->isSingleStoreMode());
     }
 
     /**
@@ -322,9 +319,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function isAllowChangeWebsite()
     {
-        if (!$this->isShowWebsiteColumn() || $this->getProduct()->getStoreId()) {
-            return false;
-        }
-        return true;
+        return !(!$this->isShowWebsiteColumn() || $this->getProduct()->getStoreId());
     }
 }

@@ -398,13 +398,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function canRefund()
     {
-        if ($this->getState() != self::STATE_CANCELED
+        return $this->getState() != self::STATE_CANCELED
             && $this->getState() != self::STATE_REFUNDED
-            && $this->getOrder()->getPayment()->canRefund()
-        ) {
-            return true;
-        }
-        return false;
+            && $this->getOrder()->getPayment()->canRefund();
     }
 
     /**

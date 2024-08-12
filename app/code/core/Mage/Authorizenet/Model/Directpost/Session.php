@@ -72,9 +72,6 @@ class Mage_Authorizenet_Model_Directpost_Session extends Mage_Core_Model_Session
     public function isCheckoutOrderIncrementIdExist($orderIncrementId)
     {
         $orderIncIds = $this->getDirectPostOrderIncrementIds();
-        if (is_array($orderIncIds) && isset($orderIncIds[$orderIncrementId])) {
-            return true;
-        }
-        return false;
+        return is_array($orderIncIds) && isset($orderIncIds[$orderIncrementId]);
     }
 }

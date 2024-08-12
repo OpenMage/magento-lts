@@ -102,10 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
     public function canShipPartiallyItem()
     {
         $value = $this->getOrder()->getCanShipPartiallyItem();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-        return true;
+        return !(!is_null($value) && !$value);
     }
 
     /**

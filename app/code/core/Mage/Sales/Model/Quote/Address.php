@@ -1157,10 +1157,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         }
 
         $amount = Mage::getStoreConfig('sales/minimum_order/amount', $storeId);
-        if ($this->getBaseSubtotalWithDiscount() < $amount) {
-            return false;
-        }
-        return true;
+        return !($this->getBaseSubtotalWithDiscount() < $amount);
     }
 
     /**

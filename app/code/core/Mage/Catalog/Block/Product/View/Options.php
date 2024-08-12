@@ -122,10 +122,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function hasOptions()
     {
-        if ($this->getOptions()) {
-            return true;
-        }
-        return false;
+        return (bool) $this->getOptions();
     }
 
     /**

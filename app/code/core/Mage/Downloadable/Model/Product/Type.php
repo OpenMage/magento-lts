@@ -83,10 +83,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      */
     public function hasRequiredOptions($product = null)
     {
-        if (parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately()) {
-            return true;
-        }
-        return false;
+        return parent::hasRequiredOptions($product) || $this->getProduct($product)->getLinksPurchasedSeparately();
     }
 
     /**

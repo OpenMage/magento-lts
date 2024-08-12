@@ -564,14 +564,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         ) {
             return true;
         }
-
-        if (!is_array($setId)
-            && array_key_exists($setId, $this->getAttributeSetInfo())
-        ) {
-            return true;
-        }
-
-        return false;
+        return !is_array($setId)
+            && array_key_exists($setId, $this->getAttributeSetInfo());
     }
 
     /**
@@ -584,11 +578,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function isInGroup($setId, $groupId)
     {
         $dataPath = sprintf('attribute_set_info/%s/group_id', $setId);
-        if ($this->isInSet($setId) && $this->getData($dataPath) == $groupId) {
-            return true;
-        }
-
-        return false;
+        return $this->isInSet($setId) && $this->getData($dataPath) == $groupId;
     }
 
     /**

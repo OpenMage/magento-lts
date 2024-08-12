@@ -696,11 +696,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-        if ($hoursDifference >= $tokenExpirationPeriod) {
-            return true;
-        }
-
-        return false;
+        return $hoursDifference >= $tokenExpirationPeriod;
     }
 
     /**

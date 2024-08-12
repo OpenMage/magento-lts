@@ -690,13 +690,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         } else {
             $options = $this->getProductOptions();
         }
-
-        if (isset($options['product_calculations']) &&
-             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-        ) {
-            return true;
-        }
-        return false;
+        return isset($options['product_calculations']) &&
+             $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD;
     }
     /**
      * Check if discount has to be applied to parent item
@@ -727,13 +722,8 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         } else {
             $options = $this->getProductOptions();
         }
-
-        if (isset($options['shipment_type']) &&
-            $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-        ) {
-            return true;
-        }
-        return false;
+        return isset($options['shipment_type']) &&
+            $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY;
     }
 
     /**

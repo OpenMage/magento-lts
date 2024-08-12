@@ -305,10 +305,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         foreach ($this->types() as $optionType) {
             $allowedTypes[] = $optionType['value'];
         }
-
-        if (!in_array($type, $allowedTypes)) {
-            return false;
-        }
-        return true;
+        return in_array($type, $allowedTypes);
     }
 }

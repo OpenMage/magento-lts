@@ -257,11 +257,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function canShowPriceInfo($item)
     {
-        if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
-        ) {
-            return true;
-        }
-        return false;
+        return ($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
+                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated());
     }
 }

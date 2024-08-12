@@ -648,20 +648,16 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->isCanceled() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
             return false;
         }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_CANCEL) === false) {
-            return false;
-        }
         /**
          * Use only state for availability detect
          */
         /*foreach ($this->getAllItems() as $item) {
-            if ($item->getQtyToCancel()>0) {
-                return true;
-            }
-        }
-        return false;*/
-        return true;
+              if ($item->getQtyToCancel()>0) {
+                  return true;
+              }
+          }
+          return false;*/
+        return $this->getActionFlag(self::ACTION_FLAG_CANCEL) !== false;
     }
 
     /**
@@ -681,10 +677,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canVoidOrder()
     {
-        if ($this->canUnhold() || $this->isPaymentReview()) {
-            return false;
-        }
-        return true;
+        return !($this->canUnhold() || $this->isPaymentReview());
     }
 
     /**
@@ -741,11 +734,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001) {
             return false;
         }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_EDIT) === false) {
-            return false;
-        }
-        return true;
+        return $this->getActionFlag(self::ACTION_FLAG_EDIT) !== false;
     }
 
     /**
@@ -761,11 +750,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         ) {
             return false;
         }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_HOLD) === false) {
-            return false;
-        }
-        return true;
+        return $this->getActionFlag(self::ACTION_FLAG_HOLD) !== false;
     }
 
     /**
@@ -788,10 +773,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canComment()
     {
-        if ($this->getActionFlag(self::ACTION_FLAG_COMMENT) === false) {
-            return false;
-        }
-        return true;
+        return $this->getActionFlag(self::ACTION_FLAG_COMMENT) !== false;
     }
 
     /**
@@ -844,12 +826,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->getPayment()->getMethodInstance()->canEdit()) {
             return false;
         }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_EDIT) === false) {
-            return false;
-        }
-
-        return true;
+        return $this->getActionFlag(self::ACTION_FLAG_EDIT) !== false;
     }
 
     /**

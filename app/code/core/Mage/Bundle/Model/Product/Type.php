@@ -873,12 +873,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $this->setStoreFilter($product->getStoreId(), $product);
         $optionIds  = $this->getOptionsCollection($product)->getAllIds();
         $collection = $this->getSelectionsCollection($optionIds, $product);
-
-        if (count($collection) > 0 || $product->getOptions()) {
-            return true;
-        }
-
-        return false;
+        return count($collection) > 0 || $product->getOptions();
     }
 
     /**

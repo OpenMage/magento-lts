@@ -271,10 +271,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             ->limit(1);
 
         $result = $adapter->fetchOne($select, $bind);
-        if ($result) {
-            return true;
-        }
-        return false;
+        return (bool) $result;
     }
 
     /**

@@ -90,10 +90,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
         if (empty($this->_activeLink)) {
             $this->_activeLink = $this->getAction()->getFullActionName('/');
         }
-        if ($this->_completePath($link->getPath()) == $this->_activeLink) {
-            return true;
-        }
-        return false;
+        return $this->_completePath($link->getPath()) == $this->_activeLink;
     }
 
     /**

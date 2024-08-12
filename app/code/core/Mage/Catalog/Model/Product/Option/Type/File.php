@@ -773,10 +773,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return false;
         }
         $imageInfo = getimagesize($fileInfo);
-        if (!$imageInfo) {
-            return false;
-        }
-        return true;
+        return (bool) $imageInfo;
     }
 
     /**

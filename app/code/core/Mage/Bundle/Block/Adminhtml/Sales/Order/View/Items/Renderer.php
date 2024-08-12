@@ -164,11 +164,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
      */
     public function canShowPriceInfo($item)
     {
-        if (($item->getParentItem() && $this->isChildCalculated())
-                || (!$item->getParentItem() && !$this->isChildCalculated())
-        ) {
-            return true;
-        }
-        return false;
+        return ($item->getParentItem() && $this->isChildCalculated())
+                || (!$item->getParentItem() && !$this->isChildCalculated());
     }
 }

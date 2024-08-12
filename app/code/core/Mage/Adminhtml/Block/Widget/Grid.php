@@ -1395,10 +1395,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function canDisplayContainer()
     {
-        if ($this->getRequest()->getQuery('ajax')) {
-            return false;
-        }
-        return true;
+        return !$this->getRequest()->getQuery('ajax');
     }
 
     /**
@@ -1817,10 +1814,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->isColumnGrouped($column) && $item->getIsEmpty()) {
             return true;
         }
-        if (!$item->getIsEmpty()) {
-            return true;
-        }
-        return false;
+        return !$item->getIsEmpty();
     }
 
     /**

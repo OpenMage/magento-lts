@@ -478,12 +478,8 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             if ($item->getIsVirtual()) {
                 return false;
             }
-            if ((isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
-                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip())
-            ) {
-                return true;
-            }
-            return false;
+            return (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0)
+                || (!isset($qtys[$item->getParentItem()->getId()]) && $item->getParentItem()->getQtyToShip());
         }
 
         return false;

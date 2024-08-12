@@ -48,9 +48,6 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
             ['status' => $newStatus],
             ['schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus]
         );
-        if ($result == 1) {
-            return true;
-        }
-        return false;
+        return $result == 1;
     }
 }

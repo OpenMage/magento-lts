@@ -149,10 +149,6 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
      */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
-        if ($attribute->getAttributeCode() != 'minimal_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() == 'minimal_price';
     }
 }

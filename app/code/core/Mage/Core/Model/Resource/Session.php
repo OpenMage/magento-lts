@@ -117,11 +117,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         if (!$this->_read) {
             return false;
         }
-        if (!$this->_read->isTableExists($this->_sessionTable)) {
-            return false;
-        }
-
-        return true;
+        return $this->_read->isTableExists($this->_sessionTable);
     }
 
     /**

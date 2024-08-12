@@ -68,10 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
             $storeId
         );
         $recipientAddressCountryCode = $address->getCountryId();
-        if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
-            return true;
-        }
-        return false;
+        return $shipperAddressCountryCode != $recipientAddressCountryCode;
     }
 
     /**

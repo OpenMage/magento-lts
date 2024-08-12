@@ -171,9 +171,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     protected function _filterLayoutHandle($layoutHandle)
     {
         $wildCard = '/(' . implode(')|(', $this->getLayoutHandlePatterns()) . ')/';
-        if (preg_match($wildCard, $layoutHandle)) {
-            return false;
-        }
-        return true;
+        return !preg_match($wildCard, $layoutHandle);
     }
 }

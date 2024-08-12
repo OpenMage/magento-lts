@@ -53,9 +53,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Comment extends Mage_Adminhtml_Blo
     public function getNoteNotify()
     {
         $notify = $this->getQuote()->getCustomerNoteNotify();
-        if (is_null($notify) || $notify) {
-            return true;
-        }
-        return false;
+        return is_null($notify) || $notify;
     }
 }

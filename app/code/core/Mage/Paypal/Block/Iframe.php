@@ -166,15 +166,10 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     protected function _isAfterPaymentSave()
     {
         $quote = $this->_getCheckout()->getQuote();
-        if ($quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
+        return $quote->getPayment()->getMethod() == $this->_paymentMethodCode &&
             $quote->getIsActive() &&
             $this->getTemplate() &&
-            $this->getRequest()->getActionName() == 'savePayment'
-        ) {
-            return true;
-        }
-
-        return false;
+            $this->getRequest()->getActionName() == 'savePayment';
     }
 
     /**

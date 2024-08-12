@@ -513,10 +513,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function hasProductUrl($product)
     {
-        if ($product->getVisibleInSiteVisibilities()) {
-            return true;
-        }
-        return false;
+        return (bool) $product->getVisibleInSiteVisibilities();
     }
 
     /**

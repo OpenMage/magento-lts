@@ -517,10 +517,7 @@ abstract class Grid extends GridPageActions
         try {
             $this->search($filter);
             $checkValue = $this->_rootElement->find($this->selectedItem, Locator::SELECTOR_CSS, 'checkbox')->getValue();
-            if ($checkValue == 'Yes') {
-                return true;
-            }
-            return false;
+            return $checkValue == 'Yes';
         } catch (\Exception $e) {
             throw new \Exception("Searched item was not found. \n $e");
         }

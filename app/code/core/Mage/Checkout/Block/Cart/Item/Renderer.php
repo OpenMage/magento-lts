@@ -134,10 +134,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if ($option) {
             $product = $option->getProduct();
         }
-        if ($product->isVisibleInSiteVisibility()) {
-            return true;
-        }
-        return false;
+        return $product->isVisibleInSiteVisibility();
     }
 
     /**

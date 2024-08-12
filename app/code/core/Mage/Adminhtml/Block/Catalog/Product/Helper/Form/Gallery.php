@@ -56,11 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      */
     public function canDisplayUseDefault($attribute)
     {
-        if (!$attribute->isScopeGlobal() && $this->getDataObject()->getStoreId()) {
-            return true;
-        }
-
-        return false;
+        return !$attribute->isScopeGlobal() && $this->getDataObject()->getStoreId();
     }
 
     /**
@@ -161,12 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         if (is_object($attribute)) {
             $attribute = $attribute->getAttributeCode();
         }
-
-        if ($this->getDataObject()->isLockedAttribute($attribute)) {
-            return true;
-        }
-
-        return false;
+        return $this->getDataObject()->isLockedAttribute($attribute);
     }
 
     public function toHtml()

@@ -92,11 +92,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         if ($attribute->getAttributeCode() == 'tier_price') {
             return false;
         }
-        if ($attribute->getAttributeCode() == 'minimal_price') {
-            return false;
-        }
-
-        return true;
+        return $attribute->getAttributeCode() != 'minimal_price';
     }
 
     /**

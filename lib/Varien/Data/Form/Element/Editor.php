@@ -259,10 +259,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _checkPluginButtonOptions($pluginOptions)
     {
-        if (!isset($pluginOptions['title'])) {
-            return false;
-        }
-        return true;
+        return isset($pluginOptions['title']);
     }
 
     /**

@@ -429,13 +429,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         }
 
         if ($item->getParentItem()) {
-            if (isset($qtys[$item->getParentItem()->getId()])
+            return isset($qtys[$item->getParentItem()->getId()])
                 && isset($qtys[$item->getParentItem()->getId()]['qty'])
-                && $qtys[$item->getParentItem()->getId()]['qty'] > 0
-            ) {
-                return true;
-            }
-            return false;
+                && $qtys[$item->getParentItem()->getId()]['qty'] > 0;
         }
 
         return false;

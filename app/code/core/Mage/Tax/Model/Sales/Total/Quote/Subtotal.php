@@ -935,10 +935,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     protected function _needSubtractTax($address)
     {
         $store = $address->getQuote()->getStore();
-        if ($this->_config->priceIncludesTax($store) || $this->_config->getNeedUsePriceExcludeTax()) {
-            return true;
-        }
-        return false;
+        return $this->_config->priceIncludesTax($store) || $this->_config->getNeedUsePriceExcludeTax();
     }
 
     /**
@@ -953,9 +950,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     protected function _needSubtractShippingTax($address)
     {
         $store = $address->getQuote()->getStore();
-        if ($this->_config->shippingPriceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax()) {
-            return true;
-        }
-        return false;
+        return $this->_config->shippingPriceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax();
     }
 }

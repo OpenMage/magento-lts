@@ -134,11 +134,7 @@ abstract class Mage_Core_Helper_Abstract
         if (!$this->isModuleEnabled($moduleName)) {
             return false;
         }
-
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
-        }
-        return true;
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 
     /**
@@ -158,10 +154,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
-            return false;
-        }
-        return true;
+        return !(!$isActive || !in_array((string)$isActive, ['true', '1']));
     }
 
     /**
