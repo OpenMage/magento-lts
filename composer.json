@@ -46,6 +46,7 @@
         "phpmd/phpmd": "^2.13",
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
+        "rector/rector": "^1.2",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
