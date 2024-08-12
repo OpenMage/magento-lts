@@ -755,8 +755,7 @@ class Mage_Paypal_Model_Express_Checkout
         $isRequested = $this->_isBARequested || $this->_quote->getPayment()
             ->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
 
-        if (!($this->_config->allow_ba_signup == Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO
-            || $isRequested && $this->_config->shouldAskToCreateBillingAgreement())
+        if ($this->_config->allow_ba_signup != Mage_Paypal_Model_Config::EC_BA_SIGNUP_AUTO && !($isRequested && $this->_config->shouldAskToCreateBillingAgreement())
         ) {
             return $this;
         }

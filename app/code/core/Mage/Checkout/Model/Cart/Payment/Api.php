@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
      */
     protected function _canUsePaymentMethod($method, $quote)
     {
-        if (!($method->isGateway() || $method->canUseInternal())) {
+        if (!$method->isGateway() && !$method->canUseInternal()) {
             return false;
         }
 
@@ -59,7 +59,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         $total = $quote->getBaseGrandTotal();
         $minTotal = $method->getConfigData('min_order_total');
         $maxTotal = $method->getConfigData('max_order_total');
-        return !((!empty($minTotal) && ($total < $minTotal)) || (!empty($maxTotal) && ($total > $maxTotal)));
+        return !(!empty($minTotal) && ($total < $minTotal)) && !(!empty($maxTotal) && ($total > $maxTotal));
     }
 
     /**

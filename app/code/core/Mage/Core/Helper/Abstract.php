@@ -154,7 +154,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        return !(!$isActive || !in_array((string)$isActive, ['true', '1']));
+        return $isActive && in_array((string)$isActive, ['true', '1']);
     }
 
     /**

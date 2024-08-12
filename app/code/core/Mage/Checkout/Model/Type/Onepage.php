@@ -120,7 +120,7 @@ class Mage_Checkout_Model_Type_Onepage
         $customerSession = $this->getCustomerSession();
         if (is_array($checkout->getStepData())) {
             foreach ($checkout->getStepData() as $step => $data) {
-                if (!($step === 'login' || $customerSession->isLoggedIn() && $step === 'billing')) {
+                if ($step !== 'login' && !($customerSession->isLoggedIn() && $step === 'billing')) {
                     $checkout->setStepData($step, 'allow', false);
                 }
             }
