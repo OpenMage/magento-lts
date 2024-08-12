@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector;
+use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
@@ -16,5 +16,6 @@ return RectorConfig::configure()
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withRules([
-        SimplifyIfReturnBoolRector::class
+        CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+//        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # wait for https://github.com/rectorphp/rector/issues/8781
     ]);
