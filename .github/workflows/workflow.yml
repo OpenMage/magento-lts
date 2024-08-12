@@ -106,6 +106,14 @@ jobs:
     if: needs.check.outputs.xml > 0
     uses: ./.github/workflows/syntax-xml.yml
 
+  rector:
+    name: Rector
+    needs: [check, phpcs, php-cs-fixer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/rector.yml
+
   # DOES NOT run by default
   # runs on schedule or when worklfow or unit tests changed
   sonar:

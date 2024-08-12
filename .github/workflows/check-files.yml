@@ -87,6 +87,7 @@ jobs:
             **phpcs**
             **php-cs-fixer**
             **phpstan**
+            rector.php
             dev/tests/
             dev/phpunit*
             dev/sonar*
