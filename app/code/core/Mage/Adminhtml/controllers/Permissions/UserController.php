@@ -107,73 +107,76 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
     public function saveAction()
     {
-        if ($data = $this->getRequest()->getPost()) {
-            $id = $this->getRequest()->getParam('user_id');
-            $model = Mage::getModel('admin/user')->load($id);
-            // @var $isNew flag for detecting new admin user creation.
-            $isNew = !$model->getId() ? true : false;
-            if (!$model->getId() && $id) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('This user no longer exists.'));
-                $this->_redirect('*/*/');
-                return;
-            }
+        $data = $this->getRequest()->getPost();
 
-            //Validate current admin password
-            $currentPassword = $this->getRequest()->getParam('current_password', null);
-            $this->getRequest()->setParam('current_password', null);
-            unset($data['current_password']);
-            $result = $this->_validateCurrentPassword($currentPassword);
-
-            $model->setData($data);
-
-            /*
-             * Unsetting new password and password confirmation if they are blank
-             */
-            if ($model->hasNewPassword() && $model->getNewPassword() === '') {
-                $model->unsNewPassword();
-            }
-            if ($model->hasPasswordConfirmation() && $model->getPasswordConfirmation() === '') {
-                $model->unsPasswordConfirmation();
-            }
-
-            if (!is_array($result)) {
-                $result = $model->validate();
-            }
-            if (is_array($result)) {
-                Mage::getSingleton('adminhtml/session')->setUserData($data);
-                foreach ($result as $message) {
-                    Mage::getSingleton('adminhtml/session')->addError($message);
-                }
-                $this->_redirect('*/*/edit', ['_current' => true]);
-                return $this;
-            }
-
-            try {
-                $model->save();
-                // Send notification to General and additional contacts (if declared) that a new admin user was created.
-                if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
-                    Mage::getModel('admin/user')->sendAdminNotification($model);
-                }
-                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
-                    if (is_array($uRoles) && (count($uRoles) >= 1)) {
-                        // with fix for previous multi-roles logic
-                        $model->setRoleIds(array_slice($uRoles, 0, 1))
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    }
-                }
-                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
-                Mage::getSingleton('adminhtml/session')->setUserData(false);
-                $this->_redirect('*/*/');
-                return;
-            } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setUserData($data);
-                $this->_redirect('*/*/edit', ['user_id' => $model->getUserId()]);
-                return;
-            }
+        if (!$data) {
+            $this->_redirect('*/*/');
+            return;
         }
-        $this->_redirect('*/*/');
+
+        $id = $this->getRequest()->getParam('user_id');
+        $role = $this->getRequest()->getParam('role');
+
+        $user = Mage::getModel('admin/user')->load($id);
+        $isNew = $user->isObjectNew();
+
+        if ($id && !$user->getId()) {
+            $this->_getSession()->addError($this->__('This user no longer exists.'));
+            $this->_redirect('*/*/');
+            return;
+        }
+
+        $currentPassword = $this->getRequest()->getParam('current_password');
+        $this->getRequest()->setParam('current_password', null);
+        unset($data['current_password']);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        $user->setData($data);
+
+        /*
+         * Unsetting new password and password confirmation if they are blank
+         */
+        if ($user->hasNewPassword() && $user->getNewPassword() === '') {
+            $user->unsNewPassword();
+        }
+        if ($user->hasPasswordConfirmation() && $user->getPasswordConfirmation() === '') {
+            $user->unsPasswordConfirmation();
+        }
+
+        if (!is_array($result)) {
+            $result = $user->validate();
+        }
+
+        if (is_array($result)) {
+            $this->_getSession()->setUserData($data);
+            foreach ($result as $message) {
+                $this->_getSession()->addError($message);
+            }
+            $this->_redirect('*/*/edit', ['_current' => true]);
+            return;
+        }
+
+        try {
+            $user->save();
+
+            // Send notification to General and additional contacts (if declared) that a new admin user was created.
+            if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
+                Mage::getModel('admin/user')->sendAdminNotification($user);
+            }
+
+            if ($role) {
+                $user->setRoleId((int)$role)
+                    ->setRoleUserId($user->getUserId())
+                    ->saveRelations();
+            }
+            $this->_getSession()->addSuccess($this->__('The user has been saved.'));
+            $this->_getSession()->setUserData(false);
+            $this->_redirect('*/*/');
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+            $this->_getSession()->setUserData($data);
+            $this->_redirect('*/*/edit', ['user_id' => $user->getUserId()]);
+        }
     }
 
     public function deleteAction()
