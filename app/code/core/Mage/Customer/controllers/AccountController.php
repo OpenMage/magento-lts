@@ -895,7 +895,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function getCustomerId()
     {
-        $customerId = $this->getRequest()->getQuery("id");
+        $customerId = $this->getRequest()->getQuery('id', false);
         if (strlen($customerId) > 12) {
             $customerCollection = Mage::getModel('customer/customer')
                 ->getCollection()
