@@ -42,7 +42,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $filter
      * @return bool
      */
-    protected function _isAllowedAttribute($attribute, array $filter = null)
+    protected function _isAllowedAttribute($attribute, ?array $filter = null)
     {
         if (!is_null($filter)
             && !(in_array($attribute->getAttributeCode(), $filter)
@@ -62,7 +62,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array|null $filter
      * @return array
      */
-    public function getAllowedAttributes($entity, array $filter = null)
+    public function getAllowedAttributes($entity, ?array $filter = null)
     {
         $attributes = $entity->getResource()
                         ->loadAllAttributes($entity)

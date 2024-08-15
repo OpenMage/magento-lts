@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Api2
  *
- * @method string _create() _create(array $filteredData) creation of an entity
+ * @method string _create() _create(array $filteredData) creation of an entity, return location header
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
  * @method array _retrieve() retrieving an entity
  * @method array _retrieveCollection() retrieving a collection

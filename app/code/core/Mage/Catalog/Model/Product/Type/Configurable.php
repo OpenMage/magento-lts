@@ -421,6 +421,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function save($product = null)
     {
         parent::save($product);
+
         /**
          * Save Attributes Information
          */

@@ -70,7 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         return $this->_url;
     }
 
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
+    protected function _buildMenuArray(?Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
     {
         if (is_null($parent)) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
