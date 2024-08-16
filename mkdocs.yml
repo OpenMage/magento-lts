@@ -3,12 +3,12 @@ site_name: OpenMage Docs
 site_url: https://OpenMage.github.io/magento-lts/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
-edit_uri: blob/main/docs
+edit_uri: blob/main/docs/content
 copyright: OpenMage contributors
 site_author: OpenMage contributors
 site_description: >-
     Magento - Long Term Support.
-docs_dir: docs
+docs_dir: docs/content
 
 # Configuration
 theme:
