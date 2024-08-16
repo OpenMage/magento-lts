@@ -61,7 +61,7 @@ class Mage_Api2_Model_Acl_Filter
      */
     protected function _filter(array $allowedAttributes, array $data)
     {
-        foreach (array_keys($data) as $attribute) {
+        foreach ($data as $attribute => $value) {
             if (!in_array($attribute, $allowedAttributes)) {
                 unset($data[$attribute]);
             }

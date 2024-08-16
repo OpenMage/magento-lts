@@ -131,7 +131,7 @@ class Curl extends AbstractCurl implements CustomerInterface
      */
     protected function checkForUpdateData(array $data)
     {
-        foreach (array_keys($data) as $key) {
+        foreach ($data as $key => $field) {
             if (in_array($key, $this->updatingFields)) {
                 return true;
             }
