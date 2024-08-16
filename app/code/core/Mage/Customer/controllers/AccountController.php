@@ -891,12 +891,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * @return string|false
+     * @return string|false|null
      */
     protected function getCustomerId()
     {
-        $customerId = $this->getRequest()->getQuery('id', false);
-        if (strlen($customerId) > 12) {
+        $customerId = $this->getRequest()->getQuery("id");
+        if ($customerId !== null && strlen($customerId) > 12) {
             $customerCollection = Mage::getModel('customer/customer')
                 ->getCollection()
                 ->addAttributeToSelect(['rp_customer_id'])
