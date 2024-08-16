@@ -1,14 +1,14 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: OpenMage Docs
-site_url: https://sreichel.github.io/openmage-strict/
+site_url: https://OpenMage.github.io/magento-lts/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
-edit_uri: blob/main/docs/content
+edit_uri: blob/main/docs
 copyright: OpenMage contributors
 site_author: OpenMage contributors
 site_description: >-
     Magento - Long Term Support.
-docs_dir: docs/content
+docs_dir: docs
 
 # Configuration
 theme:
