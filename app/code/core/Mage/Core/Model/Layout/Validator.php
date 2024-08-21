@@ -108,7 +108,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if (!count($this->_disallowedBlock)) {
             $disallowedBlockConfig = $this->_getDisallowedBlockConfigValue();
             if (is_array($disallowedBlockConfig)) {
-                foreach (array_keys($disallowedBlockConfig) as $blockName) {
+                foreach ($disallowedBlockConfig as $blockName => $value) {
                     $this->_disallowedBlock[] = $blockName;
                 }
             }

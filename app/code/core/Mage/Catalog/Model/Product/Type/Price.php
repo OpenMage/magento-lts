@@ -300,7 +300,7 @@ class Mage_Catalog_Model_Product_Type_Price
     {
         $price = $product->getTierPrice($qty);
         if (is_array($price)) {
-            foreach (array_keys($price) as $index) {
+            foreach ($price as $index => $value) {
                 $price[$index]['formated_price'] = Mage::app()->getStore()->convertPrice(
                     $price[$index]['website_price'],
                     true

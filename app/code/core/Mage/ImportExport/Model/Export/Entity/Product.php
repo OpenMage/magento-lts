@@ -790,7 +790,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 '_custom_option_row_sku', '_custom_option_row_sort'
             ];
 
-            foreach (array_keys($this->_storeIdToCode) as &$storeId) {
+            foreach ($this->_storeIdToCode as $storeId => &$storeCode) {
                 $skip = false;
                 $options = Mage::getResourceModel('catalog/product_option_collection')
                     ->reset()
@@ -961,7 +961,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                     }
                     if (!empty($rowMultiselects[$productId][$storeId])) {
-                        foreach (array_keys($rowMultiselects[$productId][$storeId]) as $attrKey) {
+                        foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
                             if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                 $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                             }
@@ -1039,7 +1039,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                 $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                             }
                             if (!empty($rowMultiselects[$productId][$storeId])) {
-                                foreach (array_keys($rowMultiselects[$productId][$storeId]) as $attrKey) {
+                                foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
                                     if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                         $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                                     }

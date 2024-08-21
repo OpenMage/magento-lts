@@ -182,7 +182,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
                 ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
             $this->_items[$storeId] = $storeObject;
-            foreach (array_keys($this->_totals) as $key) {
+            foreach ($this->_totals as $key => $value) {
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }
