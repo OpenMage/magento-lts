@@ -231,7 +231,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Determine which version of docs should target onto
      *
-     * @return false|Varien_Simplexml_Element
+     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
      */
     protected function getHelpTargetVersion()
     {
