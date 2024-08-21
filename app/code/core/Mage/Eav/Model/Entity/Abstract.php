@@ -1594,7 +1594,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             ];
             $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
             $this->loadAllAttributes($object);
-            foreach (array_keys($this->getAttributesByTable()) as $table) {
+            foreach ($this->getAttributesByTable() as $table => $attributes) {
                 $this->_getWriteAdapter()->delete($table, $where);
             }
         } catch (Exception $e) {

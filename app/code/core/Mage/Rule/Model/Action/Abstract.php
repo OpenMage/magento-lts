@@ -52,11 +52,11 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         parent::__construct();
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
-        foreach (array_keys($this->getAttributeOption()) as $attr) {
+        foreach ($this->getAttributeOption() as $attr => $dummy) {
             $this->setAttribute($attr);
             break;
         }
-        foreach (array_keys($this->getOperatorOption()) as $operator) {
+        foreach ($this->getOperatorOption() as $operator => $dummy) {
             $this->setOperator($operator);
             break;
         }
