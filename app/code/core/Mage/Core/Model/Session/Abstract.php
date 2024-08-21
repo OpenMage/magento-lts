@@ -524,7 +524,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Retrieve session save method
      *
-     * @return string
+     * @return string|Varien_Simplexml_Element
      */
     public function getSessionSaveMethod()
     {
@@ -537,7 +537,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     /**
      * Get session save path
      *
-     * @return string
+     * @return string|Varien_Simplexml_Element
      */
     public function getSessionSavePath()
     {
