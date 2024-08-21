@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             'description'  => $model->getDescription(),
         ];
         if ($sessionData = Mage::getSingleton('adminhtml/session')->getData('urlrewrite_data', true)) {
-            foreach (array_keys($formValues) as $key) {
+            foreach ($formValues as $key => $value) {
                 if (isset($sessionData[$key])) {
                     $formValues[$key] = $sessionData[$key];
                 }
