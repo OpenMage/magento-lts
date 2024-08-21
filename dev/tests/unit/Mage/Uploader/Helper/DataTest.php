@@ -21,7 +21,6 @@ class DataTest extends TestCase
     }
 
     /**
-     * @coversDefaultClass Mage_Uploader_Helper_Data
      * @return void
      */
     public function testIsModuleEnabled(): void
