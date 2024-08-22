@@ -1101,7 +1101,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if ($productIds) { // update product entity table to show that product has options
                 $customOptionsProducts = $customOptions['product_id'];
 
-                foreach (array_keys($customOptionsProducts) as $key) {
+                foreach ($customOptionsProducts as $key => $value) {
                     if (!in_array($key, $productIds)) {
                         unset($customOptionsProducts[$key]);
                     }

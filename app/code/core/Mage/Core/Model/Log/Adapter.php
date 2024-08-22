@@ -115,7 +115,7 @@ class Mage_Core_Model_Log_Adapter
     protected function _filterDebugData($debugData)
     {
         if (is_array($debugData) && is_array($this->_debugReplacePrivateDataKeys)) {
-            foreach (array_keys($debugData) as $key) {
+            foreach ($debugData as $key => $value) {
                 if (in_array($key, $this->_debugReplacePrivateDataKeys)) {
                     $debugData[$key] = '****';
                 } else {
