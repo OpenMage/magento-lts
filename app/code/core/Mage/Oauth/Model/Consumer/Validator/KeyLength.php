@@ -35,8 +35,9 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      */
     public function __construct($options = [])
     {
+        $args = func_get_args();
         if (!is_array($options)) {
-            $options     = func_get_args();
+            $options = $args;
             if (!isset($options[1])) {
                 $options[1] = 'utf-8';
             }
