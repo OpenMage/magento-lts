@@ -200,6 +200,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $config = Mage::getConfig()->getNode('websites/' . $this->getCode() . '/' . $path);
             if (!$config) {
                 return false;
+                #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));
             }
             if ($config->hasChildren()) {
                 $value = [];
@@ -259,7 +260,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve new (not loaded) Group collection object with website filter
      *
      * @return Mage_Core_Model_Resource_Store_Group_Collection
-     * @throws Mage_Core_Exception
      */
     public function getGroupCollection()
     {
@@ -326,7 +326,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Load store collection and set internal data
      *
-     * @throws Mage_Core_Exception
      */
     protected function _loadStores()
     {
@@ -369,7 +368,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve new (not loaded) Store collection object with website filter
      *
      * @return Mage_Core_Model_Resource_Store_Collection
-     * @throws Mage_Core_Exception
      */
     public function getStoreCollection()
     {
@@ -379,10 +377,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve website store objects
+     * Retrieve wersite store objects
      *
      * @return Mage_Core_Model_Store[]
-     * @throws Mage_Core_Exception
      */
     public function getStores()
     {
@@ -396,7 +393,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve website store ids
      *
      * @return array
-     * @throws Mage_Core_Exception
      */
     public function getStoreIds()
     {
@@ -410,7 +406,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve website store codes
      *
      * @return array
-     * @throws Mage_Core_Exception
      */
     public function getStoreCodes()
     {
@@ -424,7 +419,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve number stores in a website
      *
      * @return int
-     * @throws Mage_Core_Exception
      */
     public function getStoresCount()
     {
@@ -438,7 +432,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * is can delete website
      *
      * @return bool
-     * @throws Mage_Core_Exception
      */
     public function isCanDelete()
     {
@@ -480,7 +473,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 
     /**
      * @inheritDoc
-     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete()
     {
@@ -537,7 +529,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve Default Website Store or null
      *
      * @return Mage_Core_Model_Store
-     * @throws Mage_Core_Exception
      */
     public function getDefaultStore()
     {
