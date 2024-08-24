@@ -216,7 +216,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * @param int $scopeId
      * @return string|false
      */
-    public function getValue(string $path, string $scope = 'default', int $scopeId = 0)
+    public function getConfig(string $path, string $scope, int $scopeId)
     {
         $readAdapter = $this->_getReadAdapter();
         $select = $readAdapter->select()
