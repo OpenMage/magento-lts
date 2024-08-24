@@ -18,4 +18,57 @@
         <exclude-pattern>*/Varien/Db/Tree.php*</exclude-pattern>
         <exclude-pattern>*/Varien/Directory/Collection.php*</exclude-pattern>
     </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_blowfishDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_cbcDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_ecbDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_randDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_create_ivDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Extensions.RemovedExtensions.mcryptDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_iv_sizeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_key_sizeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_genericDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_generic_deinitDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_generic_initDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_closeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_openDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mdecrypt_genericDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
 </ruleset>
