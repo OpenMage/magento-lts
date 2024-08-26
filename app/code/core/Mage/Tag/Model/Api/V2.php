@@ -59,7 +59,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      *
      * @param int $tagId
      * @param string|int $store
-     * @return array
+     * @return object|array
      */
     public function info($tagId, $store)
     {
