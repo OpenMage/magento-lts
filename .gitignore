@@ -38,8 +38,6 @@
 /dev/openmage/docker-magento
 /dev/openmage/.env
 /dev/openmage/Caddyfile
-/dev/tests/functional/generated
-/dev/tests/functional/vendor
 
 /media/*
 !/media/.htaccess
