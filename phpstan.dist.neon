@@ -12,11 +12,11 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
-        - dev/tests/unit
         - lib/Mage
         - lib/Magento
         - lib/Varien
         - shell
+        - tests/unit
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
