@@ -75,6 +75,8 @@
 phpstan*.neon
 !phpstan.dist.*.neon
 
+tests/unit/*.xml
+tests/unit/output/*.xml
 .phpunit.result.cache
 phpunit.xml
 !phpunit.xml.dist

@@ -15,7 +15,7 @@
 >
     <testsuites>
         <testsuite name="Unit">
-            <directory>./dev/tests/unit</directory>
+            <directory>dev/tests/unit</directory>
         </testsuite>
     </testsuites>
 
@@ -38,6 +38,6 @@
         </report>
     </coverage>
     <logging>
-        <junit outputFile="./dev/tests/junit.xml"/>
+        <junit outputFile="dev/tests/output/junit.xml"/>
     </logging>
 </phpunit>
