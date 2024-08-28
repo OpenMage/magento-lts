@@ -47,7 +47,7 @@ class XmlFileLoadingTest extends TestCase
     public function provideXmlFiles(): array
     {
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-        $root = realpath(__DIR__ . '/../../../../') . '/';
+        $root = realpath(__DIR__ . '/../../../') . '/';
 
         return [
             'file from vendor directory' => [
