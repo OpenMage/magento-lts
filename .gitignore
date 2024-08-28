@@ -73,8 +73,8 @@
 phpstan*.neon
 !phpstan.dist.*.neon
 
-dev/tests/coverage
-dev/tests/logging
+tests/coverage
+tests/logging
 .phpunit.result.cache
 phpunit.xml
 !phpunit.xml.dist

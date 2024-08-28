@@ -94,15 +94,15 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: dev/tests/logging/*.xml
+          files: tests/logging/*.xml
 
       - name: prepare SonarCloud Scan Data
         if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }}
         run: |
-          head dev/tests/coverage/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/logging/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/coverage/clover.xml
-          head ./dev/tests/coverage/clover.xml
+          head tests/coverage/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/logging/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/coverage/clover.xml
+          head ./tests/coverage/clover.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -110,7 +110,7 @@ jobs:
         if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
         with:
           args: >
-            -Dproject.settings=dev/sonar-project.properties
+            -Dproject.settings=tests/sonar-project.properties
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

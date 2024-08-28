@@ -89,7 +89,7 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
+            "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {

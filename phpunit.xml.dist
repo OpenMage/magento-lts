@@ -11,11 +11,11 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false"
-        bootstrap="dev/tests/bootstrap.php"
+        bootstrap="tests/bootstrap.php"
 >
     <testsuites>
         <testsuite name="Unit">
-            <directory>dev/tests/unit</directory>
+            <directory>tests/unit</directory>
         </testsuite>
     </testsuites>
 
@@ -33,11 +33,11 @@
             <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
         </exclude>
         <report>
-            <clover outputFile="dev/tests/coverage/clover.xml"/>
-            <crap4j outputFile="dev/tests/coverage/crap4j.xml"/>
+            <clover outputFile="tests/coverage/clover.xml"/>
+            <crap4j outputFile="tests/coverage/crap4j.xml"/>
         </report>
     </coverage>
     <logging>
-        <junit outputFile="dev/tests/logging/junit.xml"/>
+        <junit outputFile="tests/logging/junit.xml"/>
     </logging>
 </phpunit>
