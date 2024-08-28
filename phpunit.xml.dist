@@ -33,11 +33,11 @@
             <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
         </exclude>
         <report>
-            <clover outputFile="dev/tests/clover.xml"/>
-            <crap4j outputFile="dev/tests/crap4j.xml"/>
+            <clover outputFile="dev/tests/coverage/clover.xml"/>
+            <crap4j outputFile="dev/tests/coverage/crap4j.xml"/>
         </report>
     </coverage>
     <logging>
-        <junit outputFile="dev/tests/output/junit.xml"/>
+        <junit outputFile="dev/tests/logging/junit.xml"/>
     </logging>
 </phpunit>

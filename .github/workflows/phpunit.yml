@@ -92,23 +92,20 @@ jobs:
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
-        continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: output/*.xml
+          files: dev/tests/logging/*.xml
 
       - name: prepare SonarCloud Scan Data
-        continue-on-error: true
         if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }}
         run: |
-          head dev/tests/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/clover.xml
-          head ./dev/tests/clover.xml
+          head dev/tests/coverage/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/coverage/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/coverage/clover.xml
+          head ./dev/tests/coverage/clover.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
-        continue-on-error: true
         if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }} && SONAR_TOKEN
         with:
           args: >
