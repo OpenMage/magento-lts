@@ -7,11 +7,11 @@
     <file>install.php</file>
     <file>app/Mage.php</file>
     <file>app/code/core/Mage/</file>
-    <file>dev/tests/unit/</file>
     <file>lib/Mage/</file>
     <file>lib/Magento/</file>
     <file>lib/Varien/</file>
     <file>shell/</file>
+    <file>tests/unit/</file>
     <rule ref="PHPCompatibility" />
     <rule ref="PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore">
         <exclude-pattern>*/Varien/Object.php*</exclude-pattern>
