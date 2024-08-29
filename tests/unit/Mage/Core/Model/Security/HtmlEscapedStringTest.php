@@ -23,7 +23,7 @@ class HtmlEscapedStringTest extends TestCase
      * @param array<int, string> $allowedTags
      * @return void
      */
-    public function test__toSting(string $expectedResult, string $string, ?array $allowedTags): void
+    public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
