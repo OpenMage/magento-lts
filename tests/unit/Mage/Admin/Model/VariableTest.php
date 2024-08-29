@@ -25,17 +25,17 @@ class VariableTest extends TestCase
      * @dataProvider provideValidateData
      * @param array|true $expectedResult
      * @param string $variableName
-     * @param string $isallowed
+     * @param string $isAllowed
      * @return void
      */
-    public function testValidate($expectedResult, string $variableName, string $isallowed): void
+    public function testValidate($expectedResult, string $variableName, string $isAllowed): void
     {
         $mock = $this->getMockBuilder(Mage_Admin_Model_Variable::class)
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 
         $mock->expects($this->any())->method('getVariableName')->willReturn($variableName);
-        $mock->expects($this->any())->method('getIsAllowed')->willReturn($isallowed);
+        $mock->expects($this->any())->method('getIsAllowed')->willReturn($isAllowed);
         $this->assertSame($expectedResult, $mock->validate());
     }
 
