@@ -90,6 +90,7 @@ tinyMceWysiwygSetup.prototype =
             automatic_uploads: false,
             branding: false,
             promotion: false,
+            convert_unsafe_embeds: true, // default in TinyMCE v7.0
             convert_urls: false,
             relative_urls: true,
             skin: this.config.skin,
