@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Test git log
+        run: git log --pretty='%H %cs %s'
+
       - name: Run Update Copyright
         run: php -f shell/update-copyright.php
 
