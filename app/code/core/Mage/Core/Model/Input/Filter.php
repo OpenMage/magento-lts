@@ -250,7 +250,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     protected function _applyFiltrationWithHelper($value, Mage_Core_Helper_Abstract $helper, array $filterData)
     {
         if (!isset($filterData['method']) || empty($filterData['method'])) {
-            throw new Exception("Helper filtration method is not set");
+            throw new Exception('Helper filtration method is not set');
         }
         if (!isset($filterData['args']) || empty($filterData['args'])) {
             $filterData['args'] = [];

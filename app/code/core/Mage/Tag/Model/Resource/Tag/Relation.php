@@ -118,7 +118,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         $productIds = (is_array($model->getProductId())) ? $model->getProductId() : [$model->getProductId()];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'tag_id')
-            ->where("product_id IN(?)", $productIds)
+            ->where('product_id IN(?)', $productIds)
             ->order('tag_id');
         return $this->_getReadAdapter()->fetchCol($select);
     }

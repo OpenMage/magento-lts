@@ -268,6 +268,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     public function addProductName()
     {
         $productsId   = [];
+        $productsSku  = [];
         $productsData = [];
 
         foreach ($this->getItems() as $item) {
