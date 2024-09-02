@@ -162,11 +162,11 @@ class Varien_Profiler
                 }
             }
 
-            $out .= 'Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . "<br>";
-            $out .= 'Average query length: ' . $totalTime / $queryCount . ' seconds' . "<br>";
-            $out .= 'Queries per second: ' . $queryCount / $totalTime . "<br>";
-            $out .= 'Longest query length: ' . $longestTime . "<br>";
-            $out .= 'Longest query: <br>' . $longestQuery . "<hr>";
+            $out .= 'Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . '<br>';
+            $out .= 'Average query length: ' . $totalTime / $queryCount . ' seconds' . '<br>';
+            $out .= 'Queries per second: ' . $queryCount / $totalTime . '<br>';
+            $out .= 'Longest query length: ' . $longestTime . '<br>';
+            $out .= 'Longest query: <br>' . $longestQuery . '<hr>';
         }
         return $out;
     }

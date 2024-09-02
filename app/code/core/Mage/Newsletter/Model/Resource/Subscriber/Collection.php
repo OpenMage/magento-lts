@@ -83,8 +83,8 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
         $this->getSelect()
-            ->join(['link' => $this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
-            ->where("link.queue_id = ? ", $queue->getId());
+            ->join(['link' => $this->_queueLinkTable], 'link.subscriber_id = main_table.subscriber_id', [])
+            ->where('link.queue_id = ? ', $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
     }
@@ -173,7 +173,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      * @deprecated after 1.4.0.0-rc1
      *
      * @param string $field
-     * @return string
+     * @return string|Zend_Db_Expr
      */
     public function _getFieldTableAlias($field)
     {

@@ -117,21 +117,21 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             case 'website':
                 $itemId     = $this->getRequest()->getParam('website_id', null);
                 $model      = Mage::getModel('core/website');
-                $title      = Mage::helper('core')->__("Website");
-                $notExists  = Mage::helper('core')->__("The website does not exist.");
+                $title      = Mage::helper('core')->__('Website');
+                $notExists  = Mage::helper('core')->__('The website does not exist.');
                 $codeBase   = Mage::helper('core')->__('Before modifying the website code please make sure that it is not used in index.php.');
                 break;
             case 'group':
                 $itemId     = $this->getRequest()->getParam('group_id', null);
                 $model      = Mage::getModel('core/store_group');
-                $title      = Mage::helper('core')->__("Store");
-                $notExists  = Mage::helper('core')->__("The store does not exist");
+                $title      = Mage::helper('core')->__('Store');
+                $notExists  = Mage::helper('core')->__('The store does not exist');
                 $codeBase   = false;
                 break;
             case 'store':
                 $itemId     = $this->getRequest()->getParam('store_id', null);
                 $model      = Mage::getModel('core/store');
-                $title      = Mage::helper('core')->__("Store View");
+                $title      = Mage::helper('core')->__('Store View');
                 $notExists  = Mage::helper('core')->__("Store view doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php.');
                 break;
