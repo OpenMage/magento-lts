@@ -60,9 +60,9 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
             'core/url_rewrite',
             'category_id=entity_id',
             ['request_path'],
-            "{{table}}.is_system=1 AND " .
+            '{{table}}.is_system=1 AND ' .
                 "{{table}}.store_id='{$storeId}' AND " .
-                "{{table}}.category_id IS NOT NULL AND " .
+                '{{table}}.category_id IS NOT NULL AND ' .
                 "{{table}}.id_path LIKE 'category/%'",
             'left'
         );

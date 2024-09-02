@@ -129,7 +129,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addAvailableFilter()
     {
         $fieldExpression = '(qty_shipped - qty_returned)';
-        $resultCondition = $this->_getConditionSql($fieldExpression, ["gt" => 0]);
+        $resultCondition = $this->_getConditionSql($fieldExpression, ['gt' => 0]);
         $this->getSelect()->where($resultCondition);
         return $this;
     }

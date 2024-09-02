@@ -152,7 +152,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
         }
         if (!$this->isChildCalculated($item)) {
             if ($attributes = $this->getSelectionAttributes($item)) {
-                $result .= " " . $this->getItem()->getOrder()->formatPrice($attributes['price']);
+                $result .= ' ' . $this->getItem()->getOrder()->formatPrice($attributes['price']);
             }
         }
         return $result;

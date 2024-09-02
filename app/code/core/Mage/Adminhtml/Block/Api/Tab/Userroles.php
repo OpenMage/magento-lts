@@ -25,11 +25,11 @@ class Mage_Adminhtml_Block_Api_Tab_Userroles extends Mage_Adminhtml_Block_Widget
 
         $uid = $this->getRequest()->getParam('id', false);
         $uid = !empty($uid) ? $uid : 0;
-        $roles = Mage::getModel("api/roles")
+        $roles = Mage::getModel('api/roles')
             ->getCollection()
             ->load();
 
-        $user_roles = Mage::getModel("api/roles")
+        $user_roles = Mage::getModel('api/roles')
             ->getUsersCollection()
             ->setUserFilter($uid)
             ->load();
