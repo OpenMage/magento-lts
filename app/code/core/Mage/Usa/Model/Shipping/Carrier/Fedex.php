@@ -480,7 +480,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     $errorTitle = (string)$response->Notifications->Message;
                 }
             } elseif (isset($response->RateReplyDetails)) {
-                $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
+                $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
 
                 if (is_array($response->RateReplyDetails)) {
                     foreach ($response->RateReplyDetails as $rate) {
@@ -686,7 +686,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     $errorTitle = 'Unknown error';
                 }
 
-                $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
+                $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
 
                 foreach ($xml->Entry as $entry) {
                     if (in_array((string)$entry->Service, $allowedMethods)) {

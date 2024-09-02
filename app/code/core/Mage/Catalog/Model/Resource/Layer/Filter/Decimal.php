@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
         $select     = $this->_getSelect($filter);
         $adapter    = $this->_getReadAdapter();
 
-        $countExpr  = new Zend_Db_Expr("COUNT(*)");
+        $countExpr  = new Zend_Db_Expr('COUNT(*)');
         $rangeExpr  = new Zend_Db_Expr("FLOOR(decimal_index.value / {$range}) + 1");
 
         $select->columns([
