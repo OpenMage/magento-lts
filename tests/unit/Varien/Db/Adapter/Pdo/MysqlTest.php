@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   OpenMage
+ * @package    OpenMage_Tests
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
 namespace OpenMage\Tests\Unit\Varien\Db\Adapter\Pdo;
 
 use PHPUnit\Framework\TestCase;
@@ -36,6 +49,9 @@ class MysqlTest extends TestCase
         $constructor->invoke($this->adapter, $config);
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithUnixSocket(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -52,6 +68,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getPort());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv4Address(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -66,6 +85,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv4AddressWithoutPort(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -80,6 +102,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithHostname(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -94,6 +119,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithHostnameWithoutPort(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -108,6 +136,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv6Address(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -122,6 +153,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv6AddressWithoutPort(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -136,6 +170,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv6AddressWithZoneId(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
@@ -150,6 +187,9 @@ class MysqlTest extends TestCase
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
+    /**
+     * @group Varien_Db
+     */
     public function testGetHostInfoWithIpv6AddressWithZoneIdWithoutPort(): void
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');

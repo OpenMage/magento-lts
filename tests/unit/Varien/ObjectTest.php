@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   OpenMage
+ * @package    OpenMage_Tests
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
 namespace OpenMage\Tests\Unit\Varien;
 
 use PHPUnit\Framework\TestCase;
@@ -29,6 +42,8 @@ class ObjectTest extends TestCase
      * @param string $key
      * @param string|int|null $index
      * @return void
+     *
+     * @group Varien_Object
      */
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
@@ -159,6 +174,9 @@ class ObjectTest extends TestCase
         ];
     }
 
+    /**
+     * @group Varien_Object
+     */
     public function testToString(): void
     {
         $this->subject->setString1('open');
@@ -168,6 +186,9 @@ class ObjectTest extends TestCase
         $this->assertSame('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
     }
 
+    /**
+     * @group Varien_Object
+     */
     public function testGetSetUnsData(): void
     {
         $this->assertTrue($this->subject->isEmpty());
@@ -222,6 +243,9 @@ class ObjectTest extends TestCase
         }
     }
 
+    /**
+     * @group Varien_Object
+     */
     public function testOffset(): void
     {
         $this->assertFalse($this->subject->offsetExists('off'));

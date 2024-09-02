@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   OpenMage
+ * @package    OpenMage_Tests
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
 use Mage;
@@ -31,6 +44,8 @@ class FileTest extends TestCase
      * @param array<int, string> $expectedResult
      * @param string|array<int, string> $extensionsList
      * @return void
+     *
+     * @group Mage_Uploader
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
@@ -70,16 +85,25 @@ class FileTest extends TestCase
         ];
     }
 
+    /**
+     * @group Mage_Uploader
+     */
     public function testGetPostMaxSize(): void
     {
         $this->assertIsString($this->subject->getPostMaxSize());
     }
 
+    /**
+     * @group Mage_Uploader
+     */
     public function testGetUploadMaxSize(): void
     {
         $this->assertIsString($this->subject->getUploadMaxSize());
     }
 
+    /**
+     * @group Mage_Uploader
+     */
     public function testGetDataMaxSize(): void
     {
         $mock = $this->getMockBuilder(Mage_Uploader_Helper_File::class)
@@ -96,6 +120,8 @@ class FileTest extends TestCase
      * @param int $expectedResult
      * @param string $maxSize
      * @return void
+     *
+     * @group Mage_Uploader
      */
     public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
     {

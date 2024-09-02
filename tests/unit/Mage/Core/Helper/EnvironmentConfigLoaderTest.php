@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   OpenMage
+ * @package    OpenMage_Tests
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
@@ -28,6 +41,9 @@ class EnvironmentConfigLoaderTest extends TestCase
         Mage::setRoot();
     }
 
+    /**
+     * @group Mage_Core
+     */
     public function testBuildPath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
@@ -35,6 +51,9 @@ class EnvironmentConfigLoaderTest extends TestCase
         $this->assertEquals(self::XML_PATH_GENERAL, $path);
     }
 
+    /**
+     * @group Mage_Core
+     */
     public function testBuildNodePath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
@@ -42,6 +61,9 @@ class EnvironmentConfigLoaderTest extends TestCase
         $this->assertEquals(self::XML_PATH_DEFAULT, $nodePath);
     }
 
+    /**
+     * @group Mage_Core
+     */
     public function testXmlHasTestStrings(): void
     {
         $xmlStruct = $this->getTestXml();
@@ -54,7 +76,9 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     /**
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
-     * @param array<string, string> $config
+     * @param array $config
+     *
+     * @group Mage_Core
      */
     public function testEnvOverridesForValidConfigKeys(array $config): void
     {
@@ -176,6 +200,8 @@ class EnvironmentConfigLoaderTest extends TestCase
     /**
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @param array<string, string> $config
+     *
+     * @group Mage_Core
      */
     public function testEnvDoesNotOverrideForInvalidConfigKeys(array $config): void
     {

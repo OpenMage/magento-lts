@@ -14,8 +14,14 @@
         bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Unit">
-            <directory>tests/unit</directory>
+        <testsuite name="Base">
+            <directory>tests/unit/Base</directory>
+        </testsuite>
+        <testsuite name="Mage">
+            <directory>tests/unit/Mage</directory>
+        </testsuite>
+        <testsuite name="Varien">
+            <directory>tests/unit/Varien</directory>
         </testsuite>
     </testsuites>
 
