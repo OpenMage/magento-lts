@@ -42,7 +42,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
 
         if (!isset($options['slab_size']) || !is_numeric($options['slab_size'])) {
             if (isset($options['slab_size'])) {
-                throw new Varien_Exception("Invalid value for the node <slab_size>. Expected to be positive integer.");
+                throw new Varien_Exception('Invalid value for the node <slab_size>. Expected to be positive integer.');
             }
 
             $this->_options['slab_size'] = self::DEFAULT_SLAB_SIZE;

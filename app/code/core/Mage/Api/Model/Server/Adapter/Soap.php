@@ -123,7 +123,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function run()
     {
-        $apiConfigCharset = Mage::getStoreConfig("api/config/charset");
+        $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
@@ -226,7 +226,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
             if ($phpAuthUser && $phpAuthPw) {
                 $wsdlUrl = sprintf(
-                    "%s://%s:%s@%s",
+                    '%s://%s:%s@%s',
                     $scheme,
                     $phpAuthUser,
                     $phpAuthPw,
@@ -260,7 +260,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             $retry = false;
             try {
                 $this->_soap = new Zend_Soap_Server(
-                    $this->getWsdlUrl(["wsdl" => 1]),
+                    $this->getWsdlUrl(['wsdl' => 1]),
                     ['encoding' => $apiConfigCharset]
                 );
             } catch (SoapFault $e) {

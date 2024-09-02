@@ -307,7 +307,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (empty($sort)) {
             return false;
         }
-        $oldLocale = setlocale(LC_COLLATE, "0");
+        $oldLocale = setlocale(LC_COLLATE, '0');
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
         setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');

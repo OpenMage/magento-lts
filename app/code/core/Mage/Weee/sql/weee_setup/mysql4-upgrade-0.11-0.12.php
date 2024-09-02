@@ -17,7 +17,7 @@
 $installer = $this;
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('weee_tax'), 'entity_type_id', "smallint (5) unsigned not null");
+$installer->getConnection()->addColumn($installer->getTable('weee_tax'), 'entity_type_id', 'smallint (5) unsigned not null');
 $installer->run("
 UPDATE
     `{$installer->getTable('weee_tax')}`

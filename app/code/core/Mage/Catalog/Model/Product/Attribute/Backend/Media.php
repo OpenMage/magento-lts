@@ -243,14 +243,14 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             }
 
             if ($storeId === 0) {
-                $image["label_use_default"] = false;
-                $image["position_use_default"] = false;
+                $image['label_use_default'] = false;
+                $image['position_use_default'] = false;
             } else {
-                if (!isset($image["label_use_default"])) {
-                    $image["label_use_default"] = null;
+                if (!isset($image['label_use_default'])) {
+                    $image['label_use_default'] = null;
                 }
-                if (!isset($image["position_use_default"])) {
-                    $image["position_use_default"] = null;
+                if (!isset($image['position_use_default'])) {
+                    $image['position_use_default'] = null;
                 }
             }
 
@@ -259,8 +259,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             // Add per store labels, position, disabled
             $data = [];
             $data['value_id'] = $image['value_id'];
-            $data['label']    = ($image['label'] === null || $image["label_use_default"]) ? null : $image['label'];
-            $data['position'] = ($image['position'] === null || $image["position_use_default"]) ? null : (int) $image['position'];
+            $data['label']    = ($image['label'] === null || $image['label_use_default']) ? null : $image['label'];
+            $data['position'] = ($image['position'] === null || $image['position_use_default']) ? null : (int) $image['position'];
             $data['disabled'] = (int) $image['disabled'];
             $data['store_id'] = (int) $object->getStoreId();
 

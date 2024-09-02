@@ -95,7 +95,7 @@ class Mage_Archive_Helper_File
             }
 
             if (is_file($this->_filePath) && !is_writable($this->_filePath)) {
-                throw new Mage_Exception("Can't open file " . $this->_fileName . " for writing. Permission denied.");
+                throw new Mage_Exception("Can't open file " . $this->_fileName . ' for writing. Permission denied.');
             }
         }
 
