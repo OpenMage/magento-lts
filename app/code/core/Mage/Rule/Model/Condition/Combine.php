@@ -51,7 +51,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (empty($wheres)) {
             return '';
         }
-        $delimiter = $this->getAggregator() == "all" ? ' AND ' : ' OR ';
+        $delimiter = $this->getAggregator() == 'all' ? ' AND ' : ' OR ';
         return ' (' . implode($delimiter, $wheres) . ') ';
     }
 
@@ -232,8 +232,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function asXml($containerKey = 'conditions', $itemKey = 'condition')
     {
-        $xml = "<aggregator>" . $this->getAggregator() . "</aggregator>"
-            . "<value>" . $this->getValue() . "</value>"
+        $xml = '<aggregator>' . $this->getAggregator() . '</aggregator>'
+            . '<value>' . $this->getValue() . '</value>'
             . "<$containerKey>";
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
@@ -329,7 +329,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function asString($format = '')
     {
-        return Mage::helper('rule')->__("If %s of these conditions are %s:", $this->getAggregatorName(), $this->getValueName());
+        return Mage::helper('rule')->__('If %s of these conditions are %s:', $this->getAggregatorName(), $this->getValueName());
     }
 
     /**

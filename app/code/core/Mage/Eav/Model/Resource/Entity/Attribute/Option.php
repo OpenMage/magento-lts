@@ -84,10 +84,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         $attributeTable = $attribute->getBackend()->getTable();
         $attributeCode  = $attribute->getAttributeCode();
 
-        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
-            . " AND %s.attribute_id = " . $attribute->getId()
-            . " AND %s.store_id = %d";
+        $joinConditionTemplate = '%s.entity_id = %s.entity_id'
+            . ' AND %s.entity_type_id = ' . $attribute->getEntityTypeId()
+            . ' AND %s.attribute_id = ' . $attribute->getId()
+            . ' AND %s.store_id = %d';
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',
@@ -126,7 +126,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         }
 
         if ($attribute->getFlatAddChildData()) {
-            $select->where("e.is_child = ?", 0);
+            $select->where('e.is_child = ?', 0);
         }
 
         return $select;
