@@ -17,6 +17,6 @@
 $installer = $this;
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('sales_order_tax'), 'hidden', "smallint (5) unsigned not null default 0");
+$installer->getConnection()->addColumn($installer->getTable('sales_order_tax'), 'hidden', 'smallint (5) unsigned not null default 0');
 
 $installer->endSetup();

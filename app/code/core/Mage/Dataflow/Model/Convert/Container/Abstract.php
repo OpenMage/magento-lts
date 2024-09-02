@@ -129,7 +129,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
             } catch (Exception $e) {
                 $result = false;
                 $this->addException(
-                    "Invalid data, expecting serialized array.",
+                    'Invalid data, expecting serialized array.',
                     Mage_Dataflow_Model_Convert_Exception::FATAL
                 );
             }
@@ -144,7 +144,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
             $data = $this->getData();
         }
         if (!is_string($data)) {
-            $this->addException("Invalid data type, expecting string.", Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting string.', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -155,7 +155,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
             $data = $this->getData();
         }
         if (!is_array($data)) {
-            $this->addException("Invalid data type, expecting array.", Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting array.', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -170,7 +170,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
                 return true;
             }
             $this->addException(
-                "Invalid data type, expecting 2D grid array.",
+                'Invalid data type, expecting 2D grid array.',
                 Mage_Dataflow_Model_Convert_Exception::FATAL
             );
         }

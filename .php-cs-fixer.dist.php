@@ -83,6 +83,8 @@ return $config
         'single_import_per_statement' => true,
         // Each namespace use MUST go on its own line and there MUST be one blank line after the use statements block.
         'single_line_after_imports' => true,
+        // Convert double quotes to single quotes for simple strings.
+        'single_quote' => true,
         // Each trait `use` must be done as single statement.
         'single_trait_insert_per_statement' => true,
         // A case should be followed by a colon and not a semicolon.

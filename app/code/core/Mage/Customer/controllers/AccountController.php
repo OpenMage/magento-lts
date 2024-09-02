@@ -23,8 +23,8 @@ use Mage_Customer_Helper_Data as Helper;
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {
-    public const CUSTOMER_ID_SESSION_NAME = "customerId";
-    public const TOKEN_SESSION_NAME = "token";
+    public const CUSTOMER_ID_SESSION_NAME = 'customerId';
+    public const TOKEN_SESSION_NAME = 'token';
 
     /**
      * Action list where need check enabled cookie
