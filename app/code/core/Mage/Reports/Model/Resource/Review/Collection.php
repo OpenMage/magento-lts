@@ -61,7 +61,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->columns("COUNT(main_table.review_id)");
+        $countSelect->columns('COUNT(main_table.review_id)');
 
         return $countSelect;
     }
