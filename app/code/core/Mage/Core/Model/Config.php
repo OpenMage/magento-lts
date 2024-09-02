@@ -724,7 +724,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get node value from cached section data
      *
      * @param array $path
-     * @return false|Varien_Simplexml_Element
+     * @return false|Mage_Core_Model_Config_Element
      */
     public function getSectionNode($path)
     {
@@ -741,7 +741,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @return Mage_Core_Model_Config_Element
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -1150,7 +1150,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get module config node
      *
      * @param string $moduleName
-     * @return Mage_Core_Model_Config_Element|SimpleXMLElement
+     * @return Mage_Core_Model_Config_Element
      */
     public function getModuleConfig($moduleName = '')
     {
