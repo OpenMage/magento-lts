@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
+use Mage;
 use Mage_Core_Model_Locale;
 use PHPUnit\Framework\TestCase;
 
@@ -26,6 +27,12 @@ class LocaleTest extends TestCase
      * @var Mage_Core_Model_Locale
      */
     public Mage_Core_Model_Locale $subject;
+
+    public function setUp(): void
+    {
+        Mage::app();
+        $this->subject = Mage::getModel('core/locale');
+    }
 
     /**
      * @dataProvider provideGetNumberData
@@ -37,8 +44,6 @@ class LocaleTest extends TestCase
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Core_Model_Locale();
         $this->assertSame($expectedResult, $this->subject->getNumber($value));
     }
 
