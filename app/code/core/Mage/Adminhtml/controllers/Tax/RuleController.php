@@ -79,7 +79,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             $ruleModel->setData($data);
         }
 
-        $this->_title($ruleModel->getId() ? sprintf("%s", $ruleModel->getCode()) : $this->__('New Rule'));
+        $this->_title($ruleModel->getId() ? sprintf('%s', $ruleModel->getCode()) : $this->__('New Rule'));
 
         Mage::register('tax_rule', $ruleModel);
 
@@ -157,7 +157,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
         //Verify if a Rule already exists. If not throw an error
         if (count($existingRules) > 0) {
-            $ruleCodes = implode(",", $existingRules);
+            $ruleCodes = implode(',', $existingRules);
             $session->addError(
                 $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes)
             );

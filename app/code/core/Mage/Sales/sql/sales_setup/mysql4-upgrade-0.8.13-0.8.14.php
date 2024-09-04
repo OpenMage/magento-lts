@@ -218,7 +218,7 @@ foreach ($orders as $order) {
 
     $installer->run("UPDATE {$this->getTable('sales_order_entity')} SET parent_id={$new_entity_id} WHERE parent_id={$old_entity_id}");
 
-    $tables = ["varchar", "int", "datetime", "text", "decimal"];
+    $tables = ['varchar', 'int', 'datetime', 'text', 'decimal'];
     foreach ($tables as $table) {
         $delete = [];
         $attrs = $installer->getConnection()->fetchAll("SELECT tt.* FROM {$this->getTable('sales_order_entity')}_{$table} tt JOIN eav_attribute on eav_attribute.attribute_id = tt.attribute_id  WHERE entity_id={$old_entity_id}");

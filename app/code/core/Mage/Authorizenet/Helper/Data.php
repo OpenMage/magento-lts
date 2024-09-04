@@ -62,7 +62,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSaveOrderUrlParams($controller)
     {
         $route = [];
-        if ($controller === "onepage") {
+        if ($controller === 'onepage') {
             $route['action'] = 'saveOrder';
             $route['controller'] = 'onepage';
             $route['module'] = 'checkout';

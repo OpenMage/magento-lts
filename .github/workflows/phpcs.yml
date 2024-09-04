@@ -24,7 +24,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.1
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,4 +45,4 @@ jobs:
 
       - name: PHPCodeSniffer
         run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules.path }}
-        continue-on-error: ${{ matrix.rules.path != '.phpcs.xml.dist' }}
+        continue-on-error: ${{ matrix.rules.path == '.phpcs.ecg.xml.dist' }}
