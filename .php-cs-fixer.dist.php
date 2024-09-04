@@ -6,7 +6,10 @@
 */
 $config = new PhpCsFixer\Config();
 return $config
+    ->setRiskyAllowed(true)
     ->setRules([
+        // PHP arrays should be declared using the configured syntax.
+        'array_syntax' => ['syntax' => 'short'],
         // There MUST be one blank line after the namespace declaration.
         'blank_line_after_namespace' => true,
         // Ensure there is no code on the same line as the PHP open tag and it is followed by a blank line.
@@ -33,6 +36,8 @@ return $config
         'indentation_type' => true,
         // All PHP files must use same line ending.
         'line_ending' => true,
+        // Use && and || logical operators instead of and and or.
+        'logical_operators' => true,
         // Cast should be written in lower case.
         'lowercase_cast' => true,
         // PHP keywords MUST be in lower case.
@@ -41,6 +46,8 @@ return $config
         'lowercase_static_reference' => true,
         // In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.
         'method_argument_space' => true,
+        // Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operator.
+        'modernize_types_casting' => true,
         // All instances created with new keyword must be followed by braces.
         'new_with_braces' => true,
         // There should be no empty lines after class opening brace.
@@ -83,6 +90,8 @@ return $config
         'single_import_per_statement' => true,
         // Each namespace use MUST go on its own line and there MUST be one blank line after the use statements block.
         'single_line_after_imports' => true,
+        // Convert double quotes to single quotes for simple strings.
+        'single_quote' => true,
         // Each trait `use` must be done as single statement.
         'single_trait_insert_per_statement' => true,
         // A case should be followed by a colon and not a semicolon.
