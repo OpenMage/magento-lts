@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
 
             $data = (float) $data * $this->_getRate($row);
             $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
-            $data = sprintf("%F", $data);
+            $data = sprintf('%F', $data);
             $data = Mage::app()->getLocale()->currency($currency_code)->toCurrency($data);
             return $sign . $data;
         }

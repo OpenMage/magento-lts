@@ -61,8 +61,9 @@ class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
      */
     public function ifEquals($conditionKeys)
     {
+        $args = func_get_args();
         if (!is_array($conditionKeys)) {
-            $conditionKeys = func_get_args();
+            $conditionKeys = $args;
         }
 
         // evaluate conditions (equality)

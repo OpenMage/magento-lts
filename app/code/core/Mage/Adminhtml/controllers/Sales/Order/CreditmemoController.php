@@ -179,7 +179,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         $creditmemo = $this->_initCreditmemo();
         if ($creditmemo) {
-            $this->_title(sprintf("#%s", $creditmemo->getIncrementId()));
+            $this->_title(sprintf('#%s', $creditmemo->getIncrementId()));
 
             $this->loadLayout();
 
@@ -212,9 +212,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         if ($creditmemo = $this->_initCreditmemo()) {
             if ($creditmemo->getInvoice()) {
-                $this->_title($this->__("New Memo for #%s", $creditmemo->getInvoice()->getIncrementId()));
+                $this->_title($this->__('New Memo for #%s', $creditmemo->getInvoice()->getIncrementId()));
             } else {
-                $this->_title($this->__("New Memo"));
+                $this->_title($this->__('New Memo'));
             }
 
             if ($comment = Mage::getSingleton('adminhtml/session')->getCommentText(true)) {

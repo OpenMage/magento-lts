@@ -131,7 +131,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         $paymentData = $this->_preparePaymentData($paymentData);
 
         if (empty($paymentData)) {
-            $this->_fault("payment_method_empty");
+            $this->_fault('payment_method_empty');
         }
 
         if ($quote->isVirtual()) {
@@ -166,7 +166,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                         || $method->getCode() == 'free'
                         || ($quote->hasRecurringItems() && $method->canManageRecurringProfiles())))
                 ) {
-                    $this->_fault("method_not_allowed");
+                    $this->_fault('method_not_allowed');
                 }
             }
         }

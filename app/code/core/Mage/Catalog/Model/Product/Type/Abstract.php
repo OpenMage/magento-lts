@@ -449,7 +449,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                             if (isset($queueOptions['option'])) {
                                 $queueOptions['option']->setIsValid(false);
                             }
-                            Mage::throwException(Mage::helper('catalog')->__("File upload failed"));
+                            Mage::throwException(Mage::helper('catalog')->__('File upload failed'));
                         }
                         Mage::helper('core/file_storage_database')->saveFile($dst);
                         break;

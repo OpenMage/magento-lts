@@ -37,7 +37,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     {
         parent::__construct($options);
         if (!is_numeric($this->getOption('slab_size'))) {
-            throw new Varien_Exception("Invalid value for the node <slab_size>. Expected to be integer.");
+            throw new Varien_Exception('Invalid value for the node <slab_size>. Expected to be integer.');
         }
     }
 

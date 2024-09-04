@@ -89,10 +89,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asXml()
     {
-        return "<type>" . $this->getType() . "</type>"
-            . "<attribute>" . $this->getAttribute() . "</attribute>"
-            . "<operator>" . $this->getOperator() . "</operator>"
-            . "<value>" . $this->getValue() . "</value>";
+        return '<type>' . $this->getType() . '</type>'
+            . '<attribute>' . $this->getAttribute() . '</attribute>'
+            . '<operator>' . $this->getOperator() . '</operator>'
+            . '<value>' . $this->getValue() . '</value>';
     }
 
     /**
@@ -313,7 +313,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asString($format = '')
     {
-        return "";
+        return '';
     }
 
     /**
