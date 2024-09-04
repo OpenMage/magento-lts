@@ -72,4 +72,4 @@ class DataTest extends TestCase
     {
         $this->assertTrue($this->subject->isSwfDisabled());
     }
- }
+}

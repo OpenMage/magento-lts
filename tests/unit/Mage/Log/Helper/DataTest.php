@@ -72,4 +72,4 @@ class DataTest extends TestCase
         $this->assertIsBool($this->subject->isLogFileExtensionValid('invalid.file'));
         $this->assertIsBool($this->subject->isLogFileExtensionValid('valid.log'));
     }
- }
+}
