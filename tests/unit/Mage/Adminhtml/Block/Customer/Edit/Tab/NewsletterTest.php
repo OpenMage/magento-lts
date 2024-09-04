@@ -50,7 +50,7 @@ class NewsletterTest extends TestCase
         $mock->expects($this->any())
             ->method('getRegistryCurrentCustomer')
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            ->willReturn(new Mage_Customer_Model_Customer);
+            ->willReturn(new Mage_Customer_Model_Customer());
 
         $this->assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter::class, $mock->initForm());
     }

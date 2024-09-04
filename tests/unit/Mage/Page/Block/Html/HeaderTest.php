@@ -79,6 +79,5 @@ class HeaderTest extends TestCase
     public function testGetLogoAlt(): void
     {
         $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
-        $this->assertIsString((string)$this->subject->getLogoAlt());
     }
 }

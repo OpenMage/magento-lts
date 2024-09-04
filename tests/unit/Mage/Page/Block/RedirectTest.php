@@ -41,7 +41,7 @@ class RedirectTest extends TestCase
      */
     public function testGetTargetUrl(): void
     {
-        $this->assertEquals('', $this->subject->getTargetUrl());
+        $this->assertEquals('', $this->subject->getTargetURL());
     }
 
     /**

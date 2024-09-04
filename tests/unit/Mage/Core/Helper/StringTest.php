@@ -48,7 +48,7 @@ class StringTest extends TestCase
         $this->assertSame('', $this->subject->truncate(null));
         $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 0));
 
-        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 3,));
+        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 3));
 
         $remainder = '';
         $this->assertSame('12...', $this->subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));

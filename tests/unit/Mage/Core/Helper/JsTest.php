@@ -76,8 +76,8 @@ class JsTest extends TestCase
      */
     public function testGetDeleteConfirmJs(): void
     {
-        $this->assertIsString($this->subject->getDeleteConfirmJs('foo'));
-        $this->assertIsString($this->subject->getDeleteConfirmJs('foo', 'bar'));
+        $this->assertStringStartsWith('deleteConfirm', $this->subject->getDeleteConfirmJs('foo'));
+        $this->assertStringStartsWith('deleteConfirm', $this->subject->getDeleteConfirmJs('foo', 'bar'));
     }
 
     /**
@@ -86,8 +86,8 @@ class JsTest extends TestCase
      */
     public function testGetConfirmSetLocationJs(): void
     {
-        $this->assertIsString($this->subject->getConfirmSetLocationJs('foo'));
-        $this->assertIsString($this->subject->getConfirmSetLocationJs('foo', 'bar'));
+        $this->assertStringStartsWith('confirmSetLocation', $this->subject->getConfirmSetLocationJs('foo'));
+        $this->assertStringStartsWith('confirmSetLocation', $this->subject->getConfirmSetLocationJs('foo', 'bar'));
     }
 
     /**
@@ -96,7 +96,7 @@ class JsTest extends TestCase
      */
     public function testGetSetLocationJs(): void
     {
-        $this->assertIsString($this->subject->getSetLocationJs('foo'));
+        $this->assertStringStartsWith('setLocation', $this->subject->getSetLocationJs('foo'));
     }
 
     /**
@@ -105,6 +105,6 @@ class JsTest extends TestCase
      */
     public function testGetSaveAndContinueEditJs(): void
     {
-        $this->assertIsString($this->subject->getSaveAndContinueEditJs('foo'));
+        $this->assertStringStartsWith('saveAndContinueEdit', $this->subject->getSaveAndContinueEditJs('foo'));
     }
 }
