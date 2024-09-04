@@ -35,8 +35,6 @@ class LogTest extends TestCase
     }
 
     /**
-     * @return void
-     *
      * @group Mage_Log
      * @group Mage_Log_Model
      */
