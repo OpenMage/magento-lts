@@ -112,7 +112,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ->limit(1);
 
         $conditions = [
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
+            'dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode',
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
             "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :postcode",
             "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :postcode",
@@ -397,7 +397,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // protect from duplicate
-        $hash = sprintf("%s-%d-%s-%F", $countryId, $regionId, $zipCode, $value);
+        $hash = sprintf('%s-%d-%s-%F', $countryId, $regionId, $zipCode, $value);
         if (isset($this->_importUniqueHash[$hash])) {
             $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', $rowNumber, $row[0], $row[1], $zipCode, $value);
             return false;

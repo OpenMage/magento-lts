@@ -36,7 +36,7 @@ class Mage_Reports_Model_Totals
             if ($col->getTotal() === null) {
                 continue;
             }
-            $columns[$col->getIndex()] = ["total" => $col->getTotal(), "value" => 0];
+            $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];
         }
 
         $count = 0;

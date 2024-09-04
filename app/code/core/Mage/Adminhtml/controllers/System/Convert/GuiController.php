@@ -13,7 +13,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-include_once "ProfileController.php";
+include_once 'ProfileController.php';
 
 /**
  * Convert GUI admin controller
