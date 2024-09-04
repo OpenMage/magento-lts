@@ -42,18 +42,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
     {
         $html = '';
 
-        $addButtonData = array(
+        $addButtonData = [
             'label'     => Mage::helper('sales')->__('Create New Customer'),
             'onclick'   => 'order.setCustomerId(false)',
             'class'     => 'add',
-        );
+        ];
         $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
 
-        $addButtonData = array(
+        $addButtonData = [
             'label'     => Mage::helper('sales')->__('Create Guest Order'),
             'onclick'   => 'order.setCustomerIsGuest()',
             'class'     => 'add',
-        );
+        ];
         $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
 
         return $html;

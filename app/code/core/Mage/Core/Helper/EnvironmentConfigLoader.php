@@ -110,7 +110,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             'trim'
         );
         list($_, $scope) = $configKeyParts;
-        return array($configKeyParts, $scope);
+        return [$configKeyParts, $scope];
     }
 
     protected function isConfigKeyValid(string $configKey): bool
