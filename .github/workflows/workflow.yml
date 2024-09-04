@@ -93,10 +93,10 @@ jobs:
     uses: ./.github/workflows/phpstan.yml
 
   # DOES NOT run by default
-  # runs on schedule or when worklfow changed
+  # runs on schedule or when workflow changed
   syntax_php:
     name: PHP Syntax
-    needs: [check, phpcs, php-cs-fixer]
+    needs: [check, php-cs-fixer]
     if: needs.check.outputs.workflow > 0
     uses: ./.github/workflows/syntax-php.yml
 
@@ -107,10 +107,10 @@ jobs:
     uses: ./.github/workflows/syntax-xml.yml
 
   # DOES NOT run by default
-  # runs on schedule or when worklfow or unit tests changed
+  # runs on schedule or when workflow or unit tests changed
   unit_tests:
     name: Unit Tests (OpenMage)
-    needs: [check, phpcs, php-cs-fixer]
+    needs: [check, php-cs-fixer]
     if: |
       needs.check.outputs.phpunit-test > 0 ||
       needs.check.outputs.phpunit > 0 ||
