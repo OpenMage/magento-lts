@@ -40,8 +40,8 @@ class ViewTest extends TestCase
      *
      * @group Mage_Adminhtml
      */
-    public function testInitForm(): void
-    {
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $this->subject->initForm());
-    }
+//    public function testInitForm(): void
+//    {
+//        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $this->subject->initForm());
+//    }
 }

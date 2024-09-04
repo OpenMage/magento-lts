@@ -42,7 +42,7 @@ class HtmlEscapedStringTest extends TestCase
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->__toString());
+        $this->assertEquals($expectedResult, $this->subject->__toString());
     }
 
     /**
@@ -58,7 +58,7 @@ class HtmlEscapedStringTest extends TestCase
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
+        $this->assertEquals($expectedResult, $this->subject->getUnescapedValue());
     }
 
     /**

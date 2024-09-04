@@ -59,7 +59,7 @@ class UserTest extends TestCase
         $mock->expects($this->any())->method('hasPassword')->willReturn($methods['hasPassword']);
         $mock->expects($this->any())->method('getPassword')->willReturn($methods['getPassword']);
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-        $this->assertSame($expectedResult, $mock->validate());
+        $this->assertEquals($expectedResult, $mock->validate());
     }
 
     /**

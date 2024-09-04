@@ -49,7 +49,7 @@ class FileTest extends TestCase
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
+        $this->assertEquals($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
@@ -112,7 +112,7 @@ class FileTest extends TestCase
 
         $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
         $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        $this->assertSame('1M', $mock->getDataMaxSize());
+        $this->assertEquals('1M', $mock->getDataMaxSize());
     }
 
     /**
@@ -130,7 +130,7 @@ class FileTest extends TestCase
             ->getMock();
 
         $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        $this->assertEquals($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 
     /**

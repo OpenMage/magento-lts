@@ -48,7 +48,7 @@ class CustomerTest extends TestCase
 //            $this->subject->saveRow($data);
 //            $this->fail();
 //        } catch (Mage_Core_Exception $e) {
-//            $this->assertSame('Skipping import row, required field "website" is not defined.', $e->getMessage());
+//            $this->assertEquals('Skipping import row, required field "website" is not defined.', $e->getMessage());
 //        }
 //    }
 //
@@ -67,7 +67,7 @@ class CustomerTest extends TestCase
 //            $this->subject->saveRow($data);
 //            $this->fail();
 //        } catch (Mage_Core_Exception $e) {
-//            $this->assertSame('Skipping import row, required field "email" is not defined.', $e->getMessage());
+//            $this->assertEquals('Skipping import row, required field "email" is not defined.', $e->getMessage());
 //        }
 //    }
 //
@@ -87,7 +87,7 @@ class CustomerTest extends TestCase
 //            $this->subject->saveRow($data);
 //            $this->fail();
 //        } catch (Mage_Core_Exception $e) {
-//            $this->assertSame('Skipping import row, the value "" is not valid for the "group" field.', $e->getMessage());
+//            $this->assertEquals('Skipping import row, the value "" is not valid for the "group" field.', $e->getMessage());
 //        }
 //    }
 //
@@ -130,7 +130,7 @@ class CustomerTest extends TestCase
 //            $this->subject->saveRow($data);
 //            $this->fail();
 //        } catch (Mage_Core_Exception $e) {
-//            $this->assertSame('Skip import row, required field "lastname" for the new customer is not defined.', $e->getMessage());
+//            $this->assertEquals('Skip import row, required field "lastname" for the new customer is not defined.', $e->getMessage());
 //        }
 //    }
 

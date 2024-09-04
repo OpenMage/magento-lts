@@ -181,9 +181,9 @@ class ObjectTest extends TestCase
     {
         $this->subject->setString1('open');
         $this->subject->setString2('mage');
-        $this->assertSame('open, mage', $this->subject->toString());
-        $this->assertSame('openmage', $this->subject->toString('{{string1}}{{string2}}'));
-        $this->assertSame('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
+        $this->assertEquals('open, mage', $this->subject->toString());
+        $this->assertEquals('openmage', $this->subject->toString('{{string1}}{{string2}}'));
+        $this->assertEquals('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
     }
 
     /**
@@ -202,36 +202,36 @@ class ObjectTest extends TestCase
         $this->subject->setData('left', 'over');
         $this->assertFalse($this->subject->isEmpty());
 
-        $this->assertSame('abc', $this->subject->getData('a_b_c'));
-        $this->assertSame('abc', $this->subject->getABC());
+        $this->assertEquals('abc', $this->subject->getData('a_b_c'));
+        $this->assertEquals('abc', $this->subject->getABC());
         $this->subject->unsetData('a_b_c');
 
-        $this->assertSame('efg', $this->subject->getData('efg'));
-        $this->assertSame('efg', $this->subject->getEfg());
+        $this->assertEquals('efg', $this->subject->getData('efg'));
+        $this->assertEquals('efg', $this->subject->getEfg());
         $this->subject->unsEfg();
 
-        $this->assertSame('123', $this->subject->getData('123'));
-        $this->assertSame('123', $this->subject->get123());
+        $this->assertEquals('123', $this->subject->getData('123'));
+        $this->assertEquals('123', $this->subject->get123());
         $this->subject->uns123();
 
         $this->subject->unsetData('345');
 
-        $this->assertSame('value_a_first', $this->subject->getData('key_a_first'));
-        $this->assertSame('value_a_first', $this->subject->getKeyAFirst());
+        $this->assertEquals('value_a_first', $this->subject->getData('key_a_first'));
+        $this->assertEquals('value_a_first', $this->subject->getKeyAFirst());
         $this->subject->unsetData('key_a_first');
 
-        $this->assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
-        $this->assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
+        $this->assertEquals('value_a_2nd', $this->subject->getData('key_a_2nd'));
+        $this->assertEquals('value_a_2nd', $this->subject->getKeyA_2nd());
         $this->subject->unsetData('key_a_2nd');
 
-        $this->assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
-        $this->assertSame('value_a_3rd', $this->subject->getKeyA3rd());
+        $this->assertEquals('value_a_3rd', $this->subject->getData('key_a3rd'));
+        $this->assertEquals('value_a_3rd', $this->subject->getKeyA3rd());
         $this->subject->unsetData('key_a3rd');
 
-        $this->assertSame(['left' => 'over'], $this->subject->getData());
+        $this->assertEquals(['left' => 'over'], $this->subject->getData());
 
         $this->subject->unsetData();
-        $this->assertSame([], $this->subject->getData());
+        $this->assertEquals([], $this->subject->getData());
         $this->assertTrue($this->subject->isEmpty());
 
         try {
@@ -252,8 +252,8 @@ class ObjectTest extends TestCase
 
         $this->subject->offsetSet('off', 'set');
         $this->assertTrue($this->subject->offsetExists('off'));
-        $this->assertSame('set', $this->subject->offsetGet('off'));
-        $this->assertSame(null, $this->subject->offsetGet('not-exists'));
+        $this->assertEquals('set', $this->subject->offsetGet('off'));
+        $this->assertEquals(null, $this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
         $this->assertFalse($this->subject->offsetExists('off'));

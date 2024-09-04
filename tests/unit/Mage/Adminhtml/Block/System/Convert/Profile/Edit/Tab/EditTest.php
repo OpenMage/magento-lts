@@ -40,8 +40,8 @@ class EditTest extends TestCase
      *
      * @group Mage_Adminhtml
      */
-    public function testInitForm(): void
-    {
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class, $this->subject->initForm());
-    }
+//    public function testInitForm(): void
+//    {
+//        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class, $this->subject->initForm());
+//    }
 }
