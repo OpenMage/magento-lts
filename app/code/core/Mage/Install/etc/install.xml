@@ -69,6 +69,7 @@
                 <ctype/>
                 <curl/>
                 <dom/>
+                <ftp/>
                 <gd/>
                 <hash/>
                 <iconv/>
