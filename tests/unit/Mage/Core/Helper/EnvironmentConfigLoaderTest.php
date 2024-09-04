@@ -43,35 +43,38 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testBuildPath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $path = $environmentConfigLoaderHelper->exposedBuildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
-        $this->assertEquals(self::XML_PATH_GENERAL, $path);
+        $this->assertSame(self::XML_PATH_GENERAL, $path);
     }
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testBuildNodePath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $nodePath = $environmentConfigLoaderHelper->exposedBuildNodePath('DEFAULT', self::XML_PATH_GENERAL);
-        $this->assertEquals(self::XML_PATH_DEFAULT, $nodePath);
+        $this->assertSame(self::XML_PATH_DEFAULT, $nodePath);
     }
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testXmlHasTestStrings(): void
     {
         $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
-        $this->assertEquals('test_default', (string)$xml->getNode(self::XML_PATH_DEFAULT));
-        $this->assertEquals('test_website', (string)$xml->getNode(self::XML_PATH_WEBSITE));
-        $this->assertEquals('test_store', (string)$xml->getNode(self::XML_PATH_STORE));
+        $this->assertSame('test_default', (string)$xml->getNode(self::XML_PATH_DEFAULT));
+        $this->assertSame('test_website', (string)$xml->getNode(self::XML_PATH_WEBSITE));
+        $this->assertSame('test_store', (string)$xml->getNode(self::XML_PATH_STORE));
     }
 
     /**
@@ -79,6 +82,7 @@ class EnvironmentConfigLoaderTest extends TestCase
      * @param array $config
      *
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testEnvOverridesForValidConfigKeys(array $config): void
     {
@@ -213,11 +217,11 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        $this->assertEquals($defaultValue, (string)$xml->getNode(self::XML_PATH_DEFAULT));
+        $this->assertSame($defaultValue, (string)$xml->getNode(self::XML_PATH_DEFAULT));
         $defaultWebsiteValue = 'test_website';
-        $this->assertEquals($defaultWebsiteValue, (string)$xml->getNode(self::XML_PATH_WEBSITE));
+        $this->assertSame($defaultWebsiteValue, (string)$xml->getNode(self::XML_PATH_WEBSITE));
         $defaultStoreValue = 'test_store';
-        $this->assertEquals($defaultStoreValue, (string)$xml->getNode(self::XML_PATH_STORE));
+        $this->assertSame($defaultStoreValue, (string)$xml->getNode(self::XML_PATH_STORE));
 
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();

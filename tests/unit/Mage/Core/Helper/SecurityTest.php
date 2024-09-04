@@ -41,6 +41,9 @@ class SecurityTest extends TestCase
 
     /**
      * @return array<int|string, array<int, array<empty, empty>|Mage_Page_Block_Html_Topmenu_Renderer|Mage_Core_Block_Template|string>>
+     *
+     * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function validateAgainstBlockMethodBlacklistDataProvider(): array
     {
@@ -73,6 +76,7 @@ class SecurityTest extends TestCase
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testValidateAgainstBlockMethodBlacklist(
         Mage_Core_Block_Abstract $block,
@@ -140,6 +144,7 @@ class SecurityTest extends TestCase
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testValidateAgainstBlockMethodBlacklistThrowsException(
         Mage_Core_Block_Abstract $block,
