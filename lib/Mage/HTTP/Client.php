@@ -40,10 +40,10 @@ class Mage_HTTP_Client
             $frontend = self::detectFrontend();
         }
         if (false === $frontend) {
-            throw new Exception("Cannot find frontend automatically, set it manually");
+            throw new Exception('Cannot find frontend automatically, set it manually');
         }
 
-        $class = __CLASS__ . "_" . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
+        $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
         $obj = new $class();
         return $obj;
     }
@@ -56,11 +56,11 @@ class Mage_HTTP_Client
      */
     protected static function detectFrontend()
     {
-        if (function_exists("curl_init")) {
-            return "curl";
+        if (function_exists('curl_init')) {
+            return 'curl';
         }
-        if (function_exists("fsockopen")) {
-            return "socket";
+        if (function_exists('fsockopen')) {
+            return 'socket';
         }
         return false;
     }

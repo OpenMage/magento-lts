@@ -236,7 +236,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
-            $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
+            $countSelect->columns('COUNT(DISTINCT ' . implode(', ', $group) . ')');
         } else {
             $countSelect->columns('COUNT(*)');
 

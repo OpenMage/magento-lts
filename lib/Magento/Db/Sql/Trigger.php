@@ -288,10 +288,10 @@ class Magento_Db_Sql_Trigger
     public function assemble()
     {
         $this->_validateIsComplete();
-        return "CREATE TRIGGER "
+        return 'CREATE TRIGGER '
             . $this->getName() . "\n"
-            . $this->_parts[self::TIME] . " " . $this->_parts[self::EVENT] . "\n"
-            . "ON " . $this->_parts[self::TARGET] . " " . $this->_parts[self::SCOPE] . "\n"
+            . $this->_parts[self::TIME] . ' ' . $this->_parts[self::EVENT] . "\n"
+            . 'ON ' . $this->_parts[self::TARGET] . ' ' . $this->_parts[self::SCOPE] . "\n"
             . "BEGIN\n"
             . implode("\n", $this->_parts[self::BODY]) . "\n"
             . "END;\n";
