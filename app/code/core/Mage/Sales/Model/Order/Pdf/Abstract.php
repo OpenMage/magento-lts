@@ -366,7 +366,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
-            if (isset($shippingAddress) and is_iterable($shippingAddress)) {
+            if (isset($shippingAddress) && is_iterable($shippingAddress)) {
                 foreach ($shippingAddress as $value) {
                     if ($value !== '') {
                         $text = [];
