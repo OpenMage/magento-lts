@@ -501,7 +501,7 @@ class Error_Processor
     /**
      * @return void
      */
-    protected function _setSkin(string $value, stdClass $config = null)
+    protected function _setSkin(string $value, ?stdClass $config = null)
     {
         if (preg_match('/^[a-z0-9_]+$/i', $value)
             && is_dir($this->_indexDir . self::ERROR_DIR . '/' . $value)
