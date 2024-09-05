@@ -781,6 +781,11 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
 		-
+			message: "#^Return type \\(array\\) of method Mage_Api_Model_Wsdl_Config_Element\\:\\:getChildren\\(\\) should be compatible with return type \\(RecursiveIterator\\|null\\) of method RecursiveIterator\\<string,static\\(SimpleXMLElement\\)\\>\\:\\:getChildren\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
+
+		-
 			message: "#^Property Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource\\:\\:\\$_treeModel \\(Mage_Api2_Model_Acl_Global_Rule_Tree\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Tab/Resource.php
@@ -3966,6 +3971,11 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Sales/Model/Order.php
+
+		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
@@ -4866,11 +4876,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
@@ -5064,21 +5069,6 @@ parameters:
 			message: "#^Left side of \\|\\| is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
-
-		-
-			message: "#^Method Varien_Http_Adapter_Curl\\:\\:_getResource\\(\\) has invalid return type CurlHandle\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource has unknown class CurlHandle as its type\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
