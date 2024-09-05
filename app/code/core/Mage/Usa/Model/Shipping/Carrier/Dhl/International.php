@@ -1096,7 +1096,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected function getCountryParams($countryCode)
     {
         if (empty($this->_countryParams)) {
-            $dhlConfigPath = Mage::getModuleDir('etc', 'Mage_Usa')  . DS . 'dhl' . DS;
+            $dhlConfigPath = Mage::getModuleDir('etc', 'Mage_Usa') . DS . 'dhl' . DS;
             $countriesXml = file_get_contents($dhlConfigPath . 'international' . DS . 'countries.xml');
             $this->_countryParams = new Varien_Simplexml_Element($countriesXml);
         }
