@@ -171,9 +171,10 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param array $data
-     * @param array $allowedTags
-     * @return mixed
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
+     *
      * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
      */
@@ -185,9 +186,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param   string|array $data
-     * @param   array $allowedTags
-     * @return  mixed
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -237,7 +238,7 @@ abstract class Mage_Core_Helper_Abstract
      * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data
-     * @param string $allowableTags
+     * @param null|string|string[] $allowableTags
      * @param bool $escape
      * @return string
      */
@@ -313,9 +314,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param mixed $data
+     * @param string|string[] $data
      * @param string $quote
-     * @return mixed
+     * @return string|string[]
      */
     public function jsQuoteEscape($data, $quote = '\'')
     {
