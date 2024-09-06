@@ -55,7 +55,7 @@ class Mage_Admin_Model_Observer
                     /** @var Mage_Core_Model_Session $coreSession */
                     $coreSession = Mage::getSingleton('core/session');
 
-                    if ($coreSession->validateFormKey($request->getPost("form_key"))) {
+                    if ($coreSession->validateFormKey($request->getPost('form_key'))) {
                         $postLogin = $request->getPost('login');
                         $username = $postLogin['username'] ?? '';
                         $password = $postLogin['password'] ?? '';

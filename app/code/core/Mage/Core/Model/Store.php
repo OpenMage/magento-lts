@@ -967,9 +967,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Format price with currency filter (taking rate into consideration)
      *
-     * @param   double $price
+     * @param   float $price
      * @param   bool $includeContainer
-     * @return  string
+     * @return  string|float
      */
     public function formatPrice($price, $includeContainer = true)
     {

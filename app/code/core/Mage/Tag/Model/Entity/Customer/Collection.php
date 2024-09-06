@@ -22,6 +22,7 @@
 class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
     protected $_tagTable;
+
     protected $_tagRelTable;
 
     public function __construct()
