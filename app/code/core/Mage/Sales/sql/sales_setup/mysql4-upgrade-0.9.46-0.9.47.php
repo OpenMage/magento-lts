@@ -25,7 +25,7 @@ $attributes = [
     $installer->getAttribute($orderEntityTypeId, 'shipping_description')
 ];
 
-$installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], "tinyint(1) UNSIGNED NOT NULL DEFAULT 0");
+$installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], 'tinyint(1) UNSIGNED NOT NULL DEFAULT 0');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[1]['attribute_code'], "varchar(255) NOT NULL DEFAULT ''");
 
 try {

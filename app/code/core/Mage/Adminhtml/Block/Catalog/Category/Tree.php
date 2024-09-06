@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     protected function _prepareLayout()
     {
-        $addUrl = $this->getUrl("*/*/add", [
+        $addUrl = $this->getUrl('*/*/add', [
             '_current' => true,
             'id' => null,
             '_query' => false
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getSwitchTreeUrl()
     {
         return $this->getUrl(
-            "*/catalog_category/tree",
+            '*/catalog_category/tree',
             ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]
         );
     }

@@ -80,7 +80,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                  . $element->serialize($htmlAttributes) . '>' . "\n";
             foreach ($regionCollection as $region) {
                 $selected = ($regionId == $region['value']) ? ' selected="selected"' : '';
-                $value =  is_numeric($region['value']) ? (int)$region['value'] : "";
+                $value =  is_numeric($region['value']) ? (int)$region['value'] : '';
                 $html .= '<option value="' . $value . '"' . $selected . '>'
                     . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
                     . '</option>';
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<td class="value">';
             $html .= '<input id="' . $regionHtmlId . '" name="' . $regionHtmlName
                 . '" value="' . $element->getEscapedValue() . '" '
-                . $element->serialize($htmlAttributes) . "/>" . "\n";
+                . $element->serialize($htmlAttributes) . '/>' . "\n";
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }

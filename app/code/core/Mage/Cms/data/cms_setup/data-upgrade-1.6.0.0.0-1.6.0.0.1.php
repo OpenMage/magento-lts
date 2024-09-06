@@ -252,7 +252,7 @@ if ($footerLinksBlock->getId()) {
     if (preg_match('/<ul>(.*?)<\\/ul>/ims', $content, $matches)) {
         $content = preg_replace('/<li class="last">/ims', '<li>', $content);
         $replacment = '<li class="last privacy">'
-            . "<a href=\"{{store direct_url=\"privacy-policy-cookie-restriction-mode\"}}\">"
+            . '<a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">'
             . "Privacy Policy</a></li>\r\n</ul>";
         $content = preg_replace('/<\\/ul>/ims', $replacment, $content);
         $footerLinksBlock->setContent($content)->save();

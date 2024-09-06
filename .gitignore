@@ -43,8 +43,6 @@
 /dev/openmage/docker-magento
 /dev/openmage/.env
 /dev/openmage/Caddyfile
-/dev/tests/functional/generated
-/dev/tests/functional/vendor
 
 /media/*
 !/media/.htaccess
@@ -75,8 +73,11 @@
 .phpcs*.xml
 !.phpcs*.xml.dist
 
+# PhpStan
+.phpstan*.neon
 phpstan*.neon
-!phpstan.dist.*.neon
+!.phpstan.dist.neon
+!.phpstan.dist.*.neon
 
 # dev scripts loaded via composer
 /shell/update-copyright.php

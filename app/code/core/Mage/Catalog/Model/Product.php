@@ -2069,7 +2069,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];
-                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $method));
+                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $method));
                     $_reserved[] = $tmp;
                 }
             }

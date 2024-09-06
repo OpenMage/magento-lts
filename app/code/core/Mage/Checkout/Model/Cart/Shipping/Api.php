@@ -40,7 +40,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
         $quoteShippingAddress = $quote->getShippingAddress();
         if (is_null($quoteShippingAddress->getId())) {
-            $this->_fault("shipping_address_is_not_set");
+            $this->_fault('shipping_address_is_not_set');
         }
 
         $rate = $quote->getShippingAddress()->collectShippingRates()->getShippingRateByCode($shippingMethod);
@@ -71,7 +71,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
         $quoteShippingAddress = $quote->getShippingAddress();
         if (is_null($quoteShippingAddress->getId())) {
-            $this->_fault("shipping_address_is_not_set");
+            $this->_fault('shipping_address_is_not_set');
         }
 
         try {
@@ -86,7 +86,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                 }
 
                 foreach ($rates as $rate) {
-                    $rateItem = $this->_getAttributes($rate, "quote_shipping_rate");
+                    $rateItem = $this->_getAttributes($rate, 'quote_shipping_rate');
                     $rateItem['carrierName'] = $carrierName;
                     $ratesResult[] = $rateItem;
                     unset($rateItem);
