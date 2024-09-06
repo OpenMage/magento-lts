@@ -21,6 +21,9 @@
  */
 class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @return void
+     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend', 'log_id');
