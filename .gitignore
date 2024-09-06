@@ -63,8 +63,11 @@
 .phpcs*.xml
 !.phpcs*.xml.dist
 
+# PhpStan
+.phpstan*.neon
 phpstan*.neon
-!phpstan.dist.*.neon
+!.phpstan.dist.neon
+!.phpstan.dist.*.neon
 
 # PhpUnit
 tests/coverage
