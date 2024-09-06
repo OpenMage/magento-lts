@@ -96,6 +96,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     /**
      * Show Send to a Friend Form
      *
+     * @return void
      */
     public function sendAction()
     {
@@ -132,6 +133,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     /**
      * Send Email Post Action
      *
+     * @return $this|void
      */
     public function sendmailAction()
     {
