@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59d169c9f9fd98541d9af1b1f00dc20b",
+    "content-hash": "1dba1483b9e5dd35258bdd07fdeddadd",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -570,6 +570,43 @@
             "time": "2022-04-20T19:23:22+00:00"
         },
         {
+            "name": "mklkj/tinymce-i18n",
+            "version": "24.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mklkj/tinymce-i18n.git",
+                "reference": "2601ec394482faee8569837f62543b81f76a5d03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/2601ec394482faee8569837f62543b81f76a5d03",
+                "reference": "2601ec394482faee8569837f62543b81f76a5d03",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TinyMCE Community"
+                }
+            ],
+            "description": "Languages for TinyMCE 4, 5 and 6",
+            "homepage": "https://github.com/mklkj/tinymce-i18n",
+            "keywords": [
+                "i18n",
+                "languages",
+                "tinymce"
+            ],
+            "support": {
+                "issues": "https://github.com/mklkj/tinymce-i18n/issues",
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/24.9.2"
+            },
+            "time": "2024-09-02T10:20:33+00:00"
+        },
+        {
             "name": "paragonie/constant_time_encoding",
             "version": "v2.7.0",
             "source": {
@@ -1109,6 +1146,64 @@
                 "source": "https://github.com/Shardj/zf1-future/tree/1.24.0"
             },
             "time": "2024-02-05T16:48:33+00:00"
+        },
+        {
+            "name": "sreichel/composer-plugin-file-copy",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
+                "reference": "3a8b635b2e3d855d5022a7257c47c5fc30684320"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/3a8b635b2e3d855d5022a7257c47c5fc30684320",
+                "reference": "3a8b635b2e3d855d5022a7257c47c5fc30684320",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": ">=7.4",
+                "symfony/polyfill-php80": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^2.6"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Sreichel\\Composer\\Plugin\\FileCopy\\ScriptHandler"
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Salah Abdelkader Seif Eddine",
+                    "email": "seif.salah@gmail.com",
+                    "role": "Author"
+                },
+                {
+                    "name": "Sven Reichel",
+                    "email": "github-sr@hotmail.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Composer Plugin Mass Files Copy",
+            "keywords": [
+                "Recursive Copy",
+                "composer plugin",
+                "files copy"
+            ],
+            "support": {
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/develop"
+            },
+            "time": "2024-07-24T12:35:55+00:00"
         },
         {
             "name": "symfony/console",
@@ -2213,6 +2308,65 @@
                 }
             ],
             "time": "2024-08-01T10:24:28+00:00"
+        },
+        {
+            "name": "tinymce/tinymce",
+            "version": "6.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "4d6a5af329af6992bef810fc73d4bb70b8253a6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/4d6a5af329af6992bef810fc73d4bb70b8253a6a",
+                "reference": "4d6a5af329af6992bef810fc73d4bb70b8253a6a",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "tinymce.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js",
+                        "models/*/model.js",
+                        "icons/*/icons.js"
+                    ],
+                    "files": [
+                        "tinymce.min.js",
+                        "plugins/*/plugin.min.js",
+                        "themes/*/theme.min.js",
+                        "models/*/model.min.js",
+                        "skins/**",
+                        "icons/*/icons.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT-only"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "https://www.tiny.cloud/",
+            "keywords": [
+                "contenteditable",
+                "editing",
+                "html",
+                "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
+                "richtext",
+                "rte",
+                "text",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "support": {
+                "source": "https://github.com/tinymce/tinymce-dist/tree/6.8.4"
+            },
+            "time": "2024-06-19T09:28:48+00:00"
         }
     ],
     "packages-dev": [
@@ -6388,7 +6542,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "sreichel/composer-plugin-file-copy": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
