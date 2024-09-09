@@ -112,6 +112,7 @@ jobs:
     name: Unit Tests (OpenMage)
     needs: [check, php-cs-fixer]
     if: |
+      needs.check.outputs.php > 0 ||
       needs.check.outputs.phpunit-test > 0 ||
       needs.check.outputs.phpunit > 0 ||
       needs.check.outputs.workflow > 0

@@ -83,9 +83,8 @@ jobs:
             **phpcs**
             **php-cs-fixer**
             **phpstan**
-            dev/tests/
-            dev/phpunit*
-            dev/sonar*
+            tests/
+            phpunit*
 
       - name: Check if composer files changed
         id: changes-composer
@@ -157,7 +156,7 @@ jobs:
         id: changes-phpunit-test
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count UnitTest test file(s) changed"
           echo "phpunit-test=$count" >> $GITHUB_OUTPUT
 
@@ -165,6 +164,6 @@ jobs:
         id: changes-phpunit
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
