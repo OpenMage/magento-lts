@@ -129,8 +129,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "phpunit:test": "@php vendor/bin/phpunit --no-coverage \"$@\" --testdox",
-        "phpunit:coverage": "@php -XDEBUG_MODE=coverage vendor/bin/phpunit --testdox",
-        "phpunit:coverage-local": "@php -XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html build/coverage --testdox"
+        "phpunit:test": "vendor/bin/phpunit --no-coverage \"$@\" --testdox",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox"
     }
 }
