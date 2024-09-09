@@ -266,9 +266,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function backgroundColor($colorRGB)
     {
+        $args = func_get_args();
         // assume that 3 params were given instead of array
         if (!is_array($colorRGB)) {
-            $colorRGB = func_get_args();
+            $colorRGB = $args;
         }
         $this->_getModel()->setBackgroundColor($colorRGB);
         return $this;

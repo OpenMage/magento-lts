@@ -108,7 +108,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if (!count($this->_disallowedBlock)) {
             $disallowedBlockConfig = $this->_getDisallowedBlockConfigValue();
             if (is_array($disallowedBlockConfig)) {
-                foreach ($disallowedBlockConfig as $blockName => $value) {
+                foreach (array_keys($disallowedBlockConfig) as $blockName) {
                     $this->_disallowedBlock[] = $blockName;
                 }
             }
@@ -188,7 +188,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      */
     public function getXpathValidationExpression()
     {
-        return implode(" | ", $this->_disallowedXPathExpressions);
+        return implode(' | ', $this->_disallowedXPathExpressions);
     }
 
     /**
@@ -209,7 +209,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if (!$this->_xpathBlockValidationExpression) {
             if (count($this->_disallowedBlock)) {
                 foreach ($this->_disallowedBlock as $key => $value) {
-                    $this->_xpathBlockValidationExpression .= $key > 0 ? " | " : '';
+                    $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
                     $this->_xpathBlockValidationExpression .=
                         "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
                     $this->_xpathBlockValidationExpression .=

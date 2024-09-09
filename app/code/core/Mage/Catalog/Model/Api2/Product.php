@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
         }
         $excludedAttrs = $this->getExcludedAttributes($userType, $operation);
         $includedAttrs = $this->getIncludedAttributes($userType, $operation);
-        foreach ($attributes as $code => $label) {
+        foreach (array_keys($attributes) as $code) {
             if (in_array($code, $excludedAttrs) || ($includedAttrs && !in_array($code, $includedAttrs))) {
                 unset($attributes[$code]);
             }

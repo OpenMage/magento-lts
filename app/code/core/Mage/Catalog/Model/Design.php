@@ -162,7 +162,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             return false;
         }
 
-        $designInfo = explode("/", $design);
+        $designInfo = explode('/', $design);
         if (count($designInfo) != 2) {
             return false;
         }
