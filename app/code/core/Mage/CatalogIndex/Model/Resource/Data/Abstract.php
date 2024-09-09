@@ -84,7 +84,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         foreach ($suffixes as $suffix) {
             $tableName = "{$this->getTable('catalog/product')}_{$suffix}";
             $condition = "product.entity_id = c.entity_id AND c.store_id = {$store} AND c.attribute_id = d.attribute_id";
-            $defaultCondition = "product.entity_id = d.entity_id AND d.store_id = 0";
+            $defaultCondition = 'product.entity_id = d.entity_id AND d.store_id = 0';
             $fields = [
                 'entity_id',
                 'type_id',
@@ -121,9 +121,9 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      */
     public function fetchLinkInformation($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
-        $idsConditionSymbol = "= ?";
+        $idsConditionSymbol = '= ?';
         if (is_array($id)) {
-            $idsConditionSymbol = "in (?)";
+            $idsConditionSymbol = 'in (?)';
         }
 
         $select = $this->_getReadAdapter()->select();
@@ -210,7 +210,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             'c.value',
             'c.all_groups',
         ];
-        $condition = "product.entity_id = c.entity_id";
+        $condition = 'product.entity_id = c.entity_id';
 
         $select = $this->_getReadAdapter()->select()
             ->from(['product' => $this->getTable('catalog/product')], $fields)

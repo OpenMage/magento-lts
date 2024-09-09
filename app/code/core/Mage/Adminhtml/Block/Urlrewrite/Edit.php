@@ -194,7 +194,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     {
         if ($this->_buttonsHtml === null) {
             $this->_buttonsHtml = parent::getButtonsHtml();
-            foreach ($this->_children as $alias => $child) {
+            foreach (array_keys($this->_children) as $alias) {
                 if (str_contains($alias, '_button')) {
                     $this->unsetChild($alias);
                 }

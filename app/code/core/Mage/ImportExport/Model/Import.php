@@ -56,7 +56,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Entity invalidated indexes.
      *
-     * @var Mage_ImportExport_Model_Import_Entity_Abstract
+     * @var array<string, array<int, string>>
      */
     protected static $_entityInvalidatedIndexes = [
         'catalog_product' => [
@@ -80,7 +80,9 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
             if (isset($validTypes[$this->getEntity()])) {
                 try {
-                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    /** @var Mage_ImportExport_Model_Import_Entity_Abstract $_entityAdapter */
+                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    $this->_entityAdapter = $_entityAdapter;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
@@ -333,7 +335,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      */
     public function expandSource()
     {
-        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . "big0.csv");
+        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . 'big0.csv');
         $regExps = ['last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/'];
         $colReg  = [
             'sku' => 'last', 'name' => 'last', 'description' => 'last', 'short_description' => 'last',
@@ -366,7 +368,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $m);
 
-                        $row[$colName] = $m[1] . ($m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
+                        $row[$colName] = $m[1] . ((int) $m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
                     }
                 }
                 $writer->writeRow($row);

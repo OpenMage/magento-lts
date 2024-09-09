@@ -248,7 +248,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
 
         if (!isset($memoryLimit[0])) {
-            $memoryLimit = "128M";
+            $memoryLimit = '128M';
         }
 
         return ini_parse_quantity($memoryLimit);
@@ -389,9 +389,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         // add misc params as a hash
         $miscParams = [
                 ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
-                ($this->_keepFrame ? '' : 'no')  . 'frame',
-                ($this->_keepTransparency ? '' : 'no')  . 'transparency',
-                ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
+                ($this->_keepFrame ? '' : 'no') . 'frame',
+                ($this->_keepTransparency ? '' : 'no') . 'transparency',
+                ($this->_constrainOnly ? 'do' : 'not') . 'constrainonly',
                 $this->_backgroundColorStr,
                 'angle' . $this->_angle,
                 'quality' . $this->_quality
@@ -566,7 +566,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $baseDir = Mage::getBaseDir('media');
-        $path = str_replace($baseDir . DS, "", $this->_newFile);
+        $path = str_replace($baseDir . DS, '', $this->_newFile);
         return Mage::getBaseUrl('media') . str_replace(DS, '/', $path);
     }
 

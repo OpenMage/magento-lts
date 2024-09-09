@@ -50,7 +50,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         $allowCountries = explode(',', (string)$this->_getStoreConfig('general/country/allow', $store));
         if (!empty($allowCountries)) {
-            $this->addFieldToFilter("country_id", ['in' => $allowCountries]);
+            $this->addFieldToFilter('country_id', ['in' => $allowCountries]);
         }
         return $this;
     }
@@ -119,9 +119,9 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         if (!empty($countryId)) {
             if (is_array($countryId)) {
-                $this->addFieldToFilter("country_id", ['in' => $countryId]);
+                $this->addFieldToFilter('country_id', ['in' => $countryId]);
             } else {
-                $this->addFieldToFilter("country_id", $countryId);
+                $this->addFieldToFilter('country_id', $countryId);
             }
         }
         return $this;

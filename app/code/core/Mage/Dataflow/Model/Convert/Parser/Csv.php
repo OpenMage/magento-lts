@@ -162,7 +162,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $io->open();
 
         if (!$batchExportIds) {
-            $io->write("");
+            $io->write('');
             $io->close();
             return $this;
         }
@@ -234,7 +234,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $str = '';
         foreach ($fields as $value) {
-            $escapedValue = Mage::helper("core")->getEscapedCSVData([$value]);
+            $escapedValue = Mage::helper('core')->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
             if (str_contains($value, $delimiter) ||

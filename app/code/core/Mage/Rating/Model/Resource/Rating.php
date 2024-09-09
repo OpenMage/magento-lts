@@ -300,7 +300,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter     = $this->_getReadAdapter();
         $sumColumn   = new Zend_Db_Expr("SUM(rating_vote.{$adapter->quoteIdentifier('percent')})");
-        $countColumn = new Zend_Db_Expr("COUNT(*)");
+        $countColumn = new Zend_Db_Expr('COUNT(*)');
 
         $select = $adapter->select()
             ->from(
