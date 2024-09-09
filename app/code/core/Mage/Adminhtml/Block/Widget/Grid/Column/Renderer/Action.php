@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {
-        foreach ($action as $attribute => $value) {
+        foreach (array_keys($action) as $attribute) {
             if (isset($action[$attribute]) && !is_array($action[$attribute])) {
                 $this->getColumn()->setFormat($action[$attribute]);
                 $action[$attribute] = parent::render($row);
