@@ -241,7 +241,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_objectReferences[$idx])) {
-            foreach ($this->_references as $r => $dummy) {
+            foreach (array_keys($this->_references) as $r) {
                 unset($this->_references[$r]);
             }
             unset($this->_objectReferences[$idx]);
