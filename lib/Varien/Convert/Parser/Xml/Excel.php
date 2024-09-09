@@ -199,9 +199,9 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $this->_xmlElement->row = htmlspecialchars($value);
             $value = str_replace($xmlHeader, '', $this->_xmlElement->asXML());
             $value = preg_replace($xmlRegexp, '\\1', $value);
-            $dataType = "String";
+            $dataType = 'String';
             if (is_numeric($value)) {
-                $dataType = "Number";
+                $dataType = 'Number';
                 // is_numeric(' 96000') returns true, but Excel argues about space
                 $value = trim($value);
             }

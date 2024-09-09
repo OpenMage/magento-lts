@@ -913,13 +913,13 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
                 if ($joinCount > 60) { // If we have too much joins for mysql
                     $joinCount = 0;
-                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
+                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)]) . "; \n";
                     $select->reset();
                 }
             }
 
             if ($joinCount > 0) {
-                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
+                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)]) . "; \n";
             }
         }
     } else {
