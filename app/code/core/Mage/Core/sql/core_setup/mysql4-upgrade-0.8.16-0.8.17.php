@@ -39,6 +39,6 @@ CREATE TABLE IF NOT EXISTS `{$installer->getTable('core_email_variable_value')}`
   CONSTRAINT `FK_CORE_EMAIL_VARIABLE_VALUE_VARIABLE_ID` FOREIGN KEY (`variable_id`) REFERENCES `{$installer->getTable('core_email_variable')}` (`variable_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ");
-$installer->getConnection()->addColumn($installer->getTable('core/email_template'), 'orig_template_variables', "text NOT NULL");
+$installer->getConnection()->addColumn($installer->getTable('core/email_template'), 'orig_template_variables', 'text NOT NULL');
 
 $installer->endSetup();

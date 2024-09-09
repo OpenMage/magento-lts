@@ -182,7 +182,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
             ->addAttributeToSelect('name')
             ->addIdFilter($product->getCategoryIds())
             ->addIsActiveFilter()
-            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . "/%"])
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . '/%'])
             ->addOrder('level')
             ->getFirstItem();
         return $lastCategory->getName() ?: '';

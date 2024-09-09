@@ -111,7 +111,7 @@ class Mage_Sales_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
         if (is_numeric($product)) {
-            $product = Mage::getModel("catalog/product")->load($product);
+            $product = Mage::getModel('catalog/product')->load($product);
         }
         if ($product instanceof Mage_Catalog_Model_Product) {
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)

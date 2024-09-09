@@ -20,15 +20,15 @@ $queueTable = $installer->getTable('newsletter_queue');
 $templateTable = $installer->getTable('newsletter_template');
 $conn = $installer->getConnection();
 
-$conn->addColumn($queueTable, 'newsletter_type', "int(3) default NULL AFTER `template_id`");
-$conn->addColumn($queueTable, 'newsletter_text', "text AFTER `newsletter_type`");
-$conn->addColumn($queueTable, 'newsletter_styles', "text AFTER `newsletter_text`");
-$conn->addColumn($queueTable, 'newsletter_subject', "varchar(200) default NULL AFTER `newsletter_styles`");
-$conn->addColumn($queueTable, 'newsletter_sender_name', "varchar(200) default NULL AFTER `newsletter_subject`");
+$conn->addColumn($queueTable, 'newsletter_type', 'int(3) default NULL AFTER `template_id`');
+$conn->addColumn($queueTable, 'newsletter_text', 'text AFTER `newsletter_type`');
+$conn->addColumn($queueTable, 'newsletter_styles', 'text AFTER `newsletter_text`');
+$conn->addColumn($queueTable, 'newsletter_subject', 'varchar(200) default NULL AFTER `newsletter_styles`');
+$conn->addColumn($queueTable, 'newsletter_sender_name', 'varchar(200) default NULL AFTER `newsletter_subject`');
 $conn->addColumn(
     $queueTable,
     'newsletter_sender_email',
-    "varchar(200) character set latin1 collate latin1_general_ci default NULL AFTER `newsletter_sender_name`"
+    'varchar(200) character set latin1 collate latin1_general_ci default NULL AFTER `newsletter_sender_name`'
 );
 
 $conn->modifyColumn($templateTable, 'template_text_preprocessed', "text comment 'deprecated since 1.4.0.1'");
