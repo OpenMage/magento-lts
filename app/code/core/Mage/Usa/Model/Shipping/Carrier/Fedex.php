@@ -101,7 +101,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function __construct()
     {
         parent::__construct();
-        $wsdlBasePath = Mage::getModuleDir('etc', 'Mage_Usa')  . DS . 'wsdl' . DS . 'FedEx' . DS;
+        $wsdlBasePath = Mage::getModuleDir('etc', 'Mage_Usa') . DS . 'wsdl' . DS . 'FedEx' . DS;
         $this->_shipServiceWsdl = $wsdlBasePath . 'ShipService_v10.wsdl';
         $this->_rateServiceWsdl = $wsdlBasePath . 'RateService_v10.wsdl';
         $this->_trackServiceWsdl = $wsdlBasePath . 'TrackService_v5.wsdl';
