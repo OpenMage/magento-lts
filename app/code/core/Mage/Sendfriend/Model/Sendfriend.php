@@ -233,7 +233,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set Visitor Remote Address
      *
-     * @param int $ipAddr the IP address on Long Format
+     * @param string|false $ipAddr the IP address on Long Format
      * @return $this
      */
     public function setRemoteAddr($ipAddr)
@@ -255,7 +255,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set Website Id
      *
-     * @param int $id - website id
+     * @param int|string|null $id - website id
      * @return $this
      */
     public function setWebsiteId($id)

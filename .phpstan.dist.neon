@@ -1,6 +1,6 @@
 includes:
     - vendor/macopedia/phpstan-magento1/extension.neon
-    - phpstan.dist.baseline.neon
+    - .phpstan.dist.baseline.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     magentoRootPath: %currentWorkingDirectory%
@@ -12,6 +12,7 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
+        - errors
         - lib/Mage
         - lib/Magento
         - lib/Varien
