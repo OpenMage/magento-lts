@@ -67,6 +67,7 @@
         <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Product/Compare/Item.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Product/Option/Value.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/CatalogIndex/Model/Indexer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/CatalogInventory/Model/Observer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/CatalogInventory/Model/Api2/Stock/Item/Rest.php*</exclude-pattern>
@@ -112,6 +113,7 @@
         <exclude-pattern>*/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/ImportExport/Model/Import/Proxy/Product/Resource.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Index/controllers/Adminhtml/ProcessController.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Index/Model/Observer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Index/Model/Process.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Index/Model/Resource/Event.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Log/Model/Resource/Log.php*</exclude-pattern>
@@ -149,6 +151,7 @@
         <exclude-pattern>*/core/Mage/Sales/Model/Order/Shipment.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/SalesRule/Model/Observer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/SalesRule/Model/Rule.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/SalesRule/Model/Coupon/Massgenerator.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Tag/controllers/IndexController.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Tag/Model/Api.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Tag/Model/Resource/Product/Collection.php*</exclude-pattern>
@@ -164,6 +167,7 @@
         <exclude-pattern>*/lib/Varien/Cache/Backend/Memcached.php*</exclude-pattern>
         <exclude-pattern>*/lib/Varien/Convert/Parser/Csv.php*</exclude-pattern>
         <exclude-pattern>*/lib/Varien/Object/Cache.php*</exclude-pattern>
+        <exclude-pattern>*/shell/indexer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/*/data/*</exclude-pattern>
         <exclude-pattern>*/core/Mage/*/sql/*</exclude-pattern>
     </rule>
