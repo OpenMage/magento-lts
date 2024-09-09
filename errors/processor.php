@@ -13,17 +13,17 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
- * Error processor
- *
- */
+/**
+* Error processor
+*
+*/
 class Error_Processor
 {
-    const MAGE_ERRORS_LOCAL_XML = 'local.xml';
-    const MAGE_ERRORS_DESIGN_XML = 'design.xml';
-    const DEFAULT_SKIN = 'default';
-    const DEFAULT_TRASH_MODE = 'leave';
-    const ERROR_DIR = 'errors';
+    public const MAGE_ERRORS_LOCAL_XML = 'local.xml';
+    public const MAGE_ERRORS_DESIGN_XML = 'design.xml';
+    public const DEFAULT_SKIN = 'default';
+    public const DEFAULT_TRASH_MODE = 'leave';
+    public const ERROR_DIR = 'errors';
 
     /** @var string */
     public $pageTitle;
@@ -94,10 +94,9 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'],'.php'), array('404','503','report'))) {
+            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
                 $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
-            }
-            else {
+            } else {
                 $this->_scriptName = $_SERVER['SCRIPT_NAME'];
             }
         }
@@ -108,7 +107,7 @@ class Error_Processor
         }
 
         $this->_indexDir = $this->_getIndexDir();
-        $this->_root  = is_dir($this->_indexDir.'app');
+        $this->_root  = is_dir($this->_indexDir . 'app');
 
         $this->_prepareConfig();
         if (isset($_SERVER['MAGE_ERRORS_SKIN']) || isset($_GET['skin'])) {
@@ -150,7 +149,7 @@ class Error_Processor
         $this->reportAction = $this->_config->action;
         $this->_setReportUrl();
 
-        if($this->reportAction === 'email') {
+        if ($this->reportAction === 'email') {
             $this->showSendForm = true;
             $this->sendReport();
         }
@@ -159,7 +158,7 @@ class Error_Processor
 
     public function getSkinUrl(): string
     {
-        return $this->getBaseUrl() . self::ERROR_DIR. '/' . $this->_config->skin . '/';
+        return $this->getBaseUrl() . self::ERROR_DIR . '/' . $this->_config->skin . '/';
     }
 
     /**
@@ -184,7 +183,7 @@ class Error_Processor
 
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], array(80, 433))
+            && !in_array($_SERVER['SERVER_PORT'], [80, 433])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
@@ -195,7 +194,7 @@ class Error_Processor
     {
         $path = $this->_scriptName;
 
-        if($param && !$this->_root) {
+        if ($param && !$this->_root) {
             $path = dirname($path);
         }
 
@@ -215,7 +214,7 @@ class Error_Processor
     {
         $documentRoot = '';
         if (!empty($_SERVER['DOCUMENT_ROOT'])) {
-            $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
+            $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
         }
         return dirname($documentRoot . $this->_scriptName) . '/';
     }
@@ -318,7 +317,7 @@ class Error_Processor
     protected function _getFilePath(string $file, $directories = null)
     {
         if ($directories === null) {
-            $directories = array();
+            $directories = [];
 
             if (!$this->_root) {
                 $directories[] = $this->_indexDir . self::ERROR_DIR . '/';
@@ -345,10 +344,10 @@ class Error_Processor
         $directories = [];
 
         if (!$this->_root) {
-            $directories[] = $this->_indexDir . self::ERROR_DIR. '/'. $this->_config->skin . '/';
+            $directories[] = $this->_indexDir . self::ERROR_DIR . '/' . $this->_config->skin . '/';
 
             if ($this->_config->skin !== self::DEFAULT_SKIN) {
-                $directories[] = $this->_indexDir . self::ERROR_DIR . '/'. self::DEFAULT_SKIN . '/';
+                $directories[] = $this->_indexDir . self::ERROR_DIR . '/' . self::DEFAULT_SKIN . '/';
             }
         }
 
@@ -368,8 +367,7 @@ class Error_Processor
         if (isset($reportData['url'])) {
             $this->reportData['url'] = $this->getHostUrl()
                 . htmlspecialchars($reportData['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8');
-        }
-        else {
+        } else {
             $this->reportData['url'] = '';
         }
 
@@ -424,7 +422,7 @@ class Error_Processor
         }
 
         $reportContent = file_get_contents($this->_reportFile);
-        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent )) {
+        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent)) {
             $reportData = unserialize($reportContent, ['allowed_classes' => false]);
         }
         if (is_array($reportData)) {
@@ -501,7 +499,7 @@ class Error_Processor
     /**
      * @return void
      */
-    protected function _setSkin(string $value, stdClass $config = null)
+    protected function _setSkin(string $value, ?stdClass $config = null)
     {
         if (preg_match('/^[a-z0-9_]+$/i', $value)
             && is_dir($this->_indexDir . self::ERROR_DIR . '/' . $value)
