@@ -285,7 +285,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $urlRewrite->joinTableToSelect($select, $storeId);
 
         if ($parentPath) {
-            $select->where($_conn->quoteInto("main_table.path like ?", "$parentPath/%"));
+            $select->where($_conn->quoteInto('main_table.path like ?', "$parentPath/%"));
         }
         if ($recursionLevel != 0) {
             $levelField = $_conn->quoteIdentifier('level');
@@ -1120,7 +1120,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
                 $update = "UPDATE {$mainStoreTable}, {$catalogCategoryTable} SET";
                 foreach ($_staticFields as $field) {
-                    $update .= " {$mainStoreTable}." . $field . "={$catalogCategoryTable}." . $field . ",";
+                    $update .= " {$mainStoreTable}." . $field . "={$catalogCategoryTable}." . $field . ',';
                 }
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND " .
@@ -1152,7 +1152,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $table = $this->_getReadAdapter()->describeTable($table);
         $data = [];
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
-        foreach ($table as $column => $columnData) {
+        foreach (array_keys($table) as $column) {
             if ($column != $idFieldName || $category->getData($column) !== null) {
                 if (array_key_exists($column, $replaceFields)) {
                     $value = $category->getData($replaceFields[$column]);
@@ -1335,7 +1335,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $select = $this->_getReadAdapter()->select()
             ->from($maintable, 'entity_id')
             ->where('path LIKE ?', "{$category->getPath()}/%")
-            ->order($maintable . ".position ASC");
+            ->order($maintable . '.position ASC');
         if (!$recursive) {
             $select->where('level <= ?', $category->getLevel() + 1);
         }

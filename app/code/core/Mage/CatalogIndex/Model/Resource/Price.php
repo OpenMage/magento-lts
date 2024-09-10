@@ -106,7 +106,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         }
 
         $select
-            ->columns("MAX(price_table.value" . implode('', $response->getAdditionalCalculations()) . ")")
+            ->columns('MAX(price_table.value' . implode('', $response->getAdditionalCalculations()) . ')')
             ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.attribute_id = ?', $attribute->getId());
 
@@ -142,7 +142,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
             Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
         }
 
-        $fields = ['count' => 'COUNT(DISTINCT price_table.entity_id)', 'range' => "FLOOR(((price_table.value" . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()})/{$range})+1"];
+        $fields = ['count' => 'COUNT(DISTINCT price_table.entity_id)', 'range' => 'FLOOR(((price_table.value' . implode('', $response->getAdditionalCalculations()) . ")*{$this->getRate()})/{$range})+1"];
 
         $select->columns($fields)
             ->group('range')
@@ -257,7 +257,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],
-            ['price_table.entity_id', 'value' => "(price_table.value)", 'tax_class_id' => '(price_table.tax_class_id)']
+            ['price_table.entity_id', 'value' => '(price_table.value)', 'tax_class_id' => '(price_table.tax_class_id)']
         )
             ->where('price_table.entity_id in (?)', $ids)
             ->where('price_table.website_id = ?', $this->getWebsiteId())

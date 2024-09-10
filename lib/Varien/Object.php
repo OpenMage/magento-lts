@@ -292,7 +292,7 @@ class Varien_Object implements ArrayAccess
     public function unsetOldData($key = null)
     {
         if (is_null($key)) {
-            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
+            foreach (array_keys($this->_oldFieldsMap) as $key) {
                 unset($this->_data[$key]);
             }
         } else {
@@ -635,7 +635,7 @@ class Varien_Object implements ArrayAccess
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
+        throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')');
     }
 
     /**
@@ -690,7 +690,7 @@ class Varien_Object implements ArrayAccess
             return self::$_underscoreCache[$name];
         }
         #Varien_Profiler::start('underscore');
-        $result = strtolower(preg_replace('/([A-Z])/', "_$1", lcfirst($name)));
+        $result = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($name)));
         #Varien_Profiler::stop('underscore');
         self::$_underscoreCache[$name] = $result;
         return $result;

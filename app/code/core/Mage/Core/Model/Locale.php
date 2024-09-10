@@ -247,7 +247,7 @@ class Mage_Core_Model_Locale
             }
         }
 
-        foreach ($locales as $code => $active) {
+        foreach (array_keys($locales) as $code) {
             if (strstr($code, '_')) {
                 if (!in_array($code, $allowed)) {
                     continue;
@@ -695,7 +695,7 @@ class Mage_Core_Model_Locale
         if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
-        $format = preg_replace("/[^0\#\.,]/", "", $format);
+        $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
         if ($decimalPoint !== false) {

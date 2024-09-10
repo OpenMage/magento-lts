@@ -191,7 +191,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_A
 
                             if (conflict && !confirmationShowed && anotherEnabler.value == 1) {
                                 if (isEvent) {
-                                    confirmationApproved = confirm(\'' .  $this->helper('core')->jsQuoteEscape($this->__('There is already another PayPal solution enabled. Enable this solution instead?')) . '\');
+                                    confirmationApproved = confirm(\'' . $this->helper('core')->jsQuoteEscape($this->__('There is already another PayPal solution enabled. Enable this solution instead?')) . '\');
                                 } else {
                                     paypalConflictsObject.isConflict = true;
                                 }
@@ -320,14 +320,14 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location extends Mage_A
                     paypalConflictsObject.toggleBmlEnabler(enablerElement);
                 });
                 if (paypalConflictsObject.isConflict || paypalConflictsObject.ecMissed) {
-                    var notification = \'' .  $this->helper('core')->jsQuoteEscape($this->__('The following error(s) occured:')) . '\';
+                    var notification = \'' . $this->helper('core')->jsQuoteEscape($this->__('The following error(s) occured:')) . '\';
                     if (paypalConflictsObject.isConflict) {
-                        notification += "\\n  " + \'' .  $this->helper('core')->jsQuoteEscape($this->__('Some PayPal solutions conflict.')) . '\';
+                        notification += "\\n  " + \'' . $this->helper('core')->jsQuoteEscape($this->__('Some PayPal solutions conflict.')) . '\';
                     }
                     if (paypalConflictsObject.ecMissed) {
-                        notification += "\\n  " + \'' .  $this->helper('core')->jsQuoteEscape($this->__('PayPal Express Checkout is not enabled.')) . '\';
+                        notification += "\\n  " + \'' . $this->helper('core')->jsQuoteEscape($this->__('PayPal Express Checkout is not enabled.')) . '\';
                     }
-                    notification += "\\n" + \'' .  $this->helper('core')->jsQuoteEscape($this->__('Please re-enable the previously enabled payment solutions.')) . '\';
+                    notification += "\\n" + \'' . $this->helper('core')->jsQuoteEscape($this->__('Please re-enable the previously enabled payment solutions.')) . '\';
                     setTimeout(function() {
                         alert(notification);
                     }, 1);
