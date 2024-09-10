@@ -70,7 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         return $this->_url;
     }
 
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
+    protected function _buildMenuArray(?Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
     {
         if (is_null($parent)) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
@@ -109,10 +109,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach ($parentArr as $key => $value) {
-            $last = $key;
-        }
-        if (isset($last)) {
+        $last = array_key_last($parentArr);
+        if (!is_null($last)) {
             $parentArr[$last]['last'] = true;
         }
 

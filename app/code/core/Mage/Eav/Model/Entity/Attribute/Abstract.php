@@ -33,7 +33,7 @@
  * @method bool getIsConfigurable()
  * @method bool getIsFilterable()
  * @method bool getIsFilterableInSearch()
- * @method bool setIsGlobal()
+ * @method $this setIsGlobal(int $value)
  * @method bool getIsRequired()
  * @method bool getIsSearchable()
  * @method bool getIsUnique()
@@ -760,7 +760,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 if (isset($prop['PRECISION'], $prop['SCALE'])) {
                     $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
                 } else {
-                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : "";
+                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : '';
                 }
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $type,

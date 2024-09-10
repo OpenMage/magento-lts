@@ -215,7 +215,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
-            foreach ($this->getAllSeries() as $index => $serie) {
+            foreach (array_keys($this->getAllSeries()) as $index) {
                 if (in_array($d, $this->_axisLabels['x'])) {
                     $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
                 } else {
@@ -253,10 +253,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $this->_allSeries = $datas;
 
         // Image-Charts Awesome data format values
-        $params['chd'] = "a:";
-        $dataDelimiter = ",";
-        $dataSetdelimiter = "|";
-        $dataMissing = "_";
+        $params['chd'] = 'a:';
+        $dataDelimiter = ',';
+        $dataSetdelimiter = '|';
+        $dataMissing = '_';
 
         // process each string in the array, and find the max length
         foreach ($this->getAllSeries() as $index => $serie) {
@@ -321,14 +321,14 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $params['chd'] .= $buffer;
 
-        $labelBuffer = "";
+        $labelBuffer = '';
         $valueBuffer = [];
-        $rangeBuffer = "";
+        $rangeBuffer = '';
 
         if (count($this->_axisLabels)) {
             $params['chxt'] = implode(',', array_keys($this->_axisLabels));
             $indexid = 0;
-            foreach ($this->_axisLabels as $idx => $labels) {
+            foreach (array_keys($this->_axisLabels) as $idx) {
                 if ($idx === 'x') {
                     /**
                      * Format date
@@ -353,7 +353,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                                 case '2y':
                                     $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                                     $format = $formats['yyMM'] ?? 'MM/yyyy';
-                                    $format = str_replace(["yyyy", "yy", "MM"], ["Y", "y", "m"], $format);
+                                    $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
                                     $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
                                     break;
                             }
@@ -364,21 +364,21 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
                     $tmpstring = implode('|', $this->_axisLabels[$idx]);
 
-                    $valueBuffer[] = $indexid . ":|" . $tmpstring;
+                    $valueBuffer[] = $indexid . ':|' . $tmpstring;
                     if (count($this->_axisLabels[$idx]) > 1) {
                         $deltaX = 100 / (count($this->_axisLabels[$idx]) - 1);
                     } else {
                         $deltaX = 100;
                     }
                 } elseif ($idx === 'y') {
-                    $valueBuffer[] = $indexid . ":|" . implode('|', $yLabels);
+                    $valueBuffer[] = $indexid . ':|' . implode('|', $yLabels);
                     if (count($yLabels) - 1) {
                         $deltaY = 100 / (count($yLabels) - 1);
                     } else {
                         $deltaY = 100;
                     }
                     // setting range values for y axis
-                    $rangeBuffer = $indexid . "," . $miny . "," . $maxy . "|";
+                    $rangeBuffer = $indexid . ',' . $miny . ',' . $maxy . '|';
                 }
                 $indexid++;
             }

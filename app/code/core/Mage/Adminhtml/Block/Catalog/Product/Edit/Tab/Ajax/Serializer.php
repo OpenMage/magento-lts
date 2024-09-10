@@ -19,6 +19,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage_Core_Block_Template
 {
+    /**
+     * @return $this
+     */
     public function _construct()
     {
         parent::_construct();

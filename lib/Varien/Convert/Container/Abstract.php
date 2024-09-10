@@ -83,7 +83,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             $data = $this->getData();
         }
         if (!is_string($data)) {
-            $this->addException("Invalid data type, expecting string.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting string.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -94,7 +94,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             $data = $this->getData();
         }
         if (!is_array($data)) {
-            $this->addException("Invalid data type, expecting array.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting array.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -108,7 +108,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             if (count($data) == 0) {
                 return true;
             }
-            $this->addException("Invalid data type, expecting 2D grid array.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting 2D grid array.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }

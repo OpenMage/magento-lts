@@ -36,7 +36,7 @@ class Mage_Reports_Model_Totals
             if ($col->getTotal() === null) {
                 continue;
             }
-            $columns[$col->getIndex()] = ["total" => $col->getTotal(), "value" => 0];
+            $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];
         }
 
         $count = 0;
@@ -47,7 +47,7 @@ class Mage_Reports_Model_Totals
             }
             $data = $item->getData();
 
-            foreach ($columns as $field => $a) {
+            foreach (array_keys($columns) as $field) {
                 if ($field !== '') {
                     $columns[$field]['value'] += $data[$field] ?? 0;
                 }
