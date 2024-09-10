@@ -465,7 +465,7 @@ class Mage_Core_Model_Translate
             $localeCode = $this->getLocale();
         }
 
-        $filePath = Mage::getBaseDir('locale')  . DS
+        $filePath = Mage::getBaseDir('locale') . DS
                   . $localeCode . DS . 'template' . DS . $type . DS . $file;
 
         if (!file_exists($filePath)) { // If no template specified for this locale, use store default
@@ -525,6 +525,9 @@ class Mage_Core_Model_Translate
             return false;
         }
         $data = Mage::app()->loadCache($this->getCacheId());
+        if (!$data) {
+            return false;
+        }
         $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }

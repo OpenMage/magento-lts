@@ -56,7 +56,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         if ($agreementModel) {
             $this->_title($this->__('Sales'))
                 ->_title($this->__('Billing Agreements'))
-                ->_title(sprintf("#%s", $agreementModel->getReferenceId()));
+                ->_title(sprintf('#%s', $agreementModel->getReferenceId()));
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/billing_agreement')

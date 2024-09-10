@@ -77,7 +77,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
     public function getDatabaseBlocks()
     {
         $databases = [];
-        foreach ($this->_databases as $type => $blockData) {
+        foreach (array_keys($this->_databases) as $type) {
             $databases[] = $this->getDatabaseBlock($type);
         }
         return $databases;

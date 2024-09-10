@@ -78,6 +78,10 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
             return $this;
         }
         $text = $this->_getOptionText($filter);
+        if (!is_string($text)) {
+            return $this;
+        }
+
         if ($filter && strlen($text)) {
             $this->_getResource()->applyFilterToCollection($this, $filter);
             $this->getLayer()->getState()->addFilter($this->_createItem($text, $filter));

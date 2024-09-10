@@ -33,7 +33,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
     {
         // Check whether we deal with named bind
         $isPositionalBind = true;
-        foreach ($params as $k => $v) {
+        foreach (array_keys($params) as $k) {
             if (!is_int($k)) {
                 $isPositionalBind = false;
                 break;
@@ -79,7 +79,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
-    public function _execute(array $params = null)
+    public function _execute(?array $params = null)
     {
         $specialExecute = false;
         if ($params) {

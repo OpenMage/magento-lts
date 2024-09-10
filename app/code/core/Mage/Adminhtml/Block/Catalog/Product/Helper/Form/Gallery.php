@@ -23,7 +23,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 {
     public function getElementHtml()
     {
-        //$html.= $this->getAfterElementHtml();
         return $this->getContentHtml();
     }
 
@@ -38,7 +37,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         $content = Mage::getSingleton('core/layout')
             ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
 
-        $content->setId($this->getHtmlId() . '_content')
+        $content
+            ->setId($this->getHtmlId() . '_content')
             ->setElement($this);
         return $content->toHtml();
     }
@@ -66,19 +66,31 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Check default value usage fact
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Mage_Eav_Model_Entity_Attribute|string $attribute
      * @return bool
      */
     public function usedDefault($attribute)
     {
-        $attributeCode = $attribute->getAttributeCode();
-        $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
+        if (is_string($attribute)) {
+            $attributeCode = $attribute;
+        } else {
+            $attributeCode = $attribute->getAttributeCode();
+        }
 
+        // special management for "label" and "position" since they're columns of the
+        // catalog_product_entity_media_gallery_value database table
+        if ($attributeCode == 'label' || $attributeCode == 'position') {
+            $media_gallery = $this->getDataObject()->getMediaGallery();
+            if (!count($media_gallery['images'])) {
+                return true;
+            }
+            return $media_gallery['images'][0]["{$attributeCode}_use_default"];
+        }
+
+        $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);
         if (!$this->getDataObject()->getExistsStoreValueFlag($attributeCode)) {
             return true;
-        } elseif ($this->getValue() == $defaultValue &&
-                   $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()
-        ) {
+        } elseif ($this->getValue() == $defaultValue && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
         if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {

@@ -24,7 +24,7 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
     /**
      * Period format
      *
-     * @var string
+     * @var Zend_Db_Expr
      */
     protected $_periodFormat;
 

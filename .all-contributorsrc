@@ -1420,6 +1420,15 @@
       ]
     },
     {
+      "login": "Sdfendor",
+      "name": "Kevin Jakob",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2728018?v=4",
+      "profile": "https://github.com/Sdfendor",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "leissbua",
       "name": "Michael Leiss",
       "avatar_url": "https://avatars.githubusercontent.com/u/68073221?v=4",
@@ -1442,6 +1451,24 @@
       "name": "Andy Hudock",
       "avatar_url": "https://avatars.githubusercontent.com/u/33500977?v=4",
       "profile": "https://github.com/ahudock",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ma4nn",
+      "name": "Christoph Massmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26252058?v=4",
+      "profile": "https://www.vianetz.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ragnese",
+      "name": "Rob Agnese",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7927565?v=4",
+      "profile": "https://github.com/ragnese",
       "contributions": [
         "code"
       ]

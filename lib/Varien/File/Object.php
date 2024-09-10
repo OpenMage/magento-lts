@@ -20,7 +20,7 @@
  * @package    Varien_File
  */
 
-require_once("Varien/Object.php");
+require_once('Varien/Object.php');
 require_once('Varien/Directory/IFactory.php');
 
 class Varien_File_Object extends SplFileObject implements IFactory
@@ -180,8 +180,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public static function getExt($fileName)
     {
         $path_parts = pathinfo($fileName);
-        if (isset($path_parts["extension"])) {
-            return $path_parts["extension"];
+        if (isset($path_parts['extension'])) {
+            return $path_parts['extension'];
         } else {
             return '';
         }

@@ -39,8 +39,7 @@
 # https://github.com/OpenMage/magento-lts/pull/1012
 /dev/openmage/docker-magento
 /dev/openmage/.env
-/dev/tests/functional/generated
-/dev/tests/functional/vendor
+/dev/openmage/Caddyfile
 
 /media/*
 !/media/.htaccess
@@ -71,8 +70,11 @@
 .phpcs*.xml
 !.phpcs*.xml.dist
 
+# PhpStan
+.phpstan*.neon
 phpstan*.neon
-!phpstan.dist.*.neon
+!.phpstan.dist.neon
+!.phpstan.dist.*.neon
 
 # dev scripts loaded via composer
 /shell/update-copyright.php

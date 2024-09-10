@@ -503,7 +503,7 @@ CREATE TABLE {$installer->getTable('catalog_product_website')} (
   KEY `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` (`website_id`),
   CONSTRAINT `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` FOREIGN KEY (`website_id`) REFERENCES `{$installer->getTable('core/website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CATALOG_WEBSITE_PRODUCT_PRODUCT` FOREIGN KEY (`product_id`) REFERENCES `{$installer->getTable('catalog_product_entity')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = DYNAMIC;
 
 -- DROP TABLE IF EXISTS `{$installer->getTable('catalog_product_entity_media_gallery')}`;
 CREATE TABLE `{$installer->getTable('catalog_product_entity_media_gallery')}` (

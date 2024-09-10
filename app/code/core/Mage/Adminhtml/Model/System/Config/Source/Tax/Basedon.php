@@ -24,7 +24,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Tax_Basedon
         return [
             ['value' => 'shipping', 'label' => Mage::helper('adminhtml')->__('Shipping Address')],
             ['value' => 'billing', 'label' => Mage::helper('adminhtml')->__('Billing Address')],
-            ['value' => 'origin', 'label' => Mage::helper('adminhtml')->__("Shipping Origin")],
+            ['value' => 'origin', 'label' => Mage::helper('adminhtml')->__('Shipping Origin')],
         ];
     }
 }

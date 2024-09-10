@@ -251,6 +251,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         do {
             $filename = Mage::helper('configurableswatches')->getHyphenatedString($value) . $fileExt;
             $swatchImage = $this->_resizeSwatchImage($filename, 'media', $width, $height);
+            if (!$swatchImage) {
+                $swatchImage = $this->createSwatchImage($value, $width, $height);
+            }
             if (!$swatchImage && $defaultValue == $value) {
                 return '';  // no image found and no further fallback
             } elseif (!$swatchImage) {
@@ -261,6 +264,49 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         } while (true);
 
         return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $swatchImage;
+    }
+
+    /**
+     * Create a swatch image for the given filename
+     *
+     * @param string $value
+     * @param int $width
+     * @param int $height
+     * @return string|false $destPath
+     * @throws Mage_Core_Exception
+     */
+    public function createSwatchImage($value, $width, $height)
+    {
+        $filename = Mage::helper('configurableswatches')->getHyphenatedString($value) . self::SWATCH_FILE_EXT;
+        $optionSwatch = Mage::getModel('eav/entity_attribute_option_swatch')
+            ->load($filename, 'filename');
+        if (!$optionSwatch->getValue()) {
+            return false;
+        }
+
+        // Form full path to where we want to cache resized version
+        $destPathArr = [
+            self::SWATCH_CACHE_DIR,
+            Mage::app()->getStore()->getId(),
+            $width . 'x' . $height,
+            'media',
+            trim($filename, '/'),
+        ];
+        $destPath = implode('/', $destPathArr);
+        if (!is_dir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath))) {
+            $io = new Varien_Io_File();
+            $io->mkdir(Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . dirname($destPath), 0777, true);
+        }
+
+        $newImage = imagecreatetruecolor($width, $height);
+        list($r, $g, $b) = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
+        $backgroundColor = imagecolorallocate($newImage, (int)$r, (int)$g, (int)$b);
+        imagefill($newImage, 0, 0, $backgroundColor);
+        imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
+        imagedestroy($newImage);
+        Mage::helper('core/file_storage_database')->saveFile($destPath);
+
+        return $destPath;
     }
 
     /**
@@ -336,7 +382,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array("array_merge_recursive", array_values($product->getChildAttributeLabelMapping()));
+            $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
             $filters = array_unique($mapping['labels']);
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;

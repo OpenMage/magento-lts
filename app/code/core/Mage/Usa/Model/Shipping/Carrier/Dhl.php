@@ -1070,7 +1070,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                         */
                                         $rArr['service'] = (string)$txml->Service->Desc;
                                         if (isset($txml->Weight)) {
-                                            $rArr['weight'] = (string)$txml->Weight . " lbs";
+                                            $rArr['weight'] = (string)$txml->Weight . ' lbs';
                                         }
                                         if (isset($txml->Delivery)) {
                                             $rArr['deliverydate'] = (string)$txml->Delivery->Date;
@@ -1325,7 +1325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');
     }

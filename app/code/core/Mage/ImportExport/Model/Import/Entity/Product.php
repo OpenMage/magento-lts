@@ -416,7 +416,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * url_key attribute id
      *
-     * @var int
+     * @var string|false|null
      */
     protected $_urlKeyAttributeId;
 
@@ -901,6 +901,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         'updated_at'       => Varien_Date::now()
                     ];
                 }
+
+                $prevOptionId = 0;
                 if ($rowIsMain) {
                     $solidParams = [
                         'option_id'      => $nextOptionId,
@@ -1099,7 +1101,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if ($productIds) { // update product entity table to show that product has options
                 $customOptionsProducts = $customOptions['product_id'];
 
-                foreach ($customOptionsProducts as $key => $value) {
+                foreach (array_keys($customOptionsProducts) as $key) {
                     if (!in_array($key, $productIds)) {
                         unset($customOptionsProducts[$key]);
                     }
@@ -1152,6 +1154,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $productIds   = [];
             $linkRows     = [];
             $positionRows = [];
+            $sku          = null;
 
             foreach ($bunch as $rowNum => $rowData) {
                 $this->_filterRowData($rowData);
@@ -1362,6 +1365,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $tierPrices   = [];
             $groupPrices  = [];
             $mediaGallery = [];
+            $rowSku       = null;
             $uploadedGalleryFiles = [];
             $previousType = null;
             $previousAttributeSet = null;
@@ -1972,7 +1976,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _filterRowData(&$rowData)
     {
-        $rowData = array_filter($rowData, '\strlen');
+        $rowData = array_filter($rowData, fn ($tmpString) => strlen($tmpString ?? ''));
         // Exceptions - for sku - put them back in
         if (!isset($rowData[self::COL_SKU])) {
             $rowData[self::COL_SKU] = null;
@@ -2207,7 +2211,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get product url_key attribute id
      *
-     * @return null|int
+     * @return string|false|null
      */
     protected function _getUrlKeyAttributeId()
     {

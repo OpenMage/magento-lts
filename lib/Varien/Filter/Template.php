@@ -118,6 +118,10 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function filter($value)
     {
+        if ($value === null) {
+            return '';
+        }
+
         // "depend" and "if" operands should be first
         $directives = [
             self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
@@ -268,7 +272,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
-        Varien_Profiler::start("email_template_proccessing_variables");
+        Varien_Profiler::start('email_template_proccessing_variables');
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();
         $tokenizer->setString($value);
         $stackVars = $tokenizer->tokenize();
@@ -310,7 +314,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
-        Varien_Profiler::stop("email_template_proccessing_variables");
+        Varien_Profiler::stop('email_template_proccessing_variables');
         return $result;
     }
 

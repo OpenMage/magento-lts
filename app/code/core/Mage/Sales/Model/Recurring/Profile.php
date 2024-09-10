@@ -639,7 +639,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     {
         $paymentType = $itemInfo->getPaymentType();
         if (!$paymentType) {
-            throw new Exception("Recurring profile payment type is not specified.");
+            throw new Exception('Recurring profile payment type is not specified.');
         }
 
         switch ($paymentType) {

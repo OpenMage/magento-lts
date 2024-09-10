@@ -107,7 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 ':attribute_group_id' => $object->getAttributeGroupId()
             ];
             $select = $adapter->select()
-                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr("MAX(sort_order)"))
+                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr('MAX(sort_order)'))
                 ->where('attribute_set_id = :attribute_set_id')
                 ->where('attribute_group_id = :attribute_group_id');
 
@@ -288,6 +288,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter            = $this->_getWriteAdapter();
             $optionTable        = $this->getTable('eav/attribute_option');
             $optionValueTable   = $this->getTable('eav/attribute_option_value');
+            $optionSwatchTable  = $this->getTable('eav/attribute_option_swatch');
 
             $stores = Mage::app()->getStores(true);
             if (isset($option['value'])) {
@@ -301,6 +302,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     if (!empty($option['delete'][$optionId])) {
                         if ($intOptionId) {
                             $adapter->delete($optionTable, ['option_id = ?' => $intOptionId]);
+                            $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
                         continue;
                     }
@@ -336,7 +338,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     foreach ($stores as $store) {
                         if (isset($values[$store->getId()])
                             && (!empty($values[$store->getId()])
-                            || $values[$store->getId()] == "0")
+                            || $values[$store->getId()] == '0')
                         ) {
                             $data = [
                                 'option_id' => $intOptionId,
@@ -346,10 +348,27 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $adapter->insert($optionValueTable, $data);
                         }
                     }
+
+                    // Swatch Value
+                    if (isset($option['swatch'][$optionId])) {
+                        if ($option['swatch'][$optionId]) {
+                            $data = [
+                                'option_id' => $intOptionId,
+                                'value'     => $option['swatch'][$optionId],
+                                'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
+                            ];
+                            $adapter->insertOnDuplicate($optionSwatchTable, $data);
+                        } else {
+                            $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
+                        }
+                    }
                 }
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
+            }
+            if (isset($option['swatch'])) {
+                Mage::helper('configurableswatches/productimg')->clearSwatchesCache();
             }
         }
 
@@ -410,10 +429,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $storeId)
     {
         $adapter = $this->_getReadAdapter();
-        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
-            . " AND %s.attribute_id = " . $attribute->getId()
-            . " AND %s.store_id = %d";
+        $joinConditionTemplate = '%s.entity_id = %s.entity_id'
+            . ' AND %s.entity_type_id = ' . $attribute->getEntityTypeId()
+            . ' AND %s.attribute_id = ' . $attribute->getId()
+            . ' AND %s.store_id = %d';
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',
@@ -441,7 +460,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 [$attribute->getAttributeCode() => $valueExpr]
             );
         if ($attribute->getFlatAddChildData()) {
-            $select->where("e.is_child = ?", 0);
+            $select->where('e.is_child = ?', 0);
         }
 
         return $select;

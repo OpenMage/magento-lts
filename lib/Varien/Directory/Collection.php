@@ -145,10 +145,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      */
     public static function getLastDir($path)
     {
-        if ($path == '') {
-            $path = $this->getPath();
-        }
-        $last = strrpos($path, "/");
+        $last = strrpos($path, '/');
         return substr($path, $last + 1);
     }
     /**

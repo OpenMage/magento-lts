@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->setIsValid(false);
                 $value = $this->_bytesToMbytes($this->_getUploadMaxFilesize());
                 Mage::throwException(
-                    Mage::helper('catalog')->__("The file you uploaded is larger than %s Megabytes allowed by server", $value)
+                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value)
                 );
             } else {
                 switch ($this->getProcessMode()) {
@@ -434,7 +434,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             try {
                 Mage::helper('core/unserializeArray')->unserialize($result);
             } catch (Exception $e) {
-                Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
+                Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
             }
         } else {
             /*
@@ -515,7 +515,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $sizes
             );
         } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
+            Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
         }
     }
 
@@ -801,21 +801,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         $_bytes = @ini_get($ini_key);
 
-        if (stristr($_bytes, 'k')) {
-            // kilobytes
-            $_bytes = (int) $_bytes * 1024;
-        } elseif (stristr($_bytes, 'm')) {
-            // megabytes
-            $_bytes = (int) $_bytes * 1024 * 1024;
-        } elseif (stristr($_bytes, 'g')) {
-            // gigabytes
-            $_bytes = (int) $_bytes * 1024 * 1024 * 1024;
-        }
-        return (int)$_bytes;
+        return ini_parse_quantity($_bytes);
     }
 
     /**
-     * Simple converrt bytes to Megabytes
+     * Simple convert bytes to Megabytes
      *
      * @param int $bytes
      * @return float

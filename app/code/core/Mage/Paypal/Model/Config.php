@@ -784,7 +784,7 @@ class Mage_Paypal_Model_Config
             return $this->_config[$key];
         }
 
-        $underscored = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $key));
+        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
         if (array_key_exists($underscored, $this->_config)) {
             return $this->_config[$underscored];
         }
@@ -1178,7 +1178,7 @@ class Mage_Paypal_Model_Config
      * @param Mage_Core_Model_Locale|null $locale
      * @return string
      */
-    public function getPaymentMarkWhatIsPaypalUrl(Mage_Core_Model_Locale $locale = null)
+    public function getPaymentMarkWhatIsPaypalUrl(?Mage_Core_Model_Locale $locale = null)
     {
         $countryCode = 'US';
         if ($locale !== null) {
@@ -1305,7 +1305,7 @@ class Mage_Paypal_Model_Config
      */
     public function getBuildNotationCode()
     {
-        return Mage::getStoreConfig("paypal/bncode", $this->_storeId);
+        return Mage::getStoreConfig('paypal/bncode', $this->_storeId);
     }
 
     /**
@@ -1745,7 +1745,7 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName) {
             case 'allow_ba_signup':
-                return "payment/" . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
+                return 'payment/' . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
             default:
                 return $this->_mapExpressFieldset($fieldName);
         }
@@ -1761,7 +1761,7 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName) {
             case 'allow_ba_signup':
-                return "payment/" . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
+                return 'payment/' . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
             default:
                 return $this->_mapExpressFieldset($fieldName);
         }

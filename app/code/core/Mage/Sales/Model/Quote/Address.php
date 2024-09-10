@@ -972,7 +972,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @param Mage_Sales_Model_Quote_Item_Abstract|null $item
      * @return bool
      */
-    public function requestShippingRates(Mage_Sales_Model_Quote_Item_Abstract $item = null)
+    public function requestShippingRates(?Mage_Sales_Model_Quote_Item_Abstract $item = null)
     {
         /** @var Mage_Shipping_Model_Rate_Request $request */
         $request = Mage::getModel('shipping/rate_request');
