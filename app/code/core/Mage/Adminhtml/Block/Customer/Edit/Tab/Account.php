@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $form->getElement('website_id')->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
-                var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) .";
+                var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) . ";
                 Validation.add(
                     'validate-website-has-store',
                     '" . Mage::helper('core')->jsQuoteEscape(

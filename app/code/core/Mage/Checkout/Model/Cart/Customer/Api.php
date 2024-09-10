@@ -23,7 +23,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
 {
     public function __construct()
     {
-        $this->_storeIdSessionField = "cart_store_id";
+        $this->_storeIdSessionField = 'cart_store_id';
 
         $this->_attributesMap['quote'] = ['quote_id' => 'entity_id'];
         $this->_attributesMap['quote_customer'] = ['customer_id' => 'entity_id'];
@@ -103,7 +103,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
 
         foreach ($customerAddressData as $addressItem) {
             /** @var Mage_Sales_Model_Quote_Address $address */
-            $address = Mage::getModel("sales/quote_address");
+            $address = Mage::getModel('sales/quote_address');
             $addressMode = $addressItem['mode'];
             unset($addressItem['mode']);
 

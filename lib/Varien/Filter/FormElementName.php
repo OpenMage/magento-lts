@@ -31,7 +31,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
             $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/';
         } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $pattern = '/[^a-zA-Z0-9\[\];_\-'  . $whiteSpace . ']/u';
+            $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/u';
         } else {
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}\[\];_\-' . $whiteSpace . ']/u';

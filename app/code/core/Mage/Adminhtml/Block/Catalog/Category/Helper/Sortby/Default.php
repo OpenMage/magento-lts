@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Default extends Varien
     public function getToggleCode()
     {
         $htmlId = 'use_config_' . $this->getHtmlId();
-        return "toggleValueElements(this, this.parentNode.parentNode);"
+        return 'toggleValueElements(this, this.parentNode.parentNode);'
             . "if (!this.checked) toggleValueElements($('$htmlId'), $('$htmlId').parentNode);";
     }
 
