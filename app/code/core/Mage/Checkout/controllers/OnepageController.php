@@ -521,7 +521,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if (is_null($this->_order)) {
             $this->_order = Mage::getModel('sales/order')->load($this->getOnepage()->getQuote()->getId(), 'quote_id');
             if (!$this->_order->getId()) {
-                throw new Mage_Payment_Model_Info_Exception(Mage::helper('core')->__("Can not create invoice. Order was not found."));
+                throw new Mage_Payment_Model_Info_Exception(Mage::helper('core')->__('Can not create invoice. Order was not found.'));
             }
         }
         return $this->_order;

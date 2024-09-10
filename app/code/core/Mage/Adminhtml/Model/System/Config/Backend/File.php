@@ -21,6 +21,8 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Config_Data
 {
+    public const SYSTEM_FILESYSTEM_REGEX = '/{{([a-z_]+)}}(.*)/';
+
     /**
      * Upload max file size in kilobytes
      *
@@ -144,6 +146,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getUploadRoot($token)
     {
+        $value = Mage::getStoreConfig($token) ?? '';
+        if (strlen($value) && preg_match(self::SYSTEM_FILESYSTEM_REGEX, $value, $matches) !== false) {
+            $dir = str_replace('root_dir', 'base_dir', $matches[1]);
+            $path = str_replace('/', DS, $matches[2]);
+            return Mage::getConfig()->getOptions()->getData($dir) . $path;
+        }
         return Mage::getBaseDir('media');
     }
 
@@ -188,6 +196,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getAllowedExtensions()
     {
+        /** @var Varien_Simplexml_Element $fieldConfig */
+        $fieldConfig = $this->getFieldConfig();
+        $el = $fieldConfig->descend('upload_dir');
+        if (!empty($el['allowed_extensions'])) {
+            $allowedExtensions = (string)$el['allowed_extensions'];
+            return explode(',', $allowedExtensions);
+        }
         return [];
     }
 

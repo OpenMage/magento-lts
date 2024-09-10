@@ -296,6 +296,12 @@ small {
 .entry-edit .entry-edit-head .tools a:hover {
   text-decoration: none;
 }
+.entry-edit .entry-edit-head .icon-copy {
+  width: 16px;
+  height: 16px;
+  margin: 8px 0 0 5px;
+  filter: revert;
+}
 .grid table {
   border: 1px solid lightgrey;
   border-collapse: collapse;
@@ -1066,6 +1072,11 @@ img[src$="grid-cal.gif"] {
 
 .emph, .accent {
   color: #0090FF !important;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select option:disabled,
+  select:disabled option { color:#202856!important; }
 }
 
 /*# sourceMappingURL=override.css.map */

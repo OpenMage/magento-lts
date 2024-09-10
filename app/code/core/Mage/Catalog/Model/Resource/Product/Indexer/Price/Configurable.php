@@ -172,12 +172,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         $tierPrice = $priceExpression;
         $tierRoundPriceExp = $write->getCheckSql("{$percentExpr} = 1", $roundExpr, $tierPrice);
         $tierPriceExp = $write->getCheckSql("{$tierPrice} IS NULL", '0', $tierRoundPriceExp);
-        $tierPriceColumn = $write->getCheckSql("MIN(i.tier_price) IS NOT NULL", "SUM({$tierPriceExp})", 'NULL');
+        $tierPriceColumn = $write->getCheckSql('MIN(i.tier_price) IS NOT NULL', "SUM({$tierPriceExp})", 'NULL');
 
         $groupPrice = $priceExpression;
         $groupRoundPriceExp = $write->getCheckSql("{$percentExpr} = 1", $roundExpr, $groupPrice);
         $groupPriceExp = $write->getCheckSql("{$groupPrice} IS NULL", '0', $groupRoundPriceExp);
-        $groupPriceColumn = $write->getCheckSql("MIN(i.group_price) IS NOT NULL", "SUM({$groupPriceExp})", 'NULL');
+        $groupPriceColumn = $write->getCheckSql('MIN(i.group_price) IS NOT NULL', "SUM({$groupPriceExp})", 'NULL');
 
         $select->columns([
             'price'       => $priceColumn,

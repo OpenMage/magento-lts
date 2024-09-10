@@ -97,7 +97,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                    explode(",", base64_decode(urldecode($attributes)))
+                    explode(',', base64_decode(urldecode($attributes)))
                 );
             }
         }
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($this->getRequest()->getParam('popup')
             && $requiredAttributes = $this->getRequest()->getParam('required')
         ) {
-            $requiredAttributes = explode(",", $requiredAttributes);
+            $requiredAttributes = explode(',', $requiredAttributes);
             foreach ($product->getAttributes() as $attribute) {
                 if (in_array($attribute->getId(), $requiredAttributes)) {
                     $attribute->setIsRequired(1);
