@@ -88,9 +88,8 @@ jobs:
             **php-cs-fixer**
             **phpstan**
             rector.php
-            dev/tests/
-            dev/phpunit*
-            dev/sonar*
+            tests/
+            phpunit*
 
       - name: Check if composer files changed
         id: changes-composer
