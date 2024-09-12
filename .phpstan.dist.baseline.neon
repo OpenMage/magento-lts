@@ -3291,11 +3291,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Offset int\\|string on non\\-empty\\-array\\<int\\|string, non\\-empty\\-array\\> in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
-
-		-
 			message: "#^Variable \\$collection might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
@@ -3489,11 +3484,6 @@ parameters:
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and 0\\.0001 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
-
-		-
-			message: "#^Loose comparison using \\!\\= between ''\\|'OT' and 'SS' will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Payment/Model/Method/Cc.php
 
 		-
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:exportStartDatetime\\(\\) should return string\\|Zend_Date but empty return statement found\\.$#"
@@ -3969,6 +3959,11 @@ parameters:
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax\\)\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Sales/Model/Order.php
 
 		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"

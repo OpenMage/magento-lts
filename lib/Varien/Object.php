@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Object
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -292,7 +292,7 @@ class Varien_Object implements ArrayAccess
     public function unsetOldData($key = null)
     {
         if (is_null($key)) {
-            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
+            foreach (array_keys($this->_oldFieldsMap) as $key) {
                 unset($this->_data[$key]);
             }
         } else {

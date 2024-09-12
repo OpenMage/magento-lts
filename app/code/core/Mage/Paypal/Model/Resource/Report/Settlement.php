@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                 /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
 
-                foreach ($rows as $key => $row) {
+                foreach (array_keys($rows) as $key) {
                     /*
                      * Converting dates
                      */
