@@ -22,7 +22,7 @@
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
 {
     /**
-     * Join information for usin full text search
+     * Join information for using full text search
      *
      * @param string $table
      * @param string $alias

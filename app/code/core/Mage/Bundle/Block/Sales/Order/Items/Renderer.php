@@ -140,7 +140,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * Getting all available childs for Invoice, Shipmen or Creditmemo item
+     * Getting all available children for Invoice, Shipmen or Credit memo item
      *
      * @param Varien_Object $item
      * @return array

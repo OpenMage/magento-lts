@@ -69,7 +69,7 @@ class Mage_Core_Model_Design_Package
 
     /**
      * Directory of the css file
-     * Using only to transmit additional parametr in callback functions
+     * Using only to transmit additional parameter in callback functions
      * @var string
      */
     protected $_callbackFileDir;

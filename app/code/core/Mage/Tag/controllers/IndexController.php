@@ -81,7 +81,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Checks inputed tags on the correctness of symbols and split string to array of tags
+     * Checks inputted tags on the correctness of symbols and split string to array of tags
      *
      * @param string $tagNamesInString
      * @return array

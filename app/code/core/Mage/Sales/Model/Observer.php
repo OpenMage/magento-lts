@@ -85,7 +85,7 @@ class Mage_Sales_Model_Observer
     }
 
     /**
-     * When deleting product, substract it from all quotes quantities
+     * When deleting product, subtract it from all quotes quantities
      *
      * @throws Exception
      * @param Varien_Event_Observer $observer

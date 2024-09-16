@@ -1658,7 +1658,7 @@ class Mage_Paypal_Model_Config
     }
 
     /**
-     * Check wheter specified country code is supported by build notation codes for specific countries
+     * Check whether specified country code is supported by build notation codes for specific countries
      *
      * @param string $code
      * @return string|null

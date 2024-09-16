@@ -345,7 +345,7 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Modify (hack) part of the structured information for the currect query
+     * Modify (hack) part of the structured information for the current query
      *
      * @param string $part
      * @param mixed $value

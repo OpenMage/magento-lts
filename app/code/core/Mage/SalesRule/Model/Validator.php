@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -577,7 +577,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $totalBaseWeeeDiscount = 0;
 
                         foreach ($weeeTaxAppliedAmounts as $weeeTaxAppliedAmount) {
-                            /* we get the discount by row since we dont need to display the individual amounts */
+                            /* we get the discount by row since we don't need to display the individual amounts */
                             $weeeTaxAppliedRowAmount = $weeeTaxAppliedAmount['row_amount'];
                             $baseWeeeTaxAppliedRowAmount = $weeeTaxAppliedAmount['base_row_amount'];
                             $request->setProductClassId($item->getProduct()->getTaxClassId());

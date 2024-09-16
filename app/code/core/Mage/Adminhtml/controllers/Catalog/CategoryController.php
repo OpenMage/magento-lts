@@ -318,7 +318,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             /**
              * Proceed with $_POST['use_config']
-             * set into category model for proccessing through validation
+             * set into category model for processing through validation
              */
             $category->setData('use_post_data_config', $this->getRequest()->getPost('use_config'));
 

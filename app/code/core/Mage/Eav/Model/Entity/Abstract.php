@@ -57,7 +57,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     protected $_attributesByCode            = [];
 
     /**
-     * 2-dimentional array by table name and attribute name
+     * 2-dimensional array by table name and attribute name
      *
      * @var array
      */
