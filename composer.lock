@@ -1738,20 +1738,20 @@
         },
         {
             "name": "symfony/polyfill-php74",
-            "version": "v1.30.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php74.git",
-                "reference": "37f1d1a2fb3ebc494f9f9b0f7e92064b43332321"
+                "reference": "9589537d05325fb5d88a20d8926823e5b827a43e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php74/zipball/37f1d1a2fb3ebc494f9f9b0f7e92064b43332321",
-                "reference": "37f1d1a2fb3ebc494f9f9b0f7e92064b43332321",
+                "url": "https://api.github.com/repos/symfony/polyfill-php74/zipball/9589537d05325fb5d88a20d8926823e5b827a43e",
+                "reference": "9589537d05325fb5d88a20d8926823e5b827a43e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "type": "library",
             "extra": {
@@ -1795,7 +1795,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php74/tree/v1.30.0"
+                "source": "https://github.com/symfony/polyfill-php74/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -1811,7 +1811,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T15:07:36+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
