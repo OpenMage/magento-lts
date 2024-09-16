@@ -43,4 +43,44 @@ class VisitorTest extends TestCase
     {
         $this->assertInstanceOf(Mage_Log_Model_Visitor::class, $this->subject->initServerData());
     }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetOnlineMinutesInterval(): void
+    {
+        $this->assertIsInt($this->subject->getOnlineMinutesInterval());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetUrl(): void
+    {
+        $this->assertIsString($this->subject->getUrl());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetFirstVisitAt(): void
+    {
+        $this->assertIsString($this->subject->getFirstVisitAt());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetLastVisitAt(): void
+    {
+        $this->assertIsString($this->subject->getLastVisitAt());
+    }
 }

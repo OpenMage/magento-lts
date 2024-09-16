@@ -178,7 +178,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFirstVisitAt()
     {
@@ -189,7 +189,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastVisitAt()
     {
@@ -335,7 +335,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Methods for research (depends from customer online admin section)
+     * Methods for research (depends on customer online admin section)
      * @param Varien_Object $data
      * @return $this
      */
