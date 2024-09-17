@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1013,7 +1013,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * If parial authorization is started method will returne true
+     * If partial authorization is started method will return true
      *
      * @param Mage_Payment_Model_Info $payment
      * @return bool
@@ -1101,7 +1101,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Set split_tender_id to quote payment if neeeded
+     * Set split_tender_id to quote payment if needed
      *
      * @param Varien_Object $response
      * @param Mage_Sales_Model_Order_Payment $orderPayment
@@ -1290,7 +1290,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Post request to gateway and return responce
+     * Post request to gateway and return response
      *
      * @param Mage_Paygate_Model_Authorizenet_Request $request)
      * @return Mage_Paygate_Model_Authorizenet_Result

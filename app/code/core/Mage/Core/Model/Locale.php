@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -575,7 +575,8 @@ class Mage_Core_Model_Locale
 
     /**
      * Get store timestamp
-     * Timstamp will be builded with store timezone settings
+     *
+     * Timestamp will be built with store timezone settings
      *
      * @param   mixed $store
      * @return  int
@@ -760,8 +761,8 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Returns localized informations as array, supported are several
-     * types of informations.
+     * Returns localized information as array, supported are several
+     * types of information.
      * For detailed information about the types look into the documentation
      *
      * @param  string             $path   (Optional) Type of information to return
@@ -774,7 +775,7 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Returns a localized information string, supported are several types of informations.
+     * Returns a localized information string, supported are several types of information.
      * For detailed information about the types look into the documentation
      *
      * @param  string             $value  Name to get detailed information about

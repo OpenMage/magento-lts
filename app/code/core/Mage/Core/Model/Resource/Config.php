@@ -207,4 +207,24 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         ]);
         return $this;
     }
+
+    /**
+     * Get config value
+     *
+     * @param string $path
+     * @param string $scope
+     * @param int $scopeId
+     * @return string|false
+     */
+    public function getConfig(string $path, string $scope, int $scopeId)
+    {
+        $readAdapter = $this->_getReadAdapter();
+        $select = $readAdapter->select()
+            ->from($this->getMainTable(), 'value')
+            ->where('path = ?', $path)
+            ->where('scope = ?', $scope)
+            ->where('scope_id = ?', $scopeId);
+
+        return $readAdapter->fetchOne($select);
+    }
 }

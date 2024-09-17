@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -859,8 +859,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $fkName foreign key name
      * @param string $tableName main table name
      * @param string $columnName main table field name
-     * @param string $refTableName refered table name
-     * @param string $refColumnName refered table field name
+     * @param string $refTableName referred table name
+     * @param string $refColumnName referred table field name
      * @param string $onUpdate on update statement
      * @param string $onDelete on delete statement
      * @param bool $purge
@@ -1483,7 +1483,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Write exception and thow
+     * Write exception and throw
      *
      * @param Exception $e
      * @throws Exception
@@ -1533,7 +1533,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
      * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
-     * @return string An SQL-safe quoted value placed into the orignal text.
+     * @return string An SQL-safe quoted value placed into the original text.
      */
     public function quoteInto($text, $value, $type = null, $count = null)
     {
@@ -3991,7 +3991,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Try to find installed primary key name, if not - formate new one.
+     * Try to find installed primary key name, if not - format new one.
      *
      * @param string $tableName Table name
      * @param string $schemaName OPTIONAL

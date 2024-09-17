@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
-     * Config pathes to merchant country code and merchant VAT number
+     * Config paths to merchant country code and merchant VAT number
      */
     public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
     public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
@@ -960,7 +960,7 @@ XML;
     /**
      * Escaping CSV-data
      *
-     * Security enchancement for CSV data processing by Excel-like applications.
+     * Security enhancement for CSV data processing by Excel-like applications.
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
      * @param array $data

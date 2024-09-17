@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Child transactions, assoc array of txn_id => instance
      * Filled only in case when all child transactions have txn_id
-     * Used for quicker search of child transactions using isset() as oposite to foreaching $_children
+     * Used for quicker search of child transactions using isset() as opposite to foreaching $_children
      * @var array|false
      */
     protected $_identifiedChildren = null;

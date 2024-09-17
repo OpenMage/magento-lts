@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         foreach ($items as $item) {
             if ($this->_initItem($address, $item) && $item->getQty() > 0) {
                 /**
-                 * Separatly calculate subtotal only for virtual products
+                 * Separately calculate subtotal only for virtual products
                  */
                 if ($item->getProduct()->isVirtual()) {
                     $virtualAmount += $item->getRowTotal();
