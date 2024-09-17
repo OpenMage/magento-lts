@@ -13,9 +13,11 @@ return RectorConfig::configure()
         __DIR__ . '/lib',
         __DIR__ . '/pub',
         __DIR__ . '/shell',
+        __DIR__ . '/tests',
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withRules([
-        CodeQuality\If_\SimplifyIfReturnBoolRector::class,
 //        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # wait for https://github.com/rectorphp/rector/issues/8781
+        CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
+        CodeQuality\If_\SimplifyIfReturnBoolRector::class,
     ]);

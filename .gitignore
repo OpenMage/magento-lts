@@ -23,13 +23,6 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
-# Add a base setup for running unit Tests with code coverage and send them to SonarCloud
-# https://github.com/OpenMage/magento-lts/pull/1836
-/dev/testfield
-/dev/tests/clover.xml
-/dev/tests/crap4j.xml
-/dev/tests/junit.xml
-
 # Add Gitpod online IDE config
 # https://github.com/OpenMage/magento-lts/pull/1836
 /dev/gitpod/docker-magento
@@ -75,6 +68,16 @@
 phpstan*.neon
 !.phpstan.dist.neon
 !.phpstan.dist.*.neon
+
+# PhpUnit
+tests/coverage
+tests/logging
+.phpunit.result.cache
+phpunit.xml
+!phpunit.xml.dist
+
+# build
+/build
 
 # dev scripts loaded via composer
 /shell/update-copyright.php

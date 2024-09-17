@@ -12,6 +12,7 @@
     <file>lib/Magento/</file>
     <file>lib/Varien/</file>
     <file>shell/</file>
+    <file>tests/unit/</file>
     <rule ref="PHPCompatibility" />
     <rule ref="PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore">
         <exclude-pattern>*/Varien/Object.php*</exclude-pattern>

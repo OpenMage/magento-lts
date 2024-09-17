@@ -114,6 +114,7 @@ return $config
                 'lib/Magento/',
                 'lib/Varien/',
                 'shell/',
+                'tests/unit/',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
