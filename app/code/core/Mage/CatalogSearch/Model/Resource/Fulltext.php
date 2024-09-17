@@ -224,7 +224,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Retrieve searchable products per store
      *
      * @param int $storeId
-     * @param array $staticFields
      * @param array|int $productIds
      * @param int $lastProductId
      * @param int $limit
@@ -502,8 +501,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Load product(s) attributes
      *
      * @param int $storeId
-     * @param array $productIds
-     * @param array $attributeTypes
      * @return array
      */
     protected function _getProductAttributes($storeId, array $productIds, array $attributeTypes)

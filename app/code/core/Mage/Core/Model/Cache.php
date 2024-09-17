@@ -102,8 +102,6 @@ class Mage_Core_Model_Cache
 
     /**
      * Class constructor. Initialize cache instance based on options
-     *
-     * @param array $options
      */
     public function __construct(array $options = [])
     {
@@ -144,7 +142,6 @@ class Mage_Core_Model_Cache
     /**
      * Get cache backend options. Result array contain backend type ('type' key) and backend options ('options')
      *
-     * @param   array $cacheOptions
      * @return  array
      */
     protected function _getBackendOptions(array $cacheOptions)
@@ -232,7 +229,6 @@ class Mage_Core_Model_Cache
     /**
      * Get options for database backend type
      *
-     * @param array $options
      * @return array
      */
     protected function getDbAdapterOptions(array $options = [])
@@ -298,7 +294,6 @@ class Mage_Core_Model_Cache
     /**
      * Get options of cache frontend (options of Zend_Cache_Core)
      *
-     * @param   array $cacheOptions
      * @return  array
      */
     protected function _getFrontendOptions(array $cacheOptions)

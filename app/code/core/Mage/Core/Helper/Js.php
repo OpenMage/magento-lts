@@ -185,9 +185,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string $url
      * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
@@ -203,9 +201,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string $url
      * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
@@ -220,9 +216,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
     /**
      * Helper for "onclick.setLocation"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSetLocationJs(string $url): string
     {
@@ -231,9 +224,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
     /**
      * Helper for "onclick.saveAndContinueEdit"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSaveAndContinueEditJs(string $url): string
     {

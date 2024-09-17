@@ -189,7 +189,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Retrieve attribute ids by set ids
      *
-     * @param array $setIds
      * @return array
      */
     protected function _getAttributeIdsBySetIds(array $setIds)

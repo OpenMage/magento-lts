@@ -180,7 +180,6 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     /**
      * Convert an array to Excel 2003 XML Document a Row XML fragment
      *
-     * @param array $row
      * @return string
      */
     public function getRowXml(array $row)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,7 +88,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Apply filter to collection and add not skipped attributes to select.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -307,7 +306,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)

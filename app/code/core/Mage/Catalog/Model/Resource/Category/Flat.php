@@ -114,8 +114,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
     /**
      * Initialize factory instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -996,7 +994,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Synchronize flat category data after move by affected category ids
      *
-     * @param array $affectedCategoryIds
      * @return $this
      */
     public function move(array $affectedCategoryIds)
@@ -1422,7 +1419,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Retrieve anchors above
      *
-     * @param array $filterIds
      * @param int $storeId
      * @return array
      */

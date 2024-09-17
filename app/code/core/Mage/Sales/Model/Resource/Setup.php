@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      *
      * @param int|string $entityTypeId
      * @param string $code
-     * @param array $attr
      * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)

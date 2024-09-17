@@ -1871,7 +1871,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Add option to array of product options
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return $this
      */
     public function addOption(Mage_Catalog_Model_Product_Option $option)
@@ -2153,7 +2152,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @param  array $productIds
      * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
@@ -2173,7 +2171,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Parse buyRequest into options values used by product
      *
-     * @param  Varien_Object $buyRequest
      * @return Varien_Object
      */
     public function processBuyRequest(Varien_Object $buyRequest)

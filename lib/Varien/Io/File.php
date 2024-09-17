@@ -231,11 +231,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Format line as CSV and write to file pointer
      *
-     * @param array $row
      * @param string $delimiter
      * @param string $enclosure
      * @return bool|int
-     *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
@@ -309,7 +307,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Possible arguments:
      * - path     default current path
      *
-     * @param array $args
      * @return boolean
      */
     public function open(array $args = [])

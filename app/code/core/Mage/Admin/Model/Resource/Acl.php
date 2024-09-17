@@ -75,8 +75,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
-     * @param Mage_Admin_Model_Acl $acl
-     * @param array $rolesArr
      * @return $this
      */
     public function loadRoles(Mage_Admin_Model_Acl $acl, array $rolesArr)
@@ -106,8 +104,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load rules
      *
-     * @param Mage_Admin_Model_Acl $acl
-     * @param array $rulesArr
      * @return $this
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)

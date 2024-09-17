@@ -94,7 +94,6 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Clears the tag from the separating characters.
      *
-     * @param array $tagNamesArr
      * @return array
      */
     protected function _cleanTags(array $tagNamesArr)

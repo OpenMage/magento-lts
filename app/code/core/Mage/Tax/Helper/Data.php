@@ -110,8 +110,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Initialize helper instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -1211,7 +1209,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Use flag to store ignore setting rather than config to avoid config reinit/save
      * Read config value for backwards compatibility.
      *
-     * @param string $key
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @throws Throwable
@@ -1231,8 +1228,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $key
-     * @param bool $value
      * @return void
      * @throws Throwable
      */

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,6 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Mage_Log_Model_Resource_Visitor constructor.
-     * @param array $data
      */
     public function __construct(array $data = [])
     {
@@ -46,7 +45,6 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare data for save
      *
-     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return array
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
@@ -85,7 +83,6 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save url info before save
      *
-     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
@@ -102,7 +99,6 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Actions after save
      *
-     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $visitor)
@@ -134,7 +130,6 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Perform actions after object load
      *
-     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)

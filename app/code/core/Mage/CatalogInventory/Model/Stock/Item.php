@@ -267,7 +267,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Adding stock data to product
      *
-     * @param   Mage_Catalog_Model_Product $product
      * @return  $this
      */
     public function assignProduct(Mage_Catalog_Model_Product $product)
@@ -721,7 +720,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Add error to Quote Item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
      * @param string $itemError
      * @param string $quoteError
      * @param string $errorIndex

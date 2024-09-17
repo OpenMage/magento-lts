@@ -24,7 +24,6 @@ class XmlFileLoadingTest  extends TestCase
      *
      * @dataProvider provideXmlFiles
      * @param $filepath
-     * @return void
      */
     public function testFileLoading($filepath): void
     {
@@ -41,7 +40,6 @@ class XmlFileLoadingTest  extends TestCase
      *
      * @dataProvider provideXmlFiles
      * @param $filepath
-     * @return void
      */
     public function testXmlReaderIsValid($filepath): void
     {

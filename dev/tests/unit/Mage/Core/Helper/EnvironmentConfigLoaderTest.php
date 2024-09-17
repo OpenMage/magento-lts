@@ -241,9 +241,6 @@ class EnvironmentConfigLoaderTest extends TestCase
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getTestXml(): string
     {
         return <<<XML

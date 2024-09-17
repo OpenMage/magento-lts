@@ -198,7 +198,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param array $rgbArray
      * @return $this
      */
     public function setBackgroundColor(array $rgbArray)

@@ -159,7 +159,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Collect and get rates
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|bool|null
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
@@ -179,7 +178,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Prepare and set request to this instance
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
@@ -1297,7 +1295,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Form array with appropriate structure for shipment request
      *
-     * @param Varien_Object $request
      * @return array
      */
     protected function _formShipmentRequest(Varien_Object $request)
@@ -1481,7 +1478,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
-     * @param Varien_Object $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)
@@ -1547,7 +1543,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
     public function getContainerTypes(?Varien_Object $params = null)
@@ -1604,7 +1599,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)

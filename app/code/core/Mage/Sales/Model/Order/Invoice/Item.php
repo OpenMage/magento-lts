@@ -121,7 +121,6 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Declare invoice instance
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
      * @return  $this
      */
     public function setInvoice(Mage_Sales_Model_Order_Invoice $invoice)
@@ -143,7 +142,6 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @param   Mage_Sales_Model_Order_Item $item
      * @return  $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)

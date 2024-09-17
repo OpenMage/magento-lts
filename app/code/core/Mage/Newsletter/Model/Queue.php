@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -157,7 +157,6 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * Send messages to subscribers for this queue
      *
      * @param   int     $count
-     * @param   array   $additionalVariables
      * @return $this
      */
     public function sendPerSubscriber($count = 20, array $additionalVariables = [])
@@ -249,7 +248,6 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Add subscribers to queue.
      *
-     * @param array $subscriberIds
      * @return $this
      */
     public function addSubscribersToQueue(array $subscriberIds)
@@ -307,7 +305,6 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     /**
      * Setter for stores of queue.
      *
-     * @param array $storesIds
      * @return $this
      */
     public function setStores(array $storesIds)

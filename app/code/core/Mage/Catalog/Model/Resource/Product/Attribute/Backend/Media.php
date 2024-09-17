@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -209,7 +209,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get select to retrieve media gallery images
      * for given product IDs.
      *
-     * @param array $productIds
      * @param int $storeId
      * @param int $attributeId
      * @return Varien_Db_Select
@@ -264,7 +263,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Get media gallery set for given product IDs
      *
-     * @param array $productIds
      * @param int $storeId
      * @return array
      */

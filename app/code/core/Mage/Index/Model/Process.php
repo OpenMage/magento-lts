@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Set indexer class name as data namespace for event object
      *
-     * @param   Mage_Index_Model_Event $event
      * @return  $this
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
@@ -120,7 +119,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Register data required by process in event object
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function register(Mage_Index_Model_Event $event)
@@ -140,7 +138,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Check if event can be matched by process
      *
-     * @param Mage_Index_Model_Event $event
      * @return bool
      */
     public function matchEvent(Mage_Index_Model_Event $event)
@@ -251,7 +248,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process event with assigned indexer object
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function processEvent(Mage_Index_Model_Event $event)
@@ -359,7 +355,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process all events of the collection
      *
-     * @param Mage_Index_Model_Resource_Event_Collection $eventsCollection
      * @param bool $skipUnmatched
      * @return $this
      */
@@ -389,7 +384,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Update status process/event association
      *
-     * @param   Mage_Index_Model_Event $event
      * @param   string $status
      * @return  $this
      */
@@ -593,7 +587,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Process event with locks checking
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function safeProcessEvent(Mage_Index_Model_Event $event)

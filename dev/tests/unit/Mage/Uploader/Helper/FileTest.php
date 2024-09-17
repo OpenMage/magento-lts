@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    /**
-     * @var Mage_Uploader_Helper_File
-     */
     public Mage_Uploader_Helper_File $subject;
 
     public function setUp(): void
@@ -26,7 +23,6 @@ class FileTest extends TestCase
      * @dataProvider provideGetMimeTypeFromExtensionListData
      * @param array<int, string> $expectedResult
      * @param string|array<int, string> $extensionsList
-     * @return void
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
@@ -89,9 +85,6 @@ class FileTest extends TestCase
 
     /**
      * @dataProvider provideGetDataMaxSizeInBytesData
-     * @param int $expectedResult
-     * @param string $maxSize
-     * @return void
      */
     public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
     {

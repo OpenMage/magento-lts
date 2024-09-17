@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model by search query string
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param string $value
      * @return $this
      */
@@ -68,7 +67,6 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     /**
      * Custom load model only by query text (skip synonym for)
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param string $value
      * @return $this
      */
@@ -104,7 +102,6 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)

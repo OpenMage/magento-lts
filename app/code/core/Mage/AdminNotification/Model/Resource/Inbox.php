@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_AdminNotification
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
     /**
      * Load latest notice
      *
-     * @param Mage_AdminNotification_Model_Inbox $object
      * @return $this
      */
     public function loadLatestNotice(Mage_AdminNotification_Model_Inbox $object)
@@ -59,7 +58,6 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
     /**
      * Get notifications grouped by severity
      *
-     * @param Mage_AdminNotification_Model_Inbox $object
      * @return array
      */
     public function getNoticeStatus(Mage_AdminNotification_Model_Inbox $object)
@@ -77,9 +75,6 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
 
     /**
      * Save notifications (if not exists)
-     *
-     * @param Mage_AdminNotification_Model_Inbox $object
-     * @param array $data
      */
     public function parse(Mage_AdminNotification_Model_Inbox $object, array $data)
     {
