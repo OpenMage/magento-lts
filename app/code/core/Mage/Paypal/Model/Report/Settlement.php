@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,31 +39,31 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Default PayPal SFTP host
      * @var string
      */
-    public const REPORTS_HOSTNAME = "reports.paypal.com";
+    public const REPORTS_HOSTNAME = 'reports.paypal.com';
 
     /**
      * Default PayPal SFTP host for sandbox mode
      * @var string
      */
-    public const SANDBOX_REPORTS_HOSTNAME = "reports.sandbox.paypal.com";
+    public const SANDBOX_REPORTS_HOSTNAME = 'reports.sandbox.paypal.com';
 
     /**
      * PayPal SFTP path
      * @var string
      */
-    public const REPORTS_PATH = "/ppreports/outgoing";
+    public const REPORTS_PATH = '/ppreports/outgoing';
 
     /**
      * Original charset of old report files
      * @var string
      */
-    public const FILES_IN_CHARSET = "UTF-16";
+    public const FILES_IN_CHARSET = 'UTF-16';
 
     /**
      * Target charset of report files to be parsed
      * @var string
      */
-    public const FILES_OUT_CHARSET = "UTF-8";
+    public const FILES_OUT_CHARSET = 'UTF-8';
 
     /**
      * Reports rows storage

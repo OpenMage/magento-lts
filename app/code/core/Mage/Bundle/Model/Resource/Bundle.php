@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,13 +32,13 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     protected function _getSelect($productId, $columns = [])
     {
         return $this->_getReadAdapter()->select()
-            ->from(["bundle_option" => $this->getTable('bundle/option')], ['type', 'option_id'])
-            ->where("bundle_option.parent_id = ?", $productId)
-            ->where("bundle_option.required = 1")
+            ->from(['bundle_option' => $this->getTable('bundle/option')], ['type', 'option_id'])
+            ->where('bundle_option.parent_id = ?', $productId)
+            ->where('bundle_option.required = 1')
             ->joinLeft(
                 [
-                "bundle_selection" => $this->getTable('bundle/selection')],
-                "bundle_selection.option_id = bundle_option.option_id",
+                'bundle_selection' => $this->getTable('bundle/selection')],
+                'bundle_selection.option_id = bundle_option.option_id',
                 $columns
             );
     }
@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     {
         return $this->_getReadAdapter()->fetchAll($this->_getSelect(
             $productId,
-            ["*"]
+            ['*']
         ));
     }
 

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     public function setReviewFilter($reviewId)
     {
         $this->getSelect()
-            ->where("main_table.review_id = ?", $reviewId);
+            ->where('main_table.review_id = ?', $reviewId);
         return $this;
     }
 
@@ -54,7 +54,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
     public function setEntityPkFilter($entityId)
     {
         $this->getSelect()
-            ->where("entity_pk_value = ?", $entityId);
+            ->where('entity_pk_value = ?', $entityId);
         return $this;
     }
 

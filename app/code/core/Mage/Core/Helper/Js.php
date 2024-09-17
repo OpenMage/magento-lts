@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,7 +138,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             if (!empty($messages)) {
                 foreach ($messages as $message) {
                     $messageText = (string)$message;
-                    $module = $message->getParent()->getAttribute("module");
+                    $module = $message->getParent()->getAttribute('module');
                     $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module)->__($messageText);
                 }
             }

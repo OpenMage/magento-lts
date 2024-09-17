@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * DB connection.
      *
-     * @var Varien_Convert_Adapter_Interface
+     * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_connection;
 
@@ -54,7 +54,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int
+     * @var string|null
      */
     protected $_entityTypeId;
 
@@ -183,10 +183,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
     public function __construct()
     {
-        $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
+        $entityType             = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
         $this->_entityTypeId    = $entityType->getEntityTypeId();
         $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
-        $this->_connection      = Mage::getSingleton('core/resource')->getConnection('write');
+
+        /** @var Varien_Db_Adapter_Pdo_Mysql $_connection */
+        $_connection            = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection      = $_connection;
     }
 
     /**
@@ -260,7 +263,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $bunchSize       = Mage::helper('importexport')->getBunchSize();
 
         /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper("core");
+        $coreHelper = Mage::helper('core');
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -398,7 +401,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int
+     * @return string|null
      */
     public function getEntityTypeId()
     {
@@ -655,7 +658,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_dataValidated) {
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
-                file_put_contents($this->_getSource()->getSource(), "");
+                file_put_contents($this->_getSource()->getSource(), '');
                 Mage::throwException(
                     Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
                 );

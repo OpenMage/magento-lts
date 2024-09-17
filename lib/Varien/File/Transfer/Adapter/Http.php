@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,7 @@ class Varien_File_Transfer_Adapter_Http
         } elseif (is_array($options)) {
             $filepath = $options['filepath'];
         } else {
-            throw new Exception("Filename is not set.");
+            throw new Exception('Filename is not set.');
         }
 
         if (!is_file($filepath) || !is_readable($filepath)) {

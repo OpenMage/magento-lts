@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -155,8 +155,11 @@
                 <dest_type>RES</dest_type>
                 <free_method>GND</free_method>
                 <gateway_xml_url>https://onlinetools.ups.com/ups.app/xml/Rate</gateway_xml_url>
+                <gateway_rest_url>https://onlinetools.ups.com/api/rating/</gateway_rest_url>
                 <tracking_xml_url>https://onlinetools.ups.com/ups.app/xml/Track</tracking_xml_url>
+                <tracking_rest_url>https://onlinetools.ups.com/api/track/</tracking_rest_url>
                 <shipconfirm_xml_url>https://onlinetools.ups.com/ups.app/xml/ShipConfirm</shipconfirm_xml_url>
+                <shipconfirm_rest_url>https://onlinetools.ups.com/api/shipments/v2403/ship</shipconfirm_rest_url>
                 <shipaccept_xml_url>https://onlinetools.ups.com/ups.app/xml/ShipAccept</shipaccept_xml_url>
                 <verify_peer>0</verify_peer>
                 <handling>0</handling>
@@ -166,6 +169,8 @@
                 <unit_of_measure>LBS</unit_of_measure>
                 <username backend_model="adminhtml/system_config_backend_encrypted"/>
                 <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <client_secret backend_model="adminhtml/system_config_backend_encrypted"/>
                 <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
                 <min_package_weight>0.1</min_package_weight>
                 <max_package_weight>150</max_package_weight>

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -215,15 +215,23 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 $eavConfig = Mage::getSingleton('eav/config');
                 $attributeIds = $eavConfig->getAttributeSetAttributeIds($setIds);
                 $this->_comparableAttributes = [];
+                $attributeSortInfo = [];
                 foreach ($attributeIds as $attributeId) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
                     if ($attribute->getData('is_comparable')) {
                         $this->_comparableAttributes[$attribute->getAttributeCode()] = $attribute;
+                        $attributeSortInfo[$attribute->getAttributeCode()] = $eavConfig->getAttributeSetGroupInfo($attributeId, $setIds);
                     }
                 }
 
-                usort($this->_comparableAttributes, function ($a, $b) {
-                    return $a->getPosition() - $b->getPosition();
+                uasort($this->_comparableAttributes, function ($a, $b) use ($attributeSortInfo) {
+                    /** @var Mage_Eav_Model_Entity_Attribute_Abstract $a */
+                    /** @var Mage_Eav_Model_Entity_Attribute_Abstract $b */
+
+                    $aSort = $attributeSortInfo[$a->getAttributeCode()]; // contains group_id, group_sort, sort
+                    $bSort = $attributeSortInfo[$b->getAttributeCode()]; // contains group_id, group_sort, sort
+
+                    return $aSort['group_sort'] <=> $bSort['group_sort'] ?: $aSort['sort'] <=> $bSort['sort'];
                 });
             }
         }

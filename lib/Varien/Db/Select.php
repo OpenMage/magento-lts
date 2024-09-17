@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -215,6 +215,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _findTableInCond($table, $cond)
     {
+        $cond  = (string)$cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
         if (strpos($cond, $quote . $table . $quote . '.') !== false) {
@@ -226,7 +227,6 @@ class Varien_Db_Select extends Zend_Db_Select
         $needle   = [];
         while (is_integer($result)) {
             $result = strpos($cond, $table . '.', $position);
-
             if (is_integer($result)) {
                 $needle[] = $result;
                 $position = ($result + strlen($table) + 1);

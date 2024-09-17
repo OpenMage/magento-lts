@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -213,8 +213,8 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '6',
-                'patch'     => '0',
+                'minor'     => '10',
+                'patch'     => '2',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
@@ -433,7 +433,7 @@ final class Mage
      * Retrieve config flag for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -745,7 +745,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -769,6 +769,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
@@ -844,7 +845,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime($date)) {
+                if (($date = $localConfig->global->install->date) && strtotime((string)$date)) {
                     self::$_isInstalled = true;
                 }
             }

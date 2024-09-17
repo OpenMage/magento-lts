@@ -23,8 +23,8 @@ use Mage_Customer_Helper_Data as Helper;
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {
-    public const CUSTOMER_ID_SESSION_NAME = "customerId";
-    public const TOKEN_SESSION_NAME = "token";
+    public const CUSTOMER_ID_SESSION_NAME = 'customerId';
+    public const TOKEN_SESSION_NAME = 'token';
 
     /**
      * Action list where need check enabled cookie
@@ -876,6 +876,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->cleanPasswordsValidationData();
             $customer->setPasswordCreatedAt(time());
             $customer->setRpCustomerId(null);
+            $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
 
             $this->_getSession()->unsetData(self::TOKEN_SESSION_NAME);
@@ -895,8 +896,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function getCustomerId()
     {
-        $customerId = $this->getRequest()->getQuery("id");
-        if (strlen($customerId) > 12) {
+        $customerId = $this->getRequest()->getQuery('id', false);
+        if (is_string($customerId) && strlen($customerId) > 12) {
             $customerCollection = Mage::getModel('customer/customer')
                 ->getCollection()
                 ->addAttributeToSelect(['rp_customer_id'])

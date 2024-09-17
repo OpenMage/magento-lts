@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,8 +22,6 @@
 class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
     public const ACL_ALL_RULES = 'all';
-
-    protected $_orphanedResources = [];
 
     /**
      * Initialize resource
@@ -114,6 +112,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
     {
+        $orphanedResources = [];
         foreach ($rulesArr as $rule) {
             $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
@@ -134,8 +133,8 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Zend_Acl_Exception $e) {
-                if (!in_array($resource, $this->_orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
-                    $this->_orphanedResources[] = $resource;
+                if (!in_array($resource, $orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
+                    $orphanedResources[] = $resource;
                 }
             } catch (Exception $e) {
                 if (Mage::getIsDeveloperMode()) {
@@ -144,12 +143,12 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             }
         }
 
-        if ($this->_orphanedResources !== []) {
+        if ($orphanedResources !== [] && $acl->isAllowed(Mage::getSingleton('admin/session')->getUser()->getAclRole(), 'admin/system/acl/orphaned_resources')) {
             Mage::getSingleton('adminhtml/session')->addNotice(
                 Mage::helper('adminhtml')->__(
                     'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
-                    implode(', ', $this->_orphanedResources),
-                    Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                    implode(', ', $orphanedResources),
+                    Mage::helper('adminhtml')->getUrl('adminhtml/permissions_orphanedResource')
                 )
             );
         }

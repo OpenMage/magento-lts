@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -586,7 +586,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $productName = Mage::helper('core')->escapeHtml($item->getProduct()->getName());
             $wishlistName = Mage::helper('core')->escapeHtml($wishlist->getName());
             $session->addSuccess(
-                Mage::helper('wishlist')->__("%s has been moved to wishlist %s", $productName, $wishlistName)
+                Mage::helper('wishlist')->__('%s has been moved to wishlist %s', $productName, $wishlistName)
             );
             $wishlist->save();
         } catch (Mage_Core_Exception $e) {

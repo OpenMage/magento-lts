@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -1520,13 +1520,6 @@
                         </no_route>
                     </fields>
                 </default>
-                <polls translate="label">
-                    <label>Polls</label>
-                    <sort_order>40</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </polls>
                 <cookie translate="label">
                     <label>Session Cookie Management</label>
                     <sort_order>50</sort_order>

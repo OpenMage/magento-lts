@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -240,29 +240,18 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @return int
      * @deprecated
-     * @return float|int|string
      */
     protected function _getMemoryLimit()
     {
         $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
 
         if (!isset($memoryLimit[0])) {
-            $memoryLimit = "128M";
+            $memoryLimit = '128M';
         }
 
-        $value = (int)substr($memoryLimit, 0, -1);
-
-        if (substr($memoryLimit, -1) == 'K') {
-            return $value * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'M') {
-            return $value * 1024 * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'G') {
-            return $value * 1024 * 1024 * 1024;
-        }
-        return $memoryLimit;
+        return ini_parse_quantity($memoryLimit);
     }
 
     /**
@@ -400,9 +389,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         // add misc params as a hash
         $miscParams = [
                 ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
-                ($this->_keepFrame ? '' : 'no')  . 'frame',
-                ($this->_keepTransparency ? '' : 'no')  . 'transparency',
-                ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
+                ($this->_keepFrame ? '' : 'no') . 'frame',
+                ($this->_keepTransparency ? '' : 'no') . 'transparency',
+                ($this->_constrainOnly ? 'do' : 'not') . 'constrainonly',
                 $this->_backgroundColorStr,
                 'angle' . $this->_angle,
                 'quality' . $this->_quality
@@ -577,7 +566,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $baseDir = Mage::getBaseDir('media');
-        $path = str_replace($baseDir . DS, "", $this->_newFile);
+        $path = str_replace($baseDir . DS, '', $this->_newFile);
         return Mage::getBaseUrl('media') . str_replace(DS, '/', $path);
     }
 

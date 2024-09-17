@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,11 +25,11 @@ class Mage_Adminhtml_Block_Permissions_Tab_Userroles extends Mage_Adminhtml_Bloc
 
         $uid = $this->getRequest()->getParam('id', false);
         $uid = !empty($uid) ? $uid : 0;
-        $roles = Mage::getModel("admin/roles")
+        $roles = Mage::getModel('admin/roles')
             ->getCollection()
             ->load();
 
-        $user_roles = Mage::getModel("admin/roles")
+        $user_roles = Mage::getModel('admin/roles')
             ->getUsersCollection()
             ->setUserFilter($uid)
             ->load();

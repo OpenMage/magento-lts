@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +146,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function generateXml()
     {
         $xml = $this->getUpdate()->asSimplexml();
-        $removeInstructions = $xml->xpath("//remove");
+        $removeInstructions = $xml->xpath('//remove');
         if (is_array($removeInstructions)) {
             foreach ($removeInstructions as $infoNode) {
                 $attributes = $infoNode->attributes();
@@ -170,7 +170,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             continue;
                         }
                         if (!isset($block->attributes()->ignore)) {
-                            $block->addAttribute('ignore', true);
+                            $block->addAttribute('ignore', '1');
                         }
                     }
                 }
@@ -419,7 +419,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Save block in blocks registry
      *
      * @param string $name
-     * @param Mage_Core_Model_Layout $block
+     * @param Mage_Core_Block_Abstract $block
      * @return $this
      */
     public function setBlock($name, $block)

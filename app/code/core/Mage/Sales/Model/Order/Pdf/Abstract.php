@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -366,7 +366,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
-            if (isset($shippingAddress) and is_iterable($shippingAddress)) {
+            if (isset($shippingAddress) && is_iterable($shippingAddress)) {
                 foreach ($shippingAddress as $value) {
                     if ($value !== '') {
                         $text = [];
@@ -438,8 +438,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             }
 
             $yShipments = $this->y;
-            $totalShippingChargesText = "(" . Mage::helper('sales')->__('Total Shipping Charges') . " "
-                . $order->formatPriceTxt($order->getShippingAmount()) . ")";
+            $totalShippingChargesText = '(' . Mage::helper('sales')->__('Total Shipping Charges') . ' '
+                . $order->formatPriceTxt($order->getShippingAmount()) . ')';
 
             $page->drawText($totalShippingChargesText, 285, $yShipments - $topMargin, 'UTF-8');
             $yShipments -= $topMargin + 10;
@@ -663,7 +663,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $resultValue .= $value['title'];
 
             if (isset($value['price'])) {
-                $resultValue .= " " . $order->formatPrice($value['price']);
+                $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
             return  $resultValue;
         } else {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -110,6 +110,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
+        if (!isset($value['values'])) {
+            $value['values'] = [];
+        }
+
         if (!is_array($value['values']) && strlen($value['values']) > 0) {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
@@ -167,11 +171,13 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($value['values'] as $mediaAttrCode => $attrData) {
             if (array_key_exists($attrData, $newImages)) {
                 $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
-                $object->setData($mediaAttrCode . '_label', ($newImages[$attrData]['label'] === null || $newImages[$attrData]['label_use_default']) ? $newImages[$attrData]['label_default'] : $newImages[$attrData]['label']);
+                $label = $newImages[$attrData]['label'] === null || !empty($newImages[$attrData]['label_use_default']) ? $newImages[$attrData]['label_default'] : $newImages[$attrData]['label'];
+                $object->setData($mediaAttrCode . '_label', $label);
             }
 
             if (array_key_exists($attrData, $existImages)) {
-                $object->setData($mediaAttrCode . '_label', ($existImages[$attrData]['label'] === null || $existImages[$attrData]['label_use_default']) ? $existImages[$attrData]['label_default'] : $existImages[$attrData]['label']);
+                $label = $existImages[$attrData]['label'] === null || !empty($existImages[$attrData]['label_use_default']) ? $existImages[$attrData]['label_default'] : $existImages[$attrData]['label'];
+                $object->setData($mediaAttrCode . '_label', $label);
             }
         }
 
@@ -242,13 +248,25 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $image['value_id']      = $this->_getResource()->insertGallery($data);
             }
 
+            if ($storeId === 0) {
+                $image['label_use_default'] = false;
+                $image['position_use_default'] = false;
+            } else {
+                if (!isset($image['label_use_default'])) {
+                    $image['label_use_default'] = null;
+                }
+                if (!isset($image['position_use_default'])) {
+                    $image['position_use_default'] = null;
+                }
+            }
+
             $this->_getResource()->deleteGalleryValueInStore($image['value_id'], $object->getStoreId());
 
             // Add per store labels, position, disabled
             $data = [];
             $data['value_id'] = $image['value_id'];
-            $data['label']    = ($image['label'] === null || $image["label_use_default"]) ? null : $image['label'];
-            $data['position'] = ($image['position'] === null || $image["position_use_default"]) ? null : (int) $image['position'];
+            $data['label']    = ($image['label'] === null || $image['label_use_default']) ? null : $image['label'];
+            $data['position'] = ($image['position'] === null || $image['position_use_default']) ? null : (int) $image['position'];
             $data['disabled'] = (int) $image['disabled'];
             $data['store_id'] = (int) $object->getStoreId();
 

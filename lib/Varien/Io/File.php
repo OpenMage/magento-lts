@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -409,7 +409,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                     if (!strcmp($item, '.') || !strcmp($item, '..')) {
                         continue;
                     }
-                    self::rmdirRecursive($dir . "/" . $item, $recursive);
+                    self::rmdirRecursive($dir . '/' . $item, $recursive);
                 }
                 $result = @rmdir($dir);
             } elseif (file_exists($dir)) {
@@ -898,13 +898,13 @@ class Varien_Io_File extends Varien_Io_Abstract
 
         /* Adjust for SUID, SGID and sticky bit */
         if ($mode & 0x800) {
-            $owner["execute"] = ($owner['execute'] == 'x') ? 's' : 'S';
+            $owner['execute'] = ($owner['execute'] == 'x') ? 's' : 'S';
         }
         if ($mode & 0x400) {
-            $group["execute"] = ($group['execute'] == 'x') ? 's' : 'S';
+            $group['execute'] = ($group['execute'] == 'x') ? 's' : 'S';
         }
         if ($mode & 0x200) {
-            $world["execute"] = ($world['execute'] == 'x') ? 't' : 'T';
+            $world['execute'] = ($world['execute'] == 'x') ? 't' : 'T';
         }
 
         $s = sprintf('%1s', $type);

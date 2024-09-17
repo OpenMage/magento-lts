@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,6 +27,8 @@
  * @method $this setFormat(string $value)
  * @method string getIndex()
  * @method bool getNoLink()
+ * @method bool getCopyable()
+ * @method $this setCopyable(bool $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -160,6 +162,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
+        }
+
+        if ($this->getCopyable() && $text = $this->getRenderer()->getCopyableText($row)) {
+            $renderedValue = '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
         }
 
         return $renderedValue;

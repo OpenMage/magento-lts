@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -194,7 +194,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
                 $this->_y(28),
                 Zend_Pdf_Page::SHAPE_DRAW_FILL
             );
-            $this->_page->setFillColor(new Zend_Pdf_Color_Html("#ffffff"));
+            $this->_page->setFillColor(new Zend_Pdf_Color_Html('#ffffff'));
             $font = $this->_fontBold;
         } else {
             $font = $this->_fontNormal;
@@ -258,7 +258,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
         $phoneNumber = implode(' ', array_filter([(string)$sender->Contact->PhoneNumber,
             (string)$sender->Contact->PhoneExtension]));
-        $phoneNumber = $phoneNumber ? "Phone: " . $phoneNumber : '';
+        $phoneNumber = $phoneNumber ? 'Phone: ' . $phoneNumber : '';
         $pageY = $this->_drawSenderAddress($sender->AddressLine, $phoneNumber);
 
         $divisionCode = (string)(strlen($sender->DivisionCode) ? $sender->DivisionCode . ' ' : null);
@@ -325,7 +325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         }
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 6);
-        $this->_page->drawText("Origin:", $this->_x(260), $this->_y(36));
+        $this->_page->drawText('Origin:', $this->_x(260), $this->_y(36));
         $this->_page->setFont($this->_fontBold, 9);
         $this->_page->drawText($serviceAreaCode, $this->_x(260), $this->_y(45));
 
@@ -344,7 +344,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->saveGS();
 
         $this->_page->setFont($this->_fontNormal, 9);
-        $this->_page->drawText("To:", $this->_x(5), $this->_y(92));
+        $this->_page->drawText('To:', $this->_x(5), $this->_y(92));
         $this->_page->drawText($consignee->CompanyName, $this->_x(20), $this->_y(90));
         $y = $this->_page->drawLines($consignee->AddressLine, $this->_x(19), $this->_y(100), 50);
 
@@ -500,7 +500,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
 
-        $units = ["K" => 'kg', "L" => 'lb'];
+        $units = ['K' => 'kg', 'L' => 'lb'];
         if (!isset($units[$unit])) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Weight unit is invalid'));
         }
@@ -560,12 +560,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($number) || !strlen($barCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Waybill barcode information is missing'));
         }
-        $image = new Zend_Pdf_Resource_Image_Png("data://image/png;base64," . $barCode);
+        $image = new Zend_Pdf_Resource_Image_Png('data://image/png;base64,' . $barCode);
         $this->_page->drawImage($image, $this->_x(0), $this->_y(296), $this->_x(232), $this->_y(375));
 
         $this->_page->setFont($this->_fontNormal, 9);
         $number = substr($number, 0, 2) . ' ' . substr($number, 2, 4) . ' ' . substr($number, 6, 4);
-        $this->_page->drawText("WAYBILL " . $number, $this->_x(13.5), $this->_y(382));
+        $this->_page->drawText('WAYBILL ' . $number, $this->_x(13.5), $this->_y(382));
 
         $this->_page->restoreGS();
         return $this;
@@ -588,7 +588,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
             throw new InvalidArgumentException(Mage::helper('usa')->__('Routing barcode is missing'));
         }
 
-        $image = new Zend_Pdf_Resource_Image_Png("data://image/png;base64," . $barCode);
+        $image = new Zend_Pdf_Resource_Image_Png('data://image/png;base64,' . $barCode);
         $this->_page->drawImage($image, $this->_x(0), $this->_y(386), $this->_x(232), $this->_y(465));
 
         $this->_page->setFont($this->_fontNormal, 9);

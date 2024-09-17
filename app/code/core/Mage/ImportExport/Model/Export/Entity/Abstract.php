@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int
+     * @var string|null
      */
     protected $_entityTypeId;
 
@@ -170,7 +170,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     {
         $entityCode = $this->getEntityTypeCode();
         $this->_entityTypeId = Mage::getSingleton('eav/config')->getEntityType($entityCode)->getEntityTypeId();
-        $this->_connection   = Mage::getSingleton('core/resource')->getConnection('write');
+
+        /** @var Varien_Db_Adapter_Pdo_Mysql $_connection */
+        $_connection         = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection   = $_connection;
     }
 
     /**
@@ -436,7 +439,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int
+     * @return string|null
      */
     public function getEntityTypeId()
     {
