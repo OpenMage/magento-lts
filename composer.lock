@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1e458ca3048c0e7e7ac5e2b6041c47f",
+    "content-hash": "9a0f70859a6272156d00c0b32fc48cff",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -6408,7 +6408,9 @@
         "ext-soap": "*",
         "ext-zlib": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {
+        "ext-xmlreader": "*"
+    },
     "platform-overrides": {
         "php": "7.4"
     },

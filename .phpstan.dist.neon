@@ -17,6 +17,7 @@ parameters:
         - lib/Magento
         - lib/Varien
         - shell
+        - tests/unit
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
