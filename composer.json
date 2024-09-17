@@ -37,6 +37,7 @@
         "symfony/polyfill-php82": "^1.29"
     },
     "require-dev": {
+        "ext-xmlreader": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
@@ -88,7 +89,7 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
+            "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {
@@ -126,5 +127,10 @@
             "php": "7.4"
         },
         "sort-packages": true
+    },
+    "scripts": {
+        "phpunit:test": "vendor/bin/phpunit --no-coverage \"$@\" --testdox",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox"
     }
 }
