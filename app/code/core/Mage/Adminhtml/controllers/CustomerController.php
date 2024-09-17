@@ -634,7 +634,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         # additional validate email
         if (!$response->getError()) {
             # Trying to load customer with the same email and return error message
-            # if customer with the same email address exisits
+            # if customer with the same email address exists
             $checkCustomer = Mage::getModel('customer/customer')
                 ->setWebsiteId($websiteId);
             $checkCustomer->loadByEmail($accountData['email']);

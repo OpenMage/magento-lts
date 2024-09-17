@@ -40,7 +40,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         foreach ($items as $item) {
             if ($this->_initItem($address, $item) && $item->getQty() > 0) {
                 /**
-                 * Separatly calculate subtotal only for virtual products
+                 * Separately calculate subtotal only for virtual products
                  */
                 if ($item->getProduct()->isVirtual()) {
                     $virtualAmount += $item->getRowTotal();

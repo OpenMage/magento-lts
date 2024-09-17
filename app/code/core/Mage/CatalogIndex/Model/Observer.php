@@ -216,7 +216,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Run planed reindex
+     * Run planned reindex
      *
      * @return $this
      */

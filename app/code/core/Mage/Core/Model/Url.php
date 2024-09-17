@@ -587,7 +587,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
     /**
      * Set Action name
-     * Reseted route path if action name has change
+     * Reset route path if action name has changed
      *
      * @param string $data
      * @return $this

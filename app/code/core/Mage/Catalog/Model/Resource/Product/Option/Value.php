@@ -27,7 +27,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     }
 
     /**
-     * Proceeed operations after object is saved
+     * Proceed operations after object is saved
      * Save options store data
      *
      * @return Mage_Core_Model_Resource_Db_Abstract

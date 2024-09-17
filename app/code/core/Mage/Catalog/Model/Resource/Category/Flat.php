@@ -543,7 +543,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     }
 
     /**
-     * Create Flate Table(s)
+     * Create Flat Table(s)
      *
      * @param array|int $stores
      * @return $this

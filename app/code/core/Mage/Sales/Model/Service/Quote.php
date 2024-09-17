@@ -57,7 +57,7 @@ class Mage_Sales_Model_Service_Quote
     protected $_order = null;
 
     /**
-     * If it is true, quote will be inactivate after submitting order or nominal items
+     * If it is true, quote will be inactivated after submitting order or nominal items
      *
      * @var bool
      */
@@ -73,7 +73,7 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Quote convertor declaration
+     * Quote converter declaration
      *
      * @return  Mage_Sales_Model_Service_Quote
      */
@@ -220,7 +220,7 @@ class Mage_Sales_Model_Service_Quote
      */
     public function submitAll()
     {
-        // don't allow submitNominalItems() to inactivate quote
+        // don't allow submitNominalItems() to deactivate quote
         $shouldInactivateQuoteOld = $this->_shouldInactivateQuote;
         $this->_shouldInactivateQuote = false;
         try {
@@ -259,7 +259,7 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Inactivate quote
+     * Deactivate quote
      *
      * @return $this
      */

@@ -64,7 +64,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Retrieve bunch of queries for specified select splitted by specified step
+     * Retrieve bunch of queries for specified select split by specified step
      *
      * @param string $entityIdField
      * @param int $step

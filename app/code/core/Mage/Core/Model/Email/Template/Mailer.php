@@ -137,7 +137,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     }
 
     /**
-     * Set tempate parameters
+     * Set template parameters
      *
      * @return $this
      */

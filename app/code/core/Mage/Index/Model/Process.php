@@ -418,7 +418,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
     /**
      * Lock process without blocking.
-     * This method allow protect multiple process runing and fast lock validation.
+     * This method allow to protect multiple process running and fast lock validation.
      *
      * @return $this
      */

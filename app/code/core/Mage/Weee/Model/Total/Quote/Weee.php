@@ -309,7 +309,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     }
 
     /**
-     * Proces row amount based on FPT total amount configuration setting
+     * Process row amount based on FPT total amount configuration setting
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @param   float $rowValue

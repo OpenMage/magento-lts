@@ -513,7 +513,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Calculate unit tax anount based on unit price
+     * Calculate unit tax amount based on unit price
      *
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   float $rate
@@ -631,7 +631,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     ];
                 }
                 // calculate discount compensation
-                // We need the discount compensation when dont calculate the hidden taxes
+                // We need the discount compensation when don't calculate the hidden taxes
                 // (when product does not include taxes)
                 if (!$item->getNoDiscount() && $item->getWeeeTaxApplied()) {
                     $item->setDiscountTaxCompensation($item->getDiscountTaxCompensation() +

@@ -289,7 +289,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * Generating and validating class file name,
-     * class and if evrything ok do include if needed and return of class name
+     * class and if everything ok do include if needed and return of class name
      *
      * @param string $realModule
      * @param string $controller

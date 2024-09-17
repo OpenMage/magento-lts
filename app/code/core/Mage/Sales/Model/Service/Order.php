@@ -47,7 +47,7 @@ class Mage_Sales_Model_Service_Order
     }
 
     /**
-     * Quote convertor declaration
+     * Quote converter declaration
      *
      * @return  Mage_Sales_Model_Service_Order
      */

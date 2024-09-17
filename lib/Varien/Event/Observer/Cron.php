@@ -26,7 +26,7 @@
 class Varien_Event_Observer_Cron extends Varien_Event_Observer
 {
     /**
-     * Checkes the observer's cron string against event's name
+     * Checks the observer's cron string against event's name
      *
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *

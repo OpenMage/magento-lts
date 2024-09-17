@@ -33,14 +33,14 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     public const DEFAULT_DESIGN_AREA = 'frontend';
 
     /**
-     * Configuration of desing package for template
+     * Configuration of design package for template
      *
      * @var Varien_Object|null
      */
     protected $_designConfig;
 
     /**
-     * Configuration of emulated desing package.
+     * Configuration of emulated design package.
      *
      * @var Varien_Object|false
      */

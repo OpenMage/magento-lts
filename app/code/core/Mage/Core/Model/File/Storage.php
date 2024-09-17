@@ -28,7 +28,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     public const STORAGE_MEDIA_DATABASE            = 1;
 
     /**
-     * Config pathes for storing storage configuration
+     * Config paths for storing storage configuration
      */
     public const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
     public const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';

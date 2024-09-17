@@ -61,10 +61,10 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
                 /**
                  * Resolve rounding problems
                  *
-                 * We dont want to include the weee discount amount as the right amount
+                 * We don't want to include the weee discount amount as the right amount
                  * is added when calculating the taxes.
                  *
-                 * Also the subtotal is without weee
+                 * Also, the subtotal is without weee
                  */
 
                 $discount = $orderItemDiscount - $orderItem->getDiscountInvoiced();

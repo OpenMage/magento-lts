@@ -34,7 +34,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Ord
         $baseShippingInclTax        = $invoice->getOrder()->getBaseShippingInclTax();
         if ($orderShippingAmount) {
             /**
-             * Check shipping amount in previus invoices
+             * Check shipping amount in previous invoices
              */
             foreach ($invoice->getOrder()->getInvoiceCollection() as $previusInvoice) {
                 if ($previusInvoice->getShippingAmount() && !$previusInvoice->isCanceled()) {

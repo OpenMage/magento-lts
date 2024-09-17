@@ -71,7 +71,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     }
 
     /**
-     * Specify select columns which are used for load arrtibute values
+     * Specify select columns which are used for load attribute values
      *
      * @return $this
      */

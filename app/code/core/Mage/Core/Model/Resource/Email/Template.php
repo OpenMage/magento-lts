@@ -92,7 +92,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * Retrieve config scope and scope id of specified email template by email pathes
+     * Retrieve config scope and scope id of specified email template by email paths
      *
      * @param array $paths
      * @param int|string $templateId

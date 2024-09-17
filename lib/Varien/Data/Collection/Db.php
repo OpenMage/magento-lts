@@ -67,7 +67,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     protected $_data = null;
 
     /**
-     * Fields map for corellation names & real selected fields
+     * Fields map for correlation names & real selected fields
      *
      * @var array|null
      */
@@ -693,7 +693,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Proces loaded collection data
+     * Process loaded collection data
      *
      * @return $this
      */

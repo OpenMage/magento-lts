@@ -1059,7 +1059,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Order state setter.
      * If status is specified, will add order status history with specified comment
-     * the setData() cannot be overriden because of compatibility issues with resource model
+     * the setData() cannot be overridden because of compatibility issues with resource model
      *
      * @param string $state
      * @param string|bool $status

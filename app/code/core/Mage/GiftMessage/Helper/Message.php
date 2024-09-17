@@ -147,7 +147,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Check availablity of gift messages from store config if flag eq 2.
+     * Check availability of gift messages from store config if flag eq 2.
      *
      * @param int $productGiftMessageAllow
      * @param Mage_Core_Model_Store|integer $store

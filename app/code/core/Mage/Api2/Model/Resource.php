@@ -871,7 +871,7 @@ abstract class Mage_Api2_Model_Resource
     }
 
     /**
-     * Resource specific method to retrieve attributes' codes. May be overriden in child.
+     * Resource specific method to retrieve attributes' codes. May be overridden in child.
      *
      * @return array
      */

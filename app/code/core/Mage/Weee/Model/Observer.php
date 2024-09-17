@@ -203,7 +203,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Automaticaly assign backend model to weee attributes
+     * Automatically assign backend model to weee attributes
      *
      * @return  Mage_Weee_Model_Observer
      */

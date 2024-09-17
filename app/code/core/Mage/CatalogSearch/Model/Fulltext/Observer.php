@@ -66,7 +66,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     }
 
     /**
-     * Update all attribute-dependant index
+     * Update all attribute-dependent index
      *
      * @return $this
      */

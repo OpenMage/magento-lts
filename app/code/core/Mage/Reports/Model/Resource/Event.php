@@ -56,7 +56,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Add events log to a collection
-     * The collection id field is used without corellation, so it must be unique.
+     * The collection id field is used without correlation, so it must be unique.
      * DESC ordering by event will be added to the collection
      *
      * @param int $eventTypeId

@@ -170,7 +170,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     }
 
     /**
-     * Check for payment instace present
+     * Check for payment instance present
      *
      * @throws Exception
      */

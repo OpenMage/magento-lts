@@ -23,7 +23,7 @@
 class Mage_Paypal_Model_Cart
 {
     /**
-     * Totals that PayPal suppports when passing shopping cart
+     * Totals that PayPal supports when passing shopping cart
      *
      * @var string
      */
@@ -147,7 +147,7 @@ class Mage_Paypal_Model_Cart
     /**
      * Render and get totals
      * If the totals are invalid for any reason, they will be merged into one amount (subtotal is utilized for it)
-     * An option to substract discount from the subtotal is available
+     * An option to subtract discount from the subtotal is available
      *
      * @param bool $mergeDiscount
      * @return array

@@ -832,7 +832,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     }
 
     /**
-     * Build qoutes request XML object
+     * Build quotes request XML object
      *
      * @return SimpleXMLElement
      */

@@ -447,7 +447,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                 $shipKey = $r->getShippingIntlKey();
                 $r->setShipDate($this->_getShipDate(false));
                 /*
-                * For internation shippingment customsvalue must be posted
+                * For international shipment customs value must be posted
                 */
                 $shippingDuty = $shipment->addChild('Dutiable');
                 $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -486,7 +486,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                     $r->setShipDate($this->_getShipDate(false));
 
                     /*
-                    * For internation shippingment customsvalue must be posted
+                    * For international shipment customs value must be posted
                     */
                     $shippingDuty = $shipment->addChild('Dutiable');
                     $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -997,7 +997,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $debugData = ['request' => $request];
         /*
          * tracking api cannot process from 3pm to 5pm PST time on Sunday
-         * DHL Airborne conduts a maintainance during that period.
+         * DHL Airborne conducts a maintenance during that period.
          */
         try {
             $url = $this->getConfigData('gateway_url');

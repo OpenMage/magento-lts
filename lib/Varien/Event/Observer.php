@@ -22,7 +22,7 @@
 class Varien_Event_Observer extends Varien_Object
 {
     /**
-     * Checkes the observer's event_regex against event's name
+     * Checks the observer's event_regex against event's name
      *
      * @return boolean
      */

@@ -25,7 +25,7 @@
 class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
-     * Add days in whishlist filter of product collection
+     * Add days in wishlist filter of product collection
      *
      * @var bool
      */
@@ -38,7 +38,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     protected $_wishlistItemTableAlias         = 't_wi';
 
     /**
-     * Get add days in whishlist filter of product collection flag
+     * Get add days in wishlist filter of product collection flag
      *
      * @return bool
      */
@@ -48,7 +48,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     }
 
     /**
-     * Set add days in whishlist filter of product collection flag
+     * Set add days in wishlist filter of product collection flag
      *
      * @param bool $flag
      * @return $this

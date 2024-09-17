@@ -124,7 +124,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
-        // save super attributes for simplier and quicker search in future
+        // save super attributes for simpler and quicker search in future
         if ($attrParams['type'] === 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
             $this->_superAttributes[$attrParams['code']] = $attrParams;
         }

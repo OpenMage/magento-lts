@@ -122,7 +122,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Check if event can be matched by process.
-     * Rewrited for checking configuration settings save (like price scope).
+     * Rewritten for checking configuration settings save (like price scope).
      *
      * @return bool
      */

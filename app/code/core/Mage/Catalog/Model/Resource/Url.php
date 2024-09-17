@@ -805,7 +805,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Retrieve category childs data objects
+     * Retrieve category children data objects
      *
      * @return Varien_Object
      */
@@ -1287,7 +1287,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @param array $_checkedPaths internal varible to prevent infinite loops.
+     * @param array $_checkedPaths internal variable to prevent infinite loops.
      * @return string | bool
      */
     public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = [])

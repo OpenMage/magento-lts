@@ -89,7 +89,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     protected function _checkRegion($data, Mage_Directory_Model_Country $country)
     {
         $regions = $country->getRegions();
-        // Is it the country with predifined regions?
+        // Is it the country with predefined regions?
         if ($regions->count()) {
             if (!array_key_exists('region', $data) || empty($data['region'])) {
                 $this->_addError('"State/Province" is required.');

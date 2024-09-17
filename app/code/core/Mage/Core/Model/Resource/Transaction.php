@@ -18,7 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @todo need collect conection by name
+ * @todo need collect connection by name
  */
 class Mage_Core_Model_Resource_Transaction
 {

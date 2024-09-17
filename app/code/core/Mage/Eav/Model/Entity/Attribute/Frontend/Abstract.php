@@ -61,7 +61,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retrieve lable
+     * Retrieve label
      *
      * @return string
      */

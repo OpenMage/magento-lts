@@ -149,7 +149,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
         if (($size = count($options))) {
-            // add empty vaue option
+            // add empty value option
             $firstOption = reset($options);
 
             if ($firstOption['value'] === '') {
@@ -291,7 +291,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
         if (($size = count($options))) {
-            // add empty vaue option
+            // add empty value option
             $firstOption = reset($options);
 
             if ($firstOption['value'] === '') {

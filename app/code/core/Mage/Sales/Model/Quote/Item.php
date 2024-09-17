@@ -653,7 +653,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Can specify specific actions for ability to change given quote options values
-     * Exemple: cataloginventory decimal qty validation may change qty to int,
+     * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
      * @param int|float|null $value

@@ -102,7 +102,7 @@ class Varien_Event_Collection
     /**
      * Register an observer
      *
-     * If observer has event_name property it will be regitered for this specific event.
+     * If observer has event_name property it will be registered for this specific event.
      * If not it will be registered as global observer
      *
      * @return Varien_Event_Collection

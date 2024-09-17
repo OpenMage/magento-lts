@@ -32,7 +32,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     public const COL_STORE   = '_store';
 
     /**
-     * Overriden attributes parameters.
+     * Overridden attributes parameters.
      *
      * @var array
      */

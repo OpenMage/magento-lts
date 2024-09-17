@@ -163,7 +163,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Standard resource collection initalization
+     * Standard resource collection initialization
      *
      * @param string $model
      * @param null|string $entityModel

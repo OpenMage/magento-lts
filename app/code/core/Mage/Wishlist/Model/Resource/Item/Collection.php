@@ -60,7 +60,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected $_storeIds = [];
 
     /**
-     * Add days in whishlist filter of product collection
+     * Add days in wishlist filter of product collection
      *
      * @var bool
      */
@@ -345,7 +345,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * Set add days in whishlist
+     * Set add days in wishlist
      *
      * This method appears in 1.5.0.0 in deprecated state, because:
      * - we need it to make wishlist item collection interface as much as possible compatible with old

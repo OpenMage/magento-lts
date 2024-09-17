@@ -86,7 +86,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     }
 
     /**
-     * Operate with gift messages on checkout proccess
+     * Operate with gift messages on checkout process
      *
      * @return $this
      */

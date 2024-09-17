@@ -975,7 +975,7 @@ class Mage_Core_Model_Resource_Setup
 
     /**
      * Run each time after applying of all updates,
-     * if setup model setted  $_callAfterApplyAllUpdates flag to true
+     * if setup model set $_callAfterApplyAllUpdates flag to true
      *
      * @return $this
      */

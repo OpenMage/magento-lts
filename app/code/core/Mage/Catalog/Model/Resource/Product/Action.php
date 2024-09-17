@@ -22,7 +22,7 @@
 class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Resource_Abstract
 {
     /**
-     * Intialize connection
+     * Initialize connection
      *
      */
     protected function _construct()
