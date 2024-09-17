@@ -108,7 +108,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * array(
      *      $sectionName => $recursionLevel
      * )
-     * Recursion level provide availability cache subnodes separatly
+     * Recursion level provide availability cache sub-nodes separately
      *
      * @var array
      */
@@ -455,7 +455,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Check local modules enable/disable flag
-     * If local modules are disbled remove local modules path from include dirs
+     * If local modules are disabled remove local modules path from include dirs
      *
      * return true if local modules enabled and false if disabled
      *

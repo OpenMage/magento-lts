@@ -109,7 +109,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             if (preg_match('/^--(.*)$/', $arg, $match)) {
                 // argument name
                 $currentArg = $match[1];
-                // in case if argument doen't need a value
+                // in case if argument doesn't need a value
                 $args[$currentArg] = true;
             } else {
                 // argument value
@@ -255,7 +255,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     }
 
     /**
-     * Prepare data ans save it in data model
+     * Prepare data and save it in data model
      *
      * @return $this
      */

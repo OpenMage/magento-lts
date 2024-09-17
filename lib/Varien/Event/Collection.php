@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +103,7 @@ class Varien_Event_Collection
     /**
      * Register an observer
      *
-     * If observer has event_name property it will be regitered for this specific event.
+     * If observer has event_name property it will be registered for this specific event.
      * If not it will be registered as global observer
      *
      * @param Varien_Event_Observer $observer

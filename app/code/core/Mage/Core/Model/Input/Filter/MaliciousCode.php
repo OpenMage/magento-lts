@@ -31,7 +31,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         '/(\/\*.*\*\/)/Us',
         //tabs
         '/(\t)/',
-        //javasript prefix
+        //javascript prefix
         '/(javascript\s*:)/Usi',
         //import styles
         '/(@import)/Usi',

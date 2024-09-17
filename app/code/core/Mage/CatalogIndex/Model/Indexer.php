@@ -48,7 +48,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
     /**
      * Set of available indexers
-     * Each indexer type is responsable for index data storage
+     * Each indexer type is responsible for index data storage
      *
      * @var array
      */

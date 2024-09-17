@@ -747,7 +747,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 'on_delete'     => Varien_Db_Ddl_Table::ACTION_CASCADE
             ];
 
-            // Additional data from childs
+            // Additional data from children
             $isAddChildData = $this->getFlatHelper()->isAddChildData();
             if (!$isAddChildData && isset($describe['is_child'])) {
                 $adapter->delete($tableName, ['is_child = ?' => 1]);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -808,7 +808,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Retrieve category childs data objects
+     * Retrieve category children data objects
      *
      * @param Varien_Object $category
      * @return Varien_Object
@@ -1294,7 +1294,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @param array $_checkedPaths internal varible to prevent infinite loops.
+     * @param array $_checkedPaths internal variable to prevent infinite loops.
      * @return string | bool
      */
     public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = [])
