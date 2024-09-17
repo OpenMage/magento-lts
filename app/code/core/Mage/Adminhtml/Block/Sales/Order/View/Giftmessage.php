@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             if ($this->getParentBlock() && ($order = $this->getOrder())) {
                 $this->setEntity($order);
             }
@@ -61,13 +61,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Prepares layout of block
-     *
      * @return $this
      */
     protected function _prepareLayout()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             $this->setChild(
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -81,8 +79,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrieve save button html
-     *
      * @return string
      * @throws Exception
      */

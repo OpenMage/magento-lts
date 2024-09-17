@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +74,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * @access public
      * @param string $type
      */
-    public function flip($type = "h")
+    public function flip($type = 'h')
     {
         $this->uploader->image_flip = $type;
     }
@@ -115,7 +115,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Default value is 'jpeg'
      *
      */
-    public function convert($format = "jpeg")
+    public function convert($format = 'jpeg')
     {
         $this->uploader->image_convert = $format;
     }
@@ -147,7 +147,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * If a negative value is used, it will represent the distance between the right of the image and the watermark
      *
      */
-    public function addWatermark($fileName = null, $position = "BL", $absoluteX = null, $absoluteY = null)
+    public function addWatermark($fileName = null, $position = 'BL', $absoluteX = null, $absoluteY = null)
     {
         if (!isset($fileName)) {
             return;
@@ -178,7 +178,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Value is an integer between 0 (no opacity) and 100 (full opacity).
      *
      */
-    public function addReflection($height = "10%", $space = 0, $color = "#FFFFFF", $opacity = 60)
+    public function addReflection($height = '10%', $space = 0, $color = '#FFFFFF', $opacity = 60)
     {
         if ((int) $height == 0) {
             return;
@@ -195,9 +195,9 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Value is a string, any text. Text will not word-wrap, although you can use breaklines in your text "\n"
      */
-    public function addText($string = "")
+    public function addText($string = '')
     {
-        if (trim($string) == "") {
+        if (trim($string) == '') {
             return;
         }
 
@@ -234,7 +234,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
         $this->uploader->image_text_font = $font;
     }
 
-    public function setTextPosition($position = "TR")
+    public function setTextPosition($position = 'TR')
     {
         $this->uploader->image_text_position = $position;
     }
@@ -299,7 +299,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * $percent value is a percentage, as an integer between 0 and 100
      *
      */
-    public function colorOverlay($color = "#FFFFFF", $percent = 50)
+    public function colorOverlay($color = '#FFFFFF', $percent = 50)
     {
         $this->uploader->image_overlay_color = $color;
         $this->uploader->image_overlay_percent = $percent;
@@ -345,7 +345,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Is generally used when cropping an image with negative margins
      *
      */
-    public function setBgColor($color = "#000000")
+    public function setBgColor($color = '#000000')
     {
         $this->uploader->image_background_color = $color;
     }

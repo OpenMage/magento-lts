@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +59,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     public function getValueHtml($value)
     {
         if (is_array($value)) {
-            return sprintf('%d', $value['qty']) . ' x ' . $this->escapeHtml($value['title']) . " "
+            return sprintf('%d', $value['qty']) . ' x ' . $this->escapeHtml($value['title']) . ' '
                 . $this->getItem()->getOrder()->formatPrice($value['price']);
         } else {
             return $this->escapeHtml($value);

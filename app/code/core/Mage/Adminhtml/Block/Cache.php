@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         parent::__construct();
         $this->_removeButton('add');
         $this->_addButton('flush_magento', [
-            'label'     => Mage::helper('core')->__('Flush OpenMage Cache'),
+            'label'     => Mage::helper('core')->__('Flush & Apply Updates'),
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getFlushSystemUrl()),
             'class'     => 'delete',
         ]);

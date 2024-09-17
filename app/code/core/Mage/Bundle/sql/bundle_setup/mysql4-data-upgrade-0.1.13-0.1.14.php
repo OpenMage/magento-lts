@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,8 +20,8 @@ $priceTypeAttribute = $installer->getAttribute('catalog_product', 'price_type');
 $taxClassAttribute  = $installer->getAttribute('catalog_product', 'tax_class_id');
 
 $productTable   = $installer->getTable('catalog/product');
-$priceTypeTable = $productTable . "_" . $priceTypeAttribute['backend_type'];
-$taxClassTable  = $productTable . "_" . $taxClassAttribute['backend_type'];
+$priceTypeTable = $productTable . '_' . $priceTypeAttribute['backend_type'];
+$taxClassTable  = $productTable . '_' . $taxClassAttribute['backend_type'];
 
 $db = $installer->getConnection();
 $db->beginTransaction();

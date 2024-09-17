@@ -31,12 +31,11 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public const XML_PATH_API2_RESPONSE_RENDERS     = 'global/api2/response/renders';
 
-    /**#@+
+    /**
      * Config paths
      */
     public const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
     public const XML_PATH_USER_TYPES    = 'global/api2/user_types';
-    /**#@- */
 
     protected $_moduleName = 'Mage_Api2';
 

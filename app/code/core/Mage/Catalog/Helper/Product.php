@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -311,12 +311,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $params = new Varien_Object();
         }
 
-        // Init and load product
-        Mage::dispatchEvent('catalog_controller_product_init_before', [
-            'controller_action' => $controller,
-            'params' => $params,
-        ]);
-
         if (!$productId) {
             return false;
         }
@@ -324,6 +318,13 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
+
+        // Init and load product
+        Mage::dispatchEvent('catalog_controller_product_init_before', [
+            'controller_action' => $controller,
+            'params' => $params,
+            'product' => $product,
+        ]);
 
         if (!$this->canShow($product)) {
             return false;
@@ -347,6 +348,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $category = Mage::getModel('catalog/category')->load($categoryId);
             $product->setCategory($category);
             Mage::register('current_category', $category);
+            Mage::register('current_entity_key', $category->getPath());
         }
 
         // Register current data and dispatch final events
@@ -448,7 +450,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 
         $expectedIdType = false;
         if ($identifierType === null) {
-            if (is_string($productId) && !preg_match("/^[+-]?[1-9][0-9]*$|^0$/", $productId)) {
+            if (is_string($productId) && !preg_match('/^[+-]?[1-9][0-9]*$|^0$/', $productId)) {
                 $expectedIdType = 'sku';
             }
         }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMaxRecipients($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_MAX_RECIPIENTS, $store);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MAX_RECIPIENTS, $store);
     }
 
     /**
@@ -76,7 +76,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMaxEmailPerPeriod($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_MAX_PER_HOUR, $store);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_MAX_PER_HOUR, $store);
     }
 
     /**
@@ -97,7 +97,7 @@ class Mage_Sendfriend_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLimitBy($store = null)
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_LIMIT_BY, $store);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_LIMIT_BY, $store);
     }
 
     /**

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,6 +56,6 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
             case 'has':
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
+        throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')');
     }
 }

@@ -9,21 +9,25 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
 var added = false;
 function addProduct(closeAfter) {
-    if(window.opener!=null && !added) {
-        <?php if($this->isEdit()): ?>
-        window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
-        <?php else: ?>
-        window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
-        window.opener.superProduct.showNoticeMessage();
-        <?php endif ?>
-        added = true;
+    if(window.opener != null && !added) {
+        if (window.opener.superProduct) {
+            <?php if($this->isEdit()): ?>
+            window.opener.superProduct.updateProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+            <?php else: ?>
+            window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
+            window.opener.superProduct.showNoticeMessage();
+            <?php endif ?>
+            added = true;
+        } else if (window.opener.catalog_category_productsJsObject) {
+            window.opener.catalog_category_productsJsObject.reload(null);
+        }
     }
 
     if(closeAfter)

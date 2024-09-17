@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +25,7 @@ $attributes = [
     $installer->getAttribute($orderEntityTypeId, 'shipping_description')
 ];
 
-$installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], "tinyint(1) UNSIGNED NOT NULL DEFAULT 0");
+$installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], 'tinyint(1) UNSIGNED NOT NULL DEFAULT 0');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[1]['attribute_code'], "varchar(255) NOT NULL DEFAULT ''");
 
 try {

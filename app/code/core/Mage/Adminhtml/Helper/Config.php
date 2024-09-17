@@ -31,7 +31,7 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
      * @param string $inputType
      * @return array
      */
-    public function getInputTypes(string $inputType = null): array
+    public function getInputTypes(?string $inputType = null): array
     {
         $inputTypes = [
             'color' => [

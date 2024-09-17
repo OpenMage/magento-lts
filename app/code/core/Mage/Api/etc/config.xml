@@ -10,14 +10,14 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Api>
-            <version>1.6.0.2</version>
+            <version>1.6.0.3</version>
         </Mage_Api>
     </modules>
     <global>
@@ -111,6 +111,18 @@
             </modules>
         </translate>
     </adminhtml>
+    <crontab>
+        <jobs>
+            <api_session_cleanup>
+                <schedule>
+                    <cron_expr>0 35 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>api/cron::cleanOldSessions</model>
+                </run>
+            </api_session_cleanup>
+        </jobs>
+    </crontab>
     <default>
         <api>
             <config>

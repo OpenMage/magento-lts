@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,9 +35,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $errorFile
      * @return bool
      */
-    public function handlePhpError($errorCode, $errorMessage, $errorFile)
+    public function handlePhpError($errorCode, $errorMessage, $errorFile, $errLine)
     {
-        Mage::log($errorMessage . $errorFile);
+        Mage::log($errorMessage . ' in ' . $errorFile . ' on line ' . $errLine, Zend_Log::ERR);
         if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }
@@ -88,6 +88,21 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
+     * Allow insta-login via HTTP Basic Auth
+     *
+     * @param string $sessionId
+     * @return $this
+     */
+    protected function _instaLogin(&$sessionId)
+    {
+        if ($sessionId === null && !empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
+            $this->_getSession()->setIsInstaLogin();
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
+        return $this;
+    }
+
+    /**
      * Check current user permission on resource and privilege
      *
      *
@@ -98,16 +113,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     protected function _isAllowed($resource, $privilege = null)
     {
         return $this->_getSession()->isAllowed($resource, $privilege);
-    }
-
-    /**
-     *  Check session expiration
-     *
-     *  @return  bool
-     */
-    protected function _isSessionExpired()
-    {
-        return $this->_getSession()->isSessionExpired();
     }
 
     /**
@@ -225,7 +230,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function call($sessionId, $apiPath, $args = [])
     {
-        $this->_startSession($sessionId);
+        $this->_instaLogin($sessionId)
+            ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             return $this->_fault('session_expired');
@@ -264,11 +270,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         $methodInfo = $resources->$resourceName->methods->$methodName;
+        $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+        if (!isset($resources->$resourceName->model)) {
+            throw new Mage_Api_Exception('resource_path_not_callable');
+        }
 
         try {
-            $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
-            $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+            $modelName = $this->_prepareResourceModelName((string)$resources->$resourceName->model);
             try {
                 $model = Mage::getModel($modelName);
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
@@ -279,7 +288,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                $result = [];
                 if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                     $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
@@ -309,7 +317,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
     {
-        $this->_startSession($sessionId);
+        $this->_instaLogin($sessionId)
+            ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             return $this->_fault('session_expired');
@@ -384,11 +393,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $methodInfo = $resources->$resourceName->methods->$methodName;
+            $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+            if (!isset($resources->$resourceName->model)) {
+                throw new Mage_Api_Exception('resource_path_not_callable');
+            }
 
             try {
-                $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
                 $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+
                 try {
                     $model = Mage::getModel($modelName);
                 } catch (Exception $e) {
@@ -396,7 +409,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    $callResult = [];
                     if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
                         $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {
@@ -437,7 +449,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function resources($sessionId)
     {
-        $this->_startSession($sessionId);
+        $this->_instaLogin($sessionId)
+            ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             return $this->_fault('session_expired');
@@ -501,7 +514,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function resourceFaults($sessionId, $resourceName)
     {
-        $this->_startSession($sessionId);
+        $this->_instaLogin($sessionId)
+            ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
             return $this->_fault('session_expired');
@@ -537,7 +551,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function globalFaults($sessionId)
     {
-        $this->_startSession($sessionId);
+        $this->_instaLogin($sessionId)
+            ->_startSession($sessionId);
         return array_values($this->_getConfig()->getFaults());
     }
 

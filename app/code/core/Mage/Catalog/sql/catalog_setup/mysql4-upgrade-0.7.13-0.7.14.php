@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,7 @@ $installer = $this;
 
 $mediaAttributeId = (int) $installer->getAttributeId('catalog_product', 'media_gallery');
 
-$imagesAttributesIds = implode(",", [
+$imagesAttributesIds = implode(',', [
     (int) $installer->getAttributeId('catalog_product', 'small_image'),
     (int) $installer->getAttributeId('catalog_product', 'image'),
     (int) $installer->getAttributeId('catalog_product', 'thumbnail')

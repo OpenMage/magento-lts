@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_ConfigurableSwatches_Helper_Swatchdimensions extends Mage_Core_Helper
      */
     public function getDimension($area, $dimension, $outer = false)
     {
-        $dimension = (int) Mage::getStoreConfig(
+        $dimension = Mage::getStoreConfigAsInt(
             Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_BASE . '/' . $area . '/' . $dimension
         );
         if ($outer) {

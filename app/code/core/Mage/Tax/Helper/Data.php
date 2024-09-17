@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -833,7 +833,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 $$rateVariable = '';
                 foreach ($$rateArray as $classId => $rate) {
                     if ($rate) {
-                        $$rateVariable .= sprintf("WHEN %d THEN %12.4f ", $classId, $rate / 100);
+                        $$rateVariable .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
                     }
                 }
                 if ($$rateVariable) {
@@ -928,7 +928,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function applyTaxOnCustomPrice($store = null)
     {
-        return ((int)Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 0);
+        return (Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 0);
     }
 
     /**
@@ -939,7 +939,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function applyTaxOnOriginalPrice($store = null)
     {
-        return ((int)Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 1);
+        return (Mage::getStoreConfigAsInt(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 1);
     }
 
     /**
@@ -1173,7 +1173,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDisplaySettingsIgnored()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
+        return $this->_isIgnored(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
     }
 
     /**
@@ -1183,7 +1183,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isWrongDiscountSettingsIgnored()
     {
-        return (bool)$this->_app->getStore()->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
+        return $this->_isIgnored(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
     }
 
     /**
@@ -1193,8 +1193,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isConflictingFptTaxConfigurationSettingsIgnored()
     {
-        return (bool) $this->_app->getStore()
-            ->getConfig(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
+        return $this->_isIgnored(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_FPT_CONFIGURATION);
     }
 
     /**
@@ -1206,5 +1205,40 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function isCrossBorderTradeEnabled($store = null)
     {
         return (bool)$this->_config->crossBorderTradeEnabled($store);
+    }
+
+    /**
+     * Use flag to store ignore setting rather than config to avoid config reinit/save
+     * Read config value for backwards compatibility.
+     *
+     * @param string $key
+     * @return bool
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Throwable
+     */
+    protected function _isIgnored(string $key)
+    {
+        $flag = Mage::getModel('core/flag', ['flag_code' => $key])->loadSelf();
+        if ($flag->getId()) {
+            return (bool) $flag->getFlagData();
+        }
+        $configValue = $this->_app->getStore()->getConfig($key);
+        if ($configValue !== null) {
+            $flag->setFlagData((bool) $configValue)->save();
+            return (bool) $configValue;
+        }
+        return false;
+    }
+
+    /**
+     * @param string $key
+     * @param bool $value
+     * @return void
+     * @throws Throwable
+     */
+    public function setIsIgnored(string $key, bool $value)
+    {
+        $flag = Mage::getModel('core/flag', ['flag_code' => $key])->loadSelf();
+        $flag->setFlagData($value)->save();
     }
 }

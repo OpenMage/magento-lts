@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -233,7 +233,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set Visitor Remote Address
      *
-     * @param int $ipAddr the IP address on Long Format
+     * @param string|false $ipAddr the IP address on Long Format
      * @return $this
      */
     public function setRemoteAddr($ipAddr)
@@ -255,7 +255,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set Website Id
      *
-     * @param int $id - website id
+     * @param int|string|null $id - website id
      * @return $this
      */
     public function setWebsiteId($id)

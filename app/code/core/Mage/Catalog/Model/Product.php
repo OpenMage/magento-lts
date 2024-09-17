@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -332,6 +332,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @var Mage_CatalogInventory_Model_Stock_Item|null
      */
     protected $_stockItem;
+
+    /**
+     * @var Mage_Review_Model_Review_Summary[]
+     */
+    protected $_reviewSummary = [];
 
     /**
      * Initialize resources
@@ -2064,7 +2069,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];
-                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $method));
+                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $method));
                     $_reserved[] = $tmp;
                 }
             }
@@ -2334,7 +2339,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     *  Checks event attribute for initialization as an event object
+     * Checks event attribute for initialization as an event object
      *
      * @return bool
      */
@@ -2346,5 +2351,20 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $event;
+    }
+
+    /**
+     * @param int $storeId
+     * @return Mage_Review_Model_Review_Summary
+     */
+    public function getReviewSummary($storeId = null)
+    {
+        $storeId = $storeId ?? Mage::app()->getStore()->getId();
+        if (empty($this->_reviewSummary[$storeId])) {
+            $this->_reviewSummary[$storeId] = Mage::getModel('review/review_summary')
+                ->setStoreId($storeId)
+                ->load($this->getId());
+        }
+        return $this->_reviewSummary[$storeId];
     }
 }

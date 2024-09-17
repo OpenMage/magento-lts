@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -790,7 +790,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 '_custom_option_row_sku', '_custom_option_row_sort'
             ];
 
-            foreach ($this->_storeIdToCode as $storeId => &$storeCode) {
+            foreach (array_keys($this->_storeIdToCode) as &$storeId) {
                 $skip = false;
                 $options = Mage::getResourceModel('catalog/product_option_collection')
                     ->reset()
@@ -961,7 +961,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                     }
                     if (!empty($rowMultiselects[$productId][$storeId])) {
-                        foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
+                        foreach (array_keys($rowMultiselects[$productId][$storeId]) as $attrKey) {
                             if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                 $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                             }
@@ -1039,7 +1039,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                 $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                             }
                             if (!empty($rowMultiselects[$productId][$storeId])) {
-                                foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
+                                foreach (array_keys($rowMultiselects[$productId][$storeId]) as $attrKey) {
                                     if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                         $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                                     }

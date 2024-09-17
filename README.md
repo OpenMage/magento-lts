@@ -1,12 +1,8 @@
-<p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-156-orange.svg" alt="All Contributors"></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/github/all-contributors/openmage/magento-lts?color=ee8449)](#contributors)
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 <a href="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml"><img src="https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg" alt="PHP Security workflow Badge" /></a>
 <a href="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml"><img src="https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg" alt="CI workflow Badge" /></a>
-</p>
 
 # Magento - Long Term Support
 
@@ -68,8 +64,8 @@ In a nutshell:
 
 ## Requirements
 
-- PHP 7.4+ (PHP 8.0 is supported, PHP 8.1 supported but some warnings may be shown/logged, PHP 8.2 is usable but still being tested)
-- MySQL 5.6+ (8.0+ recommended) or MariaDB
+- PHP 7.4 to 8.3
+- MySQL 5.7+ (8.0+ recommended) or MariaDB
 - optional: Redis 5.x, 6.x and 7.0.x are supported
 
 
@@ -267,6 +263,16 @@ If you see SQL errors after upgrading please remember to check for this specific
 
 UPS shut down their old CGI APIs so we removed the support for it from the Mage_Usa module.
 
+### Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
+
+- PHP 8.2 as minimum required version
+- Removed scriptaculous/dragdrop.js ([#3215](https://github.com/OpenMage/magento-lts/pull/3215))
+- RWD theme: updated jQuery to 3.7.1 ([#3922](https://github.com/OpenMage/magento-lts/pull/3922))
+- Unified CSRF configuration ([#3147](https://github.com/OpenMage/magento-lts/pull/3147)) and added form key validation to Contacts form ([#3146](https://github.com/OpenMage/magento-lts/pull/3144))
+- Removed double span element from HTML buttons ([#3123](https://github.com/OpenMage/magento-lts/pull/3123))
+- Removed all deprecated Mysql4_ classes ([#2730](https://github.com/OpenMage/magento-lts/pull/2730)). If there are any old modules/extensions in your installation that use such classes, you must run `shell/rename-mysql4-class-to-resource.php` in the command line in order to convert them. Backup all files before running the script
+- Removed "admin routing compatibility mode" ([#1551](https://github.com/OpenMage/magento-lts/pull/1551))
+
 ### New Config Options
 
 - `admin/design/use_legacy_theme`
@@ -287,6 +293,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `adminhtml_sales_order_create_save_before`
 - `checkout_cart_product_add_before`
 - `core_app_run_after`
+- `mage_run_installed_exception`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
@@ -361,7 +368,6 @@ for more information.
 * [Lee Saferite](https://github.com/LeeSaferite)
 * [Mohamed Elidrissi](https://github.com/elidrissidev)
 * [Ng Kiat Siong](https://github.com/kiatng)
-* [Sven Reichel](https://github.com/sreichel)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 
 ## License
@@ -579,6 +585,14 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://juhoholsa.com/"><img src="https://avatars.githubusercontent.com/u/15036353?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Juho Hölsä</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/seifer7"><img src="https://avatars.githubusercontent.com/u/13601073?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kane</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Sdfendor"><img src="https://avatars.githubusercontent.com/u/2728018?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Kevin Jakob</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/leissbua"><img src="https://avatars.githubusercontent.com/u/68073221?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Michael Leiss</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.riseart.com/"><img src="https://avatars.githubusercontent.com/u/26821235?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Marcos Steverlynck</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ahudock"><img src="https://avatars.githubusercontent.com/u/33500977?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Andy Hudock</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.vianetz.com/"><img src="https://avatars.githubusercontent.com/u/26252058?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Christoph Massmann</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ragnese"><img src="https://avatars.githubusercontent.com/u/7927565?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rob Agnese</b></sub></a></td>
     </tr>
   </tbody>
 </table>

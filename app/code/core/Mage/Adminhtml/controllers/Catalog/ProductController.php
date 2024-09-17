@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                    explode(",", base64_decode(urldecode($attributes)))
+                    explode(',', base64_decode(urldecode($attributes)))
                 );
             }
         }
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($this->getRequest()->getParam('popup')
             && $requiredAttributes = $this->getRequest()->getParam('required')
         ) {
-            $requiredAttributes = explode(",", $requiredAttributes);
+            $requiredAttributes = explode(',', $requiredAttributes);
             foreach ($product->getAttributes() as $attribute) {
                 if (in_array($attribute->getId(), $requiredAttributes)) {
                     $attribute->setIsRequired(1);
@@ -579,9 +579,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_filterStockData($productData['stock_data']);
         }
 
-        /**
-         * Websites
-         */
         if (!isset($productData['website_ids'])) {
             $productData['website_ids'] = [];
         }

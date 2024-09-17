@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     protected function _prepareLayout()
     {
-        $addUrl = $this->getUrl("*/*/add", [
+        $addUrl = $this->getUrl('*/*/add', [
             '_current' => true,
             'id' => null,
             '_query' => false
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getSwitchTreeUrl()
     {
         return $this->getUrl(
-            "*/catalog_category/tree",
+            '*/catalog_category/tree',
             ['_current' => true, 'store' => null, '_query' => false, 'id' => null, 'parent' => null]
         );
     }

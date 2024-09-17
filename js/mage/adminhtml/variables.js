@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -74,7 +74,7 @@ var Variables = {
             title:'Insert Variable...',
             width:700,
             //height:270,
-            zIndex:1000,
+            zIndex:9000,
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,
@@ -112,7 +112,7 @@ var Variables = {
     }
 };
 
-MagentovariablePlugin = {
+OpenmagevariablePlugin = {
     editor: null,
     variables: null,
     textareaId: null,
@@ -126,7 +126,7 @@ MagentovariablePlugin = {
                 parameters: {},
                 onComplete: function (transport) {
                     if (transport.responseText.isJSON()) {
-                        Variables.init(null, 'MagentovariablePlugin.insertVariable');
+                        Variables.init(null, 'OpenmagevariablePlugin.insertVariable');
                         this.variables = transport.responseText.evalJSON();
                         this.openChooser(this.variables);
                     }

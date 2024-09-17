@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,10 +85,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected $_rawRequest = null;
 
+
+    /**
+     * Raw rate tracking request data
+     *
+     * @var Varien_Object|null
+     */
+    protected $_rawTrackRequest = null;
+
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
      */
     protected $_result = null;
 
@@ -425,7 +433,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
      * @param string $response
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|void
      */
     protected function _parseXmlResponse($response)
     {
@@ -512,6 +520,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
         }
     }
+
     /**
      * Get configuration data of carrier
      *
@@ -526,7 +535,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '0_FCLE' => Mage::helper('usa')->__('First-Class Mail Large Envelope'),
                 '0_FCL'  => Mage::helper('usa')->__('First-Class Mail Letter'),
                 '0_FCSL' => Mage::helper('usa')->__('First-Class Mail Stamped Letter'),
-                '0_FCP'  => Mage::helper('usa')->__('First-Class Package Service - Retail'),
                 '0_FCPC' => Mage::helper('usa')->__('First-Class Mail Postcards'),
                 '1'      => Mage::helper('usa')->__('Priority Mail'),
                 '2'      => Mage::helper('usa')->__('Priority Mail Express Hold For Pickup'),
@@ -569,7 +577,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '57'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Flat Rate Boxes'),
                 '58'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C'),
                 '59'     => Mage::helper('usa')->__('Priority Mail Regional Rate Box C Hold For Pickup'),
-                '61'     => Mage::helper('usa')->__('First-Class Package Service'),
                 '62'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope'),
                 '63'     => Mage::helper('usa')->__('Priority Mail Express Padded Flat Rate Envelope Hold For Pickup'),
                 '64'     => Mage::helper('usa')->__('Priority Mail Express Sunday/Holiday Delivery Padded Flat Rate Envelope'),
@@ -599,13 +606,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => Mage::helper('usa')->__('Priority Mail International DVD Flat Rate priced box'),
                 'INT_25' => Mage::helper('usa')->__('Priority Mail International Large Video Flat Rate priced box'),
                 'INT_27' => Mage::helper('usa')->__('Priority Mail Express International Padded Flat Rate Envelope'),
+                '1058'   => Mage::helper('usa')->__('USPS Ground Advantage'),
             ],
 
             'service_to_code' => [
                 '0_FCLE' => 'First Class',
                 '0_FCL'  => 'First Class',
                 '0_FCSL' => 'First Class',
-                '0_FCP'  => 'First Class',
                 '0_FCPC' => 'First Class',
                 '1'      => 'Priority',
                 '2'      => 'Priority Express',
@@ -648,7 +655,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 '57'     => 'Priority Express',
                 '58'     => 'Priority',
                 '59'     => 'Priority',
-                '61'     => 'First Class',
                 '62'     => 'Priority Express',
                 '63'     => 'Priority Express',
                 '64'     => 'Priority Express',
@@ -678,6 +684,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 'INT_24' => 'Priority',
                 'INT_25' => 'Priority',
                 'INT_27' => 'Priority Express',
+                '1058'   => 'Ground Advantage',
             ],
 
        // Added because USPS has different services but with same CLASSID value, which is "0"
@@ -686,7 +693,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                'First-Class Mail Letter'              => '0_FCL',
                'First-Class Mail Stamped Letter'      => '0_FCSL',
                'First-Class Mail Metered Letter'      => '72',
-               'First-Class Package Service - Retail' => '0_FCP',
             ],
 
             'first_class_mail_type' => [
@@ -904,7 +910,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set tracking request
      *
-     * @return null
+     * @return void
      */
     protected function setTrackingRequest()
     {
@@ -963,7 +969,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param array $trackingValue
      * @param string $response
-     * @return null
+     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingValue, $response)
     {
@@ -1807,7 +1813,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         if (is_null($params)) {
             return $this->_getAllowedContainers();
@@ -1841,7 +1847,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
             return [];

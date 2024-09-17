@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -155,10 +155,10 @@
             } else {
                 $('preview_type').value = 2;
             }
-            if (typeof tinyMCE == 'undefined' || !tinyMCE.getInstanceById('template_text')) {
+            if (typeof tinymce == 'undefined' || !tinymce.get('template_text')) {
                 $('preview_text').value = $('template_text').value;
             } else {
-                $('preview_text').value = tinyMCE.getInstanceById('template_text').getHTML();
+                $('preview_text').value = tinymce.get('template_text').getContent();
             }
 
             if ($('template_styles') != undefined) {

@@ -9,13 +9,13 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
-    protected $_requiredExtensions = ["gd"];
+    protected $_requiredExtensions = ['gd'];
     private static $_callbacks = [
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
@@ -129,13 +129,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $fileName = (!isset($destination)) ? $this->_fileName : $destination;
 
         if (isset($destination) && isset($newName)) {
-            $fileName = $destination . "/" . $newName;
+            $fileName = $destination . '/' . $newName;
         } elseif (isset($destination) && !isset($newName)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
         } elseif (!isset($destination) && isset($newName)) {
-            $fileName = $this->_fileSrcPath . "/" . $newName;
+            $fileName = $this->_fileSrcPath . '/' . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
@@ -209,7 +209,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function display()
     {
-        header("Content-type: " . $this->getMimeTypeWithOutFileType());
+        header('Content-type: ' . $this->getMimeTypeWithOutFileType());
         call_user_func($this->_getCallback('output'), $this->_imageHandler);
     }
 
@@ -263,7 +263,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
                     }
                     if (false === $transparentColor) {
                         throw new Exception('Failed to allocate transparent color for image.');
@@ -279,7 +279,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             }
         }
         list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, $r, $g, $b);
+        $color = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
             throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
         }

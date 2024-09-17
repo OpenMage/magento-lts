@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Refresh category and childs rewrites
+     * Refresh category and children rewrites
      * Called when reindexing all rewrites and as a reaction on category change that affects rewrites
      *
      * @param int $categoryId
@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Url
             $storeRootCategoryId = $store->getRootCategoryId();
 
             // List of categories the product is assigned to, filtered by being within the store's categories root
-            $categories = $this->getResource()->getCategories($product->getCategoryIds(), $storeId);
+            $categories = $this->getResource()->getCategories($product->getCategoryIds(), $storeId) ?: [];
             $this->_rewrites = $this->getResource()->prepareRewrites($storeId, '', $productId);
 
             // Add rewrites for all needed categories
@@ -535,7 +535,8 @@ class Mage_Catalog_Model_Url
             }
 
             if ($loadCategories) {
-                foreach ($this->getResource()->getCategories($loadCategories, $storeId) as $category) {
+                $categories = $this->getResource()->getCategories($loadCategories, $storeId) ?: [];
+                foreach ($categories as $category) {
                     $this->_categories[$category->getId()] = $category;
                 }
             }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -252,7 +252,7 @@ if ($footerLinksBlock->getId()) {
     if (preg_match('/<ul>(.*?)<\\/ul>/ims', $content, $matches)) {
         $content = preg_replace('/<li class="last">/ims', '<li>', $content);
         $replacment = '<li class="last privacy">'
-            . "<a href=\"{{store direct_url=\"privacy-policy-cookie-restriction-mode\"}}\">"
+            . '<a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">'
             . "Privacy Policy</a></li>\r\n</ul>";
         $content = preg_replace('/<\\/ul>/ims', $replacment, $content);
         $footerLinksBlock->setContent($content)->save();

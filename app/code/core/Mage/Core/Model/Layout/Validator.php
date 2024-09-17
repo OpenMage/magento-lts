@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +108,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if (!count($this->_disallowedBlock)) {
             $disallowedBlockConfig = $this->_getDisallowedBlockConfigValue();
             if (is_array($disallowedBlockConfig)) {
-                foreach ($disallowedBlockConfig as $blockName => $value) {
+                foreach (array_keys($disallowedBlockConfig) as $blockName) {
                     $this->_disallowedBlock[] = $blockName;
                 }
             }
@@ -188,7 +188,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      */
     public function getXpathValidationExpression()
     {
-        return implode(" | ", $this->_disallowedXPathExpressions);
+        return implode(' | ', $this->_disallowedXPathExpressions);
     }
 
     /**
@@ -209,7 +209,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if (!$this->_xpathBlockValidationExpression) {
             if (count($this->_disallowedBlock)) {
                 foreach ($this->_disallowedBlock as $key => $value) {
-                    $this->_xpathBlockValidationExpression .= $key > 0 ? " | " : '';
+                    $this->_xpathBlockValidationExpression .= $key > 0 ? ' | ' : '';
                     $this->_xpathBlockValidationExpression .=
                         "//block[translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = ";
                     $this->_xpathBlockValidationExpression .=
@@ -232,10 +232,10 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
     {
         /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
-            if ($path->hasChildren()) {
-                $path = stripcslashes(trim((string) $path->children(), '"'));
-            }
-            if (strpos($path, '..' . DS) !== false) {
+            $path = $path->hasChildren()
+                ? stripcslashes(trim((string)$path->children(), '"'))
+                : (string)$path;
+            if (str_contains($path, '..' . DS)) {
                 throw new Exception();
             }
         }

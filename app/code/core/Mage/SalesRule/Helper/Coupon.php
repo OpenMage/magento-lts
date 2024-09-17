@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultLength()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_SALES_RULE_COUPON_LENGTH);
     }
 
     /**
@@ -111,7 +111,7 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getDefaultDashInterval()
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
+        return Mage::getStoreConfigAsInt(self::XML_PATH_SALES_RULE_COUPON_DASH_INTERVAL);
     }
 
     /**

@@ -805,7 +805,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $amount = $amountRefundLeft;
         }
 
-        if ($amount != $baseGrandTotal) {
+        if (Mage::helper('core')->getExactDivision($amount, $baseGrandTotal) != 0) {
             $transaction = new Varien_Object(['txn_id' => $this->getTransactionId()]);
             Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $transaction, 'payment' => $this]);
             $transactionId = $transaction->getHtmlTxnId() ? $transaction->getHtmlTxnId() : $transaction->getTxnId();

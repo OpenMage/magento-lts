@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,8 +107,8 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    /**#@+
-     * Configuration pathes for email templates and identities
+    /**
+     * Configuration paths for email templates and identities
      */
     public const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
     public const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
@@ -122,9 +122,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
-    /**#@-*/
-
-    /**#@+
+    public const XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE = 'customer/password_link/account_new_email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE = 'customer/password_link/email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY = 'customer/password_link/email_identity';
+    /**
      * Codes of exceptions related to customer model
      */
     public const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
@@ -132,14 +133,12 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const EXCEPTION_EMAIL_EXISTS              = 3;
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID = 5;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Subscriptions
      */
     public const SUBSCRIBED_YES = 'yes';
     public const SUBSCRIBED_NO  = 'no';
-    /**#@-*/
 
     public const CACHE_TAG = 'customer';
 
@@ -876,6 +875,40 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             self::XML_PATH_FORGOT_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
+            ['customer' => $this],
+            $storeId
+        );
+
+        return $this;
+    }
+
+    /**
+     * Send email with link to set password
+     *
+     * @bool $isNew Send welcome email?
+     * @return $this
+     */
+    public function sendPasswordLinkEmail(bool $isNew = false)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId();
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
+        $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($this->getId());
+        $this->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
+        $this->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+
+        $template = $isNew
+            ? self::XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE
+            : self::XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE;
+
+        $this->_sendEmailTemplate(
+            $template,
+            self::XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY,
             ['customer' => $this],
             $storeId
         );
@@ -1637,7 +1670,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getMinPasswordLength()
     {
-        $minLength = (int)Mage::getStoreConfig(self::XML_PATH_MIN_PASSWORD_LENGTH);
+        $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
     }

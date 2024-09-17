@@ -30,30 +30,27 @@
  */
 abstract class Mage_Api2_Model_Resource
 {
-    /**#@+
+    /**
      *  Action types
      */
     public const ACTION_TYPE_ENTITY = 'entity';
     public const ACTION_TYPE_COLLECTION  = 'collection';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Operations. Resource method names
      */
     public const OPERATION_CREATE   = 'create';
     public const OPERATION_RETRIEVE = 'retrieve';
     public const OPERATION_UPDATE   = 'update';
     public const OPERATION_DELETE   = 'delete';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Common operations for attributes
      */
     public const OPERATION_ATTRIBUTE_READ  = 'read';
     public const OPERATION_ATTRIBUTE_WRITE = 'write';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default error messages
      */
     public const RESOURCE_NOT_FOUND = 'Resource not found.';
@@ -64,9 +61,8 @@ abstract class Mage_Api2_Model_Resource
     public const RESOURCE_DATA_INVALID = 'Resource data invalid.'; //error while checking data inside method
     public const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
     public const RESOURCE_REQUEST_DATA_INVALID = 'The request data is invalid.';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default collection resources error messages
      */
     public const RESOURCE_COLLECTION_PAGING_ERROR       = 'Resource collection paging error.';
@@ -74,20 +70,17 @@ abstract class Mage_Api2_Model_Resource
     public const RESOURCE_COLLECTION_ORDERING_ERROR     = 'Resource collection ordering error.';
     public const RESOURCE_COLLECTION_FILTERING_ERROR    = 'Resource collection filtering error.';
     public const RESOURCE_COLLECTION_ATTRIBUTES_ERROR   = 'Resource collection including additional attributes error.';
-    /**#@-*/
 
-    /**#@+
+    /**
      *  Default success messages
      */
     public const RESOURCE_UPDATED_SUCCESSFUL = 'Resource updated successful.';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Collection page sizes
      */
     public const PAGE_SIZE_DEFAULT = 10;
     public const PAGE_SIZE_MAX     = 100;
-    /**#@-*/
 
     /**
      * Request

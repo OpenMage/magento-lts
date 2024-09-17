@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -575,7 +575,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         unset($model);
                         $i++;
                     }
-                    $this->addException(Mage::helper('catalog')->__("Saved %d record(s)", $i));
+                    $this->addException(Mage::helper('catalog')->__('Saved %d record(s)', $i));
                 } catch (Exception $e) {
                     if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
