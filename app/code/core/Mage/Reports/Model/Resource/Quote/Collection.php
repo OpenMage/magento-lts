@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -288,9 +288,9 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $countSelect->resetJoinLeft();
 
         if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {
-            $countSelect->columns("COUNT(DISTINCT e.entity_id)");
+            $countSelect->columns('COUNT(DISTINCT e.entity_id)');
         } else {
-            $countSelect->columns("COUNT(DISTINCT main_table.entity_id)");
+            $countSelect->columns('COUNT(DISTINCT main_table.entity_id)');
         }
 
         return $countSelect;

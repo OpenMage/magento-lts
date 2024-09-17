@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -339,7 +339,7 @@ class Varien_Db_Ddl_Table
                         $precision  = $size[0];
                         $scale      = $size[1];
                     }
-                } elseif (preg_match('#^(\d+),(\d+)$#', $size, $match)) {
+                } elseif ($size !== null && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }

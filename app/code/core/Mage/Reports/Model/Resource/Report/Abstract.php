@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -371,7 +371,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             return $column;
         }
 
-        $query = "";
+        $query = '';
         $periodsCount = count($periods);
 
         $i = 0;
@@ -384,7 +384,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . implode(" OR ", $subParts) . " THEN $then ELSE ";
+            $query .= (++$i == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);

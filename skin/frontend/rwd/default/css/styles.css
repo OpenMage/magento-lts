@@ -8,7 +8,7 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /*! normalize.css v2.0.1 | MIT License | git.io/normalize */
@@ -3554,7 +3554,8 @@ a.skip-link {
     border-bottom: none;
   }
   .nav-primary a:hover,
-  .nav-primary li:hover > a {
+  .nav-primary li:hover,
+  .nav-primary li.active > a {
     color: #0472ad;
   }
   .nav-primary .menu-active {

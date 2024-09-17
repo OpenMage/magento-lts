@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -724,7 +724,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get node value from cached section data
      *
      * @param array $path
-     * @return false|Varien_Simplexml_Element
+     * @return false|Mage_Core_Model_Config_Element
      */
     public function getSectionNode($path)
     {
@@ -741,7 +741,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @return Mage_Core_Model_Config_Element
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -1150,7 +1150,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get module config node
      *
      * @param string $moduleName
-     * @return Mage_Core_Model_Config_Element|SimpleXMLElement
+     * @return Mage_Core_Model_Config_Element
      */
     public function getModuleConfig($moduleName = '')
     {
@@ -1785,7 +1785,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
-        $events = $mergeModel->getNode($area . "/" . Mage_Core_Model_App_Area::PART_EVENTS);
+        $events = $mergeModel->getNode($area . '/' . Mage_Core_Model_App_Area::PART_EVENTS);
         if ($events !== false) {
             $children = clone $events->children();
             /** @var Mage_Core_Model_Config_Element $event */

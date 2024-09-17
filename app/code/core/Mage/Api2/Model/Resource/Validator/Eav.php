@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,7 +96,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         }
         $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
         if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
-            throw new Exception("Entity is not model.");
+            throw new Exception('Entity is not model.');
         }
 
         $this->_eavForm = Mage::getModel($this->_formPath);

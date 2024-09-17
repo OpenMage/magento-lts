@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_DB
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -340,11 +340,11 @@ class Mage_DB_Mysqli
     public function insertAssocOne($table, array $data, $replace = false)
     {
         $keys = $this->escapeFieldNames(array_keys($data));
-        $keys = "(" . implode(",", $keys) . ")";
+        $keys = '(' . implode(',', $keys) . ')';
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $values = $this->escapeFieldValues(array_values($data));
-        $values = " VALUES (" . implode(",", $values) . ")";
+        $values = ' VALUES (' . implode(',', $values) . ')';
         $sql .= $keys . $values;
         return $this->query($sql);
     }
@@ -371,30 +371,30 @@ class Mage_DB_Mysqli
         }
 
         $keys = $this->escapeFieldNames($keys);
-        $sql .= " ( ";
+        $sql .= ' ( ';
         for ($i = 0, $c = count($keys); $i < $c; $i++) {
             $sql .= $keys[$i];
             if ($i != $c - 1) {
-                $sql .= ",";
+                $sql .= ',';
             }
         }
-        $sql .= " ) VALUES ";
+        $sql .= ' ) VALUES ';
         for ($i = 0, $c = count($data); $i < $c; $i++) {
             $row = $data[$i];
             for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
                 unset($data[$excluded[$j]]);
             }
             $values = $this->escapeFieldValues(array_values($row));
-            $sql .= "( ";
+            $sql .= '( ';
             for ($j = 0, $jc = count($values); $j < $jc; $j++) {
                 $sql .= $values[$j];
                 if ($j != $jc - 1) {
-                    $sql .= ",";
+                    $sql .= ',';
                 }
             }
-            $sql .= " )";
+            $sql .= ' )';
             if ($i != $c - 1) {
-                $sql .= ",";
+                $sql .= ',';
             }
         }
         return $this->query($sql);
@@ -414,9 +414,9 @@ class Mage_DB_Mysqli
         foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
-            $set[] = $k . " = " . $v;
+            $set[] = $k . ' = ' . $v;
         }
-        $set = implode(",", $set);
+        $set = implode(',', $set);
         $sql = "UPDATE {$table} SET {$set} WHERE {$condition}";
         return $this->query($sql);
     }
@@ -438,9 +438,9 @@ class Mage_DB_Mysqli
         foreach ($data as $k => $v) {
             $k = $this->escapeFieldName($k);
             $v = $this->escapeFieldValue($v);
-            $set[] = $k . " = " . $v;
+            $set[] = $k . ' = ' . $v;
         }
-        $set = implode(",", $set);
+        $set = implode(',', $set);
         $sql = "UPDATE {$table} SET {$set} WHERE {$key} = {$value}";
         return $this->query($sql);
     }
@@ -459,7 +459,7 @@ class Mage_DB_Mysqli
         foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }
-        return implode(",", $out);
+        return implode(',', $out);
     }
 
     /**
@@ -508,7 +508,7 @@ class Mage_DB_Mysqli
 
     public function lastInsertId()
     {
-        $sql = "SELECT LAST_INSERT_ID() as `id`";
+        $sql = 'SELECT LAST_INSERT_ID() as `id`';
         $data = $this->fetchOne($sql);
         return $data['id'];
     }

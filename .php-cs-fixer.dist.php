@@ -6,7 +6,10 @@
 */
 $config = new PhpCsFixer\Config();
 return $config
+    ->setRiskyAllowed(true)
     ->setRules([
+        // PHP arrays should be declared using the configured syntax.
+        'array_syntax' => ['syntax' => 'short'],
         // There MUST be one blank line after the namespace declaration.
         'blank_line_after_namespace' => true,
         // Ensure there is no code on the same line as the PHP open tag and it is followed by a blank line.
@@ -17,6 +20,8 @@ return $config
         'class_definition' => true,
         // Remove extra spaces in a nullable typehint.
         'compact_nullable_typehint' => true,
+        // Concatenation should be spaced according to configuration.
+        'concat_space' => ['spacing' => 'one'],
         // The PHP constants `true`, `false`, and `null` MUST be written using the correct casing.
         'constant_case' => true,
         // Equal sign in declare statement should be surrounded by spaces or not following configuration.
@@ -33,6 +38,8 @@ return $config
         'indentation_type' => true,
         // All PHP files must use same line ending.
         'line_ending' => true,
+        // Use && and || logical operators instead of and and or.
+        'logical_operators' => true,
         // Cast should be written in lower case.
         'lowercase_cast' => true,
         // PHP keywords MUST be in lower case.
@@ -41,6 +48,8 @@ return $config
         'lowercase_static_reference' => true,
         // In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.
         'method_argument_space' => true,
+        // Replaces intval, floatval, doubleval, strval and boolval function calls with according type casting operator.
+        'modernize_types_casting' => true,
         // All instances created with new keyword must be followed by braces.
         'new_with_braces' => true,
         // There should be no empty lines after class opening brace.
@@ -63,6 +72,8 @@ return $config
         'no_trailing_whitespace_in_comment' => true,
         // Remove trailing whitespace at the end of blank lines.
         'no_whitespace_in_blank_line' => true,
+        // Adds or removes ? before single type declarations or |null at the end of union types when parameters have a default null value.
+        'nullable_type_declaration_for_default_null_value' => true,
         // Orders the elements of classes/interfaces/traits.
         'ordered_class_elements' => false,
         // Ordering `use` statements.
@@ -81,6 +92,8 @@ return $config
         'single_import_per_statement' => true,
         // Each namespace use MUST go on its own line and there MUST be one blank line after the use statements block.
         'single_line_after_imports' => true,
+        // Convert double quotes to single quotes for simple strings.
+        'single_quote' => true,
         // Each trait `use` must be done as single statement.
         'single_trait_insert_per_statement' => true,
         // A case should be followed by a colon and not a semicolon.
@@ -96,6 +109,7 @@ return $config
         PhpCsFixer\Finder::create()
             ->in([
                 'app/code/core/Mage/',
+                'errors/',
                 'lib/Mage/',
                 'lib/Magento/',
                 'lib/Varien/',

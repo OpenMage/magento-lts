@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,7 +185,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->columns('count(DISTINCT e.entity_id)');
 
         return $countSelect;
     }
@@ -206,10 +206,10 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 'quotes.entity_id = quote_items.quote_id AND quotes.is_active = 1',
                 []
             )
-            ->where("quote_items.product_id = e.entity_id");
+            ->where('quote_items.product_id = e.entity_id');
 
         $this->getSelect()
-            ->columns(["carts" => "({$countSelect})"])
+            ->columns(['carts' => "({$countSelect})"])
             ->group("e.{$this->getProductEntityId()}")
             ->having('carts > ?', 0);
 
@@ -361,7 +361,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->join(
                 ['e' => $this->getProductEntityTableName()],
                 $this->getConnection()->quoteInto(
-                    "e.entity_id = report_table_views.object_id AND e.entity_type_id = ?",
+                    'e.entity_id = report_table_views.object_id AND e.entity_type_id = ?',
                     $this->getProductEntityTypeId()
                 )
             )

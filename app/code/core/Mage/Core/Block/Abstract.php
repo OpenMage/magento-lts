@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -165,6 +165,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * @var Varien_Object
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_transportObject;
 
     /**
@@ -513,9 +514,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function unsetCallChild($alias, $callback, $result, $params)
     {
+        $args = func_get_args();
         $child = $this->getChild($alias);
         if ($child) {
-            $args = func_get_args();
             $alias = array_shift($args);
             $callback = array_shift($args);
             $result = (string)array_shift($args);
@@ -524,6 +525,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result == call_user_func_array([&$child, $callback], $params)) {
                 $this->unsetChild($alias);
             }
@@ -863,7 +865,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param string $alias
      * @param string $key
-     * @return mixed
+     * @return mixed|void
      */
     public function getChildData($alias, $key = '')
     {
@@ -993,7 +995,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _getUrlModel()
     {
-        return Mage::getModel($this->_getUrlModelClass());
+        /** @var Mage_Core_Model_Url $model */
+        $model = Mage::getModel($this->_getUrlModelClass());
+        return $model;
     }
 
     /**
@@ -1165,6 +1169,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function __()
     {
         $args = func_get_args();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
         array_unshift($args, $expr);
         return $this->_getApp()->getTranslator()->translate($args);
@@ -1185,13 +1190,47 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape html entities
      *
-     * @param   string|array $data
-     * @param   array $allowedTags
-     * @return  string
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
     {
         return $this->helper('core')->escapeHtml($data, $allowedTags);
+    }
+
+    /**
+     * Wrapper for escapeHtml() function with keeping original value
+     *
+     * @param string $data
+     * @param string[]|null $allowedTags
+     * @return Mage_Core_Model_Security_HtmlEscapedString
+     *
+     * @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
+     */
+    public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
+    }
+
+    /**
+     * Wrapper for escapeHtml() function with keeping original value
+     *
+     * @param string[] $data
+     * @param string[]|null $allowedTags
+     * @return Mage_Core_Model_Security_HtmlEscapedString[]
+     *
+     *  @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
+     */
+    public function escapeHtmlArrayAsObject(array $data, ?array $allowedTags = null): array
+    {
+        $result = [];
+        foreach ($data as $key => $string) {
+            $result[$key] = $this->escapeHtmlAsObject($string, $allowedTags);
+        }
+
+        return $result;
     }
 
     /**

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,7 +150,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $this->_getWriteAdapter()->query($query);
             } elseif (is_array($variable) && count($variable)) {
                 $query  = "DELETE FROM {$this->getTable($table)} WHERE ";
-                $query .= $this->_getWriteAdapter()->quoteInto("attribute_id in (?)", $variable);
+                $query .= $this->_getWriteAdapter()->quoteInto('attribute_id in (?)', $variable);
                 if ($suffixToInsert) {
                     $query .= " AND {$suffixToInsert}";
                 }
@@ -638,7 +638,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             $select = $this->_getWriteAdapter()->select()
                 ->join(
                     ['p' => $this->getTable('catalogindex/price')],
-                    "`e`.`entity_id`=`p`.`entity_id`"
+                    '`e`.`entity_id`=`p`.`entity_id`'
                         . " AND `p`.`attribute_id`={$priceAttribute}"
                         . " AND `p`.`customer_group_id`={$group->getId()}"
                         . " AND `p`.`website_id`={$websiteId}",
@@ -651,7 +651,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
                 $select->where('e.entity_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
             } elseif (!is_null($productIds)) {
-                $select->where("e.entity_id IN(?)", $productIds);
+                $select->where('e.entity_id IN(?)', $productIds);
             }
 
             $sql = $select->crossUpdateFromSelect(['e' => $tableName]);
@@ -664,7 +664,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $select = $this->_getWriteAdapter()->select()
                     ->join(
                         ['p' => $this->getTable('catalogindex/price')],
-                        "`e`.`child_id`=`p`.`entity_id`"
+                        '`e`.`child_id`=`p`.`entity_id`'
                             . " AND `p`.`attribute_id`={$priceAttribute}"
                             . " AND `p`.`customer_group_id`={$group->getId()}"
                             . " AND `p`.`website_id`={$websiteId}",
@@ -675,7 +675,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
                     $select->where('e.child_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
                 } elseif (!is_null($productIds)) {
-                    $select->where("e.child_id IN(?)", $productIds);
+                    $select->where('e.child_id IN(?)', $productIds);
                 }
 
                 $sql = $select->crossUpdateFromSelect(['e' => $tableName]);

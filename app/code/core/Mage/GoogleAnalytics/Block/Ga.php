@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,8 +21,8 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
-    protected const CHECKOUT_MODULE_NAME = "checkout";
-    protected const CHECKOUT_CONTROLLER_NAME = "onepage";
+    protected const CHECKOUT_MODULE_NAME = 'checkout';
+    protected const CHECKOUT_CONTROLLER_NAME = 'onepage';
 
     /**
      * Render regular page tracking javascript code
@@ -368,7 +368,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         }
 
         foreach ($result as $k => $ga4Event) {
-            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ");";
+            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ');';
         }
         return implode("\n", $result);
     }

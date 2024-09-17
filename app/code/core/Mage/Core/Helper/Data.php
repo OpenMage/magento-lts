@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -603,7 +603,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 <$rootName></$rootName>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
-        foreach ($array as $key => $value) {
+        foreach (array_keys($array) as $key) {
             if (is_numeric($key)) {
                 throw new Exception('Array root keys must not be numeric.');
             }
@@ -1014,7 +1014,7 @@ XML;
             $cacheTag = 'rate_limit_' . $remoteAddr;
             if (Mage::app()->testCache($cacheTag)) {
                 if ($setErrorMessage) {
-                    $errorMessage = $this->__("Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.");
+                    $errorMessage = $this->__('Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.');
                     Mage::getSingleton('core/session')->addError($errorMessage);
                 }
                 return true;

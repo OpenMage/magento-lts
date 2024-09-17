@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Varien_Convert_Profile_Collection
         return $this->_profiles[$name];
     }
 
-    public function addProfile($name, Varien_Convert_Profile_Abstract $profile = null)
+    public function addProfile($name, ?Varien_Convert_Profile_Abstract $profile = null)
     {
         if (is_null($profile)) {
             $profile = new $this->_profileDefaultClass();

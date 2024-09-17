@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,11 +52,11 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         parent::__construct();
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
-        foreach ($this->getAttributeOption() as $attr => $dummy) {
+        foreach (array_keys($this->getAttributeOption()) as $attr) {
             $this->setAttribute($attr);
             break;
         }
-        foreach ($this->getOperatorOption() as $operator => $dummy) {
+        foreach (array_keys($this->getOperatorOption()) as $operator) {
             $this->setOperator($operator);
             break;
         }
@@ -89,10 +89,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asXml()
     {
-        return "<type>" . $this->getType() . "</type>"
-            . "<attribute>" . $this->getAttribute() . "</attribute>"
-            . "<operator>" . $this->getOperator() . "</operator>"
-            . "<value>" . $this->getValue() . "</value>";
+        return '<type>' . $this->getType() . '</type>'
+            . '<attribute>' . $this->getAttribute() . '</attribute>'
+            . '<operator>' . $this->getOperator() . '</operator>'
+            . '<value>' . $this->getValue() . '</value>';
     }
 
     /**
@@ -313,7 +313,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asString($format = '')
     {
-        return "";
+        return '';
     }
 
     /**

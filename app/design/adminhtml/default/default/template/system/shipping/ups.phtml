@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -17,7 +17,10 @@
 $upsModel = Mage::getSingleton('usa/shipping_carrier_ups');
 $orShipArr = $upsModel->getCode('originShipment');
 $defShipArr = $upsModel->getCode('method');
-
+$allMethodsCodes = [];
+foreach (Mage::getModel('usa/shipping_carrier_ups_source_method')->toOptionArray() as $method) {
+    $allMethodsCodes[]= $method['value'];
+}
 /** @var $this Mage_Adminhtml_Block_Template */
 $sectionCode = $this->getRequest()->getParam('section');
 $websiteCode = $this->getRequest()->getParam('website');
@@ -44,7 +47,7 @@ if (!$storeCode && $websiteCode) {
 if (!in_array($storedOriginShipment, array_keys($orShipArr))) {
     $storedOriginShipment = '';
 }
-if ($storedFreeShipment != '' && !in_array($storedFreeShipment, array_keys($defShipArr))) {
+if ($storedFreeShipment != '' && !in_array($storedFreeShipment, $allMethodsCodes)) {
     $storedFreeShipment = '';
 }
 if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {

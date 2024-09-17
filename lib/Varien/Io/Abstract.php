@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,9 +63,9 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace("/\\\\/", "/", (string)$path));
+        $path = trim(preg_replace('/\\\\/', '/', (string)$path));
 
-        if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match("/\\/$/", $path)) {
+        if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match('/\\/$/', $path)) {
             $path .= '/';
         }
 
@@ -76,16 +76,16 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         $pathTokR = $matches[0][1];
         $pathTokP = $matches[0][2];
 
-        $pathTokP = preg_replace(["/^\\/+/", "/\\/+/"], ["", "/"], $pathTokP);
+        $pathTokP = preg_replace(['/^\\/+/', '/\\/+/'], ['', '/'], $pathTokP);
 
-        $pathParts = explode("/", $pathTokP);
+        $pathParts = explode('/', $pathTokP);
         $realPathParts = [];
 
         for ($i = 0, $realPathParts = []; $i < count($pathParts); $i++) {
             if ($pathParts[$i] == '.') {
                 continue;
             } elseif ($pathParts[$i] == '..') {
-                if ((isset($realPathParts[0])  &&  $realPathParts[0] != '..') || ($pathTokR != "")) {
+                if ((isset($realPathParts[0])  &&  $realPathParts[0] != '..') || ($pathTokR != '')) {
                     array_pop($realPathParts);
                     continue;
                 }

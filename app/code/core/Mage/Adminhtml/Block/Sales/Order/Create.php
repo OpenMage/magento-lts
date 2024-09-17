@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
         $storeId    = $this->_getSession()->getStoreId();
 
         $this->_updateButton('save', 'label', Mage::helper('sales')->__('Submit Order'));
-        $this->_updateButton('save', 'onclick', "order.submit()");
+        $this->_updateButton('save', 'onclick', 'order.submit()');
         $this->_updateButton('save', 'id', 'submit_order_top_button');
         if (is_null($customerId) || !$storeId) {
             $this->_updateButton('save', 'style', 'display:none');

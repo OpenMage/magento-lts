@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Debug
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +153,7 @@ class Varien_Debug
     {
         $out = '';
         if (is_object($arg)) {
-            $out .= sprintf("&%s#%s#", get_class($arg), spl_object_hash($arg));
+            $out .= sprintf('&%s#%s#', get_class($arg), spl_object_hash($arg));
         } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } elseif (is_array($arg)) {
@@ -180,7 +180,7 @@ class Varien_Debug
             $out .= $arg;
         } elseif (is_string($arg)) {
             if (strlen($arg) > self::$argLength) {
-                $arg = substr($arg, 0, self::$argLength) . "...";
+                $arg = substr($arg, 0, self::$argLength) . '...';
             }
             $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";

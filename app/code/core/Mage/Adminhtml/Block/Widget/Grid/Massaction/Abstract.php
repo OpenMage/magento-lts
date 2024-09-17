@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -252,7 +252,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getApplyButtonHtml()
     {
-        return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . ".apply()");
+        return $this->getButtonHtml($this->__('Submit'), $this->getJsObjectName() . '.apply()');
     }
 
     /**
@@ -282,7 +282,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if (!empty($gridIds)) {
-            return implode(",", $gridIds);
+            return implode(',', $gridIds);
         }
         return '';
     }
