@@ -1010,7 +1010,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * If parial authorization is started method will returne true
+     * If partial authorization is started method will return true
      *
      * @param Mage_Payment_Model_Info $payment
      * @return bool
@@ -1098,7 +1098,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Set split_tender_id to quote payment if neeeded
+     * Set split_tender_id to quote payment if needed
      *
      * @param Varien_Object $response
      * @param Mage_Sales_Model_Order_Payment $orderPayment
@@ -1287,7 +1287,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Post request to gateway and return responce
+     * Post request to gateway and return response
      *
      * @param Mage_Paygate_Model_Authorizenet_Request $request)
      * @return Mage_Paygate_Model_Authorizenet_Result

@@ -334,8 +334,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 break;
 
             case '7d':
-                // substract 6 days we need to include
-                // only today and not hte last one from range
+                // subtract 6 days we need to include
+                // only today and not the last one from range
                 $dateStart->subDay(6);
                 break;
 

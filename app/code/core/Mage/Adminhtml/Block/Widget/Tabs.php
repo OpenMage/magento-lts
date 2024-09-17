@@ -395,7 +395,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Mark tabs as dependant of each other
+     * Mark tabs as dependent of each other
      * Arbitrary number of tabs can be specified, but at least two
      *
      * @param string $tabOneId

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -250,7 +250,7 @@ class Mage_Downloadable_Model_Observer
     }
 
     /**
-     * Check is allowed guest checkuot if quote contain downloadable product(s)
+     * Check is allowed guest checkout if quote contain downloadable product(s)
      *
      * @param Varien_Event_Observer $observer
      * @return $this

@@ -34,7 +34,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Core';
 
     /**
-     * Array of senteces of JS translations
+     * Array of sentences of JS translations
      *
      * @var array
      */

@@ -75,7 +75,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Constructor
      *
-     * By default is looking for first argument as array and assignes it as object attributes
+     * By default, is looking for first argument as array and assigns it as object attributes
      * This behaviour may change in child classes
      */
     public function __construct()
@@ -673,10 +673,10 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Converts field names for setters and geters
+     * Converts field names for setters and getters
      *
      * $this->setMyField($value) === $this->setData('my_field', $value)
-     * Uses cache to eliminate unneccessary preg_replace
+     * Uses cache to eliminate unnecessary preg_replace
      *
      * @param string $name
      * @return string

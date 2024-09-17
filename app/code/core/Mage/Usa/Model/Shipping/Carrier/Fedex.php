@@ -1007,8 +1007,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 'Value' => $tracking,
             ],
             /*
-             * 0 = summary data, one signle scan structure with the most recent scan
-             * 1 = multiple sacn activity for each package
+             * 0 = summary data, one single scan structure with the most recent scan
+             * 1 = multiple scan activity for each package
              */
             'IncludeDetailedScans' => 1,
         ];

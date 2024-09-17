@@ -22,7 +22,7 @@
 class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminhtml_Block_Sales_Items_Renderer_Default
 {
     /**
-     * Getting all available childs for Invoice, Shipmen or Creditmemo item
+     * Getting all available children for Invoice, Shipmen or Credit memo item
      *
      * @param Varien_Object $item
      * @return array

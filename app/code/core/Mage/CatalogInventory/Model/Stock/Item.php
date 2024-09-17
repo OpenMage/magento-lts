@@ -157,7 +157,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @resturn Varien_Object
+     * @return void
      */
     protected function _initOldFieldsMap()
     {

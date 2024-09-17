@@ -147,7 +147,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     ];
 
     /**
-     * Dry-runned customers information from import file.
+     * Dry-ran customers information from import file.
      *
      * @var array
      */
