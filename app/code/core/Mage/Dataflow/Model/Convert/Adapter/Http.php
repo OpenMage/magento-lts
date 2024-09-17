@@ -24,11 +24,9 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
     public function load()
     {
         if (!$_FILES) {
-            ?>
-<form method="POST" enctype="multipart/form-data">
-File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
-</form>
-            <?php
+            echo '<form method="POST" enctype="multipart/form-data">';
+            echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
+            echo '</form>';
             exit;
         }
         if (!empty($_FILES['io_file']['tmp_name'])) {
@@ -52,15 +50,13 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
     public function loadFile()
     {
         if (!$_FILES) {
-            ?>
-<form method="POST" enctype="multipart/form-data">
-File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>
-</form>
-            <?php
+            echo '<form method="POST" enctype="multipart/form-data">';
+            echo 'File to upload: <input type="file" name="io_file"/> <input type="submit" value="Upload"/>';
+            echo '</form>';
             exit;
         }
         if (!empty($_FILES['io_file']['tmp_name'])) {
-            $uploader = new Mage_Core_Model_File_Uploader('io_file');
+            $uploader = Mage::getModel('core/file_uploader', 'io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
             $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
             $uploader->save($path);

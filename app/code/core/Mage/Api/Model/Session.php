@@ -97,6 +97,28 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
+     * Flag login as HTTP Basic Auth.
+     *
+     * @param bool $isInstaLogin
+     * @return $this
+     */
+    public function setIsInstaLogin(bool $isInstaLogin = true)
+    {
+        $this->setData('is_insta_login', $isInstaLogin);
+        return $this;
+    }
+
+    /**
+     * Is insta-login?
+     *
+     * @return bool
+     */
+    public function getIsInstaLogin(): bool
+    {
+        return (bool) $this->getData('is_insta_login');
+    }
+
+    /**
      * @param string $username
      * @param string $apiKey
      * @return mixed
@@ -105,8 +127,15 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
     public function login($username, $apiKey)
     {
         $user = Mage::getModel('api/user')
-            ->setSessid($this->getSessionId())
-            ->login($username, $apiKey);
+            ->setSessid($this->getSessionId());
+        if ($this->getIsInstaLogin() && $user->authenticate($username, $apiKey)) {
+            Mage::dispatchEvent('api_user_authenticated', [
+                'model'    => $user,
+                'api_key'  => $apiKey,
+            ]);
+        } else {
+            $user->login($username, $apiKey);
+        }
 
         if ($user->getId() && $user->getIsActive() != '1') {
             Mage::throwException(Mage::helper('api')->__('Your account has been deactivated.'));

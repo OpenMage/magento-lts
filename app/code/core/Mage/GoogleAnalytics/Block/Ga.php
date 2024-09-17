@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,8 +21,8 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
 {
-    protected const CHECKOUT_MODULE_NAME = "checkout";
-    protected const CHECKOUT_CONTROLLER_NAME = "onepage";
+    protected const CHECKOUT_MODULE_NAME = 'checkout';
+    protected const CHECKOUT_CONTROLLER_NAME = 'onepage';
 
     /**
      * Render regular page tracking javascript code
@@ -67,7 +67,7 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
         //add user_id
         if ($this->helper('googleanalytics')->isUserIdEnabled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
             $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $trackingCode.= "
+            $trackingCode .= "
 gtag('set', 'user_id', '{$customer->getId()}');
 ";
         }
@@ -154,7 +154,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_category' => $removedProduct['category'],
                 ];
                 $eventData['items'][] = $_item;
-                $result[] = "gtag('event', 'remove_from_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['remove_from_cart', $eventData];
             }
             Mage::getSingleton('core/session')->unsRemovedProductsForAnalytics();
         }
@@ -180,17 +180,14 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'item_category' => $_addedProduct['category'],
                 ];
                 $eventData['items'][] = $_item;
-                $result[] = "gtag('event', 'add_to_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['add_to_cart', $eventData];
                 Mage::getSingleton('core/session')->unsAddedProductsForAnalytics();
             }
         }
 
-        /**
-         * This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
-         */
         if ($moduleName == 'catalog' && $controllerName == 'product') {
+            // This event signifies that some content was shown to the user. Use this event to discover the most popular items viewed.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item
             $productViewed = Mage::registry('current_product');
             $category = Mage::registry('current_category') ? Mage::registry('current_category')->getName() : false;
             $eventData = [];
@@ -208,15 +205,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
             }
             array_push($eventData['items'], $_item);
-            $result[] = "gtag('event', 'view_item', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-        }
-
-        /**
-         * Log this event when the user has been presented with a list of items of a certain category.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
-         */
-        elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+            $result[] = ['view_item', $eventData];
+        } elseif ($moduleName == 'catalog' && $controllerName == 'category') {
+            // Log this event when the user has been presented with a list of items of a certain category.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_item_list
             $layer = Mage::getSingleton('catalog/layer');
             $category = $layer->getCurrentCategory();
             $productCollection = clone $layer->getProductCollection();
@@ -231,7 +223,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
-            $eventData['item_list_id'] = 'category_'.$category->getUrlKey();
+            $eventData['item_list_id'] = 'category_' . $category->getUrlKey();
             $eventData['item_list_name'] = $category->getName();
             $eventData['items'] = [];
 
@@ -254,15 +246,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
-            $result[] = "gtag('event', 'view_item_list', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-        }
-
-        /**
-         * This event signifies that a user viewed his cart.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
-         */
-        elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
+            $result[] = ['view_item_list', $eventData];
+        } elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
+            // This event signifies that a user viewed his cart.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
@@ -291,15 +278,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['value'] += $_product->getFinalPrice() * $productInCart->getQty();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
-            $result[] = "gtag('event', 'view_cart', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
-        }
-
-        /**
-         * This event signifies that a user has begun a checkout.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
-         */
-        elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
+            $result[] = ['view_cart', $eventData];
+        } elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
+            // This event signifies that a user has begun a checkout.
+            // @see https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
             $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
             if ($productCollection) {
                 $eventData = [];
@@ -328,15 +310,12 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     $eventData['value'] += $_product->getFinalPrice();
                 }
                 $eventData['value'] = $helper->formatPrice($eventData['value']);
-                $result[] = "gtag('event', 'begin_checkout', " . json_encode($eventData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['begin_checkout', $eventData];
             }
         }
 
-        /**
-         *  This event signifies when one or more items is purchased by a user.
-         *
-         * @link https://developers.google.com/tag-platform/gtagjs/reference/events?hl=it#purchase
-         */
+        // This event signifies when one or more items is purchased by a user.
+        // @see https://developers.google.com/tag-platform/gtagjs/reference/events?hl=it#purchase
         $orderIds = $this->getOrderIds();
         if (!empty($orderIds) && is_array($orderIds)) {
             $collection = Mage::getResourceModel('sales/order_collection')
@@ -375,12 +354,21 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     }
                     array_push($orderData['items'], $_item);
                 }
-                $result[] = "gtag('event', 'purchase', " . json_encode($orderData, JSON_THROW_ON_ERROR) . ");";
+                $result[] = ['purchase', $orderData];
             }
         }
 
+        $ga4DataTransport = new Varien_Object();
+        $ga4DataTransport->setData($result);
+        Mage::dispatchEvent('googleanalytics_ga4_send_data_before', ['ga4_data_transport' => $ga4DataTransport]);
+        $result = $ga4DataTransport->getData();
+
         if ($this->helper('googleanalytics')->isDebugModeEnabled() && count($result) > 0) {
             $this->helper('googleanalytics')->log($result);
+        }
+
+        foreach ($result as $k => $ga4Event) {
+            $result[$k] = "gtag('event', '{$ga4Event[0]}', " . json_encode($ga4Event[1], JSON_THROW_ON_ERROR) . ');';
         }
         return implode("\n", $result);
     }

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object
      *
-     * @var Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_config;
 
@@ -64,7 +64,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
         // "include" section takes precedence and can revoke directory exclusion
         foreach ($this->getConfig()->dirs->include->children() as $dir) {
-            unset($conditions['regexp'][(string) $dir], $conditions['plain'][(string) $dir]);
+            unset($conditions['reg_exp'][(string) $dir], $conditions['plain'][(string) $dir]);
         }
 
         $regExp = $conditions['reg_exp'] ? ('~' . implode('|', array_keys($conditions['reg_exp'])) . '~i') : null;
@@ -274,7 +274,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function uploadFile($targetPath, $type = null)
     {
-        $uploader = new Mage_Core_Model_File_Uploader('image');
+        $uploader = Mage::getModel('core/file_uploader', 'image');
         if ($allowed = $this->getAllowedExtensions($type)) {
             $uploader->setAllowedExtensions($allowed);
         }

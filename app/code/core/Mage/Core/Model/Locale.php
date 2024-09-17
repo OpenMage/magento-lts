@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -247,7 +247,7 @@ class Mage_Core_Model_Locale
             }
         }
 
-        foreach ($locales as $code => $active) {
+        foreach (array_keys($locales) as $code) {
             if (strstr($code, '_')) {
                 if (!in_array($code, $allowed)) {
                     continue;
@@ -518,7 +518,7 @@ class Mage_Core_Model_Locale
             $locale = $this->getLocale();
         }
 
-        if (empty($date)) {
+        if (!is_int($date) && empty($date)) {
             // $date may be false, but Zend_Date uses strict compare
             $date = null;
         }
@@ -695,7 +695,7 @@ class Mage_Core_Model_Locale
         if ($pos !== false) {
             $format = substr($format, 0, $pos);
         }
-        $format = preg_replace("/[^0\#\.,]/", "", $format);
+        $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
         $decimalPoint = strpos($format, '.');
         if ($decimalPoint !== false) {

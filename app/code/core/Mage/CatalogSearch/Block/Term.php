@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,10 +60,12 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 $temp[$term->getName()] = $term;
                 $termKeys[] = $term->getName();
             }
-            natcasesort($termKeys);
 
-            foreach ($termKeys as $termKey) {
-                $this->_terms[$termKey] = $temp[$termKey];
+            if (isset($termKeys)) {
+                natcasesort($termKeys);
+                foreach ($termKeys as $termKey) {
+                    $this->_terms[$termKey] = $temp[$termKey];
+                }
             }
         }
         return $this;

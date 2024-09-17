@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -236,7 +236,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
-            $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
+            $countSelect->columns('COUNT(DISTINCT ' . implode(', ', $group) . ')');
         } else {
             $countSelect->columns('COUNT(*)');
 
@@ -265,7 +265,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $bindParams = array_map(function ($token) {
                         return ltrim($token, ':');
                     }, array_keys($this->_bindParams));
-                    $bindPattern = '/:('.implode('|', $bindParams).')/';
+                    $bindPattern = '/:(' . implode('|', $bindParams) . ')/';
                     $joinUsingBind = array_filter($leftJoins, function ($table) use ($bindPattern) {
                         return !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']);
                     });

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
     public function sendHttp($url, $connectTimeout, $timeout)
     {
         // verify that the URL uses a supported protocol.
-        if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
+        if ((strpos($url, 'http://') === 0) || (strpos($url, 'https://') === 0)) {
             //Construct the payload to POST to the url.
             $data = $this->getRequestXml();
 
@@ -57,7 +57,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
             }
 
             // Assert that we received an expected Centinel Message in reponse.
-            if (strpos($result, "<CardinalMPI>") === false) {
+            if (strpos($result, '<CardinalMPI>') === false) {
                 $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
             }
         } else {

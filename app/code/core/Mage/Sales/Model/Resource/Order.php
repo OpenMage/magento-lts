@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,7 +136,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         $adapter = $this->getReadConnection();
         $bind    = [':entity_id' => $orderId];
         $select  = $adapter->select()
-            ->from($this->getMainTable(), ["increment_id"])
+            ->from($this->getMainTable(), ['increment_id'])
             ->where('entity_id = :entity_id');
         return $adapter->fetchOne($select, $bind);
     }

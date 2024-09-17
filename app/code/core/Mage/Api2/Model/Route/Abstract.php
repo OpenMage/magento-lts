@@ -21,7 +21,7 @@
  */
 abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Route
 {
-    /**#@+
+    /**
      * Names for Zend_Controller_Router_Route::__construct params
      */
     public const PARAM_ROUTE      = 'route';
@@ -29,7 +29,6 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     public const PARAM_REQS       = 'reqs';
     public const PARAM_TRANSLATOR = 'translator';
     public const PARAM_LOCALE     = 'locale';
-    /**#@- */
 
     /**
      * Default values of parent::__construct() params

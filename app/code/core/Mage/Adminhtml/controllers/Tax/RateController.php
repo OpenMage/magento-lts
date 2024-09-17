@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 $rateModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been saved.'));
-                $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+                $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                 return true;
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
@@ -131,7 +131,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         }
 
         if (!$rateModel->getId()) {
-            $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+            $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
         }
 
@@ -139,7 +139,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $rateModel->setTaxPostcode($rateModel->getZipFrom() . '-' . $rateModel->getZipTo());
         }
 
-        $this->_title(sprintf("%s", $rateModel->getCode()));
+        $this->_title(sprintf('%s', $rateModel->getCode()));
 
         /** @var Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save $block */
         $block = $this->getLayout()->createBlock('adminhtml/tax_rate_toolbar_save');
@@ -169,7 +169,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     $rateModel->delete();
 
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
-                    $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+                    $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                     return true;
                 } catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -179,7 +179,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
                 } else {
-                    $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+                    $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                 }
             } else {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate. Incorrect rate ID.'));

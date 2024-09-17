@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Review') && Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
                 $this->addTab('reviews', [
                     'label'     => Mage::helper('customer')->__('Product Reviews'),
                     'class'     => 'ajax',

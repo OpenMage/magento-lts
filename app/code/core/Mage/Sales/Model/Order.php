@@ -2372,7 +2372,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
 
         if (!$this->getId()) {
-            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+            $this->setData('protect_code', Mage::helper('core')->getRandomString(16));
         }
 
         if ($this->getStatus() !== $this->getOrigData('status')) {

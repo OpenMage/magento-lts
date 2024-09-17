@@ -85,6 +85,7 @@
 | adminhtml_widget_grid_filter_collection | 1.9.4.5 |
 | after_reindex_process_[getIndexerCode] | 1.9.4.5 |
 | ajax_cart_remove_item_success | 1.9.4.5 |
+| api_server_adapter_jsonrpc_run_after | 20.1.1 |
 | api_user_authenticated | 1.9.4.5 |
 | api_user_html_before | 1.9.4.5 |
 | application_clean_cache | 1.9.4.5 |
@@ -213,6 +214,7 @@
 | custom_quote_process | 1.9.4.5 |
 | customer_address_format | 1.9.4.5 |
 | customer_address_validation_after | 1.9.4.5 |
+| customer_controller_account_login_post_redirect_before | 20.4.0 |
 | customer_customer_authenticated | 1.9.4.5 |
 | customer_login | 1.9.4.5 |
 | customer_logout | 1.9.4.5 |
@@ -229,6 +231,7 @@
 | end_index_events_[getEventTypeName] | 1.9.4.5 |
 | end_process_event_[getEventTypeName] | 1.9.4.5 |
 | gift_options_prepare_items | 1.9.4.5 |
+| googleanalytics_ga4_send_data_before | 20.1.1 |
 | http_response_send_before | 1.9.4.5 |
 | index_process_change_status | 1.9.4.5 |
 | init_from_order_session_quote_initialized | 1.9.4.5 |
@@ -236,6 +239,7 @@
 | log_log_clean_after | 1.9.4.5 |
 | log_log_clean_before | 1.9.4.5 |
 | log_visitor_collection_load_before | 1.9.4.5 |
+| mage_run_installed_exception | 20.7.0 |
 | mage_run_exception | 1.9.4.5 |
 | model_config_data_save_before | 1.9.4.5 |
 | model_delete_after | 1.9.4.5 |
@@ -250,7 +254,7 @@
 | newsletter_send_after | 19.5.0 / 20.1.0 |
 | on_view_report | 1.9.4.5 |
 | order_cancel_after | 1.9.4.5 |
- | order_status_changed_before_save | 19.5.0 / 20.1.0 |
+| order_status_changed_before_save | 19.5.0 / 20.1.0 |
 | page_block_html_topmenu_gethtml_after | 1.9.4.5 |
 | page_block_html_topmenu_gethtml_before | 1.9.4.5 |
 | payment_form_block_to_html_before | 1.9.4.5 |
@@ -259,6 +263,7 @@
 | paypal_prepare_line_items | 1.9.4.5 |
 | pdf_item_draw_after | 1.9.4.5 |
 | permissions_block_html_before | 1.9.4.5 |
+| permissions_orphanedresource_html_before | 20.2.1 |
 | permissions_user_html_before | 1.9.4.5 |
 | permissions_variable_html_before | 1.9.4.5 |
 | poll_vote_add | 1.9.4.5 |

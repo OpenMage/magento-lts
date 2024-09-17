@@ -315,6 +315,10 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <rate_limit>
+                <active>1</active>
+                <timeframe>30</timeframe>
+            </rate_limit>
             <cache>
                 <flush_cron_expr>30 2 * * *</flush_cron_expr>
             </cache>

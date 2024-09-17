@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,6 +26,9 @@ Zend_Loader::loadClass('Zend_Db_Select');
 Zend_Loader::loadClass('Varien_Db_Tree_Node');
 Zend_Loader::loadClass('Varien_Db_Tree_NodeSet');
 
+/**
+ * @deprecated
+ */
 class Varien_Db_Tree
 {
     private $_id;
@@ -398,39 +401,33 @@ class Varien_Db_Tree
     public function __moveNode($eId, $pId, $aId = 0)
     {
         $eInfo = $this->getNodeInfo($eId);
+        $level = $eInfo[$this->_level];
+        $left_key = $eInfo[$this->_left];
+        $right_key = $eInfo[$this->_right];
+        $right_key_near = 0;
+        $left_key_near = 0;
+        $skew_level = 0;
+
         if ($pId != 0) {
             $pInfo = $this->getNodeInfo($pId);
+            $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         }
         if ($aId != 0) {
             $aInfo = $this->getNodeInfo($aId);
         }
 
-        $level = $eInfo[$this->_level];
-        $left_key = $eInfo[$this->_left];
-        $right_key = $eInfo[$this->_right];
-        if ($pId == 0) {
-            $level_up = 0;
-        } else {
-            $level_up = $pInfo[$this->_level];
-        }
-
-        $right_key_near = 0;
-        $left_key_near = 0;
-
         if ($pId == 0) { //move to root
             $right_key_near = $this->_db->fetchOne('SELECT MAX(' . $this->_right . ') FROM ' . $this->_table);
-        } elseif ($aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
+        } elseif (isset($aInfo) && $aId != 0 && $pId == $eInfo[$this->_pid]) { // if we have after ID
             $right_key_near = $aInfo[$this->_right];
             $left_key_near = $aInfo[$this->_left];
-        } elseif ($aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID
+        } elseif (isset($pInfo) && $aId == 0 && $pId == $eInfo[$this->_pid]) { // if we do not have after ID
             $right_key_near = $pInfo[$this->_left];
-        } elseif ($pId != $eInfo[$this->_pid]) {
+        } elseif (isset($pInfo) && $pId != $eInfo[$this->_pid]) {
             $right_key_near = $pInfo[$this->_right] - 1;
         }
 
-        $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         $skew_tree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
-
         echo "alert('" . $right_key_near . "');";
 
         if ($right_key_near > $right_key) { // up
@@ -454,19 +451,22 @@ class Varien_Db_Tree
                     ' . $this->_right . ' > ' . $left_key . ' AND ' . $this->_left . ' <= ' . $right_key_near;
         }
 
-        $this->_db->beginTransaction();
-        try {
-            $this->_db->query($sql);
-            //$afrows = $this->_db->get
-            $this->_db->commit();
-        } catch (Exception $e) {
-            $this->_db->rollBack();
-            echo $e->getMessage();
-            echo "<br>\r\n";
-            echo $sql;
-            echo "<br>\r\n";
-            exit();
+        if (isset($sql)) {
+            $this->_db->beginTransaction();
+            try {
+                $this->_db->query($sql);
+                //$afrows = $this->_db->get
+                $this->_db->commit();
+            } catch (Exception $e) {
+                $this->_db->rollBack();
+                echo $e->getMessage();
+                echo "<br>\r\n";
+                echo $sql;
+                echo "<br>\r\n";
+                exit();
+            }
         }
+
         echo "alert('node added')";
     }
 
@@ -496,7 +496,7 @@ class Varien_Db_Tree
 
         $dbSelect = new Zend_Db_Select($this->_db);
         $dbSelect->from($this->_table)
-            ->where($this->_left  . ' >= :left')
+            ->where($this->_left . ' >= :left')
             ->where($this->_right . ' <= :right')
             ->order($this->_left);
 
@@ -524,7 +524,7 @@ class Varien_Db_Tree
     {
         $dbSelect = new Zend_Db_Select($this->_db);
         $dbSelect->from($this->_table)
-            ->where($this->_table . '.' . $this->_id  . ' >= :id');
+            ->where($this->_table . '.' . $this->_id . ' >= :id');
 
         $this->_addExtTablesToSelect($dbSelect);
 

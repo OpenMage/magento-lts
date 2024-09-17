@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -64,18 +64,28 @@
         <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
+                    <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+                        <th><?php echo $this->escapeHtml($this->__('Swatch')) ?></th>
+                    <?php endif ?>
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                     <?php endforeach ?>
                         <th><?php echo $this->__('Position') ?></th>
-                        <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>
+                        <th class="nobr a-center"><?php echo $this->escapeHtml($this->__('Is Default')) ?></th>
                         <th>
                             <?php if (!$this->getReadOnly()):?>
                                 <?php echo $this->getAddNewButtonHtml() ?>
                             <?php endif ?>
                         </th>
                     </tr>
-                    <tr class="no-display template" id="row-template">
+                    <tr class="no-display template" id="row-template">    
+                        <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+                        <td style="position:relative">
+                            <input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />
+                            <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />    
+                            <span class="swatch-delete" data-msg-delete="<?php echo $this->escapeHtml($this->__('Are you sure to delete this fallback color?')) ?>">X</span>
+                        </td>
+                        <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <?php endforeach ?>
@@ -100,6 +110,13 @@ var optionDefaultInputType = 'radio';
 // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
 var templateText =
         '<tr class="option-row" title="ID: {{id}}">'+
+        <?php if ($this->isConfigurableSwatchesEnabled()): ?>
+            '<td style="position:relative">'+
+                '<input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
+                '<input type="color" class="swatch-option input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />'+
+                '<span class="swatch-delete" data-msg-delete="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure to delete this fallback color?')); ?>">X</span>'+
+            '</td>'+
+        <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
             '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
 <?php endforeach ?>
@@ -114,7 +131,7 @@ var templateText =
         '<\/tr>';
 
 var attributeOption = {
-    table : $('attribute-options-table'),
+    table : document.getElementById('attribute-options-table'),
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
     templateText : templateText,
     itemCount : 0,
@@ -122,81 +139,119 @@ var attributeOption = {
     isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
     add : function(data) {
         this.template = new Template(this.templateText, this.templateSyntax);
-        var isNewOption = false;
-        if(!data.id){
-            data = {};
-            data.id  = 'option_'+this.itemCount;
+        let isNewOption = false;
+        if (!data.id) {
+            data.id = 'option_' + this.itemCount;
             isNewOption = true;
         }
-        if (!data.intype)
+        if (!data.intype) {
             data.intype = optionDefaultInputType;
-        Element.insert(this.table, {after: this.template.evaluate(data)});
+        }
+        if (!data.swatch) {
+            data.swatch_class = 'swatch-disabled';
+        }
+        let newHTML = this.template.evaluate(data);
+        this.table.insertAdjacentHTML('afterend', newHTML);
         if (isNewOption && !this.isReadOnly) {
             this.enableNewOptionDeleteButton(data.id);
         }
         this.bindRemoveButtons();
+        this.bindSwatchButtons();
+        this.bindSwatchRemoveButtons();
         this.itemCount++;
         this.totalItems++;
         this.updateItemsCountField();
     },
     remove : function(event){
-        var element = $(Event.findElement(event, 'tr')); // !!! Button already
-                                                               // have table parent in safari
-        // Safari workaround
-        element.ancestors().each(function(parentItem){
-           if (parentItem.hasClassName('option-row')) {
-               element = parentItem;
-               throw $break;
-           } else if (parentItem.hasClassName('box')) {
-               throw $break;
-           }
-        });
-
-
-        if(element){
-            var elementFlags = element.getElementsByClassName('delete-flag');
-            if(elementFlags[0]){
-                elementFlags[0].value=1;
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementFlags = element.querySelectorAll('.delete-flag');
+            if (elementFlags.length > 0) {
+                elementFlags[0].value = 1;
             }
 
-            element.addClassName('no-display');
-            element.addClassName('template');
-            element.hide();
+            element.classList.add('no-display', 'template');
             this.totalItems--;
             this.updateItemsCountField();
         }
     },
-    updateItemsCountField: function() {
-        if (this.totalItems > 0) {
-            $('option-count-check').value = '1';
-        } else {
-            $('option-count-check').value = '';
+    swatch : function(event){
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementSwatchValue = element.querySelector('.swatch-value');
+            if (elementSwatchValue) {
+                elementSwatchValue.disabled = false;
+                elementSwatchValue.value = event.target.value;
+            }
+
+            event.target.classList.remove('swatch-disabled');
         }
     },
-    enableNewOptionDeleteButton: function(id) {
-        $$('#delete_button_container_' + id + ' button').each(function(button) {
-            button.enable();
-            button.removeClassName('disabled');
-        });
-    },
-    bindRemoveButtons : function(){
-        var buttons = $$('.delete-option');
-        for(var i=0;i<buttons.length;i++){
-            if(!$(buttons[i]).binded){
-                $(buttons[i]).binded = true;
-                Event.observe(buttons[i], 'click', this.remove.bind(this));
+    swatchremove : function(event){
+        if (!confirm(event.target.getAttribute('data-msg-delete'))) {
+            return;
+        }
+        let element = event.target.closest('tr');
+        if (element) {
+            let elementSwatchValue = element.querySelector('.swatch-value');
+            if (elementSwatchValue) {
+                elementSwatchValue.disabled = false;
+                elementSwatchValue.value = '';
+            }
+
+            let elementSwatchOption = element.querySelector('.swatch-option');
+            if (elementSwatchOption) {
+                elementSwatchOption.value = '';
+                elementSwatchOption.classList.add('swatch-disabled');
             }
         }
+    },
+    updateItemsCountField: function() {
+        let optionCountCheck = document.getElementById('option-count-check');
+        optionCountCheck.value = this.totalItems > 0 ? '1' : '';
+    },
+    enableNewOptionDeleteButton: function(id) {
+        document.querySelectorAll('#delete_button_container_' + id + ' button').forEach(function(button) {
+            button.disabled = false;
+            button.classList.remove('disabled');
+        });
+    },
+    bindRemoveButtons: function() {
+        let buttons = document.querySelectorAll('.delete-option');
+        buttons.forEach(function(button) {
+            if (!button.binded) {
+                button.binded = true;
+                button.addEventListener('click', attributeOption.remove.bind(attributeOption));
+            }
+        });
+    },
+    bindSwatchButtons: function() {
+        let buttons = document.querySelectorAll('.swatch-option');
+        buttons.forEach(function(button) {
+            if (!button.dataset.binded) {
+                button.dataset.binded = true;
+                button.addEventListener('change', attributeOption.swatch.bind(attributeOption));
+            }
+        });
+    },
+    bindSwatchRemoveButtons: function() {
+        let buttons = document.querySelectorAll('.swatch-delete');
+        buttons.forEach(function(button) {
+            if (!button.binded) {
+                button.binded = true;
+                button.addEventListener('click', attributeOption.swatchremove.bind(attributeOption));
+            }
+        });
     }
-
 }
-if($('row-template')){
-    $('row-template').remove();
+let rowTemplate = document.getElementById('row-template');
+if (rowTemplate) {
+    rowTemplate.remove();
 }
 attributeOption.bindRemoveButtons();
-
-if($('add_new_option_button')){
-    Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
+let addNewOptionButton = document.getElementById('add_new_option_button');
+if (addNewOptionButton) {
+    addNewOptionButton.addEventListener('click', attributeOption.add.bind(attributeOption));
 }
 Validation.addAllThese([
     ['required-option', '<?php echo $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {

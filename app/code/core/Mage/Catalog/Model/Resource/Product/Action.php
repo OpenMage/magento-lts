@@ -73,6 +73,8 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
                 }
                 $this->_processAttributeValues();
             }
+
+            $this->_updateUpdatedAt($entityIds);
             $this->_getWriteAdapter()->commit();
         } catch (Exception $e) {
             $this->_getWriteAdapter()->rollBack();
@@ -80,5 +82,26 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
         }
 
         return $this;
+    }
+
+    /**
+     * Update the "updated_at" field for all entity_ids passed
+     *
+     * @param array $entityIds
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _updateUpdatedAt(array $entityIds): void
+    {
+        $updatedAt = Varien_Date::now();
+        $catalogProductTable = $this->getTable('catalog/product');
+        $adapter = $this->_getWriteAdapter();
+
+        $entityIdsChunks = array_chunk($entityIds, 1000);
+        foreach ($entityIdsChunks as $entityIdsChunk) {
+            $adapter->update($catalogProductTable, [
+                'updated_at' => $updatedAt
+            ], $adapter->quoteInto('entity_id IN (?)', $entityIdsChunk));
+        }
     }
 }

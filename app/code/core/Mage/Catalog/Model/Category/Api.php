@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -265,7 +265,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
          * Proceed with $useConfig set into category model for processing through validation
          */
         if (count($useConfig) > 0) {
-            $category->setData("use_post_data_config", $useConfig);
+            $category->setData('use_post_data_config', $useConfig);
         }
 
         try {
@@ -355,7 +355,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         if (str_starts_with($parent_category->getPath(), $category->getPath())) {
-            $this->_fault('not_moved', "Operation do not allow to move a parent category to any of children category");
+            $this->_fault('not_moved', 'Operation do not allow to move a parent category to any of children category');
         }
 
         try {

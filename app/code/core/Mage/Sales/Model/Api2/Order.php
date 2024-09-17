@@ -21,7 +21,7 @@
  */
 class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
 {
-    /**#@+
+    /**
      * Parameters' names in config with special ACL meaning
      */
     public const PARAM_GIFT_MESSAGE   = '_gift_message';
@@ -29,7 +29,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     public const PARAM_PAYMENT_METHOD = '_payment_method';
     public const PARAM_TAX_NAME       = '_tax_name';
     public const PARAM_TAX_RATE       = '_tax_rate';
-    /**#@-*/
 
     /**
      * Add gift message info to select

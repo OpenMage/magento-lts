@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
             }
         }
 
-        $conn->update($ruleTable, ['website_ids' => implode(',', array_keys($websiteIds))], "rule_id=" . $r['rule_id']);
+        $conn->update($ruleTable, ['website_ids' => implode(',', array_keys($websiteIds))], 'rule_id=' . $r['rule_id']);
     }
     $conn->dropColumn($ruleTable, 'store_ids');
 }
@@ -55,9 +55,9 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
         $websiteId = $websites[$r['store_id']];
         $key = $r['from_time'] . '|' . $r['to_time'] . '|' . $websiteId . '|' . $r['customer_group_id'] . '|' . $r['product_id'] . '|' . $r['sort_order'];
         if (isset($unique[$key])) {
-            $conn->delete($ruleProductTable, $conn->quoteInto("rule_product_id=?", $r['rule_product_id']));
+            $conn->delete($ruleProductTable, $conn->quoteInto('rule_product_id=?', $r['rule_product_id']));
         } else {
-            $conn->update($ruleProductTable, ['website_id' => $websiteId], "rule_product_id=" . $r['rule_product_id']);
+            $conn->update($ruleProductTable, ['website_id' => $websiteId], 'rule_product_id=' . $r['rule_product_id']);
             $unique[$key] = true;
         }
     }

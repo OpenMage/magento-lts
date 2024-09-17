@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +85,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
         $qtysString = $this->getRequest()->getParam('qty');
         if (isset($qtysString)) {
-            $qtys = array_filter(json_decode($qtysString), '\strlen');
+            $qtys = array_filter(json_decode($qtysString), fn ($tmpString) => strlen($tmpString ?? ''));
         }
 
         /** @var Mage_Wishlist_Model_Item $item */

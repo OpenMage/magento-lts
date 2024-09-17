@@ -119,7 +119,7 @@ class Mage_ProductAlert_Model_Observer
                         if ($previousCustomer) {
                             $email->send();
                         }
-                        if (!$customer) {
+                        if (!$customer->getId()) {
                             continue;
                         }
                         $previousCustomer = $customer;
@@ -206,7 +206,7 @@ class Mage_ProductAlert_Model_Observer
                         if ($previousCustomer) {
                             $email->send();
                         }
-                        if (!$customer) {
+                        if (!$customer->getId()) {
                             continue;
                         }
                         $previousCustomer = $customer;

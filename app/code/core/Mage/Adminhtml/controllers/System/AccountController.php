@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
     public function saveAction()
     {
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();
-        $user = Mage::getModel("admin/user")->load($userId);
+        $user = Mage::getModel('admin/user')->load($userId);
 
         $user->setId($userId)
             ->setUsername($this->getRequest()->getParam('username', false))
@@ -74,7 +74,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             foreach ($result as $error) {
                 Mage::getSingleton('adminhtml/session')->addError($error);
             }
-            $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+            $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
         }
 
@@ -86,6 +86,6 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
-        $this->getResponse()->setRedirect($this->getUrl("*/*/"));
+        $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 }

@@ -24,7 +24,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_File extends Mage_Catalog_Blo
     /**
      * Returns info of file
      *
-     * @return string
+     * @return Varien_Object
      */
     public function getFileInfo()
     {

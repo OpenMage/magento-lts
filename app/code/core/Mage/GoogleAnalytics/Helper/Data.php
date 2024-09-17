@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,13 +176,16 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLastCategoryName($product): string
     {
-        $_categoryIds = $product->getCategoryIds();
-        if ($_categoryIds) {
-            $_lastCat = array_pop($_categoryIds);
-            $_cat = Mage::getModel('catalog/category')->load($_lastCat);
-            return $_cat->getName();
-        }
-        return '';
+        $storeRootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+        $storeRootCategory = Mage::getModel('catalog/category')->load($storeRootCategoryId);
+        $lastCategory = Mage::getResourceModel('catalog/category_collection')
+            ->addAttributeToSelect('name')
+            ->addIdFilter($product->getCategoryIds())
+            ->addIsActiveFilter()
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . '/%'])
+            ->addOrder('level')
+            ->getFirstItem();
+        return $lastCategory->getName() ?: '';
     }
 
     /**

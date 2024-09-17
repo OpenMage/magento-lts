@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,9 +55,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Null Scope
      */
     public const SCOPE_NULL    = -1;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Permanent column names.
      *
      * Names that begins with underscore is not an attribute. This name convention is for
@@ -89,9 +88,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Col Sku
      */
     public const COL_SKU      = 'sku';
-    /**#@-*/
 
-    /**#@+
+    /**
      * Error codes.
      */
     public const ERROR_INVALID_SCOPE                = 'invalidScope';
@@ -220,7 +218,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Error - invalid product sku
      */
     public const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
-    /**#@-*/
 
     /**
      * Pairs of attribute set ID-to-name.
@@ -419,7 +416,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * url_key attribute id
      *
-     * @var int
+     * @var string|false|null
      */
     protected $_urlKeyAttributeId;
 
@@ -904,6 +901,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         'updated_at'       => Varien_Date::now()
                     ];
                 }
+
+                $prevOptionId = 0;
                 if ($rowIsMain) {
                     $solidParams = [
                         'option_id'      => $nextOptionId,
@@ -1102,7 +1101,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             if ($productIds) { // update product entity table to show that product has options
                 $customOptionsProducts = $customOptions['product_id'];
 
-                foreach ($customOptionsProducts as $key => $value) {
+                foreach (array_keys($customOptionsProducts) as $key) {
                     if (!in_array($key, $productIds)) {
                         unset($customOptionsProducts[$key]);
                     }
@@ -1155,6 +1154,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $productIds   = [];
             $linkRows     = [];
             $positionRows = [];
+            $sku          = null;
 
             foreach ($bunch as $rowNum => $rowData) {
                 $this->_filterRowData($rowData);
@@ -1365,6 +1365,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $tierPrices   = [];
             $groupPrices  = [];
             $mediaGallery = [];
+            $rowSku       = null;
             $uploadedGalleryFiles = [];
             $previousType = null;
             $previousAttributeSet = null;
@@ -1975,7 +1976,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _filterRowData(&$rowData)
     {
-        $rowData = array_filter($rowData, '\strlen');
+        $rowData = array_filter($rowData, fn ($tmpString) => strlen($tmpString ?? ''));
         // Exceptions - for sku - put them back in
         if (!isset($rowData[self::COL_SKU])) {
             $rowData[self::COL_SKU] = null;
@@ -2104,7 +2105,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_validate($rowData, $rowNum, $sku);
 
         if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
-            $this->_processedEntitiesCount ++;
+            $this->_processedEntitiesCount++;
 
             $sku = $rowData[self::COL_SKU];
 
@@ -2210,7 +2211,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Get product url_key attribute id
      *
-     * @return null|int
+     * @return string|false|null
      */
     protected function _getUrlKeyAttributeId()
     {
