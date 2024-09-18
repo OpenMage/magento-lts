@@ -282,7 +282,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed identifier.
      *
-     * @param string $identifier
+     * @param string|int $identifier
      * @return string
      */
     public function getCmsPageTitleByIdentifier($identifier)
@@ -304,7 +304,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieves cms page title from DB by passed id.
      *
-     * @param string $id
+     * @param string|int $id
      * @return string
      */
     public function getCmsPageTitleById($id)
