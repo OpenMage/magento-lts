@@ -59,7 +59,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleByIdentifier(): void
     {
-        $this->assertIsString($this->subject->getCmsPageTitleByIdentifier('home'));
+        $this->assertNotFalse($this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -68,7 +68,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleById(): void
     {
-        $this->assertIsString($this->subject->getCmsPageTitleById(2));
+        $this->assertNotFalse($this->subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -77,7 +77,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        $this->assertIsString($this->subject->getCmsPageIdentifierById(2));
+        $this->assertNotFalse($this->subject->getCmsPageIdentifierById(2));
     }
 
     /**

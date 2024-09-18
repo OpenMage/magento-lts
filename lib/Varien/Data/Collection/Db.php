@@ -399,6 +399,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
     /**
      * Hook for operations before rendering filters
+     *
+     * @return void
      */
     protected function _renderFiltersBefore()
     {
