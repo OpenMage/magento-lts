@@ -27,9 +27,6 @@ class DataTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    /**
-     * @var Mage_Core_Helper_Data
-     */
     public Mage_Core_Helper_Data $subject;
 
     public function setUp(): void

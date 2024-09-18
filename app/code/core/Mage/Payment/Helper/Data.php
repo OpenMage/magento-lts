@@ -106,7 +106,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment method form html
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
      * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
@@ -123,7 +122,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment information block
      *
-     * @param   Mage_Payment_Model_Info $info
      * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)

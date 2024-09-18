@@ -26,7 +26,6 @@ class Varien_Event_Observer_Regex extends Varien_Event_Observer
     /**
      * Checks the observer's event_regex against event's name
      *
-     * @param Varien_Event $event
      * @return boolean
      */
     public function isValidFor(Varien_Event $event)

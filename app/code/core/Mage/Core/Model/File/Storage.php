@@ -47,8 +47,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     /**
      * Show if there were errors while synchronize process
      *
-     * @param  Mage_Core_Model_Abstract $sourceModel
-     * @param  Mage_Core_Model_Abstract $destinationModel
      * @return bool
      */
     protected function _synchronizeHasErrors(

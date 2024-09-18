@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,6 @@ class Mage_Paypal_Model_Observer
     /**
      * Save order into registry to use it in the overloaded controller.
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
@@ -71,7 +70,6 @@ class Mage_Paypal_Model_Observer
     /**
      * Set data for response of frontend saveOrder action
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
@@ -109,8 +107,6 @@ class Mage_Paypal_Model_Observer
 
     /**
      * Load country dependent PayPal solutions system configuration
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {
@@ -137,8 +133,6 @@ class Mage_Paypal_Model_Observer
 
     /**
      * Update transaction with HTML representation of txn_id
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function observeHtmlTransactionId(Varien_Event_Observer $observer)
     {

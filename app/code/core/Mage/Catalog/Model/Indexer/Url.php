@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +89,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      * Check if event can be matched by process.
      * Overwrote for specific config save, store and store groups save matching
      *
-     * @param Mage_Index_Model_Event $event
      * @return bool
      */
     public function matchEvent(Mage_Index_Model_Event $event)
@@ -135,7 +134,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     /**
      * Register data required by process in event object
      *
-     * @param Mage_Index_Model_Event $event
      * @return Mage_Catalog_Model_Indexer_Url
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
@@ -167,8 +165,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
 
     /**
      * Register event data during product save process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerProductEvent(Mage_Index_Model_Event $event)
     {
@@ -184,8 +180,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
 
     /**
      * Register event data during category save process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerCategoryEvent(Mage_Index_Model_Event $event)
     {
@@ -205,8 +199,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
 
     /**
      * Process event
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {

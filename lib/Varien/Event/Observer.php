@@ -24,7 +24,6 @@ class Varien_Event_Observer extends Varien_Object
     /**
      * Checks the observer's event_regex against event's name
      *
-     * @param Varien_Event $event
      * @return boolean
      */
     public function isValidFor(Varien_Event $event)
@@ -35,7 +34,6 @@ class Varien_Event_Observer extends Varien_Object
     /**
      * Dispatches an event to observer's callback
      *
-     * @param Varien_Event $event
      * @return $this
      */
     public function dispatch(Varien_Event $event)

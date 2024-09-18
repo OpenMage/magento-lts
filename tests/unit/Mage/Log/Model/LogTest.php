@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class LogTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Log
-     */
     public Mage_Log_Model_Log $subject;
 
     public function setUp(): void

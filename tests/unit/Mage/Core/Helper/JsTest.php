@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Helper_Js
-     */
     public Mage_Core_Helper_Js $subject;
 
     public function setUp(): void

@@ -81,8 +81,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Apply filter by category id
-     *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      */
     protected function _applyCategoryFilter(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -98,8 +96,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Add special fields to product get response
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
@@ -153,8 +149,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product create only available for admin
-     *
-     * @param array $data
      */
     protected function _create(array $data)
     {
@@ -163,8 +157,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product update only available for admin
-     *
-     * @param array $data
      */
     protected function _update(array $data)
     {
@@ -217,8 +209,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Set product
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     protected function _setProduct(Mage_Catalog_Model_Product $product)
     {

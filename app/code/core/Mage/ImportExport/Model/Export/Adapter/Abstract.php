@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,7 +135,6 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     /**
      * Set column names.
      *
-     * @param array $headerCols
      * @throws Exception
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
      */
@@ -165,7 +164,6 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     /**
      * Write row data to source file.
      *
-     * @param array $rowData
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     abstract public function writeRow(array $rowData);

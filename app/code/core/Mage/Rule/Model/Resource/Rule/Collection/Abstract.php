@@ -168,7 +168,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     /**
      * Set environment for all rules in collection
      *
-     * @param Mage_Rule_Model_Environment|null $env
      * @return $this
      * @deprecated after 1.6.2.0
      *

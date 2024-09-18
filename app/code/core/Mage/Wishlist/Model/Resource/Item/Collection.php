@@ -220,7 +220,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add filter by wishlist object
      *
-     * @param Mage_Wishlist_Model_Wishlist $wishlist
      * @return $this
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)

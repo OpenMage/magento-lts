@@ -98,7 +98,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Round the total amounts in address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     protected function _roundTotals(Mage_Sales_Model_Quote_Address $address)
@@ -142,7 +141,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Collect tax totals for quote address
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
@@ -273,7 +271,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
     /**
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param float $rate
      * @param array $appliedRates
      * @param string $taxId
@@ -368,7 +365,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Tax calculation for shipping price
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param Varien_Object $taxRateRequest
      * @return $this
      */
@@ -398,7 +394,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Calculate address tax amount based on one unit price and tax amount
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param Varien_Object $taxRateRequest
      * @return $this
      */
@@ -676,7 +671,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Calculate address total tax based on row total
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param Varien_Object $taxRateRequest
      * @return $this
      */
@@ -950,7 +944,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Calculate address total tax based on address subtotal
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Varien_Object $taxRateRequest
      * @return  $this
      */
@@ -1495,7 +1488,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Recalculate parent item amounts base on children data
      *
-     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
      * @return $this
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -1514,7 +1506,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Collect applied tax rates information on address level
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @param   array $applied
      * @param   float $amount
      * @param   float $baseAmount
@@ -1569,7 +1560,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Add tax totals information to address object
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)

@@ -23,9 +23,6 @@ class ClassLoadingTest extends TestCase
 {
     /**
      * @dataProvider provideClassExistsData
-     * @param bool $expectedResult
-     * @param string $class
-     * @return void
      */
     public function testClassExists(bool $expectedResult, string $class): void
     {

@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
 {
-    /**
-     * @var Mage_Page_Block_Html
-     */
     public Mage_Page_Block_Html $subject;
 
     public function setUp(): void

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +26,6 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
     /**
      * Retrieves item links options
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getLinks(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -66,7 +65,6 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
     /**
      * Retrieves product options
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)

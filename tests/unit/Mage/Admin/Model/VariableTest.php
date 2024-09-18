@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    /**
-     * @var Mage_Admin_Model_Variable
-     */
     public Mage_Admin_Model_Variable $subject;
 
     public function setUp(): void
@@ -37,9 +34,6 @@ class VariableTest extends TestCase
     /**
      * @dataProvider provideValidateData
      * @param array|true $expectedResult
-     * @param string $variableName
-     * @param string $isAllowed
-     * @return void
      *
      * @group Mage_Admin
      */
