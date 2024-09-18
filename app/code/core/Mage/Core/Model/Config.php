@@ -1702,9 +1702,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get config value from DB
      *
-     * @param   string $path
-     * @param   string $scope
-     * @param   int $scopeId
      * @return  string|false
      */
     public function getConfig(string $path, string $scope = 'default', int $scopeId = 0)
