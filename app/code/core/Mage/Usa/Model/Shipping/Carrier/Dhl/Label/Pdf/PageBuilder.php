@@ -74,7 +74,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     }
 
     /**
-     * Calculate x coordinate with identation
+     * Calculate x coordinate with indentation
      *
      * @param int $pt
      * @return int
@@ -85,7 +85,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     }
 
     /**
-     * Calculate y coordinate with identation
+     * Calculate y coordinate with indentation
      *
      * @param int $pt
      * @return int

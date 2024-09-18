@@ -739,7 +739,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Set watermark heigth
+     * Set watermark height
      *
      * @param int $heigth
      * @return $this
@@ -751,7 +751,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get watermark heigth
+     * Get watermark height
      *
      * @return string
      */

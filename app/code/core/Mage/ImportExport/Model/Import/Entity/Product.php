@@ -310,7 +310,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     ];
 
     /**
-     * Dry-runned products information from import file.
+     * Dry-ran products information from import file.
      *
      * [SKU] => array(
      *     'type_id'        => (string) product type
@@ -1984,7 +1984,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
-     * Atttribute set ID-to-name pairs getter.
+     * Attribute set ID-to-name pairs getter.
      *
      * @return array
      */
@@ -2109,7 +2109,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
             $sku = $rowData[self::COL_SKU];
 
-            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existant DB product?
+            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existent DB product?
                 // check for supported type of existing product
                 if (isset($this->_productTypeModels[$this->_oldSku[$sku]['type_id']])) {
                     $this->_newSku[$sku] = [
