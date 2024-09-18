@@ -302,13 +302,15 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Retrieves data from the object
+     * Object data getter
      *
-     * If $key is empty will return all the data as an array
-     * Otherwise it will return value of the attribute specified by $key
+     * If $key is not defined will return all the data as an array.
+     * Otherwise, it will return value of the element specified by $key.
+     * It is possible to use keys like a/b/c for access nested array data
      *
      * If $index is specified it will assume that attribute data is an array
-     * and retrieve corresponding member.
+     * and retrieve corresponding member. If data is the string - it will be explode
+     * by new line character and converted to array.
      *
      * @param string $key
      * @param string|int $index
@@ -320,56 +322,61 @@ class Varien_Object implements ArrayAccess
             return $this->_data;
         }
 
-        $default = null;
-
-        // accept a/b/c as ['a']['b']['c']
-        if (strpos($key, '/')) {
-            $keyArr = explode('/', $key);
-            $data = $this->_data;
-            foreach ($keyArr as $i => $k) {
-                if ($k === '') {
-                    return $default;
-                }
-                if (is_array($data)) {
-                    if (!isset($data[$k])) {
-                        return $default;
-                    }
-                    $data = $data[$k];
-                } elseif ($data instanceof Varien_Object) {
-                    $data = $data->getData($k);
-                } else {
-                    return $default;
-                }
-            }
-            return $data;
+        $data = $this->_data[$key] ?? null;
+        if ($data === null && $key !== null && strpos($key, '/') !== false) {
+            /* process a/b/c key as ['a']['b']['c'] */
+            $data = $this->getDataByPath($key);
         }
 
-        // legacy functionality for $index
-        if (isset($this->_data[$key])) {
-            if (is_null($index)) {
-                return $this->_data[$key];
+        if ($index !== null) {
+            if ($data === (array)$data) {
+                $data = $data[$index] ?? null;
+            } elseif (is_string($data)) {
+                $data = explode(PHP_EOL, $data);
+                $data = $data[$index] ?? null;
+            } elseif ($data instanceof Varien_Object) {
+                $data = $data->getData($index);
+            } else {
+                $data = null;
             }
+        }
+        return $data;
+    }
 
-            $value = $this->_data[$key];
-            if (is_array($value)) {
-                //if (isset($value[$index]) && (!empty($value[$index]) || strlen($value[$index]) > 0)) {
-                /**
-                 * If we have any data, even if it empty - we should use it, anyway
-                 */
-                if (isset($value[$index])) {
-                    return $value[$index];
-                }
+    /**
+     * Get object data by path
+     *
+     * Method consider the path as chain of keys: a/b/c => ['a']['b']['c']
+     *
+     * @param string $path
+     * @return mixed
+     */
+    public function getDataByPath($path)
+    {
+        $keys = explode('/', (string)$path);
+
+        $data = $this->_data;
+        foreach ($keys as $key) {
+            if ((array)$data === $data && isset($data[$key])) {
+                $data = $data[$key];
+            } elseif ($data instanceof Varien_Object) {
+                $data = $data->getDataByKey($key);
+            } else {
                 return null;
-            } elseif (is_string($value)) {
-                $arr = explode("\n", $value);
-                return (isset($arr[$index]) && (!empty($arr[$index]) || strlen($arr[$index]) > 0))
-                    ? $arr[$index] : null;
-            } elseif ($value instanceof Varien_Object) {
-                return $value->getData($index);
             }
-            return $default;
         }
-        return $default;
+        return $data;
+    }
+
+    /**
+     * Get object data by particular key
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getDataByKey($key)
+    {
+        return $this->_getData($key);
     }
 
     /**
@@ -380,7 +387,7 @@ class Varien_Object implements ArrayAccess
      */
     protected function _getData($key)
     {
-        return isset($this->_data[$key]) ? $this->_data[$key] : null;
+        return $this->_data[$key] ?? null;
     }
 
     /**
@@ -611,14 +618,14 @@ class Varien_Object implements ArrayAccess
             case 'get':
                 //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
+                $data = $this->getData($key, $args[0] ?? null);
                 //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
                 return $data;
 
             case 'set':
                 //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
+                $result = $this->setData($key, $args[0] ?? null);
                 //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
                 return $result;
 
@@ -635,7 +642,10 @@ class Varien_Object implements ArrayAccess
                 //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')');
+        throw new Varien_Exception(
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')'
+        );
     }
 
     /**
@@ -716,7 +726,6 @@ class Varien_Object implements ArrayAccess
      */
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
-        $res  = '';
         $data = [];
         if (empty($attributes)) {
             $attributes = array_keys($this->_data);
@@ -727,8 +736,7 @@ class Varien_Object implements ArrayAccess
                 $data[] = $key . $valueSeparator . $quote . $value . $quote;
             }
         }
-        $res = implode($fieldSeparator, $data);
-        return $res;
+        return implode($fieldSeparator, $data);
     }
 
     /**
@@ -818,7 +826,7 @@ class Varien_Object implements ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
+        return $this->_data[$offset] ?? null;
     }
 
     /**
