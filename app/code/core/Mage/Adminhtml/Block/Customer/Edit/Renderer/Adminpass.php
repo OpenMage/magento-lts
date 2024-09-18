@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,6 +55,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
             } else {
                 $('{$element->getHtmlId()}_container').hide();
                 $('{$element->getHtmlId()}').disable();
+            }
+            if ($('email-passowrd-warning')) {
+                if (!$('_accountnew_password').getValue() || $('account-send-pass').checked) {
+                    $('email-passowrd-warning').hide();
+                } else if ($('_accountnew_password').getValue()) {
+                    $('email-passowrd-warning').show();
+                }
             }
         });
         $(elem).on('focus', function() {

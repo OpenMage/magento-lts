@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -321,7 +321,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 
     /**
      * Getter
-     * Explode to array if string setted
+     * Explode to array if string is set
      *
      * @return array
      */
@@ -335,7 +335,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 
     /**
      * Getter
-     * Unserialize if serialized string setted
+     * Unserialize if serialized string is set
      *
      * @return array
      */
@@ -399,7 +399,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve widget availabel templates
+     * Retrieve widget available templates
      *
      * @return array
      */

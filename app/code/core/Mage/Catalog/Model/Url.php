@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Url
     protected $_categoryUrlSuffix = [];
 
     /**
-     * Flag to overwrite config settings for Catalog URL rewrites history maintainance
+     * Flag to overwrite config settings for Catalog URL rewrites history maintenance
      *
      * @var bool
      */
@@ -433,7 +433,7 @@ class Mage_Catalog_Model_Url
             return $this;
         }
 
-        // Load all childs and refresh all categories
+        // Load all children and refresh all categories
         $category = $this->getResource()->loadCategoryChilds($category);
         $categoryIds = [$category->getId()];
         if ($category->getAllChilds()) {

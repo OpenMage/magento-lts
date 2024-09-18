@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Object
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Constructor
      *
-     * By default is looking for first argument as array and assignes it as object attributes
+     * By default, is looking for first argument as array and assigns it as object attributes
      * This behaviour may change in child classes
      */
     public function __construct()
@@ -676,10 +676,10 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Converts field names for setters and geters
+     * Converts field names for setters and getters
      *
      * $this->setMyField($value) === $this->setData('my_field', $value)
-     * Uses cache to eliminate unneccessary preg_replace
+     * Uses cache to eliminate unnecessary preg_replace
      *
      * @param string $name
      * @return string

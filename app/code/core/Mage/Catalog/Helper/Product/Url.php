@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +85,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
     ];
 
     /**
-     * Check additional instruction for convertation table in configuration
+     * Check additional instruction for conversion table in configuration
      */
     public function __construct()
     {
@@ -98,7 +98,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
     }
 
     /**
-     * Get chars convertation table
+     * Get chars conversion table
      *
      * @return array
      */
@@ -108,7 +108,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
     }
 
     /**
-     * Process string based on convertation table
+     * Process string based on conversion table
      *
      * @param   string $string
      * @return  string

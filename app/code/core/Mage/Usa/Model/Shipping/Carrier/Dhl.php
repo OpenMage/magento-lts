@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -449,7 +449,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                 $shipKey = $r->getShippingIntlKey();
                 $r->setShipDate($this->_getShipDate(false));
                 /*
-                * For internation shippingment customsvalue must be posted
+                * For international shipment customs value must be posted
                 */
                 $shippingDuty = $shipment->addChild('Dutiable');
                 $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -488,7 +488,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                     $r->setShipDate($this->_getShipDate(false));
 
                     /*
-                    * For internation shippingment customsvalue must be posted
+                    * For international shipment customs value must be posted
                     */
                     $shippingDuty = $shipment->addChild('Dutiable');
                     $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -999,7 +999,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $debugData = ['request' => $request];
         /*
          * tracking api cannot process from 3pm to 5pm PST time on Sunday
-         * DHL Airborne conduts a maintainance during that period.
+         * DHL Airborne conducts a maintenance during that period.
          */
         try {
             $url = $this->getConfigData('gateway_url');
