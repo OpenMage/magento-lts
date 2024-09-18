@@ -37,7 +37,7 @@ class Mage_Oauth2_Block_Adminhtml_Client_Edit extends Mage_Adminhtml_Block_Widge
             'class' => 'save'
         ], 100);
 
-        $this->_formScripts[] = "function saveAndContinueEdit()" .
+        $this->_formScripts[] = 'function saveAndContinueEdit()' .
             "{editForm.submit($('edit_form').action + 'back/edit/');}";
     }
 
