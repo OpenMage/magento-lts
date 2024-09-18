@@ -89,7 +89,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var object
+     * @var false|resource
      */
     protected $_ch;
 
