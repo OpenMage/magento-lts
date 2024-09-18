@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,6 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load configuration values into xml config object
      *
-     * @param Mage_Core_Model_Config $xmlConfig
      * @param string $condition
      * @return $this
      */
@@ -206,5 +205,25 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->quoteInto('scope_id = ?', $scopeId)
         ]);
         return $this;
+    }
+
+    /**
+     * Get config value
+     *
+     * @param string $path
+     * @param string $scope
+     * @param int $scopeId
+     * @return string|false
+     */
+    public function getConfig(string $path, string $scope, int $scopeId)
+    {
+        $readAdapter = $this->_getReadAdapter();
+        $select = $readAdapter->select()
+            ->from($this->getMainTable(), 'value')
+            ->where('path = ?', $path)
+            ->where('scope = ?', $scope)
+            ->where('scope_id = ?', $scopeId);
+
+        return $readAdapter->fetchOne($select);
     }
 }

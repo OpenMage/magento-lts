@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,14 +32,14 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
     public const LOG_DIRECTORY = 'log/import_export/';
 
     /**
-     * Enable loging
+     * Enable logging
      *
      * @var bool
      */
     protected $_debugMode = false;
 
     /**
-     * Loger instance
+     * Logger instance
      * @var Mage_Core_Model_Log_Adapter
      */
     protected $_logInstance;

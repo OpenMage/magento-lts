@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,6 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     /**
      * Retrieve format type object
      *
-     * @param  Varien_Object $type
      * @return $this
      */
     public function setType(Varien_Object $type)
@@ -51,7 +50,6 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     }
 
     /**
-     * @param Mage_Customer_Model_Address_Abstract|null $address
      * @return string
      */
     public function getFormat(?Mage_Customer_Model_Address_Abstract $address = null)
@@ -72,7 +70,6 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     /**
      * Render address
      *
-     * @param Mage_Customer_Model_Address_Abstract $address
      * @param string|null $format
      * @return string
      * @throws Exception

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Render HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -67,7 +66,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Set form element instance
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)

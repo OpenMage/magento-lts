@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +122,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
-
+    public const XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE = 'customer/password_link/account_new_email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE = 'customer/password_link/email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY = 'customer/password_link/email_identity';
     /**
      * Codes of exceptions related to customer model
      */
@@ -363,7 +365,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Add address to address collection
      *
-     * @param Mage_Customer_Model_Address $address
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -475,9 +476,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->_attributes[$attributeCode] ?? null;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return (string) $this->_getData('password');
@@ -702,7 +700,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check if address is primary
      *
-     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
@@ -881,6 +878,40 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Send email with link to set password
+     *
+     * @bool $isNew Send welcome email?
+     * @return $this
+     */
+    public function sendPasswordLinkEmail(bool $isNew = false)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId();
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
+        $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($this->getId());
+        $this->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
+        $this->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+
+        $template = $isNew
+            ? self::XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE
+            : self::XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE;
+
+        $this->_sendEmailTemplate(
+            $template,
+            self::XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY,
+            ['customer' => $this],
+            $storeId
+        );
+
+        return $this;
+    }
+
+    /**
      * Retrieve customer group identifier
      *
      * @return int
@@ -989,7 +1020,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set store to customer
      *
-     * @param Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
@@ -1096,7 +1126,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Import customer data from text array
      *
-     * @param array $row
      * @return $this|null
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -1358,7 +1387,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Validate address
      *
-     * @param array $data
      * @param string $type
      * @return bool
      */
@@ -1380,7 +1408,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                         return false;
                     }
 
-                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region']);
+                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region'], $data[$prefix . $field]);
                     if (!$region->getId()) {
                         return false;
                     }

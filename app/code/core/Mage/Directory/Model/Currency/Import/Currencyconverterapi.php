@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,9 +94,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Batch import of currency rates
      *
-     * @param array $data
      * @param string $currencyFrom
-     * @param array $currenciesTo
      * @return array
      */
     protected function _convertBatch(array $data, $currencyFrom, array $currenciesTo)
@@ -173,7 +171,6 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Fill simulated response with empty data
      *
-     * @param array $currenciesTo
      * @return array
      */
     protected function _makeEmptyResponse(array $currenciesTo)

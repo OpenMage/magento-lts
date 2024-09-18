@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,8 +64,6 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
 
     /**
      * Prepare existing row data object
-     *
-     * @param Varien_Object $row
      */
     protected function _prepareArrayRow(Varien_Object $row)
     {

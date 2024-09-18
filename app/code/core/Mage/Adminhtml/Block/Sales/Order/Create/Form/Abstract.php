@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,7 +102,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     /**
      * Add additional data to form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
@@ -114,7 +113,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Add rendering EAV attributes to Form element
      *
      * @param array|Varien_Data_Collection $attributes
-     * @param Varien_Data_Form_Abstract $form
      * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _addAttributesToForm($attributes, Varien_Data_Form_Abstract $form)

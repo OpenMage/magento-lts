@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Entity attribute after save process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogEntityAttributeSaveAfter(Varien_Event_Observer $observer)
@@ -82,7 +81,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Status Update
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
@@ -104,7 +102,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Website(s) update
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
@@ -133,7 +130,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product After Save
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
@@ -153,7 +149,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Add new store flat process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeAdd(Varien_Event_Observer $observer)
@@ -172,7 +167,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store edit action, check change store group
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeEdit(Varien_Event_Observer $observer)
@@ -193,7 +187,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store delete after process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeDelete(Varien_Event_Observer $observer)
@@ -213,7 +206,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Store Group Save process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
@@ -238,7 +230,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Catalog Product Import After process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
@@ -255,7 +246,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Customer Group save after process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function customerGroupSaveAfter(Varien_Event_Observer $observer)
@@ -278,7 +268,6 @@ class Mage_Catalog_Model_Product_Flat_Observer
      * Update category ids in flat
      *
      * @deprecated 1.3.2.2
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
