@@ -18,6 +18,10 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('core/config');
     }
 
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Model
+     */
     public function testSaveDeleteGetConfig(): void
     {
         $path = 'test/config';
