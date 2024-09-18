@@ -19,6 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Gui\Edit\Tab;
 
 use Mage;
 use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View;
+use Mage_Dataflow_Model_Profile;
 use PHPUnit\Framework\TestCase;
 
 class ViewTest extends TestCase
@@ -36,12 +37,20 @@ class ViewTest extends TestCase
     }
 
     /**
-     * @return void
-     *
      * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
      */
-//    public function testInitForm(): void
-//    {
-//        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $this->subject->initForm());
-//    }
+    public function testInitForm(): void
+    {
+        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class)
+            ->setMethods(['getRegistryCurrentConvertProfile'])
+            ->getMock();
+
+        $mock->expects($this->any())
+            ->method('getRegistryCurrentConvertProfile')
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+            ->willReturn(new Mage_Dataflow_Model_Profile());
+
+        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $mock->initForm());
+    }
 }
