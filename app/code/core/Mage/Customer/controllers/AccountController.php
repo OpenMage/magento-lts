@@ -322,7 +322,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Success Registration
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -542,7 +541,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Add welcome message and send new account email.
      * Returns success URL
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param bool $isJustConfirmed
      * @return string
      * @throws Mage_Core_Model_Store_Exception
@@ -1100,7 +1098,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get restore password params.
      *
-     * @param Mage_Customer_Model_Session $session
      * @return array array ($customerId, $resetPasswordToken)
      */
     protected function _getRestorePasswordParameters(Mage_Customer_Model_Session $session)

@@ -271,7 +271,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Fetch transaction details info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -283,7 +282,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Place an order with authorization or capture action
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return $this
      */
@@ -371,7 +369,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)

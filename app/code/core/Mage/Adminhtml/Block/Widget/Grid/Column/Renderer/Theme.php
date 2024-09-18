@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminh
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function render(Varien_Object $row)

@@ -29,7 +29,6 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     /**
      * Filter request data.
      *
-     * @param  array $data
      * @return array Filtered data
      */
     public function filter(array $data)
@@ -55,7 +54,6 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     /**
      * Validate data for create association with the country
      *
-     * @param array $data
      * @return bool
      */
     public function isValidDataForCreateAssociationWithCountry(array $data)
@@ -66,8 +64,6 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
     /**
      * Validate data for change association with the country
      *
-     * @param Mage_Customer_Model_Address $address
-     * @param array $data
      * @return bool
      */
     public function isValidDataForChangeAssociationWithCountry(Mage_Customer_Model_Address $address, array $data)
@@ -88,7 +84,6 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      * Check region
      *
      * @param array $data
-     * @param Mage_Directory_Model_Country $country
      * @return bool
      */
     protected function _checkRegion($data, Mage_Directory_Model_Country $country)

@@ -465,7 +465,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Save customer attributes.
      *
-     * @param array $attributesData
      * @return $this
      */
     protected function _saveCustomerAttributes(array $attributesData)
@@ -542,7 +541,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Obtain scope of the row from row data.
      *
-     * @param array $rowData
      * @return int
      */
     public function getRowScope(array $rowData)
@@ -579,7 +577,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Validate data row.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */

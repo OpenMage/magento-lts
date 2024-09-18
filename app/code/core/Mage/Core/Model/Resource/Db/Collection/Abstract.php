@@ -514,7 +514,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     /**
      * Prepare select for load
      *
-     * @param Varien_Db_Select $select
      * @return string
      * @throws Zend_Db_Select_Exception
      */

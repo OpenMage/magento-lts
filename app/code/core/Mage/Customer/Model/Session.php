@@ -98,7 +98,6 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer object and setting customer id in session
      *
-     * @param   Mage_Customer_Model_Customer $customer
      * @return  Mage_Customer_Model_Session
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -284,7 +283,6 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Authenticate controller action by login customer
      *
-     * @param   Mage_Core_Controller_Varien_Action $action
      * @param   bool $loginUrl
      * @return  bool
      */

@@ -25,9 +25,6 @@ class PurifierTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    /**
-     * @var Mage_Core_Helper_Purifier
-     */
     public Mage_Core_Helper_Purifier $subject;
 
     public function setUp(): void

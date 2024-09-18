@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class CookieTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Helper_Cookie
-     */
     public Mage_Core_Helper_Cookie $subject;
 
     public function setUp(): void

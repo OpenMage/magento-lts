@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class ViewTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View
-     */
     public Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View $subject;
 
     public function setUp(): void

@@ -48,7 +48,6 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     /**
      * Check usage of template code in other templates
      *
-     * @param Mage_Core_Model_Email_Template $template
      * @return bool
      */
     public function checkCodeUsage(Mage_Core_Model_Email_Template $template)

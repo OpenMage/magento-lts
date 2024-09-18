@@ -28,9 +28,6 @@ use function sprintf;
 
 class SecurityTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Helper_Security
-     */
     public Mage_Core_Helper_Security $subject;
 
     public function setUp(): void
@@ -69,10 +66,7 @@ class SecurityTest extends TestCase
     /**
      * @dataProvider validateAgainstBlockMethodBlacklistDataProvider
      * @doesNotPerformAssertions if data is correct, then NO exception is thrown, so we don't need an assertion
-     * @param Mage_Core_Block_Abstract $block
-     * @param string $method
      * @param string[] $args
-     * @return void
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core
@@ -137,10 +131,7 @@ class SecurityTest extends TestCase
 
     /**
      * @dataProvider forbiddenBlockMethodsDataProvider
-     * @param Mage_Core_Block_Abstract $block
-     * @param string $method
      * @param string[] $args
-     * @return void
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core

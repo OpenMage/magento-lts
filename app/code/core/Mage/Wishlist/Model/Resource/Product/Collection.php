@@ -62,7 +62,6 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add wishlist filter to collection
      *
-     * @param Mage_Wishlist_Model_Wishlist $wishlist
      * @return $this
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)

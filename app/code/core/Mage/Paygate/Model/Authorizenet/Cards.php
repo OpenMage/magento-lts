@@ -42,7 +42,6 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Set payment instance for storing credit card information and partial authorizations
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return $this
      */
     public function setPayment(Mage_Payment_Model_Info $payment)

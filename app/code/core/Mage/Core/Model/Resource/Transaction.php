@@ -97,7 +97,6 @@ class Mage_Core_Model_Resource_Transaction
     /**
      * Adding object for using in transaction
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param string $alias
      * @return $this
      */

@@ -219,7 +219,6 @@ class Varien_Object implements ArrayAccess
      *
      * Retains previous data in the object.
      *
-     * @param array $arr
      * @return $this
      */
     public function addData(array $arr)
@@ -473,7 +472,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toArray
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function toArray(array $arrAttributes = [])
@@ -485,7 +483,6 @@ class Varien_Object implements ArrayAccess
      * Set required array elements
      *
      * @param   array $arr
-     * @param   array $elements
      * @return  array
      */
     protected function _prepareArray(&$arr, array $elements = [])
@@ -535,7 +532,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toXml
      *
-     * @param array $arrAttributes
      * @param string $rootName
      * @param bool $addOpenTag
      * @param bool $addCdata
@@ -562,7 +558,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toJson
      *
-     * @param array $arrAttributes
      * @return string
      */
     public function toJson(array $arrAttributes = [])
@@ -798,7 +793,6 @@ class Varien_Object implements ArrayAccess
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
      * @param string $offset
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -223,7 +223,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Initialize rule model data from array.
      * Set store labels if applicable.
      *
-     * @param array $data
      *
      * @return $this
      */
@@ -273,8 +272,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
 
     /**
      * Set code generator instance for auto generated coupons
-     *
-     * @param Mage_SalesRule_Model_Coupon_CodegeneratorInterface $codeGenerator
      */
     public static function setCouponCodeGenerator(Mage_SalesRule_Model_Coupon_CodegeneratorInterface $codeGenerator)
     {

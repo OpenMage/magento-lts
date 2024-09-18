@@ -71,7 +71,6 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param array $arrAttributes
      * @return array
      */
     public function asArray(array $arrAttributes = [])
@@ -96,7 +95,6 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
     /**
-     * @param array $arr
      * @return $this
      */
     public function loadArray(array $arr)

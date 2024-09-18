@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class SitemapTest extends TestCase
 {
-    /**
-     * @var Mage_Sitemap_Model_Sitemap
-     */
     public Mage_Sitemap_Model_Sitemap $subject;
 
     public function setUp(): void

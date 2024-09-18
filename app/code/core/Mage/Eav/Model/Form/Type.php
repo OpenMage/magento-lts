@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,6 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     /**
      * Set assigned Eav Entity types
      *
-     * @param array $entityTypes
      * @return $this
      */
     public function setEntityTypes(array $entityTypes)
@@ -94,7 +93,6 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     /**
      * Copy Form Type properties from skeleton form type
      *
-     * @param Mage_Eav_Model_Form_Type $skeleton
      * @return $this
      */
     public function createFromSkeleton(Mage_Eav_Model_Form_Type $skeleton)

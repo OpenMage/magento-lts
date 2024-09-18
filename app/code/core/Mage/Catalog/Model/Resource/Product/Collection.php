@@ -207,7 +207,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Initialize factory
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
-     * @param array $args
      */
     public function __construct($resource = null, array $args = [])
     {
@@ -689,7 +688,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Specify category filter for product collection
      *
-     * @param Mage_Catalog_Model_Category $category
      * @return $this
      */
     public function addCategoryFilter(Mage_Catalog_Model_Category $category)

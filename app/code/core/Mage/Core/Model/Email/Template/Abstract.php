@@ -39,7 +39,6 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Get template code for template directive
      *
      * @param   string $configPath
-     * @param   array $variables
      * @return  string
      */
     public function getTemplateByConfigPath($configPath, array $variables)
