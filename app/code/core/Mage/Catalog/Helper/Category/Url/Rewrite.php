@@ -37,8 +37,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
 
     /**
      * Initialize resource and connection instances
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -50,7 +48,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite table to eav collection
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param int $storeId
      * @return $this
      */
@@ -72,7 +69,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite table to collection
      *
-     * @param Mage_Catalog_Model_Resource_Category_Flat_Collection $collection
      * @param int $storeId
      * @return $this|Mage_Catalog_Helper_Category_Url_Rewrite_Interface
      */
@@ -92,7 +88,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite to select
      *
-     * @param Varien_Db_Select $select
      * @param int $storeId
      * @return $this
      */

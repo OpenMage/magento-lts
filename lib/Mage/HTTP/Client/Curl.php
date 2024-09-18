@@ -89,7 +89,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var object
+     * @var false|resource
      */
     protected $_ch;
 
@@ -396,8 +396,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      *
      * @param resource $ch curl handle, not needed
      * @param string   $data
-     *
-     * @return int
      */
     protected function parseHeaders($ch, $data): int
     {
@@ -431,8 +429,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * @param array $line
-     *
      * @throws Exception
      */
     protected function validateHttpVersion(array $line)

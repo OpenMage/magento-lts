@@ -191,8 +191,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Initialize factory instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -268,7 +266,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set parent block
      *
-     * @param   Mage_Core_Block_Abstract $block
      * @return  $this
      */
     public function setParentBlock(Mage_Core_Block_Abstract $block)
@@ -290,7 +287,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set layout object
      *
-     * @param   Mage_Core_Model_Layout $layout
      * @return  $this
      */
     public function setLayout(Mage_Core_Model_Layout $layout)
@@ -801,7 +797,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Make sure specified block will be registered in the specified child groups
      *
      * @param string $groupName
-     * @param Mage_Core_Block_Abstract $child
      */
     public function addToChildGroup($groupName, Mage_Core_Block_Abstract $child)
     {
@@ -1056,7 +1051,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve url of skins file
      *
      * @param   string $file path to file in skin
-     * @param   array $params
      * @return  string
      */
     public function getSkinUrl($file = null, array $params = [])
@@ -1080,7 +1074,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set messages block
      *
-     * @param   Mage_Core_Block_Messages $block
      * @return  $this
      */
     public function setMessagesBlock(Mage_Core_Block_Messages $block)
@@ -1202,9 +1195,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Wrapper for escapeHtml() function with keeping original value
      *
-     * @param string $data
      * @param string[]|null $allowedTags
-     * @return Mage_Core_Model_Security_HtmlEscapedString
      *
      * @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
      */
@@ -1423,7 +1414,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add tags from specified model to current block
      *
-     * @param Mage_Core_Model_Abstract $model
      * @return $this
      */
     public function addModelTags(Mage_Core_Model_Abstract $model)

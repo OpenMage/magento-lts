@@ -347,7 +347,6 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $customer
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */

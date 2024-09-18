@@ -594,8 +594,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
     /**
      * Register data required by product type process in event object
-     *
-     * @param Mage_Index_Model_Event $event
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {

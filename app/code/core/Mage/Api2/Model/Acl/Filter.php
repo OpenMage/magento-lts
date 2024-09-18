@@ -44,8 +44,6 @@ class Mage_Api2_Model_Acl_Filter
 
     /**
      * Object constructor
-     *
-     * @param Mage_Api2_Model_Resource $resource
      */
     public function __construct(Mage_Api2_Model_Resource $resource)
     {
@@ -161,7 +159,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data for write operations
      *
-     * @param array $requestData
      * @return array
      */
     public function in(array $requestData)
@@ -174,7 +171,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data before output
      *
-     * @param array $retrievedData
      * @return array
      */
     public function out(array $retrievedData)

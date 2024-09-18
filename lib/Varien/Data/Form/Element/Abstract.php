@@ -61,7 +61,6 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Add form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @param string|false $after
      * @return  $this
      */
@@ -220,7 +219,6 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param Varien_Data_Form_Element_Renderer_Interface $renderer
      * @return $this
      */
     public function setRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)

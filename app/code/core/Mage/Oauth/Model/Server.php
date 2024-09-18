@@ -653,7 +653,6 @@ class Mage_Oauth_Model_Server
     /**
      * Create response string for problem during request and set HTTP error code
      *
-     * @param Exception $e
      * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
      * @return string
      * @throws Zend_Controller_Response_Exception
@@ -692,7 +691,6 @@ class Mage_Oauth_Model_Server
     /**
      * Set response object
      *
-     * @param Zend_Controller_Response_Http $response
      * @return $this
      */
     public function setResponse(Zend_Controller_Response_Http $response)

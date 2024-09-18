@@ -230,7 +230,6 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Add attribute filter to select
      *
-     * @param Varien_Db_Select $select
      * @param string $attributeCode
      * @param string $table the main table name or alias
      * @param string $field entity_id field name

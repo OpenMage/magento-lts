@@ -24,9 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class NewsletterTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter
-     */
     public Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $subject;
 
     public function setUp(): void

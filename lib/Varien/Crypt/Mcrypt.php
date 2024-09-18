@@ -23,8 +23,6 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 {
     /**
      * Constructor
-     *
-     * @param array $data
      */
     public function __construct(array $data = [])
     {

@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    /**
-     * @var Mage_Admin_Model_User
-     */
     public Mage_Admin_Model_User $subject;
 
     public function setUp(): void
@@ -37,8 +34,6 @@ class UserTest extends TestCase
     /**
      * @dataProvider provideValidateData
      * @param array|true $expectedResult
-     * @param array $methods
-     * @return void
      *
      * @group Mage_Admin
      * @group Mage_Admin_Model

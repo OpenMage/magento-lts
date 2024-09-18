@@ -151,7 +151,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get collection item identifier
      *
-     * @param Varien_Object $item
      * @return mixed
      */
     protected function _getItemId(Varien_Object $item)

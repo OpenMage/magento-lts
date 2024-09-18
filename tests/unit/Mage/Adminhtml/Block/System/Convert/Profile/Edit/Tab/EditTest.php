@@ -24,9 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class EditTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit
-     */
     public Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit $subject;
 
     public function setUp(): void

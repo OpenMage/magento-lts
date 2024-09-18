@@ -253,7 +253,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Declare quote model object
      *
-     * @param   Mage_Sales_Model_Quote $quote
      * @return  $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -575,7 +574,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Convert Quote Item to array
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function toArray(array $arrAttributes = [])
@@ -658,7 +656,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
-     * @param Varien_Object|Mage_Sales_Model_Quote_Item_Option $option
      * @param int|float|null $value
      * @return $this
      */

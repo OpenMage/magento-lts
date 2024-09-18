@@ -168,7 +168,6 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Validate particular attributes columns.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -283,8 +282,6 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     /**
      * Validate and prepare data about super attributes and associated products.
      *
-     * @param array $superData
-     * @param array $superAttributes
      * @return $this
      */
     protected function _processSuperData(array $superData, array &$superAttributes)

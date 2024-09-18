@@ -39,8 +39,6 @@ class Mage_Sales_Model_Service_Order
 
     /**
      * Class constructor
-     *
-     * @param Mage_Sales_Model_Order $order
      */
     public function __construct(Mage_Sales_Model_Order $order)
     {
@@ -51,7 +49,6 @@ class Mage_Sales_Model_Service_Order
     /**
      * Quote converter declaration
      *
-     * @param   Mage_Sales_Model_Convert_Order $convertor
      * @return  Mage_Sales_Model_Service_Order
      */
     public function setConvertor(Mage_Sales_Model_Convert_Order $convertor)

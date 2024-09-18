@@ -97,7 +97,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Retrieve all methods for supplied shipping data
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      * @todo make it ordered
      */
@@ -354,7 +353,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Collect rates by address
      *
-     * @param Varien_Object $address
      * @param null|bool|array $limitCarrier
      * @return $this
      */
@@ -421,7 +419,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Prepare and do request to shipment
      *
-     * @param Mage_Sales_Model_Order_Shipment $orderShipment
      * @return Varien_Object
      */
     public function requestToShipment(Mage_Sales_Model_Order_Shipment $orderShipment)

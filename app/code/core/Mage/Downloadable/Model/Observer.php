@@ -45,7 +45,6 @@ class Mage_Downloadable_Model_Observer
     /**
      * Save data from order to purchased links
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function saveDownloadableOrderItem(Varien_Event_Observer $observer)
@@ -252,7 +251,6 @@ class Mage_Downloadable_Model_Observer
     /**
      * Check is allowed guest checkout if quote contain downloadable product(s)
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function isAllowedGuestCheckout(Varien_Event_Observer $observer)
@@ -282,7 +280,6 @@ class Mage_Downloadable_Model_Observer
     /**
      * Initialize product options renderer with downloadable specific params
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function initOptionRenderer(Varien_Event_Observer $observer)

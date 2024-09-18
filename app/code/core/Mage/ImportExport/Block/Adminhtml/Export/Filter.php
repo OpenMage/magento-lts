@@ -52,7 +52,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Date 'from-to' filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getDateFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -74,7 +73,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Input text filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getInputHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -87,7 +85,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Multiselect field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getMultiSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -122,7 +119,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Number 'from-to' field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getNumberFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -139,7 +135,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Select field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -177,7 +172,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Date 'from-to' filter HTML with values
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -206,7 +200,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Input text filter HTML with value
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -224,7 +217,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Multiselect field filter HTML with selected values
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -260,7 +252,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Number 'from-to' field filter HTML with selected value.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -285,7 +276,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Select field filter HTML with selected value.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -377,8 +367,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Create filter fields for 'Filter' column.
      *
      * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute $row
-     * @param Varien_Object $column
      * @param bool $isExport
      * @return string
      */
@@ -444,7 +432,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Prepare collection by setting page number, sorting etc..
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract|null
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)

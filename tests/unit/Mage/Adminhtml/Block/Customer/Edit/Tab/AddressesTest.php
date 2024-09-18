@@ -24,9 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses
-     */
     public Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $subject;
 
     public function setUp(): void

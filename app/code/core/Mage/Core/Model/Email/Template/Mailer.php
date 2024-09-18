@@ -35,7 +35,6 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Add new email info to corresponding list
      *
-     * @param Mage_Core_Model_Email_Info $emailInfo
      * @return $this
      */
     public function addEmailInfo(Mage_Core_Model_Email_Info $emailInfo)
@@ -140,7 +139,6 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
     /**
      * Set template parameters
      *
-     * @param array $templateParams
      * @return $this
      */
     public function setTemplateParams(array $templateParams)

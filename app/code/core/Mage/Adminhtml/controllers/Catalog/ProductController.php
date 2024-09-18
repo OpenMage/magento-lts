@@ -152,7 +152,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Create serializer block for a grid
      *
      * @param string $inputName
-     * @param Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * @param array $productsArray
      * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer
      */
@@ -972,7 +971,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Validate batch of products before theirs status will be set
      *
      * @throws Mage_Core_Exception
-     * @param  array $productIds
      * @param  int $status
      */
     public function _validateMassStatus(array $productIds, $status)

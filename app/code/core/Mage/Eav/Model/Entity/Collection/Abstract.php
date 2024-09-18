@@ -244,7 +244,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Add an object to the collection
      *
-     * @param Varien_Object $object
      * @inheritDoc
      */
     public function addItem(Varien_Object $object)

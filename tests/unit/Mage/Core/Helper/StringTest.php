@@ -28,9 +28,6 @@ class StringTest extends TestCase
 
     public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
 
-    /**
-     * @var Mage_Core_Helper_String
-     */
     public Mage_Core_Helper_String $subject;
 
     public function setUp(): void

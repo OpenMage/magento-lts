@@ -24,9 +24,6 @@ use Varien_Object;
 
 class ObjectTest extends TestCase
 {
-    /**
-     * @var Varien_Object
-     */
     public Varien_Object $subject;
 
     public function setUp(): void
@@ -39,9 +36,7 @@ class ObjectTest extends TestCase
      * @param mixed $expectedResult
      * @param string $setKey
      * @param mixed $setValue
-     * @param string $key
      * @param string|int|null $index
-     * @return void
      *
      * @group Varien_Object
      */

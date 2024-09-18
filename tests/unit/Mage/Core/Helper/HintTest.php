@@ -25,9 +25,6 @@ class HintTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    /**
-     * @var Mage_Core_Helper_Hint
-     */
     public Mage_Core_Helper_Hint $subject;
 
     public function setUp(): void
