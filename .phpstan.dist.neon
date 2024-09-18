@@ -69,9 +69,5 @@ parameters:
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
-    # For v1.12+ with "bleeding edge"
-    ignoreErrors:
-        -
-            identifier: missingType.iterableValue
 #    universalObjectCratesClasses:
 #        - Varien_Object

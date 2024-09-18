@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
     /**
      * Renders column
      *
-     * @param  Varien_Object $row
      * @return string
      */
     public function render(Varien_Object $row)
@@ -55,7 +54,6 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
      * Render single action as link html
      *
      * @param  array $action
-     * @param  Varien_Object $row
      * @return string
      */
     protected function _toLinkHtml($action, Varien_Object $row)

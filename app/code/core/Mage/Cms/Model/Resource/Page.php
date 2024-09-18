@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -213,7 +213,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of page to selected store(s).
      *
-     * @param Mage_Core_Model_Abstract|Mage_Cms_Model_Page $object
      * @return bool
      */
     public function getIsUniquePageToStores(Mage_Core_Model_Abstract $object)
@@ -237,7 +236,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @date Wed Mar 26 18:12:28 EET 2008
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return int|false
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
@@ -248,7 +246,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is valid
      *
-     *  @param    Mage_Core_Model_Abstract $object
+     *
      *  @return   int|false
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,9 +94,6 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
         return $this->_getResource()->applyFilterToCollection($collection, $attribute, $range, $index);
     }
 
-    /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     */
     public function addMinimalPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
         $minimalPrices = $this->_getResource()->getMinimalPrices($collection->getLoadedIds());

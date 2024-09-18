@@ -79,7 +79,6 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     /**
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
-     * @param array $config
      *
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -281,9 +280,6 @@ class EnvironmentConfigLoaderTest extends TestCase
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getTestXml(): string
     {
         return <<<XML

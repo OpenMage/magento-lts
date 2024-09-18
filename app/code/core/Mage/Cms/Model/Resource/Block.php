@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Perform operations before object save
      *
-     * @param Mage_Core_Model_Abstract|Mage_Cms_Model_Block $object
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -157,7 +156,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of block to selected store(s).
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return bool
      */
     public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)

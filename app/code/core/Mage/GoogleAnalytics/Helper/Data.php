@@ -172,7 +172,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns last category name
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
      */
     public function getLastCategoryName($product): string
     {
@@ -190,7 +189,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param int|float|string $price
-     * @return string
      */
     public function formatPrice($price): string
     {

@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
     /**
      * Render block
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -39,7 +38,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
     }
 
     /**
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getScriptHtml(Varien_Data_Form_Element_Abstract $element)

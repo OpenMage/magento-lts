@@ -101,7 +101,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return bool|Mage_Shipping_Model_Rate_Result|null
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
@@ -163,7 +162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
-     * @param Varien_Object $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -1267,7 +1265,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Map request to shipment
      *
-     * @param Varien_Object $request
      * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
@@ -1306,7 +1303,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
-     * @param Varien_Object $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)
@@ -1322,7 +1318,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
     public function getContainerTypes(?Varien_Object $params = null)

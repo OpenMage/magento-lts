@@ -105,7 +105,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * update children count for parent category
      * delete child categories
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     protected function _beforeDelete(Varien_Object $object)
@@ -129,7 +128,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Delete children categories of specific category
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     public function deleteChildren(Varien_Object $object)
@@ -162,7 +160,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Process category data before saving
      * prepare path and increment children count for parent categories
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $object
      * @return $this
      */
     protected function _beforeSave(Varien_Object $object)
@@ -413,7 +410,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Check array of category identifiers
      *
-     * @param array $ids
      * @return array
      */
     public function verifyIds(array $ids)
@@ -785,8 +781,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     /**
      * Move category to another parent node
      *
-     * @param Mage_Catalog_Model_Category $category
-     * @param Mage_Catalog_Model_Category $newParent
      * @param null|int $afterCategoryId
      * @return $this
      */

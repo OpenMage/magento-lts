@@ -278,7 +278,6 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set request
      *
-     * @param Zend_Controller_Request_Http $request
      * @return $this
      */
     public function setRequest(Zend_Controller_Request_Http $request)
@@ -615,7 +614,6 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route params
      *
-     * @param array $data
      * @param bool $unsetOldParams
      * @return $this
      */
@@ -842,7 +840,6 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set query Params as array
      *
-     * @param array $data
      * @return $this
      */
     public function setQueryParams(array $data)
@@ -1048,7 +1045,6 @@ class Mage_Core_Model_Url extends Varien_Object
      * Check and add session id to URL, session is obtained with parameters
      *
      * @param string $url
-     * @param array $params
      *
      * @return $this
      */

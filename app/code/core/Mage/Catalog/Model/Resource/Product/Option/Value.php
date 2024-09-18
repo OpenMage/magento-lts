@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
      * Proceed operations after object is saved
      * Save options store data
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -43,8 +42,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
     /**
      * Save option value price data
-     *
-     * @param Mage_Core_Model_Abstract $object
      */
     protected function _saveValuePrices(Mage_Core_Model_Abstract $object)
     {
@@ -148,8 +145,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
 
     /**
      * Save option value title data
-     *
-     * @param Mage_Core_Model_Abstract $object
      */
     protected function _saveValueTitles(Mage_Core_Model_Abstract $object)
     {
@@ -269,7 +264,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Duplicate product options value
      *
-     * @param Mage_Catalog_Model_Product_Option_Value $object
      * @param int $oldOptionId
      * @param int $newOptionId
      * @return Mage_Catalog_Model_Product_Option_Value

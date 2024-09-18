@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -241,7 +241,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -261,7 +260,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Attempt to void the authorization on cancelling
      *
-     * @param Varien_Object $payment
      * @return $this|false
      */
     public function cancel(Varien_Object $payment)
@@ -299,7 +297,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Fetch transaction details info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -355,7 +352,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Post request to gateway and return response
      *
-     * @param Varien_Object $request
      * @return Varien_Object
      */
     protected function _postRequest(Varien_Object $request)
@@ -535,8 +531,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Adopt specified address object to be compatible with Paypal
      * Puerto Rico should be as state of USA and not as a country
-     *
-     * @param Varien_Object $address
      */
     protected function _applyCountryWorkarounds(Varien_Object $address)
     {
@@ -549,7 +543,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     /**
      * Set reference transaction data into request
      *
-     * @param Varien_Object $payment
      * @param Varien_Object $request
      * @return $this
      */

@@ -239,7 +239,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Declare order for creditmemo
      *
-     * @param   Mage_Sales_Model_Order $order
      * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
@@ -346,7 +345,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return $this
      * @throws Exception
      */

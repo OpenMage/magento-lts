@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,6 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     /**
      * json encode image fallback array
      *
-     * @param array $imageFallback
      * @return string
      */
     protected function _getJsImageFallbackString(array $imageFallback)

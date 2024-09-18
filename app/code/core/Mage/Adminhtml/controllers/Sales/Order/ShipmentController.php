@@ -488,7 +488,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Create shipping label for specific shipment with validation.
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
      * @return bool
      */
     protected function _createShippingLabel(Mage_Sales_Model_Order_Shipment $shipment)
@@ -677,7 +676,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     /**
      * Combine array of labels as instance PDF
      *
-     * @param array $labelsContent
      * @return Zend_Pdf
      */
     protected function _combineLabelsPdf(array $labelsContent)

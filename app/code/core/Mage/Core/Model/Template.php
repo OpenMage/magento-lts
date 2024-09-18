@@ -108,7 +108,6 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Initialize design information for template processing
      *
-     * @param   array $config
      * @return  $this
      */
     public function setDesignConfig(array $config)

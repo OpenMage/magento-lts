@@ -38,7 +38,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Set entity for form
      *
-     * @param Varien_Object $entity
      * @return $this
      */
     public function setEntity(Varien_Object $entity)
@@ -170,7 +169,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Prepare form fieldset
      * All fields are hidden
      *
-     * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
      * @return $this
      */
@@ -205,7 +203,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Prepare form fieldset
      * All fields are visible
      *
-     * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
      * @return $this
      */

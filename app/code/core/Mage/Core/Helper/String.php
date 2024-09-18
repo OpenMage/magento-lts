@@ -299,7 +299,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Sorts array with multibyte string keys
      *
-     * @param array $sort
      * @return array|false
      */
     public function ksortMultibyte(array &$sort)
@@ -372,8 +371,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Append param to general result
      *
-     * @param array $result
-     * @param array $param
      * @return array
      */
     protected function _appendParam(array $result, array $param)
@@ -396,7 +393,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
-     * @param array $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)

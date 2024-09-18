@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    /**
-     * @var Mage_Admin_Helper_Data
-     */
     public Mage_Admin_Helper_Data $subject;
 
     public function setUp(): void

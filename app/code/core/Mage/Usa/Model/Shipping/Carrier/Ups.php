@@ -127,7 +127,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|bool|null
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
@@ -147,7 +146,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request to this instance
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
@@ -1345,7 +1343,6 @@ XMLAuth;
     /**
      * Form XML for shipment request
      *
-     * @param Varien_Object $request
      * @return string
      */
     protected function _formShipmentRequest(Varien_Object $request)
@@ -1541,7 +1538,6 @@ XMLAuth;
     /**
      * Send and process shipment accept request
      *
-     * @param SimpleXMLElement $shipmentConfirmResponse
      * @return Varien_Object
      */
     protected function _sendShipmentAcceptRequest(SimpleXMLElement $shipmentConfirmResponse)
@@ -2012,7 +2008,6 @@ XMLAuth;
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
     public function getContainerTypes(?Varien_Object $params = null)
@@ -2096,7 +2091,6 @@ XMLAuth;
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
@@ -2398,13 +2392,6 @@ XMLAuth;
 
     /**
      * Processing rate for ship element
-     *
-     * @param array $shipElement
-     * @param array $allowedMethods
-     * @param array $allowedCurrencies
-     * @param array $costArr
-     * @param array $priceArr
-     * @param bool $negotiatedActive
      */
     private function processShippingRestRateForItem(
         array $shipElement,

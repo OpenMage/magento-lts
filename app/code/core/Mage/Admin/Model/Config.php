@@ -71,7 +71,6 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     /**
      * Load Acl resources from config
      *
-     * @param Mage_Admin_Model_Acl $acl
      * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $resource
      * @param string $parentName
      * @return $this

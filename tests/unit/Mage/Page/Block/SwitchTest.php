@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class SwitchTest extends TestCase
 {
-    /**
-     * @var Mage_Page_Block_Switch
-     */
     public Mage_Page_Block_Switch $subject;
 
     public function setUp(): void

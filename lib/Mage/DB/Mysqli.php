@@ -265,7 +265,6 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field names
-     * @param array $arrNames
      * @return array
      */
     public function escapeFieldNames(array $arrNames)
@@ -279,7 +278,6 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field values
-     * @param array $arrNames
      * @return array
      */
     public function escapeFieldValues(array $arrNames)
@@ -333,7 +331,6 @@ class Mage_DB_Mysqli
     /**
      * Insert assoc array to table
      * @param string $table
-     * @param array $data
      * @param bool $replace
      * @return mixed
      */
@@ -352,7 +349,6 @@ class Mage_DB_Mysqli
     /**
      * Insert several records to table
      * @param string $table
-     * @param array $data
      * @param bool $replace   use REPLACE INTO instead of INSERT INTO
      * @return array
      */
@@ -424,7 +420,6 @@ class Mage_DB_Mysqli
     /**
      * Update entry by pk
      * @param string $table
-     * @param array $data
      * @param string $value
      * @param string $key
      * @return mixed

@@ -235,7 +235,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     /**
      * Init installation
      *
-     * @param Mage_Core_Model_App $app
      * @return bool
      */
     public function init(Mage_Core_Model_App $app)

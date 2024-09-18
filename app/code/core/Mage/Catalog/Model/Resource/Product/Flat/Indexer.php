@@ -1355,7 +1355,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve previous key from array by key
      *
-     * @param array $array
      * @param mixed $key
      * @return mixed
      */
@@ -1374,7 +1373,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve next key from array by key
      *
-     * @param array $array
      * @param mixed $key
      * @return mixed
      */

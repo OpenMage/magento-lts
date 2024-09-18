@@ -1060,11 +1060,10 @@ class Mage_Paypal_Model_Config
     }
 
     /**
-    * PayPal web URL generic getter
-    *
-    * @param array $params
-    * @return string
-    */
+     * PayPal web URL generic getter
+     *
+     * @return string
+     */
     public function getPaypalUrl(array $params = [])
     {
         return sprintf(
@@ -1168,7 +1167,6 @@ class Mage_Paypal_Model_Config
      * Get "What Is PayPal" localized URL
      * Supposed to be used with "mark" as popup window
      *
-     * @param Mage_Core_Model_Locale|null $locale
      * @return string
      */
     public function getPaymentMarkWhatIsPaypalUrl(?Mage_Core_Model_Locale $locale = null)
@@ -1531,8 +1529,6 @@ class Mage_Paypal_Model_Config
 
     /**
      * Export page style current settings to specified object
-     *
-     * @param Varien_Object $to
      */
     public function exportExpressCheckoutStyleSettings(Varien_Object $to)
     {

@@ -112,7 +112,6 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * Get field expression for order by
      *
      * @param string $fieldName
-     * @param array $orderedIds
      *
      * @return string
      */

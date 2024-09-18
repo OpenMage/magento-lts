@@ -57,7 +57,6 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
     /**
      * Define if attribute should be visible for passed user type
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param string $userType
      * @return bool
      */

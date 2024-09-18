@@ -58,7 +58,6 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Set product object
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(?Mage_Catalog_Model_Product $product = null)
@@ -174,7 +173,6 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Get option html block
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return string
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)

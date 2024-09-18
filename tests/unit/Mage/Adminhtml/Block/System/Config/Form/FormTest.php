@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class FormTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_System_Config_Form
-     */
     public Mage_Adminhtml_Block_System_Config_Form $subject;
 
     public function setUp(): void
@@ -36,8 +33,6 @@ class FormTest extends TestCase
     }
 
     /**
-     * @return void
-     *
      * @group Mage_Adminhtml
      */
     public function testInitForm(): void

@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class VisitorTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Visitor
-     */
     public Mage_Log_Model_Visitor $subject;
 
     public function setUp(): void

@@ -433,7 +433,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Adding attribute to entity
      *
-     * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return  Mage_Eav_Model_Entity_Abstract
      */
     public function addAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -590,7 +589,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * for example: $this->walkAttributes('backend/validate');
      *
      * @param string $partMethod
-     * @param array $args
      * @return array
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
      */
@@ -821,7 +819,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Set new increment id to object
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     public function setNewIncrementId(Varien_Object $object)
@@ -842,7 +839,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Check attribute unique value
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param Varien_Object $object
      * @return bool
      */
@@ -990,7 +986,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Prepare select object for loading entity attributes values
      *
-     * @param  array $selects
      * @return Varien_Db_Select
      */
     protected function _prepareLoadSelect(array $selects)
@@ -1064,7 +1059,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Save entity's attributes into the object's resource
      *
-     * @param   Varien_Object $object
      * @return  Mage_Eav_Model_Entity_Abstract
      */
     public function save(Varien_Object $object)
@@ -1215,9 +1209,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Return if attribute exists in original data array.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $v  New value of the attribute. Can be used in subclasses.
-     * @param array $origData
      * @return bool
      */
     protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
@@ -1461,7 +1453,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Prepare value for save
      *
      * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return mixed
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -1509,7 +1500,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Save attribute
      *
-     * @param Varien_Object $object
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Abstract
      */
@@ -1604,7 +1594,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After Load Entity process
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _afterLoad(Varien_Object $object)
@@ -1616,7 +1605,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Before delete Entity process
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _beforeSave(Varien_Object $object)
@@ -1628,7 +1616,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After Save Entity process
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _afterSave(Varien_Object $object)
@@ -1640,7 +1627,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Before Delete Entity process
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _beforeDelete(Varien_Object $object)
@@ -1652,7 +1638,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After delete entity process
      *
-     * @param Varien_Object $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _afterDelete(Varien_Object $object)
@@ -1705,7 +1690,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Check is attribute value empty
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return bool
      */

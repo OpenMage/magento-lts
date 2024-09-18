@@ -4861,11 +4861,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php

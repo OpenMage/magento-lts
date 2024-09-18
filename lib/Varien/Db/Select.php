@@ -49,8 +49,6 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Class constructor
      * Add straight join support
-     *
-     * @param Zend_Db_Adapter_Abstract $adapter
      */
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {

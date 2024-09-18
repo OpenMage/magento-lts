@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,9 +100,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Add form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @param bool|string|null $after
-     *
      * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = null)
@@ -184,7 +182,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * @param array $arrAttributes
      * @return array
      */
     public function __toArray(array $arrAttributes = [])

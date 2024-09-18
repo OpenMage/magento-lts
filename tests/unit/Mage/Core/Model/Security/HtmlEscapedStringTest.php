@@ -24,17 +24,11 @@ class HtmlEscapedStringTest extends TestCase
 {
     public const TEST_STRING = 'This is a bold <b>string</b>';
 
-    /**
-     * @var Mage_Core_Model_Security_HtmlEscapedString
-     */
     public Mage_Core_Model_Security_HtmlEscapedString $subject;
 
     /**
      * @dataProvider provideHtmlEscapedStringAsStringData
-     * @param string $expectedResult
-     * @param string $string
      * @param array<int, string> $allowedTags
-     * @return void
      *
      * @group Mage_Core
      */
@@ -47,10 +41,7 @@ class HtmlEscapedStringTest extends TestCase
 
     /**
      * @dataProvider provideHtmlEscapedStringGetUnescapedValueData
-     * @param string $expectedResult
-     * @param string $string
      * @param array<int, string> $allowedTags
-     * @return void
      *
      * @group Mage_Core
      */

@@ -352,10 +352,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * @param Mage_Core_Block_Abstract $block
      * @param string                   $method
      * @param string[]                 $args
-     *
      * @throws Mage_Core_Exception
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
@@ -446,7 +444,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param     string $type
      * @param     string $name
-     * @param     array $attributes
      * @return    Mage_Core_Block_Abstract|false
      */
     public function createBlock($type, $name = '', array $attributes = [])
@@ -494,7 +491,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Create block object instance based on block type
      *
      * @param string $block
-     * @param array $attributes
      * @return Mage_Core_Block_Abstract
      */
     protected function _getBlockInstance($block, array $attributes = [])
@@ -637,7 +633,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * 2) "module" attribute in any ancestor element
      * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
      *
-     * @param Varien_Simplexml_Element $node
      * @return string
      */
     public static function findTranslationModuleName(Varien_Simplexml_Element $node)

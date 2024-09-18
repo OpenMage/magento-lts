@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,6 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -54,7 +53,6 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      * Load primary coupon (is_primary = 1) for specified rule
      *
      *
-     * @param Mage_SalesRule_Model_Coupon $object
      * @param Mage_SalesRule_Model_Rule|int $rule
      * @return bool
      */
@@ -102,7 +100,6 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Update auto generated Specific Coupon if it's rule changed
      *
-     * @param Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function updateSpecificCoupons(Mage_SalesRule_Model_Rule $rule)
