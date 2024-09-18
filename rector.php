@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\CodeQuality\Rector as CodeQuality;
+use Rector\DeadCode\Rector as DeadCode;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
@@ -20,4 +21,7 @@ return RectorConfig::configure()
 //        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # wait for https://github.com/rectorphp/rector/issues/8781
         CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
         CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+        DeadCode\ClassMethod\RemoveUselessParamTagRector::class,
+        DeadCode\ClassMethod\RemoveUselessReturnTagRector::class,
+        DeadCode\Property\RemoveUselessVarTagRector::class,
     ]);
