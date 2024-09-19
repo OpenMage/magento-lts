@@ -45,8 +45,8 @@ class DateTest extends TestCase
         try {
             $this->subject->inputFilter('1990-18-18');
         } catch (Throwable $e) {
-            // PHP7: bcsub(): Argument #1 ($num1) is not well-formed
-            // PHP8: bcsub(): bcmath function argument is not well-formed
+            // PHP7: bcsub(): bcmath function argument is not well-formed
+            // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
             $this->assertStringStartsWith('bcsub():', $e->getMessage());
         }
     }
