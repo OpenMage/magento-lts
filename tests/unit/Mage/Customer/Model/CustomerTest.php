@@ -24,9 +24,6 @@ use Throwable;
 
 class CustomerTest extends TestCase
 {
-    /**
-     * @var Mage_Customer_Model_Customer
-     */
     public Mage_Customer_Model_Customer $subject;
 
     public function setUp(): void

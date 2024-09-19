@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Customer
-     */
     public Mage_Log_Model_Customer $subject;
 
     public function setUp(): void

@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    /**
-     * @var Mage_Cms_Block_Widget_Block
-     */
     public Mage_Cms_Block_Widget_Block $subject;
 
     public function setUp(): void
