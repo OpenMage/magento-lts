@@ -151,21 +151,21 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         /**
         * @todo specify there all relations for properties depending on input type
         */
-        $inputTypes = array(
-            'multiselect'   => array(
+        $inputTypes = [
+            'multiselect'   => [
                 'backend_model'     => 'eav/entity_attribute_backend_array'
-            ),
-            'boolean'       => array(
+            ],
+            'boolean'       => [
                 'source_model'      => 'eav/entity_attribute_source_boolean'
-            )
-        );
+            ]
+        ];
 
         if (is_null($inputType)) {
             return $inputTypes;
         } elseif (isset($inputTypes[$inputType])) {
             return $inputTypes[$inputType];
         }
-        return array();
+        return [];
     }
 
     /**

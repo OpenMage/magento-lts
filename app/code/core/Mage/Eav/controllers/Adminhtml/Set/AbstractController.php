@@ -154,10 +154,10 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
             if ($hasError) {
                 $this->_redirect('*/*/add');
             } else {
-                $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                $this->_redirect('*/*/edit', ['id' => $model->getId()]);
             }
         } else {
-            $response = array();
+            $response = [];
             if ($hasError) {
                 $this->_initLayoutMessages('adminhtml/session');
                 $response['error']   = 1;
