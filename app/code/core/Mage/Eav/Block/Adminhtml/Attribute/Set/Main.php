@@ -2,34 +2,28 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+declare(strict_types=1);
 
 /**
  * Adminhtml Attribute Set Main Block
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
     /**
      * Initialize template
-     *
      */
     protected function _construct()
     {
@@ -99,7 +93,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
             ])
         );
 
-        if ($entity_type = Mage::registry('entity_type')) {
+        if (Mage::registry('entity_type')) {
             $deleteConfirmMessage = $this->jsQuoteEscape(Mage::helper('eav')
                                                          ->__('All %s of this set will be deleted! Are you sure you want to delete this attribute set?'));
         } else {
@@ -129,50 +123,40 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
 
     /**
      * Retrieve Attribute Set Group Tree HTML
-     *
-     * @return string
      */
-    public function getGroupTreeHtml()
+    public function getGroupTreeHtml(): string
     {
         return $this->getChildHtml('group_tree');
     }
 
     /**
      * Retrieve Attribute Set Edit Form HTML
-     *
-     * @return string
      */
-    public function getSetFormHtml()
+    public function getSetFormHtml(): string
     {
         return $this->getChildHtml('edit_set_form');
     }
 
     /**
      * Retrieve Block Header Text
-     *
-     * @return string
      */
-    protected function _getHeader()
+    protected function _getHeader(): string
     {
         return Mage::helper('eav')->__("Edit Attribute Set '%s'", $this->_getAttributeSet()->getAttributeSetName());
     }
 
     /**
      * Retrieve Attribute Set Save URL
-     *
-     * @return string
      */
-    public function getMoveUrl()
+    public function getMoveUrl(): string
     {
         return $this->getUrl('*/*/save', ['id' => $this->_getSetId()]);
     }
 
     /**
      * Retrieve Attribute Set Group Save URL
-     *
-     * @return string
      */
-    public function getGroupUrl()
+    public function getGroupUrl(): string
     {
         return $this->getUrl('*/*/save', ['id' => $this->_getSetId()]);
     }
@@ -180,9 +164,9 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
     /**
      * Retrieve Attribute Set Group Tree as JSON format
      *
-     * @return string
+     * @throws Mage_Core_Exception
      */
-    public function getGroupTreeJson()
+    public function getGroupTreeJson(): string
     {
         $items = [];
         $setId = $this->_getSetId();
@@ -239,10 +223,8 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
 
     /**
      * Retrieve Unused in Attribute Set Attribute Tree as JSON
-     *
-     * @return string
      */
-    public function getAttributeTreeJson()
+    public function getAttributeTreeJson(): string
     {
         $items = [];
         $setId = $this->_getSetId();
@@ -257,7 +239,6 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
                    ->load();
 
         $attributesIds = ['0'];
-        /* @var $item Mage_Eav_Model_Entity_Attribute */
         foreach ($collection->getItems() as $item) {
             $attributesIds[] = $item->getAttributeId();
         }
@@ -299,40 +280,32 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
 
     /**
      * Retrieve Back Button HTML
-     *
-     * @return string
      */
-    public function getBackButtonHtml()
+    public function getBackButtonHtml(): string
     {
         return $this->getChildHtml('back_button');
     }
 
     /**
      * Retrieve Reset Button HTML
-     *
-     * @return string
      */
-    public function getResetButtonHtml()
+    public function getResetButtonHtml(): string
     {
         return $this->getChildHtml('reset_button');
     }
 
     /**
      * Retrieve Save Button HTML
-     *
-     * @return string
      */
-    public function getSaveButtonHtml()
+    public function getSaveButtonHtml(): string
     {
         return $this->getChildHtml('save_button');
     }
 
     /**
      * Retrieve Delete Button HTML
-     *
-     * @return string
      */
-    public function getDeleteButtonHtml()
+    public function getDeleteButtonHtml(): string
     {
         if ($this->getIsCurrentSetDefault()) {
             return '';
@@ -342,60 +315,48 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
 
     /**
      * Retrieve Delete Group Button HTML
-     *
-     * @return string
      */
-    public function getDeleteGroupButton()
+    public function getDeleteGroupButton(): string
     {
         return $this->getChildHtml('delete_group_button');
     }
 
     /**
      * Retrieve Add New Group Button HTML
-     *
-     * @return string
      */
-    public function getAddGroupButton()
+    public function getAddGroupButton(): string
     {
         return $this->getChildHtml('add_group_button');
     }
 
     /**
      * Retrieve Rename Button HTML
-     *
-     * @return string
      */
-    public function getRenameButton()
+    public function getRenameButton(): string
     {
         return $this->getChildHtml('rename_button');
     }
 
     /**
      * Retrieve current Attribute Set object
-     *
-     * @return Mage_Eav_Model_Entity_Attribute_Set
      */
-    protected function _getAttributeSet()
+    protected function _getAttributeSet(): ?Mage_Eav_Model_Entity_Attribute_Set
     {
         return Mage::registry('current_attribute_set');
     }
 
     /**
      * Retrieve current attribute set Id
-     *
-     * @return int
      */
-    protected function _getSetId()
+    protected function _getSetId(): int
     {
         return $this->_getAttributeSet()->getId();
     }
 
     /**
      * Check Current Attribute Set is a default
-     *
-     * @return bool
      */
-    public function getIsCurrentSetDefault()
+    public function getIsCurrentSetDefault(): bool
     {
         $isDefault = $this->getData('is_current_set_default');
         if (is_null($isDefault)) {
@@ -410,19 +371,16 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
      * Retrieve current Attribute Set object
      *
      * @deprecated use _getAttributeSet
-     * @return Mage_Eav_Model_Entity_Attribute_Set
      */
-    protected function _getSetData()
+    protected function _getSetData(): ?Mage_Eav_Model_Entity_Attribute_Set
     {
         return $this->_getAttributeSet();
     }
 
     /**
      * Prepare HTML
-     *
-     * @return string
      */
-    protected function _toHtml()
+    protected function _toHtml(): string
     {
         $type = Mage::registry('entity_type')->getEntityTypeCode();
         Mage::dispatchEvent("adminhtml_{$type}_attribute_set_main_html_before", ['block' => $this]);

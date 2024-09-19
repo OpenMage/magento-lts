@@ -2,32 +2,28 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 /**
- * @method string getTime()
- * @method $this setTime(string $value)
+ * @category   Mage
+ * @package    Mage_Eav
+ *
+ * @method false|int getTime()
+ * @method $this setTime(false|int $value)
  */
 class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
 {
-    /**
-     * @var array
-     */
-    protected $_dateInputs = [];
+    protected array $_dateInputs = [];
 
     public function _construct()
     {
@@ -38,10 +34,9 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
     }
 
     /**
-     * @param string $date
      * @return $this
      */
-    public function setDate($date)
+    public function setDate(string $date)
     {
         $this->setTime($date ? strtotime($date) : false);
         $this->setData('date', $date);
@@ -74,21 +69,16 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
 
     /**
      * Returns format which will be applied for date in javascript
-     *
-     * @return string
      */
-    public function getDateFormat()
+    public function getDateFormat(): string
     {
         return Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
     }
 
     /**
      * Add date input html
-     *
-     * @param string $code
-     * @param string $html
      */
-    public function setDateInput($code, $html)
+    public function setDateInput(string $code, string $html): void
     {
         $this->_dateInputs[$code] = $html;
     }
@@ -98,7 +88,7 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
      *
      * @return string
      */
-    public function getSortedDateInputs()
+    public function getSortedDateInputs(): string
     {
         $strtr = [
             '%b' => '%1$s',
