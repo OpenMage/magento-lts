@@ -931,8 +931,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Wrong customer account specified.'));
         }
 
-        $customerToken = $customer->getRpToken();
-        if (strcmp($customerToken, $resetPasswordLinkToken) != 0 || $customer->isResetPasswordLinkTokenExpired()) {
+        $customerToken = (string) $customer->getRpToken();
+        if (strcmp($customerToken, $resetPasswordLinkToken) !== 0 || $customer->isResetPasswordLinkTokenExpired()) {
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Your password reset link has expired.'));
         }
     }
