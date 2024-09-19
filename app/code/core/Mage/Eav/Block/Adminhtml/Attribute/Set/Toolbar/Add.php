@@ -41,7 +41,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_
                     'label'     => Mage::helper('eav')->__('Save Attribute Set'),
                     'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
                     'class' => 'save'
-        ])
+            ])
         );
         $this->setChild(
             'back_button',
@@ -50,7 +50,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_
                     'label'     => Mage::helper('eav')->__('Back'),
                     'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
                     'class' => 'back'
-        ])
+            ])
         );
 
         $this->setChild(
