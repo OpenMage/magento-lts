@@ -61,6 +61,8 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_W
             'sortable'  => true,
             'index'     => 'attribute_set_name',
         ]);
+
+        return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
