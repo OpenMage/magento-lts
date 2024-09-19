@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: run PHPUnit with local HTML coverage
+## Usage: phpunit-coverage-local
+## Example: ddev phpunit-coverage-local
+
+enable_xdebug
+XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox
+disable_xdebug

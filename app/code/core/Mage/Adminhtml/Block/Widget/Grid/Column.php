@@ -142,7 +142,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for display
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function getRowField(Varien_Object $row)
@@ -174,7 +173,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for export
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function getRowFieldExport(Varien_Object $row)

@@ -227,7 +227,7 @@ class Mage_System_Ftp
     /**
      * Upload local file to remote
      *
-     * Can be used for relative and absoulte remote paths
+     * Can be used for relative and absolute remote paths
      * Relative: use chdir before calling this
      *
      * @param string $remote

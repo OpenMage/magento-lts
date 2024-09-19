@@ -67,7 +67,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     protected $_data = null;
 
     /**
-     * Fields map for corellation names & real selected fields
+     * Fields map for correlation names & real selected fields
      *
      * @var array|null
      */
@@ -151,7 +151,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get collection item identifier
      *
-     * @param Varien_Object $item
      * @return mixed
      */
     protected function _getItemId(Varien_Object $item)
@@ -399,6 +398,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
     /**
      * Hook for operations before rendering filters
+     *
+     * @return void
      */
     protected function _renderFiltersBefore()
     {
@@ -694,7 +695,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Proces loaded collection data
+     * Process loaded collection data
      *
      * @return $this
      */

@@ -90,7 +90,6 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     /**
      * Check if report with same account and report date already fetched
      *
-     * @param Mage_Paypal_Model_Report_Settlement $report
      * @param string $accountId
      * @param string $reportDate
      * @return $this

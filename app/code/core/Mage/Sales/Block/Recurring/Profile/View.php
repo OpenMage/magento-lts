@@ -310,7 +310,6 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Get rendered row value
      *
-     * @param Varien_Object $row
      * @return string
      */
     public function renderRowValue(Varien_Object $row)
@@ -347,7 +346,6 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     /**
      * Add specified data to the $_info
      *
-     * @param array $data
      * @param string $key = null
      */
     protected function _addInfo(array $data, $key = null)

@@ -287,7 +287,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Reset forgotten password
      *
-     * Used to handle data recieved from reset forgotten password form
+     * Used to handle data received from reset forgotten password form
      */
     public function resetPasswordPostAction()
     {

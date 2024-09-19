@@ -310,7 +310,6 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param string $file
      * @param array|null $directories
      * @return string|null
      */
@@ -336,7 +335,6 @@ class Error_Processor
     /**
      * Find template path
      *
-     * @param string $template
      * @return string|null
      */
     protected function _getTemplatePath(string $template)

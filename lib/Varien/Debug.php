@@ -82,7 +82,7 @@ class Varien_Debug
                 continue;
             }
 
-            // prepare method argments
+            // prepare method arguments
             $args = [];
             if (isset($data['args']) && $withArgs) {
                 foreach ($data['args'] as $arg) {

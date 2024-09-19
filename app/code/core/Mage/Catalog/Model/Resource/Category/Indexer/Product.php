@@ -78,7 +78,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      * Method is responsible for index support
      * when product was saved and assigned categories was changed.
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductSave(Mage_Index_Model_Event $event)
@@ -132,7 +131,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Process Catalog Product mass action
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
@@ -205,8 +203,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
 
     /**
      * Process category index after category save
-     *
-     * @param Mage_Index_Model_Event $event
      */
     public function catalogCategorySave(Mage_Index_Model_Event $event)
     {
@@ -307,7 +303,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     /**
      * Reindex not anchor root categories
      *
-     * @param array|null $categoryIds
      * @return $this
      * @throws Zend_Db_Adapter_Exception
      */

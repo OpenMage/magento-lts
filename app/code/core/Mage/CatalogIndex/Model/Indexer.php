@@ -48,7 +48,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
     /**
      * Set of available indexers
-     * Each indexer type is responsable for index data storage
+     * Each indexer type is responsible for index data storage
      *
      * @var array
      */
@@ -769,7 +769,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Prepare Catalog Product Flat Columns
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
@@ -782,7 +781,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Prepare Catalog Product Flat Indexes
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)

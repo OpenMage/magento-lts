@@ -562,7 +562,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Add price columns for catalog product flat table
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
@@ -589,7 +588,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Add price indexes for catalog product flat table
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)

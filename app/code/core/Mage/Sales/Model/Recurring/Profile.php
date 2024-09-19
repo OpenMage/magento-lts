@@ -352,7 +352,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Import quote information to the profile
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      * @throws Exception
      */
@@ -387,7 +386,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Import quote item information to the profile
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return $this
      */
     public function importQuoteItem(Mage_Sales_Model_Quote_Item_Abstract $item)

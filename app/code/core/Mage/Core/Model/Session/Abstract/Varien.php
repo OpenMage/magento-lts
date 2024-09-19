@@ -231,7 +231,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * Set session hosts
      *
-     * @param array $hosts
      * @return $this
      */
     public function setSessionHosts(array $hosts)
@@ -379,7 +378,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
-     * Get sesssion save path
+     * Get session save path
      *
      * @return string
      */

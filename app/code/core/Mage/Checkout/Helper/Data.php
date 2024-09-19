@@ -298,7 +298,6 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * Check is allowed Guest Checkout
      * Use config settings and observer
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @param int|Mage_Core_Model_Store $store
      * @return bool
      */

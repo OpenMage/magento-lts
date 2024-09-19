@@ -122,7 +122,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Loads collecion and adds customers info
+     * Loads collection and adds customers info
      *
      * @param bool $printQuery
      * @param bool $logQuery
