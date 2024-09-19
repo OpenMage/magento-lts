@@ -61,7 +61,6 @@ class Mage_Api_Model_Server
     /**
      * Initialize server components
      *
-     * @param Mage_Api_Controller_Action $controller
      * @param string $adapter Adapter name
      * @param string $handler Handler name
      * @return $this

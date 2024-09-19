@@ -335,7 +335,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Add low stock filter to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param array $fields
      * @return $this
      */

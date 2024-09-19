@@ -227,7 +227,7 @@ class Mage_Core_Model_Translate
             $value  = $value === null ? '' : $this->_prepareDataString($value);
             if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
                 /**
-                 * Checking previos value
+                 * Checking previous value
                  */
                 $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
                 if (!isset($this->_data[$scopeKey])) {

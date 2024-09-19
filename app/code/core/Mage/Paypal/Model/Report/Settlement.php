@@ -299,7 +299,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Load report by unique key (accoutn + report date)
+     * Load report by unique key (account + report date)
      *
      * @return $this
      */

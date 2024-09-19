@@ -42,7 +42,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      *   {action::asArray}
      * )
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function asArray(array $arrAttributes = [])
@@ -56,7 +55,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param array $arr
      * @return $this|Mage_Rule_Model_Action_Abstract
      */
     public function loadArray(array $arr)
@@ -75,7 +73,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param Mage_Rule_Model_Action_Interface $action
      * @return $this
      */
     public function addAction(Mage_Rule_Model_Action_Interface $action)

@@ -80,7 +80,6 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     /**
      * Set paygate data to request.
      *
-     * @param Mage_Authorizenet_Model_Directpost $paymentMethod
      * @return $this
      */
     public function setConstantData(Mage_Authorizenet_Model_Directpost $paymentMethod)
@@ -104,8 +103,6 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     /**
      * Set entity data to request
      *
-     * @param Mage_Sales_Model_Order $order
-     * @param Mage_Authorizenet_Model_Directpost $paymentMethod
      * @return $this
      */
     public function setDataFromOrder(Mage_Sales_Model_Order $order, Mage_Authorizenet_Model_Directpost $paymentMethod)

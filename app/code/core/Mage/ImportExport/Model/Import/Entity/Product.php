@@ -310,7 +310,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     ];
 
     /**
-     * Dry-runned products information from import file.
+     * Dry-ran products information from import file.
      *
      * [SKU] => array(
      *     'type_id'        => (string) product type
@@ -631,7 +631,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product category validity.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -654,7 +653,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product website belonging.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -671,7 +669,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Set valid attribute set and product type to rows with all scopes
      * to ensure that existing products doesn't changed.
      *
-     * @param array $rowData
      * @return array
      */
     protected function _prepareRowForDb(array $rowData)
@@ -697,7 +694,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check tier price data validity.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -736,7 +732,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check group price data validity.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -791,7 +786,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Check product sku data.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -1228,7 +1222,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product attributes.
      *
-     * @param array $attributesData
      * @return $this
      */
     protected function _saveProductAttributes(array $attributesData)
@@ -1276,7 +1269,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product categories.
      *
-     * @param array $categoriesData
      * @return $this
      */
     protected function _saveProductCategories(array $categoriesData)
@@ -1605,7 +1597,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product tier prices.
      *
-     * @param array $tierPriceData
      * @return $this
      */
     protected function _saveProductTierPrices(array $tierPriceData)
@@ -1645,7 +1636,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product group prices.
      *
-     * @param array $groupPriceData
      * @return $this
      */
     protected function _saveProductGroupPrices(array $groupPriceData)
@@ -1727,7 +1717,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product media gallery.
      *
-     * @param array $mediaGalleryData
      * @return $this
      */
     protected function _saveMediaGallery(array $mediaGalleryData)
@@ -1809,7 +1798,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Save product websites.
      *
-     * @param array $websiteData
      * @return $this
      */
     protected function _saveProductWebsites(array $websiteData)
@@ -1984,7 +1972,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
-     * Atttribute set ID-to-name pairs getter.
+     * Attribute set ID-to-name pairs getter.
      *
      * @return array
      */
@@ -2047,7 +2035,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Obtain scope of the row from row data.
      *
-     * @param array $rowData
      * @return int
      */
     public function getRowScope(array $rowData)
@@ -2074,7 +2061,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Validate data row.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -2109,7 +2095,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
             $sku = $rowData[self::COL_SKU];
 
-            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existant DB product?
+            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existent DB product?
                 // check for supported type of existing product
                 if (isset($this->_productTypeModels[$this->_oldSku[$sku]['type_id']])) {
                     $this->_newSku[$sku] = [

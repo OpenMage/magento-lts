@@ -90,7 +90,6 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Declare checkout quote instance
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -377,7 +376,6 @@ class Mage_Checkout_Model_Type_Onepage
      * Validate customer data and set some its data for further usage in quote
      * Will return either true or array with error messages
      *
-     * @param array $data
      * @return true|array
      */
     protected function _validateCustomerData(array $data)
@@ -455,7 +453,6 @@ class Mage_Checkout_Model_Type_Onepage
      * Will return either true or array with error messages
      *
      * @deprecated since 1.4.0.1
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return true|array
      */
     protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)

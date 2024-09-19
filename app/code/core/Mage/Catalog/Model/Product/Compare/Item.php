@@ -93,7 +93,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Add customer data from customer object
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function addCustomerData(Mage_Customer_Model_Customer $customer)
@@ -174,7 +173,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Customer logout bind process
      *
-     * @param Varien_Event_Observer|null $observer
      * @return $this
      */
     public function bindCustomerLogout(?Varien_Event_Observer $observer = null)

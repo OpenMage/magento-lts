@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   apache:
-    image: openmage/php-dev:7.3-apache
+    image: openmage/php-dev:8.3-apache
     hostname: ${HOST_NAME:-openmage-7f000001.nip.io}
     user: "33333:33333"
     ports:
@@ -17,7 +17,7 @@ services:
       - mysql
 
   cron:
-    image: openmage/php-dev:7.3-cli
+    image: openmage/php-dev:8.3-cli
     working_dir: /var/www/html
     command: /run-cron.sh
     user: www-data
@@ -29,7 +29,7 @@ services:
       - mysql
 
   cli:
-    image: openmage/php-dev:7.3-apache
+    image: openmage/php-dev:8.3-apache
     working_dir: /var/www/html
     command: /bin/true
     user: "33333:33333"

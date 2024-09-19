@@ -134,7 +134,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      * Add series
      *
      * @param string $seriesId
-     * @param array $options
      */
     public function addSeries($seriesId, array $options)
     {
