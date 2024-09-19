@@ -58,17 +58,17 @@ class Mage_Customer_Model_Resource_Form_Attribute_Collection extends Mage_Eav_Mo
     {
         $this->getSelect()
              ->joinInner(
-                 array('eea' => $this->getTable('eav/entity_attribute')),
+                 ['eea' => $this->getTable('eav/entity_attribute')],
                  'main_table.attribute_id = eea.attribute_id',
-                 array()
+                 []
              )
              ->joinLeft(
-                 array('eag' => $this->getTable('eav/attribute_group')),
+                 ['eag' => $this->getTable('eav/attribute_group')],
                  'eea.attribute_group_id = eag.attribute_group_id',
-                 array('eag.attribute_group_name')
+                 ['eag.attribute_group_name']
              )
              ->where('eea.attribute_set_id = ?', $attributeSetId)
-             ->order(array('eag.sort_order', 'eea.sort_order'));
+             ->order(['eag.sort_order', 'eea.sort_order']);
 
         return $this;
     }

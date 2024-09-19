@@ -41,21 +41,21 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml
             ->load($this->getRequest()->getParam('id'));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('set_name', array('legend'=> Mage::helper('eav')->__('Edit Set Name')));
-        $fieldset->addField('attribute_set_name', 'text', array(
+        $fieldset = $form->addFieldset('set_name', ['legend'=> Mage::helper('eav')->__('Edit Set Name')]);
+        $fieldset->addField('attribute_set_name', 'text', [
             'label' => Mage::helper('eav')->__('Name'),
             'note' => Mage::helper('eav')->__('For internal use.'),
             'name' => 'attribute_set_name',
             'required' => true,
             'class' => 'required-entry validate-no-html-tags',
             'value' => $data->getAttributeSetName()
-        ));
+        ]);
 
         if (!$this->getRequest()->getParam('id', false)) {
-            $fieldset->addField('gotoEdit', 'hidden', array(
+            $fieldset->addField('gotoEdit', 'hidden', [
                 'name' => 'gotoEdit',
                 'value' => '1'
-            ));
+            ]);
 
             /** @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection @collection */
             $collection = Mage::getModel('eav/entity_attribute_set')
@@ -66,13 +66,13 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml
                 ->load()
                 ->toOptionArray();
 
-            $fieldset->addField('skeleton_set', 'select', array(
+            $fieldset->addField('skeleton_set', 'select', [
                 'label' => Mage::helper('eav')->__('Based On'),
                 'name' => 'skeleton_set',
                 'required' => true,
                 'class' => 'required-entry',
                 'values' => $sets,
-            ));
+            ]);
         }
 
         $form->setMethod('post');

@@ -31,20 +31,20 @@ class Mage_Customer_Model_Config_Address_Forms
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => 'adminhtml_customer_address',
                 'label' => Mage::helper('customer')->__('Adminhtml Customer Address')
-            ),
-            array(
+            ],
+            [
                 'value' => 'customer_address_edit',
                 'label' => Mage::helper('customer')->__('Customer Address Edit')
-            ),
-            array(
+            ],
+            [
                 'value' => 'customer_register_address',
                 'label' => Mage::helper('customer')->__('Customer Register Address')
-            ),
-        );
+            ],
+        ];
     }
 
     /**

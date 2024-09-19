@@ -30,11 +30,11 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widge
 
         $this->_addButton(
             'save_and_edit_button',
-            array(
+            [
                 'label'     => Mage::helper('eav')->__('Save and Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit()',
                 'class'     => 'save'
-            ),
+            ],
             100
         );
 
@@ -63,12 +63,12 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
     }
 
     public function getHeaderCssClass()

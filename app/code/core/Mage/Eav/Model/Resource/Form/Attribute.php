@@ -49,10 +49,10 @@ abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Re
             $attribute = $attribute->getId();
         }
         if (!$attribute) {
-            return array();
+            return [];
         }
 
-        $bind   = array('attribute_id' => $attribute);
+        $bind   = ['attribute_id' => $attribute];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'form_code')
             ->where('attribute_id = :attribute_id');

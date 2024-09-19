@@ -31,28 +31,28 @@ class Mage_Customer_Model_Config_Forms
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => 'adminhtml_checkout',
                 'label' => Mage::helper('customer')->__('Adminhtml Checkout')
-            ),
-            array(
+            ],
+            [
                 'value' => 'adminhtml_customer',
                 'label' => Mage::helper('customer')->__('Adminhtml Customer')
-            ),
-            array(
+            ],
+            [
                 'value' => 'checkout_register',
                 'label' => Mage::helper('customer')->__('Checkout Register')
-            ),
-            array(
+            ],
+            [
                 'value' => 'customer_account_create',
                 'label' => Mage::helper('customer')->__('Customer Account Create')
-            ),
-            array(
+            ],
+            [
                 'value' => 'customer_account_edit',
                 'label' => Mage::helper('customer')->__('Customer Account Edit')
-            ),
-        );
+            ],
+        ];
     }
 
     /**

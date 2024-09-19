@@ -29,7 +29,7 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
      *
      * @var array
      */
-    protected $_dateInputs = array();
+    protected $_dateInputs = [];
 
     public function _construct()
     {
@@ -102,7 +102,7 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
      */
     public function getSortedDateInputs()
     {
-        $strtr = array(
+        $strtr = [
             '%b' => '%1$s',
             '%B' => '%1$s',
             '%m' => '%1$s',
@@ -110,7 +110,7 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
             '%e' => '%2$s',
             '%Y' => '%3$s',
             '%y' => '%3$s'
-        );
+        ];
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 

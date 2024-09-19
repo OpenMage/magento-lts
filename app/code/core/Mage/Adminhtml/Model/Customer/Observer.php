@@ -46,15 +46,15 @@ class Mage_Adminhtml_Model_Customer_Observer
         $fieldset = $form->getElement('base_fieldset');
 
         // frontend properties fieldset
-        $fieldset = $form->addFieldset('front_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Extra Properties')));
+        $fieldset = $form->addFieldset('front_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Extra Properties')]);
 
-        $fieldset->addField('use_in_forms', 'multiselect', array(
+        $fieldset->addField('use_in_forms', 'multiselect', [
             'name'   => 'use_in_forms',
             'label'  => Mage::helper('adminhtml')->__('Use in Forms'),
             'title'  => Mage::helper('adminhtml')->__('Use in Forms'),
             'values' => Mage::getModel('customer/config_forms')->toOptionArray(),
             'value'  => Mage::getResourceModel('customer/form_attribute')->getFormTypesByAttribute($attribute)
-        ));
+        ]);
 
         return $this;
     }
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Model_Customer_Observer
             $model = $observer->getObject();
 
             if (!isset($data['use_in_forms'])) {
-                $data['use_in_forms'] = array();
+                $data['use_in_forms'] = [];
             }
 
             $model->setData('used_in_forms', $data['use_in_forms']);
@@ -102,15 +102,15 @@ class Mage_Adminhtml_Model_Customer_Observer
         $fieldset = $form->getElement('base_fieldset');
 
         // frontend properties fieldset
-        $fieldset = $form->addFieldset('front_fieldset', array('legend'=>Mage::helper('adminhtml')->__('Extra Properties')));
+        $fieldset = $form->addFieldset('front_fieldset', ['legend'=>Mage::helper('adminhtml')->__('Extra Properties')]);
 
-        $fieldset->addField('use_in_forms', 'multiselect', array(
+        $fieldset->addField('use_in_forms', 'multiselect', [
             'name'   => 'use_in_forms',
             'label'  => Mage::helper('adminhtml')->__('Use in Forms'),
             'title'  => Mage::helper('adminhtml')->__('Use in Forms'),
             'values' => Mage::getModel('customer/config_address_forms')->toOptionArray(),
             'value'  => Mage::getResourceModel('customer/form_attribute')->getFormTypesByAttribute($attribute)
-        ));
+        ]);
 
         return $this;
     }
@@ -132,7 +132,7 @@ class Mage_Adminhtml_Model_Customer_Observer
             $model = $observer->getObject();
 
             if (!isset($data['use_in_forms'])) {
-                $data['use_in_forms'] = array();
+                $data['use_in_forms'] = [];
             }
 
             $model->setData('used_in_forms', $data['use_in_forms']);
