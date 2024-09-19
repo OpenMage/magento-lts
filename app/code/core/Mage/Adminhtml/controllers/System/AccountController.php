@@ -32,7 +32,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         $this->_title($this->__('System'))->_title($this->__('My Account'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/account');
+        $this->_setActiveMenu('system/myaccount');
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_account_edit'));
         $this->renderLayout();
     }
