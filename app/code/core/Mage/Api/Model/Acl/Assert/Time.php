@@ -24,9 +24,6 @@ class Mage_Api_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
     /**
      * Assert time
      *
-     * @param Mage_Api_Model_Acl $acl
-     * @param Mage_Api_Model_Acl_Role|null $role
-     * @param Mage_Api_Model_Acl_Resource|null $resource
      * @param string|null $privilege
      * @return bool|null
      */

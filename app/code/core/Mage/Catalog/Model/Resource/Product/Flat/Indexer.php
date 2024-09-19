@@ -747,7 +747,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 'on_delete'     => Varien_Db_Ddl_Table::ACTION_CASCADE
             ];
 
-            // Additional data from childs
+            // Additional data from children
             $isAddChildData = $this->getFlatHelper()->isAddChildData();
             if (!$isAddChildData && isset($describe['is_child'])) {
                 $adapter->delete($tableName, ['is_child = ?' => 1]);
@@ -1355,7 +1355,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve previous key from array by key
      *
-     * @param array $array
      * @param mixed $key
      * @return mixed
      */
@@ -1374,7 +1373,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
     /**
      * Retrieve next key from array by key
      *
-     * @param array $array
      * @param mixed $key
      * @return mixed
      */

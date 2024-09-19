@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @resturn Varien_Object
+     * @return void
      */
     protected function _initOldFieldsMap()
     {
@@ -86,7 +86,6 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Declare Shipment instance
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
      * @return $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)

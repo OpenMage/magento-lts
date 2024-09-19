@@ -55,9 +55,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     protected $_includeProcessor = null;
 
     /**
-     * Sets template variables that's can be called througth {var ...} statement
-     *
-     * @param array $variables
+     * Sets template variables that's can be called through {var ...} statement
      */
     public function setVariables(array $variables)
     {

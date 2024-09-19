@@ -37,7 +37,6 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Mage_Log_Helper_Data constructor.
-     * @param array $data
      */
     public function __construct(array $data = [])
     {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -125,8 +125,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *  - 'factory' Mage_Core_Model_Factory
      *  - 'config' Mage_Core_Model_Config
      *  - 'app' Mage_Core_Model_App
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -348,7 +346,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Calculate price using catalog price rule of product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param float $price
      * @return float|null
      */
@@ -475,7 +472,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Load matched product rules to the product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function loadProductRules(Mage_Catalog_Model_Product $product)

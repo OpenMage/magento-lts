@@ -204,7 +204,7 @@ class Varien_Db_Tree
     }
 
     /**
-     * Cleare table and add root element
+     * Clear table and add root element
      *
      */
     public function clear($data = [])

@@ -320,7 +320,7 @@ class Mage_Paypal_Model_Express_Checkout
             $this->_api->setRequireBillingAddress(1);
         }
 
-        // supress or export shipping address
+        // suppress or export shipping address
         if ($this->_quote->getIsVirtual()) {
             if ($this->_config->requireBillingAddress == Mage_Paypal_Model_Config::REQUIRE_BILLING_ADDRESS_VIRTUAL) {
                 $this->_api->setRequireBillingAddress(1);
@@ -508,7 +508,6 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Return callback response with shipping options
      *
-     * @param array $request
      * @return string
      */
     public function getShippingOptionsCallbackResponse(array $request)
@@ -784,7 +783,6 @@ class Mage_Paypal_Model_Express_Checkout
      * Returns empty array if it was impossible to obtain any shipping rate
      * If there are shipping rates obtained, the method must return one of them as default.
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param bool $mayReturnEmpty
      * @return array
      */
@@ -865,8 +863,6 @@ class Mage_Paypal_Model_Express_Checkout
      * This function is used as a callback comparison function in shipping options sorting process
      * @see self::_prepareShippingOptions()
      *
-     * @param Varien_Object $option1
-     * @param Varien_Object $option2
      * @return int
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
@@ -883,7 +879,6 @@ class Mage_Paypal_Model_Express_Checkout
      * If in future the issue is fixed, we don't need to attempt to match it. It would be enough to set the method code
      * before collecting shipping rates
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param string $selectedCode
      * @return string
      */

@@ -127,7 +127,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     /**
      * Initialize Helper to work with Image
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string $attributeName
      * @param mixed $imageFile
      * @return $this

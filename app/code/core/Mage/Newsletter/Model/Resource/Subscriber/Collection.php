@@ -77,7 +77,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Set loading mode subscribers by queue
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)

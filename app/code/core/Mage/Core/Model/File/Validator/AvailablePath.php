@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,7 +114,6 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Set protected paths masks
      *
-     * @param array $paths
      * @return $this
      */
     public function setProtectedPaths(array $paths)
@@ -152,7 +151,6 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     /**
      * Set available paths masks
      *
-     * @param array $paths
      * @return $this
      */
     public function setAvailablePaths(array $paths)

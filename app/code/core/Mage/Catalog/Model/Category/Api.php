@@ -145,7 +145,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Convert node to array
      *
-     * @param Varien_Data_Tree_Node $node
      * @return array
      */
     protected function _nodeToArray(Varien_Data_Tree_Node $node)
@@ -168,7 +167,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Initilize and return category model
+     * Initialize and return category model
      *
      * @param int $categoryId
      * @param string|int $store

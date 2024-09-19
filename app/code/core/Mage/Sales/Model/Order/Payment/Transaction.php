@@ -86,7 +86,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     /**
      * Child transactions, assoc array of txn_id => instance
      * Filled only in case when all child transactions have txn_id
-     * Used for quicker search of child transactions using isset() as oposite to foreaching $_children
+     * Used for quicker search of child transactions using isset() as opposite to foreaching $_children
      * @var array|false
      */
     protected $_identifiedChildren = null;
@@ -135,7 +135,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
 
     /**
      * Payment instance setter
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
      */
     public function setOrderPaymentObject(Mage_Sales_Model_Order_Payment $payment)

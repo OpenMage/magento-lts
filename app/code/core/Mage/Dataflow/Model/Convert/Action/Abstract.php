@@ -136,7 +136,6 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action's container
      *
-     * @param Mage_Dataflow_Model_Convert_Container_Interface $container
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setContainer(Mage_Dataflow_Model_Convert_Container_Interface $container)

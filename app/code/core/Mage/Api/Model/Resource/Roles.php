@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Process role before saving
      *
-     * @param Mage_Core_Model_Abstract|Mage_Api_Model_Roles $role
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
@@ -74,7 +73,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after save
      *
-     * @param Mage_Core_Model_Abstract $role
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)
@@ -87,7 +85,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action after delete
      *
-     * @param Mage_Core_Model_Abstract $role
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
@@ -101,7 +98,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get role users
      *
-     * @param Mage_Api_Model_Roles $role
      * @return array
      */
     public function getRoleUsers(Mage_Api_Model_Roles $role)
@@ -118,7 +114,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Update role users
      *
-     * @param Mage_Api_Model_Roles $role
      * @return bool
      */
     private function _updateRoleUsersAcl(Mage_Api_Model_Roles $role)

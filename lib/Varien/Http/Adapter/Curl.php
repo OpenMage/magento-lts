@@ -86,7 +86,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set array of additional cURL options
      *
-     * @param array $options
      * @return Varien_Http_Adapter_Curl
      */
     public function setOptions(array $options = [])
@@ -111,7 +110,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional options list to curl
      *
-     * @param array $options
      *
      * @return Varien_Http_Adapter_Curl
      */

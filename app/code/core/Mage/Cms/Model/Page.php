@@ -72,10 +72,10 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Page's Statuses
      */
-    public const STATUS_ENABLED = 1;
+    public const STATUS_ENABLED  = 1;
     public const STATUS_DISABLED = 0;
 
-    public const CACHE_TAG              = 'cms_page';
+    public const CACHE_TAG       = 'cms_page';
     protected $_cacheTag         = 'cms_page';
 
     /**
@@ -122,6 +122,39 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     public function checkIdentifier($identifier, $storeId)
     {
         return $this->_getResource()->checkIdentifier($identifier, $storeId);
+    }
+
+    /**
+     * Retrieves cms page title from DB by passed identifier.
+     *
+     * @param string $identifier
+     * @return string
+     */
+    public function getCmsPageTitleByIdentifier(string $identifier): string
+    {
+        return $this->_getResource()->getCmsPageTitleByIdentifier($identifier);
+    }
+
+    /**
+     * Retrieves cms page title from DB by passed id.
+     *
+     * @param string|int $id
+     * @return string
+     */
+    public function getCmsPageTitleById($id): string
+    {
+        return $this->_getResource()->getCmsPageTitleById($id);
+    }
+
+    /**
+     * Retrieves cms page identifier from DB by passed id.
+     *
+     * @param string|int $id
+     * @return string
+     */
+    public function getCmsPageIdentifierById($id): string
+    {
+        return $this->_getResource()->getCmsPageIdentifierById($id);
     }
 
     /**

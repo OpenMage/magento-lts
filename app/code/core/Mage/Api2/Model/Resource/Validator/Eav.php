@@ -111,7 +111,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Validate attribute value for attributes with source models
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $attrValue
      * @return array|bool
      */
@@ -152,7 +151,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Filter request data.
      *
-     * @param  array $data
      * @return array Filtered data
      */
     public function filter(array $data)
@@ -168,7 +166,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param array $data
      * @param bool $partial
      * @return bool
      */

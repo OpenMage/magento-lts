@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,6 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
     /**
      * Validate and Match Cms Page and modify request
      *
-     * @param Zend_Controller_Request_Http $request
      * @return bool
      */
     public function match(Zend_Controller_Request_Http $request)
@@ -46,6 +45,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect(Mage::getUrl('install'))
                 ->sendResponse();
+            // phpcs:ignore: Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
 
