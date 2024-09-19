@@ -50,7 +50,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminht
         $fieldset->addField(
             'submit',
             'note',
-            array(
+            [
                 'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('eav')->__('Add Group'),
@@ -58,7 +58,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminht
                         'class' => 'add'
                     ])
                     ->toHtml(),
-            )
+            ]
         );
 
         $fieldset->addField(
@@ -79,8 +79,8 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminht
 
     protected function _getSetId()
     {
-        return (intval($this->getRequest()->getParam('id')) > 0)
-            ? intval($this->getRequest()->getParam('id'))
+        return ((int) ($this->getRequest()->getParam('id')) > 0)
+            ? (int) ($this->getRequest()->getParam('id'))
             : Mage::registry('entity_type')->getDefaultAttributeSetId();
     }
 }

@@ -54,7 +54,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Grid extends Mage_Adminhtml_Block_W
             'index'     => 'attribute_set_name',
         ]);
 
-        return $this;
+        return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
