@@ -17,6 +17,10 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withSkipPath(__DIR__ . '/vendor')
+    ->withSkip([
+        __DIR__ . '/shell/translations.php',
+        __DIR__ . '/shell/update-copyright.php.php'
+    ])
     ->withRules([
 //        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # wait for https://github.com/rectorphp/rector/issues/8781
         CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
