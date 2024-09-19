@@ -26,9 +26,6 @@ class ImagesTest extends TestCase
 {
     public const TEST_STRING = '0123456789';
 
-    /**
-     * @var Mage_Cms_Helper_Wysiwyg_Images
-     */
     public Mage_Cms_Helper_Wysiwyg_Images $subject;
 
     public function setUp(): void

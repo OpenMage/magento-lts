@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class AggregationTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Aggregation
-     */
     public Mage_Log_Model_Aggregation $subject;
 
     public function setUp(): void

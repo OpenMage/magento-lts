@@ -135,7 +135,9 @@
         "phpstan": "vendor/bin/phpstan analyze",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --no-coverage --testdox",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --testdox",
-        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox"
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox",
+        "rector:test": "vendor/bin/rector process --dry-run",
+        "rector:fix": "vendor/bin/rector process"
     },
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
@@ -143,6 +145,8 @@
         "phpstan": "Run phpstan",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage",
-        "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage"
+        "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage",
+        "rector:test": "Run rector",
+        "rector:fix": "Run rector and fix issues"
     }
 }
