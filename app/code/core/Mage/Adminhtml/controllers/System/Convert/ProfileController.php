@@ -71,7 +71,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/profiles');
 
         /**
          * Append profiles block to content
@@ -121,7 +121,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
         $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
 
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/profiles');
 
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit')
