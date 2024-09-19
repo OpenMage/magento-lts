@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
 
 use PHPUnit\Framework\TestCase;
-use ValueError;
+use Throwable;
 use Varien_Data_Form_Filter_Datetime;
 
 class DatetimeTest extends TestCase
@@ -43,9 +43,10 @@ class DatetimeTest extends TestCase
 
         try {
             $this->subject->inputFilter('1990-18-18');
-            $this->fail('expected a ValueError'); // ValueError: bcsub(): Argument #1 ($num1) is not well-formed
-        } catch (\ValueError $e) {
-            $this->assertStringContainsString('bcsub', $e->getMessage());
+        } catch (Throwable $e) {
+            // PHP7: bcsub(): Argument #1 ($num1) is not well-formed
+            // PHP8: bcsub(): bcmath function argument is not well-formed
+            $this->assertStringStartsWith('bcsub():', $e->getMessage());
         }
     }
 }
