@@ -63,12 +63,12 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', ['_current'=>true]);
+        return $this->getUrl('*/*/validate', ['_current' => true]);
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
 
     public function getHeaderCssClass()

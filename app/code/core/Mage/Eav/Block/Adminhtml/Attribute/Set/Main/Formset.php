@@ -41,7 +41,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml
             ->load($this->getRequest()->getParam('id'));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('set_name', ['legend'=> Mage::helper('eav')->__('Edit Set Name')]);
+        $fieldset = $form->addFieldset('set_name', ['legend' => Mage::helper('eav')->__('Edit Set Name')]);
         $fieldset->addField('attribute_set_name', 'text', [
             'label' => Mage::helper('eav')->__('Name'),
             'note' => Mage::helper('eav')->__('For internal use.'),
