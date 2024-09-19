@@ -71,6 +71,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
 
             Mage::register('current_index_process', $process);
             $this->loadLayout();
+            $this->_setActiveMenu('system/index');
             $this->renderLayout();
         } else {
             $this->_getSession()->addError(
