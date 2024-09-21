@@ -41,7 +41,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Web Services'))
              ->_title($this->__('REST Roles'));
 
-        $this->loadLayout()->_setActiveMenu('system/services/roles');
+        $this->loadLayout()->_setActiveMenu('system/api/rest_roles');
         $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
         $this->_addBreadcrumb($this->__('REST Roles'), $this->__('REST Roles'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
@@ -82,7 +82,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Web Services'))
              ->_title($this->__('Rest Roles'));
 
-        $this->loadLayout()->_setActiveMenu('system/services/roles');
+        $this->loadLayout()->_setActiveMenu('system/api/rest_roles');
         $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
         $this->_addBreadcrumb($this->__('REST Roles'), $this->__('REST Roles'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));

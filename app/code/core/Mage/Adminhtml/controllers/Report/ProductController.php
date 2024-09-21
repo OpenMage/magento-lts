@@ -73,7 +73,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Products Ordered'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/product/sold')
+            ->_setActiveMenu('report/products/sold')
             ->_addBreadcrumb(Mage::helper('reports')->__('Products Ordered'), Mage::helper('reports')->__('Products Ordered'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_product_sold'))
             ->renderLayout();
@@ -161,7 +161,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Low Stock'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/product/lowstock')
+            ->_setActiveMenu('report/products/lowstock')
             ->_addBreadcrumb(Mage::helper('reports')->__('Low Stock'), Mage::helper('reports')->__('Low Stock'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_product_lowstock'))
             ->renderLayout();
@@ -203,7 +203,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
              ->_title($this->__('Downloads'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/product/downloads')
+            ->_setActiveMenu('report/products/downloads')
             ->_addBreadcrumb(Mage::helper('reports')->__('Downloads'), Mage::helper('reports')->__('Downloads'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_product_downloads'))
             ->renderLayout();
