@@ -481,7 +481,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
-     * Get miscellanious scripts/styles to be included in head before head closing tag
+     * Get miscellaneous scripts/styles to be included in head before head closing tag
      *
      * @return string
      */

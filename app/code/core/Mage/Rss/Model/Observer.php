@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,9 +35,6 @@ class Mage_Rss_Model_Observer
      */
     protected $_app;
 
-    /**
-     * @param array $args
-     */
     public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
@@ -46,8 +43,6 @@ class Mage_Rss_Model_Observer
 
     /**
      * Clean cache for catalog review rss
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function reviewSaveAfter(Varien_Event_Observer $observer)
     {
@@ -56,8 +51,6 @@ class Mage_Rss_Model_Observer
 
     /**
      * Clean cache for notify stock rss
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesOrderItemSaveAfterNotifyStock(Varien_Event_Observer $observer)
     {
@@ -66,8 +59,6 @@ class Mage_Rss_Model_Observer
 
     /**
      * Clean cache for catalog new orders rss
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesOrderItemSaveAfterOrderNew(Varien_Event_Observer $observer)
     {

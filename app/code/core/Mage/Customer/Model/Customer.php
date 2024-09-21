@@ -365,7 +365,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Add address to address collection
      *
-     * @param Mage_Customer_Model_Address $address
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -477,9 +476,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->_attributes[$attributeCode] ?? null;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return (string) $this->_getData('password');
@@ -704,7 +700,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check if address is primary
      *
-     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
@@ -1025,7 +1020,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set store to customer
      *
-     * @param Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
@@ -1132,7 +1126,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Import customer data from text array
      *
-     * @param array $row
      * @return $this|null
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -1394,7 +1387,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Validate address
      *
-     * @param array $data
      * @param string $type
      * @return bool
      */
@@ -1416,7 +1408,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                         return false;
                     }
 
-                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region']);
+                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region'], $data[$prefix . $field]);
                     if (!$region->getId()) {
                         return false;
                     }

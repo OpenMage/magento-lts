@@ -94,9 +94,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Batch import of currency rates
      *
-     * @param array $data
      * @param string $currencyFrom
-     * @param array $currenciesTo
      * @return array
      */
     protected function _convertBatch(array $data, $currencyFrom, array $currenciesTo)
@@ -178,7 +176,6 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Validate response from external service
      *
-     * @param array $response
      * @param string $baseCurrency
      * @return bool
      */
@@ -213,7 +210,6 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Fill simulated response with empty data
      *
-     * @param array $currenciesTo
      * @return array
      */
     protected function _makeEmptyResponse(array $currenciesTo)

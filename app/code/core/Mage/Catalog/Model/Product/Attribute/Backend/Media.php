@@ -110,6 +110,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
+        if (!isset($value['values'])) {
+            $value['values'] = [];
+        }
+
         if (!is_array($value['values']) && strlen($value['values']) > 0) {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
@@ -275,7 +279,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Add image to media gallery and return new filename
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string                     $file              file path of image in file system
      * @param string|array               $mediaAttribute    code of attribute with type 'media_image',
      *                                                      leave blank if image should be only in gallery
@@ -380,7 +383,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add images with different media attributes.
      * Image will be added only once if the same image is used with different media attributes
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param array $fileAndAttributesArray array of arrays of filename and corresponding media attribute
      * @param string $filePath path, where image cand be found
      * @param bool $move if true, it will move source file
@@ -419,7 +421,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Update image in gallery
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string $file
      * @param array $data
      * @return $this
@@ -458,7 +459,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Remove image from gallery
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string $file
      * @return $this
      */
@@ -486,7 +486,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Retrieve image from gallery
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string $file
      * @return array|bool
      */
@@ -510,7 +509,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Clear media attribute value
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string|array $mediaAttribute
      * @return $this
      */
@@ -534,7 +532,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Set media attribute value
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string|array $mediaAttribute
      * @param string $value
      * @return $this

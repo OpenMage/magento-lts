@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
     {
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('_newsletter');
-        $customer = Mage::registry('current_customer');
+        $customer = $this->getRegistryCurrentCustomer();
         $subscriber = Mage::getModel('newsletter/subscriber')->loadByCustomer($customer);
         Mage::register('subscriber', $subscriber);
 
@@ -94,5 +94,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid', 'newsletter.grid')
         );
         return parent::_prepareLayout();
+    }
+
+    protected function getRegistryCurrentCustomer(): ?Mage_Customer_Model_Customer
+    {
+        return Mage::registry('current_customer');
     }
 }

@@ -68,7 +68,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Set filter by customer
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomerFilter(Mage_Customer_Model_Customer $customer)

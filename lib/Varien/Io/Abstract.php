@@ -22,15 +22,15 @@
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {
     /**
-     * If this variable is set to true, our library will be able to automaticaly
-     * create non-existant directories
+     * If this variable is set to true, our library will be able to automatically
+     * create non-existent directories
      *
      * @var bool
      */
     protected $_allowCreateFolders = false;
 
     /**
-     * Allow automaticaly create non-existant directories
+     * Allow automatically create non-existent directories
      *
      * @param bool $flag
      * @return Varien_Io_Abstract
@@ -44,7 +44,6 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Open a connection
      *
-     * @param array $args
      * @return bool
      */
     public function open(array $args = [])

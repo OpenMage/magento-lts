@@ -85,8 +85,6 @@ class Mage_Paypal_Model_Ipn
     /**
      * Get ipn data, send verification to PayPal, run corresponding handler
      *
-     * @param array $request
-     * @param Zend_Http_Client_Adapter_Interface|null $httpAdapter
      * @throws Mage_Core_Exception
      */
     public function processIpnRequest(array $request, ?Zend_Http_Client_Adapter_Interface $httpAdapter = null)
@@ -120,7 +118,6 @@ class Mage_Paypal_Model_Ipn
     /**
      * Post back to PayPal to check whether this request is a valid one
      *
-     * @param Zend_Http_Client_Adapter_Interface $httpAdapter
      * @throws Exception
      */
     protected function _postBack(Zend_Http_Client_Adapter_Interface $httpAdapter)

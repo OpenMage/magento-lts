@@ -71,7 +71,6 @@ class Mage_Index_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_H
     }
 
     /**
-     * @param Varien_Db_Adapter_Interface $adapter
      * @return $this
      */
     public function setWriteAdapter(Varien_Db_Adapter_Interface $adapter)

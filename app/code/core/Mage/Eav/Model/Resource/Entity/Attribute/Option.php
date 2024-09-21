@@ -70,7 +70,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
     /**
      * Retrieve Select for update Flat data
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param int $store
      * @param bool $hasValueField flag which require option value
      * @return Varien_Db_Select

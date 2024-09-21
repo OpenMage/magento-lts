@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +83,6 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Recursively generates top menu html from data that is specified in $menuTree
      *
-     * @param Varien_Data_Tree_Node $menuTree
      * @param string $childrenWrapClass
      * @return string
      * @deprecated since 1.8.2.0 use child block catalog.topnav.renderer instead
@@ -143,7 +142,6 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Generates string with all attributes that should be present in menu item element
      *
-     * @param Varien_Data_Tree_Node $item
      * @return string
      */
     protected function _getRenderedMenuItemAttributes(Varien_Data_Tree_Node $item)
@@ -161,7 +159,6 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Returns array of menu item's attributes
      *
-     * @param Varien_Data_Tree_Node $item
      * @return array
      */
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
@@ -175,7 +172,6 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     /**
      * Returns array of menu item's classes
      *
-     * @param Varien_Data_Tree_Node $item
      * @return array
      */
     protected function _getMenuItemClasses(Varien_Data_Tree_Node $item)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,29 +23,21 @@ interface Mage_Payment_Model_Billing_Agreement_MethodInterface
 {
     /**
      * Init billing agreement
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function initBillingAgreementToken(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Retrieve billing agreement details
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function getBillingAgreementTokenInfo(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Create billing agreement
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function placeBillingAgreement(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 
     /**
      * Update billing agreement status
-     *
-     * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
      */
     public function updateBillingAgreementStatus(Mage_Payment_Model_Billing_AgreementAbstract $agreement);
 }

@@ -37,7 +37,6 @@ class Mage_Core_Model_File_Validator_Image
     /**
      * Setter for allowed image types
      *
-     * @param array $imageFileExtensions
      * @return $this
      */
     public function setAllowedImageTypes(array $imageFileExtensions = [])

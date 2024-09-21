@@ -268,7 +268,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * ReDefine Product Type Instance to Product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
@@ -438,7 +437,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */
@@ -458,7 +456,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     }
 
     /**
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */
@@ -631,7 +628,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Save product (import)
      *
-     * @param  array $importData
      * @throws Mage_Core_Exception
      * @return bool
      */
@@ -872,7 +868,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Silently save product (import)
      *
-     * @param  array $importData
      * @return bool
      */
     public function saveRowSilently(array $importData)
