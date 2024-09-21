@@ -7,7 +7,7 @@
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=8.1 <8.5",
+        "php": ">=7.4 <8.5",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -33,6 +33,9 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.24.0",
+        "symfony/polyfill-php74": "^1.30",
+        "symfony/polyfill-php80": "^1.30",
+        "symfony/polyfill-php81": "^1.30",
         "symfony/polyfill-php82": "^1.30",
         "symfony/polyfill-php83": "^1.30",
         "symfony/polyfill-php84": "^1.30"
@@ -122,7 +125,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "8.1"
+            "php": "7.4"
         },
         "sort-packages": true
     }
