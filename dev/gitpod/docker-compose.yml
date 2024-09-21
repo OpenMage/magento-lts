@@ -17,7 +17,7 @@ services:
       - mysql
 
   cron:
-    image: openmage/php-dev:7.3-cli
+    image: openmage/php-dev:7.4-cli
     working_dir: /var/www/html
     command: /run-cron.sh
     user: www-data
@@ -29,7 +29,7 @@ services:
       - mysql
 
   cli:
-    image: openmage/php-dev:7.3-apache
+    image: openmage/php-dev:7.4-apache
     working_dir: /var/www/html
     command: /bin/true
     user: "33333:33333"
