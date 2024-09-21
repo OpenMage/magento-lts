@@ -58,6 +58,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     public function indexAction()
     {
         $this->loadLayout();
+        $this->_setActiveMenu('system/api/oauth_consumer');
         $this->renderLayout();
     }
 
@@ -93,6 +94,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         Mage::register('current_consumer', $model);
 
         $this->loadLayout();
+        $this->_setActiveMenu('system/api/oauth_consumer');
         $this->renderLayout();
     }
 
@@ -123,6 +125,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         Mage::register('current_consumer', $model);
 
         $this->loadLayout();
+        $this->_setActiveMenu('system/api/oauth_consumer');
         $this->renderLayout();
     }
 
