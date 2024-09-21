@@ -46,7 +46,6 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     /**
      * Prepare rule's active "from" and "to" dates
      *
-     * @param Mage_Core_Model_Abstract $object
      *
      * @return Mage_Rule_Model_Resource_Abstract
      */

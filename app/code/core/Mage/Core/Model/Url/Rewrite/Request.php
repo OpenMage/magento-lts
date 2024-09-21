@@ -70,8 +70,6 @@ class Mage_Core_Model_Url_Rewrite_Request
      *   config   - Mage_Core_Model_Config
      *   factory  - Mage_Core_Model_Factory
      *   routers  - array
-     *
-     * @param array $args
      */
     public function __construct(array $args)
     {

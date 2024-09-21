@@ -618,7 +618,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Atempt to void the order payment
+     * Attempt to void the order payment
      */
     public function voidPaymentAction()
     {

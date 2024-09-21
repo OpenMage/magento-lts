@@ -17,6 +17,7 @@ parameters:
         - lib/Magento
         - lib/Varien
         - shell
+        - tests/unit
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
@@ -68,9 +69,5 @@ parameters:
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
-    # For v1.12+ with "bleeding edge"
-    ignoreErrors:
-        -
-            identifier: missingType.iterableValue
 #    universalObjectCratesClasses:
 #        - Varien_Object

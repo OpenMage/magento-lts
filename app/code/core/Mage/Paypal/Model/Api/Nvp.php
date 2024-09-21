@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -873,7 +873,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Import callback request array into $this public data
      *
-     * @param array $request
      * @return Varien_Object
      */
     public function prepareShippingOptionsCallbackAddress(array $request)
@@ -917,7 +916,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Do the API call
      *
      * @param string $methodName
-     * @param array $request
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -1178,7 +1176,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $nvpstr = strpos($nvpstr, "\r\n\r\n") !== false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
 
         while (strlen($nvpstr)) {
-            //postion of Key
+            //position of Key
             $keypos = strpos($nvpstr, '=');
             //position of value
             $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&') : strlen($nvpstr);
@@ -1186,7 +1184,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             /*getting the Key and Value values and storing in a Associative Array*/
             $keyval = substr($nvpstr, $intial, $keypos);
             $valval = substr($nvpstr, $keypos + 1, $valuepos - $keypos - 1);
-            //decoding the respose
+            //decoding the response
             $nvpArray[urldecode($keyval)] = urldecode($valval);
             $nvpstr = substr($nvpstr, $valuepos + 1, strlen($nvpstr));
         }
@@ -1196,7 +1194,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * NVP doesn't support passing discount total as a separate amount - add it as a line item
      *
-     * @param array $request
      * @param int $i
      * @return true|null
      */
@@ -1235,8 +1232,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Adopt specified address object to be compatible with Magento
-     *
-     * @param Varien_Object $address
      */
     protected function _applyStreetAndRegionWorkarounds(Varien_Object $address)
     {
@@ -1277,8 +1272,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @deprecated after 1.4.2.0-beta1, use _importAddresses() instead
      *
-     * @param Varien_Object $address
-     * @param array $to
      * @return array
      */
     protected function _importAddress(Varien_Object $address, array $to)
@@ -1290,7 +1283,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Prepare request data basing on provided addresses
      *
-     * @param array $to
      * @return array
      */
     protected function _importAddresses(array $to)
@@ -1482,7 +1474,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Check the obtained RP status in NVP format and specify the profile state
      *
      * @param string $value
-     * @param Varien_Object $result
      */
     protected function _analyzeRecurringProfileStatus($value, Varien_Object $result)
     {

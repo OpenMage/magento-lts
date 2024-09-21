@@ -68,7 +68,6 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Clear tag from the separating characters
      *
-     * @param array $tagNamesArr
      * @return array
      */
     public function cleanTags(array $tagNamesArr)

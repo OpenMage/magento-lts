@@ -93,7 +93,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return table rate array or false by rate request
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return array|bool
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
@@ -177,7 +176,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -418,7 +416,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
-     * @param array $data
      * @return $this
      */
     protected function _saveImportData(array $data)

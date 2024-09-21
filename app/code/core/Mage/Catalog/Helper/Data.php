@@ -56,7 +56,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_mapApplyToProductType = null;
 
     /**
-     * Currenty selected store ID if applicable
+     * Currently selected store ID if applicable
      *
      * @var int
      */
@@ -332,7 +332,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Return MAP explanation message for "Whats This" window
+     * Return MAP explanation message for "What's This" window
      *
      * @return string
      */

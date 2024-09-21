@@ -399,7 +399,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
     /**
      * Read TAR string from file, and unpacked it.
-     * Create files and directories information about discribed
+     * Create files and directories information about described
      * in the string.
      *
      * @param string $destination path to file is unpacked

@@ -37,6 +37,7 @@
         "symfony/polyfill-php82": "^1.29"
     },
     "require-dev": {
+        "ext-xmlreader": "*",
         "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
@@ -89,7 +90,7 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
+            "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {
