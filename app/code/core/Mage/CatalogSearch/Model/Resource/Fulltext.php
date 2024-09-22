@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -224,7 +224,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Retrieve searchable products per store
      *
      * @param int $storeId
-     * @param array $staticFields
      * @param array|int $productIds
      * @param int $lastProductId
      * @param int $limit
@@ -477,7 +476,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
     }
 
     /**
-     * Returns expresion for field unification
+     * Returns expression for field unification
      *
      * @param string $field
      * @param string $backendType
@@ -502,8 +501,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
      * Load product(s) attributes
      *
      * @param int $storeId
-     * @param array $productIds
-     * @param array $attributeTypes
      * @return array
      */
     protected function _getProductAttributes($storeId, array $productIds, array $attributeTypes)

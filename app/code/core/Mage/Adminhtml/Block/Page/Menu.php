@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,7 +91,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Retrieve Title value for menu node
      *
-     * @param Varien_Simplexml_Element $child
      * @return string
      */
     protected function _getHelperValue(Varien_Simplexml_Element $child)
@@ -109,7 +108,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Recursive Build Menu array
      *
-     * @param Varien_Simplexml_Element $parent
      * @param string $path
      * @param int $level
      * @return array
@@ -187,7 +185,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Check Depends
      *
-     * @param Varien_Simplexml_Element $depends
      * @return bool
      */
     protected function _checkDepends(Varien_Simplexml_Element $depends)
@@ -291,7 +288,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Check is module output enabled
      *
-     * @param Varien_Simplexml_Element $child
      * @return bool
      */
     protected function _isEnabledModuleOutput(Varien_Simplexml_Element $child)

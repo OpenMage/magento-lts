@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,11 +115,6 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected $_removeDefaultTitle = false;
 
-    /**
-     * @param Zend_Controller_Request_Abstract $request
-     * @param Zend_Controller_Response_Abstract $response
-     * @param array $invokeArgs
-     */
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = [])
     {
         $this->_request = $request;
@@ -611,7 +606,6 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param string $action
      * @param string|null $controller
      * @param string|null $module
-     * @param array|null $params
      */
     protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
@@ -703,7 +697,6 @@ abstract class Mage_Core_Controller_Varien_Action
      * It allows to distinguish primordial request from browser with cookies disabled.
      *
      * @param   string $path
-     * @param   array $arguments
      * @return  $this
      */
     public function setRedirectWithCookieCheck($path, array $arguments = [])

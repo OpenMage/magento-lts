@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public const ENTITY = 'core_store';
 
     /**
-     * Configuration pathes
+     * Configuration paths
      * @var string
      */
     public const XML_PATH_STORE_STORE_NAME          = 'general/store_information/name';
@@ -439,8 +439,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     /**
      * Set website model
-     *
-     * @param Mage_Core_Model_Website $website
      */
     public function setWebsite(Mage_Core_Model_Website $website)
     {
@@ -511,7 +509,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Convert config values for url pathes
+     * Convert config values for url paths
      *
      * @deprecated after 1.4.2.0
      * @param string $value

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Checks inputed tags on the correctness of symbols and split string to array of tags
+     * Checks inputted tags on the correctness of symbols and split string to array of tags
      *
      * @param string $tagNamesInString
      * @return array
@@ -94,7 +94,6 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
     /**
      * Clears the tag from the separating characters.
      *
-     * @param array $tagNamesArr
      * @return array
      */
     protected function _cleanTags(array $tagNamesArr)
