@@ -498,7 +498,7 @@ td:has(input.swatch-option) {
     gap: 2px;
     .swatch-option {
         width: 26px !important;
-        height: 26px;
+        height: 21px;
     }
 }
 
@@ -510,7 +510,7 @@ td:has(input.swatch-disabled) {
     padding: 0;
     margin: 2px;
     width: 24px;
-    height: 24px;
+    height: 19px;
     display: block;
     background-position: center center;
     border-radius: 2px;
