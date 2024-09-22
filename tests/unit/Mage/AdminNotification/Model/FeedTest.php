@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class FeedTest extends TestCase
 {
-    /**
-     * @var Mage_AdminNotification_Model_Feed
-     */
     public Mage_AdminNotification_Model_Feed $subject;
 
     public function setUp(): void
