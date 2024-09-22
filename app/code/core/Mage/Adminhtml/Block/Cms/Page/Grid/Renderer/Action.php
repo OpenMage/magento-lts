@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action extends Mage_Adminhtml_
             $href = $row->getPreviewUrl();
         } else {
             $urlModel = Mage::getModel('core/url')->setStore($row->getData('_first_store_id'));
-            $href = $urlModel->getUrl(
+            $href = $urlModel->getDirectUrl(
                 $row->getIdentifier(),
                 [
                     '_current' => false,
