@@ -895,12 +895,9 @@
 'phpunit':
   - changed-files:
     - any-glob-to-any-file: [
-      dev/test/*,
-      dev/phpunit*,
-      dev/sonar*,
       phpunit*,
-      .github/workflows/phpunit.yml,
-      .github/workflows/sonar.yml
+      tests/*,
+      .github/workflows/phpunit.yml
     ]
 
 'ddev':
@@ -912,7 +909,7 @@
 
 'rector':
   - changed-files:
-      - any-glob-to-any-file: [
-        rector.php,
-        .github/workflows/rector.yml
-      ]
+    - any-glob-to-any-file: [
+      rector.php,
+      .github/workflows/rector.yml
+    ]

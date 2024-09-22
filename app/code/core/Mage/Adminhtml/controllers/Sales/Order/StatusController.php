@@ -57,7 +57,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Order Statuses'));
-        $this->loadLayout()->_setActiveMenu('system')->renderLayout();
+        $this->loadLayout()->_setActiveMenu('system/order_statuses')->renderLayout();
     }
 
     /**
@@ -73,6 +73,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         }
         $this->_title($this->__('Sales'))->_title($this->__('Create New Order Status'));
         $this->loadLayout()
+            ->_setActiveMenu('system/order_statuses')
             ->renderLayout();
     }
 
@@ -86,6 +87,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             Mage::register('current_status', $status);
             $this->_title($this->__('Sales'))->_title($this->__('Edit Order Status'));
             $this->loadLayout()
+                ->_setActiveMenu('system/order_statuses')
                 ->renderLayout();
         } else {
             $this->_getSession()->addError(
@@ -161,6 +163,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     {
         $this->_title($this->__('Sales'))->_title($this->__('Assign Order Status to State'));
         $this->loadLayout()
+            ->_setActiveMenu('system/order_statuses')
             ->renderLayout();
     }
 
