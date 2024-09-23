@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run PHPUnit
+## Usage: phpunit
+## Example: ddev phpunit
+
+php vendor/bin/phpunit --no-coverage "$@" --testdox

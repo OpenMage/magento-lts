@@ -12,6 +12,7 @@
     <file>lib/Magento/</file>
     <file>lib/Varien/</file>
     <file>shell/</file>
+    <file>tests/unit/</file>
     <!-- file contains include/include_once/... -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <!-- controllers -->

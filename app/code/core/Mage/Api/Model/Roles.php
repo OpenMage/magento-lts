@@ -99,7 +99,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Simplexml_Element|null $resource
      * @param string|null $parentName
      * @param int $level
      * @param bool|null $represent2Darray

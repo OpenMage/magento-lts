@@ -71,7 +71,6 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Actions after load
      *
-     * @param Mage_Core_Model_Abstract|Mage_Rating_Model_Rating $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -117,7 +116,6 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Actions after save
      *
-     * @param Mage_Core_Model_Abstract|Mage_Rating_Model_Rating $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -213,7 +211,6 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object delete
      * Prepare rating data for reaggregate all data for reviews
      *
-     * @param Mage_Core_Model_Abstract|Mage_Rating_Model_Rating $object
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)

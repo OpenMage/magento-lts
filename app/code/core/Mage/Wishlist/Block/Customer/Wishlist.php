@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -124,7 +124,6 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * Returns html for showing item options
      *
      * @deprecated after 1.6.2.0
-     * @param Mage_Wishlist_Model_Item $item
      * @return string
      */
     public function getDetailsHtml(Mage_Wishlist_Model_Item $item)
@@ -163,7 +162,6 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      * Returns qty to show visually to user
      *
      * @deprecated after 1.6.2.0
-     * @param Mage_Wishlist_Model_Item $item
      * @return float
      */
     public function getAddToCartQty(Mage_Wishlist_Model_Item $item)

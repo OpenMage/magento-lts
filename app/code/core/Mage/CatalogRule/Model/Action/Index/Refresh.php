@@ -56,8 +56,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      *  - 'factory' Mage_Core_Model_Factory
      *  - 'resource' Mage_Core_Model_Resource_Db_Abstract
      *  - 'app' Mage_Core_Model_App
-     *
-     * @param array $args
      */
     public function __construct(array $args)
     {
@@ -69,8 +67,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Set connection
-     *
-     * @param Varien_Db_Adapter_Interface $connection
      */
     protected function _setConnection(Varien_Db_Adapter_Interface $connection)
     {
@@ -79,8 +75,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Set factory
-     *
-     * @param Mage_Core_Model_Factory $factory
      */
     protected function _setFactory(Mage_Core_Model_Factory $factory)
     {
@@ -89,8 +83,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Set resource
-     *
-     * @param Mage_Core_Model_Resource_Db_Abstract $resource
      */
     protected function _setResource(Mage_Core_Model_Resource_Db_Abstract $resource)
     {
@@ -253,7 +245,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Prepare temporary data
      *
-     * @param Mage_Core_Model_Website $website
      * @return Varien_Db_Select
      */
     protected function _prepareTemporarySelect(Mage_Core_Model_Website $website)
@@ -455,7 +446,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Prepare index select
      *
-     * @param Mage_Core_Model_Website $website
      * @param int|Zend_Db_Expr $time
      * @return Varien_Db_Select
      */
@@ -553,8 +543,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Remove old index data
-     *
-     * @param Mage_Core_Model_Website $website
      */
     protected function _removeOldIndexData(Mage_Core_Model_Website $website)
     {
@@ -567,7 +555,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Fill Index Data
      *
-     * @param Mage_Core_Model_Website $website
      * @param int $time
      */
     protected function _fillIndexData(Mage_Core_Model_Website $website, $time)
@@ -585,7 +572,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Reindex catalog prices by website for timestamp
      *
-     * @param Mage_Core_Model_Website $website
      * @param int $timestamp
      */
     protected function _reindex(Mage_Core_Model_Website $website, $timestamp)

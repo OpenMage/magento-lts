@@ -112,7 +112,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Declare template processing filter
      *
-     * @param   Varien_Filter_Template $filter
      * @return  $this
      */
     public function setTemplateFilter(Varien_Filter_Template $filter)
@@ -284,7 +283,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email template code
      *
-     * @param   array $variables
      * @return  string
      */
     public function getProcessedTemplate(array $variables = [])
@@ -351,7 +349,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Get template code for include directive
      *
      * @param   string $template
-     * @param   array $variables
      * @return  string
      */
     public function getInclude($template, array $variables)
@@ -538,7 +535,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Process email subject
      *
-     * @param   array $variables
      * @return  string
      */
     public function getProcessedTemplateSubject(array $variables)

@@ -297,7 +297,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and then prepare options belonging to specific product type.
      *
-     * @param  Varien_Object $buyRequest
      * @param  Mage_Catalog_Model_Product $product
      * @param  string $processMode
      * @return array|string
@@ -367,7 +366,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Process product configuration
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @param string $processMode
      * @return array|string
@@ -388,7 +386,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Initialize product(s) for add to cart process.
      * Advanced version of func to prepare product for cart - processMode can be specified there.
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @param null|string $processMode
      * @return array|string
@@ -406,7 +403,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Initialize product(s) for add to cart process
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @return array|string
      */
@@ -505,7 +501,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Process custom defined options for product
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @param string $processMode
      * @return array
@@ -544,7 +539,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @deprecated after 1.4.2.0
      * @see _prepareOptions()
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @return array
      */
@@ -567,7 +561,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 if ($option->getIsRequire()) {
                     $customOption = $this->getProduct($product)
                         ->getCustomOption(self::OPTION_PREFIX . $option->getId());
-                    if (!$customOption || $customOption->getValue() === null || strlen($customOption->getValue()) === 0) {
+                    if (!$customOption || $customOption->getValue() === null || (string) $customOption->getValue() === '') {
                         $this->getProduct($product)->setSkipCheckRequiredOption(true);
                         Mage::throwException(
                             Mage::helper('catalog')->__('The product has required options')
@@ -791,7 +785,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * so need to change configuration item qty option value too.
      *
      * @param array $options
-     * @param Varien_Object $option
      * @param mixed $value
      * @param Mage_Catalog_Model_Product $product
      * @return $this

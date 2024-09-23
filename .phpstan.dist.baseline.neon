@@ -2711,11 +2711,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
 
 		-
-			message: "#^Method Mage_Directory_Model_Region\\:\\:loadByName\\(\\) invoked with 1 parameter, 2 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$data \\(stdClass\\) of method Mage_Customer_Model_Customer_Api_V2\\:\\:_prepareData\\(\\) should be compatible with parameter \\$data \\(array\\) of method Mage_Customer_Model_Customer_Api\\:\\:_prepareData\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
@@ -4864,11 +4859,6 @@ parameters:
 			message: "#^Function mysqli_connect_error invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: lib/Mage/DB/Mysqli.php
-
-		-
-			message: "#^Property Mage_HTTP_Client_Curl\\:\\:\\$_ch \\(object\\) does not accept resource\\.$#"
-			count: 1
-			path: lib/Mage/HTTP/Client/Curl.php
 
 		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"

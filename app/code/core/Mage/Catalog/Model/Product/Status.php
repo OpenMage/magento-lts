@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Add visible filter to Product Collection
      *
      * @deprecated remove on new builds
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return $this
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -72,7 +71,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      * Add saleable filter to Product Collection
      *
      * @deprecated remove on new builds
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return $this
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)

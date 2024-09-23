@@ -33,7 +33,6 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Update customer type after customer login
      *
-     * @param Mage_Reports_Model_Event $model
      * @param int $visitorId
      * @param int $customerId
      * @param array $types
@@ -57,10 +56,9 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Add events log to a collection
-     * The collection id field is used without corellation, so it must be unique.
+     * The collection id field is used without correlation, so it must be unique.
      * DESC ordering by event will be added to the collection
      *
-     * @param Varien_Data_Collection_Db $collection
      * @param int $eventTypeId
      * @param int $eventSubjectId
      * @param int $subtype
@@ -108,7 +106,6 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Obtain all current store ids, depending on configuration
      *
-     * @param array|null $predefinedStoreIds
      * @return array
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -151,7 +148,6 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Clean report event table
      *
-     * @param Mage_Reports_Model_Event $object
      * @return $this
      */
     public function clean(Mage_Reports_Model_Event $object)

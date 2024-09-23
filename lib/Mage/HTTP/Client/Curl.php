@@ -89,7 +89,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var object
+     * @var false|resource
      */
     protected $_ch;
 
@@ -381,7 +381,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Throw error excpetion
+     * Throw error exception
      * @param $string
      * @throws Exception
      * @return never
@@ -392,12 +392,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Parse headers - CURL callback functin
+     * Parse headers - CURL callback function
      *
      * @param resource $ch curl handle, not needed
      * @param string   $data
-     *
-     * @return int
      */
     protected function parseHeaders($ch, $data): int
     {
@@ -431,8 +429,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * @param array $line
-     *
      * @throws Exception
      */
     protected function validateHttpVersion(array $line)
