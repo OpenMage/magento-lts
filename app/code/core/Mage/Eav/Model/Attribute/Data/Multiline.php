@@ -24,7 +24,6 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Extract data from request and return value
      *
-     * @param Zend_Controller_Request_Http $request
      * @return array|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)

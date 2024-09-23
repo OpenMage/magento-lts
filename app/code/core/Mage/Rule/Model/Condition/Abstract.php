@@ -174,7 +174,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param array $arrAttributes
      * @return array
      */
     public function asArray(array $arrAttributes = [])
@@ -824,7 +823,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
-     * @param Varien_Object $object
      * @return bool
      */
     public function validate(Varien_Object $object)

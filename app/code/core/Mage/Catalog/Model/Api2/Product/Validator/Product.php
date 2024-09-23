@@ -84,7 +84,6 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Validate product data
      *
-     * @param array $data
      * @return bool
      */
     public function isValidData(array $data)
@@ -583,7 +582,6 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     /**
      * Retrieve all attribute allowed values from source model in plain array format
      *
-     * @param array $options
      * @return array
      */
     protected function _getAttributeAllowedValues(array $options)

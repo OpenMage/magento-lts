@@ -134,7 +134,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Get address object which can be used for discount calculation
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_Sales_Model_Quote_Address
      */
     protected function _getAddress(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -238,7 +237,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * This process not affect information about applied rules, coupon code etc.
      * This information will be added during discount amounts processing
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_SalesRule_Model_Validator
      */
     public function processFreeShipping(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -275,7 +273,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Reset quote and address applied rules
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function reset(Mage_Sales_Model_Quote_Address $address)
@@ -293,7 +290,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Quote item discount calculation process
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return Mage_SalesRule_Model_Validator
      * @throws Mage_Core_Exception
      */
@@ -525,7 +521,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Apply discount amount to FPT
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @param array $items
      * @return $this
      */
@@ -743,7 +738,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     /**
      * Apply discounts to shipping amount
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_SalesRule_Model_Validator
      */
     public function processShippingAmount(Mage_Sales_Model_Quote_Address $address)
@@ -881,7 +875,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Calculate quote totals for each rule and save results
      *
      * @param mixed $items
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function initTotals($items, Mage_Sales_Model_Quote_Address $address)

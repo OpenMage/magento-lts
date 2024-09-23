@@ -737,9 +737,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Returns the country code used in VAT number which can be different from the ISO-2 country code.
-     *
-     * @param string $countryCode
-     * @return string
      */
     protected function _getCountryCodeForVatNumber(string $countryCode): string
     {

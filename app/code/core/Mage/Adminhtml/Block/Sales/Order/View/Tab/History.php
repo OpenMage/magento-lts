@@ -123,7 +123,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Status history date/datetime getter
      *
-     * @param array $item
      * @param string $dateType
      * @param string $format
      * @return string
@@ -142,7 +141,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Status history item title getter
      *
-     * @param array $item
      * @return string
      */
     public function getItemTitle(array $item)
@@ -153,7 +151,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Check whether status history comment is with customer notification
      *
-     * @param array $item
      * @param bool $isSimpleCheck
      * @return bool
      */
@@ -168,7 +165,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     /**
      * Status history item comment getter
      *
-     * @param array $item
      * @return string
      */
     public function getItemComment(array $item)

@@ -427,7 +427,6 @@ class Mage_Paypal_Model_Cart
     /**
      * Add a usual line item with amount and qty
      *
-     * @param Varien_Object $salesItem
      * @return Varien_Object
      */
     protected function _addRegularItem(Varien_Object $salesItem)

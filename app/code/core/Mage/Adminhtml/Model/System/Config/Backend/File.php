@@ -208,8 +208,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
 
     /**
      * Add validators for uploading
-     *
-     * @param Mage_Core_Model_File_Uploader $uploader
      */
     protected function addValidators(Mage_Core_Model_File_Uploader $uploader)
     {

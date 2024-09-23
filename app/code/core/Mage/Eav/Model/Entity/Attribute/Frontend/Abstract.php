@@ -78,7 +78,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     /**
      * Retrieve attribute value
      *
-     * @param Varien_Object $object
      * @return mixed
      */
     public function getValue(Varien_Object $object)

@@ -24,9 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class HeaderTest extends TestCase
 {
-    /**
-     * @var Mage_Page_Block_Html_Header
-     */
     public Mage_Page_Block_Html_Header $subject;
 
     public function setUp(): void

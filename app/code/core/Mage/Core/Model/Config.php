@@ -425,8 +425,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Load environment variables and override config
-     *
-     * @return self
      */
     public function loadEnv(): Mage_Core_Model_Config
     {
@@ -1702,9 +1700,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get config value from DB
      *
-     * @param   string $path
-     * @param   string $scope
-     * @param   int $scopeId
      * @return  string|false
      */
     public function getConfig(string $path, string $scope = 'default', int $scopeId = 0)
@@ -1796,7 +1791,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Makes all events to lower-case
      *
      * @param string $area
-     * @param Varien_Simplexml_Config $mergeModel
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
@@ -1822,7 +1816,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Checks is event name has upper-case letters
      *
-     * @param Mage_Core_Model_Config_Element $event
      * @return bool
      */
     protected function _isNodeNameHasUpperCase(Mage_Core_Model_Config_Element $event)

@@ -140,7 +140,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     /**
      * Declare order for shipment
      *
-     * @param   Mage_Sales_Model_Order $order
      * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
@@ -273,7 +272,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Shipment_Item $item
      * @return $this
      * @throws Exception
      */
@@ -335,7 +333,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Shipment_Track $track
      * @return $this
      * @throws Exception
      */

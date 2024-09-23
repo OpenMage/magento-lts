@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class VisitorTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Visitor
-     */
     public Mage_Log_Model_Visitor $subject;
 
     public function setUp(): void
@@ -42,5 +39,45 @@ class VisitorTest extends TestCase
     public function testInitServerData(): void
     {
         $this->assertInstanceOf(Mage_Log_Model_Visitor::class, $this->subject->initServerData());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetOnlineMinutesInterval(): void
+    {
+        $this->assertIsInt($this->subject->getOnlineMinutesInterval());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetUrl(): void
+    {
+        $this->assertIsString($this->subject->getUrl());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetFirstVisitAt(): void
+    {
+        $this->assertIsString($this->subject->getFirstVisitAt());
+    }
+
+    /**
+     * @group Mage_Log
+     * @group Mage_Log_Model
+     * @runInSeparateProcess
+     */
+    public function testGetLastVisitAt(): void
+    {
+        $this->assertIsString($this->subject->getLastVisitAt());
     }
 }

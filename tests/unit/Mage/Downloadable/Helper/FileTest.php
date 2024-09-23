@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    /**
-     * @var Mage_Downloadable_Helper_File
-     */
     public Mage_Downloadable_Helper_File $subject;
 
     public function setUp(): void
@@ -36,10 +33,6 @@ class FileTest extends TestCase
 
     /**
      * @dataProvider provideGetFilePathData
-     * @param string $expectedResult
-     * @param string $path
-     * @param string|null $file
-     * @return void
      *
      * @group Mage_Downloadable
      */

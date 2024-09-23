@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class RedirectTest extends TestCase
 {
-    /**
-     * @var Mage_Page_Block_Redirect
-     */
     public Mage_Page_Block_Redirect $subject;
 
     public function setUp(): void

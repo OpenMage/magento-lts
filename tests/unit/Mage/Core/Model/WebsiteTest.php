@@ -27,9 +27,6 @@ use Varien_Db_Select;
 
 class WebsiteTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Model_Website
-     */
     public Mage_Core_Model_Website $subject;
 
     public function setUp(): void

@@ -65,8 +65,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Class constructor
-     *
-     * @param Mage_Sales_Model_Quote $quote
      */
     public function __construct(Mage_Sales_Model_Quote $quote)
     {
@@ -77,7 +75,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Quote converter declaration
      *
-     * @param   Mage_Sales_Model_Convert_Quote $convertor
      * @return  Mage_Sales_Model_Service_Quote
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
@@ -99,7 +96,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Specify additional order data
      *
-     * @param array $data
      * @return $this
      */
     public function setOrderData(array $data)

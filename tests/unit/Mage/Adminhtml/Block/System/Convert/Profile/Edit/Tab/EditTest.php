@@ -19,13 +19,11 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile\Edit\T
 
 use Mage;
 use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit;
+use Mage_Dataflow_Model_Profile;
 use PHPUnit\Framework\TestCase;
 
 class EditTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit
-     */
     public Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit $subject;
 
     public function setUp(): void
@@ -36,12 +34,20 @@ class EditTest extends TestCase
     }
 
     /**
-     * @return void
-     *
      * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
      */
-//    public function testInitForm(): void
-//    {
-//        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class, $this->subject->initForm());
-//    }
+    public function testInitForm(): void
+    {
+        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class)
+            ->setMethods(['getRegistryCurrentConvertProfile'])
+            ->getMock();
+
+        $mock->expects($this->any())
+            ->method('getRegistryCurrentConvertProfile')
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+            ->willReturn(new Mage_Dataflow_Model_Profile());
+
+        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class, $mock->initForm());
+    }
 }

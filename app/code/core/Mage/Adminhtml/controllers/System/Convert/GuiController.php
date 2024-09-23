@@ -47,7 +47,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         /**
          * Append profiles block to content
@@ -89,7 +89,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
 
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')

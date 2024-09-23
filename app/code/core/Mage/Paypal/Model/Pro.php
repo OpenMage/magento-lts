@@ -92,7 +92,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Config instance setter
      *
-     * @param Mage_Paypal_Model_Config $instace
      * @param int $storeId
      * @return $this
      */
@@ -159,7 +158,6 @@ class Mage_Paypal_Model_Pro
      * Transfer transaction/payment information from API instance to order payment
      *
      * @param Mage_Paypal_Model_Api_Abstract $from
-     * @param Mage_Payment_Model_Info $to
      * @return $this
      */
     public function importPaymentInfo(Varien_Object $from, Mage_Payment_Model_Info $to)
@@ -190,8 +188,6 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Void transaction
-     *
-     * @param Varien_Object $payment
      */
     public function void(Varien_Object $payment)
     {
@@ -208,7 +204,6 @@ class Mage_Paypal_Model_Pro
      * Attempt to capture payment
      * Will return false if the payment is not supposed to be captured
      *
-     * @param Varien_Object $payment
      * @param float $amount
      * @return false|null
      */
@@ -234,7 +229,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Refund a capture transaction
      *
-     * @param Varien_Object $payment
      * @param float $amount
      */
     public function refund(Varien_Object $payment, $amount)
@@ -262,8 +256,6 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Cancel payment
-     *
-     * @param Varien_Object $payment
      */
     public function cancel(Varien_Object $payment)
     {
@@ -285,7 +277,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Perform the payment review
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $action
      * @return bool
      */
@@ -310,7 +301,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Fetch transaction details info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -328,7 +318,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Validate RP data
      *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      * @throws Mage_Core_Exception
      */
     public function validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
@@ -353,8 +342,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Submit RP to the gateway
      *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
-     * @param Mage_Payment_Model_Info $paymentInfo
      * @throws Mage_Core_Exception
      */
     public function submitRecurringProfile(
@@ -384,7 +371,6 @@ class Mage_Paypal_Model_Pro
      * Fetch RP details
      *
      * @param string $referenceId
-     * @param Varien_Object $result
      */
     public function getRecurringProfileDetails($referenceId, Varien_Object $result)
     {
@@ -396,8 +382,6 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Update RP data
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
@@ -405,8 +389,6 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Manage status
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      */
     public function updateRecurringProfileStatus(Mage_Payment_Model_Recurring_Profile $profile)
     {
@@ -464,7 +446,6 @@ class Mage_Paypal_Model_Pro
     /**
      * Parent transaction id getter
      *
-     * @param Varien_Object $payment
      * @return string
      */
     protected function _getParentTransactionId(Varien_Object $payment)

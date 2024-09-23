@@ -152,7 +152,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Prepare select object for loading entity attributes values
      *
-     * @param array $selects
      * @return Varien_Db_Select
      */
     protected function _prepareLoadSelect(array $selects)
@@ -511,7 +510,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Check is attribute value empty
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return bool
      */
@@ -525,9 +523,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value New value of the attribute.
-     * @param array $origData
      * @return bool
      */
     protected function _canUpdateAttribute(
@@ -552,7 +548,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Prepare value for save
      *
      * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return mixed
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)

@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class LocaleTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Model_Locale
-     */
     public Mage_Core_Model_Locale $subject;
 
     public function setUp(): void
@@ -36,9 +33,7 @@ class LocaleTest extends TestCase
 
     /**
      * @dataProvider provideGetNumberData
-     * @param float|null $expectedResult
      * @param string|float|int $value
-     * @return void
      *
      * @group Mage_Core
      */

@@ -86,7 +86,6 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Declare Shipment instance
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
      * @return $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)

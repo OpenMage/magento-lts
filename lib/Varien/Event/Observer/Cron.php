@@ -30,7 +30,6 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      *
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
-     * @param Varien_Event $event
      * @return boolean
      */
     public function isValidFor(Varien_Event $event)

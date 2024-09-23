@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +153,6 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Return scope values for attribute and website
      *
-     * @param Mage_Eav_Model_Attribute $object
      * @return array
      */
     public function getScopeValues(Mage_Eav_Model_Attribute $object)
@@ -180,7 +179,6 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Return forms in which the attribute
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return array
      */
     public function getUsedInForms(Mage_Core_Model_Abstract $object)

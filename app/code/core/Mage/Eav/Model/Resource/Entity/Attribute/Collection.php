@@ -144,7 +144,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify multiple attribute sets filter
      * Result will be ordered by sort_order
      *
-     * @param array $setIds
      * @return $this
      */
     public function setAttributeSetsFilter(array $setIds)
@@ -164,7 +163,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Filter for selecting of attributes that is in all sets
      *
-     * @param array $setIds
      * @return $this
      */
     public function setInAllAttributeSetsFilter(array $setIds)

@@ -48,7 +48,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Retrieve old stule edit button html for editing of giftmessage in popup
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @return string
      */
     public function getButton($type, Varien_Object $entity)
@@ -68,7 +67,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Retrieve inline giftmessage edit form for specified entity
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @param bool $dontDisplayContainer
      * @return string
      */
@@ -91,7 +89,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability of giftmessages for specified entity.
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @param Mage_Core_Model_Store|integer $store
      * @return bool|int
      */
@@ -170,7 +167,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Alias for isMessagesAvailable(...)
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @param Mage_Core_Model_Store|integer $store
      * @return bool|int
      */
@@ -182,7 +178,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve escaped and preformatted gift message text for specified entity
      *
-     * @param Varien_Object $entity
      * @return string|null
      */
     public function getEscapedGiftMessage(Varien_Object $entity)
@@ -197,7 +192,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message for entity. If message not exists return null
      *
-     * @param Varien_Object $entity
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessageForEntity(Varien_Object $entity)

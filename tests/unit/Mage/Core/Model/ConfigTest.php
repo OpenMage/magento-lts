@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    /**
-     * @var Mage_Core_Model_Config
-     */
     public Mage_Core_Model_Config $subject;
 
     public function setUp(): void
@@ -21,6 +18,10 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('core/config');
     }
 
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Model
+     */
     public function testSaveDeleteGetConfig(): void
     {
         $path = 'test/config';

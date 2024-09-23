@@ -22,7 +22,6 @@
 class Mage_Sales_Model_Order_Invoice_Total_Shipping extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)

@@ -406,7 +406,6 @@ class Mage_Core_Model_App
     /**
      * Initialize application cache instance
      *
-     * @param array $cacheInitOptions
      * @return $this
      */
     protected function _initCache(array $cacheInitOptions = [])
@@ -1288,7 +1287,6 @@ class Mage_Core_Model_App
     /**
      * Request setter
      *
-     * @param Mage_Core_Controller_Request_Http $request
      * @return $this
      */
     public function setRequest(Mage_Core_Controller_Request_Http $request)
@@ -1346,7 +1344,6 @@ class Mage_Core_Model_App
     /**
      * Response setter
      *
-     * @param Mage_Core_Controller_Response_Http $response
      * @return $this
      */
     public function setResponse(Mage_Core_Controller_Response_Http $response)

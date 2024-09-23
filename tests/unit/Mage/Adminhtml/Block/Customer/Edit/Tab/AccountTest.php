@@ -25,9 +25,6 @@ use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase
 {
-    /**
-     * @var Mage_Adminhtml_Block_Customer_Edit_Tab_Account
-     */
     public Mage_Adminhtml_Block_Customer_Edit_Tab_Account $subject;
 
     public function setUp(): void
@@ -38,7 +35,6 @@ class AccountTest extends TestCase
     }
 
     /**
-     * @return void
      * @throws Mage_Core_Exception
      *
      * @group Mage_Adminhtml

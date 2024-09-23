@@ -225,8 +225,6 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * If template path value has "../"
      *
      * @throws Exception
-     *
-     * @param array $templatePaths
      */
     public function validateTemplatePath(array $templatePaths)
     {

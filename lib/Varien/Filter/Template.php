@@ -56,8 +56,6 @@ class Varien_Filter_Template implements Zend_Filter_Interface
 
     /**
      * Sets template variables that's can be called through {var ...} statement
-     *
-     * @param array $variables
      */
     public function setVariables(array $variables)
     {

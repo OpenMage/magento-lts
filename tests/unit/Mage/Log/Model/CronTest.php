@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class CronTest extends TestCase
 {
-    /**
-     * @var Mage_Log_Model_Cron
-     */
     public Mage_Log_Model_Cron $subject;
 
     public function setUp(): void

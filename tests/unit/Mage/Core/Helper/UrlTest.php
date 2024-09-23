@@ -29,9 +29,6 @@ class UrlTest extends TestCase
 
     public const TEST_URL_PUNY = 'http://XN--example.com?foo=bar&boo=baz';
 
-    /**
-     * @var Mage_Core_Helper_Url
-     */
     public Mage_Core_Helper_Url $subject;
 
     public function setUp(): void
