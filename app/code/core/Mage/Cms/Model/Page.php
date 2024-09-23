@@ -126,9 +126,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     /**
      * Retrieves cms page title from DB by passed identifier.
-     *
-     * @param string $identifier
-     * @return string
      */
     public function getCmsPageTitleByIdentifier(string $identifier): string
     {
@@ -139,7 +136,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page title from DB by passed id.
      *
      * @param string|int $id
-     * @return string
      */
     public function getCmsPageTitleById($id): string
     {
@@ -150,7 +146,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * Retrieves cms page identifier from DB by passed id.
      *
      * @param string|int $id
-     * @return string
      */
     public function getCmsPageIdentifierById($id): string
     {
