@@ -34,7 +34,6 @@ class NewsletterTest extends TestCase
     }
 
     /**
-     * @return void
      *
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Block
