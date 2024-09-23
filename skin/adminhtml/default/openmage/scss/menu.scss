@@ -145,6 +145,14 @@
       }
     }
 
+    &.level1, &.level2, &.level3 {
+      > a {
+        &.active:not(:hover) {
+          background: darken($white,10);
+        }
+      }
+    }
+
     &#bubblelauncher-status {
       a {
         background-position: center 8px;
