@@ -34,7 +34,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
     {
         // set active menu and breadcrumbs
         $this->loadLayout()
-            ->_setActiveMenu('system/currency')
+            ->_setActiveMenu('system/currency/symbols')
             ->_addBreadcrumb(
                 Mage::helper('currencysymbol')->__('System'),
                 Mage::helper('currencysymbol')->__('System')

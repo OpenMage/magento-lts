@@ -35,7 +35,6 @@ class AccountTest extends TestCase
     }
 
     /**
-     * @return void
      * @throws Mage_Core_Exception
      *
      * @group Mage_Adminhtml

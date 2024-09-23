@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('_view');
 
-        $model = Mage::registry('current_convert_profile');
+        $model = $this->getRegistryCurrentConvertProfile();
 
         $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => Mage::helper('adminhtml')->__('View Actions XML'),
@@ -49,5 +49,10 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
         $this->setForm($form);
 
         return $this;
+    }
+
+    protected function getRegistryCurrentConvertProfile(): ?Mage_Dataflow_Model_Profile
+    {
+        return Mage::registry('current_convert_profile');
     }
 }

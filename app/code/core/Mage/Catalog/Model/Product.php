@@ -699,7 +699,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function hasStockItem()
     {
-        return !!$this->_stockItem;
+        return (bool) $this->_stockItem;
     }
 
     /**
