@@ -425,6 +425,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         );
 
         $collection->setFlag('product_children', true)
+            ->setFlag('require_stock_items', true)
             ->addStoreFilter($storeId)
             ->addAttributeToSelect($this->_getChildrenProductsAttributes());
         $collection->addProductSetFilter($productIds);
