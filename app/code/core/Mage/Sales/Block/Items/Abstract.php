@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +83,6 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Prepare item before output
      *
-     * @param Mage_Core_Block_Abstract $renderer
      * @return $this
      */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
@@ -94,7 +93,6 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Return product type for quote/order item
      *
-     * @param Varien_Object $item
      * @return string
      */
     protected function _getItemType(Varien_Object $item)
@@ -112,7 +110,6 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Get item row html
      *
-     * @param   Varien_Object $item
      * @return  string
      */
     public function getItemHtml(Varien_Object $item)

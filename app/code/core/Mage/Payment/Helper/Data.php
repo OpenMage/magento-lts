@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -106,7 +106,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment method form html
      *
-     * @param Mage_Payment_Model_Method_Abstract $method
      * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
@@ -123,7 +122,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment information block
      *
-     * @param   Mage_Payment_Model_Info $info
      * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)

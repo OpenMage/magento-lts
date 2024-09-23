@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,8 +44,6 @@ class Mage_Api2_Model_Acl_Filter
 
     /**
      * Object constructor
-     *
-     * @param Mage_Api2_Model_Resource $resource
      */
     public function __construct(Mage_Api2_Model_Resource $resource)
     {
@@ -161,7 +159,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data for write operations
      *
-     * @param array $requestData
      * @return array
      */
     public function in(array $requestData)
@@ -174,7 +171,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data before output
      *
-     * @param array $retrievedData
      * @return array
      */
     public function out(array $retrievedData)

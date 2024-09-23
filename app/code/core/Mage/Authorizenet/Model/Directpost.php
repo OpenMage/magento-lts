@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send authorize request to gateway
      *
-     * @param  Varien_Object $payment
      * @param  float $amount
      * @return void
      * @throws Mage_Core_Exception
@@ -67,7 +66,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send capture request to gateway
      *
-     * @param Varien_Object $payment
      * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -127,7 +125,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -138,7 +135,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Void the payment through gateway
      *
-     * @param Varien_Object $payment
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -203,7 +199,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Refund the amount
      * Need to decode Last 4 digits for request.
      *
-     * @param Varien_Object $payment
      * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -225,7 +220,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
-     * @param Varien_Object $payment
      * @param string $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -370,7 +364,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Fill response with data.
      *
-     * @param array $postData
      * @return $this
      */
     public function setResponseData(array $postData)
@@ -457,8 +450,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
     /**
      * Fill payment with credit card data from response from Authorize.net.
-     *
-     * @param Varien_Object $payment
      */
     protected function _fillPaymentByResponse(Varien_Object $payment)
     {
@@ -525,7 +516,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
      *
-     * @param Mage_Sales_Model_Order $order
      *
      * @throws Exception
      */
@@ -589,7 +579,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Register order cancellation. Return money to customer if needed.
      *
-     * @param Mage_Sales_Model_Order $order
      * @param string $message
      * @param bool $voidPayment
      */
@@ -616,8 +605,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
     /**
      * Capture order's payment using AIM.
-     *
-     * @param Mage_Sales_Model_Order $order
      */
     protected function _captureOrder(Mage_Sales_Model_Order $order)
     {

@@ -33,7 +33,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/acl')
+            ->_setActiveMenu('system/acl/variables')
             ->_addBreadcrumb($this->__('System'), $this->__('System'))
             ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
             ->_addBreadcrumb($this->__('Variables'), $this->__('Variables'));

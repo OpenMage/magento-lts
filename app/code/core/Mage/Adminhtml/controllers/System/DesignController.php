@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->_title($this->__('System'))->_title($this->__('Design'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system');
+        $this->_setActiveMenu('system/design');
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_design'));
         $this->renderLayout();
     }
@@ -61,7 +61,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->_title($this->__('System'))->_title($this->__('Design'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system');
+        $this->_setActiveMenu('system/design');
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $id  = (int) $this->getRequest()->getParam('id');

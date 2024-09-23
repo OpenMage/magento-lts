@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -406,9 +406,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Declare adress quote model object
+     * Declare address quote model object
      *
-     * @param   Mage_Sales_Model_Quote $quote
      * @return  $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -436,7 +435,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Import quote address data from customer address object
      *
-     * @param   Mage_Customer_Model_Address $address
      * @return  $this
      */
     public function importCustomerAddress(Mage_Customer_Model_Address $address)
@@ -469,7 +467,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Import address data from order address
      *
-     * @param   Mage_Sales_Model_Order_Address $address
      * @return  $this
      */
     public function importOrderAddress(Mage_Sales_Model_Order_Address $address)
@@ -487,7 +484,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Convert object to array
      *
-     * @param   array $arrAttributes
      * @return  array
      */
     public function toArray(array $arrAttributes = [])
@@ -761,7 +757,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add item to address
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @param   int $qty
      * @return  $this
      */
@@ -925,7 +920,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     /**
      * Add shipping rate
      *
-     * @param Mage_Sales_Model_Quote_Address_Rate $rate
      * @return $this
      */
     public function addShippingRate(Mage_Sales_Model_Quote_Address_Rate $rate)
@@ -969,7 +963,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * Request shipping rates for entire address or specified address item
      * Returns true if current selected shipping method code corresponds to one of the found rates
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract|null $item
      * @return bool
      */
     public function requestShippingRates(?Mage_Sales_Model_Quote_Item_Abstract $item = null)
@@ -1341,9 +1334,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         return $this->getSubtotal() + $this->getDiscountAmount();
     }
 
-    /**
-     * @return string
-     */
     public function getCouponCode(): string
     {
         return (string)$this->_getData('coupon_code');

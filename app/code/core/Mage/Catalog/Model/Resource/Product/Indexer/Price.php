@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +70,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Process produce delete
      * If the deleted product was found in a composite product(s) update it
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
@@ -135,7 +134,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * Method is responsible for index support
      * when product was saved and changed attribute(s) has an effect on price.
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductSave(Mage_Index_Model_Event $event)
@@ -193,7 +191,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Process product mass update action
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)

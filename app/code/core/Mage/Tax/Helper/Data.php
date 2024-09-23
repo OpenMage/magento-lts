@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -110,8 +110,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Initialize helper instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -466,7 +464,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Get product price with all tax settings processing
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param float $price inputed product price
+     * @param float $price inputted product price
      * @param bool $includingTax return price include tax flag
      * @param null|Mage_Customer_Model_Address $shippingAddress
      * @param null|Mage_Customer_Model_Address $billingAddress
@@ -1211,7 +1209,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * Use flag to store ignore setting rather than config to avoid config reinit/save
      * Read config value for backwards compatibility.
      *
-     * @param string $key
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @throws Throwable
@@ -1231,8 +1228,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $key
-     * @param bool $value
      * @return void
      * @throws Throwable
      */

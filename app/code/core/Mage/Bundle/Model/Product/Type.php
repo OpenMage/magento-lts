@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -420,7 +420,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * so need to change quote item qty option value too.
      *
      * @param   array           $options
-     * @param   Varien_Object|Mage_Sales_Model_Quote_Item_Option   $option
      * @param   mixed           $value
      * @param   Mage_Catalog_Model_Product $product
      * @return  Mage_Bundle_Model_Product_Type
@@ -511,7 +510,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and then prepare of bundle selections options.
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @param string $processMode
      * @return array|string
