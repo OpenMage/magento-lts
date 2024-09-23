@@ -29,8 +29,6 @@ class Mage_Eav_Block_Widget_Abstract extends Mage_Core_Block_Template
 {
     /**
      * Check if attribute enabled in system
-     *
-     * @return bool
      */
     public function isEnabled(): bool
     {
@@ -39,17 +37,12 @@ class Mage_Eav_Block_Widget_Abstract extends Mage_Core_Block_Template
 
     /**
      * Check if attribute marked as required
-     *
-     * @return bool
      */
     public function isRequired(): bool
     {
         return (bool)$this->getAttribute()->getIsRequired();
     }
 
-    /**
-     * @return string
-     */
     public function getFieldIdFormat(): string
     {
         if (!$this->hasData('field_id_format')) {
@@ -58,9 +51,6 @@ class Mage_Eav_Block_Widget_Abstract extends Mage_Core_Block_Template
         return $this->getData('field_id_format');
     }
 
-    /**
-     * @return string
-     */
     public function getFieldNameFormat(): string
     {
         if (!$this->hasData('field_name_format')) {

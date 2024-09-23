@@ -85,8 +85,6 @@ class Mage_Eav_Block_Widget_Date extends Mage_Eav_Block_Widget_Abstract
 
     /**
      * Sort date inputs by dateformat order of current locale
-     *
-     * @return string
      */
     public function getSortedDateInputs(): string
     {
