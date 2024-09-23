@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
-    /**
-     * @var Mage_Cms_Model_Page
-     */
     public Mage_Cms_Model_Page $subject;
 
     public function setUp(): void
