@@ -20,12 +20,8 @@ declare(strict_types=1);
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Catalog_Category_AttributeController extends Mage_Eav_Adminhtml_Attribute_AbstractController
+class Mage_Adminhtml_Catalog_Category_AttributeController extends Mage_Eav_Controller_Adminhtml_Attribute_Abstract
 {
-    /**
-     * Additional initialization
-     *
-     */
     protected function _construct(): void
     {
         $this->_entityCode = Mage_Catalog_Model_Category::ENTITY;
