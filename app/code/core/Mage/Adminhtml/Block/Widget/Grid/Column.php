@@ -352,15 +352,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             case 'options':
                 $filterClass = 'adminhtml/widget_grid_column_filter_select';
                 break;
-
             case 'massaction':
                 $filterClass = 'adminhtml/widget_grid_column_filter_massaction';
                 break;
-
             case 'checkbox':
                 $filterClass = 'adminhtml/widget_grid_column_filter_checkbox';
                 break;
-
             case 'radio':
                 $filterClass = 'adminhtml/widget_grid_column_filter_radio';
                 break;
