@@ -2,40 +2,30 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
- * Attribute set controller
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
+/**
+ * @category   Mage
+ * @package    Mage_Eav
+ */
 abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_Controller_Action
 {
-    /** @var string $_entityCode */
-    protected $_entityCode;
+    protected string $_entityCode;
 
-    /** @var Mage_Eav_Model_Entity_Type $_entityType */
-    protected $_entityType;
+    protected Mage_Eav_Model_Entity_Type $_entityType;
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -54,14 +44,14 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
         return $this->loadLayout();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->_initAction()
              ->_addContent($this->getLayout()->createBlock('eav/adminhtml_attribute_set'))
              ->renderLayout();
     }
 
-    public function editAction()
+    public function editAction(): void
     {
         $attributeSet = Mage::getModel('eav/entity_attribute_set')
             ->load($this->getRequest()->getParam('id'));
@@ -82,7 +72,7 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
         $this->renderLayout();
     }
 
-    public function setGridAction()
+    public function setGridAction(): void
     {
         $this->getResponse()->setBody(
             $this->getLayout()
@@ -98,7 +88,7 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
      * [AJAX] Save attribute set data
      *
      */
-    public function saveAction()
+    public function saveAction(): void
     {
         $entityTypeId   = $this->_entityType->getEntityTypeId();
         $hasError       = false;
@@ -107,7 +97,7 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
 
         /** @var Mage_Eav_Model_Entity_Attribute_Set $model */
         $model  = Mage::getModel('eav/entity_attribute_set')
-                ->setEntityTypeId($entityTypeId);
+            ->setEntityTypeId($entityTypeId);
 
         /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
@@ -170,7 +160,7 @@ abstract class Mage_Eav_Adminhtml_Set_AbstractController extends Mage_Adminhtml_
         }
     }
 
-    public function addAction()
+    public function addAction(): void
     {
         $this->_initAction()
              ->_title($this->__('New Set'))

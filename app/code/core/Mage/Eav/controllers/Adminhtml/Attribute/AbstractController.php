@@ -2,40 +2,30 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
- * Attribute controller
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
+/**
+ * @category   Mage
+ * @package    Mage_Eav
+ */
 abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Adminhtml_Controller_Action
 {
-    /** @var string $_entityCode */
-    protected $_entityCode;
+    protected string $_entityCode;
 
-    /** @var Mage_Eav_Model_Entity_Type $_entityType */
-    protected $_entityType;
+    protected Mage_Eav_Model_Entity_Type $_entityType;
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -54,23 +44,23 @@ abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Admi
         return $this->loadLayout();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->_initAction()
              ->_addContent($this->getLayout()->createBlock('eav/adminhtml_attribute'))
              ->renderLayout();
     }
 
-    public function newAction()
+    public function newAction(): void
     {
         $this->_forward('edit');
     }
 
-    public function editAction()
+    public function editAction(): void
     {
         $id = $this->getRequest()->getParam('attribute_id');
         $model = Mage::getModel($this->_entityType->getAttributeModel())
-               ->setEntityTypeId($this->_entityType->getEntityTypeId());
+            ->setEntityTypeId($this->_entityType->getEntityTypeId());
         if ($id) {
             $model->load($id);
 
@@ -120,7 +110,7 @@ abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Admi
         $this->renderLayout();
     }
 
-    public function validateAction()
+    public function validateAction(): void
     {
         $response = new Varien_Object();
         $response->setError(false);
@@ -146,11 +136,8 @@ abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Admi
 
     /**
      * Filter post data
-     *
-     * @param array $data
-     * @return array
      */
-    protected function _filterPostData($data)
+    protected function _filterPostData(array $data): array
     {
         if ($data) {
             //labels
@@ -172,7 +159,11 @@ abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Admi
         return $data;
     }
 
-    public function saveAction()
+    /**
+     * @throws Zend_Validate_Exception
+     * @throws Throwable
+     */
+    public function saveAction(): void
     {
         $data = $this->getRequest()->getPost();
         if ($data) {
@@ -316,7 +307,7 @@ abstract class Mage_Eav_Adminhtml_Attribute_AbstractController extends Mage_Admi
         $this->_redirect('*/*/');
     }
 
-    public function deleteAction()
+    public function deleteAction(): void
     {
         if ($id = $this->getRequest()->getParam('attribute_id')) {
             $model = Mage::getModel($this->_entityType->getAttributeModel());

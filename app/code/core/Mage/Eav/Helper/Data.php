@@ -142,11 +142,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
      * Return information array of attribute input types
      * Only a small number of settings returned, so we won't break anything in current dataflow
      * As soon as development process goes on we need to add there all possible settings
-     *
-     * @param string $inputType
-     * @return array
      */
-    public function getAttributeInputTypes($inputType = null)
+    public function getAttributeInputTypes(?string $inputType = null): array
     {
         /**
         * @todo specify there all relations for properties depending on input type
@@ -170,11 +167,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Return default attribute backend model by input type
-     *
-     * @param string $inputType
-     * @return string|null
      */
-    public function getAttributeBackendModelByInputType($inputType)
+    public function getAttributeBackendModelByInputType(string $inputType): ?string
     {
         $inputTypes = $this->getAttributeInputTypes();
         if (!empty($inputTypes[$inputType]['backend_model'])) {
@@ -185,11 +179,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Return default attribute source model by input type
-     *
-     * @param string $inputType
-     * @return string|null
      */
-    public function getAttributeSourceModelByInputType($inputType)
+    public function getAttributeSourceModelByInputType(string $inputType): ?string
     {
         $inputTypes = $this->getAttributeInputTypes();
         if (!empty($inputTypes[$inputType]['source_model'])) {
@@ -200,11 +191,8 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Return entity code formatted for humans
-     *
-     * @param Mage_Eav_Model_Entity_Type $entityType
-     * @return string
      */
-    public function formatTypeCode($entityType)
+    public function formatTypeCode(Mage_Eav_Model_Entity_Type $entityType): string
     {
         return ucwords(str_replace('_', ' ', $entityType->getEntityTypeCode() ?? ''));
     }

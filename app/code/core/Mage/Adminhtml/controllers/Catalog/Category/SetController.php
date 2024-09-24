@@ -2,39 +2,31 @@
 /**
  * OpenMage
  *
- * NOTICE OF LICENSE
- *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once 'Mage/Eav/controllers/Adminhtml/Set/AbstractController.php';
+declare(strict_types=1);
 
 /**
  * Catalog category attribute sets controller
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Catalog_Category_SetController extends Mage_Eav_Adminhtml_Set_AbstractController
 {
     /**
      * Additional initialization
      *
      */
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_entityCode = Mage_Catalog_Model_Category::ENTITY;
     }
@@ -60,7 +52,7 @@ class Mage_Adminhtml_Catalog_Category_SetController extends Mage_Eav_Adminhtml_S
         return $this;
     }
 
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/attributes/category_sets');
     }
