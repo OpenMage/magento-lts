@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
 
         $this->addColumn('price', [
             'header'    => Mage::helper('catalog')->__('Price'),
-            'type'  => 'currency',
+            'type'      => 'price',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
         ]);
