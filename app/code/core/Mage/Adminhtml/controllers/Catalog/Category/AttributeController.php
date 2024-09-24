@@ -35,7 +35,7 @@ class Mage_Adminhtml_Catalog_Category_AttributeController extends Mage_Eav_Contr
              ->_title($this->__('Attributes'))
              ->_title($this->__('Manage Category Attributes'));
 
-        $this->_setActiveMenu('catalog/attributes')
+        $this->_setActiveMenu('catalog/attributes/category_attributes')
              ->_addBreadcrumb(
                  $this->__('Catalog'),
                  $this->__('Catalog')
