@@ -20,7 +20,7 @@ declare(strict_types=1);
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_Block_Template
 {
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->setTemplate('eav/attribute/set/toolbar/add.phtml');
     }
@@ -34,7 +34,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_
                     'label'     => Mage::helper('eav')->__('Save Attribute Set'),
                     'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
                     'class' => 'save'
-                ])
+            ])
         );
         $this->setChild(
             'back_button',
@@ -43,7 +43,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_
                     'label'     => Mage::helper('eav')->__('Back'),
                     'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/') . '\')',
                     'class' => 'back'
-                ])
+            ])
         );
 
         $this->setChild(

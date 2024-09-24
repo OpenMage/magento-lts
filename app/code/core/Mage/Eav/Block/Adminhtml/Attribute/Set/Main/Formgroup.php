@@ -20,11 +20,6 @@ declare(strict_types=1);
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminhtml_Block_Widget_Form
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -72,7 +67,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formgroup extends Mage_Adminht
         return parent::_prepareForm();
     }
 
-    protected function _getSetId()
+    protected function _getSetId(): int
     {
         return ((int) ($this->getRequest()->getParam('id')) > 0)
             ? (int) ($this->getRequest()->getParam('id'))

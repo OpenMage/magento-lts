@@ -20,11 +20,6 @@ declare(strict_types=1);
  */
 class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml_Block_Widget_Form
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Prepares attribute set form
      *
@@ -53,7 +48,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main_Formset extends Mage_Adminhtml
 
             /** @var Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection $collection */
             $collection = Mage::getModel('eav/entity_attribute_set')
-                        ->getResourceCollection();
+                ->getResourceCollection();
 
             $sets = $collection->setEntityTypeFilter(Mage::registry('entity_type')->getEntityTypeId())
                 ->setOrder('attribute_set_name', 'asc')

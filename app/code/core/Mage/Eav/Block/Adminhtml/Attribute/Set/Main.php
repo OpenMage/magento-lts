@@ -95,10 +95,10 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
 
         if (Mage::registry('entity_type')) {
             $deleteConfirmMessage = $this->jsQuoteEscape(Mage::helper('eav')
-                                                         ->__('All %s of this set will be deleted! Are you sure you want to delete this attribute set?'));
+                ->__('All %s of this set will be deleted! Are you sure you want to delete this attribute set?'));
         } else {
             $deleteConfirmMessage = $this->jsQuoteEscape(Mage::helper('eav')
-                                                         ->__('All items of this set will be deleted! Are you sure you want to delete this attribute set?'));
+                ->__('All items of this set will be deleted! Are you sure you want to delete this attribute set?'));
         }
         $deleteUrl = $this->getUrlSecure('*/*/delete', ['id' => $setId]);
         $this->setChild(
@@ -348,7 +348,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
     /**
      * Retrieve current attribute set Id
      */
-    protected function _getSetId(): int
+    protected function _getSetId(): string
     {
         return $this->_getAttributeSet()->getId();
     }
@@ -365,16 +365,6 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Main extends Mage_Adminhtml_Block_T
             $this->setData('is_current_set_default', $isDefault);
         }
         return $isDefault;
-    }
-
-    /**
-     * Retrieve current Attribute Set object
-     *
-     * @deprecated use _getAttributeSet
-     */
-    protected function _getSetData(): ?Mage_Eav_Model_Entity_Attribute_Set
-    {
-        return $this->_getAttributeSet();
     }
 
     /**

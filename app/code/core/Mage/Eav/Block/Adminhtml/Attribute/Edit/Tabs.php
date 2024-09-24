@@ -37,8 +37,6 @@ class Mage_Eav_Block_Adminhtml_Attribute_Edit_Tabs extends Mage_Adminhtml_Block_
             'active'    => true
         ]);
 
-        $model = Mage::registry('entity_attribute');
-
         $this->addTab('labels', [
             'label'     => Mage::helper('eav')->__('Manage Label / Options'),
             'title'     => Mage::helper('eav')->__('Manage Label / Options'),

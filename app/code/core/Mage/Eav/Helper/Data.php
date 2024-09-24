@@ -191,8 +191,6 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Return entity code formatted for humans
-     *
-     * @param Mage_Eav_Model_Entity_Type|string $entityTypeCode
      */
     public function formatTypeCode($entityTypeCode): string
     {
