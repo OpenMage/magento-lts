@@ -9,7 +9,7 @@
  * @category   Magento
  * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,9 +34,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Batched insert of specified select
      *
-     * @param Varien_Db_Select $select
      * @param string $table
-     * @param array $fields
      * @param bool $mode
      * @param int $step
      * @return int
@@ -66,9 +64,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Retrieve bunch of queries for specified select splitted by specified step
+     * Retrieve bunch of queries for specified select split by specified step
      *
-     * @param Varien_Db_Select $select
      * @param string $entityIdField
      * @param int $step
      * @return array

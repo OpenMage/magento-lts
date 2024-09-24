@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
     /**
      * Update specified stock item
      *
-     * @param array $data
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
@@ -92,8 +91,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
 
     /**
      * Update specified stock items
-     *
-     * @param array $data
      */
     protected function _multiUpdate(array $data)
     {

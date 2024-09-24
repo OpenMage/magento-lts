@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param array $parentProducts
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      * @param int $storeId
      */
@@ -44,7 +43,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param array $parentProducts
      * @param int $storeId
      * @param bool $onlyListAttributes
      */
@@ -159,7 +157,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have media gallery attached which attaches and differentiates local images and child images
      * - product must have child products attached
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param array $imageTypes - image types to select for child products
      * @param bool $keepFrame
      * @return array
@@ -297,8 +294,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
     /**
      * Groups media gallery images by local images and child images
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
     {
@@ -329,7 +324,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     /**
      * For given product set, attach media_gallery attribute values.
      *
-     * @param array $products
      * @param int $storeId
      */
     public function attachGallerySetToCollection(array $products, $storeId)
@@ -416,7 +410,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Attaches children product to each product via
      * ->setChildrenProducts()
      *
-     * @param array $products
      * @param int $storeId
      */
     public function attachChildrenProducts(array $products, $storeId)
@@ -432,6 +425,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         );
 
         $collection->setFlag('product_children', true)
+            ->setFlag('require_stock_items', true)
             ->addStoreFilter($storeId)
             ->addAttributeToSelect($this->_getChildrenProductsAttributes());
         $collection->addProductSetFilter($productIds);

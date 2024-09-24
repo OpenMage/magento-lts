@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,6 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set Product object
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(?Mage_Catalog_Model_Product $product = null)
@@ -60,7 +59,6 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set option
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return Mage_Catalog_Block_Product_View_Options_Abstract
      */
     public function setOption(Mage_Catalog_Model_Product_Option $option)

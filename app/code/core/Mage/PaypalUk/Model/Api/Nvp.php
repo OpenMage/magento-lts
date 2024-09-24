@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_PaypalUk
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -524,9 +524,6 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 
     /**
      * Get FMF results from response, if any
-     *
-     * @param array $from
-     * @param array $collectedWarnings
      */
     protected function _importFraudFiltersResult(array $from, array $collectedWarnings)
     {
@@ -577,7 +574,6 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Checking negative line items
      *
-     * @param array $request
      * @param int $i
      * @return null|true
      */

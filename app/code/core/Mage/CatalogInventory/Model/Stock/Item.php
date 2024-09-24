@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -157,7 +157,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * Init mapping array of short fields to
      * its full names
      *
-     * @resturn Varien_Object
+     * @return void
      */
     protected function _initOldFieldsMap()
     {
@@ -267,7 +267,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Adding stock data to product
      *
-     * @param   Mage_Catalog_Model_Product $product
      * @return  $this
      */
     public function assignProduct(Mage_Catalog_Model_Product $product)
@@ -721,7 +720,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Add error to Quote Item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
      * @param string $itemError
      * @param string $quoteError
      * @param string $errorIndex

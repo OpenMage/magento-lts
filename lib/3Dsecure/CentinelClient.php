@@ -114,7 +114,7 @@
 
 				}
 
-				// Assert that we received an expected Centinel Message in reponse.
+				// Assert that we received an expected Centinel Message in response.
 
 				if (strpos($result, "<CardinalMPI>") === false) {
 					$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,7 +97,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Retrieve all methods for supplied shipping data
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      * @todo make it ordered
      */
@@ -217,7 +216,7 @@ class Mage_Shipping_Model_Shipping
 
     /**
      * Compose Packages For Carrier.
-     * Devides order into items and items into parts if it's neccesary
+     * Divides order into items and items into parts if it's necessary
      *
      * @param Mage_Shipping_Model_Carrier_Abstract $carrier
      * @param Mage_Shipping_Model_Rate_Request $request
@@ -354,7 +353,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Collect rates by address
      *
-     * @param Varien_Object $address
      * @param null|bool|array $limitCarrier
      * @return $this
      */
@@ -421,7 +419,6 @@ class Mage_Shipping_Model_Shipping
     /**
      * Prepare and do request to shipment
      *
-     * @param Mage_Sales_Model_Order_Shipment $orderShipment
      * @return Varien_Object
      */
     public function requestToShipment(Mage_Sales_Model_Order_Shipment $orderShipment)

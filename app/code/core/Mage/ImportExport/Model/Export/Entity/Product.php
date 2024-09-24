@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -208,7 +208,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare products tier prices
      *
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareTierPrices(array $productIds)
@@ -241,7 +240,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare products group prices
      *
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareGroupPrices(array $productIds)
@@ -274,7 +272,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare products media gallery
      *
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareMediaGallery(array $productIds)
@@ -316,7 +313,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare catalog inventory
      *
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareCatalogInventory(array $productIds)
@@ -347,7 +343,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare product links
      *
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareLinks(array $productIds)
@@ -422,7 +417,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @deprecated since 1.6.1.0
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareConfigurableProductData(array $productIds)
@@ -456,7 +450,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      *
      * @deprecated since 1.6.1.0
      * @see Mage_Catalog_Model_Resource_Product_Type_Configurable::getConfigurableOptions()
-     * @param  array $productIds
      * @return array
      */
     protected function _prepareConfigurableProductPrice(array $productIds)
@@ -1057,7 +1050,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)

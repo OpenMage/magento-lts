@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +108,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * array(
      *      $sectionName => $recursionLevel
      * )
-     * Recursion level provide availability cache subnodes separatly
+     * Recursion level provide availability cache sub-nodes separately
      *
      * @var array
      */
@@ -425,8 +425,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Load environment variables and override config
-     *
-     * @return self
      */
     public function loadEnv(): Mage_Core_Model_Config
     {
@@ -455,7 +453,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Check local modules enable/disable flag
-     * If local modules are disbled remove local modules path from include dirs
+     * If local modules are disabled remove local modules path from include dirs
      *
      * return true if local modules enabled and false if disabled
      *
@@ -1698,6 +1696,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         return $this;
     }
 
+
+    /**
+     * Get config value from DB
+     *
+     * @return  string|false
+     */
+    public function getConfig(string $path, string $scope = 'default', int $scopeId = 0)
+    {
+        $resource = $this->getResourceModel();
+        return $resource->getConfig(rtrim($path, '/'), $scope, $scopeId);
+    }
+
     /**
      * Get fieldset from configuration
      *
@@ -1781,7 +1791,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Makes all events to lower-case
      *
      * @param string $area
-     * @param Varien_Simplexml_Config $mergeModel
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
@@ -1807,7 +1816,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Checks is event name has upper-case letters
      *
-     * @param Mage_Core_Model_Config_Element $event
      * @return bool
      */
     protected function _isNodeNameHasUpperCase(Mage_Core_Model_Config_Element $event)

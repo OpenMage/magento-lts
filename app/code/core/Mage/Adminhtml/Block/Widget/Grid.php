@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -1191,7 +1191,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve file content from file container array
      *
-     * @param array $fileData
      * @return string
      */
     protected function _getFileContainerContent(array $fileData)
@@ -1274,9 +1273,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Write item data to csv export file
-     *
-     * @param Varien_Object $item
-     * @param Varien_Io_File $adapter
      */
     protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter)
     {
@@ -1425,8 +1421,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Write item data to Excel 2003 XML export file
      *
-     * @param Varien_Object $item
-     * @param Varien_Io_File $adapter
      * @param Varien_Convert_Parser_Xml_Excel $parser
      */
     protected function _exportExcelItem(Varien_Object $item, Varien_Io_File $adapter, $parser = null)
@@ -1863,8 +1857,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Set totals
-     *
-     * @param Varien_Object $totals
      */
     public function setTotals(Varien_Object $totals)
     {
@@ -1906,7 +1898,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set subtotal items
      *
-     * @param array $items
      * @return $this
      */
     public function setSubTotals(array $items)

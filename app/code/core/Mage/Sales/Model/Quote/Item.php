@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -253,7 +253,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Declare quote model object
      *
-     * @param   Mage_Sales_Model_Quote $quote
      * @return  $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -575,7 +574,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Convert Quote Item to array
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function toArray(array $arrAttributes = [])
@@ -655,10 +653,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Can specify specific actions for ability to change given quote options values
-     * Exemple: cataloginventory decimal qty validation may change qty to int,
+     * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
-     * @param Varien_Object|Mage_Sales_Model_Quote_Item_Option $option
      * @param int|float|null $value
      * @return $this
      */
