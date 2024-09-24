@@ -117,6 +117,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
             $customerGroup->setCustomerAddressAttributeSetId((int)$this->getRequest()->getParam('customer_address_attribute_set'));
         }
 
+        $taxClass = (int)$this->getRequest()->getParam('tax_class');
         if ($taxClass) {
             try {
                 $customerGroupCode = (string)$this->getRequest()->getParam('code');
