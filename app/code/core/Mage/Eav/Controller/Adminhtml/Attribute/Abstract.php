@@ -47,19 +47,19 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
         return $this->loadLayout();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->_initAction()
              ->_addContent($this->getLayout()->createBlock('eav/adminhtml_attribute'))
              ->renderLayout();
     }
 
-    public function newAction()
+    public function newAction(): void
     {
         $this->_forward('edit');
     }
 
-    public function editAction()
+    public function editAction(): void
     {
         $id = $this->getRequest()->getParam('attribute_id');
         $model = Mage::getModel($this->_entityType->getAttributeModel())
@@ -113,7 +113,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
         $this->renderLayout();
     }
 
-    public function validateAction()
+    public function validateAction(): void
     {
         $response = new Varien_Object();
         $response->setError(false);
@@ -162,7 +162,11 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
         return $data;
     }
 
-    public function saveAction()
+    /**
+     * @throws Zend_Validate_Exception
+     * @throws Throwable
+     */
+    public function saveAction(): void
     {
         $data = $this->getRequest()->getPost();
         if ($data) {
@@ -297,7 +301,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Attribute_Abstract extends Mage_Adm
         $this->_redirect('*/*/');
     }
 
-    public function deleteAction()
+    public function deleteAction(): void
     {
         if ($id = $this->getRequest()->getParam('attribute_id')) {
             $model = Mage::getModel($this->_entityType->getAttributeModel());

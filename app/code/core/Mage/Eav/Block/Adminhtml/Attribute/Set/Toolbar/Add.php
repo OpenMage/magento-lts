@@ -74,7 +74,7 @@ class Mage_Eav_Block_Adminhtml_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_
         return $this->getChildHtml('setForm');
     }
 
-    protected function getFormId()
+    protected function getFormId(): string
     {
         return $this->getChild('setForm')->getForm()->getId();
     }

@@ -47,14 +47,14 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
         return $this->loadLayout();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->_initAction()
              ->_addContent($this->getLayout()->createBlock('eav/adminhtml_attribute_set'))
              ->renderLayout();
     }
 
-    public function editAction()
+    public function editAction(): void
     {
         $attributeSet = Mage::getModel('eav/entity_attribute_set')
             ->load($this->getRequest()->getParam('id'));
@@ -75,7 +75,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
         $this->renderLayout();
     }
 
-    public function setGridAction()
+    public function setGridAction(): void
     {
         $this->getResponse()->setBody(
             $this->getLayout()
@@ -91,7 +91,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
      * [AJAX] Save attribute set data
      *
      */
-    public function saveAction()
+    public function saveAction(): void
     {
         $entityTypeId   = $this->_entityType->getEntityTypeId();
         $hasError       = false;
@@ -163,7 +163,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
         }
     }
 
-    public function addAction()
+    public function addAction(): void
     {
         $this->_initAction()
              ->_title($this->__('New Set'))
@@ -171,7 +171,7 @@ abstract class Mage_Eav_Controller_Adminhtml_Set_Abstract extends Mage_Adminhtml
              ->renderLayout();
     }
 
-    public function deleteAction()
+    public function deleteAction(): void
     {
         $setId = $this->getRequest()->getParam('id');
         try {
