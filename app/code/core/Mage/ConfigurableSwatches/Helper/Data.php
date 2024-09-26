@@ -28,7 +28,10 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
     protected $_enabled = null;
+
     protected $_configAttributeIds = null;
+
+    protected ?array$_configAttributeIdsUsesColorPicker = null;
 
     /**
      * Is the extension enabled?
@@ -102,18 +105,16 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get list of attributes that should use swatches
-     *
-     * @return array
      */
-    public function getSwatchAttributeIdsUsesColorPicker()
+    public function getSwatchAttributeIdsUsesColorPicker(): ?array
     {
-        if (is_null($this->_configAttributeIds)) {
-            $this->_configAttributeIds = [];
+        if (is_null($this->_configAttributeIdsUsesColorPicker)) {
+            $this->_configAttributeIdsUsesColorPicker = [];
             if (Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER)) {
-                $this->_configAttributeIds = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER));
+                $this->_configAttributeIdsUsesColorPicker = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER));
             }
         }
-        return $this->_configAttributeIds;
+        return $this->_configAttributeIdsUsesColorPicker;
     }
 
     /**
