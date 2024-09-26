@@ -19,7 +19,7 @@ $installer->startSetup();
 $swatchAttributes = Mage::getModel('core/config_data')->getCollection()
     ->addFieldToFilter('path', Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_SWATCH_ATTRIBUTES);
 
-foreach ($swatchAttributes as $swatchAttribute)  {
+foreach ($swatchAttributes as $swatchAttribute) {
     $config = Mage::getModel('core/config_data');
     $config->setData($swatchAttribute->getData())
         ->setPath(Mage_ConfigurableSwatches_Helper_Data::CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER)
