@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,7 +154,6 @@ class Mage_Paypal_Model_Info
     /**
      * All available payment info getter
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param bool $labelValuesOnly
      * @return array
      */
@@ -178,7 +177,6 @@ class Mage_Paypal_Model_Info
     /**
      * Public payment info getter
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param bool $labelValuesOnly
      * @return array
      */
@@ -191,7 +189,6 @@ class Mage_Paypal_Model_Info
      * Grab data from source and map it into payment
      *
      * @param array|Varien_Object|callback $from
-     * @param Mage_Payment_Model_Info $payment
      */
     public function importToPayment($from, Mage_Payment_Model_Info $payment)
     {
@@ -205,9 +202,7 @@ class Mage_Paypal_Model_Info
     /**
      * Grab data from payment and map it into target
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param array|Varien_Object|callback $to
-     * @param array|null $map
      * @return array|Varien_Object
      */
     public function &exportFromPayment(Mage_Payment_Model_Info $payment, $to, ?array $map = null)
@@ -224,7 +219,6 @@ class Mage_Paypal_Model_Info
     /**
      * Check whether the payment is in review state
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     public static function isPaymentReviewRequired(Mage_Payment_Model_Info $payment)
@@ -240,7 +234,6 @@ class Mage_Paypal_Model_Info
     /**
      * Check whether fraud order review detected and can be reviewed
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     public static function isFraudReviewAllowed(Mage_Payment_Model_Info $payment)
@@ -252,7 +245,6 @@ class Mage_Paypal_Model_Info
     /**
      * Check whether the payment is completed
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     public static function isPaymentCompleted(Mage_Payment_Model_Info $payment)
@@ -264,7 +256,6 @@ class Mage_Paypal_Model_Info
     /**
      * Check whether the payment was processed successfully
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     public static function isPaymentSuccessful(Mage_Payment_Model_Info $payment)
@@ -285,7 +276,6 @@ class Mage_Paypal_Model_Info
     /**
      * Check whether the payment was processed unsuccessfully or failed
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     public static function isPaymentFailed(Mage_Payment_Model_Info $payment)
@@ -398,8 +388,6 @@ class Mage_Paypal_Model_Info
     /**
      * Render info item
      *
-     * @param array $keys
-     * @param Mage_Payment_Model_Info $payment
      * @param bool $labelValuesOnly
      * @return array
      */

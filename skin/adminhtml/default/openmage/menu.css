@@ -11,7 +11,7 @@
  240 = blue,
  300 = purple
 */
-#nav ul li, #nav ul li.active {
+#nav ul li.active, #nav ul li {
   float: none;
   height: auto;
   background: none;
@@ -132,6 +132,9 @@
 #nav li.parent li a {
   cursor: pointer;
 }
+#nav li.level1 > a.active:not(:hover), #nav li.level2 > a.active:not(:hover), #nav li.level3 > a.active:not(:hover) {
+  background: #e6e6e6;
+}
 #nav li#bubblelauncher-status a {
   background-position: center 8px;
   line-height: 38px;
@@ -157,7 +160,7 @@
   width: 189px;
   top: 38px;
   left: -10000px;
-  box-shadow: rgba(0, 0, 0, 0.18039) 1px 3px 4px;
+  box-shadow: rgba(0, 0, 0, 0.180392) 1px 3px 4px;
 }
 #nav ul li {
   padding: 0;
@@ -237,7 +240,7 @@
   top: 40px;
   right: -10000px;
   display: none;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.20784), 0 0 5px rgba(0, 0, 0, 0.20784);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.207843), 0 0 5px rgba(0, 0, 0, 0.207843);
   background: #fff;
 }
 #usermenu ul li a:hover {
@@ -251,7 +254,7 @@
   display: block;
 }
 #usermenu li ul span {
-  border-bottom: 1px dotted #a6c4d9;
+  border-bottom: 1px dotted hsl(205, 40%, 75%);
   display: block;
   line-height: 31px;
   padding: 0 10px;
@@ -263,7 +266,7 @@
 #usermenu li.over ul a {
   color: #000537;
   text-decoration: none;
-  background: #ecf3f9;
+  background: hsl(205, 52%, 95%);
   display: block;
 }
 #usermenu > li > a {

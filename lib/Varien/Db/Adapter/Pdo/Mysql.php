@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -859,8 +859,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $fkName foreign key name
      * @param string $tableName main table name
      * @param string $columnName main table field name
-     * @param string $refTableName refered table name
-     * @param string $refColumnName refered table field name
+     * @param string $refTableName referred table name
+     * @param string $refColumnName referred table field name
      * @param string $onUpdate on update statement
      * @param string $onDelete on delete statement
      * @param bool $purge
@@ -1483,9 +1483,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Write exception and thow
+     * Write exception and throw
      *
-     * @param Exception $e
      * @throws Exception
      */
     protected function _debugException(Exception $e)
@@ -1533,7 +1532,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
      * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
      * @param integer $count OPTIONAL count of placeholders to replace
-     * @return string An SQL-safe quoted value placed into the orignal text.
+     * @return string An SQL-safe quoted value placed into the original text.
      */
     public function quoteInto($text, $value, $type = null, $count = null)
     {
@@ -2007,7 +2006,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Special for Zero values to identity column
      *
      * @param string $table
-     * @param array $bind
      * @return int The number of affected rows.
      */
     public function insertForce($table, array $bind)
@@ -2128,8 +2126,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Insert array to table based on columns definition
      *
      * @param   string $table
-     * @param   array $columns
-     * @param   array $data
      * @return  int
      * @throws  Zend_Db_Exception
      */
@@ -2243,7 +2239,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Create table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Pdo
      */
@@ -2275,7 +2270,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Create temporary table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Pdo
      */
@@ -2300,7 +2294,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve columns and primary keys definition array for create table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @return array
      * @throws Zend_Db_Exception
      */
@@ -2339,7 +2332,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table indexes definition array for create table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @return array
      */
     protected function _getIndexesDefinition(Varien_Db_Ddl_Table $table)
@@ -2386,7 +2378,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table foreign keys definition array for create table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @return array
      */
     protected function _getForeignKeysDefinition(Varien_Db_Ddl_Table $table)
@@ -2417,7 +2408,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Retrieve table options definition array for create table
      *
-     * @param Varien_Db_Ddl_Table $table
      * @return array
      * @throws Zend_Db_Exception
      */
@@ -3243,7 +3233,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Generate fragment of SQL, that combine together (concatenate) the results from data array
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @param string $separator concatenate with separator
      * @return Zend_Db_Expr
      */
@@ -3270,7 +3259,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * (minimum-valued) argument
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @return Zend_Db_Expr
      */
     public function getLeastSql(array $data)
@@ -3283,7 +3271,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * (maximum-valued) argument
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @return Zend_Db_Expr
      */
     public function getGreatestSql(array $data)
@@ -3581,9 +3568,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Get insert from Select object query
      *
-     * @param Varien_Db_Select $select
      * @param string $table     insert into table
-     * @param array $fields
      * @param bool|int $mode
      * @return string
      */
@@ -3644,7 +3629,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Get insert queries in array for insert by range with step parameter
      *
      * @param string $rangeField
-     * @param Varien_Db_Select $select
      * @param int $stepCount
      * @return array
      * @throws Varien_Db_Exception
@@ -3725,7 +3709,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Get update table query using select object for join and update
      *
-     * @param Varien_Db_Select $select
      * @param string|array $table
      * @throws Varien_Db_Exception
      * @return string
@@ -3801,7 +3784,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Get delete from select object query
      *
-     * @param Varien_Db_Select $select
      * @param string $table the table name or alias used in select
      * @return string|int
      */
@@ -3851,7 +3833,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Adds order by random to select object
      * Possible using integer field for optimization
      *
-     * @param Varien_Db_Select $select
      * @param string $field
      * @return $this
      */
@@ -3914,8 +3895,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Return insert sql query
      *
      * @param string $tableName
-     * @param array $columns
-     * @param array $values
      * @return string
      */
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)
@@ -3991,7 +3970,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Try to find installed primary key name, if not - formate new one.
+     * Try to find installed primary key name, if not - format new one.
      *
      * @param string $tableName Table name
      * @param string $schemaName OPTIONAL
@@ -4105,7 +4084,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Create new table from provided select statement
      *
      * @param string $tableName
-     * @param Zend_Db_Select $select
      * @param bool $temporary
      * @return mixed
      */

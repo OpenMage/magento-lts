@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,9 +22,8 @@
 class Varien_Event_Observer extends Varien_Object
 {
     /**
-     * Checkes the observer's event_regex against event's name
+     * Checks the observer's event_regex against event's name
      *
-     * @param Varien_Event $event
      * @return boolean
      */
     public function isValidFor(Varien_Event $event)
@@ -35,7 +34,6 @@ class Varien_Event_Observer extends Varien_Object
     /**
      * Dispatches an event to observer's callback
      *
-     * @param Varien_Event $event
      * @return $this
      */
     public function dispatch(Varien_Event $event)

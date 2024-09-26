@@ -109,10 +109,12 @@ return $config
         PhpCsFixer\Finder::create()
             ->in([
                 'app/code/core/Mage/',
+                'errors/',
                 'lib/Mage/',
                 'lib/Magento/',
                 'lib/Varien/',
                 'shell/',
+                'tests/unit/',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)

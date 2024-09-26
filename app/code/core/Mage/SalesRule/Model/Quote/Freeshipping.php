@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,6 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
     /**
      * Collect information about free shipping for all address items
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_SalesRule_Model_Quote_Freeshipping
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
@@ -91,7 +90,6 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
      * Add information about free shipping for all address items to address object
      * By default we not present such information
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_SalesRule_Model_Quote_Freeshipping
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)

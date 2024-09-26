@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for parent element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
      */
     public function setParentElement(Varien_Data_Form_Element_Abstract $element)
@@ -64,7 +63,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     /**
      * Setter for current product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form
      */
     public function setProductEntity(Mage_Catalog_Model_Product $product)
@@ -111,7 +109,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name
-         * and overriden by the form elements
+         * and overridden by the form elements
          * It is needed to maintain HTML consistency of the parent element's form
          */
         if ($this->_parentElement) {

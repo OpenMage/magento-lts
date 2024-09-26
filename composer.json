@@ -40,6 +40,8 @@
         "tinymce/tinymce": "~6.8"
     },
     "require-dev": {
+        "ext-xmlreader": "*",
+        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
@@ -49,6 +51,7 @@
         "phpmd/phpmd": "^2.13",
         "phpstan/phpstan": "^1.12.1",
         "phpunit/phpunit": "^9.5",
+        "rector/rector": "^1.2",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
@@ -56,7 +59,7 @@
         "n98/n98_layouthelper": "*"
     },
     "minimum-stability": "dev",
-    "prefer-stable" : true,
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Lee Saferite",
@@ -91,20 +94,14 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "OpenMage\\Tests\\Unit\\": "dev/tests/unit"
+            "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
     },
     "extra": {
-        "magento-root-dir": ".",
-        "magento-deploystrategy": "copy",
-        "magento-deploystrategy-dev": "symlink",
-        "magento-deploystrategy-overwrite": {
-            "openmage/dev-copyright": "copy",
-            "openmage/dev-translations": "copy",
-            "openmage/legacy-frontend-themes": "copy"
-        },
-        "magento-force": true,
         "patches": {
+            "magento-ecg/coding-standard": {
+                "PR-72 - Fix LoopSniff": "https://patch-diff.githubusercontent.com/raw/magento-ecg/coding-standard/pull/72.patch"
+            },
             "shardj/zf1-future": {
                 "MAG-1.1.1": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/MAG-1.9.3.0.patch",
@@ -113,15 +110,24 @@
                 "OM-1081 - Not detecting HTTPS behind a proxy": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-1081.patch",
                 "OM-2047 - Pass delimiter char to preg_quote": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2047.patch",
                 "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
-            }
+            },
+            "file-copy" : [{
+                "source": "tinymce/tinymce",
+                "target": "js/tinymce"
+            }, {
+                "source": "mklkj/tinymce-i18n/langs6",
+                "target": "js/tinymce/langs"
+            }]
         },
-        "file-copy" : [{
-            "source": "tinymce/tinymce",
-            "target": "js/tinymce"
-        }, {
-            "source": "mklkj/tinymce-i18n/langs6",
-            "target": "js/tinymce/langs"
-        }]
+        "magento-root-dir": ".",
+        "magento-deploystrategy": "copy",
+        "magento-deploystrategy-dev": "symlink",
+        "magento-deploystrategy-overwrite": {
+            "openmage/dev-copyright": "copy",
+            "openmage/dev-translations": "copy",
+            "openmage/legacy-frontend-themes": "copy"
+        },
+        "magento-force": true
     },
     "config": {
         "allow-plugins": {
@@ -134,5 +140,25 @@
             "php": "7.4"
         },
         "sort-packages": true
+    },
+    "scripts": {
+        "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
+        "phpstan": "vendor/bin/phpstan analyze",
+        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --no-coverage --testdox",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage --testdox",
+        "rector:test": "vendor/bin/rector process --dry-run",
+        "rector:fix": "vendor/bin/rector process"
+    },
+    "scripts-descriptions": {
+        "php-cs-fixer:test": "Run php-cs-fixer",
+        "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
+        "phpstan": "Run phpstan",
+        "phpunit:test": "Run PHPUnit",
+        "phpunit:coverage": "Run PHPUnit with code coverage",
+        "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage",
+        "rector:test": "Run rector",
+        "rector:fix": "Run rector and fix issues"
     }
 }
