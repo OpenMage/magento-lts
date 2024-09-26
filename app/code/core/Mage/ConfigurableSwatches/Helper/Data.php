@@ -22,6 +22,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     public const CONFIG_PATH_BASE = 'configswatches';
     public const CONFIG_PATH_ENABLED = 'configswatches/general/enabled';
     public const CONFIG_PATH_SWATCH_ATTRIBUTES = 'configswatches/general/swatch_attributes';
+    public const CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER = 'configswatches/general/swatch_attributes_colorpicker';
     public const CONFIG_PATH_LIST_SWATCH_ATTRIBUTE = 'configswatches/general/product_list_attribute';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
@@ -100,9 +101,25 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get list of attributes that should use swatches
+     *
+     * @return array
+     */
+    public function getSwatchAttributeIdsUsesColorPicker()
+    {
+        if (is_null($this->_configAttributeIds)) {
+            $this->_configAttributeIds = [];
+            if (Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES_COLORPICKER)) {
+                $this->_configAttributeIds = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES));
+            }
+        }
+        return $this->_configAttributeIds;
+    }
+
+    /**
      * Determine if an attribute should be a swatch
      *
-     * @param int|Mage_Eav_Model_Attribute $attr
+     * @param int|Mage_Eav_Model_Attribute|Varien_Object $attr
      * @return bool
      */
     public function attrIsSwatchType($attr)
@@ -111,6 +128,20 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
             $attr = $attr->getId();
         }
         $configAttrs = $this->getSwatchAttributeIds();
+        return in_array($attr, $configAttrs);
+    }
+
+    /**
+     * Determine if an attribute should be a swatch with color-picker
+     *
+     * @param int|Mage_Eav_Model_Attribute|Varien_Object $attr
+     */
+    public function attrIsSwatchTypeUsesColorPicker($attr): bool
+    {
+        if ($attr instanceof Varien_Object) {
+            $attr = $attr->getId();
+        }
+        $configAttrs = $this->getSwatchAttributeIdsUsesColorPicker();
         return in_array($attr, $configAttrs);
     }
 

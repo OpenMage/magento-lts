@@ -50,7 +50,19 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><enabled>1</enabled></depends>
                         </swatch_attributes>
+                        <swatch_attributes_colorpicker translate="label">
+                            <label>Product Attributes to Show Color-picker in Manage Attribute</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>configurableswatches/system_config_source_catalog_product_configattribute_colorpicker</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <depends><enabled>1</enabled></depends>
+                        </swatch_attributes_colorpicker>
                         <product_list_attribute translate="label">
                             <label>Product Attribute to Use for Swatches in Product Listing</label>
                             <frontend_type>select</frontend_type>
@@ -59,6 +71,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </product_list_attribute>
                         <product_list_price_change translate="label" module="configurableswatches">
                             <label>Dynamic Price Change for Swatches in Product Listing</label>
@@ -68,6 +81,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </product_list_price_change>
                     </fields>
                 </general>
