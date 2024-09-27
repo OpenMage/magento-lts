@@ -31,7 +31,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_configAttributeIds = null;
 
-    protected ?array$_configAttributeIdsUsesColorPicker = null;
+    protected ?array $_configAttributeIdsUsesColorPicker = null;
 
     /**
      * Is the extension enabled?
