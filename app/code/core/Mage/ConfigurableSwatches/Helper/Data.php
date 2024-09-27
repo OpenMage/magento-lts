@@ -106,7 +106,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get list of attributes that should use swatches
      */
-    public function getSwatchAttributeIdsUsesColorPicker(): ?array
+    public function getSwatchAttributeIdsUsesColorPicker(): array
     {
         if (is_null($this->_configAttributeIdsUsesColorPicker)) {
             $this->_configAttributeIdsUsesColorPicker = [];
