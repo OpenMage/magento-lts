@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   apache:
-    image: openmage/php-dev:7.4-apache
+    image: ghcr.io/colinmollenhour/docker-openmage:8.2-apache
     hostname: ${HOST_NAME:-openmage-7f000001.nip.io}
     user: "33333:33333"
     ports:
@@ -10,8 +10,8 @@ services:
     volumes:
       - ../..:/var/www/html
     environment:
-      - ENABLE_SENDMAIL=true
-      - XDEBUG_CONFIG=remote_connect_back=1 remote_enable=1 idekey=phpstorm
+      - ENABLE_SENDMAIL=false
+      - XDEBUG_CONFIG=
       - MAGE_IS_DEVELOPER_MODE=1
     links:
       - mysql
