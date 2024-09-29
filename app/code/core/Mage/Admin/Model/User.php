@@ -372,7 +372,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return bool
      * @throws Mage_Core_Exception
      */
-    public function authenticate($username, $password)
+    public function authenticate($username, #[\SensitiveParameter] $password)
     {
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
@@ -425,7 +425,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return  $this
      * @throws Mage_Core_Exception
      */
-    public function login($username, $password)
+    public function login($username, #[\SensitiveParameter] $password)
     {
         if ($this->authenticate($username, $password)) {
             $this->getResource()->recordLogin($this);
@@ -483,7 +483,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @param string $password
      * @return string
      */
-    protected function _getEncodedPassword($password)
+    protected function _getEncodedPassword(#[\SensitiveParameter] $password)
     {
         return Mage::helper('core')->getHash($password, self::HASH_SALT_LENGTH);
     }
@@ -641,7 +641,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return array|true
      * @throws Zend_Validate_Exception
      */
-    public function validateCurrentPassword($password)
+    public function validateCurrentPassword(#[\SensitiveParameter] $password)
     {
         $result = [];
 

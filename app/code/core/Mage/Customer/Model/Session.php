@@ -225,7 +225,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param   string $password
      * @return  bool
      */
-    public function login($username, $password)
+    public function login($username, #[\SensitiveParameter] $password)
     {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')

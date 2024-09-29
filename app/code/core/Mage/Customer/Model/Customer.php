@@ -257,7 +257,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @return true
      */
-    public function authenticate($login, $password)
+    public function authenticate($login, #[\SensitiveParameter] $password)
     {
         $this->loadByEmail($login);
         if ($this->getConfirmation() && $this->isConfirmationRequired()) {
@@ -489,7 +489,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string $password
      * @return $this
      */
-    public function setPassword($password)
+    public function setPassword(#[\SensitiveParameter] $password)
     {
         $this->setData('password', $password);
         $this->setPasswordHash($this->hashPassword($password));
@@ -504,7 +504,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param   int    $salt
      * @return  string
      */
-    public function hashPassword($password, $salt = null)
+    public function hashPassword(#[\SensitiveParameter] $password, $salt = null)
     {
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->_getHelper('core');
@@ -548,7 +548,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @return bool
      * @throws Exception
      */
-    public function validatePassword($password)
+    public function validatePassword(#[\SensitiveParameter] $password)
     {
         $hash = $this->getPasswordHash();
         if (!$hash) {
@@ -563,7 +563,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param   string $password
      * @return  string
      */
-    public function encryptPassword($password)
+    public function encryptPassword(#[\SensitiveParameter] $password)
     {
         return Mage::helper('core')->encrypt($password);
     }
@@ -574,7 +574,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param   string $password
      * @return  string
      */
-    public function decryptPassword($password)
+    public function decryptPassword(#[\SensitiveParameter] $password)
     {
         return Mage::helper('core')->decrypt($password);
     }
@@ -722,7 +722,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @return $this
      */
-    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', $password = null)
+    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', #[\SensitiveParameter] $password = null)
     {
         $types = [
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE, // welcome email, when confirmation is disabled

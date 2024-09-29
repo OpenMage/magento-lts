@@ -414,7 +414,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @return mixed - returns true or array of errors
      */
-    protected function _validateCurrentPassword($password)
+    protected function _validateCurrentPassword(#[\SensitiveParameter] $password)
     {
         $user = Mage::getSingleton('admin/session')->getUser();
         return $user->validateCurrentPassword($password);
