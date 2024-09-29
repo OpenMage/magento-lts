@@ -129,8 +129,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('website_id', [
                 'header'    => Mage::helper('customer')->__('Website'),
-                'align'     => 'center',
-                'width'     => '80px',
+                'width'     => 120,
                 'type'      => 'options',
                 'options'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(true),
                 'index'     => 'website_id',
