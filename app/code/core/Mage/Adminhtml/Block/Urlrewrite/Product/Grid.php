@@ -42,7 +42,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
             'entity_id',
             [
                 'header' => Mage::helper('adminhtml')->__('ID'),
-                'width' => 50,
                 'index' => 'entity_id',
             ]
         );

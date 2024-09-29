@@ -130,8 +130,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => 60,
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [
@@ -184,7 +182,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
 
         $this->addColumn('price', [
             'header'        => Mage::helper('catalog')->__('Price'),
-            'type'          => 'price',
+            'type'          => 'currency',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'         => 'price'
         ]);

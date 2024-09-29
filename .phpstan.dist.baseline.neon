@@ -436,11 +436,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Form.php
 
 		-
-			message: "#^Property Mage_Adminhtml_Block_Widget_Grid\\:\\:\\$defaultColumnSettings \\(array\\<array\\<array\\>\\>\\) does not accept default value of type array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php

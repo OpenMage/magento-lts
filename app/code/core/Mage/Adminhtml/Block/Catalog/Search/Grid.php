@@ -104,7 +104,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
 
         $this->addColumn('display_in_terms', [
             'header' => Mage::helper('catalog')->__('Display in Suggested Terms'),
-            'sortable' => true,
             'index' => 'display_in_terms',
             'type' => 'options',
             'width' => '100px',

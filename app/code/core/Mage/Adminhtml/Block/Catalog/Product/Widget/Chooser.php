@@ -224,8 +224,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
             'index'     => 'entity_id'
         ]);
         $this->addColumn('chooser_sku', [

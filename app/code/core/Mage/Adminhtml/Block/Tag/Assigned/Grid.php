@@ -147,9 +147,6 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             'entity_id',
             [
                 'header' => Mage::helper('catalog')->__('ID'),
-                'width' => 50,
-                'sortable'  => true,
-                'type'  => 'number',
                 'index' => 'entity_id',
             ]
         );

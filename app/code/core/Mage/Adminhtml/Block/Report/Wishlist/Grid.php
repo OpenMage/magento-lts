@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_Report_Wishlist_Grid extends Mage_Adminhtml_Block_Wid
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'width'     => '50px',
             'index'     => 'entity_id'
         ]);
 

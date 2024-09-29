@@ -55,9 +55,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
     {
         $this->addColumn('entity_id', [
             'header'   => Mage::helper('tag')->__('ID'),
-            'width'    => '40px',
             'align'    => 'center',
-            'sortable' => true,
             'index'    => 'entity_id',
         ]);
         $this->addColumn('firstname', [

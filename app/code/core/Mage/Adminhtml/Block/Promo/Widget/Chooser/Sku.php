@@ -116,8 +116,6 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
             'index'     => 'entity_id'
         ]);
 

@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     {
         $this->addColumn('entity_id', [
                 'header'    => Mage::helper('review')->__('ID'),
-                'width'     => '50px',
                 'index'     => 'entity_id',
         ]);
 

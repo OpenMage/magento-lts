@@ -43,7 +43,6 @@ class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'sortable'  => true,
             'index'     => 'user_id'
         ]);
 

@@ -212,11 +212,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @var array[][]
      */
     protected $defaultColumnSettings = [
-        'date' => [
-            'width' => 140
+        'index' => [
+            'entity_id' => [
+                'align' => 'right',
+                'type' => 'number',
+            ],
         ],
-        'datetime' => [
-            'width' => 160
+        'type' => [
+            'currency' => [
+                'align' => 'right',
+            ],
+            'date' => [
+                'width' => 140
+            ],
+            'datetime' => [
+                'width' => 160
+            ],
+            'number' => [
+                'align' => 'right',
+            ],
+            'price' => [
+                'align' => 'right',
+            ],
         ],
     ];
 
@@ -334,9 +351,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumn($columnId, $column)
     {
         if (is_array($column)) {
-            if (isset($column['type'], $this->defaultColumnSettings[$column['type']])) {
-                $column += $this->defaultColumnSettings[$column['type']];
+            if (isset($column['index'], $this->defaultColumnSettings['index'][$column['index']])) {
+                $column += $this->defaultColumnSettings['index'][$column['index']];
             }
+
+            if (isset($column['type'], $this->defaultColumnSettings['type'][$column['type']])) {
+                $column += $this->defaultColumnSettings['type'][$column['type']];
+            }
+
             $this->_columns[$columnId] = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
                 ->setData($column)
                 ->setGrid($this);

@@ -48,9 +48,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('customer')->__('ID'),
-            'width'     => 5,
             'align'     => 'center',
-            'sortable'  => true,
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [

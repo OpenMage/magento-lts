@@ -49,7 +49,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
         $this->addColumn('set_name', [
             'header'    => Mage::helper('catalog')->__('Set Name'),
             'align'     => 'left',
-            'sortable'  => true,
             'index'     => 'attribute_set_name',
         ]);
 

@@ -52,9 +52,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'width'     => '50px',
             'index'     => 'entity_id',
-            'align'     => 'right',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Name'),

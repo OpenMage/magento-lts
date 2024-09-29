@@ -50,7 +50,6 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'sortable'  => true,
             'index'     => 'variable_id'
         ]);
         $this->addColumn('variable_name', [

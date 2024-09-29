@@ -46,7 +46,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_visible', [
             'header' => Mage::helper('catalog')->__('Visible'),
-            'sortable' => true,
             'index' => 'is_visible_on_front',
             'type' => 'options',
             'options' => [
@@ -58,7 +57,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_global', [
             'header' => Mage::helper('catalog')->__('Scope'),
-            'sortable' => true,
             'index' => 'is_global',
             'type' => 'options',
             'options' => [
@@ -71,7 +69,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_searchable', [
             'header' => Mage::helper('catalog')->__('Searchable'),
-            'sortable' => true,
             'index' => 'is_searchable',
             'type' => 'options',
             'options' => [
@@ -83,7 +80,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_filterable', [
             'header' => Mage::helper('catalog')->__('Use in Layered Navigation'),
-            'sortable' => true,
             'index' => 'is_filterable',
             'type' => 'options',
             'options' => [
@@ -96,7 +92,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block
 
         $this->addColumnAfter('is_comparable', [
             'header' => Mage::helper('catalog')->__('Comparable'),
-            'sortable' => true,
             'index' => 'is_comparable',
             'type' => 'options',
             'options' => [

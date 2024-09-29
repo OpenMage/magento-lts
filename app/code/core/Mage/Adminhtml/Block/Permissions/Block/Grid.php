@@ -50,7 +50,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'sortable'  => true,
             'index'     => 'block_id'
         ]);
 

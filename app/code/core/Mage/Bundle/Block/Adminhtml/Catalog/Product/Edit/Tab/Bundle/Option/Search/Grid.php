@@ -90,8 +90,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     {
         $this->addColumn('id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [

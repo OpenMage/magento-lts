@@ -64,8 +64,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'width'     => '50px',
-            'align'     => 'right',
             'index'     => 'entity_id'
         ]);
 

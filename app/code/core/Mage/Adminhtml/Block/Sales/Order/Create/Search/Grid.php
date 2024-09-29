@@ -117,8 +117,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60',
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [
