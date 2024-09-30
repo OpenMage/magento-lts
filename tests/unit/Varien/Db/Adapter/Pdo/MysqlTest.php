@@ -63,7 +63,7 @@ class MysqlTest extends TestCase
         $hostInfo = $method->invoke($this->adapter, $fakeSocket);
 
         $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_UNIX_SOCKET, $hostInfo->getAddressType());
-        $this->assertSame($fakeSocket, $hostInfo->getUnixSocket(),);
+        $this->assertSame($fakeSocket, $hostInfo->getUnixSocket());
         $this->assertNull($hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
     }

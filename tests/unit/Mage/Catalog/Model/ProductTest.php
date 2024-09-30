@@ -45,7 +45,7 @@ class ProductTest extends TestCase
         $this->assertSame('1', $this->subject->getStoreId());
     }
 
-     /**
+    /**
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
@@ -54,7 +54,7 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getResourceCollection());
     }
 
-     /**
+    /**
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */

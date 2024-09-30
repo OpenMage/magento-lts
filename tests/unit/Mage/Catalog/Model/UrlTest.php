@@ -122,7 +122,7 @@ class UrlTest extends TestCase
                 null,
                 $category,
             ],
-           'target product' => [
+            'target product' => [
                 'catalog/product/view/id/999',
                'target',
                $product,
