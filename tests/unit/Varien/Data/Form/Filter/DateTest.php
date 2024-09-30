@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 use Varien_Data_Form_Filter_Date;
@@ -46,33 +47,35 @@ class DateTest extends TestCase
         }
     }
 
-    public function provideFilterData(): array
+    public function provideFilterData(): Generator
     {
-        return [
-            'exception' => [
-                'bcsub():',
-                '1990-18-18',
-            ],
-            'null' => [
-                null,
-                null,
-            ],
-            'empty' => [
-                '',
-                '',
-            ],
-            'YYYYMMDD' => [
-                '1990-05-18',
-                '1990-05-18',
-            ],
-            'YYMMDD' => [
-                '0090-05-18',
-                '90-05-18',
-            ],
-            'YYYYMD' => [
-                '1990-05-08',
-                '1990-5-8',
-            ],
+        yield 'exception' => [
+            'bcsub():',
+            '1990-18-18',
+        ];
+        yield 'null' => [
+            null,
+            null,
+        ];
+        yield 'empty' => [
+            '',
+            '',
+        ];
+        yield 'YYYYMMDD' => [
+            '1990-05-18',
+            '1990-05-18',
+        ];
+        yield 'YYMMDD' => [
+            '0090-05-18',
+            '90-05-18',
+        ];
+        yield 'exception' => [
+            'bcsub():',
+            '1990-18-18',
+        ];
+        yield 'YYYYMD' => [
+            '1990-05-08',
+            '1990-5-8',
         ];
     }
 }
