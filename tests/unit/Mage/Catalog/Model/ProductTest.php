@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use Generator;
 use Mage;
 use Mage_Catalog_Model_Product;
 use Mage_Catalog_Model_Product_Link;
@@ -119,7 +120,6 @@ class ProductTest extends TestCase
 
     /**
      * @dataProvider provideTypeInstanceData
-     *
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
@@ -128,15 +128,13 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, $this->subject->getTypeInstance($singleton));
     }
 
-    public function provideTypeInstanceData(): array
+    public function provideTypeInstanceData(): Generator
     {
-        return [
-            'singleton false' => [
-                true,
-            ],
-            'singleton true' => [
-                false,
-            ],
+        yield 'singleton false' => [
+            true,
+        ];
+        yield 'singleton true' => [
+            true,
         ];
     }
 
