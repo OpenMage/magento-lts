@@ -30,7 +30,7 @@ class ConfigTest extends TestCase
         $this->assertFalse($this->subject->getConfig($path));
 
         $this->subject->saveConfig($path, $value);
-        $this->assertEquals($value, $this->subject->getConfig($path));
+        $this->assertSame($value, $this->subject->getConfig($path));
 
         $this->subject->deleteConfig($path);
         $this->assertFalse($this->subject->getConfig($path));

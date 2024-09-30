@@ -31,23 +31,48 @@ class DateTest extends TestCase
     }
 
     /**
+     * @dataProvider provideFilterData
+     *
      * @group Varien_Data
      */
-    public function testInputFilter(): void
+    public function testInputFilter(?string $expectedResult, ?string $value): void
     {
-        $this->assertEquals('', $this->subject->inputFilter(''));
-        $this->assertEquals(null, $this->subject->inputFilter(null));
-        $this->assertEquals('1990-05-18', $this->subject->inputFilter('1990-05-18'));
-        $this->assertEquals('0090-05-18', $this->subject->inputFilter('90-05-18'));
-        $this->assertEquals('1990-05-08', $this->subject->inputFilter('1990-5-8'));
-        $this->assertEquals('1970-01-01', $this->subject->inputFilter('1970-01-01'));
-
         try {
-            $this->subject->inputFilter('1990-18-18');
+            $this->assertSame($expectedResult, $this->subject->inputFilter($value));
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            $this->assertStringStartsWith('bcsub():', $e->getMessage());
+            $this->assertStringStartsWith($expectedResult, $e->getMessage());
         }
+    }
+
+    public function provideFilterData(): array
+    {
+        return [
+            'exception' => [
+                'bcsub():',
+                '1990-18-18',
+            ],
+            'null' => [
+                null,
+                null,
+            ],
+            'empty' => [
+                '',
+                '',
+            ],
+            'YYYYMMDD' => [
+                '1990-05-18',
+                '1990-05-18',
+            ],
+            'YYMMDD' => [
+                '0090-05-18',
+                '90-05-18',
+            ],
+            'YYYYMD' => [
+                '1990-05-08',
+                '1990-5-8',
+            ],
+        ];
     }
 }

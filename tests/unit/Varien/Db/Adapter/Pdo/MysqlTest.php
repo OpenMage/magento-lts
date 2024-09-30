@@ -62,8 +62,8 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, $fakeSocket);
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_UNIX_SOCKET);
-        $this->assertEquals($hostInfo->getUnixSocket(), $fakeSocket);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_UNIX_SOCKET, $hostInfo->getAddressType());
+        $this->assertSame($fakeSocket, $hostInfo->getUnixSocket(),);
         $this->assertNull($hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
     }
@@ -79,9 +79,9 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '192.168.1.1:3306');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
-        $this->assertEquals('192.168.1.1', $hostInfo->getHostName());
-        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
+        $this->assertSame('192.168.1.1', $hostInfo->getHostName());
+        $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
@@ -96,8 +96,8 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '192.168.1.1');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
-        $this->assertEquals('192.168.1.1', $hostInfo->getHostName());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
+        $this->assertSame('192.168.1.1', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
@@ -113,9 +113,9 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'db.example.com:3306');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
-        $this->assertEquals('db.example.com', $hostInfo->getHostName());
-        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
+        $this->assertSame('db.example.com', $hostInfo->getHostName());
+        $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
@@ -130,8 +130,8 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'db.example.com');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
-        $this->assertEquals('db.example.com', $hostInfo->getHostName());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
+        $this->assertSame('db.example.com', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
@@ -147,9 +147,9 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '[2001:db8::1]:3306');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
-        $this->assertEquals('2001:db8::1', $hostInfo->getHostName());
-        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame('2001:db8::1', $hostInfo->getHostName());
+        $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
@@ -164,8 +164,8 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '2001:db8::1');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
-        $this->assertEquals('2001:db8::1', $hostInfo->getHostName());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame('2001:db8::1', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
@@ -181,9 +181,9 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '[fe80::1%eth0]:3306');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
-        $this->assertEquals('fe80::1%eth0', $hostInfo->getHostName());
-        $this->assertEquals('3306', $hostInfo->getPort());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame('fe80::1%eth0', $hostInfo->getHostName());
+        $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }
 
@@ -198,8 +198,8 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'fe80::1%eth0');
 
-        $this->assertEquals($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
-        $this->assertEquals('fe80::1%eth0', $hostInfo->getHostName());
+        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame('fe80::1%eth0', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
     }

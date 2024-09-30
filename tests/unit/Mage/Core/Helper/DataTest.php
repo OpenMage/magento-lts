@@ -123,7 +123,7 @@ class DataTest extends TestCase
     public function testRemoveAccents(): void
     {
         $str = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
-        $this->assertEquals('Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue', $this->subject->removeAccents($str, true));
+        $this->assertSame('Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue', $this->subject->removeAccents($str, true));
     }
 
     /**

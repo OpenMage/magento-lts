@@ -38,7 +38,7 @@ class RedirectTest extends TestCase
      */
     public function testGetTargetUrl(): void
     {
-        $this->assertEquals('', $this->subject->getTargetURL());
+        $this->assertSame('', $this->subject->getTargetURL());
     }
 
     /**
@@ -47,7 +47,7 @@ class RedirectTest extends TestCase
      */
     public function testGetMessage(): void
     {
-        $this->assertEquals('', $this->subject->getMessage());
+        $this->assertSame('', $this->subject->getMessage());
     }
 
     /**
@@ -92,7 +92,7 @@ class RedirectTest extends TestCase
      */
     public function testGetFormId(): void
     {
-        $this->assertEquals('', $this->subject->getFormId());
+        $this->assertSame('', $this->subject->getFormId());
     }
 
     /**
@@ -101,6 +101,6 @@ class RedirectTest extends TestCase
      */
     public function testGetFormMethod(): void
     {
-        $this->assertEquals('POST', $this->subject->getFormMethod());
+        $this->assertSame('POST', $this->subject->getFormMethod());
     }
 }

@@ -86,7 +86,7 @@ class ImagesTest extends TestCase
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
-        $this->assertEquals($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
+        $this->assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
     }
 
     /**

@@ -39,7 +39,7 @@ class LocaleTest extends TestCase
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {
-        $this->assertEquals($expectedResult, $this->subject->getNumber($value));
+        $this->assertSame($expectedResult, $this->subject->getNumber($value));
     }
 
     /**

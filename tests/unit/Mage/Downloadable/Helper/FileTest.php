@@ -39,7 +39,7 @@ class FileTest extends TestCase
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
     /**
