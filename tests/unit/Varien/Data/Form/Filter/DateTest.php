@@ -32,7 +32,7 @@ class DateTest extends TestCase
     }
 
     /**
-     * @dataProvider provideFilterData
+     * @dataProvider provideFilterDateData
      *
      * @group Varien_Data
      */
@@ -47,9 +47,9 @@ class DateTest extends TestCase
         }
     }
 
-    public function provideFilterData(): Generator
+    public function provideFilterDateData(): Generator
     {
-        yield 'exception' => [
+        yield 'bcsub() exception' => [
             'bcsub():',
             '1990-18-18',
         ];
