@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use Generator;
 use Mage;
 use Mage_Catalog_Model_Url;
 use Mage_Core_Exception;
@@ -43,7 +44,7 @@ class UrlTest extends TestCase
     }
 
     /**
-     * @dataProvider provideRefreshRewritesData
+     * @dataProvider provideRefreshRewrites
      *
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
@@ -53,15 +54,16 @@ class UrlTest extends TestCase
         $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->refreshRewrites($storeId));
     }
 
-    public function provideRefreshRewritesData(): array
+    public function provideRefreshRewrites(): Generator
     {
-        return [
-            'w/o storeId' => [
-                null,
-            ],
-            'w/ storeId' => [
-                2,
-            ],
+        yield 'w/o storeId' => [
+            null,
+        ];
+        yield 'w/ valid storeId' => [
+            1,
+        ];
+        yield 'w/ invalid storeId' => [
+            999,
         ];
     }
 
