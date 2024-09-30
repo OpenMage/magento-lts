@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     /**
      * Get store ID of current product
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

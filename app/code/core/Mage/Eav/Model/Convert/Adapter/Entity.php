@@ -35,7 +35,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Retrieve store Id
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

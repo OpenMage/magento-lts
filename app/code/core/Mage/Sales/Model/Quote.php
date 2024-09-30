@@ -254,7 +254,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Get quote store identifier
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

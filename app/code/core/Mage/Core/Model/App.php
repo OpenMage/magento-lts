@@ -364,8 +364,8 @@ class Mage_Core_Model_App
         } else {
             flush();
         }
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            session_write_close();
+        if (session_status() === PHP_SESSION_ACTIVE) {  // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            session_write_close();                      // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         }
 
         try {
@@ -540,6 +540,7 @@ class Mage_Core_Model_App
      */
     protected function _checkGetStore($type)
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (empty($_GET)) {
             return $this;
         }
@@ -547,10 +548,12 @@ class Mage_Core_Model_App
         /**
          * @todo check XML_PATH_STORE_IN_URL
          */
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_GET['___store'])) {
             return $this;
         }
 
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $store = $_GET['___store'];
         if (!isset($this->_stores[$store])) {
             return $this;
@@ -621,7 +624,7 @@ class Mage_Core_Model_App
 
     public function reinitStores()
     {
-        return $this->_initStores();
+        $this->_initStores();
     }
 
     /**
@@ -652,6 +655,7 @@ class Mage_Core_Model_App
 
         $this->_isSingleStore = false;
         if ($this->_isSingleStoreAllowed) {
+            // phpcs:ignore Ecg.Performance.CollectionCount.Found
             $this->_isSingleStore = $storeCollection->count() < 3;
         }
 
@@ -779,6 +783,7 @@ class Mage_Core_Model_App
      */
     protected function _initFrontController()
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_frontController = new Mage_Core_Controller_Varien_Front();
         Mage::register('controller', $this->_frontController);
         Varien_Profiler::start('mage::app::init_front_controller');
@@ -833,6 +838,7 @@ class Mage_Core_Model_App
     public function getArea($code)
     {
         if (!isset($this->_areas[$code])) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_areas[$code] = new Mage_Core_Model_App_Area($code, $this);
         }
         return $this->_areas[$code];
@@ -1264,8 +1270,8 @@ class Mage_Core_Model_App
      */
     public function cleanAllSessions()
     {
-        if (session_module_name() == 'files') {
-            $dir = session_save_path();
+        if (session_module_name() == 'files') {     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            $dir = session_save_path();             // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             mageDelTree($dir);
         }
         return $this;
@@ -1279,6 +1285,7 @@ class Mage_Core_Model_App
     public function getRequest()
     {
         if (empty($this->_request)) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_request = new Mage_Core_Controller_Request_Http();
         }
         return $this->_request;
@@ -1300,14 +1307,17 @@ class Mage_Core_Model_App
      */
     public function isCurrentlySecure()
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
             return true;
         }
 
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
             return true;
         }
 
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             return true;
         }
@@ -1317,6 +1327,7 @@ class Mage_Core_Model_App
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
                 $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }
@@ -1334,6 +1345,7 @@ class Mage_Core_Model_App
     public function getResponse()
     {
         if (empty($this->_response)) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_response = new Mage_Core_Controller_Response_Http();
             $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader('Content-Type', 'text/html; charset=UTF-8');
@@ -1479,6 +1491,7 @@ class Mage_Core_Model_App
      */
     public function throwStoreException($text = '')
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         throw new Mage_Core_Model_Store_Exception($text);
     }
 

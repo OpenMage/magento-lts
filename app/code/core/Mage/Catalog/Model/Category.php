@@ -138,6 +138,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_designAttributes  = [
         'custom_design',
         'custom_design_from',
@@ -440,9 +441,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return store id.
      *
-     * If store id is underfined for category return current active store id
+     * If store id is undefined for category return current active store id
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {
@@ -629,6 +630,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {

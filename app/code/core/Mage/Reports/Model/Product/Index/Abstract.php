@@ -113,7 +113,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
      *
      * default return current store id
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

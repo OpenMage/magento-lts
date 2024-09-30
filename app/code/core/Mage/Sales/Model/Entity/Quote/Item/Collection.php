@@ -34,7 +34,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

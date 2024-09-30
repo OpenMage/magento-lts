@@ -138,7 +138,7 @@
  * @method string getMetaDescription()
  * @method string getMetaKeyword()
  * @method string getMetaTitle()
- * @method $this hasMsrpEnabled(bool $value)
+ * @method $this hasMsrpEnabled()
  * @method bool getMsrpEnabled()
  * @method string getMsrpDisplayActualPriceType()
  *
@@ -877,7 +877,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product price model
      *
-     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Bundle_Model_Product_Price
+     * @return Mage_Bundle_Model_Product_Price
      */
     public function getPriceModel()
     {

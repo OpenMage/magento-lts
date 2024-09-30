@@ -44,7 +44,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var string
+     * @var string|array<string, array<string, string|null>>
      */
     protected $_categoryPath;
 

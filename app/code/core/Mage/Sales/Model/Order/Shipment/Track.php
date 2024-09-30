@@ -166,7 +166,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     /**
      * Get store id
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {

@@ -696,7 +696,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store identifier
      *
-     * @return  int
+     * @return string
      */
     public function getId()
     {

@@ -1001,27 +1001,12 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php
 
 		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getIsPricesCalculatedByIndex\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionPreFinalPrice\\(\\)\\.$#"
-			count: 3
-			path: app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Interface\\:\\:getQty\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionFinalTotalPrice\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Helper/Catalog/Product/Configuration.php
 
@@ -1064,11 +1049,6 @@ parameters:
 			message: "#^Offset 'option_id' does not exist on array\\{final_price\\: mixed\\}\\.$#"
 			count: 4
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getSelectionFinalTotalPrice\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
@@ -1281,11 +1261,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Widget/Link.php
 
 		-
-			message: "#^Property Mage_Catalog_Helper_Data\\:\\:\\$_categoryPath \\(string\\) does not accept array\\<string, array\\<string, string\\>\\>\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Data.php
-
-		-
 			message: "#^Property Mage_Catalog_Helper_Output\\:\\:\\$_templateProcessor \\(Varien_Filter_Template\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Output.php
@@ -1382,11 +1357,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Category\\:\\:getDefaultAttributeSetId\\(\\) should return int but returns string\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category.php
 
@@ -3201,11 +3171,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Resource/Form/Type.php
 
 		-
-			message: "#^Method Mage_GiftMessage_Model_Api_V2\\:\\:_prepareData\\(\\) should return array but returns mixed\\.$#"
-			count: 1
-			path: app/code/core/Mage/GiftMessage/Model/Api/V2.php
-
-		-
 			message: "#^Return type \\(stdClass\\) of method Mage_GiftMessage_Model_Api_V2\\:\\:_setGiftMessage\\(\\) should be compatible with return type \\(array\\) of method Mage_GiftMessage_Model_Api\\:\\:_setGiftMessage\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/GiftMessage/Model/Api/V2.php
@@ -3956,11 +3921,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
@@ -3977,11 +3937,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method addAttributeToFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
-
-		-
-			message: "#^Property Mage_Core_Model_Abstract\\:\\:\\$_origData \\(array\\) does not accept null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Invoice.php
 
@@ -4621,11 +4576,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Invalid array key type strin\\.$#"
-			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -4637,11 +4587,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_parseResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but returns bool\\|Mage_Shipping_Model_Rate_Result_Error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Parameter \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) has invalid type strin\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 

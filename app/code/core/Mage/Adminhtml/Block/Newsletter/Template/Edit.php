@@ -335,7 +335,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     /**
      * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
      *
-     * @return int
+     * @return string
      */
     protected function getStoreId()
     {

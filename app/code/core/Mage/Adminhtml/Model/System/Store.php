@@ -48,6 +48,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_isAdminScopeAllowed = true;
 
     /**
@@ -122,6 +123,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             ];
         }
 
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($this->_websiteCollection as $website) {
