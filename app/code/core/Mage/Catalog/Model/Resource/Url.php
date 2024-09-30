@@ -1103,13 +1103,16 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         // Form a list of all current store categories ids
         $store          = $this->getStores($storeId);
+        if (!$store instanceof Mage_Core_Model_Store) {
+            return $this;
+        }
         $rootCategoryId = $store->getRootCategoryId();
         if (!$rootCategoryId) {
             return $this;
         }
         $categoryIds = $this->getRootChildrenIds($rootCategoryId, $store->getRootCategoryPath());
 
-        // Remove all store catalog rewrites that are for some category or cartegory/product not within store categories
+        // Remove all store catalog rewrites that are for some category or category/product not within store categories
         $where   = [
             'store_id = ?' => $storeId,
             'category_id IS NOT NULL', // For sure check that it's a catalog rewrite
@@ -1136,6 +1139,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     public function clearStoreProductsInvalidRewrites($storeId, $productId = null)
     {
         $store   = $this->getStores($storeId);
+        if (!$store instanceof Mage_Core_Model_Store) {
+            return $this;
+        }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [
             'website_id' => (int)$store->getWebsiteId(),
