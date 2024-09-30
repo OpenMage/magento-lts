@@ -217,7 +217,7 @@
  * @method $this setStoreIds(array $storeIds)
  * @method array getSwatchPrices()
  *
- * @method int getTaxClassId()
+ * @method string getTaxClassId()
  * @method string getThumbnail()
  * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
@@ -360,7 +360,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve Store Id
      *
-     * @return int
+     * @return string
      */
     public function getStoreId()
     {
@@ -417,7 +417,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product name
      *
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -442,16 +442,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
+     * @return $this
      */
     public function setPriceCalculation($calculate = true)
     {
         $this->_calculatePrice = $calculate;
+        return $this;
     }
 
     /**
      * Get product type identifier
      *
-     * @return string
+     * @return string|null
      */
     public function getTypeId()
     {
