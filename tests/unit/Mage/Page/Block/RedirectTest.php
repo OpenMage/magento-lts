@@ -34,7 +34,7 @@ class RedirectTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetTargetUrl(): void
     {

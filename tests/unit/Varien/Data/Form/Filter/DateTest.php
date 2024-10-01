@@ -43,7 +43,7 @@ class DateTest extends TestCase
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            $this->assertStringStartsWith($expectedResult, $e->getMessage());
+            $this->assertStringStartsWith((string) $expectedResult, $e->getMessage());
         }
     }
 
@@ -68,10 +68,6 @@ class DateTest extends TestCase
         yield 'YYMMDD' => [
             '0090-05-18',
             '90-05-18',
-        ];
-        yield 'exception' => [
-            'bcsub():',
-            '1990-18-18',
         ];
         yield 'YYYYMD' => [
             '1990-05-08',

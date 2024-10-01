@@ -87,7 +87,7 @@ class UrlTest extends TestCase
         }
     }
 
-    public function provideGeneratePathData(): array
+    public function provideGeneratePathData(): Generator
     {
         $category = new Varien_Object([
             'id'        => '999',
@@ -99,37 +99,35 @@ class UrlTest extends TestCase
             'id' => '999'
         ]);
 
-        return [
-            'exception' => [
-                'Please specify either a category or a product, or both.',
-                'request',
-                null,
-                null,
-            ],
-            'request' => [
-                '-.html',
-                'request',
-                $product,
-                $category,
-            ],
-//            'request w/o product' => [
-//                '-.html',
-//                'request',
-//                null,
-//                $category,
-//            ],
-            'target category' => [
-                'catalog/category/view/id/999',
-                'target',
-                null,
-                $category,
-            ],
-            'target product' => [
-                'catalog/product/view/id/999',
-               'target',
-               $product,
-               $category,
-            ],
+        yield 'test exception' => [
+            'Please specify either a category or a product, or both.',
+            'request',
+            null,
+            null,
+        ];
+        yield 'request' => [
+            '-.html',
+            'request',
+            $product,
+            $category,
+        ];
+//        yield 'request w/o product' => [
+//            '-.html',
+//            'request',
+//            null,
+//            $category,
+//        ];
+        yield 'target category' => [
+            'catalog/category/view/id/999',
+            'target',
+            null,
+            $category,
+        ];
+        yield 'target product' => [
+            'catalog/product/view/id/999',
+            'target',
+            $product,
+            $category,
         ];
     }
 }

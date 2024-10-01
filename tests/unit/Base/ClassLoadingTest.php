@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 class ClassLoadingTest extends TestCase
@@ -30,24 +31,19 @@ class ClassLoadingTest extends TestCase
         $this->assertSame($expectedResult, class_exists($class));
     }
 
-    /**
-     * @return array<string, array<int, bool|string>>
-     */
-    public function provideClassExistsData(): array
+    public function provideClassExistsData(): Generator
     {
-        return [
-            'class exists #1' => [
-                true,
-                'Mage'
-            ],
-            'class exists #2' => [
-                true,
-                'Mage_Eav_Model_Entity_Increment_Numeric'
-            ],
-            'class not exists' => [
-                false,
-                'Mage_Non_Existent'
-            ],
+        yield 'class exists #1' => [
+            true,
+            'Mage'
+        ];
+        yield 'class exists #2' => [
+            true,
+            'Mage_Eav_Model_Entity_Increment_Numeric'
+        ];
+        yield 'class not exists' => [
+            false,
+            'Mage_Non_Existent'
         ];
     }
 }

@@ -43,7 +43,7 @@ class DatetimeTest extends TestCase
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            $this->assertStringStartsWith($expectedResult, $e->getMessage());
+            $this->assertStringStartsWith((string) $expectedResult, $e->getMessage());
         }
     }
 

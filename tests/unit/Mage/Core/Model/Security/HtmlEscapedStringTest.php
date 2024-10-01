@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Security;
 
+use Generator;
 use Mage_Core_Model_Security_HtmlEscapedString;
 use PHPUnit\Framework\TestCase;
 
@@ -52,41 +53,31 @@ class HtmlEscapedStringTest extends TestCase
         $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
     }
 
-    /**
-     * @return array<string, array<int, array<int, string>|string|null>>
-     */
-    public function provideHtmlEscapedStringAsStringData(): array
+    public function provideHtmlEscapedStringAsStringData(): Generator
     {
-        return [
-            'tags_null' => [
-                'This is a bold &lt;b&gt;string&lt;/b&gt;',
-                self::TEST_STRING,
-                null
-            ],
-            'tags_array' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                ['b']
-            ],
+        yield 'tags null' => [
+            'This is a bold &lt;b&gt;string&lt;/b&gt;',
+            self::TEST_STRING,
+            null
+        ];
+        yield 'tags array' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            ['b']
         ];
     }
 
-    /**
-     * @return array<string, array<int, array<int, string>|string|null>>
-     */
-    public function provideHtmlEscapedStringGetUnescapedValueData(): array
+    public function provideHtmlEscapedStringGetUnescapedValueData(): Generator
     {
-        return [
-            'tags_null' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                null
-            ],
-            'tags_array' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                ['some-invalid-value']
-            ],
+        yield 'tags null' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            null
+        ];
+        yield 'tags array' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            ['some-invalid-value']
         ];
     }
 }
