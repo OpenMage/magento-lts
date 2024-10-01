@@ -56,7 +56,7 @@ class BlockTest extends TestCase
         yield 'invalid block ID' => [
             '0'
         ];
-     }
+    }
 
     /**
      * @group Mage_Cms
