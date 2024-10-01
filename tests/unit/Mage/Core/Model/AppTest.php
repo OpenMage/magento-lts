@@ -27,6 +27,8 @@ class AppTest extends TestCase
      * @dataProvider provideGetStore
      * @group Mage_Core
      * @group Mage_Core_Model
+     *
+     * @param bool|int|Mage_Core_Model_Store|null|string $id
      */
     public function testGetStore($id): void
     {
@@ -67,6 +69,8 @@ class AppTest extends TestCase
      * @dataProvider provideGetWebsite
      * @group Mage_Core
      * @group Mage_Core_Model
+     *
+     * @param int|Mage_Core_Model_Website|null|string|true $id
      */
     public function testGetWebsite($id): void
     {
@@ -107,6 +111,8 @@ class AppTest extends TestCase
      * @dataProvider provideGetGroup
      * @group Mage_Core
      * @group Mage_Core_Model
+     *
+     * @param int|Mage_Core_Model_Store_Group|null|string $id
      */
     public function testGetGroup($id): void
     {

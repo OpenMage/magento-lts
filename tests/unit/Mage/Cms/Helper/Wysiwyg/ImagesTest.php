@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper\Wysiwyg;
 
+use Generator;
 use Mage;
 use Mage_Cms_Helper_Wysiwyg_Images;
 use Mage_Cms_Model_Wysiwyg_Images_Storage;
@@ -89,22 +90,17 @@ class ImagesTest extends TestCase
         $this->assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
     }
 
-    /**
-     * @return array[]
-     */
-    public function provideGetShortFilenameData(): array
+    public function provideGetShortFilenameData(): Generator
     {
-        return [
-            'full length' => [
-                '0123456789',
-                self::TEST_STRING,
-                20,
-            ],
-            'truncated' => [
-                '01234...',
-                self::TEST_STRING,
-                5,
-            ]
+        yield 'full length' => [
+            '0123456789',
+            self::TEST_STRING,
+            20,
+        ];
+        yield 'truncated' => [
+            '01234...',
+            self::TEST_STRING,
+            5,
         ];
     }
 }
