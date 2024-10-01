@@ -36,6 +36,7 @@ class ColumnTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertIsString($this->subject->getType());
+        $this->subject->setType('text');
+        $this->assertSame('text', $this->subject->getType());
     }
 }
