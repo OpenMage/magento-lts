@@ -126,7 +126,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         if (empty($newStores)) {
             $newStores = (array)$object->getStoreId();
         }
-        $table = $this->getTable('cms/page_store');
+        $table  = $this->getTable('cms/page_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
 
@@ -144,7 +144,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
             foreach ($insert as $storeId) {
                 $data[] = [
-                    'page_id' => (int)$object->getId(),
+                    'page_id'  => (int)$object->getId(),
                     'store_id' => (int)$storeId
                 ];
             }
