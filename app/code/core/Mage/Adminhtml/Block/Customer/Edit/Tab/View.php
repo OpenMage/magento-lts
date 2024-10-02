@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
      */
     public function getStoreCreateDate()
     {
-        $date = $this->getCustomer()->getCreatedAt();
+        $date = $this->getCustomer()->getCreatedAtTimestamp();
         if (!$date) {
             return null;
         }
