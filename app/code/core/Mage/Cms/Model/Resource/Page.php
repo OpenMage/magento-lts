@@ -295,30 +295,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             ->addFieldToFilter('scope_id', ['in' => $storeIds]);
 
         if (!is_null($paths)) {
-            $paths = $this->getUsedInStoreConfigPaths($paths);
-            $config->addFieldToFilter('path', ['in' => $this->getUsedInStoreConfigPaths($paths)]);
+            $paths = Mage_Cms_Helper_Page::getUsedInStoreConfigPaths($paths);
+            $config->addFieldToFilter('path', ['in' => $paths]);
         }
 
         return $config;
-    }
-
-    public function getUsedInStoreConfigPaths(?array $paths = []): array
-    {
-        $searchPaths = [
-            Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
-            Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE,
-            Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE,
-        ];
-
-        if (is_array($paths) && $paths !== []) {
-            $searchPaths = array_merge($searchPaths, $paths);
-        }
-
-        if (is_null($paths)) {
-            $searchPaths = [];
-        }
-
-        return $searchPaths;
     }
 
     public function isUsedInStoreConfig(?Mage_Cms_Model_Page $page = null, ?array $paths = []): bool
