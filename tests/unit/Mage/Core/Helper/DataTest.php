@@ -107,9 +107,26 @@ class DataTest extends TestCase
             $now,
             null
         ];
-        yield 'empty string' => [
+        yield 'empty date' => [
             $now,
             ''
+        ];
+        yield 'string date' => [
+            $now,
+            'now'
+        ];
+        yield 'numeric date' => [
+            $now,
+            '0'
+        ];
+        yield 'invalid date' => [
+            '',
+            'invalid'
+        ];
+        yield 'invalid format' => [
+            (string)$date,
+            $date,
+            'invalid',
         ];
         yield 'date short' => [
             $dateShort,
