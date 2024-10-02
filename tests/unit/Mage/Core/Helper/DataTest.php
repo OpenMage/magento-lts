@@ -32,13 +32,10 @@ class DataTest extends TestCase
 
     public Mage_Core_Helper_Data $subject;
 
-    public int $offset;
-
     public function setUp(): void
     {
         Mage::app();
         $this->subject = Mage::helper('core/data');
-        $this->offset = Mage::getModel('core/date')->getGmtOffset('UTC');;
     }
 
     /**
@@ -89,8 +86,6 @@ class DataTest extends TestCase
         bool $showTime = false,
         bool $useTimezone = true
     ): void {
-
-
         $this->assertSame($expectedResult, $this->subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
     }
 
