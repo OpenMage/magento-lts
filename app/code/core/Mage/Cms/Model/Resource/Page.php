@@ -80,15 +80,17 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $object->setData($field, $this->formatDate($value));
         }
 
-        $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
-        if (!$object->getIsActive() && ($isUsedInConfig->count())) {
-            $object->setIsActive(true);
-            Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('cms')->__(
-                    'Cannot disable page, it is used in "%s".',
-                    implode(', ', $isUsedInConfig->getColumnValues('path'))
-                )
-            );
+        if (!$object->getIsActive()) {
+            $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
+            if  ($isUsedInConfig->count()) {
+                $object->setIsActive(true);
+                Mage::getSingleton('adminhtml/session')->addWarning(
+                    Mage::helper('cms')->__(
+                        'Cannot disable page, it is used in "%s".',
+                        implode(', ', $isUsedInConfig->getColumnValues('path'))
+                    )
+                );
+            }
         }
 
         if (!$this->getIsUniquePageToStores($object)) {
