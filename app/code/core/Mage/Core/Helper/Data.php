@@ -149,30 +149,46 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   string|Zend_Date|null $date If empty, return current datetime.
      * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
+        return $this->formatTimezoneDate($date, $format, $showTime);
+    }
+
+    /**
+     * Format date using current locale options and time zone.
+     *
+     * @param   string|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   string                  $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                    $showTime Whether to include time
+     * @param   bool                    $useTimezone Convert to local datetime?
+     * @return  string
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
+
+        $locale = Mage::app()->getLocale();
         if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
+            $date = $locale->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
         } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+            $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
             if (($time = strtotime($date)) !== false) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
+                $date = $locale->date($time, null, null, $useTimezone);
             } else {
                 return '';
             }
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
-
+        $format = $showTime ? $locale->getDateTimeFormat($format) : $locale->getDateFormat($format);
         return $date->toString($format);
     }
 
@@ -190,18 +206,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             return $time;
         }
 
+        $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = Mage::app()->getLocale()->date(time());
+            $date = $locale->date(time());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
-            $date = Mage::app()->getLocale()->date(strtotime($time));
+            $date = $locale->date(strtotime($time));
         }
 
         if ($showDate) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+            $format = $locale->getDateTimeFormat($format);
         } else {
-            $format = Mage::app()->getLocale()->getTimeFormat($format);
+            $format = $locale->getTimeFormat($format);
         }
 
         return $date->toString($format);
@@ -368,12 +385,14 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
             $replacements[$german] = [];
             foreach ($subst as $k => $v) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
+        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
         if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
             $string = $s;
         }
@@ -571,6 +590,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $value
      * @param bool $dontSkip
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _decorateArrayObject($element, $key, $value, $dontSkip)
     {
         if ($dontSkip) {
@@ -616,6 +636,7 @@ XML;
      * @return SimpleXMLElement
      * @throws Exception
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
     {
         $hasNumericKey = false;
@@ -765,14 +786,18 @@ XML;
             // check whether merger is required
             $shouldMerge = $mustMerge || !$targetFile;
             if (!$shouldMerge) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if (!file_exists($targetFile)) {
                     $shouldMerge = true;
                 } else {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         if (!file_exists($file)) {
                             // no translation intentionally
                             Mage::logException(new Exception(sprintf('File %s not found.', $file)));
+                            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                         } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
@@ -783,8 +808,10 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
 
@@ -795,6 +822,7 @@ XML;
                     }
                     if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
+                            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
                                 unset($srcFiles[$key]);
@@ -809,11 +837,14 @@ XML;
 
                 $data = '';
                 foreach ($srcFiles as $file) {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if (!file_exists($file)) {
                         continue;
                     }
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $contents = file_get_contents($file) . "\n";
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
                     $data .= $contents;
@@ -823,6 +854,7 @@ XML;
                     throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
                 if ($targetFile) {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     file_put_contents($targetFile, $data, LOCK_EX);
                 } else {
                     return $data; // no need to write to file, just return data
@@ -878,6 +910,7 @@ XML;
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;

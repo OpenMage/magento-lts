@@ -1110,17 +1110,36 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param   string $date
-     * @param   string $format
-     * @param   bool $showTime
-     * @param   bool $useTimezone
-     * @return  string
+     * @param null|string|Zend_Date $date
+     * @param string $format
+     * @param bool $showTime
+     * @return string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->helper('core');
-        return $helper->formatDate($date, $format, $showTime, $useTimezone);
+        return $helper->formatDate($date, $format, $showTime);
+    }
+
+    /**
+     * Retrieve formatting timezone date
+     *
+     * @param null|string|Zend_Date $date
+     * @param string $format
+     * @param bool $showTime
+     * @param bool $useTimezone
+     * @return string
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatTimezoneDate($date, $format, $showTime, $useTimezone);
     }
 
     /**

@@ -17,11 +17,14 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Generator;
 use Mage;
 use Mage_Core_Helper_Data;
 use Mage_Core_Model_Encryption;
+use Mage_Core_Model_Locale;
 use PHPUnit\Framework\TestCase;
 use Varien_Crypt_Mcrypt;
+use Varien_Date;
 
 class DataTest extends TestCase
 {
@@ -29,10 +32,13 @@ class DataTest extends TestCase
 
     public Mage_Core_Helper_Data $subject;
 
+    public int $offset;
+
     public function setUp(): void
     {
         Mage::app();
         $this->subject = Mage::helper('core/data');
+        $this->offset = Mage::getModel('core/date')->getGmtOffset('UTC');;
     }
 
     /**
@@ -69,6 +75,64 @@ class DataTest extends TestCase
     public function testValidateKey(): void
     {
         $this->assertInstanceOf(Varien_Crypt_Mcrypt::class, $this->subject->validateKey('test'));
+    }
+
+    /**
+     * @dataProvider provideFormatTimezoneDate
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testFormatTimezoneDate(
+        string $expectedResult,
+        $data,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): void {
+
+
+        $this->assertSame($expectedResult, $this->subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
+    }
+
+    public function provideFormatTimezoneDate(): Generator
+    {
+        $date = strtotime(Varien_Date::formatDate('2024-10-02 12:00:00'));
+        $now = date('m/j/Y', $date);
+
+        $dateShort = date('m/j/Y', $date);
+        $dateLong = date('F j, Y', $date);
+        $dateShortTime = date('m/j/Y h:i A', $date);
+
+        yield 'null' => [
+            $now,
+            null
+        ];
+        yield 'empty string' => [
+            $now,
+            ''
+        ];
+        yield 'date short' => [
+            $dateShort,
+            $date
+        ];
+        yield 'date long' => [
+            $dateLong,
+            $date,
+            'long'
+        ];
+//        yield 'date short w/ time and w/ timezone' => [
+//            $dateShortTime,
+//            $date,
+//            'short',
+//            true
+//        ];
+        yield 'date short w/ time' => [
+            $dateShortTime,
+            $date,
+            'short',
+            true,
+            false,
+        ];
     }
 
     /**
