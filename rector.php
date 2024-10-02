@@ -19,11 +19,12 @@ return RectorConfig::configure()
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withSkip([
+        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
+        CodeQuality\If_\SimplifyIfReturnBoolRector::class,
         __DIR__ . '/shell/translations.php',
         __DIR__ . '/shell/update-copyright.php.php'
     ])
     ->withRules([
-//        CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class, # wait for https://github.com/rectorphp/rector/issues/8781
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
         CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
         CodeQuality\FuncCall\ChangeArrayPushToArrayAssignRector::class,
@@ -31,7 +32,6 @@ return RectorConfig::configure()
         CodeQuality\Identical\SimplifyArraySearchRector::class,
         CodeQuality\Identical\SimplifyConditionsRector::class,
         CodeQuality\Identical\StrlenZeroToIdenticalEmptyStringRector::class,
-//        CodeQuality\If_\SimplifyIfReturnBoolRector::class,
         CodeQuality\NotEqual\CommonNotEqualRector::class,
         CodeQuality\LogicalAnd\LogicalToBooleanRector::class,
         CodeQuality\Ternary\SimplifyTautologyTernaryRector::class,
