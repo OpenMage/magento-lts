@@ -1126,10 +1126,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve formatting timezone date
      *
      * @param null|string|Zend_Date $date
-     * @param string $format
-     * @param bool $showTime
-     * @param bool $useTimezone
-     * @return string
      */
     public function formatTimezoneDate(
         $date = null,

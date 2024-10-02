@@ -163,7 +163,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   string                  $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                    $showTime Whether to include time
      * @param   bool                    $useTimezone Convert to local datetime?
-     * @return  string
      */
     public function formatTimezoneDate(
         $date = null,
