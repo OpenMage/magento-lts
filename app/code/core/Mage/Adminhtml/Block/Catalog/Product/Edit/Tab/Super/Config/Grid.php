@@ -266,8 +266,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                         'onclick'  => 'superProduct.createPopup(this.href);return false;'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false
              ]
         );
 

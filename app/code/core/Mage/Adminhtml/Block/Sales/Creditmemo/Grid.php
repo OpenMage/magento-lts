@@ -107,7 +107,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'action',
             [
                 'header'    => Mage::helper('sales')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [
@@ -117,8 +116,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
                         'field'   => 'creditmemo_id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false,
                 'is_system' => true
             ]
         );

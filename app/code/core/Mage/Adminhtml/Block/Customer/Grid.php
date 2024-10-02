@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('group', [
             'header'    =>  Mage::helper('customer')->__('Group'),
-            'width'     =>  '100',
+            'width'     =>  '150',
             'index'     =>  'group_id',
             'type'      =>  'options',
             'options'   =>  $groups,
@@ -140,7 +140,6 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'action',
             [
                 'header'    =>  Mage::helper('customer')->__('Action'),
-                'width'     => '100',
                 'type'      => 'action',
                 'getter'    => 'getId',
                 'actions'   => [
@@ -150,8 +149,6 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
                         'field'     => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false,
                 'index'     => 'stores',
                 'is_system' => true,
             ]

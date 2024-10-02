@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
             'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '100%',
+                'width'     => '100',
                 'type'      => 'action',
                 'getter'    => 'getId',
                 'actions'   => [
@@ -78,8 +78,6 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
                     ]
                 ],
                 'is_system' => true,
-                'filter'    => false,
-                'sortable'  => false,
                 'index'     => 'stores',
             ]
         );

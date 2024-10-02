@@ -219,14 +219,19 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             ],
         ],
         'type' => [
+            'action' => [
+                'width' => 40,
+                'filter' => false,
+                'sortable' => false,
+            ],
             'currency' => [
                 'align' => 'right',
             ],
             'date' => [
-                'width' => 140
+                'width' => 140,
             ],
             'datetime' => [
-                'width' => 160
+                'width' => 170,
             ],
             'number' => [
                 'align' => 'right',

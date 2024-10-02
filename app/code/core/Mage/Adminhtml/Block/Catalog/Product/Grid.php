@@ -269,7 +269,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [
@@ -282,8 +281,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                         'field'   => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false,
+
                 'index'     => 'stores',
             ]
         );

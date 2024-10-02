@@ -174,7 +174,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
 
         $this->addColumn('action', [
             'header'    => Mage::helper('catalog')->__('Action'),
-            'width'     => '50px',
             'type'      => 'action',
             'getter'    => 'getId',
             'actions'   => [
@@ -192,8 +191,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                     ],
                 ],
             ],
-            'filter' => false,
-            'sortable' => false,
             'index' => 'stores',
         ]);
 

@@ -117,7 +117,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
             'action',
             [
                 'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '100px',
                 'type'      => 'action',
                 'getter'    => 'getId',
                 'actions'   => [[
@@ -127,8 +126,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
                     ],
                     'field'   => 'id'
                 ]],
-                'filter'    => false,
-                'sortable'  => false,
                 'index'     => 'catalog',
             ]
         );

@@ -64,10 +64,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
 
         $this->addColumn('action', [
             'header'    => Mage::helper('adminhtml')->__('Action'),
-            'width'     => '60px',
             'align'     => 'center',
-            'sortable'  => false,
-            'filter'    => false,
             'type'      => 'action',
             'actions'   => [
                 [

@@ -87,10 +87,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Grid extends Mage_Adminhtml_Block_
 
         $this->addColumn('action', [
             'header'    => Mage::helper('adminhtml')->__('Action'),
-            'width'     => '60px',
             'align'     => 'center',
-            'sortable'  => false,
-            'filter'    => false,
             'type'      => 'action',
             'actions'   => [
                 [

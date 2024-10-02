@@ -159,8 +159,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                         'field'     => 'process'
                     ],
                 ],
-                'filter'    => false,
-                'sortable'  => false,
                 'is_system' => true,
             ]
         );

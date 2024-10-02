@@ -175,7 +175,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'action',
             [
                 'header'    => Mage::helper('adminhtml')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getReviewId',
                 'actions'   => [
@@ -192,8 +191,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                          'field'   => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false
             ]
         );
 
