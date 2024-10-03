@@ -19,7 +19,7 @@
  *
  * @see app/design/frontend/base/default/template/customer/form/login.phtml
  */
-/** @var $this Mage_Customer_Block_Form_Login */
+/** @var Mage_Customer_Block_Form_Login $this */
 ?>
 <?php $isRegistrationAllowed = $this->helper('customer')->isRegistrationAllowed() ?>
 <div class="account-login<?php if (!$isRegistrationAllowed) echo ' login-only' ?>">
