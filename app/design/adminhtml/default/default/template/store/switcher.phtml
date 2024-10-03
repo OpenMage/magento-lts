@@ -13,7 +13,7 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Core_Block_Template */ ?>
+<?php /** @var Mage_Core_Block_Template $this */ ?>
 <?php if ($websites = $this->getWebsites()): ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View:') ?></label>
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">

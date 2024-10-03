@@ -12,7 +12,7 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/* @var $this Mage_Core_Block_Template */ ?>
+/** @var Mage_Core_Block_Template $this */ ?>
 <div class="switcher">
     <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
     <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
