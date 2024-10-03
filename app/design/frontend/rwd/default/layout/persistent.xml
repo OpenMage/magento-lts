@@ -24,7 +24,7 @@
 
     <customer_account_login>
         <reference name="customer_form_login">
-            <action method="setTemplate"><template>persistent/customer/form/login.phtml</template></action>
+            <action method="setTemplate" ifconfig="persistent/options/enabled"><template>persistent/customer/form/login.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
         </reference>
@@ -32,7 +32,7 @@
 
     <customer_account_create>
         <reference name="customer_form_register">
-            <action method="setTemplate"><template>persistent/customer/form/register.phtml</template></action>
+            <action method="setTemplate" ifconfig="persistent/options/enabled"><template>persistent/customer/form/register.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
         </reference>
@@ -40,12 +40,12 @@
 
     <checkout_onepage_index>
         <reference name="checkout.onepage.login">
-            <action method="setTemplate"><template>persistent/checkout/onepage/login.phtml</template></action>
+            <action method="setTemplate" ifconfig="persistent/options/enabled"><template>persistent/checkout/onepage/login.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
         </reference>
         <reference name="checkout.onepage.billing">
-            <action method="setTemplate"><template>persistent/checkout/onepage/billing.phtml</template></action>
+            <action method="setTemplate" ifconfig="persistent/options/enabled"><template>persistent/checkout/onepage/billing.phtml</template></action>
             <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
         </reference>
