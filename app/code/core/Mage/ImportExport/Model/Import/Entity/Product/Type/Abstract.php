@@ -294,7 +294,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                         ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
-                } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
+                } elseif ($withDefaultValue && !is_null($attrParams['default_value'])) {
                     $resultAttrs[$attrCode] = $attrParams['default_value'];
                 }
             }

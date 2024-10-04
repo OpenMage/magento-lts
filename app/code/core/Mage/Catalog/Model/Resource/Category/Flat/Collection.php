@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 }
 
                 // Joined columns
-                if ($column[2] !== null) {
+                if (!is_null($column[2])) {
                     $expression = [$column[2] => $column[1]];
                 } else {
                     $expression = $column[2];

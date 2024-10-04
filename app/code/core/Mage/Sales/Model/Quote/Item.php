@@ -908,7 +908,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         $removedItems = $this->_errorInfos->removeItemsByParams($params);
         foreach ($removedItems as $item) {
-            if ($item['message'] !== null) {
+            if (!is_null($item['message'])) {
                 $this->removeMessageByText($item['message']);
             }
         }

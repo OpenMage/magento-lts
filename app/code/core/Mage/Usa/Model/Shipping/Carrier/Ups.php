@@ -708,7 +708,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
   <Shipment>
 XMLRequest;
 
-        if ($params['serviceCode'] !== null) {
+        if (!is_null($params['serviceCode'])) {
             $xmlRequest .= '<Service>' .
                 "<Code>{$params['serviceCode']}</Code>" .
                 "<Description>{$params['serviceDescription']}</Description>" .

@@ -2906,7 +2906,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if (!is_null($onDelete)) {
             $query .= ' ON DELETE ' . strtoupper($onDelete);
         }
-        if ($onUpdate  !== null) {
+        if (!is_null($onUpdate )) {
             $query .= ' ON UPDATE ' . strtoupper($onUpdate);
         }
 
@@ -3735,7 +3735,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $joinType = strtoupper($joinProp['joinType']);
             }
             $joinTable = '';
-            if ($joinProp['schema'] !== null) {
+            if (!is_null($joinProp['schema'])) {
                 $joinTable = sprintf('%s.', $this->quoteIdentifier($joinProp['schema']));
             }
             $joinTable .= $this->quoteTableAs($joinProp['tableName'], $correlationName);

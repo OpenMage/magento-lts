@@ -1669,7 +1669,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($errorLists as $type => $errorList) {
             $removedItems = $errorList->removeItemsByParams($params);
             foreach ($removedItems as $item) {
-                if ($item['message'] !== null) {
+                if (!is_null($item['message'])) {
                     $this->removeMessageByText($type, $item['message']);
                 }
             }
