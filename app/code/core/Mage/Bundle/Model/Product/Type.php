@@ -1041,14 +1041,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $result = null;
         $parentVisibility = $product->getMsrpDisplayActualPriceType();
-        if ($parentVisibility === null) {
+        if (is_null($parentVisibility)) {
             $parentVisibility = $helper->getMsrpDisplayActualPriceType();
         }
         $visibilities = array($parentVisibility);
         foreach ($collection as $item) {
             if ($helper->canApplyMsrp($item)) {
                 $productVisibility = $item->getMsrpDisplayActualPriceType();
-                if ($productVisibility === null) {
+                if (is_null($productVisibility)) {
                     $productVisibility = $helper->getMsrpDisplayActualPriceType();
                 }
                 $visibilities[] = $productVisibility;

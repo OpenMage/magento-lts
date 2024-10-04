@@ -155,7 +155,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $productIds = [$productIds];
         }
 
-        if ($storeId === null || $storeId == Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID) {
+        if (is_null($storeId) || $storeId == Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID) {
             $select = $adapter->select()
                 ->from($attributeTable, ['entity_id', 'value'])
                 ->where('entity_id IN (?)', $productIds)

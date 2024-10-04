@@ -206,7 +206,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getProduct()
     {
         $product = $this->_getData('product');
-        if ($product === null && $this->getProductId()) {
+        if (is_null($product) && $this->getProductId()) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($this->getQuote()->getStoreId())
                 ->load($this->getProductId());

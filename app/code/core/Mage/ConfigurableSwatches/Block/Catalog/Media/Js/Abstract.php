@@ -71,7 +71,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
 
         $products = $this->getProducts();
 
-        if ($keepFrame === null) {
+        if (is_null($keepFrame)) {
             $keepFrame = $this->isKeepFrame();
         }
 

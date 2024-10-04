@@ -69,7 +69,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getEncryptor()
     {
-        if ($this->_encryptor === null) {
+        if (is_null($this->_encryptor)) {
             $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel();
@@ -706,7 +706,7 @@ XML;
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         switch (true) {
-            case ($encodedValue === null):
+            case (is_null($encodedValue)):
                 $encodedValue = 'null';
                 break;
             case ($encodedValue === true):

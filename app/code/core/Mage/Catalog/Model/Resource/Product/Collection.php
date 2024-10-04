@@ -644,7 +644,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function addStoreFilter($store = null)
     {
-        if ($store === null) {
+        if (is_null($store)) {
             $store = $this->getStoreId();
         }
         $store = Mage::app()->getStore($store);
@@ -965,7 +965,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getProductCountSelect()
     {
-        if ($this->_productCountSelect === null) {
+        if (is_null($this->_productCountSelect)) {
             $this->_productCountSelect = clone $this->getSelect();
             $this->_productCountSelect->reset(Zend_Db_Select::COLUMNS)
                 ->reset(Zend_Db_Select::GROUP)
@@ -1439,7 +1439,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $classToRate = [];
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         foreach ($this as &$item) {
-            if ($item->getTaxClassId() === null) {
+            if (is_null($item->getTaxClassId())) {
                 $item->setTaxClassId($item->getMinimalTaxClassId());
             }
             if (!isset($classToRate[$item->getTaxClassId()])) {

@@ -62,7 +62,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function getFileName(&$files = null)
     {
         if ($this->_isCorrect) {
-            if ($files === null) {
+            if (is_null($files)) {
                 return $this->_filename;
             }
             $files[] = $this->_filename;
@@ -89,7 +89,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public function getFilePath(&$path = null)
     {
         if ($this->_isCorrect) {
-            if ($path === null) {
+            if (is_null($path)) {
                 return $this->_path;
             }
             $paths[] = $this->_path;

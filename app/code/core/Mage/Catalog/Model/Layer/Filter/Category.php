@@ -144,7 +144,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         $key = $this->getLayer()->getStateKey() . '_SUBCATEGORIES';
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
-        if ($data === null) {
+        if (is_null($data)) {
             $categoty   = $this->getCategory();
             $categories = $categoty->getChildrenCategories();
 

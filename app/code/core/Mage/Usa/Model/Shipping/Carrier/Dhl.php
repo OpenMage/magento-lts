@@ -508,7 +508,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $request = $xml->asXML();
         $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
         $responseBody = $this->_getCachedQuotes($request);
-        if ($responseBody === null) {
+        if (is_null($responseBody)) {
             $debugData = ['request' => $request];
             try {
                 $url = $this->getConfigData('gateway_url');

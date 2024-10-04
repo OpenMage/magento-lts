@@ -270,7 +270,7 @@ class Mage_Core_Model_App
         $this->_config->init($options);
         Varien_Profiler::stop('mage::app::init::config');
 
-        if ($this->_isInstalled === null) {
+        if (is_null($this->_isInstalled)) {
             $this->_isInstalled = Mage::isInstalled($options);
         }
 
@@ -716,7 +716,7 @@ class Mage_Core_Model_App
      */
     public function isSingleStoreMode()
     {
-        if ($this->_isInstalled === null) {
+        if (is_null($this->_isInstalled)) {
             $this->_isInstalled = Mage::isInstalled();
         }
 
@@ -847,7 +847,7 @@ class Mage_Core_Model_App
      */
     public function getStore($id = null)
     {
-        if ($this->_isInstalled === null) {
+        if (is_null($this->_isInstalled)) {
             $this->_isInstalled = Mage::isInstalled();
         }
 

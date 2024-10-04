@@ -77,7 +77,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if ($store === null) {
+        if (is_null($store)) {
             $store = Mage::app()->getStore()->getId();
         }
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);

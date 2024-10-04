@@ -58,7 +58,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     public function addAction($actionName, $elementId, $value = null)
     {
         if (isset($this->_actions[$actionName])) {
-            if ($value === null) {
+            if (is_null($value)) {
                 if (is_array($elementId)) {
                     foreach ($elementId as $oneId) {
                         $this->_actions[$actionName][] = $oneId;

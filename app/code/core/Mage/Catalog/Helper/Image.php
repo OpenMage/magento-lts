@@ -564,7 +564,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     protected function parseSize($string)
     {
-        if ($string === null) {
+        if (is_null($string)) {
             return false;
         }
 

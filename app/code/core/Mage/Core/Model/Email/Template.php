@@ -500,7 +500,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
     {
         $this->setSentSuccess(false);
-        if (($storeId === null) && $this->getDesignConfig()->getStore()) {
+        if ((is_null($storeId)) && $this->getDesignConfig()->getStore()) {
             $storeId = $this->getDesignConfig()->getStore();
         }
 

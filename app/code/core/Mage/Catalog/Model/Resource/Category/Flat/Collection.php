@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     public function addAttributeToFilter($attribute, $condition = null)
     {
-        if (!is_string($attribute) || $condition === null) {
+        if (!is_string($attribute) || is_null($condition)) {
             return $this;
         }
 

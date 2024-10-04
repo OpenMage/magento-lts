@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if (!$object->getChildrenCount()) {
             $object->setChildrenCount(0);
         }
-        if ($object->getLevel() === null) {
+        if (is_null($object->getLevel())) {
             $object->setLevel(1);
         }
 
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         /**
          * Example re-save category
          */
-        if ($products === null) {
+        if (is_null($products)) {
             return $this;
         }
 
@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      */
     protected function _getIsActiveAttributeId()
     {
-        if ($this->_isActiveAttributeId === null) {
+        if (is_null($this->_isActiveAttributeId)) {
             $attributeId = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active')
                 ->getId();

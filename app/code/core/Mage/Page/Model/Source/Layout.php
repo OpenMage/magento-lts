@@ -41,7 +41,7 @@ class Mage_Page_Model_Source_Layout
      */
     public function getOptions()
     {
-        if ($this->_options === null) {
+        if (is_null($this->_options)) {
             $this->_options = [];
             foreach (Mage::getSingleton('page/config')->getPageLayouts() as $layout) {
                 $this->_options[$layout->getCode()] = $layout->getLabel();

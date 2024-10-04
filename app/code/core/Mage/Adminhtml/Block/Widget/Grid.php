@@ -1761,7 +1761,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function isColumnGrouped($column, $value = null)
     {
-        if ($value === null) {
+        if (is_null($value)) {
             if (is_object($column)) {
                 return in_array($column->getIndex(), $this->_groupedColumn);
             }

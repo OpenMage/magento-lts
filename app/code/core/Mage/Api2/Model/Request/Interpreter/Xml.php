@@ -132,7 +132,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
      */
     protected function _loadErrorHandler($errno, $errstr, $errfile, $errline)
     {
-        if ($this->_loadErrorStr === null) {
+        if (is_null($this->_loadErrorStr)) {
             $this->_loadErrorStr = $errstr;
         } else {
             $this->_loadErrorStr .= (PHP_EOL . $errstr);

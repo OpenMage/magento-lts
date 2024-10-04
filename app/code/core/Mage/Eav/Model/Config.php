@@ -142,7 +142,7 @@ class Mage_Eav_Model_Config
      */
     protected function _initializeStore($storeId = null)
     {
-        if ($storeId === null) {
+        if (is_null($storeId)) {
             $storeId = $this->_storeId();
         } else {
             // ensure store id is consistent
@@ -341,7 +341,7 @@ class Mage_Eav_Model_Config
      */
     protected function _isCacheEnabled()
     {
-        if ($this->_isCacheEnabled === null) {
+        if (is_null($this->_isCacheEnabled)) {
             $this->_isCacheEnabled = Mage::app()->useCache('eav');
         }
         return $this->_isCacheEnabled;

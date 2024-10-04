@@ -185,7 +185,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         Mage::dispatchEvent('custom_quote_process', ['checkout_session' => $this]);
 
-        if ($this->_quote === null) {
+        if (is_null($this->_quote)) {
             /** @var Mage_Sales_Model_Quote $quote */
             $quote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore()->getId());
             if ($this->getQuoteId()) {

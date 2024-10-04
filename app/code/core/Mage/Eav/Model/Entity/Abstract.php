@@ -306,7 +306,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     public function unsetAttributes($attributes = null)
     {
-        if ($attributes === null) {
+        if (is_null($attributes)) {
             $this->_attributesByCode    = [];
             $this->_attributesById      = [];
             $this->_attributesByTable   = [];
@@ -524,7 +524,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getSortedAttributes($setId = null)
     {
         $attributes = $this->getAttributesByCode();
-        if ($setId === null) {
+        if (is_null($setId)) {
             $setId = $this->getEntityType()->getDefaultAttributeSetId();
         }
 
@@ -1548,7 +1548,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 $this->_insertAttribute($object, $attribute, $newValue);
             } elseif ($origValueId !== false && ($newValue !== null)) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
+            } elseif ($origValueId !== false && (is_null($newValue))) {
                 $adapter->delete($table, $where);
             }
             $this->_processAttributeValues();

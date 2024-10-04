@@ -316,7 +316,7 @@ class Mage_Tax_Model_Config
      */
     public function shippingPriceIncludesTax($store = null)
     {
-        if ($this->_shippingPriceIncludeTax === null) {
+        if (is_null($this->_shippingPriceIncludeTax)) {
             $this->_shippingPriceIncludeTax = (bool)$this->_getStoreConfig(
                 self::CONFIG_XML_PATH_SHIPPING_INCLUDES_TAX,
                 $store

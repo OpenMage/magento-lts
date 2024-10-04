@@ -47,7 +47,7 @@ abstract class Mage_Api2_Model_Request_Interpreter
             }
         }
 
-        if ($adapterModel === null) {
+        if (is_null($adapterModel)) {
             throw new Mage_Api2_Exception(
                 sprintf('Server can not understand Content-Type HTTP header media type "%s"', $type),
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST

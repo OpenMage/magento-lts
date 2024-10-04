@@ -60,7 +60,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getPurchasedSeparatelyAttribute()
     {
-        if ($this->_purchasedSeparatelyAttribute === null) {
+        if (is_null($this->_purchasedSeparatelyAttribute)) {
             $_attributeCode = 'links_purchased_separately';
 
             $attribute = Mage::getSingleton('eav/config')

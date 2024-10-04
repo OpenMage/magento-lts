@@ -217,7 +217,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setStoreId($product->getStoreId())
                             ->setWebsiteId($product->getStore()->getWebsiteId())
                             ->setProductWebsiteIds($product->getWebsiteIds());
-                        if ($linkModel->getPrice() === null) {
+                        if (is_null($linkModel->getPrice())) {
                             $linkModel->setPrice(0);
                         }
                         if ($linkModel->getIsUnlimited()) {

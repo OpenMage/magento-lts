@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
+        if (is_null($this->_storeId)) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
         return $this->_storeId;

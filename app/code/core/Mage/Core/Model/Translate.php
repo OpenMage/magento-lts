@@ -224,7 +224,7 @@ class Mage_Core_Model_Translate
                 continue;
             }
             $key    = $this->_prepareDataString($key);
-            $value  = $value === null ? '' : $this->_prepareDataString($value);
+            $value  = is_null($value) ? '' : $this->_prepareDataString($value);
             if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
                 /**
                  * Checking previous value

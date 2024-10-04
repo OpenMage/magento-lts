@@ -127,7 +127,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function isModuleOutputEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
+        if (is_null($moduleName)) {
             $moduleName = $this->_getModuleName();
         }
 
@@ -149,7 +149,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function isModuleEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
+        if (is_null($moduleName)) {
             $moduleName = $this->_getModuleName();
         }
 
@@ -251,7 +251,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function stripTags($data, $allowableTags = null, $escape = false)
     {
-        if ($data === null) {
+        if (is_null($data)) {
             return '';
         }
         $result = strip_tags($data, $allowableTags);

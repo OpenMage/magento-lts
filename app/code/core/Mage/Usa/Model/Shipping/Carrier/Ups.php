@@ -354,7 +354,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      */
     public function getShipmentByCode($code, $origin = null)
     {
-        if ($origin === null) {
+        if (is_null($origin)) {
             $origin = $this->getConfigData('origin_shipment');
         }
         $arr = $this->getCode('originShipment', $origin);
@@ -788,7 +788,7 @@ XMLRequest;
 XMLRequest;
 
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
-        if ($xmlResponse === null) {
+        if (is_null($xmlResponse)) {
             $debugData = ['request' => $xmlRequest];
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -1298,7 +1298,7 @@ XMLAuth;
      */
     public function getResponse()
     {
-        if ($this->_trackingResult === null) {
+        if (is_null($this->_trackingResult)) {
             $trackings = [];
         } else {
             $trackings = $this->_trackingResult->getAllTrackings();
@@ -1955,7 +1955,7 @@ XMLAuth;
         $xmlRequest = $this->_formShipmentRequest($request);
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
 
-        if ($xmlResponse === null) {
+        if (is_null($xmlResponse)) {
             $url = $this->getConfigData('shipconfirm_xml_url');
             if (!$url) {
                 if ($this->getConfigFlag('mode_xml')) {

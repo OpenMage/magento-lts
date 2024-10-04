@@ -142,7 +142,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
+        if (is_null($this->_storeId)) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
         return $this->_storeId;

@@ -280,12 +280,12 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     public function limit($count = null, $offset = null)
     {
-        if ($count === null) {
+        if (is_null($count)) {
             $this->reset(self::LIMIT_COUNT);
         } else {
             $this->_parts[self::LIMIT_COUNT]  = (int) $count;
         }
-        if ($offset === null) {
+        if (is_null($offset)) {
             $this->reset(self::LIMIT_OFFSET);
         } else {
             $this->_parts[self::LIMIT_OFFSET] = (int) $offset;

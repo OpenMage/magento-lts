@@ -366,7 +366,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         /**
          * Functionality related with config separation
          */
-        if ($this->_configCache === null) {
+        if (is_null($this->_configCache)) {
             $code = $this->getCode();
             if ($code) {
                 if (Mage::app()->useCache('config')) {
@@ -720,7 +720,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isAdminUrlSecure()
     {
-        if ($this->_isAdminSecure === null) {
+        if (is_null($this->_isAdminSecure)) {
             $this->_isAdminSecure = (bool) (int) (string) Mage::getConfig()
                 ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
         }
@@ -734,7 +734,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isFrontUrlSecure()
     {
-        if ($this->_isFrontSecure === null) {
+        if (is_null($this->_isFrontSecure)) {
             $this->_isFrontSecure = Mage::getStoreConfigFlag(
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
                 $this->getId()

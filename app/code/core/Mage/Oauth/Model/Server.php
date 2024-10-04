@@ -269,7 +269,7 @@ class Mage_Oauth_Model_Server
      */
     protected function _getResponse()
     {
-        if ($this->_response === null) {
+        if (is_null($this->_response)) {
             $this->setResponse(Mage::app()->getResponse());
         }
         return $this->_response;

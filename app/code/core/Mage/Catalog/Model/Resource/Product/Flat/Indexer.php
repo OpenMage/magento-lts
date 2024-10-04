@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function rebuild($store = null)
     {
-        if ($store === null) {
+        if (is_null($store)) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->rebuild($store->getId());
             }
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getAttributeCodes()
     {
-        if ($this->_attributeCodes === null) {
+        if (is_null($this->_attributeCodes)) {
             $adapter               = $this->_getReadAdapter();
             $this->_attributeCodes = [];
 
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getEntityTypeId()
     {
-        if ($this->_entityTypeId === null) {
+        if (is_null($this->_entityTypeId)) {
             $this->_entityTypeId = Mage::getResourceModel('catalog/config')
                 ->getEntityTypeId();
         }
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getAttributes()
     {
-        if ($this->_attributes === null) {
+        if (is_null($this->_attributes)) {
             $this->_attributes = [];
             $attributeCodes    = $this->getAttributeCodes();
             $entity = Mage::getSingleton('eav/config')
@@ -398,7 +398,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getFlatColumns()
     {
-        if ($this->_columns === null) {
+        if (is_null($this->_columns)) {
             if (Mage::helper('core')->useDbCompatibleMode()) {
                 $this->_columns = $this->_getFlatColumnsOldDefinition();
             } else {
@@ -435,7 +435,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getFlatIndexes()
     {
-        if ($this->_indexes === null) {
+        if (is_null($this->_indexes)) {
             $this->_indexes = [];
 
             if ($this->getFlatHelper()->isAddChildData()) {
@@ -1059,7 +1059,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getProductTypeInstances()
     {
-        if ($this->_productTypes === null) {
+        if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
             $productEmulator     = new Varien_Object();
 

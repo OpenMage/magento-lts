@@ -66,7 +66,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
      */
     public function getStateKey()
     {
-        if ($this->_stateKey === null) {
+        if (is_null($this->_stateKey)) {
             $this->_stateKey = 'Q_' . Mage::helper('catalogsearch')->getQuery()->getId()
                 . '_' . parent::getStateKey();
         }

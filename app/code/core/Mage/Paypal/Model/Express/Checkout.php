@@ -772,7 +772,7 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected function _getApi()
     {
-        if ($this->_api === null) {
+        if (is_null($this->_api)) {
             $this->_api = Mage::getModel($this->_apiType)->setConfigObject($this->_config);
         }
         return $this->_api;

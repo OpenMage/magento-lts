@@ -360,7 +360,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function getAlias($entity = null)
     {
         $alias = '';
-        if (($entity === null) || ($entity->getType() !== $this->getEntity()->getType())) {
+        if ((is_null($entity)) || ($entity->getType() !== $this->getEntity()->getType())) {
             $alias .= $this->getEntity()->getType() . '/';
         }
         $alias .= $this->getAttributeCode();
@@ -532,7 +532,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     {
         $attrType = $this->getBackend()->getType();
         return is_array($value)
-            || ($value === null)
+            || (is_null($value))
             || $value === false && $attrType !== 'int'
             || $value === '' && ($attrType === 'int' || $attrType === 'decimal' || $attrType === 'datetime');
     }
@@ -624,7 +624,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getBackendTable()
     {
-        if ($this->_dataTable === null) {
+        if (is_null($this->_dataTable)) {
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
             } else {
@@ -906,7 +906,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function getFlatUpdateSelect($store = null)
     {
-        if ($store === null) {
+        if (is_null($store)) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->getFlatUpdateSelect($store->getId());
             }

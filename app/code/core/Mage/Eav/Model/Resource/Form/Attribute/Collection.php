@@ -94,7 +94,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
      */
     public function getStore()
     {
-        if ($this->_store === null) {
+        if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
         return $this->_store;
@@ -119,7 +119,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
      */
     public function getEntityType()
     {
-        if ($this->_entityType === null) {
+        if (is_null($this->_entityType)) {
             $this->setEntityType($this->_entityTypeCode);
         }
         return $this->_entityType;

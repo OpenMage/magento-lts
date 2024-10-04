@@ -184,7 +184,7 @@ class Varien_Db_Ddl_Table
     public function setName($name)
     {
         $this->_tableName = $name;
-        if ($this->_tableComment === null) {
+        if (is_null($this->_tableComment)) {
             $this->_tableComment = $name;
         }
         return $this;
@@ -392,7 +392,7 @@ class Varien_Db_Ddl_Table
             $identity = true;
         }
 
-        if ($comment === null) {
+        if (is_null($comment)) {
             $comment = ucfirst($name);
         }
 

@@ -304,7 +304,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         parent::_beforeSave();
 
         $storeId = $this->getStoreId();
-        if ($storeId === null) {
+        if (is_null($storeId)) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 
@@ -421,7 +421,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getAddressesCollection()
     {
-        if ($this->_addressesCollection === null) {
+        if (is_null($this->_addressesCollection)) {
             $this->_addressesCollection = $this->getAddressCollection()
                 ->setCustomerFilter($this)
                 ->addAttributeToSelect('*')
@@ -455,7 +455,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getAttributes()
     {
-        if ($this->_attributes === null) {
+        if (is_null($this->_attributes)) {
             $this->_attributes = $this->_getResource()
             ->loadAllAttributes($this)
             ->getSortedAttributes();
@@ -980,7 +980,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getSharedStoreIds()
     {
         $ids = $this->_getData('shared_store_ids');
-        if ($ids === null) {
+        if (is_null($ids)) {
             $ids = [];
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
@@ -1003,7 +1003,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getSharedWebsiteIds()
     {
         $ids = $this->_getData('shared_website_ids');
-        if ($ids === null) {
+        if (is_null($ids)) {
             $ids = [];
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();

@@ -47,7 +47,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
      */
     public function getResourcesPermissions()
     {
-        if ($this->_resourcesPermissions === null) {
+        if (is_null($this->_resourcesPermissions)) {
             $rulesPairs = [];
 
             if ($this->_userType) {

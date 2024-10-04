@@ -124,9 +124,9 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function setPathInfo($pathInfo = null)
     {
-        if ($pathInfo === null) {
+        if (is_null($pathInfo)) {
             $requestUri = $this->getRequestUri();
-            if ($requestUri === null) {
+            if (is_null($requestUri)) {
                 return $this;
             }
 
@@ -144,7 +144,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 $this->setActionName('noRoute');
             } elseif ($baseUrl !== null && !$pathInfo) {
                 $pathInfo = '';
-            } elseif ($baseUrl === null) {
+            } elseif (is_null($baseUrl)) {
                 $pathInfo = $requestUri;
             }
 
@@ -181,7 +181,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function rewritePathInfo($pathInfo)
     {
-        if (($pathInfo != $this->getPathInfo()) && ($this->_rewritedPathInfo === null)) {
+        if (($pathInfo != $this->getPathInfo()) && (is_null($this->_rewritedPathInfo))) {
             $this->_rewritedPathInfo = explode('/', trim($this->getPathInfo(), '/'));
         }
         $this->setPathInfo($pathInfo);
@@ -440,7 +440,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_route'])) {
             return $this->_routingInfo['requested_route'];
         }
-        if ($this->_requestedRouteName === null) {
+        if (is_null($this->_requestedRouteName)) {
             if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
                 $fronName = $this->_rewritedPathInfo[0];
                 $router = Mage::app()->getFrontController()->getRouterByFrontName($fronName);

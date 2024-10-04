@@ -270,7 +270,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     )
                     : $product->getProductUrl();
                 $this->getCheckoutSession()->setRedirectUrl($redirectUrl);
-                if ($this->getCheckoutSession()->getUseNotice() === null) {
+                if (is_null($this->getCheckoutSession()->getUseNotice())) {
                     $this->getCheckoutSession()->setUseNotice(true);
                 }
                 Mage::throwException($result);
@@ -481,7 +481,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     public function getProductIds()
     {
         $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
-        if ($this->_productIds === null) {
+        if (is_null($this->_productIds)) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
                 foreach ($this->getQuote()->getAllItems() as $item) {
@@ -510,7 +510,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         }
 
-        if ($quoteId && $this->_summaryQty === null) {
+        if ($quoteId && is_null($this->_summaryQty)) {
             if (Mage::getStoreConfig('checkout/cart_link/use_qty')) {
                 $this->_summaryQty = $this->getItemsQty();
             } else {
@@ -584,7 +584,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
          * We can get string if updating process had some errors
          */
         if (is_string($result)) {
-            if ($this->getCheckoutSession()->getUseNotice() === null) {
+            if (is_null($this->getCheckoutSession()->getUseNotice())) {
                 $this->getCheckoutSession()->setUseNotice(true);
             }
             Mage::throwException($result);

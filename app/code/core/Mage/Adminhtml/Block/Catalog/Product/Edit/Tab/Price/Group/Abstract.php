@@ -126,7 +126,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
      */
     public function getCustomerGroups($groupId = null)
     {
-        if ($this->_customerGroups === null) {
+        if (is_null($this->_customerGroups)) {
             if (!Mage::helper('catalog')->isModuleEnabled('Mage_Customer')) {
                 return [];
             }

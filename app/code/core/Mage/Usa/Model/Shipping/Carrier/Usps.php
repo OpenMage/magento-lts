@@ -400,7 +400,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $request = $xml->asXML();
 
         $responseBody = $this->_getCachedQuotes($request);
-        if ($responseBody === null) {
+        if (is_null($responseBody)) {
             $debugData = ['request' => $request];
             try {
                 $url = $this->getConfigData('gateway_url');

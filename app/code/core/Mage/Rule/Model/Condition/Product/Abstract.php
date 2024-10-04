@@ -63,7 +63,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getDefaultOperatorInputByType()
     {
-        if ($this->_defaultOperatorInputByType === null) {
+        if (is_null($this->_defaultOperatorInputByType)) {
             parent::getDefaultOperatorInputByType();
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='

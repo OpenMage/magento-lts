@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function getStores($storeId = null)
     {
-        if ($this->_stores === null) {
+        if (is_null($this->_stores)) {
             $this->_stores = $this->_prepareStoreRootCategories(Mage::app()->getStores());
         }
         if ($storeId && isset($this->_stores[$storeId])) {
@@ -237,7 +237,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('store_id = :store_id')
             ->where('is_system = ?', 1);
         $bind = ['store_id' => $storeId];
-        if ($categoryIds === null) {
+        if (is_null($categoryIds)) {
             $select->where('category_id IS NULL');
         } elseif ($categoryIds) {
             $catIds = is_array($categoryIds) ? $categoryIds : [$categoryIds];
@@ -258,7 +258,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             }
         }
 
-        if ($productIds === null) {
+        if (is_null($productIds)) {
             $select->where('product_id IS NULL');
         } elseif ($productIds) {
             $select->where('product_id IN(?)', $productIds);
@@ -697,7 +697,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 'main_table.path']);
 
         // Prepare variables for checking whether categories belong to store
-        if ($path === null) {
+        if (is_null($path)) {
             $select->where('main_table.entity_id IN(?)', $categoryIds);
         } else {
             // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
@@ -811,7 +811,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function loadCategoryChilds(Varien_Object $category)
     {
-        if ($category->getId() === null || $category->getStoreId() === null) {
+        if (is_null($category->getId()) || is_null($category->getStoreId())) {
             return $category;
         }
 

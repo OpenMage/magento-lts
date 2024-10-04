@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Category_Url
      */
     public function getUrlInstance()
     {
-        if ($this->_url === null) {
+        if (is_null($this->_url)) {
             $this->_url = $this->_factory->getModel('core/url');
         }
         return $this->_url;
@@ -133,7 +133,7 @@ class Mage_Catalog_Model_Category_Url
      */
     public function getUrlRewrite()
     {
-        if ($this->_urlRewrite === null) {
+        if (is_null($this->_urlRewrite)) {
             $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
         }
         return $this->_urlRewrite;

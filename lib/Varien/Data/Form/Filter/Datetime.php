@@ -29,7 +29,7 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
      */
     public function inputFilter($value)
     {
-        if ($value === null || $value === '') {
+        if (is_null($value) || $value === '') {
             return $value;
         }
 
@@ -55,7 +55,7 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
      */
     public function outputFilter($value)
     {
-        if ($value === null || $value === '') {
+        if (is_null($value) || $value === '') {
             return $value;
         }
 

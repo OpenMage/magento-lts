@@ -104,7 +104,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         $controller = $this->getData('controller');
 
-        if ($controller === null) {
+        if (is_null($controller)) {
             $controller = new Varien_Object(
                 ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
             );

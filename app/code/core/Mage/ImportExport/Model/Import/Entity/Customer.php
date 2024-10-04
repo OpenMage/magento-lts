@@ -646,7 +646,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $email = false; // mark row as invalid for next address rows
             }
         } elseif (self::SCOPE_OPTIONS != $rowScope) {
-            if ($email === null) { // first row is not SCOPE_DEFAULT
+            if (is_null($email)) { // first row is not SCOPE_DEFAULT
                 $this->addRowError(self::ERROR_EMAIL_IS_EMPTY, $rowNum);
             } elseif ($email === false) { // SCOPE_DEFAULT row is invalid
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);

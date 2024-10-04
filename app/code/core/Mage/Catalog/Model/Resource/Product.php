@@ -405,7 +405,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ),
                 []
             );
-        } elseif ($store === null) {
+        } elseif (is_null($store)) {
             foreach ($product->getStoreIds() as $storeId) {
                 $store = Mage::app()->getStore($storeId);
                 $this->refreshEnabledIndex($store, $product);

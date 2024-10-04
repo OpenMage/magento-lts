@@ -315,7 +315,7 @@ class Error_Processor
      */
     protected function _getFilePath(string $file, $directories = null)
     {
-        if ($directories === null) {
+        if (is_null($directories)) {
             $directories = [];
 
             if (!$this->_root) {

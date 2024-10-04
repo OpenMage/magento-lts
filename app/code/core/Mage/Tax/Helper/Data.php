@@ -148,7 +148,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCalculator()
     {
-        if ($this->_calculator === null) {
+        if (is_null($this->_calculator)) {
             $this->_calculator = Mage::getSingleton('tax/calculation');
         }
         return $this->_calculator;

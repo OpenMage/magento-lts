@@ -143,7 +143,7 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     protected function _getIgnoredFiles()
     {
-        if ($this->_ignoredFiles === null) {
+        if (is_null($this->_ignoredFiles)) {
             $ignored = (string)Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
             $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];

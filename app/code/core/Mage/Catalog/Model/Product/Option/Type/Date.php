@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function getFormattedOptionValue($optionValue)
     {
-        if ($this->_formattedOptionValue === null) {
+        if (is_null($this->_formattedOptionValue)) {
             $option = $this->getOption();
             if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);

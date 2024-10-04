@@ -654,7 +654,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function canVoid(Varien_Object $document)
     {
-        if ($this->_canVoidLookup === null) {
+        if (is_null($this->_canVoidLookup)) {
             $this->_canVoidLookup = (bool)$this->getMethodInstance()->canVoid($document);
             if ($this->_canVoidLookup) {
                 $authTransaction = $this->getAuthorizationTransaction();
@@ -1404,7 +1404,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isTransactionExists($txnId = null)
     {
-        if ($txnId === null) {
+        if (is_null($txnId)) {
             $txnId = $this->getTransactionId();
         }
         return $txnId && $this->_lookupTransaction($txnId);

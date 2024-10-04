@@ -242,7 +242,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function getEscaped($value, $defaultValue = '')
     {
-        if ($value === null || strlen($value) == 0) {
+        if (is_null($value) || strlen($value) == 0) {
             return $defaultValue;
         }
         return $this->escapeHtml(trim($value));

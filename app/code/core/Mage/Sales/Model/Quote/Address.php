@@ -372,7 +372,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _isNotRegisteredCustomer()
     {
-        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
+        return !$this->getQuote()->getCustomerId() || is_null($this->getCustomerAddressId());
     }
 
     /**
@@ -633,7 +633,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _filterNominal($item)
     {
-        return ($this->_nominalOnly === null)
+        return (is_null($this->_nominalOnly))
             || (($this->_nominalOnly === false) && !$item->isNominal())
             || (($this->_nominalOnly === true) && $item->isNominal())
             ? $item : false;
@@ -1056,7 +1056,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getTotalCollector()
     {
-        if ($this->_totalCollector === null) {
+        if (is_null($this->_totalCollector)) {
             $this->_totalCollector = Mage::getSingleton(
                 'sales/quote_address_total_collector',
                 ['store' => $this->getQuote()->getStore()]

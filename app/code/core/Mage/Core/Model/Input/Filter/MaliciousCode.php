@@ -53,7 +53,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
      */
     public function filter($value)
     {
-        if ($value === null) {
+        if (is_null($value)) {
             return '';
         }
 

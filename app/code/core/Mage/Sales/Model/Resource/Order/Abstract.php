@@ -106,7 +106,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      */
     public function getVirtualGridColumns()
     {
-        if ($this->_virtualGridColumns === null) {
+        if (is_null($this->_virtualGridColumns)) {
             $this->_initVirtualGridColumns();
         }
 
@@ -178,7 +178,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
                 $this->getMainTable()
             ));
 
-        if ($gridColumns === null) {
+        if (is_null($gridColumns)) {
             $gridColumns = $this->getGridColumns();
         }
 
@@ -237,7 +237,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      */
     public function getGridColumns()
     {
-        if ($this->_gridColumns === null) {
+        if (is_null($this->_gridColumns)) {
             if ($this->_grid) {
                 $this->_gridColumns = array_keys(
                     $this->_getReadAdapter()->describeTable($this->getGridTable())

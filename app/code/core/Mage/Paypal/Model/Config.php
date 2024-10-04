@@ -706,7 +706,7 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodAvailable($methodCode = null)
     {
-        if ($methodCode === null) {
+        if (is_null($methodCode)) {
             $methodCode = $this->getMethodCode();
         }
 
@@ -858,10 +858,10 @@ class Mage_Paypal_Model_Config
      */
     public function isMethodSupportedForCountry($method = null, $countryCode = null)
     {
-        if ($method === null) {
+        if (is_null($method)) {
             $method = $this->getMethodCode();
         }
-        if ($countryCode === null) {
+        if (is_null($countryCode)) {
             $countryCode = $this->getMerchantCountry();
         }
         $countryMethods = $this->getCountryMethods($countryCode);
@@ -958,7 +958,7 @@ class Mage_Paypal_Model_Config
                 self::METHOD_BILLING_AGREEMENT,
             ],
         ];
-        if ($countryCode === null) {
+        if (is_null($countryCode)) {
             return $countryMethods;
         }
         return $countryMethods[$countryCode] ?? $countryMethods['other'];
@@ -1151,7 +1151,7 @@ class Mage_Paypal_Model_Config
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
 
-        if ($staticSize === null) {
+        if (is_null($staticSize)) {
             $staticSize = $this->paymentMarkSize;
         }
         switch ($staticSize) {
@@ -1626,7 +1626,7 @@ class Mage_Paypal_Model_Config
                 break;
         }
 
-        if ($path === null) {
+        if (is_null($path)) {
             switch ($this->_methodCode) {
                 case self::METHOD_WPP_EXPRESS:
                 case self::METHOD_BML:
@@ -1644,10 +1644,10 @@ class Mage_Paypal_Model_Config
             }
         }
 
-        if ($path === null) {
+        if (is_null($path)) {
             $path = $this->_mapGeneralFieldset($fieldName);
         }
-        if ($path === null) {
+        if (is_null($path)) {
             $path = $this->_mapGenericStyleFieldset($fieldName);
         }
         return $path;

@@ -2355,11 +2355,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->setCustomerId($this->getCustomer()->getId());
         }
 
-        if ($this->hasBillingAddressId() && $this->getBillingAddressId() === null) {
+        if ($this->hasBillingAddressId() && is_null($this->getBillingAddressId())) {
             $this->unsBillingAddressId();
         }
 
-        if ($this->hasShippingAddressId() && $this->getShippingAddressId() === null) {
+        if ($this->hasShippingAddressId() && is_null($this->getShippingAddressId())) {
             $this->unsShippingAddressId();
         }
 

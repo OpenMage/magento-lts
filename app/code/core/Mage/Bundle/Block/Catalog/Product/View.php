@@ -30,7 +30,7 @@ class Mage_Bundle_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_
      */
     public function getTierPrices($product = null)
     {
-        if ($product === null) {
+        if (is_null($product)) {
             $product = $this->getProduct();
         }
 

@@ -299,7 +299,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function renderTotals($totals, $colspan = null)
     {
-        if ($colspan === null) {
+        if (is_null($colspan)) {
             /** @var Mage_Tax_Helper_Data $helper */
             $helper = $this->helper('tax');
             $colspan = $helper->displayCartBothPrices() ? 5 : 3;

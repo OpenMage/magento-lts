@@ -43,8 +43,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         if ($website !== null) {
             try {
                 $website = Mage::app()->getWebsite($website);
-                if ($store === null) {
-                    if ($categoryId === null) {
+                if (is_null($store)) {
+                    if (is_null($categoryId)) {
                         foreach ($website->getStores() as $store) {
                             $ids[] = $store->getRootCategoryId();
                         }
@@ -62,7 +62,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
         } elseif ($store !== null) {
             // load children of root category of store
-            if ($categoryId === null) {
+            if (is_null($categoryId)) {
                 try {
                     $store = Mage::app()->getStore($store);
                     $storeId = $store->getId();
@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $parent_category = $this->_initCategory($parentId);
 
         // if $afterId is null - move category to the down
-        if ($afterId === null && $parent_category->hasChildren()) {
+        if (is_null($afterId) && $parent_category->hasChildren()) {
             $parentChildren = $parent_category->getChildren();
             $afterId = array_pop(explode(',', $parentChildren));
         }

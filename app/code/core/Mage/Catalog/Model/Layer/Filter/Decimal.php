@@ -199,7 +199,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         $key = $this->_getCacheKey();
 
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
-        if ($data === null) {
+        if (is_null($data)) {
             $data       = [];
             $range      = $this->getRange();
             $dbRanges   = $this->getRangeItemCounts($range);

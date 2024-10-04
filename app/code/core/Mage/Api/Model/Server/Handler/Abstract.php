@@ -95,7 +95,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     protected function _instaLogin(&$sessionId)
     {
-        if ($sessionId === null && !empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
+        if (is_null($sessionId) && !empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
             $this->_getSession()->setIsInstaLogin();
             $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
         }

@@ -122,7 +122,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorInputByType()
     {
-        if ($this->_defaultOperatorInputByType === null) {
+        if (is_null($this->_defaultOperatorInputByType)) {
             $this->_defaultOperatorInputByType = [
                 'string'      => ['==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'],
                 'numeric'     => ['==', '!=', '>=', '>', '<=', '<', '()', '!()'],
@@ -146,7 +146,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorOptions()
     {
-        if ($this->_defaultOperatorOptions === null) {
+        if (is_null($this->_defaultOperatorOptions)) {
             $this->_defaultOperatorOptions = [
                 '=='  => static::$translate ? Mage::helper('rule')->__('is') : 'is',
                 '!='  => static::$translate ? Mage::helper('rule')->__('is not') : 'is not',

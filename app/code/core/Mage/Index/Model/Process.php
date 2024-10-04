@@ -284,7 +284,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getIndexer()
     {
-        if ($this->_indexer === null) {
+        if (is_null($this->_indexer)) {
             $code = $this->_getData('indexer_code');
             if (!$code) {
                 Mage::throwException(Mage::helper('index')->__('Indexer code is not defined.'));

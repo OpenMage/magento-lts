@@ -146,7 +146,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
             return $this->getCustomQuote();
         }
 
-        if ($this->_quote === null) {
+        if (is_null($this->_quote)) {
             $this->_quote = $this->getCheckout()->getQuote();
         }
         return $this->_quote;

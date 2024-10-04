@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Totals extends Mage_Adminhtml_Blo
 
     public function getInvoice()
     {
-        if ($this->_invoice === null) {
+        if (is_null($this->_invoice)) {
             if ($this->hasData('invoice')) {
                 $this->_invoice = $this->_getData('invoice');
             } elseif (Mage::registry('current_invoice')) {

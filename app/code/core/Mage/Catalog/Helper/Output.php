@@ -45,7 +45,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     protected function _getTemplateProcessor()
     {
-        if ($this->_templateProcessor === null) {
+        if (is_null($this->_templateProcessor)) {
             $this->_templateProcessor = Mage::helper('catalog')->getPageTemplateProcessor();
         }
 

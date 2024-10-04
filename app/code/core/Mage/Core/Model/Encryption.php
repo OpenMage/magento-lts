@@ -166,7 +166,7 @@ class Mage_Core_Model_Encryption
     protected function _getCrypt($key = null)
     {
         if (!$this->_crypt) {
-            if ($key === null) {
+            if (is_null($key)) {
                 $key = (string)Mage::getConfig()->getNode('global/crypt/key');
             }
             $this->_crypt = Varien_Crypt::factory()->init($key);

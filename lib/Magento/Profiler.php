@@ -124,7 +124,7 @@ class Magento_Profiler
      */
     public static function reset($timerName = null)
     {
-        if ($timerName === null) {
+        if (is_null($timerName)) {
             self::$_timers = [];
             self::$_currentPath = [];
             return;

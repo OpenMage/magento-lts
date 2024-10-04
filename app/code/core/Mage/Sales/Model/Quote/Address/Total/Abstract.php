@@ -125,7 +125,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _getAddress()
     {
-        if ($this->_address === null) {
+        if (is_null($this->_address)) {
             Mage::throwException(
                 Mage::helper('sales')->__('Address model is not defined.')
             );

@@ -195,7 +195,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
 
-        if ($item === null) {
+        if (is_null($item)) {
             $storeId = $product->hasWishlistStoreId() ? $product->getWishlistStoreId() : $this->getStore()->getId();
             $item = Mage::getModel('wishlist/item');
             $item->setProductId($product->getId())

@@ -132,7 +132,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
      */
     protected function _getTranslateData()
     {
-        if ($this->_translateData === null) {
+        if (is_null($this->_translateData)) {
             $this->_translateData = [];
             $messages = $this->_getXmlConfig()->getXpath('*/message');
             if (!empty($messages)) {

@@ -182,7 +182,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
 
             $lifetime = $this->getLifetime($specificLifetime);
             $time     = time();
-            $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time + $lifetime;
+            $expire   = ($lifetime === 0 || is_null($lifetime)) ? 0 : $time + $lifetime;
 
             $dataCol    = $adapter->quoteIdentifier('data');
             $expireCol  = $adapter->quoteIdentifier('expire_time');

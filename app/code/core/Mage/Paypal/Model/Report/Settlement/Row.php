@@ -90,7 +90,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             'SUB' => Mage::helper('paypal')->__('Subscription ID'),
             'PAP' => Mage::helper('paypal')->__('Preapproved Payment ID')
         ];
-        if ($code === null) {
+        if (is_null($code)) {
             asort($types);
             return $types;
         }
@@ -133,7 +133,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             'CR' => Mage::helper('paypal')->__('Credit'),
             'DR' => Mage::helper('paypal')->__('Debit'),
         ];
-        if ($code === null) {
+        if (is_null($code)) {
             return $options;
         }
         return $options[$code] ?? $code;

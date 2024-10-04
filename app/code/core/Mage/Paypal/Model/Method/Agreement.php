@@ -76,7 +76,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if ($store === null) {
+        if (is_null($store)) {
             $store = Mage::app()->getStore()->getId();
         }
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);

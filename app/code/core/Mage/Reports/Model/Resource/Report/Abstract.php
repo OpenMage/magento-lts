@@ -35,7 +35,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _getFlag()
     {
-        if ($this->_flag === null) {
+        if (is_null($this->_flag)) {
             $this->_flag = Mage::getModel('reports/flag');
         }
         return $this->_flag;
@@ -119,7 +119,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $subSelect = null,
         $doNotUseTruncate = false
     ) {
-        if ($from === null && $to === null && !$doNotUseTruncate) {
+        if (is_null($from) && is_null($to) && !$doNotUseTruncate) {
             $this->_truncateTable($table);
             return $this;
         }
@@ -488,7 +488,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _dateToUtc($date)
     {
-        if ($date === null) {
+        if (is_null($date)) {
             return null;
         }
         $dateUtc = new Zend_Date($date);

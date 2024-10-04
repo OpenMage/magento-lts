@@ -239,7 +239,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCountriesWithOptionalZip($asJson = false)
     {
-        if ($this->_optionalZipCountries === null) {
+        if (is_null($this->_optionalZipCountries)) {
             $this->_optionalZipCountries = preg_split(
                 '/\,/',
                 Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),

@@ -68,7 +68,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
                 self::$_isQtyTypeIds[$typeId] = (bool)$configXml->is_qty;
             }
         }
-        if ($filter === null) {
+        if (is_null($filter)) {
             return self::$_isQtyTypeIds;
         }
         $result = self::$_isQtyTypeIds;

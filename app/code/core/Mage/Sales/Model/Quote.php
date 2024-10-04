@@ -1027,7 +1027,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addProductAdvanced(Mage_Catalog_Model_Product $product, $request = null, $processMode = null)
     {
-        if ($request === null) {
+        if (is_null($request)) {
             $request = 1;
         }
         if (is_numeric($request)) {

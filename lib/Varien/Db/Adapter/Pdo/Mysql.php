@@ -1632,7 +1632,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if (!$this->_isDdlCacheAllowed) {
             return $this;
         }
-        if ($tableName === null) {
+        if (is_null($tableName)) {
             $this->_ddlCache = [];
             if ($this->_cacheAdapter instanceof Zend_Cache_Core) {
                 $this->_cacheAdapter->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, [self::DDL_CACHE_TAG]);
@@ -2478,7 +2478,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $cIdentity  = false;
 
         // detect and validate column type
-        if ($ddlType === null) {
+        if (is_null($ddlType)) {
             $ddlType = $this->_getDdlType($options);
         }
 
@@ -2555,7 +2555,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         // prepare default value string
         if ($ddlType == Varien_Db_Ddl_Table::TYPE_TIMESTAMP) {
-            if ($cDefault === null) {
+            if (is_null($cDefault)) {
                 $cDefault = new Zend_Db_Expr('NULL');
             } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_INIT) {
                 $cDefault = new Zend_Db_Expr('CURRENT_TIMESTAMP');
@@ -2926,7 +2926,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $date = Varien_Date::formatDate($date, $includeTime);
 
-        if ($date === null) {
+        if (is_null($date)) {
             return new Zend_Db_Expr('NULL');
         }
 

@@ -284,7 +284,7 @@ class Mage_Core_Model_Cookie
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
-        if (($period === null) && !$this->getLifetime()) {
+        if ((is_null($period)) && !$this->getLifetime()) {
             return $this;
         }
         $value = $this->_getRequest()->getCookie($name, false);

@@ -33,7 +33,7 @@ class Mage_Reports_Model_Totals
     {
         $columns = [];
         foreach ($grid->getColumns() as $col) {
-            if ($col->getTotal() === null) {
+            if (is_null($col->getTotal())) {
                 continue;
             }
             $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];

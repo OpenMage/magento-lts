@@ -97,7 +97,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getAttributeCollection($setId = null)
     {
-        if ($setId === null && $this->_attributes !== null) {
+        if (is_null($setId) && $this->_attributes !== null) {
             return $this->_attributes;
         } elseif (isset($this->_attributesBySet[$setId])) {
             return $this->_attributesBySet[$setId];
@@ -105,7 +105,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 
         $collection = $this->newAttributeCollection($setId);
 
-        if ($setId === null) {
+        if (is_null($setId)) {
             $this->_attributes = $collection;
         } else {
             $this->_attributesBySet[$setId] = $collection;
@@ -175,7 +175,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (!$this->getIncrementPerStore() || ($storeId === null)) {
+        if (!$this->getIncrementPerStore() || (is_null($storeId))) {
             /**
              * store_id null we can have for entity from removed store
              */

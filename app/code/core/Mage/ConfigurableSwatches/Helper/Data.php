@@ -74,7 +74,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public static function normalizeKey($key)
     {
-        if ($key === null || $key === '') {
+        if (is_null($key) || $key === '') {
             return '';
         }
         if (function_exists('mb_strtolower')) {

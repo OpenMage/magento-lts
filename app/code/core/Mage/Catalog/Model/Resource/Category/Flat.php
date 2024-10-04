@@ -449,7 +449,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     public function isBuilt($storeView = null)
     {
         $storeView = is_null($storeView) ? Mage::app()->getDefaultStoreView() : Mage::app()->getStore($storeView);
-        if ($storeView === null) {
+        if (is_null($storeView)) {
             $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
         } else {
             $storeId = $storeView->getId();
@@ -475,7 +475,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function rebuild($stores = null)
     {
-        if ($stores === null) {
+        if (is_null($stores)) {
             $stores = Mage::app()->getStores();
         }
 
@@ -569,7 +569,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             ->setComment(sprintf('Catalog Category Flat (Store %d)', $store));
 
         //Adding columns
-        if ($this->_columnsSql === null) {
+        if (is_null($this->_columnsSql)) {
             $this->_columns = array_merge($this->_getStaticColumns(), $this->_getEavColumns());
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
@@ -782,7 +782,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     protected function _getAttributes()
     {
-        if ($this->_attributeCodes === null) {
+        if (is_null($this->_attributeCodes)) {
             $select = $this->_getWriteAdapter()->select()
                 ->from($this->getTable('eav/entity_type'), [])
                 ->join(

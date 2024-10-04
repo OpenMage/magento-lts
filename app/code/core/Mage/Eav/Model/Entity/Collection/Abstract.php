@@ -172,7 +172,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     protected function _init($model, $entityModel = null)
     {
         $this->setItemObjectClass(Mage::getConfig()->getModelClassName($model));
-        if ($entityModel === null) {
+        if (is_null($entityModel)) {
             $entityModel = $model;
         }
         $entity = Mage::getResourceSingleton($entityModel);
@@ -286,7 +286,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
-        if ($attribute === null) {
+        if (is_null($attribute)) {
             $this->getSelect();
             return $this;
         }
@@ -304,7 +304,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
             $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
         } elseif (is_string($attribute)) {
-            if ($condition === null) {
+            if (is_null($condition)) {
                 $condition = '';
             }
             $conditionSql = $this->_getAttributeConditionSql($attribute, $condition, $joinType);
@@ -823,7 +823,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function removeAttributeToSelect($attribute = null)
     {
-        if ($attribute === null) {
+        if (is_null($attribute)) {
             $this->_selectAttributes = [];
         } else {
             unset($this->_selectAttributes[$attribute]);
@@ -1011,7 +1011,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     public function getRowIdFieldName()
     {
-        if ($this->_idFieldName === null) {
+        if (is_null($this->_idFieldName)) {
             $this->_setIdFieldName($this->getEntity()->getIdFieldName());
         }
         return $this->getIdFieldName();

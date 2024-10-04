@@ -60,7 +60,7 @@ class Mage_Core_Model_Log_Adapter
      */
     public function log($data = null)
     {
-        if ($data === null) {
+        if (is_null($data)) {
             $data = $this->_data;
         } else {
             if (!is_array($data)) {

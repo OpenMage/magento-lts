@@ -267,7 +267,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (isset($productData['use_config_gift_message_available'])) {
             $product->setData('use_config_gift_message_available', $productData['use_config_gift_message_available']);
             if (!$productData['use_config_gift_message_available']
-                && ($product->getData('gift_message_available') === null)
+                && (is_null($product->getData('gift_message_available')))
             ) {
                 $product->setData('gift_message_available', Mage::getStoreConfigAsInt(
                     Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS,
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (isset($productData['use_config_gift_wrapping_available'])) {
             $product->setData('use_config_gift_wrapping_available', $productData['use_config_gift_wrapping_available']);
             if (!$productData['use_config_gift_wrapping_available']
-                && ($product->getData('gift_wrapping_available') === null)
+                && (is_null($product->getData('gift_wrapping_available')))
             ) {
                 $xmlPathGiftWrappingAvailable = 'sales/gift_options/wrapping_allow_items';
                 $product->setData('gift_wrapping_available', Mage::getStoreConfigAsInt(

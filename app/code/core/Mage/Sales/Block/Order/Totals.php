@@ -53,7 +53,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function getOrder()
     {
-        if ($this->_order === null) {
+        if (is_null($this->_order)) {
             if ($this->hasData('order')) {
                 $this->_order = $this->_getData('order');
             } elseif (Mage::registry('current_order')) {
@@ -274,7 +274,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     public function getTotals($area = null)
     {
         $totals = [];
-        if ($area === null) {
+        if (is_null($area)) {
             $totals = $this->_totals;
         } else {
             $area = (string)$area;

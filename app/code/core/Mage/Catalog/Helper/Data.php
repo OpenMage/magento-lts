@@ -407,7 +407,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canApplyMsrpToProductType($product)
     {
-        if ($this->_mapApplyToProductType === null) {
+        if (is_null($this->_mapApplyToProductType)) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             $attribute = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled');

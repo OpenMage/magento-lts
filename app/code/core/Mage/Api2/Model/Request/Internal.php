@@ -42,7 +42,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      */
     public function getBodyParams()
     {
-        if ($this->_bodyParams === null) {
+        if (is_null($this->_bodyParams)) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
         return $this->_bodyParams;

@@ -386,7 +386,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function getQtyIncrements()
     {
-        if ($this->_qtyIncrements === null) {
+        if (is_null($this->_qtyIncrements)) {
             if ($this->getEnableQtyIncrements()) {
                 $this->_qtyIncrements = (float)($this->getUseConfigQtyIncrements()
                     ? Mage::getStoreConfig(self::XML_PATH_QTY_INCREMENTS)
@@ -789,7 +789,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function verifyStock($qty = null)
     {
-        if ($qty === null) {
+        if (is_null($qty)) {
             $qty = $this->getQty();
         }
         if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_NO && $qty <= $this->getMinQty()) {
@@ -806,7 +806,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function verifyNotification($qty = null)
     {
-        if ($qty === null) {
+        if (is_null($qty)) {
             $qty = $this->getQty();
         }
         return (float)$qty < $this->getNotifyStockQty();

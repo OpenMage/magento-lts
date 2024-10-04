@@ -381,7 +381,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getVersion()
     {
-        if ($this->_version === null) {
+        if (is_null($this->_version)) {
             if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
@@ -611,7 +611,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _critical($message, $code = null)
     {
-        if ($code === null) {
+        if (is_null($code)) {
             $errors = $this->_getCriticalErrors();
             if (!isset($errors[$message])) {
                 throw new Exception(

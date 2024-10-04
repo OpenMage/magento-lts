@@ -346,7 +346,7 @@ class Mage_Cron_Model_Observer
     {
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
-        if ($schedule->getId() === null) {
+        if (is_null($schedule->getId())) {
             $ts = date('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
                 ->setCreatedAt($ts)

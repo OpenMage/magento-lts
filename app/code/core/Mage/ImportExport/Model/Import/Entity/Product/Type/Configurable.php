@@ -397,7 +397,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                                              ? [] : $this->_skuSuperData[$productId],
                         'assoc_ids'       => []
                     ];
-                } elseif ($productData === null) {
+                } elseif (is_null($productData)) {
                     continue;
                 }
                 if (!empty($rowData['_super_products_sku'])) {

@@ -327,7 +327,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             break;
         }
 
-        if ($fileFullPath === null) {
+        if (is_null($fileFullPath)) {
             return false;
         }
 
@@ -464,7 +464,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     public function getFormattedOptionValue($optionValue)
     {
-        if ($this->_formattedOptionValue === null) {
+        if (is_null($this->_formattedOptionValue)) {
             try {
                 $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
 
@@ -546,7 +546,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public function getPrintableOptionValue($optionValue)
     {
         $value = $this->getFormattedOptionValue($optionValue);
-        return $value === null ? '' : strip_tags($value);
+        return is_null($value) ? '' : strip_tags($value);
     }
 
     /**
