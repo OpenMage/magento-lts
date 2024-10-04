@@ -373,7 +373,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function hasChildTransaction($whetherHasChild = null)
     {
-        if ($whetherHasChild !== null) {
+        if (!is_null($whetherHasChild)) {
             $this->_hasChild = (bool)$whetherHasChild;
             return $this;
         } elseif (is_null($this->_hasChild)) {
@@ -580,7 +580,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function setOrder($order = null)
     {
         if (is_null($order) || $order === true) {
-            if ($this->_paymentObject !== null && $this->_paymentObject->getOrder()) {
+            if (!is_null($this->_paymentObject) && $this->_paymentObject->getOrder()) {
                 $this->_order = $this->_paymentObject->getOrder();
             } elseif ($this->getOrderId() && is_null($order)) {
                 $this->_order = Mage::getModel('sales/order')->load($this->getOrderId());
@@ -622,11 +622,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $this->_verifyPaymentObject();
         if (!$this->getId()) {
             // We need to set order and payment ids only for new transactions
-            if ($this->_paymentObject !== null) {
+            if (!is_null($this->_paymentObject)) {
                 $this->setPaymentId($this->_paymentObject->getId());
             }
 
-            if ($this->_order !== null) {
+            if (!is_null($this->_order)) {
                 $this->setOrderId($this->_order->getId());
             }
 
@@ -641,7 +641,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _loadChildren()
     {
-        if ($this->_children !== null) {
+        if (!is_null($this->_children)) {
             return;
         }
 
@@ -783,7 +783,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnId($txnId)
     {
-        if ($txnId !== null && strlen($txnId) == 0) {
+        if (!is_null($txnId) && strlen($txnId) == 0) {
             Mage::throwException(Mage::helper('sales')->__('Transaction ID must not be empty.'));
         }
     }

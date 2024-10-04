@@ -878,7 +878,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function addErrorInfo($origin = null, $code = null, $message = null, $additionalData = null)
     {
         $this->_errorInfos->addItem($origin, $code, $message, $additionalData);
-        if ($message !== null) {
+        if (!is_null($message)) {
             $this->setMessage($message);
         }
         $this->_setHasError(true);

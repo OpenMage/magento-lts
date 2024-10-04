@@ -168,7 +168,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $length = 255;
                 break;
         }
-        if ($type !== null) {
+        if (!is_null($type)) {
             $data['type'] = $type;
             $data['length'] = $length;
         }

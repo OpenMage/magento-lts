@@ -53,7 +53,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group extends Mage_Admi
             return $extra['configState'][$element->getId()];
         }
 
-        if ($element->getExpanded() !== null) {
+        if (!is_null($element->getExpanded())) {
             return 1;
         }
 

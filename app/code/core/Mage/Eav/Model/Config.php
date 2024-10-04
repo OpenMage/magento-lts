@@ -480,7 +480,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        $storeId = $storeId !== null ? $storeId : $this->_storeId();
+        $storeId = !is_null($storeId) ? $storeId : $this->_storeId();
         $this->_initializeStore($storeId);
         $entityType = $this->getEntityType($entityType);
 

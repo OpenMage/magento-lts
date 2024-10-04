@@ -649,6 +649,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         // Force garbage collection since image handler resource uses memory without counting toward memory limit
         unset($_processor);
 
-        return $mimeType !== null;
+        return !is_null($mimeType);
     }
 }

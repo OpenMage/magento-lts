@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function prepareForCart()
     {
-        if ($this->getIsValid() && $this->getUserValue() !== null) {
+        if ($this->getIsValid() && !is_null($this->getUserValue())) {
             $option = $this->getOption();
             $value = $this->getUserValue();
 

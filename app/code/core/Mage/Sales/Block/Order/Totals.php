@@ -160,7 +160,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function addTotal(Varien_Object $total, $after = null)
     {
-        if ($after !== null && $after != 'last' && $after != 'first') {
+        if (!is_null($after) && $after != 'last' && $after != 'first') {
             $totals = [];
             $added = false;
             foreach ($this->_totals as $code => $item) {
@@ -197,7 +197,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      */
     public function addTotalBefore(Varien_Object $total, $before = null)
     {
-        if ($before !== null) {
+        if (!is_null($before)) {
             if (!is_array($before)) {
                 $before = [$before];
             }

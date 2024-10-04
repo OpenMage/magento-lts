@@ -170,7 +170,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             }
             foreach ($allAddressAttributeOptions as $attrCode => $attrValues) {
                 $column = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
-                if ($address->getData($attrCode) !== null) {
+                if ($address->getData(!is_null($attrCode))) {
                     if (!isset($addressAttributes[$attrCode])) {
                         $addressAttributes = array_merge($addressAttributes, $address->getAttributes());
                     }
@@ -396,7 +396,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             ) {
                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
             }
-            if ($attrValue !== null) {
+            if (!is_null($attrValue)) {
                 $row[$attrCode] = $attrValue;
             }
         }

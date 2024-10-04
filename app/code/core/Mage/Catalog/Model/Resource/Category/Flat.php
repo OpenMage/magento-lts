@@ -1150,7 +1150,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $data = [];
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
         foreach (array_keys($table) as $column) {
-            if ($column != $idFieldName || $category->getData($column) !== null) {
+            if ($column != $idFieldName || $category->getData(!is_null($column))) {
                 if (array_key_exists($column, $replaceFields)) {
                     $value = $category->getData($replaceFields[$column]);
                 } else {

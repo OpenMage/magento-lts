@@ -58,7 +58,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         libxml_disable_entity_loader(false);
 
         // Check if there was a error while loading file
-        if ($this->_loadErrorStr !== null) {
+        if (!is_null($this->_loadErrorStr)) {
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 

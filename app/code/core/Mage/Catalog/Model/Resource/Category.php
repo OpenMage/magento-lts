@@ -893,7 +893,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 $positionField . ' > ?' => $position
             ];
             $adapter->update($table, $bind, $where);
-        } elseif ($afterCategoryId !== null) {
+        } elseif (!is_null($afterCategoryId)) {
             $position = 0;
             $bind = [
                 'position' => new Zend_Db_Expr($positionField . ' + 1')

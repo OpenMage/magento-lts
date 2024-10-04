@@ -461,7 +461,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _canUseLocalModules()
     {
-        if ($this->_canUseLocalModules !== null) {
+        if (!is_null($this->_canUseLocalModules)) {
             return $this->_canUseLocalModules;
         }
 
@@ -762,7 +762,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         /**
          * Check path cache loading
          */
-        if ($this->_useCache && ($path !== null)) {
+        if ($this->_useCache && (!is_null($path))) {
             $path   = explode('/', $path);
             $section = $path[0];
             if (isset($this->_cacheSections[$section])) {
@@ -785,7 +785,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function setNode($path, $value, $overwrite = true)
     {
-        if ($this->_useCache && ($path !== null)) {
+        if ($this->_useCache && (!is_null($path))) {
             $sectionPath = explode('/', $path);
             $config = $this->_getSectionConfig($sectionPath);
             if ($config) {
@@ -1210,7 +1210,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getVarDir($path = null, $type = 'var')
     {
-        $dir = Mage::getBaseDir($type) . ($path !== null ? DS . $path : '');
+        $dir = Mage::getBaseDir($type) . (!is_null($path) ? DS . $path : '');
         if (!$this->createDirIfNotExists($dir)) {
             return false;
         }

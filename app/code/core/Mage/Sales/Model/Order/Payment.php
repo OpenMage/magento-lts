@@ -1262,7 +1262,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // look for set transaction ids
         $transactionId = $this->getTransactionId();
-        if ($transactionId !== null) {
+        if (!is_null($transactionId)) {
             // set transaction parameters
             $transaction = false;
             if ($this->getOrder()->getId()) {
@@ -1372,7 +1372,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected function _updateTotals($data)
     {
         foreach ($data as $key => $amount) {
-            if ($amount !== null) {
+            if (!is_null($amount)) {
                 $was = $this->getDataUsingMethod($key);
                 $this->setDataUsingMethod($key, $was + $amount);
             }

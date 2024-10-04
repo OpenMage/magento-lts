@@ -54,7 +54,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
 
         $invoice->register();
 
-        if ($comment !== null) {
+        if (!is_null($comment)) {
             $invoice->addComment($comment, $email);
         }
 

@@ -925,7 +925,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
 
                     $parsedValue = $group->parseOptionValue($value, $productOptions[$label]['values']);
 
-                    if ($parsedValue !== null) {
+                    if (!is_null($parsedValue)) {
                         $newOptions[$optionId] = $parsedValue;
                     } else {
                         $newAdditionalOptions[] = [
@@ -1408,7 +1408,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 if ($customerAddressId && $customer->getId()) {
                     $customer->getAddressItemById($customerAddressId)->addData($customerShippingAddress->getData());
                 } elseif (!empty($customerAddressId)
-                    && $customerBillingAddress !== null
+                    && !is_null($customerBillingAddress)
                     && $this->getBillingAddress()->getCustomerAddressId() == $customerAddressId
                 ) {
                     $customerBillingAddress->setIsDefaultShipping(true);

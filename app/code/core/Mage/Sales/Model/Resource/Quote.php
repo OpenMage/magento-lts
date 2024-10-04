@@ -186,7 +186,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
                 'qi.product_id = pp.product_id',
                 []
             );
-        if ($productIdList !== null) {
+        if (!is_null($productIdList)) {
             $subSelect->where('qi.product_id IN (?)', $productIdList);
         }
 

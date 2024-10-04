@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
 
         // load root categories of website
-        if ($website !== null) {
+        if (!is_null($website)) {
             try {
                 $website = Mage::app()->getWebsite($website);
                 if (is_null($store)) {
@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        } elseif ($store !== null) {
+        } elseif (!is_null($store)) {
             // load children of root category of store
             if (is_null($categoryId)) {
                 try {

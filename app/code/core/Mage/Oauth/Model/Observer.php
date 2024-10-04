@@ -36,7 +36,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
-        if ($this->_getOauthToken() !== null) {
+        if (!is_null($this->_getOauthToken())) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -52,7 +52,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
-        if ($this->_getOauthToken() !== null) {
+        if (!is_null($this->_getOauthToken())) {
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;
             $url = Mage::helper('oauth')->getAuthorizeUrl($userType);
             Mage::app()->getResponse()
@@ -68,7 +68,7 @@ class Mage_Oauth_Model_Observer
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {
-        if ($this->_getOauthToken() !== null) {
+        if (!is_null($this->_getOauthToken())) {
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
             $session->addError($observer->getException()->getMessage());

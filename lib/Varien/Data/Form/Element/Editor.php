@@ -344,7 +344,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $config = new Varien_Object();
             $this->setConfig($config);
         }
-        if ($key !== null) {
+        if (!is_null($key)) {
             return $this->_getData('config')->getData($key);
         }
         return $this->_getData('config');

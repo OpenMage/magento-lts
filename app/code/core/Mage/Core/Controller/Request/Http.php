@@ -142,7 +142,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif ($baseUrl !== null && !$pathInfo) {
+            } elseif (!is_null($baseUrl) && !$pathInfo) {
                 $pathInfo = '';
             } elseif (is_null($baseUrl)) {
                 $pathInfo = $requestUri;
@@ -441,7 +441,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return $this->_routingInfo['requested_route'];
         }
         if (is_null($this->_requestedRouteName)) {
-            if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
+            if (!is_null($this->_rewritedPathInfo) && isset($this->_rewritedPathInfo[0])) {
                 $fronName = $this->_rewritedPathInfo[0];
                 $router = Mage::app()->getFrontController()->getRouterByFrontName($fronName);
                 $this->_requestedRouteName = $router->getRouteByFrontName($fronName);
@@ -463,7 +463,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_controller'])) {
             return $this->_routingInfo['requested_controller'];
         }
-        if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[1])) {
+        if ((!is_null($this->_rewritedPathInfo)) && isset($this->_rewritedPathInfo[1])) {
             return $this->_rewritedPathInfo[1];
         }
         return $this->getControllerName();
@@ -479,7 +479,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (isset($this->_routingInfo['requested_action'])) {
             return $this->_routingInfo['requested_action'];
         }
-        if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[2])) {
+        if ((!is_null($this->_rewritedPathInfo)) && isset($this->_rewritedPathInfo[2])) {
             return $this->_rewritedPathInfo[2];
         }
         return $this->getActionName();
@@ -546,7 +546,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function isStraight($flag = null)
     {
-        if ($flag !== null) {
+        if (!is_null($flag)) {
             $this->_isStraight = $flag;
         }
         return $this->_isStraight;

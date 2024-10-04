@@ -721,7 +721,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             []
         );
 
-        if ($storeId !== null) {
+        if (!is_null($storeId)) {
             $rootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
             $rootCategoryPathLength = strlen($rootCategoryPath);
         }
@@ -732,7 +732,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
 
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
-            if ($storeId !== null) {
+            if (!is_null($storeId)) {
                 // Check the category to be either store's root or its descendant
                 // First - check that category's start is the same as root category
                 if (substr($row['path'], 0, $rootCategoryPathLength) != $rootCategoryPath) {
@@ -755,7 +755,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
         unset($rowSet);
 
-        if ($storeId !== null && $categories) {
+        if (!is_null($storeId) && $categories) {
             foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
                 $attributes = $this->_getCategoryAttribute(
                     $attributeCode,
@@ -929,7 +929,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $products   = [];
         $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
         $adapter    = $this->_getReadAdapter();
-        if ($productIds !== null) {
+        if (!is_null($productIds)) {
             if (!is_array($productIds)) {
                 $productIds = [$productIds];
             }
@@ -949,7 +949,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('e.entity_id > :entity_id')
             ->order('e.entity_id')
             ->limit($this->_productLimit);
-        if ($productIds !== null) {
+        if (!is_null($productIds)) {
             $select->where('e.entity_id IN(?)', $productIds);
         }
 
@@ -1213,7 +1213,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $condition['product_id IN (?)'] = $productIds;
         }
 
-        if ($storeId !== null) {
+        if (!is_null($storeId)) {
             $condition['store_id IN(?)'] = $storeId;
         }
 

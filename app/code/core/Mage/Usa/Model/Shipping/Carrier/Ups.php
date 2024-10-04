@@ -1706,7 +1706,7 @@ XMLAuth;
             return $result;
         }
 
-        if ($package !== null) {
+        if (!is_null($package)) {
             $result->setTrackingNumber($package->TrackingNumber);
             // ShippingLabel is not guaranteed to be set, but if it is, GraphicImage will be set.
             if (isset($package->ShippingLabel->GraphicImage)) {
@@ -2248,7 +2248,7 @@ XMLAuth;
             $rateParams['RateRequest']['Shipment']['TaxInformationIndicator'] = 'Y';
         }
 
-        if ($serviceCode !== null) {
+        if (!is_null($serviceCode)) {
             $rateParams['RateRequest']['Shipment']['Service']['Code'] = $serviceCode;
             $rateParams['RateRequest']['Shipment']['Service']['Description'] = $serviceDescription;
         }

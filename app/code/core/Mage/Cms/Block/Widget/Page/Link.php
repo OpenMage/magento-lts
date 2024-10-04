@@ -72,7 +72,7 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
     {
         if (!$this->_title) {
             $this->_title = '';
-            if ($this->getData('title') !== null) {
+            if (!is_null($this->getData('title'))) {
                 // compare to null used here bc user can specify blank title
                 $this->_title = $this->getData('title');
             } elseif ($this->getData('page_id')) {

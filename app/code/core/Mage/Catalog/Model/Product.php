@@ -786,7 +786,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function canAffectOptions($value = null)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             $this->_canAffectOptions = (bool)$value;
         }
         return $this->_canAffectOptions;

@@ -378,7 +378,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
             $result = true;
         }
 
-        if ($result && $visibility !== null) {
+        if ($result && !is_null($visibility)) {
             $productVisibility = $product->getMsrpDisplayActualPriceType();
             if ($productVisibility == Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::TYPE_USE_CONFIG) {
                 $productVisibility = $this->getMsrpDisplayActualPriceType();
@@ -388,10 +388,10 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 
         if ($product->getTypeInstance(true)->isComposite($product)
             && $checkAssociatedItems
-            && (!$result || $visibility !== null)
+            && (!$result || !is_null($visibility))
         ) {
             $resultInOptions = $product->getTypeInstance(true)->isMapEnabledInOptions($product, $visibility);
-            if ($resultInOptions !== null) {
+            if (!is_null($resultInOptions)) {
                 $result = $resultInOptions;
             }
         }

@@ -51,7 +51,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
         //$this->_getWriteAdapter()->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if (!is_null($from) || !is_null($to)) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     'created_at',
@@ -198,7 +198,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 []
             );
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -279,7 +279,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             []
         );
 
-        if ($subSelect !== null) {
+        if (!is_null($subSelect)) {
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 

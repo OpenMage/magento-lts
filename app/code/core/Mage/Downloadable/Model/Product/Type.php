@@ -298,7 +298,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 $preparedLinks[] = $link->getId();
             }
         }
-        if ($originalLinksPurchasedSeparately !== null) {
+        if (!is_null($originalLinksPurchasedSeparately)) {
             $this->getProduct($product)
                 ->setLinksPurchasedSeparately($originalLinksPurchasedSeparately);
         }

@@ -98,7 +98,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
 
         // validate minimum quote amount and validate quote for zero grandtotal
-        if ($quote !== null && (!$quote->validateMinimumAmount()
+        if (!is_null($quote) && (!$quote->validateMinimumAmount()
             || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))
         ) {
             $this->_shouldRender = false;

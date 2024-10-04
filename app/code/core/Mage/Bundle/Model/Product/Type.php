@@ -1056,7 +1056,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             }
         }
 
-        if ($result && $visibility !== null) {
+        if ($result && !is_null($visibility)) {
             if ($visibilities) {
                 $maxVisibility = max($visibilities);
                 $result = $result && $maxVisibility == $visibility;

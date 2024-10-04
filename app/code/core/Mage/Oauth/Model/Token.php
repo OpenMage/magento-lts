@@ -253,7 +253,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             Mage::throwException(array_shift($messages));
         }
 
-        if (($verifier = $this->getVerifier()) !== null) {
+        if (($verifier = !is_null($this->getVerifier()))) {
             $validatorLength->setLength(self::LENGTH_VERIFIER);
             $validatorLength->setName('Verifier Key');
             if (!$validatorLength->isValid($verifier)) {

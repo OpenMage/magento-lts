@@ -371,15 +371,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if ($this->_addresses !== null) {
+        if (!is_null($this->_addresses)) {
             $this->getAddressesCollection()->save();
         }
 
-        if ($this->_items !== null) {
+        if (!is_null($this->_items)) {
             $this->getItemsCollection()->save();
         }
 
-        if ($this->_payments !== null) {
+        if (!is_null($this->_payments)) {
             $this->getPaymentsCollection()->save();
         }
         return $this;
@@ -1636,7 +1636,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $this->_errorInfoGroups[$type]->addItem($origin, $code, $message, $additionalData);
 
-        if ($message !== null) {
+        if (!is_null($message)) {
             $this->addMessage($message, $type);
         }
         $this->_setHasError(true);

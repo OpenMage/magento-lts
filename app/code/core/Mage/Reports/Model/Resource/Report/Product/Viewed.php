@@ -50,7 +50,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
 
         $this->_checkDates($from, $to);
 
-        if ($from !== null || $to !== null) {
+        if (!is_null($from) || !is_null($to)) {
             $subSelect = $this->_getTableDateRangeSelect(
                 $this->getTable('reports/event'),
                 'logged_at',

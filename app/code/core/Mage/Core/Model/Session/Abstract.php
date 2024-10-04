@@ -341,7 +341,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             }
 
             // Check for duplication
-            if ($text !== null) {
+            if (!is_null($text)) {
                 if (isset($messagesAlready[$text])) {
                     continue;
                 }

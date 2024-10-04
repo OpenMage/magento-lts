@@ -2420,7 +2420,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if ($this->_addresses !== null) {
+        if (!is_null($this->_addresses)) {
             $this->_addresses->save();
             $billingAddress = $this->getBillingAddress();
             $attributesForSave = [];
@@ -2439,13 +2439,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }
-        if ($this->_items !== null) {
+        if (!is_null($this->_items)) {
             $this->_items->save();
         }
-        if ($this->_payments !== null) {
+        if (!is_null($this->_payments)) {
             $this->_payments->save();
         }
-        if ($this->_statusHistory !== null) {
+        if (!is_null($this->_statusHistory)) {
             $this->_statusHistory->save();
         }
         foreach ($this->getRelatedObjects() as $object) {

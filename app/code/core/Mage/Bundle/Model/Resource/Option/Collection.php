@@ -68,7 +68,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
             'option_value.title',
             'option_value_default.title'
         );
-        if ($storeId !== null) {
+        if (!is_null($storeId)) {
             $this->getSelect()
                 ->columns(['title' => $title])
                 ->joinLeft(

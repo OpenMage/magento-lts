@@ -119,7 +119,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         $errors = [];
 
         // validate attributes with source models
-        if ($attrValue !== null && $attribute->getSourceModel()) {
+        if (!is_null($attrValue) && $attribute->getSourceModel()) {
             if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
                 return ['Invalid value type for ' . $attribute->getAttributeCode()];
             }

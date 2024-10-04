@@ -139,7 +139,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             }
         }
 
-        if ($groupId !== null) {
+        if (!is_null($groupId)) {
             return $this->_customerGroups[$groupId] ?? [];
         }
 

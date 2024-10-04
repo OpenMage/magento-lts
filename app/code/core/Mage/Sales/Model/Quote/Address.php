@@ -396,10 +396,10 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _afterSave()
     {
         parent::_afterSave();
-        if ($this->_items !== null) {
+        if (!is_null($this->_items)) {
             $this->getItemsCollection()->save();
         }
-        if ($this->_rates !== null) {
+        if (!is_null($this->_rates)) {
             $this->getShippingRatesCollection()->save();
         }
         return $this;

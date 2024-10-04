@@ -140,7 +140,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             $conditions[] = $write->quoteInto('aggregation_id IN ?', $select);
         }
 
-        if ($storeId !== null) {
+        if (!is_null($storeId)) {
             $conditions[] = $write->quoteInto('store_id=?', $storeId);
         }
 

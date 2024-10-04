@@ -216,7 +216,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     protected function _assembleLimit($query, $limitCount, $limitOffset, $columnList = [])
     {
-        if ($limitCount !== null) {
+        if (!is_null($limitCount)) {
             $limitCount = (int) $limitCount;
             $limitOffset = (int) $limitOffset;
 
@@ -253,7 +253,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         foreach ($columns as $columnEntry) {
             list($correlationName, $column, $alias) = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
-                if ($alias !== null) {
+                if (!is_null($alias)) {
                     if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string)$column, $matches)) {
                         $column = $this->prepareColumn($column, $groupByCondition);
                     }

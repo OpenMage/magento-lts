@@ -66,7 +66,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if (!is_null($from) || !is_null($to)) {
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
                     $sourceTable,
                     $orderTable,
@@ -122,7 +122,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $filterSubSelect->from(['filter_source_table' => $sourceTable], 'MAX(filter_source_table.entity_id)')
                 ->where('filter_source_table.order_id = source_table.order_id');
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -155,7 +155,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->from($table, $columns)
                 ->where('store_id <> ?', 0);
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -188,7 +188,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $sourceTable = $this->getTable('sales/order');
         $adapter     = $this->_getWriteAdapter();
 
-        if ($from !== null || $to !== null) {
+        if (!is_null($from) || !is_null($to)) {
             $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
         } else {
             $subSelect = null;
@@ -244,7 +244,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $select->from($sourceTable, $columns)
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
-        if ($subSelect !== null) {
+        if (!is_null($subSelect)) {
             $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
@@ -276,7 +276,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $select->from($table, $columns)
             ->where('store_id <> ?', 0);
 
-        if ($subSelect !== null) {
+        if (!is_null($subSelect)) {
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 

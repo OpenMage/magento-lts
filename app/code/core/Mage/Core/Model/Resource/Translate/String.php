@@ -163,7 +163,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         if ($storeId === false) {
             $where['store_id > ?'] = Mage_Core_Model_App::ADMIN_STORE_ID;
-        } elseif ($storeId !== null) {
+        } elseif (!is_null($storeId)) {
             $where['store_id = ?'] = $storeId;
         }
 

@@ -78,7 +78,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      */
     protected function _id($id)
     {
-        if ($id !== null) {
+        if (!is_null($id)) {
             $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
             if (isset($this->_options['cache_id_prefix'])) {
                 $id = $this->_options['cache_id_prefix'] . $id;

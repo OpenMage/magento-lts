@@ -97,7 +97,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getAttributeCollection($setId = null)
     {
-        if (is_null($setId) && $this->_attributes !== null) {
+        if (is_null($setId) && !is_null($this->_attributes)) {
             return $this->_attributes;
         } elseif (isset($this->_attributesBySet[$setId])) {
             return $this->_attributesBySet[$setId];
@@ -125,7 +125,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         $collection = $this->_getAttributeCollection()
             ->setEntityTypeFilter($this);
 
-        if ($setId !== null) {
+        if (!is_null($setId)) {
             $collection->setAttributeSetFilter($setId);
         }
 

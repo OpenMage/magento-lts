@@ -186,7 +186,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      */
     protected function _getCollapseState($element)
     {
-        if ($element->getExpanded() !== null) {
+        if (!is_null($element->getExpanded())) {
             return 1;
         }
         $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();

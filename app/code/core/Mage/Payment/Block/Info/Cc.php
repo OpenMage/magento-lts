@@ -78,7 +78,7 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if ($this->_paymentSpecificInformation !== null) {
+        if (!is_null($this->_paymentSpecificInformation)) {
             return $this->_paymentSpecificInformation;
         }
         $transport = parent::_prepareSpecificInformation($transport);

@@ -172,7 +172,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if ($this->_itemCollection !== null) {
+        if (!is_null($this->_itemCollection)) {
             $this->getItemCollection()->save();
         }
         return $this;

@@ -376,7 +376,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             ->from($this->getTable('eav/attribute_set'), 'attribute_set_id');
 
         $bind = [];
-        if ($entityTypeId !== null) {
+        if (!is_null($entityTypeId)) {
             $bind['entity_type_id'] = $this->getEntityTypeId($entityTypeId);
             $select->where('entity_type_id = :entity_type_id');
         }
@@ -450,7 +450,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $data['default_id'] = $this->defaultGroupIdAssociations[$name];
         }
 
-        if ($sortOrder !== null) {
+        if (!is_null($sortOrder)) {
             $data['sort_order'] = $sortOrder;
         }
 
@@ -826,7 +826,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      */
     protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
     {
-        if ($sortOrder !== null) {
+        if (!is_null($sortOrder)) {
             $this->updateTableRow(
                 'eav/entity_attribute',
                 'attribute_id',
@@ -956,7 +956,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         }
 
         $row = $this->_setupCache[$mainTable][$entityTypeId][$id];
-        if ($field !== null) {
+        if (!is_null($field)) {
             return $row[$field] ?? false;
         }
 
@@ -1152,7 +1152,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $row = $this->getConnection()->fetchRow($select, $bind);
         if ($row) {
             // update
-            if ($sortOrder !== null) {
+            if (!is_null($sortOrder)) {
                 $data['sort_order'] = $sortOrder;
             }
 

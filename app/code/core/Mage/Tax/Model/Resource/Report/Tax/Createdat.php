@@ -58,7 +58,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
         $writeAdapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if (!is_null($from) || !is_null($to)) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     'created_at',
@@ -101,7 +101,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 Mage_Sales_Model_Order::STATE_NEW
             ]);
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -126,7 +126,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 ->from($this->getMainTable(), $columns)
                 ->where('store_id <> ?', 0);
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 

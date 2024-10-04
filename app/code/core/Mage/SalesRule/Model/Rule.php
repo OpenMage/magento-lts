@@ -187,7 +187,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     protected function _afterLoad()
     {
         $this->setCouponCode($this->getPrimaryCoupon()->getCode());
-        if ($this->getUsesPerCoupon() !== null && !$this->getUseAutoGeneration()) {
+        if (!is_null($this->getUsesPerCoupon()) && !$this->getUseAutoGeneration()) {
             $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
         }
         return parent::_afterLoad();

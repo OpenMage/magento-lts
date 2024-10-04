@@ -157,7 +157,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $table = $this->getTable($table);
         }
 
-        if ($this->_mainTable !== null && $table !== $this->_mainTable && $this->getSelect() !== null) {
+        if (!is_null($this->_mainTable) && $table !== $this->_mainTable && !is_null($this->getSelect())) {
             $from = $this->getSelect()->getPart(Zend_Db_Select::FROM);
             if (isset($from['main_table'])) {
                 $from['main_table']['tableName'] = $table;
@@ -218,7 +218,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
         $columnsToSelect = array_keys($columnsToSelect);
 
-        if ($this->_fieldsToSelect !== null) {
+        if (!is_null($this->_fieldsToSelect)) {
             $insertIndex = 0;
             foreach ($this->_fieldsToSelect as $alias => $field) {
                 if (!is_string($alias)) {
@@ -231,7 +231,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $column = $field;
                 }
 
-                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
+                if ((!is_null($alias) && in_array($alias, $columnsToSelect)) ||
                     // If field already joined from another table
                     (is_null($alias) && isset($alias, $columnsToSelect))
                 ) {

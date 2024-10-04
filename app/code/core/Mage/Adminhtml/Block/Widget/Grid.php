@@ -509,7 +509,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
-                if ($field && $cond !== null) {
+                if ($field && !is_null($cond)) {
                     $filtered = array_map(static function ($value) {
                         return is_object($value) ? $value->__toString() : $value;
                     }, is_array($cond) ? array_values($cond) : [$cond]);

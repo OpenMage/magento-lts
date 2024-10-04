@@ -44,7 +44,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
     {
         $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
 
-        if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
+        if (!is_null($this->getController()->getRequest()->getParam('wsdl'))) {
             $this->getController()->getResponse()
                 ->clearHeaders()
                 ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)

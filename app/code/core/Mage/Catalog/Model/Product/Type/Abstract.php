@@ -519,7 +519,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 ->validateUserValue($buyRequest->getOptions());
 
             $preparedValue = $group->prepareForCart();
-            if ($preparedValue !== null) {
+            if (!is_null($preparedValue)) {
                 $transport->options[$_option->getId()] = $preparedValue;
             }
         }

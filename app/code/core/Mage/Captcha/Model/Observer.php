@@ -320,7 +320,7 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
                 $id = (int)$request->getParam('id');
                 $catId = $request->getParam('cat_id');
-                if ($catId !== null) {
+                if (!is_null($catId)) {
                     $id .= '/cat_id/' . (int)$catId;
                 }
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));

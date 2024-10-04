@@ -713,7 +713,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $condArr = [$bindCond];
 
         // add where condition if needed
-        if ($cond !== null) {
+        if (!is_null($cond)) {
             if (is_array($cond)) {
                 foreach ($cond as $k => $v) {
                     $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);
@@ -798,7 +798,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $condArr = [$bindCond];
 
         // add where condition if needed
-        if ($cond !== null) {
+        if (!is_null($cond)) {
             if (is_array($cond)) {
                 foreach ($cond as $k => $v) {
                     $condArr[] = $this->_getConditionSql($tableAlias . '.' . $k, $v);

@@ -461,7 +461,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function isPartialLoad($flag = null)
     {
         $result = $this->_isPartialLoad;
-        if ($flag !== null) {
+        if (!is_null($flag)) {
             $this->_isPartialLoad = (bool)$flag;
         }
         return $result;
@@ -476,7 +476,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function isPartialSave($flag = null)
     {
         $result = $this->_isPartialSave;
-        if ($flag !== null) {
+        if (!is_null($flag)) {
             $this->_isPartialSave = (bool)$flag;
         }
         return $result;
@@ -1544,9 +1544,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 ->where($where);
             $origValueId = $adapter->fetchOne($select);
 
-            if ($origValueId === false && ($newValue !== null)) {
+            if ($origValueId === false && (!is_null($newValue))) {
                 $this->_insertAttribute($object, $attribute, $newValue);
-            } elseif ($origValueId !== false && ($newValue !== null)) {
+            } elseif ($origValueId !== false && (!is_null($newValue))) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
             } elseif ($origValueId !== false && (is_null($newValue))) {
                 $adapter->delete($table, $where);

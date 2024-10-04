@@ -76,13 +76,13 @@ class Mage_Paypal_Model_Pro
     {
         if (is_null($this->_config)) {
             $params = [$code];
-            if ($storeId !== null) {
+            if (!is_null($storeId)) {
                 $params[] = $storeId;
             }
             $this->_config = Mage::getModel($this->_configType, $params);
         } else {
             $this->_config->setMethod($code);
-            if ($storeId !== null) {
+            if (!is_null($storeId)) {
                 $this->_config->setStoreId($storeId);
             }
         }
@@ -98,7 +98,7 @@ class Mage_Paypal_Model_Pro
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
     {
         $this->_config = $instace;
-        if ($storeId !== null) {
+        if (!is_null($storeId)) {
             $this->_config->setStoreId($storeId);
         }
         return $this;

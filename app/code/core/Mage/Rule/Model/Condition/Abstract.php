@@ -381,7 +381,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     break;
             }
 
-            if ($format !== null) {
+            if (!is_null($format)) {
                 $this->setValue(
                     Mage::app()->getLocale()->date(
                         $this->getData('value'),

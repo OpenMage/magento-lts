@@ -1088,7 +1088,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function showTableStatus($tableName, $schemaName = null)
     {
         $fromDbName = null;
-        if ($schemaName !== null) {
+        if (!is_null($schemaName)) {
             $fromDbName = ' FROM ' . $this->quoteIdentifier($schemaName);
         }
         $query = sprintf('SHOW TABLE STATUS%s LIKE %s', $fromDbName, $this->quote($tableName));
@@ -2226,10 +2226,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function newTable($tableName = null, $schemaName = null)
     {
         $table = new Varien_Db_Ddl_Table();
-        if ($tableName !== null) {
+        if (!is_null($tableName)) {
             $table->setName($tableName);
         }
-        if ($schemaName !== null) {
+        if (!is_null($schemaName)) {
             $table->setSchema($schemaName);
         }
 
@@ -2434,7 +2434,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         ];
         foreach ($tableProps as $key => $mask) {
             $v = $table->getOption($key);
-            if ($v !== null) {
+            if (!is_null($v)) {
                 $definition[] = sprintf($mask, $v);
             }
         }
@@ -2549,7 +2549,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
          *  where default value can be quoted already.
          *  We need to avoid "double-quoting" here
          */
-        if ($cDefault !== null && strlen($cDefault)) {
+        if (!is_null($cDefault) && strlen($cDefault)) {
             $cDefault = str_replace("'", '', $cDefault);
         }
 
@@ -2659,7 +2659,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function isTableExists($tableName, $schemaName = null)
     {
         $fromDbName = 'DATABASE()';
-        if ($schemaName !== null) {
+        if (!is_null($schemaName)) {
             $fromDbName = $this->quote($schemaName);
         }
 
@@ -2903,7 +2903,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->quoteIdentifier($refColumnName)
         );
 
-        if ($onDelete !== null) {
+        if (!is_null($onDelete)) {
             $query .= ' ON DELETE ' . strtoupper($onDelete);
         }
         if ($onUpdate  !== null) {
@@ -3221,7 +3221,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         foreach ($casesResults as $case => $result) {
             $expression .= ' WHEN ' . $case . ' THEN ' . $result;
         }
-        if ($defaultValue !== null) {
+        if (!is_null($defaultValue)) {
             $expression .= ' ELSE ' . $defaultValue;
         }
         $expression .= ' END';
@@ -3838,7 +3838,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function orderRand(Varien_Db_Select $select, $field = null)
     {
-        if ($field !== null) {
+        if (!is_null($field)) {
             $expression = new Zend_Db_Expr(sprintf('RAND() * %s', $this->quoteIdentifier($field)));
             $select->columns(['mage_rand' => $expression]);
             $spec = new Zend_Db_Expr('mage_rand');

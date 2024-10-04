@@ -1220,7 +1220,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             return (bool) $flag->getFlagData();
         }
         $configValue = $this->_app->getStore()->getConfig($key);
-        if ($configValue !== null) {
+        if (!is_null($configValue)) {
             $flag->setFlagData((bool) $configValue)->save();
             return (bool) $configValue;
         }

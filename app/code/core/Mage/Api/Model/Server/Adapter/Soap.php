@@ -124,7 +124,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
 
-        if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
+        if (!is_null($this->getController()->getRequest()->getParam('wsdl'))) {
             // Generating wsdl content from template
             $io = new Varien_Io_File();
             $io->open(['path' => Mage::getModuleDir('etc', 'Mage_Api')]);
@@ -214,7 +214,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
         $urlModel = Mage::getModel('core/url')
             ->setUseSession(false);
 
-        $wsdlUrl = $params !== null
+        $wsdlUrl = !is_null($params)
             ? Mage::helper('api')->getServiceUrl('*/*/*', ['_current' => true, '_query' => $params])
             : Mage::helper('api')->getServiceUrl('*/*/*');
 

@@ -888,7 +888,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
             $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
-            if ($disallowedBaseCodeIndex !== null) {
+            if (!is_null($disallowedBaseCodeIndex)) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
         }
@@ -1209,7 +1209,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isReadOnly($value = null)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;

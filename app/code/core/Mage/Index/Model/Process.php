@@ -154,7 +154,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function matchEntityAndType($entity, $type)
     {
-        if ($entity !== null && $type !== null) {
+        if (!is_null($entity) && !is_null($type)) {
             return $this->getIndexer()->matchEntityAndType($entity, $type);
         }
         return true;
@@ -316,7 +316,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         /**
          * Check if process indexer can match entity code and action type
          */
-        if ($entity !== null && $type !== null) {
+        if (!is_null($entity) && !is_null($type)) {
             if (!$this->getIndexer()->matchEntityAndType($entity, $type)) {
                 return $this;
             }
@@ -336,10 +336,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
              * Prepare events collection
              */
             $eventsCollection = $this->getUnprocessedEventsCollection();
-            if ($entity !== null) {
+            if (!is_null($entity)) {
                 $eventsCollection->addEntityFilter($entity);
             }
-            if ($type !== null) {
+            if (!is_null($type)) {
                 $eventsCollection->addTypeFilter($type);
             }
 

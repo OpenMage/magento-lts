@@ -594,7 +594,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ((!$this->getId() || $this->_items !== null) && !count($this->getAllItems())) {
+        if ((!$this->getId() || !is_null($this->_items)) && !count($this->getAllItems())) {
             Mage::throwException(
                 Mage::helper('sales')->__('Cannot create an empty shipment.')
             );
@@ -629,19 +629,19 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if ($this->_items !== null) {
+        if (!is_null($this->_items)) {
             foreach ($this->_items as $item) {
                 $item->save();
             }
         }
 
-        if ($this->_tracks !== null) {
+        if (!is_null($this->_tracks)) {
             foreach ($this->_tracks as $track) {
                 $track->save();
             }
         }
 
-        if ($this->_comments !== null) {
+        if (!is_null($this->_comments)) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }

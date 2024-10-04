@@ -179,7 +179,7 @@ class Mage_Api2_Model_Multicall
         );
         $params = [];
         $params['api_type'] = 'rest';
-        if ($parentResourceIdFieldName !== null) {
+        if (!is_null($parentResourceIdFieldName)) {
             $params[$parentResourceIdFieldName] = $this->_parentResourceId;
         }
         $uri = $chain->assemble($params);

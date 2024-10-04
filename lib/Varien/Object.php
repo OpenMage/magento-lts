@@ -322,12 +322,12 @@ class Varien_Object implements ArrayAccess
         }
 
         $data = $this->_data[$key] ?? null;
-        if (is_null($data) && $key !== null && strpos($key, '/') !== false) {
+        if (is_null($data) && !is_null($key) && strpos($key, '/') !== false) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
 
-        if ($index !== null) {
+        if (!is_null($index)) {
             if ($data === (array)$data) {
                 $data = $data[$index] ?? null;
             } elseif (is_string($data)) {

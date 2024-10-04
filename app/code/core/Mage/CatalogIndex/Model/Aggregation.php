@@ -102,7 +102,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     public function clearCacheData($tags = [], $store = null)
     {
         $tags    = $this->_processTags($tags);
-        if ($store !== null) {
+        if (!is_null($store)) {
             $store = Mage::app()->getStore($store)->getId();
         }
         $this->_getResource()->clearCacheData($tags, $store);

@@ -467,7 +467,7 @@ class Mage_Paypal_Model_Cart
      */
     private function _totalAsItem($var, $setValue = null)
     {
-        if ($setValue !== null) {
+        if (!is_null($setValue)) {
             if ($setValue != $this->$var) {
                 $this->_shouldRender = true;
             }

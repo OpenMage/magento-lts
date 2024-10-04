@@ -468,7 +468,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ['default_price' => 'pp_default.value']
         );
 
-        if ($websiteId !== null) {
+        if (!is_null($websiteId)) {
             $website  = Mage::app()->getWebsite($websiteId);
             $defaultGroup = $website->getDefaultGroup();
             if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
@@ -587,7 +587,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     protected function _calcRuleProductPrice($ruleData, $productData = null)
     {
-        if ($productData !== null && isset($productData['rule_price'])) {
+        if (!is_null($productData) && isset($productData['rule_price'])) {
             $productPrice = $productData['rule_price'];
         } else {
             $websiteId = $ruleData['website_id'];

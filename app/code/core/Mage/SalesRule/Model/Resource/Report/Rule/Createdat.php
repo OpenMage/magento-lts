@@ -64,7 +64,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
         $adapter->beginTransaction();
 
         try {
-            if ($from !== null || $to !== null) {
+            if (!is_null($from) || !is_null($to)) {
                 $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
             } else {
                 $subSelect = null;
@@ -121,7 +121,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
             $select->from(['source_table' => $sourceTable], $columns)
                  ->where('coupon_code IS NOT NULL');
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -158,7 +158,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                 ->from($table, $columns)
                 ->where('store_id <> 0');
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 

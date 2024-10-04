@@ -90,7 +90,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getLimit()
     {
-        if ($this->_limit !== null) {
+        if (!is_null($this->_limit)) {
             return $this->_limit;
         }
         $limits = $this->getAvailableLimit();
@@ -551,7 +551,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function canShowPreviousJump()
     {
-        return $this->getPreviousJumpPage() !== null;
+        return !is_null($this->getPreviousJumpPage());
     }
 
     /**
@@ -561,7 +561,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function canShowNextJump()
     {
-        return $this->getNextJumpPage() !== null;
+        return !is_null($this->getNextJumpPage());
     }
 
     /**

@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Category_Url
     public function getCategoryUrl(Mage_Catalog_Model_Category $category)
     {
         $url = $category->getData('url');
-        if ($url !== null) {
+        if (!is_null($url)) {
             return $url;
         }
 
