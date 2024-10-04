@@ -61,7 +61,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIsQtyTypeIds($filter = null)
     {
-        if (self::$_isQtyTypeIds === null) {
+        if (is_null(self::$_isQtyTypeIds)) {
             self::$_isQtyTypeIds = [];
             $productTypesXml = Mage::getConfig()->getNode('global/catalog/product/type');
             foreach ($productTypesXml->children() as $typeId => $configXml) {

@@ -760,7 +760,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->canSkipConfirmation()) {
             return false;
         }
-        if (self::$_isConfirmationRequired === null) {
+        if (is_null(self::$_isConfirmationRequired)) {
             $storeId = $this->getStoreId() ?: null;
             self::$_isConfirmationRequired = Mage::getStoreConfigFlag(self::XML_PATH_IS_CONFIRM, $storeId);
         }

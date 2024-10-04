@@ -673,7 +673,7 @@ final class Mage
      */
     public static function app($code = '', $type = 'store', $options = [])
     {
-        if (self::$_app === null) {
+        if (is_null(self::$_app)) {
             self::$_app = new Mage_Core_Model_App();
             self::setRoot();
             self::$_events = new Varien_Event_Collection();
@@ -818,7 +818,7 @@ final class Mage
      */
     public static function isInstalled($options = [])
     {
-        if (self::$_isInstalled === null) {
+        if (is_null(self::$_isInstalled)) {
             self::setRoot();
 
             if (is_string($options)) {

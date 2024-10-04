@@ -48,7 +48,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
     {
-        if (self::$_shouldAskToCreateBillingAgreement === null) {
+        if (is_null(self::$_shouldAskToCreateBillingAgreement)) {
             self::$_shouldAskToCreateBillingAgreement = false;
             if ($customerId && $config->shouldAskToCreateBillingAgreement()) {
                 if (Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)) {
