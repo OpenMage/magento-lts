@@ -36,6 +36,8 @@ return $config
         'function_declaration' => true,
         // Code MUST use configured indentation type.
         'indentation_type' => true,
+        // Replaces is_null($var) expression with null === $var.
+        'is_null' => false,
         // All PHP files must use same line ending.
         'line_ending' => true,
         // Use && and || logical operators instead of and and or.
