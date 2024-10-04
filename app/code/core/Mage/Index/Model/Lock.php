@@ -280,7 +280,7 @@ class Mage_Index_Model_Lock
      */
     protected function _getLockFile($lockName)
     {
-        if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
+        if (!isset(self::$_lockFileResource[$lockName]) || is_null(self::$_lockFileResource[$lockName])) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
             if (is_file($file)) {

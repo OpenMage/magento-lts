@@ -482,7 +482,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 continue;
             }
             if (!isset($options2[$code])
-                || ($options2[$code]->getValue() === null)
+                || is_null($options2[$code]->getValue())
                 || $options2[$code]->getValue() != $option->getValue()
             ) {
                 return false;

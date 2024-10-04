@@ -53,10 +53,10 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
             }
         }
 
-        if (Mage::registry('attribute_type_hidden_fields') === null) {
+        if (is_null(Mage::registry('attribute_type_hidden_fields'))) {
             Mage::register('attribute_type_hidden_fields', $_hiddenFields);
         }
-        if (Mage::registry('attribute_type_disabled_types') === null) {
+        if (is_null(Mage::registry('attribute_type_disabled_types'))) {
             Mage::register('attribute_type_disabled_types', $_disabledTypes);
         }
 

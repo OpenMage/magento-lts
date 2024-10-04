@@ -521,10 +521,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
          * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null
          * It just means that default value not specified
          */
-        if ($fieldProp['is_null'] === false && $fieldProp['default'] === null) {
+        if ($fieldProp['is_null'] === false && is_null($fieldProp['default'])) {
             $defaultValue = '';
         } else {
-            $defaultValue = $fieldProp['default'] === null ? ' DEFAULT NULL' : $this->_getReadAdapter()
+            $defaultValue = is_null($fieldProp['default']) ? ' DEFAULT NULL' : $this->_getReadAdapter()
                 ->quoteInto(' DEFAULT ?', $fieldProp['default']);
         }
 
