@@ -347,7 +347,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             array_walk_recursive($config, function (&$value, $key) {
                 $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
                 if (in_array($key, $boolean)) {
-                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
+                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
                 }
             });
             $this->defaultColumnSettings = $config;
