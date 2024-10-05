@@ -116,7 +116,6 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('catalog')->__('Action'),
                 'type'      => 'action',
                 'getter'    => 'getId',
                 'actions'   => [[

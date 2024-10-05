@@ -268,7 +268,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('catalog')->__('Action'),
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [

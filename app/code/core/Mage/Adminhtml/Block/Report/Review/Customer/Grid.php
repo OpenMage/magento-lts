@@ -55,11 +55,9 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('reports')->__('Action'),
-            'width'     => '100px',
+            'type'      => 'action',
+            'width'     => '100',
             'align'     => 'center',
-            'filter'    => false,
-            'sortable'  => false,
             'renderer'  => 'adminhtml/report_grid_column_renderer_customer',
             'is_system' => true
         ]);

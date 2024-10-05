@@ -103,10 +103,8 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
         ]);
 
         $this->addColumn('page_actions', [
-            'header'    => Mage::helper('cms')->__('Action'),
+            'type'      => 'action',
             'width'     => 10,
-            'sortable'  => false,
-            'filter'    => false,
             'renderer'  => 'adminhtml/cms_page_grid_renderer_action',
         ]);
 

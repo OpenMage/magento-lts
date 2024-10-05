@@ -108,7 +108,6 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('sales')->__('Action'),
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [

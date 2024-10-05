@@ -139,7 +139,6 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addColumn(
             'action',
             [
-                'header'    =>  Mage::helper('customer')->__('Action'),
                 'type'      => 'action',
                 'getter'    => 'getId',
                 'actions'   => [

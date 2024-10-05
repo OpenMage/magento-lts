@@ -82,11 +82,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
             'index'     => 'created_at',
         ]);
         $this->addColumn('action', [
-            'header'    => Mage::helper('customer')->__('Action'),
+            'type'      => 'action',
             'align'     => 'center',
             'format'    => '<a href="' . $this->getUrl('*/sales/edit/id/$entity_id') . '">' . Mage::helper('customer')->__('Edit') . '</a>',
-            'filter'    => false,
-            'sortable'  => false,
             'is_system' => true
         ]);
 

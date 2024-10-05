@@ -106,7 +106,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('sales')->__('Action'),
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [

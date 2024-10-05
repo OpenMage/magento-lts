@@ -85,7 +85,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
             'index'     => 'options'
         ]);
         $this->addColumn('actions', [
-            'header'    => $this->__('Action'),
             'type'      => 'action',
             'actions'   => [
                 [

@@ -148,7 +148,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn(
             'action',
             [
-                'header'    =>  Mage::helper('index')->__('Action'),
                 'width'     => '100',
                 'type'      => 'action',
                 'getter'    => 'getId',

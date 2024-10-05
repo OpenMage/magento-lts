@@ -97,11 +97,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         ]);
 
         $this->addColumn('action', [
-            'header'    =>  Mage::helper('newsletter')->__('Action'),
-            'filter'    =>  false,
-            'sortable'  =>  false,
+            'type'      => 'action',
             'no_link'   => true,
-            'width'     => '100px',
+            'width'     => '100',
             'renderer'  =>  'adminhtml/newsletter_queue_grid_renderer_action'
         ]);
 

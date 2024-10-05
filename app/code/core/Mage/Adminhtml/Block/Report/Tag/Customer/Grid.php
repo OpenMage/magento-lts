@@ -66,7 +66,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100',
                 'type'      => 'action',
                 'getter'    => 'getId',

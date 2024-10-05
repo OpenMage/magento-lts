@@ -174,7 +174,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('adminhtml')->__('Action'),
                 'type'      => 'action',
                 'getter'     => 'getReviewId',
                 'actions'   => [

@@ -102,7 +102,6 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('sales')->__('Action'),
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [

@@ -78,12 +78,10 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             'renderer' => 'adminhtml/tag_grid_column_renderer_tags',
         ]);
         $this->addColumn('action', [
-            'header'    => Mage::helper('tag')->__('Action'),
+            'type'      => 'action',
             'align'     => 'center',
-            'width'     => '120px',
+            'width'     => '120',
             'format'    => '<a href="' . $this->getUrl('*/*/products/customer_id/$entity_id') . '">' . Mage::helper('tag')->__('View Products') . '</a>',
-            'filter'    => false,
-            'sortable'  => false,
             'is_system' => true,
         ]);
 

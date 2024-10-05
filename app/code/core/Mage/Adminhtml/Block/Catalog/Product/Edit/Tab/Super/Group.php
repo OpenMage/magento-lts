@@ -173,7 +173,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('catalog')->__('Action'),
             'type'      => 'action',
             'getter'    => 'getId',
             'actions'   => [

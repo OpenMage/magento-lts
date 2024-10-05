@@ -115,7 +115,6 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
             $this->addColumn(
                 'action',
                 [
-                    'header'    => Mage::helper('sales')->__('Action'),
                     'type'      => 'action',
                     'getter'     => 'getId',
                     'actions'   => [

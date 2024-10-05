@@ -145,11 +145,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('customer')->__('Action'),
+            'type'      => 'action',
             'index'     => 'wishlist_item_id',
             'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
-            'filter'    => false,
-            'sortable'  => false,
             'actions'   => [
                 [
                     'caption'   => Mage::helper('customer')->__('Configure'),

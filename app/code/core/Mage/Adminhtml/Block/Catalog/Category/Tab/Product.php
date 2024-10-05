@@ -184,7 +184,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('catalog')->__('Action'),
             'type'      => 'action',
             'getter'    => 'getId',
             'actions'   => [
