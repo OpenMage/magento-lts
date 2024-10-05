@@ -69,7 +69,6 @@ jobs:
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
-#      needs.check.outputs.phtml > 0 ||
       needs.check.outputs.phpcs > 0 ||
       needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
@@ -80,7 +79,6 @@ jobs:
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
-#      needs.check.outputs.phtml > 0 ||
       needs.check.outputs.php-cs-fixer > 0 ||
       needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
