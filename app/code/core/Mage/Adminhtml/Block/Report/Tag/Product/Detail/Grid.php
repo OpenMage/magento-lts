@@ -62,7 +62,6 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
                 'sortable'  => false,
                 'index'     => 'stores',
                 'type'      => 'store',
-                'store_view' => true
             ]);
         }
 

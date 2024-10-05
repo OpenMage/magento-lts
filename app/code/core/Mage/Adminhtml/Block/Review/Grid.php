@@ -142,7 +142,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'header'    => Mage::helper('review')->__('Visible In'),
                 'index'     => 'stores',
                 'type'      => 'store',
-                'store_view' => true,
             ]);
         }
 

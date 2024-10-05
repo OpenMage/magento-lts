@@ -62,14 +62,11 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
                 'index'     => 'stores',
                 'type'      => 'store',
                 'sortable'  => false,
-                'store_view' => true
             ]);
 
             $this->addColumn('added_in', [
                 'header'    => Mage::helper('reports')->__('Submitted In'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true
             ]);
         }
 

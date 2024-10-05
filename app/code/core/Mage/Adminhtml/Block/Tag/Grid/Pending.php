@@ -87,11 +87,9 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible_in', [
-                'header'    => Mage::helper('tag')->__('Store View'),
                 'type'      => 'store',
                 'index'     => 'stores',
                 'sortable'  => false,
-                'store_view' => true
             ]);
         }
 

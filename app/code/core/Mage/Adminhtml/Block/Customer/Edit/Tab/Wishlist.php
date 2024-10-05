@@ -125,9 +125,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store', [
                 'header'    => Mage::helper('wishlist')->__('Added From'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'width'     => '160px'
             ]);
         }
 

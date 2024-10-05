@@ -45,11 +45,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
-                'header'    => $this->__('Store View'),
-                'width'     => '200px',
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true,
             ]);
         }
 
@@ -71,12 +67,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         ]);
         $this->addColumn('request_path', [
             'header'    => $this->__('Request Path'),
-            'width'     => '50px',
             'index'     => 'request_path'
         ]);
         $this->addColumn('target_path', [
             'header'    => $this->__('Target Path'),
-            'width'     => '50px',
             'index'     => 'target_path'
         ]);
         $this->addColumn('options', [

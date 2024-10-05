@@ -68,8 +68,6 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
-                'header'    => Mage::helper('sitemap')->__('Store View'),
-                'index'     => 'store_id',
                 'type'      => 'store',
             ]);
         }
