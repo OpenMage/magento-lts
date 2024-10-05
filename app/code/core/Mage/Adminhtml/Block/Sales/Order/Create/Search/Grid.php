@@ -130,13 +130,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'index'     => 'sku'
         ]);
         $this->addColumn('price', [
-            'header'    => Mage::helper('sales')->__('Price'),
             'column_css_class' => 'price',
             'align'     => 'center',
             'type'      => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
             'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price',
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_price',
         ]);
 

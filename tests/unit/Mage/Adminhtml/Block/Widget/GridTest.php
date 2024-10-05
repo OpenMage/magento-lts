@@ -100,6 +100,8 @@ class GridTest extends TestCase
             [
                 'type' => 'currency',
                 'align' => 'right',
+                'index' => 'price',
+                'header' => 'Price',
             ],
             [
                 'type' => 'currency',

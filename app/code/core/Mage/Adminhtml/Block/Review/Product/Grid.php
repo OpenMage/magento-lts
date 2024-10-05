@@ -58,9 +58,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
         ]);
 
         $this->addColumn('price', [
-                'header'    => Mage::helper('review')->__('Price'),
                 'type'      => 'currency',
-                'index'     => 'price'
         ]);
 
         $this->addColumn('qty', [
