@@ -40,7 +40,6 @@ class GridTest extends TestCase
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        $node = Mage::getConfig()->getNode('grid_columns');
         $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));
     }
 
