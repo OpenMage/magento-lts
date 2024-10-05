@@ -253,7 +253,7 @@
         </admin>
     </websites>
     <grid>
-        <columns>
+        <column>
             <default>
                 <index>
                     <entity_id>
@@ -289,6 +289,6 @@
                     </store>
                 </type>
             </default>
-        </columns>
+        </column>
     </grid>
 </config>

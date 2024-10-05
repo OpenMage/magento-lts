@@ -343,7 +343,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumnDefaultData(array $column): array
     {
         if (is_null($this->defaultColumnSettings)) {
-            $config = Mage::getConfig()->getNode('grid/columns/default')->asArray();
+            $config = Mage::getConfig()->getNode('grid/column/default')->asArray();
             array_walk_recursive($config, function (&$value, $key) {
                 $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
                 if (in_array($key, $boolean)) {
