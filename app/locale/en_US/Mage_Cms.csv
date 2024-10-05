@@ -30,7 +30,7 @@
 "Cannot delete page, it is used in ""%s"".","Cannot delete page, it is used in ""%s""."
 "Cannot delete directory %s.","Cannot delete directory %s."
 "Cannot delete root directory %s.","Cannot delete root directory %s."
-"Cannot disable page, it is used in ""%s"".","Cannot disable page, it is used in ""%s""."
+"Cannot disable page, it is used in configuration ""%s"".","Cannot disable page, it is used in configuration ""%s""."
 "Cannot upload file.","Cannot upload file."
 "Collapse All","Collapse All"
 "Content","Content"

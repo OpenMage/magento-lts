@@ -86,7 +86,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setIsActive(true);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
-                        'Cannot disable page, it is used in "%s".',
+                        'Cannot disable page, it is used in configuration "%s".',
                         implode(', ', $isUsedInConfig->getColumnValues('path'))
                     )
                 );
