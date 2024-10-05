@@ -365,13 +365,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
         if ($columnHasType
             && !array_key_exists('header', $column)
-            && in_array($column['type'], ['action', 'currency', 'store'])
+            && in_array($column['type'], ['action', 'currency', 'price', 'store'])
         ) {
             switch ($column['type']) {
                 case 'action':
                     $column['header'] = Mage::helper('adminhtml')->__('Action');
                     break;
                 case 'currency':
+                case 'price':
                     $column['header'] = Mage::helper('adminhtml')->__('Price');
                     break;
                 case 'store':

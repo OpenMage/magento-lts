@@ -263,9 +263,9 @@
                 </index>
                 <type>
                     <action>
-                        <width>40</width>
                         <filter>false</filter>
                         <sortable>false</sortable>
+                        <width>40</width>
                     </action>
                     <currency>
                         <align>right</align>
@@ -282,6 +282,7 @@
                     </number>
                     <price>
                         <align>right</align>
+                        <index>price</index>
                     </price>
                     <store>
                         <index>store_id</index>

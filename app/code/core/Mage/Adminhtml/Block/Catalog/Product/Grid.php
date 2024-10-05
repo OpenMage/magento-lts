@@ -210,10 +210,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'price',
             [
-                'header' => Mage::helper('catalog')->__('Price'),
-                'type'  => 'price',
+                'type'          => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index' => 'price',
             ]
         );
 

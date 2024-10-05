@@ -209,10 +209,8 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn(
             'price',
             [
-                'header'        => Mage::helper('catalog')->__('Price'),
                 'type'          => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index'         => 'price',
             ]
         );
 

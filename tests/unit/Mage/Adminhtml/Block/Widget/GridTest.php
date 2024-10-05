@@ -74,9 +74,9 @@ class GridTest extends TestCase
         yield 'type action' => [
             [
                 'type' => 'action',
-                'width' => '40',
                 'filter' => false,
                 'sortable' => false,
+                'width' => '40',
                 'header' => 'Action',
             ],
             [
@@ -87,9 +87,9 @@ class GridTest extends TestCase
             [
                 'type' => 'action',
                 'header' => 'test',
-                'width' => '40',
                 'filter' => false,
                 'sortable' => false,
+                'width' => '40',
             ],
             [
                 'type' => 'action',
@@ -138,6 +138,8 @@ class GridTest extends TestCase
             [
                 'type' => 'price',
                 'align' => 'right',
+                'index' => 'price',
+                'header' => 'Price',
             ],
             [
                 'type' => 'price',
