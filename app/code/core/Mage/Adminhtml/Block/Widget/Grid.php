@@ -209,38 +209,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_emptyCellLabel = '';
 
     /**
-     * @var array[][]
+     * @var null|array[][]
      */
-    protected $defaultColumnSettings = [
-        'index' => [
-            'entity_id' => [
-                'align' => 'right',
-                'type' => 'number',
-            ],
-        ],
-        'type' => [
-            'action' => [
-                'width' => 40,
-                'filter' => false,
-                'sortable' => false,
-            ],
-            'currency' => [
-                'align' => 'right',
-            ],
-            'date' => [
-                'width' => 140,
-            ],
-            'datetime' => [
-                'width' => 170,
-            ],
-            'number' => [
-                'align' => 'right',
-            ],
-            'price' => [
-                'align' => 'right',
-            ],
-        ],
-    ];
+    protected ?array $defaultColumnSettings = null;
 
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
@@ -356,18 +327,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumn($columnId, $column)
     {
         if (is_array($column)) {
-            if (isset($column['index'], $this->defaultColumnSettings['index'][$column['index']])) {
-                $column += $this->defaultColumnSettings['index'][$column['index']];
-            }
-
-            if (isset($column['type'], $this->defaultColumnSettings['type'][$column['type']])) {
-                $column += $this->defaultColumnSettings['type'][$column['type']];
-            }
-
-            if (isset($column['type']) && $column['type'] === 'action' && !array_key_exists('header', $column)) {
-                $column['header'] = Mage::helper('adminhtml')->__('Action');
-            }
-
+            $column = $this->addColumnDefaultData($column);
             $this->_columns[$columnId] = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
                 ->setData($column)
                 ->setGrid($this);
@@ -378,6 +338,46 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_columns[$columnId]->setId($columnId);
         $this->_lastColumnId = $columnId;
         return $this;
+    }
+
+    public function addColumnDefaultData(array $column): array
+    {
+        if (is_null($this->defaultColumnSettings)) {
+            $config = Mage::getConfig()->getNode('grid/columns/default')->asArray();
+            array_walk_recursive($config, function (&$value, $key) {
+                $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
+                if (in_array($key, $boolean)) {
+                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);;
+                }
+            });
+            $this->defaultColumnSettings = $config;
+        }
+
+        $columnHasIndex = array_key_exists('index', $column);
+        if ($columnHasIndex && array_key_exists($column['index'], $this->defaultColumnSettings['index'])) {
+            $column += $this->defaultColumnSettings['index'][$column['index']];
+        }
+
+        $columnHasType = array_key_exists('type', $column);
+        if ($columnHasType && array_key_exists($column['type'], $this->defaultColumnSettings['type'])) {
+            $column += $this->defaultColumnSettings['type'][$column['type']];
+        }
+
+        if ($columnHasType
+            && !array_key_exists('header', $column)
+            && in_array($column['type'], ['action', 'store'])
+        ) {
+            switch ($column['type']) {
+                case 'action':
+                    $column['header'] = Mage::helper('adminhtml')->__('Action');
+                    break;
+                case 'store':
+                    $column['header'] = Mage::helper('adminhtml')->__('Store View');
+                    break;
+            }
+        }
+
+        return $column;
     }
 
     /**
@@ -537,6 +537,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->getCollection()) {
             $field = $column->getFilterIndex() ?: $column->getIndex();
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
@@ -653,7 +654,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepeare columns for grid
+     * Prepare columns for grid
      *
      * @return $this
      */
@@ -710,6 +711,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $massactionColumn->setData('filter', false);
         }
 
+        $test = $this->getMassactionBlock()->getSelected();
         $massactionColumn->setSelected($this->getMassactionBlock()->getSelected())
             ->setGrid($this)
             ->setId($columnId);
@@ -1011,7 +1013,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
     * Retrieve rss lists types
     *
-    * @return array
+    * @return array|false
     */
     public function getRssLists()
     {
@@ -1130,6 +1132,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $collection->load();
             if (is_null($count)) {
                 $count = $collection->getSize();
@@ -1141,6 +1144,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $page++;
 
             foreach ($collection as $item) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func_array([$this, $callback], array_merge([$item], $args));
             }
             $collection->clear();

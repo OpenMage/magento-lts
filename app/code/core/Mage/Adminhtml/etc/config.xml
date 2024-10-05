@@ -252,4 +252,43 @@
             </web>
         </admin>
     </websites>
+    <grid>
+        <columns>
+            <default>
+                <index>
+                    <entity_id>
+                        <align>right</align>
+                        <type>number</type>
+                    </entity_id>
+                </index>
+                <type>
+                    <action>
+                        <width>40</width>
+                        <filter>false</filter>
+                        <sortable>false</sortable>
+                    </action>
+                    <currency>
+                        <align>right</align>
+                    </currency>
+                    <date>
+                        <width>140</width>
+                    </date>
+                    <datetime>
+                        <width>170</width>
+                    </datetime>
+                    <number>
+                        <align>right</align>
+                    </number>
+                    <price>
+                        <align>right</align>
+                    </price>
+                    <store>
+                        <index>store_id</index>
+                        <store_view>true</store_view>
+                        <width>160</width>
+                    </store>
+                </type>
+            </default>
+        </columns>
+    </grid>
 </config>
