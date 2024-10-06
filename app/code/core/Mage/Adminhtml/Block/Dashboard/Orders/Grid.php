@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
         $this->addColumn('items', [
             'header'    => $this->__('Items'),
-            'align'     => 'right',
             'type'      => 'number',
             'sortable'  => false,
             'index'     => 'items_count'

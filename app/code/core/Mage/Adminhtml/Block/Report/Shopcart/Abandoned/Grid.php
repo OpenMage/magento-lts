@@ -78,7 +78,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addColumn('items_count', [
             'header'    => Mage::helper('reports')->__('Number of Items'),
             'width'     => '80px',
-            'align'     => 'right',
             'index'     => 'items_count',
             'sortable'  => false,
             'type'      => 'number'
@@ -87,7 +86,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addColumn('items_qty', [
             'header'    => Mage::helper('reports')->__('Quantity of Items'),
             'width'     => '80px',
-            'align'     => 'right',
             'index'     => 'items_qty',
             'sortable'  => false,
             'type'      => 'number'

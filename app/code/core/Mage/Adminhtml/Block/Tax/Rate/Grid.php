@@ -89,7 +89,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('rate', [
             'header'        => Mage::helper('tax')->__('Rate'),
-            'align'         => 'right',
             'index'         => 'rate',
             'type'          => 'number',
             'default'       => '0.00',

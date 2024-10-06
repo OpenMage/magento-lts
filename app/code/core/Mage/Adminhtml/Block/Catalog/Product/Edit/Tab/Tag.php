@@ -56,7 +56,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         $this->addColumn('popularity', [
             'header'        => Mage::helper('catalog')->__('# of Use'),
             'width'         => '50px',
-            'align'         => 'right',
             'index'         => 'popularity',
             'type'          => 'number',
         ]);

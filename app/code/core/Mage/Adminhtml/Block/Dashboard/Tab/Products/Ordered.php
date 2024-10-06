@@ -72,7 +72,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('sales')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'sortable'  => false,
             'index'     => 'qty_ordered',
             'type'      => 'number'

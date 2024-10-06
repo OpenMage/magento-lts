@@ -66,7 +66,6 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('reports')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'index'     => 'ordered_qty',
             'total'     => 'sum',
             'type'      => 'number'

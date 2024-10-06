@@ -77,7 +77,6 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         $this->addColumn('qty', [
             'header'    => Mage::helper('reports')->__('Stock Qty'),
             'width'     => '215px',
-            'align'     => 'right',
             'sortable'  => false,
             'filter'    => 'adminhtml/widget_grid_column_filter_range',
             'index'     => 'qty',

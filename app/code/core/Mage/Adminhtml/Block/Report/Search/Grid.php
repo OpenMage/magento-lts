@@ -79,7 +79,6 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('num_results', [
             'header'    => Mage::helper('reports')->__('Results'),
             'width'     => '50px',
-            'align'     => 'right',
             'type'      => 'number',
             'index'     => 'num_results'
         ]);
@@ -87,7 +86,6 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('popularity', [
             'header'    => Mage::helper('reports')->__('Hits'),
             'width'     => '50px',
-            'align'     => 'right',
             'type'      => 'number',
             'index'     => 'popularity'
         ]);

@@ -76,7 +76,6 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         $this->addColumn('purchases', [
             'header'    => Mage::helper('reports')->__('Purchases'),
             'width'     => '215px',
-            'align'     => 'right',
             'filter'    => false,
             'index'     => 'purchases',
             'type'      => 'number',
@@ -86,7 +85,6 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         $this->addColumn('downloads', [
             'header'    => Mage::helper('reports')->__('Downloads'),
             'width'     => '215px',
-            'align'     => 'right',
             'filter'    => false,
             'index'     => 'downloads',
             'type'      => 'number'
