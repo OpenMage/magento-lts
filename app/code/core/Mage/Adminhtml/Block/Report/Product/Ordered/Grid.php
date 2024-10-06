@@ -49,11 +49,9 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('reports')->__('Price'),
             'width'         => '120px',
             'type'          => 'currency',
             'currency_code' => $baseCurrencyCode,
-            'index'         => 'price',
             'rate'          => $this->getRate($baseCurrencyCode),
         ]);
 

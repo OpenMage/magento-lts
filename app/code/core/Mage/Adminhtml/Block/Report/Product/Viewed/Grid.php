@@ -75,7 +75,6 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('product_price', [
-            'header'        => Mage::helper('adminhtml')->__('Price'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
             'index'         => 'product_price',

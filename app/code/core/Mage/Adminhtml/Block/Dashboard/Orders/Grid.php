@@ -91,7 +91,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
         $this->addColumn('total', [
             'header'    => $this->__('Grand Total'),
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,

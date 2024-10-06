@@ -92,7 +92,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
             'width'     => '70px',
             'sortable'  => false,
             'type'      => 'currency',
-            'align'     => 'right',
             'currency_code' => $currencyCode,
             'index'     => 'total',
             'renderer'  => 'adminhtml/report_grid_column_renderer_currency',

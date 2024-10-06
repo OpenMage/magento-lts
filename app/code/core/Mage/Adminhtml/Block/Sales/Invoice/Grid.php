@@ -101,7 +101,6 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('customer')->__('Amount'),
             'index'     => 'grand_total',
             'type'      => 'currency',
-            'align'     => 'right',
             'currency'  => 'order_currency_code',
         ]);
 

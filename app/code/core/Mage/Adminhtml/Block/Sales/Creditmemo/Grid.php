@@ -99,7 +99,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('customer')->__('Refunded'),
             'index'     => 'grand_total',
             'type'      => 'currency',
-            'align'     => 'right',
             'currency'  => 'order_currency_code',
         ]);
 

@@ -60,7 +60,6 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('product_price', [
-            'header'        => Mage::helper('sales')->__('Price'),
             'type'          => 'currency',
             'currency_code' => $currencyCode,
             'index'         => 'product_price',

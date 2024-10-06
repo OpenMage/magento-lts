@@ -75,7 +75,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
 
         $this->addColumn('orders_avg_amount', [
             'header'    => $this->__('Average Order Amount'),
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
@@ -84,7 +83,6 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
 
         $this->addColumn('orders_sum_amount', [
             'header'    => $this->__('Total Order Amount'),
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,

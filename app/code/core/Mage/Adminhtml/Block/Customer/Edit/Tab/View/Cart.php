@@ -82,8 +82,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
             'type'  => 'number',
             'width' => '60px'
         ])->addColumn('price', [
-            'header' => Mage::helper('customer')->__('Price'),
-            'index' => 'price',
             'type'  => 'currency',
             'currency_code' => $currencyCode
         ])->addColumn('total', [

@@ -63,7 +63,6 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('orders_avg_amount', [
             'header'    => $this->__('Average Order Amount'),
             'width'     => '200px',
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
@@ -76,7 +75,6 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('orders_sum_amount', [
             'header'    => $this->__('Total Order Amount'),
             'width'     => '200px',
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
