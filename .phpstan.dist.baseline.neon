@@ -2296,11 +2296,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config\\:\\:getNode\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: "#^Return type \\(Mage_Core_Model_App\\) of method Mage_Core_Model_Config\\:\\:_saveCache\\(\\) should be compatible with return type \\(bool\\) of method Varien_Simplexml_Config\\:\\:_saveCache\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php

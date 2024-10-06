@@ -377,7 +377,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getConfigDefaultColumnSettings(): array
     {
         if (is_null($this->defaultColumnSettings)) {
-            $config = Mage::getConfig()->getNode('grid/column/default')->asArray();
+            $configNode = Mage::getConfig()->getNode('grid/column/default');
+            # should be called only once
+            if ($configNode === false) {
+                Mage::app()->getCacheInstance()->cleanType('config');
+            }
+            $config = $configNode->asArray();
             array_walk_recursive($config, function (&$value, $key) {
                 $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
                 if (in_array($key, $boolean)) {
@@ -721,7 +726,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $massactionColumn->setData('filter', false);
         }
 
-        $test = $this->getMassactionBlock()->getSelected();
         $massactionColumn->setSelected($this->getMassactionBlock()->getSelected())
             ->setGrid($this)
             ->setId($columnId);
