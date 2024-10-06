@@ -5,7 +5,7 @@ tags:
   - Development
 ---
 
-# Observer example
+# Events & Observer
 
 Quick overview how observers work.
 

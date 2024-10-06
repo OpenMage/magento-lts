@@ -1,4 +1,4 @@
-# DDEV based environment
+# DDEV
 
 See: https://ddev.com
 
@@ -57,7 +57,9 @@ web_environment: [
 ]
 ```
 
-## Using Xdebug with PhpStorm
+## Using with PhpStorm
+
+### Xdebug
 
 Every DDEV project is automatically configured with Xdebug so that popular IDEs can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/.
 
@@ -75,7 +77,7 @@ xdebug.mode=debug
 xdebug.start_with_request=trigger
 ```
 
-## Accessing the database in PhpStorm
+### Accessing the database
 
 Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
@@ -113,7 +115,9 @@ RUN gem install compass
 
 For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
 
-## Creating a DDEV command
+## Commands
+    
+### Creating a command
 
 Create a new file named `phpstan` in the `.ddev/commands/web` directory and insert the following lines
 
@@ -129,7 +133,7 @@ php vendor/bin/phpstan analyze -c .github/phpstan.neon "$@"
 
 Run in the terminal window `ddev phpstan`.
 
-## OpenMage DDEV commands
+### OpenMage commands
 
 **1. If you want to install the `Magento Sample Data` run in the terminal window `ddev openmage-install` and follow the steps.**
 
@@ -144,7 +148,7 @@ You can use flags, for example `ddev openmage-install -d -s -k -q`
 
 **2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
 
-## Useful DDEV commands
+### Useful commands
 
 See: https://ddev.readthedocs.io/en/latest/users/usage/commands
 

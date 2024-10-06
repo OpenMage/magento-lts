@@ -174,8 +174,9 @@ nav:
           - api/rest/testing_rest_resources.md
   - 'Development':
       - 'Events':
-          - developers/events/observer.md
           - developers/events/list.md
+      - 'Guides':
+          - developers/guides/observer.md
       - 'Tools':
           - developers/ddev.md
           - developers/phpstorm.md
@@ -185,8 +186,14 @@ nav:
           - developers/mkdocs.md
   - 'Modules':
       - users/modules/index.md
-      - users/modules/_payment.md
-      - users/modules/_themes.md
-      - users/modules/more.md
+      - users/modules/cron.md
+      - users/modules/email.md
+      - users/modules/images.md
+      - users/modules/logging.md
+      - 'Payment':
+          - users/modules/payment/bitcoin.md
+      - users/modules/products.md
+      - 'Themes':
+          - users/modules/themes/frontend.md
 #  - 'Blog':
 #      - blog/index.md

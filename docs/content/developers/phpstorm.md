@@ -3,7 +3,9 @@ tags:
 - Development
 ---
 
-# PhpStorm Factory Helper
+# PhpStorm
+
+## Metadata Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
@@ -21,7 +23,7 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
-## PhpStorm File-Watcher for SCSS files
+## File-Watcher for SCSS files
 - install SCSS
   ```bash
   npm install -g sass
@@ -35,3 +37,4 @@ for more information.
     - Output paths to refresh:
   ```
   $FilePare
+  ```
