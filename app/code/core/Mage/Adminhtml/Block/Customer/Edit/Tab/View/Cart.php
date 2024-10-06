@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      */
     protected function _prepareColumns()
     {
-        $currencyCode = (string)Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+        $currencyCode = Mage_Directory_Helper_Data::getConfigCurrencyBase();
         $this->addColumn('product_id', [
             'header' => Mage::helper('customer')->__('Product ID'),
             'index' => 'product_id',

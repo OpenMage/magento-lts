@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         $this->addColumn('price', [
             'type'      => 'currency',
             'currency_code'
-                        => Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE)
+                        => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('add_date', [
