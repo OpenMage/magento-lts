@@ -197,7 +197,6 @@ table.actions td                { vertical-align:top; }
 .grid tr.filter select           { width:100%; }
 .grid tr.filter .range .range-line { margin-bottom:3px; width:100px; }
 .grid tr.filter .range.filter-range .range-line { width: initial; }
-.range-line { margin-bottom:3px; width:100px; }
 .grid tr.filter .range div.date  { min-width:121px; }
 .grid tr.filter .range input     { width:60px !important; margin-top:0; }
 .grid tr.filter .range select    { float:right; width:65px !important; margin-top:0; }
