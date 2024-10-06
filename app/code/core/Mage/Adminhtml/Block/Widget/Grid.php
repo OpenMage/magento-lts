@@ -342,25 +342,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     public function addColumnDefaultData(array $column): array
     {
-        if (is_null($this->defaultColumnSettings)) {
-            $config = Mage::getConfig()->getNode('grid/column/default')->asArray();
-            array_walk_recursive($config, function (&$value, $key) {
-                $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
-                if (in_array($key, $boolean)) {
-                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-                }
-            });
-            $this->defaultColumnSettings = $config;
-        }
-
+        $config = $this->getConfigDefaultColumnSettings();
         $columnHasIndex = array_key_exists('index', $column);
-        if ($columnHasIndex && array_key_exists($column['index'], $this->defaultColumnSettings['index'])) {
-            $column += $this->defaultColumnSettings['index'][$column['index']];
+        if ($columnHasIndex && array_key_exists($column['index'], $config['index'])) {
+            $column += $config['index'][$column['index']];
         }
 
         $columnHasType = array_key_exists('type', $column);
-        if ($columnHasType && array_key_exists($column['type'], $this->defaultColumnSettings['type'])) {
-            $column += $this->defaultColumnSettings['type'][$column['type']];
+        if ($columnHasType && array_key_exists($column['type'], $config['type'])) {
+            $column += $config['type'][$column['type']];
         }
 
         if ($columnHasType
@@ -382,6 +372,22 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         }
 
         return $column;
+    }
+
+    public function getConfigDefaultColumnSettings(): array
+    {
+        if (is_null($this->defaultColumnSettings)) {
+            $config = Mage::getConfig()->getNode('grid/column/default')->asArray();
+            array_walk_recursive($config, function (&$value, $key) {
+                $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
+                if (in_array($key, $boolean)) {
+                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                }
+            });
+            $this->defaultColumnSettings = $config;
+        }
+
+        return $this->defaultColumnSettings;
     }
 
     /**
