@@ -99,7 +99,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('catalog')->__('Qty'),
             'index'     => 'qty',
             'type'      => 'number',
-            'width'     => '60px',
         ]);
 
         $this->addColumn('price', [

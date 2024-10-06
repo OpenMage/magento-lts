@@ -119,7 +119,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('catalog')->__('Qty'),
             'index'     => 'qty',
             'type'      => 'number',
-            'width'     => '60px'
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {

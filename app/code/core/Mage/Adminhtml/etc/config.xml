@@ -279,6 +279,7 @@
                     </datetime>
                     <number>
                         <align>right</align>
+                        <width>1</width>
                     </number>
                     <price>
                         <align>right</align>

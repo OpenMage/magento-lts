@@ -153,7 +153,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'type'      => 'number',
             'validate_class' => 'validate-number',
             'index'     => 'qty',
-            'width'     => '1',
             'editable'  => true,
             'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
         ]);

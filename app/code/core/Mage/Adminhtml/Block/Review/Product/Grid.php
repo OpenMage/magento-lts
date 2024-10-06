@@ -63,7 +63,6 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
 
         $this->addColumn('qty', [
                 'header'    => Mage::helper('review')->__('Qty'),
-                'width'     => '130px',
                 'type'      => 'number',
                 'index'     => 'qty'
         ]);

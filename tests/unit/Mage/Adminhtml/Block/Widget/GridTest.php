@@ -54,6 +54,7 @@ class GridTest extends TestCase
                 'index' => 'entity_id',
                 'align' => 'right',
                 'type' => 'number',
+                'width' => '1',
             ],
             [
                 'index' => 'entity_id',
@@ -129,6 +130,7 @@ class GridTest extends TestCase
             [
                 'type' => 'number',
                 'align' => 'right',
+                'width' => '1',
             ],
             [
                 'type' => 'number',
