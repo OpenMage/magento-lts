@@ -38,6 +38,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </cleanup_probability>
                         <expiration_period translate="label">
                             <label>Expiration Period</label>
@@ -46,6 +47,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </expiration_period>
                     </fields>
                 </cleanup>
