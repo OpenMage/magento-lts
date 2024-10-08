@@ -38,17 +38,21 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
      */
     protected function _prepareForm()
     {
+        $showWebsiteFieldset    = false;
+        $showGroupFieldset      = false;
+        $showStoreFieldset      = false;
+        $websiteModel           = null;
+        $groupModel             = null;
+        $storeModel             = null;
+
         if (Mage::registry('store_type') == 'website') {
             $websiteModel = Mage::registry('store_data');
             $showWebsiteFieldset = true;
-            $showGroupFieldset = $showStoreFieldset = false;
         } elseif (Mage::registry('store_type') == 'group') {
             $groupModel = Mage::registry('store_data');
             $showGroupFieldset = true;
-            $showWebsiteFieldset = $showStoreFieldset = false;
         } elseif (Mage::registry('store_type') == 'store') {
             $storeModel = Mage::registry('store_data');
-            $showWebsiteFieldset = $showGroupFieldset = false;
             $showStoreFieldset = true;
         }
 
