@@ -907,7 +907,7 @@ parameters:
 
 		-
 			message: "#^Offset 'option_id' does not exist on array\\{final_price\\: mixed\\}\\.$#"
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -1382,6 +1382,11 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\\:\\:setValue\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
+
+		-
+			message: "#^Offset 0 on array\\{list\\<string\\>\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
@@ -3706,11 +3711,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
@@ -4647,6 +4647,11 @@ parameters:
 
 		-
 			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
+
+		-
+			message: "#^Offset 3 on array\\{0\\: string, 1\\: string, 2\\: string, 3\\: non\\-falsy\\-string, 4\\: string, 5\\: string, 6\\?\\: ' ON DELETE…', 7\\?\\: 'CASCADE'\\|'NO ACTION'\\|'RESTRICT'\\|'SET NULL', \\.\\.\\.\\} on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
