@@ -69,5 +69,6 @@ parameters:
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
+    tmpDir: .phpstan.cache
 #    universalObjectCratesClasses:
 #        - Varien_Object
