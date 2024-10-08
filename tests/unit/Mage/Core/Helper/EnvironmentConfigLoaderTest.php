@@ -19,7 +19,6 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Exception;
 use Mage_Core_Helper_EnvironmentConfigLoader;
 use PHPUnit\Framework\TestCase;
 use Varien_Simplexml_Config;
@@ -34,12 +33,12 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     public const XML_PATH_STORE = 'stores/german/general/store_information/name';
 
-    /**
-     * @throws Mage_Core_Exception
-     */
+    public Mage_Core_Helper_EnvironmentConfigLoader $subject;
+
     public function setup(): void
     {
-        Mage::setRoot();
+        Mage::app();
+        $this->subject = Mage::helper('core/environmentConfigLoader');
     }
 
     /**
@@ -67,187 +66,174 @@ class EnvironmentConfigLoaderTest extends TestCase
     /**
      * @group Mage_Core
      * @group Mage_Core_Helper
+     * @group EnvLoader
      */
     public function testXmlHasTestStrings(): void
     {
         $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
+
         $this->assertSame('test_default', (string)$xml->getNode(self::XML_PATH_DEFAULT));
         $this->assertSame('test_website', (string)$xml->getNode(self::XML_PATH_WEBSITE));
         $this->assertSame('test_store', (string)$xml->getNode(self::XML_PATH_STORE));
     }
 
     /**
-     * @dataProvider envOverridesCorrectConfigKeysDataProvider
+     * @dataProvider provideOverrideEnvironment
      * @group Mage_Core
      * @group Mage_Core_Helper
+     * @group EnvLoader
+     * @group EnvLoaderNode
      *
-     * @param array<string, string> $config
+     * @param array<string, string> $params
      */
-    public function testEnvOverridesForValidConfigKeys(array $config): void
+    public function testOverrideEnvironmentNode(string $expectedResult, array $params): void
     {
-        $xmlStruct = $this->getTestXml();
-
-        $xmlDefault = new Varien_Simplexml_Config();
-        $xmlDefault->loadString($xmlStruct);
-        $xml = new Varien_Simplexml_Config();
-        $xml->loadString($xmlStruct);
-
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
-        $loader->setEnvStore([
-            $config['env_path'] => $config['value']
-        ]);
-        $loader->overrideEnvironment($xml);
-
-        $configPath = $config['xml_path'];
-        $defaultValue = $xmlDefault->getNode($configPath);
-        $valueAfterOverride = $xml->getNode($configPath);
-
-        // assert
-        $this->assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
-    }
-
-    public function envOverridesCorrectConfigKeysDataProvider(): Generator
-    {
-        $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME';
-        $defaultPathWithDash = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME';
-        $defaultPathWithUnderscore = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO_BAR__NAME';
-
-        $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME';
-        $websiteWithDashPath = 'OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME';
-        $websiteWithUnderscorePath = 'OPENMAGE_CONFIG__WEBSITES__BASE_CH__GENERAL__STORE_INFORMATION__NAME';
-
-        $storeWithDashPath = 'OPENMAGE_CONFIG__STORES__GERMAN-AT__GENERAL__STORE_INFORMATION__NAME';
-        $storeWithUnderscorePath = 'OPENMAGE_CONFIG__STORES__GERMAN_CH__GENERAL__STORE_INFORMATION__NAME';
-        $storePath = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME';
-
-        yield 'Case DEFAULT overrides #1.' => [[
-            'case'     => 'DEFAULT',
-            'xml_path' => self::XML_PATH_DEFAULT,
-            'env_path' => $defaultPath,
-            'value'    => 'default_new_value'
-        ]];
-        yield 'Case DEFAULT overrides #2.' => [[
-            'case'     => 'DEFAULT',
-            'xml_path' => 'default/general/foo-bar/name',
-            'env_path' => $defaultPathWithDash,
-            'value'    => 'baz'
-        ]];
-        yield 'Case DEFAULT overrides #3.' => [[
-            'case'     => 'DEFAULT',
-            'xml_path' => 'default/general/foo_bar/name',
-            'env_path' => $defaultPathWithUnderscore,
-            'value'    => 'baz'
-        ]];
-        yield 'Case STORE overrides #1.' => [[
-            'case'     => 'STORE',
-            'xml_path' => self::XML_PATH_STORE,
-            'env_path' => $storePath,
-            'value'    => 'store_new_value'
-        ]];
-        yield 'Case STORE overrides #2.' => [[
-            'case'     => 'STORE',
-            'xml_path' => 'stores/german-at/general/store_information/name',
-            'env_path' => $storeWithDashPath,
-            'value'    => 'store_new_value'
-        ]];
-        yield 'Case STORE overrides #3.' => [[
-            'case'     => 'STORE',
-            'xml_path' => 'stores/german_ch/general/store_information/name',
-            'env_path' => $storeWithUnderscorePath,
-            'value'    => 'store_new_value'
-        ]];
-        yield 'Case WEBSITE overrides #1.' => [[
-            'case'     => 'WEBSITE',
-            'xml_path' => self::XML_PATH_WEBSITE,
-            'env_path' => $websitePath,
-            'value'    => 'website_new_value'
-        ]];
-        yield 'Case WEBSITE overrides #2.' => [[
-            'case'     => 'WEBSITE',
-            'xml_path' => 'websites/base_ch/general/store_information/name',
-            'env_path' => $websiteWithUnderscorePath,
-            'value'    => 'website_new_value'
-        ]];
-        yield 'Case WEBSITE overrides #3.' => [[
-            'case'     => 'WEBSITE',
-            'xml_path' => 'websites/base-at/general/store_information/name',
-            'env_path' => $websiteWithDashPath,
-            'value'    => 'website_new_value'
-        ]];
+        $config = Mage::getConfig();
+        $this->subject->overrideEnvironment($config);
+        $this->assertSame($expectedResult, trim((string)$config->getNode($params['xmlPath'])));
     }
 
     /**
-     * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
+     * @dataProvider provideOverrideEnvironment
      * @group Mage_Core
+     * @group Mage_Core_Helper
+     * @group EnvLoader
+     * @group EnvLoaderConfig
      *
-     * @param array<string, string> $config
+     * @param array<string, string> $params
      */
-    public function testEnvDoesNotOverrideForInvalidConfigKeys(array $config): void
+    public function testOverrideEnvironmentConfig(string $expectedResult, array $params): void
     {
-        $xmlStruct = $this->getTestXml();
+        $config = Mage::getConfig();
+        $this->subject->overrideEnvironment($config);
 
-        $xmlDefault = new Varien_Simplexml_Config();
-        $xmlDefault->loadString($xmlStruct);
-        $xml = new Varien_Simplexml_Config();
-        $xml->loadString($xmlStruct);
+        $configPath = explode('/', $params['xmlPath']);
+        unset($configPath[0], $configPath[1]);
+        $configPath = implode('/', $configPath);
 
-        $defaultValue = 'test_default';
-        $this->assertSame($defaultValue, (string)$xml->getNode(self::XML_PATH_DEFAULT));
-        $defaultWebsiteValue = 'test_website';
-        $this->assertSame($defaultWebsiteValue, (string)$xml->getNode(self::XML_PATH_WEBSITE));
-        $defaultStoreValue = 'test_store';
-        $this->assertSame($defaultStoreValue, (string)$xml->getNode(self::XML_PATH_STORE));
-
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
-        $loader->setEnvStore([
-            $config['path'] => $config['value']
-        ]);
-        $loader->overrideEnvironment($xml);
-
-        $valueAfterCheck = '';
-        switch ($config['case']) {
-            case 'DEFAULT':
-                $valueAfterCheck = $xml->getNode(self::XML_PATH_DEFAULT);
-                break;
-            case 'STORE':
-                $valueAfterCheck = $xml->getNode(self::XML_PATH_STORE);
-                break;
-            case 'WEBSITE':
-                $valueAfterCheck = $xml->getNode(self::XML_PATH_WEBSITE);
-                break;
-        }
-
-        // assert
-        $this->assertTrue(!str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
+        $this->assertSame($expectedResult, (string)Mage::getStoreConfig($configPath, $params['storeId']));
     }
 
-    public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
+    public function provideOverrideEnvironment(): Generator
     {
-        $defaultPath = 'OPENMAGE_CONFIG__DEFAULT__GENERAL__ST';
-        $websitePath = 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST';
-        $storePath = 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__ST';
+        yield 'Case DEFAULT overrides' => [
+            'ENV default',
+            [
+                'xmlPath'   => self::XML_PATH_DEFAULT,
+                'envPath'   => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case DEFAULT overrides w/ dashes' => [
+            'ENV default dashes',
+            [
+                'xmlPath'   => 'stores/default/general/foo-bar/name',
+                'envPath'   => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case DEFAULT overrides w/ underscore' => [
+            'ENV default underscore',
+            [
+                'xmlPath'   => 'stores/default/general/foo_bar/name',
+                'envPath'   => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO_BAR__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case DEFAULT will not override' => [
+            '',
+            [
+                'xmlPath'   => '',
+                'envPath'   => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__ST',
+                'storeId'   => null
+            ]
+        ];
 
-        yield 'Case DEFAULT with ' . $defaultPath . ' will not override.' => [[
-            'case'  => 'DEFAULT',
-            'path'  => $defaultPath,
-            'value' => 'default_value_will_not_be_changed'
-        ]];
-        yield 'Case WEBSITE with ' . $websitePath . ' will not override.' => [[
-            'case'  => 'WEBSITE',
-            'path'  => $storePath,
-            'value' => 'website_value_will_not_be_changed'
-        ]];
-        yield 'Case STORE with ' . $storePath . ' will not override.' => [[
-            'case'  => 'STORE',
-            'path'  => $storePath,
-            'value' => 'store_value_will_not_be_changed'
-        ]];
+        yield 'Case WEBSITE overrides' => [
+            'ENV website',
+            [
+                'xmlPath'   => self::XML_PATH_WEBSITE,
+                'envPath'   => 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case WEBSITE overrides w/ dashes' => [
+            'ENV website dashes',
+            [
+                'xmlPath'   => 'websites/base-at/general/store_information/name',
+                'envPath'   => 'OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case WEBSITE overrides w/ underscore' => [
+            'ENV website underscore',
+            [
+                'xmlPath'   => 'websites/base_ch/general/store_information/name',
+                'envPath'   => 'OPENMAGE_CONFIG__WEBSITES__BASE_CH__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case WEBSITE will not override' => [
+            '',
+            [
+                'xmlPath'   => '',
+                'envPath'  => 'OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST',
+                'storeId'   => null
+            ]
+        ];
+
+        yield 'Case STORE overrides' => [
+            'ENV store',
+            [
+                'xmlPath'   => self::XML_PATH_STORE,
+                'envPath'   => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case STORE overrides w/ dashes' => [
+            'ENV store dashes',
+            [
+                'xmlPath'   => 'stores/german-at/general/store_information/name',
+                'envPath'   => 'OPENMAGE_CONFIG__STORES__GERMAN-AT__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case STORE overrides w/ underscore' => [
+            'ENV store underscore',
+            [
+                'xmlPath'   => 'stores/german_ch/general/store_information/name',
+                'envPath'   => 'OPENMAGE_CONFIG__STORES__GERMAN_CH__GENERAL__STORE_INFORMATION__NAME',
+                'storeId'   => null
+            ]
+        ];
+        yield 'Case STORE will not override' => [
+            '',
+            [
+                'xmlPath'   => '',
+                'envPath'   => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__ST',
+                'storeId'   => null
+            ]
+        ];
     }
 
+    public function getConfigData(): array
+    {
+        return [
+            'default/general/store_information/name'            => 'test default',
+            'default/general/store_information/foo-bar'         => 'test default dashes',
+            'default/general/store_information/foo_bar'         => 'test default underscore',
+
+            'websites/base/general/store_information/name'      => 'test website',
+            'websites/base-at/general/store_information/name'   => 'test website dashes',
+            'websites/base_ch/general/store_information/name'   => 'test website underscore',
+
+            'stores/german/general/store_information/name'      => 'test store',
+            'stores/german-at/general/store_information/name'   => 'test store dashes',
+            'stores/german_ch/general/store_information/name'   => 'test store underscore',
+        ];
+    }
     public function getTestXml(): string
     {
         return <<<XML
@@ -259,10 +245,10 @@ class EnvironmentConfigLoaderTest extends TestCase
                     <name>test_default</name>
             </store_information>
             <foo-bar>
-                    <name>test_default</name>
+                    <name>test_dashes</name>
             </foo-bar>
             <foo_bar>
-                    <name>test_default</name>
+                    <name>test_underscore</name>
             </foo_bar>
         </general>
     </default>

@@ -337,13 +337,22 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getConfig($path)
     {
+        $config = Mage::getConfig();
+        $fullPath = 'stores/' . $this->getCode() . '/' . $path;
+
+        $envConfig = $config->getEnvOverriddenConfigPaths();
+        if (array_key_exists($fullPath, $envConfig)) {
+            return $envConfig[$fullPath];
+        }
+
+        if (array_key_exists($path, $envConfig)) {
+            return $envConfig[$path];
+        }
+
         if (isset($this->_configCache[$path])) {
             return $this->_configCache[$path];
         }
 
-        $config = Mage::getConfig();
-
-        $fullPath = 'stores/' . $this->getCode() . '/' . $path;
         $data = $config->getNode($fullPath);
         if (!$data && !Mage::isInstalled()) {
             $data = $config->getNode('default/' . $path);

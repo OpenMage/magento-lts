@@ -55,6 +55,15 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $checkboxLabel = $this->__('Use Default');
         }
 
+        $envConfig = Mage::getConfig()->getEnvOverriddenConfigPaths();
+        $envConfigIds = array_combine(str_replace('/', '_', array_keys($envConfig)), array_values($envConfig), );
+        if (array_key_exists($element->getId(), $envConfigIds)) {
+            $addInheritCheckbox = false;
+            $element->setDisabled(true);
+            $element->setScopeLabel('[ENV]]');
+            $element->setValue($envConfigIds[$element->getId()]);
+        }
+
         if ($addInheritCheckbox) {
             $inherit = $element->getInherit() == 1 ? 'checked="checked"' : '';
             if ($inherit) {

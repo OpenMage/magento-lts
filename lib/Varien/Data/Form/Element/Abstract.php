@@ -29,6 +29,8 @@
  * @method bool getNoSpan()
  * @method $this setName(string $value)
  * @method bool getRequired()
+ * @method string getScopeLabel()
+ * @method $this setScopeLabel(string $value)
  * @method string getValue()
  * @method array getValues()
  * @method $this setValues(array|int|string $value)

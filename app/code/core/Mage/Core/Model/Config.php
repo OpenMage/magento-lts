@@ -250,6 +250,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_allowedModules = [];
 
     /**
+     * Config paths overloaded by ENV
+     */
+    protected array $envOverriddenConfigPaths = [];
+
+    /**
      * Class construct
      *
      * @param mixed $sourceData
@@ -739,7 +744,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element
+     * @return Mage_Core_Model_Config_Element|false
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -1821,5 +1826,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _isNodeNameHasUpperCase(Mage_Core_Model_Config_Element $event)
     {
         return (strtolower($event->getName()) !== (string)$event->getName());
+    }
+
+    public function getEnvOverriddenConfigPaths(): array
+    {
+        return $this->envOverriddenConfigPaths;
+    }
+
+    public function addEnvOverriddenConfigPaths(string $path, string $value): Mage_Core_Model_Config
+    {
+        $this->envOverriddenConfigPaths[$path] = $value;
+        return $this;
     }
 }

@@ -25,6 +25,21 @@
         </testsuite>
     </testsuites>
 
+    <php>
+        <env name="OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME" value="ENV default"/>
+        <env name="OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO-BAR__NAME" value="ENV default dashes"/>
+        <env name="OPENMAGE_CONFIG__DEFAULT__GENERAL__FOO_BAR__NAME" value="ENV default underscore"/>
+        <env name="OPENMAGE_CONFIG__DEFAULT__GENERAL__ST" value="ENV default invalid"/>
+        <env name="OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__STORE_INFORMATION__NAME" value="ENV website"/>
+        <env name="OPENMAGE_CONFIG__WEBSITES__BASE-AT__GENERAL__STORE_INFORMATION__NAME" value="ENV website dashes"/>
+        <env name="OPENMAGE_CONFIG__WEBSITES__BASE_CH__GENERAL__STORE_INFORMATION__NAME" value="ENV website underscore"/>
+        <env name="OPENMAGE_CONFIG__WEBSITES__BASE__GENERAL__ST" value="ENV website invalid"/>
+        <env name="OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME" value="ENV store"/>
+        <env name="OPENMAGE_CONFIG__STORES__GERMAN-AT__GENERAL__STORE_INFORMATION__NAME" value="ENV store dashes"/>
+        <env name="OPENMAGE_CONFIG__STORES__GERMAN_CH__GENERAL__STORE_INFORMATION__NAME" value="ENV store underscore"/>
+        <env name="OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__ST" value="ENV store invalid"/>
+    </php>
+
     <coverage
         includeUncoveredFiles="true"
         processUncoveredFiles="false"
