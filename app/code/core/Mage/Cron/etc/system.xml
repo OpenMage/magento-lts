@@ -32,6 +32,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_generate_every>
                         <schedule_ahead_for translate="label">
                             <label>Schedule Ahead for</label>
@@ -39,6 +40,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_ahead_for>
                         <schedule_lifetime translate="label">
                             <label>Missed if Not Run Within</label>
@@ -46,6 +48,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </schedule_lifetime>
                         <history_cleanup_every translate="label">
                             <label>History Cleanup Every</label>
@@ -53,6 +56,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_cleanup_every>
                         <history_success_lifetime translate="label">
                             <label>Success History Lifetime</label>
@@ -60,6 +64,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_success_lifetime>
                         <history_failure_lifetime translate="label">
                             <label>Failure History Lifetime</label>
@@ -67,6 +72,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </history_failure_lifetime>
                     </fields>
                 </cron>
