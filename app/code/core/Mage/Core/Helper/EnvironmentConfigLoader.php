@@ -57,7 +57,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
     {
         if (!$xmlConfig instanceof Mage_Core_Model_Config) {
-//            return;
+            return;
         }
 
         $env = $this->getEnv();

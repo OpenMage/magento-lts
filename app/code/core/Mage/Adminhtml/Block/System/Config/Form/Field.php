@@ -47,6 +47,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $options = $element->getValues();
 
         $addInheritCheckbox = false;
+        $checkboxLabel = '';
         if ($element->getCanUseWebsiteValue()) {
             $addInheritCheckbox = true;
             $checkboxLabel = $this->__('Use Website');
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         }
 
         $envConfig = Mage::getConfig()->getEnvOverriddenConfigPaths();
-        $envConfigIds = array_combine(str_replace('/', '_', array_keys($envConfig)), array_values($envConfig), );
+        $envConfigIds = array_combine(str_replace('/', '_', array_keys($envConfig)), array_values($envConfig),);
         if (array_key_exists($element->getId(), $envConfigIds)) {
             $addInheritCheckbox = false;
             $element->setDisabled(true);
