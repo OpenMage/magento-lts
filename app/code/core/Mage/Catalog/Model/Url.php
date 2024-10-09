@@ -236,12 +236,10 @@ class Mage_Catalog_Model_Url
         }
 
         $this->clearStoreInvalidRewrites($storeId);
-
         $store = $this->getStores($storeId);
         if ($store instanceof Mage_Core_Model_Store) {
             $this->refreshCategoryRewrite($store->getRootCategoryId(), $storeId, false);
         }
-
         $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
