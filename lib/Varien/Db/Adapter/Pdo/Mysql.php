@@ -1173,7 +1173,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
                 . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?#';
             $matches = [];
-            preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER);
+            preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER|PREG_UNMATCHED_AS_NULL);
             foreach ($matches as $match) {
                 $ddl[strtoupper($match[1])] = [
                     'FK_NAME'           => $match[1],
