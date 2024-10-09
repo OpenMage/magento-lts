@@ -78,6 +78,7 @@ class DataTest extends TestCase
      * @dataProvider provideFormatTimezoneDate
      * @group Mage_Core
      * @group Mage_Core_Helper
+     * @group Dates
      */
     public function testFormatTimezoneDate(
         string $expectedResult,
@@ -91,27 +92,25 @@ class DataTest extends TestCase
 
     public function provideFormatTimezoneDate(): Generator
     {
-        $date = strtotime(Varien_Date::formatDate('2024-10-02 12:00:00'));
-        $now = date('m/j/Y', $date);
-
-        $dateShort = date('m/j/Y', $date);
-        $dateLong = date('F j, Y', $date);
-        $dateShortTime = date('m/j/Y h:i A', $date);
+        $date           = date_create()->getTimestamp();
+        $dateShort      = date('m/j/Y', $date);
+        $dateLong       = date('F j, Y', $date);
+        $dateShortTime  = date('m/j/Y h:i A', $date);
 
         yield 'null' => [
-            $now,
+            $dateShort,
             null
         ];
         yield 'empty date' => [
-            $now,
+            $dateShort,
             ''
         ];
         yield 'string date' => [
-            $now,
+            $dateShort,
             'now'
         ];
         yield 'numeric date' => [
-            $now,
+            $dateShort,
             '0'
         ];
         yield 'invalid date' => [
