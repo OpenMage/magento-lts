@@ -190,7 +190,7 @@ class Mage_Tax_Model_Observer
         if ($collection->requireTaxPercent()) {
             $request = Mage::getSingleton('tax/calculation')->getRateRequest();
             foreach ($collection as $item) {
-                if ($item->getTaxClassId() === null) {
+                if (is_null($item->getTaxClassId())) {
                     $item->setTaxClassId($item->getMinimalTaxClassId());
                 }
                 if (!isset($classToRate[$item->getTaxClassId()])) {

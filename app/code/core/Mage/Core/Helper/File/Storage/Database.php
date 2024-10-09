@@ -57,7 +57,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function checkDbUsage()
     {
-        if ($this->_useDb === null) {
+        if (is_null($this->_useDb)) {
             $currentStorage = (int) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_STORAGE_MEDIA);
             $this->_useDb = ($currentStorage == Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE);
@@ -293,7 +293,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      */
     public function getMediaBaseDir()
     {
-        if ($this->_mediaBaseDirectory === null) {
+        if (is_null($this->_mediaBaseDirectory)) {
             $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
         }
         return $this->_mediaBaseDirectory;

@@ -38,7 +38,7 @@ class Mage_Page_Model_Config
      */
     protected function _initPageLayouts()
     {
-        if ($this->_pageLayouts === null) {
+        if (is_null($this->_pageLayouts)) {
             $this->_pageLayouts = [];
             $this->_appendPageLayouts(self::XML_PATH_CMS_LAYOUTS);
             $this->_appendPageLayouts(self::XML_PATH_PAGE_LAYOUTS);

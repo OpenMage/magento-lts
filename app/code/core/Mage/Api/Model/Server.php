@@ -98,7 +98,7 @@ class Mage_Api_Model_Server
             $this->_api     = $adapterCode;
 
             // get handler code from config if no handler passed as argument
-            if ($handler === null && !empty($adapters[$adapterCode]->handler)) {
+            if (is_null($handler) && !empty($adapters[$adapterCode]->handler)) {
                 $handler = (string) $adapters[$adapterCode]->handler;
             }
             $handlers = $helper->getHandlers();

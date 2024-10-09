@@ -38,7 +38,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
      */
     public function getAllOptions()
     {
-        if ($this->_options === null) {
+        if (is_null($this->_options)) {
             $this->_options = [];
             $rootNode = null;
             if ($this->_configNodePath) {

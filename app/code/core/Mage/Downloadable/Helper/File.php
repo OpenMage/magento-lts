@@ -129,7 +129,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getFilePath($path, $file)
     {
-        if ($file === null || $file === '') {
+        if (is_null($file) || $file === '') {
             return $path . DS;
         }
 

@@ -35,7 +35,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _getFlag()
     {
-        if ($this->_flag === null) {
+        if (is_null($this->_flag)) {
             $this->_flag = Mage::getModel('reports/flag');
         }
         return $this->_flag;
@@ -55,7 +55,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             ->unsetData()
             ->loadSelf();
 
-        if ($value !== null) {
+        if (!is_null($value)) {
             $this->_getFlag()->setFlagData($value);
         }
 
@@ -119,20 +119,20 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $subSelect = null,
         $doNotUseTruncate = false
     ) {
-        if ($from === null && $to === null && !$doNotUseTruncate) {
+        if (is_null($from) && is_null($to) && !$doNotUseTruncate) {
             $this->_truncateTable($table);
             return $this;
         }
 
-        if ($subSelect !== null) {
+        if (!is_null($subSelect)) {
             $deleteCondition = $this->_makeConditionFromDateRangeSelect($subSelect, 'period');
         } else {
             $condition = [];
-            if ($from !== null) {
+            if (!is_null($from)) {
                 $condition[] = $this->_getWriteAdapter()->quoteInto('period >= ?', $from);
             }
 
-            if ($to !== null) {
+            if (!is_null($to)) {
                 $condition[] = $this->_getWriteAdapter()->quoteInto('period <= ?', $to);
             }
             $deleteCondition = implode(' AND ', $condition);
@@ -172,11 +172,11 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             )
             ->distinct(true);
 
-        if ($from !== null) {
+        if (!is_null($from)) {
             $select->where($alias . '.' . $whereColumn . ' >= ?', $from);
         }
 
-        if ($to !== null) {
+        if (!is_null($to)) {
             $select->where($alias . '.' . $whereColumn . ' <= ?', $to);
         }
 
@@ -289,11 +289,11 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             )
             ->distinct(true);
 
-        if ($from !== null) {
+        if (!is_null($from)) {
             $select->where($relatedAlias . '.' . $whereColumn . ' >= ?', $from);
         }
 
-        if ($to !== null) {
+        if (!is_null($to)) {
             $select->where($relatedAlias . '.' . $whereColumn . ' <= ?', $to);
         }
 
@@ -328,11 +328,11 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _checkDates(&$from, &$to)
     {
-        if ($from !== null) {
+        if (!is_null($from)) {
             $from = $this->formatDate($from);
         }
 
-        if ($to !== null) {
+        if (!is_null($to)) {
             $to = $this->formatDate($to);
         }
 
@@ -488,7 +488,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      */
     protected function _dateToUtc($date)
     {
-        if ($date === null) {
+        if (is_null($date)) {
             return null;
         }
         $dateUtc = new Zend_Date($date);

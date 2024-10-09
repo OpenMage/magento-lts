@@ -932,7 +932,7 @@ class Mage_CatalogInventory_Model_Observer
         $entityField    = $observer->getEvent()->getEntityField();
         $websiteField   = $observer->getEvent()->getWebsiteField();
 
-        if ($entityField === null || $websiteField === null) {
+        if (is_null($entityField) || is_null($websiteField)) {
             return $this;
         }
 

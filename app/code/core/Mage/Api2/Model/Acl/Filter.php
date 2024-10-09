@@ -103,11 +103,11 @@ class Mage_Api2_Model_Acl_Filter
      */
     public function getAllowedAttributes($operationType = null)
     {
-        if ($this->_allowedAttributes === null) {
+        if (is_null($this->_allowedAttributes)) {
             /** @var Mage_Api2_Helper_Data $helper */
             $helper = Mage::helper('api2/data');
 
-            if ($operationType === null) {
+            if (is_null($operationType)) {
                 $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
             }
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
@@ -139,7 +139,7 @@ class Mage_Api2_Model_Acl_Filter
      */
     public function getAttributesToInclude()
     {
-        if ($this->_attributesToInclude === null) {
+        if (is_null($this->_attributesToInclude)) {
             $allowedAttrs   = $this->getAllowedAttributes(Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
             $requestedAttrs = $this->_resource->getRequest()->getRequestedAttributes();
 

@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlInstance()
     {
-        if ($this->_url === null) {
+        if (is_null($this->_url)) {
             $this->_url = Mage::getModel('core/url');
         }
         return $this->_url;
@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlRewrite()
     {
-        if ($this->_urlRewrite === null) {
+        if (is_null($this->_urlRewrite)) {
             $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
         }
         return $this->_urlRewrite;
@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getProductUrl($product, $useSid = null)
     {
-        if ($useSid === null) {
+        if (is_null($useSid)) {
             $useSid = Mage::app()->getUseSessionInUrl();
         }
 

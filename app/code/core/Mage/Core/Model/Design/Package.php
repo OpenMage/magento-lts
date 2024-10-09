@@ -214,7 +214,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getPackageName()
     {
-        if ($this->_name === null) {
+        if (is_null($this->_name)) {
             $this->setPackageName();
         }
         return $this->_name;

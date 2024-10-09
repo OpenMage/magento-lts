@@ -191,7 +191,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         foreach ($collection as $message) {
             if ($message->getId()) {
                 $parameters = new Varien_Object($message->getMessageParameters());
-                if ($parameters->getReturnPathEmail() !== null) {
+                if (!is_null($parameters->getReturnPathEmail())) {
                     $mailTransport = new Zend_Mail_Transport_Sendmail('-f' . $parameters->getReturnPathEmail());
                     Zend_Mail::setDefaultTransport($mailTransport);
                 }
@@ -219,10 +219,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
                 $mailer->setFrom($parameters->getFromEmail(), $parameters->getFromName());
-                if ($parameters->getReplyTo() !== null) {
+                if (!is_null($parameters->getReplyTo())) {
                     $mailer->setReplyTo($parameters->getReplyTo());
                 }
-                if ($parameters->getReturnTo() !== null) {
+                if (!is_null($parameters->getReturnTo())) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }
 

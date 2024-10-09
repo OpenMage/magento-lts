@@ -939,7 +939,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         /**
          * Use single transport object instance for all blocks
          */
-        if (self::$_transportObject === null) {
+        if (is_null(self::$_transportObject)) {
             self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setHtml($html);

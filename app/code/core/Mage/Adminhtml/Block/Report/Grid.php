@@ -187,7 +187,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $collection->setStoreIds($storeIds);
 
-        if ($this->getSubReportSize() !== null) {
+        if (!is_null($this->getSubReportSize())) {
             $collection->setPageSize($this->getSubReportSize());
         }
 

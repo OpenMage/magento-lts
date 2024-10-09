@@ -127,7 +127,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
      */
     public function getCurrentChildCategories()
     {
-        if ($this->_currentChildCategories === null) {
+        if (is_null($this->_currentChildCategories)) {
             $layer = Mage::getSingleton('catalog/layer');
             $category = $layer->getCurrentCategory();
             $this->_currentChildCategories = $category->getChildrenCategories();

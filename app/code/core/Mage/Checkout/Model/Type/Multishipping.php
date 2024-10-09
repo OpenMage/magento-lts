@@ -105,7 +105,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     public function getQuoteShippingAddressesItems()
     {
-        if ($this->_quoteShippingAddressesItems !== null) {
+        if (!is_null($this->_quoteShippingAddressesItems)) {
             return $this->_quoteShippingAddressesItems;
         }
         $items = [];

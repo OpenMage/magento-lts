@@ -190,7 +190,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      */
     protected function _getSelectedNodes()
     {
-        if ($this->_selectedNodes === null) {
+        if (is_null($this->_selectedNodes)) {
             $this->_selectedNodes = [];
             $root = $this->getRoot();
             foreach ($this->getCategoryIds() as $categoryId) {

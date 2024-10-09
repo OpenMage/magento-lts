@@ -84,7 +84,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $xml = $this->getConfigAsXml($type);
 
         $object = new Varien_Object();
-        if ($xml === null) {
+        if (is_null($xml)) {
             return $object;
         }
 

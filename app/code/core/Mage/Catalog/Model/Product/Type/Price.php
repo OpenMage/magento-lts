@@ -396,7 +396,7 @@ class Mage_Catalog_Model_Product_Type_Price
                 ->getRulePrice($storeTimestamp, $wId, $gId, $productId);
         }
 
-        if ($rulePrice !== null && $rulePrice !== false) {
+        if (!is_null($rulePrice) && $rulePrice !== false) {
             $finalPrice = min($finalPrice, $rulePrice);
         }
 

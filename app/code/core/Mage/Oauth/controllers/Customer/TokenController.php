@@ -94,7 +94,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             return;
         }
 
-        if ($status === null) {
+        if (is_null($status)) {
             // No status selected
             $this->_session->addError($this->__('Invalid revoke status.'));
             $this->_redirectBack();

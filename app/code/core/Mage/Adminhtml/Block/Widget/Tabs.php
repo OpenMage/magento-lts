@@ -209,7 +209,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->_setActiveTab($activeTabId);
         }
 
-        if ($this->_activeTab === null && !empty($this->_tabs)) {
+        if (is_null($this->_activeTab) && !empty($this->_tabs)) {
             $this->_activeTab = (reset($this->_tabs))->getId();
         }
 

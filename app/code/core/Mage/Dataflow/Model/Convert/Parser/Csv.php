@@ -89,7 +89,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $countRows = 0;
         while (($csvData = $batchIoAdapter->read(true, $fDel, $fEnc)) !== false) {
-            if (count($csvData) == 1 && $csvData[0] === null) {
+            if (count($csvData) == 1 && is_null($csvData[0])) {
                 continue;
             }
 

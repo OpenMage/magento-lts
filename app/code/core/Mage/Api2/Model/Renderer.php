@@ -53,7 +53,7 @@ abstract class Mage_Api2_Model_Renderer
         }
 
         //if server can't respond in any of accepted types it SHOULD send 406(not acceptable)
-        if ($adapterPath === null) {
+        if (is_null($adapterPath)) {
             throw new Mage_Api2_Exception(
                 'Server can not understand Accept HTTP header media type.',
                 Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE

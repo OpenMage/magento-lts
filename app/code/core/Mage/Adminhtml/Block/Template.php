@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      */
     public function isOutputEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
+        if (is_null($moduleName)) {
             $moduleName = $this->getModuleName();
         }
         return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);

@@ -236,10 +236,10 @@ class Error_Processor
         $config->skin           = self::DEFAULT_SKIN;
 
         //combine xml data to one object
-        if ($design !== null && ($skin = (string)$design->skin)) {
+        if (!is_null($design) && ($skin = (string)$design->skin)) {
             $this->_setSkin($skin, $config);
         }
-        if ($local !== null) {
+        if (!is_null($local)) {
             if ($action = (string)$local->report->action) {
                 $config->action = $action;
             }
@@ -315,7 +315,7 @@ class Error_Processor
      */
     protected function _getFilePath(string $file, $directories = null)
     {
-        if ($directories === null) {
+        if (is_null($directories)) {
             $directories = [];
 
             if (!$this->_root) {

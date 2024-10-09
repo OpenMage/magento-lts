@@ -485,7 +485,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getUrlModel()
     {
-        if ($this->_urlModel === null) {
+        if (is_null($this->_urlModel)) {
             $this->_urlModel = Mage::getSingleton('catalog/factory')->getCategoryUrlInstance();
         }
         return $this->_urlModel;
