@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Varien_Exception;
@@ -43,129 +44,124 @@ class ObjectTest extends TestCase
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertEquals($expectedResult, $this->subject->getData($key, $index));
+        $this->assertSame($expectedResult, $this->subject->getData($key, $index));
     }
 
-    /**
-     * @return array<string, array<int, array<int|string, array<int|string, int|string>|int|string>|int|stdClass|string|Varien_Object|null>>
-     */
-    public function provideGetDataData(): array
+    public function provideGetDataData(): Generator
     {
-        return [
-            'empty_key' => [
-                ['empty_key' => ['empty_value']],
-                'empty_key',
-                ['empty_value'],
-                ''
-            ],
-            'string' => [
-                'value',
-                'string',
-                'value',
-                'string'
-            ],
-            'int' => [
-                1,
-                'int',
-                1,
-                'int'
-            ],
-            'numeric' => [
-                '1',
-                'numeric',
-                '1',
-                'numeric'
-            ],
-            'array' => [
-                ['string', 1],
-                'array',
-                ['string', 1],
-                'array',
-            ],
-            'array_index_int' => [
-                'string',
-                'array_index_int',
-                ['string', 1],
-                'array_index_int',
-                0,
-            ],
-            'array_index_int_invalid' => [
-                null,
-                'array_index_int_invalid',
-                ['string', 1],
-                'array_index_int_invalid',
-                999,
-            ],
-            'array_index_string' => [
-                1,
-                'array_index_string',
-                ['string' => 'string', 'int' => 1],
-                'array_index_string',
-                'int',
-            ],
-            'array_index_string_string' => [
-                null,
-                'array_index_string_string',
-                'some_string',
-                'array_index_string_string',
-                'not-exists',
-            ],
-            'array_index_string_varien_object' => [
-                [],
-                'array_index_string_varien_object',
-                new Varien_Object(['array' => []]),
-                'array_index_string_varien_object',
-                'array',
-            ],
-             'array_index_string_std_class' => [
-                null,
-                'array_index_string_std_class',
-                new stdClass(),
-                'array_index_string_std_class',
-                'not-exists',
-            ],
-            'array_nested' => [
-                1,
-                'array_nested',
-                ['nested' => ['string' => 'string', 'int' => 1]],
-                'array_nested/nested/int',
-            ],
-            'array_nested_invalid_key' => [
-                null,
-                'array_nested',
-                ['nested' => ['string' => 'string', 'int' => 1]],
-                'array_nested/nested/invalid_key',
-            ],
-            'array_nested_empty_key' => [
-                null,
-                'array_nested',
-                ['nested' => ['string' => 'string', 'int' => '']],
-                'array_nested/nested/',
-            ],
-            'array_nested_string' => [
-                'some"\n"string',
-                'array_nested_string',
-                ['nested' => 'some"\n"string'],
-                'array_nested_string/nested',
-            ],
-             'array_nested_varien_object' => [
-                null,
-                'array_nested_varien_object',
-                new Varien_Object(),
-                'array_nested_varien_object/nested',
-            ],
-            'array_nested_std_class' => [
-                null,
-                'array_nested_std_class',
-                new stdClass(),
-                'array_nested_std_class/nested',
-            ],
-            'array_nested_key_not_exists' => [
-                null,
-                'array_nested_key_not_exists',
-                ['nested' => ['string' => 'string', 'int' => 1]],
-                'array_nested_key_not_exists_test/nested/int',
-            ],
+        yield 'empty_key' => [
+            ['empty_key' => ['empty_value']],
+            'empty_key',
+            ['empty_value'],
+            ''
+        ];
+        yield 'string' => [
+            'value',
+            'string',
+            'value',
+            'string'
+        ];
+        yield 'int' => [
+            1,
+            'int',
+            1,
+            'int'
+        ];
+        yield 'numeric' => [
+            '1',
+            'numeric',
+            '1',
+            'numeric'
+        ];
+        yield 'array' => [
+            ['string', 1],
+            'array',
+            ['string', 1],
+            'array',
+        ];
+        yield 'array_index_int' => [
+            'string',
+            'array_index_int',
+            ['string', 1],
+            'array_index_int',
+            0,
+        ];
+        yield 'array_index_int_invalid' => [
+            null,
+            'array_index_int_invalid',
+            ['string', 1],
+            'array_index_int_invalid',
+            999,
+        ];
+        yield 'array_index_string' => [
+            1,
+            'array_index_string',
+            ['string' => 'string', 'int' => 1],
+            'array_index_string',
+            'int',
+        ];
+        yield 'array_index_string_string' => [
+            null,
+            'array_index_string_string',
+            'some_string',
+            'array_index_string_string',
+            'not-exists',
+        ];
+        yield 'array_index_string_varien_object' => [
+            [],
+            'array_index_string_varien_object',
+            new Varien_Object(['array' => []]),
+            'array_index_string_varien_object',
+            'array',
+        ];
+        yield 'array_index_string_std_class' => [
+            null,
+            'array_index_string_std_class',
+            new stdClass(),
+            'array_index_string_std_class',
+            'not-exists',
+        ];
+        yield 'array_nested' => [
+            1,
+            'array_nested',
+            ['nested' => ['string' => 'string', 'int' => 1]],
+            'array_nested/nested/int',
+        ];
+        yield 'array_nested_invalid_key' => [
+            null,
+            'array_nested',
+            ['nested' => ['string' => 'string', 'int' => 1]],
+            'array_nested/nested/invalid_key',
+        ];
+        yield 'array_nested_empty_key' => [
+            null,
+            'array_nested',
+            ['nested' => ['string' => 'string', 'int' => '']],
+            'array_nested/nested/',
+        ];
+        yield 'array_nested_string' => [
+            'some"\n"string',
+            'array_nested_string',
+            ['nested' => 'some"\n"string'],
+            'array_nested_string/nested',
+        ];
+        yield 'array_nested_varien_object' => [
+            null,
+            'array_nested_varien_object',
+            new Varien_Object(),
+            'array_nested_varien_object/nested',
+        ];
+        yield 'array_nested_std_class' => [
+            null,
+            'array_nested_std_class',
+            new stdClass(),
+            'array_nested_std_class/nested',
+        ];
+        yield 'array_nested_key_not_exists' => [
+            null,
+            'array_nested_key_not_exists',
+            ['nested' => ['string' => 'string', 'int' => 1]],
+            'array_nested_key_not_exists_test/nested/int',
         ];
     }
 
@@ -176,9 +172,9 @@ class ObjectTest extends TestCase
     {
         $this->subject->setString1('open');
         $this->subject->setString2('mage');
-        $this->assertEquals('open, mage', $this->subject->toString());
-        $this->assertEquals('openmage', $this->subject->toString('{{string1}}{{string2}}'));
-        $this->assertEquals('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
+        $this->assertSame('open, mage', $this->subject->toString());
+        $this->assertSame('openmage', $this->subject->toString('{{string1}}{{string2}}'));
+        $this->assertSame('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
     }
 
     /**
@@ -197,36 +193,36 @@ class ObjectTest extends TestCase
         $this->subject->setData('left', 'over');
         $this->assertFalse($this->subject->isEmpty());
 
-        $this->assertEquals('abc', $this->subject->getData('a_b_c'));
-        $this->assertEquals('abc', $this->subject->getABC());
+        $this->assertSame('abc', $this->subject->getData('a_b_c'));
+        $this->assertSame('abc', $this->subject->getABC());
         $this->subject->unsetData('a_b_c');
 
-        $this->assertEquals('efg', $this->subject->getData('efg'));
-        $this->assertEquals('efg', $this->subject->getEfg());
+        $this->assertSame('efg', $this->subject->getData('efg'));
+        $this->assertSame('efg', $this->subject->getEfg());
         $this->subject->unsEfg();
 
-        $this->assertEquals('123', $this->subject->getData('123'));
-        $this->assertEquals('123', $this->subject->get123());
+        $this->assertSame('123', $this->subject->getData('123'));
+        $this->assertSame('123', $this->subject->get123());
         $this->subject->uns123();
 
         $this->subject->unsetData('345');
 
-        $this->assertEquals('value_a_first', $this->subject->getData('key_a_first'));
-        $this->assertEquals('value_a_first', $this->subject->getKeyAFirst());
+        $this->assertSame('value_a_first', $this->subject->getData('key_a_first'));
+        $this->assertSame('value_a_first', $this->subject->getKeyAFirst());
         $this->subject->unsetData('key_a_first');
 
-        $this->assertEquals('value_a_2nd', $this->subject->getData('key_a_2nd'));
-        $this->assertEquals('value_a_2nd', $this->subject->getKeyA_2nd());
+        $this->assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
+        $this->assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
         $this->subject->unsetData('key_a_2nd');
 
-        $this->assertEquals('value_a_3rd', $this->subject->getData('key_a3rd'));
-        $this->assertEquals('value_a_3rd', $this->subject->getKeyA3rd());
+        $this->assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
+        $this->assertSame('value_a_3rd', $this->subject->getKeyA3rd());
         $this->subject->unsetData('key_a3rd');
 
-        $this->assertEquals(['left' => 'over'], $this->subject->getData());
+        $this->assertSame(['left' => 'over'], $this->subject->getData());
 
         $this->subject->unsetData();
-        $this->assertEquals([], $this->subject->getData());
+        $this->assertSame([], $this->subject->getData());
         $this->assertTrue($this->subject->isEmpty());
 
         try {
@@ -247,8 +243,8 @@ class ObjectTest extends TestCase
 
         $this->subject->offsetSet('off', 'set');
         $this->assertTrue($this->subject->offsetExists('off'));
-        $this->assertEquals('set', $this->subject->offsetGet('off'));
-        $this->assertEquals(null, $this->subject->offsetGet('not-exists'));
+        $this->assertSame('set', $this->subject->offsetGet('off'));
+        $this->assertSame(null, $this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
         $this->assertFalse($this->subject->offsetExists('off'));

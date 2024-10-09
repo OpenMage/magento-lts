@@ -398,7 +398,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Get configuration data of carrier
      *
-     * @param strin $type
+     * @param string $type
      * @param string $code
      * @return array|bool
      */
