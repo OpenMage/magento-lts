@@ -54,7 +54,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Users'));
 
         $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('adminhtml/api_user'))
+            ->_addContent($this->getLayout()->createBlock('api/adminhtml_user'))
             ->renderLayout();
     }
 
@@ -97,10 +97,10 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
                 $id ? $this->__('Edit User') : $this->__('New User')
             )
             ->_addContent(
-                $this->getLayout()->createBlock('adminhtml/api_user_edit')
+                $this->getLayout()->createBlock('api/adminhtml_user_edit')
                     ->setData('action', $this->getUrl('*/api_user/save'))
             )
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/api_user_edit_tabs'));
+            ->_addLeft($this->getLayout()->createBlock('api/adminhtml_user_edit_tabs'));
 
         $this->_addJs(
             $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml')
@@ -224,14 +224,14 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         }
 
         Mage::register('api_user', $model);
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_user_edit_tab_roles')->toHtml());
+        $this->getResponse()->setBody($this->getLayout()->createBlock('api/adminhtml_user_edit_tab_roles')->toHtml());
     }
 
     public function roleGridAction()
     {
         $this->getResponse()
             ->setBody($this->getLayout()
-            ->createBlock('adminhtml/api_user_grid')
+            ->createBlock('api/adminhtml_user_grid')
             ->toHtml());
     }
 }
