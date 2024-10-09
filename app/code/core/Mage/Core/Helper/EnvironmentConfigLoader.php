@@ -56,6 +56,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      */
     public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
     {
+        if (!$xmlConfig instanceof Mage_Core_Model_Config) {
+            return;
+        }
+
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
@@ -66,10 +70,12 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             list($configKeyParts, $scope) = $this->getConfigKey($configKey);
 
             switch ($scope) {
+                default:
                 case static::CONFIG_KEY_DEFAULT:
                     list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $xmlConfig->setNode('stores/' . $nodePath, $value);
                     break;
 
                 case static::CONFIG_KEY_WEBSITES:
@@ -77,9 +83,12 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     list($unused1, $unused2, $code, $section, $group, $field) = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
-                    $xmlConfig->setNode($nodePath, $value);
                     break;
             }
+
+            $xmlConfig->addEnvOverriddenConfigPaths($path, $value);
+            $xmlConfig->addEnvOverriddenConfigPaths($nodePath, $value);
+            $xmlConfig->setNode($nodePath, $value);
         }
     }
 
@@ -94,6 +103,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $this->envStore = getenv();
         }
         return $this->envStore;
