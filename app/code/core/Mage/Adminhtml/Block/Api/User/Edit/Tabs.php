@@ -18,31 +18,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ * @deprecated
  */
-class Mage_Adminhtml_Block_Api_User_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+class Mage_Adminhtml_Block_Api_User_Edit_Tabs extends Mage_Api_Block_Adminhtml_User_Edit_Tabs
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('page_tabs');
-        $this->setDestElementId('edit_form');
-        $this->setTitle(Mage::helper('adminhtml')->__('User Information'));
-    }
-
-    protected function _beforeToHtml()
-    {
-        $this->addTab('main_section', [
-            'label'     => Mage::helper('adminhtml')->__('User Info'),
-            'title'     => Mage::helper('adminhtml')->__('User Info'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/api_user_edit_tab_main')->toHtml(),
-            'active'    => true
-        ]);
-
-        $this->addTab('roles_section', [
-            'label'     => Mage::helper('adminhtml')->__('User Role'),
-            'title'     => Mage::helper('adminhtml')->__('User Role'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/api_user_edit_tab_roles', 'user.roles.grid')->toHtml(),
-        ]);
-        return parent::_beforeToHtml();
-    }
 }
