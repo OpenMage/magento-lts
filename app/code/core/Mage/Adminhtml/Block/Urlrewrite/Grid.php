@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,11 +45,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
-                'header'    => $this->__('Store View'),
-                'width'     => '200px',
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true,
             ]);
         }
 
@@ -71,12 +67,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         ]);
         $this->addColumn('request_path', [
             'header'    => $this->__('Request Path'),
-            'width'     => '50px',
             'index'     => 'request_path'
         ]);
         $this->addColumn('target_path', [
             'header'    => $this->__('Target Path'),
-            'width'     => '50px',
             'index'     => 'target_path'
         ]);
         $this->addColumn('options', [
@@ -85,10 +79,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
             'index'     => 'options'
         ]);
         $this->addColumn('actions', [
-            'header'    => $this->__('Action'),
-            'width'     => '15px',
-            'sortable'  => false,
-            'filter'    => false,
             'type'      => 'action',
             'actions'   => [
                 [

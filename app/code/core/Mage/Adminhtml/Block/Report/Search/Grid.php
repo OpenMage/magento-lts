@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,6 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('num_results', [
             'header'    => Mage::helper('reports')->__('Results'),
             'width'     => '50px',
-            'align'     => 'right',
             'type'      => 'number',
             'index'     => 'num_results'
         ]);
@@ -87,7 +86,6 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('popularity', [
             'header'    => Mage::helper('reports')->__('Hits'),
             'width'     => '50px',
-            'align'     => 'right',
             'type'      => 'number',
             'index'     => 'popularity'
         ]);
