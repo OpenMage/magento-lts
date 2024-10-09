@@ -321,7 +321,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $columnId
      * @param array $column
-     * @return Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     public function addColumn($columnId, $column)

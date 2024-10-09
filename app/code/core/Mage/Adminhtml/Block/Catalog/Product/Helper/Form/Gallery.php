@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Check "Use default" checkbox display availability
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return bool
      */
     public function canDisplayUseDefault($attribute)
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Check default value usage fact
      *
-     * @param Mage_Eav_Model_Entity_Attribute|string $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
      * @return bool
      */
     public function usedDefault($attribute)
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      *
      * GLOBAL | WEBSITE | STORE
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return string
      */
     public function getScopeLabel($attribute)
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Product|Mage_Catalog_Model_Category
      */
     public function getDataObject()
     {
@@ -138,7 +138,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
      * Retrieve attribute field name
      *
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return string
      */
     public function getAttributeFieldName($attribute)
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Check readonly attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute|string $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute|string $attribute
      * @return bool
      */
     public function getAttributeReadonly($attribute)
