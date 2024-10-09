@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * store id
      *
-     * @var string
+     * @var int
      */
     protected $_storeId                          = null;
 
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Set store id
      *
-     * @param string $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Return store id
      *
-     * @return string
+     * @return int
      */
     public function getStoreId()
     {

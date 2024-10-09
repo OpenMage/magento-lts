@@ -34,7 +34,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Store id of application
      *
-     * @var string|null
+     * @var int|null
      */
     protected $_storeId        = null;
 
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     /**
      * Set store id
      *
-     * @param string $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -122,7 +122,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * Return store id.
      * If store id is not set yet, return store of application
      *
-     * @return string
+     * @return int
      */
     public function getStoreId()
     {

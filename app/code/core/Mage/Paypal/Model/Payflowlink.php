@@ -421,13 +421,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Get store id from response if exists
      * or default
      *
-     * @return string
+     * @return int
      */
     protected function _getStoreId()
     {
         $response = $this->getResponse();
         if ($response->getUser1()) {
-            return $response->getUser1();
+            return (int)$response->getUser1();
         }
 
         return Mage::app()->getStore($this->getStore())->getId();

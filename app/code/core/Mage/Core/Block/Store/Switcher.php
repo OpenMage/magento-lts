@@ -117,7 +117,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
+     * @return int
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreId()

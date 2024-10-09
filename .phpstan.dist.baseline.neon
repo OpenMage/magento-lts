@@ -1231,7 +1231,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection\\:\\:setStoreId\\(\\)\\.$#"
+			message: "#^Cannot call method setStoreId\\(\\) on Mage_Eav_Model_Entity_Collection\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
@@ -1246,7 +1246,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
 		-
-			message: "#^Return type \\(Mage_Catalog_Model_Resource_Product_Collection\\) of method Mage_Catalog_Model_Convert_Adapter_Product\\:\\:_getCollectionForLoad\\(\\) should be compatible with return type \\(Mage_Eav_Model_Entity_Collection\\) of method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\)$#"
+			message: "#^Return type \\(Mage_Catalog_Model_Resource_Product_Collection\\) of method Mage_Catalog_Model_Convert_Adapter_Product\\:\\:_getCollectionForLoad\\(\\) should be compatible with return type \\(Mage_Eav_Model_Entity_Collection\\|false\\) of method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
@@ -2749,11 +2749,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Config\\:\\:getAttribute\\(\\) should return Mage_Eav_Model_Entity_Attribute_Abstract\\|false but returns Mage_Eav_Model_Entity_Attribute_Interface\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Convert_Adapter_Entity\\:\\:_getCollectionForLoad\\(\\) should return Mage_Eav_Model_Entity_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Entity.php
 
 		-
 			message: "#^Variable \\$defBind might not be defined\\.$#"

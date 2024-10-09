@@ -443,12 +443,12 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * If store id is undefined for category return current active store id
      *
-     * @return string
+     * @return int
      */
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return $this->_getData('store_id');
+            return (int)$this->_getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }

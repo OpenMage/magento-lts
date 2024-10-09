@@ -24,7 +24,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Store scope ID
      *
-     * @var string|null
+     * @var int|null
      */
     protected $_storeId;
 
@@ -66,7 +66,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Retrieve label store scope
      *
-     * @return string
+     * @return int|null
      */
     public function getStoreId()
     {
@@ -79,7 +79,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Set store scope ID
      *
-     * @param string $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreId($storeId)

@@ -213,7 +213,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * Returns checked store_id value
      *
      * @param int|null $id
-     * @return string
+     * @return int
      */
     protected function _getStoreId($id = null)
     {

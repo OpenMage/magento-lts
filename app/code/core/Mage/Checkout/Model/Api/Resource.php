@@ -72,10 +72,10 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieves store id from store code, if no store id specified,
-     * it use set session or admin store
+     * it uses set session or admin store
      *
      * @param string|int $store
-     * @return string
+     * @return int
      */
     protected function _getStoreId($store = null)
     {
@@ -124,7 +124,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Get store identifier by quote identifier
      *
      * @param int $quoteId
-     * @return string
+     * @return int
      */
     protected function _getStoreIdFromQuote($quoteId)
     {

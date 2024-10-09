@@ -75,10 +75,10 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieves store id from store code, if no store id specified,
-     * it use seted session or admin store
+     * it uses set session or admin store
      *
      * @param string|int $store
-     * @return string
+     * @return int
      */
     protected function _getStoreId($store = null)
     {
@@ -117,7 +117,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Set current store for catalog.
      *
      * @param string|int $store
-     * @return string
+     * @return int
      */
     public function currentStore($store = null)
     {

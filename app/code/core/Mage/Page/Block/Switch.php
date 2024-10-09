@@ -42,7 +42,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
+     * @return int
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentStoreId()

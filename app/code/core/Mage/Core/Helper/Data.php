@@ -316,7 +316,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve store identifier
      *
      * @param   bool|int|Mage_Core_Model_Store|null|string $store
-     * @return  string
+     * @return  int
      */
     public function getStoreId($store = null)
     {
@@ -791,6 +791,7 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
                     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
