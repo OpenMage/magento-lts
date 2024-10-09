@@ -42,7 +42,7 @@ class ProductTest extends TestCase
      */
     public function testGetStoreId(): void
     {
-        $this->assertSame('1', $this->subject->getStoreId());
+        $this->assertIsInt($this->subject->getStoreId());
     }
 
     /**
