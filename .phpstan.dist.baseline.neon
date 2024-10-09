@@ -927,7 +927,7 @@ parameters:
 
 		-
 			message: "#^Offset 'option_id' does not exist on array\\{final_price\\: mixed\\}\\.$#"
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -3821,11 +3821,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
@@ -4486,11 +4481,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Invalid array key type strin\\.$#"
-			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -4502,11 +4492,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_parseResponse\\(\\) should return Mage_Shipping_Model_Rate_Result but returns bool\\|Mage_Shipping_Model_Rate_Result_Error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Parameter \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) has invalid type strin\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
