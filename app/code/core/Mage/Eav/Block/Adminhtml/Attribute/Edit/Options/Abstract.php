@@ -218,6 +218,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function isConfigurableSwatchesEnabled(): bool
     {
         return Mage::helper('core')->isModuleEnabled('Mage_ConfigurableSwatches')
-            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
+            && Mage::helper('configurableswatches')->attrIsSwatchTypeUsesColorPicker($this->getAttributeObject());
     }
 }
