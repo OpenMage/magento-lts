@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +146,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function generateXml()
     {
         $xml = $this->getUpdate()->asSimplexml();
-        $removeInstructions = $xml->xpath("//remove");
+        $removeInstructions = $xml->xpath('//remove');
         if (is_array($removeInstructions)) {
             foreach ($removeInstructions as $infoNode) {
                 $attributes = $infoNode->attributes();
@@ -352,10 +352,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * @param Mage_Core_Block_Abstract $block
      * @param string                   $method
      * @param string[]                 $args
-     *
      * @throws Mage_Core_Exception
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
@@ -419,7 +417,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Save block in blocks registry
      *
      * @param string $name
-     * @param Mage_Core_Model_Layout $block
+     * @param Mage_Core_Block_Abstract $block
      * @return $this
      */
     public function setBlock($name, $block)
@@ -446,7 +444,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param     string $type
      * @param     string $name
-     * @param     array $attributes
      * @return    Mage_Core_Block_Abstract|false
      */
     public function createBlock($type, $name = '', array $attributes = [])
@@ -494,7 +491,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Create block object instance based on block type
      *
      * @param string $block
-     * @param array $attributes
      * @return Mage_Core_Block_Abstract
      */
     protected function _getBlockInstance($block, array $attributes = [])
@@ -637,7 +633,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * 2) "module" attribute in any ancestor element
      * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
      *
-     * @param Varien_Simplexml_Element $node
      * @return string
      */
     public static function findTranslationModuleName(Varien_Simplexml_Element $node)

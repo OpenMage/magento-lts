@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -699,7 +699,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function hasStockItem()
     {
-        return !!$this->_stockItem;
+        return (bool) $this->_stockItem;
     }
 
     /**
@@ -812,7 +812,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Clear chache related with product and protect delete from not admin
+     * Clear cache related with product and protect delete from not admin
      * Register indexing event before delete product
      *
      * @inheritDoc
@@ -1835,7 +1835,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve weight throught type instance
+     * Retrieve weight through type instance
      *
      * @return float
      */
@@ -1871,7 +1871,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Add option to array of product options
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return $this
      */
     public function addOption(Mage_Catalog_Model_Product_Option $option)
@@ -2069,7 +2068,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];
-                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $method));
+                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $method));
                     $_reserved[] = $tmp;
                 }
             }
@@ -2153,7 +2152,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @param  array $productIds
      * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
@@ -2173,7 +2171,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Parse buyRequest into options values used by product
      *
-     * @param  Varien_Object $buyRequest
      * @return Varien_Object
      */
     public function processBuyRequest(Varien_Object $buyRequest)

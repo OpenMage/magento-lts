@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2018 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2023-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -90,6 +90,7 @@ tinyMceWysiwygSetup.prototype =
             automatic_uploads: false,
             branding: false,
             promotion: false,
+            convert_unsafe_embeds: true, // default in TinyMCE v7.0
             convert_urls: false,
             relative_urls: true,
             skin: this.config.skin,

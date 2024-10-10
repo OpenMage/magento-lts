@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -147,7 +147,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     ];
 
     /**
-     * Dry-runned customers information from import file.
+     * Dry-ran customers information from import file.
      *
      * @var array
      */
@@ -369,6 +369,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $entityRowsIn = [];
             $entityRowsUp = [];
             $attributes   = [];
+            $entityId     = null;
 
             $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);
 
@@ -464,7 +465,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Save customer attributes.
      *
-     * @param array $attributesData
      * @return $this
      */
     protected function _saveCustomerAttributes(array $attributesData)
@@ -541,13 +541,12 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Obtain scope of the row from row data.
      *
-     * @param array $rowData
      * @return int
      */
     public function getRowScope(array $rowData)
     {
         $foundOptions = false;
-        foreach ($this->_multiSelectAttributes as $attrCode => $attribute) {
+        foreach (array_keys($this->_multiSelectAttributes) as $attrCode) {
             if ($rowData[$attrCode]) {
                 $foundOptions = true;
             }
@@ -578,7 +577,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
     /**
      * Validate data row.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */

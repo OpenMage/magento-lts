@@ -33,9 +33,6 @@ on:
       phpunit:
         description: "Count changed PhpUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
-      sonar:
-        description: "Count changed Sonar files"
-        value: ${{ jobs.check.outputs.sonar }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -54,7 +51,6 @@ jobs:
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
-      sonar: ${{ steps.changes-sonar.outputs.sonar }}
 
     steps:
       - name: Checkout code
@@ -75,7 +71,7 @@ jobs:
 
       - name: Get changed files
         id: changed-files-specific
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v45
         with:
           files: |
             composer.*
@@ -87,9 +83,9 @@ jobs:
             **phpcs**
             **php-cs-fixer**
             **phpstan**
-            dev/tests/
-            dev/phpunit*
-            dev/sonar*
+            rector.php
+            tests/
+            phpunit*
 
       - name: Check if composer files changed
         id: changes-composer
@@ -161,7 +157,7 @@ jobs:
         id: changes-phpunit-test
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count UnitTest test file(s) changed"
           echo "phpunit-test=$count" >> $GITHUB_OUTPUT
 
@@ -169,14 +165,6 @@ jobs:
         id: changes-phpunit
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
-
-      - name: Check if Sonar files changed
-        id: changes-sonar
-        if: steps.changed-files-specific.outputs.any_modified == 'true'
-        run: |
-          count="$(grep -oE "dev/sonar*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
-          echo "$count Sonar file(s) changed"
-          echo "sonar=$count" >> $GITHUB_OUTPUT

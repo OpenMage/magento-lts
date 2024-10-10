@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -155,7 +155,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('customer/new');
+        $this->_setActiveMenu('customer/manage');
 
         $this->renderLayout();
     }
@@ -345,7 +345,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 $customer->save();
 
                 // Send welcome email
-                if ($customer->getWebsiteId() && (isset($data['account']['sendemail']) || $sendPassToEmail)) {
+                if ($customer->getWebsiteId() && (isset($data['account']['sendemail']) && !$sendPassToEmail)) {
                     $storeId = $customer->getSendemailStoreId();
                     if ($isNewCustomer) {
                         $customer->sendNewAccountEmail('registered', '', $storeId);
@@ -359,15 +359,18 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $newPassword = trim($data['account']['new_password']);
                     if ($newPassword === 'auto') {
                         $newPassword = $customer->generatePassword();
+                        $customer->sendPasswordLinkEmail($isNewCustomer);
                     } else {
                         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
                         if (Mage::helper('core/string')->strlen($newPassword) < $minPasswordLength) {
                             Mage::throwException(Mage::helper('customer')
                                 ->__('The minimum password length is %s', $minPasswordLength));
                         }
+                        $customer->changePassword($newPassword);
+                        $customer->sendPasswordReminderEmail();
                     }
-                    $customer->changePassword($newPassword);
-                    $customer->sendPasswordReminderEmail();
+                } elseif ($sendPassToEmail) {
+                    $customer->sendPasswordLinkEmail($isNewCustomer);
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -631,7 +634,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         # additional validate email
         if (!$response->getError()) {
             # Trying to load customer with the same email and return error message
-            # if customer with the same email address exisits
+            # if customer with the same email address exists
             $checkCustomer = Mage::getModel('customer/customer')
                 ->setWebsiteId($websiteId);
             $checkCustomer->loadByEmail($accountData['email']);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,14 +77,13 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Set loading mode subscribers by queue
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
         $this->getSelect()
-            ->join(['link' => $this->_queueLinkTable], "link.subscriber_id = main_table.subscriber_id", [])
-            ->where("link.queue_id = ? ", $queue->getId());
+            ->join(['link' => $this->_queueLinkTable], 'link.subscriber_id = main_table.subscriber_id', [])
+            ->where('link.queue_id = ? ', $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
     }
@@ -173,7 +172,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
      * @deprecated after 1.4.0.0-rc1
      *
      * @param string $field
-     * @return string
+     * @return string|Zend_Db_Expr
      */
     public function _getFieldTableAlias($field)
     {

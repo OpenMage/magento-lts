@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Url
     protected $_categoryUrlSuffix = [];
 
     /**
-     * Flag to overwrite config settings for Catalog URL rewrites history maintainance
+     * Flag to overwrite config settings for Catalog URL rewrites history maintenance
      *
      * @var bool
      */
@@ -236,7 +236,10 @@ class Mage_Catalog_Model_Url
         }
 
         $this->clearStoreInvalidRewrites($storeId);
-        $this->refreshCategoryRewrite($this->getStores($storeId)->getRootCategoryId(), $storeId, false);
+        $store = $this->getStores($storeId);
+        if ($store instanceof Mage_Core_Model_Store) {
+            $this->refreshCategoryRewrite($store->getRootCategoryId(), $storeId, false);
+        }
         $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
@@ -246,7 +249,6 @@ class Mage_Catalog_Model_Url
     /**
      * Refresh category rewrite
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @param string $parentPath
      * @param bool $refreshProducts
      * @return $this
@@ -309,8 +311,6 @@ class Mage_Catalog_Model_Url
     /**
      * Refresh product rewrite
      *
-     * @param Varien_Object|Mage_Catalog_Model_Product $product
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @return $this
      */
     protected function _refreshProductRewrite(Varien_Object $product, Varien_Object $category)
@@ -366,7 +366,6 @@ class Mage_Catalog_Model_Url
     /**
      * Refresh products for catwgory
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @return $this
      */
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
@@ -433,7 +432,7 @@ class Mage_Catalog_Model_Url
             return $this;
         }
 
-        // Load all childs and refresh all categories
+        // Load all children and refresh all categories
         $category = $this->getResource()->loadCategoryChilds($category);
         $categoryIds = [$category->getId()];
         if ($category->getAllChilds()) {
@@ -508,9 +507,14 @@ class Mage_Catalog_Model_Url
      */
     public function refreshProductRewrites($storeId)
     {
+        $store = $this->getStores($storeId);
+        if (!$store instanceof Mage_Core_Model_Store) {
+            return $this;
+        }
+
         $this->_categories      = [];
-        $storeRootCategoryId    = $this->getStores($storeId)->getRootCategoryId();
-        $storeRootCategoryPath  = $this->getStores($storeId)->getRootCategoryPath();
+        $storeRootCategoryId    = $store->getRootCategoryId();
+        $storeRootCategoryPath  = $store->getRootCategoryPath();
         $this->_categories[$storeRootCategoryId] = $this->getResource()->getCategory($storeRootCategoryId, $storeId);
 
         $lastEntityId = 0;

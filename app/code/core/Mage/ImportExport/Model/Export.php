@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,9 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 
             if (isset($validTypes[$this->getEntity()])) {
                 try {
-                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    /** @var Mage_ImportExport_Model_Export_Entity_Abstract $_entityAdapter */
+                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    $this->_entityAdapter = $_entityAdapter;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
@@ -104,7 +106,9 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
 
             if (isset($validWriters[$this->getFileFormat()])) {
                 try {
-                    $this->_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
+                    /** @var Mage_ImportExport_Model_Export_Adapter_Abstract $_writer */
+                    $_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
+                    $this->_writer = $_writer;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
@@ -185,8 +189,7 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     Mage::throwException(
                         Mage::helper('importexport')->__('There is no data for export')
                     );
-                }
-                if ($result['rows']) {
+                } else {
                     $this->addLogComment([
                         Mage::helper('importexport')->__('Exported %s rows.', $result['rows']),
                         Mage::helper('importexport')->__('Export has been done.')
@@ -205,7 +208,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
@@ -217,7 +219,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      * Determine filter type for specified attribute.
      *
      * @static
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @throws Exception
      * @return string
      */
@@ -296,6 +297,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      */
     public function getFileName()
     {
-        return $this->getEntity() . '_' . date('Ymd_His') .  '.' . $this->_getWriter()->getFileExtension();
+        return $this->getEntity() . '_' . date('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
     }
 }

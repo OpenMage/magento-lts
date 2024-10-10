@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Service_Quote
     protected $_order = null;
 
     /**
-     * If it is true, quote will be inactivate after submitting order or nominal items
+     * If it is true, quote will be inactivated after submitting order or nominal items
      *
      * @var bool
      */
@@ -65,8 +65,6 @@ class Mage_Sales_Model_Service_Quote
 
     /**
      * Class constructor
-     *
-     * @param Mage_Sales_Model_Quote $quote
      */
     public function __construct(Mage_Sales_Model_Quote $quote)
     {
@@ -75,9 +73,8 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Quote convertor declaration
+     * Quote converter declaration
      *
-     * @param   Mage_Sales_Model_Convert_Quote $convertor
      * @return  Mage_Sales_Model_Service_Quote
      */
     public function setConvertor(Mage_Sales_Model_Convert_Quote $convertor)
@@ -99,7 +96,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Specify additional order data
      *
-     * @param array $data
      * @return $this
      */
     public function setOrderData(array $data)
@@ -224,7 +220,7 @@ class Mage_Sales_Model_Service_Quote
      */
     public function submitAll()
     {
-        // don't allow submitNominalItems() to inactivate quote
+        // don't allow submitNominalItems() to deactivate quote
         $shouldInactivateQuoteOld = $this->_shouldInactivateQuote;
         $this->_shouldInactivateQuote = false;
         try {
@@ -263,7 +259,7 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
-     * Inactivate quote
+     * Deactivate quote
      *
      * @return $this
      */

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($actionsXML !== null && strlen($actionsXML) < 0 &&
             @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
         ) {
-            Mage::throwException(Mage::helper('dataflow')->__("Actions XML is not valid."));
+            Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
         }
 
         if (is_array($this->getGuiData())) {
@@ -131,7 +131,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
 
         if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
-            Mage::throwException(Mage::helper('dataflow')->__("Profile with the same name already exists."));
+            Mage::throwException(Mage::helper('dataflow')->__('Profile with the same name already exists.'));
         }
         return $this;
     }
@@ -178,8 +178,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $uploader->save($path);
                     $uploadFile = $uploader->getUploadedFileName();
 
-                    if ($_FILES['file_' . ($index + 1)]['type'] == "text/csv"
-                        || $_FILES['file_' . ($index + 1)]['type'] == "application/vnd.ms-excel"
+                    if ($_FILES['file_' . ($index + 1)]['type'] == 'text/csv'
+                        || $_FILES['file_' . ($index + 1)]['type'] == 'application/vnd.ms-excel'
                     ) {
                         $fileData = $csvParser->getData($path . $uploadFile);
                         $fileData = array_shift($fileData);

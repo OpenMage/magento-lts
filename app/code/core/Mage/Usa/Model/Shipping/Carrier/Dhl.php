@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Collect and get rates
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return bool|Mage_Shipping_Model_Rate_Result|null
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
@@ -163,7 +162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Prepare and set request in property of current instance
      *
-     * @param Varien_Object $request
      * @return $this
      */
     public function setRequest(Varien_Object $request)
@@ -449,7 +447,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                 $shipKey = $r->getShippingIntlKey();
                 $r->setShipDate($this->_getShipDate(false));
                 /*
-                * For internation shippingment customsvalue must be posted
+                * For international shipment customs value must be posted
                 */
                 $shippingDuty = $shipment->addChild('Dutiable');
                 $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -488,7 +486,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                     $r->setShipDate($this->_getShipDate(false));
 
                     /*
-                    * For internation shippingment customsvalue must be posted
+                    * For international shipment customs value must be posted
                     */
                     $shippingDuty = $shipment->addChild('Dutiable');
                     $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
@@ -999,7 +997,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $debugData = ['request' => $request];
         /*
          * tracking api cannot process from 3pm to 5pm PST time on Sunday
-         * DHL Airborne conduts a maintainance during that period.
+         * DHL Airborne conducts a maintenance during that period.
          */
         try {
             $url = $this->getConfigData('gateway_url');
@@ -1070,7 +1068,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                         */
                                         $rArr['service'] = (string)$txml->Service->Desc;
                                         if (isset($txml->Weight)) {
-                                            $rArr['weight'] = (string)$txml->Weight . " lbs";
+                                            $rArr['weight'] = (string)$txml->Weight . ' lbs';
                                         }
                                         if (isset($txml->Delivery)) {
                                             $rArr['deliverydate'] = (string)$txml->Delivery->Date;
@@ -1267,7 +1265,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Map request to shipment
      *
-     * @param Varien_Object $request
      * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
@@ -1306,7 +1303,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
-     * @param Varien_Object $request
      * @return Varien_Object
      */
     protected function _doShipmentRequest(Varien_Object $request)
@@ -1322,10 +1318,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');
     }

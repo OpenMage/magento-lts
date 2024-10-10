@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +24,6 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Extract data from request and return value
      *
-     * @param Zend_Controller_Request_Http $request
      * @return array|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)
@@ -130,10 +129,10 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
                 $output = $values;
                 break;
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_HTML:
-                $output = implode("<br />", $values);
+                $output = implode('<br />', $values);
                 break;
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE:
-                $output = implode(" ", $values);
+                $output = implode(' ', $values);
                 break;
             default:
                 $output = implode("\n", $values);

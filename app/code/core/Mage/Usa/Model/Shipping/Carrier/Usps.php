@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,10 +85,18 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected $_rawRequest = null;
 
+
+    /**
+     * Raw rate tracking request data
+     *
+     * @var Varien_Object|null
+     */
+    protected $_rawTrackRequest = null;
+
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
      */
     protected $_result = null;
 
@@ -109,7 +117,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Collect and get rates
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|bool|null
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
@@ -130,7 +137,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Prepare and set request to this instance
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
@@ -425,7 +431,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
      * @param string $response
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|void
      */
     protected function _parseXmlResponse($response)
     {
@@ -512,6 +518,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             }
         }
     }
+
     /**
      * Get configuration data of carrier
      *
@@ -901,7 +908,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set tracking request
      *
-     * @return null
+     * @return void
      */
     protected function setTrackingRequest()
     {
@@ -960,7 +967,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      *
      * @param array $trackingValue
      * @param string $response
-     * @return null
+     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingValue, $response)
     {
@@ -1316,7 +1323,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * As integration guide it is important to follow appropriate sequence for tags e.g.: <FromLastName /> must be
      * after <FromFirstName />
      *
-     * @param Varien_Object $request
      * @return string
      * @deprecated This method should not be used anymore.
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
@@ -1382,11 +1388,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * As integration guide it is important to follow appropriate sequence for tags e.g.: <FromLastName /> must be
      * after <FromFirstName />
      *
-     * @param Varien_Object $request
      * @param string $serviceType
      *
      * @throws Exception
-     *
      * @return string
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
@@ -1484,7 +1488,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * As integration guide it is important to follow appropriate sequence for tags e.g.: <FromLastName /> must be
      * after <FromFirstName />
      *
-     * @param Varien_Object $request
      * @return string
      * @deprecated Should not be used anymore.
      * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
@@ -1723,7 +1726,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
-     * @param Varien_Object $request
      * @return Varien_Object
      * @deprecated This method must not be used anymore. Starting from 23.02.2018 USPS eliminates API usage for
      * free shipping labels generating.
@@ -1801,10 +1803,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
-    public function getContainerTypes(Varien_Object $params = null)
+    public function getContainerTypes(?Varien_Object $params = null)
     {
         if (is_null($params)) {
             return $this->_getAllowedContainers();
@@ -1835,10 +1836,9 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array
      */
-    public function getDeliveryConfirmationTypes(Varien_Object $params = null)
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         if ($params == null) {
             return [];
@@ -1865,7 +1865,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Return content types of package
      *
-     * @param Varien_Object $params
      * @return array
      */
     public function getContentTypes(Varien_Object $params)

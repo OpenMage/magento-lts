@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get default tags for current layer state
      *
-     * @param   array $additionalTags
      * @return  array
      */
     public function getStateTags(array $additionalTags = [])
@@ -212,6 +211,9 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             foreach ($setAttributeIds as $attributeId) {
                 if (!isset($attributes[$attributeId])) {
                     $attribute = $eavConfig->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeId);
+                    if (!$this->_filterFilterableAttributes($attribute)) {
+                        continue;
+                    }
                     if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
@@ -247,6 +249,15 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     {
         $collection->addIsFilterableFilter();
         return $collection;
+    }
+
+    /**
+     * Filter which attributes are included in getFilterableAttributes
+     *
+     */
+    protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute $attribute): bool
+    {
+        return $attribute->getIsFilterable() > 0;
     }
 
     /**

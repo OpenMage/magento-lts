@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         return $this->_url;
     }
 
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
+    protected function _buildMenuArray(?Varien_Simplexml_Element $parent = null, $path = '', $level = 0)
     {
         if (is_null($parent)) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
@@ -109,10 +109,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach ($parentArr as $key => $value) {
-            $last = $key;
-        }
-        if (isset($last)) {
+        $last = array_key_last($parentArr);
+        if (!is_null($last)) {
             $parentArr[$last]['last'] = true;
         }
 

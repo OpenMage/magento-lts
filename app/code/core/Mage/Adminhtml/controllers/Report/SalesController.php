@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE, 'sales');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/sales')
+            ->_setActiveMenu('report/salesroot/sales')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Sales Report'), Mage::helper('adminhtml')->__('Sales Report'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_sales.grid');
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_TAX_FLAG_CODE, 'tax');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/tax')
+            ->_setActiveMenu('report/salesroot/tax')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tax'), Mage::helper('adminhtml')->__('Tax'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_tax.grid');
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_SHIPPING_FLAG_CODE, 'shipping');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/shipping')
+            ->_setActiveMenu('report/salesroot/shipping')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Shipping'), Mage::helper('adminhtml')->__('Shipping'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_shipping.grid');
@@ -245,7 +245,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_INVOICE_FLAG_CODE, 'invoiced');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/invoiced')
+            ->_setActiveMenu('report/salesroot/invoiced')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Total Invoiced'), Mage::helper('adminhtml')->__('Total Invoiced'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_invoiced.grid');
@@ -288,7 +288,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_REFUNDED_FLAG_CODE, 'refunded');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/refunded')
+            ->_setActiveMenu('report/salesroot/refunded')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Total Refunded'), Mage::helper('adminhtml')->__('Total Refunded'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_refunded.grid');
@@ -331,7 +331,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $this->_showLastExecutionTime(Mage_Reports_Model_Flag::REPORT_COUPONS_FLAG_CODE, 'coupons');
 
         $this->_initAction()
-            ->_setActiveMenu('report/sales/coupons')
+            ->_setActiveMenu('report/salesroot/coupons')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Coupons'), Mage::helper('adminhtml')->__('Coupons'));
 
         $gridBlock = $this->getLayout()->getBlock('report_sales_coupons.grid');

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Admin_Model_Observer
                     /** @var Mage_Core_Model_Session $coreSession */
                     $coreSession = Mage::getSingleton('core/session');
 
-                    if ($coreSession->validateFormKey($request->getPost("form_key"))) {
+                    if ($coreSession->validateFormKey($request->getPost('form_key'))) {
                         $postLogin = $request->getPost('login');
                         $username = $postLogin['username'] ?? '';
                         $password = $postLogin['password'] ?? '';

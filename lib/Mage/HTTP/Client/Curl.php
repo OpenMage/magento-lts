@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_HTTP
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +89,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var object
+     * @var false|resource
      */
     protected $_ch;
 
@@ -166,7 +166,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     public function setCredentials($login, $pass)
     {
         $val = base64_encode("$login:$pass");
-        $this->addHeader("Authorization", "Basic $val");
+        $this->addHeader('Authorization', "Basic $val");
     }
 
     /**
@@ -215,7 +215,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     public function get($uri)
     {
-        $this->makeRequest("GET", $uri);
+        $this->makeRequest('GET', $uri);
     }
 
     /**
@@ -224,7 +224,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     public function post($uri, $params)
     {
-        $this->makeRequest("POST", $uri, $params);
+        $this->makeRequest('POST', $uri, $params);
     }
 
     /**
@@ -259,7 +259,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode("; ", $row);
+            $values = explode('; ', $row);
             $c = count($values);
             if (!$c) {
                 continue;
@@ -285,7 +285,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode("; ", $row);
+            $values = explode('; ', $row);
             $c = count($values);
             if (!$c) {
                 continue;
@@ -301,7 +301,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode("=", $values[$i]);
+                list($subkey, $val) = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -330,7 +330,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         if ($method == 'POST') {
             $this->curlOption(CURLOPT_POST, 1);
             $this->curlOption(CURLOPT_POSTFIELDS, is_array($params) ? http_build_query($params) : $params);
-        } elseif ($method == "GET") {
+        } elseif ($method == 'GET') {
             $this->curlOption(CURLOPT_HTTPGET, 1);
         } else {
             $this->curlOption(CURLOPT_CUSTOMREQUEST, $method);
@@ -349,7 +349,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             foreach ($this->_cookies as $k => $v) {
                 $cookies[] = "$k=$v";
             }
-            $this->curlOption(CURLOPT_COOKIE, implode(";", $cookies));
+            $this->curlOption(CURLOPT_COOKIE, implode(';', $cookies));
         }
 
         if ($this->_timeout) {
@@ -381,7 +381,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Throw error excpetion
+     * Throw error exception
      * @param $string
      * @throws Exception
      * @return never
@@ -392,12 +392,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Parse headers - CURL callback functin
+     * Parse headers - CURL callback function
      *
      * @param resource $ch curl handle, not needed
      * @param string   $data
-     *
-     * @return int
      */
     protected function parseHeaders($ch, $data): int
     {
@@ -431,8 +429,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * @param array $line
-     *
      * @throws Exception
      */
     protected function validateHttpVersion(array $line)

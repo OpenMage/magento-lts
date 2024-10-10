@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,6 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Register User Page
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkUserCreate(Varien_Event_Observer $observer)
@@ -95,7 +94,6 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Checkout as Guest Page
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkGuestCheckout(Varien_Event_Observer $observer)

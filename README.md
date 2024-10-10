@@ -35,6 +35,7 @@ level of backwards compatibility to the official releases.
   - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
 - [Development Environment with ddev](#development-environment-with-ddev)
 - [PhpStorm Factory Helper](#phpstorm-factory-helper)
+- [PhpStorm File-Watcher for SCSS files](#phpstorm-file-watcher-for-scss-files)
 - [Public Communication](#public-communication)
 - [Maintainers](#maintainers)
 - [License](#license)
@@ -356,6 +357,22 @@ You can add additional meta files in this directory to cover your own project fi
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
 
+## PhpStorm File-Watcher for SCSS files
+- install SCSS
+  ```bash
+  npm install -g sass
+  ```
+- open settings `CTRL+ALT+S` and go to File Watcher
+- change default setting to:
+  - Arguments:
+  ```
+  $FileName$:$FileParentDir$/$FileNameWithoutExtension$.css
+  ```
+  - Output paths to refresh:
+  ```
+  $FileParentDir$/$FileNameWithoutExtension$.css:$FileParentDir$/$FileNameWithoutExtension$.css.map
+  ```
+
 ## Public Communication
 
 * [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
@@ -368,7 +385,6 @@ for more information.
 * [Lee Saferite](https://github.com/LeeSaferite)
 * [Mohamed Elidrissi](https://github.com/elidrissidev)
 * [Ng Kiat Siong](https://github.com/kiatng)
-* [Sven Reichel](https://github.com/sreichel)
 * [Tymoteusz Motylewski](https://github.com/tmotyl)
 
 ## License

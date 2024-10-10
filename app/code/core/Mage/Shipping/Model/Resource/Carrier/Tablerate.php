@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return table rate array or false by rate request
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return array|bool
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
@@ -112,7 +111,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ->limit(1);
 
         $conditions = [
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
+            'dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode',
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
             "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :postcode",
             "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :postcode",
@@ -127,7 +126,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = '*'";
 
         $i = 0;
-        $postcode = $request->getDestPostcode();
+        $postcode = (string)$request->getDestPostcode();
         while (strlen($postcode) > 1) {
             $i++;
             $postcode = substr($postcode, 0, -1);
@@ -177,7 +176,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -397,7 +395,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // protect from duplicate
-        $hash = sprintf("%s-%d-%s-%F", $countryId, $regionId, $zipCode, $value);
+        $hash = sprintf('%s-%d-%s-%F', $countryId, $regionId, $zipCode, $value);
         if (isset($this->_importUniqueHash[$hash])) {
             $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', $rowNumber, $row[0], $row[1], $zipCode, $value);
             return false;
@@ -418,7 +416,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Save import data batch
      *
-     * @param array $data
      * @return $this
      */
     protected function _saveImportData(array $data)

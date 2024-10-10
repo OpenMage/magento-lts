@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,7 +154,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Checkin attribute availability for create superproduct
      *
-     * @param   Mage_Eav_Model_Entity_Attribute $attribute
      * @return  bool
      */
     public function canUseAttribute(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -421,6 +420,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function save($product = null)
     {
         parent::save($product);
+
         /**
          * Save Attributes Information
          */
@@ -564,7 +564,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and then add Configurable specific options.
      *
-     * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
      * @param string $processMode
      * @return array|string

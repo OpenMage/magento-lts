@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -299,7 +299,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Sorts array with multibyte string keys
      *
-     * @param array $sort
      * @return array|false
      */
     public function ksortMultibyte(array &$sort)
@@ -307,7 +306,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (empty($sort)) {
             return false;
         }
-        $oldLocale = setlocale(LC_COLLATE, "0");
+        $oldLocale = setlocale(LC_COLLATE, '0');
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
         setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
@@ -375,8 +374,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Append param to general result
      *
-     * @param array $result
-     * @param array $param
      * @return array
      */
     protected function _appendParam(array $result, array $param)
@@ -399,7 +396,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
-     * @param array $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)
@@ -466,7 +462,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Set array helper
      *
-     * @param Mage_Core_Helper_Abstract|Mage_Core_Helper_Array $helper
+     * @param Mage_Core_Helper_Array $helper
      * @return $this
      */
     public function setArrayHelper(Mage_Core_Helper_Abstract $helper)

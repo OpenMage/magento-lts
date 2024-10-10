@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,6 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Check if group uses as default
      *
-     * @param  Mage_Core_Model_Abstract $group
      * @throws Mage_Core_Exception
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
@@ -61,7 +60,6 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
     /**
      * Method set default group id to the customers collection
      *
-     * @param Mage_Core_Model_Abstract $group
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $group)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +123,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         return $this;
     }
 
-    public function addAction(Mage_Dataflow_Model_Convert_Action_Interface $action = null)
+    public function addAction(?Mage_Dataflow_Model_Convert_Action_Interface $action = null)
     {
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
@@ -136,7 +136,6 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action's container
      *
-     * @param Mage_Dataflow_Model_Convert_Container_Interface $container
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setContainer(Mage_Dataflow_Model_Convert_Container_Interface $container)

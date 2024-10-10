@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -180,7 +180,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template
      *
-     * @param array $variables
      * @param bool $usePreprocess
      * @return string
      */
@@ -250,7 +249,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve included template
      *
      * @param string $templateCode
-     * @param array $variables
      * @return string
      */
     public function getInclude($templateCode, array $variables)
@@ -284,7 +282,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @return bool
      * @deprecated since 1.4.0.1
      **/
-    public function send($subscriber, array $variables = [], $name = null, Mage_Newsletter_Model_Queue $queue = null)
+    public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
     {
         if (!$this->isValidForSend()) {
             return false;
@@ -388,7 +386,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template subject
      *
-     * @param array $variables
      * @return string
      */
     public function getProcessedTemplateSubject(array $variables)

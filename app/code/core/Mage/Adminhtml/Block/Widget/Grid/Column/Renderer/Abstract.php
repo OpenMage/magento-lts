@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function render(Varien_Object $row)
@@ -63,7 +62,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Render column for export
      *
-     * @param Varien_Object $row
      * @return string
      */
     public function renderExport(Varien_Object $row)
@@ -72,7 +70,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string|null
      */
     protected function _getValue(Varien_Object $row)
@@ -92,7 +89,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string
      */
     public function _getInputValueElement(Varien_Object $row)
@@ -104,7 +100,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string|null
      */
     protected function _getInputValue(Varien_Object $row)
@@ -162,5 +157,13 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     public function renderCss()
     {
         return $this->getColumn()->getCssClass();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCopyableText(Varien_Object $row)
+    {
+        return $this->_getValue($row);
     }
 }

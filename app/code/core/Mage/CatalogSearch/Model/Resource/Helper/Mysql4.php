@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +22,7 @@
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
 {
     /**
-     * Join information for usin full text search
+     * Join information for using full text search
      *
      * @param string $table
      * @param string $alias
@@ -58,7 +58,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             '('       => '(',
             ')'       => ')'
         ];
-        $words = [0 => ""];
+        $words = [0 => ''];
         $terms = [];
         preg_match_all('/([\(\)]|[\"\'][^"\']*[\"\']|[^\s\"\(\)]*)/uis', $str, $matches);
         $isOpenBracket = 0;
@@ -85,9 +85,9 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             }
         }
         if ($isOpenBracket > 0) {
-            $words[] = sprintf("%')" . $isOpenBracket . "s", '');
+            $words[] = sprintf("%')" . $isOpenBracket . 's', '');
         } elseif ($isOpenBracket < 0) {
-            $words[0] = sprintf("%'(" . $isOpenBracket . "s", '');
+            $words[0] = sprintf("%'(" . $isOpenBracket . 's', '');
         }
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
@@ -112,7 +112,6 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * Get field expression for order by
      *
      * @param string $fieldName
-     * @param array $orderedIds
      *
      * @return string
      */

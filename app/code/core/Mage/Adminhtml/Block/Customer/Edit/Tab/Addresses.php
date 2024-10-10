@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'name'   => 'add_address_button',
                     'element_name' => 'add_address_button',
                     'disabled' => $this->isReadonly(),
-                    'class'  => 'add'  . ($this->isReadonly() ? ' disabled' : ''),
+                    'class'  => 'add' . ($this->isReadonly() ? ' disabled' : ''),
                     'onclick' => 'customerAddresses.addNewAddress()'
                 ])
         );
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'id'     => 'cancel_add_address' . $this->getTemplatePrefix(),
                     'name'   => 'cancel_address',
                     'element_name' => 'cancel_address',
-                    'class'  => 'cancel delete-address'  . ($this->isReadonly() ? ' disabled' : ''),
+                    'class'  => 'cancel delete-address' . ($this->isReadonly() ? ' disabled' : ''),
                     'disabled' => $this->isReadonly(),
                     'onclick' => 'customerAddresses.cancelAdd(this)',
                 ])
@@ -110,13 +110,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      */
     public function initForm()
     {
-        /** @var Mage_Customer_Model_Customer $customer */
-        $customer = Mage::registry('current_customer');
-
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', [
             'legend'    => Mage::helper('customer')->__("Edit Customer's Address")]);
 
+        $customer = $this->getRegistryCurrentCustomer();
         $addressModel = Mage::getModel('customer/address');
         $addressModel->setCountryId(Mage::helper('core')->getDefaultCountry($customer->getStore()));
         /** @var Mage_Customer_Model_Form $addressForm */
@@ -295,5 +293,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             $this->getForm()->getElement('suffix')->addElementValues($values);
         }
         return $this;
+    }
+
+    protected function getRegistryCurrentCustomer(): ?Mage_Customer_Model_Customer
+    {
+        return Mage::registry('current_customer');
     }
 }

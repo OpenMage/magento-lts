@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,10 +39,9 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Check is attribute allowed
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param array|null $filter
      * @return bool
      */
-    protected function _isAllowedAttribute($attribute, array $filter = null)
+    protected function _isAllowedAttribute($attribute, ?array $filter = null)
     {
         if (!is_null($filter)
             && !(in_array($attribute->getAttributeCode(), $filter)
@@ -59,10 +58,9 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * Return list of allowed attributes
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @param array|null $filter
      * @return array
      */
-    public function getAllowedAttributes($entity, array $filter = null)
+    public function getAllowedAttributes($entity, ?array $filter = null)
     {
         $attributes = $entity->getResource()
                         ->loadAllAttributes($entity)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,15 +60,13 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         $this->_currencyModel = Mage::getModel('directory/currency');
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
 
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
      * @return array
      */
-    public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
+    public function createIndexData(Mage_Catalog_Model_Product $object, ?Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $data = [];
 
@@ -105,7 +103,6 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)

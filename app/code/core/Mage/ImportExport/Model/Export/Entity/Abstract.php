@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var int
+     * @var string|null
      */
     protected $_entityTypeId;
 
@@ -170,7 +170,10 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     {
         $entityCode = $this->getEntityTypeCode();
         $this->_entityTypeId = Mage::getSingleton('eav/config')->getEntityType($entityCode)->getEntityTypeId();
-        $this->_connection   = Mage::getSingleton('core/resource')->getConnection('write');
+
+        /** @var Varien_Db_Adapter_Pdo_Mysql $_connection */
+        $_connection         = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection   = $_connection;
     }
 
     /**
@@ -248,7 +251,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Apply filter to collection and add not skipped attributes to select.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -370,7 +372,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Clean up attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
@@ -395,7 +396,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -436,7 +436,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return int
+     * @return string|null
      */
     public function getEntityTypeId()
     {
@@ -517,7 +517,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Set parameters.
      *
-     * @param array $parameters
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function setParameters(array $parameters)
@@ -530,7 +529,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Writer model setter.
      *
-     * @param Mage_ImportExport_Model_Export_Adapter_Abstract $writer
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function setWriter(Mage_ImportExport_Model_Export_Adapter_Abstract $writer)

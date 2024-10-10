@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,6 +95,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function add($data)
     {
+        $result = [];
         $data = $this->_prepareDataForAdd($data);
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($data['product_id']);

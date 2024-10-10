@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('_view');
 
-        $model = Mage::registry('current_convert_profile');
+        $model = $this->getRegistryCurrentConvertProfile();
 
         $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => Mage::helper('adminhtml')->__('View Actions XML'),
@@ -49,5 +49,10 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
         $this->setForm($form);
 
         return $this;
+    }
+
+    protected function getRegistryCurrentConvertProfile(): ?Mage_Dataflow_Model_Profile
+    {
+        return Mage::registry('current_convert_profile');
     }
 }

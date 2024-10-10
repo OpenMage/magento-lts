@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -155,7 +155,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Add new total to totals array after specific total or before last total by default
      *
-     * @param   Varien_Object $total
      * @param   null|string $after accepted values: 'first', 'last'
      * @return  Mage_Sales_Block_Order_Totals
      */
@@ -193,7 +192,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Add new total to totals array before specific total or after first total by default
      *
-     * @param Varien_Object $total
      * @param null|array|string $before
      * @return  Mage_Sales_Block_Order_Totals
      */

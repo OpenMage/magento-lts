@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -198,7 +198,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Setter for payment method instance
      *
-     * @param Mage_Payment_Model_Method_Abstract $object
      * @return $this
      * @throws Exception
      */
@@ -216,7 +215,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Collect needed information from buy request
      * Then filter data
      *
-     * @param Varien_Object $buyRequest
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -241,7 +239,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Import product recurring profile information
      * Returns false if it cannot be imported
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this|false
      */
     public function importProduct(Mage_Catalog_Model_Product $product)
@@ -298,11 +295,10 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Determine nearest possible profile start date
      *
-     * @param Zend_Date|null $minAllowed
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function setNearestStartDatetime(Zend_Date $minAllowed = null)
+    public function setNearestStartDatetime(?Zend_Date $minAllowed = null)
     {
         // TODO: implement proper logic with invoking payment method instance
         $date = $minAllowed;
@@ -335,7 +331,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Locale instance setter
      *
-     * @param Mage_Core_Model_Locale $locale
      * @return $this
      */
     public function setLocale(Mage_Core_Model_Locale $locale)
@@ -347,7 +342,6 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Store instance setter
      *
-     * @param Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)

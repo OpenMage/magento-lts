@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,8 +23,6 @@ class Mage_Tax_Model_Observer
 {
     /**
      * Put quote address tax information into order
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
     {
@@ -45,8 +43,6 @@ class Mage_Tax_Model_Observer
 
     /**
      * Save order tax information
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
@@ -148,7 +144,6 @@ class Mage_Tax_Model_Observer
     /**
      * Prepare select which is using to select index data for layered navigation
      *
-     * @param   Varien_Event_Observer $observer
      * @return  Mage_Tax_Model_Observer
      */
     public function prepareCatalogIndexPriceSelect(Varien_Event_Observer $observer)
@@ -227,7 +222,6 @@ class Mage_Tax_Model_Observer
     /**
      * Reset extra tax amounts on quote addresses before recollecting totals
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,8 +111,8 @@ INSERT INTO {$installer->getTable('catalog_product_enabled_index')}
             ON (t_s.entity_id = t_v_default.entity_id) AND (t_s.attribute_id='{$statusAttributeId}') AND (t_s.store_id='{$storeId}')
         WHERE
             t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
-            AND (IFNULL(t_s.value, t_s_default.value)=" . Mage_Catalog_Model_Product_Status::STATUS_ENABLED . ")
-        ");
+            AND (IFNULL(t_s.value, t_s_default.value)=" . Mage_Catalog_Model_Product_Status::STATUS_ENABLED . ')
+        ');
     }
 }
 
