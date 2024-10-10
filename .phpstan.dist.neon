@@ -65,7 +65,7 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    level: 5
+    level: 4
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
