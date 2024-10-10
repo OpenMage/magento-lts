@@ -113,6 +113,11 @@
         </layout>
     </frontend>
     <default>
+        <rss>
+            <admin_order>
+                <new_period>7</new_period>
+            </admin_order>
+        </rss>
         <validators>
             <custom_layout>
                 <disallowed_block>
