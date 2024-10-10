@@ -36,7 +36,6 @@ class Mage_Rss_Block_Order_Details extends Mage_Core_Block_Template
             return $helper->getGiftMessage($_item->getGiftMessageId());
         }
         return null;
-
     }
     public function getGiftMessageOrder()
     {
