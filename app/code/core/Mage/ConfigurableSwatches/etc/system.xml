@@ -50,6 +50,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
+                            <depends><enabled>1</enabled></depends>
                         </swatch_attributes>
                         <product_list_attribute translate="label">
                             <label>Product Attribute to Use for Swatches in Product Listing</label>
@@ -59,6 +60,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </product_list_attribute>
                         <product_list_price_change translate="label" module="configurableswatches">
                             <label>Dynamic Price Change for Swatches in Product Listing</label>
@@ -68,6 +70,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </product_list_price_change>
                     </fields>
                 </general>
@@ -85,6 +88,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -92,6 +96,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </product_detail_dimensions>
@@ -109,6 +114,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -116,6 +122,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </product_listing_dimensions>
@@ -133,6 +140,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -140,6 +148,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </layered_nav_dimensions>

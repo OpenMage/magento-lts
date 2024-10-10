@@ -71,21 +71,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeGlobal\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeStore\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeWebsite\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Sales.php
@@ -104,36 +89,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:\\$_validateButton \\(Mage_Adminhtml_Block_Widget_Button\\|null\\) does not accept Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
-
-		-
-			message: "#^Variable \\$d might not be defined\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localmaxlength might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localmaxvalue might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$localminvalue might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
-
-		-
-			message: "#^Variable \\$class might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
-
-		-
-			message: "#^Variable \\$value might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\\:\\:\\$_aclResourcePath\\.$#"
@@ -171,21 +126,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Permissions/Usernroles.php
 
 		-
-			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Cannot call method setPeriod\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 4
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:addColumn\\(\\) should return Mage_Adminhtml_Block_Report_Grid_Abstract but returns Mage_Adminhtml_Block_Widget_Grid\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -199,11 +139,6 @@ parameters:
 			message: "#^Method Mage_Reports_Model_Totals\\:\\:countTotals\\(\\) invoked with 1 parameter, 3 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
-
-		-
-			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addRuleFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
@@ -281,21 +216,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
 
 		-
-			message: "#^Variable \\$createLabelUrl might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Variable \\$itemsGridUrl might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Variable \\$itemsOrderItemId might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
 			message: "#^Return type \\(Mage_Sales_Model_Order_Shipment\\) of method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Items\\:\\:getSource\\(\\) should be compatible with return type \\(Mage_Sales_Model_Order_Invoice\\) of method Mage_Adminhtml_Block_Sales_Items_Abstract\\:\\:getSource\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Items.php
@@ -359,61 +279,6 @@ parameters:
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
-
-		-
-			message: "#^Variable \\$addLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$deleteLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$deleteUrl might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$editLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$saveLabel might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
-
-		-
-			message: "#^Variable \\$groupModel might not be defined\\.$#"
-			count: 18
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showGroupFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showStoreFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$showWebsiteFieldset might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$storeModel might not be defined\\.$#"
-			count: 21
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^Variable \\$websiteModel might not be defined\\.$#"
-			count: 15
-			path: app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
