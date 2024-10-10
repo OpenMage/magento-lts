@@ -99,6 +99,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -106,6 +107,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </product_detail_dimensions>
@@ -123,6 +125,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -130,6 +133,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </product_listing_dimensions>
@@ -147,6 +151,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </width>
                         <height translate="label">
                             <label>Height</label>
@@ -154,6 +159,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </height>
                     </fields>
                 </layered_nav_dimensions>
