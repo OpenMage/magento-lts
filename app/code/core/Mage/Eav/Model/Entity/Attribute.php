@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,14 +34,18 @@
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
+    public const SCOPE_STORE   = 0;
+    public const SCOPE_GLOBAL  = 1;
+    public const SCOPE_WEBSITE = 2;
+
     /**
      * Prefix of model events names
      *
      * @var string
      */
-    protected $_eventPrefix                         = 'eav_entity_attribute';
+    protected $_eventPrefix = 'eav_entity_attribute';
 
-    public const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+    public const ATTRIBUTE_CODE_MAX_LENGTH = 30;
 
     /**
      * Parameter name in event
@@ -52,7 +56,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected $_eventObject = 'attribute';
 
-    public const CACHE_TAG         = 'EAV_ATTRIBUTE';
+    public const CACHE_TAG  = 'EAV_ATTRIBUTE';
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**

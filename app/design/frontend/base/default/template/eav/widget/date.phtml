@@ -1,0 +1,57 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category    design
+ * @package     base_default
+ */
+?>
+<?php $_attribute = $this->getAttribute() ?>
+<?php $_code = $_attribute->getAttributeCode() ?>
+<label for="<?php echo $this->getFieldId('month')?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__($_attribute->getStoreLabel()) ?></label>
+<div class="input-box attribute-<?php echo $_code ?>">
+<?php
+    $this->setDateInput('d',
+        '<div class="date-day">
+             <input type="text" name="' . $this->getFieldName('day') . '" value="' . $this->getDay() . '" title="' . $this->__('Day') . '" class="input-text validate-custom" ' . $this->getFieldParams() . ' />
+             <label for="' . $this->getFieldId('day') . '">' . $this->__('DD') . '</label>
+         </div>'
+    );
+
+    $this->setDateInput('m',
+        '<div class="date-month">
+             <input type="text" name="' . $this->getFieldName('month') . '" value="' . $this->getMonth()  . '" title="' . $this->__('Month')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+             <label for="' . $this->getFieldId('month') . '">' . $this->__('MM')  . '</label>
+         </div>'
+    );
+
+    $this->setDateInput('y',
+        '<div class="date-year">
+             <input type="text" name="' . $this->getFieldName('year') . '" value="' . $this->getYear()  . '" title="' . $this->__('Year')  . '" class="input-text validate-custom" ' . $this->getFieldParams()  . ' />
+             <label for="' . $this->getFieldId('year') . '">' . $this->__('YYYY')  . '</label>
+         </div>'
+    );
+?>
+    <?php echo $this->getSortedDateInputs() ?>
+    <div class="date-full" style="display:none;">
+        <input type="hidden" id="<?php echo $this->getFieldId($_code)?>" name="<?php echo $this->getFieldName($_code)?>" />
+    </div>
+
+    <div class="validation-advice" style="display:none;"></div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    new Varien.DateElementHelper('.attribute-<?php echo $_code ?>', <?php echo $this->isRequired() ? 'true' : 'false' ?>, '<?php echo $this->getDateFormat() ?>');
+//]]>
+</script>
