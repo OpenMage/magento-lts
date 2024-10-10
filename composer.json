@@ -37,7 +37,7 @@
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
         "symfony/polyfill-php82": "^1.29",
-        "tinymce/tinymce": "~6.8 || ^7.3"
+        "tinymce/tinymce": "^7.3"
     },
     "require-dev": {
         "ext-xmlreader": "*",
