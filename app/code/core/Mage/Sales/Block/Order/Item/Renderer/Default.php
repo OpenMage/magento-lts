@@ -174,4 +174,13 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
+    public function canDisplayGiftmessage()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable('order_item', $this->getItem()->getOrderItem()) && $this->getItem()->getGiftMessageId();
+    }
 }

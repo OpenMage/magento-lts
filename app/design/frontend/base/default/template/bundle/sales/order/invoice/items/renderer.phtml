@@ -24,7 +24,7 @@
 
 <?php foreach ($items as $_item): ?>
 
-    <?php if ($this->getItemOptions() || $parentItem->getDescription() || $this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
+    <?php if ($this->getItemOptions() || $parentItem->getDescription() || $this->canDisplayGiftmessage()): ?>
         <?php $_showlastRow = true ?>
     <?php else: ?>
         <?php $_showlastRow = false ?>
@@ -361,7 +361,7 @@
                 </dl>
             <?php endif ?>
             <?php echo $this->escapeHtml($_item->getDescription()) ?>
-            <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
+            <?php if ($this->canDisplayGiftmessage()): ?>
                 <a href="#" id="order-item-gift-message-link-<?php echo $parentItem->getId() ?>"
                    class="gift-message-link"
                    onclick="return giftMessageToogle('<?php echo $parentItem->getId() ?>')"><?php echo Mage::helper('sales')->__('Gift Message') ?></a>

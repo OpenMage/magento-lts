@@ -74,4 +74,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     {
         return Mage::getSingleton('adminhtml/giftmessage_save');
     }
+
+    public function canDisplayGiftmessage()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable('order', $this->getEntity(), $this->getEntity()->getStoreId());
+    }
 }

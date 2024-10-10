@@ -52,7 +52,7 @@
     <!-- EOF downloadable -->
 
     <?php echo $this->escapeHtml($_item->getDescription()) ?>
-    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item->getOrderItem()) && $_item->getGiftMessageId()): ?>
+    <?php if ($this->canDisplayGiftmessage()): ?>
         <br/><a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>"
                 class="giftmessage-preview-link expand"
                 onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>

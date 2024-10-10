@@ -375,4 +375,25 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';
     }
+
+
+    public function canDisplayGiftmessageItems()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable('items', $this->getOrder());
+    }
+
+    public function canDisplayGiftmessageOrder()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable('order', $this->getOrder()) && $this->getOrder()->getGiftMessageId();
+    }
 }
