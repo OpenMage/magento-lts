@@ -152,4 +152,20 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     {
         return true;
     }
+
+    /**
+     * Check if URL host matches custom admin URL.
+     *
+     * @inheritDoc
+     */
+    public function match(Zend_Controller_Request_Http $request)
+    {
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            if (!str_contains($adminUrl, $request->getHttpHost())) {
+                return false;
+            }
+        }
+
+        return parent::match($request);
+    }
 }
