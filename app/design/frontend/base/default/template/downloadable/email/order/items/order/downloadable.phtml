@@ -39,7 +39,7 @@
             </dl>
         <?php endif ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
-        <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+        <?php if ($_giftMessage = $this->getGiftMessage()): ?>
             <br/><strong><?php echo $this->__('Gift Message') ?></strong>
             <br/><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             <br/><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>

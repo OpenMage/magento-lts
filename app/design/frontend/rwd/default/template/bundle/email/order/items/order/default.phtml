@@ -19,7 +19,7 @@
 <?php $parentItem = $this->getItem() ?>
 <?php $items = array_merge([$parentItem], $parentItem->getChildrenItems()); ?>
 
-<?php if($this->getItemOptions() || $_item->getDescription() || $this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
+<?php if($this->getItemOptions() || $_item->getDescription() || $this->canDisplayGiftmessage()): ?>
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
@@ -150,7 +150,7 @@
             <?php endforeach ?>
         </dl>
         <?php endif ?>
-        <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+        <?php if ($_giftMessage = $this->getGiftMessage()): ?>
         <br /><strong><?php echo $this->__('Gift Message') ?></strong>
         <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
         <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
