@@ -13,6 +13,6 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php if (!$this->getQuote()->isVirtual()): ?>
+<?php if (!$this->getQuote()->isVirtual() && $this->helper('core')->isModuleEnabled('Mage_GiftMessage')): ?>
     <?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
 <?php endif ?>

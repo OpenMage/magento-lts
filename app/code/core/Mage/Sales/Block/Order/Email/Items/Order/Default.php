@@ -18,6 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
+ * @method Mage_Sales_Model_Order_Item getItem()
  */
 class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_Template
 {
@@ -87,5 +88,18 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     public function getProductAdditionalInformationBlock()
     {
         return $this->getLayout()->getBlock('additional.product.info');
+    }
+
+    public function getGiftMessage()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+            return null;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if ($this->getItem()->getGiftMessageId()) {
+            return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        }
+        return null;
     }
 }
