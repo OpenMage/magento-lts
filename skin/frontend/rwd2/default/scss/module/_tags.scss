@@ -1,0 +1,67 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Tags
+ * ============================================ */
+
+#addTagForm button {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+#addTagForm .form-add {
+    margin-top: 10px;
+}
+.product-tags {
+    background-color: $c-module-background;
+    border: 1px solid $c-module-border;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 1% 10px;
+    width: 98%;
+}
+.product-tags li {
+    float: left;
+    margin-right: 15px;
+}
+.product-tags li.last {
+    margin-right: 0px;
+}
+.tags-list {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.tags-list > li {
+    float: left;
+    margin-right: 10px;
+}
+.block-tags .actions > a {
+    font-size: 12px;
+}
+.my-tag-edit {
+    .button.btn-remove {
+        padding: 0;
+
+        &:after {
+            color: white;
+        }
+    }
+}
+@include bp (max-width, $bp-medium) {
+    .tags-list > li,
+    .tags-list {
+        float: none;
+    }
+}

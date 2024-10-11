@@ -1,0 +1,244 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Table Helpers
+ * ============================================ */
+
+.hide-th {
+    text-indent: -9999px;
+}
+
+/* ============================================ *
+ * Data Table
+ * ============================================ */
+
+.data-table {
+    width: 100%;
+}
+
+.data-table td,
+.data-table th {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.data-table th {
+    background: $c-table-background;
+    text-transform: uppercase;
+    font-family: $f-stack-special;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.data-table thead th,
+.data-table tbody td {
+    border-bottom: 1px solid $c-table-border;
+}
+
+.data-table tbody td,
+.data-table tfoot td {
+    font-family: $f-stack-serif;
+}
+
+.data-table tfoot tr {
+    background: $c-table-background;
+}
+
+.data-table tbody td .item-options {
+    margin-left: 20px;
+    margin-top: 10px;
+
+    dt:after {
+        content: ':';
+    }
+}
+
+/* ============================================ *
+ * Generic Info Table
+ * ============================================ */
+
+.info-box {
+    border: 1px solid $c-table-border;
+    padding: 12px 15px;
+    margin: 0 0 15px;
+
+    h2 {
+        font-weight: bold;
+        font-size: 13px;
+    }
+}
+
+.info-table th,
+.info-table td {
+    vertical-align: top;
+}
+
+.info-table th {
+    font-weight: bold;
+    padding: 4px 20px 4px 0;
+}
+
+.info-table td {
+    padding: 4px 0;
+}
+
+/* ============================================ *
+ * Zebra-Stripe Table
+ * ============================================ */
+
+.zebra-table {
+    tr:first-child,
+    th:first-child {
+        border-top: 1px solid $c-table-border;
+    }
+
+    td,
+    th {
+        border-bottom: 1px solid $c-table-border;
+        padding: 6px;
+        background-color: transparent;
+    }
+
+    tr {
+        background-color: $c-table-zebra-even;
+    }
+
+    tr:nth-child(odd) {
+        background-color: $c-table-zebra-odd;
+    }
+}
+
+/* ============================================ *
+ * Linearize Table
+ * ============================================ */
+
+@mixin linearize-table {
+
+    tr,
+    th,
+    td {
+        display: block;
+    }
+
+    thead th {
+        border-right: 0;
+        border-left: 0;
+    }
+
+    thead th.lin-hide {
+        display: none;
+    }
+
+    thead th:nth-child(1n+2) {
+        display: none;
+    }
+
+    tbody tr {
+        position: relative;
+        border-bottom: 1px solid $c-module-border;
+    }
+
+    tbody td {
+        padding: 0 10px 4px;
+        border-right: 0;
+        border-bottom: 0;
+    }
+
+    tbody td.lin-hide {
+        display: none;
+    }
+
+    tbody td:first-child {
+        padding-top: 10px;
+    }
+
+    tbody td:first-child,
+    tbody td:first-child h3 {
+        font-weight: bold;
+    }
+
+    tbody td[data-rwd-label] {
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    tbody td[data-rwd-label]:before {
+        content: attr(data-rwd-label) ":";
+        font-size: $f-size-xs;
+        font-family: $f-stack-special;
+        padding-right: 5px;
+        text-transform: uppercase;
+    }
+
+    tfoot tr {
+        display: block;
+        text-align: right;
+    }
+
+    tfoot tr:after {
+        @include clearfix();
+    }
+
+    tfoot td {
+        display: block;
+        float: left;
+    }
+
+    tfoot td.lin-hide {
+        display: none;
+    }
+
+    tfoot td:nth-child(odd) {
+        clear: left;
+        width: percentage(3/5);
+    }
+
+    tfoot td:nth-child(even) {
+        text-align: left;
+        width: percentage(2/5);
+    }
+
+    /* Helpers */
+
+    .linearize-hide {
+        display: none;
+    }
+
+    .linearize-unpad {
+        padding: 0;
+    }
+
+    .linearize-show {
+        display: block;
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .linearize-table {
+        @include linearize-table;
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .linearize-table-large {
+        @include linearize-table;
+    }
+}
+
+@include bp(min-width, $bp-small + 1) {
+    .linearize-table .linearize-collapse {
+        display: none;
+    }
+}

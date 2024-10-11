@@ -1,0 +1,93 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Search - Auto Suggest
+ * ============================================ */
+
+.search-autocomplete {
+    left: 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    top: 15px !important;
+    width: 100% !important;
+    z-index: 200;
+
+    ul {
+        @include border-radius(2px);
+        background-color: #FFFFFF;
+        border: 1px solid $c-module-border-highlight;
+        left: 0;
+        padding-left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        li {
+            border-bottom: 1px solid $c-module-background;
+            color: $c-link;
+            cursor: pointer;
+            font-size: $f-size-xs;
+            padding: 4px 6px;
+            text-align: left;
+
+            &:hover {
+                color: $c-link-hover;
+            }
+
+            &.selected {
+                background-color: $c-action;
+                color: white;
+            }
+
+            .amount {
+                float: right;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &:before {
+        @include triangle(up, 7px, $c-action);
+        left: 50%;
+        top: -7px;
+    }
+}
+
+/* ============================================ *
+ * Search - Advanced
+ * ============================================ */
+
+.advanced-search {
+    background: $c-module-background;
+    border: 1px solid $c-module-border-light;
+    padding: $trim;
+
+    select.multiselect {
+        option {
+            border-bottom: 1px solid $c-module-border-light;
+            padding: 2px 5px;
+        }
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .advanced-search {
+        padding: $trim-small;
+    }
+}

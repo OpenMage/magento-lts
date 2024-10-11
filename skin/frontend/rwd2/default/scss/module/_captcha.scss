@@ -1,0 +1,71 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Captcha
+ * ============================================ */
+.captcha-note {
+    clear: left;
+    padding-top: 5px;
+}
+.captcha-image {
+    float: left;
+    display: inline;
+    max-width: 100%;
+    position: relative;
+    width: 258px;
+    margin-bottom: 10px;
+}
+.captcha-image .captcha-img {
+    border: 1px solid #b6b6b6;
+    vertical-align: bottom;
+    width: 100%;
+}
+.registered-users .captcha-image { margin: 0 }
+.captcha-reload {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+.captcha-reload.refreshing {
+    animation: rotate 1.5s infinite linear;
+    -webkit-animation: rotate 1.5s infinite linear;
+    -moz-animation: rotate 1.5s infinite linear;
+}
+.customer-account-create .scaffold-form .captcha-input-container label:first-child { width: 100% }
+.captcha-reload {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+.captcha-img { border: 20px solid #bbb }
+.captcha-input-container { margin-bottom: 10px }
+.control.newsletter-box, .captcha-input-container, .captcha-img-container {
+    float: none;
+    clear: both;
+
+    &:after{
+        content:'';
+        @include clearfix;
+    }
+}
+/* ============================================ *
+ * Checkout Billing Fix to place the Captcha properly
+ * ============================================ */
+#co-billing-form ul.form-list > .control {
+    float: left;
+    margin: 0 0 5px;
+    width: 100%;
+}
