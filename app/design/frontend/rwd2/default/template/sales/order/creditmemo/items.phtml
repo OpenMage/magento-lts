@@ -1,0 +1,53 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_order = $this->getOrder() ?>
+<p class="order-links"><a href="<?php echo $this->getPrintAllCreditmemosUrl($_order) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print All Refunds') ?></a></p>
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
+<h2 class="sub-title"><?php echo $this->__('Refund #') ?><?php echo $_creditmemo->getIncrementId(); ?> <span class="separator">|</span> <a href="<?php echo $this->getPrintCreditmemoUrl($_creditmemo) ?>" onclick="this.target='_blank'" class="link-print"><?php echo $this->__('Print Refund') ?></a></h2>
+<h3 class="table-caption"><?php echo $this->__('Items Refunded') ?></h3>
+<table class="data-table linearize-table" id="my-refund-table-<?php echo $_creditmemo->getId(); ?>">
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-right" data-rwd-label="<?php echo $this->__('Price') ?>"><?php echo $this->__('Price') ?></th>
+            <th class="a-center" data-rwd-label="<?php echo $this->__('Qty') ?>"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right" data-rwd-label="<?php echo $this->__('Subtotal') ?>"><?php echo $this->__('Subtotal') ?></th>
+            <th class="a-center wrap" data-rwd-label="<?php echo $this->__('Discount Amount') ?>"><?php echo $this->__('Discount Amount') ?></th>
+            <th class="a-right wrap" data-rwd-label="<?php echo $this->__('Row Total') ?>"><?php echo $this->__('Row Total') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+       <?php echo $this->getTotalsHtml($_creditmemo);?>
+    </tfoot>
+    <?php $_items = $_creditmemo->getAllItems(); ?>
+    <?php $_count = count($_items) ?>
+    <?php foreach ($_items as $_item): ?>
+    <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
+    <tbody>
+        <?php echo $this->getItemHtml($_item) ?>
+    </tbody>
+    <?php endforeach ?>
+</table>
+<?php echo $this->getCommentsHtml($_creditmemo)?>
+<?php endforeach ?>
