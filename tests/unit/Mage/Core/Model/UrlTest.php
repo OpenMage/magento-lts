@@ -35,6 +35,15 @@ class UrlTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Model
      */
+    public function testEscape(): void
+    {
+        $this->assertSame('%22%27%3E%3C', $this->subject->escape('"\'><'));
+    }
+
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Model
+     */
     public function testGetSecure(): void
     {
         $this->assertIsBool($this->subject->getSecure());
