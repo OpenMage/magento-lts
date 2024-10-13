@@ -32,7 +32,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.24.0",
-        "sreichel/composer-plugin-file-copy": "dev-develop#cf440e36409d345c5700ec640f673acd2d67047b",
+        "sreichel/composer-plugin-file-copy": "^1.1",
         "symfony/polyfill-php74": "^1.29",
         "symfony/polyfill-php80": "^1.29",
         "symfony/polyfill-php81": "^1.29",
