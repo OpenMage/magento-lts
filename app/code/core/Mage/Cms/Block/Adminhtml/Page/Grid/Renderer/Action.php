@@ -19,7 +19,7 @@
 class Mage_Cms_Block_Adminhtml_Page_Grid_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
-     * @param Varien_Object $row
+     * @param Mage_Cms_Model_Page $row
      * @return string
      */
     public function render(Varien_Object $row)
