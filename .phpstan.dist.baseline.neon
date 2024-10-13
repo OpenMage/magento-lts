@@ -3181,16 +3181,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Setup.php
 
 		-
-			message: "#^Parameter \\#1 \\$categoryIds of method Mage_Catalog_Model_Resource_Url\\:\\:_getCategories\\(\\) expects array\\|int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
-			message: "#^Parameter \\#1 \\$productIds of method Mage_Catalog_Model_Resource_Url\\:\\:_getProducts\\(\\) expects array\\|int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
 			message: "#^Parameter \\#3 \\$storeId of method Mage_Catalog_Model_Resource_Url\\:\\:_getProductAttribute\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
