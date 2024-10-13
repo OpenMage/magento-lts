@@ -118,7 +118,7 @@ class Mage_Cms_Block_Adminhtml_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     /**
      * Row click url
      *
-     * @var Mage_Cms_Model_Block $row
+     * @param Mage_Cms_Model_Block $row
      * @return string
      */
     public function getRowUrl($row)

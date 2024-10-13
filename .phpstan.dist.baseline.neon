@@ -192,16 +192,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
 
@@ -3704,6 +3694,16 @@ parameters:
 			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
+
+		-
+			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Cms/Block/Adminhtml/Block/Edit/Form.php
+
+		-
+			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Cms/Block/Adminhtml/Page/Edit/Tab/Main.php
 
 		-
 			message: "#^Parameter \\#1 \\$attr of method Mage_ConfigurableSwatches_Helper_Data\\:\\:attrIsSwatchType\\(\\) expects int\\|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given\\.$#"
