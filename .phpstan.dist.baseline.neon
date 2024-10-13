@@ -1802,7 +1802,7 @@ parameters:
 
 		-
 			message: "#^Offset 'option_id' does not exist on array\\{final_price\\: mixed\\}\\.$#"
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
@@ -6806,11 +6806,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order.php
-
-		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
@@ -7816,11 +7811,6 @@ parameters:
 			path: app/code/core/Mage/Uploader/Model/Config/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
-			count: 5
-			path: app/code/core/Mage/Usa/Block/Adminhtml/Dhl/Unitofmeasure.php
-
-		-
 			message: "#^Parameter \\#2 \\$type of class Zend_Measure_Length constructor expects int\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Helper/Data.php
@@ -7941,11 +7931,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Invalid array key type strin\\.$#"
-			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -7968,11 +7953,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
-			count: 6
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
@@ -8016,11 +7996,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Parameter \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) has invalid type strin\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Property Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:\\$_request \\(Mage_Shipping_Model_Rate_Request\\|null\\) does not accept Varien_Object\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -8039,16 +8014,6 @@ parameters:
 			message: "#^Variable \\$packageType might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International/Source/Method/Size.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Usa_Model_Shipping_Carrier_Dhl_International\\:\\:getCode\\(\\) expects strin, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International/Source/Method/Unitofmeasure.php
 
 		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\:\\:drawText\\(\\) should return \\$this\\(Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\) but returns Zend_Pdf_Canvas_Interface\\.$#"
