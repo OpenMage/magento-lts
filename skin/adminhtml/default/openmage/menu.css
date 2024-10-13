@@ -133,7 +133,7 @@
   cursor: pointer;
 }
 #nav li.level1 > a.active:not(:hover), #nav li.level2 > a.active:not(:hover), #nav li.level3 > a.active:not(:hover) {
-  background: #e6e6e6;
+  background: #f4f4f4;
 }
 #nav li#bubblelauncher-status a {
   background-position: center 8px;
