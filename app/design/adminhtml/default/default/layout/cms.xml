@@ -18,7 +18,7 @@
 <layout>
     <adminhtml_cms_page_index>
         <reference name="content">
-            <block type="adminhtml/cms_page" name="cms_page"></block>
+            <block type="cms/adminhtml_page" name="cms_page"/>
         </reference>
     </adminhtml_cms_page_index>
 
@@ -29,14 +29,14 @@
     <adminhtml_cms_page_edit>
         <update handle="editor"/>
         <reference name="content">
-            <block type="adminhtml/cms_page_edit" name="cms_page_edit"></block>
+            <block type="cms/adminhtml_page_edit" name="cms_page_edit"/>
         </reference>
         <reference name="left">
-            <block type="adminhtml/cms_page_edit_tabs" name="cms_page_edit_tabs">
-                <block type="adminhtml/cms_page_edit_tab_main" name="cms_page_edit_tab_main" />
-                <block type="adminhtml/cms_page_edit_tab_content" name="cms_page_edit_tab_content" />
-                <block type="adminhtml/cms_page_edit_tab_design" name="cms_page_edit_tab_design" />
-                <block type="adminhtml/cms_page_edit_tab_meta" name="cms_page_edit_tab_meta" />
+            <block type="cms/adminhtml_page_edit_tabs" name="cms_page_edit_tabs">
+                <block type="cms/adminhtml_page_edit_tab_main" name="cms_page_edit_tab_main" />
+                <block type="cms/adminhtml_page_edit_tab_content" name="cms_page_edit_tab_content" />
+                <block type="cms/adminhtml_page_edit_tab_design" name="cms_page_edit_tab_design" />
+                <block type="cms/adminhtml_page_edit_tab_meta" name="cms_page_edit_tab_meta" />
                 <action method="addTab"><name>main_section</name><block>cms_page_edit_tab_main</block></action>
                 <action method="addTab"><name>content_section</name><block>cms_page_edit_tab_content</block></action>
                 <action method="addTab"><name>design_section</name><block>cms_page_edit_tab_design</block></action>
@@ -47,7 +47,7 @@
 
     <adminhtml_cms_block_index>
         <reference name="content">
-            <block type="adminhtml/cms_block" name="cms_block"></block>
+            <block type="cms/adminhtml_block" name="cms_block"/>
         </reference>
     </adminhtml_cms_block_index>
 
@@ -58,7 +58,7 @@
     <adminhtml_cms_block_edit>
         <update handle="editor"/>
         <reference name="content">
-            <block type="adminhtml/cms_block_edit" name="cms_block_edit"></block>
+            <block type="cms/adminhtml_block_edit" name="cms_block_edit"/>
         </reference>
     </adminhtml_cms_block_edit>
 
@@ -66,21 +66,21 @@
         <remove name="footer" />
         <remove name="head" />
         <reference name="left">
-            <block name="wysiwyg_images.js" type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/js.phtml" />
-            <block name="wysiwyg_images.tree" type="adminhtml/cms_wysiwyg_images_tree" template="cms/browser/tree.phtml" />
+            <block name="wysiwyg_images.js" type="cms/adminhtml_wysiwyg_images_content" template="cms/browser/js.phtml" />
+            <block name="wysiwyg_images.tree" type="cms/adminhtml_wysiwyg_images_tree" template="cms/browser/tree.phtml" />
         </reference>
         <reference name="content">
-            <block name="wysiwyg_images.content"  type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/content.phtml">
-                <block name="wysiwyg_images.uploader" type="adminhtml/cms_wysiwyg_images_content_uploader" template="media/uploader.phtml">
+            <block name="wysiwyg_images.content"  type="cms/adminhtml_wysiwyg_images_content" template="cms/browser/content.phtml">
+                <block name="wysiwyg_images.uploader" type="cms/adminhtml_wysiwyg_images_content_uploader" template="media/uploader.phtml">
                     <block name="additional_scripts" type="core/template" template="cms/browser/content/uploader.phtml"/>
                 </block>
-                <block name="wysiwyg_images.newfolder" type="adminhtml/cms_wysiwyg_images_content_newfolder" template="cms/browser/content/newfolder.phtml" />
+                <block name="wysiwyg_images.newfolder" type="cms/adminhtml_wysiwyg_images_content_newfolder" template="cms/browser/content/newfolder.phtml" />
             </block>
         </reference>
     </adminhtml_cms_wysiwyg_images_index>
 
     <adminhtml_cms_wysiwyg_images_contents>
-        <block name="wysiwyg_images.files" type="adminhtml/cms_wysiwyg_images_content_files" template="cms/browser/content/files.phtml" output="toHtml" />
+        <block name="wysiwyg_images.files" type="cms/adminhtml_wysiwyg_images_content_files" template="cms/browser/content/files.phtml" output="toHtml" />
     </adminhtml_cms_wysiwyg_images_contents>
 
 </layout>

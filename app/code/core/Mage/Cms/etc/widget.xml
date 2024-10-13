@@ -26,7 +26,7 @@
                 <label>CMS Page</label>
                 <type>label</type>
                 <helper_block>
-                    <type>adminhtml/cms_page_widget_chooser</type>
+                    <type>cms/adminhtml_page_widget_chooser</type>
                     <data>
                         <button translate="open">
                             <open>Select Page...</open>
@@ -74,7 +74,7 @@
                 <label>Block</label>
                 <type>label</type>
                 <helper_block>
-                    <type>adminhtml/cms_block_widget_chooser</type>
+                    <type>cms/adminhtml_block_widget_chooser</type>
                     <data>
                         <button translate="open">
                             <open>Select Block...</open>
