@@ -518,7 +518,7 @@ class Mage_Core_Model_Translate_Inline
             }
             $length = $end - $from  + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, 0, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;
