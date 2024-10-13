@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "babfb23d42286181f2f4a39b6851cf1f",
+    "content-hash": "014170838a27eff3750eaf32d0df205c",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1148,12 +1148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "3a8b635b2e3d855d5022a7257c47c5fc30684320"
+                "reference": "cf440e36409d345c5700ec640f673acd2d67047b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/3a8b635b2e3d855d5022a7257c47c5fc30684320",
-                "reference": "3a8b635b2e3d855d5022a7257c47c5fc30684320",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/cf440e36409d345c5700ec640f673acd2d67047b",
+                "reference": "cf440e36409d345c5700ec640f673acd2d67047b",
                 "shasum": ""
             },
             "require": {
