@@ -173,7 +173,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get Regions for specific Countries
-     * @param string $storeId
+     * @param string|int|null $storeId
      * @return array|null
      * @throws Mage_Core_Exception
      */

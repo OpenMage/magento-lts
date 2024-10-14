@@ -32,7 +32,8 @@ class Mage_Core_Model_Message_Collection
     /**
      * Adding new message to collection
      *
-     * @return  Mage_Core_Model_Message_Collection
+     * @param Mage_Core_Model_Message_Abstract $message
+     * @return Mage_Core_Model_Message_Collection
      */
     public function add(Mage_Core_Model_Message_Abstract $message)
     {
@@ -88,12 +89,12 @@ class Mage_Core_Model_Message_Collection
      * Get first even message by identifier
      *
      * @param string $identifier
-     * @return Mage_Core_Model_Message_Abstract|null
+     * @return Mage_Core_Model_Message_Abstract|void
      */
     public function getMessageByIdentifier($identifier)
     {
-        foreach ($this->_messages as $type => $messages) {
-            foreach ($messages as $id => $message) {
+        foreach ($this->_messages as $messages) {
+            foreach ($messages as $message) {
                 if ($identifier === $message->getIdentifier()) {
                     return $message;
                 }
