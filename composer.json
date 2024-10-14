@@ -115,6 +115,13 @@
                 "OM-2050 - Prevent checking known date codes": "https://raw.githubusercontent.com/OpenMage/composer-patches/74862e7a9fa29dd62c5c02d585d931ce9e3c5815/patches/OM-2050.patch"
             }
         },
+        "file-copy" : [{
+            "source": "tinymce/tinymce",
+            "target": "js/tinymce"
+        }, {
+            "source": "mklkj/tinymce-i18n/langs7",
+            "target": "js/tinymce/langs"
+        }],
         "magento-root-dir": ".",
         "magento-deploystrategy": "copy",
         "magento-deploystrategy-dev": "symlink",
