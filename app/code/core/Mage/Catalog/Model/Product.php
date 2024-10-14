@@ -662,6 +662,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param bool $skipSuper Not used
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function getAttributes($groupId = null, $skipSuper = false)
     {
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $productAttributes */
@@ -1307,7 +1308,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Create duplicate
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Product
      */
     public function duplicate()
     {

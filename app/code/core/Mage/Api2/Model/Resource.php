@@ -791,7 +791,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
-     * @return $this
+     * @return Mage_Api2_Model_Resource
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {

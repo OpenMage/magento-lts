@@ -144,7 +144,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             $data['value'] = $parameter->getValue();
             //prepare unique id value
             if ($fieldName == 'unique_id' && $data['value'] == '') {
-                $data['value'] = md5(microtime(1));
+                $data['value'] = md5((string)microtime(true));
             }
         }
 

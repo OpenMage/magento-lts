@@ -877,7 +877,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return parent category of current category with own custom design settings
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Category
      */
     public function getParentDesignCategory()
     {
