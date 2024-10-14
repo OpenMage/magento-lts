@@ -32,7 +32,6 @@ class Mage_Core_Model_Message_Collection
     /**
      * Adding new message to collection
      *
-     * @param Mage_Core_Model_Message_Abstract $message
      * @return Mage_Core_Model_Message_Collection
      */
     public function add(Mage_Core_Model_Message_Abstract $message)
