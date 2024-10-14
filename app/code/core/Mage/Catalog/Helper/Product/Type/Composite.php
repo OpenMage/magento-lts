@@ -76,7 +76,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $round
      * @param null|int $storeId
-     * @return float
+     * @return int|float
      */
     public function convertPrice($price, $round = false, $storeId = null)
     {
