@@ -61,11 +61,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^Return type \\(false\\) of method Mage_Adminhtml_Block_Cache_Grid\\:\\:getRowUrl\\(\\) should be compatible with return type \\(string\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:getRowUrl\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Attributes.php
