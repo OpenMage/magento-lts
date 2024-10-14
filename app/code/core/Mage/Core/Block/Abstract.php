@@ -1110,7 +1110,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param null|string|Zend_Date $date
+     * @param string|int|Zend_Date|null $date
      * @param string $format
      * @param bool $showTime
      * @return string
@@ -1125,7 +1125,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting timezone date
      *
-     * @param null|string|Zend_Date $date
+     * @param string|int|Zend_Date|null $date
      */
     public function formatTimezoneDate(
         $date = null,
