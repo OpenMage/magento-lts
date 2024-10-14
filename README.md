@@ -285,6 +285,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `catalog/search/search_separator`
 - `dev/log/max_level`
 - `newsletter/security/enable_form_key`
+- `rss/admin_order/new_period`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`

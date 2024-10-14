@@ -56,6 +56,7 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
             case 'has':
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')');
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')');
     }
 }

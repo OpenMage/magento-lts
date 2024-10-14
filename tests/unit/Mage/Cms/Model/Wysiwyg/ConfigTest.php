@@ -26,9 +26,6 @@ class ConfigTest extends TestCase
 {
     public const TEST_STRING = '0123456789';
 
-    /**
-     * @var Mage_Cms_Model_Wysiwyg_Config
-     */
     public Mage_Cms_Model_Wysiwyg_Config $subject;
 
     public function setUp(): void

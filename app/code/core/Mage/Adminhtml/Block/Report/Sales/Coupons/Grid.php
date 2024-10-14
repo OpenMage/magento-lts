@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * Add price rule filter
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Mage_SalesRule_Model_Resource_Report_Collection $collection
      * @param Varien_Object $filterData
      * @return Mage_Adminhtml_Block_Report_Grid_Abstract
      */
@@ -162,6 +162,6 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
             }
         }
 
-        return parent::_addCustomFilter($filterData, $collection);
+        return parent::_addCustomFilter($collection, $filterData);
     }
 }

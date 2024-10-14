@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
 {
-    /**
-     * @var Mage_Cms_Block_Widget_Page_Link
-     */
     public Mage_Cms_Block_Widget_Page_Link $subject;
 
     public function setUp(): void
