@@ -65,7 +65,8 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    level: 4
+    tmpDir: .phpstan.cache
+    level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false

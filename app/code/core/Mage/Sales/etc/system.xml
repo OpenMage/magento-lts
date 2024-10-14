@@ -62,6 +62,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </discount>
                         <grand_total translate="label">
                             <label>Grand Total</label>
@@ -69,6 +70,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </grand_total>
                         <shipping translate="label">
                             <label>Shipping</label>
@@ -76,6 +78,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </shipping>
                         <subtotal translate="label">
                             <label>Subtotal</label>
@@ -83,6 +86,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </subtotal>
                         <tax translate="label">
                             <label>Tax</label>
@@ -90,6 +94,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-digits validate-zero-or-greater</validate>
                         </tax>
                     </fields>
                 </totals_sort>
@@ -152,7 +157,6 @@
                         </address>
                     </fields>
                 </identity>
-
                 <minimum_order translate="label">
                     <label>Minimum Order Amount</label>
                     <sort_order>50</sort_order>
@@ -176,6 +180,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Subtotal after discount.</comment>
+                            <depends><active>1</active></depends>
                             <validate>validate-number</validate>
                         </amount>
                         <description translate="label comment">
@@ -186,6 +191,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>This message will be shown in shopping cart when subtotal after discount less than minimum amount.</comment>
+                            <depends><active>1</active></depends>
                         </description>
                         <error_message translate="label">
                             <label>Error to Show in Shopping Cart</label>
@@ -194,6 +200,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </error_message>
                         <multi_address translate="label">
                             <label>Validate Each Address Separately in Multi-address Checkout</label>
@@ -203,6 +210,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><active>1</active></depends>
                         </multi_address>
                         <multi_address_description translate="label comment">
                             <label>Multi-address Description Message</label>
@@ -212,6 +220,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>If empty, the default description above will be used.</comment>
+                            <depends><active>1</active></depends>
                         </multi_address_description>
                         <multi_address_error_message translate="label comment">
                             <label>Multi-address Error to Show in Shopping Cart</label>
@@ -221,6 +230,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>If empty, the default error above will be used.</comment>
+                            <depends><active>1</active></depends>
                         </multi_address_error_message>
                     </fields>
                 </minimum_order>
@@ -277,6 +287,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>New Order Confirmation Template</label>
@@ -286,6 +297,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>New Order Confirmation Template for Guest</label>
@@ -295,6 +307,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Order Email Copy To</label>
@@ -303,6 +316,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Email Copy Method</label>
@@ -312,10 +326,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </order>
-
                 <order_comment translate="label">
                     <label>Order Comments</label>
                     <sort_order>2</sort_order>
@@ -340,6 +354,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Order Comment Email Template</label>
@@ -349,6 +364,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Order Comment Email Template for Guest</label>
@@ -358,6 +374,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Order Comment Email Copy To</label>
@@ -366,6 +383,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Order Comments Email Copy Method</label>
@@ -375,10 +393,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </order_comment>
-
                 <invoice translate="label">
                     <label>Invoice</label>
                     <sort_order>3</sort_order>
@@ -403,6 +421,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Invoice Email Template</label>
@@ -412,6 +431,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Invoice Email Template for Guest</label>
@@ -421,6 +441,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Invoice Email Copy To</label>
@@ -429,6 +450,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Invoice Email Copy Method</label>
@@ -438,6 +460,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </invoice>
@@ -465,6 +488,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Invoice Comment Email Template</label>
@@ -474,6 +498,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Invoice Comment Email Template for Guest</label>
@@ -483,6 +508,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Invoice Comment Email Copy To</label>
@@ -491,6 +517,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Invoice Comments Email Copy Method</label>
@@ -500,10 +527,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </invoice_comment>
-
                 <shipment translate="label">
                     <label>Shipment</label>
                     <sort_order>5</sort_order>
@@ -528,6 +555,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Shipment Email Template</label>
@@ -537,6 +565,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Shipment Email Template for Guest</label>
@@ -546,6 +575,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Shipment Email Copy To</label>
@@ -554,6 +584,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Shipment Email Copy Method</label>
@@ -563,6 +594,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </shipment>
@@ -590,6 +622,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Shipment Comment Email Template</label>
@@ -599,6 +632,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Shipment Comment Email Template for Guest</label>
@@ -608,6 +642,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Shipment Comment Email Copy To</label>
@@ -616,6 +651,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Shipment Comments Email Copy Method</label>
@@ -625,10 +661,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </shipment_comment>
-
                 <creditmemo translate="label">
                     <label>Credit Memo</label>
                     <sort_order>7</sort_order>
@@ -653,6 +689,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Credit Memo Email Template</label>
@@ -662,6 +699,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Credit Memo Email Template for Guest</label>
@@ -671,6 +709,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Credit Memo Email Copy To</label>
@@ -679,6 +718,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Credit Memo Email Copy Method</label>
@@ -688,6 +728,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </creditmemo>
@@ -715,6 +756,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </identity>
                         <template translate="label">
                             <label>Credit Memo Comment Email Template</label>
@@ -724,6 +766,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </template>
                         <guest_template translate="label">
                             <label>Credit Memo Comment Email Template for Guest</label>
@@ -733,6 +776,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Credit Memo Comment Email Copy To</label>
@@ -741,6 +785,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Comma-separated.</comment>
+                            <depends><enabled>1</enabled></depends>
                         </copy_to>
                         <copy_method translate="label">
                             <label>Send Credit Memo Comments Email Copy Method</label>
@@ -750,6 +795,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </copy_method>
                     </fields>
                 </creditmemo_comment>
