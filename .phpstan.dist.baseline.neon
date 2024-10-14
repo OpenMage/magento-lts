@@ -311,16 +311,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Rating/Edit/Tab/Form.php
 
 		-
-			message: "#^Parameter \\#2 \\$min of function mktime expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Config/Form/Field/YtdStart.php
-
-		-
-			message: "#^Parameter \\#3 \\$sec of function mktime expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Config/Form/Field/YtdStart.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
