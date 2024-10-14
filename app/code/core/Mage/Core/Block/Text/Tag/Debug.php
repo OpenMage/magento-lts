@@ -31,10 +31,11 @@ class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
 
     /**
      * @param mixed $value
-     * @return Mage_Core_Block_Text_Tag_Debug
+     * @return $this
      */
     public function setValue($value)
     {
-        return $this->setContents(print_r($value, 1));
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        return $this->setContents(print_r($value, true));
     }
 }

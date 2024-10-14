@@ -442,7 +442,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      *
      * @param string $failPath redirect path if backup failed
      * @param array $arguments
-     * @return $this
+     * @return $this|void
      */
     protected function _backupDatabase($failPath, $arguments = [])
     {
@@ -468,11 +468,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         }
         return $this;
     }
