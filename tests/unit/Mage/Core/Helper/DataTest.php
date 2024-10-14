@@ -95,7 +95,7 @@ class DataTest extends TestCase
         $date           = date_create()->getTimestamp();
         $dateShort      = date('m/j/Y', $date);
         $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('m/j/Y h:i A', $date);
+        $dateShortTime  = date('m/j/Y g:i A', $date);
 
         yield 'null' => [
             $dateShort,
