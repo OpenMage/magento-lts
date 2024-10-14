@@ -417,7 +417,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * Wrapper for method "setData"
      *
-     * @param   string $name
+     * @param   array|string $name
      * @param   mixed $value
      * @return  $this
      */
@@ -1086,7 +1086,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Return block helper
      *
      * @param string $type
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getHelper($type)
     {
