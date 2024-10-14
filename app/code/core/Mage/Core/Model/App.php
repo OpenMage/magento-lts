@@ -364,8 +364,10 @@ class Mage_Core_Model_App
         } else {
             flush();
         }
-        if (session_status() === PHP_SESSION_ACTIVE) {  // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            session_write_close();                      // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            session_write_close();
         }
 
         try {
@@ -1270,8 +1272,10 @@ class Mage_Core_Model_App
      */
     public function cleanAllSessions()
     {
-        if (session_module_name() == 'files') {     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            $dir = session_save_path();             // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        if (session_module_name() == 'files') {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            $dir = session_save_path();
             mageDelTree($dir);
         }
         return $this;
