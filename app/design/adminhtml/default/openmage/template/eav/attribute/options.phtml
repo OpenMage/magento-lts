@@ -12,7 +12,8 @@
  * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
+?>
+<?php
 /**
  * Attribute options control
  *
@@ -82,9 +83,7 @@
                         <td style="position:relative">
                             <input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />
                             <input type="color" class="input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />
-                            <button title="Delete Swatch" type="button" class="scalable delete icon-btn swatch-delete" data-msg-delete="<?php echo $this->escapeHtml($this->__('Are you sure to delete this fallback color?')) ?>">
-                                <span><span><span>X</span></span></span>
-                            </button>
+                            <span class="swatch-delete" data-msg-delete="<?php echo $this->escapeHtml($this->__('Are you sure to delete this fallback color?')) ?>">X</span>
                         </td>
                         <?php endif ?>
                         <?php foreach ($this->getStores() as $_store): ?>
@@ -115,9 +114,7 @@ var templateText =
             '<td style="position:relative">'+
                 '<input type="hidden" disabled class="swatch-value" name="option[swatch][{{id}}]" value="{{swatch}}" />'+
                 '<input type="color" class="swatch-option input-color-html5 validate-hex-color-hash {{swatch_class}}" value="{{swatch}}" />'+
-                '<button title="Delete Swatch" type="button" class="scalable delete icon-btn swatch-delete" data-msg-delete="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure to delete this fallback color?')); ?>">'+
-                '<span><span><span>X</span></span></span>'+
-                '</button>'+
+                '<span class="swatch-delete" data-msg-delete="<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure to delete this fallback color?')); ?>">X</span>'+
             '</td>'+
         <?php endif ?>
 <?php foreach ($this->getStores() as $_store): ?>
@@ -192,7 +189,7 @@ var attributeOption = {
         }
     },
     swatchremove : function(event){
-        if (!confirm(event.target.closest('button').getAttribute('data-msg-delete'))) {
+        if (!confirm(event.target.getAttribute('data-msg-delete'))) {
             return;
         }
         let element = event.target.closest('tr');

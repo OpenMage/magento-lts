@@ -96,11 +96,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Form.php
 
 		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 3
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Edit/Tab/Main.php
-
-		-
 			message: "#^Parameter \\#1 \\$attributeId of method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAttributeById\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
@@ -166,11 +161,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
 
 		-
-			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Websites.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
@@ -204,16 +194,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
@@ -523,11 +503,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$addressId of method Mage_Customer_Model_Customer\\:\\:getAddressById\\(\\) expects int, null given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
 
 		-
@@ -1211,11 +1186,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/System/CurrencyController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_System_StoreController\\:\\:_backupDatabase\\(\\) should return \\$this\\(Mage_Adminhtml_System_StoreController\\) but empty return statement found\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/System/StoreController.php
-
-		-
 			message: "#^Variable \\$codeBase might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/System/StoreController.php
@@ -1507,11 +1477,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Api2_Model_Resource\\:\\:_create\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource.php
-
-		-
-			message: "#^Method Mage_Api2_Model_Resource\\:\\:_getSubModel\\(\\) should return \\$this\\(Mage_Api2_Model_Resource\\) but returns Mage_Api2_Model_Resource\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
@@ -2296,11 +2261,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Category\\:\\:getParentDesignCategory\\(\\) should return \\$this\\(Mage_Catalog_Model_Category\\) but returns Mage_Catalog_Model_Category\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category.php
-
-		-
 			message: "#^Cannot call method getRootCategoryId\\(\\) on int\\|string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
@@ -2487,11 +2447,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:canBeShowInCategory\\(\\) should return bool but returns string\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product\\:\\:duplicate\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but returns Mage_Catalog_Model_Product\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
@@ -3721,11 +3676,6 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Varien_Data_Collection_Db\\:\\:_fetchAll\\(\\) expects Zend_Db_Select, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
-
-		-
 			message: "#^Variable \\$query might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
@@ -3734,11 +3684,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$stack of function array_unshift expects array, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
-
-		-
-			message: "#^Method Mage_Core_Block_Abstract\\:\\:getHelper\\(\\) should return \\$this\\(Mage_Core_Block_Abstract\\) but returns Mage_Core_Block_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
 			message: "#^Method Mage_Core_Block_Abstract\\:\\:getParentBlock\\(\\) should return \\$this\\(Mage_Core_Block_Abstract\\) but returns Mage_Core_Block_Abstract\\.$#"
@@ -3754,26 +3699,6 @@ parameters:
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Block/Messages.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Profiler.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Mage_Core_Block_Abstract\\:\\:setAttribute\\(\\) expects string, array\\<string, string\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
-
-		-
-			message: "#^Parameter \\#1 \\$text of method Mage_Core_Block_Text_Tag\\:\\:setContents\\(\\) expects string, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\|false given\\.$#"
@@ -3961,17 +3886,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
-			message: "#^Method Mage_Core_Model_Config\\:\\:cleanCache\\(\\) should return \\$this\\(Mage_Core_Model_Config\\) but returns Mage_Core_Model_Config\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: "#^Method Mage_Core_Model_Config\\:\\:getNode\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: "#^Parameter \\#1 \\$fileName of method Mage_Core_Model_Config\\:\\:loadModulesConfiguration\\(\\) expects string, array\\<int, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
@@ -4247,11 +4162,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$select of method Varien_Data_Collection_Db\\:\\:_fetchAll\\(\\) expects Zend_Db_Select, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
 
@@ -5056,11 +4966,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:getFlatUpdateSelect\\(\\) should return \\$this\\(Mage_Eav_Model_Entity_Attribute_Abstract\\)\\|Varien_Db_Select but returns null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
 			message: "#^Property Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:\\$_backend \\(Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\) in empty\\(\\) is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
@@ -5126,22 +5031,12 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Varien_Data_Collection_Db\\:\\:_fetchAll\\(\\) expects Zend_Db_Select, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			message: "#^Parameter \\#2 \\$alias of method Varien_Db_Adapter_Interface\\:\\:quoteColumnAs\\(\\) expects string, null given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
 			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, array\\<int, string\\>\\|string\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
@@ -5476,11 +5371,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
 
 		-
-			message: "#^Method Mage_Index_Model_Lock\\:\\:getInstance\\(\\) should return \\$this\\(Mage_Index_Model_Lock\\) but returns Mage_Index_Model_Lock\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock.php
-
-		-
 			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\<string, int\\|string\\>\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Lock.php
@@ -5726,11 +5616,6 @@ parameters:
 			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
 
 		-
-			message: "#^Parameter \\#1 \\$get_as_float of function microtime expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paygate/Model/Authorizenet/Cards.php
-
-		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:cancelPartialAuthorization\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paygate/controllers/Adminhtml/Paygate/Authorizenet/PaymentController.php
@@ -5804,16 +5689,6 @@ parameters:
 			message: "#^Return type \\(false\\) of method Mage_Paypal_Block_Hosted_Pro_Info\\:\\:getCcTypeName\\(\\) should be compatible with return type \\(string\\|null\\) of method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Block/Hosted/Pro/Info.php
-
-		-
-			message: "#^Method Mage_Paypal_Block_Iframe\\:\\:_getBlock\\(\\) should return \\$this\\(Mage_Paypal_Block_Iframe\\) but returns Mage_Payment_Block_Form\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Iframe.php
-
-		-
-			message: "#^Property Mage_Paypal_Block_Iframe\\:\\:\\$_block \\(Mage_Payment_Block_Form\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Iframe.php
 
 		-
 			message: "#^Return type \\(false\\) of method Mage_Paypal_Block_Payflow_Link_Info\\:\\:getCcTypeName\\(\\) should be compatible with return type \\(string\\|null\\) of method Mage_Paypal_Block_Payment_Info\\:\\:getCcTypeName\\(\\)$#"
@@ -5974,11 +5849,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$spec of method Zend_Controller_Response_Abstract\\:\\:getBody\\(\\) expects bool, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Observer.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflow/Request.php
 
 		-
 			message: "#^Parameter \\#1 \\$payment of method Mage_Paypal_Model_Payflowlink\\:\\:_buildTokenRequest\\(\\) expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given\\.$#"
@@ -6499,16 +6369,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of static method Varien_Data_Form\\:\\:setFieldsetRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Sales/Block/Adminhtml/Report/Filter/Form.php
-
-		-
-			message: "#^Parameter \\#4 \\$after of method Varien_Data_Form_Element_Fieldset\\:\\:addField\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Adminhtml/Report/Filter/Form/Coupon.php
 
 		-
 			message: "#^Cannot call method setParentFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -7391,11 +7251,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Status/List.php
 
 		-
-			message: "#^Method Mage_Sales_Billing_AgreementController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Billing_AgreementController\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
-
-		-
 			message: "#^Variable \\$billingAgreement might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
@@ -7404,11 +7259,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$loginUrl of method Mage_Customer_Model_Session\\:\\:authenticate\\(\\) expects bool\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/OrderController.php
-
-		-
-			message: "#^Method Mage_Sales_Recurring_ProfileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Sales_Recurring_ProfileController\\) but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/Recurring/ProfileController.php
 
 		-
 			message: "#^Parameter \\#1 \\$combine of method Mage_SalesRule_Model_Observer\\:\\:_removeAttributeFromConditions\\(\\) expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given\\.$#"
@@ -7507,11 +7357,6 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
-
-		-
-			message: "#^Method Mage_Shipping_Model_Carrier_Abstract\\:\\:checkAvailableShipCountries\\(\\) should return \\$this\\(Mage_Shipping_Model_Carrier_Abstract\\)\\|bool\\|Mage_Core_Model_Abstract but returns Mage_Shipping_Model_Rate_Result_Error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
 
@@ -7804,11 +7649,6 @@ parameters:
 			message: "#^Variable \\$unitTax might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Uploader/Model/Config/Abstract.php
 
 		-
 			message: "#^Parameter \\#2 \\$type of class Zend_Measure_Length constructor expects int\\|null, string given\\.$#"
@@ -8326,11 +8166,6 @@ parameters:
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
 
 		-
-			message: "#^Parameter \\#1 \\$get_as_float of function microtime expects bool, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
@@ -8419,11 +8254,6 @@ parameters:
 			message: "#^Variable \\$cronMode might not be defined\\.$#"
 			count: 1
 			path: cron.php
-
-		-
-			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, int given\\.$#"
-			count: 1
-			path: get.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<0, max\\> and 0 is always true\\.$#"
@@ -8741,19 +8571,9 @@ parameters:
 			path: lib/Varien/Io/File.php
 
 		-
-			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, int given\\.$#"
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
 			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: "#^Parameter \\#2 \\$return of function print_r expects bool, int given\\.$#"
-			count: 1
-			path: lib/Varien/Object.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
