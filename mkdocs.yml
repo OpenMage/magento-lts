@@ -190,9 +190,10 @@ nav:
       - users/modules/email.md
       - users/modules/images.md
       - users/modules/logging.md
+      - users/modules/products.md
+      - users/modules/social.md
       - 'Payment':
           - users/modules/payment/bitcoin.md
-      - users/modules/products.md
       - 'Themes':
           - users/modules/themes/frontend.md
 #  - 'Blog':
