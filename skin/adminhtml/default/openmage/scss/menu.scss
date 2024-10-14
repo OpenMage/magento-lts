@@ -148,7 +148,7 @@
     &.level1, &.level2, &.level3 {
       > a {
         &.active:not(:hover) {
-          background: darken($white,10);
+          background: $wild_sand;
         }
       }
     }
