@@ -138,6 +138,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_designAttributes  = [
         'custom_design',
         'custom_design_from',
@@ -629,6 +630,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {
@@ -875,7 +877,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return parent category of current category with own custom design settings
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Category
      */
     public function getParentDesignCategory()
     {
