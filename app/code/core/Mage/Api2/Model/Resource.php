@@ -621,6 +621,7 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         throw new Mage_Api2_Exception($message, $code);
     }
 
@@ -657,6 +658,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _error($message, $code)
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->getResponse()->setException(new Mage_Api2_Exception($message, $code));
         return $this;
     }
@@ -789,7 +791,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
-     * @return $this
+     * @return Mage_Api2_Model_Resource
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {

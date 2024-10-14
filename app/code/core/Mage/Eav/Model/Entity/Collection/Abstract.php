@@ -106,6 +106,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function __construct($resource = null)
     {
         parent::__construct();
@@ -195,7 +196,8 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         } elseif (is_string($entity) || $entity instanceof Mage_Core_Model_Config_Element) {
             $this->_entity = Mage::getModel('eav/entity')->setType($entity);
         } else {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, 1)));
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, true)));
         }
         return $this;
     }
@@ -543,11 +545,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
         } else {
             if (isset($this->_joinFields[$attribute])) {
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($this->_getAttributeFieldName($attribute));
                 return $this;
             }
 
             if (isset($this->_staticFields[$attribute])) {
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group(sprintf('e.%s', $attribute));
                 return $this;
             }
@@ -561,9 +565,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if ($attrInstance->getBackend()->isStatic()) {
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($entityField);
             } else {
                 $this->_addAttributeJoin($attribute);
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
             }
         }
@@ -947,6 +953,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function save()
     {
         foreach ($this->getItems() as $item) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $item->save();
         }
         return $this;
@@ -960,6 +967,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function delete()
     {
         foreach ($this->getItems() as $k => $item) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $this->getEntity()->delete($item);
             unset($this->_items[$k]);
         }
@@ -1119,11 +1127,13 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!empty($selects)) {
                 try {
                     if (is_array($selects)) {
+                        // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                         $select = implode(' UNION ALL ', $selects);
                     } else {
                         $select = $selects;
                     }
 
+                    // phpcs:ignore Ecg.Performance.FetchAll.Found
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {
                     Mage::printException($e, $select);

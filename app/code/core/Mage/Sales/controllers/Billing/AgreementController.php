@@ -38,6 +38,8 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      * Action predispatch
      *
      * Check customer authentication
+     *
+     * @return $this|void
      */
     public function preDispatch()
     {
@@ -83,6 +85,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     /**
      * Wizard start action
      *
+     * @return $this|void
      */
     public function startWizardAction()
     {
