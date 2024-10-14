@@ -1001,11 +1001,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_System_Store\\:\\:__construct\\(\\) with return type void returns \\$this\\(Mage_Adminhtml_Model_System_Store\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Store.php
-
-		-
 			message: "#^Variable \\$values might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Store.php
@@ -3229,11 +3224,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$select of method Mage_CatalogIndex_Model_Resource_Data_Abstract\\:\\:_addAttributeFilter\\(\\) expects Varien_Db_Select, Zend_Db_Select given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Data/Grouped.php
-
-		-
-			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
 
 		-
 			message: "#^Parameter \\#3 \\$storeIds of method Mage_CatalogIndex_Model_Resource_Setup\\:\\:_setWebsiteInfo\\(\\) expects array, Mage_Core_Model_Website given\\.$#"
@@ -7021,31 +7011,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\)\\) of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:setConvertedPrice\\(\\) expects float, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Quote_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Option\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Option.php
-
-		-
 			message: "#^Call to Exception\\:\\:__construct\\(\\) on a separate line has no effect\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
@@ -8211,11 +8176,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
-			message: "#^Method Mage_Wishlist_Model_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Wishlist_Model_Item_Option\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Helper_Sales\\:\\:applySalableProductTypesFilter\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
@@ -8224,16 +8184,6 @@ parameters:
 			message: "#^Variable \\$item might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
-
-		-
-			message: "#^Method Mage_Wishlist_IndexController\\:\\:_addItemToWishList\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Wishlist_IndexController\\:\\:downloadCustomOptionAction\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 3
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: "#^Parameter \\#1 \\$qty of method Mage_Wishlist_Model_Item\\:\\:setQty\\(\\) expects int, float given\\.$#"
