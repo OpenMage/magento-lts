@@ -35,7 +35,7 @@ composer require colinmollenhour/perfect_watermarks
 
 #### Install
 ```bash
-composer require fballiano/openmage-image-cleane
+composer require fballiano/openmage-image-cleaner
 ```
 
 #### Source
