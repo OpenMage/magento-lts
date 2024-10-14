@@ -43,7 +43,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Current iframe block instance
      *
-     * @var Mage_Payment_Block_Form
+     * @var Mage_Paypal_Block_Iframe
      */
     protected $_block;
 
@@ -65,6 +65,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_paymentMethodCode = $paymentCode;
             $templatePath = str_replace('_', '', $paymentCode);
             $templateFile = "paypal/{$templatePath}/iframe.phtml";
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (file_exists(Mage::getDesign()->getTemplateFilename($templateFile))) {
                 $this->setTemplate($templateFile);
             } else {
@@ -76,18 +77,19 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     /**
      * Get current block instance
      *
-     * @return $this
+     * @return Mage_Paypal_Block_Iframe
      * @throws Mage_Core_Exception
      */
     protected function _getBlock()
     {
         if (!$this->_block) {
-            $this->_block = $this->getAction()
+            $block = $this->getAction()
                 ->getLayout()
                 ->createBlock('paypal/' . $this->_paymentMethodCode . '_iframe');
-            if (!$this->_block instanceof Mage_Paypal_Block_Iframe) {
+            if (!$block instanceof Mage_Paypal_Block_Iframe) {
                 Mage::throwException('Invalid block type');
             }
+            $this->_block = $block;
         }
 
         return $this->_block;
