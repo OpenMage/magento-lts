@@ -206,11 +206,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tags.php
 
 		-
-			message: "#^Parameter \\#1 \\$date of method Mage_Core_Block_Abstract\\:\\:formatDate\\(\\) expects string\\|null, int\\<min, \\-1\\>\\|int\\<1, max\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Sales.php
