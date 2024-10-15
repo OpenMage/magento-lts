@@ -31,7 +31,6 @@ $installer->run("
         CONSTRAINT `fk_oauth2_auth_code_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `{$installer->getTable('customer/entity')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
         INDEX `idx_oauth2_auth_code_created_at` (`created_at`),
         INDEX `idx_oauth2_auth_code_client_id` (`client_id`),
-        INDEX `idx_oauth2_auth_code_admin_id` (`admin_id`),
         INDEX `idx_oauth2_auth_code_customer_id` (`customer_id`)
     ) ENGINE=InnoDB;
 ");

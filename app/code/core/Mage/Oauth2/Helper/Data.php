@@ -36,7 +36,7 @@ class Mage_Oauth2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function generateRandomString($length)
     {
-        $bytes = openssl_random_pseudo_bytes(ceil($length / 2));
+        $bytes = openssl_random_pseudo_bytes((int) ceil($length / 2));
         return substr(bin2hex($bytes), 0, $length);
     }
 }
