@@ -11,6 +11,7 @@
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
+        "ext-ftp": "*",
         "ext-gd": "*",
         "ext-hash": "*",
         "ext-iconv": "*",
@@ -31,13 +32,16 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "1.24.0",
-        "symfony/polyfill-php74": "^1.29",
-        "symfony/polyfill-php80": "^1.29",
-        "symfony/polyfill-php81": "^1.29",
-        "symfony/polyfill-php82": "^1.29"
+        "symfony/polyfill-php74": "^1.31",
+        "symfony/polyfill-php80": "^1.31",
+        "symfony/polyfill-php81": "^1.31",
+        "symfony/polyfill-php82": "^1.31",
+        "symfony/polyfill-php83": "^1.31",
+        "symfony/polyfill-php84": "^1.31"
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
