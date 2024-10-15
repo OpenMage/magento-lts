@@ -83,7 +83,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process
+     * @return Mage_Index_Model_Process|null
      */
     public function getProcess()
     {
