@@ -8712,11 +8712,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 24
-			path: app/design/adminhtml/default/default/template/customer/tab/view.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 13
 			path: app/design/adminhtml/default/default/template/customer/tab/view/sales.phtml
 
