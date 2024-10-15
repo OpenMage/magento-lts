@@ -43,37 +43,35 @@ class Mage_Oauth2_Block_Adminhtml_Client_Grid extends Mage_Adminhtml_Block_Widge
      */
     protected function _prepareColumns()
     {
-        $helper = Mage::helper('oauth2');
-
         $this->addColumn('entity_id', [
-            'header' => $helper->__('Entity ID'),
+            'header' => $this->__('Entity ID'),
             'index'  => 'entity_id',
             'type'   => 'number',
         ]);
 
         $this->addColumn('secret', [
-            'header' => $helper->__('Secret'),
+            'header' => $this->__('Secret'),
             'index'  => 'secret',
         ]);
 
         $this->addColumn('redirect_uri', [
-            'header' => $helper->__('Redirect URI'),
+            'header' => $this->__('Redirect URI'),
             'index'  => 'redirect_uri',
         ]);
 
         $this->addColumn('grant_types', [
-            'header' => $helper->__('Grant Types'),
+            'header' => $this->__('Grant Types'),
             'index'  => 'grant_types',
         ]);
 
         $this->addColumn('created_at', [
-            'header' => $helper->__('Created At'),
+            'header' => $this->__('Created At'),
             'index'  => 'created_at',
             'type'   => 'datetime',
         ]);
 
         $this->addColumn('updated_at', [
-            'header' => $helper->__('Updated At'),
+            'header' => $this->__('Updated At'),
             'index'  => 'updated_at',
             'type'   => 'datetime',
         ]);

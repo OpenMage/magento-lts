@@ -20,11 +20,11 @@ class Mage_Oauth2_Block_Adminhtml_Client_Edit extends Mage_Adminhtml_Block_Widge
         $this->_controller = 'adminhtml_client';
         $this->_mode = 'edit';
 
-        $this->_updateButton('save', 'label', Mage::helper('oauth')->__('Save'));
+        $this->_updateButton('save', 'label', $this->__('Save'));
         $this->_updateButton('save', 'id', 'save_button');
-        $this->_updateButton('delete', 'label', Mage::helper('oauth')->__('Delete'));
+        $this->_updateButton('delete', 'label', $this->__('Delete'));
         $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+            $this->__('Are you sure you want to do this?')
         ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete', ['id' => $this->getModel()->getId()]) . '\'); return false;');
 
         if (!$this->_isAllowedAction('delete')) {
@@ -32,7 +32,7 @@ class Mage_Oauth2_Block_Adminhtml_Client_Edit extends Mage_Adminhtml_Block_Widge
         }
 
         $this->_addButton('save_and_continue', [
-            'label'     => Mage::helper('oauth')->__('Save and Continue Edit'),
+            'label'     => $this->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
             'class' => 'save'
         ], 100);
