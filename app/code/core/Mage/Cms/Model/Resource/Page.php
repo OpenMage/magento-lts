@@ -26,7 +26,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *
      * @var null|Mage_Core_Model_Store
      */
-    protected $_store  = null;
+    protected $_store = null;
 
     protected function _construct()
     {
@@ -35,11 +35,26 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
+        if ($object instanceof Mage_Cms_Model_Page) {
+            $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
+            if ($isUsedInConfig->count()) {
+                // prevent delete
+                $object->setId(null);
+                Mage::throwException(
+                    Mage::helper('cms')->__(
+                        'Cannot delete page, it is used in "%s".',
+                        implode(', ', $isUsedInConfig->getColumnValues('path'))
+                    )
+                );
+            }
+        }
+
         $condition = [
-            'page_id = ?'     => (int) $object->getId(),
+            'page_id = ?' => (int)$object->getId(),
         ];
 
         $this->_getWriteAdapter()->delete($this->getTable('cms/page_store'), $condition);
@@ -50,6 +65,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @param Mage_Cms_Model_Page $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -62,6 +78,19 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
+        }
+
+        if (!$object->getIsActive()) {
+            $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
+            if ($isUsedInConfig->count()) {
+                $object->setIsActive(true);
+                Mage::getSingleton('adminhtml/session')->addWarning(
+                    Mage::helper('cms')->__(
+                        'Cannot disable page, it is used in configuration "%s".',
+                        implode(', ', $isUsedInConfig->getColumnValues('path'))
+                    )
+                );
+            }
         }
 
         if (!$this->getIsUniquePageToStores($object)) {
@@ -103,7 +132,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
         if ($delete) {
             $where = [
-                'page_id = ?'     => (int) $object->getId(),
+                'page_id = ?' => (int)$object->getId(),
                 'store_id IN (?)' => $delete
             ];
 
@@ -115,8 +144,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
             foreach ($insert as $storeId) {
                 $data[] = [
-                    'page_id'  => (int) $object->getId(),
-                    'store_id' => (int) $storeId
+                    'page_id'  => (int)$object->getId(),
+                    'store_id' => (int)$storeId
                 ];
             }
 
@@ -239,8 +268,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     /**
      *  Check whether page identifier is numeric
      *
-     * @date Wed Mar 26 18:12:28 EET 2008
-     *
      * @return int|false
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
@@ -252,11 +279,32 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      *  Check whether page identifier is valid
      *
      *
-     *  @return   int|false
+     * @return   int|false
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
+    }
+
+    public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
+    {
+        $storeIds   = (array)$page->getStoreId();
+        $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
+        $config     = Mage::getResourceModel('core/config_data_collection')
+            ->addFieldToFilter('value', $page->getIdentifier())
+            ->addFieldToFilter('scope_id', ['in' => $storeIds]);
+
+        if (!is_null($paths)) {
+            $paths = Mage_Cms_Helper_Page::getUsedInStoreConfigPaths($paths);
+            $config->addFieldToFilter('path', ['in' => $paths]);
+        }
+
+        return $config;
+    }
+
+    public function isUsedInStoreConfig(?Mage_Cms_Model_Page $page = null, ?array $paths = []): bool
+    {
+        return (bool) $this->getUsedInStoreConfigCollection($page, $paths)->count();
     }
 
     /**
