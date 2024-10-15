@@ -639,7 +639,7 @@ class Varien_Object implements ArrayAccess
         }
         throw new Varien_Exception(
             // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')'
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'
         );
     }
 
