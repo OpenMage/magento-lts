@@ -141,6 +141,22 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             );
         }
 
+        $this->addRssFeedUrl();
+
+        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
+        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
+
+        return parent::_prepareColumns();
+    }
+
+    /**
+     * Add link to RSS feed when enabled for filtered store-view
+     *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function addRssFeedUrl()
+    {
         if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
             $storeId = null;
 
@@ -156,10 +172,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             }
         }
 
-        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
-        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
-
-        return parent::_prepareColumns();
+        return $this;
     }
 
     /**
