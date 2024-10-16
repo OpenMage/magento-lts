@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             );
         }
 
-        $this->addRssFeedUrl();
+        $this->addRssFeedLink();
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
@@ -155,7 +155,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function addRssFeedUrl()
+    public function addRssFeedLink()
     {
         if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
             $storeId = null;
