@@ -75,7 +75,6 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('adminhtml')->__('User ID'),
             'width'     => 5,
             'align'     => 'left',
-            'sortable'  => true,
             'index'     => 'user_id'
         ]);
 

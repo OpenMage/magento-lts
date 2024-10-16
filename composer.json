@@ -148,8 +148,8 @@
         "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
         "phpstan": "Run phpstan",
         "phpunit:test": "Run PHPUnit",
-        "phpunit:coverage": "Run PHPUnit with code coverage",
-        "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage",
+        "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
+        "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",
         "rector:test": "Run rector",
         "rector:fix": "Run rector and fix issues"
     }

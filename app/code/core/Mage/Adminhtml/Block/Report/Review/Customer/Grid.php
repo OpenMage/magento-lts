@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,11 +55,9 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('reports')->__('Action'),
-            'width'     => '100px',
+            'type'      => 'action',
+            'width'     => '100',
             'align'     => 'center',
-            'filter'    => false,
-            'sortable'  => false,
             'renderer'  => 'adminhtml/report_grid_column_renderer_customer',
             'is_system' => true
         ]);

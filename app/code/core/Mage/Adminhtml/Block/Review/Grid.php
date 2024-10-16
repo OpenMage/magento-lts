@@ -142,7 +142,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'header'    => Mage::helper('review')->__('Visible In'),
                 'index'     => 'stores',
                 'type'      => 'store',
-                'store_view' => true,
             ]);
         }
 
@@ -174,8 +173,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('adminhtml')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getReviewId',
                 'actions'   => [
@@ -192,8 +189,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                         'field'   => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false
             ]
         );
 
