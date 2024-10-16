@@ -29,6 +29,8 @@
  */
 class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
+    public const ENTITY = 'customer_address';
+
     protected $_customer;
 
     protected function _construct()

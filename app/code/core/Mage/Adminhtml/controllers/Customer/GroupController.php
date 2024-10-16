@@ -110,8 +110,14 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
             $customerGroup->load((int)$id);
         }
 
-        $taxClass = (int)$this->getRequest()->getParam('tax_class');
+        // save these fields for all groups except not logged in
+        if (is_null($id) || (int)$id !== Mage_Customer_Model_Group::NOT_LOGGED_IN_ID) {
+            $customerGroup->setCode((string)$this->getRequest()->getParam('code'));
+            $customerGroup->setCustomerAttributeSetId((int)$this->getRequest()->getParam('customer_attribute_set'));
+            $customerGroup->setCustomerAddressAttributeSetId((int)$this->getRequest()->getParam('customer_address_attribute_set'));
+        }
 
+        $taxClass = (int)$this->getRequest()->getParam('tax_class');
         if ($taxClass) {
             try {
                 $customerGroupCode = (string)$this->getRequest()->getParam('code');

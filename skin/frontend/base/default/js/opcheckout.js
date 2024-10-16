@@ -155,6 +155,7 @@ Checkout.prototype = {
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'guest'}}
             );
             Element.hide('register-customer-password');
+            $$('.register-customer-extra-fields').each(Element.hide);
             this.gotoSection('billing', true);
         }
         else if($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
@@ -164,6 +165,7 @@ Checkout.prototype = {
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'register'}}
             );
             Element.show('register-customer-password');
+            $$('.register-customer-extra-fields').each(Element.show);
             this.gotoSection('billing', true);
         }
         else{
