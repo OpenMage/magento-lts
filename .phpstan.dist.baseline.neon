@@ -76,16 +76,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Product.php
 
 		-
-			message: "#^Parameter \\#1 \\$setId of method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isInGroup\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tabs.php
-
-		-
-			message: "#^Parameter \\#1 \\$setId of method Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection\\:\\:setAttributeSetFilter\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tabs.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
@@ -2401,11 +2391,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product\\:\\:getDefaultAttributeSetId\\(\\) should return int but returns string\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:getPriceModel\\(\\) should return Mage_Bundle_Model_Product_Price but returns Mage_Catalog_Model_Product_Type_Price\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product.php
@@ -2991,16 +2976,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Compare/Item/Collection.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Resource_Product_Flat\\:\\:getTypeId\\(\\) should return int but returns string\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Flat.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:setEntity\\(\\) expects Mage_Eav_Model_Entity_Abstract, Mage_Core_Model_Resource_Abstract given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\\:\\:_getAttribute\\(\\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
@@ -3429,11 +3404,6 @@ parameters:
 			message: "#^Variable \\$select might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Resource/Advanced/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:setEntity\\(\\) expects Mage_Eav_Model_Entity_Abstract, Mage_Core_Model_Resource_Abstract given\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
 
 		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
@@ -5251,11 +5221,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Parameter \\#1 \\$typeId of method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection\\:\\:setEntityTypeFilter\\(\\) expects int, string\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Mage_Catalog_Model_Resource_Category_Collection\\:\\:getItemById\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
@@ -5274,11 +5239,6 @@ parameters:
 			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
-			message: "#^Parameter \\#1 \\$typeId of method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection\\:\\:setEntityTypeFilter\\(\\) expects int, string\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Abstract.php
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_ImportExport_Model_Export\\:\\:filterAttributeCollection\\(\\) expects Mage_Eav_Model_Resource_Entity_Attribute_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract\\|null given\\.$#"
