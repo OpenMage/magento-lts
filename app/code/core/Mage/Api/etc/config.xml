@@ -35,6 +35,16 @@
                 </config_api>
             </types>
         </cache>
+        <blocks>
+            <api>
+                <class>Mage_Api_Block</class>
+            </api>
+        </blocks>
+        <helpers>
+            <api>
+                <class>Mage_Api_Helper</class>
+            </api>
+        </helpers>
         <models>
             <api>
                 <class>Mage_Api_Model</class>
@@ -62,11 +72,6 @@
                 </entities>
             </api_resource>
         </models>
-        <helpers>
-            <api>
-                <class>Mage_Api_Helper</class>
-            </api>
-        </helpers>
         <resources>
             <api_setup>
                 <setup>

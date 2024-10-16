@@ -56,7 +56,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         $this->_initAction();
 
-        $this->_addContent($this->getLayout()->createBlock('adminhtml/api_roles'));
+        $this->_addContent($this->getLayout()->createBlock('api/adminhtml_roles'));
 
         $this->renderLayout();
     }
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
     {
         $this->getResponse()
             ->setBody($this->getLayout()
-            ->createBlock('adminhtml/api_grid_role')
+            ->createBlock('api/adminhtml_grid_role')
             ->toHtml());
     }
 
@@ -92,11 +92,11 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addLeft(
-            $this->getLayout()->createBlock('adminhtml/api_editroles')
+            $this->getLayout()->createBlock('api/adminhtml_editroles')
         );
         $resources = Mage::getModel('api/roles')->getResourcesList();
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/api_buttons')
+            $this->getLayout()->createBlock('api/adminhtml_buttons')
                 ->setRoleId($roleId)
                 ->setRoleInfo(Mage::getModel('api/roles')->load($roleId))
                 ->setTemplate('api/roleinfo.phtml')
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
     public function editrolegridAction()
     {
-        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_role_grid_user')->toHtml());
+        $this->getResponse()->setBody($this->getLayout()->createBlock('api/adminhtml_role_grid_user')->toHtml());
     }
 
     protected function _deleteUserFromRole($userId, $roleId)

@@ -46,16 +46,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Rules.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Rolesedit.php
-
-		-
-			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
@@ -1169,6 +1159,16 @@ parameters:
 			message: "#^Parameter \\#1 \\$ruleModel of method Mage_Adminhtml_Tax_RuleController\\:\\:_isValidRuleRequest\\(\\) expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Api/Block/Adminhtml/Tab/Rolesedit.php
+
+		-
+			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Api/Block/Adminhtml/Tab/Userroles.php
 
 		-
 			message: "#^Method Mage_Api_Model_Acl\\:\\:_getRoleRegistry\\(\\) should return Mage_Api_Model_Acl_Role_Registry but returns Zend_Acl_Role_Registry\\.$#"
