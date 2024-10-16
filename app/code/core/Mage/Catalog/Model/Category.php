@@ -314,7 +314,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve default attribute set id
      *
-     * @return string
+     * @return int
      */
     public function getDefaultAttributeSetId()
     {
