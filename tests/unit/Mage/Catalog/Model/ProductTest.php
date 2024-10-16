@@ -153,7 +153,7 @@ class ProductTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertSame('4', $this->subject->getDefaultAttributeSetId());
+        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
     /**

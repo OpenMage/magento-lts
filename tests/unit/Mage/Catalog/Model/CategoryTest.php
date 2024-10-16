@@ -38,7 +38,7 @@ class CategoryTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsString($this->subject->getDefaultAttributeSetId());
+        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
     /**
