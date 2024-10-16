@@ -155,7 +155,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
-    protected function addRssFeedUrl()
+    public function addRssFeedUrl()
     {
         if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
             $storeId = null;
