@@ -54,12 +54,10 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Init model
      * Load Website, Group and Store collections
-     *
-     * @return $this
      */
     public function __construct()
     {
-        return $this->reload();
+        $this->reload();
     }
 
     /**

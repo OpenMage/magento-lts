@@ -1524,7 +1524,7 @@ class Mage_Core_Model_App
     /**
      * Get either default or any store view
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|void
      */
     public function getAnyStoreView()
     {

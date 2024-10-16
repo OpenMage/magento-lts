@@ -135,13 +135,10 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
 
     /**
      * Clone option object
-     *
-     * @return $this
      */
     public function __clone()
     {
         $this->setId(null);
         $this->_item    = null;
-        return $this;
     }
 }
