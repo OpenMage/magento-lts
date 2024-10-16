@@ -17,7 +17,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  *
- * @method $this setAdditionalMessages(array $value)
+ * @method $this setAdditionalMessages(array|null $value)
  *
  * @method string getCartCouponCode()
  * @method $this setCartCouponCode(string $value)
@@ -44,9 +44,9 @@
  * @method int getLastAddedProductId()
  * @method $this setLastAddedProductId(int $value)
  * @method int getLastBillingAgreementId()
- * @method $this setLastBillingAgreementId(int $value)
+ * @method $this setLastBillingAgreementId(int|null $value)
  * @method int getLastOrderId()
- * @method $this setLastOrderId(int $value)
+ * @method $this setLastOrderId(int|null $value)
  * @method $this unsLastOrderId()
  * @method int getLastQuoteId()
  * @method $this setLastQuoteId(int $value)
@@ -55,9 +55,9 @@
  * @method $this setLastRealOrderId(string $value)
  * @method $this unsLastRealOrderId()
  * @method int getLastRecurringProfileIds()
- * @method $this setLastRecurringProfileIds(array $value)
+ * @method $this setLastRecurringProfileIds(array|null $value)
  * @method int getLastSuccessQuoteId()
- * @method $this setLastSuccessQuoteId(int $value)
+ * @method $this setLastSuccessQuoteId(int|null $value)
  * @method $this unsLastSuccessQuoteId()
  *
  * @method array getMethodData()
@@ -257,7 +257,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param int $quoteId
+     * @param int|null $quoteId
      */
     public function setQuoteId($quoteId)
     {
@@ -461,7 +461,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Session_Abstract|void
+     * @return $this
      */
     public function clear()
     {
@@ -469,6 +469,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);
+        return $this;
     }
 
     /**

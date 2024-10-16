@@ -275,7 +275,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param string|int $id
+     * @param string|null|int $id
      * @param string|null $field
      * @return $this
      */

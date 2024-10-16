@@ -61,11 +61,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
 		-
-			message: "#^Return type \\(false\\) of method Mage_Adminhtml_Block_Cache_Grid\\:\\:getRowUrl\\(\\) should be compatible with return type \\(string\\) of method Mage_Adminhtml_Block_Widget_Grid\\:\\:getRowUrl\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Attributes.php
@@ -306,16 +301,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Rating/Edit/Tab/Form.php
 
 		-
-			message: "#^Parameter \\#2 \\$min of function mktime expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Config/Form/Field/YtdStart.php
-
-		-
-			message: "#^Parameter \\#3 \\$sec of function mktime expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Config/Form/Field/YtdStart.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
@@ -494,11 +479,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of static method Varien_Data_Form\\:\\:setFieldsetRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$addressId of method Mage_Customer_Model_Customer\\:\\:getAddressById\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\\:\\:getEntity\\(\\) should return Varien_Object but returns Mage_Eav_Model_Entity_Abstract\\.$#"
@@ -776,11 +756,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function number_format expects float, string\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\\:\\:setClassTypeFilter\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Edit/Form.php
@@ -906,21 +881,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
 
 		-
-			message: "#^Parameter \\#1 \\$sectionNode of method Mage_Adminhtml_Model_Config\\:\\:getAttributeModule\\(\\) expects Varien_Simplexml_Element\\|null, array\\<Varien_Simplexml_Element\\>\\|false\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
-			message: "#^Parameter \\#2 \\$groupNode of method Mage_Adminhtml_Model_Config\\:\\:getAttributeModule\\(\\) expects Varien_Simplexml_Element\\|null, array\\<Varien_Simplexml_Element\\>\\|false\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
-			message: "#^Parameter \\#3 \\$fieldNode of method Mage_Adminhtml_Model_Config\\:\\:getAttributeModule\\(\\) expects Varien_Simplexml_Element\\|null, array\\<Varien_Simplexml_Element\\>\\|false\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Config.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Model_Config\\:\\:\\$_config \\(Mage_Core_Model_Config_Base\\) does not accept Varien_Simplexml_Config\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Config.php
@@ -1004,11 +964,6 @@ parameters:
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Store\\:\\:__construct\\(\\) with return type void returns \\$this\\(Mage_Adminhtml_Model_System_Store\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Store.php
 
 		-
 			message: "#^Variable \\$values might not be defined\\.$#"
@@ -1211,11 +1166,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method Mage_Core_Model_Abstract\\:\\:load\\(\\) expects int\\|string, null given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
 			message: "#^Parameter \\#1 \\$ruleModel of method Mage_Adminhtml_Tax_RuleController\\:\\:_isValidRuleRequest\\(\\) expects Mage_Tax_Model_Calculation_Rule, Mage_Core_Model_Abstract given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RuleController.php
@@ -1263,11 +1213,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
-			path: app/code/core/Mage/Api/Model/Roles.php
-
-		-
-			message: "#^Parameter \\#3 \\$level of method Mage_Api_Model_Roles\\:\\:_buildResourcesArray\\(\\) expects int, null given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Api/Model/Roles.php
 
 		-
@@ -2266,11 +2211,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
 		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Catalog_Helper_Product\\:\\:getProduct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Api.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
@@ -2529,11 +2469,6 @@ parameters:
 			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
-
-		-
-			message: "#^Parameter \\#2 \\$store of method Mage_Catalog_Helper_Product\\:\\:getProduct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Link/Api.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
@@ -2861,11 +2796,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Parameter \\#1 \\$children of method Varien_Data_Tree_Dbp\\:\\:addChildNodes\\(\\) expects Varien_Data_Tree_Node, array\\<string, array\\<int, mixed\\>\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
-
-		-
 			message: "#^Parameter \\#1 \\$connection of method Varien_Data_Tree_Dbp\\:\\:__construct\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
@@ -2952,11 +2882,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Url\\:\\:refreshProductRewrites\\(\\) invoked with 3 parameters, 1 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Urlkey.php
-
-		-
-			message: "#^Parameter \\#1 \\$storeId of method Mage_Catalog_Model_Url\\:\\:refreshProductRewrites\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Urlkey.php
 
@@ -3236,11 +3161,6 @@ parameters:
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Data/Grouped.php
 
 		-
-			message: "#^Method Mage_CatalogIndex_Model_Resource_Indexer_Abstract\\:\\:saveIndex\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Resource/Indexer/Abstract.php
-
-		-
 			message: "#^Parameter \\#3 \\$storeIds of method Mage_CatalogIndex_Model_Resource_Setup\\:\\:_setWebsiteInfo\\(\\) expects array, Mage_Core_Model_Website given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogIndex/Model/Resource/Setup.php
@@ -3262,11 +3182,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_CatalogInventory_Model_Observer\\:\\:_getQuoteItemQtyForCheck\\(\\) should return int but returns float\\.$#"
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method Mage_Sales_Model_Quote\\:\\:removeErrorInfosByParams\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
 
@@ -3611,11 +3526,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Observer.php
 
 		-
-			message: "#^Parameter \\#1 \\$quoteId of method Mage_Checkout_Model_Session\\:\\:setQuoteId\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Session.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Order\\:\\:createFromQuoteAddress\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
@@ -3826,32 +3736,12 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
-			message: "#^Method Mage_Core_Model_App\\:\\:getAnyStoreView\\(\\) should return Mage_Core_Model_Store but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: "#^Method Mage_Core_Model_App\\:\\:getResponse\\(\\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Http\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
 			message: "#^Parameter \\#1 \\$group of method Mage_Core_Model_App\\:\\:_getStoreByGroup\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Parameter \\#1 \\$group of method Mage_Core_Model_Store\\:\\:setGroup\\(\\) expects Mage_Core_Model_Store_Group, Varien_Object\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Parameter \\#1 \\$website of method Mage_Core_Model_Store\\:\\:setWebsite\\(\\) expects Mage_Core_Model_Website, Varien_Object\\|null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: "#^Parameter \\#1 \\$website of method Mage_Core_Model_Store_Group\\:\\:setWebsite\\(\\) expects Mage_Core_Model_Website, Varien_Object\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -4001,11 +3891,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Email/Template/Filter.php
 
 		-
-			message: "#^Parameter \\#2 \\$name of method Mage_Core_Model_Layout\\:\\:createBlock\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Template/Filter.php
-
-		-
 			message: "#^Call to an undefined method Varien_Crypt_Abstract\\:\\:init\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Encryption.php
@@ -4114,11 +3999,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$value of method Zend_Locale\\:\\:getTranslationList\\(\\) expects string\\|null, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Locale.php
-
-		-
-			message: "#^Method Mage_Core_Model_Message_Collection\\:\\:getMessageByIdentifier\\(\\) should return Mage_Core_Model_Message_Abstract\\|null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Message/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Type_Abstract\\:\\:getConnection\\(\\)\\.$#"
@@ -4652,11 +4532,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Directory_Helper_Data\\:\\:getCountryCollection\\(\\) should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#1 \\$storeId of method Mage_Directory_Helper_Data\\:\\:_getRegions\\(\\) expects string, int\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Directory/Helper/Data.php
 
@@ -5401,16 +5276,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
 
 		-
-			message: "#^Parameter \\#1 \\$namespace of method Mage_Index_Model_Event\\:\\:setDataNamespace\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Process.php
-
-		-
-			message: "#^Parameter \\#1 \\$process of method Mage_Index_Model_Event\\:\\:setProcess\\(\\) expects Mage_Index_Model_Process, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Process.php
-
-		-
 			message: "#^Parameter \\#2 \\$status of method Mage_Index_Model_Event\\:\\:addProcessId\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Process.php
@@ -5593,11 +5458,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$payment of method Mage_Paygate_Model_Authorizenet\\:\\:_registerCard\\(\\) expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given\\.$#"
 			count: 2
-			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
-
-		-
-			message: "#^Parameter \\#3 \\$lastTransactionId of method Mage_Paygate_Helper_Data\\:\\:getExtendedTransactionMessage\\(\\) expects string, null given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Paygate/Model/Authorizenet.php
 
 		-
@@ -7026,31 +6886,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Item.php
 
 		-
-			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Return type \\(void\\) of method Mage_Sales_Model_Quote_Item\\:\\:__clone\\(\\) should be compatible with return type \\(\\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\)\\) of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Quote_Item_Abstract\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Abstract\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method Mage_Sales_Model_Quote_Item_Abstract\\:\\:setConvertedPrice\\(\\) expects float, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Abstract.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Quote_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Sales_Model_Quote_Item_Option\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Item/Option.php
-
-		-
 			message: "#^Call to Exception\\:\\:__construct\\(\\) on a separate line has no effect\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
@@ -8216,11 +8051,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
 		-
-			message: "#^Method Mage_Wishlist_Model_Item_Option\\:\\:__clone\\(\\) with return type void returns \\$this\\(Mage_Wishlist_Model_Item_Option\\) but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Helper_Sales\\:\\:applySalableProductTypesFilter\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
@@ -8229,16 +8059,6 @@ parameters:
 			message: "#^Variable \\$item might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
-
-		-
-			message: "#^Method Mage_Wishlist_IndexController\\:\\:_addItemToWishList\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Wishlist_IndexController\\:\\:downloadCustomOptionAction\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 3
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: "#^Parameter \\#1 \\$qty of method Mage_Wishlist_Model_Item\\:\\:setQty\\(\\) expects int, float given\\.$#"
@@ -8441,16 +8261,6 @@ parameters:
 			path: lib/Varien/Data/Tree.php
 
 		-
-			message: "#^Parameter \\#1 \\$children of method Varien_Data_Tree_Dbp\\:\\:_addChildNodes\\(\\) expects Varien_Data_Tree_Node, array\\<string, array\\<int, mixed\\>\\> given\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
-			message: "#^Parameter \\#1 \\$children of method Varien_Data_Tree_Dbp\\:\\:addChildNodes\\(\\) expects Varien_Data_Tree_Node, array\\<string, array\\<int, mixed\\>\\> given\\.$#"
-			count: 1
-			path: lib/Varien/Data/Tree/Dbp.php
-
-		-
 			message: "#^Method Varien_Data_Tree\\:\\:load\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Node.php
@@ -8624,11 +8434,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$timestamp of function gmdate expects int, float given\\.$#"
 			count: 1
 			path: shell/indexer.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method Mage_Cms_Model_Page\\:\\:load\\(\\) expects int\\|string, null given\\.$#"
-			count: 1
-			path: tests/unit/Mage/Cms/Model/PageTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$str of method Mage_Core_Helper_String\\:\\:splitWords\\(\\) expects string, null given\\.$#"
