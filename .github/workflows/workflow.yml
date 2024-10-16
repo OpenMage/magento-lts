@@ -7,6 +7,7 @@ on:
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
+      - '**.phtml'
       - '**.js'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
@@ -22,6 +23,7 @@ on:
       - 'composer.json'
       - 'composer.lock'
       - '**.php'
+      - '**.phtml'
       - '**.js'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
@@ -87,6 +89,7 @@ jobs:
     needs: [check, composer]
     if: |
       needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
       needs.check.outputs.phpstan > 0 ||
       needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
