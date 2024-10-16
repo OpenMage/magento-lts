@@ -35,7 +35,7 @@ class HeaderTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
 //    public function testGetIsHomePage(): void
 //    {
@@ -44,7 +44,7 @@ class HeaderTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testSetLogo(): void
     {
@@ -53,7 +53,7 @@ class HeaderTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetLogoSrc(): void
     {
@@ -62,7 +62,7 @@ class HeaderTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetLogoSrcSmall(): void
     {
@@ -71,7 +71,7 @@ class HeaderTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetLogoAlt(): void
     {

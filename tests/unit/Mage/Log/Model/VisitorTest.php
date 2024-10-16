@@ -34,6 +34,7 @@ class VisitorTest extends TestCase
     /**
      * @group Mage_Log
      * @group Mage_Log_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testInitServerData(): void
@@ -44,6 +45,7 @@ class VisitorTest extends TestCase
     /**
      * @group Mage_Log
      * @group Mage_Log_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetOnlineMinutesInterval(): void
@@ -54,6 +56,7 @@ class VisitorTest extends TestCase
     /**
      * @group Mage_Log
      * @group Mage_Log_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetUrl(): void
@@ -64,6 +67,7 @@ class VisitorTest extends TestCase
     /**
      * @group Mage_Log
      * @group Mage_Log_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetFirstVisitAt(): void
@@ -74,6 +78,7 @@ class VisitorTest extends TestCase
     /**
      * @group Mage_Log
      * @group Mage_Log_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetLastVisitAt(): void

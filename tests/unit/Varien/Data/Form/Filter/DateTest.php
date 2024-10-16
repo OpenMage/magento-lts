@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 use Varien_Data_Form_Filter_Date;
@@ -31,23 +32,46 @@ class DateTest extends TestCase
     }
 
     /**
+     * @dataProvider provideFilterDateData
+     *
      * @group Varien_Data
      */
-    public function testInputFilter(): void
+    public function testInputFilter(?string $expectedResult, ?string $value): void
     {
-        $this->assertEquals('', $this->subject->inputFilter(''));
-        $this->assertEquals(null, $this->subject->inputFilter(null));
-        $this->assertEquals('1990-05-18', $this->subject->inputFilter('1990-05-18'));
-        $this->assertEquals('0090-05-18', $this->subject->inputFilter('90-05-18'));
-        $this->assertEquals('1990-05-08', $this->subject->inputFilter('1990-5-8'));
-        $this->assertEquals('1970-01-01', $this->subject->inputFilter('1970-01-01'));
-
         try {
-            $this->subject->inputFilter('1990-18-18');
+            $this->assertSame($expectedResult, $this->subject->inputFilter($value));
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            $this->assertStringStartsWith('bcsub():', $e->getMessage());
+            $this->assertStringStartsWith((string) $expectedResult, $e->getMessage());
         }
+    }
+
+    public function provideFilterDateData(): Generator
+    {
+        yield 'bcsub() exception' => [
+            'bcsub():',
+            '1990-18-18',
+        ];
+        yield 'null' => [
+            null,
+            null,
+        ];
+        yield 'empty' => [
+            '',
+            '',
+        ];
+        yield 'YYYYMMDD' => [
+            '1990-05-18',
+            '1990-05-18',
+        ];
+        yield 'YYMMDD' => [
+            '0090-05-18',
+            '90-05-18',
+        ];
+        yield 'YYYYMD' => [
+            '1990-05-08',
+            '1990-5-8',
+        ];
     }
 }

@@ -37,6 +37,13 @@ class CustomerTest extends TestCase
      */
     public function testGetLoginAtTimestamp(): void
     {
-        $this->assertNull($this->subject->getLoginAtTimestamp());
+        $mock = $this->getMockBuilder(Mage_Log_Model_Customer::class)
+            ->setMethods(['getLoginAt'])
+            ->getMock();
+
+        $this->assertNull($mock->getLoginAtTimestamp());
+
+        $mock->expects($this->any())->method('getLoginAt')->willReturn(true);
+        $this->assertIsInt($mock->getLoginAtTimestamp());
     }
 }
