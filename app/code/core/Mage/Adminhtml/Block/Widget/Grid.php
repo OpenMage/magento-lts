@@ -381,6 +381,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             # should be called only once
             if ($configNode === false) {
                 Mage::app()->getCacheInstance()->cleanType('config');
+                $configNode = Mage::getConfig()->getNode('grid/column/default');
             }
             $config = $configNode->asArray();
             array_walk_recursive($config, function (&$value, $key) {
