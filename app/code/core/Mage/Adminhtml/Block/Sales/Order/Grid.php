@@ -142,9 +142,13 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         }
 
         if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
+            $storeId = null;
+
             $filterString = $this->getParam($this->getVarNameFilter(), '');
-            $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
-            $storeId = array_key_exists('store_id', $filter) ? $filter['store_id'] : null;
+            if ($filterString) {
+                $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
+                $storeId = array_key_exists('store_id', $filter) ? $filter['store_id'] : null;
+            }
 
             if (Mage::helper('rss')->isRssAdminOrderNewEnabled($storeId)) {
                 $slug = $storeId ? '/store/' . $storeId : '';
