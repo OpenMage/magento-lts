@@ -76,7 +76,7 @@ class Mage_Paypal_Model_Ipn
      */
     public function getRequestData($key = null)
     {
-        if ($key === null) {
+        if (is_null($key)) {
             return $this->_request;
         }
         return $this->_request[$key] ?? null;

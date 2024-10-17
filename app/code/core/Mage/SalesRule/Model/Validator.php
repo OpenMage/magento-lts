@@ -743,7 +743,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     public function processShippingAmount(Mage_Sales_Model_Quote_Address $address)
     {
         $shippingAmount = $address->getShippingAmountForDiscount();
-        if ($shippingAmount !== null) {
+        if (!is_null($shippingAmount)) {
             $baseShippingAmount = $address->getBaseShippingAmountForDiscount();
         } else {
             $shippingAmount     = $address->getShippingAmount();
@@ -1001,7 +1001,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     protected function _getItemBasePrice($item)
     {
         $price = $item->getDiscountCalculationPrice();
-        return ($price !== null) ? $item->getBaseDiscountCalculationPrice() : $item->getBaseCalculationPrice();
+        return (!is_null($price)) ? $item->getBaseDiscountCalculationPrice() : $item->getBaseCalculationPrice();
     }
 
     /**

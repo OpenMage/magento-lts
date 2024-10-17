@@ -69,7 +69,7 @@ class Mage_Api2_Model_Auth_Adapter
             if ($adapterModel->isApplicableToRequest($request)) {
                 $userParams = $adapterModel->getUserParams($request);
 
-                if ($userParams->type !== null) {
+                if (!is_null($userParams->type)) {
                     return $userParams;
                 }
                 throw new Mage_Api2_Exception('Can not determine user type', Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);

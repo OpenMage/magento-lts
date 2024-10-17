@@ -61,7 +61,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
         parent::load($printQuery, $logQuery);
         $this->_setIsLoaded();
 
-        if ($this->_columnGroupBy !== null) {
+        if (!is_null($this->_columnGroupBy)) {
             $this->_mergeWithEmptyData();
             $this->_groupResourceData();
         }

@@ -138,7 +138,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function getMainTable()
     {
-        if ($this->_mainTable === null) {
+        if (is_null($this->_mainTable)) {
             $this->setMainTable($this->getResource()->getMainTable());
         }
 
@@ -157,7 +157,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $table = $this->getTable($table);
         }
 
-        if ($this->_mainTable !== null && $table !== $this->_mainTable && $this->getSelect() !== null) {
+        if (!is_null($this->_mainTable) && $table !== $this->_mainTable && !is_null($this->getSelect())) {
             $from = $this->getSelect()->getPart(Zend_Db_Select::FROM);
             if (isset($from['main_table'])) {
                 $from['main_table']['tableName'] = $table;
@@ -218,7 +218,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
         $columnsToSelect = array_keys($columnsToSelect);
 
-        if ($this->_fieldsToSelect !== null) {
+        if (!is_null($this->_fieldsToSelect)) {
             $insertIndex = 0;
             foreach ($this->_fieldsToSelect as $alias => $field) {
                 if (!is_string($alias)) {
@@ -231,9 +231,9 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                     $column = $field;
                 }
 
-                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
+                if ((!is_null($alias) && in_array($alias, $columnsToSelect)) ||
                     // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))
+                    (is_null($alias) && isset($alias, $columnsToSelect))
                 ) {
                     continue;
                 }
@@ -258,7 +258,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _getInitialFieldsToSelect()
     {
-        if ($this->_initialFieldsToSelect === null) {
+        if (is_null($this->_initialFieldsToSelect)) {
             $this->_initialFieldsToSelect = [];
             $this->_initInitialFieldsToSelect();
         }
@@ -296,7 +296,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         }
 
         if (is_array($field)) {
-            if ($this->_fieldsToSelect === null) {
+            if (is_null($this->_fieldsToSelect)) {
                 $this->_fieldsToSelect = $this->_getInitialFieldsToSelect();
             }
 
@@ -311,7 +311,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             return $this;
         }
 
-        if ($alias === null) {
+        if (is_null($alias)) {
             $this->_fieldsToSelect[] = $field;
         } else {
             $this->_fieldsToSelect[$alias] = $field;
@@ -496,7 +496,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function getData()
     {
-        if ($this->_data === null) {
+        if (is_null($this->_data)) {
             $this->_renderFilters()
                  ->_renderOrders()
                  ->_renderLimit();

@@ -934,7 +934,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 ->getRulePrice(Mage::app()->getLocale()->storeTimeStamp($store), $wId, $gId, $productId);
         }
 
-        if ($rulePrice !== null && $rulePrice !== false) {
+        if (!is_null($rulePrice) && $rulePrice !== false) {
             $finalPrice = min($finalPrice, $rulePrice);
         }
 

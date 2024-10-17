@@ -35,7 +35,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
      */
     public function getModel()
     {
-        if ($this->_model === null) {
+        if (is_null($this->_model)) {
             $this->_model = Mage::registry('current_consumer');
         }
         return $this->_model;

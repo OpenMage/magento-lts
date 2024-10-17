@@ -59,7 +59,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      */
     protected function _getReadAdapter()
     {
-        if ($this->_readAdapter === null) {
+        if (is_null($this->_readAdapter)) {
             $this->_readAdapter = $this->_getConnection('read');
         }
 
@@ -73,7 +73,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      */
     protected function _getWriteAdapter()
     {
-        if ($this->_writeAdapter === null) {
+        if (is_null($this->_writeAdapter)) {
             $this->_writeAdapter = $this->_getConnection('write');
         }
 
@@ -306,7 +306,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
          * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null.
          * It just means that default value not specified, and we must remove it from column definition.
          */
-        if ($column['is_null'] === false && $column['default'] === null) {
+        if ($column['is_null'] === false && is_null($column['default'])) {
             unset($result['default']);
         }
 

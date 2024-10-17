@@ -114,7 +114,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (!isset($this->_queryText)) {
             $this->_queryText = $this->_getRequest()->getParam($this->getQueryParamName());
-            if ($this->_queryText === null) {
+            if (is_null($this->_queryText)) {
                 $this->_queryText = '';
             } else {
                 /** @var Mage_Core_Helper_String $stringHelper */

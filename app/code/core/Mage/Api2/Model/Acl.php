@@ -75,7 +75,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _getRolesCollection()
     {
-        if ($this->_rolesCollection === null) {
+        if (is_null($this->_rolesCollection)) {
             $this->_rolesCollection = Mage::getResourceModel('api2/acl_global_role_collection');
         }
         return $this->_rolesCollection;
@@ -88,7 +88,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _getConfig()
     {
-        if ($this->_config === null) {
+        if (is_null($this->_config)) {
             $this->_config = Mage::getModel('api2/config');
         }
         return $this->_config;

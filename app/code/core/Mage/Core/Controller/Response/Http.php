@@ -83,7 +83,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         /**
          * Use single transport object instance
          */
-        if (self::$_transportObject === null) {
+        if (is_null(self::$_transportObject)) {
             self::$_transportObject = new Varien_Object();
         }
         self::$_transportObject->setUrl($url);

@@ -517,7 +517,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $rulePrice = Mage::getResourceModel('catalogrule/rule')
             ->getRulePrice($storeTimeStamp, $website->getId(), $customerGroup->getId(), $productId);
 
-        if ($rulePrice !== null && $rulePrice !== false) {
+        if (!is_null($rulePrice) && $rulePrice !== false) {
             $finalPrice = min($finalPrice, $rulePrice);
         }
 

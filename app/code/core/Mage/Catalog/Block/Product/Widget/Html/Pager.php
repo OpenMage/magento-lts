@@ -55,7 +55,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCollectionSize()
     {
-        if ($this->_collectionSize === null) {
+        if (is_null($this->_collectionSize)) {
             $this->_collectionSize = $this->getCollection()->getSize();
             if ($this->getTotalLimit() && $this->_collectionSize > $this->getTotalLimit()) {
                 $this->_collectionSize = $this->getTotalLimit();
@@ -73,7 +73,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getCurrentPage()
     {
-        if ($this->_currentPage === null) {
+        if (is_null($this->_currentPage)) {
             $page = abs((int)$this->getRequest()->getParam($this->getPageVarName()));
             if ($page > $this->getLastPageNum()) {
                 $this->_currentPage = $this->getLastPageNum();
@@ -166,7 +166,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getLastPageNum()
     {
-        if ($this->_lastPage === null) {
+        if (is_null($this->_lastPage)) {
             $this->_lastPage = ceil($this->getCollectionSize() / $this->getLimit());
             if ($this->_lastPage <= 0) {
                 $this->_lastPage = 1;

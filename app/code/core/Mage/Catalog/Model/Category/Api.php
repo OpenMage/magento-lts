@@ -40,11 +40,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
 
         // load root categories of website
-        if ($website !== null) {
+        if (!is_null($website)) {
             try {
                 $website = Mage::app()->getWebsite($website);
-                if ($store === null) {
-                    if ($categoryId === null) {
+                if (is_null($store)) {
+                    if (is_null($categoryId)) {
                         foreach ($website->getStores() as $store) {
                             $ids[] = $store->getRootCategoryId();
                         }
@@ -60,9 +60,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        } elseif ($store !== null) {
+        } elseif (!is_null($store)) {
             // load children of root category of store
-            if ($categoryId === null) {
+            if (is_null($categoryId)) {
                 try {
                     $store = Mage::app()->getStore($store);
                     $storeId = $store->getId();
@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $parent_category = $this->_initCategory($parentId);
 
         // if $afterId is null - move category to the down
-        if ($afterId === null && $parent_category->hasChildren()) {
+        if (is_null($afterId) && $parent_category->hasChildren()) {
             $parentChildren = $parent_category->getChildren();
             $afterId = array_pop(explode(',', $parentChildren));
         }

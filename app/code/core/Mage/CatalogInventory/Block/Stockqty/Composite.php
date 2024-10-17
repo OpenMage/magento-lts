@@ -42,7 +42,7 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Composite extends Mage_Catal
      */
     public function getChildProducts()
     {
-        if ($this->_childProducts === null) {
+        if (is_null($this->_childProducts)) {
             $this->_childProducts = $this->_getChildProducts();
         }
         return $this->_childProducts;

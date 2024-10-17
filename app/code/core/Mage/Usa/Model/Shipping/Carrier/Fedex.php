@@ -387,7 +387,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestString = serialize($ratesRequest);
         $response = $this->_getCachedQuotes($requestString);
         $debugData = ['request' => $ratesRequest];
-        if ($response === null) {
+        if (is_null($response)) {
             try {
                 $client = $this->_createRateSoapClient();
                 $response = $client->getRates($ratesRequest);
@@ -636,7 +636,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $request = $xml->asXML();
 
         $responseBody = $this->_getCachedQuotes($request);
-        if ($responseBody === null) {
+        if (is_null($responseBody)) {
             $debugData = ['request' => $request];
             try {
                 $url = $this->getConfigData('gateway_url');
@@ -1013,7 +1013,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestString = serialize($trackRequest);
         $response = $this->_getCachedQuotes($requestString);
         $debugData = ['request' => $trackRequest];
-        if ($response === null) {
+        if (is_null($response)) {
             try {
                 $client = $this->_createTrackSoapClient();
                 $response = $client->track($trackRequest);

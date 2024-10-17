@@ -98,7 +98,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
 
         // validate minimum quote amount and validate quote for zero grandtotal
-        if ($quote !== null && (!$quote->validateMinimumAmount()
+        if (!is_null($quote) && (!$quote->validateMinimumAmount()
             || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))
         ) {
             $this->_shouldRender = false;
@@ -121,7 +121,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         $this->_getBmlShortcut($quote);
 
         // use static image if in catalog
-        if ($isInCatalog || $quote === null) {
+        if ($isInCatalog || is_null($quote)) {
             $this->setImageUrl($config->getExpressCheckoutShortcutImageUrl(Mage::app()->getLocale()->getLocaleCode()));
         } else {
             $this->setImageUrl(Mage::getModel($this->_checkoutType, [

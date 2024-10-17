@@ -56,7 +56,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                         ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
                         ->loadByEmail($email)
                         ->getId();
-                if ($ownerId !== null && $ownerId != $customerSession->getId()) {
+                if (!is_null($ownerId) && $ownerId != $customerSession->getId()) {
                     Mage::throwException($this->__('This email address is already assigned to another user.'));
                 }
 

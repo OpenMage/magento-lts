@@ -96,7 +96,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     public function getMethods()
     {
         $methods = $this->getData('methods');
-        if ($methods === null) {
+        if (is_null($methods)) {
             /** @var Mage_Payment_Helper_Data $helper */
             $helper = $this->helper('payment');
 

@@ -199,7 +199,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function getParentTransaction($shouldLoad = true)
     {
-        if ($this->_parentTransaction === null) {
+        if (is_null($this->_parentTransaction)) {
             $this->_verifyThisTransactionExists();
             $this->_parentTransaction = false;
             $parentId = $this->getParentId();
@@ -239,7 +239,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $this->_loadChildren();
 
         // grab all transactions
-        if (empty($types) && $txnId === null) {
+        if (empty($types) && is_null($txnId)) {
             return $this->_children;
         } elseif ($types && !is_array($types)) {
             $types = [$types];
@@ -373,10 +373,10 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function hasChildTransaction($whetherHasChild = null)
     {
-        if ($whetherHasChild !== null) {
+        if (!is_null($whetherHasChild)) {
             $this->_hasChild = (bool)$whetherHasChild;
             return $this;
-        } elseif ($this->_hasChild === null) {
+        } elseif (is_null($this->_hasChild)) {
             if ($this->getChildTransactions()) {
                 $this->_hasChild = true;
             } else {
@@ -529,7 +529,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     public function getOrderPaymentObject($shouldLoad = true)
     {
         $this->_verifyThisTransactionExists();
-        if ($this->_paymentObject === null && $shouldLoad) {
+        if (is_null($this->_paymentObject) && $shouldLoad) {
             $payment = Mage::getModel('sales/order_payment')->load($this->getPaymentId());
             if ($payment->getId()) {
                 $this->setOrderPaymentObject($payment);
@@ -563,7 +563,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function getOrder()
     {
-        if ($this->_order === null) {
+        if (is_null($this->_order)) {
             $this->setOrder();
         }
 
@@ -579,10 +579,10 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function setOrder($order = null)
     {
-        if ($order === null || $order === true) {
-            if ($this->_paymentObject !== null && $this->_paymentObject->getOrder()) {
+        if (is_null($order) || $order === true) {
+            if (!is_null($this->_paymentObject) && $this->_paymentObject->getOrder()) {
                 $this->_order = $this->_paymentObject->getOrder();
-            } elseif ($this->getOrderId() && $order === null) {
+            } elseif ($this->getOrderId() && is_null($order)) {
                 $this->_order = Mage::getModel('sales/order')->load($this->getOrderId());
             } else {
                 $this->_order = false;
@@ -604,7 +604,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function isFailsafe($setFailsafe = null)
     {
-        if ($setFailsafe === null) {
+        if (is_null($setFailsafe)) {
             return $this->_isFailsafe;
         }
         $this->_isFailsafe = (bool)$setFailsafe;
@@ -622,11 +622,11 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $this->_verifyPaymentObject();
         if (!$this->getId()) {
             // We need to set order and payment ids only for new transactions
-            if ($this->_paymentObject !== null) {
+            if (!is_null($this->_paymentObject)) {
                 $this->setPaymentId($this->_paymentObject->getId());
             }
 
-            if ($this->_order !== null) {
+            if (!is_null($this->_order)) {
                 $this->setOrderId($this->_order->getId());
             }
 
@@ -641,7 +641,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _loadChildren()
     {
-        if ($this->_children !== null) {
+        if (!is_null($this->_children)) {
             return;
         }
 
@@ -743,7 +743,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnType($txnType = null)
     {
-        if ($txnType === null) {
+        if (is_null($txnType)) {
             $txnType = $this->getTxnType();
         }
         switch ($txnType) {
@@ -783,7 +783,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyTxnId($txnId)
     {
-        if ($txnId !== null && strlen($txnId) == 0) {
+        if (!is_null($txnId) && strlen($txnId) == 0) {
             Mage::throwException(Mage::helper('sales')->__('Transaction ID must not be empty.'));
         }
     }

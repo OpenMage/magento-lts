@@ -112,7 +112,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     public function getNextBunch()
     {
-        if ($this->_iterator === null) {
+        if (is_null($this->_iterator)) {
             $this->_iterator = $this->getIterator();
             $this->_iterator->rewind();
         }

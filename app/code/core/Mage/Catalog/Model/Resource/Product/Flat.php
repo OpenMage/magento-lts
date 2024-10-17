@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getFlatTableName($store = null)
     {
-        if ($store === null) {
+        if (is_null($store)) {
             $store = $this->getStoreId();
         }
         return $this->getTable(['catalog/product_flat', $store]);
@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function isBuilt($storeView = null)
     {
-        if ($storeView === null) {
+        if (is_null($storeView)) {
             $storeId = Mage::app()->getAnyStoreView()->getId();
         } elseif (is_int($storeView)) {
             $storeId = $storeView;
