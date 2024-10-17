@@ -83,7 +83,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     /**
      * Return product additional information block
      */
-    public function getProductAdditionalInformationBlock(): Mage_Core_Block_Abstract
+    public function getProductAdditionalInformationBlock(): ?Mage_Core_Block_Abstract
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
