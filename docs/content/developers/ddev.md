@@ -1,26 +1,40 @@
-# OpenMage Environment Based on DDEV (https://ddev.com/)
+# DDEV
+
+See: https://ddev.com
 
 ## Using n98-magerun
 
-You can use the swiss army knife for Magento developers, sysadmins and devops. The tool provides a huge set of well tested command line commands which save hours of work time. 
+You can use the swiss army knife for Magento developers, sysadmins and devops. The tool provides a huge set of well tested command line commands which save hours of work time.
 
-Run any n98-magerun command in the terminal window by adding **ddev** in front of it. For example `ddev magerun sys:info` prints infos about the current OpenMage system. 
+Run any n98-magerun command in the terminal window by adding **ddev** in front of it. For example `ddev magerun sys:info` prints infos about the current OpenMage system.
 
 For more information about the available commands please visit https://n98-magerun.readthedocs.io/en/latest/index.html.
 
 ## Using phpMyAdmin
 
-Run in the terminal window `ddev get ddev/ddev-phpmyadmin` to install the phpMyAdmin add-on then restart DDEV. 
+Run in the terminal window to install the phpMyAdmin add-on then restart DDEV.
 
-To launch phpMyAdmin in the browser run in the terminal window `ddev phpmyadmin`.
+```bash
+ddev get ddev/ddev-phpmyadmin
+```
+
+To launch phpMyAdmin in the browser run in the terminal window.
+
+```bash
+ddev phpmyadmin
+```
 
 ## Using Mailpit
 
-To launch Mailpit in the browser run in the terminal window `ddev mailpit`.
+To launch Mailpit in the browser run in the terminal window.
+
+```bash
+ddev mailpit
+```
 
 ## Setting up cronjobs
 
-Run in the terminal window `ddev get ddev/ddev-cron` to install the cron add-on then restart DDEV. 
+Run in the terminal window `ddev get ddev/ddev-cron` to install the cron add-on then restart DDEV.
 
 By default the OpenMage cronjob runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
 
@@ -43,11 +57,13 @@ web_environment: [
 ]
 ```
 
-## Using Xdebug with PhpStorm
+## Using with PhpStorm
+
+### Xdebug
 
 Every DDEV project is automatically configured with Xdebug so that popular IDEs can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/.
 
-Run the following commands in the terminal window to enable or disable xDebug 
+Run the following commands in the terminal window to enable or disable xDebug
 
 `ddev xdebug on`
 
@@ -61,7 +77,7 @@ xdebug.mode=debug
 xdebug.start_with_request=trigger
 ```
 
-## Accessing the database in PhpStorm
+### Accessing the database
 
 Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
@@ -69,7 +85,9 @@ Please note that DDEV changes the port numbers on every restart. If you want to 
 host_db_port: 6000
 ```
 
-## Using Browsersync (https://github.com/ddev/ddev-browsersync)
+## Using Browsersync
+
+See: https://github.com/ddev/ddev-browsersync
 
 Browsersync features live reloads, click mirroring, network throttling. Run the following commands in the terminal window
 
@@ -79,7 +97,9 @@ ddev restart
 ddev browsersync
 ```
 
-## Installing Compass (http://compass-style.org/)
+## Installing Compass
+
+See: https://compass-style.org
 
 Compass is required for editing SCSS files.
 
@@ -95,7 +115,9 @@ RUN gem install compass
 
 For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
 
-## Creating a DDEV command
+## Commands
+    
+### Creating a command
 
 Create a new file named `phpstan` in the `.ddev/commands/web` directory and insert the following lines
 
@@ -111,7 +133,7 @@ php vendor/bin/phpstan analyze -c .github/phpstan.neon "$@"
 
 Run in the terminal window `ddev phpstan`.
 
-## OpenMage DDEV commands
+### OpenMage commands
 
 **1. If you want to install the `Magento Sample Data` run in the terminal window `ddev openmage-install` and follow the steps.**
 
@@ -126,7 +148,9 @@ You can use flags, for example `ddev openmage-install -d -s -k -q`
 
 **2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
 
-## Useful DDEV commands (https://ddev.readthedocs.io/en/latest/users/usage/commands)
+### Useful commands
+
+See: https://ddev.readthedocs.io/en/latest/users/usage/commands
 
 Run in the terminal window any of the following commands for different tasks.
 
@@ -194,9 +218,11 @@ Run in the terminal window any of the following commands for different tasks.
 
 `ddev clean --dry-run -all`, `ddev clean`
 
-## Using mkcert for secured connections (https://github.com/FiloSottile/mkcert)
+## Using mkcert for secured connections
 
-mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution. 
+See: https://github.com/FiloSottile/mkcert
+
+mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution.
 
 For example, copy `rootCA.pem` and `rootCA-key.pem`
 
