@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             // @codingStandardsIgnoreEnd
         }
-        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $renderer = $this->getStoreSwitcherRenderer();
         $form->getElement('website_id')->setRenderer($renderer);
 
         $customerStoreId = null;

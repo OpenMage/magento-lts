@@ -203,7 +203,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Insert or Update attribute data
      *
-     * @param Mage_Catalog_Model_Abstract $object
+     * @param Mage_Catalog_Model_Abstract|Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
