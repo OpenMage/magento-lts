@@ -35,6 +35,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         }
         return null;
     }
+
     /**
      * Set created date
      * Set created date in UTC time zone
@@ -53,7 +54,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         } else {
             // convert to UTC
             $zendDate = Mage::app()->getLocale()->utcDate(null, $date, true, $this->_getFormat($date));
-            $object->setData($attributeCode, $zendDate->getIso());
+            $object->setData($attributeCode, $zendDate->toString('yyyy-MM-dd HH:mm:ss'));
         }
 
         return $this;
