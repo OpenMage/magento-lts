@@ -189,7 +189,6 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
     /**
      * Filter input data
      *
-     * @param array $data
      * @return array
      */
     protected function _filter(array $data)
