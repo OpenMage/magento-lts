@@ -202,7 +202,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * @deprecated after 1.4.2.0
      * @return bool
      */
-    public function canDisplayGiftmessage()
+    public function canDisplayGiftmessage(): bool
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;

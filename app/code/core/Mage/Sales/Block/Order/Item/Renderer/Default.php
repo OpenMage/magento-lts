@@ -170,11 +170,11 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      *
      * @return Mage_Core_Block_Abstract
      */
-    public function getProductAdditionalInformationBlock()
+    public function getProductAdditionalInformationBlock(): Mage_Core_Block_Abstract
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
-    public function canDisplayGiftmessage()
+    public function canDisplayGiftmessage(): bool
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;
@@ -184,7 +184,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         return $helper->getIsMessagesAvailable('order_item', $this->getItem()->getOrderItem()) && $this->getItem()->getGiftMessageId();
     }
 
-    public function getGiftMessage()
+    public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return null;

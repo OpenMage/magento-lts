@@ -31,7 +31,7 @@ class Mage_Sales_Block_Order_Items extends Mage_Sales_Block_Items_Abstract
         return Mage::registry('current_order');
     }
 
-    public function canDisplayGiftmessage($_item)
+    public function canDisplayGiftmessage($_item): bool
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;

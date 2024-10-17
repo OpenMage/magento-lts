@@ -137,7 +137,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
         return Mage::getUrl('*/*/printCreditmemo', ['order_id' => $order->getId()]);
     }
 
-    public function canDisplayGiftmessage()
+    public function canDisplayGiftmessage(): bool
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;

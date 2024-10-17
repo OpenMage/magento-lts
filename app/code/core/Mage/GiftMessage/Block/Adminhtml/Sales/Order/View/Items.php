@@ -181,7 +181,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      *
      * @return bool
      */
-    public function canDisplayGiftmessage()
+    public function canDisplayGiftmessage(): bool
     {
         return $this->getItem()->getGiftMessageId();
     }

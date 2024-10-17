@@ -85,12 +85,12 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
      *
      * @return Mage_Core_Block_Abstract
      */
-    public function getProductAdditionalInformationBlock()
+    public function getProductAdditionalInformationBlock(): Mage_Core_Block_Abstract
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
 
-    public function getGiftMessage()
+    public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return null;

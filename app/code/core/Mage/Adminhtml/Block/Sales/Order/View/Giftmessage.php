@@ -276,7 +276,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      * @return bool
      * @throws Exception
      */
-    public function canDisplayGiftmessage()
+    public function canDisplayGiftmessage(): bool
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;
