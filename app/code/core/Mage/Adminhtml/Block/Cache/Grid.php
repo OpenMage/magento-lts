@@ -52,17 +52,15 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _afterLoadCollection()
     {
-        foreach ($this->_collection as $item) {
-        }
         return $this;
     }
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
         $this->addColumn('cache_type', [
             'header'    => $this->__('Cache Type'),
             'width'     => '180',
@@ -104,6 +102,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      *
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function decorateStatus($value, $row, $column, $isExport)
     {
         $class = '';
@@ -122,11 +121,12 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get row edit url
      *
-     * @return false
+     * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getRowUrl($row)
     {
-        return false;
+        return '';
     }
 
     /**
