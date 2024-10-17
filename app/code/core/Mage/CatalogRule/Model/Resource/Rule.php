@@ -185,12 +185,10 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime($rule->getFromDate()));
         $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime($rule->getToDate()));
-        $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
+        $toTime = $toTime ? strtotime('+1day - 1second', $toTime) : 0;
 
         $timestamp = time();
-        if ($fromTime > $timestamp
-            || ($toTime && $toTime < $timestamp)
-        ) {
+        if ($fromTime > strtotime('+1day', $timestamp) || ($toTime && $toTime < $timestamp)) {
             return;
         }
         $sortOrder = (int) $rule->getSortOrder();
