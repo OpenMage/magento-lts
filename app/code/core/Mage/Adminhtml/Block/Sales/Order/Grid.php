@@ -163,7 +163,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             $filterString = $this->getParam($this->getVarNameFilter(), '');
             if ($filterString) {
                 $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
-                $storeId = array_key_exists('store_id', $filter) ? $filter['store_id'] : null;
+                $storeId = $filter['store_id'] ?? null;
             }
 
             if (Mage::helper('rss')->isRssAdminOrderNewEnabled($storeId)) {
