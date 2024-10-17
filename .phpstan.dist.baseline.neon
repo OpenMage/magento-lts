@@ -117,22 +117,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
 
 		-
@@ -193,27 +178,17 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Promo/Catalog/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Labels.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
 
 		-
 			message: "#^Parameter \\#3 \\$refValues of method Mage_Adminhtml_Block_Widget_Form_Element_Dependence\\:\\:addFieldDependence\\(\\) expects array\\|string, int given\\.$#"
 			count: 3
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Rating/Edit/Tab/Form.php
 
 		-
 			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
@@ -289,16 +264,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$statusCode of method Mage_Tag_Model_Resource_Popular_Collection\\:\\:addStatusFilter\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Add/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Edit/Form.php
 
 		-
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
@@ -476,11 +441,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sitemap/Edit/Form.php
-
-		-
 			message: "#^Property Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset\\:\\:\\$_element \\(Varien_Data_Form_Element_Fieldset\\) does not accept Varien_Data_Form_Element_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Store/Switcher/Form/Renderer/Fieldset.php
@@ -561,11 +521,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
 		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Design/Edit/Tab/General.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -589,11 +544,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\\:\\:setClassTypeFilter\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Urlrewrite/Edit/Form.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Container\\:\\:_addButtonChildBlock\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -7369,11 +7319,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$layoutHandles of method Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout\\:\\:_collectLayoutHandles\\(\\) expects Mage_Core_Model_Layout_Element, SimpleXMLElement given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Tab/Main.php
 
 		-
 			message: "#^Variable \\$productsOptions might not be defined\\.$#"
