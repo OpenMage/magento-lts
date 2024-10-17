@@ -24,14 +24,14 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Read connection
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var string|Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     protected $_read;
 
     /**
      * Write connection
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var string|Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract
      */
     protected $_write;
 
@@ -164,9 +164,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Set connections for entity operations
      *
-     * @param Zend_Db_Adapter_Abstract|string $read
-     * @param Zend_Db_Adapter_Abstract|string|null $write
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract|string $read
+     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract|string|null $write
+     * @return $this
      */
     public function setConnection($read, $write = null)
     {
@@ -183,7 +183,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve connection for read data
      *
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getReadAdapter()
     {
@@ -196,7 +196,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve connection for write data
      *
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getWriteAdapter()
     {
@@ -209,7 +209,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve read DB connection
      *
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|false
      */
     public function getReadConnection()
     {
@@ -239,7 +239,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Retrieve table name
      *
-     * @param string $alias
+     * @param string|array $alias
      * @return string
      */
     public function getTable($alias)
@@ -253,7 +253,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Accepts config node or name of entity type
      *
      * @param string|Mage_Eav_Model_Entity_Type $type
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     public function setType($type)
     {
@@ -302,7 +302,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * If string - removes only one, if array - all specified
      *
      * @param array|string|null $attributes
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     public function unsetAttributes($attributes = null)
     {
@@ -433,7 +433,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Adding attribute to entity
      *
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     public function addAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
@@ -635,6 +635,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
 
             try {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $results[$attrCode] = call_user_func_array([$instance, $method], $args);
             } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
                 throw $e;
@@ -656,6 +657,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param array $args array of arguments
      * @return bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
         if (!is_object($instance) || !method_exists($instance, $method)) {
@@ -823,7 +825,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Set new increment id to object
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     public function setNewIncrementId(Varien_Object $object)
     {
@@ -906,7 +908,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Mage_Core_Model_Abstract $object
      * @param   int $entityId
      * @param   array|null $attributes
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     public function load($object, $entityId, $attributes = [])
     {
@@ -946,8 +948,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Load model attributes data
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @param Mage_Core_Model_Abstract|Varien_Object $object
+     * @return $this
      */
     protected function _loadModelAttributes($object)
     {
@@ -975,6 +977,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     $select = $selects;
                 }
 
+                // phpcs:ignore Ecg.Performance.FetchAll.Found
                 $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
@@ -994,6 +997,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _prepareLoadSelect(array $selects)
     {
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         return $this->_getReadAdapter()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 
@@ -1004,6 +1008,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $rowId
      * @return  Zend_Db_Select
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _getLoadRowSelect($object, $rowId)
     {
         return $this->_getReadAdapter()->select()
@@ -1016,7 +1021,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param Varien_Object $object
      * @param string $table
-     * @return  Zend_Db_Select
+     * @return Varien_Db_Select
      */
     protected function _getLoadAttributesSelect($object, $table)
     {
@@ -1046,7 +1051,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param   Varien_Object $object
      * @param   array $valueRow
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     protected function _setAttributeValue($object, $valueRow)
     {
@@ -1063,7 +1068,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Save entity's attributes into the object's resource
      *
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     public function save(Varien_Object $object)
     {
@@ -1216,6 +1221,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param mixed $v  New value of the attribute. Can be used in subclasses.
      * @return bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
     {
         return array_key_exists($attribute->getAttributeCode(), $origData);
@@ -1263,7 +1269,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Save object collected data
      *
      * @param   array $saveData array('newObject', 'entityRow', 'insert', 'update', 'delete')
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     protected function _processSaveData($saveData)
     {
@@ -1372,7 +1378,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Varien_Object $object
      * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param   mixed $value
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
     protected function _insertAttribute($object, $attribute, $value)
     {
@@ -1386,8 +1392,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param   mixed $valueId
      * @param   mixed $value
-     * @return  Mage_Eav_Model_Entity_Abstract
+     * @return  $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
         return $this->_saveAttribute($object, $attribute, $value);
@@ -1398,10 +1405,10 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * Collect for mass save
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _saveAttribute($object, $attribute, $value)
     {
@@ -1427,7 +1434,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Save and detele collected attribute values
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _processAttributeValues()
     {
@@ -1438,6 +1445,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
 
             foreach ($this->_attributeValuesToDelete as $table => $valueIds) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $adapter->delete($table, ['value_id IN (?)' => $valueIds]);
             }
 
@@ -1481,6 +1489,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   array $info
      * @return  $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _deleteAttributes($object, $table, $info)
     {
         $valueIds = [];
@@ -1505,7 +1514,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Save attribute
      *
      * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     public function saveAttribute(Varien_Object $object, $attributeCode)
     {
@@ -1565,7 +1574,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * Delete entity using current object's data
      *
      * @param int|string|Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      * @throws Exception
      */
     public function delete($object)
@@ -1585,6 +1594,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
             $this->loadAllAttributes($object);
             foreach (array_keys($this->getAttributesByTable()) as $table) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->_getWriteAdapter()->delete($table, $where);
             }
         } catch (Exception $e) {
@@ -1598,7 +1608,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After Load Entity process
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _afterLoad(Varien_Object $object)
     {
@@ -1609,7 +1619,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Before delete Entity process
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _beforeSave(Varien_Object $object)
     {
@@ -1620,7 +1630,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After Save Entity process
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _afterSave(Varien_Object $object)
     {
@@ -1631,7 +1641,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * Before Delete Entity process
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _beforeDelete(Varien_Object $object)
     {
@@ -1642,7 +1652,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     /**
      * After delete entity process
      *
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _afterDelete(Varien_Object $object)
     {
@@ -1684,7 +1694,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * After set config process
      *
      * @deprecated
-     * @return Mage_Eav_Model_Entity_Abstract
+     * @return $this
      */
     protected function _afterSetConfig()
     {
