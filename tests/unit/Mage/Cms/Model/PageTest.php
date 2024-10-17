@@ -19,6 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 
 use Mage;
 use Mage_Cms_Model_Page;
+use Mage_Core_Model_Resource_Db_Collection_Abstract;
 use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
@@ -84,5 +85,23 @@ class PageTest extends TestCase
     public function testGetAvailableStatuses(): void
     {
         $this->assertIsArray($this->subject->getAvailableStatuses());
+    }
+
+    /**
+     * @group Mage_Cms
+     * @group Mage_Cms_Model
+     */
+    public function testGetUsedInStoreConfigCollection(): void
+    {
+        $this->assertInstanceOf(Mage_Core_Model_Resource_Db_Collection_Abstract::class, $this->subject->getUsedInStoreConfigCollection());
+    }
+
+    /**
+     * @group Mage_Cms
+     * @group Mage_Cms_Model
+     */
+    public function testIsUsedInStoreConfig(): void
+    {
+        $this->assertFalse($this->subject->isUsedInStoreConfig());
     }
 }

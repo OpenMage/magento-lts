@@ -798,6 +798,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param bool $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
@@ -1123,6 +1124,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
         $newItem = false;
@@ -1646,10 +1648,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Removes error infos, that have parameters equal to passed in $params.
-     * $params can have following keys (if not set - then any item is good for this key):
+     * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
      * @return $this
      */
