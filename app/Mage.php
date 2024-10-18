@@ -924,9 +924,11 @@ final class Mage
             }
 
             if (is_array($message) || is_object($message)) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $message = print_r($message, true);
             }
 
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
         } catch (Exception $e) {

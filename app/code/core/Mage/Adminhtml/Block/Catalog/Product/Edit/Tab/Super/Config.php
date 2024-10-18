@@ -308,6 +308,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function escapeJs($string)
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes($string, "'\r\n\\");
     }
 

@@ -27,8 +27,8 @@
  * @method string getAddressType()
  * @method $this setAddressType(string $value)
  * @method $this unsAddressType()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(array $value)
  * @method bool getAppliedTaxesReset()
  * @method $this setAppliedTaxesReset(bool $value)
  *
@@ -1193,6 +1193,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @param bool $alreadyExclTax
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function setShippingAmount($value, $alreadyExclTax = false)
     {
         return $this->setData('shipping_amount', $value);
@@ -1205,6 +1206,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @param bool $alreadyExclTax
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {
         return $this->setData('base_shipping_amount', $value);

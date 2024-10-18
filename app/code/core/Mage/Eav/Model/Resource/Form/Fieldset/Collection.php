@@ -66,7 +66,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     /**
      * Retrieve label store scope
      *
-     * @return int
+     * @return int|null
      */
     public function getStoreId()
     {

@@ -365,6 +365,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Build request for getting token
      *
+     * @param Mage_Sales_Model_Order_Payment|Mage_Payment_Model_Info $payment
      * @return Varien_Object
      */
     protected function _buildTokenRequest(Mage_Sales_Model_Order_Payment $payment)
@@ -427,7 +428,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         $response = $this->getResponse();
         if ($response->getUser1()) {
-            return (int) $response->getUser1();
+            return (int)$response->getUser1();
         }
 
         return Mage::app()->getStore($this->getStore())->getId();
@@ -438,6 +439,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @return Mage_Paypal_Model_Payflow_Request
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = Mage::getModel('paypal/payflow_request');
@@ -508,7 +510,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       * Set token data in payment object
       *
       * @param Varien_Object $response
-      * @param Mage_Sales_Model_Order_Payment $payment
+      * @param Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
       * @throws Mage_Core_Exception
       */
     protected function _processTokenErrors($response, $payment)
@@ -538,7 +540,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Generate end return new secure hash value
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Payment_Model_Info $payment
      * @return string
      */
     protected function _generateSecureSilentPostHash($payment)
@@ -566,6 +568,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param mixed $amount
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _initialize(Varien_Object $payment, $amount)
     {
         return $this;
@@ -590,6 +593,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param string $txnId
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
         return $this;
@@ -612,6 +616,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param mixed $amount
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _checkTransaction($transaction, $amount)
     {
         return $this;
