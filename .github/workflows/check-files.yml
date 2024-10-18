@@ -12,6 +12,9 @@ on:
       php:
         description: "Count changed PHP files"
         value: ${{ jobs.check.outputs.php }}
+      phtml:
+        description: "Count changed Template files"
+        value: ${{ jobs.check.outputs.phtml }}
       xml:
         description: "Count changed XML files"
         value: ${{ jobs.check.outputs.xml }}
@@ -44,6 +47,7 @@ jobs:
       composer: ${{ steps.changes-composer.outputs.composer }}
       js: ${{ steps.changes-js.outputs.js }}
       php: ${{ steps.changes-php.outputs.php }}
+      phtml: ${{ steps.all.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
@@ -77,6 +81,7 @@ jobs:
             composer.*
             *.php
             **/*.php
+            **/*.phtml
             **/*.xml
             **/*.js
             .github/workflows/**
@@ -112,6 +117,14 @@ jobs:
           count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Template files changed
+        id: changes-phtml
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "*.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Template file(s) changed"
+          echo "phtml=$count" >> $GITHUB_OUTPUT
 
       - name: Check if XML files changed
         id: changes-xml
