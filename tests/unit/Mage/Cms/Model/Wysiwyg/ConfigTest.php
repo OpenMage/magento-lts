@@ -37,6 +37,7 @@ class ConfigTest extends TestCase
     /**
      * @group Mage_Cms
      * @group Mage_Cms_Model
+     * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetConfig(): void

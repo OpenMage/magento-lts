@@ -269,6 +269,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($templateCode === null) {
             return '';
         }
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes($this->escapeHtml($templateCode), "\"\r\n\\");
     }
 

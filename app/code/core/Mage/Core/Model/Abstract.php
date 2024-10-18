@@ -48,7 +48,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Original data that was loaded
      *
-     * @var array
+     * @var array|null
      */
     protected $_origData;
 
