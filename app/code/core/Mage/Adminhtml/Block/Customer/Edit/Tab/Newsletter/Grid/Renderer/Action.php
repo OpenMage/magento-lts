@@ -44,6 +44,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Action ext
 
     protected function _getEscapedValue($value)
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes(htmlspecialchars($value), '\\\'');
     }
 
