@@ -68,7 +68,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Payment_Model_Info $payment
      * @param string $requestType
-     * @param string $lastTransactionId
+     * @param string|null $lastTransactionId
      * @param Varien_Object $card
      * @param float|false $amount
      * @param string|false $exception
