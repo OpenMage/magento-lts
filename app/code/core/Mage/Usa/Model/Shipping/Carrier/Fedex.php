@@ -239,7 +239,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
 
         if ($request->getDestPostcode()) {
             $r->setDestPostal($request->getDestPostcode());
-        } else {
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
@@ -691,7 +690,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                         $costArr[(string)$entry->Service] =
                            (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
                         $priceArr[(string)$entry->Service] = $this->getMethodPrice(
-                            (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge,
+                            (float)$entry->EstimatedCharges->DiscountedCharges->NetCharge,
                             (string)$entry->Service
                         );
                     }
@@ -1601,6 +1600,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');

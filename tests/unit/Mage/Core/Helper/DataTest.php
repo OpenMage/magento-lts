@@ -182,7 +182,7 @@ class DataTest extends TestCase
      */
     public function testGetStoreId(): void
     {
-        $this->assertIsString($this->subject->getStoreId());
+        $this->assertIsInt($this->subject->getStoreId());
     }
 
     /**

@@ -1509,7 +1509,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * @param   array $applied
      * @param   float $amount
      * @param   float $baseAmount
-     * @param   float $rate
+     * @param   float|null $rate
      */
     protected function _saveAppliedTaxes(
         Mage_Sales_Model_Quote_Address $address,

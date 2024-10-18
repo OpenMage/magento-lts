@@ -24,7 +24,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     protected $_storeInUrl;
 
     /**
-     * @return int|string|null
+     * @return int
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentWebsiteId()
@@ -33,7 +33,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
     }
 
     /**
-     * @return int|string|null
+     * @return int
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentGroupId()

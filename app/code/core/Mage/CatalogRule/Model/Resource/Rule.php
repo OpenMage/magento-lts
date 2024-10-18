@@ -158,6 +158,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $helper = $this->_factory->getHelper('catalog/product_flat');
         if ($helper->isEnabled() && $helper->isBuiltAllStores()) {
             foreach ($this->_app->getStores(false) as $store) {
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (count($websiteIds) == 0 || in_array($store->getWebsiteId(), $websiteIds)) {
                     $selectByStore = $rule->getProductFlatSelect($store->getId());
                     $selectByStore->where('p.entity_id = ?', $product->getId());
@@ -213,7 +214,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         )
                         ->reset(Varien_Db_Select::COLUMNS)
                         ->columns([
-                            new Zend_Db_Expr($store->getWebsiteId()),
+                            new Zend_Db_Expr((string)$store->getWebsiteId()),
                             'cg.customer_group_id',
                             'p.entity_id',
                             new Zend_Db_Expr($rule->getId()),
@@ -227,6 +228,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             new Zend_Db_Expr($subActionAmount),
                         ]);
 
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     if (count($productIds) > 0) {
                         $selectByStore->where('p.entity_id IN (?)', array_keys($productIds));
                     }
@@ -286,6 +288,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             'sub_discount_amount' => $subActionAmount,
                         ];
 
+                        // phpcs:ignore Ecg.Performance.Loop.ArraySize
                         if (count($rows) == 1000) {
                             $write->insertMultiple($this->getTable('catalogrule/rule_product'), $rows);
                             $rows = [];
@@ -386,6 +389,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getTable('catalogrule/rule_product_price'), 'product_id')
             ->where(implode(' AND ', $conds))
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group('product_id');
 
         $replace = $write->insertFromSelect(
@@ -544,6 +548,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
         return $this->applyAllRules($productId);
@@ -702,6 +707,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ->where('to_time = 0 or to_time > ?', $date)
             ->order('sort_order');
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $adapter->fetchAll($select);
     }
 
@@ -723,6 +729,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ->where('website_id=?', $wId)
             ->where('product_id=?', $pId);
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $read->fetchAll($select);
     }
 

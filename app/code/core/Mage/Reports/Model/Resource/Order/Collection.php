@@ -43,6 +43,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param mixed $range
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function checkIsLive($range)
     {
         $this->_isLive = (bool)!Mage::getStoreConfig('sales/dashboard/use_aggregated_data');
@@ -168,6 +169,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW])
             ->order('range ' . Zend_Db_Select::SQL_ASC)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);
@@ -201,6 +203,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             'range' => $rangePeriod2,
         ])
         ->order('range')
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         ->group($rangePeriod);
 
         $this->getSelect()->where(
@@ -289,6 +292,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param string $tzTo
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
     {
         if ($tzTo == null) {
@@ -456,6 +460,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param int $isFilter
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _calculateTotalsAggregated($isFilter = 0)
     {
         $this->setMainTable('sales/order_aggregated_created');
@@ -502,7 +507,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             $averageExpr = $adapter->getCheckSql(
                 'SUM(main_table.orders_count) > 0',
                 'SUM(main_table.total_revenue_amount)/SUM(main_table.orders_count)',
-                0
+                '0'
             );
             $this->getSelect()->columns([
                 'lifetime' => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
@@ -553,6 +558,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->addFieldToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
                 ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 ->group('entity_id');
 
         $this->getSelect()->columns([
@@ -617,6 +623,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     {
         $this->getSelect()
             ->where('main_table.customer_id IS NOT NULL')
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group('main_table.customer_id');
 
         /*
@@ -772,6 +779,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
         $countSelect->columns('COUNT(DISTINCT main_table.entity_id)');
 
         return $countSelect;

@@ -27,8 +27,9 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      * @param string $mainTable
      * @param array $data
      * @param mixed $matchFields
-     * @return string
+     * @return int
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
         return $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));
@@ -82,6 +83,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         $cols['total_qty'] = new Zend_Db_Expr('SUM(t.' . $column . ')');
 
         $periodSubSelect->from(['t' => $mainTable], $cols)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['t.store_id', $periodCol, 't.product_id']);
 
         if ($column == 'qty_ordered') {
@@ -93,7 +95,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
                 [
                     't.store_id',
                     $periodCol,
-                    $adapter->getCheckSql($productTypesInExpr, 1, 0),
+                    $adapter->getCheckSql($productTypesInExpr, '1', '0'),
                     'total_qty DESC'
                 ]
             );

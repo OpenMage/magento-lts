@@ -334,6 +334,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
         return $this;
@@ -366,6 +367,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      *
      * @return  $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;
@@ -379,6 +381,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   Mage_Core_Model_Store $store
      * @return  array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function processConfigArray($config, $store)
     {
         return $config;

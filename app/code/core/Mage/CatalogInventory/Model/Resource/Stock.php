@@ -59,7 +59,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Notify for quantity below _configNotifyStockQty value
      *
-     * @var int
+     * @var string
      */
     protected $_configNotifyStockQty;
 
@@ -117,6 +117,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
             ->forUpdate($lockRows);
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rows = $this->_getWriteAdapter()->fetchAll($select);
 
         // Add type_id to result using separate select without FOR UPDATE instead
@@ -220,7 +221,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ];
 
             foreach ($configMap as $field => $const) {
-                $this->$field = Mage::getStoreConfigAsInt($const);
+                $this->$field = Mage::getStoreConfig($const);
             }
 
             $this->_isConfig = true;
@@ -350,7 +351,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $conditions = [
             [
                 $adapter->prepareSqlCondition('invtr.use_config_manage_stock', 1),
-                $adapter->prepareSqlCondition($this->_isConfigManageStock, 1),
+                $adapter->prepareSqlCondition((string)$this->_isConfigManageStock, 1),
                 $adapter->prepareSqlCondition('invtr.qty', ['lt' => $qtyIf])
             ],
             [

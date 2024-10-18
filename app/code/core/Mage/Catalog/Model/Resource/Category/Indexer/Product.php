@@ -152,7 +152,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          */
         $adapter = $this->_getWriteAdapter();
         $select  = $adapter->select()
-            ->distinct(true)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+            ->distinct()
             ->from(['cp' => $this->_categoryProductTable], ['category_id'])
             ->join(
                 ['ce' => $this->_categoryTable],
@@ -261,7 +262,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             'e_value'      => 1
         ];
         $select = $this->_getReadAdapter()->select()
-            ->distinct(true)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+            ->distinct()
             ->from(['ce' => $this->_categoryTable], ['entity_id'])
             ->joinInner(
                 ['dca' => $anchorInfo['table']],
@@ -335,7 +337,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             }
 
             $select = $adapter->select()
-                ->distinct(true)
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+                ->distinct()
                 ->from(['cc' => $this->getTable('catalog/category')], null)
                 ->join(
                     ['i' => $this->getMainTable()],
@@ -348,6 +351,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                         . ' AND ie.product_id=i.product_id AND ie.store_id = ' . (int)$storeId,
                     []
                 )
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('cc.path LIKE ?', $rootPath . '/%')
                 ->where('ie.category_id IS NULL')
                 ->columns([
@@ -529,7 +533,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
          * Insert anchor categories relations
          */
         $adapter = $this->_getReadAdapter();
-        $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', 1, 0);
+        $isParent = $adapter->getCheckSql('MIN(cp.category_id)=ce.entity_id', '1', '0');
         $position = 'MIN(' .
             $adapter->getCheckSql(
                 'cp.category_id = ce.entity_id',
@@ -539,7 +543,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         . ')';
 
         $select = $adapter->select()
-            ->distinct(true)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+            ->distinct()
             ->from(['ce' => $this->_categoryTable], ['entity_id'])
             ->joinInner(
                 ['cc' => $this->_categoryTable],
@@ -606,6 +611,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 $adapter->getCheckSql('ss.value_id IS NOT NULL', 'ss.value', 'ds.value') . '=?',
                 Mage_Catalog_Model_Product_Status::STATUS_ENABLED
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['ce.entity_id', 'cp.product_id', 's.store_id']);
         if ($categoryIds) {
             $select->where('ce.entity_id IN (?)', $categoryIds);
@@ -636,7 +642,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         $isParent = new Zend_Db_Expr('0');
         $position = new Zend_Db_Expr('0');
         $select = $this->_getReadAdapter()->select()
-            ->distinct(true)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+            ->distinct()
             ->from(['pw'  => $this->_productWebsiteTable], [])
             ->joinInner(['g'   => $this->_groupTable], 'g.website_id=pw.website_id', [])
             ->joinInner(['s'   => $this->_storeTable], 's.group_id=g.group_id', [])
@@ -860,6 +867,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                  * Prepare anchor categories products
                  */
                 $anchorProductsTable = $this->_getAnchorCategoriesProductsTemporaryTable();
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $idxAdapter->delete($anchorProductsTable);
 
                 $position = 'MIN(' .
@@ -874,7 +882,8 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
 
                 $select = $idxAdapter->select()
                 ->useStraightJoin(true)
-                ->distinct(true)
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+                ->distinct()
                 ->from(['ca' => $anchorTable], ['category_id'])
                 ->joinInner(
                     ['ce' => $this->_categoryTable],
@@ -892,6 +901,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     'pv.product_id = cp.product_id',
                     ['position' => $position]
                 )
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 ->group(['ca.category_id', 'cp.product_id']);
                 $query = $select->insertFromSelect(
                     $anchorProductsTable,
@@ -908,7 +918,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     ['ap' => $anchorProductsTable],
                     ['category_id', 'product_id',
                         'position', // => new Zend_Db_Expr('MIN('. $idxAdapter->quoteIdentifier('ap.position').')'),
-                        'is_parent' => $idxAdapter->getCheckSql('cp.product_id > 0', 1, 0),
+                        'is_parent' => $idxAdapter->getCheckSql('cp.product_id > 0', '1', '0'),
                         'store_id' => new Zend_Db_Expr($storeId)]
                 )
                 ->joinLeft(
@@ -1081,6 +1091,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                         'root_id'   => 'entity_id'
                     ]
                 );
+            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $this->_storesInfo = $adapter->fetchAll($select);
         }
 
@@ -1127,6 +1138,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     . $adapter->quoteInto('cas.store_id=?', $storeId),
                 []
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where("{$anchorExpr} = 1 AND {$adapter->quoteIdentifier('ce.path')} LIKE ?", $rootPath . '%')
             ->orWhere('ce.path = ?', $rootPath);
 
@@ -1167,6 +1179,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      * @param string $table
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

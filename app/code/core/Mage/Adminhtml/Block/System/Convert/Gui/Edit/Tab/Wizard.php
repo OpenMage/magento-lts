@@ -59,6 +59,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getAttributes($entityType)
     {
         if (!isset($this->_attributes[$entityType])) {
+            $attributes = [];
             switch ($entityType) {
                 case 'product':
                     $attributes = Mage::getSingleton('catalog/convert_parser_product')
