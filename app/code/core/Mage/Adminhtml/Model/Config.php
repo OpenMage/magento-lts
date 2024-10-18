@@ -199,9 +199,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Get translate module name
      *
-     * @param Varien_Simplexml_Element $sectionNode
-     * @param Varien_Simplexml_Element $groupNode
-     * @param Varien_Simplexml_Element $fieldNode
+     * @param Varien_Simplexml_Element|false|null $sectionNode
+     * @param Varien_Simplexml_Element|false|null $groupNode
+     * @param Varien_Simplexml_Element|false|null $fieldNode
      * @return string
      */
     public function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)

@@ -439,7 +439,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return loaded product instance
      *
      * @param  int|string $productId (SKU or ID)
-     * @param  int $store
+     * @param  int|null $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
