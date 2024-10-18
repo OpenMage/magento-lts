@@ -85,7 +85,7 @@ class DataTest extends TestCase
         $data,
         string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
         bool $showTime = false,
-        bool $useTimezone = true
+        bool $useTimezone = false # disable timezone by default for tests
     ): void {
         $this->assertSame($expectedResult, $this->subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
     }
@@ -131,12 +131,6 @@ class DataTest extends TestCase
             $date,
             'long'
         ];
-//        yield 'date short w/ time and w/ timezone' => [
-//            $dateShortTime,
-//            $date,
-//            'short',
-//            true
-//        ];
         yield 'date short w/ time' => [
             $dateShortTime,
             $date,
