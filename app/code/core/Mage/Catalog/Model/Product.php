@@ -532,7 +532,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product id by sku
      *
      * @param   string $sku
-     * @return  int
+     * @return  string
      */
     public function getIdBySku($sku)
     {

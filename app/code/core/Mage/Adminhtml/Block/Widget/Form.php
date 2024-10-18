@@ -238,8 +238,16 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _getAdditionalElementHtml($element)
     {
         return '';
+    }
+
+    protected function getStoreSwitcherRenderer(): Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element
+    {
+        /** @var Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element $renderer */
+        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        return $renderer;
     }
 }
