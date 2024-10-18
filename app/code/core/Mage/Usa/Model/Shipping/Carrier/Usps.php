@@ -1907,7 +1907,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if (preg_match('/[\\d\\w]{5}\\-[\\d\\w]{4}/', $zipString) != 0) {
             $zip = explode('-', $zipString);
         }
-        $zipCount = count($zip);;
+        $zipCount = count($zip);
         for ($i = 0; $i < $zipCount; ++$i) {
             if (strlen($zip[$i]) == 5) {
                 $zip5 = $zip[$i];
