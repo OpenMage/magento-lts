@@ -4231,6 +4231,11 @@ parameters:
 			path: app/code/core/Mage/Core/functions.php
 
 		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/functions.php
+
+		-
 			message: "#^Variable \\$arguments might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Cron/Model/Observer.php
