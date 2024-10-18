@@ -376,10 +376,10 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     }
 
     /**
-     * Get chlden categories count
+     * Get children categories count
      *
      * @param int $categoryId
-     * @return int
+     * @return string
      */
     public function getChildrenCount($categoryId)
     {
@@ -395,7 +395,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check if category id exist
      *
      * @param int $entityId
-     * @return bool
+     * @return string
      */
     public function checkId($entityId)
     {
@@ -430,7 +430,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      *
      * @param Mage_Catalog_Model_Category $category
      * @param bool $isActiveFlag
-     * @return int
+     * @return string
      */
     public function getChildrenAmount($category, $isActiveFlag = true)
     {
@@ -458,6 +458,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
                 []
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where('m.path LIKE :c_path')
             ->where($checkSql . ' = :active_flag');
 
@@ -597,6 +598,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->addFieldToFilter('level', ['neq' => 0])
             ->setOrder('level', 'DESC')
             ->load();
+        // phpcs:ignore Ecg.Performance.GetFirstItem.Found
         return $collection->getFirstItem();
     }
 
@@ -793,7 +795,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         Mage_Catalog_Model_Category $newParent,
         $afterCategoryId = null
     ) {
-        $childrenCount  = $this->getChildrenCount($category->getId()) + 1;
+        $childrenCount  = (int)$this->getChildrenCount($category->getId()) + 1;
         $table          = $this->getEntityTable();
         $adapter        = $this->_getWriteAdapter();
         $levelFiled     = $adapter->quoteIdentifier('level');
@@ -909,7 +911,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 ->where('parent_id = :parent_id');
             $position = $adapter->fetchOne($select, ['parent_id' => $newParent->getId()]);
         }
-        $position += 1;
+        ++$position;
 
         return $position;
     }
