@@ -167,8 +167,11 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
 
     /**
      * Return product additional information block
+     *
+     * TODO set return type
+     * @return Mage_Core_Block_Abstract|null
      */
-    public function getProductAdditionalInformationBlock(): ?Mage_Core_Block_Abstract
+    public function getProductAdditionalInformationBlock()
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }

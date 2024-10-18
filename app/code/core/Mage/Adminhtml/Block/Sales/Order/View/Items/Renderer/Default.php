@@ -199,9 +199,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicates that block can display giftmessages form
      *
-     * @deprecated after 1.4.2.0
+     * TODO set return type
+     * @return bool
      */
-    public function canDisplayGiftmessage(): bool
+    public function canDisplayGiftmessage()
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return false;
