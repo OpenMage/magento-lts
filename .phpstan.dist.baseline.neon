@@ -56,7 +56,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Cache/Grid.php
 
@@ -64,11 +64,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Attributes.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Product.php
 
 		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -96,24 +91,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_ProductAlert_Model_Resource_Price_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Alerts/Price.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_ProductAlert_Model_Resource_Stock_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Alerts/Stock.php
-
-		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
@@ -121,49 +101,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Grid.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product_Type_Configurable\\:\\:canUseAttribute\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Tag/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Link_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
@@ -172,33 +117,8 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Checkout/Agreement/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 4
+			count: 3
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tag.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tags.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales\\:\\:\\$_collection \\(Mage_Sales_Model_Entity_Sale_Collection\\) does not accept Varien_Data_Collection_Db\\.$#"
@@ -211,11 +131,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:getValidateButton\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
@@ -224,16 +139,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat\\:\\:\\$_validateButton \\(Mage_Adminhtml_Block_Widget_Button\\|null\\) does not accept Mage_Core_Block_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Tab/Customers/Newest.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Dashboard/Tab/Products/Viewed.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\\:\\:\\$_aclResourcePath\\.$#"
@@ -273,16 +178,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Promo/Catalog/Edit/Tab/Main.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Labels.php
 
 		-
 			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
 
 		-
@@ -291,17 +191,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Sku.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Rating/Edit/Tab/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Mage_Reports_Model_Resource_Report_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
@@ -316,7 +206,12 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Grouped_Collection given\\.$#"
+			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:getCollection\\(\\) should return Mage_Core_Model_Resource_Db_Collection_Abstract\\|Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection_Db\\|null\\.$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Mage_Reports_Model_Grouped_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -336,11 +231,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Column/Renderer/Currency.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Downloads_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Downloads/Grid.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
@@ -351,19 +241,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$grid of method Mage_Reports_Model_Totals\\:\\:countTotals\\(\\) expects Mage_Adminhtml_Block_Report_Grid, \\$this\\(Mage_Adminhtml_Block_Report_Product_Grid\\) given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Product_Lowstock_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
 
 		-
 			message: "#^Parameter \\#1 \\$fields of method Mage_Reports_Model_Resource_Product_Lowstock_Collection\\:\\:joinInventoryItem\\(\\) expects array, string given\\.$#"
@@ -371,14 +251,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Review_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Review/Product/Grid.php
 
 		-
 			message: "#^Parameter \\#2 \\$filter of method Mage_Reports_Model_Resource_Quote_Collection\\:\\:prepareForAbandonedReport\\(\\) expects string\\|null, array\\<int\\|string, array\\|string\\> given\\.$#"
@@ -386,59 +261,9 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Customer/Detail/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Customer/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Detail/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$statusCode of method Mage_Tag_Model_Resource_Popular_Collection\\:\\:addStatusFilter\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Product/Detail/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Tag_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Product/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Reports_Model_Resource_Wishlist_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Wishlist/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Add/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Edit/Form.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Review_Model_Resource_Review_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Review/Grid.php
 
 		-
 			message: "#^Return type \\(int\\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\\:\\:getCondition\\(\\) should be compatible with return type \\(array\\|null\\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\\:\\:getCondition\\(\\)$#"
@@ -454,11 +279,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address\\:\\:getAddress\\(\\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Address.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Customer_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Customer/Grid.php
 
 		-
 			message: "#^Parameter \\#1 \\$currency of method Mage_Directory_Model_Currency\\:\\:getCurrencyRates\\(\\) expects string, Mage_Directory_Model_Currency given\\.$#"
@@ -499,11 +319,6 @@ parameters:
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Search/Grid.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address\\:\\:getAddress\\(\\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\\.$#"
@@ -616,7 +431,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Reorder/Renderer/Action.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php
 
@@ -624,11 +439,6 @@ parameters:
 			message: "#^Property Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\\:\\:\\$_conditionName \\(string\\) does not accept int\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sitemap/Edit/Form.php
 
 		-
 			message: "#^Property Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset\\:\\:\\$_element \\(Varien_Data_Form_Element_Fieldset\\) does not accept Varien_Data_Form_Element_Abstract\\.$#"
@@ -711,44 +521,14 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
 		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Design/Edit/Tab/General.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Assigned/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Customer/Grid.php
-
-		-
 			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Customer_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Grid/Products.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Tag_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Tag/Product/Grid.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
@@ -764,11 +544,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\\:\\:setClassTypeFilter\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Urlrewrite/Edit/Form.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Container\\:\\:_addButtonChildBlock\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\|false\\.$#"
@@ -1341,7 +1116,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Varien_Data_Collection given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Varien_Data_Collection_Db, Varien_Data_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
 
@@ -1594,51 +1369,6 @@ parameters:
 			message: "#^Variable \\$params might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
-
-		-
-			message: "#^Parameter \\#2 \\$containerId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$containerId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Checkbox.php
-
-		-
-			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Multi\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Multi.php
-
-		-
-			message: "#^Parameter \\#2 \\$containerId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Multi\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$containerId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Multi.php
-
-		-
-			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Radio\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Radio.php
-
-		-
-			message: "#^Parameter \\#2 \\$containerId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Radio\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$containerId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Radio.php
-
-		-
-			message: "#^Parameter \\#1 \\$elementId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Select\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$elementId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Select.php
-
-		-
-			message: "#^Parameter \\#2 \\$containerId \\(string\\) of method Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Select\\:\\:setValidationContainer\\(\\) should be compatible with parameter \\$containerId \\(int\\) of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Composite/Fieldset/Options/Type/Select.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setCollection\\(\\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Search/Grid.php
 
 		-
 			message: "#^Method Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection\\:\\:isUsedWebsitePrice\\(\\) should return string but returns bool\\.$#"
@@ -2521,16 +2251,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
 
 		-
-			message: "#^Parameter \\#1 \\$valueId of method Mage_Catalog_Model_Product_Option\\:\\:getValueById\\(\\) expects int, string given\\.$#"
-			count: 6
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Select.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method Mage_Catalog_Model_Product_Option_Value\\:\\:addValue\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Value/Api.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Status.php
@@ -2636,11 +2356,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method Mage_Catalog_Model_Resource_Abstract\\:\\:_saveAttributeValue\\(\\) expects Mage_Catalog_Model_Abstract, Varien_Object given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method Mage_Catalog_Model_Resource_Abstract\\:\\:load\\(\\) expects Mage_Core_Model_Abstract, Varien_Object given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
@@ -2659,31 +2374,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method Mage_Catalog_Model_Resource_Attribute\\:\\:_clearUselessAttributeValues\\(\\) expects Mage_Catalog_Model_Resource_Eav_Attribute, Mage_Eav_Model_Entity_Attribute given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Attribute.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenAmount\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Resource_Category\\:\\:getChildrenCount\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Parameter \\#1 \\$alias of method Mage_Eav_Model_Entity_Abstract\\:\\:getTable\\(\\) expects string, array\\<int, string\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category.php
 
 		-
 			message: "#^Parameter \\#3 \\$exclude of method Mage_Catalog_Model_Resource_Category_Tree\\:\\:addCollectionData\\(\\) expects array, int given\\.$#"
@@ -2846,34 +2536,9 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
-			message: "#^Parameter \\#1 \\$alias of method Mage_Eav_Model_Entity_Abstract\\:\\:getTable\\(\\) expects string, array\\<int, string\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
-
-		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
-
-		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Catalog_Model_Resource_Product\\:\\:getCategoryIds\\(\\) expects Mage_Catalog_Model_Product, Varien_Object given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method Mage_Catalog_Model_Resource_Abstract\\:\\:_saveAttributeValue\\(\\) expects Mage_Catalog_Model_Abstract, Varien_Object given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Action.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Action.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Action.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media\\:\\:insertGallery\\(\\) should return int but returns string\\.$#"
@@ -4036,11 +3701,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
 			message: "#^Property Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:\\$_resource \\(Mage_Core_Model_Resource_Db_Abstract\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
@@ -4364,26 +4024,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Resource/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Resource/Address.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Resource_Customer\\:\\:getWebsiteId\\(\\) should return int but returns string\\|false\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$alias of method Mage_Eav_Model_Entity_Abstract\\:\\:getTable\\(\\) expects string, array\\<int, string\\> given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
 
 		-
 			message: "#^Parameter \\#1 \\$customer of method Mage_Customer_Model_Resource_Customer\\:\\:_saveAddresses\\(\\) expects Mage_Customer_Model_Customer, Varien_Object given\\.$#"
@@ -4751,23 +4391,8 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
+			message: "#^Cannot call method lastInsertId\\(\\) on Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getReadAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:_getWriteAdapter\\(\\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method Mage_Eav_Model_Entity_Abstract\\:\\:_saveAttribute\\(\\) expects Mage_Core_Model_Abstract, Varien_Object given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
@@ -4776,32 +4401,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Mage_Eav_Model_Entity_Abstract\\:\\:_addLoadAttributesSelectFields\\(\\) expects Varien_Db_Select, Zend_Db_Select given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_read \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_read \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept string\\|Zend_Db_Adapter_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_type \\(Mage_Eav_Model_Entity_Type\\) in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_write \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept Varien_Db_Adapter_Interface\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Property Mage_Eav_Model_Entity_Abstract\\:\\:\\$_write \\(Varien_Db_Adapter_Pdo_Mysql\\) does not accept string\\|Zend_Db_Adapter_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
@@ -5133,6 +4733,11 @@ parameters:
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 4
+			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
+
+		-
+			message: "#^Method Mage_ImportExport_Block_Adminhtml_Export_Filter\\:\\:prepareCollection\\(\\) should return Mage_Core_Model_Resource_Db_Collection_Abstract\\|null but returns Varien_Data_Collection_Db\\|null\\.$#"
+			count: 1
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
 
 		-
@@ -6051,11 +5656,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$select of method Mage_Core_Model_Resource_Helper_Mysql4\\:\\:getQueryUsingAnalyticFunction\\(\\) expects Varien_Db_Select, Zend_Db_Select given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
@@ -6276,179 +5876,9 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Config/Ordered.php
 
 		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Address.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Comment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Comment.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Creditmemo/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Comment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Comment.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Invoice/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Comment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Comment.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Track.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Shipment/Track.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Status/History.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Order/Status/History.php
-
-		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Resource_Quote_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address.php
 
 		-
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\)\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Custbalance\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
@@ -6479,46 +5909,6 @@ parameters:
 			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax\\)\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Attribute/Frontend/Tax.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Rate.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Address/Rate.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$read of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
-
-		-
-			message: "#^Parameter \\#2 \\$write of method Mage_Eav_Model_Entity_Abstract\\:\\:setConnection\\(\\) expects string\\|Zend_Db_Adapter_Abstract\\|null, Varien_Db_Adapter_Interface\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Entity/Quote/Payment.php
 
 		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
@@ -6986,11 +6376,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$select of method Mage_Core_Model_Resource_Helper_Mysql4\\:\\:getQueryUsingAnalyticFunction\\(\\) expects Varien_Db_Select, Zend_Db_Select given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
@@ -7011,49 +6396,14 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Invoiced.php
 
 		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Invoiced/Collection/Invoiced.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Invoiced/Collection/Order.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Order/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Order/Createdat.php
 
 		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Refunded/Collection/Order.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Refunded/Collection/Refunded.php
-
-		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Shipping.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Shipping/Collection/Order.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Shipping/Collection/Shipment.php
 
 		-
 			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:listTables\\(\\)\\.$#"
@@ -7134,11 +6484,6 @@ parameters:
 			message: "#^Binary operation \"\\+\\=\" between string\\|null and \\-1\\|1 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
 			message: "#^Return type \\(Mage_SalesRule_Model_Rule_Condition_Product_Combine\\) of method Mage_SalesRule_Model_Rule\\:\\:getActionsInstance\\(\\) should be compatible with return type \\(Mage_Rule_Model_Action_Collection\\) of method Mage_Rule_Model_Abstract\\:\\:getActionsInstance\\(\\)$#"
@@ -7399,11 +6744,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$resourceModel of method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:_init\\(\\) expects Mage_Core_Model_Resource_Db_Abstract\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Resource/Calculation/Rate/Title/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$conn of method Varien_Data_Collection_Db\\:\\:setConnection\\(\\) expects Zend_Db_Adapter_Abstract, Varien_Db_Adapter_Interface given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Report/Collection.php
 
 		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
@@ -7979,11 +7319,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$layoutHandles of method Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout\\:\\:_collectLayoutHandles\\(\\) expects Mage_Core_Model_Layout_Element, SimpleXMLElement given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
-
-		-
-			message: "#^Parameter \\#1 \\$renderer of method Varien_Data_Form_Element_Abstract\\:\\:setRenderer\\(\\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\\|false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Tab/Main.php
 
 		-
 			message: "#^Variable \\$productsOptions might not be defined\\.$#"

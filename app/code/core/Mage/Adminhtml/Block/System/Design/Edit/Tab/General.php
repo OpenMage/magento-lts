@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
                 'name'     => 'store_id',
                 'required' => true,
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         } else {
             $fieldset->addField('store_id', 'hidden', [

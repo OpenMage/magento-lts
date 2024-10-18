@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
                 'required' => true,
                 'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         }
 
