@@ -13,8 +13,13 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Sales_Block_Order_View $this
+ */
+?>
 <div class="order-items order-details">
-    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('items', $this->getOrder())): ?>
+    <?php if ($this->canDisplayGiftmessageItems()): ?>
     <script type="text/javascript">
     //<![CDATA[
     function giftMessageToogle(giftMessageIdentifier)
@@ -52,7 +57,7 @@
 
     <?php echo $this->getChildHtml('order_items') ?>
 
-    <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order', $_order) && $_order->getGiftMessageId()): ?>
+    <?php if($this->canDisplayGiftmessageOrder()): ?>
     <div class="order-additional order-gift-message">
         <h2 class="sub-title"><?php echo $this->__('Gift Message for This Order') ?></h2>
         <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_order); ?>

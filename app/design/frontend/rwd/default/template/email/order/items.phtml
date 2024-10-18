@@ -13,7 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
+<?php
+/**
+ * @var Mage_Sales_Block_Order_Email_Items $this
+ */
+?>
 <?php $_order = $this->getOrder(); ?>
 
 <?php if ($_order): ?>
@@ -51,28 +55,25 @@
             <?php echo $this->getChildHtml('order_totals') ?>
         </td>
     </tr>
-    <?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
-        <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId()); ?>
-        <?php if ($_giftMessage): ?>
-            <br />
-            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
-                <thead>
-                    <tr>
-                        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
-                    </tr>
-                </thead>
+    <?php if ($_giftMessage = $this->getGiftMessageOrder()): ?>
+        <br />
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+            <thead>
+                <tr>
+                    <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
+                </tr>
+            </thead>
 
-                <tbody>
+            <tbody>
 
-                    <tr>
-                        <td colspan="4" align="left" style="padding:3px 9px">
-                        <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
-                        <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
-                        <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        <?php endif ?>
+                <tr>
+                    <td colspan="4" align="left" style="padding:3px 9px">
+                    <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
+                    <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
+                    <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     <?php endif ?>
 <?php endif ?>
