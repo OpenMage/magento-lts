@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $value
+     * @param array $value
      * @return $this
      */
     public function addValue($value)
