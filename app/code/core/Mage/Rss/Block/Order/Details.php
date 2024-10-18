@@ -25,7 +25,7 @@ class Mage_Rss_Block_Order_Details extends Mage_Core_Block_Template
         $this->setTemplate('rss/order/details.phtml');
     }
 
-    public function getGiftMessageItem($_item)
+    public function getGiftMessageItem($_item): ?Mage_GiftMessage_Model_Message
     {
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
             return null;
@@ -37,7 +37,7 @@ class Mage_Rss_Block_Order_Details extends Mage_Core_Block_Template
         }
         return null;
     }
-    public function getGiftMessageOrder()
+    public function getGiftMessageOrder(): ?Mage_GiftMessage_Model_Message
     {
         $_order = $this->getOrder();
         if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
