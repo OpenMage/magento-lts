@@ -31,8 +31,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -261,7 +261,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+        return (int)$this->_getData('store_id');
     }
 
     /**

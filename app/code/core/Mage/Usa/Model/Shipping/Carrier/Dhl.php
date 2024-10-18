@@ -417,7 +417,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do rate request and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result|Varien_Object
+     * @return Mage_Shipping_Model_Rate_Result|Varien_Object|void
      */
     protected function _doRequest()
     {
@@ -776,9 +776,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             } else {
                 if ($xml !== false) {
                     if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $shippingLabelContent = base64_decode((string)$xml->Shipment->Label->Image);
                         $trackingNumber = (string)$xml->Shipment->ShipmentDetail->AirbillNbr;
                     } else {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $shippingLabelContent = base64_decode((string)$xml->IntlShipment->Label->Image);
                         $trackingNumber = (string)$xml->IntlShipment->ShipmentDetail->AirbillNbr;
                     }
@@ -910,7 +912,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $desc = ($shipXml->EstimateDetail) ? (string)$shipXml->EstimateDetail->ServiceLevelCommitment->Desc : null;
 
         $totalEstimate = $shipXml->EstimateDetail
-                ? (string)$shipXml->EstimateDetail->RateEstimate->TotalChargeEstimate
+                ? (float)$shipXml->EstimateDetail->RateEstimate->TotalChargeEstimate
                 : null;
         /*
         * DHL can return with empty result and success code
@@ -953,8 +955,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Set tracking request
-     *
-     * @return null
      */
     protected function setTrackingReqeust()
     {
@@ -1026,15 +1026,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @param array $trackings
      * @param string $response
-     * @return null
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         $errorArr = [];
-        $trackingserror = [];
-        $tracknum = '';
         if (strlen(trim($response)) > 0) {
             if (strpos(trim($response), '<?xml') === 0) {
                 $xml = simplexml_load_string($response);
@@ -1264,8 +1261,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Map request to shipment
-     *
-     * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
@@ -1320,6 +1315,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return array|bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');

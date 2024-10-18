@@ -130,6 +130,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 if ($website->getId() != $group->getWebsiteId()) {
                     continue;
                 }
+                $values    = [];
                 $groupShow = false;
                 foreach ($this->_storeCollection as $store) {
                     if ($group->getId() != $store->getGroupId()) {

@@ -54,7 +54,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var string|null
+     * @var int|null
      */
     protected $_entityTypeId;
 
@@ -216,8 +216,9 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns boolean TRUE if row scope is default (fundamental) scope.
      *
-     * @return bool
+     * @return true
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     protected function _isRowScopeDefault(array $rowData)
     {
         return true;
@@ -287,6 +288,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $rowData = $this->_prepareRowForDb($rowData);
                     $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
 
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
 
                     if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
@@ -363,6 +365,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
+                // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
             } catch (Exception $e) {
                 // ignore exceptions connected with source models
             }
@@ -398,7 +401,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return string|null
+     * @return int|null
      */
     public function getEntityTypeId()
     {
@@ -651,6 +654,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_dataValidated) {
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 file_put_contents($this->_getSource()->getSource(), '');
                 Mage::throwException(
                     Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))

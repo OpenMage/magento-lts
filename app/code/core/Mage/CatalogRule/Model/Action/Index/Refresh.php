@@ -495,6 +495,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             ->from($indexSelect, [])
             ->joinInner(
                 [
+                    //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                     'dates' => $this->_connection->select()->union(
                         [
                             new Zend_Db_Expr(
@@ -538,6 +539,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' <= to_time')
                 )
             )
+            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['customer_group_id', 'product_id', 'dates.rule_date', 'website_id']);
     }
 
@@ -595,7 +597,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     {
         $this->_connection->delete($this->_resource->getTable('catalogrule/rule_group_website'), []);
         $select = $this->_connection->select()
-            ->distinct(true)
+            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
+            ->distinct()
             ->from(
                 $this->_resource->getTable('catalogrule/rule_product'),
                 ['rule_id', 'customer_group_id', 'website_id']

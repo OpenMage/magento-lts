@@ -238,6 +238,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                             $amount =  $amount - $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
+                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
                             if (count($appliedRates) > 1) {
                                 $taxAmount = 0;
                                 foreach ($appliedRates as $appliedRate) {

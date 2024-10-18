@@ -42,8 +42,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Compare order to be used in adapters list sort
      *
-     * @param int $a
-     * @param int $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
     protected static function _compareOrder($a, $b)

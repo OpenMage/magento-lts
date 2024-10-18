@@ -51,6 +51,7 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
             ->select()
             ->from($this->getTable('index/process_event'), ['process_id', 'events' => 'COUNT(*)'])
             ->where('status=?', Mage_Index_Model_Process::EVENT_STATUS_NEW)
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group('process_id');
         $this->getSelect()
             ->joinLeft(
@@ -58,7 +59,7 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
                 'e.process_id=main_table.process_id',
                 ['events' => $this->getConnection()->getCheckSql(
                     $this->getConnection()->prepareSqlCondition('e.events', ['null' => null]),
-                    0,
+                    '0',
                     'e.events'
                 )]
             );

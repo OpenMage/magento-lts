@@ -163,7 +163,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get customer object
      *
-     * @return  Mage_Customer_Model_Customer | false
+     * @return Mage_Customer_Model_Customer|false
      */
     public function getCustomer()
     {

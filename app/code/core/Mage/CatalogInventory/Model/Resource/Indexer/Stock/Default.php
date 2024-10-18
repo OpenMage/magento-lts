@@ -137,10 +137,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
+    //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $adapter = $this->_getWriteAdapter();
-        $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', 0);
+        $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', '0');
         $select  = $adapter->select()
             ->from(['e' => $this->getTable('catalog/product')], ['entity_id']);
         $this->_addWebsiteJoinToSelect($select, true);
@@ -167,18 +168,18 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         if ($this->_isManageStock()) {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1,
+                '1',
                 'cisi.is_in_stock'
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                1
+                '1'
             );
         }
 
-        $optExpr = $adapter->getCheckSql($psCondition, 1, 0);
+        $optExpr = $adapter->getCheckSql($psCondition, '1', '0');
         $stockStatusExpr = $adapter->getLeastSql([$optExpr, $statusExpr]);
 
         $select->columns(['status' => $stockStatusExpr]);
@@ -263,6 +264,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param string $table
      * @return string
      */
+    //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

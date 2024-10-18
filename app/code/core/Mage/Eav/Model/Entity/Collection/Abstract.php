@@ -485,7 +485,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param string $alias
      * @param string $expression
-     * @param string $attribute
+     * @param string|array $attribute
      * @return $this
      */
     public function addExpressionAttributeToSelect($alias, $expression, $attribute)
@@ -749,7 +749,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param array|string|Zend_Db_Expr $table
      * @param string $bind
      * @param string|array $fields
-     * @param null|array $cond
+     * @param string|array|null $cond
      * @param string $joinType
      * @return $this
      */
