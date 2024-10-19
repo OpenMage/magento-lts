@@ -39,7 +39,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fseek($fp, 0);
 
         $data = [];
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, fEsc); $i++) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
