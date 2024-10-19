@@ -66,6 +66,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
     {
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
+        $fEsc = $this->getVar('escape', '\\');
 
         if ($fDel == '\\t') {
             $fDel = "\t";
