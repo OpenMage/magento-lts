@@ -25,6 +25,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
     {
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
+        $fEsc = $this->getVar('escape', '\\');
 
         if ($fDel == '\\t') {
             $fDel = "\t";
@@ -41,7 +42,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if ($i == 0) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
