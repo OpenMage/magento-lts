@@ -132,16 +132,28 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
     {
-        $regExpression = '/\\?[^#]*?(' . preg_quote($paramKey, '/') . '\\=[^#&]*&?)/' . ($caseSensitive ? '' : 'i');
-        while (preg_match($regExpression, $url, $mathes) != 0) {
-            $paramString = $mathes[1];
-            if (preg_match('/&$/', $paramString) == 0) {
-                $url = preg_replace('/(&|\\?)?' . preg_quote($paramString, '/') . '/', '', $url);
-            } else {
-                $url = str_replace($paramString, '', $url);
+        list($baseUrl, $query) = explode('?', $url, 2);
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        parse_str($query, $params);
+
+        if (!$caseSensitive) {
+            $paramsLower = array_change_key_case($params);
+            $paramKeyLower = strtolower($paramKey);
+
+            if (array_key_exists($paramKeyLower, $paramsLower)) {
+                $params[$paramKey] = $paramsLower[$paramKeyLower];
             }
         }
-        return $url;
+
+        if (array_key_exists($paramKey, $params)) {
+            unset($params[$paramKey]);
+        }
+
+        if ($params === []) {
+            return $baseUrl;
+        }
+
+        return $baseUrl . '?' . http_build_query($params);
     }
 
     /**
@@ -164,6 +176,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function encodePunycode($url)
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if (!$this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_ascii($parsedUrl['host']);
@@ -182,6 +195,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function decodePunycode($url)
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if ($this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_utf8($parsedUrl['host']);
@@ -197,6 +211,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * @param string $host domain name
      * @return bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _isPunycode($host)
     {
         if (str_starts_with($host, 'xn--') || str_contains($host, '.xn--')
