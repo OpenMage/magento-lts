@@ -210,7 +210,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             return false;
         }
         $escape = '\\';
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, $escape);
+        return @fgetcsv($this->_streamHandler, 0, $delimiter, $enclosure, $escape);
     }
 
     /**
