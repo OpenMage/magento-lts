@@ -850,7 +850,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * (applicable for complicated product types. As default returns false)
      *
      * @param Mage_Catalog_Model_Product|null $product
-     * @return false
+     * @return bool
      */
     // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function getForceChildItemQtyChanges($product = null)
