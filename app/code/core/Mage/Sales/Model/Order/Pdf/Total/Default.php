@@ -98,7 +98,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
             }
         } else {
             $fullInfo = $this->_getFullRateInfo();
-            $tax_info = [];
+            $taxInfo = [];
 
             if ($fullInfo) {
                 foreach ($fullInfo as $info) {
@@ -111,7 +111,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     foreach ($info['rates'] as $rate) {
                         $percent = $rate['percent'] ? ' (' . $rate['percent'] . '%)' : '';
 
-                        $tax_info[] = [
+                        $taxInfo[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),
                             'label'     => $this->_getTaxHelper()->__($rate['title']) . $percent . ':',
                             'font_size' => $fontSize
@@ -119,7 +119,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     }
                 }
             }
-            $taxClassAmount = $tax_info;
+            $taxClassAmount = $taxInfo;
         }
 
         return $taxClassAmount;
