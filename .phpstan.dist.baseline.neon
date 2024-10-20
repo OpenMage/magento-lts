@@ -6801,27 +6801,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_doRequest\\(\\) should return Mage_Shipping_Model_Rate_Result\\|Varien_Object but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_parseXmlTrackingResponse\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:setTrackingReqeust\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
