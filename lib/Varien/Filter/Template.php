@@ -116,7 +116,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-        if ($value === null) {
+        if (is_null($value)) {
             return '';
         }
 

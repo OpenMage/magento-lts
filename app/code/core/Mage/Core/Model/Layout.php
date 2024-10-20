@@ -162,7 +162,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                     }
 
                     foreach ($ignoreNodes as $block) {
-                        if ($block->getAttribute('ignore') !== null) {
+                        if (!is_null($block->getAttribute('ignore'))) {
                             continue;
                         }
                         $acl = (string)$attributes->acl;

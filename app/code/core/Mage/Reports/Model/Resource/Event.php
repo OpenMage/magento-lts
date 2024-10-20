@@ -114,7 +114,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         $stores = [];
         // get all or specified stores
         if (Mage::app()->getStore()->getId() == 0) {
-            if ($predefinedStoreIds !== null) {
+            if (!is_null($predefinedStoreIds)) {
                 $stores = $predefinedStoreIds;
             } else {
                 foreach (Mage::app()->getStores() as $store) {

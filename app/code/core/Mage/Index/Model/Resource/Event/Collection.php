@@ -80,7 +80,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
             $this->addFieldToFilter('process_event.process_id', $process);
         }
 
-        if ($status !== null) {
+        if (!is_null($status)) {
             if (is_array($status) && !empty($status)) {
                 $this->addFieldToFilter('process_event.status', ['in' => $status]);
             } else {

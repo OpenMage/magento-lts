@@ -2401,6 +2401,16 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
+
+		-
+			message: "#^Parameter \\#1 \\$key of method Varien_Object\\:\\:getData\\(\\) expects string, true given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
+
+		-
 			message: "#^Variable \\$options might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
@@ -3156,12 +3166,12 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
-			count: 2
+			message: "#^Parameter \\#1 \\$obj of function get_object_vars expects object, false given\\.$#"
+			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Parameter \\#1 \\$obj of function get_object_vars expects object, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Customer/Api/V2.php
 
@@ -3171,12 +3181,7 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Parameter \\#1 \\$obj of function get_object_vars expects object, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Cart/Payment/Api/V2.php
 
@@ -4016,12 +4021,7 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between array\\<string, mixed\\> and null will always evaluate to true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Parameter \\#1 \\$obj of function get_object_vars expects object, true given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
@@ -4756,6 +4756,11 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
 
 		-
+			message: "#^Call to function is_null\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
+			count: 1
+			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
+
+		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Customer.php
@@ -4852,11 +4857,6 @@ parameters:
 
 		-
 			message: "#^Property Mage_Index_Model_Lock\\:\\:\\$_storage \\(Mage_Index_Model_Lock_Storage_Interface\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between mixed and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Lock.php
 
@@ -5004,6 +5004,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method Varien_Data_Collection\\:\\:addFilter\\(\\) expects array\\|string, int given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Mage_Oauth_Model_Consumer_Validator_KeyLength\\:\\:isValid\\(\\) expects string, true given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Oauth/Model/Token.php
 
 		-
 			message: "#^Parameter \\#1 \\$data of method Mage_Oauth_Adminhtml_Oauth_ConsumerController\\:\\:_setFormData\\(\\) expects array, null given\\.$#"

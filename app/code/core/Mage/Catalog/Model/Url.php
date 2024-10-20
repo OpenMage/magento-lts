@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Url
             return;
         }
 
-        if (self::$_categoryForUrlPath === null) {
+        if (is_null(self::$_categoryForUrlPath)) {
             self::$_categoryForUrlPath = Mage::getModel('catalog/category');
         }
 
@@ -716,7 +716,7 @@ class Mage_Catalog_Model_Url
         }
 
         $categoryUrlSuffix = $this->getCategoryUrlSuffix($storeId);
-        if ($parentPath === null) {
+        if (is_null($parentPath)) {
             $parentPath = $this->getResource()->getCategoryParentPath($category);
         } elseif ($parentPath == '/') {
             $parentPath = '';
@@ -887,7 +887,7 @@ class Mage_Catalog_Model_Url
                 }
 
                 $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
-                if ($parentPath === null) {
+                if (is_null($parentPath)) {
                     $parentPath = $this->getResource()->getCategoryParentPath($category);
                 } elseif ($parentPath == '/') {
                     $parentPath = '';

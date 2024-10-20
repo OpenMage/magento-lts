@@ -228,11 +228,11 @@ class Mage_CatalogRule_Model_Observer
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof Mage_Catalog_Model_Product
-            && $product->getConfigurablePrice() !== null
+            && !is_null($product->getConfigurablePrice())
         ) {
             $configurablePrice = $product->getConfigurablePrice();
             $productPriceRule = Mage::getModel('catalogrule/rule')->calcProductPriceRule($product, $configurablePrice);
-            if ($productPriceRule !== null) {
+            if (!is_null($productPriceRule)) {
                 $product->setConfigurablePrice($productPriceRule);
             }
         }

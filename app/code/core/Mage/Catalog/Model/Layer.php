@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getStateKey()
     {
-        if ($this->_stateKey === null) {
+        if (is_null($this->_stateKey)) {
             $this->_stateKey = 'STORE_' . Mage::app()->getStore()->getId()
                 . '_CAT_' . $this->getCurrentCategory()->getId()
                 . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
@@ -288,7 +288,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         $key = $this->getStateKey() . '_SET_IDS';
         $setIds = $this->getAggregator()->getCacheData($key);
 
-        if ($setIds === null) {
+        if (is_null($setIds)) {
             $setIds = $this->getProductCollection()->getSetIds();
             $this->getAggregator()->saveCacheData($setIds, $key, $this->getStateTags());
         }

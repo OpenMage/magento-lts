@@ -148,7 +148,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 
         $attributes = $resource->getAllowedAttributes($userType, $resourceId, $operation);
 
-        return ($attributes === false || $attributes === null ? [] : explode(',', $attributes));
+        return ($attributes === false || is_null($attributes) ? [] : explode(',', $attributes));
     }
 
     /**

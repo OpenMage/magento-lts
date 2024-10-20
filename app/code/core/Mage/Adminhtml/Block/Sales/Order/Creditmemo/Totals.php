@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Totals extends Mage_Adminhtml_
 
     public function getCreditmemo()
     {
-        if ($this->_creditmemo === null) {
+        if (is_null($this->_creditmemo)) {
             if ($this->hasData('creditmemo')) {
                 $this->_creditmemo = $this->_getData('creditmemo');
             } elseif (Mage::registry('current_creditmemo')) {

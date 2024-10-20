@@ -315,7 +315,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     public function renderRowValue(Varien_Object $row)
     {
         $value = $row->getValue();
-        if ($value === null) {
+        if (is_null($value)) {
             return '';
         }
         if (is_array($value)) {
@@ -334,7 +334,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     protected function _prepareRelatedOrders($fieldsToSelect = '*')
     {
-        if ($this->_relatedOrders === null) {
+        if (is_null($this->_relatedOrders)) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
                 ->addFieldToSelect($fieldsToSelect)
                 ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())

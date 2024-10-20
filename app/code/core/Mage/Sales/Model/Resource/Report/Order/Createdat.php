@@ -58,7 +58,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
 
         $adapter->beginTransaction();
         try {
-            if ($from !== null || $to !== null) {
+            if (!is_null($from) || !is_null($to)) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     $aggregationField,
@@ -217,7 +217,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
                     Mage_Sales_Model_Order::STATE_NEW
                 ]);
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
@@ -241,7 +241,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             $select->from($this->getMainTable(), $columns)
                 ->where('store_id <> 0');
 
-            if ($subSelect !== null) {
+            if (!is_null($subSelect)) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 

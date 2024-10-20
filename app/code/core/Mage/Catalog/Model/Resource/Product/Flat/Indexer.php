@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function rebuild($store = null)
     {
-        if ($store === null) {
+        if (is_null($store)) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->rebuild($store->getId());
             }
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getAttributeCodes()
     {
-        if ($this->_attributeCodes === null) {
+        if (is_null($this->_attributeCodes)) {
             $adapter               = $this->_getReadAdapter();
             $this->_attributeCodes = [];
 
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getEntityTypeId()
     {
-        if ($this->_entityTypeId === null) {
+        if (is_null($this->_entityTypeId)) {
             $this->_entityTypeId = Mage::getResourceModel('catalog/config')
                 ->getEntityTypeId();
         }
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getAttributes()
     {
-        if ($this->_attributes === null) {
+        if (is_null($this->_attributes)) {
             $this->_attributes = [];
             $attributeCodes    = $this->getAttributeCodes();
             $entity = Mage::getSingleton('eav/config')
@@ -398,7 +398,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getFlatColumns()
     {
-        if ($this->_columns === null) {
+        if (is_null($this->_columns)) {
             if (Mage::helper('core')->useDbCompatibleMode()) {
                 $this->_columns = $this->_getFlatColumnsOldDefinition();
             } else {
@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
                     ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
                     ->getFlatColumns();
-                if ($columns !== null) {
+                if (!is_null($columns)) {
                     $this->_columns = array_merge($this->_columns, $columns);
                 }
             }
@@ -435,7 +435,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getFlatIndexes()
     {
-        if ($this->_indexes === null) {
+        if (is_null($this->_indexes)) {
             $this->_indexes = [];
 
             if ($this->getFlatHelper()->isAddChildData()) {
@@ -472,7 +472,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
                     ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
                     ->getFlatIndexes();
-                if ($indexes !== null) {
+                if (!is_null($indexes)) {
                     $this->_indexes = array_merge($this->_indexes, $indexes);
                 }
             }
@@ -521,10 +521,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
          * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null
          * It just means that default value not specified
          */
-        if ($fieldProp['is_null'] === false && $fieldProp['default'] === null) {
+        if ($fieldProp['is_null'] === false && is_null($fieldProp['default'])) {
             $defaultValue = '';
         } else {
-            $defaultValue = $fieldProp['default'] === null ? ' DEFAULT NULL' : $this->_getReadAdapter()
+            $defaultValue = is_null($fieldProp['default']) ? ' DEFAULT NULL' : $this->_getReadAdapter()
                 ->quoteInto(' DEFAULT ?', $fieldProp['default']);
         }
 
@@ -897,7 +897,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             }
         }
 
-        if ($productIds !== null) {
+        if (!is_null($productIds)) {
             $select->where('e.entity_id IN(?)', $productIds);
         }
 
@@ -938,7 +938,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 implode(' AND ', $joinCondition),
                 []
             );
-        if ($productIds !== null) {
+        if (!is_null($productIds)) {
             $condition = [
                 $adapter->quoteInto('e.entity_id IN(?)', $productIds)
             ];
@@ -985,7 +985,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             if ($this->getFlatHelper()->isAddChildData()) {
                 $select->where('e.is_child = ?', 0);
             }
-            if ($productIds !== null) {
+            if (!is_null($productIds)) {
                 $select->where('main_table.entity_id IN(?)', $productIds);
             }
 
@@ -1004,7 +1004,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
             $select = $attribute->getFlatUpdateSelect($storeId);
             if ($select instanceof Varien_Db_Select) {
-                if ($productIds !== null) {
+                if (!is_null($productIds)) {
                     $select->where('e.entity_id IN(?)', $productIds);
                 }
 
@@ -1059,7 +1059,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
      */
     public function getProductTypeInstances()
     {
-        if ($this->_productTypes === null) {
+        if (is_null($this->_productTypes)) {
             $this->_productTypes = [];
             $productEmulator     = new Varien_Object();
 
@@ -1113,10 +1113,10 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                         "e.entity_id = t.{$relation->getChildFieldName()}",
                         array_keys($columns)
                     );
-                if ($relation->getWhere() !== null) {
+                if (!is_null($relation->getWhere())) {
                     $select->where($relation->getWhere());
                 }
-                if ($productIds !== null) {
+                if (!is_null($productIds)) {
                     $cond = [
                         $adapter->quoteInto("{$relation->getChildFieldName()} IN(?)", $productIds),
                         $adapter->quoteInto("{$relation->getParentFieldName()} IN(?)", $productIds)
@@ -1161,7 +1161,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             )
             ->where('t2.is_child = ?', 1);
 
-        if ($productIds !== null) {
+        if (!is_null($productIds)) {
             $select->where('t2.child_id IN(?)', $productIds);
         }
 
@@ -1204,7 +1204,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                     "e.entity_id = t.{$relation->getParentFieldName()}",
                     "e.child_id = t.{$relation->getChildFieldName()}"
                 ];
-                if ($relation->getWhere() !== null) {
+                if (!is_null($relation->getWhere())) {
                     $select->where($relation->getWhere());
                     $joinLeftCond[] = $relation->getWhere();
                 }

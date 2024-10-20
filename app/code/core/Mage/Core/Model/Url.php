@@ -490,7 +490,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         if (!$this->hasData('route_path')) {
             $routePath = $this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS);
-            if (!empty($routeParams['_use_rewrite']) && ($routePath !== null)) {
+            if (!empty($routeParams['_use_rewrite']) && (!is_null($routePath))) {
                 $this->setData('route_path', $routePath);
                 return $routePath;
             }
@@ -989,7 +989,7 @@ class Mage_Core_Model_Url extends Varien_Object
         /**
          * Apply query params, need call after getRouteUrl for rewrite _current values
          */
-        if ($query !== null) {
+        if (!is_null($query)) {
             if (is_string($query)) {
                 $this->setQuery($query);
             } elseif (is_array($query)) {

@@ -124,7 +124,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _getApi()
     {
-        if ($this->_api !== null) {
+        if (!is_null($this->_api)) {
             return $this->_api;
         }
 

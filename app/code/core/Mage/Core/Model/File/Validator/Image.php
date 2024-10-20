@@ -89,7 +89,7 @@ class Mage_Core_Model_File_Validator_Image
                     $imageQuality = (int) $imageQuality;
                 } else {
                     // Value not set in backend. For BC, if depcrecated config does not exist, default to 85.
-                    $imageQuality = Mage::getStoreConfig('general/reprocess_images/active') === null
+                    $imageQuality = is_null(Mage::getStoreConfig('general/reprocess_images/active'))
                         ? 85
                         : (Mage::getStoreConfigFlag('general/reprocess_images/active') ? 85 : 0);
                 }

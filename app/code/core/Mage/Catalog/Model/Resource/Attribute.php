@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             ->group('main_table.attribute_id')
             ->limit(1);
 
-        if ($attributeSet !== null) {
+        if (!is_null($attributeSet)) {
             $bind['attribute_set_id'] = $attributeSet;
             $select->where('entity.attribute_set_id = :attribute_set_id');
         }

@@ -376,7 +376,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function getWidgetConfig()
     {
-        if ($this->_widgetConfigXml === null) {
+        if (is_null($this->_widgetConfigXml)) {
             $this->_widgetConfigXml = Mage::getSingleton('widget/widget')
                 ->getXmlElementByType($this->getType());
             if ($this->_widgetConfigXml) {

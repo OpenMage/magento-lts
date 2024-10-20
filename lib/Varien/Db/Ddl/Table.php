@@ -184,7 +184,7 @@ class Varien_Db_Ddl_Table
     public function setName($name)
     {
         $this->_tableName = $name;
-        if ($this->_tableComment === null) {
+        if (is_null($this->_tableComment)) {
             $this->_tableComment = $name;
         }
         return $this;
@@ -339,7 +339,7 @@ class Varien_Db_Ddl_Table
                         $precision  = $size[0];
                         $scale      = $size[1];
                     }
-                } elseif ($size !== null && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
+                } elseif (!is_null($size) && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
@@ -392,7 +392,7 @@ class Varien_Db_Ddl_Table
             $identity = true;
         }
 
-        if ($comment === null) {
+        if (is_null($comment)) {
             $comment = ucfirst($name);
         }
 

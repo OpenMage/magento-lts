@@ -124,7 +124,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function isBuilt($store = null)
     {
-        if ($store !== null) {
+        if (!is_null($store)) {
             return $this->getFlag()->isStoreBuilt(Mage::app()->getStore($store)->getId());
         }
         return $this->getFlag()->getIsBuilt();
