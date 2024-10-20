@@ -114,8 +114,8 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             $value = [$value];
         }
         if ($escapeHtml) {
-            foreach ($value as $_key => $_val) {
-                $value[$_key] = $this->escapeHtml($_val);
+            foreach ($value as $key => $val) {
+                $value[$key] = $this->escapeHtml($val);
             }
         }
         return $value;
