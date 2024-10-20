@@ -147,7 +147,8 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
      */
     public function getChilds($item)
     {
-        $_itemsArray = [];
+        $orderItems = [];
+        $itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $orderItems = $item->getInvoice()->getAllItems();
@@ -160,14 +161,14 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         if ($orderItems) {
             foreach ($orderItems as $orderItem) {
                 if ($parentItem = $orderItem->getOrderItem()->getParentItem()) {
-                    $_itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
+                    $itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 } else {
-                    $_itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
+                    $itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 }
             }
         }
 
-        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
+        return $itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**

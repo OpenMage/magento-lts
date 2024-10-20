@@ -46,7 +46,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
         $_prevOptionId = '';
         $drawItems = [];
 
-        /** @var Mage_Sales_Model_Order_Invoice_Item $_item */
+        /** @var Mage_Sales_Model_Order_Invoice_Item $orderItem */
         foreach ($orderItems as $orderItem) {
             $line   = [];
 

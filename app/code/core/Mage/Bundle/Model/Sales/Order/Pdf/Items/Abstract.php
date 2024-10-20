@@ -29,7 +29,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getChilds($item)
     {
-        $_itemsArray = [];
+        $orderItems = [];
+        $itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $orderItems = $item->getInvoice()->getAllItems();
@@ -43,14 +44,14 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             foreach ($orderItems as $orderItem) {
                 $parentItem = $orderItem->getOrderItem()->getParentItem();
                 if ($parentItem) {
-                    $_itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
+                    $itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 } else {
-                    $_itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
+                    $itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 }
             }
         }
 
-        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
+        return $itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**
