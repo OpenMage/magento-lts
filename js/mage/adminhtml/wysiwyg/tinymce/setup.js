@@ -68,6 +68,7 @@ tinyMceWysiwygSetup.prototype =
         }
 
         var settings = {
+            license_key: "gpl",
             selector: this.selector,
             config: this.config,
             valid_children: '+body[style]',
