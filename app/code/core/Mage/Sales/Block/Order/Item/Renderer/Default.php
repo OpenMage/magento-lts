@@ -133,15 +133,15 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         // truncate standard view
         $result = [];
         if (is_array($optionValue)) {
-            $_truncatedValue = implode("\n", $optionValue);
-            $_truncatedValue = nl2br($_truncatedValue);
-            return ['value' => $_truncatedValue];
+            $truncatedValue = implode("\n", $optionValue);
+            $truncatedValue = nl2br($truncatedValue);
+            return ['value' => $truncatedValue];
         } else {
-            $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
-            $_truncatedValue = nl2br($_truncatedValue);
+            $truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
+            $truncatedValue = nl2br($truncatedValue);
         }
 
-        $result = ['value' => $_truncatedValue];
+        $result = ['value' => $truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
             $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';

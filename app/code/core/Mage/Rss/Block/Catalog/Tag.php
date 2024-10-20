@@ -55,21 +55,21 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         ];
         $rssObj->_addHeader($data);
 
-        $_collection = $tagModel->getEntityCollection()
+        $collection = $tagModel->getEntityCollection()
             ->addTagFilter($tagModel->getId())
             ->addStoreFilter($storeId);
 
-        $_collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $product = Mage::getModel('catalog/product');
 
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resourceHelper */
         $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
-            $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
+            $resourceHelper->getQueryUsingAnalyticFunction($collection->getSelect()),
             [[$this, 'addTaggedItemXml']],
             ['rssObj' => $rssObj, 'product' => $product],
-            $_collection->getSelect()->getAdapter()
+            $collection->getSelect()->getAdapter()
         );
 
         return $rssObj->createRssXml();
