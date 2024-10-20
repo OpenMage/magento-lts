@@ -52,6 +52,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (!empty($attributes->attributes)) {
             $allAttributes = array_merge($allAttributes, $attributes->attributes);
         } else {
+            // phpcs:ignore Ecg.Performance.Loop.DataLoad
             foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
                 if ($this->_isAllowedAttribute($attribute, $attributes)) {
                     $allAttributes[] = $attribute->getAttributeCode();
@@ -61,13 +62,14 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         $_additionalAttributeCodes = [];
         if (!empty($attributes->additional_attributes)) {
-            foreach ($attributes->additional_attributes as $k => $_attributeCode) {
-                $allAttributes[] = $_attributeCode;
-                $_additionalAttributeCodes[] = $_attributeCode;
+            foreach ($attributes->additional_attributes as $attributeCode) {
+                $allAttributes[] = $attributeCode;
+                $_additionalAttributeCodes[] = $attributeCode;
             }
         }
 
         $_additionalAttribute = 0;
+        // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $allAttributes)) {
                 if (in_array($attribute->getAttributeCode(), $_additionalAttributeCodes)) {
@@ -90,7 +92,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param string $type
      * @param int $set
      * @param string $sku
-     * @param array $productData
+     * @param array|stdClass $productData
      * @param string $store
      * @return int
      */
@@ -151,7 +153,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * Update product data
      *
      * @param int|string $productId
-     * @param array $productData
+     * @param array|stdClass $productData
      * @param string|int $store
      * @param string|null $identifierType
      * @return bool
@@ -227,7 +229,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *  Set additional data before product saved
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
+     * @param array|stdClass $productData
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -256,6 +258,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             unset($productData->additional_attributes);
         }
 
+        // phpcs:ignore: Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
 

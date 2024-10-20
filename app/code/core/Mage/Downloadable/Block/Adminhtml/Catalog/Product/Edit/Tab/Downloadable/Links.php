@@ -61,10 +61,10 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     public function getPurchasedSeparatelyAttribute()
     {
         if ($this->_purchasedSeparatelyAttribute === null) {
-            $_attributeCode = 'links_purchased_separately';
+            $attributeCode = 'links_purchased_separately';
 
             $attribute = Mage::getSingleton('eav/config')
-                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $_attributeCode);
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
             if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
                 Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
             }
@@ -170,9 +170,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     Mage_Downloadable_Model_Link::getBasePath(),
                     $item->getLinkFile()
                 );
+                // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                 if (!is_file($file)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
                 }
+                // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                 if (is_file($file)) {
                     $name = '<a href="'
                         . $this->getUrl('*/downloadable_product_edit/link', [
@@ -183,6 +185,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                         [
                             'file' => $item->getLinkFile(),
                             'name' => $name,
+                            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                             'size' => filesize($file),
                             'status' => 'old'
                         ]
@@ -194,11 +197,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     Mage_Downloadable_Model_Link::getBaseSamplePath(),
                     $item->getSampleFile()
                 );
+                // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                 if (is_file($sampleFile)) {
                     $tmpLinkItem['sample_file_save'] = [
                         [
                             'file' => $item->getSampleFile(),
                             'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
+                            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                             'size' => filesize($sampleFile),
                             'status' => 'old'
                         ]

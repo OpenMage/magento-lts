@@ -2126,11 +2126,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
-			message: "#^Parameter \\#2 \\$productData of method Mage_Catalog_Model_Product_Api_V2\\:\\:update\\(\\) expects array, stdClass given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
 			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
