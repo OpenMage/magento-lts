@@ -61,7 +61,10 @@
 !.php-cs-fixer.dist.*
 
 .phpcs*.xml
-!.phpcs*.xml.dist
+!.phpcs.dist*.xml
+
+# PHPMD cache
+.phpmd.result-cache.php
 
 # PhpStan
 .phpstan.cache
@@ -75,7 +78,7 @@ tests/coverage
 tests/logging
 .phpunit.result.cache
 phpunit.xml
-!phpunit.xml.dist
+!.phpunit.dist.xml
 
 # build
 /build
