@@ -1,0 +1,39 @@
+name: MkDocs
+
+on:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+      - documentation
+    paths:
+      - 'docs/**.md'
+      - 'docs/**.html'
+      - 'docs/**.yml'
+      - 'docs_includes/**.md'
+      - 'mkdocs.yml'
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+      - run: pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
+
+      - name: Publish docs
+        run: mkdocs gh-deploy --force
