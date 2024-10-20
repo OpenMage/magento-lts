@@ -119,24 +119,25 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         }
 
         $position = 0;
-        foreach ($optionsArray as $_option) {
-            /** @var Mage_Bundle_Model_Option $_option */
-            if (!$_option->getSelections()) {
+        foreach ($optionsArray as $bundleOption) {
+            /** @var Mage_Bundle_Model_Option $bundleOption */
+            if (!$bundleOption->getSelections()) {
                 continue;
             }
 
-            $optionId = $_option->getId();
+            $optionId = $bundleOption->getId();
             $option = [
                 'selections' => [],
-                'title'      => $_option->getTitle(),
-                'isMulti'    => in_array($_option->getType(), ['multi', 'checkbox']),
+                'title'      => $bundleOption->getTitle(),
+                'isMulti'    => in_array($bundleOption->getType(), ['multi', 'checkbox']),
                 'position'   => $position++
             ];
 
-            $selectionCount = count($_option->getSelections());
+            // phpcs:ignore Ecg.Performance.Loop.ArraySize
+            $selectionCount = count($bundleOption->getSelections());
             /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');
-            foreach ($_option->getSelections() as $_selection) {
+            foreach ($bundleOption->getSelections() as $_selection) {
                 $selectionId = $_selection->getSelectionId();
                 $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
                 // recalculate currency
@@ -260,7 +261,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 }
                 $option['selections'][$selectionId] = $selection;
 
-                if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired()))
+                if (($_selection->getIsDefault() || ($selectionCount == 1 && $bundleOption->getRequired()))
                     && $_selection->isSalable()
                 ) {
                     $selected[$optionId][] = $selectionId;

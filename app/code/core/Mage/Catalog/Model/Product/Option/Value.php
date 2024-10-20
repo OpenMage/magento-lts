@@ -22,10 +22,10 @@
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
- * @method int getOptionId()
- * @method $this setOptionId(int $value)
- * @method int getOptionTypeId()
- * @method $this setOptionTypeId(int $value)
+ * @method int|null getOptionId()
+ * @method $this setOptionId(int|null $value)
+ * @method int|null getOptionTypeId()
+ * @method $this setOptionTypeId(int|null $value)
  * @method string getPriceType()
  * @method string getSku()
  * @method $this setSku(string $value)
@@ -152,9 +152,11 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
             if ($this->getData('is_delete') == '1') {
                 if ($this->getId()) {
                     $this->deleteValues($this->getId());
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->delete();
                 }
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
         }//eof foreach()

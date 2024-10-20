@@ -303,6 +303,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param array $productOptionValues Values for product option
      * @return string|null
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         return $optionValue;
@@ -326,6 +327,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param float $basePrice For percent price type
      * @return float
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     public function getOptionPrice($optionValue, $basePrice)
     {
         $option = $this->getOption();
@@ -344,6 +346,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param string $skuDelimiter Delimiter for Sku parts
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function getOptionSku($optionValue, $skuDelimiter)
     {
         return $this->getOption()->getSku();
@@ -357,16 +360,16 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     public function getProductOptions()
     {
         if (!isset($this->_productOptions[$this->getProduct()->getId()])) {
-            foreach ($this->getProduct()->getOptions() as $_option) {
-                $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()] = ['option_id' => $_option->getId()];
-                if ($_option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
+            foreach ($this->getProduct()->getOptions() as $option) {
+                $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()] = ['option_id' => $option->getId()];
+                if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                     $optionValues = [];
-                    foreach ($_option->getValues() as $_value) {
+                    foreach ($option->getValues() as $_value) {
                         $optionValues[$_value->getTitle()] = $_value->getId();
                     }
-                    $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()]['values'] = $optionValues;
+                    $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {
-                    $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()]['values'] = [];
+                    $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = [];
                 }
             }
         }

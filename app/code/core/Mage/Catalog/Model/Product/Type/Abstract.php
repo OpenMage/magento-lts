@@ -173,6 +173,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param bool $required
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function getChildrenIds($parentId, $required = true)
     {
         return [];
@@ -184,6 +185,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param int|array $childId
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function getParentIdsByChild($childId)
     {
         return [];
@@ -236,6 +238,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     || count($attribute->getApplyTo()) == 0
                     || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
                 ) {
@@ -268,8 +271,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is virtual product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool
+     * @return false
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function isVirtual($product = null)
     {
         return false;
@@ -430,6 +434,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         /** @var Zend_File_Transfer_Adapter_Http $uploader */
                         $uploader = $queueOptions['uploader'] ?? null;
 
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $path = dirname($dst);
                         $io = new Varien_Io_File();
                         if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
@@ -452,6 +457,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     case 'move_uploaded_file':
                         $src = $queueOptions['src_name'];
                         $dst = $queueOptions['dst_name'];
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         move_uploaded_file($src, $dst);
                         Mage::helper('core/file_storage_database')->saveFile($dst);
                         break;
@@ -509,10 +515,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $transport = new stdClass();
         $transport->options = [];
-        foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /** @var Mage_Catalog_Model_Product_Option $_option */
-            $group = $_option->groupFactory($_option->getType())
-                ->setOption($_option)
+        foreach ($this->getProduct($product)->getOptions() as $option) {
+            /** @var Mage_Catalog_Model_Product_Option $option */
+            $group = $option->groupFactory($option->getType())
+                ->setOption($option)
                 ->setProduct($this->getProduct($product))
                 ->setRequest($buyRequest)
                 ->setProcessMode($processMode)
@@ -520,7 +526,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
             $preparedValue = $group->prepareForCart();
             if ($preparedValue !== null) {
-                $transport->options[$_option->getId()] = $preparedValue;
+                $transport->options[$option->getId()] = $preparedValue;
             }
         }
 
@@ -629,6 +635,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function save($product = null)
     {
         return $this;
@@ -647,6 +654,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         foreach ($eavConfig->getEntityAttributeCodes($entityType, $product) as $attributeCode) {
             $attribute = $eavConfig->getAttribute($entityType, $attributeCode);
             $applyTo   = $attribute->getApplyTo();
+            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             if (is_array($applyTo) && count($applyTo) > 0 && !in_array($product->getTypeId(), $applyTo)) {
                 $product->unsetData($attribute->getAttributeCode());
             }
@@ -672,6 +680,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function isComposite($product = null)
     {
         return $this->_isComposite;
@@ -683,6 +692,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function canConfigure($product = null)
     {
         return $this->_canConfigure;
@@ -789,6 +799,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
         return $this;
@@ -839,8 +850,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * (applicable for complicated product types. As default returns false)
      *
      * @param Mage_Catalog_Model_Product|null $product
-     * @return bool false
+     * @return false
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function getForceChildItemQtyChanges($product = null)
     {
         return false;
@@ -853,6 +865,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product|null $product
      * @return float
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function prepareQuoteItemQty($qty, $product = null)
     {
         return (float) $qty;
@@ -934,6 +947,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param  Varien_Object $buyRequest
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function processBuyRequest($product, $buyRequest)
     {
         return [];
@@ -976,8 +990,9 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool
+     * @return false
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function isMapEnabledInOptions($product, $visibility = null)
     {
         return false;

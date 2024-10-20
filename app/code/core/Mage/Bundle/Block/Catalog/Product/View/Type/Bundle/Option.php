@@ -47,10 +47,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _showSingle()
     {
         if (is_null($this->_showSingle)) {
-            $_option        = $this->getOption();
-            $_selections    = $_option->getSelections();
+            $option     = $this->getOption();
+            $selections = $option->getSelections();
 
-            $this->_showSingle = (count($_selections) === 1 && $_option->getRequired());
+            $this->_showSingle = (count($selections) === 1 && $option->getRequired());
         }
 
         return $this->_showSingle;
@@ -63,32 +63,32 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      */
     protected function _getDefaultValues()
     {
-        $_option            = $this->getOption();
-        $_default           = $_option->getDefaultSelection();
-        $_selections        = $_option->getSelections();
+        $option             = $this->getOption();
+        $default            = $option->getDefaultSelection();
+        $selections         = $option->getSelections();
         $selectedOptions    = $this->_getSelectedOptions();
         $inPreConfigured    = $this->getProduct()->hasPreconfiguredValues()
             && $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option_qty/' . $_option->getId());
+                    ->getData('bundle_option_qty/' . $option->getId());
 
-        if (empty($selectedOptions) && $_default) {
-            $_defaultQty = $_default->getSelectionQty() * 1;
-            $_canChangeQty = $_default->getSelectionCanChangeQty();
+        if (empty($selectedOptions) && $default) {
+            $_defaultQty = $default->getSelectionQty() * 1;
+            $_canChangeQty = $default->getSelectionCanChangeQty();
         } elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
-            $selectedSelection = $_option->getSelectionById($selectedOptions);
+            $selectedSelection = $option->getSelectionById($selectedOptions);
             if ($selectedSelection) {
                 $_defaultQty = $selectedSelection->getSelectionQty() * 1;
                 $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
             } else {
-                $_defaultQty = $_selections[0]->getSelectionQty() * 1;
-                $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+                $_defaultQty = $selections[0]->getSelectionQty() * 1;
+                $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
             }
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
             $_canChangeQty = (bool)$_defaultQty;
         } else {
-            $_defaultQty = $_selections[0]->getSelectionQty() * 1;
-            $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+            $_defaultQty = $selections[0]->getSelectionQty() * 1;
+            $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
         }
 
         return [$_defaultQty, $_canChangeQty];

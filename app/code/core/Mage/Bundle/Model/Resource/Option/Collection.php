@@ -124,11 +124,11 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         }
 
         if (!$this->_selectionsAppended) {
-            foreach ($selectionsCollection->getItems() as $key => $_selection) {
-                if ($_option = $this->getItemById($_selection->getOptionId())) {
-                    if ($appendAll || ($_selection->isSalable() && !$_selection->getRequiredOptions())) {
-                        $_selection->setOption($_option);
-                        $_option->addSelection($_selection);
+            foreach ($selectionsCollection->getItems() as $key => $selection) {
+                if ($option = $this->getItemById($selection->getOptionId())) {
+                    if ($appendAll || ($selection->isSalable() && !$selection->getRequiredOptions())) {
+                        $selection->setOption($option);
+                        $option->addSelection($selection);
                     } else {
                         $selectionsCollection->removeItemByKey($key);
                     }
