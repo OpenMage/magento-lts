@@ -132,13 +132,13 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
     {
+        if (!str_contains($url, '?')) {
+            return $url;
+        }
+
         list($baseUrl, $query) = explode('?', $url, 2);
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($query, $params);
-
-        if ($params === []) {
-            return $baseUrl;
-        }
 
         if (!$caseSensitive) {
             $paramsLower = array_change_key_case($params);
@@ -153,7 +153,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             unset($params[$paramKey]);
         }
 
-        return $baseUrl . '?' . http_build_query($params);
+        return $baseUrl . ($params === [] ? '' : '?' . http_build_query($params));
     }
 
     /**
