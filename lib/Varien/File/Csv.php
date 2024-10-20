@@ -22,7 +22,6 @@ class Varien_File_Csv
     protected $_lineLength = 0;
     protected $_delimiter = ',';
     protected $_enclosure = '"';
-    protected $_escape = '\\';
 
     public function __construct()
     {
@@ -116,7 +115,7 @@ class Varien_File_Csv
     {
         $fh = fopen($file, 'w');
         foreach ($data as $dataRow) {
-            $this->fputcsv($fh, $dataRow, $this->_delimiter, $this->_enclosure, $this->_escape);
+            $this->fputcsv($fh, $dataRow, $this->_delimiter, $this->_enclosure);
         }
         fclose($fh);
         return $this;
