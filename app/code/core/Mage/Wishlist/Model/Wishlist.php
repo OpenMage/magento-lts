@@ -330,17 +330,17 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             ->load($productId);
 
         if ($buyRequest instanceof Varien_Object) {
-            $_buyRequest = $buyRequest;
+            $request = $buyRequest;
         } elseif (is_string($buyRequest)) {
-            $_buyRequest = new Varien_Object(unserialize($buyRequest, ['allowed_classes' => false]));
+            $request = new Varien_Object(unserialize($buyRequest, ['allowed_classes' => false]));
         } elseif (is_array($buyRequest)) {
-            $_buyRequest = new Varien_Object($buyRequest);
+            $request = new Varien_Object($buyRequest);
         } else {
-            $_buyRequest = new Varien_Object();
+            $request = new Varien_Object();
         }
 
         $cartCandidates = $product->getTypeInstance(true)
-            ->processConfiguration($_buyRequest, $product);
+            ->processConfiguration($request, $product);
 
         /**
          * Error message

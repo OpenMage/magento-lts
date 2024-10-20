@@ -182,10 +182,12 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     {
         foreach ($this->_options as $index => $option) {
             if ($option->isDeleted()) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->delete();
                 unset($this->_options[$index]);
                 unset($this->_optionsByCode[$option->getCode()]);
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->save();
             }
         }
@@ -313,6 +315,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         $product = $this->_getData('product');
         if (is_null($product)) {
             if (!$this->getProductId()) {
+                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 throw new Mage_Core_Exception(
                     Mage::helper('wishlist')->__('Cannot specify product.'),
                     self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT
@@ -360,6 +363,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (!$product->isSalable()) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_NOT_SALABLE);
         }
 
@@ -460,9 +464,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function setBuyRequest($buyRequest)
     {
         $buyRequest->setId($this->getId());
-
-        $_buyRequest = serialize($buyRequest->getData());
-        $this->setData('buy_request', $_buyRequest);
+        $request = serialize($buyRequest->getData());
+        $this->setData('buy_request', $request);
         return $this;
     }
 
@@ -591,7 +594,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Add option to item
      *
-     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @param   array|Mage_Wishlist_Model_Item_Option $option
      * @return  $this
      */
     public function addOption($option)
