@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,8 +64,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'width'     => '50px',
-            'align'     => 'right',
             'index'     => 'entity_id'
         ]);
 
@@ -94,7 +92,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
             'width'     => '70px',
             'sortable'  => false,
             'type'      => 'currency',
-            'align'     => 'right',
             'currency_code' => $currencyCode,
             'index'     => 'total',
             'renderer'  => 'adminhtml/report_grid_column_renderer_currency',

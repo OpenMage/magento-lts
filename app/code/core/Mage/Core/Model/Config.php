@@ -747,7 +747,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element
+     * @return Mage_Core_Model_Config_Element|false
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {

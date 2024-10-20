@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,8 +90,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     {
         $this->addColumn('id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [
@@ -123,12 +121,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
             'column_css_class' => 'sku'
         ]);
         $this->addColumn('price', [
-            'header'    => Mage::helper('sales')->__('Price'),
             'align'     => 'center',
             'type'      => 'currency',
             'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
             'rate'      => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
-            'index'     => 'price'
         ]);
 
         $this->addColumn('is_selected', [
