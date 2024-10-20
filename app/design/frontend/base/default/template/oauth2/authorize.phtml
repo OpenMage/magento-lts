@@ -1,0 +1,10 @@
+<form action="<?php echo $this->getFormActionUrl(); ?>" method="post">
+    <?php echo $this->getBlockHtml('formkey') ?>
+    <input type="hidden" name="client_id" value="<?php echo $this->htmlEscape($this->getClient()->getId()); ?>" />
+    <input type="hidden" name="redirect_uri" value="<?php echo $this->htmlEscape($this->getRedirectUri()); ?>" />
+    <h1><?php echo $this->__('Authorize %s', $this->htmlEscape($this->getClient()->getName())); ?></h1>
+    <div class="form-buttons">
+        <button type="submit" name="authorized" value="yes"><?php echo $this->__('Allow'); ?></button>
+        <button type="submit" name="authorized" value="no"><?php echo $this->__('Deny'); ?></button>
+    </div>
+</form>
