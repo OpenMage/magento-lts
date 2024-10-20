@@ -242,7 +242,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             return false;
         }
 
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
+        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, '\\');
     }
 
     /**
