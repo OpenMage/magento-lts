@@ -1,0 +1,34 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if ($_products = $this->getRecentlyComparedProducts()): ?>
+<div class="widget widget-compared">
+    <div class="block block-list">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Recently Compared') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <?php $suffix = $this->getNameInLayout(); ?>
+            <ol id="widget-compared-<?php echo $suffix; ?>">
+            <?php $i=0; foreach ($_products as $_product): ?>
+                <li class="item">
+                    <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
+                </li>
+            <?php endforeach ?>
+            </ol>
+        </div>
+    </div>
+</div>
+<?php endif ?>
