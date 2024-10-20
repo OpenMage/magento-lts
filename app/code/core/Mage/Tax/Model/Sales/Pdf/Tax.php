@@ -25,7 +25,7 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array

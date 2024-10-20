@@ -61,19 +61,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Calculate the width of given text in points taking into account current font and font-size
      *
      * @param string $text
-     * @param float $font_size
+     * @param float $fontSize
      * @return float
      */
-    public function getTextWidth($text, Zend_Pdf_Resource_Font $font, $font_size)
+    public function getTextWidth($text, Zend_Pdf_Resource_Font $font, $fontSize)
     {
         $drawing_text = iconv('', 'UTF-16BE', $text);
         $characters = [];
+        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < strlen($drawing_text); $i++) {
             $characters[] = (ord($drawing_text[$i++]) << 8) | ord($drawing_text[$i]);
         }
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        return (array_sum($widths) / $font->getUnitsPerEm()) * $font_size;
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
     }
 
     /**
@@ -86,7 +87,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      *   Defaults to current locale.
      * @param $align
      * @throws Zend_Pdf_Exception
-     * @return $this
+     * @return Zend_Pdf_Canvas_Interface
      */
     public function drawText($text, $x, $y, $charEncoding = 'UTF-8', $align = self::ALIGN_LEFT)
     {

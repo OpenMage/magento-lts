@@ -36,7 +36,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array
@@ -77,7 +77,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array
