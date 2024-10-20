@@ -427,12 +427,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             if ($current) {
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
-                $_storeIds = [];
+                $storeIds = [];
                 $stores = Mage::app()->getStores();
                 foreach ($stores as $store) {
-                    $_storeIds[] = $store->getId();
+                    $storeIds[] = $store->getId();
                 }
-                $this->_storeIds = $_storeIds;
+                $this->_storeIds = $storeIds;
             }
         }
         return $this->_storeIds;
