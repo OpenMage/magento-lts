@@ -277,23 +277,23 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get default attribute set identifier for etity type
+     * Get default attribute set identifier for entity type
      *
-     * @return string|null
+     * @return int|null
      */
     public function getDefaultAttributeSetId()
     {
-        return $this->_data['default_attribute_set_id'] ?? null;
+        return isset($this->_data['default_attribute_set_id']) ? (int)$this->_data['default_attribute_set_id'] : null;
     }
 
     /**
      * Retrieve entity type id
      *
-     * @return string|null
+     * @return int|null
      */
     public function getEntityTypeId()
     {
-        return $this->_data['entity_type_id'] ?? null;
+        return isset($this->_data['entity_type_id']) ? (int)$this->_data['entity_type_id'] : null;
     }
 
     /**
@@ -333,11 +333,13 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource entity object
      *
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
     {
-        return Mage::getResourceSingleton($this->_data['entity_model']);
+        /** @var Mage_Eav_Model_Entity_Abstract $entity */
+        $entity = Mage::getResourceSingleton($this->_data['entity_model']);
+        return $entity;
     }
 
     /**

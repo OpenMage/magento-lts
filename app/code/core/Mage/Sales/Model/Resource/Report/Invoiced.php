@@ -123,18 +123,21 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('filter_source_table.order_id = source_table.order_id');
 
             if ($subSelect !== null) {
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->where('source_table.entity_id = (?)', new Zend_Db_Expr($filterSubSelect));
             unset($filterSubSelect);
 
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $select->group([
                 $periodExpr,
                 'order_table.store_id',
                 'order_table.status'
             ]);
 
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $select->having('orders_count > 0');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
@@ -159,6 +162,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $select->group([
                 'period',
                 'order_status'
@@ -213,7 +217,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'orders_invoiced'       => new Zend_Db_Expr(
                     sprintf(
                         'SUM(%s)',
-                        $adapter->getCheckSql('base_total_invoiced > 0', 1, 0)
+                        $adapter->getCheckSql('base_total_invoiced > 0', '1', '0')
                     )
                 ),
                 'invoiced'              => new Zend_Db_Expr(
@@ -245,15 +249,18 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
         if ($subSelect !== null) {
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select->group([
             $periodExpr,
             'store_id',
             'status'
         ]);
 
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select->having('orders_count > 0');
 
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
@@ -280,6 +287,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select->group([
             'period',
             'order_status'

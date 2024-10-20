@@ -211,7 +211,7 @@ class Mage_Catalog_Model_Url
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param int $storeId Store View
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)

@@ -407,7 +407,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order Item
      *
      * @param int $qty
-     * @return Mage_Sales_Model_Quote_Item | string
+     * @return $this|Mage_Sales_Model_Quote_Item|string
      */
     public function initFromOrderItem(Mage_Sales_Model_Order_Item $orderItem, $qty = null)
     {
@@ -653,6 +653,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if (isset($data['add_order_item'])) {
             foreach ($data['add_order_item'] as $orderItemId => $value) {
                 /** @var Mage_Sales_Model_Order_Item $orderItem */
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
                 $item = $this->initFromOrderItem($orderItem);
                 if (is_string($item)) {
@@ -885,7 +886,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse additional options and sync them with product options
      *
-     * @param array $additionalOptions
+     * @param string $additionalOptions
      * @return array
      */
     protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
@@ -1115,6 +1116,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         return $this;
     }
 
+    /**
+     * @param array|Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function setShippingAddress($address)
     {
         if (is_array($address)) {
@@ -1163,6 +1168,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         return $this->getQuote()->getBillingAddress();
     }
 
+    /**
+     * @param array|Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function setBillingAddress($address)
     {
         if (is_array($address)) {
@@ -1172,6 +1181,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 ->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_BILLING);
             $this->_setQuoteAddress($billingAddress, $address);
             $billingAddress->implodeStreetAddress();
+        }
+        if ($address instanceof Mage_Sales_Model_Quote_Address) {
+            $billingAddress = $address;
         }
 
         if ($this->getShippingAddress()->getSameAsBilling()) {

@@ -34,7 +34,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string $string
+     * @param string|null $string
      * @param int $length
      * @param string $etc
      * @param string &$remainder
@@ -241,7 +241,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Split words
      *
-     * @param string $str The source string
+     * @param string|null $str The source string
      * @param bool $uniqueOnly Unique words only
      * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
@@ -306,11 +306,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (empty($sort)) {
             return false;
         }
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $oldLocale = setlocale(LC_COLLATE, '0');
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
         ksort($sort, SORT_LOCALE_STRING);
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         setlocale(LC_COLLATE, $oldLocale);
 
         return $sort;
@@ -513,8 +516,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string $str
-     * @return mixed|null
+     * @param string|null $str
+     * @return null|void
      * @throws Exception
      */
     public function unserialize($str)
@@ -524,7 +527,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
             $char = $str[$i];
             $result = $reader->read($char, $prevChar);
             if (!is_null($result)) {

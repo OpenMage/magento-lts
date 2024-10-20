@@ -51,8 +51,8 @@
  * @method Mage_Sales_Model_Quote_Item[] getAllItems()
  * @method $this setAllItems(array $items)
  *
- * @method string getBaseCurrency()
- * @method $this setBaseCurrency(string $value)
+ * @method Mage_Directory_Model_Currency getBaseCurrency()
+ * @method $this setBaseCurrency(Mage_Directory_Model_Currency $value)
  * @method float getBaseSubtotalInclTax()
  * @method $this setBaseSubtotalInclTax(float $value)
  *
@@ -117,8 +117,8 @@
  * @method $this setPackageWidth(int $value)
  * @method int getPackageDepth()
  * @method $this setPackageDepth(int $value)
- * @method string getPackageCurrency()
- * @method $this setPackageCurrency(string $value)
+ * @method Mage_Directory_Model_Currency getPackageCurrency()
+ * @method $this setPackageCurrency(Mage_Directory_Model_Currency $value)
  * @method $this setPostcode(string $value)
  *
  * @method $this setRegionId(string $value)
