@@ -81,13 +81,16 @@
     [ ] LongClassName
     [ ] ShortClassName
     [ ] LongVariable
-    [?] ShortVariable
+    [?] ShortVariable - TMP disabled
     [ ] ShortMethodName
     -->
-    <rule ref="rulesets/naming.xml/ShortVariable">
-        <properties>
-            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />
-        </properties>
+<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
+<!--        <properties>-->
+<!--            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />-->
+<!--        </properties>-->
+<!--    </rule>-->
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable" />
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
 
