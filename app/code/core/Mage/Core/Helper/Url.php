@@ -136,6 +136,10 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($query, $params);
 
+        if ($params === []) {
+            return $baseUrl;
+        }
+
         if (!$caseSensitive) {
             $paramsLower = array_change_key_case($params);
             $paramKeyLower = strtolower($paramKey);
@@ -147,10 +151,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 
         if (array_key_exists($paramKey, $params)) {
             unset($params[$paramKey]);
-        }
-
-        if ($params === []) {
-            return $baseUrl;
         }
 
         return $baseUrl . '?' . http_build_query($params);
