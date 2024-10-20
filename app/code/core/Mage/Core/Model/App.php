@@ -539,6 +539,7 @@ class Mage_Core_Model_App
      *
      * @param string $type
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _checkGetStore($type)
     {
@@ -959,11 +960,11 @@ class Mage_Core_Model_App
      */
     public function getDefaultStoreView()
     {
-        foreach ($this->getWebsites() as $_website) {
-            if ($_website->getIsDefault()) {
-                $_defaultStore = $this->getGroup($_website->getDefaultGroupId())->getDefaultStore();
-                if ($_defaultStore) {
-                    return $_defaultStore;
+        foreach ($this->getWebsites() as $website) {
+            if ($website->getIsDefault()) {
+                $defaultStore = $this->getGroup($website->getDefaultGroupId())->getDefaultStore();
+                if ($defaultStore) {
+                    return $defaultStore;
                 }
             }
         }
@@ -1308,6 +1309,7 @@ class Mage_Core_Model_App
 
     /**
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function isCurrentlySecure()
     {

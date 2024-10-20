@@ -375,6 +375,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param Varien_Simplexml_Element $node
      * @param array $args
+     * @SuppressWarnings(PHPMD.CountInLoopExpression)
      **/
     protected function _translateLayoutNode($node, &$args)
     {

@@ -94,6 +94,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $this->envStore = getenv();
         }
         return $this->envStore;
@@ -108,7 +109,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             ),
             'trim'
         );
-        list($_, $scope) = $configKeyParts;
+        list($unused, $scope) = $configKeyParts;
         return [$configKeyParts, $scope];
     }
 

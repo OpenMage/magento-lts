@@ -30,8 +30,8 @@ class Mage_Customer_Model_Customer_Api_V2 extends Mage_Customer_Model_Customer_A
      */
     protected function _prepareData($data)
     {
-        if (($_data = get_object_vars($data)) !== null) {
-            return parent::_prepareData($_data);
+        if (($objectVars = get_object_vars($data)) !== null) {
+            return parent::_prepareData($objectVars);
         }
         return [];
     }

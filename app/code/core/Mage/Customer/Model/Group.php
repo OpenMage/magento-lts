@@ -89,6 +89,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * @param int|null $groupId
      * @return int
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getTaxClassId($groupId = null)
     {

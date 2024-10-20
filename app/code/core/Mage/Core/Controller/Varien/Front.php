@@ -149,6 +149,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         Mage::dispatchEvent('controller_front_init_routers', ['front' => $this]);
 
         // Add default router at the last
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $default = new Mage_Core_Controller_Varien_Router_Default();
         $this->addRouter('default', $default);
 
@@ -321,6 +322,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * @param Mage_Core_Controller_Request_Http $request
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _checkBaseUrl($request)
     {
@@ -347,6 +349,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Generic.PHP.NoSilencedErrors.Discouraged
         $uri = @parse_url($baseUrl);
         $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
         if (isset($uri['scheme']) && $uri['scheme'] != $request->getScheme()
@@ -356,6 +359,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($baseUrl, $redirectCode)
                 ->sendResponse();
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }

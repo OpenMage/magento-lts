@@ -40,27 +40,27 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
             ])
         );
         $this->_disableSubmitButton = true;
-        $_submitButtonClass = ' disabled';
+        $submitButtonClass = ' disabled';
         foreach ($this->getInvoice()->getAllItems() as $item) {
             /**
              * @see bug #14839
              */
             if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
                 $this->_disableSubmitButton = false;
-                $_submitButtonClass = '';
+                $submitButtonClass = '';
                 break;
             }
         }
         if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
-            $_submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
         } else {
-            $_submitLabel = Mage::helper('sales')->__('Submit Invoice');
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice');
         }
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => $_submitLabel,
-                'class'     => 'save submit-button' . $_submitButtonClass,
+                'label'     => $submitLabel,
+                'class'     => 'save submit-button' . $submitButtonClass,
                 'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
                 'disabled'  => $this->_disableSubmitButton
             ])

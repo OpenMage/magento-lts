@@ -115,6 +115,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected $_removeDefaultTitle = false;
 
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = [])
     {
         $this->_request = $request;
@@ -465,6 +466,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Dispatch event before action
      *
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function preDispatch()
     {
@@ -498,6 +500,7 @@ abstract class Mage_Core_Controller_Varien_Action
                     $session->unsCookieShouldBeReceived();
                     $session->setSkipSessionIdFlag(true);
                 } elseif ($checkCookie) {
+                    // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                     if (isset($_GET[$session->getSessionIdQueryParam()]) && Mage::app()->getUseSessionInUrl()
                         && $this->_sessionNamespace != Mage_Adminhtml_Controller_Action::SESSION_NAMESPACE
                     ) {
@@ -1034,6 +1037,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _prepareDownloadResponse(
         $fileName,
@@ -1057,6 +1061,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 clearstatcache();
                 $isFile         = true;
                 $file           = $content['value'];
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $contentLength  = filesize($file);
             }
         }
@@ -1079,6 +1084,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
+                    // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
                     print $buffer;
                 }
                 $ioAdapter->streamClose();
@@ -1086,6 +1092,7 @@ abstract class Mage_Core_Controller_Varien_Action
                     $ioAdapter->rm($file);
                 }
 
+                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 exit(0);
             } else {
                 $this->getResponse()->setBody($content);

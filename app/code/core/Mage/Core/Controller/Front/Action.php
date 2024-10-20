@@ -76,10 +76,13 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * Translate a phrase
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
         $args = func_get_args();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getRealModuleName());
         array_unshift($args, $expr);
         return Mage::app()->getTranslator()->translate($args);
@@ -94,6 +97,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _prepareDownloadResponse(
         $fileName,
@@ -116,6 +120,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $contentLength  = filesize($file);
             }
         }
@@ -141,6 +146,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
+                    // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
                     print $buffer;
                 }
                 $ioAdapter->streamClose();
@@ -148,6 +154,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                     $ioAdapter->rm($file);
                 }
 
+                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 exit(0);
             } else {
                 $this->getResponse()->setBody($content);

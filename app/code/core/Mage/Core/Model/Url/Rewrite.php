@@ -204,6 +204,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function rewrite(?Zend_Controller_Request_Http $request = null, ?Zend_Controller_Response_Http $response = null)
     {
@@ -246,8 +247,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         /**
          * Try to find rewrite by request path at first, if no luck - try to find by id_path
          */
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!$this->getId() && isset($_GET['___from_store'])) {
             try {
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
             } catch (Exception $e) {
                 return false;
@@ -310,11 +313,14 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @return bool|string
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _getQueryString()
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!empty($_SERVER['QUERY_STRING'])) {
             $queryParams = [];
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
@@ -326,6 +332,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             if ($hasChanges) {
                 return http_build_query($queryParams);
             } else {
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 return $_SERVER['QUERY_STRING'];
             }
         }
@@ -346,16 +353,22 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @param string $url
      * @param bool $isPermanent
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
         if ($isPermanent) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             header('HTTP/1.1 301 Moved Permanently');
         }
 
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Pragma: no-cache');
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Location: ' . $url);
+        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit;
     }
 }

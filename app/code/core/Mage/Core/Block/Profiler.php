@@ -21,6 +21,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
 {
     /**
      * @return string
+     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
      */
     protected function _toHtml()
     {

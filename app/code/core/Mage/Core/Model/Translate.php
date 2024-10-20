@@ -293,6 +293,7 @@ class Mage_Core_Model_Translate
      * @param string $fileName
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed
     protected function _getModuleFilePath($module, $fileName)
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);
@@ -310,6 +311,7 @@ class Mage_Core_Model_Translate
     protected function _getFileData($file)
     {
         $data = [];
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (file_exists($file)) {
             $parser = new Varien_File_Csv();
             $parser->setDelimiter(self::CSV_SEPARATOR);
@@ -383,6 +385,7 @@ class Mage_Core_Model_Translate
      *
      * @param   array $args
      * @return  string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function translate($args)
     {
@@ -401,7 +404,9 @@ class Mage_Core_Model_Translate
             $text = $text->getText();
             $translated = $this->_getTranslatedString($text, $code);
         } else {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             if (!empty($_REQUEST['theme'])) {
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $module = 'frontend/default/' . $_REQUEST['theme'];
             } else {
                 $module = 'frontend/default/default';
@@ -468,13 +473,17 @@ class Mage_Core_Model_Translate
         $filePath = Mage::getBaseDir('locale') . DS
                   . $localeCode . DS . 'template' . DS . $type . DS . $file;
 
-        if (!file_exists($filePath)) { // If no template specified for this locale, use store default
+        // If no template specified for this locale, use store default
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage::app()->getLocale()->getDefaultLocale()
                       . DS . 'template' . DS . $type . DS . $file;
         }
 
-        if (!file_exists($filePath)) {  // If no template specified as  store default locale, use en_US
+        // If no template specified as  store default locale, use en_US
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+        if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage_Core_Model_Locale::DEFAULT_LOCALE
                       . DS . 'template' . DS . $type . DS . $file;

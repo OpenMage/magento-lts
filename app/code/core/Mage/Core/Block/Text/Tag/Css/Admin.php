@@ -23,9 +23,13 @@
  */
 class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
 {
+    /**
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     protected function _construct()
     {
         parent::_construct();
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         $theme = empty($_COOKIE['admtheme']) ? 'default' : $_COOKIE['admtheme'];
         $this->setAttribute('theme', $theme);
     }

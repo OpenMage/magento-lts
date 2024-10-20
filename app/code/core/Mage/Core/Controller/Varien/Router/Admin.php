@@ -56,6 +56,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * checking if we installed or not and doing redirect
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _afterModuleMatch()
     {
@@ -63,6 +64,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect(Mage::getUrl('install'))
                 ->sendResponse();
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
         return true;
@@ -85,6 +87,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * @param string $path
      * @return bool
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _shouldBeSecure($path)
     {
         return substr((string)Mage::getConfig()->getNode('default/web/unsecure/base_url'), 0, 5) === 'https'
@@ -148,6 +151,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
      * @return true
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _validateControllerInstance($controllerInstance)
     {
         return true;

@@ -29,7 +29,10 @@ class Mage_Core_Model_Design_Package
      */
     public const FALLBACK_THEME  = 'default';
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_regexMatchCache      = [];
+
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_customThemeTypeCache = [];
 
     /**
@@ -227,6 +230,7 @@ class Mage_Core_Model_Design_Package
      */
     public function designPackageExists($packageName, $area = self::DEFAULT_AREA)
     {
+        // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
         return is_dir(Mage::getBaseDir('design') . DS . $area . DS . $packageName);
     }
 
@@ -376,6 +380,7 @@ class Mage_Core_Model_Design_Package
     {
         $fileName = $this->_renderFilename($file, $params);
         $testFile = (empty($params['_relative']) ? '' : Mage::getBaseDir('design') . DS) . $fileName;
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!file_exists($testFile)) {
             return false;
         }
@@ -385,7 +390,8 @@ class Mage_Core_Model_Design_Package
     /**
      * Get filename by specified theme parameters
      *
-     * @param array $file
+     * @param string $file
+     * @param array $params
      * @return string
      */
     protected function _renderFilename($file, array $params)
@@ -573,12 +579,15 @@ class Mage_Core_Model_Design_Package
      * @param string|bool $fullPath
      * @return array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _listDirectories($path, $fullPath = false)
     {
         $result = [];
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
+                // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                 if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
                     continue;
                 }
@@ -601,10 +610,14 @@ class Mage_Core_Model_Design_Package
      * Will return false or found string.
      *
      * @param string $regexpsConfigPath
-     * @return mixed
+     * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName))
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (empty($_SERVER['HTTP_USER_AGENT'])) {
             return false;
         }
@@ -640,10 +653,13 @@ class Mage_Core_Model_Design_Package
      * @return bool|string
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
         foreach ($rules as $rule) {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
             if (!empty(self::$_regexMatchCache[$rule['regexp']][$userAgent])) {
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
@@ -652,6 +668,7 @@ class Mage_Core_Model_Design_Package
 
             $regexp = '/' . trim($rule['regexp'], '/') . '/';
 
+            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
             if (@preg_match($regexp, $userAgent)) {
                 self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
@@ -672,6 +689,7 @@ class Mage_Core_Model_Design_Package
     {
         $newestTimestamp = 0;
         foreach ($files as $file) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $filemtime = filemtime($file);
             if ($filemtime > $newestTimestamp) {
                 $newestTimestamp = $filemtime;
@@ -707,7 +725,9 @@ class Mage_Core_Model_Design_Package
 
         // base hostname & port
         $baseMediaUrl = Mage::getBaseUrl('media', $isSecure);
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $hostname = parse_url($baseMediaUrl, PHP_URL_HOST);
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $port = parse_url($baseMediaUrl, PHP_URL_PORT);
         if ($port === false) {
             $port = $isSecure ? 443 : 80;
@@ -716,6 +736,7 @@ class Mage_Core_Model_Design_Package
         // merge into target file
         $newestTimestamp = 0;
         foreach ($files as $file) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $filemtime = filemtime($file);
             if ($filemtime > $newestTimestamp) {
                 $newestTimestamp = $filemtime;
@@ -754,10 +775,13 @@ class Mage_Core_Model_Design_Package
         $extensionsFilter = []
     ) {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (!file_exists($targetFile)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($targetFile);
             }
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (file_exists($targetFile)) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $filemtime = filemtime($targetFile);
             } else {
                 $filemtime = null;
@@ -769,6 +793,7 @@ class Mage_Core_Model_Design_Package
                 $beforeMergeCallback,
                 $extensionsFilter
             );
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result && (filemtime($targetFile) > $filemtime)) {
                 Mage::helper('core/file_storage_database')->saveFile($targetFile);
             }
@@ -792,8 +817,8 @@ class Mage_Core_Model_Design_Package
     public function cleanMergedJsCss()
     {
         $result = (bool)$this->_initMergerDir('js', true);
-        $result = (bool)$this->_initMergerDir('css', true) && $result;
-        return (bool)$this->_initMergerDir('css_secure', true) && $result;
+        $result = $this->_initMergerDir('css', true) && $result;
+        return $this->_initMergerDir('css_secure', true) && $result;
     }
 
     /**
@@ -806,16 +831,18 @@ class Mage_Core_Model_Design_Package
      */
     protected function _initMergerDir($dirRelativeName, $cleanup = false)
     {
-        $mediaDir = Mage::getBaseDir('media');
         try {
             $dir = Mage::getBaseDir('media') . DS . $dirRelativeName;
             if ($cleanup) {
                 Varien_Io_File::rmdirRecursive($dir);
                 Mage::helper('core/file_storage_database')->deleteFolder($dir);
             }
+            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             if (!is_dir($dir)) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 mkdir($dir);
             }
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             return is_writable($dir) ? $dir : false;
         } catch (Exception $e) {
             Mage::logException($e);
@@ -851,6 +878,7 @@ class Mage_Core_Model_Design_Package
     protected function _setCallbackFileDir($file)
     {
         $file = str_replace(Mage::getBaseDir() . DS, '', $file);
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $this->_callbackFileDir = dirname($file);
     }
 
@@ -920,7 +948,9 @@ class Mage_Core_Model_Design_Package
                 if ($part == '.' || $part == '..') {
                     unset($pathParts[$key]);
                 }
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if ($part == '..' && count($fileDirParts)) {
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     $fileDirParts = array_slice($fileDirParts, 0, count($fileDirParts) - 1);
                 }
             }

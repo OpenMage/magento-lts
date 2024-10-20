@@ -33,6 +33,7 @@ function destruct($object)
  *
  * @return string
  * @deprecated 1.3
+ * @SuppressWarnings(PHPMD.ShortMethodName)
  */
 function __()
 {

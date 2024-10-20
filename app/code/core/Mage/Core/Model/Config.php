@@ -520,6 +520,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return void
      * @throws Exception
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
@@ -1107,6 +1108,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get default server variables values
      *
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getDistroServerVars()
     {

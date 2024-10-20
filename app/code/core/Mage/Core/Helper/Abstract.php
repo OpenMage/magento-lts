@@ -168,10 +168,13 @@ abstract class Mage_Core_Helper_Abstract
      * Translate
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
         $args = func_get_args();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getModuleName());
         array_unshift($args, $expr);
         return Mage::app()->getTranslator()->translate($args);
@@ -351,6 +354,7 @@ abstract class Mage_Core_Helper_Abstract
             return $data;
         }
         if ($addSlashes === true) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $data = addslashes($data);
         }
         return htmlspecialchars($data, ENT_QUOTES, null, false);
@@ -409,6 +413,7 @@ abstract class Mage_Core_Helper_Abstract
      */
     public function urlDecode($url)
     {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $url = base64_decode(strtr($url, '-_,', '+/='));
         return Mage::getSingleton('core/url')->sessionUrlVar($url);
     }

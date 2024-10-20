@@ -317,14 +317,20 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @param bool $trimPort
      * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getHttpHost($trimPort = true)
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!isset($_SERVER['HTTP_HOST'])) {
             return false;
         }
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         $host = $_SERVER['HTTP_HOST'];
         if ($trimPort) {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $hostParts = explode(':', $_SERVER['HTTP_HOST']);
             $host =  $hostParts[0];
         }
@@ -332,6 +338,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         if (str_contains($host, ',') || str_contains($host, ';')) {
             $response = new Zend_Controller_Response_Http();
             $response->setHttpResponseCode(400)->sendHeaders();
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit();
         }
 
@@ -343,14 +350,16 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @param string|array $key
      * @param mixed $value
-     *
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function setPost($key, $value = null)
     {
         if (is_array($key)) {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $_POST = $key;
         } else {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $_POST[$key] = $value;
         }
         return $this;
