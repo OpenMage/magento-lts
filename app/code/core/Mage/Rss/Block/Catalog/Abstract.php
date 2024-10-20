@@ -97,13 +97,13 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        $type_id = $product->getTypeId();
+        $typeId = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
-            $type_id = $this->_mapRenderer;
+            $typeId = $this->_mapRenderer;
         }
 
-        return $this->_getPriceBlock($type_id)
-            ->setTemplate($this->_getPriceBlockTemplate($type_id))
+        return $this->_getPriceBlock($typeId)
+            ->setTemplate($this->_getPriceBlockTemplate($typeId))
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)

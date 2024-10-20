@@ -349,9 +349,9 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        $type_id = $product->getTypeId();
+        $typeId = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
-            $realPriceHtml = $this->_preparePriceRenderer($type_id)
+            $realPriceHtml = $this->_preparePriceRenderer($typeId)
                 ->setProduct($product)
                 ->setDisplayMinimalPrice($displayMinimalPrice)
                 ->setIdSuffix($idSuffix)
@@ -359,10 +359,10 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                 ->toHtml();
             $product->setAddToCartUrl($this->getAddToCartUrl($product));
             $product->setRealPriceHtml($realPriceHtml);
-            $type_id = $this->_mapRenderer;
+            $typeId = $this->_mapRenderer;
         }
 
-        return $this->_preparePriceRenderer($type_id)
+        return $this->_preparePriceRenderer($typeId)
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
