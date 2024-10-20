@@ -2186,32 +2186,22 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:groupFactory\\(\\) should return Mage_Catalog_Model_Product_Option_Type_Default but returns Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option\\:\\:deletePrices\\(\\) expects int, string given\\.$#"
+			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product_Option\\:\\:deletePrices\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option\\:\\:deleteTitles\\(\\) expects int, string given\\.$#"
+			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product_Option\\:\\:deleteTitles\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option_Value\\:\\:deleteValue\\(\\) expects int, string given\\.$#"
+			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product_Option_Value\\:\\:deleteValue\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
 
@@ -3639,11 +3629,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$sourceData of method Varien_Simplexml_Config\\:\\:__construct\\(\\) expects string\\|Varien_Simplexml_Element\\|null, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
-			message: "#^Method Mage_Core_Model_Layout_Update\\:\\:saveCache\\(\\) should return bool but returns Mage_Core_Model_App\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout/Update.php
 
 		-
 			message: "#^Parameter \\#3 \\$value of method Zend_Locale\\:\\:getTranslationList\\(\\) expects string\\|null, int given\\.$#"

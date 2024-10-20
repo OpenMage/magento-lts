@@ -191,24 +191,24 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 
     /**
      * @param array $optionIds
-     * @param int $option_id
-     * @param int $store_id
+     * @param int $optionId
+     * @param int $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
-    public function getValuesByOption($optionIds, $option_id, $store_id)
+    public function getValuesByOption($optionIds, $optionId, $storeId)
     {
         return Mage::getResourceModel('catalog/product_option_value_collection')
-            ->addFieldToFilter('option_id', $option_id)
-            ->getValuesByOption($optionIds, $store_id);
+            ->addFieldToFilter('option_id', $optionId)
+            ->getValuesByOption($optionIds, $storeId);
     }
 
     /**
-     * @param int $option_id
+     * @param int $optionId
      * @return $this
      */
-    public function deleteValue($option_id)
+    public function deleteValue($optionId)
     {
-        $this->getResource()->deleteValue($option_id);
+        $this->getResource()->deleteValue($optionId);
         return $this;
     }
 
