@@ -27,8 +27,8 @@
  * @method int getAttributeSetId(string $value)
  * @method string getAttributeSetName()
  * @method $this setAttributeSetName(string $value)
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
+ * @method string getEntityTypeId()
+ * @method $this setEntityTypeId(string $value)
  * @method Mage_Eav_Model_Entity_Attribute_Group[] getGroups()
  * @method $this setGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
  * @method int getSortOrder()
@@ -194,6 +194,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @param int $setId
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addSetInfo($entityType, array $attributes, $setId = null)
     {
