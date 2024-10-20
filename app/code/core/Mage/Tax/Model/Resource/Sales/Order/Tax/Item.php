@@ -29,10 +29,10 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Item extends Mage_Core_Model_Resou
     /**
      * Get Tax Items with order tax information
      *
-     * @param int $item_id
+     * @param int $itemId
      * @return array
      */
-    public function getTaxItemsByItemId($item_id)
+    public function getTaxItemsByItemId($itemId)
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
@@ -42,8 +42,9 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Item extends Mage_Core_Model_Resou
                 'item.tax_id = tax.tax_id',
                 ['title', 'percent', 'base_amount']
             )
-            ->where('item_id = ?', $item_id);
+            ->where('item_id = ?', $itemId);
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $adapter->fetchAll($select);
     }
 }
