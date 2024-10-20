@@ -954,16 +954,16 @@ XMLRequest;
      */
     protected function setXMLAccessRequest()
     {
-        $userid = $this->getConfigData('username');
-        $userid_pass = $this->getConfigData('password');
-        $access_key = $this->getConfigData('access_license_number');
+        $userId     = $this->getConfigData('username');
+        $userIdPass = $this->getConfigData('password');
+        $accessKey  = $this->getConfigData('access_license_number');
 
         $this->_xmlAccessRequest =  <<<XMLAuth
 <?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">
-  <AccessLicenseNumber>$access_key</AccessLicenseNumber>
-  <UserId>$userid</UserId>
-  <Password>$userid_pass</Password>
+  <AccessLicenseNumber>$accessKey</AccessLicenseNumber>
+  <UserId>$userId</UserId>
+  <Password>$userIdPass</Password>
 </AccessRequest>
 XMLAuth;
     }
