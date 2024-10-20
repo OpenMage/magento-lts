@@ -75,7 +75,7 @@
     <rule ref="rulesets/controversial.xml/Superglobals" />
 
     <!-- NAMEING
-    [ ] BooleanGetMethodName
+    [-] BooleanGetMethodName
     [ ] ConstantNamingConventions
     [ ] ConstructorWithNameAsEnclosingClass
     [-] LongClassName
@@ -90,6 +90,7 @@
 <!--        </properties>-->
 <!--    </rule>-->
     <rule ref="rulesets/naming.xml">
+        <exclude name="BooleanGetMethodName" />
         <exclude name="LongClassName" />
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
