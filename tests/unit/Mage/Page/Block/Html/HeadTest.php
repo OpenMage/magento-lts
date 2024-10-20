@@ -34,7 +34,7 @@ class HeadTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testAddCss(): void
     {
@@ -43,7 +43,7 @@ class HeadTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testAddJs(): void
     {
@@ -52,7 +52,7 @@ class HeadTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testAddCssIe(): void
     {
@@ -61,7 +61,7 @@ class HeadTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testAddJsIe(): void
     {
@@ -70,7 +70,7 @@ class HeadTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testAddLinkRel(): void
     {
