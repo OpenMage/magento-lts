@@ -364,8 +364,8 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                 $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()] = ['option_id' => $option->getId()];
                 if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                     $optionValues = [];
-                    foreach ($option->getValues() as $_value) {
-                        $optionValues[$_value->getTitle()] = $_value->getId();
+                    foreach ($option->getValues() as $value) {
+                        $optionValues[$value->getTitle()] = $value->getId();
                     }
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {

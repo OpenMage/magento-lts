@@ -499,11 +499,11 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         $this->setProductId(null);
         $this->setOptionId(null);
         $newOption = $this->__toArray();
-        $_values = $this->getValues();
-        if ($_values) {
+        $values = $this->getValues();
+        if ($values) {
             $newValuesArray = [];
-            foreach ($_values as $_value) {
-                $newValuesArray[] = $_value->prepareValueForDuplicate();
+            foreach ($values as $value) {
+                $newValuesArray[] = $value->prepareValueForDuplicate();
             }
             $newOption['values'] = $newValuesArray;
         }

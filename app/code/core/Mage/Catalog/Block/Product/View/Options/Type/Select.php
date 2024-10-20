@@ -56,15 +56,15 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             /** @var Mage_Core_Helper_Data $helper */
             $helper = $this->helper('core');
 
-            foreach ($option->getValues() as $_value) {
+            foreach ($option->getValues() as $value) {
                 $priceStr = $this->_formatPrice([
-                    'is_percent'    => ($_value->getPriceType() === 'percent'),
-                    'pricing_value' => $_value->getPrice(($_value->getPriceType() === 'percent'))
+                    'is_percent'    => ($value->getPriceType() === 'percent'),
+                    'pricing_value' => $value->getPrice(($value->getPriceType() === 'percent'))
                 ], false);
                 $select->addOption(
-                    $_value->getOptionTypeId(),
-                    $_value->getTitle() . ' ' . $priceStr . '',
-                    ['price' => $helper::currencyByStore($_value->getPrice(true), $store, false)]
+                    $value->getOptionTypeId(),
+                    $value->getTitle() . ' ' . $priceStr . '',
+                    ['price' => $helper::currencyByStore($value->getPrice(true), $store, false)]
                 );
             }
             if ($option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
@@ -107,15 +107,15 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     break;
             }
             $count = 1;
-            foreach ($option->getValues() as $_value) {
+            foreach ($option->getValues() as $value) {
                 $count++;
 
                 $priceStr = $this->_formatPrice([
-                    'is_percent'    => ($_value->getPriceType() === 'percent'),
-                    'pricing_value' => $_value->getPrice($_value->getPriceType() === 'percent')
+                    'is_percent'    => ($value->getPriceType() === 'percent'),
+                    'pricing_value' => $value->getPrice($value->getPriceType() === 'percent')
                 ]);
 
-                $htmlValue = $_value->getOptionTypeId();
+                $htmlValue = $value->getOptionTypeId();
                 if ($arraySign) {
                     $checked = (is_array($configValue) && in_array($htmlValue, $configValue)) ? 'checked' : '';
                 } else {
@@ -130,9 +130,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"')
                     . ' name="options[' . $option->getId() . ']' . $arraySign . '" id="options_' . $option->getId()
                     . '_' . $count . '" value="' . $htmlValue . '" ' . $checked . ' price="'
-                    . $helper::currencyByStore($_value->getPrice(true), $store, false) . '" />'
+                    . $helper::currencyByStore($value->getPrice(true), $store, false) . '" />'
                     . '<span class="label"><label for="options_' . $option->getId() . '_' . $count . '">'
-                    . $this->escapeHtml($_value->getTitle()) . ' ' . $priceStr . '</label></span>';
+                    . $this->escapeHtml($value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($option->getIsRequire()) {
                     $selectHtml .= '<script type="text/javascript">' . '$(\'options_' . $option->getId() . '_'
                     . $count . '\').advaiceContainer = \'options-' . $option->getId() . '-container\';'

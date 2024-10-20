@@ -168,8 +168,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                         $printValue = $option['print_value'] ?? strip_tags($option['value']);
                         $values = explode(', ', $printValue);
                         foreach ($values as $value) {
-                            foreach ($stringHelper->str_split($value, 30, true, true) as $_value) {
-                                $text[] = $_value;
+                            foreach ($stringHelper->str_split($value, 30, true, true) as $str) {
+                                $text[] = $str;
                             }
                         }
 

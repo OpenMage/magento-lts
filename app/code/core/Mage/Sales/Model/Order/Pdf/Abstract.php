@@ -86,9 +86,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $drawingString = '"libiconv"' == ICONV_IMPL ?
             iconv('UTF-8', 'UTF-16BE//IGNORE', $string) :
+            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
             @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
+        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < strlen($drawingString); $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }
@@ -140,6 +142,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $image = Mage::getStoreConfig('sales/identity/logo', $store);
         if ($image) {
             $image = Mage::getBaseDir('media') . '/sales/store/logo/' . $image;
+            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             if (is_file($image)) {
                 $image       = Zend_Pdf_Image::imageWithPath($image);
                 $top         = 830; //top border of the page
@@ -190,10 +193,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         foreach (explode("\n", Mage::getStoreConfig('sales/identity/address', $store)) as $value) {
             if ($value !== '') {
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
-                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
+                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
                     $page->drawText(
-                        trim(strip_tags($_value)),
-                        $this->getAlignRight($_value, 130, 440, $font, 10),
+                        trim(strip_tags($str)),
+                        $this->getAlignRight($str, 130, 440, $font, 10),
                         $top,
                         'UTF-8'
                     );
@@ -236,8 +239,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         foreach ($address as $value) {
             if ($value !== '') {
                 $text = [];
-                foreach (Mage::helper('core/string')->str_split($value, 55, true, true) as $_value) {
-                    $text[] = $_value;
+                foreach (Mage::helper('core/string')->str_split($value, 55, true, true) as $str) {
+                    $text[] = $str;
                 }
                 foreach ($text as $part) {
                     $y += 15;
@@ -350,8 +353,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         foreach ($billingAddress as $value) {
             if ($value !== '') {
                 $text = [];
-                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                    $text[] = $_value;
+                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
+                    $text[] = $str;
                 }
                 foreach ($text as $part) {
                     $page->drawText(strip_tags(ltrim($part)), 35, $this->y, 'UTF-8');
@@ -368,8 +371,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 foreach ($shippingAddress as $value) {
                     if ($value !== '') {
                         $text = [];
-                        foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                            $text[] = $_value;
+                        foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
+                            $text[] = $str;
                         }
                         foreach ($text as $part) {
                             $page->drawText(strip_tags(ltrim($part)), 285, $this->y, 'UTF-8');
@@ -410,8 +413,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             if (trim($value) != '') {
                 //Printing "Payment Method" lines
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
-                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                    $page->drawText(strip_tags(trim($_value)), $paymentLeft, $yPayments, 'UTF-8');
+                foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
+                    $page->drawText(strip_tags(trim($str)), $paymentLeft, $yPayments, 'UTF-8');
                     $yPayments -= 15;
                 }
             }
@@ -430,8 +433,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $methodStartY = $this->y;
             $this->y     -= 15;
 
-            foreach (Mage::helper('core/string')->str_split($shippingMethod, 45, true, true) as $_value) {
-                $page->drawText(strip_tags(trim($_value)), 285, $this->y, 'UTF-8');
+            foreach (Mage::helper('core/string')->str_split($shippingMethod, 45, true, true) as $str) {
+                $page->drawText(strip_tags(trim($str)), 285, $this->y, 'UTF-8');
                 $this->y -= 15;
             }
 
@@ -533,6 +536,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  Mage_Sales_Model_Abstract $source
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _getTotalsList($source)
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();

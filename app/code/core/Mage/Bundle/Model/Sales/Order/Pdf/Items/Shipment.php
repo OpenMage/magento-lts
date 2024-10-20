@@ -141,8 +141,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                         $printValue = $option['print_value'] ?? strip_tags($option['value']);
                         $values = explode(', ', $printValue);
                         foreach ($values as $value) {
-                            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
-                                $text[] = $_value;
+                            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $str) {
+                                $text[] = $str;
                             }
                         }
 
