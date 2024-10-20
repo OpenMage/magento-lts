@@ -22,7 +22,7 @@
     <!-- CLEANCODE
     [-] BooleanArgumentFlag
     [?] ElseExpression
-    [?] ErrorControlOperator
+    [x] ErrorControlOperator
     [x] DuplicatedArrayKey
     [ ] IfStatementAssignment
     [?] MissingImport

@@ -240,8 +240,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             )
             ->where('entity_id = ?', $object->getEntityId())
             ->where('entity_pk_value = ?', $object->getEntityPkValue());
-        $total_reviews = $readAdapter->fetchOne($select);
-        if ($total_reviews == 0) {
+        $totalReviews = $readAdapter->fetchOne($select);
+        if ($totalReviews == 0) {
             $this->_getWriteAdapter()->delete($this->_aggregateTable, [
                 'entity_type = ?'   => $object->getEntityId(),
                 'entity_pk_value = ?' => $object->getEntityPkValue()
@@ -251,7 +251,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
 
         $this->aggregate($object);
 
-        // reaggregate ratings, that depended on this review
+        // re-aggregate ratings, that depended on this review
         $this->_aggregateRatings(
             $this->_deleteCache['ratingIds'],
             $this->_deleteCache['entityPkValue']
