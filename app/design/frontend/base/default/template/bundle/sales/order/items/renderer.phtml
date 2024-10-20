@@ -13,6 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Bundle_Block_Sales_Order_Items_Renderer $this
+ */
+?>
 <?php $parentItem = $this->getItem() ?>
 <?php $items = array_merge([$parentItem], $parentItem->getChildrenItems()); ?>
 <?php $_count = count ($items) ?>
@@ -20,13 +25,13 @@
 
 <?php $_prevOptionId = '' ?>
 
-<?php foreach ($items as $_item): ?>
-
-<?php if($this->getItemOptions() || $parentItem->getDescription() || $this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
+<?php if($this->getItemOptions() || $parentItem->getDescription() || $this->canDisplayGiftmessage()): ?>
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
 <?php endif ?>
+
+<?php foreach ($items as $_item): ?>
 
 <?php if ($_item->getParentItem()): ?>
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
@@ -351,8 +356,8 @@
         <?php endforeach ?>
         </dl>
         <?php endif ?>
-        <?php echo $this->escapeHtml($_item->getDescription()) ?>
-        <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $parentItem) && $parentItem->getGiftMessageId()): ?>
+        <?php echo $this->escapeHtml($parentItem->getDescription()) ?>
+        <?php if($this->canDisplayGiftmessage()): ?>
             <a href="#" id="order-item-gift-message-link-<?php echo $parentItem->getId() ?>" class="gift-message-link" onclick="return giftMessageToogle('<?php echo $parentItem->getId() ?>')"><?php echo Mage::helper('sales')->__('Gift Message') ?></a>
         <?php endif ?>
     </td>
