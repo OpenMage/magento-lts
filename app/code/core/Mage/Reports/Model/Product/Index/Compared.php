@@ -56,8 +56,8 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
         $helper = Mage::helper('catalog/product_compare');
 
         if ($helper->hasItems()) {
-            foreach ($helper->getItemCollection() as $_item) {
-                $productIds[] = $_item->getEntityId();
+            foreach ($helper->getItemCollection() as $item) {
+                $productIds[] = $item->getEntityId();
             }
         }
 

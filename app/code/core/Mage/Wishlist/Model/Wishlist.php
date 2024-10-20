@@ -188,9 +188,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
         $item = null;
-        foreach ($this->getItemCollection() as $_item) {
-            if ($_item->representProduct($product)) {
-                $item = $_item;
+        foreach ($this->getItemCollection() as $wishlistItem) {
+            if ($wishlistItem->representProduct($product)) {
+                $item = $wishlistItem;
                 break;
             }
         }
@@ -556,13 +556,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
             $product->setWishlistStoreId($item->getStoreId());
-            $items = $this->getItemCollection();
+            $wishlistItems = $this->getItemCollection();
             $isForceSetQuantity = true;
-            foreach ($items as $_item) {
-                /** @var Mage_Wishlist_Model_Item $_item */
-                if ($_item->getProductId() == $product->getId()
-                    && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()
+            foreach ($wishlistItems as $wishlistItem) {
+                /** @var Mage_Wishlist_Model_Item $wishlistItem */
+                if ($wishlistItem->getProductId() == $product->getId()
+                    && $wishlistItem->representProduct($product)
+                    && $wishlistItem->getId() != $item->getId()
                 ) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;

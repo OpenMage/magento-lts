@@ -131,6 +131,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         $this->loadLayout();
 
+        // phpcs:ignore Ecg.Strings.StringPosition.ImproperValueTesting
         if ($this->_isFormKeyEnabled() && strpos($this->_getRefererUrl(), 'login')) {
             Mage::getSingleton('core/session')->addError(Mage::helper('wishlist')->__(
                 'Please add product to wishlist again.'

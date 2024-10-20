@@ -53,8 +53,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
                     ->setStoreId($this->getStoreId())
                     ->setCustomerId($this->getCustomerId())
                     ->load();
-                foreach ($collection as $_item) {
-                    $skipProducts[] = $_item->getProductId();
+                foreach ($collection as $item) {
+                    $skipProducts[] = $item->getProductId();
                 }
             }
 

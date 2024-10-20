@@ -41,16 +41,16 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
         $page   = $this->getPage();
 
         $this->_setFontRegular();
-        $items = $this->getChilds($item);
+        $orderItems = $this->getChilds($item);
 
         $_prevOptionId = '';
         $drawItems = [];
 
         /** @var Mage_Sales_Model_Order_Invoice_Item $_item */
-        foreach ($items as $_item) {
+        foreach ($orderItems as $orderItem) {
             $line   = [];
 
-            $attributes = $this->getSelectionAttributes($_item);
+            $attributes = $this->getSelectionAttributes($orderItem);
             if (is_array($attributes)) {
                 $optionId = $attributes['option_id'];
             } else {
@@ -64,7 +64,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 ];
             }
 
-            if ($_item->getOrderItem()->getParentItem()) {
+            if ($orderItem->getOrderItem()->getParentItem()) {
                 if ($_prevOptionId != $attributes['option_id']) {
                     $line[0] = [
                         'font' => 'italic',
@@ -84,12 +84,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
             }
 
             /* in case Product name is longer than 80 chars - it is written in a few lines */
-            if ($_item->getOrderItem()->getParentItem()) {
+            if ($orderItem->getOrderItem()->getParentItem()) {
                 $feed = 40;
-                $name = $this->getValueHtml($_item);
+                $name = $this->getValueHtml($orderItem);
             } else {
                 $feed = 35;
-                $name = $_item->getName();
+                $name = $orderItem->getName();
             }
             $line[] = [
                 'text'  => $stringHelper->str_split($name, 35, true, true),
@@ -97,7 +97,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
             ];
 
             // draw SKUs
-            if (!$_item->getOrderItem()->getParentItem()) {
+            if (!$orderItem->getOrderItem()->getParentItem()) {
                 $text = [];
                 foreach ($stringHelper->str_split($item->getSku(), 17) as $part) {
                     $text[] = $part;
@@ -109,11 +109,11 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
             }
 
             // draw prices
-            if ($this->canShowPriceInfo($_item)) {
+            if ($this->canShowPriceInfo($orderItem)) {
                 if ($taxHelper->displaySalesPriceInclTax()) {
-                    $price = $order->formatPriceTxt($_item->getPriceInclTax());
+                    $price = $order->formatPriceTxt($orderItem->getPriceInclTax());
                 } else {
-                    $price = $order->formatPriceTxt($_item->getPrice());
+                    $price = $order->formatPriceTxt($orderItem->getPrice());
                 }
                 $line[] = [
                     'text'  => $price,
@@ -122,12 +122,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                     'align' => 'right'
                 ];
                 $line[] = [
-                    'text'  => $_item->getQty() * 1,
+                    'text'  => $orderItem->getQty() * 1,
                     'feed'  => 435,
                     'font'  => 'bold',
                 ];
 
-                $tax = $order->formatPriceTxt($_item->getTaxAmount());
+                $tax = $order->formatPriceTxt($orderItem->getTaxAmount());
                 $line[] = [
                     'text'  => $tax,
                     'feed'  => 495,
@@ -136,9 +136,9 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 ];
 
                 if ($taxHelper->displaySalesPriceInclTax()) {
-                    $row_total = $order->formatPriceTxt($_item->getRowTotalInclTax());
+                    $row_total = $order->formatPriceTxt($orderItem->getRowTotalInclTax());
                 } else {
-                    $row_total = $order->formatPriceTxt($_item->getRowTotal());
+                    $row_total = $order->formatPriceTxt($orderItem->getRowTotal());
                 }
                 $line[] = [
                     'text'  => $row_total,
