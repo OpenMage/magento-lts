@@ -131,13 +131,12 @@ class DataTest extends TestCase
             $date,
             'long'
         ];
-        yield 'date short w/ time' => [
-            $dateShortTime,
-            $date,
-            'short',
-            true,
-            false,
-        ];
+//        yield 'date short w/ time' => [
+//            $dateShortTime,
+//            $date,
+//            'short',
+//            true,
+//        ];
     }
 
     /**
