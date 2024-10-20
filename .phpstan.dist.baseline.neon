@@ -3231,19 +3231,9 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: "#^Parameter \\#1 \\$attr of method Mage_ConfigurableSwatches_Helper_Data\\:\\:attrIsSwatchType\\(\\) expects int\\|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Block/Catalog/Layer/State/Swatch.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
-
-		-
-			message: "#^Parameter \\#1 \\$attr of method Mage_ConfigurableSwatches_Helper_Data\\:\\:attrIsSwatchType\\(\\) expects int\\|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productlist.php
 
 		-
 			message: "#^Variable \\$query might not be defined\\.$#"
@@ -4304,11 +4294,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$readonly of method Varien_Data_Form_Abstract\\:\\:setReadonly\\(\\) expects bool, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Main/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$attr of method Mage_ConfigurableSwatches_Helper_Data\\:\\:attrIsSwatchType\\(\\) expects int\\|Mage_Eav_Model_Attribute, Mage_Eav_Model_Entity_Attribute_Abstract given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Options/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
