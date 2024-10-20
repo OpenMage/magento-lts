@@ -6471,11 +6471,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Tax_Helper_Data\\:\\:getPrice\\(\\) expects Mage_Catalog_Model_Product, Mage_Sales_Model_Quote_Item_Abstract given\\.$#"
-			count: 2
-			path: app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Parameter \\#2 \\$title of method Mage_Weee_Helper_Data\\:\\:setWeeeTaxesAppliedProperty\\(\\) expects string, null given\\.$#"
 			count: 2
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
@@ -6637,11 +6632,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Tax_Helper_Data\\:\\:needPriceConversion\\(\\) should return int\\|false but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Tax_Helper_Data\\:\\:getPrice\\(\\) expects Mage_Catalog_Model_Product, Varien_Object given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
