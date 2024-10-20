@@ -111,8 +111,8 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
                 ];
 
                 if ($option['value']) {
-                    $_printValue = $option['print_value'] ?? strip_tags($option['value']);
-                    $values = explode(', ', $_printValue);
+                    $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                    $values = explode(', ', $printValue);
                     foreach ($values as $value) {
                         $lines[][] = [
                             'text' => Mage::helper('core/string')->str_split($value, 30, true, true),

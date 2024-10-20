@@ -99,9 +99,9 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
                 ];
 
                 // draw options value
-                $_printValue = $option['print_value'] ?? strip_tags($option['value']);
+                $printValue = $option['print_value'] ?? strip_tags($option['value']);
                 $lines[][] = [
-                    'text' => Mage::helper('core/string')->str_split($_printValue, 30, true, true),
+                    'text' => Mage::helper('core/string')->str_split($printValue, 30, true, true),
                     'feed' => 40
                 ];
             }
