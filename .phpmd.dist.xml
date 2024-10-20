@@ -78,9 +78,9 @@
     [ ] BooleanGetMethodName
     [ ] ConstantNamingConventions
     [ ] ConstructorWithNameAsEnclosingClass
-    [ ] LongClassName
+    [-] LongClassName
     [ ] ShortClassName
-    [ ] LongVariable
+    [-] LongVariable
     [?] ShortVariable - TMP disabled
     [ ] ShortMethodName
     -->
@@ -90,6 +90,8 @@
 <!--        </properties>-->
 <!--    </rule>-->
     <rule ref="rulesets/naming.xml">
+        <exclude name="LongClassName" />
+        <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
