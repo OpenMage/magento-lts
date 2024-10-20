@@ -241,9 +241,9 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $baseJsUrl = Mage::getBaseUrl('js');
-        $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
+        $urlPrefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
-            $url_prefix . '/ajax/translate',
+            $urlPrefix . '/ajax/translate',
             ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
@@ -289,6 +289,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     protected function _getAttributeLocation($matches, $options)
     {
         return 'Tag attribute (ALT, TITLE, etc.)';
@@ -301,6 +302,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed
     protected function _getTagLocation($matches, $options)
     {
         $tagName = strtolower($options['tagName']);
@@ -326,6 +328,7 @@ class Mage_Core_Model_Translate_Inline
                 'shown' => $m[1][0],
                 'translated' => $m[2][0],
                 'original' => $m[3][0],
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 'location' => call_user_func($locationCallback, $m, $options),
                 'scope' => $m[4][0],
             ]);
@@ -448,6 +451,7 @@ class Mage_Core_Model_Translate_Inline
      * @param string|array $formatCallback
      * @param bool $isNeedTranslateAttributes
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     protected function _translateTags(&$content, $tagsList, $formatCallback, $isNeedTranslateAttributes)
     {
         $nextTag = 0;
@@ -488,6 +492,7 @@ class Mage_Core_Model_Translate_Inline
 
             if (!empty($trArr)) {
                 $trArr = array_unique($trArr);
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $tagHtml = call_user_func([$this, $formatCallback], $tagHtml, $tagName, $trArr);
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagHtml);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], $tagLength);
@@ -504,6 +509,7 @@ class Mage_Core_Model_Translate_Inline
      * @param int $from
      * @return false|int return false if end of tag is not found
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function findEndOfTag($body, $tagName, $from)
     {
         $openTag = '<' . $tagName;
