@@ -150,14 +150,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
             foreach ($shipments as $shipment) {
-                $increment_id = $shipment->getIncrementId();
+                $incrementId = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
                 $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
-                $shipTrack[$increment_id] = $trackingInfos;
+                $shipTrack[$incrementId] = $trackingInfos;
             }
         }
         return $shipTrack;
@@ -173,14 +173,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     {
         $shipTrack = [];
         if ($shipment = $this->_initShipment()) {
-            $increment_id = $shipment->getIncrementId();
+            $incrementId = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
             $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
-            $shipTrack[$increment_id] = $trackingInfos;
+            $shipTrack[$incrementId] = $trackingInfos;
         }
         return $shipTrack;
     }

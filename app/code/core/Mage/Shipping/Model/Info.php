@@ -116,14 +116,14 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
             foreach ($shipments as $shipment) {
-                $increment_id = $shipment->getIncrementId();
+                $incrementId = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
                 $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
-                $shipTrack[$increment_id] = $trackingInfos;
+                $shipTrack[$incrementId] = $trackingInfos;
             }
         }
         $this->_trackingInfo = $shipTrack;
@@ -140,14 +140,14 @@ class Mage_Shipping_Model_Info extends Varien_Object
         $shipTrack = [];
         $shipment = $this->_initShipment();
         if ($shipment) {
-            $increment_id = $shipment->getIncrementId();
+            $incrementId = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
             $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
-            $shipTrack[$increment_id] = $trackingInfos;
+            $shipTrack[$incrementId] = $trackingInfos;
         }
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
