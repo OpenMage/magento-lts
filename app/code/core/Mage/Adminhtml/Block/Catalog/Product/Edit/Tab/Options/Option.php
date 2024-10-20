@@ -305,10 +305,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
      * @param string $id
      * @param string $name
      * @param bool $checked
-     * @param string $select_id
+     * @param string $selectId
      * @return string
      */
-    public function getCheckboxScopeHtml($id, $name, $checked = true, $select_id = '-1')
+    public function getCheckboxScopeHtml($id, $name, $checked = true, $selectId = '-1')
     {
         $checkedHtml = '';
         if ($checked) {
@@ -316,9 +316,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         }
         $selectNameHtml = '';
         $selectIdHtml = '';
-        if ($select_id != '-1') {
-            $selectNameHtml = '[values][' . $select_id . ']';
-            $selectIdHtml = 'select_' . $select_id . '_';
+        if ($selectId != '-1') {
+            $selectNameHtml = '[values][' . $selectId . ']';
+            $selectIdHtml = 'select_' . $selectId . '_';
         }
         $checkbox = '<input type="checkbox" id="' . $this->getFieldId() . '_' . $id . '_' .
             $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="' .
