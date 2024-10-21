@@ -23,7 +23,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
      * Log out user and redirect him to new admin custom url
      *
      * @param Varien_Event_Observer $observer
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterCustomUrlChanged($observer)
     {
         if (is_null(Mage::registry('custom_admin_path_redirect'))) {
@@ -42,6 +44,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
         Mage::app()->getResponse()
             ->setRedirect(Mage::getBaseUrl() . $route)
             ->sendResponse();
+        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit(0);
     }
 }

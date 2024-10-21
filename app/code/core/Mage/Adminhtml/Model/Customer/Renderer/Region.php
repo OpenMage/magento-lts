@@ -32,6 +32,11 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
      */
     protected static $_regionCollections;
 
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = '<tr>' . "\n";

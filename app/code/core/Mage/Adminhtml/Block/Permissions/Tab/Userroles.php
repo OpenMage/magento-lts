@@ -29,13 +29,13 @@ class Mage_Adminhtml_Block_Permissions_Tab_Userroles extends Mage_Adminhtml_Bloc
             ->getCollection()
             ->load();
 
-        $user_roles = Mage::getModel('admin/roles')
+        $userRoles = Mage::getModel('admin/roles')
             ->getUsersCollection()
             ->setUserFilter($uid)
             ->load();
 
         $this->setTemplate('permissions/userroles.phtml')
             ->assign('roles', $roles)
-            ->assign('user_roles', $user_roles);
+            ->assign('user_roles', $userRoles);
     }
 }

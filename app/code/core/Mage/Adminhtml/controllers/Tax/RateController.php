@@ -247,9 +247,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * import action from import/export tax
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function importPostAction()
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if ($this->getRequest()->isPost() && !empty($_FILES['import_rates_file']['tmp_name'])) {
             try {
                 $this->_importRates();
@@ -266,8 +268,12 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/importExport');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     protected function _importRates()
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         $fileName   = $_FILES['import_rates_file']['tmp_name'];
         $csvObject  = new Varien_File_Csv();
         $csvData = $csvObject->getData($fileName);
@@ -321,6 +327,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 }
 
                 //end of file has more then one empty lines
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (count($v) <= 1 && !strlen($v[0])) {
                     continue;
                 }
@@ -330,6 +337,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     }
                 }
 
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (count($csvFields) != count($v)) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
                 }
@@ -374,6 +382,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     }
 
                     $rateModel->setTitle($titles);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $rateModel->save();
                 }
             }

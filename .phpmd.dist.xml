@@ -51,11 +51,6 @@
     [ ] CamelCaseVariableName
     [x] Superglobals
     -->
-    <rule ref="rulesets/controversial.xml">
-        <exclude name="CamelCaseClassName" />
-        <exclude name="CamelCaseMethodName" />
-        <exclude name="CamelCasePropertyName" />
-    </rule>
     <rule ref="rulesets/controversial.xml/CamelCaseMethodName">
         <properties>
             <property name="allow-underscore" value="true" />
@@ -74,7 +69,7 @@
     </rule>
     <rule ref="rulesets/controversial.xml/Superglobals" />
 
-    <!-- NAMEING
+    <!-- NAMING
     [-] BooleanGetMethodName
     [ ] ConstantNamingConventions
     [ ] ConstructorWithNameAsEnclosingClass

@@ -681,17 +681,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
@@ -3306,17 +3296,7 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Admin.php
 
 		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: "#^Parameter \\#2 \\$modules of method Mage_Core_Controller_Varien_Router_Standard\\:\\:getModuleByName\\(\\) expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
@@ -3479,16 +3459,6 @@ parameters:
 			message: "#^Property Mage_Core_Model_Design_Fallback\\:\\:\\$_store \\(Mage_Core_Model_Store\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Fallback.php
-
-		-
-			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Parameter \\#1 \\$file of method Mage_Core_Model_Design_Package\\:\\:_renderFilename\\(\\) expects array, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
