@@ -26,6 +26,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Type extends Mage
         Mage_Core_Model_Template::TYPE_TEXT => 'Text',
     ];
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     */
     public function render(Varien_Object $row)
     {
         $str = self::$_types[$row->getTemplateType()] ?? Mage::helper('adminhtml')->__('Unknown');

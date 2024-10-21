@@ -25,6 +25,7 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
      * Process additional data before save config
      *
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _beforeSave()
     {
@@ -34,15 +35,21 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
             Mage::getModel('paypal/cert')->loadByWebsite($this->getScopeId())->delete();
         }
 
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!isset($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'])) {
             return $this;
         }
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         $tmpPath = $_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'];
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if ($tmpPath && file_exists($tmpPath)) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (!filesize($tmpPath)) {
                 Mage::throwException(Mage::helper('paypal')->__('PayPal certificate file is empty.'));
             }
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $this->setValue($_FILES['groups']['name'][$this->getGroupId()]['fields'][$this->getField()]['value']);
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $content = Mage::helper('core')->encrypt(file_get_contents($tmpPath));
             Mage::getModel('paypal/cert')->loadByWebsite($this->getScopeId())
                 ->setContent($content)

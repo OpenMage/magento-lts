@@ -153,6 +153,7 @@ class Mage_Paypal_Model_Ipn
                 $reason = 'Response code: ' . $responseCode . '.';
             }
             $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Paypal_UnavailableException($reason);
         }
 
@@ -171,6 +172,7 @@ class Mage_Paypal_Model_Ipn
      *
      * @return Mage_Sales_Model_Order
      * @throws Exception
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _getOrder()
     {
@@ -184,6 +186,7 @@ class Mage_Paypal_Model_Ipn
                 Mage::app()->getResponse()
                     ->setHeader('HTTP/1.1', '503 Service Unavailable')
                     ->sendResponse();
+                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 exit;
             }
             // re-initialize config with the method code and store id
@@ -342,7 +345,7 @@ class Mage_Paypal_Model_Ipn
                     $this->_registerPaymentCapture(true);
                     break;
 
-                    // the holded payment was denied on paypal side
+                    // the held payment was denied on paypal side
                 case Mage_Paypal_Model_Info::PAYMENTSTATUS_DENIED:
                     $this->_registerPaymentDenial();
                     break;
@@ -522,6 +525,7 @@ class Mage_Paypal_Model_Ipn
         $this->_importPaymentInformation();
 
         foreach ($this->_order->getInvoiceCollection() as $invoice) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $invoice->cancel()->save();
         }
 
@@ -743,6 +747,7 @@ class Mage_Paypal_Model_Ipn
 
         // collect fraud filters
         $fraudFilters = [];
+        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }

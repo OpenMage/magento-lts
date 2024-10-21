@@ -33,7 +33,10 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect customer to callback page after login
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
         if ($this->_getOauthToken() !== null) {
@@ -43,13 +46,17 @@ class Mage_Oauth_Model_Observer
                 ->setRedirect($url)
                 ->sendHeaders()
                 ->sendResponse();
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit();
         }
     }
 
     /**
      * Redirect admin to authorize controller after login success
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
         if ($this->_getOauthToken() !== null) {
@@ -59,6 +66,7 @@ class Mage_Oauth_Model_Observer
                 ->setRedirect($url)
                 ->sendHeaders()
                 ->sendResponse();
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit();
         }
     }

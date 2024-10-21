@@ -170,6 +170,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                     $this->getStoreTZOffsetQuery([$alias => $table], $alias . '.' . $column, $from, $to)
                 )
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->distinct(true);
 
         if ($from !== null) {
@@ -182,6 +183,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         if (!empty($additionalWhere)) {
             foreach ($additionalWhere as $condition) {
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (is_array($condition) && count($condition) == 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
@@ -200,7 +202,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * from select statement with single date column
      *
      *
-     * @param Varien_Db_Select $select
+     * @param Zend_Db_Select|string $select
      * @param string $periodColumn
      * @return string|false
      */
@@ -255,6 +257,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string $alias
      * @param string $relatedAlias
      * @return Varien_Db_Select
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     protected function _getTableDateRangeRelatedSelect(
         $table,
@@ -287,6 +290,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 implode(' AND ', $joinConditionSql),
                 []
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->distinct(true);
 
         if ($from !== null) {
@@ -299,6 +303,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
         if (!empty($additionalWhere)) {
             foreach ($additionalWhere as $condition) {
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (is_array($condition) && count($condition) == 2) {
                     $condition = $adapter->quoteInto($condition[0], $condition[1]);
                 } elseif (is_array($condition)) { // Invalid condition
@@ -414,6 +419,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $dtz = new DateTimeZone($timezone);
             $transitions = $dtz->getTransitions();
             $dateTimeObject = new Zend_Date('c');
+            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             for ($i = count($transitions) - 1; $i >= 0; $i--) {
                 $tr = $transitions[$i];
                 if (!$this->_isValidTransition($tr, $to)) {

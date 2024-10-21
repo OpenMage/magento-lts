@@ -29,11 +29,11 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name extends Mage_Adminhtml_Block_
      */
     public function getFormattedOption($value)
     {
-        $_remainder = '';
-        $value = Mage::helper('core/string')->truncate($value, 55, '', $_remainder);
+        $remainder = '';
+        $value = Mage::helper('core/string')->truncate($value, 55, '', $remainder);
         return [
             'value' => nl2br($value),
-            'remainder' => nl2br($_remainder)
+            'remainder' => nl2br($remainder)
         ];
     }
 }

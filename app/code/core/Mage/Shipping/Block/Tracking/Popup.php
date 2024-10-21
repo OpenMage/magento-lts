@@ -20,6 +20,8 @@
  * @package    Mage_Shipping
  *
  * @method string getProtectCode()
+ *
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {

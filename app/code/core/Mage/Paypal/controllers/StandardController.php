@@ -33,25 +33,25 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function getOrder()
     {
-        if ($this->_order == null) {
-        }
         return $this->_order;
     }
 
     /**
      * Send expire header to ajax response
      *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _expireAjax()
     {
         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
             $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
+            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }
 
     /**
-     * Get singleton with paypal strandard order transaction information
+     * Get singleton with PayPal standard order transaction information
      *
      * @return Mage_Paypal_Model_Standard
      */

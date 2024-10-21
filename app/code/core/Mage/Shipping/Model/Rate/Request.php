@@ -57,8 +57,8 @@
  * @method $this setBaseSubtotalInclTax(float $value)
  *
  * @method $this setCity(string $value)
- * @method string getConditionName()
- * @method $this setConditionName(array $value)
+ * @method string|array getConditionName()
+ * @method $this setConditionName(string|array $value)
  * @method $this setCountryId(string $value)
  *
  * @method string getDestCountryId()

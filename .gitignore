@@ -62,6 +62,7 @@
 
 .phpcs*.xml
 !.phpcs.dist*.xml
+!.phpcs.xml
 
 # PHPMD cache
 .phpmd.result-cache.php

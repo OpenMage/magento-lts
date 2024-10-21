@@ -2312,6 +2312,7 @@ XMLAuth;
     /**
      * Prepare shipping rate result based on response
      * @return Mage_Shipping_Model_Rate_Result
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _parseRestResponse(string $rateResponse)
     {
@@ -2320,6 +2321,7 @@ XMLAuth;
         $errorTitle = '';
         if (strlen($rateResponse) > 0) {
             $rateResponseData = json_decode($rateResponse, true);
+            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
                 if (isset($arr['Service'])) {
@@ -2483,6 +2485,7 @@ XMLAuth;
     /**
      * Setting common request params for Rate Request
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function setQuoteRequestData(Varien_Object $rowRequest): array
     {
         if (self::USA_COUNTRY_ID == $rowRequest->getDestCountry()) {
@@ -2517,6 +2520,7 @@ XMLAuth;
         return $params;
     }
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function mapCurrencyCode(string $code): string
     {
         $currencyMapping = [

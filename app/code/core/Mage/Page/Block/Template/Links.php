@@ -68,6 +68,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param string $beforeText
      * @param string $afterText
      * @return $this
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function addLink(
         $label,
@@ -205,6 +206,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         } elseif (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
             return $result;
