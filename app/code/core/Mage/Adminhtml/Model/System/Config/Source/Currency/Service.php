@@ -21,6 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
 {
     protected $_options;
 
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function toOptionArray($isMultiselect)
     {
         if (!$this->_options) {

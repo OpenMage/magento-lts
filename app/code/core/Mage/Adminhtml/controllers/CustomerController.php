@@ -815,6 +815,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         if ($plain) {
+            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
             switch (strtolower($extension)) {
                 case 'gif':
@@ -848,9 +849,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $this->getResponse()->sendHeaders();
 
             while (($buffer = $ioFile->streamRead()) !== false) {
+                // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
                 echo $buffer;
             }
         } else {
+            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             $name = pathinfo($fileName, PATHINFO_BASENAME);
             $this->_prepareDownloadResponse($name, [
                 'type'  => 'filename',
@@ -858,6 +861,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             ]);
         }
 
+        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit();
     }
 
