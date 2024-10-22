@@ -461,7 +461,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfinvoicesAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        $flag = false;
         if (!empty($orderIds)) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
@@ -469,7 +468,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($invoices->getSize() > 0) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
                     } else {
@@ -478,7 +476,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     }
                 }
             }
-            if ($flag && isset($pdf) && $pdf instanceof Zend_Pdf) {
+            if (isset($pdf) && $pdf instanceof Zend_Pdf) {
                 return $this->_prepareDownloadResponse(
                     'invoice' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
@@ -500,7 +498,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfshipmentsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        $flag = false;
         if (!empty($orderIds)) {
             foreach ($orderIds as $orderId) {
                 $shipments = Mage::getResourceModel('sales/order_shipment_collection')
@@ -508,7 +505,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($shipments->getSize()) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
                     } else {
@@ -517,7 +513,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     }
                 }
             }
-            if ($flag && isset($pdf) && $pdf instanceof Zend_Pdf) {
+            if (isset($pdf) && $pdf instanceof Zend_Pdf) {
                 return $this->_prepareDownloadResponse(
                     'packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
@@ -539,7 +535,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfcreditmemosAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        $flag = false;
         if (!empty($orderIds)) {
             foreach ($orderIds as $orderId) {
                 $creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
@@ -547,7 +542,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($creditmemos->getSize()) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf($creditmemos);
                     } else {
@@ -556,7 +550,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     }
                 }
             }
-            if ($flag && isset($pdf) && $pdf instanceof Zend_Pdf) {
+            if (isset($pdf) && $pdf instanceof Zend_Pdf) {
                 return $this->_prepareDownloadResponse(
                     'creditmemo' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
@@ -578,7 +572,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     public function pdfdocsAction()
     {
         $orderIds = $this->getRequest()->getPost('order_ids');
-        $flag = false;
         if (!empty($orderIds)) {
             foreach ($orderIds as $orderId) {
                 $invoices = Mage::getResourceModel('sales/order_invoice_collection')
@@ -586,7 +579,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($invoices->getSize()) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
                     } else {
@@ -600,7 +592,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($shipments->getSize()) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
                     } else {
@@ -614,7 +605,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load();
                 if ($creditmemos->getSize()) {
-                    $flag = true;
                     if (!isset($pdf)) {
                         $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf($creditmemos);
                     } else {
@@ -623,7 +613,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     }
                 }
             }
-            if ($flag && isset($pdf) && $pdf instanceof Zend_Pdf) {
+            if (isset($pdf) && $pdf instanceof Zend_Pdf) {
                 return $this->_prepareDownloadResponse(
                     'docs' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf',
                     $pdf->render(),
