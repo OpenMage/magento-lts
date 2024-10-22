@@ -34,6 +34,11 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
     protected $_enclosure;
 
     /**
+     * @var string
+     */
+    protected $_escape = '\\';
+
+    /**
      * Start output buffering
      *
      * @param string      $filename Target file to save CSV data
@@ -86,7 +91,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }
-            fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure);
+            fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure, $this->_escape);
         }
     }
 }
