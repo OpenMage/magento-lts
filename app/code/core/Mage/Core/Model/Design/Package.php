@@ -389,7 +389,6 @@ class Mage_Core_Model_Design_Package
      * Get filename by specified theme parameters
      *
      * @param string $file
-     * @param array $params
      * @return string
      */
     protected function _renderFilename($file, array $params)

@@ -27,7 +27,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Type extends Mage
     ];
 
     /**
-     * @param Varien_Object $row
      * @return string
      * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
