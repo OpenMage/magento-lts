@@ -88,7 +88,6 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('adminhtml')->__('User ID'),
             'width'     => 5,
             'align'     => 'left',
-            'sortable'  => true,
             'index'     => 'user_id'
         ]);
 
