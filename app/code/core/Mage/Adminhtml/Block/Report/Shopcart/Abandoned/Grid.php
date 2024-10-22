@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addColumn('items_count', [
             'header'    => Mage::helper('reports')->__('Number of Items'),
             'width'     => '80px',
-            'align'     => 'right',
             'index'     => 'items_count',
             'sortable'  => false,
             'type'      => 'number'
@@ -87,7 +86,6 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addColumn('items_qty', [
             'header'    => Mage::helper('reports')->__('Quantity of Items'),
             'width'     => '80px',
-            'align'     => 'right',
             'index'     => 'items_qty',
             'sortable'  => false,
             'type'      => 'number'
