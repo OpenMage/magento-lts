@@ -458,11 +458,9 @@ class Mage_Core_Model_Layout_Update
                 '_package' => $package,
                 '_theme'   => $theme
             ]);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (!is_readable($filename)) {
                 continue;
             }
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $fileStr = file_get_contents($filename);
             $fileStr = str_replace($this->_subst['from'], $this->_subst['to'], $fileStr);
             /** @var Varien_Simplexml_Element $fileXml */

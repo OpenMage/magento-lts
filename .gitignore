@@ -60,9 +60,11 @@
 .php-cs-fixer*
 !.php-cs-fixer.dist.*
 
+.phpcs.result.cache
 .phpcs*.xml
 !.phpcs.dist*.xml
-!.phpcs.xml
+.phpcs.xml
+phpcs.xml
 
 # PHPMD cache
 .phpmd.result-cache.php

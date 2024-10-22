@@ -201,7 +201,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $store
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function getIncExcText($flag, $store = null)
     {
         if ($flag) {
@@ -387,7 +386,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   mixed $store
      * @return  bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function displayTaxColumn($store = null)
     {
         return $this->_config->displayCartPricesBoth();

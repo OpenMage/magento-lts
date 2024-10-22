@@ -45,7 +45,6 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     {
         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
             $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
-            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }

@@ -51,7 +51,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                             } elseif ($after = $customModule->getAttribute('after')) {
                                 $position = array_search($after, $modules);
                                 if ($position === false) {
-                                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                                     $position = count($modules);
                                 }
                                 array_splice($modules, $position + 1, 0, (string)$customModule);
@@ -247,7 +246,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $request->setControllerModule($realModule);
 
         // set parameters from path info
-        // phpcs:ignore Ecg.Performance.Loop.ArraySize
         for ($i = 3, $l = count($p); $i < $l; $i += 2) {
             $request->setParam($p[$i], isset($p[$i + 1]) ? urldecode($p[$i + 1]) : '');
         }
@@ -341,11 +339,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     protected function _includeControllerClass($controllerFileName, $controllerClassName)
     {
         if (!class_exists($controllerClassName, false)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (!file_exists($controllerFileName)) {
                 return false;
             }
-            // phpcs:ignore Ecg.Security.IncludeFile.IncludeFileDetected
             include $controllerFileName;
 
             if (!class_exists($controllerClassName, false)) {
@@ -435,7 +431,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
             return true;
         }
@@ -500,7 +495,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($url)
                 ->sendResponse();
-            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }

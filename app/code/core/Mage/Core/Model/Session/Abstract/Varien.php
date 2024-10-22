@@ -55,7 +55,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function start($sessionName = null)
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (isset($_SESSION) && !$this->getSkipEmptySessionCheck()) {
             return $this;
         }
@@ -81,20 +80,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 break;
             case 'user':
                 // getSessionSavePath represents static function for custom session handler setup
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func($this->getSessionSavePath());
                 break;
             case 'files':
                 //don't change path if it's not writable
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if (!is_writable($this->getSessionSavePath())) {
                     break;
                 }
                 // no break
             default:
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 session_save_path($this->getSessionSavePath());
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 session_module_name($moduleName);
                 break;
         }
@@ -134,7 +129,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieParams['domain'] = $cookie->getDomain();
         }
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         call_user_func_array('session_set_cookie_params', array_values($cookieParams));
 
         if (!empty($sessionName)) {
@@ -146,7 +140,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 && ! $cookie->get(\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
             ) {
                 $frontendValue = $cookie->get('frontend');
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $_COOKIE[\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
                 $cookie->set(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE, $frontendValue);
                 $cookie->delete('frontend');
@@ -158,23 +151,18 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         Varien_Profiler::start(__METHOD__ . '/start');
         $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
         if ($sessionCacheLimiter) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_cache_limiter((string)$sessionCacheLimiter);
         }
 
         // Start session, abort and render error page if it fails
         try {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (session_start() === false) {
                 throw new Exception('Unable to start session.');
             }
         } catch (Throwable $e) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_abort();
             if (Mage::registry(self::REGISTRY_CONCURRENCY_ERROR)) {
-                // phpcs:ignore Ecg.Security.IncludeFile.IncludeFileDetected
                 require_once Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
-                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 die();
             } else {
                 Mage::printException($e);
@@ -194,26 +182,21 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 && $cookie->get('frontend_cid')
             ) {
                 $cookieValue = $cookie->get('frontend_cid');
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $_COOKIE[$secureCookieName] = $cookieValue;
                 $cookie->set($secureCookieName, $cookieValue);
                 $cookie->delete('frontend_cid');
             }
 
             // Set secure cookie check value in session if not yet set
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             if (!isset($_SESSION[self::SECURE_COOKIE_CHECK_KEY])) {
                 $cookieValue = Mage::helper('core')->getRandomString(16);
                 $cookie->set($secureCookieName, $cookieValue, null, null, null, true, true);
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $_SESSION[self::SECURE_COOKIE_CHECK_KEY] = md5($cookieValue);
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             } elseif (is_string($cookieValue) && $_SESSION[self::SECURE_COOKIE_CHECK_KEY] === md5($cookieValue)) {
                 // Renew secret check value cookie if it is valid
                 $cookie->renew($secureCookieName, null, null, null, true, true);
             } else {
                 // Secure cookie check value is invalid, regenerate session
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 session_regenerate_id(false);
                 $sessionHosts = $this->getSessionHosts();
                 $currentCookieDomain = $cookie->getDomain();
@@ -225,7 +208,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                         $cookie->delete($this->getSessionName(), null, $host);
                     }
                 }
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $_SESSION = [];
             }
         }
@@ -233,9 +215,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         /**
          * Renew cookie expiration time if session id did not change
          */
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if ($cookie->get(session_name()) == $this->getSessionId()) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $cookie->renew(session_name());
         }
         Varien_Profiler::stop(__METHOD__ . '/start');
@@ -294,17 +274,13 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function init($namespace, $sessionName = null)
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_SESSION)) {
             $this->start($sessionName);
         }
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_SESSION[$namespace])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $_SESSION[$namespace] = [];
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $this->_data = &$_SESSION[$namespace];
 
         $this->validate();
@@ -336,7 +312,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function getSessionId()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return session_id();
     }
 
@@ -349,7 +324,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     public function setSessionId($id = null)
     {
         if (!is_null($id) && preg_match('#^[0-9a-zA-Z,-]+$#', $id)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_id($id);
         }
         return $this;
@@ -362,7 +336,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function getSessionName()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return session_name();
     }
 
@@ -374,7 +347,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function setSessionName($name)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         session_name($name);
         return $this;
     }
@@ -502,17 +474,13 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     {
         // Backwards compatibility with legacy sessions (validator data stored per-namespace)
         if (isset($this->_data[self::VALIDATOR_KEY])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $_SESSION[self::VALIDATOR_KEY] = $this->_data[self::VALIDATOR_KEY];
             unset($this->_data[self::VALIDATOR_KEY]);
         }
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
         } else {
             if (!self::$isValidated && ! $this->_validate()) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
                 // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
@@ -522,7 +490,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             // Refresh expire timestamp
             if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
                 $this->setValidatorSessionRenewTimestamp(time());
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
@@ -540,7 +507,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function setValidatorSessionRenewTimestamp($timestamp)
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_RENEW_TIMESTAMP] = $timestamp;
     }
 
@@ -552,7 +518,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     protected function _validate()
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $sessionData = $_SESSION[self::VALIDATOR_KEY];
         $validatorData = $this->getValidatorData();
         self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
@@ -624,21 +589,15 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (Mage::helper('core/http')->getRemoteAddr()) {
             $parts[self::VALIDATOR_REMOTE_ADDR_KEY] = Mage::helper('core/http')->getRemoteAddr();
         }
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (isset($_ENV['HTTP_VIA'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string)$_ENV['HTTP_VIA'];
         }
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (isset($_ENV['HTTP_X_FORWARDED_FOR'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string)$_ENV['HTTP_X_FORWARDED_FOR'];
         }
 
         // collect user agent data
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
         }
 
@@ -657,7 +616,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function getSessionValidatorData()
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         return $_SESSION[self::VALIDATOR_KEY];
     }
 
@@ -668,7 +626,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      */
     public function regenerateSessionId()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         session_regenerate_id(true);
         return $this;
     }

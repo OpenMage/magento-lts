@@ -213,12 +213,12 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $option_type_id
+     * @param int $optionTypeId
      * @return $this
      */
-    public function deleteValues($option_type_id)
+    public function deleteValues($optionTypeId)
     {
-        $this->getResource()->deleteValues($option_type_id);
+        $this->getResource()->deleteValues($optionTypeId);
         return $this;
     }
 

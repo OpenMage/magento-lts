@@ -459,7 +459,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param Mage_Catalog_Model_Product $product
      * @return int
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function prepareQuoteItemQty($qty, $product = null)
     {
         return (int) $qty;
@@ -579,7 +578,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 foreach ($selections->getItems() as $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
                         $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
-                        // phpcs:ignore Ecg.Performance.Loop.ArraySize
                         if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
                             $moreSelections = true;
                         } else {
@@ -618,7 +616,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 
             foreach ($options as $option) {
-                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if ($option->getRequired() && count($option->getSelections()) == 1) {
                     $selections = array_merge($selections, $option->getSelections());
                 } else {
@@ -889,7 +886,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param Mage_Catalog_Model_Product $product
      * @return true
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getForceChildItemQtyChanges($product = null)
     {
         return true;
@@ -1000,7 +996,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param  Varien_Object $buyRequest
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     public function processBuyRequest($product, $buyRequest)
     {
         $option     = $buyRequest->getBundleOption();

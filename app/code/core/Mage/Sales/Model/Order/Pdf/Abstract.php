@@ -86,7 +86,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $drawingString = '"libiconv"' == ICONV_IMPL ?
             iconv('UTF-8', 'UTF-16BE//IGNORE', $string) :
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
             @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
@@ -142,7 +141,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $image = Mage::getStoreConfig('sales/identity/logo', $store);
         if ($image) {
             $image = Mage::getBaseDir('media') . '/sales/store/logo/' . $image;
-            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             if (is_file($image)) {
                 $image       = Zend_Pdf_Image::imageWithPath($image);
                 $top         = 830; //top border of the page
@@ -536,7 +534,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  Mage_Sales_Model_Abstract $source
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _getTotalsList($source)
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();

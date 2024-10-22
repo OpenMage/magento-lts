@@ -96,6 +96,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
      *
      * @param string $currencyFrom
      * @return array
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _convertBatch(array $data, $currencyFrom, array $currenciesTo)
     {

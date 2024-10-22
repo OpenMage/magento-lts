@@ -97,7 +97,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     explode(',', base64_decode(urldecode($attributes)))
                 );
             }
@@ -127,7 +126,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
             /** @var Mage_Catalog_Model_Product $configProduct */
             $data = [];
-            // phpcs:ignore Ecg.Performance.Loop.DataLoad
             foreach ($configProduct->getTypeInstance()->getEditableAttributes() as $attribute) {
                 /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
                 if (!$attribute->getIsUnique()
@@ -829,10 +827,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     protected function _decodeInput($encoded)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($encoded, $data);
         foreach ($data as $key => $value) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             parse_str(base64_decode($value), $data[$key]);
         }
         return $data;
@@ -1026,7 +1022,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
             ->setAttributeSetId($configurableProduct->getAttributeSetId());
 
-        // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
             if ($attribute->getIsUnique()
                 || $attribute->getAttributeCode() == 'url_key'
@@ -1061,7 +1056,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $configurableProduct->getTypeInstance();
-        // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($productType->getConfigurableAttributes() as $attribute) {
             $value = $product->getAttributeText($attribute->getProductAttribute()->getAttributeCode());
             $autogenerateOptions[] = $value;

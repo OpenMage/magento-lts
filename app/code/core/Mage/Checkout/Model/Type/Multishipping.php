@@ -434,7 +434,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             }
             $item->setProductType($_quoteItem->getProductType())
                 ->setProductOptions(
-                    // phpcs:ignore Ecg.Performance.Loop.DataLoad
                     $_quoteItem->getProduct()->getTypeInstance(true)->getOrderOptions($_quoteItem->getProduct())
                 );
             $orderItem = $convertQuote->itemToOrderItem($item);

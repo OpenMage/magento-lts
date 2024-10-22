@@ -293,7 +293,7 @@ class Mage_Core_Model_Translate
      * @param string $fileName
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     protected function _getModuleFilePath($module, $fileName)
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);
@@ -311,7 +311,6 @@ class Mage_Core_Model_Translate
     protected function _getFileData($file)
     {
         $data = [];
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (file_exists($file)) {
             $parser = new Varien_File_Csv();
             $parser->setDelimiter(self::CSV_SEPARATOR);
@@ -404,9 +403,7 @@ class Mage_Core_Model_Translate
             $text = $text->getText();
             $translated = $this->_getTranslatedString($text, $code);
         } else {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             if (!empty($_REQUEST['theme'])) {
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $module = 'frontend/default/' . $_REQUEST['theme'];
             } else {
                 $module = 'frontend/default/default';
@@ -474,7 +471,6 @@ class Mage_Core_Model_Translate
                   . $localeCode . DS . 'template' . DS . $type . DS . $file;
 
         // If no template specified for this locale, use store default
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage::app()->getLocale()->getDefaultLocale()
@@ -482,7 +478,6 @@ class Mage_Core_Model_Translate
         }
 
         // If no template specified as  store default locale, use en_US
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage_Core_Model_Locale::DEFAULT_LOCALE

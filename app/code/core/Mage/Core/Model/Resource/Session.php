@@ -77,7 +77,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      */
     public function __destruct()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         session_write_close();
     }
 
@@ -133,7 +132,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     public function setSaveHandler()
     {
         if ($this->hasConnection()) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_set_save_handler(
                 [$this, 'open'],
                 [$this, 'close'],
@@ -143,7 +141,6 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 [$this, 'gc']
             );
         } else {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_save_path(Mage::getBaseDir('session'));
         }
         return $this;

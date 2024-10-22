@@ -52,7 +52,6 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (!empty($attributes->attributes)) {
             $allAttributes = array_merge($allAttributes, $attributes->attributes);
         } else {
-            // phpcs:ignore Ecg.Performance.Loop.DataLoad
             foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
                 if ($this->_isAllowedAttribute($attribute, $attributes)) {
                     $allAttributes[] = $attribute->getAttributeCode();
@@ -69,7 +68,6 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         }
 
         $_additionalAttribute = 0;
-        // phpcs:ignore Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $allAttributes)) {
                 if (in_array($attribute->getAttributeCode(), $_additionalAttributeCodes)) {

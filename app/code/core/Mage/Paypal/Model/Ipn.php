@@ -186,7 +186,6 @@ class Mage_Paypal_Model_Ipn
                 Mage::app()->getResponse()
                     ->setHeader('HTTP/1.1', '503 Service Unavailable')
                     ->sendResponse();
-                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 exit;
             }
             // re-initialize config with the method code and store id

@@ -164,7 +164,6 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function parseUrl($url)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $data = parse_url($url);
         $parts = [
             'scheme'   => 'setScheme',
@@ -1158,7 +1157,6 @@ class Mage_Core_Model_Url extends Varien_Object
         $key = 'use_session_id_for_url_' . (int) $secure;
         if (is_null($this->getData($key))) {
             $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $urlHost = parse_url(
                 Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure),
                 PHP_URL_HOST
@@ -1211,16 +1209,13 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $storeDomains = [];
         $httpReferer = Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER');
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $referer = $httpReferer ? parse_url($httpReferer, PHP_URL_HOST) : '';
         if (empty($referer)) {
             return true;
         }
 
         foreach (Mage::app()->getStores() as $store) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $storeDomains[] = parse_url($store->getBaseUrl(), PHP_URL_HOST);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $storeDomains[] = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true), PHP_URL_HOST);
         }
         $storeDomains = array_unique($storeDomains);

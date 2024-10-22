@@ -341,7 +341,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function loadBase()
     {
         $etcDir = $this->getOptions()->getEtcDir();
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $files = glob($etcDir . DS . '*.xml');
         $this->loadFile(current($files));
         while ($file = next($files)) {
@@ -477,7 +476,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         if ($disableLocalModules === true) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
                 BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
@@ -527,7 +525,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!Mage::app()->useCache('config')) {
             return;
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
@@ -537,9 +534,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
                 Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Zend_Log::NOTICE);
-                // phpcs:ignore Ecg.Security.IncludeFile.IncludeFileDetected
                 require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
-                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 die();
             }
         }
@@ -814,7 +809,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _getDeclaredModuleFiles()
     {
         $etcDir = $this->getOptions()->getEtcDir();
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $moduleFiles = glob($etcDir . DS . 'modules' . DS . '*.xml');
 
         if (!$moduleFiles) {
@@ -828,7 +822,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         foreach ($moduleFiles as $v) {
             $name = explode(DIRECTORY_SEPARATOR, $v);
-            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
@@ -886,7 +879,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param null $mergeConfig deprecated
      * @return $this|void
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
@@ -1113,13 +1105,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getDistroServerVars()
     {
         if (!$this->_distroServerVars) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             if (isset($_SERVER['SCRIPT_NAME']) && isset($_SERVER['HTTP_HOST'])) {
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
                 $scheme = ($secure ? 'https' : 'http') . '://' ;
 
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $hostArr = explode(':', $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
@@ -1336,7 +1325,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param array|string $args Module name if string
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getPathVars($args = null)
     {
         $path = [];

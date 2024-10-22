@@ -173,7 +173,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param bool $required
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function getChildrenIds($parentId, $required = true)
     {
         return [];
@@ -185,7 +185,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param int|array $childId
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function getParentIdsByChild($childId)
     {
         return [];
@@ -238,8 +237,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
-                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                    || count($attribute->getApplyTo()) == 0
+                        || count($attribute->getApplyTo()) == 0
                     || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
                 ) {
                     $editableAttributes[$attributeCode] = $attribute;
@@ -273,7 +271,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return false
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function isVirtual($product = null)
     {
         return false;
@@ -434,7 +431,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         /** @var Zend_File_Transfer_Adapter_Http $uploader */
                         $uploader = $queueOptions['uploader'] ?? null;
 
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $path = dirname($dst);
                         $io = new Varien_Io_File();
                         if (!$io->isWriteable($path) && !$io->mkdir($path, 0777, true)) {
@@ -457,7 +453,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     case 'move_uploaded_file':
                         $src = $queueOptions['src_name'];
                         $dst = $queueOptions['dst_name'];
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         move_uploaded_file($src, $dst);
                         Mage::helper('core/file_storage_database')->saveFile($dst);
                         break;
@@ -635,7 +630,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function save($product = null)
     {
         return $this;
@@ -654,7 +648,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         foreach ($eavConfig->getEntityAttributeCodes($entityType, $product) as $attributeCode) {
             $attribute = $eavConfig->getAttribute($entityType, $attributeCode);
             $applyTo   = $attribute->getApplyTo();
-            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             if (is_array($applyTo) && count($applyTo) > 0 && !in_array($product->getTypeId(), $applyTo)) {
                 $product->unsetData($attribute->getAttributeCode());
             }
@@ -680,7 +673,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function isComposite($product = null)
     {
         return $this->_isComposite;
@@ -692,7 +684,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function canConfigure($product = null)
     {
         return $this->_canConfigure;
@@ -799,7 +790,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
         return $this;
@@ -852,7 +843,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product|null $product
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function getForceChildItemQtyChanges($product = null)
     {
         return false;
@@ -865,7 +855,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product|null $product
      * @return float
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function prepareQuoteItemQty($qty, $product = null)
     {
         return (float) $qty;
@@ -947,7 +937,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param  Varien_Object $buyRequest
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function processBuyRequest($product, $buyRequest)
     {
         return [];
@@ -992,7 +982,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param int $visibility
      * @return false
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function isMapEnabledInOptions($product, $visibility = null)
     {
         return false;

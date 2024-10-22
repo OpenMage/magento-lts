@@ -133,7 +133,6 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 'position'   => $position++
             ];
 
-            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             $selectionCount = count($bundleOption->getSelections());
             /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');

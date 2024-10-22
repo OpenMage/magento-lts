@@ -36,7 +36,6 @@ class Mage_Oauth_Model_Observer
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
         if ($this->_getOauthToken() !== null) {
@@ -46,7 +45,6 @@ class Mage_Oauth_Model_Observer
                 ->setRedirect($url)
                 ->sendHeaders()
                 ->sendResponse();
-            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit();
         }
     }
@@ -56,7 +54,6 @@ class Mage_Oauth_Model_Observer
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
         if ($this->_getOauthToken() !== null) {
@@ -66,13 +63,14 @@ class Mage_Oauth_Model_Observer
                 ->setRedirect($url)
                 ->sendHeaders()
                 ->sendResponse();
-            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit();
         }
     }
 
     /**
      * Redirect admin to authorize controller after login fail
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {

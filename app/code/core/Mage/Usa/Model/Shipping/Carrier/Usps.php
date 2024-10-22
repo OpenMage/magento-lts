@@ -475,7 +475,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                     } else { // International Rates
                         if (is_object($xml->Package) && is_object($xml->Package->Service)) {
                             foreach ($xml->Package->Service as $service) {
-                                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                                 if ($service->ServiceErrors->count()) {
                                     continue;
                                 }
@@ -1312,7 +1311,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $name = (string)preg_replace(
             ['~<[^/!][^>]+>.*</[^>]+>~sU', '~\<!--.*--\>~isU', '~<[^>]+>~is'],
             '',
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             html_entity_decode($name)
         );
         $name = str_replace('*', '', $name);
@@ -1783,15 +1781,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $result->setErrors($debugData['result']['error']);
         } else {
             if ($recipientUSCountry && $service == 'Priority Express') {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $labelContent = base64_decode((string) $response->EMLabel);
                 $trackingNumber = (string) $response->EMConfirmationNumber;
             } elseif ($recipientUSCountry) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $labelContent = base64_decode((string) $response->SignatureConfirmationLabel);
                 $trackingNumber = (string) $response->SignatureConfirmationNumber;
             } else {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $labelContent = base64_decode((string) $response->LabelImage);
                 $trackingNumber = (string) $response->BarcodeNumber;
             }
@@ -1907,7 +1902,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if (preg_match('/[\\d\\w]{5}\\-[\\d\\w]{4}/', $zipString) != 0) {
             $zip = explode('-', $zipString);
         }
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed,Ecg.Performance.Loop.ArraySize
+        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < count($zip); ++$i) {
             if (strlen($zip[$i]) == 5) {
                 $zip5 = $zip[$i];

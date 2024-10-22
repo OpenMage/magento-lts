@@ -49,7 +49,6 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
             case 'has':
                 return isset($this->_data[$key]);
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')');
     }
 }

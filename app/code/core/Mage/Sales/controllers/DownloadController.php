@@ -37,11 +37,9 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             $this->_validateFilePath($info);
 
             $filePath = Mage::getBaseDir() . $info['order_path'];
-            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged,Ecg.Security.ForbiddenFunction.Found
             if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
                 //try get file from quote
                 $filePath = Mage::getBaseDir() . $info['quote_path'];
-                // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged,Ecg.Security.ForbiddenFunction.Found
                 if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
                     throw new Exception();
                 }
@@ -89,9 +87,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             return false;
         }
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $directory = dirname($filePath);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Generic.PHP.NoSilencedErrors.Discouraged
         @mkdir($directory, 0777, true);
 
         $io = new Varien_Io_File();
@@ -190,7 +186,6 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit(0);
     }
 }

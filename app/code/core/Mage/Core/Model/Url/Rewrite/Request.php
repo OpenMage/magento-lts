@@ -285,17 +285,12 @@ class Mage_Core_Model_Url_Rewrite_Request
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
         if ($isPermanent) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             header('HTTP/1.1 301 Moved Permanently');
         }
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Pragma: no-cache');
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         header('Location: ' . $url);
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit;
     }
 
@@ -307,10 +302,8 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _getQueryString()
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!empty($_SERVER['QUERY_STRING'])) {
             $queryParams = [];
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
@@ -322,7 +315,6 @@ class Mage_Core_Model_Url_Rewrite_Request
             if ($hasChanges) {
                 return http_build_query($queryParams);
             } else {
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 return $_SERVER['QUERY_STRING'];
             }
         }

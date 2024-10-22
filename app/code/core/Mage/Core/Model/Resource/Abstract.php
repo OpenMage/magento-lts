@@ -96,7 +96,6 @@ abstract class Mage_Core_Model_Resource_Abstract
                 $callbacks = self::$_commitCallbacks[$adapterKey];
                 self::$_commitCallbacks[$adapterKey] = [];
                 foreach ($callbacks as $callback) {
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     call_user_func($callback);
                 }
             }

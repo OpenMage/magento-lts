@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -14,7 +15,7 @@
  */
 
 /**
- * Fylesystem installer
+ * Filesystem installer
  *
  * @category   Mage
  * @package    Mage_Install
@@ -94,7 +95,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
     protected function _checkFullPath($fullPath, $recursive, $existence)
     {
         $res = true;
-        $setError = $existence && (is_dir($fullPath) && !is_dir_writeable($fullPath) || !is_writable($fullPath))
+        $setError = $existence && (is_dir($fullPath) && !isDirWriteable($fullPath) || !is_writable($fullPath))
             || !$existence && file_exists($fullPath) && !is_writable($fullPath);
 
         if ($setError) {

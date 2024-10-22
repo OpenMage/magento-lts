@@ -21,6 +21,10 @@
  */
 class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
+    /**
+     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function load()
     {
         if (!$_FILES) {
@@ -46,7 +50,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Http extends Mage_Dataflow_Model_Conve
         return $this;
     }
 
-    // experimental code
+    /**
+     * Experimental code
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function loadFile()
     {
         if (!$_FILES) {

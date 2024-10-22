@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -268,7 +269,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
             if (!is_dir($dir)) {
                 return false;
             }
-            if (!is_dir_writeable($dir)) {
+            if (!isDirWriteable($dir)) {
                 return false;
             }
         } else {

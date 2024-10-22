@@ -1911,11 +1911,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$stack of function array_pop is passed by reference, so it expects variables only\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Api.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
@@ -4774,11 +4769,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$collection of method Mage_ImportExport_Model_Export\\:\\:filterAttributeCollection\\(\\) expects Mage_Eav_Model_Resource_Entity_Attribute_Collection, Mage_Core_Model_Resource_Db_Collection_Abstract\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$elementId of method Mage_ImportExport_Block_Adminhtml_Import_Frame_Result\\:\\:addAction\\(\\) expects string, array\\<int, string\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
 
 		-
 			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\<string, int\\|string\\>\\|null given\\.$#"

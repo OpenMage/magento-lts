@@ -51,7 +51,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      * Add action for response.
      *
      * @param string $actionName
-     * @param string $elementId
+     * @param string|array $elementId
      * @param mixed $value OPTIONAL
      * @return $this
      */

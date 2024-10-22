@@ -182,12 +182,10 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      */
     public function uploadAndImport(Varien_Object $object)
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (empty($_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'])) {
             return $this;
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         $csvFile = $_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'];
         $website = Mage::app()->getWebsite($object->getScopeId());
 
@@ -197,7 +195,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importedRows        = 0;
 
         $io     = new Varien_Io_File();
-        // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
         $info   = pathinfo($csvFile);
         $io->open(['path' => $info['dirname']]);
         $io->streamOpen($info['basename'], 'r');
@@ -245,7 +242,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                     $importData[] = $row;
                 }
 
-                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (count($importData) == 5000) {
                     $this->_saveImportData($importData);
                     $importData = [];

@@ -18,6 +18,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 {

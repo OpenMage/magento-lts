@@ -40,7 +40,6 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     public function authValidate($headers = null)
     {
         if (!is_null($headers)) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $_SERVER = $headers;
         }
 
@@ -48,37 +47,25 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         $pass = '';
 
         // moshe's fix for CGI
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             foreach ($_SERVER as $k => $v) {
                 if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
-                    // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
             }
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $user = $_SERVER['PHP_AUTH_USER'];
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $pass = $_SERVER['PHP_AUTH_PW'];
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         } elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
             // IIS Note:: For HTTP Authentication to work with IIS,
             // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         } elseif (!empty($_SERVER['Authorization'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             $auth = $_SERVER['Authorization'];
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         }
 
@@ -102,7 +89,6 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             ->setHeader('WWW-Authenticate', 'Basic realm="RSS Feeds"')
             ->setBody('<h1>401 Unauthorized</h1>')
             ->sendResponse();
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit;
     }
 
@@ -137,7 +123,6 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             $headers = $this->getRemoteAddrHeaders();
             foreach ($headers as $var) {
                 if ($var != 'REMOTE_ADDR' && $this->_getRequest()->getServer($var, false)) {
-                    // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                     $this->_remoteAddr = $_SERVER[$var];
                     break;
                 }

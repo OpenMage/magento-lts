@@ -104,7 +104,6 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     public function sendHeadersAndExit()
     {
         $this->sendHeaders();
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit;
     }
 }

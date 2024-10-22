@@ -289,7 +289,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     protected function _getAttributeLocation($matches, $options)
     {
         return 'Tag attribute (ALT, TITLE, etc.)';
@@ -302,7 +302,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundBeforeLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     protected function _getTagLocation($matches, $options)
     {
         $tagName = strtolower($options['tagName']);
@@ -328,7 +328,6 @@ class Mage_Core_Model_Translate_Inline
                 'shown' => $m[1][0],
                 'translated' => $m[2][0],
                 'original' => $m[3][0],
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 'location' => call_user_func($locationCallback, $m, $options),
                 'scope' => $m[4][0],
             ]);
@@ -451,7 +450,7 @@ class Mage_Core_Model_Translate_Inline
      * @param string|array $formatCallback
      * @param bool $isNeedTranslateAttributes
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     protected function _translateTags(&$content, $tagsList, $formatCallback, $isNeedTranslateAttributes)
     {
         $nextTag = 0;
@@ -492,7 +491,6 @@ class Mage_Core_Model_Translate_Inline
 
             if (!empty($trArr)) {
                 $trArr = array_unique($trArr);
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $tagHtml = call_user_func([$this, $formatCallback], $tagHtml, $tagName, $trArr);
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagHtml);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], $tagLength);

@@ -120,7 +120,6 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $contentLength  = filesize($file);
             }
         }
@@ -146,7 +145,6 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
-                    // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
                     print $buffer;
                 }
                 $ioAdapter->streamClose();
@@ -154,7 +152,6 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                     $ioAdapter->rm($file);
                 }
 
-                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 exit(0);
             } else {
                 $this->getResponse()->setBody($content);

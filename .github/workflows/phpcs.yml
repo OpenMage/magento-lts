@@ -44,5 +44,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules.path }}
-        continue-on-error: ${{ matrix.rules.path == '.phpcs.dist.ecg.xml' }}
+        run: php vendor/bin/phpcs -s -p --report=full --standard=${{ matrix.rules.path }}

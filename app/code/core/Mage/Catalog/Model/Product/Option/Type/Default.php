@@ -303,7 +303,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param array $productOptionValues Values for product option
      * @return string|null
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         return $optionValue;
@@ -327,7 +326,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param float $basePrice For percent price type
      * @return float
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     public function getOptionPrice($optionValue, $basePrice)
     {
         $option = $this->getOption();
@@ -346,7 +345,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param string $skuDelimiter Delimiter for Sku parts
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function getOptionSku($optionValue, $skuDelimiter)
     {
         return $this->getOption()->getSku();

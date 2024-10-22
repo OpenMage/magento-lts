@@ -83,16 +83,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getOptionId($value)
     {
-        $bc_warning = false;
+        $bcWarning = false;
         foreach ($this->getAllOptions() as $option) {
             if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
             if ($option['value'] == $value) {
-                $bc_warning = true;
+                $bcWarning = true;
             }
         }
-        if ($bc_warning) {
+        if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
                 Zend_Log::WARN

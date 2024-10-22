@@ -64,9 +64,7 @@ class Mage_Xml_Generator
                 $node = $this->getDom()->createElement($key);
             } catch (DOMException $e) {
                 //  echo $e->getMessage();
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 var_dump($item);
-                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 die;
             }
             $parentNode->appendChild($node);

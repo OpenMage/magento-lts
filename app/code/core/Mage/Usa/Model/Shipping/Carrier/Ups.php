@@ -2321,7 +2321,6 @@ XMLAuth;
         $errorTitle = '';
         if (strlen($rateResponse) > 0) {
             $rateResponseData = json_decode($rateResponse, true);
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];
                 if (isset($arr['Service'])) {

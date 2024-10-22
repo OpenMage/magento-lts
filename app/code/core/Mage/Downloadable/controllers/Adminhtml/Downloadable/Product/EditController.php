@@ -84,6 +84,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     /**
      * Download link action
      *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function linkAction()
     {

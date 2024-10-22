@@ -313,7 +313,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $helperName = implode('/', $helperName);
                         $arg = $arg->asArray();
                         unset($arg['@']);
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
                     } else {
                         /**
@@ -344,7 +343,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             call_user_func_array([$block, $method], array_values($args));
         }
 
@@ -358,7 +356,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param string[]                 $args
      * @throws Mage_Core_Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
         foreach ($this->invalidActions as $action) {
@@ -394,7 +391,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $argumentHierarchy = explode('.', $translatableArgumentName);
                 $argumentStack = &$args;
                 $canTranslate = true;
-                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 while (is_array($argumentStack) && count($argumentStack) > 0) {
                     $argumentName = array_shift($argumentHierarchy);
                     if (isset($argumentStack[$argumentName])) {

@@ -748,7 +748,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 

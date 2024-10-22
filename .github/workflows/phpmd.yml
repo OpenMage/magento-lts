@@ -29,4 +29,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPMD
-        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml
+        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --baseline-file .phpmd.dist.baseline.xml

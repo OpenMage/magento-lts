@@ -363,9 +363,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     {
         if (is_null($id) && $this->useSid()) {
             $queryParam = $this->getSessionIdQueryParam();
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
             if (isset($_GET[$queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
                 $id = $_GET[$queryParam];
             }
         }

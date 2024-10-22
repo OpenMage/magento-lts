@@ -259,9 +259,9 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                 'label' => $model->getFrontendLabel()
             ]
         ];
-        foreach ($model->getStoreLabels() as $store_id => $label) {
+        foreach ($model->getStoreLabels() as $storeId => $label) {
             $frontendLabels[] = [
-                'store_id' => $store_id,
+                'store_id' => $storeId,
                 'label' => $label
             ];
         }

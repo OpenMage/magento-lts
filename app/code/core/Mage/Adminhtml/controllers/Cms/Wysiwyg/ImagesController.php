@@ -120,11 +120,8 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $filePath = realpath($path . DS . $file);
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if (str_starts_with($filePath, realpath($path)) &&
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     str_starts_with($filePath, realpath($helper->getStorageRoot()))
                 ) {
                     $this->getStorage()->deleteFile($path . DS . $file);
@@ -185,7 +182,6 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $this->getResponse()->setHeader('Content-type', $image->getMimeTypeWithOutFileType());
             ob_start();
             $image->display();
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $this->getResponse()->setBody(ob_get_contents());
             ob_end_clean();
         } else {

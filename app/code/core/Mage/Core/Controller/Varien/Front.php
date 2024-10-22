@@ -349,7 +349,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Generic.PHP.NoSilencedErrors.Discouraged
         $uri = @parse_url($baseUrl);
         $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
         if (isset($uri['scheme']) && $uri['scheme'] != $request->getScheme()
@@ -359,7 +358,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($baseUrl, $redirectCode)
                 ->sendResponse();
-            // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
     }

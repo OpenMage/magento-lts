@@ -136,12 +136,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 ];
 
                 if ($taxHelper->displaySalesPriceInclTax()) {
-                    $row_total = $order->formatPriceTxt($orderItem->getRowTotalInclTax());
+                    $rowTotal = $order->formatPriceTxt($orderItem->getRowTotalInclTax());
                 } else {
-                    $row_total = $order->formatPriceTxt($orderItem->getRowTotal());
+                    $rowTotal = $order->formatPriceTxt($orderItem->getRowTotal());
                 }
                 $line[] = [
-                    'text'  => $row_total,
+                    'text'  => $rowTotal,
                     'feed'  => 565,
                     'font'  => 'bold',
                     'align' => 'right'
