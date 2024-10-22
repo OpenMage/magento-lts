@@ -165,7 +165,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         case E_USER_NOTICE:
             $errorMessage .= 'User Notice';
             break;
-        case PHP_VERSION_ID < 80400 && E_STRICT:
+        case 2048: // E_STRICT prior to PHP8.4
             $errorMessage .= 'Strict Notice';
             break;
         case E_RECOVERABLE_ERROR:
