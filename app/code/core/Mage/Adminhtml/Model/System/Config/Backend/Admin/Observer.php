@@ -25,7 +25,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
      * @param Varien_Event_Observer $observer
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function afterCustomUrlChanged($observer)
     {
         if (is_null(Mage::registry('custom_admin_path_redirect'))) {

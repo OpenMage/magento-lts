@@ -125,7 +125,7 @@
         <!-- should be ignored - PHPMD -->
         <exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
     </rule>
-    <rule ref="Squiz.Functions">
+    <rule ref="Squiz.Functions.GlobalFunction">
         <!-- should be ignored -->
         <exclude name="Squiz.Functions.GlobalFunction.Found"/>
     </rule>

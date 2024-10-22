@@ -1131,7 +1131,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
-    // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
     public function importFromTextArray(array $row)
     {
         $this->resetErrors();

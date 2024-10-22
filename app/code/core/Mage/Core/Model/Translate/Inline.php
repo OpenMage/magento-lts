@@ -289,7 +289,6 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     protected function _getAttributeLocation($matches, $options)
     {
         return 'Tag attribute (ALT, TITLE, etc.)';
@@ -302,7 +301,6 @@ class Mage_Core_Model_Translate_Inline
      * @param array $options
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     protected function _getTagLocation($matches, $options)
     {
         $tagName = strtolower($options['tagName']);
@@ -450,7 +448,6 @@ class Mage_Core_Model_Translate_Inline
      * @param string|array $formatCallback
      * @param bool $isNeedTranslateAttributes
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     protected function _translateTags(&$content, $tagsList, $formatCallback, $isNeedTranslateAttributes)
     {
         $nextTag = 0;

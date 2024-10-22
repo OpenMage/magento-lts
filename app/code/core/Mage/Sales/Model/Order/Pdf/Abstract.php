@@ -89,7 +89,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             @iconv('UTF-8', 'UTF-16BE', $string);
 
         $characters = [];
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < strlen($drawingString); $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }

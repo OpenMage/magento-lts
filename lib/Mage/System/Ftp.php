@@ -70,7 +70,6 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < count($dir); $i++) {
             $path .= '/' . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {

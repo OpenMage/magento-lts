@@ -996,7 +996,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * @param  Varien_Object $buyRequest
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     public function processBuyRequest($product, $buyRequest)
     {
         $option     = $buyRequest->getBundleOption();

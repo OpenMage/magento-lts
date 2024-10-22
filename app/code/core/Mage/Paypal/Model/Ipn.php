@@ -746,7 +746,6 @@ class Mage_Paypal_Model_Ipn
 
         // collect fraud filters
         $fraudFilters = [];
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }

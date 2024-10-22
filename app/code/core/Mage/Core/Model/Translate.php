@@ -293,7 +293,6 @@ class Mage_Core_Model_Translate
      * @param string $fileName
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     protected function _getModuleFilePath($module, $fileName)
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);

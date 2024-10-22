@@ -68,7 +68,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     {
         $drawingText = iconv('', 'UTF-16BE', $text);
         $characters = [];
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
         for ($i = 0; $i < strlen($drawingText); $i++) {
             $characters[] = (ord($drawingText[$i++]) << 8) | ord($drawingText[$i]);
         }

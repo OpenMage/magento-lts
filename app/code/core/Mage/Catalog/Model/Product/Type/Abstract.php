@@ -173,7 +173,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param bool $required
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function getChildrenIds($parentId, $required = true)
     {
         return [];
@@ -790,7 +789,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
         return $this;
@@ -855,7 +853,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product|null $product
      * @return float
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function prepareQuoteItemQty($qty, $product = null)
     {
         return (float) $qty;
@@ -937,7 +934,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param  Varien_Object $buyRequest
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function processBuyRequest($product, $buyRequest)
     {
         return [];
@@ -982,7 +978,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param int $visibility
      * @return false
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterAfterLastUsed
     public function isMapEnabledInOptions($product, $visibility = null)
     {
         return false;

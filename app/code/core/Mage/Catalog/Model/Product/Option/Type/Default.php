@@ -326,7 +326,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param float $basePrice For percent price type
      * @return float
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameterBeforeLastUsed
     public function getOptionPrice($optionValue, $basePrice)
     {
         $option = $this->getOption();
