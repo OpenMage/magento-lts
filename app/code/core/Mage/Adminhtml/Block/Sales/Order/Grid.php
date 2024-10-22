@@ -71,9 +71,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true,
                 'display_deleted' => true,
                 'escape'  => true,
             ]);
@@ -121,8 +119,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             $this->addColumn(
                 'action',
                 [
-                    'header'    => Mage::helper('sales')->__('Action'),
-                    'width'     => '50px',
                     'type'      => 'action',
                     'getter'     => 'getId',
                     'actions'   => [
@@ -133,8 +129,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                             'data-column' => 'action',
                         ]
                     ],
-                    'filter'    => false,
-                    'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true,
                 ]
