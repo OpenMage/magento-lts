@@ -39,6 +39,13 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
     protected $_enclosure = '"';
 
     /**
+     * Field escape character.
+     *
+     * @var string
+     */
+    protected $_escape = '\\';
+
+    /**
      * Source file handler.
      *
      * @var resource
@@ -109,7 +116,8 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
             $this->_fileHandler,
             $data,
             $this->_delimiter,
-            $this->_enclosure
+            $this->_enclosure,
+            $this->_escape
         );
 
         $this->_rowsCount++;
