@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,19 +40,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
 
         $this->addColumn('frontend_label', [
             'header' => Mage::helper('eav')->__('Attribute Label'),
-            'sortable' => true,
             'index' => 'frontend_label'
         ]);
 
         $this->addColumn('attribute_code', [
             'header' => Mage::helper('eav')->__('Attribute Code'),
-            'sortable' => true,
             'index' => 'attribute_code'
         ]);
 
         $this->addColumn('is_required', [
             'header' => Mage::helper('eav')->__('Required'),
-            'sortable' => true,
             'index' => 'is_required',
             'type' => 'options',
             'options' => [
@@ -64,7 +61,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
 
         $this->addColumn('is_user_defined', [
             'header' => Mage::helper('eav')->__('System'),
-            'sortable' => true,
             'index' => 'is_user_defined',
             'type' => 'options',
             'align' => 'center',

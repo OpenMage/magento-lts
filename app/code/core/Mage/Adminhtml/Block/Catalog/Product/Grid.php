@@ -146,8 +146,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             'entity_id',
             [
                 'header' => Mage::helper('catalog')->__('ID'),
-                'width' => '50px',
-                'type'  => 'number',
                 'index' => 'entity_id',
             ]
         );
@@ -212,10 +210,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'price',
             [
-                'header' => Mage::helper('catalog')->__('Price'),
-                'type'  => 'price',
+                'type'          => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index' => 'price',
             ]
         );
 
@@ -270,8 +266,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('catalog')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [
@@ -284,8 +278,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
                         'field'   => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false,
+
                 'index'     => 'stores',
             ]
         );

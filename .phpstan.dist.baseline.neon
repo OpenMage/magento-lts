@@ -571,11 +571,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Form.php
 
 		-
-			message: "#^Property Mage_Adminhtml_Block_Widget_Grid\\:\\:\\$defaultColumnSettings \\(array\\<array\\<array\\>\\>\\) does not accept default value of type array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
-
-		-
 			message: "#^Parameter \\#1 \\$emptyLabel of method Mage_Directory_Model_Resource_Country_Collection\\:\\:toOptionArray\\(\\) expects string, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Filter/Country.php
@@ -3379,11 +3374,6 @@ parameters:
 			message: "#^Method Mage_Core_Model_Cache\\:\\:getDbAdapter\\(\\) should return Zend_Db_Adapter_Abstract but returns Varien_Db_Adapter_Interface\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Cache.php
-
-		-
-			message: "#^Method Mage_Core_Model_Config\\:\\:getNode\\(\\) should return Mage_Core_Model_Config_Element but returns Varien_Simplexml_Element\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
 			message: "#^Parameter \\#1 \\$options of method Mage_Core_Model_Config\\:\\:reinit\\(\\) expects array, Mage_Core_Model_Config_Options given\\.$#"
