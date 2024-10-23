@@ -44,9 +44,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
 
             try {
                 $file = [];
-                        $tmpName = $_FILES['groups']['tmp_name'];
+                $tmpName = $_FILES['groups']['tmp_name'];
                 $file['tmp_name'] = $tmpName[$this->getGroupId()]['fields'][$this->getField()]['value'];
-                        $name = $_FILES['groups']['name'];
+                $name = $_FILES['groups']['name'];
                 $file['name'] = $name[$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $uploader = Mage::getModel('core/file_uploader', $file);
                 $uploader->setAllowedExtensions($this->_getAllowedExtensions());

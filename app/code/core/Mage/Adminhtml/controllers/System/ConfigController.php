@@ -140,7 +140,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
              * Carefully merge $_FILES and $_POST information
              * None of '+=' or 'array_merge_recursive' can do this correct
              */
-                foreach ($_FILES['groups']['name'] as $groupName => $group) {
+            foreach ($_FILES['groups']['name'] as $groupName => $group) {
                 if (is_array($group)) {
                     foreach ($group['fields'] as $fieldName => $field) {
                         if (!empty($field['value'])) {

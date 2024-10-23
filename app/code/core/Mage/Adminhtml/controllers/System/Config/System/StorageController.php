@@ -73,7 +73,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
         $storage = ['type' => (int) $_REQUEST['storage']];
         if (isset($_REQUEST['connection']) && !empty($_REQUEST['connection'])) {
-                $storage['connection'] = $_REQUEST['connection'];
+            $storage['connection'] = $_REQUEST['connection'];
         }
 
         try {

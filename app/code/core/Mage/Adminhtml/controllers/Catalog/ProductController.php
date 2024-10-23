@@ -97,7 +97,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                        explode(',', base64_decode(urldecode($attributes)))
+                    explode(',', base64_decode(urldecode($attributes)))
                 );
             }
         }
