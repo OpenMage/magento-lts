@@ -63,7 +63,6 @@ class Mage_Index_Model_Lock
 
     protected function __construct()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         register_shutdown_function([$this, 'shutdownReleaseLocks']);
     }
 
@@ -285,20 +284,16 @@ class Mage_Index_Model_Lock
         if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
-            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             if (is_file($file)) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                self::$_lockFileResource[$lockName] = fopen($file, 'w');
+                        self::$_lockFileResource[$lockName] = fopen($file, 'w');
             } else {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                self::$_lockFileResource[$lockName] = fopen($file, 'x');
+                        self::$_lockFileResource[$lockName] = fopen($file, 'x');
             }
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
                 throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            fwrite(self::$_lockFileResource[$lockName], date('r'));
+                fwrite(self::$_lockFileResource[$lockName], date('r'));
         }
         return self::$_lockFileResource[$lockName];
     }

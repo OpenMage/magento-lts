@@ -364,9 +364,7 @@ class Mage_Core_Model_App
         } else {
             flush();
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (session_status() === PHP_SESSION_ACTIVE) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             session_write_close();
         }
 
@@ -542,7 +540,6 @@ class Mage_Core_Model_App
      */
     protected function _checkGetStore($type)
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (empty($_GET)) {
             return $this;
         }
@@ -550,12 +547,10 @@ class Mage_Core_Model_App
         /**
          * @todo check XML_PATH_STORE_IN_URL
          */
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_GET['___store'])) {
             return $this;
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $store = $_GET['___store'];
         if (!isset($this->_stores[$store])) {
             return $this;
@@ -1272,9 +1267,7 @@ class Mage_Core_Model_App
      */
     public function cleanAllSessions()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (session_module_name() == 'files') {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $dir = session_save_path();
             mageDelTree($dir);
         }
@@ -1311,17 +1304,14 @@ class Mage_Core_Model_App
      */
     public function isCurrentlySecure()
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
             return true;
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
             return true;
         }
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             return true;
         }
@@ -1331,7 +1321,6 @@ class Mage_Core_Model_App
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
                 $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }
@@ -1349,7 +1338,6 @@ class Mage_Core_Model_App
     public function getResponse()
     {
         if (empty($this->_response)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_response = new Mage_Core_Controller_Response_Http();
             $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader('Content-Type', 'text/html; charset=UTF-8');

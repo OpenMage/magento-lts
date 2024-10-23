@@ -196,8 +196,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         } elseif (is_string($entity) || $entity instanceof Mage_Core_Model_Config_Element) {
             $this->_entity = Mage::getModel('eav/entity')->setType($entity);
         } else {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, true)));
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, true)));
         }
         return $this;
     }

@@ -147,7 +147,6 @@ class Mage_System_Ftp
         $params = $this->validateConnectionString($string);
         $port = isset($params['port']) ? (int) $params['port'] : 21;
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $this->_conn = ftp_connect($params['host'], $port, $timeout);
 
         if (!$this->_conn) {
@@ -195,7 +194,6 @@ class Mage_System_Ftp
     public function put($remoteFile, $localFile, $mode = FTP_BINARY, $startPos = 0)
     {
         $this->checkConnected();
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return ftp_put($this->_conn, $remoteFile, $localFile, $mode, $startPos);
     }
 
@@ -252,21 +250,17 @@ class Mage_System_Ftp
     {
         $this->checkConnected();
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!file_exists($local)) {
             throw new Exception("Local file doesn't exist: {$local}");
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!is_readable($local)) {
             throw new Exception("Local file is not readable: {$local}");
         }
-        // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
         if (is_dir($local)) {
             throw new Exception("Directory given instead of file: {$local}");
         }
 
         $globalPathMode = substr($remote, 0, 1) == '/';
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
@@ -466,9 +460,7 @@ class Mage_System_Ftp
         $path = $this->correctFilePath($path);
         $globalPathMode = substr($path, 0, 1) == '/';
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $file = basename($path);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;
         $data = $this->ls($dir);
         foreach ($data as $row) {

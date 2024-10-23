@@ -541,7 +541,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getDefaultBasePath()
     {
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!isset($_SERVER['SCRIPT_NAME'])) {
             return '/';
         }
@@ -631,7 +630,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     protected function _updatePathUseRewrites($url)
     {
         if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
             $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
             $url .= $indexFileName . '/';
         }
@@ -1099,12 +1097,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
             ? $this->getUrl('', ['_secure' => true])
             : $this->getUrl('');
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $storeParsedUrl = parse_url($storeUrl);
 
         $storeParsedQuery = [];
         if (isset($storeParsedUrl['query'])) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             parse_str($storeParsedUrl['query'], $storeParsedQuery);
         }
 

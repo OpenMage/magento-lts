@@ -44,7 +44,6 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
 
     protected function _getEscapedValue($value)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes(htmlspecialchars($value), '\\\'');
     }
 

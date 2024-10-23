@@ -775,7 +775,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit(0);
     }
 }

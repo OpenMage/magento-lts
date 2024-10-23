@@ -130,7 +130,6 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
      */
     public function getEscapedForJs($value)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes($value, "\\'\n\r\t");
     }
 

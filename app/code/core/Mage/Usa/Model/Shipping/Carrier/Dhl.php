@@ -776,12 +776,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             } else {
                 if ($xml !== false) {
                     if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                        $shippingLabelContent = base64_decode((string)$xml->Shipment->Label->Image);
+                                        $shippingLabelContent = base64_decode((string)$xml->Shipment->Label->Image);
                         $trackingNumber = (string)$xml->Shipment->ShipmentDetail->AirbillNbr;
                     } else {
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                        $shippingLabelContent = base64_decode((string)$xml->IntlShipment->Label->Image);
+                                        $shippingLabelContent = base64_decode((string)$xml->IntlShipment->Label->Image);
                         $trackingNumber = (string)$xml->IntlShipment->ShipmentDetail->AirbillNbr;
                     }
                 }

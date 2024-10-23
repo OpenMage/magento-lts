@@ -35,7 +35,6 @@ class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
      */
     public function setValue($value)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return $this->setContents(print_r($value, true));
     }
 }

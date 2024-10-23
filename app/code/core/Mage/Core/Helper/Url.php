@@ -137,7 +137,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         }
 
         list($baseUrl, $query) = explode('?', $url, 2);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($query, $params);
 
         if (!$caseSensitive) {
@@ -176,7 +175,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function encodePunycode($url)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if (!$this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_ascii($parsedUrl['host']);
@@ -195,7 +193,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function decodePunycode($url)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if ($this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_utf8($parsedUrl['host']);

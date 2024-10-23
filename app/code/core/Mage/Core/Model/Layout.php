@@ -313,8 +313,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $helperName = implode('/', $helperName);
                         $arg = $arg->asArray();
                         unset($arg['@']);
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                        $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
+                                        $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
                     } else {
                         /**
                          * if there is no helper we hope that this is assoc array
@@ -344,8 +343,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            call_user_func_array([$block, $method], array_values($args));
+                call_user_func_array([$block, $method], array_values($args));
         }
 
         Varien_Profiler::stop($_profilerKey);

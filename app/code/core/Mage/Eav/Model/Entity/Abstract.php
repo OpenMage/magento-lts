@@ -635,7 +635,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
 
             try {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $results[$attrCode] = call_user_func_array([$instance, $method], $args);
             } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
                 throw $e;

@@ -334,7 +334,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function setPasswordCreatedAt($time)
     {
         $this->setData('password_created_at', $time);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (session_status() === PHP_SESSION_ACTIVE) {
             Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
         }

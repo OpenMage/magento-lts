@@ -222,8 +222,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
+                $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
         } else {
             if (is_resource($dest)) {
                 $stream = $dest;
@@ -234,8 +233,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 return false;
             }
 
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            $result = ftp_fget($this->_conn, $stream, $filename, $this->_config['file_mode']);
+                $result = ftp_fget($this->_conn, $stream, $filename, $this->_config['file_mode']);
 
             if (is_null($dest)) {
                 fseek($stream, 0);
@@ -260,7 +258,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function write($filename, $src, $mode = null)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (is_string($src) && is_readable($src)) {
             // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
@@ -276,7 +273,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 return false;
             }
 
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
             if (is_string($src)) {
                 fclose($stream);
@@ -352,7 +348,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
         }
         return $this->_tmpFilename;
