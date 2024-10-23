@@ -222,7 +222,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
-                $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
+            $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
         } else {
             if (is_resource($dest)) {
                 $stream = $dest;
@@ -233,7 +233,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 return false;
             }
 
-                $result = ftp_fget($this->_conn, $stream, $filename, $this->_config['file_mode']);
+            $result = ftp_fget($this->_conn, $stream, $filename, $this->_config['file_mode']);
 
             if (is_null($dest)) {
                 fseek($stream, 0);

@@ -1312,7 +1312,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $name = (string)preg_replace(
             ['~<[^/!][^>]+>.*</[^>]+>~sU', '~\<!--.*--\>~isU', '~<[^>]+>~is'],
             '',
-                html_entity_decode($name)
+            html_entity_decode($name)
         );
         $name = str_replace('*', '', $name);
 
@@ -1782,13 +1782,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $result->setErrors($debugData['result']['error']);
         } else {
             if ($recipientUSCountry && $service == 'Priority Express') {
-                        $labelContent = base64_decode((string) $response->EMLabel);
+                $labelContent = base64_decode((string) $response->EMLabel);
                 $trackingNumber = (string) $response->EMConfirmationNumber;
             } elseif ($recipientUSCountry) {
-                        $labelContent = base64_decode((string) $response->SignatureConfirmationLabel);
+                $labelContent = base64_decode((string) $response->SignatureConfirmationLabel);
                 $trackingNumber = (string) $response->SignatureConfirmationNumber;
             } else {
-                        $labelContent = base64_decode((string) $response->LabelImage);
+                $labelContent = base64_decode((string) $response->LabelImage);
                 $trackingNumber = (string) $response->BarcodeNumber;
             }
             $result->setShippingLabelContent($labelContent);

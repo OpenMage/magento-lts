@@ -944,7 +944,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                             $result->setTrackingNumber((string)$xml->AirwayBillNumber);
                             try {
                                 $labelContent = (string)$xml->LabelImage->OutputImage;
-                                                        $result->setShippingLabelContent(base64_decode($labelContent));
+                                $result->setShippingLabelContent(base64_decode($labelContent));
                             } catch (Exception $e) {
                                 Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
                             }
@@ -1091,7 +1091,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         if (empty($this->_countryParams)) {
             $dhlConfigPath = Mage::getModuleDir('etc', 'Mage_Usa') . DS . 'dhl' . DS;
-                $countriesXml = file_get_contents($dhlConfigPath . 'international' . DS . 'countries.xml');
+            $countriesXml = file_get_contents($dhlConfigPath . 'international' . DS . 'countries.xml');
             $this->_countryParams = new Varien_Simplexml_Element($countriesXml);
         }
         if (isset($this->_countryParams->$countryCode)) {

@@ -476,7 +476,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         if ($disableLocalModules === true) {
-                set_include_path(
+            set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
                 BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
                 BP . DS . 'lib' . PS .
@@ -1106,10 +1106,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         if (!$this->_distroServerVars) {
             if (isset($_SERVER['SCRIPT_NAME']) && isset($_SERVER['HTTP_HOST'])) {
-                    $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
+                $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
                 $scheme = ($secure ? 'https' : 'http') . '://' ;
 
-                    $hostArr = explode(':', $_SERVER['HTTP_HOST']);
+                $hostArr = explode(':', $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
                     $hostArr[1]
